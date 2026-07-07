@@ -1,0 +1,2093 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_ALGEBRA_SEQUENCE",
+  "unit_name": "수열",
+  "rule_count": 71,
+  "rules": [
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_001",
+      "name": "수열의 일반항 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sequence_meaning",
+          "general_term",
+          "term_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 일반항' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C001",
+        "H2_ALG_SEQ_C002",
+        "H2_ALG_SEQ_C003",
+        "H2_ALG_SEQ_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT001",
+        "H2_ALG_SEQ_PT002",
+        "H2_ALG_SEQ_PT003",
+        "H2_ALG_SEQ_PT004",
+        "H2_ALG_SEQ_PT005",
+        "H2_ALG_SEQ_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_002",
+      "name": "등차수열의 일반항 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_sequence",
+          "common_difference",
+          "general_term"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열의 일반항' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C007",
+        "H2_ALG_SEQ_C008",
+        "H2_ALG_SEQ_C009",
+        "H2_ALG_SEQ_C010"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT019",
+        "H2_ALG_SEQ_PT020",
+        "H2_ALG_SEQ_PT021",
+        "H2_ALG_SEQ_PT022",
+        "H2_ALG_SEQ_PT023",
+        "H2_ALG_SEQ_PT024"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_003",
+      "name": "항 사이 관계가 주어진 등차수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_sequence",
+          "term_relation",
+          "condition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'항 사이 관계가 주어진 등차수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C029",
+        "H2_ALG_SEQ_C030",
+        "H2_ALG_SEQ_C031",
+        "H2_ALG_SEQ_C032"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT085",
+        "H2_ALG_SEQ_PT086",
+        "H2_ALG_SEQ_PT087",
+        "H2_ALG_SEQ_PT088",
+        "H2_ALG_SEQ_PT089",
+        "H2_ALG_SEQ_PT090"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_004",
+      "name": "조건을 만족시키는 등차수열의 항 구하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_sequence",
+          "condition_equation",
+          "term_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'조건을 만족시키는 등차수열의 항 구하기' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C037",
+        "H2_ALG_SEQ_C038",
+        "H2_ALG_SEQ_C039",
+        "H2_ALG_SEQ_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT109",
+        "H2_ALG_SEQ_PT110",
+        "H2_ALG_SEQ_PT111",
+        "H2_ALG_SEQ_PT112",
+        "H2_ALG_SEQ_PT113",
+        "H2_ALG_SEQ_PT114"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_005",
+      "name": "두 수 사이에 수를 넣어 만든 등차수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_sequence",
+          "insert_terms",
+          "interpolation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 수 사이에 수를 넣어 만든 등차수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C049",
+        "H2_ALG_SEQ_C050"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT145",
+        "H2_ALG_SEQ_PT146",
+        "H2_ALG_SEQ_PT147",
+        "H2_ALG_SEQ_PT148",
+        "H2_ALG_SEQ_PT149",
+        "H2_ALG_SEQ_PT150"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_006",
+      "name": "등차중항 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_mean",
+          "arithmetic_sequence",
+          "interpolation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차중항' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C051",
+        "H2_ALG_SEQ_C052",
+        "H2_ALG_SEQ_C053",
+        "H2_ALG_SEQ_C054"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT151",
+        "H2_ALG_SEQ_PT152",
+        "H2_ALG_SEQ_PT153",
+        "H2_ALG_SEQ_PT154",
+        "H2_ALG_SEQ_PT155",
+        "H2_ALG_SEQ_PT156"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_007",
+      "name": "등차수열을 이루는 수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_sequence",
+          "geometric_shape",
+          "term_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열을 이루는 수' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C057",
+        "H2_ALG_SEQ_C058",
+        "H2_ALG_SEQ_C059",
+        "H2_ALG_SEQ_C060"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT169",
+        "H2_ALG_SEQ_PT170",
+        "H2_ALG_SEQ_PT171",
+        "H2_ALG_SEQ_PT172",
+        "H2_ALG_SEQ_PT173",
+        "H2_ALG_SEQ_PT174"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_008",
+      "name": "등차수열의 합(1) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "partial_sum",
+          "sum_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열의 합(1)' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C063",
+        "H2_ALG_SEQ_C064",
+        "H2_ALG_SEQ_C065",
+        "H2_ALG_SEQ_C066"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT187",
+        "H2_ALG_SEQ_PT188",
+        "H2_ALG_SEQ_PT189",
+        "H2_ALG_SEQ_PT190",
+        "H2_ALG_SEQ_PT191",
+        "H2_ALG_SEQ_PT192"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_009",
+      "name": "두 수 사이에 수를 넣어 만든 등차수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "insert_terms",
+          "partial_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 수 사이에 수를 넣어 만든 등차수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C074",
+        "H2_ALG_SEQ_C075",
+        "H2_ALG_SEQ_C076",
+        "H2_ALG_SEQ_C077"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT220",
+        "H2_ALG_SEQ_PT221",
+        "H2_ALG_SEQ_PT222",
+        "H2_ALG_SEQ_PT223",
+        "H2_ALG_SEQ_PT224",
+        "H2_ALG_SEQ_PT225"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_010",
+      "name": "부분의 합이 주어진 등차수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "partial_sum",
+          "condition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부분의 합이 주어진 등차수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C079",
+        "H2_ALG_SEQ_C080",
+        "H2_ALG_SEQ_C081",
+        "H2_ALG_SEQ_C082"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT235",
+        "H2_ALG_SEQ_PT236",
+        "H2_ALG_SEQ_PT237",
+        "H2_ALG_SEQ_PT238",
+        "H2_ALG_SEQ_PT239",
+        "H2_ALG_SEQ_PT240"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_011",
+      "name": "등차수열의 합의 최대·최소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "maximum_minimum",
+          "range_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열의 합의 최대·최소' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C084",
+        "H2_ALG_SEQ_C085",
+        "H2_ALG_SEQ_C086",
+        "H2_ALG_SEQ_C087"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT250",
+        "H2_ALG_SEQ_PT251",
+        "H2_ALG_SEQ_PT252",
+        "H2_ALG_SEQ_PT253",
+        "H2_ALG_SEQ_PT254",
+        "H2_ALG_SEQ_PT255"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_012",
+      "name": "나머지가 같은 자연수의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "remainder_class",
+          "natural_number_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'나머지가 같은 자연수의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C091",
+        "H2_ALG_SEQ_C092",
+        "H2_ALG_SEQ_C093"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT271",
+        "H2_ALG_SEQ_PT272",
+        "H2_ALG_SEQ_PT273",
+        "H2_ALG_SEQ_PT274",
+        "H2_ALG_SEQ_PT275",
+        "H2_ALG_SEQ_PT276"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_013",
+      "name": "등차수열의 합의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "application",
+          "modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열의 합의 활용' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C094",
+        "H2_ALG_SEQ_C095",
+        "H2_ALG_SEQ_C096",
+        "H2_ALG_SEQ_C097"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT280",
+        "H2_ALG_SEQ_PT281",
+        "H2_ALG_SEQ_PT282",
+        "H2_ALG_SEQ_PT283",
+        "H2_ALG_SEQ_PT284",
+        "H2_ALG_SEQ_PT285"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_014",
+      "name": "등차수열의 합과 일반항 사이의 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "general_term",
+          "sum_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열의 합과 일반항 사이의 관계' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C098",
+        "H2_ALG_SEQ_C099",
+        "H2_ALG_SEQ_C100"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT292",
+        "H2_ALG_SEQ_PT293",
+        "H2_ALG_SEQ_PT294",
+        "H2_ALG_SEQ_PT295",
+        "H2_ALG_SEQ_PT296",
+        "H2_ALG_SEQ_PT297"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_015",
+      "name": "등비수열의 일반항 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "common_ratio",
+          "general_term"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 일반항' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C101",
+        "H2_ALG_SEQ_C102",
+        "H2_ALG_SEQ_C103",
+        "H2_ALG_SEQ_C104"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT301",
+        "H2_ALG_SEQ_PT302",
+        "H2_ALG_SEQ_PT303",
+        "H2_ALG_SEQ_PT304",
+        "H2_ALG_SEQ_PT305",
+        "H2_ALG_SEQ_PT306"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_016",
+      "name": "항 사이 관계가 주어진 등비수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "term_relation",
+          "condition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'항 사이 관계가 주어진 등비수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C115",
+        "H2_ALG_SEQ_C116",
+        "H2_ALG_SEQ_C117",
+        "H2_ALG_SEQ_C118"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT343",
+        "H2_ALG_SEQ_PT344",
+        "H2_ALG_SEQ_PT345",
+        "H2_ALG_SEQ_PT346",
+        "H2_ALG_SEQ_PT347",
+        "H2_ALG_SEQ_PT348"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_017",
+      "name": "조건을 만족시키는 등비수열의 항 구하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "condition_equation",
+          "term_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'조건을 만족시키는 등비수열의 항 구하기' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C122",
+        "H2_ALG_SEQ_C123",
+        "H2_ALG_SEQ_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT364",
+        "H2_ALG_SEQ_PT365",
+        "H2_ALG_SEQ_PT366",
+        "H2_ALG_SEQ_PT367",
+        "H2_ALG_SEQ_PT368",
+        "H2_ALG_SEQ_PT369"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_018",
+      "name": "두 수 사이에 수를 넣어 만든 등비수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "insert_terms",
+          "interpolation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 수 사이에 수를 넣어 만든 등비수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C125",
+        "H2_ALG_SEQ_C126"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT373",
+        "H2_ALG_SEQ_PT374",
+        "H2_ALG_SEQ_PT375",
+        "H2_ALG_SEQ_PT376",
+        "H2_ALG_SEQ_PT377",
+        "H2_ALG_SEQ_PT378"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_019",
+      "name": "등비중항 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_mean",
+          "geometric_sequence",
+          "interpolation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비중항' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C127",
+        "H2_ALG_SEQ_C128",
+        "H2_ALG_SEQ_C129",
+        "H2_ALG_SEQ_C130"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT379",
+        "H2_ALG_SEQ_PT380",
+        "H2_ALG_SEQ_PT381",
+        "H2_ALG_SEQ_PT382",
+        "H2_ALG_SEQ_PT383",
+        "H2_ALG_SEQ_PT384"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_020",
+      "name": "등차중항과 등비중항 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_mean",
+          "geometric_mean",
+          "comparison"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차중항과 등비중항' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C133",
+        "H2_ALG_SEQ_C134",
+        "H2_ALG_SEQ_C135",
+        "H2_ALG_SEQ_C136"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT397",
+        "H2_ALG_SEQ_PT398",
+        "H2_ALG_SEQ_PT399",
+        "H2_ALG_SEQ_PT400",
+        "H2_ALG_SEQ_PT401",
+        "H2_ALG_SEQ_PT402"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_021",
+      "name": "등비수열을 이루는 수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "term_relation",
+          "number_set"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열을 이루는 수' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C138",
+        "H2_ALG_SEQ_C139",
+        "H2_ALG_SEQ_C140",
+        "H2_ALG_SEQ_C141"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT412",
+        "H2_ALG_SEQ_PT413",
+        "H2_ALG_SEQ_PT414",
+        "H2_ALG_SEQ_PT415",
+        "H2_ALG_SEQ_PT416",
+        "H2_ALG_SEQ_PT417"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_022",
+      "name": "등차수열과 등비수열의 비교 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_sequence",
+          "geometric_sequence",
+          "comparison"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열과 등비수열의 비교' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C142",
+        "H2_ALG_SEQ_C143"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT424",
+        "H2_ALG_SEQ_PT425",
+        "H2_ALG_SEQ_PT426",
+        "H2_ALG_SEQ_PT427",
+        "H2_ALG_SEQ_PT428",
+        "H2_ALG_SEQ_PT429"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_023",
+      "name": "등비수열의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "application",
+          "modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 활용' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C144",
+        "H2_ALG_SEQ_C145",
+        "H2_ALG_SEQ_C146",
+        "H2_ALG_SEQ_C147"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT430",
+        "H2_ALG_SEQ_PT431",
+        "H2_ALG_SEQ_PT432",
+        "H2_ALG_SEQ_PT433",
+        "H2_ALG_SEQ_PT434",
+        "H2_ALG_SEQ_PT435"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_024",
+      "name": "등비수열의 합(1) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "partial_sum",
+          "sum_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 합(1)' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C151",
+        "H2_ALG_SEQ_C152",
+        "H2_ALG_SEQ_C153",
+        "H2_ALG_SEQ_C154"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT451",
+        "H2_ALG_SEQ_PT452",
+        "H2_ALG_SEQ_PT453",
+        "H2_ALG_SEQ_PT454",
+        "H2_ALG_SEQ_PT455",
+        "H2_ALG_SEQ_PT456"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_025",
+      "name": "부분의 합이 주어진 등비수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "partial_sum",
+          "condition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부분의 합이 주어진 등비수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C171",
+        "H2_ALG_SEQ_C172",
+        "H2_ALG_SEQ_C173",
+        "H2_ALG_SEQ_C174"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT511",
+        "H2_ALG_SEQ_PT512",
+        "H2_ALG_SEQ_PT513",
+        "H2_ALG_SEQ_PT514",
+        "H2_ALG_SEQ_PT515",
+        "H2_ALG_SEQ_PT516"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_026",
+      "name": "조건을 만족시키는 등비수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "condition_equation",
+          "sum_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'조건을 만족시키는 등비수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C179",
+        "H2_ALG_SEQ_C180",
+        "H2_ALG_SEQ_C181"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT535",
+        "H2_ALG_SEQ_PT536",
+        "H2_ALG_SEQ_PT537",
+        "H2_ALG_SEQ_PT538",
+        "H2_ALG_SEQ_PT539",
+        "H2_ALG_SEQ_PT540"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_027",
+      "name": "등비수열의 합의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "application",
+          "modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 합의 활용' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C182",
+        "H2_ALG_SEQ_C183",
+        "H2_ALG_SEQ_C184",
+        "H2_ALG_SEQ_C185"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT544",
+        "H2_ALG_SEQ_PT545",
+        "H2_ALG_SEQ_PT546",
+        "H2_ALG_SEQ_PT547",
+        "H2_ALG_SEQ_PT548",
+        "H2_ALG_SEQ_PT549"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_028",
+      "name": "원리합계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "compound_interest",
+          "annuity",
+          "geometric_series"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'원리합계' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C189",
+        "H2_ALG_SEQ_C190",
+        "H2_ALG_SEQ_C191",
+        "H2_ALG_SEQ_C192"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT565",
+        "H2_ALG_SEQ_PT566",
+        "H2_ALG_SEQ_PT567",
+        "H2_ALG_SEQ_PT568",
+        "H2_ALG_SEQ_PT569",
+        "H2_ALG_SEQ_PT570"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_029",
+      "name": "등비수열의 합과 일반항 사이의 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "general_term",
+          "sum_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 합과 일반항 사이의 관계' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C197",
+        "H2_ALG_SEQ_C198",
+        "H2_ALG_SEQ_C199",
+        "H2_ALG_SEQ_C200"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT589",
+        "H2_ALG_SEQ_PT590",
+        "H2_ALG_SEQ_PT591",
+        "H2_ALG_SEQ_PT592",
+        "H2_ALG_SEQ_PT593",
+        "H2_ALG_SEQ_PT594"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_030",
+      "name": "등차수열의 합과 등비수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "geometric_series",
+          "mixed_series"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열의 합과 등비수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C202",
+        "H2_ALG_SEQ_C203",
+        "H2_ALG_SEQ_C204"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT604",
+        "H2_ALG_SEQ_PT605",
+        "H2_ALG_SEQ_PT606",
+        "H2_ALG_SEQ_PT607",
+        "H2_ALG_SEQ_PT608",
+        "H2_ALG_SEQ_PT609"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_031",
+      "name": "합의 기호 Σ 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sigma_notation",
+          "expanded_sum",
+          "sum_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'합의 기호 Σ' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C205",
+        "H2_ALG_SEQ_C206",
+        "H2_ALG_SEQ_C207",
+        "H2_ALG_SEQ_C208"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT613",
+        "H2_ALG_SEQ_PT614",
+        "H2_ALG_SEQ_PT615",
+        "H2_ALG_SEQ_PT616",
+        "H2_ALG_SEQ_PT617",
+        "H2_ALG_SEQ_PT618"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_032",
+      "name": "특정한 값이 반복되는 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sigma_notation",
+          "periodic_sequence",
+          "repetition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'특정한 값이 반복되는 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C213",
+        "H2_ALG_SEQ_C214",
+        "H2_ALG_SEQ_C215",
+        "H2_ALG_SEQ_C216"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT637",
+        "H2_ALG_SEQ_PT638",
+        "H2_ALG_SEQ_PT639",
+        "H2_ALG_SEQ_PT640",
+        "H2_ALG_SEQ_PT641",
+        "H2_ALG_SEQ_PT642"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_033",
+      "name": "오일의 성질 취약",
+      "trigger": {
+        "error_tags_any": [
+          "telescoping_sum",
+          "sigma_notation",
+          "sum_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'오일의 성질' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C217",
+        "H2_ALG_SEQ_C218",
+        "H2_ALG_SEQ_C219"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT649",
+        "H2_ALG_SEQ_PT650",
+        "H2_ALG_SEQ_PT651",
+        "H2_ALG_SEQ_PT652",
+        "H2_ALG_SEQ_PT653",
+        "H2_ALG_SEQ_PT654"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_034",
+      "name": "교대 부호 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "alternating_sum",
+          "sigma_notation",
+          "sign_pattern"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'교대 부호 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C220"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT658",
+        "H2_ALG_SEQ_PT659",
+        "H2_ALG_SEQ_PT660"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_035",
+      "name": "Σ와 등차수열·등비수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sigma_notation",
+          "arithmetic_series",
+          "geometric_series"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'Σ와 등차수열·등비수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C221",
+        "H2_ALG_SEQ_C222",
+        "H2_ALG_SEQ_C223"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT661",
+        "H2_ALG_SEQ_PT662",
+        "H2_ALG_SEQ_PT663",
+        "H2_ALG_SEQ_PT664",
+        "H2_ALG_SEQ_PT665",
+        "H2_ALG_SEQ_PT666"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_036",
+      "name": "자연수의 거듭제곱의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "power_sum",
+          "natural_number_sum",
+          "sigma_notation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'자연수의 거듭제곱의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C224",
+        "H2_ALG_SEQ_C225",
+        "H2_ALG_SEQ_C226",
+        "H2_ALG_SEQ_C227"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT670",
+        "H2_ALG_SEQ_PT671",
+        "H2_ALG_SEQ_PT672",
+        "H2_ALG_SEQ_PT673",
+        "H2_ALG_SEQ_PT674",
+        "H2_ALG_SEQ_PT675"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_037",
+      "name": "Σ를 여러 개 포함한 식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "multiple_sigma",
+          "sum_formula",
+          "expression_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'Σ를 여러 개 포함한 식' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C234",
+        "H2_ALG_SEQ_C235",
+        "H2_ALG_SEQ_C236"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT700",
+        "H2_ALG_SEQ_PT701",
+        "H2_ALG_SEQ_PT702",
+        "H2_ALG_SEQ_PT703",
+        "H2_ALG_SEQ_PT704",
+        "H2_ALG_SEQ_PT705"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_038",
+      "name": "Σ를 이용한 여러 가지 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sigma_notation",
+          "various_series",
+          "expression_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'Σ를 이용한 여러 가지 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C237",
+        "H2_ALG_SEQ_C238",
+        "H2_ALG_SEQ_C239",
+        "H2_ALG_SEQ_C240"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT709",
+        "H2_ALG_SEQ_PT710",
+        "H2_ALG_SEQ_PT711",
+        "H2_ALG_SEQ_PT712",
+        "H2_ALG_SEQ_PT713",
+        "H2_ALG_SEQ_PT714"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_039",
+      "name": "Σ로 표현된 수열의 합과 일반항 사이의 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sigma_notation",
+          "general_term",
+          "sum_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'Σ로 표현된 수열의 합과 일반항 사이의 관계' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C243",
+        "H2_ALG_SEQ_C244",
+        "H2_ALG_SEQ_C245"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT727",
+        "H2_ALG_SEQ_PT728",
+        "H2_ALG_SEQ_PT729",
+        "H2_ALG_SEQ_PT730",
+        "H2_ALG_SEQ_PT731",
+        "H2_ALG_SEQ_PT732"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_040",
+      "name": "일반항이 k,n에 대한 식인 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "parameter_sum",
+          "k_n_expression",
+          "sigma_notation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'일반항이 k,n에 대한 식인 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C246"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT736",
+        "H2_ALG_SEQ_PT737",
+        "H2_ALG_SEQ_PT738"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_041",
+      "name": "분수의 꼴인 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "fractional_series",
+          "telescoping_sum",
+          "partial_fraction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'분수의 꼴인 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C247",
+        "H2_ALG_SEQ_C248",
+        "H2_ALG_SEQ_C249",
+        "H2_ALG_SEQ_C250"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT739",
+        "H2_ALG_SEQ_PT740",
+        "H2_ALG_SEQ_PT741",
+        "H2_ALG_SEQ_PT742",
+        "H2_ALG_SEQ_PT743",
+        "H2_ALG_SEQ_PT744"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_042",
+      "name": "근호가 포함된 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "radical_series",
+          "rationalization",
+          "telescoping_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'근호가 포함된 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C258",
+        "H2_ALG_SEQ_C259",
+        "H2_ALG_SEQ_C260",
+        "H2_ALG_SEQ_C261"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT772",
+        "H2_ALG_SEQ_PT773",
+        "H2_ALG_SEQ_PT774",
+        "H2_ALG_SEQ_PT775",
+        "H2_ALG_SEQ_PT776",
+        "H2_ALG_SEQ_PT777"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_043",
+      "name": "로그가 포함된 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "log_series",
+          "log_property",
+          "telescoping_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'로그가 포함된 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C263",
+        "H2_ALG_SEQ_C264",
+        "H2_ALG_SEQ_C265",
+        "H2_ALG_SEQ_C266"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT787",
+        "H2_ALG_SEQ_PT788",
+        "H2_ALG_SEQ_PT789",
+        "H2_ALG_SEQ_PT790",
+        "H2_ALG_SEQ_PT791",
+        "H2_ALG_SEQ_PT792"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_044",
+      "name": "가우스가 포함된 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "floor_function",
+          "gauss_symbol",
+          "case_split"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'가우스가 포함된 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C270"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT808",
+        "H2_ALG_SEQ_PT809",
+        "H2_ALG_SEQ_PT810"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_045",
+      "name": "여러 가지 수열의 합의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_application",
+          "geometry_application",
+          "function_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'여러 가지 수열의 합의 활용' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C271",
+        "H2_ALG_SEQ_C272",
+        "H2_ALG_SEQ_C273",
+        "H2_ALG_SEQ_C274"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT811",
+        "H2_ALG_SEQ_PT812",
+        "H2_ALG_SEQ_PT813",
+        "H2_ALG_SEQ_PT814",
+        "H2_ALG_SEQ_PT815",
+        "H2_ALG_SEQ_PT816"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_046",
+      "name": "등차수열과 등비수열 꼴의 곱의 수열의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "product_series",
+          "arithmetic_sequence",
+          "geometric_sequence"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열과 등비수열 꼴의 곱의 수열의 합' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C288"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT862",
+        "H2_ALG_SEQ_PT863",
+        "H2_ALG_SEQ_PT864"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_047",
+      "name": "수열의 항을 묶어 규칙 찾기(1) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "grouping_terms",
+          "pattern_recognition",
+          "series_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 항을 묶어 규칙 찾기(1)' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C289",
+        "H2_ALG_SEQ_C290",
+        "H2_ALG_SEQ_C291",
+        "H2_ALG_SEQ_C292"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT865",
+        "H2_ALG_SEQ_PT866",
+        "H2_ALG_SEQ_PT867",
+        "H2_ALG_SEQ_PT868",
+        "H2_ALG_SEQ_PT869",
+        "H2_ALG_SEQ_PT870"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_048",
+      "name": "수열의 항을 묶어 규칙 찾기(2) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "grouping_terms",
+          "geometric_shape",
+          "pattern_recognition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 항을 묶어 규칙 찾기(2)' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C294",
+        "H2_ALG_SEQ_C295"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT880",
+        "H2_ALG_SEQ_PT881",
+        "H2_ALG_SEQ_PT882",
+        "H2_ALG_SEQ_PT883",
+        "H2_ALG_SEQ_PT884",
+        "H2_ALG_SEQ_PT885"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_049",
+      "name": "등차수열의 귀납적 정의 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_definition",
+          "arithmetic_sequence",
+          "induction_structure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등차수열의 귀납적 정의' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C296",
+        "H2_ALG_SEQ_C297",
+        "H2_ALG_SEQ_C298",
+        "H2_ALG_SEQ_C299"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT886",
+        "H2_ALG_SEQ_PT887",
+        "H2_ALG_SEQ_PT888",
+        "H2_ALG_SEQ_PT889",
+        "H2_ALG_SEQ_PT890",
+        "H2_ALG_SEQ_PT891"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_050",
+      "name": "등비수열의 귀납적 정의 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_definition",
+          "geometric_sequence",
+          "induction_structure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 귀납적 정의' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C302",
+        "H2_ALG_SEQ_C303",
+        "H2_ALG_SEQ_C304"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT904",
+        "H2_ALG_SEQ_PT905",
+        "H2_ALG_SEQ_PT906",
+        "H2_ALG_SEQ_PT907",
+        "H2_ALG_SEQ_PT908",
+        "H2_ALG_SEQ_PT909"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_051",
+      "name": "a_(n+1)=a_n+f(n) 꼴로 정의된 수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recurrence_relation",
+          "additive_recurrence",
+          "general_term"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'a_(n+1)=a_n+f(n) 꼴로 정의된 수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C305",
+        "H2_ALG_SEQ_C306",
+        "H2_ALG_SEQ_C307",
+        "H2_ALG_SEQ_C308"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT913",
+        "H2_ALG_SEQ_PT914",
+        "H2_ALG_SEQ_PT915",
+        "H2_ALG_SEQ_PT916",
+        "H2_ALG_SEQ_PT917",
+        "H2_ALG_SEQ_PT918"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_052",
+      "name": "a_(n+1)=a_n f(n) 꼴로 정의된 수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recurrence_relation",
+          "multiplicative_recurrence",
+          "general_term"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'a_(n+1)=a_n f(n) 꼴로 정의된 수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C310",
+        "H2_ALG_SEQ_C311",
+        "H2_ALG_SEQ_C312",
+        "H2_ALG_SEQ_C313"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT928",
+        "H2_ALG_SEQ_PT929",
+        "H2_ALG_SEQ_PT930",
+        "H2_ALG_SEQ_PT931",
+        "H2_ALG_SEQ_PT932",
+        "H2_ALG_SEQ_PT933"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_053",
+      "name": "귀납적으로 정의된 여러 가지 수열(1) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_definition",
+          "various_sequence",
+          "condition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'귀납적으로 정의된 여러 가지 수열(1)' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C316",
+        "H2_ALG_SEQ_C317",
+        "H2_ALG_SEQ_C318",
+        "H2_ALG_SEQ_C319"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT946",
+        "H2_ALG_SEQ_PT947",
+        "H2_ALG_SEQ_PT948",
+        "H2_ALG_SEQ_PT949",
+        "H2_ALG_SEQ_PT950",
+        "H2_ALG_SEQ_PT951"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_054",
+      "name": "귀납적으로 정의된 여러 가지 수열(2) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_definition",
+          "recurrence_relation",
+          "advanced_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'귀납적으로 정의된 여러 가지 수열(2)' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C323",
+        "H2_ALG_SEQ_C324",
+        "H2_ALG_SEQ_C325",
+        "H2_ALG_SEQ_C326"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT967",
+        "H2_ALG_SEQ_PT968",
+        "H2_ALG_SEQ_PT969",
+        "H2_ALG_SEQ_PT970",
+        "H2_ALG_SEQ_PT971",
+        "H2_ALG_SEQ_PT972"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_055",
+      "name": "같은 수가 반복되는 수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "periodic_sequence",
+          "recursive_definition",
+          "repetition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'같은 수가 반복되는 수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C345",
+        "H2_ALG_SEQ_C346",
+        "H2_ALG_SEQ_C347",
+        "H2_ALG_SEQ_C348"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT1033",
+        "H2_ALG_SEQ_PT1034",
+        "H2_ALG_SEQ_PT1035",
+        "H2_ALG_SEQ_PT1036",
+        "H2_ALG_SEQ_PT1037",
+        "H2_ALG_SEQ_PT1038"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_056",
+      "name": "a_n과 S_n 사이의 관계식이 주어진 수열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sum_relation",
+          "general_term",
+          "recursive_definition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'a_n과 S_n 사이의 관계식이 주어진 수열' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C349",
+        "H2_ALG_SEQ_C350",
+        "H2_ALG_SEQ_C351",
+        "H2_ALG_SEQ_C352"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT1045",
+        "H2_ALG_SEQ_PT1046",
+        "H2_ALG_SEQ_PT1047",
+        "H2_ALG_SEQ_PT1048",
+        "H2_ALG_SEQ_PT1049",
+        "H2_ALG_SEQ_PT1050"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_057",
+      "name": "수열의 귀납적 정의의 도형에의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_definition",
+          "geometry_application",
+          "pattern_recognition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 귀납적 정의의 도형에의 활용' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C354",
+        "H2_ALG_SEQ_C355",
+        "H2_ALG_SEQ_C356",
+        "H2_ALG_SEQ_C357"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT1060",
+        "H2_ALG_SEQ_PT1061",
+        "H2_ALG_SEQ_PT1062",
+        "H2_ALG_SEQ_PT1063",
+        "H2_ALG_SEQ_PT1064",
+        "H2_ALG_SEQ_PT1065"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_058",
+      "name": "수열의 귀납적 정의의 실생활에의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_definition",
+          "real_life_application",
+          "modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 귀납적 정의의 실생활에의 활용' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C360",
+        "H2_ALG_SEQ_C361",
+        "H2_ALG_SEQ_C362"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT1078",
+        "H2_ALG_SEQ_PT1079",
+        "H2_ALG_SEQ_PT1080",
+        "H2_ALG_SEQ_PT1081",
+        "H2_ALG_SEQ_PT1082",
+        "H2_ALG_SEQ_PT1083"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_059",
+      "name": "수학적 귀납법 취약",
+      "trigger": {
+        "error_tags_any": [
+          "mathematical_induction",
+          "proof_structure",
+          "base_step"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수학적 귀납법' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C363",
+        "H2_ALG_SEQ_C364",
+        "H2_ALG_SEQ_C365",
+        "H2_ALG_SEQ_C366"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT1087",
+        "H2_ALG_SEQ_PT1088",
+        "H2_ALG_SEQ_PT1089",
+        "H2_ALG_SEQ_PT1090",
+        "H2_ALG_SEQ_PT1091",
+        "H2_ALG_SEQ_PT1092"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_060",
+      "name": "수학적 귀납법(1) 등식의 증명 취약",
+      "trigger": {
+        "error_tags_any": [
+          "mathematical_induction",
+          "identity_proof",
+          "inductive_step"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수학적 귀납법(1) 등식의 증명' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C367",
+        "H2_ALG_SEQ_C368",
+        "H2_ALG_SEQ_C369",
+        "H2_ALG_SEQ_C370"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT1099",
+        "H2_ALG_SEQ_PT1100",
+        "H2_ALG_SEQ_PT1101",
+        "H2_ALG_SEQ_PT1102",
+        "H2_ALG_SEQ_PT1103",
+        "H2_ALG_SEQ_PT1104"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_061",
+      "name": "수학적 귀납법(2) 배수의 증명 취약",
+      "trigger": {
+        "error_tags_any": [
+          "mathematical_induction",
+          "multiple_proof",
+          "divisibility"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수학적 귀납법(2) 배수의 증명' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C372",
+        "H2_ALG_SEQ_C373"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT1114",
+        "H2_ALG_SEQ_PT1115",
+        "H2_ALG_SEQ_PT1116",
+        "H2_ALG_SEQ_PT1117",
+        "H2_ALG_SEQ_PT1118",
+        "H2_ALG_SEQ_PT1119"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_062",
+      "name": "수학적 귀납법(3) 부등식의 증명 취약",
+      "trigger": {
+        "error_tags_any": [
+          "mathematical_induction",
+          "inequality_proof",
+          "inductive_step"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수학적 귀납법(3) 부등식의 증명' 유형에서 조건을 항, 일반항, 부분합, Σ, 귀납 구조 중 하나로 분류하는 과정이 약합니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C374",
+        "H2_ALG_SEQ_C375",
+        "H2_ALG_SEQ_C376",
+        "H2_ALG_SEQ_C377"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT1120",
+        "H2_ALG_SEQ_PT1121",
+        "H2_ALG_SEQ_PT1122",
+        "H2_ALG_SEQ_PT1123",
+        "H2_ALG_SEQ_PT1124",
+        "H2_ALG_SEQ_PT1125"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_063",
+      "name": "수열의 뜻 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sequence_meaning",
+          "general_term",
+          "term_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "수열의 뜻 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C001"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT001",
+        "H2_ALG_SEQ_PT002"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_064",
+      "name": "등차수열 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_sequence",
+          "common_difference",
+          "general_term",
+          "term_relation",
+          "condition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "등차수열 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C007",
+        "H2_ALG_SEQ_C029",
+        "H2_ALG_SEQ_C037",
+        "H2_ALG_SEQ_C049"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT019",
+        "H2_ALG_SEQ_PT020",
+        "H2_ALG_SEQ_PT085",
+        "H2_ALG_SEQ_PT086",
+        "H2_ALG_SEQ_PT109",
+        "H2_ALG_SEQ_PT110"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_065",
+      "name": "등차수열의 합 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "partial_sum",
+          "sum_formula",
+          "insert_terms",
+          "condition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "등차수열의 합 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C063",
+        "H2_ALG_SEQ_C074",
+        "H2_ALG_SEQ_C079",
+        "H2_ALG_SEQ_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT187",
+        "H2_ALG_SEQ_PT188",
+        "H2_ALG_SEQ_PT220",
+        "H2_ALG_SEQ_PT221",
+        "H2_ALG_SEQ_PT235",
+        "H2_ALG_SEQ_PT236"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_066",
+      "name": "등비수열 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "common_ratio",
+          "general_term",
+          "term_relation",
+          "condition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "등비수열 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C101",
+        "H2_ALG_SEQ_C115",
+        "H2_ALG_SEQ_C122",
+        "H2_ALG_SEQ_C125"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT301",
+        "H2_ALG_SEQ_PT302",
+        "H2_ALG_SEQ_PT343",
+        "H2_ALG_SEQ_PT344",
+        "H2_ALG_SEQ_PT364",
+        "H2_ALG_SEQ_PT365"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_067",
+      "name": "등비수열의 합 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "partial_sum",
+          "sum_formula",
+          "condition_equation",
+          "application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "등비수열의 합 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C151",
+        "H2_ALG_SEQ_C171",
+        "H2_ALG_SEQ_C179",
+        "H2_ALG_SEQ_C182"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT451",
+        "H2_ALG_SEQ_PT452",
+        "H2_ALG_SEQ_PT511",
+        "H2_ALG_SEQ_PT512",
+        "H2_ALG_SEQ_PT535",
+        "H2_ALG_SEQ_PT536"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_068",
+      "name": "등차수열과 등비수열의 합 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arithmetic_series",
+          "geometric_series",
+          "mixed_series"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "등차수열과 등비수열의 합 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C202"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT604",
+        "H2_ALG_SEQ_PT605"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_069",
+      "name": "합의 기호 Σ 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sigma_notation",
+          "expanded_sum",
+          "sum_formula",
+          "periodic_sequence",
+          "repetition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "합의 기호 Σ 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C205",
+        "H2_ALG_SEQ_C213",
+        "H2_ALG_SEQ_C217",
+        "H2_ALG_SEQ_C220"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT613",
+        "H2_ALG_SEQ_PT614",
+        "H2_ALG_SEQ_PT637",
+        "H2_ALG_SEQ_PT638",
+        "H2_ALG_SEQ_PT649",
+        "H2_ALG_SEQ_PT650"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_070",
+      "name": "여러 가지 수열의 합 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "power_sum",
+          "natural_number_sum",
+          "sigma_notation",
+          "multiple_sigma",
+          "sum_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "여러 가지 수열의 합 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C224",
+        "H2_ALG_SEQ_C234",
+        "H2_ALG_SEQ_C237",
+        "H2_ALG_SEQ_C243"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT670",
+        "H2_ALG_SEQ_PT671",
+        "H2_ALG_SEQ_PT700",
+        "H2_ALG_SEQ_PT701",
+        "H2_ALG_SEQ_PT709",
+        "H2_ALG_SEQ_PT710"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_SEQ_RULE_071",
+      "name": "수학적 귀납법 통합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_definition",
+          "arithmetic_sequence",
+          "induction_structure",
+          "geometric_sequence",
+          "recurrence_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "수학적 귀납법 범주의 여러 유형에서 공식 선택, 조건 번역, 검산 절차가 반복적으로 흔들립니다.",
+      "parent_message": "수열은 바로 공식에 넣기보다, 항 번호→첫째항/공차·공비→일반항 또는 합 공식→조건 대입→범위·부호 검산 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_SEQ_C296",
+        "H2_ALG_SEQ_C302",
+        "H2_ALG_SEQ_C305",
+        "H2_ALG_SEQ_C310"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_SEQ_PT886",
+        "H2_ALG_SEQ_PT887",
+        "H2_ALG_SEQ_PT904",
+        "H2_ALG_SEQ_PT905",
+        "H2_ALG_SEQ_PT913",
+        "H2_ALG_SEQ_PT914"
+      ],
+      "severity": "medium"
+    }
+  ]
+}

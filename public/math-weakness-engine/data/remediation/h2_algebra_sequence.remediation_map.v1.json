@@ -1,0 +1,6040 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_ALGEBRA_SEQUENCE",
+  "unit_name": "수열",
+  "remediation_count": 377,
+  "remediation": [
+    {
+      "concept_id": "H2_ALG_SEQ_C001",
+      "title": "수열의 일반항 - 기본 개념 판별 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT001",
+        "H2_ALG_SEQ_PT002",
+        "H2_ALG_SEQ_PT003"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C002",
+      "title": "수열의 일반항 - 규칙 추론 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT004",
+        "H2_ALG_SEQ_PT005",
+        "H2_ALG_SEQ_PT006"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C003",
+      "title": "수열의 일반항 - 일반항 작성 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT007",
+        "H2_ALG_SEQ_PT008",
+        "H2_ALG_SEQ_PT009"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C004",
+      "title": "수열의 일반항 - k번째 항 계산 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT010",
+        "H2_ALG_SEQ_PT011",
+        "H2_ALG_SEQ_PT012"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C005",
+      "title": "수열의 일반항 - 첫째항·n번째 항 연결 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT013",
+        "H2_ALG_SEQ_PT014",
+        "H2_ALG_SEQ_PT015"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C006",
+      "title": "수열의 일반항 - 보기형·최종 검산 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT016",
+        "H2_ALG_SEQ_PT017",
+        "H2_ALG_SEQ_PT018"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C007",
+      "title": "등차수열의 일반항 - 공차 판별 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT019",
+        "H2_ALG_SEQ_PT020",
+        "H2_ALG_SEQ_PT021"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C008",
+      "title": "등차수열의 일반항 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT022",
+        "H2_ALG_SEQ_PT023",
+        "H2_ALG_SEQ_PT024"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C009",
+      "title": "등차수열의 일반항 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT025",
+        "H2_ALG_SEQ_PT026",
+        "H2_ALG_SEQ_PT027"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C010",
+      "title": "등차수열의 일반항 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT028",
+        "H2_ALG_SEQ_PT029",
+        "H2_ALG_SEQ_PT030"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C011",
+      "title": "등차수열의 일반항 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT031",
+        "H2_ALG_SEQ_PT032",
+        "H2_ALG_SEQ_PT033"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C012",
+      "title": "등차수열의 일반항 - 보기형·최종 검산 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT034",
+        "H2_ALG_SEQ_PT035",
+        "H2_ALG_SEQ_PT036"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C013",
+      "title": "등차수열의 일반항 - 응용 조건 처리 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT037",
+        "H2_ALG_SEQ_PT038",
+        "H2_ALG_SEQ_PT039"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C014",
+      "title": "등차수열의 일반항 - 정수 조건 검산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT040",
+        "H2_ALG_SEQ_PT041",
+        "H2_ALG_SEQ_PT042"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C015",
+      "title": "등차수열의 일반항 - 공차 판별 2 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT043",
+        "H2_ALG_SEQ_PT044",
+        "H2_ALG_SEQ_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C016",
+      "title": "등차수열의 일반항 - 일반항 계산 2 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT046",
+        "H2_ALG_SEQ_PT047",
+        "H2_ALG_SEQ_PT048"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C017",
+      "title": "등차수열의 일반항 - 조건식 세우기 2 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT049",
+        "H2_ALG_SEQ_PT050",
+        "H2_ALG_SEQ_PT051"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C018",
+      "title": "등차수열의 일반항 - 항 사이 관계 해석 2 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT052",
+        "H2_ALG_SEQ_PT053",
+        "H2_ALG_SEQ_PT054"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C019",
+      "title": "등차수열의 일반항 - 삽입항·중항 적용 2 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT055",
+        "H2_ALG_SEQ_PT056",
+        "H2_ALG_SEQ_PT057"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C020",
+      "title": "등차수열의 일반항 - 보기형·최종 검산 2 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT058",
+        "H2_ALG_SEQ_PT059",
+        "H2_ALG_SEQ_PT060"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C021",
+      "title": "등차수열의 일반항 - 응용 조건 처리 2 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT061",
+        "H2_ALG_SEQ_PT062",
+        "H2_ALG_SEQ_PT063"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C022",
+      "title": "등차수열의 일반항 - 정수 조건 검산 2 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT064",
+        "H2_ALG_SEQ_PT065",
+        "H2_ALG_SEQ_PT066"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C023",
+      "title": "등차수열의 일반항 - 공차 판별 3 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT067",
+        "H2_ALG_SEQ_PT068",
+        "H2_ALG_SEQ_PT069"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C024",
+      "title": "등차수열의 일반항 - 일반항 계산 3 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT070",
+        "H2_ALG_SEQ_PT071",
+        "H2_ALG_SEQ_PT072"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C025",
+      "title": "등차수열의 일반항 - 조건식 세우기 3 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT073",
+        "H2_ALG_SEQ_PT074",
+        "H2_ALG_SEQ_PT075"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C026",
+      "title": "등차수열의 일반항 - 항 사이 관계 해석 3 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT076",
+        "H2_ALG_SEQ_PT077",
+        "H2_ALG_SEQ_PT078"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C027",
+      "title": "등차수열의 일반항 - 삽입항·중항 적용 3 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT079",
+        "H2_ALG_SEQ_PT080",
+        "H2_ALG_SEQ_PT081"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C028",
+      "title": "등차수열의 일반항 - 보기형·최종 검산 3 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT082",
+        "H2_ALG_SEQ_PT083",
+        "H2_ALG_SEQ_PT084"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C029",
+      "title": "항 사이 관계가 주어진 등차수열 - 공차 판별 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT085",
+        "H2_ALG_SEQ_PT086",
+        "H2_ALG_SEQ_PT087"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C030",
+      "title": "항 사이 관계가 주어진 등차수열 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT088",
+        "H2_ALG_SEQ_PT089",
+        "H2_ALG_SEQ_PT090"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C031",
+      "title": "항 사이 관계가 주어진 등차수열 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT091",
+        "H2_ALG_SEQ_PT092",
+        "H2_ALG_SEQ_PT093"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C032",
+      "title": "항 사이 관계가 주어진 등차수열 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT094",
+        "H2_ALG_SEQ_PT095",
+        "H2_ALG_SEQ_PT096"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C033",
+      "title": "항 사이 관계가 주어진 등차수열 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT097",
+        "H2_ALG_SEQ_PT098",
+        "H2_ALG_SEQ_PT099"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C034",
+      "title": "항 사이 관계가 주어진 등차수열 - 보기형·최종 검산 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT100",
+        "H2_ALG_SEQ_PT101",
+        "H2_ALG_SEQ_PT102"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C035",
+      "title": "항 사이 관계가 주어진 등차수열 - 응용 조건 처리 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT103",
+        "H2_ALG_SEQ_PT104",
+        "H2_ALG_SEQ_PT105"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C036",
+      "title": "항 사이 관계가 주어진 등차수열 - 정수 조건 검산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT106",
+        "H2_ALG_SEQ_PT107",
+        "H2_ALG_SEQ_PT108"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C037",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 공차 판별 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT109",
+        "H2_ALG_SEQ_PT110",
+        "H2_ALG_SEQ_PT111"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C038",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT112",
+        "H2_ALG_SEQ_PT113",
+        "H2_ALG_SEQ_PT114"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C039",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT115",
+        "H2_ALG_SEQ_PT116",
+        "H2_ALG_SEQ_PT117"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C040",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT118",
+        "H2_ALG_SEQ_PT119",
+        "H2_ALG_SEQ_PT120"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C041",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT121",
+        "H2_ALG_SEQ_PT122",
+        "H2_ALG_SEQ_PT123"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C042",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 보기형·최종 검산 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT124",
+        "H2_ALG_SEQ_PT125",
+        "H2_ALG_SEQ_PT126"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C043",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 응용 조건 처리 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT127",
+        "H2_ALG_SEQ_PT128",
+        "H2_ALG_SEQ_PT129"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C044",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 정수 조건 검산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT130",
+        "H2_ALG_SEQ_PT131",
+        "H2_ALG_SEQ_PT132"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C045",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 공차 판별 2 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT133",
+        "H2_ALG_SEQ_PT134",
+        "H2_ALG_SEQ_PT135"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C046",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 일반항 계산 2 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT136",
+        "H2_ALG_SEQ_PT137",
+        "H2_ALG_SEQ_PT138"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C047",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 조건식 세우기 2 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT139",
+        "H2_ALG_SEQ_PT140",
+        "H2_ALG_SEQ_PT141"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C048",
+      "title": "조건을 만족시키는 등차수열의 항 구하기 - 항 사이 관계 해석 2 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT142",
+        "H2_ALG_SEQ_PT143",
+        "H2_ALG_SEQ_PT144"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C049",
+      "title": "두 수 사이에 수를 넣어 만든 등차수열 - 공차 판별 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT145",
+        "H2_ALG_SEQ_PT146",
+        "H2_ALG_SEQ_PT147"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C050",
+      "title": "두 수 사이에 수를 넣어 만든 등차수열 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT148",
+        "H2_ALG_SEQ_PT149",
+        "H2_ALG_SEQ_PT150"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C051",
+      "title": "등차중항 - 공차 판별 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT151",
+        "H2_ALG_SEQ_PT152",
+        "H2_ALG_SEQ_PT153"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C052",
+      "title": "등차중항 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT154",
+        "H2_ALG_SEQ_PT155",
+        "H2_ALG_SEQ_PT156"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C053",
+      "title": "등차중항 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT157",
+        "H2_ALG_SEQ_PT158",
+        "H2_ALG_SEQ_PT159"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C054",
+      "title": "등차중항 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT160",
+        "H2_ALG_SEQ_PT161",
+        "H2_ALG_SEQ_PT162"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C055",
+      "title": "등차중항 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT163",
+        "H2_ALG_SEQ_PT164",
+        "H2_ALG_SEQ_PT165"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C056",
+      "title": "등차중항 - 보기형·최종 검산 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT166",
+        "H2_ALG_SEQ_PT167",
+        "H2_ALG_SEQ_PT168"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C057",
+      "title": "등차수열을 이루는 수 - 공차 판별 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT169",
+        "H2_ALG_SEQ_PT170",
+        "H2_ALG_SEQ_PT171"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C058",
+      "title": "등차수열을 이루는 수 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT172",
+        "H2_ALG_SEQ_PT173",
+        "H2_ALG_SEQ_PT174"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C059",
+      "title": "등차수열을 이루는 수 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT175",
+        "H2_ALG_SEQ_PT176",
+        "H2_ALG_SEQ_PT177"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C060",
+      "title": "등차수열을 이루는 수 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT178",
+        "H2_ALG_SEQ_PT179",
+        "H2_ALG_SEQ_PT180"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C061",
+      "title": "등차수열을 이루는 수 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT181",
+        "H2_ALG_SEQ_PT182",
+        "H2_ALG_SEQ_PT183"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C062",
+      "title": "등차수열을 이루는 수 - 보기형·최종 검산 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 묻는 항 번호와 값을 먼저 표시",
+        "첫째항과 공차를 분리해 일반항 작성",
+        "계산 후 n의 범위와 정수 조건 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT184",
+        "H2_ALG_SEQ_PT185",
+        "H2_ALG_SEQ_PT186"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C063",
+      "title": "등차수열의 합(1) - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT187",
+        "H2_ALG_SEQ_PT188",
+        "H2_ALG_SEQ_PT189"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C064",
+      "title": "등차수열의 합(1) - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT190",
+        "H2_ALG_SEQ_PT191",
+        "H2_ALG_SEQ_PT192"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C065",
+      "title": "등차수열의 합(1) - 첫째항·공차 역산 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT193",
+        "H2_ALG_SEQ_PT194",
+        "H2_ALG_SEQ_PT195"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C066",
+      "title": "등차수열의 합(1) - 최대·최소 판단 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT196",
+        "H2_ALG_SEQ_PT197",
+        "H2_ALG_SEQ_PT198"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C067",
+      "title": "등차수열의 합(1) - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT199",
+        "H2_ALG_SEQ_PT200",
+        "H2_ALG_SEQ_PT201"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C068",
+      "title": "등차수열의 합(1) - 활용 상황 모델링 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT202",
+        "H2_ALG_SEQ_PT203",
+        "H2_ALG_SEQ_PT204"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C069",
+      "title": "등차수열의 합(1) - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT205",
+        "H2_ALG_SEQ_PT206",
+        "H2_ALG_SEQ_PT207"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C070",
+      "title": "등차수열의 합(1) - 합 공식 선택 2 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT208",
+        "H2_ALG_SEQ_PT209",
+        "H2_ALG_SEQ_PT210"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C071",
+      "title": "등차수열의 합(1) - 부분합 조건 해석 2 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT211",
+        "H2_ALG_SEQ_PT212",
+        "H2_ALG_SEQ_PT213"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C072",
+      "title": "등차수열의 합(1) - 첫째항·공차 역산 2 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT214",
+        "H2_ALG_SEQ_PT215",
+        "H2_ALG_SEQ_PT216"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C073",
+      "title": "등차수열의 합(1) - 최대·최소 판단 2 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT217",
+        "H2_ALG_SEQ_PT218",
+        "H2_ALG_SEQ_PT219"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C074",
+      "title": "두 수 사이에 수를 넣어 만든 등차수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT220",
+        "H2_ALG_SEQ_PT221",
+        "H2_ALG_SEQ_PT222"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C075",
+      "title": "두 수 사이에 수를 넣어 만든 등차수열의 합 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT223",
+        "H2_ALG_SEQ_PT224",
+        "H2_ALG_SEQ_PT225"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C076",
+      "title": "두 수 사이에 수를 넣어 만든 등차수열의 합 - 첫째항·공차 역산 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT226",
+        "H2_ALG_SEQ_PT227",
+        "H2_ALG_SEQ_PT228"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C077",
+      "title": "두 수 사이에 수를 넣어 만든 등차수열의 합 - 최대·최소 판단 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT229",
+        "H2_ALG_SEQ_PT230",
+        "H2_ALG_SEQ_PT231"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C078",
+      "title": "두 수 사이에 수를 넣어 만든 등차수열의 합 - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT232",
+        "H2_ALG_SEQ_PT233",
+        "H2_ALG_SEQ_PT234"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C079",
+      "title": "부분의 합이 주어진 등차수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT235",
+        "H2_ALG_SEQ_PT236",
+        "H2_ALG_SEQ_PT237"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C080",
+      "title": "부분의 합이 주어진 등차수열의 합 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT238",
+        "H2_ALG_SEQ_PT239",
+        "H2_ALG_SEQ_PT240"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C081",
+      "title": "부분의 합이 주어진 등차수열의 합 - 첫째항·공차 역산 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT241",
+        "H2_ALG_SEQ_PT242",
+        "H2_ALG_SEQ_PT243"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C082",
+      "title": "부분의 합이 주어진 등차수열의 합 - 최대·최소 판단 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT244",
+        "H2_ALG_SEQ_PT245",
+        "H2_ALG_SEQ_PT246"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C083",
+      "title": "부분의 합이 주어진 등차수열의 합 - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT247",
+        "H2_ALG_SEQ_PT248",
+        "H2_ALG_SEQ_PT249"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C084",
+      "title": "등차수열의 합의 최대·최소 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT250",
+        "H2_ALG_SEQ_PT251",
+        "H2_ALG_SEQ_PT252"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C085",
+      "title": "등차수열의 합의 최대·최소 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT253",
+        "H2_ALG_SEQ_PT254",
+        "H2_ALG_SEQ_PT255"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C086",
+      "title": "등차수열의 합의 최대·최소 - 첫째항·공차 역산 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT256",
+        "H2_ALG_SEQ_PT257",
+        "H2_ALG_SEQ_PT258"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C087",
+      "title": "등차수열의 합의 최대·최소 - 최대·최소 판단 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT259",
+        "H2_ALG_SEQ_PT260",
+        "H2_ALG_SEQ_PT261"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C088",
+      "title": "등차수열의 합의 최대·최소 - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT262",
+        "H2_ALG_SEQ_PT263",
+        "H2_ALG_SEQ_PT264"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C089",
+      "title": "등차수열의 합의 최대·최소 - 활용 상황 모델링 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT265",
+        "H2_ALG_SEQ_PT266",
+        "H2_ALG_SEQ_PT267"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C090",
+      "title": "등차수열의 합의 최대·최소 - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT268",
+        "H2_ALG_SEQ_PT269",
+        "H2_ALG_SEQ_PT270"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C091",
+      "title": "나머지가 같은 자연수의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT271",
+        "H2_ALG_SEQ_PT272",
+        "H2_ALG_SEQ_PT273"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C092",
+      "title": "나머지가 같은 자연수의 합 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT274",
+        "H2_ALG_SEQ_PT275",
+        "H2_ALG_SEQ_PT276"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C093",
+      "title": "나머지가 같은 자연수의 합 - 첫째항·공차 역산 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT277",
+        "H2_ALG_SEQ_PT278",
+        "H2_ALG_SEQ_PT279"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C094",
+      "title": "등차수열의 합의 활용 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT280",
+        "H2_ALG_SEQ_PT281",
+        "H2_ALG_SEQ_PT282"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C095",
+      "title": "등차수열의 합의 활용 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT283",
+        "H2_ALG_SEQ_PT284",
+        "H2_ALG_SEQ_PT285"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C096",
+      "title": "등차수열의 합의 활용 - 첫째항·공차 역산 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT286",
+        "H2_ALG_SEQ_PT287",
+        "H2_ALG_SEQ_PT288"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C097",
+      "title": "등차수열의 합의 활용 - 최대·최소 판단 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT289",
+        "H2_ALG_SEQ_PT290",
+        "H2_ALG_SEQ_PT291"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C098",
+      "title": "등차수열의 합과 일반항 사이의 관계 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT292",
+        "H2_ALG_SEQ_PT293",
+        "H2_ALG_SEQ_PT294"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C099",
+      "title": "등차수열의 합과 일반항 사이의 관계 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT295",
+        "H2_ALG_SEQ_PT296",
+        "H2_ALG_SEQ_PT297"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C100",
+      "title": "등차수열의 합과 일반항 사이의 관계 - 첫째항·공차 역산 보강",
+      "priority": 3,
+      "steps": [
+        "첫째항·끝항·항수·공차 중 주어진 값을 표기",
+        "등차수열 합 공식 또는 S_n 관계 선택",
+        "최대·최소 문제는 부호 변화와 n의 범위 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT298",
+        "H2_ALG_SEQ_PT299",
+        "H2_ALG_SEQ_PT300"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C101",
+      "title": "등비수열의 일반항 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT301",
+        "H2_ALG_SEQ_PT302",
+        "H2_ALG_SEQ_PT303"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C102",
+      "title": "등비수열의 일반항 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT304",
+        "H2_ALG_SEQ_PT305",
+        "H2_ALG_SEQ_PT306"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C103",
+      "title": "등비수열의 일반항 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT307",
+        "H2_ALG_SEQ_PT308",
+        "H2_ALG_SEQ_PT309"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C104",
+      "title": "등비수열의 일반항 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT310",
+        "H2_ALG_SEQ_PT311",
+        "H2_ALG_SEQ_PT312"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C105",
+      "title": "등비수열의 일반항 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT313",
+        "H2_ALG_SEQ_PT314",
+        "H2_ALG_SEQ_PT315"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C106",
+      "title": "등비수열의 일반항 - 부호·정수 조건 검산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT316",
+        "H2_ALG_SEQ_PT317",
+        "H2_ALG_SEQ_PT318"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C107",
+      "title": "등비수열의 일반항 - 응용 조건 처리 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT319",
+        "H2_ALG_SEQ_PT320",
+        "H2_ALG_SEQ_PT321"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C108",
+      "title": "등비수열의 일반항 - 공비 판별 2 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT322",
+        "H2_ALG_SEQ_PT323",
+        "H2_ALG_SEQ_PT324"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C109",
+      "title": "등비수열의 일반항 - 일반항 계산 2 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT325",
+        "H2_ALG_SEQ_PT326",
+        "H2_ALG_SEQ_PT327"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C110",
+      "title": "등비수열의 일반항 - 조건식 세우기 2 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT328",
+        "H2_ALG_SEQ_PT329",
+        "H2_ALG_SEQ_PT330"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C111",
+      "title": "등비수열의 일반항 - 항 사이 관계 해석 2 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT331",
+        "H2_ALG_SEQ_PT332",
+        "H2_ALG_SEQ_PT333"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C112",
+      "title": "등비수열의 일반항 - 삽입항·중항 적용 2 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT334",
+        "H2_ALG_SEQ_PT335",
+        "H2_ALG_SEQ_PT336"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C113",
+      "title": "등비수열의 일반항 - 부호·정수 조건 검산 2 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT337",
+        "H2_ALG_SEQ_PT338",
+        "H2_ALG_SEQ_PT339"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C114",
+      "title": "등비수열의 일반항 - 응용 조건 처리 2 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT340",
+        "H2_ALG_SEQ_PT341",
+        "H2_ALG_SEQ_PT342"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C115",
+      "title": "항 사이 관계가 주어진 등비수열 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT343",
+        "H2_ALG_SEQ_PT344",
+        "H2_ALG_SEQ_PT345"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C116",
+      "title": "항 사이 관계가 주어진 등비수열 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT346",
+        "H2_ALG_SEQ_PT347",
+        "H2_ALG_SEQ_PT348"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C117",
+      "title": "항 사이 관계가 주어진 등비수열 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT349",
+        "H2_ALG_SEQ_PT350",
+        "H2_ALG_SEQ_PT351"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C118",
+      "title": "항 사이 관계가 주어진 등비수열 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT352",
+        "H2_ALG_SEQ_PT353",
+        "H2_ALG_SEQ_PT354"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C119",
+      "title": "항 사이 관계가 주어진 등비수열 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT355",
+        "H2_ALG_SEQ_PT356",
+        "H2_ALG_SEQ_PT357"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C120",
+      "title": "항 사이 관계가 주어진 등비수열 - 부호·정수 조건 검산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT358",
+        "H2_ALG_SEQ_PT359",
+        "H2_ALG_SEQ_PT360"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C121",
+      "title": "항 사이 관계가 주어진 등비수열 - 응용 조건 처리 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT361",
+        "H2_ALG_SEQ_PT362",
+        "H2_ALG_SEQ_PT363"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C122",
+      "title": "조건을 만족시키는 등비수열의 항 구하기 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT364",
+        "H2_ALG_SEQ_PT365",
+        "H2_ALG_SEQ_PT366"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C123",
+      "title": "조건을 만족시키는 등비수열의 항 구하기 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT367",
+        "H2_ALG_SEQ_PT368",
+        "H2_ALG_SEQ_PT369"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C124",
+      "title": "조건을 만족시키는 등비수열의 항 구하기 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT370",
+        "H2_ALG_SEQ_PT371",
+        "H2_ALG_SEQ_PT372"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C125",
+      "title": "두 수 사이에 수를 넣어 만든 등비수열 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT373",
+        "H2_ALG_SEQ_PT374",
+        "H2_ALG_SEQ_PT375"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C126",
+      "title": "두 수 사이에 수를 넣어 만든 등비수열 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT376",
+        "H2_ALG_SEQ_PT377",
+        "H2_ALG_SEQ_PT378"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C127",
+      "title": "등비중항 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT379",
+        "H2_ALG_SEQ_PT380",
+        "H2_ALG_SEQ_PT381"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C128",
+      "title": "등비중항 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT382",
+        "H2_ALG_SEQ_PT383",
+        "H2_ALG_SEQ_PT384"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C129",
+      "title": "등비중항 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT385",
+        "H2_ALG_SEQ_PT386",
+        "H2_ALG_SEQ_PT387"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C130",
+      "title": "등비중항 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT388",
+        "H2_ALG_SEQ_PT389",
+        "H2_ALG_SEQ_PT390"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C131",
+      "title": "등비중항 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT391",
+        "H2_ALG_SEQ_PT392",
+        "H2_ALG_SEQ_PT393"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C132",
+      "title": "등비중항 - 부호·정수 조건 검산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT394",
+        "H2_ALG_SEQ_PT395",
+        "H2_ALG_SEQ_PT396"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C133",
+      "title": "등차중항과 등비중항 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT397",
+        "H2_ALG_SEQ_PT398",
+        "H2_ALG_SEQ_PT399"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C134",
+      "title": "등차중항과 등비중항 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT400",
+        "H2_ALG_SEQ_PT401",
+        "H2_ALG_SEQ_PT402"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C135",
+      "title": "등차중항과 등비중항 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT403",
+        "H2_ALG_SEQ_PT404",
+        "H2_ALG_SEQ_PT405"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C136",
+      "title": "등차중항과 등비중항 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT406",
+        "H2_ALG_SEQ_PT407",
+        "H2_ALG_SEQ_PT408"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C137",
+      "title": "등차중항과 등비중항 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT409",
+        "H2_ALG_SEQ_PT410",
+        "H2_ALG_SEQ_PT411"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C138",
+      "title": "등비수열을 이루는 수 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT412",
+        "H2_ALG_SEQ_PT413",
+        "H2_ALG_SEQ_PT414"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C139",
+      "title": "등비수열을 이루는 수 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT415",
+        "H2_ALG_SEQ_PT416",
+        "H2_ALG_SEQ_PT417"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C140",
+      "title": "등비수열을 이루는 수 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT418",
+        "H2_ALG_SEQ_PT419",
+        "H2_ALG_SEQ_PT420"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C141",
+      "title": "등비수열을 이루는 수 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT421",
+        "H2_ALG_SEQ_PT422",
+        "H2_ALG_SEQ_PT423"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C142",
+      "title": "등차수열과 등비수열의 비교 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT424",
+        "H2_ALG_SEQ_PT425",
+        "H2_ALG_SEQ_PT426"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C143",
+      "title": "등차수열과 등비수열의 비교 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT427",
+        "H2_ALG_SEQ_PT428",
+        "H2_ALG_SEQ_PT429"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C144",
+      "title": "등비수열의 활용 - 공비 판별 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT430",
+        "H2_ALG_SEQ_PT431",
+        "H2_ALG_SEQ_PT432"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C145",
+      "title": "등비수열의 활용 - 일반항 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT433",
+        "H2_ALG_SEQ_PT434",
+        "H2_ALG_SEQ_PT435"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C146",
+      "title": "등비수열의 활용 - 조건식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT436",
+        "H2_ALG_SEQ_PT437",
+        "H2_ALG_SEQ_PT438"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C147",
+      "title": "등비수열의 활용 - 항 사이 관계 해석 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT439",
+        "H2_ALG_SEQ_PT440",
+        "H2_ALG_SEQ_PT441"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C148",
+      "title": "등비수열의 활용 - 삽입항·중항 적용 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT442",
+        "H2_ALG_SEQ_PT443",
+        "H2_ALG_SEQ_PT444"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C149",
+      "title": "등비수열의 활용 - 부호·정수 조건 검산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT445",
+        "H2_ALG_SEQ_PT446",
+        "H2_ALG_SEQ_PT447"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C150",
+      "title": "등비수열의 활용 - 응용 조건 처리 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT448",
+        "H2_ALG_SEQ_PT449",
+        "H2_ALG_SEQ_PT450"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C151",
+      "title": "등비수열의 합(1) - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT451",
+        "H2_ALG_SEQ_PT452",
+        "H2_ALG_SEQ_PT453"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C152",
+      "title": "등비수열의 합(1) - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT454",
+        "H2_ALG_SEQ_PT455",
+        "H2_ALG_SEQ_PT456"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C153",
+      "title": "등비수열의 합(1) - 첫째항·공비 역산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT457",
+        "H2_ALG_SEQ_PT458",
+        "H2_ALG_SEQ_PT459"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C154",
+      "title": "등비수열의 합(1) - 원리합계 적용 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT460",
+        "H2_ALG_SEQ_PT461",
+        "H2_ALG_SEQ_PT462"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C155",
+      "title": "등비수열의 합(1) - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT463",
+        "H2_ALG_SEQ_PT464",
+        "H2_ALG_SEQ_PT465"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C156",
+      "title": "등비수열의 합(1) - 활용 상황 모델링 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT466",
+        "H2_ALG_SEQ_PT467",
+        "H2_ALG_SEQ_PT468"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C157",
+      "title": "등비수열의 합(1) - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT469",
+        "H2_ALG_SEQ_PT470",
+        "H2_ALG_SEQ_PT471"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C158",
+      "title": "등비수열의 합(1) - 합 공식 선택 2 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT472",
+        "H2_ALG_SEQ_PT473",
+        "H2_ALG_SEQ_PT474"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C159",
+      "title": "등비수열의 합(1) - 부분합 조건 해석 2 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT475",
+        "H2_ALG_SEQ_PT476",
+        "H2_ALG_SEQ_PT477"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C160",
+      "title": "등비수열의 합(1) - 첫째항·공비 역산 2 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT478",
+        "H2_ALG_SEQ_PT479",
+        "H2_ALG_SEQ_PT480"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C161",
+      "title": "등비수열의 합(1) - 원리합계 적용 2 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT481",
+        "H2_ALG_SEQ_PT482",
+        "H2_ALG_SEQ_PT483"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C162",
+      "title": "등비수열의 합(1) - 일반항과 합 연결 2 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT484",
+        "H2_ALG_SEQ_PT485",
+        "H2_ALG_SEQ_PT486"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C163",
+      "title": "등비수열의 합(1) - 활용 상황 모델링 2 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT487",
+        "H2_ALG_SEQ_PT488",
+        "H2_ALG_SEQ_PT489"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C164",
+      "title": "등비수열의 합(1) - 보기형·최종 검산 2 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT490",
+        "H2_ALG_SEQ_PT491",
+        "H2_ALG_SEQ_PT492"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C165",
+      "title": "등비수열의 합(1) - 합 공식 선택 3 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT493",
+        "H2_ALG_SEQ_PT494",
+        "H2_ALG_SEQ_PT495"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C166",
+      "title": "등비수열의 합(1) - 부분합 조건 해석 3 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT496",
+        "H2_ALG_SEQ_PT497",
+        "H2_ALG_SEQ_PT498"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C167",
+      "title": "등비수열의 합(1) - 첫째항·공비 역산 3 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT499",
+        "H2_ALG_SEQ_PT500",
+        "H2_ALG_SEQ_PT501"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C168",
+      "title": "등비수열의 합(1) - 원리합계 적용 3 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT502",
+        "H2_ALG_SEQ_PT503",
+        "H2_ALG_SEQ_PT504"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C169",
+      "title": "등비수열의 합(1) - 일반항과 합 연결 3 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT505",
+        "H2_ALG_SEQ_PT506",
+        "H2_ALG_SEQ_PT507"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C170",
+      "title": "등비수열의 합(1) - 활용 상황 모델링 3 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT508",
+        "H2_ALG_SEQ_PT509",
+        "H2_ALG_SEQ_PT510"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C171",
+      "title": "부분의 합이 주어진 등비수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT511",
+        "H2_ALG_SEQ_PT512",
+        "H2_ALG_SEQ_PT513"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C172",
+      "title": "부분의 합이 주어진 등비수열의 합 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT514",
+        "H2_ALG_SEQ_PT515",
+        "H2_ALG_SEQ_PT516"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C173",
+      "title": "부분의 합이 주어진 등비수열의 합 - 첫째항·공비 역산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT517",
+        "H2_ALG_SEQ_PT518",
+        "H2_ALG_SEQ_PT519"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C174",
+      "title": "부분의 합이 주어진 등비수열의 합 - 원리합계 적용 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT520",
+        "H2_ALG_SEQ_PT521",
+        "H2_ALG_SEQ_PT522"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C175",
+      "title": "부분의 합이 주어진 등비수열의 합 - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT523",
+        "H2_ALG_SEQ_PT524",
+        "H2_ALG_SEQ_PT525"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C176",
+      "title": "부분의 합이 주어진 등비수열의 합 - 활용 상황 모델링 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT526",
+        "H2_ALG_SEQ_PT527",
+        "H2_ALG_SEQ_PT528"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C177",
+      "title": "부분의 합이 주어진 등비수열의 합 - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT529",
+        "H2_ALG_SEQ_PT530",
+        "H2_ALG_SEQ_PT531"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C178",
+      "title": "부분의 합이 주어진 등비수열의 합 - 합 공식 선택 2 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT532",
+        "H2_ALG_SEQ_PT533",
+        "H2_ALG_SEQ_PT534"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C179",
+      "title": "조건을 만족시키는 등비수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT535",
+        "H2_ALG_SEQ_PT536",
+        "H2_ALG_SEQ_PT537"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C180",
+      "title": "조건을 만족시키는 등비수열의 합 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT538",
+        "H2_ALG_SEQ_PT539",
+        "H2_ALG_SEQ_PT540"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C181",
+      "title": "조건을 만족시키는 등비수열의 합 - 첫째항·공비 역산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT541",
+        "H2_ALG_SEQ_PT542",
+        "H2_ALG_SEQ_PT543"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C182",
+      "title": "등비수열의 합의 활용 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT544",
+        "H2_ALG_SEQ_PT545",
+        "H2_ALG_SEQ_PT546"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C183",
+      "title": "등비수열의 합의 활용 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT547",
+        "H2_ALG_SEQ_PT548",
+        "H2_ALG_SEQ_PT549"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C184",
+      "title": "등비수열의 합의 활용 - 첫째항·공비 역산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT550",
+        "H2_ALG_SEQ_PT551",
+        "H2_ALG_SEQ_PT552"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C185",
+      "title": "등비수열의 합의 활용 - 원리합계 적용 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT553",
+        "H2_ALG_SEQ_PT554",
+        "H2_ALG_SEQ_PT555"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C186",
+      "title": "등비수열의 합의 활용 - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT556",
+        "H2_ALG_SEQ_PT557",
+        "H2_ALG_SEQ_PT558"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C187",
+      "title": "등비수열의 합의 활용 - 활용 상황 모델링 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT559",
+        "H2_ALG_SEQ_PT560",
+        "H2_ALG_SEQ_PT561"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C188",
+      "title": "등비수열의 합의 활용 - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT562",
+        "H2_ALG_SEQ_PT563",
+        "H2_ALG_SEQ_PT564"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C189",
+      "title": "원리합계 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT565",
+        "H2_ALG_SEQ_PT566",
+        "H2_ALG_SEQ_PT567"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C190",
+      "title": "원리합계 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT568",
+        "H2_ALG_SEQ_PT569",
+        "H2_ALG_SEQ_PT570"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C191",
+      "title": "원리합계 - 첫째항·공비 역산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT571",
+        "H2_ALG_SEQ_PT572",
+        "H2_ALG_SEQ_PT573"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C192",
+      "title": "원리합계 - 원리합계 적용 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT574",
+        "H2_ALG_SEQ_PT575",
+        "H2_ALG_SEQ_PT576"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C193",
+      "title": "원리합계 - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT577",
+        "H2_ALG_SEQ_PT578",
+        "H2_ALG_SEQ_PT579"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C194",
+      "title": "원리합계 - 활용 상황 모델링 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT580",
+        "H2_ALG_SEQ_PT581",
+        "H2_ALG_SEQ_PT582"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C195",
+      "title": "원리합계 - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT583",
+        "H2_ALG_SEQ_PT584",
+        "H2_ALG_SEQ_PT585"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C196",
+      "title": "원리합계 - 합 공식 선택 2 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT586",
+        "H2_ALG_SEQ_PT587",
+        "H2_ALG_SEQ_PT588"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C197",
+      "title": "등비수열의 합과 일반항 사이의 관계 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT589",
+        "H2_ALG_SEQ_PT590",
+        "H2_ALG_SEQ_PT591"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C198",
+      "title": "등비수열의 합과 일반항 사이의 관계 - 부분합 조건 해석 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT592",
+        "H2_ALG_SEQ_PT593",
+        "H2_ALG_SEQ_PT594"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C199",
+      "title": "등비수열의 합과 일반항 사이의 관계 - 첫째항·공비 역산 보강",
+      "priority": 3,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT595",
+        "H2_ALG_SEQ_PT596",
+        "H2_ALG_SEQ_PT597"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C200",
+      "title": "등비수열의 합과 일반항 사이의 관계 - 원리합계 적용 보강",
+      "priority": 1,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT598",
+        "H2_ALG_SEQ_PT599",
+        "H2_ALG_SEQ_PT600"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C201",
+      "title": "등비수열의 합과 일반항 사이의 관계 - 일반항과 합 연결 보강",
+      "priority": 2,
+      "steps": [
+        "공비와 첫째항을 먼저 결정",
+        "r=1 여부와 공비의 부호 확인",
+        "등비 합 공식 적용 후 조건식에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT601",
+        "H2_ALG_SEQ_PT602",
+        "H2_ALG_SEQ_PT603"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C202",
+      "title": "등차수열의 합과 등비수열의 합 - 등차 합 공식 적용 보강",
+      "priority": 1,
+      "steps": [
+        "등차와 등비 구조를 분리",
+        "각 합 공식을 따로 적용",
+        "혼합 조건을 원식에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT604",
+        "H2_ALG_SEQ_PT605",
+        "H2_ALG_SEQ_PT606"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C203",
+      "title": "등차수열의 합과 등비수열의 합 - 등비 합 공식 적용 보강",
+      "priority": 2,
+      "steps": [
+        "등차와 등비 구조를 분리",
+        "각 합 공식을 따로 적용",
+        "혼합 조건을 원식에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT607",
+        "H2_ALG_SEQ_PT608",
+        "H2_ALG_SEQ_PT609"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C204",
+      "title": "등차수열의 합과 등비수열의 합 - 혼합 조건 분리 보강",
+      "priority": 3,
+      "steps": [
+        "등차와 등비 구조를 분리",
+        "각 합 공식을 따로 적용",
+        "혼합 조건을 원식에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT610",
+        "H2_ALG_SEQ_PT611",
+        "H2_ALG_SEQ_PT612"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C205",
+      "title": "합의 기호 Σ - 시그마 뜻 판별 보강",
+      "priority": 1,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT613",
+        "H2_ALG_SEQ_PT614",
+        "H2_ALG_SEQ_PT615"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C206",
+      "title": "합의 기호 Σ - 풀어 쓰기 보강",
+      "priority": 2,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT616",
+        "H2_ALG_SEQ_PT617",
+        "H2_ALG_SEQ_PT618"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C207",
+      "title": "합의 기호 Σ - 식 계산 보강",
+      "priority": 3,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT619",
+        "H2_ALG_SEQ_PT620",
+        "H2_ALG_SEQ_PT621"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C208",
+      "title": "합의 기호 Σ - 조건식 구성 보강",
+      "priority": 1,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT622",
+        "H2_ALG_SEQ_PT623",
+        "H2_ALG_SEQ_PT624"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C209",
+      "title": "합의 기호 Σ - 성질 적용 보강",
+      "priority": 2,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT625",
+        "H2_ALG_SEQ_PT626",
+        "H2_ALG_SEQ_PT627"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C210",
+      "title": "합의 기호 Σ - 반복·교대 구조 해석 보강",
+      "priority": 3,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT628",
+        "H2_ALG_SEQ_PT629",
+        "H2_ALG_SEQ_PT630"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C211",
+      "title": "합의 기호 Σ - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT631",
+        "H2_ALG_SEQ_PT632",
+        "H2_ALG_SEQ_PT633"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C212",
+      "title": "합의 기호 Σ - 시그마 뜻 판별 2 보강",
+      "priority": 2,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT634",
+        "H2_ALG_SEQ_PT635",
+        "H2_ALG_SEQ_PT636"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C213",
+      "title": "특정한 값이 반복되는 수열의 합 - 시그마 뜻 판별 보강",
+      "priority": 1,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT637",
+        "H2_ALG_SEQ_PT638",
+        "H2_ALG_SEQ_PT639"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C214",
+      "title": "특정한 값이 반복되는 수열의 합 - 풀어 쓰기 보강",
+      "priority": 2,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT640",
+        "H2_ALG_SEQ_PT641",
+        "H2_ALG_SEQ_PT642"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C215",
+      "title": "특정한 값이 반복되는 수열의 합 - 식 계산 보강",
+      "priority": 3,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT643",
+        "H2_ALG_SEQ_PT644",
+        "H2_ALG_SEQ_PT645"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C216",
+      "title": "특정한 값이 반복되는 수열의 합 - 조건식 구성 보강",
+      "priority": 1,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT646",
+        "H2_ALG_SEQ_PT647",
+        "H2_ALG_SEQ_PT648"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C217",
+      "title": "오일의 성질 - 시그마 뜻 판별 보강",
+      "priority": 1,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT649",
+        "H2_ALG_SEQ_PT650",
+        "H2_ALG_SEQ_PT651"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C218",
+      "title": "오일의 성질 - 풀어 쓰기 보강",
+      "priority": 2,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT652",
+        "H2_ALG_SEQ_PT653",
+        "H2_ALG_SEQ_PT654"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C219",
+      "title": "오일의 성질 - 식 계산 보강",
+      "priority": 3,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT655",
+        "H2_ALG_SEQ_PT656",
+        "H2_ALG_SEQ_PT657"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C220",
+      "title": "교대 부호 수열의 합 - 시그마 뜻 판별 보강",
+      "priority": 1,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT658",
+        "H2_ALG_SEQ_PT659",
+        "H2_ALG_SEQ_PT660"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C221",
+      "title": "Σ와 등차수열·등비수열 - 시그마 뜻 판별 보강",
+      "priority": 1,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT661",
+        "H2_ALG_SEQ_PT662",
+        "H2_ALG_SEQ_PT663"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C222",
+      "title": "Σ와 등차수열·등비수열 - 풀어 쓰기 보강",
+      "priority": 2,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT664",
+        "H2_ALG_SEQ_PT665",
+        "H2_ALG_SEQ_PT666"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C223",
+      "title": "Σ와 등차수열·등비수열 - 식 계산 보강",
+      "priority": 3,
+      "steps": [
+        "Σ의 시작값과 끝값을 풀어 쓰기",
+        "상수배·합차·거듭제곱 합 성질을 분리",
+        "항 개수와 대입 변수를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT667",
+        "H2_ALG_SEQ_PT668",
+        "H2_ALG_SEQ_PT669"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C224",
+      "title": "자연수의 거듭제곱의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT670",
+        "H2_ALG_SEQ_PT671",
+        "H2_ALG_SEQ_PT672"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C225",
+      "title": "자연수의 거듭제곱의 합 - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT673",
+        "H2_ALG_SEQ_PT674",
+        "H2_ALG_SEQ_PT675"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C226",
+      "title": "자연수의 거듭제곱의 합 - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT676",
+        "H2_ALG_SEQ_PT677",
+        "H2_ALG_SEQ_PT678"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C227",
+      "title": "자연수의 거듭제곱의 합 - 근호·로그 변형 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT679",
+        "H2_ALG_SEQ_PT680",
+        "H2_ALG_SEQ_PT681"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C228",
+      "title": "자연수의 거듭제곱의 합 - 도형·함수 활용 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT682",
+        "H2_ALG_SEQ_PT683",
+        "H2_ALG_SEQ_PT684"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C229",
+      "title": "자연수의 거듭제곱의 합 - 조건식 역산 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT685",
+        "H2_ALG_SEQ_PT686",
+        "H2_ALG_SEQ_PT687"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C230",
+      "title": "자연수의 거듭제곱의 합 - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT688",
+        "H2_ALG_SEQ_PT689",
+        "H2_ALG_SEQ_PT690"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C231",
+      "title": "자연수의 거듭제곱의 합 - 규칙 묶기 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT691",
+        "H2_ALG_SEQ_PT692",
+        "H2_ALG_SEQ_PT693"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C232",
+      "title": "자연수의 거듭제곱의 합 - 합 공식 선택 2 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT694",
+        "H2_ALG_SEQ_PT695",
+        "H2_ALG_SEQ_PT696"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C233",
+      "title": "자연수의 거듭제곱의 합 - 시그마 변환 2 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT697",
+        "H2_ALG_SEQ_PT698",
+        "H2_ALG_SEQ_PT699"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C234",
+      "title": "Σ를 여러 개 포함한 식 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT700",
+        "H2_ALG_SEQ_PT701",
+        "H2_ALG_SEQ_PT702"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C235",
+      "title": "Σ를 여러 개 포함한 식 - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT703",
+        "H2_ALG_SEQ_PT704",
+        "H2_ALG_SEQ_PT705"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C236",
+      "title": "Σ를 여러 개 포함한 식 - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT706",
+        "H2_ALG_SEQ_PT707",
+        "H2_ALG_SEQ_PT708"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C237",
+      "title": "Σ를 이용한 여러 가지 수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT709",
+        "H2_ALG_SEQ_PT710",
+        "H2_ALG_SEQ_PT711"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C238",
+      "title": "Σ를 이용한 여러 가지 수열의 합 - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT712",
+        "H2_ALG_SEQ_PT713",
+        "H2_ALG_SEQ_PT714"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C239",
+      "title": "Σ를 이용한 여러 가지 수열의 합 - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT715",
+        "H2_ALG_SEQ_PT716",
+        "H2_ALG_SEQ_PT717"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C240",
+      "title": "Σ를 이용한 여러 가지 수열의 합 - 근호·로그 변형 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT718",
+        "H2_ALG_SEQ_PT719",
+        "H2_ALG_SEQ_PT720"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C241",
+      "title": "Σ를 이용한 여러 가지 수열의 합 - 도형·함수 활용 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT721",
+        "H2_ALG_SEQ_PT722",
+        "H2_ALG_SEQ_PT723"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C242",
+      "title": "Σ를 이용한 여러 가지 수열의 합 - 조건식 역산 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT724",
+        "H2_ALG_SEQ_PT725",
+        "H2_ALG_SEQ_PT726"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C243",
+      "title": "Σ로 표현된 수열의 합과 일반항 사이의 관계 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT727",
+        "H2_ALG_SEQ_PT728",
+        "H2_ALG_SEQ_PT729"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C244",
+      "title": "Σ로 표현된 수열의 합과 일반항 사이의 관계 - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT730",
+        "H2_ALG_SEQ_PT731",
+        "H2_ALG_SEQ_PT732"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C245",
+      "title": "Σ로 표현된 수열의 합과 일반항 사이의 관계 - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT733",
+        "H2_ALG_SEQ_PT734",
+        "H2_ALG_SEQ_PT735"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C246",
+      "title": "일반항이 k,n에 대한 식인 수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT736",
+        "H2_ALG_SEQ_PT737",
+        "H2_ALG_SEQ_PT738"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C247",
+      "title": "분수의 꼴인 수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT739",
+        "H2_ALG_SEQ_PT740",
+        "H2_ALG_SEQ_PT741"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C248",
+      "title": "분수의 꼴인 수열의 합 - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT742",
+        "H2_ALG_SEQ_PT743",
+        "H2_ALG_SEQ_PT744"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C249",
+      "title": "분수의 꼴인 수열의 합 - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT745",
+        "H2_ALG_SEQ_PT746",
+        "H2_ALG_SEQ_PT747"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C250",
+      "title": "분수의 꼴인 수열의 합 - 근호·로그 변형 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT748",
+        "H2_ALG_SEQ_PT749",
+        "H2_ALG_SEQ_PT750"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C251",
+      "title": "분수의 꼴인 수열의 합 - 도형·함수 활용 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT751",
+        "H2_ALG_SEQ_PT752",
+        "H2_ALG_SEQ_PT753"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C252",
+      "title": "분수의 꼴인 수열의 합 - 조건식 역산 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT754",
+        "H2_ALG_SEQ_PT755",
+        "H2_ALG_SEQ_PT756"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C253",
+      "title": "분수의 꼴인 수열의 합 - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT757",
+        "H2_ALG_SEQ_PT758",
+        "H2_ALG_SEQ_PT759"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C254",
+      "title": "분수의 꼴인 수열의 합 - 규칙 묶기 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT760",
+        "H2_ALG_SEQ_PT761",
+        "H2_ALG_SEQ_PT762"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C255",
+      "title": "분수의 꼴인 수열의 합 - 합 공식 선택 2 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT763",
+        "H2_ALG_SEQ_PT764",
+        "H2_ALG_SEQ_PT765"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C256",
+      "title": "분수의 꼴인 수열의 합 - 시그마 변환 2 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT766",
+        "H2_ALG_SEQ_PT767",
+        "H2_ALG_SEQ_PT768"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C257",
+      "title": "분수의 꼴인 수열의 합 - 부분분수·소거 구조 2 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT769",
+        "H2_ALG_SEQ_PT770",
+        "H2_ALG_SEQ_PT771"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C258",
+      "title": "근호가 포함된 수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT772",
+        "H2_ALG_SEQ_PT773",
+        "H2_ALG_SEQ_PT774"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C259",
+      "title": "근호가 포함된 수열의 합 - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT775",
+        "H2_ALG_SEQ_PT776",
+        "H2_ALG_SEQ_PT777"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C260",
+      "title": "근호가 포함된 수열의 합 - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT778",
+        "H2_ALG_SEQ_PT779",
+        "H2_ALG_SEQ_PT780"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C261",
+      "title": "근호가 포함된 수열의 합 - 근호·로그 변형 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT781",
+        "H2_ALG_SEQ_PT782",
+        "H2_ALG_SEQ_PT783"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C262",
+      "title": "근호가 포함된 수열의 합 - 도형·함수 활용 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT784",
+        "H2_ALG_SEQ_PT785",
+        "H2_ALG_SEQ_PT786"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C263",
+      "title": "로그가 포함된 수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT787",
+        "H2_ALG_SEQ_PT788",
+        "H2_ALG_SEQ_PT789"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C264",
+      "title": "로그가 포함된 수열의 합 - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT790",
+        "H2_ALG_SEQ_PT791",
+        "H2_ALG_SEQ_PT792"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C265",
+      "title": "로그가 포함된 수열의 합 - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT793",
+        "H2_ALG_SEQ_PT794",
+        "H2_ALG_SEQ_PT795"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C266",
+      "title": "로그가 포함된 수열의 합 - 근호·로그 변형 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT796",
+        "H2_ALG_SEQ_PT797",
+        "H2_ALG_SEQ_PT798"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C267",
+      "title": "로그가 포함된 수열의 합 - 도형·함수 활용 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT799",
+        "H2_ALG_SEQ_PT800",
+        "H2_ALG_SEQ_PT801"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C268",
+      "title": "로그가 포함된 수열의 합 - 조건식 역산 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT802",
+        "H2_ALG_SEQ_PT803",
+        "H2_ALG_SEQ_PT804"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C269",
+      "title": "로그가 포함된 수열의 합 - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT805",
+        "H2_ALG_SEQ_PT806",
+        "H2_ALG_SEQ_PT807"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C270",
+      "title": "가우스가 포함된 수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT808",
+        "H2_ALG_SEQ_PT809",
+        "H2_ALG_SEQ_PT810"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C271",
+      "title": "여러 가지 수열의 합의 활용 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT811",
+        "H2_ALG_SEQ_PT812",
+        "H2_ALG_SEQ_PT813"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C272",
+      "title": "여러 가지 수열의 합의 활용 - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT814",
+        "H2_ALG_SEQ_PT815",
+        "H2_ALG_SEQ_PT816"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C273",
+      "title": "여러 가지 수열의 합의 활용 - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT817",
+        "H2_ALG_SEQ_PT818",
+        "H2_ALG_SEQ_PT819"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C274",
+      "title": "여러 가지 수열의 합의 활용 - 근호·로그 변형 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT820",
+        "H2_ALG_SEQ_PT821",
+        "H2_ALG_SEQ_PT822"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C275",
+      "title": "여러 가지 수열의 합의 활용 - 도형·함수 활용 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT823",
+        "H2_ALG_SEQ_PT824",
+        "H2_ALG_SEQ_PT825"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C276",
+      "title": "여러 가지 수열의 합의 활용 - 조건식 역산 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT826",
+        "H2_ALG_SEQ_PT827",
+        "H2_ALG_SEQ_PT828"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C277",
+      "title": "여러 가지 수열의 합의 활용 - 보기형·최종 검산 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT829",
+        "H2_ALG_SEQ_PT830",
+        "H2_ALG_SEQ_PT831"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C278",
+      "title": "여러 가지 수열의 합의 활용 - 규칙 묶기 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT832",
+        "H2_ALG_SEQ_PT833",
+        "H2_ALG_SEQ_PT834"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C279",
+      "title": "여러 가지 수열의 합의 활용 - 합 공식 선택 2 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT835",
+        "H2_ALG_SEQ_PT836",
+        "H2_ALG_SEQ_PT837"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C280",
+      "title": "여러 가지 수열의 합의 활용 - 시그마 변환 2 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT838",
+        "H2_ALG_SEQ_PT839",
+        "H2_ALG_SEQ_PT840"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C281",
+      "title": "여러 가지 수열의 합의 활용 - 부분분수·소거 구조 2 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT841",
+        "H2_ALG_SEQ_PT842",
+        "H2_ALG_SEQ_PT843"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C282",
+      "title": "여러 가지 수열의 합의 활용 - 근호·로그 변형 2 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT844",
+        "H2_ALG_SEQ_PT845",
+        "H2_ALG_SEQ_PT846"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C283",
+      "title": "여러 가지 수열의 합의 활용 - 도형·함수 활용 2 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT847",
+        "H2_ALG_SEQ_PT848",
+        "H2_ALG_SEQ_PT849"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C284",
+      "title": "여러 가지 수열의 합의 활용 - 조건식 역산 2 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT850",
+        "H2_ALG_SEQ_PT851",
+        "H2_ALG_SEQ_PT852"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C285",
+      "title": "여러 가지 수열의 합의 활용 - 보기형·최종 검산 2 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT853",
+        "H2_ALG_SEQ_PT854",
+        "H2_ALG_SEQ_PT855"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C286",
+      "title": "여러 가지 수열의 합의 활용 - 규칙 묶기 2 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT856",
+        "H2_ALG_SEQ_PT857",
+        "H2_ALG_SEQ_PT858"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C287",
+      "title": "여러 가지 수열의 합의 활용 - 합 공식 선택 3 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT859",
+        "H2_ALG_SEQ_PT860",
+        "H2_ALG_SEQ_PT861"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C288",
+      "title": "등차수열과 등비수열 꼴의 곱의 수열의 합 - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT862",
+        "H2_ALG_SEQ_PT863",
+        "H2_ALG_SEQ_PT864"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C289",
+      "title": "수열의 항을 묶어 규칙 찾기(1) - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT865",
+        "H2_ALG_SEQ_PT866",
+        "H2_ALG_SEQ_PT867"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C290",
+      "title": "수열의 항을 묶어 규칙 찾기(1) - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT868",
+        "H2_ALG_SEQ_PT869",
+        "H2_ALG_SEQ_PT870"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C291",
+      "title": "수열의 항을 묶어 규칙 찾기(1) - 부분분수·소거 구조 보강",
+      "priority": 3,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT871",
+        "H2_ALG_SEQ_PT872",
+        "H2_ALG_SEQ_PT873"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C292",
+      "title": "수열의 항을 묶어 규칙 찾기(1) - 근호·로그 변형 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT874",
+        "H2_ALG_SEQ_PT875",
+        "H2_ALG_SEQ_PT876"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C293",
+      "title": "수열의 항을 묶어 규칙 찾기(1) - 도형·함수 활용 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT877",
+        "H2_ALG_SEQ_PT878",
+        "H2_ALG_SEQ_PT879"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C294",
+      "title": "수열의 항을 묶어 규칙 찾기(2) - 합 공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT880",
+        "H2_ALG_SEQ_PT881",
+        "H2_ALG_SEQ_PT882"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C295",
+      "title": "수열의 항을 묶어 규칙 찾기(2) - 시그마 변환 보강",
+      "priority": 2,
+      "steps": [
+        "일반항의 형태를 분수·근호·로그·도형 중 하나로 분류",
+        "소거·공식·묶기 중 처리 방법 선택",
+        "앞뒤 항과 마지막 항 누락 여부 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT883",
+        "H2_ALG_SEQ_PT884",
+        "H2_ALG_SEQ_PT885"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C296",
+      "title": "등차수열의 귀납적 정의 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT886",
+        "H2_ALG_SEQ_PT887",
+        "H2_ALG_SEQ_PT888"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C297",
+      "title": "등차수열의 귀납적 정의 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT889",
+        "H2_ALG_SEQ_PT890",
+        "H2_ALG_SEQ_PT891"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C298",
+      "title": "등차수열의 귀납적 정의 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT892",
+        "H2_ALG_SEQ_PT893",
+        "H2_ALG_SEQ_PT894"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C299",
+      "title": "등차수열의 귀납적 정의 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT895",
+        "H2_ALG_SEQ_PT896",
+        "H2_ALG_SEQ_PT897"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C300",
+      "title": "등차수열의 귀납적 정의 - 도형·실생활 모델링 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT898",
+        "H2_ALG_SEQ_PT899",
+        "H2_ALG_SEQ_PT900"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C301",
+      "title": "등차수열의 귀납적 정의 - n=1 확인 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT901",
+        "H2_ALG_SEQ_PT902",
+        "H2_ALG_SEQ_PT903"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C302",
+      "title": "등비수열의 귀납적 정의 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT904",
+        "H2_ALG_SEQ_PT905",
+        "H2_ALG_SEQ_PT906"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C303",
+      "title": "등비수열의 귀납적 정의 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT907",
+        "H2_ALG_SEQ_PT908",
+        "H2_ALG_SEQ_PT909"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C304",
+      "title": "등비수열의 귀납적 정의 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT910",
+        "H2_ALG_SEQ_PT911",
+        "H2_ALG_SEQ_PT912"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C305",
+      "title": "a_(n+1)=a_n+f(n) 꼴로 정의된 수열 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT913",
+        "H2_ALG_SEQ_PT914",
+        "H2_ALG_SEQ_PT915"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C306",
+      "title": "a_(n+1)=a_n+f(n) 꼴로 정의된 수열 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT916",
+        "H2_ALG_SEQ_PT917",
+        "H2_ALG_SEQ_PT918"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C307",
+      "title": "a_(n+1)=a_n+f(n) 꼴로 정의된 수열 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT919",
+        "H2_ALG_SEQ_PT920",
+        "H2_ALG_SEQ_PT921"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C308",
+      "title": "a_(n+1)=a_n+f(n) 꼴로 정의된 수열 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT922",
+        "H2_ALG_SEQ_PT923",
+        "H2_ALG_SEQ_PT924"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C309",
+      "title": "a_(n+1)=a_n+f(n) 꼴로 정의된 수열 - 도형·실생활 모델링 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT925",
+        "H2_ALG_SEQ_PT926",
+        "H2_ALG_SEQ_PT927"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C310",
+      "title": "a_(n+1)=a_n f(n) 꼴로 정의된 수열 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT928",
+        "H2_ALG_SEQ_PT929",
+        "H2_ALG_SEQ_PT930"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C311",
+      "title": "a_(n+1)=a_n f(n) 꼴로 정의된 수열 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT931",
+        "H2_ALG_SEQ_PT932",
+        "H2_ALG_SEQ_PT933"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C312",
+      "title": "a_(n+1)=a_n f(n) 꼴로 정의된 수열 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT934",
+        "H2_ALG_SEQ_PT935",
+        "H2_ALG_SEQ_PT936"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C313",
+      "title": "a_(n+1)=a_n f(n) 꼴로 정의된 수열 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT937",
+        "H2_ALG_SEQ_PT938",
+        "H2_ALG_SEQ_PT939"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C314",
+      "title": "a_(n+1)=a_n f(n) 꼴로 정의된 수열 - 도형·실생활 모델링 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT940",
+        "H2_ALG_SEQ_PT941",
+        "H2_ALG_SEQ_PT942"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C315",
+      "title": "a_(n+1)=a_n f(n) 꼴로 정의된 수열 - n=1 확인 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT943",
+        "H2_ALG_SEQ_PT944",
+        "H2_ALG_SEQ_PT945"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C316",
+      "title": "귀납적으로 정의된 여러 가지 수열(1) - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT946",
+        "H2_ALG_SEQ_PT947",
+        "H2_ALG_SEQ_PT948"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C317",
+      "title": "귀납적으로 정의된 여러 가지 수열(1) - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT949",
+        "H2_ALG_SEQ_PT950",
+        "H2_ALG_SEQ_PT951"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C318",
+      "title": "귀납적으로 정의된 여러 가지 수열(1) - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT952",
+        "H2_ALG_SEQ_PT953",
+        "H2_ALG_SEQ_PT954"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C319",
+      "title": "귀납적으로 정의된 여러 가지 수열(1) - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT955",
+        "H2_ALG_SEQ_PT956",
+        "H2_ALG_SEQ_PT957"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C320",
+      "title": "귀납적으로 정의된 여러 가지 수열(1) - 도형·실생활 모델링 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT958",
+        "H2_ALG_SEQ_PT959",
+        "H2_ALG_SEQ_PT960"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C321",
+      "title": "귀납적으로 정의된 여러 가지 수열(1) - n=1 확인 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT961",
+        "H2_ALG_SEQ_PT962",
+        "H2_ALG_SEQ_PT963"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C322",
+      "title": "귀납적으로 정의된 여러 가지 수열(1) - n=k 가정 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT964",
+        "H2_ALG_SEQ_PT965",
+        "H2_ALG_SEQ_PT966"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C323",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT967",
+        "H2_ALG_SEQ_PT968",
+        "H2_ALG_SEQ_PT969"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C324",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT970",
+        "H2_ALG_SEQ_PT971",
+        "H2_ALG_SEQ_PT972"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C325",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT973",
+        "H2_ALG_SEQ_PT974",
+        "H2_ALG_SEQ_PT975"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C326",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT976",
+        "H2_ALG_SEQ_PT977",
+        "H2_ALG_SEQ_PT978"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C327",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 도형·실생활 모델링 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT979",
+        "H2_ALG_SEQ_PT980",
+        "H2_ALG_SEQ_PT981"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C328",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - n=1 확인 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT982",
+        "H2_ALG_SEQ_PT983",
+        "H2_ALG_SEQ_PT984"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C329",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - n=k 가정 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT985",
+        "H2_ALG_SEQ_PT986",
+        "H2_ALG_SEQ_PT987"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C330",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - n=k+1 증명 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT988",
+        "H2_ALG_SEQ_PT989",
+        "H2_ALG_SEQ_PT990"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C331",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 보기형·최종 검산 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT991",
+        "H2_ALG_SEQ_PT992",
+        "H2_ALG_SEQ_PT993"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C332",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 초항·관계식 해석 2 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT994",
+        "H2_ALG_SEQ_PT995",
+        "H2_ALG_SEQ_PT996"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C333",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 귀납적 정의 전개 2 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT997",
+        "H2_ALG_SEQ_PT998",
+        "H2_ALG_SEQ_PT999"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C334",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 일반항 추론 2 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1000",
+        "H2_ALG_SEQ_PT1001",
+        "H2_ALG_SEQ_PT1002"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C335",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 부분합 연결 2 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1003",
+        "H2_ALG_SEQ_PT1004",
+        "H2_ALG_SEQ_PT1005"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C336",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 도형·실생활 모델링 2 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1006",
+        "H2_ALG_SEQ_PT1007",
+        "H2_ALG_SEQ_PT1008"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C337",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - n=1 확인 2 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1009",
+        "H2_ALG_SEQ_PT1010",
+        "H2_ALG_SEQ_PT1011"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C338",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - n=k 가정 2 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1012",
+        "H2_ALG_SEQ_PT1013",
+        "H2_ALG_SEQ_PT1014"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C339",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - n=k+1 증명 2 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1015",
+        "H2_ALG_SEQ_PT1016",
+        "H2_ALG_SEQ_PT1017"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C340",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 보기형·최종 검산 2 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1018",
+        "H2_ALG_SEQ_PT1019",
+        "H2_ALG_SEQ_PT1020"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C341",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 초항·관계식 해석 3 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1021",
+        "H2_ALG_SEQ_PT1022",
+        "H2_ALG_SEQ_PT1023"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C342",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 귀납적 정의 전개 3 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1024",
+        "H2_ALG_SEQ_PT1025",
+        "H2_ALG_SEQ_PT1026"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C343",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 일반항 추론 3 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1027",
+        "H2_ALG_SEQ_PT1028",
+        "H2_ALG_SEQ_PT1029"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C344",
+      "title": "귀납적으로 정의된 여러 가지 수열(2) - 부분합 연결 3 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1030",
+        "H2_ALG_SEQ_PT1031",
+        "H2_ALG_SEQ_PT1032"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C345",
+      "title": "같은 수가 반복되는 수열 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1033",
+        "H2_ALG_SEQ_PT1034",
+        "H2_ALG_SEQ_PT1035"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C346",
+      "title": "같은 수가 반복되는 수열 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1036",
+        "H2_ALG_SEQ_PT1037",
+        "H2_ALG_SEQ_PT1038"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C347",
+      "title": "같은 수가 반복되는 수열 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1039",
+        "H2_ALG_SEQ_PT1040",
+        "H2_ALG_SEQ_PT1041"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C348",
+      "title": "같은 수가 반복되는 수열 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1042",
+        "H2_ALG_SEQ_PT1043",
+        "H2_ALG_SEQ_PT1044"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C349",
+      "title": "a_n과 S_n 사이의 관계식이 주어진 수열 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1045",
+        "H2_ALG_SEQ_PT1046",
+        "H2_ALG_SEQ_PT1047"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C350",
+      "title": "a_n과 S_n 사이의 관계식이 주어진 수열 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1048",
+        "H2_ALG_SEQ_PT1049",
+        "H2_ALG_SEQ_PT1050"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C351",
+      "title": "a_n과 S_n 사이의 관계식이 주어진 수열 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1051",
+        "H2_ALG_SEQ_PT1052",
+        "H2_ALG_SEQ_PT1053"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C352",
+      "title": "a_n과 S_n 사이의 관계식이 주어진 수열 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1054",
+        "H2_ALG_SEQ_PT1055",
+        "H2_ALG_SEQ_PT1056"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C353",
+      "title": "a_n과 S_n 사이의 관계식이 주어진 수열 - 도형·실생활 모델링 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1057",
+        "H2_ALG_SEQ_PT1058",
+        "H2_ALG_SEQ_PT1059"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C354",
+      "title": "수열의 귀납적 정의의 도형에의 활용 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1060",
+        "H2_ALG_SEQ_PT1061",
+        "H2_ALG_SEQ_PT1062"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C355",
+      "title": "수열의 귀납적 정의의 도형에의 활용 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1063",
+        "H2_ALG_SEQ_PT1064",
+        "H2_ALG_SEQ_PT1065"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C356",
+      "title": "수열의 귀납적 정의의 도형에의 활용 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1066",
+        "H2_ALG_SEQ_PT1067",
+        "H2_ALG_SEQ_PT1068"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C357",
+      "title": "수열의 귀납적 정의의 도형에의 활용 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1069",
+        "H2_ALG_SEQ_PT1070",
+        "H2_ALG_SEQ_PT1071"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C358",
+      "title": "수열의 귀납적 정의의 도형에의 활용 - 도형·실생활 모델링 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1072",
+        "H2_ALG_SEQ_PT1073",
+        "H2_ALG_SEQ_PT1074"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C359",
+      "title": "수열의 귀납적 정의의 도형에의 활용 - n=1 확인 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1075",
+        "H2_ALG_SEQ_PT1076",
+        "H2_ALG_SEQ_PT1077"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C360",
+      "title": "수열의 귀납적 정의의 실생활에의 활용 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1078",
+        "H2_ALG_SEQ_PT1079",
+        "H2_ALG_SEQ_PT1080"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C361",
+      "title": "수열의 귀납적 정의의 실생활에의 활용 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1081",
+        "H2_ALG_SEQ_PT1082",
+        "H2_ALG_SEQ_PT1083"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C362",
+      "title": "수열의 귀납적 정의의 실생활에의 활용 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1084",
+        "H2_ALG_SEQ_PT1085",
+        "H2_ALG_SEQ_PT1086"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C363",
+      "title": "수학적 귀납법 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1087",
+        "H2_ALG_SEQ_PT1088",
+        "H2_ALG_SEQ_PT1089"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C364",
+      "title": "수학적 귀납법 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1090",
+        "H2_ALG_SEQ_PT1091",
+        "H2_ALG_SEQ_PT1092"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C365",
+      "title": "수학적 귀납법 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1093",
+        "H2_ALG_SEQ_PT1094",
+        "H2_ALG_SEQ_PT1095"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C366",
+      "title": "수학적 귀납법 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1096",
+        "H2_ALG_SEQ_PT1097",
+        "H2_ALG_SEQ_PT1098"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C367",
+      "title": "수학적 귀납법(1) 등식의 증명 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1099",
+        "H2_ALG_SEQ_PT1100",
+        "H2_ALG_SEQ_PT1101"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C368",
+      "title": "수학적 귀납법(1) 등식의 증명 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1102",
+        "H2_ALG_SEQ_PT1103",
+        "H2_ALG_SEQ_PT1104"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C369",
+      "title": "수학적 귀납법(1) 등식의 증명 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1105",
+        "H2_ALG_SEQ_PT1106",
+        "H2_ALG_SEQ_PT1107"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C370",
+      "title": "수학적 귀납법(1) 등식의 증명 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1108",
+        "H2_ALG_SEQ_PT1109",
+        "H2_ALG_SEQ_PT1110"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C371",
+      "title": "수학적 귀납법(1) 등식의 증명 - 도형·실생활 모델링 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1111",
+        "H2_ALG_SEQ_PT1112",
+        "H2_ALG_SEQ_PT1113"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C372",
+      "title": "수학적 귀납법(2) 배수의 증명 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1114",
+        "H2_ALG_SEQ_PT1115",
+        "H2_ALG_SEQ_PT1116"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C373",
+      "title": "수학적 귀납법(2) 배수의 증명 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1117",
+        "H2_ALG_SEQ_PT1118",
+        "H2_ALG_SEQ_PT1119"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C374",
+      "title": "수학적 귀납법(3) 부등식의 증명 - 초항·관계식 해석 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1120",
+        "H2_ALG_SEQ_PT1121",
+        "H2_ALG_SEQ_PT1122"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C375",
+      "title": "수학적 귀납법(3) 부등식의 증명 - 귀납적 정의 전개 보강",
+      "priority": 2,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1123",
+        "H2_ALG_SEQ_PT1124",
+        "H2_ALG_SEQ_PT1125"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C376",
+      "title": "수학적 귀납법(3) 부등식의 증명 - 일반항 추론 보강",
+      "priority": 3,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1126",
+        "H2_ALG_SEQ_PT1127",
+        "H2_ALG_SEQ_PT1128"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_ALG_SEQ_C377",
+      "title": "수학적 귀납법(3) 부등식의 증명 - 부분합 연결 보강",
+      "priority": 1,
+      "steps": [
+        "n=1 성립 확인",
+        "n=k 성립을 가정한 식을 정확히 쓰기",
+        "n=k+1 목표식으로 변형하고 결론 문장 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_ALG_SEQ_PT1129",
+        "H2_ALG_SEQ_PT1130",
+        "H2_ALG_SEQ_PT1131"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}
