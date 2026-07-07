@@ -1,0 +1,1877 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_ALGEBRA_EXP_LOG_FUNCTION",
+  "unit_name": "지수함수와 로그함수",
+  "rule_count": 61,
+  "rules": [
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_001",
+      "name": "밑 조건 판단 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "base_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "밑이 양수이고 1이 아니어야 한다는 조건을 그래프, 대소 비교, 방정식·부등식 풀이에 반영하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C001",
+        "H2_ALG_EXLOG_FUNC_C002",
+        "H2_ALG_EXLOG_FUNC_C003",
+        "H2_ALG_EXLOG_FUNC_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT001",
+        "H2_ALG_EXLOG_FUNC_PT002",
+        "H2_ALG_EXLOG_FUNC_PT003",
+        "H2_ALG_EXLOG_FUNC_PT004",
+        "H2_ALG_EXLOG_FUNC_PT005",
+        "H2_ALG_EXLOG_FUNC_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_002",
+      "name": "밑 조건 판단 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "base_condition"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "밑이 양수이고 1이 아니어야 한다는 조건을 그래프, 대소 비교, 방정식·부등식 풀이에 반영하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C001",
+        "H2_ALG_EXLOG_FUNC_C002",
+        "H2_ALG_EXLOG_FUNC_C003",
+        "H2_ALG_EXLOG_FUNC_C004",
+        "H2_ALG_EXLOG_FUNC_C009"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT001",
+        "H2_ALG_EXLOG_FUNC_PT002",
+        "H2_ALG_EXLOG_FUNC_PT003",
+        "H2_ALG_EXLOG_FUNC_PT004",
+        "H2_ALG_EXLOG_FUNC_PT005",
+        "H2_ALG_EXLOG_FUNC_PT006",
+        "H2_ALG_EXLOG_FUNC_PT007"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_003",
+      "name": "밑 조건 판단 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "base_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "밑이 양수이고 1이 아니어야 한다는 조건을 그래프, 대소 비교, 방정식·부등식 풀이에 반영하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C001",
+        "H2_ALG_EXLOG_FUNC_C002",
+        "H2_ALG_EXLOG_FUNC_C003",
+        "H2_ALG_EXLOG_FUNC_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT001",
+        "H2_ALG_EXLOG_FUNC_PT002",
+        "H2_ALG_EXLOG_FUNC_PT003",
+        "H2_ALG_EXLOG_FUNC_PT004",
+        "H2_ALG_EXLOG_FUNC_PT005",
+        "H2_ALG_EXLOG_FUNC_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_004",
+      "name": "로그 진수 조건 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "domain_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "로그의 진수 조건과 정의역 제한을 세우지 않고 식을 변형하여 불필요한 해를 포함합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C045",
+        "H2_ALG_EXLOG_FUNC_C046",
+        "H2_ALG_EXLOG_FUNC_C047",
+        "H2_ALG_EXLOG_FUNC_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT133",
+        "H2_ALG_EXLOG_FUNC_PT134",
+        "H2_ALG_EXLOG_FUNC_PT135",
+        "H2_ALG_EXLOG_FUNC_PT136",
+        "H2_ALG_EXLOG_FUNC_PT137",
+        "H2_ALG_EXLOG_FUNC_PT138"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_005",
+      "name": "로그 진수 조건 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "domain_condition"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그의 진수 조건과 정의역 제한을 세우지 않고 식을 변형하여 불필요한 해를 포함합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C045",
+        "H2_ALG_EXLOG_FUNC_C046",
+        "H2_ALG_EXLOG_FUNC_C047",
+        "H2_ALG_EXLOG_FUNC_C048",
+        "H2_ALG_EXLOG_FUNC_C053"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT133",
+        "H2_ALG_EXLOG_FUNC_PT134",
+        "H2_ALG_EXLOG_FUNC_PT135",
+        "H2_ALG_EXLOG_FUNC_PT136",
+        "H2_ALG_EXLOG_FUNC_PT137",
+        "H2_ALG_EXLOG_FUNC_PT138",
+        "H2_ALG_EXLOG_FUNC_PT139"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_006",
+      "name": "로그 진수 조건 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "domain_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그의 진수 조건과 정의역 제한을 세우지 않고 식을 변형하여 불필요한 해를 포함합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C045",
+        "H2_ALG_EXLOG_FUNC_C046",
+        "H2_ALG_EXLOG_FUNC_C047",
+        "H2_ALG_EXLOG_FUNC_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT133",
+        "H2_ALG_EXLOG_FUNC_PT134",
+        "H2_ALG_EXLOG_FUNC_PT135",
+        "H2_ALG_EXLOG_FUNC_PT136",
+        "H2_ALG_EXLOG_FUNC_PT137",
+        "H2_ALG_EXLOG_FUNC_PT138"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_007",
+      "name": "단조성·부등호 방향 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "base_direction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "밑이 1보다 큰지 작은지에 따라 증가·감소와 부등호 방향이 달라지는 점을 놓칩니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C025",
+        "H2_ALG_EXLOG_FUNC_C026",
+        "H2_ALG_EXLOG_FUNC_C027",
+        "H2_ALG_EXLOG_FUNC_C028"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT073",
+        "H2_ALG_EXLOG_FUNC_PT074",
+        "H2_ALG_EXLOG_FUNC_PT075",
+        "H2_ALG_EXLOG_FUNC_PT076",
+        "H2_ALG_EXLOG_FUNC_PT077",
+        "H2_ALG_EXLOG_FUNC_PT078"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_008",
+      "name": "단조성·부등호 방향 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "base_direction"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "밑이 1보다 큰지 작은지에 따라 증가·감소와 부등호 방향이 달라지는 점을 놓칩니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C025",
+        "H2_ALG_EXLOG_FUNC_C026",
+        "H2_ALG_EXLOG_FUNC_C027",
+        "H2_ALG_EXLOG_FUNC_C028",
+        "H2_ALG_EXLOG_FUNC_C069"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT073",
+        "H2_ALG_EXLOG_FUNC_PT074",
+        "H2_ALG_EXLOG_FUNC_PT075",
+        "H2_ALG_EXLOG_FUNC_PT076",
+        "H2_ALG_EXLOG_FUNC_PT077",
+        "H2_ALG_EXLOG_FUNC_PT078",
+        "H2_ALG_EXLOG_FUNC_PT079"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_009",
+      "name": "단조성·부등호 방향 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "base_direction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "밑이 1보다 큰지 작은지에 따라 증가·감소와 부등호 방향이 달라지는 점을 놓칩니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C025",
+        "H2_ALG_EXLOG_FUNC_C026",
+        "H2_ALG_EXLOG_FUNC_C027",
+        "H2_ALG_EXLOG_FUNC_C028"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT073",
+        "H2_ALG_EXLOG_FUNC_PT074",
+        "H2_ALG_EXLOG_FUNC_PT075",
+        "H2_ALG_EXLOG_FUNC_PT076",
+        "H2_ALG_EXLOG_FUNC_PT077",
+        "H2_ALG_EXLOG_FUNC_PT078"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_010",
+      "name": "지수함수 함숫값 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_function_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "지수의 계산, 미지수 대입, 지수법칙 적용 과정에서 괄호와 부호를 놓칩니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C005",
+        "H2_ALG_EXLOG_FUNC_C006",
+        "H2_ALG_EXLOG_FUNC_C007",
+        "H2_ALG_EXLOG_FUNC_C008"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT013",
+        "H2_ALG_EXLOG_FUNC_PT014",
+        "H2_ALG_EXLOG_FUNC_PT015",
+        "H2_ALG_EXLOG_FUNC_PT016",
+        "H2_ALG_EXLOG_FUNC_PT017",
+        "H2_ALG_EXLOG_FUNC_PT018"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_011",
+      "name": "지수함수 함숫값 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_function_value"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "지수의 계산, 미지수 대입, 지수법칙 적용 과정에서 괄호와 부호를 놓칩니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C005",
+        "H2_ALG_EXLOG_FUNC_C006",
+        "H2_ALG_EXLOG_FUNC_C007",
+        "H2_ALG_EXLOG_FUNC_C008"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT013",
+        "H2_ALG_EXLOG_FUNC_PT014",
+        "H2_ALG_EXLOG_FUNC_PT015",
+        "H2_ALG_EXLOG_FUNC_PT016",
+        "H2_ALG_EXLOG_FUNC_PT017",
+        "H2_ALG_EXLOG_FUNC_PT018",
+        "H2_ALG_EXLOG_FUNC_PT019"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_012",
+      "name": "지수함수 함숫값 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_function_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "지수의 계산, 미지수 대입, 지수법칙 적용 과정에서 괄호와 부호를 놓칩니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C005",
+        "H2_ALG_EXLOG_FUNC_C006",
+        "H2_ALG_EXLOG_FUNC_C007",
+        "H2_ALG_EXLOG_FUNC_C008"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT013",
+        "H2_ALG_EXLOG_FUNC_PT014",
+        "H2_ALG_EXLOG_FUNC_PT015",
+        "H2_ALG_EXLOG_FUNC_PT016",
+        "H2_ALG_EXLOG_FUNC_PT017",
+        "H2_ALG_EXLOG_FUNC_PT018"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_013",
+      "name": "로그함수 함숫값 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "log_function_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "로그의 정의를 지수식으로 바꾸지 못하거나 밑과 진수를 뒤섞습니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C049",
+        "H2_ALG_EXLOG_FUNC_C050",
+        "H2_ALG_EXLOG_FUNC_C051",
+        "H2_ALG_EXLOG_FUNC_C052"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT145",
+        "H2_ALG_EXLOG_FUNC_PT146",
+        "H2_ALG_EXLOG_FUNC_PT147",
+        "H2_ALG_EXLOG_FUNC_PT148",
+        "H2_ALG_EXLOG_FUNC_PT149",
+        "H2_ALG_EXLOG_FUNC_PT150"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_014",
+      "name": "로그함수 함숫값 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "log_function_value"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그의 정의를 지수식으로 바꾸지 못하거나 밑과 진수를 뒤섞습니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C049",
+        "H2_ALG_EXLOG_FUNC_C050",
+        "H2_ALG_EXLOG_FUNC_C051",
+        "H2_ALG_EXLOG_FUNC_C052"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT145",
+        "H2_ALG_EXLOG_FUNC_PT146",
+        "H2_ALG_EXLOG_FUNC_PT147",
+        "H2_ALG_EXLOG_FUNC_PT148",
+        "H2_ALG_EXLOG_FUNC_PT149",
+        "H2_ALG_EXLOG_FUNC_PT150",
+        "H2_ALG_EXLOG_FUNC_PT151"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_015",
+      "name": "로그함수 함숫값 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "log_function_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그의 정의를 지수식으로 바꾸지 못하거나 밑과 진수를 뒤섞습니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C049",
+        "H2_ALG_EXLOG_FUNC_C050",
+        "H2_ALG_EXLOG_FUNC_C051",
+        "H2_ALG_EXLOG_FUNC_C052"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT145",
+        "H2_ALG_EXLOG_FUNC_PT146",
+        "H2_ALG_EXLOG_FUNC_PT147",
+        "H2_ALG_EXLOG_FUNC_PT148",
+        "H2_ALG_EXLOG_FUNC_PT149",
+        "H2_ALG_EXLOG_FUNC_PT150"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_016",
+      "name": "지수함수 그래프 이동 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_graph_translation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "평행이동, 대칭이동, 점근선, 정의역·치역 변화를 동시에 반영하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C017",
+        "H2_ALG_EXLOG_FUNC_C018",
+        "H2_ALG_EXLOG_FUNC_C019",
+        "H2_ALG_EXLOG_FUNC_C020"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT049",
+        "H2_ALG_EXLOG_FUNC_PT050",
+        "H2_ALG_EXLOG_FUNC_PT051",
+        "H2_ALG_EXLOG_FUNC_PT052",
+        "H2_ALG_EXLOG_FUNC_PT053",
+        "H2_ALG_EXLOG_FUNC_PT054"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_017",
+      "name": "지수함수 그래프 이동 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_graph_translation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "평행이동, 대칭이동, 점근선, 정의역·치역 변화를 동시에 반영하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C017",
+        "H2_ALG_EXLOG_FUNC_C018",
+        "H2_ALG_EXLOG_FUNC_C019",
+        "H2_ALG_EXLOG_FUNC_C020"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT049",
+        "H2_ALG_EXLOG_FUNC_PT050",
+        "H2_ALG_EXLOG_FUNC_PT051",
+        "H2_ALG_EXLOG_FUNC_PT052",
+        "H2_ALG_EXLOG_FUNC_PT053",
+        "H2_ALG_EXLOG_FUNC_PT054",
+        "H2_ALG_EXLOG_FUNC_PT055"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_018",
+      "name": "지수함수 그래프 이동 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_graph_translation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "평행이동, 대칭이동, 점근선, 정의역·치역 변화를 동시에 반영하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C017",
+        "H2_ALG_EXLOG_FUNC_C018",
+        "H2_ALG_EXLOG_FUNC_C019",
+        "H2_ALG_EXLOG_FUNC_C020"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT049",
+        "H2_ALG_EXLOG_FUNC_PT050",
+        "H2_ALG_EXLOG_FUNC_PT051",
+        "H2_ALG_EXLOG_FUNC_PT052",
+        "H2_ALG_EXLOG_FUNC_PT053",
+        "H2_ALG_EXLOG_FUNC_PT054"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_019",
+      "name": "로그함수 그래프 이동 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "log_graph_translation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "로그함수의 수직점근선, 정의역 변화, 대칭이동을 식과 연결하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C061",
+        "H2_ALG_EXLOG_FUNC_C062",
+        "H2_ALG_EXLOG_FUNC_C063",
+        "H2_ALG_EXLOG_FUNC_C064"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT181",
+        "H2_ALG_EXLOG_FUNC_PT182",
+        "H2_ALG_EXLOG_FUNC_PT183",
+        "H2_ALG_EXLOG_FUNC_PT184",
+        "H2_ALG_EXLOG_FUNC_PT185",
+        "H2_ALG_EXLOG_FUNC_PT186"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_020",
+      "name": "로그함수 그래프 이동 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "log_graph_translation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그함수의 수직점근선, 정의역 변화, 대칭이동을 식과 연결하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C061",
+        "H2_ALG_EXLOG_FUNC_C062",
+        "H2_ALG_EXLOG_FUNC_C063",
+        "H2_ALG_EXLOG_FUNC_C064"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT181",
+        "H2_ALG_EXLOG_FUNC_PT182",
+        "H2_ALG_EXLOG_FUNC_PT183",
+        "H2_ALG_EXLOG_FUNC_PT184",
+        "H2_ALG_EXLOG_FUNC_PT185",
+        "H2_ALG_EXLOG_FUNC_PT186",
+        "H2_ALG_EXLOG_FUNC_PT187"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_021",
+      "name": "로그함수 그래프 이동 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "log_graph_translation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그함수의 수직점근선, 정의역 변화, 대칭이동을 식과 연결하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C061",
+        "H2_ALG_EXLOG_FUNC_C062",
+        "H2_ALG_EXLOG_FUNC_C063",
+        "H2_ALG_EXLOG_FUNC_C064"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT181",
+        "H2_ALG_EXLOG_FUNC_PT182",
+        "H2_ALG_EXLOG_FUNC_PT183",
+        "H2_ALG_EXLOG_FUNC_PT184",
+        "H2_ALG_EXLOG_FUNC_PT185",
+        "H2_ALG_EXLOG_FUNC_PT186"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_022",
+      "name": "그래프 위의 점 조건 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "point_on_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점이 그래프 위에 있다는 조건을 좌표 대입, 밑 조건, 미지수 식으로 바꾸지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C021",
+        "H2_ALG_EXLOG_FUNC_C022",
+        "H2_ALG_EXLOG_FUNC_C023",
+        "H2_ALG_EXLOG_FUNC_C024"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT061",
+        "H2_ALG_EXLOG_FUNC_PT062",
+        "H2_ALG_EXLOG_FUNC_PT063",
+        "H2_ALG_EXLOG_FUNC_PT064",
+        "H2_ALG_EXLOG_FUNC_PT065",
+        "H2_ALG_EXLOG_FUNC_PT066"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_023",
+      "name": "그래프 위의 점 조건 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "point_on_graph"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "점이 그래프 위에 있다는 조건을 좌표 대입, 밑 조건, 미지수 식으로 바꾸지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C021",
+        "H2_ALG_EXLOG_FUNC_C022",
+        "H2_ALG_EXLOG_FUNC_C023",
+        "H2_ALG_EXLOG_FUNC_C024",
+        "H2_ALG_EXLOG_FUNC_C065"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT061",
+        "H2_ALG_EXLOG_FUNC_PT062",
+        "H2_ALG_EXLOG_FUNC_PT063",
+        "H2_ALG_EXLOG_FUNC_PT064",
+        "H2_ALG_EXLOG_FUNC_PT065",
+        "H2_ALG_EXLOG_FUNC_PT066",
+        "H2_ALG_EXLOG_FUNC_PT067"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_024",
+      "name": "그래프 위의 점 조건 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "point_on_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "점이 그래프 위에 있다는 조건을 좌표 대입, 밑 조건, 미지수 식으로 바꾸지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C021",
+        "H2_ALG_EXLOG_FUNC_C022",
+        "H2_ALG_EXLOG_FUNC_C023",
+        "H2_ALG_EXLOG_FUNC_C024"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT061",
+        "H2_ALG_EXLOG_FUNC_PT062",
+        "H2_ALG_EXLOG_FUNC_PT063",
+        "H2_ALG_EXLOG_FUNC_PT064",
+        "H2_ALG_EXLOG_FUNC_PT065",
+        "H2_ALG_EXLOG_FUNC_PT066"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_025",
+      "name": "지수·로그 역함수 관계 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_exponential_log"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "지수함수와 로그함수가 y=x에 대해 대칭이라는 점과 정의역·치역 교환을 연결하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C073",
+        "H2_ALG_EXLOG_FUNC_C074",
+        "H2_ALG_EXLOG_FUNC_C075",
+        "H2_ALG_EXLOG_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT217",
+        "H2_ALG_EXLOG_FUNC_PT218",
+        "H2_ALG_EXLOG_FUNC_PT219",
+        "H2_ALG_EXLOG_FUNC_PT220",
+        "H2_ALG_EXLOG_FUNC_PT221",
+        "H2_ALG_EXLOG_FUNC_PT222"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_026",
+      "name": "지수·로그 역함수 관계 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_exponential_log"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "지수함수와 로그함수가 y=x에 대해 대칭이라는 점과 정의역·치역 교환을 연결하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C073",
+        "H2_ALG_EXLOG_FUNC_C074",
+        "H2_ALG_EXLOG_FUNC_C075",
+        "H2_ALG_EXLOG_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT217",
+        "H2_ALG_EXLOG_FUNC_PT218",
+        "H2_ALG_EXLOG_FUNC_PT219",
+        "H2_ALG_EXLOG_FUNC_PT220",
+        "H2_ALG_EXLOG_FUNC_PT221",
+        "H2_ALG_EXLOG_FUNC_PT222",
+        "H2_ALG_EXLOG_FUNC_PT223"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_027",
+      "name": "지수·로그 역함수 관계 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_exponential_log"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "지수함수와 로그함수가 y=x에 대해 대칭이라는 점과 정의역·치역 교환을 연결하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C073",
+        "H2_ALG_EXLOG_FUNC_C074",
+        "H2_ALG_EXLOG_FUNC_C075",
+        "H2_ALG_EXLOG_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT217",
+        "H2_ALG_EXLOG_FUNC_PT218",
+        "H2_ALG_EXLOG_FUNC_PT219",
+        "H2_ALG_EXLOG_FUNC_PT220",
+        "H2_ALG_EXLOG_FUNC_PT221",
+        "H2_ALG_EXLOG_FUNC_PT222"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_028",
+      "name": "지수함수 최대·최소 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_max_min"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "치환, 지수부의 범위, 그래프 이동을 이용해 최댓값·최솟값을 판단하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C029",
+        "H2_ALG_EXLOG_FUNC_C030",
+        "H2_ALG_EXLOG_FUNC_C031",
+        "H2_ALG_EXLOG_FUNC_C032"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT085",
+        "H2_ALG_EXLOG_FUNC_PT086",
+        "H2_ALG_EXLOG_FUNC_PT087",
+        "H2_ALG_EXLOG_FUNC_PT088",
+        "H2_ALG_EXLOG_FUNC_PT089",
+        "H2_ALG_EXLOG_FUNC_PT090"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_029",
+      "name": "지수함수 최대·최소 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_max_min"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "치환, 지수부의 범위, 그래프 이동을 이용해 최댓값·최솟값을 판단하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C029",
+        "H2_ALG_EXLOG_FUNC_C030",
+        "H2_ALG_EXLOG_FUNC_C031",
+        "H2_ALG_EXLOG_FUNC_C032",
+        "H2_ALG_EXLOG_FUNC_C041"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT085",
+        "H2_ALG_EXLOG_FUNC_PT086",
+        "H2_ALG_EXLOG_FUNC_PT087",
+        "H2_ALG_EXLOG_FUNC_PT088",
+        "H2_ALG_EXLOG_FUNC_PT089",
+        "H2_ALG_EXLOG_FUNC_PT090",
+        "H2_ALG_EXLOG_FUNC_PT091"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_030",
+      "name": "지수함수 최대·최소 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_max_min"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "치환, 지수부의 범위, 그래프 이동을 이용해 최댓값·최솟값을 판단하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C029",
+        "H2_ALG_EXLOG_FUNC_C030",
+        "H2_ALG_EXLOG_FUNC_C031",
+        "H2_ALG_EXLOG_FUNC_C032"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT085",
+        "H2_ALG_EXLOG_FUNC_PT086",
+        "H2_ALG_EXLOG_FUNC_PT087",
+        "H2_ALG_EXLOG_FUNC_PT088",
+        "H2_ALG_EXLOG_FUNC_PT089",
+        "H2_ALG_EXLOG_FUNC_PT090"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_031",
+      "name": "로그함수 최대·최소 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "log_max_min"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "진수의 범위, 밑의 크기, 로그 그래프의 단조성을 이용해 최댓값·최솟값을 찾지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C077",
+        "H2_ALG_EXLOG_FUNC_C078",
+        "H2_ALG_EXLOG_FUNC_C079",
+        "H2_ALG_EXLOG_FUNC_C080"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT229",
+        "H2_ALG_EXLOG_FUNC_PT230",
+        "H2_ALG_EXLOG_FUNC_PT231",
+        "H2_ALG_EXLOG_FUNC_PT232",
+        "H2_ALG_EXLOG_FUNC_PT233",
+        "H2_ALG_EXLOG_FUNC_PT234"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_032",
+      "name": "로그함수 최대·최소 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "log_max_min"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "진수의 범위, 밑의 크기, 로그 그래프의 단조성을 이용해 최댓값·최솟값을 찾지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C077",
+        "H2_ALG_EXLOG_FUNC_C078",
+        "H2_ALG_EXLOG_FUNC_C079",
+        "H2_ALG_EXLOG_FUNC_C080",
+        "H2_ALG_EXLOG_FUNC_C093"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT229",
+        "H2_ALG_EXLOG_FUNC_PT230",
+        "H2_ALG_EXLOG_FUNC_PT231",
+        "H2_ALG_EXLOG_FUNC_PT232",
+        "H2_ALG_EXLOG_FUNC_PT233",
+        "H2_ALG_EXLOG_FUNC_PT234",
+        "H2_ALG_EXLOG_FUNC_PT235"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_033",
+      "name": "로그함수 최대·최소 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "log_max_min"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "진수의 범위, 밑의 크기, 로그 그래프의 단조성을 이용해 최댓값·최솟값을 찾지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C077",
+        "H2_ALG_EXLOG_FUNC_C078",
+        "H2_ALG_EXLOG_FUNC_C079",
+        "H2_ALG_EXLOG_FUNC_C080"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT229",
+        "H2_ALG_EXLOG_FUNC_PT230",
+        "H2_ALG_EXLOG_FUNC_PT231",
+        "H2_ALG_EXLOG_FUNC_PT232",
+        "H2_ALG_EXLOG_FUNC_PT233",
+        "H2_ALG_EXLOG_FUNC_PT234"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_034",
+      "name": "산술평균·기하평균 활용 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "am_gm"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "반복되는 지수·로그 꼴에서 AM-GM 적용 조건과 등호 성립 조건을 확인하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C041",
+        "H2_ALG_EXLOG_FUNC_C042",
+        "H2_ALG_EXLOG_FUNC_C043",
+        "H2_ALG_EXLOG_FUNC_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT121",
+        "H2_ALG_EXLOG_FUNC_PT122",
+        "H2_ALG_EXLOG_FUNC_PT123",
+        "H2_ALG_EXLOG_FUNC_PT124",
+        "H2_ALG_EXLOG_FUNC_PT125",
+        "H2_ALG_EXLOG_FUNC_PT126"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_035",
+      "name": "산술평균·기하평균 활용 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "am_gm"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "반복되는 지수·로그 꼴에서 AM-GM 적용 조건과 등호 성립 조건을 확인하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C041",
+        "H2_ALG_EXLOG_FUNC_C042",
+        "H2_ALG_EXLOG_FUNC_C043",
+        "H2_ALG_EXLOG_FUNC_C044",
+        "H2_ALG_EXLOG_FUNC_C093"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT121",
+        "H2_ALG_EXLOG_FUNC_PT122",
+        "H2_ALG_EXLOG_FUNC_PT123",
+        "H2_ALG_EXLOG_FUNC_PT124",
+        "H2_ALG_EXLOG_FUNC_PT125",
+        "H2_ALG_EXLOG_FUNC_PT126",
+        "H2_ALG_EXLOG_FUNC_PT127"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_036",
+      "name": "산술평균·기하평균 활용 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "am_gm"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "반복되는 지수·로그 꼴에서 AM-GM 적용 조건과 등호 성립 조건을 확인하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C041",
+        "H2_ALG_EXLOG_FUNC_C042",
+        "H2_ALG_EXLOG_FUNC_C043",
+        "H2_ALG_EXLOG_FUNC_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT121",
+        "H2_ALG_EXLOG_FUNC_PT122",
+        "H2_ALG_EXLOG_FUNC_PT123",
+        "H2_ALG_EXLOG_FUNC_PT124",
+        "H2_ALG_EXLOG_FUNC_PT125",
+        "H2_ALG_EXLOG_FUNC_PT126"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_037",
+      "name": "지수방정식 풀이 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "밑을 같게 만들거나 a^x 치환을 하는 기준을 잡지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C101",
+        "H2_ALG_EXLOG_FUNC_C102",
+        "H2_ALG_EXLOG_FUNC_C103",
+        "H2_ALG_EXLOG_FUNC_C104"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT301",
+        "H2_ALG_EXLOG_FUNC_PT302",
+        "H2_ALG_EXLOG_FUNC_PT303",
+        "H2_ALG_EXLOG_FUNC_PT304",
+        "H2_ALG_EXLOG_FUNC_PT305",
+        "H2_ALG_EXLOG_FUNC_PT306"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_038",
+      "name": "지수방정식 풀이 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_equation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "밑을 같게 만들거나 a^x 치환을 하는 기준을 잡지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C101",
+        "H2_ALG_EXLOG_FUNC_C102",
+        "H2_ALG_EXLOG_FUNC_C103",
+        "H2_ALG_EXLOG_FUNC_C104",
+        "H2_ALG_EXLOG_FUNC_C105"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT301",
+        "H2_ALG_EXLOG_FUNC_PT302",
+        "H2_ALG_EXLOG_FUNC_PT303",
+        "H2_ALG_EXLOG_FUNC_PT304",
+        "H2_ALG_EXLOG_FUNC_PT305",
+        "H2_ALG_EXLOG_FUNC_PT306",
+        "H2_ALG_EXLOG_FUNC_PT307"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_039",
+      "name": "지수방정식 풀이 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "밑을 같게 만들거나 a^x 치환을 하는 기준을 잡지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C101",
+        "H2_ALG_EXLOG_FUNC_C102",
+        "H2_ALG_EXLOG_FUNC_C103",
+        "H2_ALG_EXLOG_FUNC_C104"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT301",
+        "H2_ALG_EXLOG_FUNC_PT302",
+        "H2_ALG_EXLOG_FUNC_PT303",
+        "H2_ALG_EXLOG_FUNC_PT304",
+        "H2_ALG_EXLOG_FUNC_PT305",
+        "H2_ALG_EXLOG_FUNC_PT306"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_040",
+      "name": "지수부등식 풀이 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "밑의 크기, 치환 범위, 부등호 방향, 해집합 검산을 누락합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C125",
+        "H2_ALG_EXLOG_FUNC_C126",
+        "H2_ALG_EXLOG_FUNC_C127",
+        "H2_ALG_EXLOG_FUNC_C128"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT373",
+        "H2_ALG_EXLOG_FUNC_PT374",
+        "H2_ALG_EXLOG_FUNC_PT375",
+        "H2_ALG_EXLOG_FUNC_PT376",
+        "H2_ALG_EXLOG_FUNC_PT377",
+        "H2_ALG_EXLOG_FUNC_PT378"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_041",
+      "name": "지수부등식 풀이 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_inequality"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "밑의 크기, 치환 범위, 부등호 방향, 해집합 검산을 누락합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C125",
+        "H2_ALG_EXLOG_FUNC_C126",
+        "H2_ALG_EXLOG_FUNC_C127",
+        "H2_ALG_EXLOG_FUNC_C128",
+        "H2_ALG_EXLOG_FUNC_C129"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT373",
+        "H2_ALG_EXLOG_FUNC_PT374",
+        "H2_ALG_EXLOG_FUNC_PT375",
+        "H2_ALG_EXLOG_FUNC_PT376",
+        "H2_ALG_EXLOG_FUNC_PT377",
+        "H2_ALG_EXLOG_FUNC_PT378",
+        "H2_ALG_EXLOG_FUNC_PT379"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_042",
+      "name": "지수부등식 풀이 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "밑의 크기, 치환 범위, 부등호 방향, 해집합 검산을 누락합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C125",
+        "H2_ALG_EXLOG_FUNC_C126",
+        "H2_ALG_EXLOG_FUNC_C127",
+        "H2_ALG_EXLOG_FUNC_C128"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT373",
+        "H2_ALG_EXLOG_FUNC_PT374",
+        "H2_ALG_EXLOG_FUNC_PT375",
+        "H2_ALG_EXLOG_FUNC_PT376",
+        "H2_ALG_EXLOG_FUNC_PT377",
+        "H2_ALG_EXLOG_FUNC_PT378"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_043",
+      "name": "로그방정식 풀이 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "log_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "로그식을 지수식으로 바꿀 때 진수 조건과 밑 조건을 함께 확인하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C149",
+        "H2_ALG_EXLOG_FUNC_C150",
+        "H2_ALG_EXLOG_FUNC_C151",
+        "H2_ALG_EXLOG_FUNC_C152"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT445",
+        "H2_ALG_EXLOG_FUNC_PT446",
+        "H2_ALG_EXLOG_FUNC_PT447",
+        "H2_ALG_EXLOG_FUNC_PT448",
+        "H2_ALG_EXLOG_FUNC_PT449",
+        "H2_ALG_EXLOG_FUNC_PT450"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_044",
+      "name": "로그방정식 풀이 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "log_equation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그식을 지수식으로 바꿀 때 진수 조건과 밑 조건을 함께 확인하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C149",
+        "H2_ALG_EXLOG_FUNC_C150",
+        "H2_ALG_EXLOG_FUNC_C151",
+        "H2_ALG_EXLOG_FUNC_C152",
+        "H2_ALG_EXLOG_FUNC_C153"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT445",
+        "H2_ALG_EXLOG_FUNC_PT446",
+        "H2_ALG_EXLOG_FUNC_PT447",
+        "H2_ALG_EXLOG_FUNC_PT448",
+        "H2_ALG_EXLOG_FUNC_PT449",
+        "H2_ALG_EXLOG_FUNC_PT450",
+        "H2_ALG_EXLOG_FUNC_PT451"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_045",
+      "name": "로그방정식 풀이 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "log_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그식을 지수식으로 바꿀 때 진수 조건과 밑 조건을 함께 확인하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C149",
+        "H2_ALG_EXLOG_FUNC_C150",
+        "H2_ALG_EXLOG_FUNC_C151",
+        "H2_ALG_EXLOG_FUNC_C152"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT445",
+        "H2_ALG_EXLOG_FUNC_PT446",
+        "H2_ALG_EXLOG_FUNC_PT447",
+        "H2_ALG_EXLOG_FUNC_PT448",
+        "H2_ALG_EXLOG_FUNC_PT449",
+        "H2_ALG_EXLOG_FUNC_PT450"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_046",
+      "name": "로그부등식 풀이 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "log_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "로그부등식에서 진수 조건, 밑의 범위, 부등호 방향, 해의 교집합을 함께 처리하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C173",
+        "H2_ALG_EXLOG_FUNC_C174",
+        "H2_ALG_EXLOG_FUNC_C175",
+        "H2_ALG_EXLOG_FUNC_C176"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT517",
+        "H2_ALG_EXLOG_FUNC_PT518",
+        "H2_ALG_EXLOG_FUNC_PT519",
+        "H2_ALG_EXLOG_FUNC_PT520",
+        "H2_ALG_EXLOG_FUNC_PT521",
+        "H2_ALG_EXLOG_FUNC_PT522"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_047",
+      "name": "로그부등식 풀이 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "log_inequality"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그부등식에서 진수 조건, 밑의 범위, 부등호 방향, 해의 교집합을 함께 처리하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C173",
+        "H2_ALG_EXLOG_FUNC_C174",
+        "H2_ALG_EXLOG_FUNC_C175",
+        "H2_ALG_EXLOG_FUNC_C176",
+        "H2_ALG_EXLOG_FUNC_C177"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT517",
+        "H2_ALG_EXLOG_FUNC_PT518",
+        "H2_ALG_EXLOG_FUNC_PT519",
+        "H2_ALG_EXLOG_FUNC_PT520",
+        "H2_ALG_EXLOG_FUNC_PT521",
+        "H2_ALG_EXLOG_FUNC_PT522",
+        "H2_ALG_EXLOG_FUNC_PT523"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_048",
+      "name": "로그부등식 풀이 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "log_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그부등식에서 진수 조건, 밑의 범위, 부등호 방향, 해의 교집합을 함께 처리하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C173",
+        "H2_ALG_EXLOG_FUNC_C174",
+        "H2_ALG_EXLOG_FUNC_C175",
+        "H2_ALG_EXLOG_FUNC_C176"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT517",
+        "H2_ALG_EXLOG_FUNC_PT518",
+        "H2_ALG_EXLOG_FUNC_PT519",
+        "H2_ALG_EXLOG_FUNC_PT520",
+        "H2_ALG_EXLOG_FUNC_PT521",
+        "H2_ALG_EXLOG_FUNC_PT522"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_049",
+      "name": "항상 성립 조건 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "always_true_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "모든 x 또는 모든 양수 x에 대해 성립한다는 조건을 최대·최소 또는 해집합 포함 관계로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C141",
+        "H2_ALG_EXLOG_FUNC_C142",
+        "H2_ALG_EXLOG_FUNC_C143",
+        "H2_ALG_EXLOG_FUNC_C144"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT421",
+        "H2_ALG_EXLOG_FUNC_PT422",
+        "H2_ALG_EXLOG_FUNC_PT423",
+        "H2_ALG_EXLOG_FUNC_PT424",
+        "H2_ALG_EXLOG_FUNC_PT425",
+        "H2_ALG_EXLOG_FUNC_PT426"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_050",
+      "name": "항상 성립 조건 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "always_true_condition"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "모든 x 또는 모든 양수 x에 대해 성립한다는 조건을 최대·최소 또는 해집합 포함 관계로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C141",
+        "H2_ALG_EXLOG_FUNC_C142",
+        "H2_ALG_EXLOG_FUNC_C143",
+        "H2_ALG_EXLOG_FUNC_C144",
+        "H2_ALG_EXLOG_FUNC_C193"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT421",
+        "H2_ALG_EXLOG_FUNC_PT422",
+        "H2_ALG_EXLOG_FUNC_PT423",
+        "H2_ALG_EXLOG_FUNC_PT424",
+        "H2_ALG_EXLOG_FUNC_PT425",
+        "H2_ALG_EXLOG_FUNC_PT426",
+        "H2_ALG_EXLOG_FUNC_PT427"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_051",
+      "name": "항상 성립 조건 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "always_true_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "모든 x 또는 모든 양수 x에 대해 성립한다는 조건을 최대·최소 또는 해집합 포함 관계로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C141",
+        "H2_ALG_EXLOG_FUNC_C142",
+        "H2_ALG_EXLOG_FUNC_C143",
+        "H2_ALG_EXLOG_FUNC_C144"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT421",
+        "H2_ALG_EXLOG_FUNC_PT422",
+        "H2_ALG_EXLOG_FUNC_PT423",
+        "H2_ALG_EXLOG_FUNC_PT424",
+        "H2_ALG_EXLOG_FUNC_PT425",
+        "H2_ALG_EXLOG_FUNC_PT426"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_052",
+      "name": "지수 실생활 모델 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_exponential"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "증가·감소율, 시간, 초기값을 지수방정식 또는 지수부등식으로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C121",
+        "H2_ALG_EXLOG_FUNC_C122",
+        "H2_ALG_EXLOG_FUNC_C123",
+        "H2_ALG_EXLOG_FUNC_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT361",
+        "H2_ALG_EXLOG_FUNC_PT362",
+        "H2_ALG_EXLOG_FUNC_PT363",
+        "H2_ALG_EXLOG_FUNC_PT364",
+        "H2_ALG_EXLOG_FUNC_PT365",
+        "H2_ALG_EXLOG_FUNC_PT366"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_053",
+      "name": "지수 실생활 모델 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_exponential"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "증가·감소율, 시간, 초기값을 지수방정식 또는 지수부등식으로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C121",
+        "H2_ALG_EXLOG_FUNC_C122",
+        "H2_ALG_EXLOG_FUNC_C123",
+        "H2_ALG_EXLOG_FUNC_C124",
+        "H2_ALG_EXLOG_FUNC_C145"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT361",
+        "H2_ALG_EXLOG_FUNC_PT362",
+        "H2_ALG_EXLOG_FUNC_PT363",
+        "H2_ALG_EXLOG_FUNC_PT364",
+        "H2_ALG_EXLOG_FUNC_PT365",
+        "H2_ALG_EXLOG_FUNC_PT366",
+        "H2_ALG_EXLOG_FUNC_PT367"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_054",
+      "name": "지수 실생활 모델 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_exponential"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "증가·감소율, 시간, 초기값을 지수방정식 또는 지수부등식으로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C121",
+        "H2_ALG_EXLOG_FUNC_C122",
+        "H2_ALG_EXLOG_FUNC_C123",
+        "H2_ALG_EXLOG_FUNC_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT361",
+        "H2_ALG_EXLOG_FUNC_PT362",
+        "H2_ALG_EXLOG_FUNC_PT363",
+        "H2_ALG_EXLOG_FUNC_PT364",
+        "H2_ALG_EXLOG_FUNC_PT365",
+        "H2_ALG_EXLOG_FUNC_PT366"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_055",
+      "name": "로그 실생활 모델 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_log"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "로그 척도, 시간, 비교 조건을 로그방정식 또는 로그부등식으로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C169",
+        "H2_ALG_EXLOG_FUNC_C170",
+        "H2_ALG_EXLOG_FUNC_C171",
+        "H2_ALG_EXLOG_FUNC_C172"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT505",
+        "H2_ALG_EXLOG_FUNC_PT506",
+        "H2_ALG_EXLOG_FUNC_PT507",
+        "H2_ALG_EXLOG_FUNC_PT508",
+        "H2_ALG_EXLOG_FUNC_PT509",
+        "H2_ALG_EXLOG_FUNC_PT510"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_056",
+      "name": "로그 실생활 모델 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_log"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그 척도, 시간, 비교 조건을 로그방정식 또는 로그부등식으로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C169",
+        "H2_ALG_EXLOG_FUNC_C170",
+        "H2_ALG_EXLOG_FUNC_C171",
+        "H2_ALG_EXLOG_FUNC_C172",
+        "H2_ALG_EXLOG_FUNC_C201"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT505",
+        "H2_ALG_EXLOG_FUNC_PT506",
+        "H2_ALG_EXLOG_FUNC_PT507",
+        "H2_ALG_EXLOG_FUNC_PT508",
+        "H2_ALG_EXLOG_FUNC_PT509",
+        "H2_ALG_EXLOG_FUNC_PT510",
+        "H2_ALG_EXLOG_FUNC_PT511"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_057",
+      "name": "로그 실생활 모델 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_log"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그 척도, 시간, 비교 조건을 로그방정식 또는 로그부등식으로 번역하지 못합니다.",
+      "parent_message": "지수함수와 로그함수는 바로 계산으로 들어가지 말고, 먼저 밑의 범위·정의역·진수 조건·증가감소를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C169",
+        "H2_ALG_EXLOG_FUNC_C170",
+        "H2_ALG_EXLOG_FUNC_C171",
+        "H2_ALG_EXLOG_FUNC_C172"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT505",
+        "H2_ALG_EXLOG_FUNC_PT506",
+        "H2_ALG_EXLOG_FUNC_PT507",
+        "H2_ALG_EXLOG_FUNC_PT508",
+        "H2_ALG_EXLOG_FUNC_PT509",
+        "H2_ALG_EXLOG_FUNC_PT510"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_058",
+      "name": "지수함수의 뜻과 그래프 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "am_gm",
+          "asymptote",
+          "base_condition",
+          "base_direction",
+          "coordinate_condition",
+          "exponent_operation",
+          "exponential_function_definition",
+          "exponential_function_property",
+          "exponential_function_value",
+          "exponential_graph",
+          "exponential_graph_translation",
+          "exponential_max_min",
+          "exponential_quadratic_exponent",
+          "function_definition",
+          "graph_shape",
+          "max_min",
+          "monotonicity",
+          "number_comparison",
+          "parameter_condition",
+          "point_on_graph",
+          "quadratic_range",
+          "range_restriction",
+          "reflection",
+          "repeated_exponential_form",
+          "substitution",
+          "translation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "지수함수의 뜻과 그래프 유형에서 밑 조건, 정의역, 그래프, 방정식·부등식 해석을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 밑→정의역/진수→증가감소→계산→해 검산 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C001",
+        "H2_ALG_EXLOG_FUNC_C002",
+        "H2_ALG_EXLOG_FUNC_C003",
+        "H2_ALG_EXLOG_FUNC_C004",
+        "H2_ALG_EXLOG_FUNC_C005",
+        "H2_ALG_EXLOG_FUNC_C006"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT001",
+        "H2_ALG_EXLOG_FUNC_PT002",
+        "H2_ALG_EXLOG_FUNC_PT003",
+        "H2_ALG_EXLOG_FUNC_PT004",
+        "H2_ALG_EXLOG_FUNC_PT005",
+        "H2_ALG_EXLOG_FUNC_PT006",
+        "H2_ALG_EXLOG_FUNC_PT007",
+        "H2_ALG_EXLOG_FUNC_PT008",
+        "H2_ALG_EXLOG_FUNC_PT009",
+        "H2_ALG_EXLOG_FUNC_PT010"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_059",
+      "name": "로그함수의 뜻과 그래프 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "am_gm",
+          "asymptote",
+          "base_condition",
+          "base_direction",
+          "condition_translation",
+          "coordinate_condition",
+          "domain_condition",
+          "domain_range",
+          "domain_restriction",
+          "equation_transform",
+          "function_inverse",
+          "graph_symmetry",
+          "inverse_exponential_log",
+          "log_definition",
+          "log_function_definition",
+          "log_function_property",
+          "log_function_value",
+          "log_graph",
+          "log_graph_translation",
+          "log_in_exponent",
+          "log_max_min",
+          "log_property",
+          "log_quadratic_argument",
+          "max_min",
+          "number_comparison",
+          "piecewise_condition",
+          "point_on_graph",
+          "range_restriction",
+          "reflection",
+          "repeated_log_form",
+          "substitution"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그함수의 뜻과 그래프 유형에서 밑 조건, 정의역, 그래프, 방정식·부등식 해석을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 밑→정의역/진수→증가감소→계산→해 검산 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C045",
+        "H2_ALG_EXLOG_FUNC_C046",
+        "H2_ALG_EXLOG_FUNC_C047",
+        "H2_ALG_EXLOG_FUNC_C048",
+        "H2_ALG_EXLOG_FUNC_C049",
+        "H2_ALG_EXLOG_FUNC_C050"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT133",
+        "H2_ALG_EXLOG_FUNC_PT134",
+        "H2_ALG_EXLOG_FUNC_PT135",
+        "H2_ALG_EXLOG_FUNC_PT136",
+        "H2_ALG_EXLOG_FUNC_PT137",
+        "H2_ALG_EXLOG_FUNC_PT138",
+        "H2_ALG_EXLOG_FUNC_PT139",
+        "H2_ALG_EXLOG_FUNC_PT140",
+        "H2_ALG_EXLOG_FUNC_PT141",
+        "H2_ALG_EXLOG_FUNC_PT142"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_060",
+      "name": "지수함수의 활용 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "always_true_condition",
+          "base_with_variable",
+          "casework",
+          "condition_casework",
+          "condition_translation",
+          "exponent_compare",
+          "exponential_equation",
+          "exponential_equation_application",
+          "exponential_inequality",
+          "exponential_inequality_system",
+          "exponential_system",
+          "growth_decay",
+          "inequality_direction",
+          "inequality_model",
+          "model_translation",
+          "parameter_range",
+          "real_context",
+          "real_world_exponential",
+          "repeated_form",
+          "same_base",
+          "same_base_or_exponent",
+          "solution_intersection",
+          "solution_set",
+          "substitution",
+          "system_equation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "지수함수의 활용 유형에서 밑 조건, 정의역, 그래프, 방정식·부등식 해석을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 밑→정의역/진수→증가감소→계산→해 검산 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C101",
+        "H2_ALG_EXLOG_FUNC_C102",
+        "H2_ALG_EXLOG_FUNC_C103",
+        "H2_ALG_EXLOG_FUNC_C104",
+        "H2_ALG_EXLOG_FUNC_C105",
+        "H2_ALG_EXLOG_FUNC_C106"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT301",
+        "H2_ALG_EXLOG_FUNC_PT302",
+        "H2_ALG_EXLOG_FUNC_PT303",
+        "H2_ALG_EXLOG_FUNC_PT304",
+        "H2_ALG_EXLOG_FUNC_PT305",
+        "H2_ALG_EXLOG_FUNC_PT306",
+        "H2_ALG_EXLOG_FUNC_PT307",
+        "H2_ALG_EXLOG_FUNC_PT308",
+        "H2_ALG_EXLOG_FUNC_PT309",
+        "H2_ALG_EXLOG_FUNC_PT310"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_EXLOG_FUNC_RULE_061",
+      "name": "로그함수의 활용 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "always_true_condition",
+          "casework",
+          "condition_translation",
+          "domain_condition",
+          "equation_solving",
+          "exponential_transform",
+          "inequality_model",
+          "log_equation",
+          "log_equation_application",
+          "log_in_exponent",
+          "log_inequality",
+          "log_inequality_application",
+          "log_inequality_system",
+          "log_system",
+          "model_translation",
+          "nested_log",
+          "parameter_range",
+          "real_world_log",
+          "repeated_form",
+          "same_base",
+          "solution_check",
+          "solution_interpretation",
+          "solution_intersection",
+          "solution_set",
+          "substitution",
+          "system_equation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "로그함수의 활용 유형에서 밑 조건, 정의역, 그래프, 방정식·부등식 해석을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 밑→정의역/진수→증가감소→계산→해 검산 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_EXLOG_FUNC_C149",
+        "H2_ALG_EXLOG_FUNC_C150",
+        "H2_ALG_EXLOG_FUNC_C151",
+        "H2_ALG_EXLOG_FUNC_C152",
+        "H2_ALG_EXLOG_FUNC_C153",
+        "H2_ALG_EXLOG_FUNC_C154"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_EXLOG_FUNC_PT445",
+        "H2_ALG_EXLOG_FUNC_PT446",
+        "H2_ALG_EXLOG_FUNC_PT447",
+        "H2_ALG_EXLOG_FUNC_PT448",
+        "H2_ALG_EXLOG_FUNC_PT449",
+        "H2_ALG_EXLOG_FUNC_PT450",
+        "H2_ALG_EXLOG_FUNC_PT451",
+        "H2_ALG_EXLOG_FUNC_PT452",
+        "H2_ALG_EXLOG_FUNC_PT453",
+        "H2_ALG_EXLOG_FUNC_PT454"
+      ],
+      "severity": "high"
+    }
+  ]
+}

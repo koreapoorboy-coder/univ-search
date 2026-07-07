@@ -1,0 +1,36 @@
+{
+  "patch_id": "math_weakness_engine_h2_algebra_exp_log_function_core_patch_20260707",
+  "base_assumption": "math-weakness-engine.zip + prior patches through h1_common_math2_function_graph applied",
+  "unit_id": "H2_ALGEBRA_EXP_LOG_FUNCTION",
+  "unit_name": "지수함수와 로그함수",
+  "course": "대수",
+  "source_upload": "대수 지수함수와 로그함수.zip",
+  "source_image_count": 38,
+  "normalized_source_image_range": "2.png ~ 38.png",
+  "reference_images": [
+    "1.png"
+  ],
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "excluded_original_images": true,
+  "counts": {
+    "concepts_added": 204,
+    "raw_taxonomy_sections": 204,
+    "estimated_detail_types_from_source": 1300,
+    "problem_types": 612,
+    "edges": 387,
+    "diagnosis_rules": 61,
+    "remediation_items": 204,
+    "solution_templates": 10
+  },
+  "validation": [
+    "ZIP compression OK",
+    "JSON load OK",
+    "index registration OK",
+    "required unit files exist",
+    "concept reference integrity OK",
+    "problem_type/rule/remediation connection OK",
+    "source images excluded from patch ZIP"
+  ]
+}
