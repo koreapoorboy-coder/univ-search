@@ -1,0 +1,33 @@
+{
+  "patch_id": "math_weakness_engine_h2_algebra_trigonometric_function_core_patch_20260707",
+  "base_assumption": "math-weakness-engine.zip + prior patches through h2_algebra_exp_log_function applied",
+  "unit_id": "H2_ALGEBRA_TRIGONOMETRIC_FUNCTION",
+  "unit_name": "삼각함수",
+  "course": "대수",
+  "source_upload": "대수 삼각함수.zip",
+  "source_image_count": 40,
+  "normalized_source_image_range": "1.png ~ 40.png",
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "excluded_original_images": true,
+  "counts": {
+    "concepts_added": 224,
+    "raw_taxonomy_sections": 224,
+    "estimated_detail_types_from_source": 1776,
+    "problem_types": 672,
+    "edges": 427,
+    "diagnosis_rules": 78,
+    "remediation_items": 224,
+    "solution_templates": 10
+  },
+  "validation": [
+    "ZIP compression OK",
+    "JSON load OK",
+    "index registration OK",
+    "required unit files exist",
+    "concept reference integrity OK",
+    "problem_type/rule/remediation connection OK",
+    "source images excluded from patch ZIP"
+  ]
+}

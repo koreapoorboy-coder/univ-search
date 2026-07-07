@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.07-h2-algebra-exp-log-function-v1.0",
+  "version": "2026.07.07-h2-algebra-trigonometric-function-v1.0",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -343,6 +343,20 @@
       "sources": "data/sources/h2_algebra_exp_log_function.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/h2_algebra_exp_log_function.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/h2_algebra_exp_log_function.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "H2_ALGEBRA_TRIGONOMETRIC_FUNCTION",
+      "grade": "고2",
+      "course": "대수",
+      "unit_name": "삼각함수",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/h2_algebra_trigonometric_function.problem_types.v1.json",
+      "edges": "data/relations/h2_algebra_trigonometric_function.edges.v1.json",
+      "diagnosis_rules": "data/rules/h2_algebra_trigonometric_function.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/h2_algebra_trigonometric_function.remediation_map.v1.json",
+      "sources": "data/sources/h2_algebra_trigonometric_function.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/h2_algebra_trigonometric_function.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/h2_algebra_trigonometric_function.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [

@@ -1,0 +1,2374 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_ALGEBRA_TRIGONOMETRIC_FUNCTION",
+  "unit_name": "삼각함수",
+  "rule_count": 78,
+  "rules": [
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_001",
+      "name": "일반각 표현 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "general_angle"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "동경, 기준각, 주기 표현을 분리하지 못해 일반각을 정확히 쓰지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C001",
+        "H2_ALG_TRIG_FUNC_C002",
+        "H2_ALG_TRIG_FUNC_C003",
+        "H2_ALG_TRIG_FUNC_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT001",
+        "H2_ALG_TRIG_FUNC_PT002",
+        "H2_ALG_TRIG_FUNC_PT003",
+        "H2_ALG_TRIG_FUNC_PT004",
+        "H2_ALG_TRIG_FUNC_PT005",
+        "H2_ALG_TRIG_FUNC_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_002",
+      "name": "일반각 표현 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "general_angle"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "동경, 기준각, 주기 표현을 분리하지 못해 일반각을 정확히 쓰지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C001",
+        "H2_ALG_TRIG_FUNC_C002",
+        "H2_ALG_TRIG_FUNC_C003",
+        "H2_ALG_TRIG_FUNC_C004",
+        "H2_ALG_TRIG_FUNC_C005"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT001",
+        "H2_ALG_TRIG_FUNC_PT002",
+        "H2_ALG_TRIG_FUNC_PT003",
+        "H2_ALG_TRIG_FUNC_PT004",
+        "H2_ALG_TRIG_FUNC_PT005",
+        "H2_ALG_TRIG_FUNC_PT006",
+        "H2_ALG_TRIG_FUNC_PT007"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_003",
+      "name": "일반각 표현 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "general_angle"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "동경, 기준각, 주기 표현을 분리하지 못해 일반각을 정확히 쓰지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C001",
+        "H2_ALG_TRIG_FUNC_C002",
+        "H2_ALG_TRIG_FUNC_C003",
+        "H2_ALG_TRIG_FUNC_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT001",
+        "H2_ALG_TRIG_FUNC_PT002",
+        "H2_ALG_TRIG_FUNC_PT003",
+        "H2_ALG_TRIG_FUNC_PT004",
+        "H2_ALG_TRIG_FUNC_PT005",
+        "H2_ALG_TRIG_FUNC_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_004",
+      "name": "호도법 변환 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "radian_measure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도와 라디안을 변환할 때 π 단위와 중심각의 의미를 놓칩니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C013",
+        "H2_ALG_TRIG_FUNC_C014",
+        "H2_ALG_TRIG_FUNC_C015",
+        "H2_ALG_TRIG_FUNC_C016"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT037",
+        "H2_ALG_TRIG_FUNC_PT038",
+        "H2_ALG_TRIG_FUNC_PT039",
+        "H2_ALG_TRIG_FUNC_PT040",
+        "H2_ALG_TRIG_FUNC_PT041",
+        "H2_ALG_TRIG_FUNC_PT042"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_005",
+      "name": "호도법 변환 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "radian_measure"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "도와 라디안을 변환할 때 π 단위와 중심각의 의미를 놓칩니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C013",
+        "H2_ALG_TRIG_FUNC_C014",
+        "H2_ALG_TRIG_FUNC_C015",
+        "H2_ALG_TRIG_FUNC_C016"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT037",
+        "H2_ALG_TRIG_FUNC_PT038",
+        "H2_ALG_TRIG_FUNC_PT039",
+        "H2_ALG_TRIG_FUNC_PT040",
+        "H2_ALG_TRIG_FUNC_PT041",
+        "H2_ALG_TRIG_FUNC_PT042",
+        "H2_ALG_TRIG_FUNC_PT043"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_006",
+      "name": "호도법 변환 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "radian_measure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "도와 라디안을 변환할 때 π 단위와 중심각의 의미를 놓칩니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C013",
+        "H2_ALG_TRIG_FUNC_C014",
+        "H2_ALG_TRIG_FUNC_C015",
+        "H2_ALG_TRIG_FUNC_C016"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT037",
+        "H2_ALG_TRIG_FUNC_PT038",
+        "H2_ALG_TRIG_FUNC_PT039",
+        "H2_ALG_TRIG_FUNC_PT040",
+        "H2_ALG_TRIG_FUNC_PT041",
+        "H2_ALG_TRIG_FUNC_PT042"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_007",
+      "name": "호의 길이·부채꼴 넓이 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "arc_length"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "반지름과 중심각을 호도법으로 바꾸지 않고 공식을 적용합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C017",
+        "H2_ALG_TRIG_FUNC_C018",
+        "H2_ALG_TRIG_FUNC_C019",
+        "H2_ALG_TRIG_FUNC_C020"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT049",
+        "H2_ALG_TRIG_FUNC_PT050",
+        "H2_ALG_TRIG_FUNC_PT051",
+        "H2_ALG_TRIG_FUNC_PT052",
+        "H2_ALG_TRIG_FUNC_PT053",
+        "H2_ALG_TRIG_FUNC_PT054"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_008",
+      "name": "호의 길이·부채꼴 넓이 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "arc_length"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "반지름과 중심각을 호도법으로 바꾸지 않고 공식을 적용합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C017",
+        "H2_ALG_TRIG_FUNC_C018",
+        "H2_ALG_TRIG_FUNC_C019",
+        "H2_ALG_TRIG_FUNC_C020"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT049",
+        "H2_ALG_TRIG_FUNC_PT050",
+        "H2_ALG_TRIG_FUNC_PT051",
+        "H2_ALG_TRIG_FUNC_PT052",
+        "H2_ALG_TRIG_FUNC_PT053",
+        "H2_ALG_TRIG_FUNC_PT054",
+        "H2_ALG_TRIG_FUNC_PT055"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_009",
+      "name": "호의 길이·부채꼴 넓이 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "arc_length"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "반지름과 중심각을 호도법으로 바꾸지 않고 공식을 적용합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C017",
+        "H2_ALG_TRIG_FUNC_C018",
+        "H2_ALG_TRIG_FUNC_C019",
+        "H2_ALG_TRIG_FUNC_C020"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT049",
+        "H2_ALG_TRIG_FUNC_PT050",
+        "H2_ALG_TRIG_FUNC_PT051",
+        "H2_ALG_TRIG_FUNC_PT052",
+        "H2_ALG_TRIG_FUNC_PT053",
+        "H2_ALG_TRIG_FUNC_PT054"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_010",
+      "name": "삼각함수 정의 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "trig_function_definition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "좌표평면에서 sin, cos, tan을 좌표와 반지름의 비로 해석하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C025",
+        "H2_ALG_TRIG_FUNC_C026",
+        "H2_ALG_TRIG_FUNC_C027",
+        "H2_ALG_TRIG_FUNC_C028"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT073",
+        "H2_ALG_TRIG_FUNC_PT074",
+        "H2_ALG_TRIG_FUNC_PT075",
+        "H2_ALG_TRIG_FUNC_PT076",
+        "H2_ALG_TRIG_FUNC_PT077",
+        "H2_ALG_TRIG_FUNC_PT078"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_011",
+      "name": "삼각함수 정의 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "trig_function_definition"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "좌표평면에서 sin, cos, tan을 좌표와 반지름의 비로 해석하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C025",
+        "H2_ALG_TRIG_FUNC_C026",
+        "H2_ALG_TRIG_FUNC_C027",
+        "H2_ALG_TRIG_FUNC_C028"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT073",
+        "H2_ALG_TRIG_FUNC_PT074",
+        "H2_ALG_TRIG_FUNC_PT075",
+        "H2_ALG_TRIG_FUNC_PT076",
+        "H2_ALG_TRIG_FUNC_PT077",
+        "H2_ALG_TRIG_FUNC_PT078",
+        "H2_ALG_TRIG_FUNC_PT079"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_012",
+      "name": "삼각함수 정의 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "trig_function_definition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "좌표평면에서 sin, cos, tan을 좌표와 반지름의 비로 해석하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C025",
+        "H2_ALG_TRIG_FUNC_C026",
+        "H2_ALG_TRIG_FUNC_C027",
+        "H2_ALG_TRIG_FUNC_C028"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT073",
+        "H2_ALG_TRIG_FUNC_PT074",
+        "H2_ALG_TRIG_FUNC_PT075",
+        "H2_ALG_TRIG_FUNC_PT076",
+        "H2_ALG_TRIG_FUNC_PT077",
+        "H2_ALG_TRIG_FUNC_PT078"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_013",
+      "name": "사분면별 부호 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "quadrant_sign"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "각이 어느 사분면에 있는지와 sin, cos, tan의 부호를 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C033",
+        "H2_ALG_TRIG_FUNC_C034",
+        "H2_ALG_TRIG_FUNC_C035",
+        "H2_ALG_TRIG_FUNC_C036"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT097",
+        "H2_ALG_TRIG_FUNC_PT098",
+        "H2_ALG_TRIG_FUNC_PT099",
+        "H2_ALG_TRIG_FUNC_PT100",
+        "H2_ALG_TRIG_FUNC_PT101",
+        "H2_ALG_TRIG_FUNC_PT102"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_014",
+      "name": "사분면별 부호 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "quadrant_sign"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "각이 어느 사분면에 있는지와 sin, cos, tan의 부호를 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C033",
+        "H2_ALG_TRIG_FUNC_C034",
+        "H2_ALG_TRIG_FUNC_C035",
+        "H2_ALG_TRIG_FUNC_C036",
+        "H2_ALG_TRIG_FUNC_C041"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT097",
+        "H2_ALG_TRIG_FUNC_PT098",
+        "H2_ALG_TRIG_FUNC_PT099",
+        "H2_ALG_TRIG_FUNC_PT100",
+        "H2_ALG_TRIG_FUNC_PT101",
+        "H2_ALG_TRIG_FUNC_PT102",
+        "H2_ALG_TRIG_FUNC_PT103"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_015",
+      "name": "사분면별 부호 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "quadrant_sign"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "각이 어느 사분면에 있는지와 sin, cos, tan의 부호를 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C033",
+        "H2_ALG_TRIG_FUNC_C034",
+        "H2_ALG_TRIG_FUNC_C035",
+        "H2_ALG_TRIG_FUNC_C036"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT097",
+        "H2_ALG_TRIG_FUNC_PT098",
+        "H2_ALG_TRIG_FUNC_PT099",
+        "H2_ALG_TRIG_FUNC_PT100",
+        "H2_ALG_TRIG_FUNC_PT101",
+        "H2_ALG_TRIG_FUNC_PT102"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_016",
+      "name": "특수각 값 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "special_angle"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "30°, 45°, 60° 및 π 단위 특수각의 삼각함수 값을 빠르게 불러오지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C037",
+        "H2_ALG_TRIG_FUNC_C038",
+        "H2_ALG_TRIG_FUNC_C039",
+        "H2_ALG_TRIG_FUNC_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT109",
+        "H2_ALG_TRIG_FUNC_PT110",
+        "H2_ALG_TRIG_FUNC_PT111",
+        "H2_ALG_TRIG_FUNC_PT112",
+        "H2_ALG_TRIG_FUNC_PT113",
+        "H2_ALG_TRIG_FUNC_PT114"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_017",
+      "name": "특수각 값 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "special_angle"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "30°, 45°, 60° 및 π 단위 특수각의 삼각함수 값을 빠르게 불러오지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C037",
+        "H2_ALG_TRIG_FUNC_C038",
+        "H2_ALG_TRIG_FUNC_C039",
+        "H2_ALG_TRIG_FUNC_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT109",
+        "H2_ALG_TRIG_FUNC_PT110",
+        "H2_ALG_TRIG_FUNC_PT111",
+        "H2_ALG_TRIG_FUNC_PT112",
+        "H2_ALG_TRIG_FUNC_PT113",
+        "H2_ALG_TRIG_FUNC_PT114",
+        "H2_ALG_TRIG_FUNC_PT115"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_018",
+      "name": "특수각 값 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "special_angle"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "30°, 45°, 60° 및 π 단위 특수각의 삼각함수 값을 빠르게 불러오지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C037",
+        "H2_ALG_TRIG_FUNC_C038",
+        "H2_ALG_TRIG_FUNC_C039",
+        "H2_ALG_TRIG_FUNC_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT109",
+        "H2_ALG_TRIG_FUNC_PT110",
+        "H2_ALG_TRIG_FUNC_PT111",
+        "H2_ALG_TRIG_FUNC_PT112",
+        "H2_ALG_TRIG_FUNC_PT113",
+        "H2_ALG_TRIG_FUNC_PT114"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_019",
+      "name": "기본 관계식 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "pythagorean_identity"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "sin²x+cos²x=1, tan x=sin x/cos x 관계를 조건과 함께 쓰지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C045",
+        "H2_ALG_TRIG_FUNC_C046",
+        "H2_ALG_TRIG_FUNC_C047",
+        "H2_ALG_TRIG_FUNC_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT133",
+        "H2_ALG_TRIG_FUNC_PT134",
+        "H2_ALG_TRIG_FUNC_PT135",
+        "H2_ALG_TRIG_FUNC_PT136",
+        "H2_ALG_TRIG_FUNC_PT137",
+        "H2_ALG_TRIG_FUNC_PT138"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_020",
+      "name": "기본 관계식 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "pythagorean_identity"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "sin²x+cos²x=1, tan x=sin x/cos x 관계를 조건과 함께 쓰지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C045",
+        "H2_ALG_TRIG_FUNC_C046",
+        "H2_ALG_TRIG_FUNC_C047",
+        "H2_ALG_TRIG_FUNC_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT133",
+        "H2_ALG_TRIG_FUNC_PT134",
+        "H2_ALG_TRIG_FUNC_PT135",
+        "H2_ALG_TRIG_FUNC_PT136",
+        "H2_ALG_TRIG_FUNC_PT137",
+        "H2_ALG_TRIG_FUNC_PT138",
+        "H2_ALG_TRIG_FUNC_PT139"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_021",
+      "name": "기본 관계식 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "pythagorean_identity"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "sin²x+cos²x=1, tan x=sin x/cos x 관계를 조건과 함께 쓰지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C045",
+        "H2_ALG_TRIG_FUNC_C046",
+        "H2_ALG_TRIG_FUNC_C047",
+        "H2_ALG_TRIG_FUNC_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT133",
+        "H2_ALG_TRIG_FUNC_PT134",
+        "H2_ALG_TRIG_FUNC_PT135",
+        "H2_ALG_TRIG_FUNC_PT136",
+        "H2_ALG_TRIG_FUNC_PT137",
+        "H2_ALG_TRIG_FUNC_PT138"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_022",
+      "name": "각 변환 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "angle_transformation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "π±θ, 2π±θ, -θ의 삼각함수 값을 주기와 부호로 바꾸지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C057",
+        "H2_ALG_TRIG_FUNC_C058",
+        "H2_ALG_TRIG_FUNC_C059",
+        "H2_ALG_TRIG_FUNC_C060"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT169",
+        "H2_ALG_TRIG_FUNC_PT170",
+        "H2_ALG_TRIG_FUNC_PT171",
+        "H2_ALG_TRIG_FUNC_PT172",
+        "H2_ALG_TRIG_FUNC_PT173",
+        "H2_ALG_TRIG_FUNC_PT174"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_023",
+      "name": "각 변환 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "angle_transformation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "π±θ, 2π±θ, -θ의 삼각함수 값을 주기와 부호로 바꾸지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C057",
+        "H2_ALG_TRIG_FUNC_C058",
+        "H2_ALG_TRIG_FUNC_C059",
+        "H2_ALG_TRIG_FUNC_C060"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT169",
+        "H2_ALG_TRIG_FUNC_PT170",
+        "H2_ALG_TRIG_FUNC_PT171",
+        "H2_ALG_TRIG_FUNC_PT172",
+        "H2_ALG_TRIG_FUNC_PT173",
+        "H2_ALG_TRIG_FUNC_PT174",
+        "H2_ALG_TRIG_FUNC_PT175"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_024",
+      "name": "각 변환 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "angle_transformation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "π±θ, 2π±θ, -θ의 삼각함수 값을 주기와 부호로 바꾸지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C057",
+        "H2_ALG_TRIG_FUNC_C058",
+        "H2_ALG_TRIG_FUNC_C059",
+        "H2_ALG_TRIG_FUNC_C060"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT169",
+        "H2_ALG_TRIG_FUNC_PT170",
+        "H2_ALG_TRIG_FUNC_PT171",
+        "H2_ALG_TRIG_FUNC_PT172",
+        "H2_ALG_TRIG_FUNC_PT173",
+        "H2_ALG_TRIG_FUNC_PT174"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_025",
+      "name": "주기함수 판단 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "periodic_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "그래프나 식에서 주기를 읽고 해의 반복 구조로 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C065",
+        "H2_ALG_TRIG_FUNC_C066",
+        "H2_ALG_TRIG_FUNC_C067",
+        "H2_ALG_TRIG_FUNC_C068"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT193",
+        "H2_ALG_TRIG_FUNC_PT194",
+        "H2_ALG_TRIG_FUNC_PT195",
+        "H2_ALG_TRIG_FUNC_PT196",
+        "H2_ALG_TRIG_FUNC_PT197",
+        "H2_ALG_TRIG_FUNC_PT198"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_026",
+      "name": "주기함수 판단 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "periodic_function"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "그래프나 식에서 주기를 읽고 해의 반복 구조로 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C065",
+        "H2_ALG_TRIG_FUNC_C066",
+        "H2_ALG_TRIG_FUNC_C067",
+        "H2_ALG_TRIG_FUNC_C068"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT193",
+        "H2_ALG_TRIG_FUNC_PT194",
+        "H2_ALG_TRIG_FUNC_PT195",
+        "H2_ALG_TRIG_FUNC_PT196",
+        "H2_ALG_TRIG_FUNC_PT197",
+        "H2_ALG_TRIG_FUNC_PT198",
+        "H2_ALG_TRIG_FUNC_PT199"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_027",
+      "name": "주기함수 판단 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "periodic_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "그래프나 식에서 주기를 읽고 해의 반복 구조로 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C065",
+        "H2_ALG_TRIG_FUNC_C066",
+        "H2_ALG_TRIG_FUNC_C067",
+        "H2_ALG_TRIG_FUNC_C068"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT193",
+        "H2_ALG_TRIG_FUNC_PT194",
+        "H2_ALG_TRIG_FUNC_PT195",
+        "H2_ALG_TRIG_FUNC_PT196",
+        "H2_ALG_TRIG_FUNC_PT197",
+        "H2_ALG_TRIG_FUNC_PT198"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_028",
+      "name": "사인 그래프 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "sine_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "사인 그래프의 주기, 진폭, 대칭성, 최댓값·최솟값을 구분하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C069",
+        "H2_ALG_TRIG_FUNC_C070",
+        "H2_ALG_TRIG_FUNC_C071",
+        "H2_ALG_TRIG_FUNC_C072"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT205",
+        "H2_ALG_TRIG_FUNC_PT206",
+        "H2_ALG_TRIG_FUNC_PT207",
+        "H2_ALG_TRIG_FUNC_PT208",
+        "H2_ALG_TRIG_FUNC_PT209",
+        "H2_ALG_TRIG_FUNC_PT210"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_029",
+      "name": "사인 그래프 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "sine_graph"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "사인 그래프의 주기, 진폭, 대칭성, 최댓값·최솟값을 구분하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C069",
+        "H2_ALG_TRIG_FUNC_C070",
+        "H2_ALG_TRIG_FUNC_C071",
+        "H2_ALG_TRIG_FUNC_C072"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT205",
+        "H2_ALG_TRIG_FUNC_PT206",
+        "H2_ALG_TRIG_FUNC_PT207",
+        "H2_ALG_TRIG_FUNC_PT208",
+        "H2_ALG_TRIG_FUNC_PT209",
+        "H2_ALG_TRIG_FUNC_PT210",
+        "H2_ALG_TRIG_FUNC_PT211"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_030",
+      "name": "사인 그래프 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "sine_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "사인 그래프의 주기, 진폭, 대칭성, 최댓값·최솟값을 구분하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C069",
+        "H2_ALG_TRIG_FUNC_C070",
+        "H2_ALG_TRIG_FUNC_C071",
+        "H2_ALG_TRIG_FUNC_C072"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT205",
+        "H2_ALG_TRIG_FUNC_PT206",
+        "H2_ALG_TRIG_FUNC_PT207",
+        "H2_ALG_TRIG_FUNC_PT208",
+        "H2_ALG_TRIG_FUNC_PT209",
+        "H2_ALG_TRIG_FUNC_PT210"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_031",
+      "name": "코사인 그래프 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "cosine_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "코사인 그래프의 시작점, 주기, 진폭, 대칭성을 사인 그래프와 혼동합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C073",
+        "H2_ALG_TRIG_FUNC_C074",
+        "H2_ALG_TRIG_FUNC_C075",
+        "H2_ALG_TRIG_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT217",
+        "H2_ALG_TRIG_FUNC_PT218",
+        "H2_ALG_TRIG_FUNC_PT219",
+        "H2_ALG_TRIG_FUNC_PT220",
+        "H2_ALG_TRIG_FUNC_PT221",
+        "H2_ALG_TRIG_FUNC_PT222"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_032",
+      "name": "코사인 그래프 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "cosine_graph"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "코사인 그래프의 시작점, 주기, 진폭, 대칭성을 사인 그래프와 혼동합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C073",
+        "H2_ALG_TRIG_FUNC_C074",
+        "H2_ALG_TRIG_FUNC_C075",
+        "H2_ALG_TRIG_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT217",
+        "H2_ALG_TRIG_FUNC_PT218",
+        "H2_ALG_TRIG_FUNC_PT219",
+        "H2_ALG_TRIG_FUNC_PT220",
+        "H2_ALG_TRIG_FUNC_PT221",
+        "H2_ALG_TRIG_FUNC_PT222",
+        "H2_ALG_TRIG_FUNC_PT223"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_033",
+      "name": "코사인 그래프 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "cosine_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "코사인 그래프의 시작점, 주기, 진폭, 대칭성을 사인 그래프와 혼동합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C073",
+        "H2_ALG_TRIG_FUNC_C074",
+        "H2_ALG_TRIG_FUNC_C075",
+        "H2_ALG_TRIG_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT217",
+        "H2_ALG_TRIG_FUNC_PT218",
+        "H2_ALG_TRIG_FUNC_PT219",
+        "H2_ALG_TRIG_FUNC_PT220",
+        "H2_ALG_TRIG_FUNC_PT221",
+        "H2_ALG_TRIG_FUNC_PT222"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_034",
+      "name": "탄젠트 그래프 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "탄젠트 그래프의 주기와 점근선을 누락합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C077",
+        "H2_ALG_TRIG_FUNC_C078",
+        "H2_ALG_TRIG_FUNC_C079",
+        "H2_ALG_TRIG_FUNC_C080"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT229",
+        "H2_ALG_TRIG_FUNC_PT230",
+        "H2_ALG_TRIG_FUNC_PT231",
+        "H2_ALG_TRIG_FUNC_PT232",
+        "H2_ALG_TRIG_FUNC_PT233",
+        "H2_ALG_TRIG_FUNC_PT234"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_035",
+      "name": "탄젠트 그래프 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_graph"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "탄젠트 그래프의 주기와 점근선을 누락합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C077",
+        "H2_ALG_TRIG_FUNC_C078",
+        "H2_ALG_TRIG_FUNC_C079",
+        "H2_ALG_TRIG_FUNC_C080"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT229",
+        "H2_ALG_TRIG_FUNC_PT230",
+        "H2_ALG_TRIG_FUNC_PT231",
+        "H2_ALG_TRIG_FUNC_PT232",
+        "H2_ALG_TRIG_FUNC_PT233",
+        "H2_ALG_TRIG_FUNC_PT234",
+        "H2_ALG_TRIG_FUNC_PT235"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_036",
+      "name": "탄젠트 그래프 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "탄젠트 그래프의 주기와 점근선을 누락합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C077",
+        "H2_ALG_TRIG_FUNC_C078",
+        "H2_ALG_TRIG_FUNC_C079",
+        "H2_ALG_TRIG_FUNC_C080"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT229",
+        "H2_ALG_TRIG_FUNC_PT230",
+        "H2_ALG_TRIG_FUNC_PT231",
+        "H2_ALG_TRIG_FUNC_PT232",
+        "H2_ALG_TRIG_FUNC_PT233",
+        "H2_ALG_TRIG_FUNC_PT234"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_037",
+      "name": "삼각함수 그래프 변환 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "graph_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "진폭, 주기, 평행이동, 대칭이동을 식의 계수와 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C093",
+        "H2_ALG_TRIG_FUNC_C094",
+        "H2_ALG_TRIG_FUNC_C095",
+        "H2_ALG_TRIG_FUNC_C096"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT277",
+        "H2_ALG_TRIG_FUNC_PT278",
+        "H2_ALG_TRIG_FUNC_PT279",
+        "H2_ALG_TRIG_FUNC_PT280",
+        "H2_ALG_TRIG_FUNC_PT281",
+        "H2_ALG_TRIG_FUNC_PT282"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_038",
+      "name": "삼각함수 그래프 변환 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "graph_transform"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "진폭, 주기, 평행이동, 대칭이동을 식의 계수와 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C093",
+        "H2_ALG_TRIG_FUNC_C094",
+        "H2_ALG_TRIG_FUNC_C095",
+        "H2_ALG_TRIG_FUNC_C096",
+        "H2_ALG_TRIG_FUNC_C097"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT277",
+        "H2_ALG_TRIG_FUNC_PT278",
+        "H2_ALG_TRIG_FUNC_PT279",
+        "H2_ALG_TRIG_FUNC_PT280",
+        "H2_ALG_TRIG_FUNC_PT281",
+        "H2_ALG_TRIG_FUNC_PT282",
+        "H2_ALG_TRIG_FUNC_PT283"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_039",
+      "name": "삼각함수 그래프 변환 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "graph_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "진폭, 주기, 평행이동, 대칭이동을 식의 계수와 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C093",
+        "H2_ALG_TRIG_FUNC_C094",
+        "H2_ALG_TRIG_FUNC_C095",
+        "H2_ALG_TRIG_FUNC_C096"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT277",
+        "H2_ALG_TRIG_FUNC_PT278",
+        "H2_ALG_TRIG_FUNC_PT279",
+        "H2_ALG_TRIG_FUNC_PT280",
+        "H2_ALG_TRIG_FUNC_PT281",
+        "H2_ALG_TRIG_FUNC_PT282"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_040",
+      "name": "삼각함수 최대·최소 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "trig_max_min"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "그래프의 범위와 계수 변화를 이용해 최댓값·최솟값을 판단하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C101",
+        "H2_ALG_TRIG_FUNC_C102",
+        "H2_ALG_TRIG_FUNC_C103",
+        "H2_ALG_TRIG_FUNC_C104"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT301",
+        "H2_ALG_TRIG_FUNC_PT302",
+        "H2_ALG_TRIG_FUNC_PT303",
+        "H2_ALG_TRIG_FUNC_PT304",
+        "H2_ALG_TRIG_FUNC_PT305",
+        "H2_ALG_TRIG_FUNC_PT306"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_041",
+      "name": "삼각함수 최대·최소 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "trig_max_min"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "그래프의 범위와 계수 변화를 이용해 최댓값·최솟값을 판단하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C101",
+        "H2_ALG_TRIG_FUNC_C102",
+        "H2_ALG_TRIG_FUNC_C103",
+        "H2_ALG_TRIG_FUNC_C104"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT301",
+        "H2_ALG_TRIG_FUNC_PT302",
+        "H2_ALG_TRIG_FUNC_PT303",
+        "H2_ALG_TRIG_FUNC_PT304",
+        "H2_ALG_TRIG_FUNC_PT305",
+        "H2_ALG_TRIG_FUNC_PT306",
+        "H2_ALG_TRIG_FUNC_PT307"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_042",
+      "name": "삼각함수 최대·최소 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "trig_max_min"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "그래프의 범위와 계수 변화를 이용해 최댓값·최솟값을 판단하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C101",
+        "H2_ALG_TRIG_FUNC_C102",
+        "H2_ALG_TRIG_FUNC_C103",
+        "H2_ALG_TRIG_FUNC_C104"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT301",
+        "H2_ALG_TRIG_FUNC_PT302",
+        "H2_ALG_TRIG_FUNC_PT303",
+        "H2_ALG_TRIG_FUNC_PT304",
+        "H2_ALG_TRIG_FUNC_PT305",
+        "H2_ALG_TRIG_FUNC_PT306"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_043",
+      "name": "삼각방정식 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "trig_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "기본해와 주기를 이용해 구간 안의 모든 해를 찾지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C113",
+        "H2_ALG_TRIG_FUNC_C114",
+        "H2_ALG_TRIG_FUNC_C115",
+        "H2_ALG_TRIG_FUNC_C116"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT337",
+        "H2_ALG_TRIG_FUNC_PT338",
+        "H2_ALG_TRIG_FUNC_PT339",
+        "H2_ALG_TRIG_FUNC_PT340",
+        "H2_ALG_TRIG_FUNC_PT341",
+        "H2_ALG_TRIG_FUNC_PT342"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_044",
+      "name": "삼각방정식 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "trig_equation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "기본해와 주기를 이용해 구간 안의 모든 해를 찾지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C113",
+        "H2_ALG_TRIG_FUNC_C114",
+        "H2_ALG_TRIG_FUNC_C115",
+        "H2_ALG_TRIG_FUNC_C116",
+        "H2_ALG_TRIG_FUNC_C133"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT337",
+        "H2_ALG_TRIG_FUNC_PT338",
+        "H2_ALG_TRIG_FUNC_PT339",
+        "H2_ALG_TRIG_FUNC_PT340",
+        "H2_ALG_TRIG_FUNC_PT341",
+        "H2_ALG_TRIG_FUNC_PT342",
+        "H2_ALG_TRIG_FUNC_PT343"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_045",
+      "name": "삼각방정식 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "trig_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "기본해와 주기를 이용해 구간 안의 모든 해를 찾지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C113",
+        "H2_ALG_TRIG_FUNC_C114",
+        "H2_ALG_TRIG_FUNC_C115",
+        "H2_ALG_TRIG_FUNC_C116"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT337",
+        "H2_ALG_TRIG_FUNC_PT338",
+        "H2_ALG_TRIG_FUNC_PT339",
+        "H2_ALG_TRIG_FUNC_PT340",
+        "H2_ALG_TRIG_FUNC_PT341",
+        "H2_ALG_TRIG_FUNC_PT342"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_046",
+      "name": "삼각부등식 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "trig_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "그래프에서 부등식을 만족하는 구간을 읽고 주기적으로 확장하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C141",
+        "H2_ALG_TRIG_FUNC_C142",
+        "H2_ALG_TRIG_FUNC_C143",
+        "H2_ALG_TRIG_FUNC_C144"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT421",
+        "H2_ALG_TRIG_FUNC_PT422",
+        "H2_ALG_TRIG_FUNC_PT423",
+        "H2_ALG_TRIG_FUNC_PT424",
+        "H2_ALG_TRIG_FUNC_PT425",
+        "H2_ALG_TRIG_FUNC_PT426"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_047",
+      "name": "삼각부등식 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "trig_inequality"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "그래프에서 부등식을 만족하는 구간을 읽고 주기적으로 확장하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C141",
+        "H2_ALG_TRIG_FUNC_C142",
+        "H2_ALG_TRIG_FUNC_C143",
+        "H2_ALG_TRIG_FUNC_C144",
+        "H2_ALG_TRIG_FUNC_C145"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT421",
+        "H2_ALG_TRIG_FUNC_PT422",
+        "H2_ALG_TRIG_FUNC_PT423",
+        "H2_ALG_TRIG_FUNC_PT424",
+        "H2_ALG_TRIG_FUNC_PT425",
+        "H2_ALG_TRIG_FUNC_PT426",
+        "H2_ALG_TRIG_FUNC_PT427"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_048",
+      "name": "삼각부등식 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "trig_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "그래프에서 부등식을 만족하는 구간을 읽고 주기적으로 확장하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C141",
+        "H2_ALG_TRIG_FUNC_C142",
+        "H2_ALG_TRIG_FUNC_C143",
+        "H2_ALG_TRIG_FUNC_C144"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT421",
+        "H2_ALG_TRIG_FUNC_PT422",
+        "H2_ALG_TRIG_FUNC_PT423",
+        "H2_ALG_TRIG_FUNC_PT424",
+        "H2_ALG_TRIG_FUNC_PT425",
+        "H2_ALG_TRIG_FUNC_PT426"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_049",
+      "name": "해의 개수 판단 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "solution_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "구간, 끝점 포함 여부, 그래프 교점의 개수를 끝까지 세지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C113",
+        "H2_ALG_TRIG_FUNC_C114",
+        "H2_ALG_TRIG_FUNC_C115",
+        "H2_ALG_TRIG_FUNC_C116"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT337",
+        "H2_ALG_TRIG_FUNC_PT338",
+        "H2_ALG_TRIG_FUNC_PT339",
+        "H2_ALG_TRIG_FUNC_PT340",
+        "H2_ALG_TRIG_FUNC_PT341",
+        "H2_ALG_TRIG_FUNC_PT342"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_050",
+      "name": "해의 개수 판단 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "solution_count"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "구간, 끝점 포함 여부, 그래프 교점의 개수를 끝까지 세지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C113",
+        "H2_ALG_TRIG_FUNC_C114",
+        "H2_ALG_TRIG_FUNC_C115",
+        "H2_ALG_TRIG_FUNC_C116",
+        "H2_ALG_TRIG_FUNC_C129"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT337",
+        "H2_ALG_TRIG_FUNC_PT338",
+        "H2_ALG_TRIG_FUNC_PT339",
+        "H2_ALG_TRIG_FUNC_PT340",
+        "H2_ALG_TRIG_FUNC_PT341",
+        "H2_ALG_TRIG_FUNC_PT342",
+        "H2_ALG_TRIG_FUNC_PT343"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_051",
+      "name": "해의 개수 판단 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "solution_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "구간, 끝점 포함 여부, 그래프 교점의 개수를 끝까지 세지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C113",
+        "H2_ALG_TRIG_FUNC_C114",
+        "H2_ALG_TRIG_FUNC_C115",
+        "H2_ALG_TRIG_FUNC_C116"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT337",
+        "H2_ALG_TRIG_FUNC_PT338",
+        "H2_ALG_TRIG_FUNC_PT339",
+        "H2_ALG_TRIG_FUNC_PT340",
+        "H2_ALG_TRIG_FUNC_PT341",
+        "H2_ALG_TRIG_FUNC_PT342"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_052",
+      "name": "삼각함수 모델링 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "trig_modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "주기 현상을 진폭, 주기, 평행이동을 가진 삼각함수 식으로 번역하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C153",
+        "H2_ALG_TRIG_FUNC_C154",
+        "H2_ALG_TRIG_FUNC_C155",
+        "H2_ALG_TRIG_FUNC_C156"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT457",
+        "H2_ALG_TRIG_FUNC_PT458",
+        "H2_ALG_TRIG_FUNC_PT459",
+        "H2_ALG_TRIG_FUNC_PT460",
+        "H2_ALG_TRIG_FUNC_PT461",
+        "H2_ALG_TRIG_FUNC_PT462"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_053",
+      "name": "삼각함수 모델링 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "trig_modeling"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "주기 현상을 진폭, 주기, 평행이동을 가진 삼각함수 식으로 번역하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C153",
+        "H2_ALG_TRIG_FUNC_C154",
+        "H2_ALG_TRIG_FUNC_C155",
+        "H2_ALG_TRIG_FUNC_C156"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT457",
+        "H2_ALG_TRIG_FUNC_PT458",
+        "H2_ALG_TRIG_FUNC_PT459",
+        "H2_ALG_TRIG_FUNC_PT460",
+        "H2_ALG_TRIG_FUNC_PT461",
+        "H2_ALG_TRIG_FUNC_PT462",
+        "H2_ALG_TRIG_FUNC_PT463"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_054",
+      "name": "삼각함수 모델링 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "trig_modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "주기 현상을 진폭, 주기, 평행이동을 가진 삼각함수 식으로 번역하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C153",
+        "H2_ALG_TRIG_FUNC_C154",
+        "H2_ALG_TRIG_FUNC_C155",
+        "H2_ALG_TRIG_FUNC_C156"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT457",
+        "H2_ALG_TRIG_FUNC_PT458",
+        "H2_ALG_TRIG_FUNC_PT459",
+        "H2_ALG_TRIG_FUNC_PT460",
+        "H2_ALG_TRIG_FUNC_PT461",
+        "H2_ALG_TRIG_FUNC_PT462"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_055",
+      "name": "사인법칙 적용 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "sine_rule"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "대응하는 변과 각, 외접원의 반지름 조건을 정확히 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C177",
+        "H2_ALG_TRIG_FUNC_C178",
+        "H2_ALG_TRIG_FUNC_C179",
+        "H2_ALG_TRIG_FUNC_C180"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT529",
+        "H2_ALG_TRIG_FUNC_PT530",
+        "H2_ALG_TRIG_FUNC_PT531",
+        "H2_ALG_TRIG_FUNC_PT532",
+        "H2_ALG_TRIG_FUNC_PT533",
+        "H2_ALG_TRIG_FUNC_PT534"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_056",
+      "name": "사인법칙 적용 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "sine_rule"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "대응하는 변과 각, 외접원의 반지름 조건을 정확히 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C177",
+        "H2_ALG_TRIG_FUNC_C178",
+        "H2_ALG_TRIG_FUNC_C179",
+        "H2_ALG_TRIG_FUNC_C180",
+        "H2_ALG_TRIG_FUNC_C181"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT529",
+        "H2_ALG_TRIG_FUNC_PT530",
+        "H2_ALG_TRIG_FUNC_PT531",
+        "H2_ALG_TRIG_FUNC_PT532",
+        "H2_ALG_TRIG_FUNC_PT533",
+        "H2_ALG_TRIG_FUNC_PT534",
+        "H2_ALG_TRIG_FUNC_PT535"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_057",
+      "name": "사인법칙 적용 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "sine_rule"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "대응하는 변과 각, 외접원의 반지름 조건을 정확히 연결하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C177",
+        "H2_ALG_TRIG_FUNC_C178",
+        "H2_ALG_TRIG_FUNC_C179",
+        "H2_ALG_TRIG_FUNC_C180"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT529",
+        "H2_ALG_TRIG_FUNC_PT530",
+        "H2_ALG_TRIG_FUNC_PT531",
+        "H2_ALG_TRIG_FUNC_PT532",
+        "H2_ALG_TRIG_FUNC_PT533",
+        "H2_ALG_TRIG_FUNC_PT534"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_058",
+      "name": "코사인법칙 적용 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "cosine_rule"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "세 변과 끼인각 조건을 구분하지 못해 코사인법칙을 잘못 세웁니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C189",
+        "H2_ALG_TRIG_FUNC_C190",
+        "H2_ALG_TRIG_FUNC_C191",
+        "H2_ALG_TRIG_FUNC_C192"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT565",
+        "H2_ALG_TRIG_FUNC_PT566",
+        "H2_ALG_TRIG_FUNC_PT567",
+        "H2_ALG_TRIG_FUNC_PT568",
+        "H2_ALG_TRIG_FUNC_PT569",
+        "H2_ALG_TRIG_FUNC_PT570"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_059",
+      "name": "코사인법칙 적용 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "cosine_rule"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "세 변과 끼인각 조건을 구분하지 못해 코사인법칙을 잘못 세웁니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C189",
+        "H2_ALG_TRIG_FUNC_C190",
+        "H2_ALG_TRIG_FUNC_C191",
+        "H2_ALG_TRIG_FUNC_C192",
+        "H2_ALG_TRIG_FUNC_C193"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT565",
+        "H2_ALG_TRIG_FUNC_PT566",
+        "H2_ALG_TRIG_FUNC_PT567",
+        "H2_ALG_TRIG_FUNC_PT568",
+        "H2_ALG_TRIG_FUNC_PT569",
+        "H2_ALG_TRIG_FUNC_PT570",
+        "H2_ALG_TRIG_FUNC_PT571"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_060",
+      "name": "코사인법칙 적용 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "cosine_rule"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "세 변과 끼인각 조건을 구분하지 못해 코사인법칙을 잘못 세웁니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C189",
+        "H2_ALG_TRIG_FUNC_C190",
+        "H2_ALG_TRIG_FUNC_C191",
+        "H2_ALG_TRIG_FUNC_C192"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT565",
+        "H2_ALG_TRIG_FUNC_PT566",
+        "H2_ALG_TRIG_FUNC_PT567",
+        "H2_ALG_TRIG_FUNC_PT568",
+        "H2_ALG_TRIG_FUNC_PT569",
+        "H2_ALG_TRIG_FUNC_PT570"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_061",
+      "name": "삼각형 넓이 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "triangle_area"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 변과 끼인각을 이용한 넓이 공식과 높이 조건을 구분하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C201",
+        "H2_ALG_TRIG_FUNC_C202",
+        "H2_ALG_TRIG_FUNC_C203",
+        "H2_ALG_TRIG_FUNC_C204"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT601",
+        "H2_ALG_TRIG_FUNC_PT602",
+        "H2_ALG_TRIG_FUNC_PT603",
+        "H2_ALG_TRIG_FUNC_PT604",
+        "H2_ALG_TRIG_FUNC_PT605",
+        "H2_ALG_TRIG_FUNC_PT606"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_062",
+      "name": "삼각형 넓이 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "triangle_area"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "두 변과 끼인각을 이용한 넓이 공식과 높이 조건을 구분하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C201",
+        "H2_ALG_TRIG_FUNC_C202",
+        "H2_ALG_TRIG_FUNC_C203",
+        "H2_ALG_TRIG_FUNC_C204",
+        "H2_ALG_TRIG_FUNC_C205"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT601",
+        "H2_ALG_TRIG_FUNC_PT602",
+        "H2_ALG_TRIG_FUNC_PT603",
+        "H2_ALG_TRIG_FUNC_PT604",
+        "H2_ALG_TRIG_FUNC_PT605",
+        "H2_ALG_TRIG_FUNC_PT606",
+        "H2_ALG_TRIG_FUNC_PT607"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_063",
+      "name": "삼각형 넓이 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "triangle_area"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "두 변과 끼인각을 이용한 넓이 공식과 높이 조건을 구분하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C201",
+        "H2_ALG_TRIG_FUNC_C202",
+        "H2_ALG_TRIG_FUNC_C203",
+        "H2_ALG_TRIG_FUNC_C204"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT601",
+        "H2_ALG_TRIG_FUNC_PT602",
+        "H2_ALG_TRIG_FUNC_PT603",
+        "H2_ALG_TRIG_FUNC_PT604",
+        "H2_ALG_TRIG_FUNC_PT605",
+        "H2_ALG_TRIG_FUNC_PT606"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_064",
+      "name": "도형 활용 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "보조선을 긋고 삼각형 단위로 조건을 분리하는 과정이 약합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C209",
+        "H2_ALG_TRIG_FUNC_C210",
+        "H2_ALG_TRIG_FUNC_C211",
+        "H2_ALG_TRIG_FUNC_C212"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT625",
+        "H2_ALG_TRIG_FUNC_PT626",
+        "H2_ALG_TRIG_FUNC_PT627",
+        "H2_ALG_TRIG_FUNC_PT628",
+        "H2_ALG_TRIG_FUNC_PT629",
+        "H2_ALG_TRIG_FUNC_PT630"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_065",
+      "name": "도형 활용 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_application"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "보조선을 긋고 삼각형 단위로 조건을 분리하는 과정이 약합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C209",
+        "H2_ALG_TRIG_FUNC_C210",
+        "H2_ALG_TRIG_FUNC_C211",
+        "H2_ALG_TRIG_FUNC_C212",
+        "H2_ALG_TRIG_FUNC_C213"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT625",
+        "H2_ALG_TRIG_FUNC_PT626",
+        "H2_ALG_TRIG_FUNC_PT627",
+        "H2_ALG_TRIG_FUNC_PT628",
+        "H2_ALG_TRIG_FUNC_PT629",
+        "H2_ALG_TRIG_FUNC_PT630",
+        "H2_ALG_TRIG_FUNC_PT631"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_066",
+      "name": "도형 활용 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "보조선을 긋고 삼각형 단위로 조건을 분리하는 과정이 약합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C209",
+        "H2_ALG_TRIG_FUNC_C210",
+        "H2_ALG_TRIG_FUNC_C211",
+        "H2_ALG_TRIG_FUNC_C212"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT625",
+        "H2_ALG_TRIG_FUNC_PT626",
+        "H2_ALG_TRIG_FUNC_PT627",
+        "H2_ALG_TRIG_FUNC_PT628",
+        "H2_ALG_TRIG_FUNC_PT629",
+        "H2_ALG_TRIG_FUNC_PT630"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_067",
+      "name": "실생활 거리·높이 모델 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_geometry"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "거리, 높이, 각도 정보를 삼각형 조건으로 번역하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C221",
+        "H2_ALG_TRIG_FUNC_C222",
+        "H2_ALG_TRIG_FUNC_C223",
+        "H2_ALG_TRIG_FUNC_C224"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT661",
+        "H2_ALG_TRIG_FUNC_PT662",
+        "H2_ALG_TRIG_FUNC_PT663",
+        "H2_ALG_TRIG_FUNC_PT664",
+        "H2_ALG_TRIG_FUNC_PT665",
+        "H2_ALG_TRIG_FUNC_PT666"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_068",
+      "name": "실생활 거리·높이 모델 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_geometry"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "거리, 높이, 각도 정보를 삼각형 조건으로 번역하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C221",
+        "H2_ALG_TRIG_FUNC_C222",
+        "H2_ALG_TRIG_FUNC_C223",
+        "H2_ALG_TRIG_FUNC_C224"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT661",
+        "H2_ALG_TRIG_FUNC_PT662",
+        "H2_ALG_TRIG_FUNC_PT663",
+        "H2_ALG_TRIG_FUNC_PT664",
+        "H2_ALG_TRIG_FUNC_PT665",
+        "H2_ALG_TRIG_FUNC_PT666",
+        "H2_ALG_TRIG_FUNC_PT667"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_069",
+      "name": "실생활 거리·높이 모델 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "real_world_geometry"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "거리, 높이, 각도 정보를 삼각형 조건으로 번역하지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C221",
+        "H2_ALG_TRIG_FUNC_C222",
+        "H2_ALG_TRIG_FUNC_C223",
+        "H2_ALG_TRIG_FUNC_C224"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT661",
+        "H2_ALG_TRIG_FUNC_PT662",
+        "H2_ALG_TRIG_FUNC_PT663",
+        "H2_ALG_TRIG_FUNC_PT664",
+        "H2_ALG_TRIG_FUNC_PT665",
+        "H2_ALG_TRIG_FUNC_PT666"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_070",
+      "name": "경우분류 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "casework"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "사분면, 구간, 삼각형 결정 조건에서 가능한 경우를 표로 나누지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C053",
+        "H2_ALG_TRIG_FUNC_C054",
+        "H2_ALG_TRIG_FUNC_C055",
+        "H2_ALG_TRIG_FUNC_C056"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT157",
+        "H2_ALG_TRIG_FUNC_PT158",
+        "H2_ALG_TRIG_FUNC_PT159",
+        "H2_ALG_TRIG_FUNC_PT160",
+        "H2_ALG_TRIG_FUNC_PT161",
+        "H2_ALG_TRIG_FUNC_PT162"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_071",
+      "name": "경우분류 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "casework"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "사분면, 구간, 삼각형 결정 조건에서 가능한 경우를 표로 나누지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C053",
+        "H2_ALG_TRIG_FUNC_C054",
+        "H2_ALG_TRIG_FUNC_C055",
+        "H2_ALG_TRIG_FUNC_C056",
+        "H2_ALG_TRIG_FUNC_C197"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT157",
+        "H2_ALG_TRIG_FUNC_PT158",
+        "H2_ALG_TRIG_FUNC_PT159",
+        "H2_ALG_TRIG_FUNC_PT160",
+        "H2_ALG_TRIG_FUNC_PT161",
+        "H2_ALG_TRIG_FUNC_PT162",
+        "H2_ALG_TRIG_FUNC_PT163"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_072",
+      "name": "경우분류 취약 - 보기·그래프형",
+      "trigger": {
+        "error_tags_any": [
+          "casework"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "사분면, 구간, 삼각형 결정 조건에서 가능한 경우를 표로 나누지 못합니다.",
+      "parent_message": "삼각함수는 바로 계산하지 말고, 각의 단위→사분면 부호→주기/구간→공식 적용→해 검산 순서로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C053",
+        "H2_ALG_TRIG_FUNC_C054",
+        "H2_ALG_TRIG_FUNC_C055",
+        "H2_ALG_TRIG_FUNC_C056"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT157",
+        "H2_ALG_TRIG_FUNC_PT158",
+        "H2_ALG_TRIG_FUNC_PT159",
+        "H2_ALG_TRIG_FUNC_PT160",
+        "H2_ALG_TRIG_FUNC_PT161",
+        "H2_ALG_TRIG_FUNC_PT162"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_073",
+      "name": "일반각과 호도법 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "angle_range",
+          "angle_representation",
+          "arc_length",
+          "degree_radian_conversion",
+          "equation_setup",
+          "general_angle",
+          "periodic_angle",
+          "pi_unit",
+          "quadrant_angle",
+          "radian_application",
+          "radian_measure",
+          "sector_area",
+          "sign_judgment",
+          "terminal_side",
+          "unit_conversion"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "일반각과 호도법 유형에서 각, 부호, 주기, 그래프, 공식 적용 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 각의 단위·사분면·주기·구간·공식 조건을 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C001",
+        "H2_ALG_TRIG_FUNC_C002",
+        "H2_ALG_TRIG_FUNC_C003",
+        "H2_ALG_TRIG_FUNC_C004",
+        "H2_ALG_TRIG_FUNC_C005",
+        "H2_ALG_TRIG_FUNC_C006"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT001",
+        "H2_ALG_TRIG_FUNC_PT002",
+        "H2_ALG_TRIG_FUNC_PT003",
+        "H2_ALG_TRIG_FUNC_PT004",
+        "H2_ALG_TRIG_FUNC_PT005",
+        "H2_ALG_TRIG_FUNC_PT006",
+        "H2_ALG_TRIG_FUNC_PT007",
+        "H2_ALG_TRIG_FUNC_PT008",
+        "H2_ALG_TRIG_FUNC_PT009",
+        "H2_ALG_TRIG_FUNC_PT010"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_074",
+      "name": "삼각함수의 뜻과 성질 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "algebraic_simplification",
+          "angle_transformation",
+          "casework",
+          "condition_translation",
+          "coordinate_circle",
+          "identity_transform",
+          "memorization_check",
+          "periodicity",
+          "pythagorean_identity",
+          "quadrant_sign",
+          "radius_normalization",
+          "ratio_definition",
+          "reciprocal_relation",
+          "reference_angle",
+          "sign_judgment",
+          "sin_cos_tan_sign",
+          "special_angle",
+          "trig_expression",
+          "trig_function_definition",
+          "trig_value",
+          "trig_value_comparison"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "삼각함수의 뜻과 성질 유형에서 각, 부호, 주기, 그래프, 공식 적용 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 각의 단위·사분면·주기·구간·공식 조건을 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C025",
+        "H2_ALG_TRIG_FUNC_C026",
+        "H2_ALG_TRIG_FUNC_C027",
+        "H2_ALG_TRIG_FUNC_C028",
+        "H2_ALG_TRIG_FUNC_C029",
+        "H2_ALG_TRIG_FUNC_C030"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT073",
+        "H2_ALG_TRIG_FUNC_PT074",
+        "H2_ALG_TRIG_FUNC_PT075",
+        "H2_ALG_TRIG_FUNC_PT076",
+        "H2_ALG_TRIG_FUNC_PT077",
+        "H2_ALG_TRIG_FUNC_PT078",
+        "H2_ALG_TRIG_FUNC_PT079",
+        "H2_ALG_TRIG_FUNC_PT080",
+        "H2_ALG_TRIG_FUNC_PT081",
+        "H2_ALG_TRIG_FUNC_PT082"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_075",
+      "name": "삼각함수의 그래프 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value_graph",
+          "amplitude_period",
+          "asymptote",
+          "condition_translation",
+          "cosine_graph",
+          "cosine_graph_transform",
+          "function_graph",
+          "graph_property",
+          "graph_transform",
+          "parameter_condition",
+          "period_amplitude",
+          "period_judgment",
+          "periodic_function",
+          "periodicity",
+          "phase_shift",
+          "range_judgment",
+          "reflection",
+          "sine_graph",
+          "sine_graph_transform",
+          "tangent_graph",
+          "tangent_graph_transform",
+          "translation",
+          "trig_max_min"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "삼각함수의 그래프 유형에서 각, 부호, 주기, 그래프, 공식 적용 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 각의 단위·사분면·주기·구간·공식 조건을 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C065",
+        "H2_ALG_TRIG_FUNC_C066",
+        "H2_ALG_TRIG_FUNC_C067",
+        "H2_ALG_TRIG_FUNC_C068",
+        "H2_ALG_TRIG_FUNC_C069",
+        "H2_ALG_TRIG_FUNC_C070"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT193",
+        "H2_ALG_TRIG_FUNC_PT194",
+        "H2_ALG_TRIG_FUNC_PT195",
+        "H2_ALG_TRIG_FUNC_PT196",
+        "H2_ALG_TRIG_FUNC_PT197",
+        "H2_ALG_TRIG_FUNC_PT198",
+        "H2_ALG_TRIG_FUNC_PT199",
+        "H2_ALG_TRIG_FUNC_PT200",
+        "H2_ALG_TRIG_FUNC_PT201",
+        "H2_ALG_TRIG_FUNC_PT202"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_076",
+      "name": "삼각방정식과 삼각부등식 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "asymptote",
+          "condition_translation",
+          "cosine_equation",
+          "endpoint_check",
+          "graph_intersection",
+          "graph_solution",
+          "interval_condition",
+          "interval_solution",
+          "periodic_solution",
+          "periodicity",
+          "range_condition",
+          "reference_angle",
+          "sine_equation",
+          "solution_check",
+          "solution_count",
+          "substitution",
+          "tangent_equation",
+          "trig_equation",
+          "trig_equation_application",
+          "trig_inequality"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "삼각방정식과 삼각부등식 유형에서 각, 부호, 주기, 그래프, 공식 적용 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 각의 단위·사분면·주기·구간·공식 조건을 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C113",
+        "H2_ALG_TRIG_FUNC_C114",
+        "H2_ALG_TRIG_FUNC_C115",
+        "H2_ALG_TRIG_FUNC_C116",
+        "H2_ALG_TRIG_FUNC_C117",
+        "H2_ALG_TRIG_FUNC_C118"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT337",
+        "H2_ALG_TRIG_FUNC_PT338",
+        "H2_ALG_TRIG_FUNC_PT339",
+        "H2_ALG_TRIG_FUNC_PT340",
+        "H2_ALG_TRIG_FUNC_PT341",
+        "H2_ALG_TRIG_FUNC_PT342",
+        "H2_ALG_TRIG_FUNC_PT343",
+        "H2_ALG_TRIG_FUNC_PT344",
+        "H2_ALG_TRIG_FUNC_PT345",
+        "H2_ALG_TRIG_FUNC_PT346"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_077",
+      "name": "삼각함수의 활용 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "amplitude_period",
+          "condition_translation",
+          "equation_setup",
+          "graph_interpretation",
+          "inequality_setup",
+          "interval_solution",
+          "max_min",
+          "model_equation",
+          "model_interpretation",
+          "periodic_phenomena",
+          "phase_shift",
+          "real_world_trig",
+          "solution_check",
+          "trig_application",
+          "trig_modeling",
+          "unit_context"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "삼각함수의 활용 유형에서 각, 부호, 주기, 그래프, 공식 적용 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 각의 단위·사분면·주기·구간·공식 조건을 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C153",
+        "H2_ALG_TRIG_FUNC_C154",
+        "H2_ALG_TRIG_FUNC_C155",
+        "H2_ALG_TRIG_FUNC_C156",
+        "H2_ALG_TRIG_FUNC_C157",
+        "H2_ALG_TRIG_FUNC_C158"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT457",
+        "H2_ALG_TRIG_FUNC_PT458",
+        "H2_ALG_TRIG_FUNC_PT459",
+        "H2_ALG_TRIG_FUNC_PT460",
+        "H2_ALG_TRIG_FUNC_PT461",
+        "H2_ALG_TRIG_FUNC_PT462",
+        "H2_ALG_TRIG_FUNC_PT463",
+        "H2_ALG_TRIG_FUNC_PT464",
+        "H2_ALG_TRIG_FUNC_PT465",
+        "H2_ALG_TRIG_FUNC_PT466"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_ALG_TRIG_FUNC_RULE_078",
+      "name": "사인법칙과 코사인법칙 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "algebraic_simplification",
+          "ambiguous_case",
+          "angle_finding",
+          "auxiliary_line",
+          "casework",
+          "circumradius",
+          "cosine_rule",
+          "equation_setup",
+          "geometry_application",
+          "height_relation",
+          "max_min",
+          "model_translation",
+          "proof_interpretation",
+          "real_world_geometry",
+          "side_angle_relation",
+          "sine_area_formula",
+          "sine_cosine_rule_mixed",
+          "sine_rule",
+          "solution_interpretation",
+          "triangle_area",
+          "triangle_condition",
+          "triangle_determination"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "사인법칙과 코사인법칙 유형에서 각, 부호, 주기, 그래프, 공식 적용 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 각의 단위·사분면·주기·구간·공식 조건을 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_ALG_TRIG_FUNC_C177",
+        "H2_ALG_TRIG_FUNC_C178",
+        "H2_ALG_TRIG_FUNC_C179",
+        "H2_ALG_TRIG_FUNC_C180",
+        "H2_ALG_TRIG_FUNC_C181",
+        "H2_ALG_TRIG_FUNC_C182"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_ALG_TRIG_FUNC_PT529",
+        "H2_ALG_TRIG_FUNC_PT530",
+        "H2_ALG_TRIG_FUNC_PT531",
+        "H2_ALG_TRIG_FUNC_PT532",
+        "H2_ALG_TRIG_FUNC_PT533",
+        "H2_ALG_TRIG_FUNC_PT534",
+        "H2_ALG_TRIG_FUNC_PT535",
+        "H2_ALG_TRIG_FUNC_PT536",
+        "H2_ALG_TRIG_FUNC_PT537",
+        "H2_ALG_TRIG_FUNC_PT538"
+      ],
+      "severity": "high"
+    }
+  ]
+}
