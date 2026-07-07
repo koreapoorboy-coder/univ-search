@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.07-m3-quadratic-function-v1.0",
-  "concept_count": 590,
+  "version": "2026.07.07-m2-geometry-properties-v1.0",
+  "concept_count": 630,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -16242,6 +16242,1079 @@
       "mastery_level": "advanced",
       "prerequisite_depth": 3,
       "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C001",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "기본 각 관계",
+      "sub_strand": "평행선과 각",
+      "concept_name": "평행선에서 동위각·엇각·맞꼭지각",
+      "description": "평행선과 한 직선이 만날 때 생기는 각의 관계를 이용해 각의 크기를 구한다.",
+      "diagnostic_signals": [
+        "동위각과 엇각 혼동",
+        "평행 조건 확인 없이 각 관계 사용",
+        "맞꼭지각을 보각으로 착각"
+      ],
+      "remediation_keywords": [
+        "동위각",
+        "엇각",
+        "맞꼭지각"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C002",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "기본 각 관계",
+      "sub_strand": "삼각형의 각",
+      "concept_name": "삼각형의 내각과 외각",
+      "description": "삼각형의 내각의 합과 외각의 성질을 이용해 각을 계산한다.",
+      "diagnostic_signals": [
+        "외각=두 내각의 합 누락",
+        "내각의 합 180° 적용 오류",
+        "인접한 내각과 외각 혼동"
+      ],
+      "remediation_keywords": [
+        "내각의 합",
+        "외각",
+        "180도"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C003",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "기본 각 관계",
+      "sub_strand": "다각형의 각",
+      "concept_name": "다각형의 내각과 외각",
+      "description": "다각형의 내각의 합과 외각의 합을 이용해 각의 크기를 구한다.",
+      "diagnostic_signals": [
+        "n각형 내각 합 공식 오류",
+        "외각의 합을 n에 따라 다르다고 판단",
+        "정다각형 조건 누락"
+      ],
+      "remediation_keywords": [
+        "다각형 내각",
+        "외각의 합",
+        "정다각형"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C004",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 합동",
+      "sub_strand": "합동의 뜻",
+      "concept_name": "합동인 도형의 대응 관계",
+      "description": "합동인 도형에서 대응점, 대응변, 대응각을 정확히 찾는다.",
+      "diagnostic_signals": [
+        "대응 순서 오류",
+        "도형의 방향이 바뀌면 대응을 못 찾음",
+        "합동과 닮음 혼동"
+      ],
+      "remediation_keywords": [
+        "대응점",
+        "대응변",
+        "대응각"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C005",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 합동",
+      "sub_strand": "합동 조건",
+      "concept_name": "삼각형의 합동 조건 SSS·SAS·ASA",
+      "description": "세 가지 합동 조건을 구분하고 증명에 필요한 조건을 고른다.",
+      "diagnostic_signals": [
+        "SSA를 합동 조건으로 오인",
+        "끼인각 조건 누락",
+        "각-변 대응 순서 오류"
+      ],
+      "remediation_keywords": [
+        "SSS",
+        "SAS",
+        "ASA"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C006",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 합동",
+      "sub_strand": "증명 구조",
+      "concept_name": "합동 증명의 순서",
+      "description": "주어진 조건에서 대응 관계를 잡고 합동 조건을 근거로 결론을 이끌어낸다.",
+      "diagnostic_signals": [
+        "결론을 먼저 쓰고 근거 부족",
+        "대응 순서 불일치",
+        "공통변·공통각 누락"
+      ],
+      "remediation_keywords": [
+        "증명 순서",
+        "공통변",
+        "대응 관계"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C007",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 성질",
+      "sub_strand": "이등변삼각형",
+      "concept_name": "이등변삼각형의 성질",
+      "description": "두 변의 길이가 같은 삼각형에서 두 밑각이 같음을 이용한다.",
+      "diagnostic_signals": [
+        "같은 변과 같은 각 대응 오류",
+        "꼭지각과 밑각 혼동",
+        "역 성질 적용 여부 혼동"
+      ],
+      "remediation_keywords": [
+        "이등변삼각형",
+        "밑각",
+        "꼭지각"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C008",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 성질",
+      "sub_strand": "이등변삼각형 조건",
+      "concept_name": "이등변삼각형이 되는 조건",
+      "description": "두 각이 같으면 그 대변이 같아 이등변삼각형이 됨을 판단한다.",
+      "diagnostic_signals": [
+        "성질과 조건 구분 실패",
+        "같은 각의 대변을 잘못 찾음"
+      ],
+      "remediation_keywords": [
+        "역 성질",
+        "대변",
+        "이등변 조건"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C009",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 성질",
+      "sub_strand": "직각삼각형 합동",
+      "concept_name": "직각삼각형의 합동 조건 RHS·RHA",
+      "description": "직각삼각형에서 빗변과 한 변 또는 빗변과 한 예각 조건을 이용한다.",
+      "diagnostic_signals": [
+        "빗변을 일반 변으로 착각",
+        "직각 조건 누락",
+        "RHS/RHA 구분 실패"
+      ],
+      "remediation_keywords": [
+        "직각삼각형 합동",
+        "빗변",
+        "RHS RHA"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C010",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 성질",
+      "sub_strand": "정삼각형",
+      "concept_name": "정삼각형의 성질",
+      "description": "세 변과 세 각이 모두 같은 정삼각형의 성질을 각 계산에 활용한다.",
+      "diagnostic_signals": [
+        "60° 성질 누락",
+        "정삼각형과 이등변삼각형 포함 관계 혼동"
+      ],
+      "remediation_keywords": [
+        "정삼각형",
+        "60도",
+        "세 변"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C011",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 외심",
+      "sub_strand": "수직이등분선",
+      "concept_name": "선분의 수직이등분선과 거리",
+      "description": "선분의 수직이등분선 위의 점은 양 끝점에서 거리가 같음을 이해한다.",
+      "diagnostic_signals": [
+        "수직 조건만 보고 거리 같음 사용",
+        "중점 조건 누락",
+        "거리 관계를 각 관계로 오해"
+      ],
+      "remediation_keywords": [
+        "수직이등분선",
+        "중점",
+        "거리 같음"
+      ],
+      "source_orders": [
+        5,
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C012",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 외심",
+      "sub_strand": "외심의 뜻",
+      "concept_name": "삼각형의 외심과 외접원",
+      "description": "삼각형 세 변의 수직이등분선의 교점이 외심이고 세 꼭짓점까지 거리가 같음을 이해한다.",
+      "diagnostic_signals": [
+        "외심을 각의 이등분선 교점으로 착각",
+        "외접원 중심과 내접원 중심 혼동"
+      ],
+      "remediation_keywords": [
+        "외심",
+        "외접원",
+        "꼭짓점까지 거리"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C013",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 외심",
+      "sub_strand": "외심 활용",
+      "concept_name": "외심을 이용한 길이와 각 계산",
+      "description": "외심에서 세 꼭짓점까지의 거리와 원의 성질을 이용해 값을 구한다.",
+      "diagnostic_signals": [
+        "반지름 길이 관계 누락",
+        "중심각·원주각을 과도하게 사용",
+        "직각삼각형 외심 위치 착각"
+      ],
+      "remediation_keywords": [
+        "반지름",
+        "외심 거리",
+        "외접원"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C014",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 외심",
+      "sub_strand": "외심 위치",
+      "concept_name": "삼각형의 종류와 외심 위치",
+      "description": "예각·직각·둔각삼각형에서 외심의 위치를 구분한다.",
+      "diagnostic_signals": [
+        "직각삼각형 외심을 내부로 판단",
+        "둔각삼각형 외심 위치 오류"
+      ],
+      "remediation_keywords": [
+        "외심 위치",
+        "직각삼각형",
+        "둔각삼각형"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C015",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 내심",
+      "sub_strand": "각의 이등분선",
+      "concept_name": "각의 이등분선과 거리",
+      "description": "각의 이등분선 위의 점은 두 변까지의 거리가 같음을 이해한다.",
+      "diagnostic_signals": [
+        "두 꼭짓점까지의 거리로 오해",
+        "수직거리 표시 누락",
+        "각 이등분 조건 누락"
+      ],
+      "remediation_keywords": [
+        "각의 이등분선",
+        "수직거리",
+        "거리 같음"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C016",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 내심",
+      "sub_strand": "내심의 뜻",
+      "concept_name": "삼각형의 내심과 내접원",
+      "description": "세 내각의 이등분선의 교점이 내심이고 세 변까지의 거리가 같음을 이해한다.",
+      "diagnostic_signals": [
+        "내심을 수직이등분선 교점으로 착각",
+        "내접원 반지름과 변 길이 혼동"
+      ],
+      "remediation_keywords": [
+        "내심",
+        "내접원",
+        "변까지 거리"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C017",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 내심",
+      "sub_strand": "내심 활용",
+      "concept_name": "내심을 이용한 각과 길이 계산",
+      "description": "각의 이등분과 내접원 반지름 관계를 이용해 값을 구한다.",
+      "diagnostic_signals": [
+        "각을 절반으로 나누지 않음",
+        "수직 표시 없이 반지름 사용",
+        "내심 위치와 각 관계 혼동"
+      ],
+      "remediation_keywords": [
+        "각 이등분",
+        "내접원 반지름",
+        "수직거리"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C018",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "삼각형의 중심",
+      "sub_strand": "외심과 내심 구분",
+      "concept_name": "외심·내심의 정의와 성질 비교",
+      "description": "외심과 내심의 구성선, 거리 관계, 원을 구분한다.",
+      "diagnostic_signals": [
+        "외심과 내심 명칭 혼동",
+        "꼭짓점까지 거리와 변까지 거리 혼동"
+      ],
+      "remediation_keywords": [
+        "외심 내심 비교",
+        "구성선",
+        "거리 관계"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C019",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "사각형의 기초",
+      "sub_strand": "사각형의 각",
+      "concept_name": "사각형의 내각의 합",
+      "description": "사각형 내각의 합 360°를 이용해 각을 계산한다.",
+      "diagnostic_signals": [
+        "삼각형 180°를 그대로 적용",
+        "오목/볼록 조건에 대한 불필요한 혼동"
+      ],
+      "remediation_keywords": [
+        "사각형 내각",
+        "360도",
+        "각 계산"
+      ],
+      "source_orders": [
+        9,
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C020",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "평행사변형",
+      "sub_strand": "정의",
+      "concept_name": "평행사변형의 정의",
+      "description": "두 쌍의 대변이 각각 평행한 사각형이 평행사변형임을 이해한다.",
+      "diagnostic_signals": [
+        "한 쌍만 평행해도 평행사변형으로 판단",
+        "정의와 성질 혼동"
+      ],
+      "remediation_keywords": [
+        "평행사변형 정의",
+        "두 쌍 평행",
+        "대변"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C021",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "평행사변형",
+      "sub_strand": "성질",
+      "concept_name": "평행사변형의 변·각·대각선 성질",
+      "description": "평행사변형에서 대변 길이, 대각, 대각선의 중점 성질을 활용한다.",
+      "diagnostic_signals": [
+        "대각선이 항상 수직이라고 오해",
+        "이웃각과 대각 혼동",
+        "대각선 이등분 성질 누락"
+      ],
+      "remediation_keywords": [
+        "대변 길이",
+        "대각",
+        "대각선 이등분"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C022",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "평행사변형",
+      "sub_strand": "조건",
+      "concept_name": "평행사변형이 되는 조건",
+      "description": "사각형이 평행사변형이 되는 여러 조건을 구분한다.",
+      "diagnostic_signals": [
+        "성질을 조건으로 사용할 때 근거 부족",
+        "한 조건만으로 부족한 경우 판단 오류"
+      ],
+      "remediation_keywords": [
+        "평행사변형 조건",
+        "대변 평행",
+        "대각선 이등분"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C023",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "평행사변형",
+      "sub_strand": "각 계산",
+      "concept_name": "평행사변형의 각 관계",
+      "description": "평행선의 엇각·동위각과 이웃각의 보각 관계로 각을 계산한다.",
+      "diagnostic_signals": [
+        "이웃각 합 180° 누락",
+        "대각과 이웃각 혼동"
+      ],
+      "remediation_keywords": [
+        "이웃각",
+        "대각",
+        "보각"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C024",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "평행사변형",
+      "sub_strand": "길이 계산",
+      "concept_name": "평행사변형의 길이 관계",
+      "description": "대변 길이와 대각선의 중점 관계를 이용해 길이를 구한다.",
+      "diagnostic_signals": [
+        "대각선 전체/절반 길이 혼동",
+        "대변 대응 오류"
+      ],
+      "remediation_keywords": [
+        "대변 길이",
+        "대각선 중점",
+        "길이 계산"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C025",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "여러 사각형",
+      "sub_strand": "직사각형",
+      "concept_name": "직사각형의 성질과 조건",
+      "description": "네 각이 직각인 평행사변형의 성질과 대각선이 같다는 조건을 이해한다.",
+      "diagnostic_signals": [
+        "직사각형의 대각선이 수직이라고 오해",
+        "정사각형과 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "직사각형",
+        "대각선 길이 같음",
+        "네 각 직각"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C026",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "여러 사각형",
+      "sub_strand": "마름모",
+      "concept_name": "마름모의 성질과 조건",
+      "description": "네 변의 길이가 같은 평행사변형의 성질과 대각선이 수직임을 이해한다.",
+      "diagnostic_signals": [
+        "마름모의 네 각이 항상 직각이라고 오해",
+        "대각선 길이 같음과 수직 혼동"
+      ],
+      "remediation_keywords": [
+        "마름모",
+        "대각선 수직",
+        "네 변 같음"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C027",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "여러 사각형",
+      "sub_strand": "정사각형",
+      "concept_name": "정사각형의 성질",
+      "description": "직사각형과 마름모의 성질을 모두 갖는 정사각형을 이해한다.",
+      "diagnostic_signals": [
+        "정사각형 포함 관계를 설명하지 못함",
+        "대각선 성질 일부 누락"
+      ],
+      "remediation_keywords": [
+        "정사각형",
+        "포함 관계",
+        "대각선 성질"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C028",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "여러 사각형",
+      "sub_strand": "등변사다리꼴",
+      "concept_name": "등변사다리꼴의 성질",
+      "description": "한 쌍의 대변이 평행하고 두 밑각과 대각선이 같은 성질을 활용한다.",
+      "diagnostic_signals": [
+        "사다리꼴과 평행사변형 혼동",
+        "밑각 대응 오류"
+      ],
+      "remediation_keywords": [
+        "등변사다리꼴",
+        "밑각",
+        "대각선"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C029",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "여러 사각형",
+      "sub_strand": "포함 관계",
+      "concept_name": "여러 사각형의 포함 관계",
+      "description": "평행사변형, 직사각형, 마름모, 정사각형의 포함 관계를 판단한다.",
+      "diagnostic_signals": [
+        "포함 방향 반대로 판단",
+        "정의와 추가 조건을 구분하지 못함"
+      ],
+      "remediation_keywords": [
+        "포함 관계",
+        "정의",
+        "추가 조건"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C030",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "여러 사각형",
+      "sub_strand": "성질 비교",
+      "concept_name": "여러 사각형의 대각선 성질 비교",
+      "description": "사각형별 대각선의 길이, 수직, 이등분 성질을 비교한다.",
+      "diagnostic_signals": [
+        "대각선 성질을 모든 사각형에 일반화",
+        "길이 같음과 수직을 혼동"
+      ],
+      "remediation_keywords": [
+        "대각선 비교",
+        "수직",
+        "이등분"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C031",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "도형 증명",
+      "sub_strand": "조건 찾기",
+      "concept_name": "도형 증명에서 필요한 조건 찾기",
+      "description": "결론을 보이기 위해 어떤 합동 조건이나 사각형 조건이 필요한지 찾는다.",
+      "diagnostic_signals": [
+        "결론과 무관한 조건 사용",
+        "공통 조건 누락",
+        "대응 관계 미설정"
+      ],
+      "remediation_keywords": [
+        "증명 조건",
+        "결론 분석",
+        "공통 조건"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C032",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "도형 증명",
+      "sub_strand": "삼각형 합동 증명",
+      "concept_name": "삼각형 합동을 이용한 도형 증명",
+      "description": "합동을 보인 뒤 대응변·대응각 같음을 이용해 결론을 얻는다.",
+      "diagnostic_signals": [
+        "합동 후 대응 요소를 잘못 연결",
+        "근거 문장 생략"
+      ],
+      "remediation_keywords": [
+        "합동 증명",
+        "대응 요소",
+        "근거 문장"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C033",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "도형 증명",
+      "sub_strand": "평행사변형 증명",
+      "concept_name": "평행사변형이 되는 조건 증명",
+      "description": "대변 평행, 대변 길이, 대각선 이등분 등의 조건으로 평행사변형을 증명한다.",
+      "diagnostic_signals": [
+        "증명 조건과 성질 혼동",
+        "충분조건 부족"
+      ],
+      "remediation_keywords": [
+        "평행사변형 증명",
+        "충분조건",
+        "대각선"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C034",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "도형 증명",
+      "sub_strand": "특수 사각형 증명",
+      "concept_name": "직사각형·마름모·정사각형 증명",
+      "description": "평행사변형에 추가 조건을 붙여 특수 사각형을 증명한다.",
+      "diagnostic_signals": [
+        "추가 조건을 빠뜨림",
+        "직사각형과 마름모 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "특수 사각형 증명",
+        "추가 조건",
+        "포함 관계"
+      ],
+      "source_orders": [
+        17
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C035",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "도형 활용",
+      "sub_strand": "보조선",
+      "concept_name": "보조선을 이용한 각·길이 계산",
+      "description": "평행선, 대각선, 반지름 등 보조선을 그어 도형 성질을 적용한다.",
+      "diagnostic_signals": [
+        "보조선을 그어도 어떤 성질을 쓸지 모름",
+        "불필요한 보조선으로 계산 복잡화"
+      ],
+      "remediation_keywords": [
+        "보조선",
+        "평행선",
+        "대각선"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C036",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "도형 활용",
+      "sub_strand": "좌표 없는 길이",
+      "concept_name": "도형 성질을 이용한 길이 구하기",
+      "description": "합동, 이등변, 평행사변형 성질로 길이를 계산한다.",
+      "diagnostic_signals": [
+        "같은 길이 표시를 전파하지 못함",
+        "전체와 부분 길이 혼동"
+      ],
+      "remediation_keywords": [
+        "길이 표시",
+        "같은 변",
+        "부분 전체"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C037",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "도형 활용",
+      "sub_strand": "각 추론",
+      "concept_name": "도형 성질을 이용한 각 추론",
+      "description": "평행선, 삼각형, 사각형 성질을 연결해 각을 구한다.",
+      "diagnostic_signals": [
+        "각 관계를 순서대로 연결하지 못함",
+        "보각/여각/대각 혼동"
+      ],
+      "remediation_keywords": [
+        "각 추론",
+        "보각",
+        "평행선"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C038",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "도형 활용",
+      "sub_strand": "넓이",
+      "concept_name": "사각형 성질과 넓이",
+      "description": "평행사변형, 마름모, 삼각형 분할을 이용해 넓이를 구한다.",
+      "diagnostic_signals": [
+        "높이와 변 길이 혼동",
+        "대각선 이용 넓이 공식 오용"
+      ],
+      "remediation_keywords": [
+        "넓이",
+        "높이",
+        "대각선"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C039",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "종합",
+      "sub_strand": "외심·내심·사각형 연결",
+      "concept_name": "삼각형 중심과 사각형 성질 종합",
+      "description": "외심·내심·합동·사각형 성질이 함께 쓰이는 문제를 해결한다.",
+      "diagnostic_signals": [
+        "한 가지 성질만 보고 해결 시도",
+        "중심 성질과 사각형 성질 연결 실패"
+      ],
+      "remediation_keywords": [
+        "종합 추론",
+        "중심",
+        "사각형 성질"
+      ],
+      "source_orders": [
+        19
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_GEOM_C040",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "strand": "종합",
+      "sub_strand": "증명 서술",
+      "concept_name": "도형 증명 서술형 완성",
+      "description": "가정, 근거, 결론을 문장과 기호로 정확히 연결한다.",
+      "diagnostic_signals": [
+        "기호와 문장 불일치",
+        "근거 없이 결론만 제시",
+        "대응 순서 오류"
+      ],
+      "remediation_keywords": [
+        "서술형 증명",
+        "근거",
+        "기호 표현"
+      ],
+      "source_orders": [
+        19
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
     }
   ],
   "future_target_concepts": [
@@ -16288,27 +17361,6 @@
       "status": "future_target_seed"
     },
     {
-      "concept_id": "M2_GEOM_C001",
-      "grade": "중2",
-      "unit_name": "삼각형의 성질",
-      "concept_name": "삼각형의 외심·내심과 각 관계",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_GEOM_C002",
-      "grade": "중2",
-      "unit_name": "사각형의 성질",
-      "concept_name": "평행사변형과 여러 사각형의 각·변 성질",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_GEOM_C003",
-      "grade": "중2",
-      "unit_name": "도형의 닮음",
-      "concept_name": "도형의 닮음과 길이비·넓이비",
-      "status": "future_target_seed"
-    },
-    {
       "concept_id": "M3_GEOM_C001",
       "grade": "중3",
       "unit_name": "원의 성질",
@@ -16327,20 +17379,6 @@
       "grade": "고1",
       "unit_name": "도형의 방정식",
       "concept_name": "좌표평면에서 거리·넓이·도형 조건 해석",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_GEOM_C004",
-      "grade": "중2",
-      "unit_name": "도형의 성질",
-      "concept_name": "평행선과 삼각형·사각형의 각 추론",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_GEOM_C005",
-      "grade": "중2",
-      "unit_name": "도형의 성질",
-      "concept_name": "합동과 증명을 이용한 도형 성질 추론",
       "status": "future_target_seed"
     },
     {

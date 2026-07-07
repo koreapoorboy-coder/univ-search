@@ -1,0 +1,3350 @@
+{
+  "version": "2026.07.07-m2-geometry-properties-v1.0",
+  "unit_id": "M2_GEOMETRY_PROPERTIES",
+  "unit_name": "도형의 성질",
+  "raw_taxonomy": "data/raw_taxonomy/m2_geometry_properties.raw_taxonomy.v1.json",
+  "problem_type_count": 140,
+  "problem_types": [
+    {
+      "problem_type_id": "M2_GEOM_PT001",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "동위각과 엇각 혼동",
+      "description": "기본 각 관계 범주의 '평행선에서 동위각·엇각·맞꼭지각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C001"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_GEOM_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT002",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행선에서 동위각·엇각·맞꼭지각 - 조건 적용",
+      "description": "기본 각 관계 범주의 '평행선에서 동위각·엇각·맞꼭지각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C001"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_GEOM_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT003",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행선에서 동위각·엇각·맞꼭지각 - 계산·추론",
+      "description": "기본 각 관계 범주의 '평행선에서 동위각·엇각·맞꼭지각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C001"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_GEOM_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT004",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행선에서 동위각·엇각·맞꼭지각 - 증명 서술",
+      "description": "기본 각 관계 범주의 '평행선에서 동위각·엇각·맞꼭지각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_GEOM_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT005",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "외각=두 내각의 합 누락",
+      "description": "기본 각 관계 범주의 '삼각형의 내각과 외각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C002"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_GEOM_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT006",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 내각과 외각 - 조건 적용",
+      "description": "기본 각 관계 범주의 '삼각형의 내각과 외각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C002"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_GEOM_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT007",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 내각과 외각 - 계산·추론",
+      "description": "기본 각 관계 범주의 '삼각형의 내각과 외각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C002"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_GEOM_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT008",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 내각과 외각 - 증명 서술",
+      "description": "기본 각 관계 범주의 '삼각형의 내각과 외각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C002"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_GEOM_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT009",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "n각형 내각 합 공식 오류",
+      "description": "기본 각 관계 범주의 '다각형의 내각과 외각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C003"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "raw_section_id": "M2_GEOM_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT010",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "다각형의 내각과 외각 - 조건 적용",
+      "description": "기본 각 관계 범주의 '다각형의 내각과 외각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "raw_section_id": "M2_GEOM_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT011",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "다각형의 내각과 외각 - 계산·추론",
+      "description": "기본 각 관계 범주의 '다각형의 내각과 외각' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C003"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "raw_section_id": "M2_GEOM_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT012",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "대응 순서 오류",
+      "description": "삼각형의 합동 범주의 '합동인 도형의 대응 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C004"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_GEOM_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT013",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "합동인 도형의 대응 관계 - 조건 적용",
+      "description": "삼각형의 합동 범주의 '합동인 도형의 대응 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C004"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_GEOM_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT014",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "합동인 도형의 대응 관계 - 계산·추론",
+      "description": "삼각형의 합동 범주의 '합동인 도형의 대응 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C004"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_GEOM_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT015",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "SSA를 합동 조건으로 오인",
+      "description": "삼각형의 합동 범주의 '삼각형의 합동 조건 SSS·SAS·ASA' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT016",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 합동 조건 SSS·SAS·ASA - 조건 적용",
+      "description": "삼각형의 합동 범주의 '삼각형의 합동 조건 SSS·SAS·ASA' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT017",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 합동 조건 SSS·SAS·ASA - 계산·추론",
+      "description": "삼각형의 합동 범주의 '삼각형의 합동 조건 SSS·SAS·ASA' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT018",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "결론을 먼저 쓰고 근거 부족",
+      "description": "삼각형의 합동 범주의 '합동 증명의 순서' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C006"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT019",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "합동 증명의 순서 - 조건 적용",
+      "description": "삼각형의 합동 범주의 '합동 증명의 순서' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C006"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT020",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "합동 증명의 순서 - 계산·추론",
+      "description": "삼각형의 합동 범주의 '합동 증명의 순서' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C006"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT021",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "같은 변과 같은 각 대응 오류",
+      "description": "삼각형의 성질 범주의 '이등변삼각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "raw_section_id": "M2_GEOM_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT022",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "이등변삼각형의 성질 - 조건 적용",
+      "description": "삼각형의 성질 범주의 '이등변삼각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C007"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "raw_section_id": "M2_GEOM_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT023",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "이등변삼각형의 성질 - 계산·추론",
+      "description": "삼각형의 성질 범주의 '이등변삼각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "raw_section_id": "M2_GEOM_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT024",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "성질과 조건 구분 실패",
+      "description": "삼각형의 성질 범주의 '이등변삼각형이 되는 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C008"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_GEOM_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT025",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "이등변삼각형이 되는 조건 - 조건 적용",
+      "description": "삼각형의 성질 범주의 '이등변삼각형이 되는 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C008"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_GEOM_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT026",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "이등변삼각형이 되는 조건 - 계산·추론",
+      "description": "삼각형의 성질 범주의 '이등변삼각형이 되는 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C008"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_GEOM_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT027",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "빗변을 일반 변으로 착각",
+      "description": "삼각형의 성질 범주의 '직각삼각형의 합동 조건 RHS·RHA' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C009"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "raw_section_id": "M2_GEOM_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT028",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직각삼각형의 합동 조건 RHS·RHA - 조건 적용",
+      "description": "삼각형의 성질 범주의 '직각삼각형의 합동 조건 RHS·RHA' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C009"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "raw_section_id": "M2_GEOM_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT029",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직각삼각형의 합동 조건 RHS·RHA - 계산·추론",
+      "description": "삼각형의 성질 범주의 '직각삼각형의 합동 조건 RHS·RHA' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C009"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "raw_section_id": "M2_GEOM_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT030",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "60° 성질 누락",
+      "description": "삼각형의 성질 범주의 '정삼각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C010"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_GEOM_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT031",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "정삼각형의 성질 - 조건 적용",
+      "description": "삼각형의 성질 범주의 '정삼각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_GEOM_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT032",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "정삼각형의 성질 - 계산·추론",
+      "description": "삼각형의 성질 범주의 '정삼각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C010"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_GEOM_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT033",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "수직 조건만 보고 거리 같음 사용",
+      "description": "삼각형의 외심 범주의 '선분의 수직이등분선과 거리' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C011"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        5,
+        6
+      ],
+      "raw_section_id": "M2_GEOM_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT034",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "선분의 수직이등분선과 거리 - 조건 적용",
+      "description": "삼각형의 외심 범주의 '선분의 수직이등분선과 거리' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C011"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        5,
+        6
+      ],
+      "raw_section_id": "M2_GEOM_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT035",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "선분의 수직이등분선과 거리 - 계산·추론",
+      "description": "삼각형의 외심 범주의 '선분의 수직이등분선과 거리' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C011"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        5,
+        6
+      ],
+      "raw_section_id": "M2_GEOM_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT036",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "외심을 각의 이등분선 교점으로 착각",
+      "description": "삼각형의 외심 범주의 '삼각형의 외심과 외접원' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C012"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_GEOM_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT037",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 외심과 외접원 - 조건 적용",
+      "description": "삼각형의 외심 범주의 '삼각형의 외심과 외접원' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C012"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_GEOM_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT038",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 외심과 외접원 - 계산·추론",
+      "description": "삼각형의 외심 범주의 '삼각형의 외심과 외접원' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C012"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_GEOM_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT039",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "반지름 길이 관계 누락",
+      "description": "삼각형의 외심 범주의 '외심을 이용한 길이와 각 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C013"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "raw_section_id": "M2_GEOM_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT040",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "외심을 이용한 길이와 각 계산 - 조건 적용",
+      "description": "삼각형의 외심 범주의 '외심을 이용한 길이와 각 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C013"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "raw_section_id": "M2_GEOM_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT041",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "외심을 이용한 길이와 각 계산 - 계산·추론",
+      "description": "삼각형의 외심 범주의 '외심을 이용한 길이와 각 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C013"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "raw_section_id": "M2_GEOM_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT042",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직각삼각형 외심을 내부로 판단",
+      "description": "삼각형의 외심 범주의 '삼각형의 종류와 외심 위치' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C014"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_GEOM_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT043",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 종류와 외심 위치 - 조건 적용",
+      "description": "삼각형의 외심 범주의 '삼각형의 종류와 외심 위치' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_GEOM_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT044",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 종류와 외심 위치 - 계산·추론",
+      "description": "삼각형의 외심 범주의 '삼각형의 종류와 외심 위치' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C014"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_GEOM_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT045",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "두 꼭짓점까지의 거리로 오해",
+      "description": "삼각형의 내심 범주의 '각의 이등분선과 거리' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C015"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "raw_section_id": "M2_GEOM_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT046",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "각의 이등분선과 거리 - 조건 적용",
+      "description": "삼각형의 내심 범주의 '각의 이등분선과 거리' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C015"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "raw_section_id": "M2_GEOM_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT047",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "각의 이등분선과 거리 - 계산·추론",
+      "description": "삼각형의 내심 범주의 '각의 이등분선과 거리' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C015"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "raw_section_id": "M2_GEOM_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT048",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "내심을 수직이등분선 교점으로 착각",
+      "description": "삼각형의 내심 범주의 '삼각형의 내심과 내접원' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C016"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_GEOM_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT049",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 내심과 내접원 - 조건 적용",
+      "description": "삼각형의 내심 범주의 '삼각형의 내심과 내접원' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C016"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_GEOM_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT050",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 내심과 내접원 - 계산·추론",
+      "description": "삼각형의 내심 범주의 '삼각형의 내심과 내접원' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C016"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_GEOM_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT051",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "각을 절반으로 나누지 않음",
+      "description": "삼각형의 내심 범주의 '내심을 이용한 각과 길이 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT052",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "내심을 이용한 각과 길이 계산 - 조건 적용",
+      "description": "삼각형의 내심 범주의 '내심을 이용한 각과 길이 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT053",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "내심을 이용한 각과 길이 계산 - 계산·추론",
+      "description": "삼각형의 내심 범주의 '내심을 이용한 각과 길이 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT054",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "외심과 내심 명칭 혼동",
+      "description": "삼각형의 중심 범주의 '외심·내심의 정의와 성질 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C018"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT055",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "외심·내심의 정의와 성질 비교 - 조건 적용",
+      "description": "삼각형의 중심 범주의 '외심·내심의 정의와 성질 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C018"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT056",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "외심·내심의 정의와 성질 비교 - 계산·추론",
+      "description": "삼각형의 중심 범주의 '외심·내심의 정의와 성질 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C018"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT057",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형 180°를 그대로 적용",
+      "description": "사각형의 기초 범주의 '사각형의 내각의 합' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C019"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        9,
+        10
+      ],
+      "raw_section_id": "M2_GEOM_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT058",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "사각형의 내각의 합 - 조건 적용",
+      "description": "사각형의 기초 범주의 '사각형의 내각의 합' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C019"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        9,
+        10
+      ],
+      "raw_section_id": "M2_GEOM_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT059",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "사각형의 내각의 합 - 계산·추론",
+      "description": "사각형의 기초 범주의 '사각형의 내각의 합' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C019"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        9,
+        10
+      ],
+      "raw_section_id": "M2_GEOM_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT060",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "한 쌍만 평행해도 평행사변형으로 판단",
+      "description": "평행사변형 범주의 '평행사변형의 정의' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C020"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_GEOM_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT061",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 정의 - 조건 적용",
+      "description": "평행사변형 범주의 '평행사변형의 정의' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C020"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_GEOM_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT062",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 정의 - 계산·추론",
+      "description": "평행사변형 범주의 '평행사변형의 정의' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C020"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_GEOM_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT063",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "대각선이 항상 수직이라고 오해",
+      "description": "평행사변형 범주의 '평행사변형의 변·각·대각선 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C021"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M2_GEOM_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT064",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 변·각·대각선 성질 - 조건 적용",
+      "description": "평행사변형 범주의 '평행사변형의 변·각·대각선 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C021"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M2_GEOM_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT065",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 변·각·대각선 성질 - 계산·추론",
+      "description": "평행사변형 범주의 '평행사변형의 변·각·대각선 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C021"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M2_GEOM_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT066",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "성질을 조건으로 사용할 때 근거 부족",
+      "description": "평행사변형 범주의 '평행사변형이 되는 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C022"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_GEOM_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT067",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형이 되는 조건 - 조건 적용",
+      "description": "평행사변형 범주의 '평행사변형이 되는 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C022"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_GEOM_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT068",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형이 되는 조건 - 계산·추론",
+      "description": "평행사변형 범주의 '평행사변형이 되는 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C022"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_GEOM_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT069",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "이웃각 합 180° 누락",
+      "description": "평행사변형 범주의 '평행사변형의 각 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT070",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 각 관계 - 조건 적용",
+      "description": "평행사변형 범주의 '평행사변형의 각 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C023"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT071",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 각 관계 - 계산·추론",
+      "description": "평행사변형 범주의 '평행사변형의 각 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C023"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT072",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "대각선 전체/절반 길이 혼동",
+      "description": "평행사변형 범주의 '평행사변형의 길이 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C024"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation",
+        "length_area"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT073",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 길이 관계 - 조건 적용",
+      "description": "평행사변형 범주의 '평행사변형의 길이 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation",
+        "length_area"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT074",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 길이 관계 - 계산·추론",
+      "description": "평행사변형 범주의 '평행사변형의 길이 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C024"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation",
+        "length_area"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT075",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직사각형의 대각선이 수직이라고 오해",
+      "description": "여러 사각형 범주의 '직사각형의 성질과 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C025"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "raw_section_id": "M2_GEOM_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT076",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직사각형의 성질과 조건 - 조건 적용",
+      "description": "여러 사각형 범주의 '직사각형의 성질과 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C025"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "raw_section_id": "M2_GEOM_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT077",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직사각형의 성질과 조건 - 계산·추론",
+      "description": "여러 사각형 범주의 '직사각형의 성질과 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C025"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "raw_section_id": "M2_GEOM_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT078",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "마름모의 네 각이 항상 직각이라고 오해",
+      "description": "여러 사각형 범주의 '마름모의 성질과 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C026"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_GEOM_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT079",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "마름모의 성질과 조건 - 조건 적용",
+      "description": "여러 사각형 범주의 '마름모의 성질과 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_GEOM_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT080",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "마름모의 성질과 조건 - 계산·추론",
+      "description": "여러 사각형 범주의 '마름모의 성질과 조건' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C026"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_GEOM_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT081",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "정사각형 포함 관계를 설명하지 못함",
+      "description": "여러 사각형 범주의 '정사각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "raw_section_id": "M2_GEOM_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT082",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "정사각형의 성질 - 조건 적용",
+      "description": "여러 사각형 범주의 '정사각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C027"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "raw_section_id": "M2_GEOM_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT083",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "정사각형의 성질 - 계산·추론",
+      "description": "여러 사각형 범주의 '정사각형의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C027"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "raw_section_id": "M2_GEOM_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT084",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "사다리꼴과 평행사변형 혼동",
+      "description": "여러 사각형 범주의 '등변사다리꼴의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C028"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_GEOM_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT085",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "등변사다리꼴의 성질 - 조건 적용",
+      "description": "여러 사각형 범주의 '등변사다리꼴의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_GEOM_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT086",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "등변사다리꼴의 성질 - 계산·추론",
+      "description": "여러 사각형 범주의 '등변사다리꼴의 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C028"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_GEOM_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT087",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "포함 방향 반대로 판단",
+      "description": "여러 사각형 범주의 '여러 사각형의 포함 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT088",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "여러 사각형의 포함 관계 - 조건 적용",
+      "description": "여러 사각형 범주의 '여러 사각형의 포함 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C029"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT089",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "여러 사각형의 포함 관계 - 계산·추론",
+      "description": "여러 사각형 범주의 '여러 사각형의 포함 관계' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT090",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "대각선 성질을 모든 사각형에 일반화",
+      "description": "여러 사각형 범주의 '여러 사각형의 대각선 성질 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C030"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT091",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "여러 사각형의 대각선 성질 비교 - 조건 적용",
+      "description": "여러 사각형 범주의 '여러 사각형의 대각선 성질 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT092",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "여러 사각형의 대각선 성질 비교 - 계산·추론",
+      "description": "여러 사각형 범주의 '여러 사각형의 대각선 성질 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C030"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT093",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "결론과 무관한 조건 사용",
+      "description": "도형 증명 범주의 '도형 증명에서 필요한 조건 찾기' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "proof_structure",
+        "reason_statement",
+        "condition_check"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M2_GEOM_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT094",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 증명에서 필요한 조건 찾기 - 조건 적용",
+      "description": "도형 증명 범주의 '도형 증명에서 필요한 조건 찾기' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C031"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "proof_structure",
+        "reason_statement",
+        "condition_check"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M2_GEOM_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT095",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 증명에서 필요한 조건 찾기 - 계산·추론",
+      "description": "도형 증명 범주의 '도형 증명에서 필요한 조건 찾기' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C031"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "proof_structure",
+        "reason_statement",
+        "condition_check"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M2_GEOM_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT096",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "합동 후 대응 요소를 잘못 연결",
+      "description": "도형 증명 범주의 '삼각형 합동을 이용한 도형 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C032"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_GEOM_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT097",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형 합동을 이용한 도형 증명 - 조건 적용",
+      "description": "도형 증명 범주의 '삼각형 합동을 이용한 도형 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C032"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_GEOM_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT098",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형 합동을 이용한 도형 증명 - 계산·추론",
+      "description": "도형 증명 범주의 '삼각형 합동을 이용한 도형 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C032"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_GEOM_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT099",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "증명 조건과 성질 혼동",
+      "description": "도형 증명 범주의 '평행사변형이 되는 조건 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C033"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation",
+        "proof_structure"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "raw_section_id": "M2_GEOM_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT100",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형이 되는 조건 증명 - 조건 적용",
+      "description": "도형 증명 범주의 '평행사변형이 되는 조건 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C033"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation",
+        "proof_structure"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "raw_section_id": "M2_GEOM_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT101",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형이 되는 조건 증명 - 계산·추론",
+      "description": "도형 증명 범주의 '평행사변형이 되는 조건 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadrilateral_property",
+        "diagonal_property",
+        "inclusion_relation",
+        "proof_structure"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "raw_section_id": "M2_GEOM_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT102",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "추가 조건을 빠뜨림",
+      "description": "도형 증명 범주의 '직사각형·마름모·정사각형 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C034"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_GEOM_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT103",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직사각형·마름모·정사각형 증명 - 조건 적용",
+      "description": "도형 증명 범주의 '직사각형·마름모·정사각형 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C034"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_GEOM_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT104",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직사각형·마름모·정사각형 증명 - 계산·추론",
+      "description": "도형 증명 범주의 '직사각형·마름모·정사각형 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C034"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_GEOM_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT105",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "보조선을 그어도 어떤 성질을 쓸지 모름",
+      "description": "도형 활용 범주의 '보조선을 이용한 각·길이 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "length_area"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT106",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "보조선을 이용한 각·길이 계산 - 조건 적용",
+      "description": "도형 활용 범주의 '보조선을 이용한 각·길이 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C035"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "length_area"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT107",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "보조선을 이용한 각·길이 계산 - 계산·추론",
+      "description": "도형 활용 범주의 '보조선을 이용한 각·길이 계산' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "length_area"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT108",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "같은 길이 표시를 전파하지 못함",
+      "description": "도형 활용 범주의 '도형 성질을 이용한 길이 구하기' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C036"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "length_area",
+        "auxiliary_line",
+        "multi_step_reasoning"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT109",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 성질을 이용한 길이 구하기 - 조건 적용",
+      "description": "도형 활용 범주의 '도형 성질을 이용한 길이 구하기' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "length_area",
+        "auxiliary_line",
+        "multi_step_reasoning"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT110",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 성질을 이용한 길이 구하기 - 계산·추론",
+      "description": "도형 활용 범주의 '도형 성질을 이용한 길이 구하기' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C036"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "length_area",
+        "auxiliary_line",
+        "multi_step_reasoning"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT111",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "각 관계를 순서대로 연결하지 못함",
+      "description": "도형 활용 범주의 '도형 성질을 이용한 각 추론' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C037"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "length_area"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT112",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 성질을 이용한 각 추론 - 조건 적용",
+      "description": "도형 활용 범주의 '도형 성질을 이용한 각 추론' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C037"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "length_area"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT113",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 성질을 이용한 각 추론 - 계산·추론",
+      "description": "도형 활용 범주의 '도형 성질을 이용한 각 추론' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C037"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "length_area"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT114",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "높이와 변 길이 혼동",
+      "description": "도형 활용 범주의 '사각형 성질과 넓이' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C038"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT115",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "사각형 성질과 넓이 - 조건 적용",
+      "description": "도형 활용 범주의 '사각형 성질과 넓이' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C038"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT116",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "사각형 성질과 넓이 - 계산·추론",
+      "description": "도형 활용 범주의 '사각형 성질과 넓이' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C038"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT117",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "한 가지 성질만 보고 해결 시도",
+      "description": "종합 범주의 '삼각형 중심과 사각형 성질 종합' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C039"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT118",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형 중심과 사각형 성질 종합 - 조건 적용",
+      "description": "종합 범주의 '삼각형 중심과 사각형 성질 종합' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C039"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT119",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형 중심과 사각형 성질 종합 - 계산·추론",
+      "description": "종합 범주의 '삼각형 중심과 사각형 성질 종합' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C039"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_center"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT120",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "기호와 문장 불일치",
+      "description": "종합 범주의 '도형 증명 서술형 완성' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C040"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "proof_structure",
+        "reason_statement",
+        "condition_check"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT121",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 증명 서술형 완성 - 조건 적용",
+      "description": "종합 범주의 '도형 증명 서술형 완성' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C040"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "proof_structure",
+        "reason_statement",
+        "condition_check"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT122",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 증명 서술형 완성 - 계산·추론",
+      "description": "종합 범주의 '도형 증명 서술형 완성' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C040"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "proof_structure",
+        "reason_statement",
+        "condition_check"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT123",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "동위각·엇각",
+      "description": "각 관계와 합동 범주의 '평행선 각 관계와 삼각형 합동 조건 연결' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C001",
+        "M2_GEOM_C002",
+        "M2_GEOM_C005",
+        "M2_GEOM_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT124",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행선 각 관계와 삼각형 합동 조건 연결 - 조건 적용",
+      "description": "각 관계와 합동 범주의 '평행선 각 관계와 삼각형 합동 조건 연결' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C001",
+        "M2_GEOM_C002",
+        "M2_GEOM_C005",
+        "M2_GEOM_C006"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT125",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행선 각 관계와 삼각형 합동 조건 연결 - 계산·추론",
+      "description": "각 관계와 합동 범주의 '평행선 각 관계와 삼각형 합동 조건 연결' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C001",
+        "M2_GEOM_C002",
+        "M2_GEOM_C005",
+        "M2_GEOM_C006"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "raw_section_id": "M2_GEOM_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT126",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "이등변삼각형",
+      "description": "삼각형의 성질 범주의 '삼각형의 특수 성질과 중심' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C007",
+        "M2_GEOM_C009",
+        "M2_GEOM_C012",
+        "M2_GEOM_C016"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT127",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 특수 성질과 중심 - 조건 적용",
+      "description": "삼각형의 성질 범주의 '삼각형의 특수 성질과 중심' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C007",
+        "M2_GEOM_C009",
+        "M2_GEOM_C012",
+        "M2_GEOM_C016"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT128",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "삼각형의 특수 성질과 중심 - 계산·추론",
+      "description": "삼각형의 성질 범주의 '삼각형의 특수 성질과 중심' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C007",
+        "M2_GEOM_C009",
+        "M2_GEOM_C012",
+        "M2_GEOM_C016"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "raw_section_id": "M2_GEOM_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT129",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "두 쌍의 대변 평행",
+      "description": "평행사변형 범주의 '평행사변형의 각·변·대각선 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C020",
+        "M2_GEOM_C021",
+        "M2_GEOM_C022",
+        "M2_GEOM_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        10,
+        11,
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT130",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 각·변·대각선 성질 - 조건 적용",
+      "description": "평행사변형 범주의 '평행사변형의 각·변·대각선 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C020",
+        "M2_GEOM_C021",
+        "M2_GEOM_C022",
+        "M2_GEOM_C023"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        10,
+        11,
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT131",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "평행사변형의 각·변·대각선 성질 - 계산·추론",
+      "description": "평행사변형 범주의 '평행사변형의 각·변·대각선 성질' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C020",
+        "M2_GEOM_C021",
+        "M2_GEOM_C022",
+        "M2_GEOM_C023"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        10,
+        11,
+        12
+      ],
+      "raw_section_id": "M2_GEOM_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT132",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "특수 사각형 성질",
+      "description": "여러 사각형 범주의 '직사각형·마름모·정사각형·등변사다리꼴 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C025",
+        "M2_GEOM_C026",
+        "M2_GEOM_C027",
+        "M2_GEOM_C028"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13,
+        14,
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT133",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직사각형·마름모·정사각형·등변사다리꼴 비교 - 조건 적용",
+      "description": "여러 사각형 범주의 '직사각형·마름모·정사각형·등변사다리꼴 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C025",
+        "M2_GEOM_C026",
+        "M2_GEOM_C027",
+        "M2_GEOM_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13,
+        14,
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT134",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "직사각형·마름모·정사각형·등변사다리꼴 비교 - 계산·추론",
+      "description": "여러 사각형 범주의 '직사각형·마름모·정사각형·등변사다리꼴 비교' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C025",
+        "M2_GEOM_C026",
+        "M2_GEOM_C027",
+        "M2_GEOM_C028"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "quadrilateral_property"
+      ],
+      "source_orders": [
+        13,
+        14,
+        15
+      ],
+      "raw_section_id": "M2_GEOM_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT135",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "합동 증명",
+      "description": "도형 증명 범주의 '합동과 사각형 조건을 이용한 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C031",
+        "M2_GEOM_C032",
+        "M2_GEOM_C033",
+        "M2_GEOM_C034"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        16,
+        17,
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT136",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "합동과 사각형 조건을 이용한 증명 - 조건 적용",
+      "description": "도형 증명 범주의 '합동과 사각형 조건을 이용한 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C031",
+        "M2_GEOM_C032",
+        "M2_GEOM_C033",
+        "M2_GEOM_C034"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        16,
+        17,
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT137",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "합동과 사각형 조건을 이용한 증명 - 계산·추론",
+      "description": "도형 증명 범주의 '합동과 사각형 조건을 이용한 증명' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C031",
+        "M2_GEOM_C032",
+        "M2_GEOM_C033",
+        "M2_GEOM_C034"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        16,
+        17,
+        18
+      ],
+      "raw_section_id": "M2_GEOM_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT138",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "보조선 활용",
+      "description": "종합 활용 범주의 '도형 성질을 연결한 고난도 활용' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C037",
+        "M2_GEOM_C038"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "proof_structure"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT139",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 성질을 연결한 고난도 활용 - 조건 적용",
+      "description": "종합 활용 범주의 '도형 성질을 연결한 고난도 활용' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C037",
+        "M2_GEOM_C038"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "proof_structure"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT140",
+      "grade": "중2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "unit_name": "도형의 성질",
+      "type_name": "도형 성질을 연결한 고난도 활용 - 계산·추론",
+      "description": "종합 활용 범주의 '도형 성질을 연결한 고난도 활용' 유형을 진단한다. 학생이 조건 표시, 도형 성질 선택, 근거 서술을 연결할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C037",
+        "M2_GEOM_C038"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_relation",
+        "parallel_lines",
+        "angle_chasing",
+        "proof_structure"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M2_GEOM_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    }
+  ]
+}

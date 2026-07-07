@@ -1,0 +1,310 @@
+{
+  "version": "2026.07.07-m2-geometry-properties-v1.0",
+  "unit_id": "M2_GEOMETRY_PROPERTIES",
+  "unit_name": "도형의 성질",
+  "rule_count": 12,
+  "rules": [
+    {
+      "rule_id": "M2_GEOM_RULE_001",
+      "rule_name": "평행선 각 관계 혼동",
+      "if_observed_signals": [
+        "동위각과 엇각 혼동",
+        "평행 조건 없이 각 관계 사용"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C001",
+        "M2_GEOM_C002"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT001",
+        "M2_GEOM_PT002",
+        "M2_GEOM_PT004"
+      ],
+      "severity": "medium",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_001"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_002",
+      "rule_name": "내각·외각 공식 적용 오류",
+      "if_observed_signals": [
+        "외각 성질 누락",
+        "다각형 내각 합 공식 오류"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C003"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT005",
+        "M2_GEOM_PT006",
+        "M2_GEOM_PT009"
+      ],
+      "severity": "medium",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_002"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_003",
+      "rule_name": "합동 조건 판별 오류",
+      "if_observed_signals": [
+        "SSA를 합동 조건으로 사용",
+        "끼인각 조건 누락",
+        "대응 순서 오류"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C004",
+        "M2_GEOM_C005",
+        "M2_GEOM_C006"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT012",
+        "M2_GEOM_PT015",
+        "M2_GEOM_PT018"
+      ],
+      "severity": "high",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_003",
+        "M2_GEOM_REM_004"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_004",
+      "rule_name": "이등변·직각삼각형 성질 혼동",
+      "if_observed_signals": [
+        "밑각 대응 오류",
+        "직각삼각형 합동 조건 누락"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C007",
+        "M2_GEOM_C008",
+        "M2_GEOM_C009",
+        "M2_GEOM_C010"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT021",
+        "M2_GEOM_PT024",
+        "M2_GEOM_PT027"
+      ],
+      "severity": "medium",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_005"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_005",
+      "rule_name": "외심 구성선과 거리 관계 오류",
+      "if_observed_signals": [
+        "외심을 각의 이등분선 교점으로 착각",
+        "꼭짓점까지 거리 같음 누락"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C011",
+        "M2_GEOM_C012",
+        "M2_GEOM_C013",
+        "M2_GEOM_C014"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT034",
+        "M2_GEOM_PT037",
+        "M2_GEOM_PT040"
+      ],
+      "severity": "high",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_006"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_006",
+      "rule_name": "내심 구성선과 거리 관계 오류",
+      "if_observed_signals": [
+        "내심을 수직이등분선 교점으로 착각",
+        "변까지 수직거리 조건 누락"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C015",
+        "M2_GEOM_C016",
+        "M2_GEOM_C017",
+        "M2_GEOM_C018"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT046",
+        "M2_GEOM_PT049",
+        "M2_GEOM_PT052"
+      ],
+      "severity": "high",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_007"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_007",
+      "rule_name": "평행사변형 성질과 조건 혼동",
+      "if_observed_signals": [
+        "성질을 조건으로 사용할 때 근거 부족",
+        "대각선 이등분 성질 누락"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C020",
+        "M2_GEOM_C021",
+        "M2_GEOM_C022"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT061",
+        "M2_GEOM_PT064",
+        "M2_GEOM_PT067"
+      ],
+      "severity": "high",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_008",
+        "M2_GEOM_REM_009"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_008",
+      "rule_name": "특수 사각형 대각선 성질 혼동",
+      "if_observed_signals": [
+        "직사각형 대각선 수직 오해",
+        "마름모 대각선 길이 같음 오해"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C025",
+        "M2_GEOM_C026",
+        "M2_GEOM_C027",
+        "M2_GEOM_C030"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT079",
+        "M2_GEOM_PT082",
+        "M2_GEOM_PT091"
+      ],
+      "severity": "medium",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_010"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_009",
+      "rule_name": "사각형 포함 관계 오류",
+      "if_observed_signals": [
+        "포함 방향 반대 판단",
+        "정의와 추가 조건 구분 실패"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C025",
+        "M2_GEOM_C026",
+        "M2_GEOM_C027",
+        "M2_GEOM_C029"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT085",
+        "M2_GEOM_PT088"
+      ],
+      "severity": "medium",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_011"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_010",
+      "rule_name": "증명 서술 근거 누락",
+      "if_observed_signals": [
+        "조건 표시 없이 결론 제시",
+        "합동 후 대응 요소 연결 실패",
+        "충분조건 부족"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C031",
+        "M2_GEOM_C032",
+        "M2_GEOM_C033",
+        "M2_GEOM_C040"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT100",
+        "M2_GEOM_PT103",
+        "M2_GEOM_PT106",
+        "M2_GEOM_PT136"
+      ],
+      "severity": "high",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_012",
+        "M2_GEOM_REM_018"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_011",
+      "rule_name": "보조선 활용 실패",
+      "if_observed_signals": [
+        "보조선을 그어도 사용할 성질 선택 실패",
+        "불필요한 보조선으로 풀이 복잡화"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C037"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT118",
+        "M2_GEOM_PT121",
+        "M2_GEOM_PT124"
+      ],
+      "severity": "medium",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_014"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M2_GEOM_RULE_012",
+      "rule_name": "길이·각·넓이 종합 추론 단절",
+      "if_observed_signals": [
+        "같은 길이 표시 전파 실패",
+        "각 관계 연결 순서 오류",
+        "높이와 변 길이 혼동"
+      ],
+      "then_diagnosis_concept_ids": [
+        "M2_GEOM_C036",
+        "M2_GEOM_C037",
+        "M2_GEOM_C038",
+        "M2_GEOM_C039"
+      ],
+      "related_problem_type_ids": [
+        "M2_GEOM_PT124",
+        "M2_GEOM_PT127",
+        "M2_GEOM_PT130",
+        "M2_GEOM_PT133"
+      ],
+      "severity": "high",
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_015",
+        "M2_GEOM_REM_016",
+        "M2_GEOM_REM_017"
+      ],
+      "teacher_confirmation_prompt": "학생 풀이에서 조건 표시, 사용한 도형 성질, 결론까지의 근거 문장이 모두 연결되어 있는지 확인한다.",
+      "status": "curated_diagnosis_rule"
+    }
+  ]
+}

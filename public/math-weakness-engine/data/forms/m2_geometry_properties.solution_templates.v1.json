@@ -1,0 +1,100 @@
+{
+  "version": "2026.07.07-m2-geometry-properties-v1.0",
+  "unit_id": "M2_GEOMETRY_PROPERTIES",
+  "unit_name": "도형의 성질",
+  "template_count": 6,
+  "solution_templates": [
+    {
+      "template_id": "M2_GEOM_SOL_001",
+      "template_name": "각 계산 풀이",
+      "student_solution_must_include": "평행선 표시, 내각·외각 관계, 보각 또는 맞꼭지각 관계를 식으로 써야 한다.",
+      "teacher_checkpoints": [
+        "평행선 조건 확인",
+        "사용한 각 관계 명시",
+        "각 계산식 작성"
+      ],
+      "common_failure_patterns": [
+        "평행 조건 없이 엇각 사용",
+        "보각과 대각 혼동"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M2_GEOM_SOL_002",
+      "template_name": "삼각형 합동 증명 풀이",
+      "student_solution_must_include": "대응 순서를 정하고 SSS·SAS·ASA 또는 직각삼각형 합동 조건을 근거로 써야 한다.",
+      "teacher_checkpoints": [
+        "대응점 순서",
+        "공통변/공통각 표시",
+        "합동 조건 명시"
+      ],
+      "common_failure_patterns": [
+        "SSA 사용",
+        "끼인각 누락",
+        "합동 후 대응 요소 오류"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M2_GEOM_SOL_003",
+      "template_name": "외심·내심 풀이",
+      "student_solution_must_include": "외심은 수직이등분선과 꼭짓점까지 거리, 내심은 각의 이등분선과 변까지 수직거리를 구분해야 한다.",
+      "teacher_checkpoints": [
+        "구성선 구분",
+        "거리 관계 구분",
+        "원과 반지름 표시"
+      ],
+      "common_failure_patterns": [
+        "외심/내심 혼동",
+        "수직거리 누락"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M2_GEOM_SOL_004",
+      "template_name": "평행사변형 성질·조건 풀이",
+      "student_solution_must_include": "평행사변형의 정의, 성질, 되는 조건 중 무엇을 쓰는지 명확히 밝혀야 한다.",
+      "teacher_checkpoints": [
+        "정의 또는 조건 선택",
+        "대각선 이등분 확인",
+        "이웃각/대각 관계 확인"
+      ],
+      "common_failure_patterns": [
+        "성질과 조건 혼동",
+        "충분조건 부족"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M2_GEOM_SOL_005",
+      "template_name": "특수 사각형 비교 풀이",
+      "student_solution_must_include": "직사각형·마름모·정사각형의 추가 조건과 대각선 성질을 구분해야 한다.",
+      "teacher_checkpoints": [
+        "추가 조건 표시",
+        "대각선 길이/수직/이등분 구분",
+        "포함 관계 확인"
+      ],
+      "common_failure_patterns": [
+        "대각선 성질 일반화",
+        "포함 관계 반대 판단"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M2_GEOM_SOL_006",
+      "template_name": "도형 증명 서술형 풀이",
+      "student_solution_must_include": "주어진 조건, 새로 얻은 조건, 사용한 정리, 결론을 순서대로 문장화해야 한다.",
+      "teacher_checkpoints": [
+        "조건 표시",
+        "근거 문장",
+        "결론과 목표 일치"
+      ],
+      "common_failure_patterns": [
+        "근거 없이 결론 제시",
+        "기호와 문장 불일치",
+        "보조선 목적 불명확"
+      ],
+      "status": "curated_solution_template"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "version": "2026.07.07-m2-geometry-properties-v1.0",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -152,6 +152,20 @@
       "forms": "data/forms/m2_linear_function.solution_templates.v1.json"
     },
     {
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_name": "도형의 성질",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m2_geometry_properties.problem_types.v1.json",
+      "edges": "data/relations/m2_geometry_properties.edges.v1.json",
+      "diagnosis_rules": "data/rules/m2_geometry_properties.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m2_geometry_properties.remediation_map.v1.json",
+      "sources": "data/sources/m2_geometry_properties.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m2_geometry_properties.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m2_geometry_properties.solution_templates.v1.json"
+    },
+    {
       "unit_id": "M3_POLYNOMIAL_FACTORING",
       "grade": "중3",
       "unit_name": "다항식의 곱셈과 인수분해",
@@ -275,14 +289,14 @@
       "grade": "중2",
       "unit_name": "삼각형의 성질",
       "concept_name": "삼각형의 외심·내심과 각 관계",
-      "status": "future_target_seed"
+      "status": "active_target"
     },
     {
       "concept_id": "M2_GEOM_C002",
       "grade": "중2",
       "unit_name": "사각형의 성질",
       "concept_name": "평행사변형과 여러 사각형의 각·변 성질",
-      "status": "future_target_seed"
+      "status": "active_target"
     },
     {
       "concept_id": "M2_GEOM_C003",
@@ -317,14 +331,14 @@
       "grade": "중2",
       "unit_name": "도형의 성질",
       "concept_name": "평행선과 삼각형·사각형의 각 추론",
-      "status": "future_target_seed"
+      "status": "active_target"
     },
     {
       "concept_id": "M2_GEOM_C005",
       "grade": "중2",
       "unit_name": "도형의 성질",
       "concept_name": "합동과 증명을 이용한 도형 성질 추론",
-      "status": "future_target_seed"
+      "status": "active_target"
     },
     {
       "concept_id": "M3_GEOM_C002",

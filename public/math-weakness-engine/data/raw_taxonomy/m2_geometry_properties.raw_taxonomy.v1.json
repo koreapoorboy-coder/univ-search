@@ -1,0 +1,1080 @@
+{
+  "version": "2026.07.07-m2-geometry-properties-v1.0",
+  "unit_id": "M2_GEOMETRY_PROPERTIES",
+  "unit_name": "도형의 성질",
+  "source_format": "image_taxonomy_from_problem_authoring_program",
+  "note": "원본 이미지는 패치 ZIP에 포함하지 않고, 1.png~19.png의 분류 구조를 각 관계, 삼각형의 합동과 성질, 외심·내심, 평행사변형, 여러 사각형, 증명과 활용으로 재구성했습니다.",
+  "section_count": 46,
+  "sections": [
+    {
+      "raw_section_id": "M2_GEOM_RAW_001",
+      "source_orders": [
+        1
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "기본 각 관계",
+      "subdomain": "평행선과 각",
+      "task_group": "평행선에서 동위각·엇각·맞꼭지각",
+      "representative_leaf_examples": [
+        "동위각과 엇각 혼동",
+        "평행 조건 확인 없이 각 관계 사용",
+        "평행선에서 동위각·엇각·맞꼭지각"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "1.png",
+      "concept_ids": [
+        "M2_GEOM_C001"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_002",
+      "source_orders": [
+        1
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "기본 각 관계",
+      "subdomain": "삼각형의 각",
+      "task_group": "삼각형의 내각과 외각",
+      "representative_leaf_examples": [
+        "외각=두 내각의 합 누락",
+        "내각의 합 180° 적용 오류",
+        "삼각형의 내각과 외각"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "1.png",
+      "concept_ids": [
+        "M2_GEOM_C002"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_003",
+      "source_orders": [
+        1,
+        2
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "기본 각 관계",
+      "subdomain": "다각형의 각",
+      "task_group": "다각형의 내각과 외각",
+      "representative_leaf_examples": [
+        "n각형 내각 합 공식 오류",
+        "외각의 합을 n에 따라 다르다고 판단",
+        "다각형의 내각과 외각"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "1.png, 2.png",
+      "concept_ids": [
+        "M2_GEOM_C003"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_004",
+      "source_orders": [
+        2
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 합동",
+      "subdomain": "합동의 뜻",
+      "task_group": "합동인 도형의 대응 관계",
+      "representative_leaf_examples": [
+        "대응 순서 오류",
+        "도형의 방향이 바뀌면 대응을 못 찾음",
+        "합동인 도형의 대응 관계"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "2.png",
+      "concept_ids": [
+        "M2_GEOM_C004"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_005",
+      "source_orders": [
+        2,
+        3
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 합동",
+      "subdomain": "합동 조건",
+      "task_group": "삼각형의 합동 조건 SSS·SAS·ASA",
+      "representative_leaf_examples": [
+        "SSA를 합동 조건으로 오인",
+        "끼인각 조건 누락",
+        "삼각형의 합동 조건 SSS·SAS·ASA"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "2.png, 3.png",
+      "concept_ids": [
+        "M2_GEOM_C005"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_006",
+      "source_orders": [
+        3
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 합동",
+      "subdomain": "증명 구조",
+      "task_group": "합동 증명의 순서",
+      "representative_leaf_examples": [
+        "결론을 먼저 쓰고 근거 부족",
+        "대응 순서 불일치",
+        "합동 증명의 순서"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "3.png",
+      "concept_ids": [
+        "M2_GEOM_C006"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_007",
+      "source_orders": [
+        3,
+        4
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 성질",
+      "subdomain": "이등변삼각형",
+      "task_group": "이등변삼각형의 성질",
+      "representative_leaf_examples": [
+        "같은 변과 같은 각 대응 오류",
+        "꼭지각과 밑각 혼동",
+        "이등변삼각형의 성질"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "3.png, 4.png",
+      "concept_ids": [
+        "M2_GEOM_C007"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_008",
+      "source_orders": [
+        4
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 성질",
+      "subdomain": "이등변삼각형 조건",
+      "task_group": "이등변삼각형이 되는 조건",
+      "representative_leaf_examples": [
+        "성질과 조건 구분 실패",
+        "같은 각의 대변을 잘못 찾음",
+        "이등변삼각형이 되는 조건"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "4.png",
+      "concept_ids": [
+        "M2_GEOM_C008"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_009",
+      "source_orders": [
+        4,
+        5
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 성질",
+      "subdomain": "직각삼각형 합동",
+      "task_group": "직각삼각형의 합동 조건 RHS·RHA",
+      "representative_leaf_examples": [
+        "빗변을 일반 변으로 착각",
+        "직각 조건 누락",
+        "직각삼각형의 합동 조건 RHS·RHA"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "4.png, 5.png",
+      "concept_ids": [
+        "M2_GEOM_C009"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_010",
+      "source_orders": [
+        5
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 성질",
+      "subdomain": "정삼각형",
+      "task_group": "정삼각형의 성질",
+      "representative_leaf_examples": [
+        "60° 성질 누락",
+        "정삼각형과 이등변삼각형 포함 관계 혼동",
+        "정삼각형의 성질"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "5.png",
+      "concept_ids": [
+        "M2_GEOM_C010"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_011",
+      "source_orders": [
+        5,
+        6
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 외심",
+      "subdomain": "수직이등분선",
+      "task_group": "선분의 수직이등분선과 거리",
+      "representative_leaf_examples": [
+        "수직 조건만 보고 거리 같음 사용",
+        "중점 조건 누락",
+        "선분의 수직이등분선과 거리"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "5.png, 6.png",
+      "concept_ids": [
+        "M2_GEOM_C011"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_012",
+      "source_orders": [
+        6
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 외심",
+      "subdomain": "외심의 뜻",
+      "task_group": "삼각형의 외심과 외접원",
+      "representative_leaf_examples": [
+        "외심을 각의 이등분선 교점으로 착각",
+        "외접원 중심과 내접원 중심 혼동",
+        "삼각형의 외심과 외접원"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "6.png",
+      "concept_ids": [
+        "M2_GEOM_C012"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_013",
+      "source_orders": [
+        6,
+        7
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 외심",
+      "subdomain": "외심 활용",
+      "task_group": "외심을 이용한 길이와 각 계산",
+      "representative_leaf_examples": [
+        "반지름 길이 관계 누락",
+        "중심각·원주각을 과도하게 사용",
+        "외심을 이용한 길이와 각 계산"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "6.png, 7.png",
+      "concept_ids": [
+        "M2_GEOM_C013"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_014",
+      "source_orders": [
+        7
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 외심",
+      "subdomain": "외심 위치",
+      "task_group": "삼각형의 종류와 외심 위치",
+      "representative_leaf_examples": [
+        "직각삼각형 외심을 내부로 판단",
+        "둔각삼각형 외심 위치 오류",
+        "삼각형의 종류와 외심 위치"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "7.png",
+      "concept_ids": [
+        "M2_GEOM_C014"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_015",
+      "source_orders": [
+        7,
+        8
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 내심",
+      "subdomain": "각의 이등분선",
+      "task_group": "각의 이등분선과 거리",
+      "representative_leaf_examples": [
+        "두 꼭짓점까지의 거리로 오해",
+        "수직거리 표시 누락",
+        "각의 이등분선과 거리"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "7.png, 8.png",
+      "concept_ids": [
+        "M2_GEOM_C015"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_016",
+      "source_orders": [
+        8
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 내심",
+      "subdomain": "내심의 뜻",
+      "task_group": "삼각형의 내심과 내접원",
+      "representative_leaf_examples": [
+        "내심을 수직이등분선 교점으로 착각",
+        "내접원 반지름과 변 길이 혼동",
+        "삼각형의 내심과 내접원"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "8.png",
+      "concept_ids": [
+        "M2_GEOM_C016"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_017",
+      "source_orders": [
+        8,
+        9
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 내심",
+      "subdomain": "내심 활용",
+      "task_group": "내심을 이용한 각과 길이 계산",
+      "representative_leaf_examples": [
+        "각을 절반으로 나누지 않음",
+        "수직 표시 없이 반지름 사용",
+        "내심을 이용한 각과 길이 계산"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "8.png, 9.png",
+      "concept_ids": [
+        "M2_GEOM_C017"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_018",
+      "source_orders": [
+        9
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 중심",
+      "subdomain": "외심과 내심 구분",
+      "task_group": "외심·내심의 정의와 성질 비교",
+      "representative_leaf_examples": [
+        "외심과 내심 명칭 혼동",
+        "꼭짓점까지 거리와 변까지 거리 혼동",
+        "외심·내심의 정의와 성질 비교"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "9.png",
+      "concept_ids": [
+        "M2_GEOM_C018"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_019",
+      "source_orders": [
+        9,
+        10
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "사각형의 기초",
+      "subdomain": "사각형의 각",
+      "task_group": "사각형의 내각의 합",
+      "representative_leaf_examples": [
+        "삼각형 180°를 그대로 적용",
+        "오목/볼록 조건에 대한 불필요한 혼동",
+        "사각형의 내각의 합"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "9.png, 10.png",
+      "concept_ids": [
+        "M2_GEOM_C019"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_020",
+      "source_orders": [
+        10
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "평행사변형",
+      "subdomain": "정의",
+      "task_group": "평행사변형의 정의",
+      "representative_leaf_examples": [
+        "한 쌍만 평행해도 평행사변형으로 판단",
+        "정의와 성질 혼동",
+        "평행사변형의 정의"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "10.png",
+      "concept_ids": [
+        "M2_GEOM_C020"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_021",
+      "source_orders": [
+        10,
+        11
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "평행사변형",
+      "subdomain": "성질",
+      "task_group": "평행사변형의 변·각·대각선 성질",
+      "representative_leaf_examples": [
+        "대각선이 항상 수직이라고 오해",
+        "이웃각과 대각 혼동",
+        "평행사변형의 변·각·대각선 성질"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "10.png, 11.png",
+      "concept_ids": [
+        "M2_GEOM_C021"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_022",
+      "source_orders": [
+        11
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "평행사변형",
+      "subdomain": "조건",
+      "task_group": "평행사변형이 되는 조건",
+      "representative_leaf_examples": [
+        "성질을 조건으로 사용할 때 근거 부족",
+        "한 조건만으로 부족한 경우 판단 오류",
+        "평행사변형이 되는 조건"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "11.png",
+      "concept_ids": [
+        "M2_GEOM_C022"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_023",
+      "source_orders": [
+        11,
+        12
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "평행사변형",
+      "subdomain": "각 계산",
+      "task_group": "평행사변형의 각 관계",
+      "representative_leaf_examples": [
+        "이웃각 합 180° 누락",
+        "대각과 이웃각 혼동",
+        "평행사변형의 각 관계"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "11.png, 12.png",
+      "concept_ids": [
+        "M2_GEOM_C023"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_024",
+      "source_orders": [
+        12
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "평행사변형",
+      "subdomain": "길이 계산",
+      "task_group": "평행사변형의 길이 관계",
+      "representative_leaf_examples": [
+        "대각선 전체/절반 길이 혼동",
+        "대변 대응 오류",
+        "평행사변형의 길이 관계"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "12.png",
+      "concept_ids": [
+        "M2_GEOM_C024"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_025",
+      "source_orders": [
+        12,
+        13
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "여러 사각형",
+      "subdomain": "직사각형",
+      "task_group": "직사각형의 성질과 조건",
+      "representative_leaf_examples": [
+        "직사각형의 대각선이 수직이라고 오해",
+        "정사각형과 조건 혼동",
+        "직사각형의 성질과 조건"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "12.png, 13.png",
+      "concept_ids": [
+        "M2_GEOM_C025"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_026",
+      "source_orders": [
+        13
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "여러 사각형",
+      "subdomain": "마름모",
+      "task_group": "마름모의 성질과 조건",
+      "representative_leaf_examples": [
+        "마름모의 네 각이 항상 직각이라고 오해",
+        "대각선 길이 같음과 수직 혼동",
+        "마름모의 성질과 조건"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "13.png",
+      "concept_ids": [
+        "M2_GEOM_C026"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_027",
+      "source_orders": [
+        13,
+        14
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "여러 사각형",
+      "subdomain": "정사각형",
+      "task_group": "정사각형의 성질",
+      "representative_leaf_examples": [
+        "정사각형 포함 관계를 설명하지 못함",
+        "대각선 성질 일부 누락",
+        "정사각형의 성질"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "13.png, 14.png",
+      "concept_ids": [
+        "M2_GEOM_C027"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_028",
+      "source_orders": [
+        14
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "여러 사각형",
+      "subdomain": "등변사다리꼴",
+      "task_group": "등변사다리꼴의 성질",
+      "representative_leaf_examples": [
+        "사다리꼴과 평행사변형 혼동",
+        "밑각 대응 오류",
+        "등변사다리꼴의 성질"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "14.png",
+      "concept_ids": [
+        "M2_GEOM_C028"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_029",
+      "source_orders": [
+        14,
+        15
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "여러 사각형",
+      "subdomain": "포함 관계",
+      "task_group": "여러 사각형의 포함 관계",
+      "representative_leaf_examples": [
+        "포함 방향 반대로 판단",
+        "정의와 추가 조건을 구분하지 못함",
+        "여러 사각형의 포함 관계"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "14.png, 15.png",
+      "concept_ids": [
+        "M2_GEOM_C029"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_030",
+      "source_orders": [
+        15
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "여러 사각형",
+      "subdomain": "성질 비교",
+      "task_group": "여러 사각형의 대각선 성질 비교",
+      "representative_leaf_examples": [
+        "대각선 성질을 모든 사각형에 일반화",
+        "길이 같음과 수직을 혼동",
+        "여러 사각형의 대각선 성질 비교"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "15.png",
+      "concept_ids": [
+        "M2_GEOM_C030"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_031",
+      "source_orders": [
+        15,
+        16
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 증명",
+      "subdomain": "조건 찾기",
+      "task_group": "도형 증명에서 필요한 조건 찾기",
+      "representative_leaf_examples": [
+        "결론과 무관한 조건 사용",
+        "공통 조건 누락",
+        "도형 증명에서 필요한 조건 찾기"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "15.png, 16.png",
+      "concept_ids": [
+        "M2_GEOM_C031"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_032",
+      "source_orders": [
+        16
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 증명",
+      "subdomain": "삼각형 합동 증명",
+      "task_group": "삼각형 합동을 이용한 도형 증명",
+      "representative_leaf_examples": [
+        "합동 후 대응 요소를 잘못 연결",
+        "근거 문장 생략",
+        "삼각형 합동을 이용한 도형 증명"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "16.png",
+      "concept_ids": [
+        "M2_GEOM_C032"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_033",
+      "source_orders": [
+        16,
+        17
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 증명",
+      "subdomain": "평행사변형 증명",
+      "task_group": "평행사변형이 되는 조건 증명",
+      "representative_leaf_examples": [
+        "증명 조건과 성질 혼동",
+        "충분조건 부족",
+        "평행사변형이 되는 조건 증명"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "16.png, 17.png",
+      "concept_ids": [
+        "M2_GEOM_C033"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_034",
+      "source_orders": [
+        17
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 증명",
+      "subdomain": "특수 사각형 증명",
+      "task_group": "직사각형·마름모·정사각형 증명",
+      "representative_leaf_examples": [
+        "추가 조건을 빠뜨림",
+        "직사각형과 마름모 조건 혼동",
+        "직사각형·마름모·정사각형 증명"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "17.png",
+      "concept_ids": [
+        "M2_GEOM_C034"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_035",
+      "source_orders": [
+        17,
+        18
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 활용",
+      "subdomain": "보조선",
+      "task_group": "보조선을 이용한 각·길이 계산",
+      "representative_leaf_examples": [
+        "보조선을 그어도 어떤 성질을 쓸지 모름",
+        "불필요한 보조선으로 계산 복잡화",
+        "보조선을 이용한 각·길이 계산"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "17.png, 18.png",
+      "concept_ids": [
+        "M2_GEOM_C035"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_036",
+      "source_orders": [
+        18
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 활용",
+      "subdomain": "좌표 없는 길이",
+      "task_group": "도형 성질을 이용한 길이 구하기",
+      "representative_leaf_examples": [
+        "같은 길이 표시를 전파하지 못함",
+        "전체와 부분 길이 혼동",
+        "도형 성질을 이용한 길이 구하기"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "18.png",
+      "concept_ids": [
+        "M2_GEOM_C036"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_037",
+      "source_orders": [
+        18
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 활용",
+      "subdomain": "각 추론",
+      "task_group": "도형 성질을 이용한 각 추론",
+      "representative_leaf_examples": [
+        "각 관계를 순서대로 연결하지 못함",
+        "보각/여각/대각 혼동",
+        "도형 성질을 이용한 각 추론"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "18.png",
+      "concept_ids": [
+        "M2_GEOM_C037"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_038",
+      "source_orders": [
+        18,
+        19
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 활용",
+      "subdomain": "넓이",
+      "task_group": "사각형 성질과 넓이",
+      "representative_leaf_examples": [
+        "높이와 변 길이 혼동",
+        "대각선 이용 넓이 공식 오용",
+        "사각형 성질과 넓이"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "18.png, 19.png",
+      "concept_ids": [
+        "M2_GEOM_C038"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_039",
+      "source_orders": [
+        19
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "종합",
+      "subdomain": "외심·내심·사각형 연결",
+      "task_group": "삼각형 중심과 사각형 성질 종합",
+      "representative_leaf_examples": [
+        "한 가지 성질만 보고 해결 시도",
+        "중심 성질과 사각형 성질 연결 실패",
+        "삼각형 중심과 사각형 성질 종합"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "19.png",
+      "concept_ids": [
+        "M2_GEOM_C039"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_040",
+      "source_orders": [
+        19
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "종합",
+      "subdomain": "증명 서술",
+      "task_group": "도형 증명 서술형 완성",
+      "representative_leaf_examples": [
+        "기호와 문장 불일치",
+        "근거 없이 결론만 제시",
+        "도형 증명 서술형 완성"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "19.png",
+      "concept_ids": [
+        "M2_GEOM_C040"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_041",
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "각 관계와 합동",
+      "subdomain": "기초 각·합동 조건 종합",
+      "task_group": "평행선 각 관계와 삼각형 합동 조건 연결",
+      "representative_leaf_examples": [
+        "동위각·엇각",
+        "삼각형 내각과 외각",
+        "SSS·SAS·ASA"
+      ],
+      "source_declared_topic_count": 4,
+      "source_declared_detail_count": 9,
+      "source_image_range": "1.png, 2.png, 3.png",
+      "concept_ids": [
+        "M2_GEOM_C001",
+        "M2_GEOM_C002",
+        "M2_GEOM_C005",
+        "M2_GEOM_C006"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_042",
+      "source_orders": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "삼각형의 성질",
+      "subdomain": "이등변·직각·외심·내심",
+      "task_group": "삼각형의 특수 성질과 중심",
+      "representative_leaf_examples": [
+        "이등변삼각형",
+        "외심과 외접원",
+        "내심과 내접원"
+      ],
+      "source_declared_topic_count": 5,
+      "source_declared_detail_count": 9,
+      "source_image_range": "4.png, 5.png, 6.png, 7.png, 8.png, 9.png",
+      "concept_ids": [
+        "M2_GEOM_C007",
+        "M2_GEOM_C009",
+        "M2_GEOM_C012",
+        "M2_GEOM_C016",
+        "M2_GEOM_C018"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_043",
+      "source_orders": [
+        10,
+        11,
+        12
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "평행사변형",
+      "subdomain": "정의·성질·조건",
+      "task_group": "평행사변형의 각·변·대각선 성질",
+      "representative_leaf_examples": [
+        "두 쌍의 대변 평행",
+        "대각선 이등분",
+        "평행사변형이 되는 조건"
+      ],
+      "source_declared_topic_count": 5,
+      "source_declared_detail_count": 9,
+      "source_image_range": "10.png, 11.png, 12.png",
+      "concept_ids": [
+        "M2_GEOM_C020",
+        "M2_GEOM_C021",
+        "M2_GEOM_C022",
+        "M2_GEOM_C023",
+        "M2_GEOM_C024"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_044",
+      "source_orders": [
+        13,
+        14,
+        15
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "여러 사각형",
+      "subdomain": "특수 사각형과 포함 관계",
+      "task_group": "직사각형·마름모·정사각형·등변사다리꼴 비교",
+      "representative_leaf_examples": [
+        "특수 사각형 성질",
+        "대각선 성질 비교",
+        "포함 관계"
+      ],
+      "source_declared_topic_count": 6,
+      "source_declared_detail_count": 9,
+      "source_image_range": "13.png, 14.png, 15.png",
+      "concept_ids": [
+        "M2_GEOM_C025",
+        "M2_GEOM_C026",
+        "M2_GEOM_C027",
+        "M2_GEOM_C028",
+        "M2_GEOM_C029",
+        "M2_GEOM_C030"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_045",
+      "source_orders": [
+        16,
+        17,
+        18
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "도형 증명",
+      "subdomain": "증명 조건과 근거 서술",
+      "task_group": "합동과 사각형 조건을 이용한 증명",
+      "representative_leaf_examples": [
+        "합동 증명",
+        "평행사변형 증명",
+        "특수 사각형 증명"
+      ],
+      "source_declared_topic_count": 5,
+      "source_declared_detail_count": 9,
+      "source_image_range": "16.png, 17.png, 18.png",
+      "concept_ids": [
+        "M2_GEOM_C031",
+        "M2_GEOM_C032",
+        "M2_GEOM_C033",
+        "M2_GEOM_C034",
+        "M2_GEOM_C040"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_GEOM_RAW_046",
+      "source_orders": [
+        18,
+        19
+      ],
+      "chapter": "2-2 도형의 성질",
+      "domain": "종합 활용",
+      "subdomain": "각·길이·넓이·서술형 종합",
+      "task_group": "도형 성질을 연결한 고난도 활용",
+      "representative_leaf_examples": [
+        "보조선 활용",
+        "각 추론",
+        "넓이 계산",
+        "서술형 증명"
+      ],
+      "source_declared_topic_count": 6,
+      "source_declared_detail_count": 12,
+      "source_image_range": "18.png, 19.png",
+      "concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C037",
+        "M2_GEOM_C038",
+        "M2_GEOM_C039",
+        "M2_GEOM_C040"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    }
+  ]
+}

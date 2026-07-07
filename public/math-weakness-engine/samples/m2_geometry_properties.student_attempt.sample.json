@@ -1,0 +1,70 @@
+{
+  "version": "2026.07.07-m2-geometry-properties-v1.0",
+  "unit_id": "M2_GEOMETRY_PROPERTIES",
+  "unit_name": "도형의 성질",
+  "samples": [
+    {
+      "sample_id": "M2_GEOM_SAMPLE_001",
+      "problem_type_id": "M2_GEOM_PT001",
+      "student_answer_summary": "평행선 표시를 확인하지 않고 엇각이 같다고 사용함.",
+      "observed_errors": [
+        "parallel_condition_missing",
+        "angle_relation_confusion"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_GEOM_RULE_001"
+      ],
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_001"
+      ]
+    },
+    {
+      "sample_id": "M2_GEOM_SAMPLE_002",
+      "problem_type_id": "M2_GEOM_PT015",
+      "student_answer_summary": "삼각형 합동에서 SSA 조건을 합동 조건처럼 사용하고 대응 순서를 맞추지 못함.",
+      "observed_errors": [
+        "ssa_false_condition",
+        "correspondence_error"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_GEOM_RULE_003"
+      ],
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_003",
+        "M2_GEOM_REM_004"
+      ]
+    },
+    {
+      "sample_id": "M2_GEOM_SAMPLE_003",
+      "problem_type_id": "M2_GEOM_PT049",
+      "student_answer_summary": "내심 문제에서 꼭짓점까지의 거리가 같다고 판단해 외심 성질과 혼동함.",
+      "observed_errors": [
+        "incenter_circumcenter_confusion",
+        "distance_property_error"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_GEOM_RULE_006"
+      ],
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_007"
+      ]
+    },
+    {
+      "sample_id": "M2_GEOM_SAMPLE_004",
+      "problem_type_id": "M2_GEOM_PT106",
+      "student_answer_summary": "평행사변형임을 증명해야 하는데 성질을 먼저 사용하여 순환논리 형태가 됨.",
+      "observed_errors": [
+        "property_condition_confusion",
+        "proof_reason_missing"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_GEOM_RULE_007",
+        "M2_GEOM_RULE_010"
+      ],
+      "recommended_remediation_ids": [
+        "M2_GEOM_REM_009",
+        "M2_GEOM_REM_012"
+      ]
+    }
+  ]
+}
