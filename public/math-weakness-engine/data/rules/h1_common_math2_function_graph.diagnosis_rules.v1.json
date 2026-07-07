@@ -1,0 +1,2015 @@
+{
+  "version": "1.0",
+  "unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+  "unit_name": "함수와 그래프",
+  "rule_count": 64,
+  "rules": [
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_001",
+      "name": "함수 뜻 판별 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "function_definition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "대응 관계가 함수인지 판단할 때 정의역의 각 원소가 오직 하나의 값에 대응되는지 확인하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C001",
+        "H1_CM2_FUNC_C002",
+        "H1_CM2_FUNC_C003",
+        "H1_CM2_FUNC_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT001",
+        "H1_CM2_FUNC_PT002",
+        "H1_CM2_FUNC_PT003",
+        "H1_CM2_FUNC_PT004",
+        "H1_CM2_FUNC_PT005",
+        "H1_CM2_FUNC_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_002",
+      "name": "함수 뜻 판별 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "function_definition"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "대응 관계가 함수인지 판단할 때 정의역의 각 원소가 오직 하나의 값에 대응되는지 확인하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C001",
+        "H1_CM2_FUNC_C002",
+        "H1_CM2_FUNC_C003",
+        "H1_CM2_FUNC_C004",
+        "H1_CM2_FUNC_C033"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT001",
+        "H1_CM2_FUNC_PT002",
+        "H1_CM2_FUNC_PT003",
+        "H1_CM2_FUNC_PT004",
+        "H1_CM2_FUNC_PT005",
+        "H1_CM2_FUNC_PT006",
+        "H1_CM2_FUNC_PT007"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_003",
+      "name": "함수 뜻 판별 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "function_definition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "대응 관계가 함수인지 판단할 때 정의역의 각 원소가 오직 하나의 값에 대응되는지 확인하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C001",
+        "H1_CM2_FUNC_C002",
+        "H1_CM2_FUNC_C003",
+        "H1_CM2_FUNC_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT001",
+        "H1_CM2_FUNC_PT002",
+        "H1_CM2_FUNC_PT003",
+        "H1_CM2_FUNC_PT004",
+        "H1_CM2_FUNC_PT005",
+        "H1_CM2_FUNC_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_004",
+      "name": "함수값 대입 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "function_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "f(x), f(a), f(x+y), 합성함수값을 구할 때 대입 순서와 괄호 구조를 놓칩니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C005",
+        "H1_CM2_FUNC_C006",
+        "H1_CM2_FUNC_C007",
+        "H1_CM2_FUNC_C008"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT013",
+        "H1_CM2_FUNC_PT014",
+        "H1_CM2_FUNC_PT015",
+        "H1_CM2_FUNC_PT016",
+        "H1_CM2_FUNC_PT017",
+        "H1_CM2_FUNC_PT018"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_005",
+      "name": "함수값 대입 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "function_value"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "f(x), f(a), f(x+y), 합성함수값을 구할 때 대입 순서와 괄호 구조를 놓칩니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C005",
+        "H1_CM2_FUNC_C006",
+        "H1_CM2_FUNC_C007",
+        "H1_CM2_FUNC_C008",
+        "H1_CM2_FUNC_C013"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT013",
+        "H1_CM2_FUNC_PT014",
+        "H1_CM2_FUNC_PT015",
+        "H1_CM2_FUNC_PT016",
+        "H1_CM2_FUNC_PT017",
+        "H1_CM2_FUNC_PT018",
+        "H1_CM2_FUNC_PT019"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_006",
+      "name": "함수값 대입 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "function_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "f(x), f(a), f(x+y), 합성함수값을 구할 때 대입 순서와 괄호 구조를 놓칩니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C005",
+        "H1_CM2_FUNC_C006",
+        "H1_CM2_FUNC_C007",
+        "H1_CM2_FUNC_C008"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT013",
+        "H1_CM2_FUNC_PT014",
+        "H1_CM2_FUNC_PT015",
+        "H1_CM2_FUNC_PT016",
+        "H1_CM2_FUNC_PT017",
+        "H1_CM2_FUNC_PT018"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_007",
+      "name": "정의역·치역 판단 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "domain_range"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "정의역 제한, 공역, 치역, 그래프의 실제 범위를 분리하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C009",
+        "H1_CM2_FUNC_C010",
+        "H1_CM2_FUNC_C011",
+        "H1_CM2_FUNC_C012"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT025",
+        "H1_CM2_FUNC_PT026",
+        "H1_CM2_FUNC_PT027",
+        "H1_CM2_FUNC_PT028",
+        "H1_CM2_FUNC_PT029",
+        "H1_CM2_FUNC_PT030"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_008",
+      "name": "정의역·치역 판단 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "domain_range"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "정의역 제한, 공역, 치역, 그래프의 실제 범위를 분리하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C009",
+        "H1_CM2_FUNC_C010",
+        "H1_CM2_FUNC_C011",
+        "H1_CM2_FUNC_C012",
+        "H1_CM2_FUNC_C017"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT025",
+        "H1_CM2_FUNC_PT026",
+        "H1_CM2_FUNC_PT027",
+        "H1_CM2_FUNC_PT028",
+        "H1_CM2_FUNC_PT029",
+        "H1_CM2_FUNC_PT030",
+        "H1_CM2_FUNC_PT031"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_009",
+      "name": "정의역·치역 판단 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "domain_range"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "정의역 제한, 공역, 치역, 그래프의 실제 범위를 분리하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C009",
+        "H1_CM2_FUNC_C010",
+        "H1_CM2_FUNC_C011",
+        "H1_CM2_FUNC_C012"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT025",
+        "H1_CM2_FUNC_PT026",
+        "H1_CM2_FUNC_PT027",
+        "H1_CM2_FUNC_PT028",
+        "H1_CM2_FUNC_PT029",
+        "H1_CM2_FUNC_PT030"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_010",
+      "name": "일대일함수·일대일대응 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "one_to_one"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "일대일과 일대일대응의 차이를 정의역·공역·치역 기준으로 구분하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C025",
+        "H1_CM2_FUNC_C026",
+        "H1_CM2_FUNC_C027",
+        "H1_CM2_FUNC_C028"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT073",
+        "H1_CM2_FUNC_PT074",
+        "H1_CM2_FUNC_PT075",
+        "H1_CM2_FUNC_PT076",
+        "H1_CM2_FUNC_PT077",
+        "H1_CM2_FUNC_PT078"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_011",
+      "name": "일대일함수·일대일대응 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "one_to_one"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "일대일과 일대일대응의 차이를 정의역·공역·치역 기준으로 구분하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C025",
+        "H1_CM2_FUNC_C026",
+        "H1_CM2_FUNC_C027",
+        "H1_CM2_FUNC_C028",
+        "H1_CM2_FUNC_C029"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT073",
+        "H1_CM2_FUNC_PT074",
+        "H1_CM2_FUNC_PT075",
+        "H1_CM2_FUNC_PT076",
+        "H1_CM2_FUNC_PT077",
+        "H1_CM2_FUNC_PT078",
+        "H1_CM2_FUNC_PT079"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_012",
+      "name": "일대일함수·일대일대응 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "one_to_one"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "일대일과 일대일대응의 차이를 정의역·공역·치역 기준으로 구분하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C025",
+        "H1_CM2_FUNC_C026",
+        "H1_CM2_FUNC_C027",
+        "H1_CM2_FUNC_C028"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT073",
+        "H1_CM2_FUNC_PT074",
+        "H1_CM2_FUNC_PT075",
+        "H1_CM2_FUNC_PT076",
+        "H1_CM2_FUNC_PT077",
+        "H1_CM2_FUNC_PT078"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_013",
+      "name": "함수의 개수 세기 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "function_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "함수, 일대일함수, 일대일대응의 개수를 서로 다른 조건으로 세지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C037",
+        "H1_CM2_FUNC_C038",
+        "H1_CM2_FUNC_C039",
+        "H1_CM2_FUNC_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT109",
+        "H1_CM2_FUNC_PT110",
+        "H1_CM2_FUNC_PT111",
+        "H1_CM2_FUNC_PT112",
+        "H1_CM2_FUNC_PT113",
+        "H1_CM2_FUNC_PT114"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_014",
+      "name": "함수의 개수 세기 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "function_count"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "함수, 일대일함수, 일대일대응의 개수를 서로 다른 조건으로 세지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C037",
+        "H1_CM2_FUNC_C038",
+        "H1_CM2_FUNC_C039",
+        "H1_CM2_FUNC_C040",
+        "H1_CM2_FUNC_C041"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT109",
+        "H1_CM2_FUNC_PT110",
+        "H1_CM2_FUNC_PT111",
+        "H1_CM2_FUNC_PT112",
+        "H1_CM2_FUNC_PT113",
+        "H1_CM2_FUNC_PT114",
+        "H1_CM2_FUNC_PT115"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_015",
+      "name": "함수의 개수 세기 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "function_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "함수, 일대일함수, 일대일대응의 개수를 서로 다른 조건으로 세지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C037",
+        "H1_CM2_FUNC_C038",
+        "H1_CM2_FUNC_C039",
+        "H1_CM2_FUNC_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT109",
+        "H1_CM2_FUNC_PT110",
+        "H1_CM2_FUNC_PT111",
+        "H1_CM2_FUNC_PT112",
+        "H1_CM2_FUNC_PT113",
+        "H1_CM2_FUNC_PT114"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_016",
+      "name": "절댓값 그래프 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "절댓값 기호를 포함한 함수를 구간별 식으로 나누지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C053",
+        "H1_CM2_FUNC_C054",
+        "H1_CM2_FUNC_C055",
+        "H1_CM2_FUNC_C056"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT157",
+        "H1_CM2_FUNC_PT158",
+        "H1_CM2_FUNC_PT159",
+        "H1_CM2_FUNC_PT160",
+        "H1_CM2_FUNC_PT161",
+        "H1_CM2_FUNC_PT162"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_017",
+      "name": "절댓값 그래프 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value_graph"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "절댓값 기호를 포함한 함수를 구간별 식으로 나누지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C053",
+        "H1_CM2_FUNC_C054",
+        "H1_CM2_FUNC_C055",
+        "H1_CM2_FUNC_C056",
+        "H1_CM2_FUNC_C057"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT157",
+        "H1_CM2_FUNC_PT158",
+        "H1_CM2_FUNC_PT159",
+        "H1_CM2_FUNC_PT160",
+        "H1_CM2_FUNC_PT161",
+        "H1_CM2_FUNC_PT162",
+        "H1_CM2_FUNC_PT163"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_018",
+      "name": "절댓값 그래프 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "절댓값 기호를 포함한 함수를 구간별 식으로 나누지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C053",
+        "H1_CM2_FUNC_C054",
+        "H1_CM2_FUNC_C055",
+        "H1_CM2_FUNC_C056"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT157",
+        "H1_CM2_FUNC_PT158",
+        "H1_CM2_FUNC_PT159",
+        "H1_CM2_FUNC_PT160",
+        "H1_CM2_FUNC_PT161",
+        "H1_CM2_FUNC_PT162"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_019",
+      "name": "합성함수 순서 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "composition_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "f∘g와 g∘f의 순서를 반대로 적용하거나 안쪽 함수의 값을 먼저 구하지 않습니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C061",
+        "H1_CM2_FUNC_C062",
+        "H1_CM2_FUNC_C063",
+        "H1_CM2_FUNC_C064"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT181",
+        "H1_CM2_FUNC_PT182",
+        "H1_CM2_FUNC_PT183",
+        "H1_CM2_FUNC_PT184",
+        "H1_CM2_FUNC_PT185",
+        "H1_CM2_FUNC_PT186"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_020",
+      "name": "합성함수 순서 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "composition_value"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "f∘g와 g∘f의 순서를 반대로 적용하거나 안쪽 함수의 값을 먼저 구하지 않습니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C061",
+        "H1_CM2_FUNC_C062",
+        "H1_CM2_FUNC_C063",
+        "H1_CM2_FUNC_C064",
+        "H1_CM2_FUNC_C077"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT181",
+        "H1_CM2_FUNC_PT182",
+        "H1_CM2_FUNC_PT183",
+        "H1_CM2_FUNC_PT184",
+        "H1_CM2_FUNC_PT185",
+        "H1_CM2_FUNC_PT186",
+        "H1_CM2_FUNC_PT187"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_021",
+      "name": "합성함수 순서 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "composition_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "f∘g와 g∘f의 순서를 반대로 적용하거나 안쪽 함수의 값을 먼저 구하지 않습니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C061",
+        "H1_CM2_FUNC_C062",
+        "H1_CM2_FUNC_C063",
+        "H1_CM2_FUNC_C064"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT181",
+        "H1_CM2_FUNC_PT182",
+        "H1_CM2_FUNC_PT183",
+        "H1_CM2_FUNC_PT184",
+        "H1_CM2_FUNC_PT185",
+        "H1_CM2_FUNC_PT186"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_022",
+      "name": "합성함수 조건식 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "composition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "f∘g=h 꼴에서 원래 함수나 미지수를 역추적하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C073",
+        "H1_CM2_FUNC_C074",
+        "H1_CM2_FUNC_C075",
+        "H1_CM2_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT217",
+        "H1_CM2_FUNC_PT218",
+        "H1_CM2_FUNC_PT219",
+        "H1_CM2_FUNC_PT220",
+        "H1_CM2_FUNC_PT221",
+        "H1_CM2_FUNC_PT222"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_023",
+      "name": "합성함수 조건식 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "composition_equation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "f∘g=h 꼴에서 원래 함수나 미지수를 역추적하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C073",
+        "H1_CM2_FUNC_C074",
+        "H1_CM2_FUNC_C075",
+        "H1_CM2_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT217",
+        "H1_CM2_FUNC_PT218",
+        "H1_CM2_FUNC_PT219",
+        "H1_CM2_FUNC_PT220",
+        "H1_CM2_FUNC_PT221",
+        "H1_CM2_FUNC_PT222",
+        "H1_CM2_FUNC_PT223"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_024",
+      "name": "합성함수 조건식 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "composition_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "f∘g=h 꼴에서 원래 함수나 미지수를 역추적하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C073",
+        "H1_CM2_FUNC_C074",
+        "H1_CM2_FUNC_C075",
+        "H1_CM2_FUNC_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT217",
+        "H1_CM2_FUNC_PT218",
+        "H1_CM2_FUNC_PT219",
+        "H1_CM2_FUNC_PT220",
+        "H1_CM2_FUNC_PT221",
+        "H1_CM2_FUNC_PT222"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_025",
+      "name": "역함수 함수값 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "f^{-1}(a)=b를 f(b)=a로 바꾸는 기준이 약합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C089",
+        "H1_CM2_FUNC_C090",
+        "H1_CM2_FUNC_C091",
+        "H1_CM2_FUNC_C092"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT265",
+        "H1_CM2_FUNC_PT266",
+        "H1_CM2_FUNC_PT267",
+        "H1_CM2_FUNC_PT268",
+        "H1_CM2_FUNC_PT269",
+        "H1_CM2_FUNC_PT270"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_026",
+      "name": "역함수 함수값 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_value"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "f^{-1}(a)=b를 f(b)=a로 바꾸는 기준이 약합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C089",
+        "H1_CM2_FUNC_C090",
+        "H1_CM2_FUNC_C091",
+        "H1_CM2_FUNC_C092"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT265",
+        "H1_CM2_FUNC_PT266",
+        "H1_CM2_FUNC_PT267",
+        "H1_CM2_FUNC_PT268",
+        "H1_CM2_FUNC_PT269",
+        "H1_CM2_FUNC_PT270",
+        "H1_CM2_FUNC_PT271"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_027",
+      "name": "역함수 함수값 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "f^{-1}(a)=b를 f(b)=a로 바꾸는 기준이 약합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C089",
+        "H1_CM2_FUNC_C090",
+        "H1_CM2_FUNC_C091",
+        "H1_CM2_FUNC_C092"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT265",
+        "H1_CM2_FUNC_PT266",
+        "H1_CM2_FUNC_PT267",
+        "H1_CM2_FUNC_PT268",
+        "H1_CM2_FUNC_PT269",
+        "H1_CM2_FUNC_PT270"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_028",
+      "name": "역함수 존재 조건 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_existence"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "역함수 존재 여부를 일대일대응 또는 정의역 제한 조건으로 판단하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C093",
+        "H1_CM2_FUNC_C094",
+        "H1_CM2_FUNC_C095",
+        "H1_CM2_FUNC_C096"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT277",
+        "H1_CM2_FUNC_PT278",
+        "H1_CM2_FUNC_PT279",
+        "H1_CM2_FUNC_PT280",
+        "H1_CM2_FUNC_PT281",
+        "H1_CM2_FUNC_PT282"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_029",
+      "name": "역함수 존재 조건 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_existence"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "역함수 존재 여부를 일대일대응 또는 정의역 제한 조건으로 판단하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C093",
+        "H1_CM2_FUNC_C094",
+        "H1_CM2_FUNC_C095",
+        "H1_CM2_FUNC_C096"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT277",
+        "H1_CM2_FUNC_PT278",
+        "H1_CM2_FUNC_PT279",
+        "H1_CM2_FUNC_PT280",
+        "H1_CM2_FUNC_PT281",
+        "H1_CM2_FUNC_PT282",
+        "H1_CM2_FUNC_PT283"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_030",
+      "name": "역함수 존재 조건 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_existence"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "역함수 존재 여부를 일대일대응 또는 정의역 제한 조건으로 판단하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C093",
+        "H1_CM2_FUNC_C094",
+        "H1_CM2_FUNC_C095",
+        "H1_CM2_FUNC_C096"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT277",
+        "H1_CM2_FUNC_PT278",
+        "H1_CM2_FUNC_PT279",
+        "H1_CM2_FUNC_PT280",
+        "H1_CM2_FUNC_PT281",
+        "H1_CM2_FUNC_PT282"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_031",
+      "name": "역함수 그래프 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "y=x 대칭과 원래 함수의 정의역·치역 교환을 동시에 반영하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C121",
+        "H1_CM2_FUNC_C122",
+        "H1_CM2_FUNC_C123",
+        "H1_CM2_FUNC_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT361",
+        "H1_CM2_FUNC_PT362",
+        "H1_CM2_FUNC_PT363",
+        "H1_CM2_FUNC_PT364",
+        "H1_CM2_FUNC_PT365",
+        "H1_CM2_FUNC_PT366"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_032",
+      "name": "역함수 그래프 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_graph"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "y=x 대칭과 원래 함수의 정의역·치역 교환을 동시에 반영하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C121",
+        "H1_CM2_FUNC_C122",
+        "H1_CM2_FUNC_C123",
+        "H1_CM2_FUNC_C124",
+        "H1_CM2_FUNC_C125"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT361",
+        "H1_CM2_FUNC_PT362",
+        "H1_CM2_FUNC_PT363",
+        "H1_CM2_FUNC_PT364",
+        "H1_CM2_FUNC_PT365",
+        "H1_CM2_FUNC_PT366",
+        "H1_CM2_FUNC_PT367"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_033",
+      "name": "역함수 그래프 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "y=x 대칭과 원래 함수의 정의역·치역 교환을 동시에 반영하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C121",
+        "H1_CM2_FUNC_C122",
+        "H1_CM2_FUNC_C123",
+        "H1_CM2_FUNC_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT361",
+        "H1_CM2_FUNC_PT362",
+        "H1_CM2_FUNC_PT363",
+        "H1_CM2_FUNC_PT364",
+        "H1_CM2_FUNC_PT365",
+        "H1_CM2_FUNC_PT366"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_034",
+      "name": "유리식 계산 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "rational_operation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "인수분해, 약분, 통분, 분수식 정리 과정에서 정의되지 않는 값을 누락합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C133",
+        "H1_CM2_FUNC_C134",
+        "H1_CM2_FUNC_C135",
+        "H1_CM2_FUNC_C136"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT397",
+        "H1_CM2_FUNC_PT398",
+        "H1_CM2_FUNC_PT399",
+        "H1_CM2_FUNC_PT400",
+        "H1_CM2_FUNC_PT401",
+        "H1_CM2_FUNC_PT402"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_035",
+      "name": "유리식 계산 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "rational_operation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "인수분해, 약분, 통분, 분수식 정리 과정에서 정의되지 않는 값을 누락합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C133",
+        "H1_CM2_FUNC_C134",
+        "H1_CM2_FUNC_C135",
+        "H1_CM2_FUNC_C136",
+        "H1_CM2_FUNC_C149"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT397",
+        "H1_CM2_FUNC_PT398",
+        "H1_CM2_FUNC_PT399",
+        "H1_CM2_FUNC_PT400",
+        "H1_CM2_FUNC_PT401",
+        "H1_CM2_FUNC_PT402",
+        "H1_CM2_FUNC_PT403"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_036",
+      "name": "유리식 계산 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "rational_operation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "인수분해, 약분, 통분, 분수식 정리 과정에서 정의되지 않는 값을 누락합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C133",
+        "H1_CM2_FUNC_C134",
+        "H1_CM2_FUNC_C135",
+        "H1_CM2_FUNC_C136"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT397",
+        "H1_CM2_FUNC_PT398",
+        "H1_CM2_FUNC_PT399",
+        "H1_CM2_FUNC_PT400",
+        "H1_CM2_FUNC_PT401",
+        "H1_CM2_FUNC_PT402"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_037",
+      "name": "유리함수 정의역·치역 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "rational_domain_range"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "분모가 0이 되는 값과 점근선을 이용한 치역 제한을 연결하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C177",
+        "H1_CM2_FUNC_C178",
+        "H1_CM2_FUNC_C179",
+        "H1_CM2_FUNC_C180"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT529",
+        "H1_CM2_FUNC_PT530",
+        "H1_CM2_FUNC_PT531",
+        "H1_CM2_FUNC_PT532",
+        "H1_CM2_FUNC_PT533",
+        "H1_CM2_FUNC_PT534"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_038",
+      "name": "유리함수 정의역·치역 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "rational_domain_range"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "분모가 0이 되는 값과 점근선을 이용한 치역 제한을 연결하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C177",
+        "H1_CM2_FUNC_C178",
+        "H1_CM2_FUNC_C179",
+        "H1_CM2_FUNC_C180"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT529",
+        "H1_CM2_FUNC_PT530",
+        "H1_CM2_FUNC_PT531",
+        "H1_CM2_FUNC_PT532",
+        "H1_CM2_FUNC_PT533",
+        "H1_CM2_FUNC_PT534",
+        "H1_CM2_FUNC_PT535"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_039",
+      "name": "유리함수 정의역·치역 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "rational_domain_range"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "분모가 0이 되는 값과 점근선을 이용한 치역 제한을 연결하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C177",
+        "H1_CM2_FUNC_C178",
+        "H1_CM2_FUNC_C179",
+        "H1_CM2_FUNC_C180"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT529",
+        "H1_CM2_FUNC_PT530",
+        "H1_CM2_FUNC_PT531",
+        "H1_CM2_FUNC_PT532",
+        "H1_CM2_FUNC_PT533",
+        "H1_CM2_FUNC_PT534"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_040",
+      "name": "유리함수 점근선 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "asymptote"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "유리함수 그래프에서 수직·수평 점근선을 식의 형태로 읽지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C181",
+        "H1_CM2_FUNC_C182",
+        "H1_CM2_FUNC_C183",
+        "H1_CM2_FUNC_C184"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT541",
+        "H1_CM2_FUNC_PT542",
+        "H1_CM2_FUNC_PT543",
+        "H1_CM2_FUNC_PT544",
+        "H1_CM2_FUNC_PT545",
+        "H1_CM2_FUNC_PT546"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_041",
+      "name": "유리함수 점근선 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "asymptote"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "유리함수 그래프에서 수직·수평 점근선을 식의 형태로 읽지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C181",
+        "H1_CM2_FUNC_C182",
+        "H1_CM2_FUNC_C183",
+        "H1_CM2_FUNC_C184",
+        "H1_CM2_FUNC_C185"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT541",
+        "H1_CM2_FUNC_PT542",
+        "H1_CM2_FUNC_PT543",
+        "H1_CM2_FUNC_PT544",
+        "H1_CM2_FUNC_PT545",
+        "H1_CM2_FUNC_PT546",
+        "H1_CM2_FUNC_PT547"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_042",
+      "name": "유리함수 점근선 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "asymptote"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "유리함수 그래프에서 수직·수평 점근선을 식의 형태로 읽지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C181",
+        "H1_CM2_FUNC_C182",
+        "H1_CM2_FUNC_C183",
+        "H1_CM2_FUNC_C184"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT541",
+        "H1_CM2_FUNC_PT542",
+        "H1_CM2_FUNC_PT543",
+        "H1_CM2_FUNC_PT544",
+        "H1_CM2_FUNC_PT545",
+        "H1_CM2_FUNC_PT546"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_043",
+      "name": "무리식 실수 조건 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "radical_domain"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "근호 안이 0 이상이어야 한다는 조건을 정의역으로 번역하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C233",
+        "H1_CM2_FUNC_C234",
+        "H1_CM2_FUNC_C235",
+        "H1_CM2_FUNC_C236"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT697",
+        "H1_CM2_FUNC_PT698",
+        "H1_CM2_FUNC_PT699",
+        "H1_CM2_FUNC_PT700",
+        "H1_CM2_FUNC_PT701",
+        "H1_CM2_FUNC_PT702"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_044",
+      "name": "무리식 실수 조건 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "radical_domain"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "근호 안이 0 이상이어야 한다는 조건을 정의역으로 번역하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C233",
+        "H1_CM2_FUNC_C234",
+        "H1_CM2_FUNC_C235",
+        "H1_CM2_FUNC_C236"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT697",
+        "H1_CM2_FUNC_PT698",
+        "H1_CM2_FUNC_PT699",
+        "H1_CM2_FUNC_PT700",
+        "H1_CM2_FUNC_PT701",
+        "H1_CM2_FUNC_PT702",
+        "H1_CM2_FUNC_PT703"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_045",
+      "name": "무리식 실수 조건 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "radical_domain"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "근호 안이 0 이상이어야 한다는 조건을 정의역으로 번역하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C233",
+        "H1_CM2_FUNC_C234",
+        "H1_CM2_FUNC_C235",
+        "H1_CM2_FUNC_C236"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT697",
+        "H1_CM2_FUNC_PT698",
+        "H1_CM2_FUNC_PT699",
+        "H1_CM2_FUNC_PT700",
+        "H1_CM2_FUNC_PT701",
+        "H1_CM2_FUNC_PT702"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_046",
+      "name": "무리식 계산 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "radical_operation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "제곱근 성질, 유리화, 켤레식 활용을 구분하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C245",
+        "H1_CM2_FUNC_C246",
+        "H1_CM2_FUNC_C247",
+        "H1_CM2_FUNC_C248"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT733",
+        "H1_CM2_FUNC_PT734",
+        "H1_CM2_FUNC_PT735",
+        "H1_CM2_FUNC_PT736",
+        "H1_CM2_FUNC_PT737",
+        "H1_CM2_FUNC_PT738"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_047",
+      "name": "무리식 계산 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "radical_operation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "제곱근 성질, 유리화, 켤레식 활용을 구분하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C245",
+        "H1_CM2_FUNC_C246",
+        "H1_CM2_FUNC_C247",
+        "H1_CM2_FUNC_C248"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT733",
+        "H1_CM2_FUNC_PT734",
+        "H1_CM2_FUNC_PT735",
+        "H1_CM2_FUNC_PT736",
+        "H1_CM2_FUNC_PT737",
+        "H1_CM2_FUNC_PT738",
+        "H1_CM2_FUNC_PT739"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_048",
+      "name": "무리식 계산 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "radical_operation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "제곱근 성질, 유리화, 켤레식 활용을 구분하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C245",
+        "H1_CM2_FUNC_C246",
+        "H1_CM2_FUNC_C247",
+        "H1_CM2_FUNC_C248"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT733",
+        "H1_CM2_FUNC_PT734",
+        "H1_CM2_FUNC_PT735",
+        "H1_CM2_FUNC_PT736",
+        "H1_CM2_FUNC_PT737",
+        "H1_CM2_FUNC_PT738"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_049",
+      "name": "무리함수 정의역·치역 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "radical_domain_range"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "시작점과 근호 내부 조건을 이용해 정의역과 치역을 판단하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C277",
+        "H1_CM2_FUNC_C278",
+        "H1_CM2_FUNC_C279",
+        "H1_CM2_FUNC_C280"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT829",
+        "H1_CM2_FUNC_PT830",
+        "H1_CM2_FUNC_PT831",
+        "H1_CM2_FUNC_PT832",
+        "H1_CM2_FUNC_PT833",
+        "H1_CM2_FUNC_PT834"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_050",
+      "name": "무리함수 정의역·치역 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "radical_domain_range"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "시작점과 근호 내부 조건을 이용해 정의역과 치역을 판단하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C277",
+        "H1_CM2_FUNC_C278",
+        "H1_CM2_FUNC_C279",
+        "H1_CM2_FUNC_C280"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT829",
+        "H1_CM2_FUNC_PT830",
+        "H1_CM2_FUNC_PT831",
+        "H1_CM2_FUNC_PT832",
+        "H1_CM2_FUNC_PT833",
+        "H1_CM2_FUNC_PT834",
+        "H1_CM2_FUNC_PT835"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_051",
+      "name": "무리함수 정의역·치역 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "radical_domain_range"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "시작점과 근호 내부 조건을 이용해 정의역과 치역을 판단하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C277",
+        "H1_CM2_FUNC_C278",
+        "H1_CM2_FUNC_C279",
+        "H1_CM2_FUNC_C280"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT829",
+        "H1_CM2_FUNC_PT830",
+        "H1_CM2_FUNC_PT831",
+        "H1_CM2_FUNC_PT832",
+        "H1_CM2_FUNC_PT833",
+        "H1_CM2_FUNC_PT834"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_052",
+      "name": "무리함수 그래프 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "radical_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "평행이동, 대칭이동, 시작점, 증가·감소 방향을 분리하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C281",
+        "H1_CM2_FUNC_C282",
+        "H1_CM2_FUNC_C283",
+        "H1_CM2_FUNC_C284"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT841",
+        "H1_CM2_FUNC_PT842",
+        "H1_CM2_FUNC_PT843",
+        "H1_CM2_FUNC_PT844",
+        "H1_CM2_FUNC_PT845",
+        "H1_CM2_FUNC_PT846"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_053",
+      "name": "무리함수 그래프 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "radical_graph"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "평행이동, 대칭이동, 시작점, 증가·감소 방향을 분리하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C281",
+        "H1_CM2_FUNC_C282",
+        "H1_CM2_FUNC_C283",
+        "H1_CM2_FUNC_C284",
+        "H1_CM2_FUNC_C285"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT841",
+        "H1_CM2_FUNC_PT842",
+        "H1_CM2_FUNC_PT843",
+        "H1_CM2_FUNC_PT844",
+        "H1_CM2_FUNC_PT845",
+        "H1_CM2_FUNC_PT846",
+        "H1_CM2_FUNC_PT847"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_054",
+      "name": "무리함수 그래프 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "radical_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "평행이동, 대칭이동, 시작점, 증가·감소 방향을 분리하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C281",
+        "H1_CM2_FUNC_C282",
+        "H1_CM2_FUNC_C283",
+        "H1_CM2_FUNC_C284"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT841",
+        "H1_CM2_FUNC_PT842",
+        "H1_CM2_FUNC_PT843",
+        "H1_CM2_FUNC_PT844",
+        "H1_CM2_FUNC_PT845",
+        "H1_CM2_FUNC_PT846"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_055",
+      "name": "그래프와 직선 위치관계 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "line_intersection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "그래프와 직선의 교점 개수를 방정식의 해 또는 판별식으로 연결하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C213",
+        "H1_CM2_FUNC_C214",
+        "H1_CM2_FUNC_C215",
+        "H1_CM2_FUNC_C216"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT637",
+        "H1_CM2_FUNC_PT638",
+        "H1_CM2_FUNC_PT639",
+        "H1_CM2_FUNC_PT640",
+        "H1_CM2_FUNC_PT641",
+        "H1_CM2_FUNC_PT642"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_056",
+      "name": "그래프와 직선 위치관계 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "line_intersection"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "그래프와 직선의 교점 개수를 방정식의 해 또는 판별식으로 연결하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C213",
+        "H1_CM2_FUNC_C214",
+        "H1_CM2_FUNC_C215",
+        "H1_CM2_FUNC_C216",
+        "H1_CM2_FUNC_C313"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT637",
+        "H1_CM2_FUNC_PT638",
+        "H1_CM2_FUNC_PT639",
+        "H1_CM2_FUNC_PT640",
+        "H1_CM2_FUNC_PT641",
+        "H1_CM2_FUNC_PT642",
+        "H1_CM2_FUNC_PT643"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_057",
+      "name": "그래프와 직선 위치관계 취약 - 그래프·보기형",
+      "trigger": {
+        "error_tags_any": [
+          "line_intersection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "그래프와 직선의 교점 개수를 방정식의 해 또는 판별식으로 연결하지 못합니다.",
+      "parent_message": "함수와 그래프 문제는 바로 식 계산으로 들어가지 말고, 먼저 입력값·출력값·정의역·치역·그래프 기준을 표로 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C213",
+        "H1_CM2_FUNC_C214",
+        "H1_CM2_FUNC_C215",
+        "H1_CM2_FUNC_C216"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT637",
+        "H1_CM2_FUNC_PT638",
+        "H1_CM2_FUNC_PT639",
+        "H1_CM2_FUNC_PT640",
+        "H1_CM2_FUNC_PT641",
+        "H1_CM2_FUNC_PT642"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_058",
+      "name": "함수의 개념과 그래프 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value_graph",
+          "case_counting",
+          "coefficient_compare",
+          "condition_casework",
+          "condition_equation",
+          "condition_translation",
+          "domain_range",
+          "domain_restriction",
+          "even_odd_function",
+          "expression_condition",
+          "function_count",
+          "function_definition",
+          "function_value",
+          "graph_drawing",
+          "graph_reading",
+          "identity_constant",
+          "linear_graph",
+          "maximum_minimum",
+          "one_to_one",
+          "onto",
+          "parameter_condition",
+          "periodic_symmetry",
+          "piecewise_graph",
+          "relation_translation",
+          "same_function",
+          "substitution",
+          "symmetry"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "함수의 개념과 그래프 유형에서 식, 그래프, 정의역·치역, 미지수 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 입력값→조건→그래프 기준→보기 검산의 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C001",
+        "H1_CM2_FUNC_C002",
+        "H1_CM2_FUNC_C003",
+        "H1_CM2_FUNC_C004",
+        "H1_CM2_FUNC_C005"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT001",
+        "H1_CM2_FUNC_PT002",
+        "H1_CM2_FUNC_PT003",
+        "H1_CM2_FUNC_PT004",
+        "H1_CM2_FUNC_PT005",
+        "H1_CM2_FUNC_PT006",
+        "H1_CM2_FUNC_PT007",
+        "H1_CM2_FUNC_PT008"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_059",
+      "name": "합성함수 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coefficient_compare",
+          "composition_commute",
+          "composition_equation",
+          "composition_form",
+          "composition_graph",
+          "composition_value",
+          "condition_equation",
+          "domain_range",
+          "function_value",
+          "graph_reading",
+          "inverse_reasoning",
+          "iterated_function",
+          "linear_inside",
+          "order_of_composition",
+          "pattern_recognition",
+          "substitution",
+          "unknown_function"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "합성함수 유형에서 식, 그래프, 정의역·치역, 미지수 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 입력값→조건→그래프 기준→보기 검산의 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C061",
+        "H1_CM2_FUNC_C062",
+        "H1_CM2_FUNC_C063",
+        "H1_CM2_FUNC_C064",
+        "H1_CM2_FUNC_C065"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT181",
+        "H1_CM2_FUNC_PT182",
+        "H1_CM2_FUNC_PT183",
+        "H1_CM2_FUNC_PT184",
+        "H1_CM2_FUNC_PT185",
+        "H1_CM2_FUNC_PT186",
+        "H1_CM2_FUNC_PT187",
+        "H1_CM2_FUNC_PT188"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_060",
+      "name": "역함수 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "casework",
+          "coefficient_compare",
+          "composition_inverse",
+          "condition_equation",
+          "domain_range",
+          "domain_restriction",
+          "function_value",
+          "graph_reading",
+          "inverse_existence",
+          "inverse_formula",
+          "inverse_graph",
+          "inverse_property",
+          "inverse_relation",
+          "inverse_value",
+          "line_y_equals_x",
+          "one_to_one",
+          "piecewise_inverse",
+          "self_inverse",
+          "symmetry",
+          "variable_swap"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "역함수 유형에서 식, 그래프, 정의역·치역, 미지수 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 입력값→조건→그래프 기준→보기 검산의 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C089",
+        "H1_CM2_FUNC_C090",
+        "H1_CM2_FUNC_C091",
+        "H1_CM2_FUNC_C092",
+        "H1_CM2_FUNC_C093"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT265",
+        "H1_CM2_FUNC_PT266",
+        "H1_CM2_FUNC_PT267",
+        "H1_CM2_FUNC_PT268",
+        "H1_CM2_FUNC_PT269",
+        "H1_CM2_FUNC_PT270",
+        "H1_CM2_FUNC_PT271",
+        "H1_CM2_FUNC_PT272"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_061",
+      "name": "유리식 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "asymptote_form",
+          "coefficient_compare",
+          "common_denominator",
+          "complex_fraction",
+          "condition_casework",
+          "definition_check",
+          "division_algorithm",
+          "equation_solving",
+          "equation_translation",
+          "factor_cancel",
+          "formula_transform",
+          "parameter_condition",
+          "partial_fraction",
+          "polynomial_degree",
+          "ratio_application",
+          "ratio_condition",
+          "rational_expression",
+          "rational_identity",
+          "rational_operation",
+          "rational_transform",
+          "rational_value",
+          "real_context",
+          "relation_equation",
+          "substitution",
+          "unknown_coefficient",
+          "unknown_parameter",
+          "variable_relation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "유리식 유형에서 식, 그래프, 정의역·치역, 미지수 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 입력값→조건→그래프 기준→보기 검산의 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C129",
+        "H1_CM2_FUNC_C130",
+        "H1_CM2_FUNC_C131",
+        "H1_CM2_FUNC_C132",
+        "H1_CM2_FUNC_C133"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT385",
+        "H1_CM2_FUNC_PT386",
+        "H1_CM2_FUNC_PT387",
+        "H1_CM2_FUNC_PT388",
+        "H1_CM2_FUNC_PT389",
+        "H1_CM2_FUNC_PT390",
+        "H1_CM2_FUNC_PT391",
+        "H1_CM2_FUNC_PT392"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_062",
+      "name": "유리함수 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value_graph",
+          "asymptote",
+          "coefficient_compare",
+          "composition_value",
+          "denominator_zero",
+          "discriminant",
+          "domain_condition",
+          "domain_range",
+          "expression_form",
+          "function_definition",
+          "graph_property",
+          "graph_to_formula",
+          "inverse_formula",
+          "inverse_property",
+          "line_intersection",
+          "maximum_minimum",
+          "parameter_condition",
+          "periodic_symmetry",
+          "quadrant",
+          "range_restriction",
+          "rational_composition",
+          "rational_composition_inverse",
+          "rational_domain_range",
+          "rational_function",
+          "rational_graph",
+          "rational_inverse",
+          "rational_max_min",
+          "rational_symmetry",
+          "sign_analysis",
+          "special_rational_function",
+          "translation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "유리함수 유형에서 식, 그래프, 정의역·치역, 미지수 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 입력값→조건→그래프 기준→보기 검산의 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C173",
+        "H1_CM2_FUNC_C174",
+        "H1_CM2_FUNC_C175",
+        "H1_CM2_FUNC_C176",
+        "H1_CM2_FUNC_C177"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT517",
+        "H1_CM2_FUNC_PT518",
+        "H1_CM2_FUNC_PT519",
+        "H1_CM2_FUNC_PT520",
+        "H1_CM2_FUNC_PT521",
+        "H1_CM2_FUNC_PT522",
+        "H1_CM2_FUNC_PT523",
+        "H1_CM2_FUNC_PT524"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_063",
+      "name": "무리식 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coefficient_compare",
+          "condition_equation",
+          "conjugate_form",
+          "conjugate_pair",
+          "domain_restriction",
+          "estimation",
+          "integer_decimal_part",
+          "irrational_equality",
+          "negative_root",
+          "nonnegative_condition",
+          "polynomial_value",
+          "quadratic_relation",
+          "radical_domain",
+          "radical_operation",
+          "radical_property",
+          "radical_value",
+          "rationalization",
+          "real_imaginary",
+          "root_simplification",
+          "sign_check",
+          "symmetric_sum_product"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "무리식 유형에서 식, 그래프, 정의역·치역, 미지수 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 입력값→조건→그래프 기준→보기 검산의 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C233",
+        "H1_CM2_FUNC_C234",
+        "H1_CM2_FUNC_C235",
+        "H1_CM2_FUNC_C236",
+        "H1_CM2_FUNC_C237"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT697",
+        "H1_CM2_FUNC_PT698",
+        "H1_CM2_FUNC_PT699",
+        "H1_CM2_FUNC_PT700",
+        "H1_CM2_FUNC_PT701",
+        "H1_CM2_FUNC_PT702",
+        "H1_CM2_FUNC_PT703",
+        "H1_CM2_FUNC_PT704"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_FUNC_RULE_064",
+      "name": "무리함수 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value_graph",
+          "coefficient_compare",
+          "discriminant",
+          "domain_range",
+          "endpoint_check",
+          "equation_solving",
+          "expression_form",
+          "function_definition",
+          "graph_to_formula",
+          "inverse_formula",
+          "inverse_intersection",
+          "inverse_property",
+          "line_intersection",
+          "line_y_equals_x",
+          "nonnegative_condition",
+          "piecewise_graph",
+          "quadrant",
+          "radical_composition_inverse",
+          "radical_domain_range",
+          "radical_function",
+          "radical_graph",
+          "radical_inverse",
+          "radical_max_min",
+          "range_restriction",
+          "reflection",
+          "sign_analysis",
+          "translation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "무리함수 유형에서 식, 그래프, 정의역·치역, 미지수 조건을 동시에 정리하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 입력값→조건→그래프 기준→보기 검산의 순서로 표시하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_FUNC_C273",
+        "H1_CM2_FUNC_C274",
+        "H1_CM2_FUNC_C275",
+        "H1_CM2_FUNC_C276",
+        "H1_CM2_FUNC_C277"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_FUNC_PT817",
+        "H1_CM2_FUNC_PT818",
+        "H1_CM2_FUNC_PT819",
+        "H1_CM2_FUNC_PT820",
+        "H1_CM2_FUNC_PT821",
+        "H1_CM2_FUNC_PT822",
+        "H1_CM2_FUNC_PT823",
+        "H1_CM2_FUNC_PT824"
+      ],
+      "severity": "high"
+    }
+  ]
+}
