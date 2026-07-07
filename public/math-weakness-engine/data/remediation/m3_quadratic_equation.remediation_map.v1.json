@@ -1,0 +1,392 @@
+{
+  "version": "2026.07.06-m3-quadratic-equation-v1.0",
+  "unit_id": "M3_QUADRATIC_EQUATION",
+  "unit_name": "이차방정식",
+  "remediation_count": 20,
+  "remediation": [
+    {
+      "concept_id": "M3_QUAD_C001",
+      "title": "이차방정식 정의 보강",
+      "priority": 1,
+      "steps": [
+        "식 전체를 한쪽으로 이항하여 표준형 만들기",
+        "최고차항 계수 a가 0이 아닌지 표시",
+        "이차방정식 여부를 차수로 판별"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT001",
+        "M3_QUAD_PT002"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C003",
+      "title": "해 대입 검산 보강",
+      "priority": 1,
+      "steps": [
+        "주어진 값을 식에 직접 대입",
+        "좌변과 우변 또는 표준형 값이 0인지 확인",
+        "x값 범위가 있으면 범위 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT003",
+        "M3_QUAD_PT004",
+        "M3_QUAD_PT005",
+        "M3_QUAD_PT006"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C005",
+      "title": "AB=0 원리 보강",
+      "priority": 1,
+      "steps": [
+        "인수분해된 식의 각 인수를 따로 0으로 둠",
+        "각 일차방정식의 해를 빠짐없이 구함",
+        "두 해를 원래 식에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT007",
+        "M3_QUAD_PT008",
+        "M3_QUAD_PT009",
+        "M3_QUAD_PT010",
+        "M3_QUAD_PT011"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C006",
+      "title": "인수분해 풀이 보강",
+      "priority": 1,
+      "steps": [
+        "공통인수·완전제곱·합차·십자곱셈 중 공식 선택",
+        "인수분해 후 AB=0 적용",
+        "근의 개수와 중복 여부 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT012",
+        "M3_QUAD_PT013",
+        "M3_QUAD_PT014",
+        "M3_QUAD_PT015"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C009",
+      "title": "중근 보강",
+      "priority": 1,
+      "steps": [
+        "중근은 두 근이 같은 경우임을 확인",
+        "완전제곱꼴인지 확인",
+        "D=0 또는 계수 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT021",
+        "M3_QUAD_PT022",
+        "M3_QUAD_PT023",
+        "M3_QUAD_PT024"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C011",
+      "title": "제곱근 풀이 보강",
+      "priority": 1,
+      "steps": [
+        "완전제곱꼴로 정리",
+        "제곱근을 취할 때 ±표시",
+        "해 존재 조건과 중근 조건 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT027",
+        "M3_QUAD_PT028",
+        "M3_QUAD_PT029",
+        "M3_QUAD_PT030",
+        "M3_QUAD_PT031",
+        "M3_QUAD_PT032"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C013",
+      "title": "완전제곱식 변형 보강",
+      "priority": 1,
+      "steps": [
+        "일차항 계수의 절반을 제곱",
+        "양변에 같은 수를 더함",
+        "완전제곱꼴로 바꾼 뒤 제곱근 풀이"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT033",
+        "M3_QUAD_PT034",
+        "M3_QUAD_PT035",
+        "M3_QUAD_PT036",
+        "M3_QUAD_PT037"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C015",
+      "title": "근의 공식 보강",
+      "priority": 1,
+      "steps": [
+        "a,b,c를 표로 적기",
+        "b²-4ac를 먼저 계산",
+        "분모 2a와 -b 부호를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT040",
+        "M3_QUAD_PT041",
+        "M3_QUAD_PT042",
+        "M3_QUAD_PT043",
+        "M3_QUAD_PT044",
+        "M3_QUAD_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C016",
+      "title": "판별식 보강",
+      "priority": 1,
+      "steps": [
+        "D>0, D=0, D<0의 근 개수 표 작성",
+        "조건이 미지수 범위이면 부등식으로 변환",
+        "경계값 포함 여부 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT060",
+        "M3_QUAD_PT061",
+        "M3_QUAD_PT062",
+        "M3_QUAD_PT063",
+        "M3_QUAD_PT064",
+        "M3_QUAD_PT065"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C017",
+      "title": "복잡한 식 정리 보강",
+      "priority": 2,
+      "steps": [
+        "분모를 제거하거나 소수를 정수화",
+        "괄호 전개 후 한쪽으로 이항",
+        "표준형으로 정리한 뒤 풀이법 선택"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT046",
+        "M3_QUAD_PT047",
+        "M3_QUAD_PT048",
+        "M3_QUAD_PT049",
+        "M3_QUAD_PT050",
+        "M3_QUAD_PT051",
+        "M3_QUAD_PT052"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C018",
+      "title": "특수기호 조건 보강",
+      "priority": 2,
+      "steps": [
+        "절댓값과 가우스 기호의 조건을 경우로 나눔",
+        "각 경우에서 이차방정식을 풀기",
+        "해가 해당 경우 조건을 만족하는지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT053",
+        "M3_QUAD_PT054"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C019",
+      "title": "치환·새 연산 보강",
+      "priority": 2,
+      "steps": [
+        "공통부분을 임시 문자로 치환",
+        "새 연산 정의를 일반 식으로 번역",
+        "치환한 문자 값을 원래 변수로 복원"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT055",
+        "M3_QUAD_PT056",
+        "M3_QUAD_PT057",
+        "M3_QUAD_PT058",
+        "M3_QUAD_PT059"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C021",
+      "title": "근과 계수 관계 보강",
+      "priority": 1,
+      "steps": [
+        "두 근의 합=-b/a, 곱=c/a 작성",
+        "부호와 a로 나누는 과정 확인",
+        "필요하면 곱셈공식으로 변형"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT066",
+        "M3_QUAD_PT067",
+        "M3_QUAD_PT068",
+        "M3_QUAD_PT069",
+        "M3_QUAD_PT070"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C023",
+      "title": "이차방정식 구성 보강",
+      "priority": 2,
+      "steps": [
+        "두 근 α,β로 (x-α)(x-β)=0 작성",
+        "중근이면 (x-α)²=0 사용",
+        "상수배 가능성과 조건 추가 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT073",
+        "M3_QUAD_PT074",
+        "M3_QUAD_PT075",
+        "M3_QUAD_PT076",
+        "M3_QUAD_PT077",
+        "M3_QUAD_PT078",
+        "M3_QUAD_PT079",
+        "M3_QUAD_PT080",
+        "M3_QUAD_PT081",
+        "M3_QUAD_PT082",
+        "M3_QUAD_PT083"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C025",
+      "title": "무리수근 보강",
+      "priority": 2,
+      "steps": [
+        "계수가 유리수인지 확인",
+        "한 근이 a+√b이면 켤레근 a-√b 작성",
+        "두 근의 합과 곱으로 계수 조건 세우기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT086",
+        "M3_QUAD_PT087",
+        "M3_QUAD_PT088"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C027",
+      "title": "수 활용 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 묻는 수를 x로 두기",
+        "합·곱·자리수 조건을 식으로 변환",
+        "나온 해가 자연수 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT092",
+        "M3_QUAD_PT093",
+        "M3_QUAD_PT094",
+        "M3_QUAD_PT095",
+        "M3_QUAD_PT096",
+        "M3_QUAD_PT097",
+        "M3_QUAD_PT098",
+        "M3_QUAD_PT099"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C028",
+      "title": "연속수 활용 보강",
+      "priority": 1,
+      "steps": [
+        "연속수, 연속 짝수, 연속 홀수를 문자로 표현",
+        "곱 또는 제곱의 합 조건을 방정식으로 세움",
+        "문제 조건에 맞는 양의 정수 해만 선택"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT100",
+        "M3_QUAD_PT101",
+        "M3_QUAD_PT102",
+        "M3_QUAD_PT103",
+        "M3_QUAD_PT104",
+        "M3_QUAD_PT105",
+        "M3_QUAD_PT106",
+        "M3_QUAD_PT107",
+        "M3_QUAD_PT108"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C029",
+      "title": "비율·농도 활용 보강",
+      "priority": 2,
+      "steps": [
+        "변화 전 기준량과 변화 후 값을 표로 정리",
+        "비율과 농도 공식을 식으로 변환",
+        "단위와 퍼센트 환산을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT109",
+        "M3_QUAD_PT110",
+        "M3_QUAD_PT111"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C031",
+      "title": "운동·거리 시간 활용 보강",
+      "priority": 2,
+      "steps": [
+        "위치 또는 높이를 시간의 이차식으로 작성",
+        "조건이 되는 높이·시간·거리 값을 대입",
+        "음수 시간 등 의미 없는 해 제거"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT116",
+        "M3_QUAD_PT117",
+        "M3_QUAD_PT118",
+        "M3_QUAD_PT119"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C032",
+      "title": "도형 활용 보강",
+      "priority": 2,
+      "steps": [
+        "그림에 x와 길이 조건 표시",
+        "넓이·둘레·부피 공식을 먼저 작성",
+        "음수 길이 또는 조건 밖 해 제거"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_QUAD_PT120",
+        "M3_QUAD_PT121",
+        "M3_QUAD_PT122",
+        "M3_QUAD_PT123",
+        "M3_QUAD_PT124",
+        "M3_QUAD_PT125",
+        "M3_QUAD_PT126",
+        "M3_QUAD_PT127",
+        "M3_QUAD_PT128",
+        "M3_QUAD_PT129",
+        "M3_QUAD_PT130",
+        "M3_QUAD_PT131",
+        "M3_QUAD_PT132",
+        "M3_QUAD_PT133",
+        "M3_QUAD_PT134",
+        "M3_QUAD_PT135",
+        "M3_QUAD_PT136",
+        "M3_QUAD_PT137",
+        "M3_QUAD_PT138",
+        "M3_QUAD_PT139",
+        "M3_QUAD_PT140",
+        "M3_QUAD_PT141",
+        "M3_QUAD_PT142",
+        "M3_QUAD_PT143",
+        "M3_QUAD_PT144"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "version": "2026.07.06-m3-quadratic-equation-v1.0",
+  "unit_id": "M3_QUADRATIC_EQUATION",
+  "unit_name": "이차방정식",
+  "rule_count": 14,
+  "rules": [
+    {
+      "rule_id": "M3_QUAD_RULE_001",
+      "name": "정의·해 대입 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quadratic_definition",
+          "root_substitution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "이차방정식인지 판별하고 해를 대입해 검산하는 기본 단계가 흔들립니다.",
+      "parent_message": "표준형으로 정리한 뒤 a≠0과 대입 검산을 반드시 써야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C001",
+        "M3_QUAD_C002",
+        "M3_QUAD_C003"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_002",
+      "name": "인수분해 풀이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "zero_product_factorization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "AB=0 원리와 인수분해 후 두 일차방정식으로 나누는 과정이 불안정합니다.",
+      "parent_message": "인수분해 → 각 인수=0 → 해 검산 순서로 제출하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C005",
+        "M3_QUAD_C006"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_003",
+      "name": "중근·완전제곱 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "double_root_condition",
+          "complete_square"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "중근, 완전제곱식, D=0 조건을 서로 연결하지 못합니다.",
+      "parent_message": "중근은 완전제곱꼴과 판별식 0 조건을 함께 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C009",
+        "M3_QUAD_C010",
+        "M3_QUAD_C013"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_004",
+      "name": "제곱근 풀이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sqrt_solving"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "x²=k 또는 a(x+p)²=q 꼴에서 ±표시와 해 존재 조건을 놓칩니다.",
+      "parent_message": "제곱근을 취하기 전 q/a의 부호와 ±를 먼저 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C011",
+        "M3_QUAD_C012"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_005",
+      "name": "근의 공식·판별식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quadratic_formula",
+          "discriminant_root_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "근의 공식에 계수를 대입하거나 판별식으로 근의 개수를 판단하는 데 오류가 있습니다.",
+      "parent_message": "a,b,c 식별표와 D=b²-4ac 부호표를 함께 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C015",
+        "M3_QUAD_C016"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_006",
+      "name": "복잡한 식 정리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "complex_equation_structure",
+          "substitution_structure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "괄호, 분수, 소수, 공통부분이 포함된 이차방정식을 표준형으로 정리하는 단계가 약합니다.",
+      "parent_message": "분모 제거·전개·치환·복원 단계를 줄마다 분리해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C017",
+        "M3_QUAD_C019"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_007",
+      "name": "특수 조건·불필요근 처리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "special_symbol_case",
+          "extraneous_root_check"
+        ],
+        "wrong_min": 1,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "절댓값, 가우스 기호, 제곱 과정에서 나온 해를 조건에 맞게 걸러내지 못합니다.",
+      "parent_message": "경우분기 조건과 최종 대입 검산을 답 앞에 표시해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C018",
+        "M3_QUAD_C036"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_008",
+      "name": "근과 계수 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "vietas_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 근의 합과 곱의 부호, 계수 나눗셈, 대칭식 변형에서 오류가 납니다.",
+      "parent_message": "합=-b/a, 곱=c/a를 먼저 쓰고 곱셈공식으로 식을 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C021",
+        "M3_QUAD_C022"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_009",
+      "name": "이차방정식 구성 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quadratic_construction",
+          "wrong_equation_reconstruction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "주어진 두 근 또는 관계식에서 이차방정식을 구성하거나 원래 식을 복원하는 과정이 약합니다.",
+      "parent_message": "(x-α)(x-β)=0 구조와 상수배 가능성을 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C023",
+        "M3_QUAD_C024"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_010",
+      "name": "무리수근·부정방정식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "irrational_conjugate",
+          "diophantine_condition"
+        ],
+        "wrong_min": 1,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "무리수 근의 켤레 관계와 두 미지수 조건 처리에서 후보 검산을 놓칩니다.",
+      "parent_message": "계수 조건, 켤레근, 정수 조건을 별도 줄로 정리해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C025",
+        "M3_QUAD_C026"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_011",
+      "name": "수·연속수 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "number_word_problem",
+          "consecutive_number_model"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "수, 자연수, 연속수 조건을 문자식으로 바꾸는 데 어려움이 있습니다.",
+      "parent_message": "무엇을 x로 둘지 정하고 연속수 표현을 표로 작성해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C027",
+        "M3_QUAD_C028"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_012",
+      "name": "비율·개수·운동 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "ratio_concentration_model",
+          "age_count_model",
+          "motion_height_model"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "비율 변화, 농도, 나이, 거리·시간 상황의 조건식을 세우는 단계가 약합니다.",
+      "parent_message": "단위, 기준량, 변화 후 값을 표로 정리한 뒤 식을 세워야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C029",
+        "M3_QUAD_C030",
+        "M3_QUAD_C031"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_013",
+      "name": "도형 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_model"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "도형의 길이, 넓이, 부피, 도로·상자 상황을 이차방정식으로 모델링하는 데 어려움이 있습니다.",
+      "parent_message": "그림에 길이를 표시하고 공식→방정식→해의 의미 순서로 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C032",
+        "M3_QUAD_C033",
+        "M3_QUAD_C034"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_QUAD_RULE_014",
+      "name": "정수근·유리수근 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integer_rational_root_condition",
+          "discriminant_parameter_range"
+        ],
+        "wrong_min": 1,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "근이 정수 또는 유리수가 되도록 하는 판별식 조건과 범위 조건이 불안정합니다.",
+      "parent_message": "판별식이 완전제곱수가 되는 조건과 미지수 범위를 함께 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_QUAD_C020",
+        "M3_QUAD_C035"
+      ],
+      "severity": "medium"
+    }
+  ]
+}

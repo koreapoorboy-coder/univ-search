@@ -1,0 +1,23 @@
+{
+  "patch_id": "math_weakness_engine_m3_quadratic_equation_core_patch_20260707",
+  "date": "2026-07-07",
+  "version": "2026.07.07-m3-quadratic-equation-v1.0",
+  "unit_id": "M3_QUADRATIC_EQUATION",
+  "unit_name": "이차방정식",
+  "source_upload": "3-1 이차방정식.zip",
+  "source_image_count": 16,
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "note": "This patch formalizes the 3-1 quadratic equation unit as a middle school grade 3 diagnosis unit. Current uploaded engine did not contain M3_QUADRATIC_EQUATION in index.v1.json, so the index update is included. Original source images are not included; curated taxonomy and diagnosis layers are included only.",
+  "outputs": {
+    "concepts_added_or_replaced": 36,
+    "raw_sections": 50,
+    "problem_types": 144,
+    "edges": 70,
+    "diagnosis_rules": 14,
+    "remediation_items": 20,
+    "solution_templates": 8
+  },
+  "path_prefix": "public/math-weakness-engine/"
+}

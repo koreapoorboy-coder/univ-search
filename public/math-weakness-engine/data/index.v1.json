@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.06-m3-real-numbers-operations-v1.0",
+  "version": "2026.07.07-m3-quadratic-equation-v1.0",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -176,6 +176,20 @@
       "sources": "data/sources/m3_real_numbers_and_operations.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/m3_real_numbers_and_operations.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/m3_real_numbers_and_operations.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_name": "이차방정식",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m3_quadratic_equation.problem_types.v1.json",
+      "edges": "data/relations/m3_quadratic_equation.edges.v1.json",
+      "diagnosis_rules": "data/rules/m3_quadratic_equation.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m3_quadratic_equation.remediation_map.v1.json",
+      "sources": "data/sources/m3_quadratic_equation.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m3_quadratic_equation.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m3_quadratic_equation.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [
@@ -184,13 +198,6 @@
       "grade": "중2",
       "unit_name": "식의 계산",
       "concept_name": "다항식의 계산과 동류항 정리",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M3_QUAD_C001",
-      "grade": "중3",
-      "unit_name": "이차방정식",
-      "concept_name": "방정식 변형과 인수분해 전 계산 안정성",
       "status": "future_target_seed"
     },
     {
@@ -219,13 +226,6 @@
       "grade": "중3",
       "unit_name": "다항식의 곱셈과 인수분해",
       "concept_name": "다항식 전개와 구조 인식",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M3_QUAD_C002",
-      "grade": "중3",
-      "unit_name": "이차방정식",
-      "concept_name": "방정식 변형과 식 정리",
       "status": "future_target_seed"
     },
     {
@@ -380,6 +380,34 @@
       "grade": "고2",
       "unit_name": "지수와 로그",
       "concept_name": "상용로그 정수 부분과 소수 부분",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "M3_QUAD_C006",
+      "grade": "중3",
+      "unit_name": "이차방정식",
+      "concept_name": "인수분해를 이용한 이차방정식의 풀이",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "M3_QUAD_C016",
+      "grade": "중3",
+      "unit_name": "이차방정식",
+      "concept_name": "판별식과 근의 개수",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "M3_QUAD_C021",
+      "grade": "중3",
+      "unit_name": "이차방정식",
+      "concept_name": "근과 계수의 관계",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "M3_QUAD_C032",
+      "grade": "중3",
+      "unit_name": "이차방정식",
+      "concept_name": "삼각형·사각형·다각형 도형 활용",
       "status": "active_target"
     }
   ]

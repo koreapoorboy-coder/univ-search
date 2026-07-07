@@ -1,0 +1,171 @@
+{
+  "version": "2026.07.06-m3-quadratic-equation-v1.0",
+  "unit_id": "M3_QUADRATIC_EQUATION",
+  "unit_name": "이차방정식",
+  "templates": [
+    {
+      "template_id": "M3_QUAD_FORM_DEFINITION_ROOT",
+      "name": "정의·해 대입 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_QUAD_C001",
+        "M3_QUAD_C002",
+        "M3_QUAD_C003",
+        "M3_QUAD_C004"
+      ],
+      "required_fields": [
+        "표준형 정리",
+        "이차항 계수 a≠0 확인",
+        "해 또는 주어진 값을 대입한 식",
+        "대입 검산 결과"
+      ],
+      "reject_if_missing": [
+        "표준형 정리",
+        "대입 검산 결과"
+      ]
+    },
+    {
+      "template_id": "M3_QUAD_FORM_FACTORING",
+      "name": "인수분해 풀이 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_QUAD_C005",
+        "M3_QUAD_C006",
+        "M3_QUAD_C007",
+        "M3_QUAD_C008"
+      ],
+      "required_fields": [
+        "인수분해 과정",
+        "각 인수=0으로 둔 식",
+        "모든 해 나열",
+        "원래 식 대입 검산"
+      ],
+      "reject_if_missing": [
+        "각 인수=0으로 둔 식",
+        "모든 해 나열"
+      ]
+    },
+    {
+      "template_id": "M3_QUAD_FORM_DOUBLE_SQRT",
+      "name": "중근·제곱근·완전제곱 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_QUAD_C009",
+        "M3_QUAD_C010",
+        "M3_QUAD_C011",
+        "M3_QUAD_C012",
+        "M3_QUAD_C013",
+        "M3_QUAD_C014"
+      ],
+      "required_fields": [
+        "완전제곱꼴 또는 D 조건",
+        "제곱근 ± 처리",
+        "근 존재 조건",
+        "중근 여부 확인"
+      ],
+      "reject_if_missing": [
+        "제곱근 ± 처리",
+        "근 존재 조건"
+      ]
+    },
+    {
+      "template_id": "M3_QUAD_FORM_FORMULA_DISCRIMINANT",
+      "name": "근의 공식·판별식 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_QUAD_C015",
+        "M3_QUAD_C016",
+        "M3_QUAD_C020",
+        "M3_QUAD_C035"
+      ],
+      "required_fields": [
+        "a,b,c 계수 식별",
+        "D=b²-4ac 계산",
+        "D의 부호 또는 완전제곱수 조건",
+        "근 또는 근의 개수 결론"
+      ],
+      "reject_if_missing": [
+        "a,b,c 계수 식별",
+        "D=b²-4ac 계산"
+      ]
+    },
+    {
+      "template_id": "M3_QUAD_FORM_COMPLEX_CASE",
+      "name": "복잡한 식·특수조건 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_QUAD_C017",
+        "M3_QUAD_C018",
+        "M3_QUAD_C019",
+        "M3_QUAD_C036"
+      ],
+      "required_fields": [
+        "분모 제거/괄호 전개/치환 과정",
+        "경우분기 조건",
+        "표준형 정리",
+        "해의 조건 검산과 불필요근 제거"
+      ],
+      "reject_if_missing": [
+        "표준형 정리",
+        "해의 조건 검산과 불필요근 제거"
+      ]
+    },
+    {
+      "template_id": "M3_QUAD_FORM_VIETA_CONSTRUCT",
+      "name": "근과 계수·방정식 구성 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_QUAD_C021",
+        "M3_QUAD_C022",
+        "M3_QUAD_C023",
+        "M3_QUAD_C024",
+        "M3_QUAD_C025",
+        "M3_QUAD_C026"
+      ],
+      "required_fields": [
+        "두 근의 합과 곱",
+        "근 사이 관계식",
+        "(x-α)(x-β) 또는 계수 조건",
+        "구성한 방정식의 검산"
+      ],
+      "reject_if_missing": [
+        "두 근의 합과 곱",
+        "구성한 방정식의 검산"
+      ]
+    },
+    {
+      "template_id": "M3_QUAD_FORM_WORD_NUMBER",
+      "name": "수·비율·운동 활용 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_QUAD_C027",
+        "M3_QUAD_C028",
+        "M3_QUAD_C029",
+        "M3_QUAD_C030",
+        "M3_QUAD_C031"
+      ],
+      "required_fields": [
+        "x로 둘 대상 정의",
+        "조건표 또는 관계식",
+        "이차방정식 수립",
+        "해의 실제 의미와 단위 확인"
+      ],
+      "reject_if_missing": [
+        "x로 둘 대상 정의",
+        "해의 실제 의미와 단위 확인"
+      ]
+    },
+    {
+      "template_id": "M3_QUAD_FORM_WORD_GEOMETRY",
+      "name": "도형 활용 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_QUAD_C032",
+        "M3_QUAD_C033",
+        "M3_QUAD_C034"
+      ],
+      "required_fields": [
+        "그림 또는 길이 표시",
+        "넓이/둘레/부피 공식",
+        "이차방정식 수립",
+        "길이·넓이 조건에 맞는 해 선택"
+      ],
+      "reject_if_missing": [
+        "그림 또는 길이 표시",
+        "길이·넓이 조건에 맞는 해 선택"
+      ]
+    }
+  ]
+}

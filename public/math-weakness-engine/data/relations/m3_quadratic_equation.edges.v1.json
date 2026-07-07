@@ -1,0 +1,708 @@
+{
+  "version": "2026.07.06-m3-quadratic-equation-v1.0",
+  "unit_id": "M3_QUADRATIC_EQUATION",
+  "unit_name": "이차방정식",
+  "edge_count": 70,
+  "edges": [
+    {
+      "edge_id": "M3_QUAD_E001",
+      "from_concept_id": "M2_NE_C049",
+      "to_concept_id": "M3_QUAD_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "괄호가 있는 다항식 정리와 표준형 정리가 이차방정식 변형의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E002",
+      "from_concept_id": "M2_NE_C049",
+      "to_concept_id": "M3_QUAD_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "괄호가 있는 다항식 정리와 표준형 정리가 이차방정식 변형의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E003",
+      "from_concept_id": "M2_NE_C049",
+      "to_concept_id": "M3_QUAD_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "괄호가 있는 다항식 정리와 표준형 정리가 이차방정식 변형의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E004",
+      "from_concept_id": "M3_POLY_C027",
+      "to_concept_id": "M3_QUAD_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "공통인수 인수분해는 AB=0 원리와 인수분해 풀이의 직접 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E005",
+      "from_concept_id": "M3_POLY_C027",
+      "to_concept_id": "M3_QUAD_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "공통인수 인수분해는 AB=0 원리와 인수분해 풀이의 직접 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E006",
+      "from_concept_id": "M3_POLY_C027",
+      "to_concept_id": "M3_QUAD_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "공통인수 인수분해는 AB=0 원리와 인수분해 풀이의 직접 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E007",
+      "from_concept_id": "M3_POLY_C027",
+      "to_concept_id": "M3_QUAD_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "공통인수 인수분해는 AB=0 원리와 인수분해 풀이의 직접 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E008",
+      "from_concept_id": "M3_POLY_C033",
+      "to_concept_id": "M3_QUAD_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "x²+(a+b)x+ab 꼴 인수분해가 두 근 구조와 방정식 구성의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E009",
+      "from_concept_id": "M3_POLY_C033",
+      "to_concept_id": "M3_QUAD_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "x²+(a+b)x+ab 꼴 인수분해가 두 근 구조와 방정식 구성의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E010",
+      "from_concept_id": "M3_POLY_C033",
+      "to_concept_id": "M3_QUAD_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "x²+(a+b)x+ab 꼴 인수분해가 두 근 구조와 방정식 구성의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E011",
+      "from_concept_id": "M3_POLY_C034",
+      "to_concept_id": "M3_QUAD_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "일차항 계수가 1이 아닌 이차식 인수분해가 일반 이차방정식 풀이의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E012",
+      "from_concept_id": "M3_POLY_C034",
+      "to_concept_id": "M3_QUAD_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "일차항 계수가 1이 아닌 이차식 인수분해가 일반 이차방정식 풀이의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E013",
+      "from_concept_id": "M3_POLY_C028",
+      "to_concept_id": "M3_QUAD_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "완전제곱식 인수분해는 중근과 완전제곱식 풀이의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E014",
+      "from_concept_id": "M3_POLY_C028",
+      "to_concept_id": "M3_QUAD_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "완전제곱식 인수분해는 중근과 완전제곱식 풀이의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E015",
+      "from_concept_id": "M3_POLY_C028",
+      "to_concept_id": "M3_QUAD_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "완전제곱식 인수분해는 중근과 완전제곱식 풀이의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E016",
+      "from_concept_id": "M3_POLY_C028",
+      "to_concept_id": "M3_QUAD_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "완전제곱식 인수분해는 중근과 완전제곱식 풀이의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E017",
+      "from_concept_id": "M3_REAL_C001",
+      "to_concept_id": "M3_QUAD_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "제곱근의 의미와 ±표시는 제곱근을 이용한 이차방정식 풀이의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E018",
+      "from_concept_id": "M3_REAL_C001",
+      "to_concept_id": "M3_QUAD_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "제곱근의 의미와 ±표시는 제곱근을 이용한 이차방정식 풀이의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E019",
+      "from_concept_id": "M3_REAL_C001",
+      "to_concept_id": "M3_QUAD_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "제곱근의 의미와 ±표시는 제곱근을 이용한 이차방정식 풀이의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E020",
+      "from_concept_id": "M3_REAL_C001",
+      "to_concept_id": "M3_QUAD_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "제곱근의 의미와 ±표시는 제곱근을 이용한 이차방정식 풀이의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E021",
+      "from_concept_id": "M3_REAL_C002",
+      "to_concept_id": "M3_QUAD_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.86,
+      "reason": "제곱근 구하기와 부호 판단이 완전제곱꼴 방정식 풀이에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E022",
+      "from_concept_id": "M3_REAL_C002",
+      "to_concept_id": "M3_QUAD_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.86,
+      "reason": "제곱근 구하기와 부호 판단이 완전제곱꼴 방정식 풀이에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E023",
+      "from_concept_id": "M3_REAL_C002",
+      "to_concept_id": "M3_QUAD_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.86,
+      "reason": "제곱근 구하기와 부호 판단이 완전제곱꼴 방정식 풀이에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E024",
+      "from_concept_id": "M3_REAL_C007",
+      "to_concept_id": "M3_QUAD_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "√a²=|a| 구조가 절댓값 포함 이차방정식의 경우 분기에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E025",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E026",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E027",
+      "from_concept_id": "M3_QUAD_C003",
+      "to_concept_id": "M3_QUAD_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E028",
+      "from_concept_id": "M3_QUAD_C005",
+      "to_concept_id": "M3_QUAD_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E029",
+      "from_concept_id": "M3_QUAD_C006",
+      "to_concept_id": "M3_QUAD_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E030",
+      "from_concept_id": "M3_QUAD_C006",
+      "to_concept_id": "M3_QUAD_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E031",
+      "from_concept_id": "M3_QUAD_C006",
+      "to_concept_id": "M3_QUAD_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E032",
+      "from_concept_id": "M3_QUAD_C009",
+      "to_concept_id": "M3_QUAD_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E033",
+      "from_concept_id": "M3_QUAD_C011",
+      "to_concept_id": "M3_QUAD_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E034",
+      "from_concept_id": "M3_QUAD_C013",
+      "to_concept_id": "M3_QUAD_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E035",
+      "from_concept_id": "M3_QUAD_C013",
+      "to_concept_id": "M3_QUAD_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E036",
+      "from_concept_id": "M3_QUAD_C015",
+      "to_concept_id": "M3_QUAD_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E037",
+      "from_concept_id": "M3_QUAD_C016",
+      "to_concept_id": "M3_QUAD_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E038",
+      "from_concept_id": "M3_QUAD_C017",
+      "to_concept_id": "M3_QUAD_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E039",
+      "from_concept_id": "M3_QUAD_C017",
+      "to_concept_id": "M3_QUAD_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E040",
+      "from_concept_id": "M3_QUAD_C017",
+      "to_concept_id": "M3_QUAD_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E041",
+      "from_concept_id": "M3_QUAD_C019",
+      "to_concept_id": "M3_QUAD_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E042",
+      "from_concept_id": "M3_QUAD_C021",
+      "to_concept_id": "M3_QUAD_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E043",
+      "from_concept_id": "M3_QUAD_C021",
+      "to_concept_id": "M3_QUAD_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E044",
+      "from_concept_id": "M3_QUAD_C022",
+      "to_concept_id": "M3_QUAD_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E045",
+      "from_concept_id": "M3_QUAD_C023",
+      "to_concept_id": "M3_QUAD_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E046",
+      "from_concept_id": "M3_QUAD_C021",
+      "to_concept_id": "M3_QUAD_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E047",
+      "from_concept_id": "M3_QUAD_C023",
+      "to_concept_id": "M3_QUAD_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E048",
+      "from_concept_id": "M3_QUAD_C020",
+      "to_concept_id": "M3_QUAD_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E049",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "앞 개념이 뒤 개념을 안정적으로 처리하기 위한 직접 선행 개념이다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E050",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "상황을 표준형 이차방정식으로 세우기 위해 이차방정식 구조 이해가 필요하다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E051",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "활용 문제에서는 나온 해가 문제 조건을 만족하는지 검산해야 한다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E052",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "상황을 표준형 이차방정식으로 세우기 위해 이차방정식 구조 이해가 필요하다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E053",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "활용 문제에서는 나온 해가 문제 조건을 만족하는지 검산해야 한다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E054",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "상황을 표준형 이차방정식으로 세우기 위해 이차방정식 구조 이해가 필요하다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E055",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "활용 문제에서는 나온 해가 문제 조건을 만족하는지 검산해야 한다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E056",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "상황을 표준형 이차방정식으로 세우기 위해 이차방정식 구조 이해가 필요하다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E057",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "활용 문제에서는 나온 해가 문제 조건을 만족하는지 검산해야 한다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E058",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "상황을 표준형 이차방정식으로 세우기 위해 이차방정식 구조 이해가 필요하다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E059",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "활용 문제에서는 나온 해가 문제 조건을 만족하는지 검산해야 한다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E060",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "상황을 표준형 이차방정식으로 세우기 위해 이차방정식 구조 이해가 필요하다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E061",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "활용 문제에서는 나온 해가 문제 조건을 만족하는지 검산해야 한다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E062",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "상황을 표준형 이차방정식으로 세우기 위해 이차방정식 구조 이해가 필요하다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E063",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "활용 문제에서는 나온 해가 문제 조건을 만족하는지 검산해야 한다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E064",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_QUAD_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "상황을 표준형 이차방정식으로 세우기 위해 이차방정식 구조 이해가 필요하다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E065",
+      "from_concept_id": "M3_QUAD_C036",
+      "to_concept_id": "M3_QUAD_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "활용 문제에서는 나온 해가 문제 조건을 만족하는지 검산해야 한다.",
+      "scope": "unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E066",
+      "from_concept_id": "M1_IR_C023",
+      "to_concept_id": "M3_QUAD_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "분배법칙과 유리수 계산 안정성이 수 조건식 전개와 정리에 필요하다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E067",
+      "from_concept_id": "M1_IR_C023",
+      "to_concept_id": "M3_QUAD_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "분배법칙과 유리수 계산 안정성이 수 조건식 전개와 정리에 필요하다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E068",
+      "from_concept_id": "M3_REAL_C004",
+      "to_concept_id": "M3_QUAD_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "도형의 길이와 넓이 조건을 식으로 세우는 경험이 도형 활용 문제의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E069",
+      "from_concept_id": "M3_REAL_C004",
+      "to_concept_id": "M3_QUAD_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "도형의 길이와 넓이 조건을 식으로 세우는 경험이 도형 활용 문제의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QUAD_E070",
+      "from_concept_id": "M3_REAL_C004",
+      "to_concept_id": "M3_QUAD_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "도형의 길이와 넓이 조건을 식으로 세우는 경험이 도형 활용 문제의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

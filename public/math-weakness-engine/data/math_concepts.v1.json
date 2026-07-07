@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.06-m3-real-numbers-operations-v1.0",
-  "concept_count": 510,
+  "version": "2026.07.06-m3-quadratic-equation-v1.0",
+  "concept_count": 546,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -14099,6 +14099,972 @@
       "mastery_level": "core",
       "prerequisite_depth": 1,
       "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C001",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "이차방정식과 그 해",
+      "sub_strand": "이차방정식의 정의와 표준형",
+      "concept_name": "이차방정식의 정의와 표준형",
+      "description": "ax²+bx+c=0(a≠0)의 구조를 알고 이차방정식인지 판별한다.",
+      "diagnostic_signals": [
+        "최고차항 계수 a≠0 확인 누락",
+        "일차방정식과 이차방정식 구분 오류",
+        "표준형 정리 전 판별"
+      ],
+      "remediation_keywords": [
+        "표준형",
+        "a≠0",
+        "차수 확인"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C002",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "이차방정식과 그 해",
+      "sub_strand": "이차방정식의 조건과 계수 판별",
+      "concept_name": "이차방정식의 조건과 계수 판별",
+      "description": "계수나 문자가 포함된 식이 이차방정식이 되는 조건을 세운다.",
+      "diagnostic_signals": [
+        "이차항 계수 0 조건 누락",
+        "분모가 0이 되는 조건 누락",
+        "문자 범위 누락"
+      ],
+      "remediation_keywords": [
+        "이차항 계수",
+        "조건 판별",
+        "문자 범위"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C003",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "이차방정식과 그 해",
+      "sub_strand": "해의 의미와 대입 검산",
+      "concept_name": "해의 의미와 대입 검산",
+      "description": "주어진 값이 해인지 대입하고 해의 범위를 판단한다.",
+      "diagnostic_signals": [
+        "해를 대입하지 않고 계산",
+        "x값 범위 조건 누락",
+        "근 검산 누락"
+      ],
+      "remediation_keywords": [
+        "해의 대입",
+        "검산",
+        "범위 조건"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C004",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "이차방정식과 그 해",
+      "sub_strand": "해가 주어진 계수 결정",
+      "concept_name": "해가 주어진 계수 결정",
+      "description": "한 근 또는 두 근을 식에 대입하여 미지수 계수와 식의 값을 구한다.",
+      "diagnostic_signals": [
+        "한 근 대입식 구성 오류",
+        "두 미지수 조건식 부족",
+        "식의 값 대입 순서 오류"
+      ],
+      "remediation_keywords": [
+        "근 대입",
+        "계수 결정",
+        "식의 값"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C005",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "인수분해 풀이",
+      "sub_strand": "AB=0 원리",
+      "concept_name": "AB=0 원리",
+      "description": "곱이 0이면 적어도 한 인수가 0임을 이용한다.",
+      "diagnostic_signals": [
+        "AB=0에서 A=0 또는 B=0 누락",
+        "두 해 중 하나 누락",
+        "인수 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "AB=0",
+        "영인수 원리",
+        "해 분리"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C006",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "인수분해 풀이",
+      "sub_strand": "인수분해를 이용한 풀이",
+      "concept_name": "인수분해를 이용한 풀이",
+      "description": "이차식을 인수분해한 뒤 각 일차방정식을 풀어 해를 구한다.",
+      "diagnostic_signals": [
+        "인수분해 공식 선택 오류",
+        "부호 실수",
+        "해 검산 누락"
+      ],
+      "remediation_keywords": [
+        "인수분해",
+        "일차방정식",
+        "검산"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C007",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "인수분해 풀이",
+      "sub_strand": "한 근이 주어진 다른 근 추론",
+      "concept_name": "한 근이 주어진 다른 근 추론",
+      "description": "한 근을 이용하여 식을 정리하고 다른 근 또는 관련 조건을 구한다.",
+      "diagnostic_signals": [
+        "주어진 근 대입 후 나머지 조건 누락",
+        "다른 방정식의 근 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "한 근",
+        "다른 근",
+        "조건 대입"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C008",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "중근과 공통근",
+      "sub_strand": "공통인 근 추론",
+      "concept_name": "공통인 근 추론",
+      "description": "두 이차방정식의 공통근을 대입하거나 소거하여 조건을 구한다.",
+      "diagnostic_signals": [
+        "공통근 조건을 한 방정식에만 적용",
+        "두 식의 차를 이용하지 못함",
+        "공통근 검산 누락"
+      ],
+      "remediation_keywords": [
+        "공통근",
+        "두 방정식",
+        "소거"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C009",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "중근과 공통근",
+      "sub_strand": "중근의 의미와 완전제곱 구조",
+      "concept_name": "중근의 의미와 완전제곱 구조",
+      "description": "중근이 두 번 겹친 근이며 식이 완전제곱꼴이 됨을 이해한다.",
+      "diagnostic_signals": [
+        "중근과 서로 다른 두 근 혼동",
+        "완전제곱꼴 확인 누락"
+      ],
+      "remediation_keywords": [
+        "중근",
+        "완전제곱식",
+        "겹근"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C010",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "중근과 공통근",
+      "sub_strand": "중근 조건과 계수 조건",
+      "concept_name": "중근 조건과 계수 조건",
+      "description": "이차방정식이 중근을 갖도록 하는 계수 조건을 세운다.",
+      "diagnostic_signals": [
+        "판별식 0 조건 누락",
+        "완전제곱 조건과 계수 조건 연결 오류"
+      ],
+      "remediation_keywords": [
+        "중근 조건",
+        "D=0",
+        "계수 조건"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C011",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "제곱근 풀이",
+      "sub_strand": "제곱근을 이용한 풀이",
+      "concept_name": "제곱근을 이용한 풀이",
+      "description": "x²=k 또는 a(x+p)²=q 꼴에서 제곱근의 뜻으로 해를 구한다.",
+      "diagnostic_signals": [
+        "±표시 누락",
+        "q의 부호에 따른 해 존재 판단 오류",
+        "제곱근 변형 실수"
+      ],
+      "remediation_keywords": [
+        "제곱근 풀이",
+        "±",
+        "해 존재"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C012",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "제곱근 풀이",
+      "sub_strand": "a(x+p)²=q 꼴의 근 존재 조건",
+      "concept_name": "a(x+p)²=q 꼴의 근 존재 조건",
+      "description": "완전제곱꼴 방정식에서 q/a의 부호와 근 개수를 판별한다.",
+      "diagnostic_signals": [
+        "q/a 부호 판단 누락",
+        "서로 다른 두 근/중근 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "완전제곱꼴",
+        "근 존재",
+        "부호 조건"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C013",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "완전제곱식 풀이",
+      "sub_strand": "완전제곱식 변형",
+      "concept_name": "완전제곱식 변형",
+      "description": "일반형 이차방정식을 완전제곱식의 꼴로 고친다.",
+      "diagnostic_signals": [
+        "양변에 더할 상수 오류",
+        "일차항 계수의 절반 제곱 누락",
+        "계수 a 처리 오류"
+      ],
+      "remediation_keywords": [
+        "완전제곱꼴",
+        "상수 보정",
+        "일차항 계수"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C014",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "완전제곱식 풀이",
+      "sub_strand": "완전제곱식을 이용한 풀이",
+      "concept_name": "완전제곱식을 이용한 풀이",
+      "description": "완전제곱꼴로 변형한 뒤 제곱근을 이용하여 해를 구한다.",
+      "diagnostic_signals": [
+        "완전제곱 변형 후 ±누락",
+        "분수 계수 처리 오류",
+        "근 검산 누락"
+      ],
+      "remediation_keywords": [
+        "완전제곱식 풀이",
+        "제곱근",
+        "검산"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C015",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "근의 공식",
+      "sub_strand": "근의 공식 적용",
+      "concept_name": "근의 공식 적용",
+      "description": "a,b,c를 식별하여 근의 공식에 정확히 대입한다.",
+      "diagnostic_signals": [
+        "a,b,c 식별 오류",
+        "부호 -b 처리 오류",
+        "분모 2a 누락"
+      ],
+      "remediation_keywords": [
+        "근의 공식",
+        "계수 식별",
+        "부호"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C016",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "근의 공식",
+      "sub_strand": "판별식과 근의 개수",
+      "concept_name": "판별식과 근의 개수",
+      "description": "D=b²-4ac의 부호로 근의 개수와 중근 여부를 판별한다.",
+      "diagnostic_signals": [
+        "D 부호 판단 오류",
+        "근의 개수와 D의 관계 혼동",
+        "D=0 중근 누락"
+      ],
+      "remediation_keywords": [
+        "판별식",
+        "근의 개수",
+        "D 부호"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C017",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "복잡한 풀이",
+      "sub_strand": "복잡한 방정식 정리",
+      "concept_name": "복잡한 방정식 정리",
+      "description": "괄호·분수·소수 계수 방정식을 표준형으로 정리한다.",
+      "diagnostic_signals": [
+        "분모 제거 오류",
+        "괄호 전개 실수",
+        "소수 계수 정수화 오류"
+      ],
+      "remediation_keywords": [
+        "괄호 정리",
+        "분모 제거",
+        "표준형"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C018",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "복잡한 풀이",
+      "sub_strand": "절댓값·가우스·특수기호 조건 분기",
+      "concept_name": "절댓값·가우스·특수기호 조건 분기",
+      "description": "절댓값, 가우스 기호, 특수 조건을 경우로 나누어 처리한다.",
+      "diagnostic_signals": [
+        "경우 나누기 누락",
+        "조건에 맞지 않는 해 포함",
+        "불필요근 제거 누락"
+      ],
+      "remediation_keywords": [
+        "경우분기",
+        "절댓값",
+        "가우스 기호"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "high",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C019",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "복잡한 풀이",
+      "sub_strand": "공통부분 치환과 새로운 연산 해석",
+      "concept_name": "공통부분 치환과 새로운 연산 해석",
+      "description": "공통부분을 하나의 문자로 치환하거나 새 연산 정의를 식으로 번역한다.",
+      "diagnostic_signals": [
+        "치환식 복원 누락",
+        "새 연산 정의 오독",
+        "공통부분 선택 오류"
+      ],
+      "remediation_keywords": [
+        "치환",
+        "새 연산",
+        "복원"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C020",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "근의 판별",
+      "sub_strand": "근의 존재 조건과 미지수 범위",
+      "concept_name": "근의 존재 조건과 미지수 범위",
+      "description": "근의 개수 조건에 맞도록 미지수의 값 또는 범위를 정한다.",
+      "diagnostic_signals": [
+        "부등식 방향 오류",
+        "D 조건과 범위 조건 혼동",
+        "경계값 누락"
+      ],
+      "remediation_keywords": [
+        "미지수 범위",
+        "근 존재",
+        "부등식"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C021",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "근과 계수의 관계",
+      "sub_strand": "근과 계수의 관계",
+      "concept_name": "근과 계수의 관계",
+      "description": "두 근의 합과 곱을 계수로 나타낸다.",
+      "diagnostic_signals": [
+        "합과 곱 부호 혼동",
+        "a로 나누는 과정 누락",
+        "근의 공식으로 불필요하게 전개"
+      ],
+      "remediation_keywords": [
+        "두 근의 합",
+        "두 근의 곱",
+        "계수"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C022",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "근과 계수의 관계",
+      "sub_strand": "근과 계수의 관계를 이용한 식의 값",
+      "concept_name": "근과 계수의 관계를 이용한 식의 값",
+      "description": "합·곱·곱셈공식을 이용해 대칭식을 계산한다.",
+      "diagnostic_signals": [
+        "대칭식 변형 오류",
+        "곱셈공식 연결 실패",
+        "계수에 문자가 있을 때 조건 누락"
+      ],
+      "remediation_keywords": [
+        "대칭식",
+        "곱셈공식",
+        "식의 값"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C023",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "이차방정식 구하기",
+      "sub_strand": "조건에 맞는 이차방정식 구성",
+      "concept_name": "조건에 맞는 이차방정식 구성",
+      "description": "두 근, 중근, 근 사이 관계를 이용하여 이차방정식을 만든다.",
+      "diagnostic_signals": [
+        "(x-α)(x-β) 구조 누락",
+        "상수배 가능성 혼동",
+        "근 사이 관계식 해석 오류"
+      ],
+      "remediation_keywords": [
+        "방정식 구성",
+        "두 근",
+        "상수배"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C024",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "이차방정식 구하기",
+      "sub_strand": "잘못 보고 푼 방정식 역추론",
+      "concept_name": "잘못 보고 푼 방정식 역추론",
+      "description": "잘못 본 계수나 상수항을 역으로 찾아 원래 방정식을 복원한다.",
+      "diagnostic_signals": [
+        "잘못 본 항과 맞게 본 항 구분 오류",
+        "역대입 검산 누락"
+      ],
+      "remediation_keywords": [
+        "오류 역추론",
+        "원래 식 복원",
+        "검산"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "high",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C025",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "이차방정식 구하기",
+      "sub_strand": "무리수 근의 켤레와 계수 조건",
+      "concept_name": "무리수 근의 켤레와 계수 조건",
+      "description": "계수가 유리수일 때 무리수 근의 켤레 관계를 이용한다.",
+      "diagnostic_signals": [
+        "켤레근 누락",
+        "유리계수 조건 확인 누락",
+        "미지수 여러 개 식 구성 오류"
+      ],
+      "remediation_keywords": [
+        "무리수 근",
+        "켤레",
+        "유리계수"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C026",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "이차방정식 구하기",
+      "sub_strand": "부정방정식과 두 미지수 조건",
+      "concept_name": "부정방정식과 두 미지수 조건",
+      "description": "두 미지수 조건을 식으로 세우고 가능한 정수해를 찾는다.",
+      "diagnostic_signals": [
+        "두 조건 식 분리 실패",
+        "정수 조건 누락",
+        "후보 검산 누락"
+      ],
+      "remediation_keywords": [
+        "부정방정식",
+        "두 미지수",
+        "정수해"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "high",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C027",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "활용",
+      "sub_strand": "수와 자연수 조건 활용",
+      "concept_name": "수와 자연수 조건 활용",
+      "description": "수의 합·곱·자리수·표 조건을 이차방정식으로 세운다.",
+      "diagnostic_signals": [
+        "무엇을 x로 둘지 불명확",
+        "자리수 식 구성 오류",
+        "문제 조건 일부 누락"
+      ],
+      "remediation_keywords": [
+        "수 활용",
+        "자리수",
+        "조건식"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C028",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "활용",
+      "sub_strand": "연속하는 수 활용",
+      "concept_name": "연속하는 수 활용",
+      "description": "연속하는 자연수·짝수·홀수·배수 조건을 식으로 만든다.",
+      "diagnostic_signals": [
+        "연속수 표현 오류",
+        "짝수/홀수 표현 혼동",
+        "관계식 누락"
+      ],
+      "remediation_keywords": [
+        "연속수",
+        "짝수 홀수",
+        "배수"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C029",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "활용",
+      "sub_strand": "비율·농도·가격 변동 활용",
+      "concept_name": "비율·농도·가격 변동 활용",
+      "description": "비율 변화, 매출, 농도 상황을 이차방정식으로 모델링한다.",
+      "diagnostic_signals": [
+        "증감률 적용 순서 오류",
+        "농도식 분모/분자 혼동",
+        "단위 확인 누락"
+      ],
+      "remediation_keywords": [
+        "비율",
+        "농도",
+        "가격 변동"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C030",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "활용",
+      "sub_strand": "개수·나이·달력·배열 활용",
+      "concept_name": "개수·나이·달력·배열 활용",
+      "description": "개수 배분, 나이, 날짜, 줄 세우기 조건을 식으로 세운다.",
+      "diagnostic_signals": [
+        "배분 후 개수 표현 오류",
+        "나이 시간 흐름 오류",
+        "달력 규칙 해석 오류"
+      ],
+      "remediation_keywords": [
+        "개수",
+        "나이",
+        "달력"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C031",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "활용",
+      "sub_strand": "운동·높이·거리 시간 활용",
+      "concept_name": "운동·높이·거리 시간 활용",
+      "description": "높이, 위치, 거리, 시간 관계를 이차식으로 표현한다.",
+      "diagnostic_signals": [
+        "초기 높이와 변화량 혼동",
+        "시간 조건 누락",
+        "음수 시간 해 제거 누락"
+      ],
+      "remediation_keywords": [
+        "높이",
+        "거리 시간",
+        "의미 없는 해 제거"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C032",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "활용",
+      "sub_strand": "삼각형·사각형·다각형 도형 활용",
+      "concept_name": "삼각형·사각형·다각형 도형 활용",
+      "description": "도형의 길이·넓이·둘레 조건을 이차방정식으로 세운다.",
+      "diagnostic_signals": [
+        "도형 공식 선택 오류",
+        "길이 조건 누락",
+        "음수 길이 해 제거 누락"
+      ],
+      "remediation_keywords": [
+        "도형 활용",
+        "넓이",
+        "길이 조건"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C033",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "활용",
+      "sub_strand": "원·원기둥·입체·붙은 도형 활용",
+      "concept_name": "원·원기둥·입체·붙은 도형 활용",
+      "description": "원, 원기둥, 붙어 있는 도형의 넓이·부피 조건을 식으로 만든다.",
+      "diagnostic_signals": [
+        "원 공식 오류",
+        "겹치는 부분 처리 누락",
+        "입체 조건 해석 오류"
+      ],
+      "remediation_keywords": [
+        "원",
+        "원기둥",
+        "복합도형"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "high",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C034",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "활용",
+      "sub_strand": "도형 변형·상자·도로 활용",
+      "concept_name": "도형 변형·상자·도로 활용",
+      "description": "변 길이 변화, 상자 만들기, 도로 만들기 상황을 이차방정식으로 모델링한다.",
+      "diagnostic_signals": [
+        "변화 전후 길이 표현 오류",
+        "잘라낸 부분 고려 누락",
+        "도로 너비 조건 누락"
+      ],
+      "remediation_keywords": [
+        "도형 변형",
+        "상자",
+        "도로"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "high",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C035",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "근 조건",
+      "sub_strand": "정수근·유리수근 조건",
+      "concept_name": "정수근·유리수근 조건",
+      "description": "근이 정수 또는 유리수가 되도록 계수와 판별식 조건을 확인한다.",
+      "diagnostic_signals": [
+        "판별식이 완전제곱수 조건 누락",
+        "정수/유리수 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "정수근",
+        "유리수근",
+        "완전제곱수"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_QUAD_C036",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "unit_name": "이차방정식",
+      "strand": "풀이 검산",
+      "sub_strand": "해 검산과 불필요한 해 제거",
+      "concept_name": "해 검산과 불필요한 해 제거",
+      "description": "제곱·절댓값·문장 조건에서 나온 해가 원조건을 만족하는지 검산한다.",
+      "diagnostic_signals": [
+        "불필요근 포함",
+        "문제 조건과 해의 의미 불일치",
+        "최종 답 범위 누락"
+      ],
+      "remediation_keywords": [
+        "검산",
+        "불필요근 제거",
+        "조건 확인"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
     }
   ],
   "future_target_concepts": [
@@ -14107,13 +15073,6 @@
       "grade": "중2",
       "unit_name": "식의 계산",
       "concept_name": "다항식의 계산과 동류항 정리",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M3_QUAD_C001",
-      "grade": "중3",
-      "unit_name": "이차방정식",
-      "concept_name": "방정식 변형과 인수분해 전 계산 안정성",
       "status": "future_target_seed"
     },
     {
@@ -14135,13 +15094,6 @@
       "grade": "고1",
       "unit_name": "함수",
       "concept_name": "그래프 해석과 수의 범위 판단",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M3_QUAD_C002",
-      "grade": "중3",
-      "unit_name": "이차방정식",
-      "concept_name": "방정식 변형과 식 정리",
       "status": "future_target_seed"
     },
     {
