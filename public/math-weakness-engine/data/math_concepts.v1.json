@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.06-m3-quadratic-equation-v1.0",
-  "concept_count": 546,
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "concept_count": 590,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -15065,6 +15065,1183 @@
       "mastery_level": "core",
       "prerequisite_depth": 1,
       "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C001",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "이차함수의 뜻",
+      "sub_strand": "정의와 판별",
+      "concept_name": "이차함수의 뜻과 표준형",
+      "description": "y=ax²+bx+c(a≠0)의 구조를 알고 이차함수인지 판별한다.",
+      "diagnostic_signals": [
+        "a≠0 조건 확인 누락",
+        "일차함수와 이차함수 혼동",
+        "정리 전 차수 판별 오류"
+      ],
+      "remediation_keywords": [
+        "이차함수 정의",
+        "a≠0",
+        "최고차항"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C002",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "이차함수의 뜻",
+      "sub_strand": "함숫값",
+      "concept_name": "이차함수의 함숫값 계산",
+      "description": "주어진 x값을 이차함수식에 대입하여 y값을 계산한다.",
+      "diagnostic_signals": [
+        "제곱 계산 오류",
+        "음수 대입 시 부호 오류",
+        "항별 계산 순서 혼동"
+      ],
+      "remediation_keywords": [
+        "대입",
+        "제곱 계산",
+        "항별 정리"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C003",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "이차함수의 뜻",
+      "sub_strand": "조건식",
+      "concept_name": "조건을 만족하는 이차함수식 판별",
+      "description": "계수 조건과 점 조건을 이용해 이차함수식을 판단한다.",
+      "diagnostic_signals": [
+        "점 좌표 대입 오류",
+        "계수 조건 해석 오류",
+        "상수항과 y절편 혼동"
+      ],
+      "remediation_keywords": [
+        "좌표 대입",
+        "계수 조건",
+        "식 판별"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C004",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "기본 그래프",
+      "sub_strand": "y=ax²",
+      "concept_name": "y=ax²의 그래프 기본형",
+      "description": "y=ax²의 포물선 모양, 꼭짓점, 축을 이해한다.",
+      "diagnostic_signals": [
+        "포물선 방향 착각",
+        "꼭짓점을 원점으로 보지 않음",
+        "축을 y축으로 쓰지 못함"
+      ],
+      "remediation_keywords": [
+        "포물선",
+        "꼭짓점",
+        "축"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C005",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "기본 그래프",
+      "sub_strand": "계수 a",
+      "concept_name": "a의 부호와 그래프 방향",
+      "description": "a>0이면 위로 볼록, a<0이면 아래로 볼록임을 판단한다.",
+      "diagnostic_signals": [
+        "a 부호와 방향 반대로 해석",
+        "그래프 모양만 보고 식 판단 오류"
+      ],
+      "remediation_keywords": [
+        "a의 부호",
+        "위로/아래로 볼록",
+        "그래프 방향"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C006",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "기본 그래프",
+      "sub_strand": "폭",
+      "concept_name": "|a|와 그래프의 폭",
+      "description": "|a|가 클수록 그래프 폭이 좁아지는 관계를 이해한다.",
+      "diagnostic_signals": [
+        "a값 크기와 폭 관계 반대로 판단",
+        "부호와 절댓값 효과 혼동"
+      ],
+      "remediation_keywords": [
+        "절댓값",
+        "폭 비교",
+        "계수 효과"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C007",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "기본 그래프",
+      "sub_strand": "대칭성",
+      "concept_name": "y=ax²의 대칭성과 점 대응",
+      "description": "y축 대칭과 대응점 좌표를 이용해 그래프 위의 점을 판단한다.",
+      "diagnostic_signals": [
+        "대칭점 x좌표 부호 오류",
+        "그래프 위 점 판별을 대입하지 않음"
+      ],
+      "remediation_keywords": [
+        "대칭축",
+        "대응점",
+        "좌표 대입"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C008",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "기본 그래프",
+      "sub_strand": "식 구하기",
+      "concept_name": "y=ax²의 식 구하기",
+      "description": "그래프 위의 한 점을 이용해 y=ax²의 a를 구한다.",
+      "diagnostic_signals": [
+        "x² 계산 누락",
+        "a 대신 x를 구함",
+        "점 좌표 순서 혼동"
+      ],
+      "remediation_keywords": [
+        "점 대입",
+        "a 구하기",
+        "y=ax²"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C009",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "평행이동",
+      "sub_strand": "상하 이동",
+      "concept_name": "y=ax²+q의 그래프",
+      "description": "y=ax² 그래프를 위아래로 q만큼 평행이동한 그래프를 해석한다.",
+      "diagnostic_signals": [
+        "q 부호와 이동 방향 혼동",
+        "꼭짓점 좌표를 (0,q)로 쓰지 못함"
+      ],
+      "remediation_keywords": [
+        "상하 평행이동",
+        "q",
+        "꼭짓점"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C010",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "평행이동",
+      "sub_strand": "좌우 이동",
+      "concept_name": "y=a(x-p)²의 그래프",
+      "description": "y=ax² 그래프를 좌우로 p만큼 평행이동한 그래프를 해석한다.",
+      "diagnostic_signals": [
+        "(x-p)²에서 이동 방향 반대로 해석",
+        "축 x=p 누락"
+      ],
+      "remediation_keywords": [
+        "좌우 평행이동",
+        "x=p",
+        "꼭짓점"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C011",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "평행이동",
+      "sub_strand": "상하좌우 이동",
+      "concept_name": "y=a(x-p)²+q의 그래프",
+      "description": "꼭짓점 (p,q), 축 x=p, 방향과 폭을 종합적으로 해석한다.",
+      "diagnostic_signals": [
+        "p,q 좌표 순서 오류",
+        "축과 꼭짓점 혼동",
+        "a 부호 판단 누락"
+      ],
+      "remediation_keywords": [
+        "꼭짓점",
+        "축",
+        "표준형"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C012",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "평행이동",
+      "sub_strand": "그래프 위치",
+      "concept_name": "p,q의 부호와 그래프 위치",
+      "description": "p,q의 부호로 그래프의 꼭짓점 위치와 이동 방향을 판단한다.",
+      "diagnostic_signals": [
+        "p의 부호 해석 반대",
+        "q를 x좌표로 사용",
+        "사분면 판단 오류"
+      ],
+      "remediation_keywords": [
+        "p,q 해석",
+        "이동 방향",
+        "꼭짓점 위치"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C013",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "평행이동",
+      "sub_strand": "그래프 비교",
+      "concept_name": "여러 이차함수 그래프 비교",
+      "description": "계수 a와 p,q를 이용해 여러 그래프의 방향·폭·위치를 비교한다.",
+      "diagnostic_signals": [
+        "a와 p,q 효과를 분리하지 못함",
+        "폭과 위치를 동시에 비교하지 못함"
+      ],
+      "remediation_keywords": [
+        "계수 비교",
+        "위치 비교",
+        "폭 비교"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C014",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "표준형과 일반형",
+      "sub_strand": "식 변환",
+      "concept_name": "표준형과 일반형의 연결",
+      "description": "y=a(x-p)²+q와 y=ax²+bx+c 사이의 전개 관계를 이해한다.",
+      "diagnostic_signals": [
+        "전개 과정에서 부호 오류",
+        "p,q와 b,c를 직접 동일시"
+      ],
+      "remediation_keywords": [
+        "전개",
+        "표준형",
+        "일반형"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C015",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "표준형과 일반형",
+      "sub_strand": "완전제곱식",
+      "concept_name": "완전제곱식으로 표준형 만들기",
+      "description": "일반형을 완전제곱식으로 변형하여 꼭짓점과 축을 찾는다.",
+      "diagnostic_signals": [
+        "완전제곱식 항 추가 오류",
+        "상수항 보정 누락",
+        "분수 계수 처리 오류"
+      ],
+      "remediation_keywords": [
+        "완전제곱식",
+        "꼭짓점",
+        "상수 보정"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C016",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "표준형과 일반형",
+      "sub_strand": "축 공식",
+      "concept_name": "축 x=-b/2a 이해",
+      "description": "일반형 y=ax²+bx+c에서 축의 방정식을 구한다.",
+      "diagnostic_signals": [
+        "-b/2a 부호 오류",
+        "분모 2a 누락",
+        "x좌표와 y좌표 혼동"
+      ],
+      "remediation_keywords": [
+        "축 공식",
+        "-b/2a",
+        "일반형"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C017",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "표준형과 일반형",
+      "sub_strand": "꼭짓점",
+      "concept_name": "일반형의 꼭짓점 구하기",
+      "description": "축의 x값을 대입하거나 표준형으로 바꾸어 꼭짓점을 구한다.",
+      "diagnostic_signals": [
+        "축만 구하고 y좌표 미계산",
+        "대입 계산 오류",
+        "꼭짓점 좌표 순서 오류"
+      ],
+      "remediation_keywords": [
+        "꼭짓점",
+        "축 대입",
+        "좌표"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C018",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "그래프 그리기",
+      "sub_strand": "기본 작도",
+      "concept_name": "이차함수 그래프 그리기",
+      "description": "꼭짓점, 축, 대칭점, 절편을 이용해 포물선을 그린다.",
+      "diagnostic_signals": [
+        "꼭짓점 없이 임의로 그림",
+        "대칭점 부족",
+        "축과 절편 표시 누락"
+      ],
+      "remediation_keywords": [
+        "그래프 작도",
+        "대칭점",
+        "절편"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C019",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "그래프 그리기",
+      "sub_strand": "표 작성",
+      "concept_name": "대응표로 그래프 그리기",
+      "description": "x값의 대응표를 만들고 대칭성을 이용해 그래프를 그린다.",
+      "diagnostic_signals": [
+        "대응표 계산 오류",
+        "x값 선택 불균형",
+        "점 연결 방향 오류"
+      ],
+      "remediation_keywords": [
+        "대응표",
+        "대칭성",
+        "좌표 찍기"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C020",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "절편과 좌표",
+      "sub_strand": "y절편",
+      "concept_name": "이차함수의 y절편",
+      "description": "x=0을 대입하여 y절편을 구하고 그래프에서 읽는다.",
+      "diagnostic_signals": [
+        "상수항과 x절편 혼동",
+        "y절편 좌표 표기 오류"
+      ],
+      "remediation_keywords": [
+        "y절편",
+        "x=0",
+        "상수항"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C021",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "절편과 좌표",
+      "sub_strand": "x절편",
+      "concept_name": "이차함수의 x절편",
+      "description": "y=0을 두고 이차방정식을 풀어 x절편을 구한다.",
+      "diagnostic_signals": [
+        "y=0 설정 누락",
+        "이차방정식 풀이 오류",
+        "x절편 개수 판단 오류"
+      ],
+      "remediation_keywords": [
+        "x절편",
+        "y=0",
+        "이차방정식"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C022",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "절편과 좌표",
+      "sub_strand": "그래프 위의 점",
+      "concept_name": "그래프 위의 점과 미지수 좌표",
+      "description": "좌표를 함수식에 대입해 그래프 위의 점인지 판단하고 미지수 좌표를 구한다.",
+      "diagnostic_signals": [
+        "x,y 좌표 순서 오류",
+        "좌표 대입식 설정 오류"
+      ],
+      "remediation_keywords": [
+        "그래프 위 점",
+        "좌표 대입",
+        "미지수 좌표"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C023",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "식 구하기",
+      "sub_strand": "꼭짓점과 한 점",
+      "concept_name": "꼭짓점과 한 점으로 이차함수식 구하기",
+      "description": "꼭짓점 (p,q)와 한 점을 이용해 y=a(x-p)²+q의 a를 구한다.",
+      "diagnostic_signals": [
+        "꼭짓점 좌표를 p,q에 반대로 대입",
+        "한 점 대입 후 a 계산 오류"
+      ],
+      "remediation_keywords": [
+        "꼭짓점형",
+        "한 점 대입",
+        "a 결정"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C024",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "식 구하기",
+      "sub_strand": "축과 한 점",
+      "concept_name": "축과 점 조건으로 식 구하기",
+      "description": "축, 방향, 한 점 등 조건을 이용해 이차함수식을 세운다.",
+      "diagnostic_signals": [
+        "축 x=p를 꼭짓점 전체로 착각",
+        "q 조건 누락",
+        "조건 일부만 사용"
+      ],
+      "remediation_keywords": [
+        "축 조건",
+        "점 조건",
+        "식 세우기"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C025",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "식 구하기",
+      "sub_strand": "세 점 조건",
+      "concept_name": "세 점으로 이차함수식 구하기",
+      "description": "세 점을 일반형에 대입해 계수 a,b,c를 결정한다.",
+      "diagnostic_signals": [
+        "연립식 설정 오류",
+        "계수 계산 오류",
+        "세 조건 중 하나 누락"
+      ],
+      "remediation_keywords": [
+        "세 점 대입",
+        "계수 결정",
+        "연립식"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C026",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "식 구하기",
+      "sub_strand": "절편 조건",
+      "concept_name": "x절편과 y절편으로 식 구하기",
+      "description": "절편 정보를 이용해 인수형 또는 일반형으로 이차함수식을 만든다.",
+      "diagnostic_signals": [
+        "x절편을 인수로 연결하지 못함",
+        "y절편 조건 누락"
+      ],
+      "remediation_keywords": [
+        "절편 조건",
+        "인수형",
+        "식 결정"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C027",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "최댓값과 최솟값",
+      "sub_strand": "꼭짓점 해석",
+      "concept_name": "꼭짓점과 최댓값·최솟값",
+      "description": "a의 부호와 꼭짓점 y좌표로 최댓값 또는 최솟값을 판단한다.",
+      "diagnostic_signals": [
+        "a 부호에 따른 최댓값/최솟값 반대",
+        "x값과 y값 혼동"
+      ],
+      "remediation_keywords": [
+        "최댓값",
+        "최솟값",
+        "꼭짓점 y좌표"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C028",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "최댓값과 최솟값",
+      "sub_strand": "범위 제한",
+      "concept_name": "제한된 범위에서 최댓값·최솟값",
+      "description": "정해진 x범위에서 꼭짓점과 양 끝값을 비교한다.",
+      "diagnostic_signals": [
+        "끝값 비교 누락",
+        "꼭짓점이 범위 안에 있는지 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "범위 확인",
+        "끝값 비교",
+        "꼭짓점"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C029",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "증감과 대칭",
+      "sub_strand": "증감",
+      "concept_name": "이차함수의 증가와 감소",
+      "description": "축을 기준으로 증가·감소 구간을 판단한다.",
+      "diagnostic_signals": [
+        "축 기준 좌우 증감 반대",
+        "a 부호를 고려하지 않음"
+      ],
+      "remediation_keywords": [
+        "증가 감소",
+        "축",
+        "a 부호"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C030",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "증감과 대칭",
+      "sub_strand": "대칭점",
+      "concept_name": "축에 대한 대칭점 활용",
+      "description": "대칭축을 이용해 같은 함숫값을 갖는 두 x값을 찾는다.",
+      "diagnostic_signals": [
+        "대칭축 평균 관계 미사용",
+        "두 x값의 거리 관계 오류"
+      ],
+      "remediation_keywords": [
+        "대칭축",
+        "대칭점",
+        "같은 함숫값"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C031",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "방정식과 그래프",
+      "sub_strand": "근과 x절편",
+      "concept_name": "이차방정식의 근과 x절편 연결",
+      "description": "이차방정식의 해를 그래프의 x절편으로 해석한다.",
+      "diagnostic_signals": [
+        "해와 교점 연결 실패",
+        "x절편 좌표 표기 오류"
+      ],
+      "remediation_keywords": [
+        "근",
+        "x절편",
+        "그래프 해석"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C032",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "방정식과 그래프",
+      "sub_strand": "교점",
+      "concept_name": "직선과 이차함수의 교점",
+      "description": "직선과 이차함수의 교점을 연립하여 구한다.",
+      "diagnostic_signals": [
+        "연립 후 이차방정식 변형 오류",
+        "교점 좌표 중 y값 누락"
+      ],
+      "remediation_keywords": [
+        "교점",
+        "연립",
+        "좌표"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C033",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "방정식과 그래프",
+      "sub_strand": "교점 개수",
+      "concept_name": "교점 개수와 위치 관계",
+      "description": "그래프의 위치 관계로 교점 개수를 판단한다.",
+      "diagnostic_signals": [
+        "접한다/만나지 않는다 구분 오류",
+        "중근과 접점 연결 실패"
+      ],
+      "remediation_keywords": [
+        "교점 개수",
+        "접점",
+        "위치 관계"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C034",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "계수 조건",
+      "sub_strand": "방향과 폭 조건",
+      "concept_name": "계수 a 조건 판단",
+      "description": "그래프 방향, 폭, 대칭성을 이용해 a의 조건을 판단한다.",
+      "diagnostic_signals": [
+        "방향 조건과 폭 조건 혼동",
+        "a=0 가능성 배제 누락"
+      ],
+      "remediation_keywords": [
+        "a 조건",
+        "폭",
+        "방향"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C035",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "계수 조건",
+      "sub_strand": "축 조건",
+      "concept_name": "축 조건으로 계수 구하기",
+      "description": "축 x=-b/2a 또는 표준형을 이용해 계수 조건을 구한다.",
+      "diagnostic_signals": [
+        "축 공식 부호 오류",
+        "b와 a 관계식 설정 오류"
+      ],
+      "remediation_keywords": [
+        "축 조건",
+        "계수 관계",
+        "-b/2a"
+      ],
+      "source_orders": [
+        17
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C036",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "계수 조건",
+      "sub_strand": "꼭짓점 조건",
+      "concept_name": "꼭짓점 조건으로 계수 구하기",
+      "description": "꼭짓점 좌표 조건을 함수식에 반영해 미지수를 구한다.",
+      "diagnostic_signals": [
+        "꼭짓점 좌표 조건 일부만 사용",
+        "q와 c 혼동"
+      ],
+      "remediation_keywords": [
+        "꼭짓점 조건",
+        "계수 결정",
+        "표준형"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C037",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "계수 조건",
+      "sub_strand": "절편 조건",
+      "concept_name": "절편 조건으로 계수 구하기",
+      "description": "x절편, y절편, 그래프 위의 점 조건을 함께 사용한다.",
+      "diagnostic_signals": [
+        "절편 조건을 좌표로 바꾸지 못함",
+        "조건 누락"
+      ],
+      "remediation_keywords": [
+        "절편 조건",
+        "좌표 조건",
+        "계수"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C038",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "활용",
+      "sub_strand": "도형 넓이",
+      "concept_name": "이차함수와 도형 넓이",
+      "description": "포물선과 좌표축, 직선으로 이루어진 도형의 길이와 넓이를 계산한다.",
+      "diagnostic_signals": [
+        "좌표를 길이로 바꿀 때 절댓값 누락",
+        "넓이 공식 적용 오류"
+      ],
+      "remediation_keywords": [
+        "도형 넓이",
+        "좌표 길이",
+        "절댓값"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C039",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "활용",
+      "sub_strand": "거리와 대칭",
+      "concept_name": "대칭성과 거리 활용",
+      "description": "대칭축과 두 점 사이의 거리 관계를 활용한다.",
+      "diagnostic_signals": [
+        "대칭축에서의 거리 관계 오류",
+        "좌표 차이와 실제 길이 혼동"
+      ],
+      "remediation_keywords": [
+        "거리",
+        "대칭",
+        "좌표 차"
+      ],
+      "source_orders": [
+        19
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C040",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "활용",
+      "sub_strand": "실생활 모델링",
+      "concept_name": "상황을 이차함수로 모델링",
+      "description": "넓이, 높이, 이동 경로 등 상황을 이차함수식으로 나타낸다.",
+      "diagnostic_signals": [
+        "변수 설정 오류",
+        "조건을 식으로 옮기지 못함",
+        "최대·최소 해석 누락"
+      ],
+      "remediation_keywords": [
+        "모델링",
+        "변수 설정",
+        "최대 최소"
+      ],
+      "source_orders": [
+        19,
+        20
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C041",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "활용",
+      "sub_strand": "매개변수",
+      "concept_name": "매개변수 조건 문제",
+      "description": "매개변수가 있는 이차함수에서 조건을 만족하는 값을 구한다.",
+      "diagnostic_signals": [
+        "조건별 경우 분리 실패",
+        "계수 비교 오류"
+      ],
+      "remediation_keywords": [
+        "매개변수",
+        "조건 분리",
+        "계수 비교"
+      ],
+      "source_orders": [
+        20
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C042",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "종합",
+      "sub_strand": "그래프 해석 종합",
+      "concept_name": "그래프에서 식과 성질 읽기",
+      "description": "주어진 그래프에서 꼭짓점, 축, 절편, 계수 부호를 종합적으로 읽는다.",
+      "diagnostic_signals": [
+        "그래프 정보를 식으로 연결하지 못함",
+        "축·절편·꼭짓점 혼동"
+      ],
+      "remediation_keywords": [
+        "그래프 읽기",
+        "식 추론",
+        "성질 종합"
+      ],
+      "source_orders": [
+        20,
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C043",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "종합",
+      "sub_strand": "식 변형 종합",
+      "concept_name": "식 변형과 그래프 성질 종합",
+      "description": "일반형·표준형·인수형을 오가며 그래프 정보를 해석한다.",
+      "diagnostic_signals": [
+        "형태별 장점 구분 실패",
+        "불필요한 전개로 계산 복잡화"
+      ],
+      "remediation_keywords": [
+        "형태 변환",
+        "그래프 정보",
+        "식 선택"
+      ],
+      "source_orders": [
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M3_FUNC_C044",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "strand": "종합",
+      "sub_strand": "고난도 조건 종합",
+      "concept_name": "조건 누락 없는 이차함수 종합",
+      "description": "여러 조건을 순서대로 사용해 식, 그래프, 값의 범위를 종합 판단한다.",
+      "diagnostic_signals": [
+        "조건 일부 누락",
+        "구한 식의 검산 미흡",
+        "답의 의미 해석 누락"
+      ],
+      "remediation_keywords": [
+        "조건 정리",
+        "검산",
+        "종합 판단"
+      ],
+      "source_orders": [
+        21,
+        22
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
     }
   ],
   "future_target_concepts": [
@@ -15073,13 +16250,6 @@
       "grade": "중2",
       "unit_name": "식의 계산",
       "concept_name": "다항식의 계산과 동류항 정리",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M3_FUNC_C001",
-      "grade": "중3",
-      "unit_name": "이차함수",
-      "concept_name": "그래프 위치·대칭·좌표 해석",
       "status": "future_target_seed"
     },
     {
@@ -15115,13 +16285,6 @@
       "grade": "고1",
       "unit_name": "함수",
       "concept_name": "함수식 해석과 그래프 연결",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M3_FUNC_C002",
-      "grade": "중3",
-      "unit_name": "이차함수",
-      "concept_name": "이차함수 그래프의 좌표·대칭·변화 해석",
       "status": "future_target_seed"
     },
     {

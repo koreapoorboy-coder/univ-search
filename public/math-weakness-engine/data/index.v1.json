@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.07-m3-quadratic-equation-v1.0",
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -190,6 +190,20 @@
       "sources": "data/sources/m3_quadratic_equation.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/m3_quadratic_equation.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/m3_quadratic_equation.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_name": "이차함수",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m3_quadratic_function.problem_types.v1.json",
+      "edges": "data/relations/m3_quadratic_function.edges.v1.json",
+      "diagnosis_rules": "data/rules/m3_quadratic_function.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m3_quadratic_function.remediation_map.v1.json",
+      "sources": "data/sources/m3_quadratic_function.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m3_quadratic_function.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m3_quadratic_function.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [
@@ -205,7 +219,7 @@
       "grade": "중3",
       "unit_name": "이차함수",
       "concept_name": "그래프 위치·대칭·좌표 해석",
-      "status": "future_target_seed"
+      "status": "active_target"
     },
     {
       "concept_id": "H1_EQ_C001",
@@ -254,7 +268,7 @@
       "grade": "중3",
       "unit_name": "이차함수",
       "concept_name": "이차함수 그래프의 좌표·대칭·변화 해석",
-      "status": "future_target_seed"
+      "status": "active_target"
     },
     {
       "concept_id": "M2_GEOM_C001",

@@ -1,0 +1,314 @@
+{
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "unit_id": "M3_QUADRATIC_FUNCTION",
+  "unit_name": "이차함수",
+  "remediation_count": 20,
+  "remediation": [
+    {
+      "remediation_id": "M3_QFUNC_REM_001",
+      "title": "이차함수 정의 확인 루틴",
+      "description": "표준형 정리 후 a≠0과 최고차항을 확인한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C001",
+        "M3_FUNC_C003"
+      ],
+      "practice_steps": [
+        "식을 y=ax²+bx+c 꼴로 정리",
+        "a값 표시",
+        "이차항 존재 여부 판단"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_002",
+      "title": "함숫값 대입 4단계",
+      "description": "대입-제곱-항별계산-합산 순서로 부호 오류를 줄인다.",
+      "target_concept_ids": [
+        "M3_FUNC_C002",
+        "M3_FUNC_C022"
+      ],
+      "practice_steps": [
+        "x값 괄호 대입",
+        "음수 제곱 따로 계산",
+        "마지막에 y값 확인"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_003",
+      "title": "a의 역할 분리표",
+      "description": "a의 부호는 방향, |a|는 폭을 결정한다는 표를 만든다.",
+      "target_concept_ids": [
+        "M3_FUNC_C005",
+        "M3_FUNC_C006",
+        "M3_FUNC_C034"
+      ],
+      "practice_steps": [
+        "a>0/a<0 방향 비교",
+        "|a| 크기별 그래프 폭 비교"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_004",
+      "title": "y=ax² 기본 그래프 체크",
+      "description": "꼭짓점 원점, 축 y축, 대칭점을 확인한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C004",
+        "M3_FUNC_C007",
+        "M3_FUNC_C008"
+      ],
+      "practice_steps": [
+        "꼭짓점 표시",
+        "축 표시",
+        "한 점 대입으로 a 확인"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_005",
+      "title": "평행이동 p,q 카드",
+      "description": "y=a(x-p)²+q에서 꼭짓점과 축을 먼저 쓴다.",
+      "target_concept_ids": [
+        "M3_FUNC_C009",
+        "M3_FUNC_C010",
+        "M3_FUNC_C011",
+        "M3_FUNC_C012"
+      ],
+      "practice_steps": [
+        "꼭짓점 (p,q)",
+        "축 x=p",
+        "상하좌우 이동 설명"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_006",
+      "title": "표준형 전개 검산",
+      "description": "표준형을 전개해 일반형과 연결한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C014",
+        "M3_FUNC_C043"
+      ],
+      "practice_steps": [
+        "제곱 전개",
+        "동류항 정리",
+        "계수 비교"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_007",
+      "title": "완전제곱식 3줄 풀이",
+      "description": "묶기-반의제곱-상수보정 순서로 표준형을 만든다.",
+      "target_concept_ids": [
+        "M3_FUNC_C015",
+        "M3_FUNC_C017"
+      ],
+      "practice_steps": [
+        "a로 묶기",
+        "괄호 안 완전제곱 만들기",
+        "상수항 보정"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_008",
+      "title": "축 공식 적용 훈련",
+      "description": "x=-b/2a의 부호와 분모를 검수한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C016",
+        "M3_FUNC_C035"
+      ],
+      "practice_steps": [
+        "a,b 표시",
+        "-b 계산",
+        "2a 계산"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_009",
+      "title": "그래프 작도 체크리스트",
+      "description": "꼭짓점, 축, 대칭점, 절편을 모두 표시한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C018",
+        "M3_FUNC_C019"
+      ],
+      "practice_steps": [
+        "대응표 작성",
+        "대칭점 표시",
+        "포물선 방향 확인"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_010",
+      "title": "절편 구분 훈련",
+      "description": "y절편은 x=0, x절편은 y=0을 대입한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C020",
+        "M3_FUNC_C021",
+        "M3_FUNC_C026"
+      ],
+      "practice_steps": [
+        "x=0 대입",
+        "y=0 방정식 풀기",
+        "좌표로 쓰기"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_011",
+      "title": "꼭짓점과 한 점으로 식 세우기",
+      "description": "꼭짓점형에 한 점을 대입해 a를 구한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C023"
+      ],
+      "practice_steps": [
+        "꼭짓점형 작성",
+        "한 점 대입",
+        "a 계산 후 식 완성"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_012",
+      "title": "조건 분류표로 식 구하기",
+      "description": "조건을 꼭짓점/축/점/절편으로 분류한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C024",
+        "M3_FUNC_C025",
+        "M3_FUNC_C037"
+      ],
+      "practice_steps": [
+        "조건 표시",
+        "사용한 조건 체크",
+        "구한 식에 재대입"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_013",
+      "title": "최대최소 판단 루틴",
+      "description": "a의 부호, 꼭짓점, 제한 범위를 차례로 확인한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C027",
+        "M3_FUNC_C028"
+      ],
+      "practice_steps": [
+        "a 부호 판단",
+        "꼭짓점 y좌표",
+        "끝값 비교"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_014",
+      "title": "증감과 대칭축 해석",
+      "description": "축을 기준으로 좌우 변화와 대칭점을 판단한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C029",
+        "M3_FUNC_C030"
+      ],
+      "practice_steps": [
+        "축 그리기",
+        "좌우 구간 표시",
+        "대칭점 평균 확인"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_015",
+      "title": "근과 x절편 연결",
+      "description": "y=0을 두면 이차방정식의 근이 x절편임을 확인한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C031",
+        "M3_QUAD_C008"
+      ],
+      "practice_steps": [
+        "y=0 설정",
+        "방정식 풀기",
+        "x절편 좌표 쓰기"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_016",
+      "title": "교점 좌표 완성",
+      "description": "연립 후 x값과 y값을 모두 구한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C032",
+        "M3_FUNC_C033"
+      ],
+      "practice_steps": [
+        "두 식 연립",
+        "x값 계산",
+        "y값 대입"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_017",
+      "title": "계수 조건 식 세우기",
+      "description": "방향, 폭, 축, 꼭짓점, 절편 조건을 계수 관계식으로 바꾼다.",
+      "target_concept_ids": [
+        "M3_FUNC_C034",
+        "M3_FUNC_C035",
+        "M3_FUNC_C036"
+      ],
+      "practice_steps": [
+        "조건 문장 표시",
+        "계수 관계식 작성",
+        "검산"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_018",
+      "title": "도형 활용 좌표-길이 변환",
+      "description": "좌표 차이를 길이로 바꿀 때 절댓값을 확인한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C038",
+        "M3_FUNC_C039"
+      ],
+      "practice_steps": [
+        "좌표 표시",
+        "길이 계산",
+        "넓이 공식 적용"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_019",
+      "title": "실생활 모델링 표",
+      "description": "변수, 식, 조건, 구할 값을 표로 분리한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C040",
+        "M3_FUNC_C041"
+      ],
+      "practice_steps": [
+        "변수 정의",
+        "조건 식 작성",
+        "최대/최소 해석"
+      ],
+      "status": "curated_remediation"
+    },
+    {
+      "remediation_id": "M3_QFUNC_REM_020",
+      "title": "종합 문제 검산",
+      "description": "구한 식을 원래 조건에 다시 대입해 확인한다.",
+      "target_concept_ids": [
+        "M3_FUNC_C042",
+        "M3_FUNC_C043",
+        "M3_FUNC_C044"
+      ],
+      "practice_steps": [
+        "조건 재대입",
+        "그래프 성질 확인",
+        "답의 의미 쓰기"
+      ],
+      "status": "curated_remediation"
+    }
+  ]
+}

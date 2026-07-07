@@ -1,0 +1,240 @@
+{
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "unit_id": "M3_QUADRATIC_FUNCTION",
+  "unit_name": "이차함수",
+  "rule_count": 13,
+  "rules": [
+    {
+      "rule_id": "M3_QFUNC_RULE_001",
+      "rule_name": "이차함수 판별 오류",
+      "trigger_error_tags": [
+        "quadratic_function",
+        "coefficient",
+        "a_not_zero"
+      ],
+      "diagnosis_message": "최고차항 계수 a≠0 조건을 확인하지 않아 이차함수 여부를 잘못 판단합니다.",
+      "recommended_action": "식을 먼저 정리한 뒤 최고차항과 a≠0 조건을 분리해서 확인하게 합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C001",
+        "M3_FUNC_C003"
+      ],
+      "severity": "medium",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_002",
+      "rule_name": "함숫값 대입·부호 오류",
+      "trigger_error_tags": [
+        "function_value",
+        "substitution",
+        "sign_error"
+      ],
+      "diagnosis_message": "음수 제곱이나 항별 대입 과정에서 부호 오류가 반복됩니다.",
+      "recommended_action": "x값 대입 → 제곱 계산 → 각 항 계산 → 합산 순서로 풀이 줄을 분리합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C002",
+        "M3_FUNC_C022"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_003",
+      "rule_name": "a의 부호와 폭 해석 오류",
+      "trigger_error_tags": [
+        "graph_interpretation",
+        "coefficient_a",
+        "parabola_width"
+      ],
+      "diagnosis_message": "a의 부호와 |a|의 역할을 구분하지 못해 방향과 폭을 혼동합니다.",
+      "recommended_action": "부호는 방향, 절댓값은 폭이라는 표를 만들어 그래프 비교를 반복합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C005",
+        "M3_FUNC_C006",
+        "M3_FUNC_C034"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_004",
+      "rule_name": "p,q 평행이동 방향 오류",
+      "trigger_error_tags": [
+        "translation",
+        "vertex_form",
+        "p_q_sign"
+      ],
+      "diagnosis_message": "y=a(x-p)²+q에서 p의 부호를 반대로 해석하거나 q를 x좌표로 착각합니다.",
+      "recommended_action": "꼭짓점 (p,q)와 축 x=p를 먼저 쓰고 이동 방향을 말로 확인합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C009",
+        "M3_FUNC_C010",
+        "M3_FUNC_C011",
+        "M3_FUNC_C012"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_005",
+      "rule_name": "축과 꼭짓점 혼동",
+      "trigger_error_tags": [
+        "vertex_axis",
+        "coordinate_order"
+      ],
+      "diagnosis_message": "축의 방정식과 꼭짓점 좌표를 혼동하거나 y좌표를 빠뜨립니다.",
+      "recommended_action": "축은 x=..., 꼭짓점은 (...,...) 형태로 쓰도록 답안 형식을 고정합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C011",
+        "M3_FUNC_C016",
+        "M3_FUNC_C017"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_006",
+      "rule_name": "일반형→표준형 변형 오류",
+      "trigger_error_tags": [
+        "complete_square",
+        "standard_form",
+        "constant_adjustment"
+      ],
+      "diagnosis_message": "완전제곱식으로 바꾸는 과정에서 상수항 보정과 부호 처리가 흔들립니다.",
+      "recommended_action": "a로 묶기 → 반의 제곱 만들기 → 상수 보정의 3단계를 검수합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C014",
+        "M3_FUNC_C015",
+        "M3_FUNC_C043"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_007",
+      "rule_name": "그래프 작도 요소 누락",
+      "trigger_error_tags": [
+        "graph_drawing",
+        "vertex_axis",
+        "intercepts"
+      ],
+      "diagnosis_message": "꼭짓점, 축, 대칭점, 절편 중 일부만 표시하여 그래프가 부정확합니다.",
+      "recommended_action": "그래프를 그리기 전 필수 요소 4개를 체크리스트로 작성하게 합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C018",
+        "M3_FUNC_C019",
+        "M3_FUNC_C020",
+        "M3_FUNC_C021"
+      ],
+      "severity": "medium",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_008",
+      "rule_name": "식 구하기 조건 누락",
+      "trigger_error_tags": [
+        "equation_from_conditions",
+        "substitution",
+        "condition_missing"
+      ],
+      "diagnosis_message": "꼭짓점, 점, 절편 조건 중 일부만 사용하여 식을 잘못 구합니다.",
+      "recommended_action": "조건을 좌표/축/절편/점으로 분류한 뒤 하나씩 식에 반영합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C023",
+        "M3_FUNC_C024",
+        "M3_FUNC_C025",
+        "M3_FUNC_C026"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_009",
+      "rule_name": "x절편과 방정식 연결 약함",
+      "trigger_error_tags": [
+        "intercept",
+        "quadratic_equation",
+        "root_graph_connection"
+      ],
+      "diagnosis_message": "x절편을 구할 때 y=0을 두어 이차방정식을 푸는 연결이 약합니다.",
+      "recommended_action": "x절편 = y=0일 때의 x값이라는 문장을 풀이 첫 줄에 쓰게 합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C021",
+        "M3_FUNC_C031"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_010",
+      "rule_name": "최댓값·최솟값 판단 오류",
+      "trigger_error_tags": [
+        "maximum_minimum",
+        "vertex",
+        "range_check"
+      ],
+      "diagnosis_message": "a의 부호 또는 제한 범위를 확인하지 않아 최댓값과 최솟값을 반대로 판단합니다.",
+      "recommended_action": "꼭짓점이 범위 안에 있는지 확인하고 양 끝값과 비교하게 합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C027",
+        "M3_FUNC_C028",
+        "M3_FUNC_C029"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_011",
+      "rule_name": "교점 문제에서 좌표 완성 누락",
+      "trigger_error_tags": [
+        "intersection",
+        "system",
+        "coordinate_completion"
+      ],
+      "diagnosis_message": "연립 후 x값만 구하고 y좌표를 구하지 않아 교점 좌표가 불완전합니다.",
+      "recommended_action": "교점 문제에서는 x값 구한 뒤 반드시 한 식에 대입해 y값을 구하게 합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C032",
+        "M3_FUNC_C033"
+      ],
+      "severity": "medium",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_012",
+      "rule_name": "그래프에서 식 읽기 오류",
+      "trigger_error_tags": [
+        "graph_to_equation",
+        "vertex_axis",
+        "coefficient_condition"
+      ],
+      "diagnosis_message": "그래프의 꼭짓점, 축, 절편 정보를 식의 계수와 연결하지 못합니다.",
+      "recommended_action": "그래프 정보를 꼭짓점형/일반형/인수형 중 어떤 형태로 쓰는지 선택하게 합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C042",
+        "M3_FUNC_C043"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_QFUNC_RULE_013",
+      "rule_name": "활용 문제 모델링 오류",
+      "trigger_error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "diagnosis_message": "도형, 거리, 실생활 상황에서 변수를 정하지 못하거나 식 변환이 불안정합니다.",
+      "recommended_action": "문장 조건을 변수, 식, 구할 값으로 나누어 표로 정리한 뒤 함수식을 세우게 합니다.",
+      "primary_concept_ids": [
+        "M3_FUNC_C038",
+        "M3_FUNC_C039",
+        "M3_FUNC_C040",
+        "M3_FUNC_C044"
+      ],
+      "severity": "high",
+      "status": "curated_diagnosis_rule"
+    }
+  ]
+}

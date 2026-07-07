@@ -1,0 +1,648 @@
+{
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "unit_id": "M3_QUADRATIC_FUNCTION",
+  "unit_name": "이차함수",
+  "edge_count": 64,
+  "edges": [
+    {
+      "edge_id": "M3_QFUNC_E001",
+      "from_concept_id": "M2_FUNC_C001",
+      "to_concept_id": "M3_FUNC_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "함수의 뜻과 대응 관계 이해가 이차함수 정의의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E002",
+      "from_concept_id": "M2_FUNC_C004",
+      "to_concept_id": "M3_FUNC_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "함숫값 계산 경험이 이차함수의 대입 계산으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E003",
+      "from_concept_id": "M2_FUNC_C012",
+      "to_concept_id": "M3_FUNC_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "좌표와 기울기 계산에서의 대입 경험이 그래프 위의 점 판별로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E004",
+      "from_concept_id": "M2_FUNC_C014",
+      "to_concept_id": "M3_FUNC_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "일차함수 그래프 그리기 경험이 포물선 작도에서 좌표 표시의 선행이 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E005",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "M3_FUNC_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "이차방정식의 표준형 이해가 x절편을 구하는 y=0 설정으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E006",
+      "from_concept_id": "M3_QUAD_C008",
+      "to_concept_id": "M3_FUNC_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "인수분해를 이용한 이차방정식 풀이가 x절편 계산에 직접 활용된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E007",
+      "from_concept_id": "M3_QUAD_C022",
+      "to_concept_id": "M3_FUNC_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "완전제곱식 변형 경험이 이차함수의 표준형 변환으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E008",
+      "from_concept_id": "M3_QUAD_C030",
+      "to_concept_id": "M3_FUNC_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "이차방정식의 근의 개수 판단이 그래프 교점 개수 판단으로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E009",
+      "from_concept_id": "M3_FUNC_C001",
+      "to_concept_id": "M3_FUNC_C002",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "이차함수의 뜻과 표준형 이해가 이차함수의 함숫값 계산 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E010",
+      "from_concept_id": "M3_FUNC_C002",
+      "to_concept_id": "M3_FUNC_C003",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "이차함수의 함숫값 계산 이해가 조건을 만족하는 이차함수식 판별 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E011",
+      "from_concept_id": "M3_FUNC_C003",
+      "to_concept_id": "M3_FUNC_C004",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "조건을 만족하는 이차함수식 판별 이해가 y=ax²의 그래프 기본형 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E012",
+      "from_concept_id": "M3_FUNC_C004",
+      "to_concept_id": "M3_FUNC_C005",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "y=ax²의 그래프 기본형 이해가 a의 부호와 그래프 방향 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E013",
+      "from_concept_id": "M3_FUNC_C005",
+      "to_concept_id": "M3_FUNC_C006",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "a의 부호와 그래프 방향 이해가 |a|와 그래프의 폭 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E014",
+      "from_concept_id": "M3_FUNC_C006",
+      "to_concept_id": "M3_FUNC_C007",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "|a|와 그래프의 폭 이해가 y=ax²의 대칭성과 점 대응 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E015",
+      "from_concept_id": "M3_FUNC_C007",
+      "to_concept_id": "M3_FUNC_C008",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "y=ax²의 대칭성과 점 대응 이해가 y=ax²의 식 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E016",
+      "from_concept_id": "M3_FUNC_C008",
+      "to_concept_id": "M3_FUNC_C009",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "y=ax²의 식 구하기 이해가 y=ax²+q의 그래프 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E017",
+      "from_concept_id": "M3_FUNC_C009",
+      "to_concept_id": "M3_FUNC_C010",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "y=ax²+q의 그래프 이해가 y=a(x-p)²의 그래프 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E018",
+      "from_concept_id": "M3_FUNC_C010",
+      "to_concept_id": "M3_FUNC_C011",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "y=a(x-p)²의 그래프 이해가 y=a(x-p)²+q의 그래프 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E019",
+      "from_concept_id": "M3_FUNC_C011",
+      "to_concept_id": "M3_FUNC_C012",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "y=a(x-p)²+q의 그래프 이해가 p,q의 부호와 그래프 위치 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E020",
+      "from_concept_id": "M3_FUNC_C012",
+      "to_concept_id": "M3_FUNC_C013",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "p,q의 부호와 그래프 위치 이해가 여러 이차함수 그래프 비교 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E021",
+      "from_concept_id": "M3_FUNC_C013",
+      "to_concept_id": "M3_FUNC_C014",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "여러 이차함수 그래프 비교 이해가 표준형과 일반형의 연결 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E022",
+      "from_concept_id": "M3_FUNC_C014",
+      "to_concept_id": "M3_FUNC_C015",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "표준형과 일반형의 연결 이해가 완전제곱식으로 표준형 만들기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E023",
+      "from_concept_id": "M3_FUNC_C015",
+      "to_concept_id": "M3_FUNC_C016",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "완전제곱식으로 표준형 만들기 이해가 축 x=-b/2a 이해 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E024",
+      "from_concept_id": "M3_FUNC_C016",
+      "to_concept_id": "M3_FUNC_C017",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "축 x=-b/2a 이해 이해가 일반형의 꼭짓점 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E025",
+      "from_concept_id": "M3_FUNC_C017",
+      "to_concept_id": "M3_FUNC_C018",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "일반형의 꼭짓점 구하기 이해가 이차함수 그래프 그리기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E026",
+      "from_concept_id": "M3_FUNC_C018",
+      "to_concept_id": "M3_FUNC_C019",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "이차함수 그래프 그리기 이해가 대응표로 그래프 그리기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E027",
+      "from_concept_id": "M3_FUNC_C019",
+      "to_concept_id": "M3_FUNC_C020",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "대응표로 그래프 그리기 이해가 이차함수의 y절편 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E028",
+      "from_concept_id": "M3_FUNC_C020",
+      "to_concept_id": "M3_FUNC_C021",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "이차함수의 y절편 이해가 이차함수의 x절편 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E029",
+      "from_concept_id": "M3_FUNC_C021",
+      "to_concept_id": "M3_FUNC_C022",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "이차함수의 x절편 이해가 그래프 위의 점과 미지수 좌표 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E030",
+      "from_concept_id": "M3_FUNC_C022",
+      "to_concept_id": "M3_FUNC_C023",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "그래프 위의 점과 미지수 좌표 이해가 꼭짓점과 한 점으로 이차함수식 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E031",
+      "from_concept_id": "M3_FUNC_C023",
+      "to_concept_id": "M3_FUNC_C024",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "꼭짓점과 한 점으로 이차함수식 구하기 이해가 축과 점 조건으로 식 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E032",
+      "from_concept_id": "M3_FUNC_C024",
+      "to_concept_id": "M3_FUNC_C025",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "축과 점 조건으로 식 구하기 이해가 세 점으로 이차함수식 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E033",
+      "from_concept_id": "M3_FUNC_C025",
+      "to_concept_id": "M3_FUNC_C026",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "세 점으로 이차함수식 구하기 이해가 x절편과 y절편으로 식 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E034",
+      "from_concept_id": "M3_FUNC_C026",
+      "to_concept_id": "M3_FUNC_C027",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "x절편과 y절편으로 식 구하기 이해가 꼭짓점과 최댓값·최솟값 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E035",
+      "from_concept_id": "M3_FUNC_C027",
+      "to_concept_id": "M3_FUNC_C028",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "꼭짓점과 최댓값·최솟값 이해가 제한된 범위에서 최댓값·최솟값 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E036",
+      "from_concept_id": "M3_FUNC_C028",
+      "to_concept_id": "M3_FUNC_C029",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "제한된 범위에서 최댓값·최솟값 이해가 이차함수의 증가와 감소 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E037",
+      "from_concept_id": "M3_FUNC_C029",
+      "to_concept_id": "M3_FUNC_C030",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "이차함수의 증가와 감소 이해가 축에 대한 대칭점 활용 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E038",
+      "from_concept_id": "M3_FUNC_C030",
+      "to_concept_id": "M3_FUNC_C031",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "축에 대한 대칭점 활용 이해가 이차방정식의 근과 x절편 연결 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E039",
+      "from_concept_id": "M3_FUNC_C031",
+      "to_concept_id": "M3_FUNC_C032",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "이차방정식의 근과 x절편 연결 이해가 직선과 이차함수의 교점 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E040",
+      "from_concept_id": "M3_FUNC_C032",
+      "to_concept_id": "M3_FUNC_C033",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "직선과 이차함수의 교점 이해가 교점 개수와 위치 관계 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E041",
+      "from_concept_id": "M3_FUNC_C033",
+      "to_concept_id": "M3_FUNC_C034",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "교점 개수와 위치 관계 이해가 계수 a 조건 판단 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E042",
+      "from_concept_id": "M3_FUNC_C034",
+      "to_concept_id": "M3_FUNC_C035",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "계수 a 조건 판단 이해가 축 조건으로 계수 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E043",
+      "from_concept_id": "M3_FUNC_C035",
+      "to_concept_id": "M3_FUNC_C036",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "축 조건으로 계수 구하기 이해가 꼭짓점 조건으로 계수 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E044",
+      "from_concept_id": "M3_FUNC_C036",
+      "to_concept_id": "M3_FUNC_C037",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "꼭짓점 조건으로 계수 구하기 이해가 절편 조건으로 계수 구하기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E045",
+      "from_concept_id": "M3_FUNC_C037",
+      "to_concept_id": "M3_FUNC_C038",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "절편 조건으로 계수 구하기 이해가 이차함수와 도형 넓이 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E046",
+      "from_concept_id": "M3_FUNC_C038",
+      "to_concept_id": "M3_FUNC_C039",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "이차함수와 도형 넓이 이해가 대칭성과 거리 활용 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E047",
+      "from_concept_id": "M3_FUNC_C039",
+      "to_concept_id": "M3_FUNC_C040",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "대칭성과 거리 활용 이해가 상황을 이차함수로 모델링 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E048",
+      "from_concept_id": "M3_FUNC_C040",
+      "to_concept_id": "M3_FUNC_C041",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "상황을 이차함수로 모델링 이해가 매개변수 조건 문제 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E049",
+      "from_concept_id": "M3_FUNC_C041",
+      "to_concept_id": "M3_FUNC_C042",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "매개변수 조건 문제 이해가 그래프에서 식과 성질 읽기 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E050",
+      "from_concept_id": "M3_FUNC_C042",
+      "to_concept_id": "M3_FUNC_C043",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "그래프에서 식과 성질 읽기 이해가 식 변형과 그래프 성질 종합 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E051",
+      "from_concept_id": "M3_FUNC_C043",
+      "to_concept_id": "M3_FUNC_C044",
+      "relation_type": "progression",
+      "weight": 0.7,
+      "reason": "식 변형과 그래프 성질 종합 이해가 조건 누락 없는 이차함수 종합 유형으로 이어지는 단계적 연결이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E052",
+      "from_concept_id": "M3_FUNC_C005",
+      "to_concept_id": "M3_FUNC_C034",
+      "relation_type": "diagnostic_dependency",
+      "weight": 0.78,
+      "reason": "a의 부호와 폭 해석은 계수 조건 판단의 핵심 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E053",
+      "from_concept_id": "M3_FUNC_C011",
+      "to_concept_id": "M3_FUNC_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "꼭짓점형 그래프 이해가 꼭짓점과 한 점으로 식을 구하는 과정의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E054",
+      "from_concept_id": "M3_FUNC_C016",
+      "to_concept_id": "M3_FUNC_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "축 공식 이해가 계수 조건 문제에서 b와 a의 관계를 세우는 근거가 된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E055",
+      "from_concept_id": "M3_FUNC_C017",
+      "to_concept_id": "M3_FUNC_C027",
+      "relation_type": "progression",
+      "weight": 0.78,
+      "reason": "꼭짓점 좌표를 구하는 능력이 최댓값·최솟값 판단으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E056",
+      "from_concept_id": "M3_FUNC_C018",
+      "to_concept_id": "M3_FUNC_C042",
+      "relation_type": "diagnostic_dependency",
+      "weight": 0.74,
+      "reason": "그래프 작도 요소를 종합적으로 읽는 능력이 고난도 그래프 해석에 필요하다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E057",
+      "from_concept_id": "M3_FUNC_C021",
+      "to_concept_id": "M3_FUNC_C031",
+      "relation_type": "diagnostic_dependency",
+      "weight": 0.82,
+      "reason": "x절편 계산은 이차방정식의 근과 그래프 연결의 직접 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E058",
+      "from_concept_id": "M3_FUNC_C023",
+      "to_concept_id": "M3_FUNC_C036",
+      "relation_type": "progression",
+      "weight": 0.76,
+      "reason": "꼭짓점과 점 조건을 이용한 식 구하기가 꼭짓점 조건 계수 문제로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E059",
+      "from_concept_id": "M3_FUNC_C025",
+      "to_concept_id": "M3_FUNC_C041",
+      "relation_type": "diagnostic_dependency",
+      "weight": 0.7,
+      "reason": "여러 점 조건을 식으로 세우는 능력이 매개변수 조건 문제에 필요하다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E060",
+      "from_concept_id": "M3_FUNC_C028",
+      "to_concept_id": "M3_FUNC_C040",
+      "relation_type": "progression",
+      "weight": 0.75,
+      "reason": "제한 범위의 최대최소 판단은 실생활 모델링 해석에 활용된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E061",
+      "from_concept_id": "M3_FUNC_C030",
+      "to_concept_id": "M3_FUNC_C039",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "대칭점 관계는 거리와 대칭 활용 문제의 핵심 구조다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E062",
+      "from_concept_id": "M3_FUNC_C032",
+      "to_concept_id": "M3_FUNC_C033",
+      "relation_type": "progression",
+      "weight": 0.79,
+      "reason": "직선과 이차함수의 교점 계산이 교점 개수와 위치 관계 판단으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E063",
+      "from_concept_id": "M3_FUNC_C038",
+      "to_concept_id": "M3_FUNC_C044",
+      "relation_type": "diagnostic_dependency",
+      "weight": 0.72,
+      "reason": "도형 넓이 활용은 조건을 누락 없이 정리하는 종합 문제로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M3_QFUNC_E064",
+      "from_concept_id": "M3_FUNC_C043",
+      "to_concept_id": "M3_FUNC_C044",
+      "relation_type": "progression",
+      "weight": 0.8,
+      "reason": "식 변형과 그래프 성질을 모두 연결해야 고난도 조건 종합을 안정적으로 해결할 수 있다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

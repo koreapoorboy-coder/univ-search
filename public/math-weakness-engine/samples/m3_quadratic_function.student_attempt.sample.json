@@ -1,0 +1,53 @@
+{
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "unit_id": "M3_QUADRATIC_FUNCTION",
+  "unit_name": "이차함수",
+  "samples": [
+    {
+      "sample_id": "M3_QFUNC_SAMPLE_001",
+      "problem_type_id": "M3_QFUNC_PT001",
+      "student_answer_summary": "이차함수 판별에서 a≠0 조건을 확인하지 않고 식의 모양만 보고 판단함.",
+      "observed_errors": [
+        "a_not_zero_missing",
+        "degree_check_error"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M3_QFUNC_RULE_001"
+      ],
+      "recommended_remediation_ids": [
+        "M3_QFUNC_REM_001"
+      ]
+    },
+    {
+      "sample_id": "M3_QFUNC_SAMPLE_002",
+      "problem_type_id": "M3_QFUNC_PT058",
+      "student_answer_summary": "y=a(x-p)²+q에서 p의 부호를 반대로 읽어 꼭짓점 좌표를 잘못 씀.",
+      "observed_errors": [
+        "p_q_sign_error",
+        "vertex_axis_confusion"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M3_QFUNC_RULE_004",
+        "M3_QFUNC_RULE_005"
+      ],
+      "recommended_remediation_ids": [
+        "M3_QFUNC_REM_005"
+      ]
+    },
+    {
+      "sample_id": "M3_QFUNC_SAMPLE_003",
+      "problem_type_id": "M3_QFUNC_PT112",
+      "student_answer_summary": "제한 범위 최댓값 문제에서 꼭짓점만 보고 양 끝값 비교를 하지 않음.",
+      "observed_errors": [
+        "range_endpoint_missing",
+        "maximum_minimum_error"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M3_QFUNC_RULE_010"
+      ],
+      "recommended_remediation_ids": [
+        "M3_QFUNC_REM_013"
+      ]
+    }
+  ]
+}

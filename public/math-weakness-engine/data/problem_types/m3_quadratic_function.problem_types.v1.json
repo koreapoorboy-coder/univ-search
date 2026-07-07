@@ -1,0 +1,4132 @@
+{
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "unit_id": "M3_QUADRATIC_FUNCTION",
+  "unit_name": "이차함수",
+  "raw_taxonomy": "data/raw_taxonomy/m3_quadratic_function.raw_taxonomy.v1.json",
+  "problem_type_count": 176,
+  "problem_types": [
+    {
+      "problem_type_id": "M3_QFUNC_PT001",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a≠0 조건 확인 누락",
+      "description": "이차함수의 뜻 범주의 '이차함수의 뜻과 표준형' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C001"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT002",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 뜻과 표준형 - 계산 수행",
+      "description": "이차함수의 뜻 범주의 '이차함수의 뜻과 표준형' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C001"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT003",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 뜻과 표준형 - 그래프 해석",
+      "description": "이차함수의 뜻 범주의 '이차함수의 뜻과 표준형' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C001"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT004",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 뜻과 표준형 - 조건 종합",
+      "description": "이차함수의 뜻 범주의 '이차함수의 뜻과 표준형' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT005",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "제곱 계산 오류",
+      "description": "이차함수의 뜻 범주의 '이차함수의 함숫값 계산' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C002"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT006",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 함숫값 계산 - 계산 수행",
+      "description": "이차함수의 뜻 범주의 '이차함수의 함숫값 계산' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C002"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT007",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 함숫값 계산 - 그래프 해석",
+      "description": "이차함수의 뜻 범주의 '이차함수의 함숫값 계산' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C002"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT008",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 함숫값 계산 - 조건 종합",
+      "description": "이차함수의 뜻 범주의 '이차함수의 함숫값 계산' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C002"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT009",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "점 좌표 대입 오류",
+      "description": "이차함수의 뜻 범주의 '조건을 만족하는 이차함수식 판별' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C003"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT010",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "조건을 만족하는 이차함수식 판별 - 계산 수행",
+      "description": "이차함수의 뜻 범주의 '조건을 만족하는 이차함수식 판별' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT011",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "조건을 만족하는 이차함수식 판별 - 그래프 해석",
+      "description": "이차함수의 뜻 범주의 '조건을 만족하는 이차함수식 판별' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C003"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT012",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "조건을 만족하는 이차함수식 판별 - 조건 종합",
+      "description": "이차함수의 뜻 범주의 '조건을 만족하는 이차함수식 판별' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C003"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT013",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "포물선 방향 착각",
+      "description": "기본 그래프 범주의 'y=ax²의 그래프 기본형' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C004"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT014",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 그래프 기본형 - 계산 수행",
+      "description": "기본 그래프 범주의 'y=ax²의 그래프 기본형' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C004"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT015",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 그래프 기본형 - 그래프 해석",
+      "description": "기본 그래프 범주의 'y=ax²의 그래프 기본형' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C004"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT016",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 그래프 기본형 - 조건 종합",
+      "description": "기본 그래프 범주의 'y=ax²의 그래프 기본형' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C004"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT017",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a 부호와 방향 반대로 해석",
+      "description": "기본 그래프 범주의 'a의 부호와 그래프 방향' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT018",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a의 부호와 그래프 방향 - 계산 수행",
+      "description": "기본 그래프 범주의 'a의 부호와 그래프 방향' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT019",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a의 부호와 그래프 방향 - 그래프 해석",
+      "description": "기본 그래프 범주의 'a의 부호와 그래프 방향' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT020",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a의 부호와 그래프 방향 - 조건 종합",
+      "description": "기본 그래프 범주의 'a의 부호와 그래프 방향' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C005"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT021",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a값 크기와 폭 관계 반대로 판단",
+      "description": "기본 그래프 범주의 '|a|와 그래프의 폭' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C006"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT022",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "|a|와 그래프의 폭 - 계산 수행",
+      "description": "기본 그래프 범주의 '|a|와 그래프의 폭' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C006"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT023",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "|a|와 그래프의 폭 - 그래프 해석",
+      "description": "기본 그래프 범주의 '|a|와 그래프의 폭' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C006"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT024",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "|a|와 그래프의 폭 - 조건 종합",
+      "description": "기본 그래프 범주의 '|a|와 그래프의 폭' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT025",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대칭점 x좌표 부호 오류",
+      "description": "기본 그래프 범주의 'y=ax²의 대칭성과 점 대응' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT026",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 대칭성과 점 대응 - 계산 수행",
+      "description": "기본 그래프 범주의 'y=ax²의 대칭성과 점 대응' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C007"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT027",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 대칭성과 점 대응 - 그래프 해석",
+      "description": "기본 그래프 범주의 'y=ax²의 대칭성과 점 대응' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT028",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 대칭성과 점 대응 - 조건 종합",
+      "description": "기본 그래프 범주의 'y=ax²의 대칭성과 점 대응' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C007"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT029",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "x² 계산 누락",
+      "description": "기본 그래프 범주의 'y=ax²의 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C008"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "equation_from_conditions"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT030",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 식 구하기 - 계산 수행",
+      "description": "기본 그래프 범주의 'y=ax²의 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C008"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "equation_from_conditions"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT031",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 식 구하기 - 그래프 해석",
+      "description": "기본 그래프 범주의 'y=ax²의 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C008"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "equation_from_conditions"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT032",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²의 식 구하기 - 조건 종합",
+      "description": "기본 그래프 범주의 'y=ax²의 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "equation_from_conditions"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT033",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "q 부호와 이동 방향 혼동",
+      "description": "평행이동 범주의 'y=ax²+q의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C009"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT034",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²+q의 그래프 - 계산 수행",
+      "description": "평행이동 범주의 'y=ax²+q의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C009"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT035",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²+q의 그래프 - 그래프 해석",
+      "description": "평행이동 범주의 'y=ax²+q의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C009"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT036",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=ax²+q의 그래프 - 조건 종합",
+      "description": "평행이동 범주의 'y=ax²+q의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C009"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT037",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "(x-p)²에서 이동 방향 반대로 해석",
+      "description": "평행이동 범주의 'y=a(x-p)²의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C010"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT038",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=a(x-p)²의 그래프 - 계산 수행",
+      "description": "평행이동 범주의 'y=a(x-p)²의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT039",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=a(x-p)²의 그래프 - 그래프 해석",
+      "description": "평행이동 범주의 'y=a(x-p)²의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C010"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT040",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=a(x-p)²의 그래프 - 조건 종합",
+      "description": "평행이동 범주의 'y=a(x-p)²의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C010"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT041",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "p,q 좌표 순서 오류",
+      "description": "평행이동 범주의 'y=a(x-p)²+q의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C011"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT042",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=a(x-p)²+q의 그래프 - 계산 수행",
+      "description": "평행이동 범주의 'y=a(x-p)²+q의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C011"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT043",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=a(x-p)²+q의 그래프 - 그래프 해석",
+      "description": "평행이동 범주의 'y=a(x-p)²+q의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C011"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT044",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=a(x-p)²+q의 그래프 - 조건 종합",
+      "description": "평행이동 범주의 'y=a(x-p)²+q의 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C011"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT045",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "p의 부호 해석 반대",
+      "description": "평행이동 범주의 'p,q의 부호와 그래프 위치' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C012"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT046",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "p,q의 부호와 그래프 위치 - 계산 수행",
+      "description": "평행이동 범주의 'p,q의 부호와 그래프 위치' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C012"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT047",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "p,q의 부호와 그래프 위치 - 그래프 해석",
+      "description": "평행이동 범주의 'p,q의 부호와 그래프 위치' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C012"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT048",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "p,q의 부호와 그래프 위치 - 조건 종합",
+      "description": "평행이동 범주의 'p,q의 부호와 그래프 위치' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C012"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT049",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a와 p,q 효과를 분리하지 못함",
+      "description": "평행이동 범주의 '여러 이차함수 그래프 비교' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C013"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT050",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "여러 이차함수 그래프 비교 - 계산 수행",
+      "description": "평행이동 범주의 '여러 이차함수 그래프 비교' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C013"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT051",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "여러 이차함수 그래프 비교 - 그래프 해석",
+      "description": "평행이동 범주의 '여러 이차함수 그래프 비교' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C013"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT052",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "여러 이차함수 그래프 비교 - 조건 종합",
+      "description": "평행이동 범주의 '여러 이차함수 그래프 비교' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C013"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT053",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "전개 과정에서 부호 오류",
+      "description": "표준형과 일반형 범주의 '표준형과 일반형의 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C014"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT054",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "표준형과 일반형의 연결 - 계산 수행",
+      "description": "표준형과 일반형 범주의 '표준형과 일반형의 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT055",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "표준형과 일반형의 연결 - 그래프 해석",
+      "description": "표준형과 일반형 범주의 '표준형과 일반형의 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C014"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT056",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "표준형과 일반형의 연결 - 조건 종합",
+      "description": "표준형과 일반형 범주의 '표준형과 일반형의 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C014"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT057",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "완전제곱식 항 추가 오류",
+      "description": "표준형과 일반형 범주의 '완전제곱식으로 표준형 만들기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C015"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT058",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "완전제곱식으로 표준형 만들기 - 계산 수행",
+      "description": "표준형과 일반형 범주의 '완전제곱식으로 표준형 만들기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C015"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT059",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "완전제곱식으로 표준형 만들기 - 그래프 해석",
+      "description": "표준형과 일반형 범주의 '완전제곱식으로 표준형 만들기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C015"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT060",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "-b/2a 부호 오류",
+      "description": "표준형과 일반형 범주의 '축 x=-b/2a 이해' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C016"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT061",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축 x=-b/2a 이해 - 계산 수행",
+      "description": "표준형과 일반형 범주의 '축 x=-b/2a 이해' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C016"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT062",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축 x=-b/2a 이해 - 그래프 해석",
+      "description": "표준형과 일반형 범주의 '축 x=-b/2a 이해' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C016"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT063",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축만 구하고 y좌표 미계산",
+      "description": "표준형과 일반형 범주의 '일반형의 꼭짓점 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT064",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "일반형의 꼭짓점 구하기 - 계산 수행",
+      "description": "표준형과 일반형 범주의 '일반형의 꼭짓점 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT065",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "일반형의 꼭짓점 구하기 - 그래프 해석",
+      "description": "표준형과 일반형 범주의 '일반형의 꼭짓점 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT066",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점 없이 임의로 그림",
+      "description": "그래프 그리기 범주의 '이차함수 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C018"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT067",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 그래프 그리기 - 계산 수행",
+      "description": "그래프 그리기 범주의 '이차함수 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C018"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT068",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 그래프 그리기 - 그래프 해석",
+      "description": "그래프 그리기 범주의 '이차함수 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C018"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT069",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대응표 계산 오류",
+      "description": "그래프 그리기 범주의 '대응표로 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C019"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT070",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대응표로 그래프 그리기 - 계산 수행",
+      "description": "그래프 그리기 범주의 '대응표로 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C019"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT071",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대응표로 그래프 그리기 - 그래프 해석",
+      "description": "그래프 그리기 범주의 '대응표로 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C019"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT072",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "상수항과 x절편 혼동",
+      "description": "절편과 좌표 범주의 '이차함수의 y절편' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C020"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "intercept",
+        "quadratic_equation",
+        "intersection"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT073",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 y절편 - 계산 수행",
+      "description": "절편과 좌표 범주의 '이차함수의 y절편' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C020"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "intercept",
+        "quadratic_equation",
+        "intersection"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT074",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 y절편 - 그래프 해석",
+      "description": "절편과 좌표 범주의 '이차함수의 y절편' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C020"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "intercept",
+        "quadratic_equation",
+        "intersection"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT075",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=0 설정 누락",
+      "description": "절편과 좌표 범주의 '이차함수의 x절편' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C021"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "intercept",
+        "quadratic_equation",
+        "intersection"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT076",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 x절편 - 계산 수행",
+      "description": "절편과 좌표 범주의 '이차함수의 x절편' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C021"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "intercept",
+        "quadratic_equation",
+        "intersection"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT077",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 x절편 - 그래프 해석",
+      "description": "절편과 좌표 범주의 '이차함수의 x절편' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C021"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "intercept",
+        "quadratic_equation",
+        "intersection"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT078",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "x,y 좌표 순서 오류",
+      "description": "절편과 좌표 범주의 '그래프 위의 점과 미지수 좌표' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C022"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT079",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "그래프 위의 점과 미지수 좌표 - 계산 수행",
+      "description": "절편과 좌표 범주의 '그래프 위의 점과 미지수 좌표' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C022"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT080",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "그래프 위의 점과 미지수 좌표 - 그래프 해석",
+      "description": "절편과 좌표 범주의 '그래프 위의 점과 미지수 좌표' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C022"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT081",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점 좌표를 p,q에 반대로 대입",
+      "description": "식 구하기 범주의 '꼭짓점과 한 점으로 이차함수식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT082",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점과 한 점으로 이차함수식 구하기 - 계산 수행",
+      "description": "식 구하기 범주의 '꼭짓점과 한 점으로 이차함수식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C023"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT083",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점과 한 점으로 이차함수식 구하기 - 그래프 해석",
+      "description": "식 구하기 범주의 '꼭짓점과 한 점으로 이차함수식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C023"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT084",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축 x=p를 꼭짓점 전체로 착각",
+      "description": "식 구하기 범주의 '축과 점 조건으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C024"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT085",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축과 점 조건으로 식 구하기 - 계산 수행",
+      "description": "식 구하기 범주의 '축과 점 조건으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT086",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축과 점 조건으로 식 구하기 - 그래프 해석",
+      "description": "식 구하기 범주의 '축과 점 조건으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C024"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT087",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "연립식 설정 오류",
+      "description": "식 구하기 범주의 '세 점으로 이차함수식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C025"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT088",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "세 점으로 이차함수식 구하기 - 계산 수행",
+      "description": "식 구하기 범주의 '세 점으로 이차함수식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C025"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT089",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "세 점으로 이차함수식 구하기 - 그래프 해석",
+      "description": "식 구하기 범주의 '세 점으로 이차함수식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C025"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT090",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "x절편을 인수로 연결하지 못함",
+      "description": "식 구하기 범주의 'x절편과 y절편으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C026"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT091",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "x절편과 y절편으로 식 구하기 - 계산 수행",
+      "description": "식 구하기 범주의 'x절편과 y절편으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT092",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "x절편과 y절편으로 식 구하기 - 그래프 해석",
+      "description": "식 구하기 범주의 'x절편과 y절편으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C026"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT093",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a 부호에 따른 최댓값/최솟값 반대",
+      "description": "최댓값과 최솟값 범주의 '꼭짓점과 최댓값·최솟값' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT094",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점과 최댓값·최솟값 - 계산 수행",
+      "description": "최댓값과 최솟값 범주의 '꼭짓점과 최댓값·최솟값' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C027"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT095",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점과 최댓값·최솟값 - 그래프 해석",
+      "description": "최댓값과 최솟값 범주의 '꼭짓점과 최댓값·최솟값' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C027"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT096",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "끝값 비교 누락",
+      "description": "최댓값과 최솟값 범주의 '제한된 범위에서 최댓값·최솟값' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C028"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT097",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "제한된 범위에서 최댓값·최솟값 - 계산 수행",
+      "description": "최댓값과 최솟값 범주의 '제한된 범위에서 최댓값·최솟값' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT098",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "제한된 범위에서 최댓값·최솟값 - 그래프 해석",
+      "description": "최댓값과 최솟값 범주의 '제한된 범위에서 최댓값·최솟값' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C028"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT099",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축 기준 좌우 증감 반대",
+      "description": "증감과 대칭 범주의 '이차함수의 증가와 감소' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT100",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 증가와 감소 - 계산 수행",
+      "description": "증감과 대칭 범주의 '이차함수의 증가와 감소' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C029"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT101",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 증가와 감소 - 그래프 해석",
+      "description": "증감과 대칭 범주의 '이차함수의 증가와 감소' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT102",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대칭축 평균 관계 미사용",
+      "description": "증감과 대칭 범주의 '축에 대한 대칭점 활용' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C030"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry",
+        "modeling"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT103",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축에 대한 대칭점 활용 - 계산 수행",
+      "description": "증감과 대칭 범주의 '축에 대한 대칭점 활용' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry",
+        "modeling"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT104",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축에 대한 대칭점 활용 - 그래프 해석",
+      "description": "증감과 대칭 범주의 '축에 대한 대칭점 활용' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C030"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry",
+        "modeling"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT105",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "해와 교점 연결 실패",
+      "description": "방정식과 그래프 범주의 '이차방정식의 근과 x절편 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT106",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차방정식의 근과 x절편 연결 - 계산 수행",
+      "description": "방정식과 그래프 범주의 '이차방정식의 근과 x절편 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C031"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT107",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차방정식의 근과 x절편 연결 - 그래프 해석",
+      "description": "방정식과 그래프 범주의 '이차방정식의 근과 x절편 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C031"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT108",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "연립 후 이차방정식 변형 오류",
+      "description": "방정식과 그래프 범주의 '직선과 이차함수의 교점' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C032"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT109",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "직선과 이차함수의 교점 - 계산 수행",
+      "description": "방정식과 그래프 범주의 '직선과 이차함수의 교점' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C032"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT110",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "직선과 이차함수의 교점 - 그래프 해석",
+      "description": "방정식과 그래프 범주의 '직선과 이차함수의 교점' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C032"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT111",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "접한다/만나지 않는다 구분 오류",
+      "description": "방정식과 그래프 범주의 '교점 개수와 위치 관계' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C033"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT112",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "교점 개수와 위치 관계 - 계산 수행",
+      "description": "방정식과 그래프 범주의 '교점 개수와 위치 관계' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C033"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT113",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "교점 개수와 위치 관계 - 그래프 해석",
+      "description": "방정식과 그래프 범주의 '교점 개수와 위치 관계' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT114",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "방향 조건과 폭 조건 혼동",
+      "description": "계수 조건 범주의 '계수 a 조건 판단' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C034"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT115",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "계수 a 조건 판단 - 계산 수행",
+      "description": "계수 조건 범주의 '계수 a 조건 판단' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C034"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT116",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "계수 a 조건 판단 - 그래프 해석",
+      "description": "계수 조건 범주의 '계수 a 조건 판단' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C034"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT117",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축 공식 부호 오류",
+      "description": "계수 조건 범주의 '축 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT118",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축 조건으로 계수 구하기 - 계산 수행",
+      "description": "계수 조건 범주의 '축 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C035"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT119",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "축 조건으로 계수 구하기 - 그래프 해석",
+      "description": "계수 조건 범주의 '축 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT120",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점 좌표 조건 일부만 사용",
+      "description": "계수 조건 범주의 '꼭짓점 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C036"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT121",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점 조건으로 계수 구하기 - 계산 수행",
+      "description": "계수 조건 범주의 '꼭짓점 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT122",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점 조건으로 계수 구하기 - 그래프 해석",
+      "description": "계수 조건 범주의 '꼭짓점 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C036"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT123",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "절편 조건을 좌표로 바꾸지 못함",
+      "description": "계수 조건 범주의 '절편 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C037"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT124",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "절편 조건으로 계수 구하기 - 계산 수행",
+      "description": "계수 조건 범주의 '절편 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C037"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT125",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "절편 조건으로 계수 구하기 - 그래프 해석",
+      "description": "계수 조건 범주의 '절편 조건으로 계수 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C037"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT126",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "좌표를 길이로 바꿀 때 절댓값 누락",
+      "description": "활용 범주의 '이차함수와 도형 넓이' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C038"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT127",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수와 도형 넓이 - 계산 수행",
+      "description": "활용 범주의 '이차함수와 도형 넓이' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C038"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT128",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수와 도형 넓이 - 그래프 해석",
+      "description": "활용 범주의 '이차함수와 도형 넓이' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C038"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT129",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대칭축에서의 거리 관계 오류",
+      "description": "활용 범주의 '대칭성과 거리 활용' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C039"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT130",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대칭성과 거리 활용 - 계산 수행",
+      "description": "활용 범주의 '대칭성과 거리 활용' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C039"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT131",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대칭성과 거리 활용 - 그래프 해석",
+      "description": "활용 범주의 '대칭성과 거리 활용' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C039"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT132",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "변수 설정 오류",
+      "description": "활용 범주의 '상황을 이차함수로 모델링' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C040"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        19,
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT133",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "상황을 이차함수로 모델링 - 계산 수행",
+      "description": "활용 범주의 '상황을 이차함수로 모델링' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C040"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        19,
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT134",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "상황을 이차함수로 모델링 - 그래프 해석",
+      "description": "활용 범주의 '상황을 이차함수로 모델링' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C040"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        19,
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT135",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "조건별 경우 분리 실패",
+      "description": "활용 범주의 '매개변수 조건 문제' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C041"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT136",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "매개변수 조건 문제 - 계산 수행",
+      "description": "활용 범주의 '매개변수 조건 문제' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C041"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT137",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "매개변수 조건 문제 - 그래프 해석",
+      "description": "활용 범주의 '매개변수 조건 문제' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C041"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT138",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "그래프 정보를 식으로 연결하지 못함",
+      "description": "종합 범주의 '그래프에서 식과 성질 읽기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C042"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        20,
+        21
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT139",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "그래프에서 식과 성질 읽기 - 계산 수행",
+      "description": "종합 범주의 '그래프에서 식과 성질 읽기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C042"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        20,
+        21
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT140",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "그래프에서 식과 성질 읽기 - 그래프 해석",
+      "description": "종합 범주의 '그래프에서 식과 성질 읽기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C042"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        20,
+        21
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT141",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "형태별 장점 구분 실패",
+      "description": "종합 범주의 '식 변형과 그래프 성질 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C043"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT142",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "식 변형과 그래프 성질 종합 - 계산 수행",
+      "description": "종합 범주의 '식 변형과 그래프 성질 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C043"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT143",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "식 변형과 그래프 성질 종합 - 그래프 해석",
+      "description": "종합 범주의 '식 변형과 그래프 성질 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C043"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT144",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "조건 일부 누락",
+      "description": "종합 범주의 '조건 누락 없는 이차함수 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C044"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        21,
+        22
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT145",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "조건 누락 없는 이차함수 종합 - 계산 수행",
+      "description": "종합 범주의 '조건 누락 없는 이차함수 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C044"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        21,
+        22
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT146",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "조건 누락 없는 이차함수 종합 - 그래프 해석",
+      "description": "종합 범주의 '조건 누락 없는 이차함수 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C044"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        21,
+        22
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT147",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수인지 판별",
+      "description": "이차함수의 뜻과 기본 그래프 범주의 '이차함수 판별과 y=ax² 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C001",
+        "M3_FUNC_C002",
+        "M3_FUNC_C004",
+        "M3_FUNC_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT148",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 판별과 y=ax² 그래프 - 계산 수행",
+      "description": "이차함수의 뜻과 기본 그래프 범주의 '이차함수 판별과 y=ax² 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C001",
+        "M3_FUNC_C002",
+        "M3_FUNC_C004",
+        "M3_FUNC_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT149",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 판별과 y=ax² 그래프 - 그래프 해석",
+      "description": "이차함수의 뜻과 기본 그래프 범주의 '이차함수 판별과 y=ax² 그래프' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C001",
+        "M3_FUNC_C002",
+        "M3_FUNC_C004",
+        "M3_FUNC_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT150",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "p,q에 따른 꼭짓점",
+      "description": "평행이동 범주의 'y=a(x-p)²+q 그래프 해석' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C009",
+        "M3_FUNC_C010",
+        "M3_FUNC_C011",
+        "M3_FUNC_C012"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        4,
+        5,
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT151",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=a(x-p)²+q 그래프 해석 - 계산 수행",
+      "description": "평행이동 범주의 'y=a(x-p)²+q 그래프 해석' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C009",
+        "M3_FUNC_C010",
+        "M3_FUNC_C011",
+        "M3_FUNC_C012"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        4,
+        5,
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT152",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "y=a(x-p)²+q 그래프 해석 - 그래프 해석",
+      "description": "평행이동 범주의 'y=a(x-p)²+q 그래프 해석' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C009",
+        "M3_FUNC_C010",
+        "M3_FUNC_C011",
+        "M3_FUNC_C012"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "translation"
+      ],
+      "source_orders": [
+        4,
+        5,
+        6
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT153",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "완전제곱식 변형",
+      "description": "일반형 변환 범주의 '일반형에서 그래프 정보 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C014",
+        "M3_FUNC_C015",
+        "M3_FUNC_C016",
+        "M3_FUNC_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        7,
+        8,
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_047",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT154",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "일반형에서 그래프 정보 구하기 - 계산 수행",
+      "description": "일반형 변환 범주의 '일반형에서 그래프 정보 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C014",
+        "M3_FUNC_C015",
+        "M3_FUNC_C016",
+        "M3_FUNC_C017"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        7,
+        8,
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_047",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT155",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "일반형에서 그래프 정보 구하기 - 그래프 해석",
+      "description": "일반형 변환 범주의 '일반형에서 그래프 정보 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C014",
+        "M3_FUNC_C015",
+        "M3_FUNC_C016",
+        "M3_FUNC_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        7,
+        8,
+        9
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_047",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT156",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "대응표 작성",
+      "description": "그래프 작도 범주의 '이차함수 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C018",
+        "M3_FUNC_C019",
+        "M3_FUNC_C020",
+        "M3_FUNC_C021"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT157",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 그래프 그리기 - 계산 수행",
+      "description": "그래프 작도 범주의 '이차함수 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C018",
+        "M3_FUNC_C019",
+        "M3_FUNC_C020",
+        "M3_FUNC_C021"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT158",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 그래프 그리기 - 그래프 해석",
+      "description": "그래프 작도 범주의 '이차함수 그래프 그리기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C018",
+        "M3_FUNC_C019",
+        "M3_FUNC_C020",
+        "M3_FUNC_C021"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT159",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점과 한 점",
+      "description": "식 구하기 범주의 '꼭짓점·점·절편 조건으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C023",
+        "M3_FUNC_C024",
+        "M3_FUNC_C025",
+        "M3_FUNC_C026"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        11,
+        12,
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_049",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT160",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점·점·절편 조건으로 식 구하기 - 계산 수행",
+      "description": "식 구하기 범주의 '꼭짓점·점·절편 조건으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C023",
+        "M3_FUNC_C024",
+        "M3_FUNC_C025",
+        "M3_FUNC_C026"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        11,
+        12,
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_049",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT161",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점·점·절편 조건으로 식 구하기 - 그래프 해석",
+      "description": "식 구하기 범주의 '꼭짓점·점·절편 조건으로 식 구하기' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C023",
+        "M3_FUNC_C024",
+        "M3_FUNC_C025",
+        "M3_FUNC_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_from_conditions",
+        "coefficient_condition",
+        "substitution",
+        "intercept"
+      ],
+      "source_orders": [
+        11,
+        12,
+        13
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_049",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT162",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "꼭짓점 y좌표 해석",
+      "description": "최대최소와 증감 범주의 '이차함수의 최댓값·최솟값·증감' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C027",
+        "M3_FUNC_C028",
+        "M3_FUNC_C029",
+        "M3_FUNC_C030"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry"
+      ],
+      "source_orders": [
+        13,
+        14,
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT163",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 최댓값·최솟값·증감 - 계산 수행",
+      "description": "최대최소와 증감 범주의 '이차함수의 최댓값·최솟값·증감' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C027",
+        "M3_FUNC_C028",
+        "M3_FUNC_C029",
+        "M3_FUNC_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry"
+      ],
+      "source_orders": [
+        13,
+        14,
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT164",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수의 최댓값·최솟값·증감 - 그래프 해석",
+      "description": "최대최소와 증감 범주의 '이차함수의 최댓값·최솟값·증감' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C027",
+        "M3_FUNC_C028",
+        "M3_FUNC_C029",
+        "M3_FUNC_C030"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "maximum_minimum",
+        "range_check",
+        "axis_symmetry"
+      ],
+      "source_orders": [
+        13,
+        14,
+        15
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT165",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "근과 x절편",
+      "description": "방정식과 그래프 범주의 '이차방정식과 이차함수 그래프 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C031",
+        "M3_FUNC_C032",
+        "M3_FUNC_C033",
+        "M3_QUAD_C028"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT166",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차방정식과 이차함수 그래프 연결 - 계산 수행",
+      "description": "방정식과 그래프 범주의 '이차방정식과 이차함수 그래프 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C031",
+        "M3_FUNC_C032",
+        "M3_FUNC_C033",
+        "M3_QUAD_C028"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT167",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차방정식과 이차함수 그래프 연결 - 그래프 해석",
+      "description": "방정식과 그래프 범주의 '이차방정식과 이차함수 그래프 연결' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C031",
+        "M3_FUNC_C032",
+        "M3_FUNC_C033",
+        "M3_QUAD_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "intercept"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT168",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "a의 방향과 폭",
+      "description": "계수 조건 범주의 '계수 조건으로 그래프 성질 판단' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C034",
+        "M3_FUNC_C035",
+        "M3_FUNC_C036",
+        "M3_FUNC_C037"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "equation_from_conditions"
+      ],
+      "source_orders": [
+        16,
+        17,
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_052",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT169",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "계수 조건으로 그래프 성질 판단 - 계산 수행",
+      "description": "계수 조건 범주의 '계수 조건으로 그래프 성질 판단' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C034",
+        "M3_FUNC_C035",
+        "M3_FUNC_C036",
+        "M3_FUNC_C037"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "equation_from_conditions"
+      ],
+      "source_orders": [
+        16,
+        17,
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_052",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT170",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "계수 조건으로 그래프 성질 판단 - 그래프 해석",
+      "description": "계수 조건 범주의 '계수 조건으로 그래프 성질 판단' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C034",
+        "M3_FUNC_C035",
+        "M3_FUNC_C036",
+        "M3_FUNC_C037"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "graph_interpretation",
+        "vertex_axis",
+        "parabola",
+        "equation_from_conditions"
+      ],
+      "source_orders": [
+        16,
+        17,
+        18
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_052",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT171",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "도형 넓이",
+      "description": "활용 범주의 '이차함수 활용 문제' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C038",
+        "M3_FUNC_C039",
+        "M3_FUNC_C040",
+        "M3_FUNC_C041"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        18,
+        19,
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_053",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT172",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 활용 문제 - 계산 수행",
+      "description": "활용 범주의 '이차함수 활용 문제' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C038",
+        "M3_FUNC_C039",
+        "M3_FUNC_C040",
+        "M3_FUNC_C041"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        18,
+        19,
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_053",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT173",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 활용 문제 - 그래프 해석",
+      "description": "활용 범주의 '이차함수 활용 문제' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C038",
+        "M3_FUNC_C039",
+        "M3_FUNC_C040",
+        "M3_FUNC_C041"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "modeling",
+        "geometry_area",
+        "condition_translation"
+      ],
+      "source_orders": [
+        18,
+        19,
+        20
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_053",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT174",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "그래프에서 식 읽기",
+      "description": "종합 범주의 '이차함수 고난도 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C042",
+        "M3_FUNC_C043",
+        "M3_FUNC_C044"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        20,
+        21,
+        22
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_054",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT175",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 고난도 종합 - 계산 수행",
+      "description": "종합 범주의 '이차함수 고난도 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C042",
+        "M3_FUNC_C043",
+        "M3_FUNC_C044"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        20,
+        21,
+        22
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_054",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M3_QFUNC_PT176",
+      "grade": "중3",
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "unit_name": "이차함수",
+      "type_name": "이차함수 고난도 종합 - 그래프 해석",
+      "description": "종합 범주의 '이차함수 고난도 종합' 유형을 진단한다. 학생이 식, 그래프, 좌표 조건을 연결해 이차함수의 성질을 해석할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M3_FUNC_C042",
+        "M3_FUNC_C043",
+        "M3_FUNC_C044"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_function",
+        "function_value",
+        "coefficient"
+      ],
+      "source_orders": [
+        20,
+        21,
+        22
+      ],
+      "raw_section_id": "M3_QFUNC_RAW_054",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    }
+  ]
+}

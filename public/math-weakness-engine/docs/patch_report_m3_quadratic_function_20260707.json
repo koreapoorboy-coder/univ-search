@@ -1,0 +1,24 @@
+{
+  "patch_id": "math_weakness_engine_m3_quadratic_function_core_patch_20260707",
+  "date": "2026-07-07",
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "unit_id": "M3_QUADRATIC_FUNCTION",
+  "unit_name": "이차함수",
+  "source_upload": "3-1 이차함수.zip",
+  "source_image_count": 22,
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "note": "This patch adds the 3-1 quadratic function unit as a middle school grade 3 diagnosis unit. It is built cumulatively on the 20260707 quadratic equation index so M3_QUADRATIC_EQUATION is not dropped when index.v1.json is overwritten. Original source images are not included.",
+  "outputs": {
+    "concepts_added_or_replaced": 44,
+    "raw_sections": 54,
+    "problem_types": 176,
+    "edges": 64,
+    "diagnosis_rules": 13,
+    "remediation_items": 20,
+    "solution_templates": 8
+  },
+  "path_prefix": "public/math-weakness-engine/",
+  "apply_note": "Apply after math_weakness_engine_m3_quadratic_equation_core_patch_20260707.zip if the current repository does not yet contain M3_QUADRATIC_EQUATION files."
+}

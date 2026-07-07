@@ -1,0 +1,128 @@
+{
+  "version": "2026.07.07-m3-quadratic-function-v1.0",
+  "unit_id": "M3_QUADRATIC_FUNCTION",
+  "unit_name": "이차함수",
+  "template_count": 8,
+  "solution_templates": [
+    {
+      "template_id": "M3_QFUNC_SOL_001",
+      "template_name": "이차함수 판별 풀이",
+      "student_solution_must_include": "식을 y=ax²+bx+c 꼴로 정리하고 a≠0을 확인해야 한다.",
+      "teacher_checkpoints": [
+        "표준형 정리",
+        "최고차항 확인",
+        "a≠0 확인"
+      ],
+      "common_failure_patterns": [
+        "정리 전 차수 판단",
+        "a=0 가능성 누락"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M3_QFUNC_SOL_002",
+      "template_name": "그래프 성질 설명 풀이",
+      "student_solution_must_include": "a, p, q를 읽어 방향, 폭, 꼭짓점, 축을 순서대로 써야 한다.",
+      "teacher_checkpoints": [
+        "a 부호와 폭",
+        "꼭짓점 (p,q)",
+        "축 x=p"
+      ],
+      "common_failure_patterns": [
+        "p 부호 반대 해석",
+        "축과 꼭짓점 혼동"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M3_QFUNC_SOL_003",
+      "template_name": "일반형에서 꼭짓점 구하기",
+      "student_solution_must_include": "축 x=-b/2a를 구하고 x값을 대입하거나 완전제곱식으로 변형해야 한다.",
+      "teacher_checkpoints": [
+        "a,b 표시",
+        "축 계산",
+        "y좌표 대입"
+      ],
+      "common_failure_patterns": [
+        "x좌표만 구함",
+        "부호 계산 오류"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M3_QFUNC_SOL_004",
+      "template_name": "그래프 그리기 풀이",
+      "student_solution_must_include": "꼭짓점, 축, 대칭점, 절편을 표시한 뒤 포물선을 그려야 한다.",
+      "teacher_checkpoints": [
+        "꼭짓점 표시",
+        "축 표시",
+        "대칭점 또는 절편 표시"
+      ],
+      "common_failure_patterns": [
+        "필수 요소 누락",
+        "대칭이 맞지 않는 그래프"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M3_QFUNC_SOL_005",
+      "template_name": "이차함수식 구하기 풀이",
+      "student_solution_must_include": "조건에 맞는 식의 형태를 선택하고 모든 조건을 대입해 계수를 구해야 한다.",
+      "teacher_checkpoints": [
+        "식 형태 선택",
+        "조건 대입",
+        "구한 식 검산"
+      ],
+      "common_failure_patterns": [
+        "조건 일부 누락",
+        "식 형태 선택 오류"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M3_QFUNC_SOL_006",
+      "template_name": "최댓값·최솟값 풀이",
+      "student_solution_must_include": "a의 부호와 꼭짓점 y좌표, 제한 범위 여부를 확인해야 한다.",
+      "teacher_checkpoints": [
+        "a 부호 판단",
+        "꼭짓점 y좌표",
+        "제한 범위 끝값 비교"
+      ],
+      "common_failure_patterns": [
+        "최대/최소 반대",
+        "범위 끝값 누락"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M3_QFUNC_SOL_007",
+      "template_name": "x절편·교점 풀이",
+      "student_solution_must_include": "y=0 또는 두 식을 연립하여 x값을 구하고 y값까지 완성해야 한다.",
+      "teacher_checkpoints": [
+        "방정식 설정",
+        "x값 계산",
+        "교점이면 y값 대입"
+      ],
+      "common_failure_patterns": [
+        "x절편과 y절편 혼동",
+        "교점 y좌표 누락"
+      ],
+      "status": "curated_solution_template"
+    },
+    {
+      "template_id": "M3_QFUNC_SOL_008",
+      "template_name": "활용·종합 풀이",
+      "student_solution_must_include": "문장 조건을 변수, 식, 구할 값으로 나누고 구한 식을 조건에 재대입해야 한다.",
+      "teacher_checkpoints": [
+        "변수 설정",
+        "조건 식 작성",
+        "검산과 해석"
+      ],
+      "common_failure_patterns": [
+        "변수 정의 누락",
+        "답의 의미 미해석"
+      ],
+      "status": "curated_solution_template"
+    }
+  ]
+}
