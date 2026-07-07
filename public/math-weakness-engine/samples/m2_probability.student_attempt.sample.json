@@ -1,0 +1,100 @@
+{
+  "version": "2026.07.07-m2-probability-v1.0",
+  "unit_id": "M2_PROBABILITY",
+  "unit_name": "확률",
+  "samples": [
+    {
+      "sample_id": "M2_PROB_SAMPLE_001",
+      "problem_type_id": "M2_PROB_PT005",
+      "student_answer_summary": "나뭇가지 그림에서 두 번째 단계의 선택을 일부만 적어 전체 경우의 수가 부족함.",
+      "observed_errors": [
+        "sample_space_incomplete",
+        "branch_missing"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_PROB_RULE_001"
+      ],
+      "recommended_remediation_ids": [
+        "M2_PROB_REM_001"
+      ]
+    },
+    {
+      "sample_id": "M2_PROB_SAMPLE_002",
+      "problem_type_id": "M2_PROB_PT016",
+      "student_answer_summary": "A 또는 B의 경우를 더하면서 공통부분을 빼지 않아 중복 계산함.",
+      "observed_errors": [
+        "addition_rule_overlap_error",
+        "double_counting"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_PROB_RULE_003"
+      ],
+      "recommended_remediation_ids": [
+        "M2_PROB_REM_003",
+        "M2_PROB_REM_015"
+      ]
+    },
+    {
+      "sample_id": "M2_PROB_SAMPLE_003",
+      "problem_type_id": "M2_PROB_PT042",
+      "student_answer_summary": "특정 사람의 자리를 고정해야 하는데 전체 인원을 모두 다시 배열함.",
+      "observed_errors": [
+        "fixed_position_counted_again",
+        "arrangement_condition_error"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_PROB_RULE_004"
+      ],
+      "recommended_remediation_ids": [
+        "M2_PROB_REM_004"
+      ]
+    },
+    {
+      "sample_id": "M2_PROB_SAMPLE_004",
+      "problem_type_id": "M2_PROB_PT088",
+      "student_answer_summary": "확률 문제에서 전체 경우와 유리한 경우를 바꿔 써서 1보다 큰 확률이 나옴.",
+      "observed_errors": [
+        "denominator_numerator_reversed",
+        "probability_range_error"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_PROB_RULE_009",
+        "M2_PROB_RULE_010"
+      ],
+      "recommended_remediation_ids": [
+        "M2_PROB_REM_011",
+        "M2_PROB_REM_012"
+      ]
+    },
+    {
+      "sample_id": "M2_PROB_SAMPLE_005",
+      "problem_type_id": "M2_PROB_PT106",
+      "student_answer_summary": "적어도 하나가 일어날 확률을 정확히 하나가 일어날 확률로 해석함.",
+      "observed_errors": [
+        "at_least_condition_misread",
+        "complement_event_missing"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_PROB_RULE_011"
+      ],
+      "recommended_remediation_ids": [
+        "M2_PROB_REM_014"
+      ]
+    },
+    {
+      "sample_id": "M2_PROB_SAMPLE_006",
+      "problem_type_id": "M2_PROB_PT124",
+      "student_answer_summary": "꺼낸 것을 다시 넣지 않는 조건인데 두 번째 시행에서도 처음과 같은 분모를 사용함.",
+      "observed_errors": [
+        "without_replacement_denominator_error",
+        "successive_trial_error"
+      ],
+      "expected_diagnosis_rule_ids": [
+        "M2_PROB_RULE_013"
+      ],
+      "recommended_remediation_ids": [
+        "M2_PROB_REM_016"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.07-m2-geometry-properties-v1.0",
-  "concept_count": 630,
+  "version": "2026.07.07-m2-probability-v1.0",
+  "concept_count": 672,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -17314,6 +17314,1135 @@
       ],
       "mastery_level": "advanced",
       "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C001",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "경우의 수의 의미와 사건 구분",
+      "description": "한 사건에서 가능한 결과를 사건의 조건에 맞게 모두 세고, 빠짐과 중복을 점검한다.",
+      "diagnostic_signals": [
+        "모든 경우를 나열하지 못함",
+        "사건과 결과를 구분하지 못함",
+        "중복된 결과를 다시 셈"
+      ],
+      "remediation_keywords": [
+        "사건 조건 표시",
+        "표본공간 나열",
+        "중복·누락 점검"
+      ],
+      "source_orders": [
+        1,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C002",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "한 가지 사건의 경우의 수",
+      "description": "숫자, 주사위, 뽑기 등 한 번의 선택에서 가능한 경우의 수를 구한다.",
+      "diagnostic_signals": [
+        "전체 개수를 분모처럼 잘못 해석",
+        "제외 조건을 반영하지 않음"
+      ],
+      "remediation_keywords": [
+        "단일 선택",
+        "가능한 결과 목록",
+        "조건 제외"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C003",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "나열표·순서쌍·나뭇가지 그림",
+      "description": "순서쌍, 표, 나뭇가지 그림을 이용해 가능한 결과를 체계적으로 정리한다.",
+      "diagnostic_signals": [
+        "나뭇가지의 단계 누락",
+        "순서쌍의 첫째·둘째 성분 혼동"
+      ],
+      "remediation_keywords": [
+        "순서쌍",
+        "나뭇가지 그림",
+        "단계별 나열"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C004",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "합의 법칙과 공통부분 처리",
+      "description": "서로 겹치는 경우와 겹치지 않는 경우를 구분하여 더할지, 중복을 뺄지 결정한다.",
+      "diagnostic_signals": [
+        "공통부분을 두 번 셈",
+        "또는을 무조건 덧셈으로 처리"
+      ],
+      "remediation_keywords": [
+        "합의 법칙",
+        "공통부분",
+        "포함배제"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C005",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "곱의 법칙과 단계별 선택",
+      "description": "서로 이어지는 선택 과정을 단계별로 나누어 곱셈으로 경우의 수를 계산한다.",
+      "diagnostic_signals": [
+        "독립 단계 수를 더함",
+        "각 단계의 선택 수를 잘못 계산"
+      ],
+      "remediation_keywords": [
+        "곱의 법칙",
+        "단계 분리",
+        "순차 선택"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C006",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "돈 지불과 동전·지폐 조합",
+      "description": "금액 조건을 만족하는 동전·지폐의 조합을 빠짐없이 센다.",
+      "diagnostic_signals": [
+        "금액 조건을 식으로 세우지 못함",
+        "동전 개수 조건 누락"
+      ],
+      "remediation_keywords": [
+        "금액 조건",
+        "조합표",
+        "정수해"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C007",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "교통수단·경로 선택",
+      "description": "두 지점 사이의 이동 방법, 경로 선택, 왕복 조건에 따른 경우의 수를 계산한다.",
+      "diagnostic_signals": [
+        "갈 때와 올 때 조건 혼동",
+        "왕복에서 같은 경로 제한 누락"
+      ],
+      "remediation_keywords": [
+        "경로 선택",
+        "왕복 조건",
+        "단계별 곱셈"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C008",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "물건·사람 선택의 경우의 수",
+      "description": "물건이나 사람을 선택할 때 조건에 맞는 선택 수를 합·곱의 법칙으로 구한다.",
+      "diagnostic_signals": [
+        "선택 대상의 종류를 섞어 셈",
+        "조건에 맞는 대상만 고르지 못함"
+      ],
+      "remediation_keywords": [
+        "물건 선택",
+        "사람 선택",
+        "조건 분류"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C009",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "색칠하는 경우의 수",
+      "description": "인접한 영역의 색 제한과 같은 색 허용 여부를 반영하여 색칠 경우의 수를 구한다.",
+      "diagnostic_signals": [
+        "인접 조건 누락",
+        "첫 영역 선택 후 다음 영역 선택 수를 고정하지 못함"
+      ],
+      "remediation_keywords": [
+        "색칠",
+        "인접 조건",
+        "단계별 선택"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C010",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "일렬 배열의 기본 원리",
+      "description": "전체 또는 일부를 일렬로 세울 때 배열되는 순서를 고려하여 경우의 수를 구한다.",
+      "diagnostic_signals": [
+        "순서를 고려하지 않고 조합처럼 셈",
+        "일부를 뽑아 세우는 조건 누락"
+      ],
+      "remediation_keywords": [
+        "일렬 배열",
+        "순서 고려",
+        "일부 배열"
+      ],
+      "source_orders": [
+        4,
+        5,
+        8
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C011",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "특정 위치 고정 배열",
+      "description": "특정 사람이나 물건의 위치가 고정된 배열에서 남은 대상을 배열한다.",
+      "diagnostic_signals": [
+        "고정된 위치까지 다시 배열",
+        "여러 위치 고정 조건을 하나만 반영"
+      ],
+      "remediation_keywords": [
+        "위치 고정",
+        "나머지 배열",
+        "자리 조건"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C012",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "이웃하는 조건의 배열",
+      "description": "붙어 있어야 하는 대상을 하나의 묶음으로 보고 내부 배열까지 계산한다.",
+      "diagnostic_signals": [
+        "묶음을 하나로 보지 못함",
+        "묶음 내부 배열 누락"
+      ],
+      "remediation_keywords": [
+        "묶음 처리",
+        "이웃 조건",
+        "내부 배열"
+      ],
+      "source_orders": [
+        4,
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C013",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "이웃하지 않는 조건의 배열",
+      "description": "서로 이웃하지 않도록 배치하는 조건에서 빈자리 또는 보완 사건을 활용한다.",
+      "diagnostic_signals": [
+        "이웃하지 않음을 단순히 빼지 못함",
+        "빈자리 선택 수를 잘못 셈"
+      ],
+      "remediation_keywords": [
+        "빈자리 선택",
+        "이웃하지 않음",
+        "여사건 활용"
+      ],
+      "source_orders": [
+        4,
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C014",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "자연수 만들기와 0 처리",
+      "description": "숫자로 자연수를 만들 때 첫 자리에 0이 올 수 없는 조건과 0 포함 여부를 구분한다.",
+      "diagnostic_signals": [
+        "첫 자리에 0을 허용",
+        "0이 포함된 숫자의 자리 제한 누락"
+      ],
+      "remediation_keywords": [
+        "자릿수",
+        "0 처리",
+        "중복 허용 여부"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C015",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "사전식 나열과 순서",
+      "description": "사전식 배열에서 주어진 조건보다 앞선 경우를 누적해 순서를 찾는다.",
+      "diagnostic_signals": [
+        "앞선 묶음의 개수를 누적하지 못함",
+        "같은 접두어 조건 처리 오류"
+      ],
+      "remediation_keywords": [
+        "사전식 순서",
+        "접두어",
+        "누적 개수"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C016",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "대표 뽑기와 자격 조건",
+      "description": "자격이 같은 경우와 다른 경우를 구분해 대표를 뽑는 경우의 수를 구한다.",
+      "diagnostic_signals": [
+        "자격이 다른 대표를 같은 대표처럼 계산",
+        "집단별 선택 수를 구분하지 않음"
+      ],
+      "remediation_keywords": [
+        "대표 선택",
+        "자격 조건",
+        "집단 분류"
+      ],
+      "source_orders": [
+        5,
+        6
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C017",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "조합적 선택과 중복 배제",
+      "description": "순서가 중요하지 않은 선택에서 중복되는 선택을 제거하고 필요한 경우 조합적으로 센다.",
+      "diagnostic_signals": [
+        "순서를 고려해 중복 집계",
+        "같은 선택을 여러 번 셈"
+      ],
+      "remediation_keywords": [
+        "순서 무관",
+        "중복 배제",
+        "선택 조합"
+      ],
+      "source_orders": [
+        3,
+        4,
+        6,
+        7
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C018",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "점과 선분의 개수",
+      "description": "점이 주어졌을 때 두 점을 이어 만들 수 있는 선분의 개수를 구한다.",
+      "diagnostic_signals": [
+        "한 선분을 두 방향으로 중복 계산",
+        "같은 직선 위 조건 누락"
+      ],
+      "remediation_keywords": [
+        "두 점 선택",
+        "선분 개수",
+        "중복 제거"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C019",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "삼각형·사각형의 개수",
+      "description": "점, 직선, 도형 조건에서 만들 수 있는 삼각형과 사각형의 개수를 센다.",
+      "diagnostic_signals": [
+        "일직선 위 세 점을 삼각형으로 셈",
+        "도형 위 점 조건 누락"
+      ],
+      "remediation_keywords": [
+        "다각형 개수",
+        "일직선 조건",
+        "점 선택"
+      ],
+      "source_orders": [
+        6,
+        13
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C020",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "최단 경로의 경우의 수",
+      "description": "격자 또는 경로 그림에서 최단 경로가 되는 이동 순서를 세고, 제한 조건을 반영한다.",
+      "diagnostic_signals": [
+        "최단 조건 없이 모든 경로를 셈",
+        "필수 경유점 조건을 단계로 나누지 못함"
+      ],
+      "remediation_keywords": [
+        "최단 경로",
+        "격자 이동",
+        "경유 조건"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C021",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "방정식·부등식 조건의 경우의 수",
+      "description": "방정식이나 부등식을 만족하는 자연수, 정수, 순서쌍의 개수를 구한다.",
+      "diagnostic_signals": [
+        "해의 범위를 자연수/정수로 구분하지 못함",
+        "조건을 만족하지 않는 해 포함"
+      ],
+      "remediation_keywords": [
+        "해의 개수",
+        "정수 조건",
+        "부등식 조건"
+      ],
+      "source_orders": [
+        2,
+        7,
+        9
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C022",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "경우의 수",
+      "sub_strand": "경우의 수",
+      "concept_name": "규칙과 대진표의 경우의 수",
+      "description": "정해진 규칙, 경기 방식, 대진표 조건에 따라 가능한 결과의 수를 구한다.",
+      "diagnostic_signals": [
+        "경기 순서와 승패 조건 혼동",
+        "규칙 적용 순서 누락"
+      ],
+      "remediation_keywords": [
+        "규칙 적용",
+        "대진표",
+        "경기 결과"
+      ],
+      "source_orders": [
+        7,
+        14
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C023",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 뜻과 성질",
+      "concept_name": "확률의 뜻과 기본 계산",
+      "description": "가능성이 같은 경우에서 사건이 일어날 확률을 사건의 경우의 수/전체 경우의 수로 구한다.",
+      "diagnostic_signals": [
+        "분모와 분자 반대로 씀",
+        "가능성이 같은 경우 확인 누락"
+      ],
+      "remediation_keywords": [
+        "확률의 뜻",
+        "분모·분자",
+        "가능성이 같은 경우"
+      ],
+      "source_orders": [
+        8,
+        10,
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C024",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 뜻과 성질",
+      "concept_name": "숫자·주사위·동전 확률",
+      "description": "숫자 선택, 주사위, 동전 던지기에서 사건의 확률을 구한다.",
+      "diagnostic_signals": [
+        "주사위 눈의 전체 경우 누락",
+        "동전의 앞뒤 결과를 불균등하게 봄"
+      ],
+      "remediation_keywords": [
+        "주사위",
+        "동전",
+        "숫자 확률"
+      ],
+      "source_orders": [
+        2,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C025",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 뜻과 성질",
+      "concept_name": "물건 선택 확률",
+      "description": "물건 또는 사람을 선택할 때 조건을 만족하는 사건의 확률을 구한다.",
+      "diagnostic_signals": [
+        "뽑는 개수 조건 누락",
+        "선택 대상 전체를 잘못 설정"
+      ],
+      "remediation_keywords": [
+        "물건 선택",
+        "사람 선택",
+        "전체 경우 설정"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C026",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 뜻과 성질",
+      "concept_name": "배열과 자리 조건 확률",
+      "description": "일렬 배열이나 자리 배치에서 특정 위치, 이웃 조건, 이웃하지 않는 조건의 확률을 구한다.",
+      "diagnostic_signals": [
+        "경우의 수만 구하고 확률로 나누지 않음",
+        "자리 조건을 분자에만 반영하고 분모에는 누락"
+      ],
+      "remediation_keywords": [
+        "배열 확률",
+        "자리 조건",
+        "이웃 조건"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C027",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 뜻과 성질",
+      "concept_name": "미정계수와 조건 역산 확률",
+      "description": "확률이 주어졌을 때 전체 개수, 특정 물건의 개수, 미정계수를 역으로 구한다.",
+      "diagnostic_signals": [
+        "확률식을 세우지 못함",
+        "분수 방정식 정리 오류"
+      ],
+      "remediation_keywords": [
+        "미정계수",
+        "확률식 역산",
+        "조건 만족"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C028",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 뜻과 성질",
+      "concept_name": "방정식·부등식 만족 확률",
+      "description": "무작위로 정한 수가 방정식 또는 부등식을 만족할 확률을 구한다.",
+      "diagnostic_signals": [
+        "해가 되는 경우를 잘못 셈",
+        "범위 조건을 전체 경우에 반영하지 않음"
+      ],
+      "remediation_keywords": [
+        "방정식 확률",
+        "부등식 확률",
+        "해의 개수"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C029",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 뜻과 성질",
+      "concept_name": "확률의 기본 성질",
+      "description": "확률이 0 이상 1 이하임과 반드시 일어나는 사건, 절대로 일어나지 않는 사건을 판단한다.",
+      "diagnostic_signals": [
+        "확률이 1보다 큰 값을 허용",
+        "확률 0과 1의 의미 혼동"
+      ],
+      "remediation_keywords": [
+        "확률 범위",
+        "0과 1",
+        "기본 성질"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C030",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "여사건의 확률",
+      "description": "어떤 사건이 일어나지 않을 확률을 1에서 그 사건의 확률을 빼서 구한다.",
+      "diagnostic_signals": [
+        "일어나지 않을 확률을 전체 경우에서 바로 세다 누락",
+        "여사건 표현을 반대로 해석"
+      ],
+      "remediation_keywords": [
+        "여사건",
+        "일어나지 않을 확률",
+        "1에서 빼기"
+      ],
+      "source_orders": [
+        10,
+        11,
+        13
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C031",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "적어도 조건의 확률",
+      "description": "적어도 하나, 적어도 몇 개 등의 조건을 여사건이나 직접 계산으로 처리한다.",
+      "diagnostic_signals": [
+        "적어도를 정확히 몇 개로 해석",
+        "여사건을 쓰지 않아 경우 누락"
+      ],
+      "remediation_keywords": [
+        "적어도",
+        "여사건 활용",
+        "조건 해석"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C032",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "합사건 A 또는 B",
+      "description": "사건 A 또는 B가 일어날 확률에서 공통부분을 고려해 계산한다.",
+      "diagnostic_signals": [
+        "A와 B의 공통부분을 두 번 더함",
+        "또는을 배타적 사건으로만 봄"
+      ],
+      "remediation_keywords": [
+        "합사건",
+        "A 또는 B",
+        "공통부분"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C033",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "교사건 A와 B 동시에",
+      "description": "두 사건이 동시에 일어나는 경우의 확률을 전체 경우와 조건에 맞게 구한다.",
+      "diagnostic_signals": [
+        "동시에를 또는으로 해석",
+        "둘 다 만족하는 경우를 누락"
+      ],
+      "remediation_keywords": [
+        "교사건",
+        "동시 사건",
+        "둘 다 만족"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C034",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "두 사건 중 적어도 하나",
+      "description": "A, B 중 적어도 하나가 일어날 확률을 여사건 또는 합사건으로 구한다.",
+      "diagnostic_signals": [
+        "둘 다 일어나지 않는 여사건을 찾지 못함",
+        "적어도 하나와 정확히 하나 혼동"
+      ],
+      "remediation_keywords": [
+        "적어도 하나",
+        "합사건",
+        "여사건"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C035",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "확률의 덧셈과 곱셈 원리 구분",
+      "description": "여러 사건의 확률 계산에서 더해야 하는 상황과 곱해야 하는 상황을 구분한다.",
+      "diagnostic_signals": [
+        "연속 시행을 단순 덧셈",
+        "동시에 일어나는 조건을 무조건 곱셈"
+      ],
+      "remediation_keywords": [
+        "덧셈 원리",
+        "곱셈 원리",
+        "사건 구조"
+      ],
+      "source_orders": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C036",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "연속 시행 확률: 복원",
+      "description": "꺼낸 것을 다시 넣는 시행에서 각 시행의 확률이 유지됨을 이용한다.",
+      "diagnostic_signals": [
+        "다시 넣는 조건을 무시해 분모를 줄임",
+        "순서 포함 여부를 잘못 판단"
+      ],
+      "remediation_keywords": [
+        "복원 추출",
+        "연속 시행",
+        "분모 유지"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C037",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "연속 시행 확률: 비복원",
+      "description": "꺼낸 것을 다시 넣지 않는 시행에서 매 단계 전체 개수와 유리한 개수가 달라짐을 반영한다.",
+      "diagnostic_signals": [
+        "비복원인데 분모를 그대로 둠",
+        "앞 시행 결과에 따른 조건 변화 누락"
+      ],
+      "remediation_keywords": [
+        "비복원 추출",
+        "분모 변화",
+        "단계별 확률"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C038",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "게임에서 이길 확률",
+      "description": "승부가 결정되는 규칙과 현재 상황을 반영하여 이길 확률을 구한다.",
+      "diagnostic_signals": [
+        "승패 경우를 모두 같은 가능성으로 놓지 못함",
+        "현재 점수/상황 조건 누락"
+      ],
+      "remediation_keywords": [
+        "게임 확률",
+        "승부 조건",
+        "현재 상황"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C039",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "문제를 맞힐 확률",
+      "description": "맞힐 확률이 주어졌거나 임의 선택 조건이 있을 때 정답 확률을 계산한다.",
+      "diagnostic_signals": [
+        "맞히는 경우와 틀리는 경우 분리 오류",
+        "임의 선택 확률을 주어진 확률과 혼동"
+      ],
+      "remediation_keywords": [
+        "정답 확률",
+        "임의 선택",
+        "조건부 상황"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C040",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "명중률과 성공확률",
+      "description": "명중률, 성공확률, 실패확률을 이용해 적중 또는 성공 사건의 확률을 계산한다.",
+      "diagnostic_signals": [
+        "명중하지 않을 확률을 구하지 못함",
+        "여러 번 시도 조건의 곱셈 누락"
+      ],
+      "remediation_keywords": [
+        "명중률",
+        "성공 확률",
+        "실패 확률"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C041",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "가위바위보·대진표 확률",
+      "description": "가위바위보 승부와 대진표에서 이길 확률 또는 우승 확률을 계산한다.",
+      "diagnostic_signals": [
+        "승·무·패 경우를 혼동",
+        "대진 순서와 상대 조건 누락"
+      ],
+      "remediation_keywords": [
+        "가위바위보",
+        "대진표 확률",
+        "우승 확률"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_PROB_C042",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "strand": "확률",
+      "sub_strand": "확률의 계산",
+      "concept_name": "도형·좌표·넓이 확률",
+      "description": "수직선, 좌표평면, 평면도형에서 길이·넓이의 비를 이용해 확률을 구한다.",
+      "diagnostic_signals": [
+        "전체 영역과 유리한 영역을 바꿔 씀",
+        "경계 조건 또는 색칠 영역 해석 오류"
+      ],
+      "remediation_keywords": [
+        "도형 확률",
+        "좌표평면",
+        "넓이의 비"
+      ],
+      "source_orders": [
+        9,
+        13,
+        14
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
       "status": "curated_seed_from_image_taxonomy"
     }
   ],

@@ -1,0 +1,3651 @@
+{
+  "version": "2026.07.07-m2-probability-v1.0",
+  "unit_id": "M2_PROBABILITY",
+  "unit_name": "확률",
+  "raw_taxonomy": "data/raw_taxonomy/m2_probability.raw_taxonomy.v1.json",
+  "problem_type_count": 153,
+  "problem_types": [
+    {
+      "problem_type_id": "M2_PROB_PT001",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "한 가지 사건의 경우의 수 - 기본 판별",
+      "description": "경우의 수 범주의 '한 가지 사건의 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C001",
+        "M2_PROB_C002"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_PROB_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT002",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "한 가지 사건의 경우의 수 - 조건 적용",
+      "description": "경우의 수 범주의 '한 가지 사건의 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C001",
+        "M2_PROB_C002"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_PROB_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT003",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "한 가지 사건의 경우의 수 - 활용 추론",
+      "description": "경우의 수 범주의 '한 가지 사건의 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C001",
+        "M2_PROB_C002"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_PROB_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT004",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C003",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_PROB_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT005",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C003",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_PROB_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT006",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C003",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_PROB_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT007",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C003",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT008",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C003",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT009",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C003",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT010",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "돈을 지불하는 경우의 수 - 기본 판별",
+      "description": "경우의 수 범주의 '돈을 지불하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C006",
+        "M2_PROB_C021"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT011",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "돈을 지불하는 경우의 수 - 조건 적용",
+      "description": "경우의 수 범주의 '돈을 지불하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C006",
+        "M2_PROB_C021"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT012",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "돈을 지불하는 경우의 수 - 활용 추론",
+      "description": "경우의 수 범주의 '돈을 지불하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C006",
+        "M2_PROB_C021"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT013",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT014",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C024"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT015",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C024"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT016",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT017",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C007"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT018",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT019",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(3) 물건 또는 사람을 선택하는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '경우의 수의 합(3) 물건 또는 사람을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C008"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT020",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(3) 물건 또는 사람을 선택하는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '경우의 수의 합(3) 물건 또는 사람을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C008"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT021",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 합(3) 물건 또는 사람을 선택하는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '경우의 수의 합(3) 물건 또는 사람을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "addition_rule"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_PROB_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT022",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수 - 기본 판별",
+      "description": "경우의 수 범주의 '경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C003"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT023",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수 - 조건 적용",
+      "description": "경우의 수 범주의 '경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C003"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT024",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수 - 활용 추론",
+      "description": "경우의 수 범주의 '경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C003"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT025",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT026",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C007"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT027",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT028",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(3) 물건을 선택하는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '경우의 수의 곱(3) 물건을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C008"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT029",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(3) 물건을 선택하는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '경우의 수의 곱(3) 물건을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C008"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT030",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(3) 물건을 선택하는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '경우의 수의 곱(3) 물건을 선택하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT031",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT032",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT033",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_PROB_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT034",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "색칠하는 경우의 수 - 기본 판별",
+      "description": "경우의 수 범주의 '색칠하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C009",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT035",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "색칠하는 경우의 수 - 조건 적용",
+      "description": "경우의 수 범주의 '색칠하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C009",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT036",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "색칠하는 경우의 수 - 활용 추론",
+      "description": "경우의 수 범주의 '색칠하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C009",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT037",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(1) - 기본 판별",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(1)' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C010",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT038",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(1) - 조건 적용",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(1)' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C010",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT039",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(1) - 활용 추론",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(1)' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C010",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT040",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C011",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT041",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C011",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT042",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C011",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT043",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(3) 이웃하는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(3) 이웃하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C012",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT044",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(3) 이웃하는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(3) 이웃하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C012",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT045",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(3) 이웃하는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(3) 이웃하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C012",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT046",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(4) 이웃하지 않는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(4) 이웃하지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C013",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT047",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(4) 이웃하지 않는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(4) 이웃하지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C013",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT048",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "일렬로 세우는 경우의 수(4) 이웃하지 않는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '일렬로 세우는 경우의 수(4) 이웃하지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C013",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_PROB_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT049",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "자연수의 개수(1) 0을 포함하지 않는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '자연수의 개수(1) 0을 포함하지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C014",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT050",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "자연수의 개수(1) 0을 포함하지 않는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '자연수의 개수(1) 0을 포함하지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C014",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT051",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "자연수의 개수(1) 0을 포함하지 않는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '자연수의 개수(1) 0을 포함하지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C014",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT052",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "자연수의 개수(2) 0을 포함하는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '자연수의 개수(2) 0을 포함하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C014",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT053",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "자연수의 개수(2) 0을 포함하는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '자연수의 개수(2) 0을 포함하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C014",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT054",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "자연수의 개수(2) 0을 포함하는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '자연수의 개수(2) 0을 포함하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C014",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT055",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "사전식으로 나열하는 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '사전식으로 나열하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C015",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT056",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "사전식으로 나열하는 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '사전식으로 나열하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C015",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT057",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "사전식으로 나열하는 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '사전식으로 나열하는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C015",
+        "M2_PROB_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT058",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대표를 뽑는 경우의 수(1) 자격이 다른 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '대표를 뽑는 경우의 수(1) 자격이 다른 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C016",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT059",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대표를 뽑는 경우의 수(1) 자격이 다른 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '대표를 뽑는 경우의 수(1) 자격이 다른 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C016",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT060",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대표를 뽑는 경우의 수(1) 자격이 다른 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '대표를 뽑는 경우의 수(1) 자격이 다른 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C016",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_PROB_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT061",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대표를 뽑는 경우의 수(2) 자격이 같은 경우 - 기본 판별",
+      "description": "경우의 수 범주의 '대표를 뽑는 경우의 수(2) 자격이 같은 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C016",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT062",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대표를 뽑는 경우의 수(2) 자격이 같은 경우 - 조건 적용",
+      "description": "경우의 수 범주의 '대표를 뽑는 경우의 수(2) 자격이 같은 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C016",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT063",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대표를 뽑는 경우의 수(2) 자격이 같은 경우 - 활용 추론",
+      "description": "경우의 수 범주의 '대표를 뽑는 경우의 수(2) 자격이 같은 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C016",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT064",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 선분의 개수 - 기본 판별",
+      "description": "경우의 수 범주의 '만들 수 있는 선분의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C018",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT065",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 선분의 개수 - 조건 적용",
+      "description": "경우의 수 범주의 '만들 수 있는 선분의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C018",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT066",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 선분의 개수 - 활용 추론",
+      "description": "경우의 수 범주의 '만들 수 있는 선분의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C018",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT067",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 삼각형의 개수 - 기본 판별",
+      "description": "경우의 수 범주의 '만들 수 있는 삼각형의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C019",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT068",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 삼각형의 개수 - 조건 적용",
+      "description": "경우의 수 범주의 '만들 수 있는 삼각형의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C019",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT069",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 삼각형의 개수 - 활용 추론",
+      "description": "경우의 수 범주의 '만들 수 있는 삼각형의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C019",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT070",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 사각형의 개수 - 기본 판별",
+      "description": "경우의 수 범주의 '만들 수 있는 사각형의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C019",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT071",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 사각형의 개수 - 조건 적용",
+      "description": "경우의 수 범주의 '만들 수 있는 사각형의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C019",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT072",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "만들 수 있는 사각형의 개수 - 활용 추론",
+      "description": "경우의 수 범주의 '만들 수 있는 사각형의 개수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C019",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT073",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "최단 경로로 가는 경우의 수 - 기본 판별",
+      "description": "경우의 수 범주의 '최단 경로로 가는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C020",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT074",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "최단 경로로 가는 경우의 수 - 조건 적용",
+      "description": "경우의 수 범주의 '최단 경로로 가는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C020",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT075",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "최단 경로로 가는 경우의 수 - 활용 추론",
+      "description": "경우의 수 범주의 '최단 경로로 가는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C020",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_PROB_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT076",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "방정식 또는 부등식에서의 경우의 수 - 기본 판별",
+      "description": "경우의 수 범주의 '방정식 또는 부등식에서의 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C021",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT077",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "방정식 또는 부등식에서의 경우의 수 - 조건 적용",
+      "description": "경우의 수 범주의 '방정식 또는 부등식에서의 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C021",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT078",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "방정식 또는 부등식에서의 경우의 수 - 활용 추론",
+      "description": "경우의 수 범주의 '방정식 또는 부등식에서의 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C021",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT079",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "정해진 규칙에 따라 주어진 결과가 나오는 경우의 수 - 기본 판별",
+      "description": "경우의 수 범주의 '정해진 규칙에 따라 주어진 결과가 나오는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C022",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT080",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "정해진 규칙에 따라 주어진 결과가 나오는 경우의 수 - 조건 적용",
+      "description": "경우의 수 범주의 '정해진 규칙에 따라 주어진 결과가 나오는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C022",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT081",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "정해진 규칙에 따라 주어진 결과가 나오는 경우의 수 - 활용 추론",
+      "description": "경우의 수 범주의 '정해진 규칙에 따라 주어진 결과가 나오는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C022",
+        "M2_PROB_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT082",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대진표를 정하는 경우의 수 - 기본 판별",
+      "description": "경우의 수 범주의 '대진표를 정하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C022",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "game_probability"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT083",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대진표를 정하는 경우의 수 - 조건 적용",
+      "description": "경우의 수 범주의 '대진표를 정하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C022",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "game_probability"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT084",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대진표를 정하는 경우의 수 - 활용 추론",
+      "description": "경우의 수 범주의 '대진표를 정하는 경우의 수' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C022",
+        "M2_PROB_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "counting",
+        "sample_space",
+        "case_count",
+        "game_probability"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_PROB_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT085",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "간단한 확률 구하기 - 기본 판별",
+      "description": "확률의 뜻과 성질 범주의 '간단한 확률 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C023",
+        "M2_PROB_C024",
+        "M2_PROB_C025"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT086",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "간단한 확률 구하기 - 조건 적용",
+      "description": "확률의 뜻과 성질 범주의 '간단한 확률 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C023",
+        "M2_PROB_C024",
+        "M2_PROB_C025"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT087",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "간단한 확률 구하기 - 활용 추론",
+      "description": "확률의 뜻과 성질 범주의 '간단한 확률 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C023",
+        "M2_PROB_C024",
+        "M2_PROB_C025"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT088",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(1) 일렬로 세울 때 확률 구하기 - 기본 판별",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(1) 일렬로 세울 때 확률 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C026",
+        "M2_PROB_C010",
+        "M2_PROB_C012",
+        "M2_PROB_C013"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT089",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(1) 일렬로 세울 때 확률 구하기 - 조건 적용",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(1) 일렬로 세울 때 확률 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C026",
+        "M2_PROB_C010",
+        "M2_PROB_C012",
+        "M2_PROB_C013"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT090",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(1) 일렬로 세울 때 확률 구하기 - 활용 추론",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(1) 일렬로 세울 때 확률 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C026",
+        "M2_PROB_C010",
+        "M2_PROB_C012",
+        "M2_PROB_C013"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property",
+        "permutation",
+        "arrangement"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT091",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기 - 기본 판별",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C027",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT092",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기 - 조건 적용",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C027",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT093",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기 - 활용 추론",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C027",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_PROB_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT094",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(3) 방정식을 만족할 확률 - 기본 판별",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(3) 방정식을 만족할 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C028",
+        "M2_PROB_C021",
+        "M2_PROB_C042"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT095",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(3) 방정식을 만족할 확률 - 조건 적용",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(3) 방정식을 만족할 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C028",
+        "M2_PROB_C021",
+        "M2_PROB_C042"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT096",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(3) 방정식을 만족할 확률 - 활용 추론",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(3) 방정식을 만족할 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C028",
+        "M2_PROB_C021",
+        "M2_PROB_C042"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT097",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(4) 부등식을 만족할 확률 - 기본 판별",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(4) 부등식을 만족할 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C028",
+        "M2_PROB_C021"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT098",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(4) 부등식을 만족할 확률 - 조건 적용",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(4) 부등식을 만족할 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C028",
+        "M2_PROB_C021"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT099",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률 구하기(4) 부등식을 만족할 확률 - 활용 추론",
+      "description": "확률의 뜻과 성질 범주의 '확률 구하기(4) 부등식을 만족할 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C028",
+        "M2_PROB_C021"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT100",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률의 기본 성질 - 기본 판별",
+      "description": "확률의 뜻과 성질 범주의 '확률의 기본 성질' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT101",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률의 기본 성질 - 조건 적용",
+      "description": "확률의 뜻과 성질 범주의 '확률의 기본 성질' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C029"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT102",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률의 기본 성질 - 활용 추론",
+      "description": "확률의 뜻과 성질 범주의 '확률의 기본 성질' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_definition",
+        "sample_space",
+        "probability_property"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_PROB_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT103",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "어떤 사건이 일어나지 않을 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '어떤 사건이 일어나지 않을 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C030",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT104",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "어떤 사건이 일어나지 않을 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '어떤 사건이 일어나지 않을 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C030",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT105",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "어떤 사건이 일어나지 않을 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '어떤 사건이 일어나지 않을 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C030",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT106",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "적어도의 조건을 포함하는 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '적어도의 조건을 포함하는 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C031",
+        "M2_PROB_C030"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT107",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "적어도의 조건을 포함하는 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '적어도의 조건을 포함하는 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C031",
+        "M2_PROB_C030"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT108",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "적어도의 조건을 포함하는 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '적어도의 조건을 포함하는 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C031",
+        "M2_PROB_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT109",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "사건 A 또는 사건 B가 일어날 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '사건 A 또는 사건 B가 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C032",
+        "M2_PROB_C033",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "addition_rule"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT110",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "사건 A 또는 사건 B가 일어날 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '사건 A 또는 사건 B가 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C032",
+        "M2_PROB_C033",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "addition_rule"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT111",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "사건 A 또는 사건 B가 일어날 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '사건 A 또는 사건 B가 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C032",
+        "M2_PROB_C033",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "addition_rule"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_PROB_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT112",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "두 사건 A와 B가 동시에 일어날 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '두 사건 A와 B가 동시에 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C033",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT113",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "두 사건 A와 B가 동시에 일어날 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '두 사건 A와 B가 동시에 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C033",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT114",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "두 사건 A와 B가 동시에 일어날 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '두 사건 A와 B가 동시에 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C033",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT115",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "두 사건 A, B 중 적어도 하나가 일어날 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '두 사건 A, B 중 적어도 하나가 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C034",
+        "M2_PROB_C030",
+        "M2_PROB_C032"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT116",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "두 사건 A, B 중 적어도 하나가 일어날 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '두 사건 A, B 중 적어도 하나가 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C034",
+        "M2_PROB_C030",
+        "M2_PROB_C032"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT117",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "두 사건 A, B 중 적어도 하나가 일어날 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '두 사건 A, B 중 적어도 하나가 일어날 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C034",
+        "M2_PROB_C030",
+        "M2_PROB_C032"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "complement_event"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT118",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률의 덧셈과 곱셈 - 기본 판별",
+      "description": "확률의 계산 범주의 '확률의 덧셈과 곱셈' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C035",
+        "M2_PROB_C032",
+        "M2_PROB_C033"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT119",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률의 덧셈과 곱셈 - 조건 적용",
+      "description": "확률의 계산 범주의 '확률의 덧셈과 곱셈' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C035",
+        "M2_PROB_C032",
+        "M2_PROB_C033"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT120",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "확률의 덧셈과 곱셈 - 활용 추론",
+      "description": "확률의 계산 범주의 '확률의 덧셈과 곱셈' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C035",
+        "M2_PROB_C032",
+        "M2_PROB_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "multiplication_rule"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_PROB_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT121",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우 - 기본 판별",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C036",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT122",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우 - 조건 적용",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C036",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT123",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우 - 활용 추론",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C036",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT124",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우 - 기본 판별",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C037",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT125",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우 - 조건 적용",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C037",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT126",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우 - 활용 추론",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C037",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT127",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C036",
+        "M2_PROB_C037"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT128",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C036",
+        "M2_PROB_C037"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT129",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "연속하여 꺼내는 경우의 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '연속하여 꺼내는 경우의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C036",
+        "M2_PROB_C037"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "successive_trials"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT130",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "게임에서 이길 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '게임에서 이길 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C038",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT131",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "게임에서 이길 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '게임에서 이길 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C038",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT132",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "게임에서 이길 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '게임에서 이길 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C038",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT133",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "문제를 맞힐 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '문제를 맞힐 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C039",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT134",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "문제를 맞힐 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '문제를 맞힐 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C039",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT135",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "문제를 맞힐 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '문제를 맞힐 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C039",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_PROB_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT136",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "명중률 - 기본 판별",
+      "description": "확률의 계산 범주의 '명중률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C040",
+        "M2_PROB_C035",
+        "M2_PROB_C030"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT137",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "명중률 - 조건 적용",
+      "description": "확률의 계산 범주의 '명중률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C040",
+        "M2_PROB_C035",
+        "M2_PROB_C030"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT138",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "명중률 - 활용 추론",
+      "description": "확률의 계산 범주의 '명중률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C040",
+        "M2_PROB_C035",
+        "M2_PROB_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT139",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "가위바위보에서의 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '가위바위보에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C041",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_047",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT140",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "가위바위보에서의 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '가위바위보에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C041",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_047",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT141",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "가위바위보에서의 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '가위바위보에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C041",
+        "M2_PROB_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_047",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT142",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "수직선에서 위치에 대한 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '수직선에서 위치에 대한 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C001"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT143",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "수직선에서 위치에 대한 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '수직선에서 위치에 대한 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C001"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT144",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "수직선에서 위치에 대한 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '수직선에서 위치에 대한 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C001"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT145",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "도형 또는 좌표평면에서의 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '도형 또는 좌표평면에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C019"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_049",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT146",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "도형 또는 좌표평면에서의 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '도형 또는 좌표평면에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C019"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_049",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT147",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "도형 또는 좌표평면에서의 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '도형 또는 좌표평면에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C019"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_PROB_RAW_049",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT148",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "평면도형에서의 확률(넓이를 이용한 확률) - 기본 판별",
+      "description": "확률의 계산 범주의 '평면도형에서의 확률(넓이를 이용한 확률)' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_PROB_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT149",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "평면도형에서의 확률(넓이를 이용한 확률) - 조건 적용",
+      "description": "확률의 계산 범주의 '평면도형에서의 확률(넓이를 이용한 확률)' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_PROB_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT150",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "평면도형에서의 확률(넓이를 이용한 확률) - 활용 추론",
+      "description": "확률의 계산 범주의 '평면도형에서의 확률(넓이를 이용한 확률)' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "geometry_probability"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_PROB_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT151",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대진표에서의 확률 - 기본 판별",
+      "description": "확률의 계산 범주의 '대진표에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C041",
+        "M2_PROB_C022"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_PROB_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT152",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대진표에서의 확률 - 조건 적용",
+      "description": "확률의 계산 범주의 '대진표에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C041",
+        "M2_PROB_C022"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_PROB_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_PROB_PT153",
+      "grade": "중2",
+      "unit_id": "M2_PROBABILITY",
+      "unit_name": "확률",
+      "type_name": "대진표에서의 확률 - 활용 추론",
+      "description": "확률의 계산 범주의 '대진표에서의 확률' 유형을 진단한다. 학생이 전체 경우, 사건 조건, 중복·누락 점검, 확률식 연결을 할 수 있는지 확인한다.",
+      "concept_ids": [
+        "M2_PROB_C041",
+        "M2_PROB_C022"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "probability_calculation",
+        "event_operation",
+        "application",
+        "game_probability"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_PROB_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.07-m2-geometry-properties-v1.0",
+  "version": "2026.07.07-m2-probability-v1.0",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -164,6 +164,19 @@
       "sources": "data/sources/m2_geometry_properties.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/m2_geometry_properties.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/m2_geometry_properties.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "M2_PROBABILITY",
+      "grade": "중2",
+      "unit_name": "확률",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m2_probability.problem_types.v1.json",
+      "edges": "data/relations/m2_probability.edges.v1.json",
+      "diagnosis_rules": "data/rules/m2_probability.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m2_probability.remediation_map.v1.json",
+      "sources": "data/sources/m2_probability.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m2_probability.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m2_probability.solution_templates.v1.json"
     },
     {
       "unit_id": "M3_POLYNOMIAL_FACTORING",
@@ -437,6 +450,48 @@
       "unit_name": "이차방정식",
       "concept_name": "삼각형·사각형·다각형 도형 활용",
       "status": "active_target"
+    },
+    {
+      "concept_id": "M2_PROB_C023",
+      "grade": "중2",
+      "unit_name": "확률",
+      "concept_name": "확률의 뜻과 기본 계산",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "M2_PROB_C032",
+      "grade": "중2",
+      "unit_name": "확률",
+      "concept_name": "합사건 A 또는 B",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "M2_PROB_C036",
+      "grade": "중2",
+      "unit_name": "확률",
+      "concept_name": "연속 시행 확률: 복원",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "M2_PROB_C042",
+      "grade": "중2",
+      "unit_name": "확률",
+      "concept_name": "도형·좌표·넓이 확률",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "M3_STAT_C002",
+      "grade": "중3",
+      "unit_name": "통계",
+      "concept_name": "상대도수와 확률적 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_STAT_C002",
+      "grade": "고1",
+      "unit_name": "경우의 수와 확률 기초",
+      "concept_name": "조건을 만족하는 경우의 수와 확률 계산",
+      "status": "future_target_seed"
     }
   ]
 }
