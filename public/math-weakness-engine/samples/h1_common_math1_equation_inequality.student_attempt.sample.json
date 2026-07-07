@@ -1,0 +1,57 @@
+{
+  "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+  "student_id": "sample_h1_cm1_eqineq_001",
+  "attempts": [
+    {
+      "problem_type_id": "H1_CM1_EQINEQ_PT001",
+      "is_correct": false,
+      "observed_error_tags": [
+        "complex_number",
+        "real_imaginary_part"
+      ],
+      "student_work_note": "허수부분에 i를 포함해 적음"
+    },
+    {
+      "problem_type_id": "H1_CM1_EQINEQ_PT049",
+      "is_correct": false,
+      "observed_error_tags": [
+        "discriminant",
+        "root_count"
+      ],
+      "student_work_note": "D=0 조건을 중근으로 연결하지 못함"
+    },
+    {
+      "problem_type_id": "H1_CM1_EQINEQ_PT092",
+      "is_correct": false,
+      "observed_error_tags": [
+        "quadratic_function_graph",
+        "graph_position"
+      ],
+      "student_work_note": "교점 수를 판별식으로 확인하지 않음"
+    },
+    {
+      "problem_type_id": "H1_CM1_EQINEQ_PT157",
+      "is_correct": false,
+      "observed_error_tags": [
+        "linear_inequality",
+        "simultaneous_inequalities"
+      ],
+      "student_work_note": "음수로 나누며 부등호 방향을 바꾸지 않음"
+    },
+    {
+      "problem_type_id": "H1_CM1_EQINEQ_PT187",
+      "is_correct": false,
+      "observed_error_tags": [
+        "quadratic_inequality"
+      ],
+      "student_work_note": "포물선 아래쪽 구간을 반대로 선택함"
+    }
+  ],
+  "expected_diagnosis": [
+    "복소수 분류 취약",
+    "판별식·근의 개수 취약",
+    "이차함수 그래프 기본 취약",
+    "일차·연립부등식 취약",
+    "이차부등식·실근 위치 취약"
+  ]
+}

@@ -1,0 +1,364 @@
+{
+  "version": "2026.07.07-h1-common-math1-equation-inequality-v1.0",
+  "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+  "unit_name": "방정식과 부등식",
+  "rule_count": 18,
+  "rules": [
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_001",
+      "name": "복소수 분류 취약",
+      "trigger": {
+        "error_tags_any": [
+          "complex_number",
+          "real_imaginary_part"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "복소수의 실수부·허수부와 실수/허수/순허수 조건을 구분하지 못합니다.",
+      "parent_message": "a+bi 꼴로 정리한 뒤 실수부와 허수부를 따로 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C001",
+        "H1_CM1_EQINEQ_C002",
+        "H1_CM1_EQINEQ_C003"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_002",
+      "name": "복소수 연산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "complex_number"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "복소수 사칙연산에서 i²=-1 처리와 켤레 유리화가 흔들립니다.",
+      "parent_message": "계산 줄마다 i²를 -1로 바꾸고, 나눗셈은 켤레를 곱하는 과정을 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C004",
+        "H1_CM1_EQINEQ_C005"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_003",
+      "name": "켤레복소수 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "conjugate_complex"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "켤레복소수의 합·곱 성질을 조건식으로 바꾸지 못합니다.",
+      "parent_message": "z+z̄, zz̄가 만드는 실수 조건을 먼저 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C008",
+        "H1_CM1_EQINEQ_C009",
+        "H1_CM1_EQINEQ_C010"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_004",
+      "name": "i 거듭제곱 주기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "i_power_cycle"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "i의 거듭제곱 주기를 사용하지 못해 지수 계산과 자연수 조건에서 오류가 납니다.",
+      "parent_message": "지수를 4로 나눈 나머지 표를 먼저 작성하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C011"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_005",
+      "name": "음수 제곱근 처리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "negative_square_root"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "음수의 제곱근 계산에서 근호와 i의 변환 순서가 불안정합니다.",
+      "parent_message": "√(-a)=i√a로 먼저 바꾸고 계산 결과를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C012"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_006",
+      "name": "이차방정식 풀이 절차 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quadratic_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "풀이 방법 선택, 특수기호 분기, 활용식 세우기에서 절차가 흔들립니다.",
+      "parent_message": "표준형 정리 → 풀이 방법 선택 → 해 검산 순서로 풀이를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C013",
+        "H1_CM1_EQINEQ_C014",
+        "H1_CM1_EQINEQ_C015"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_007",
+      "name": "판별식·근의 개수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "discriminant",
+          "root_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "판별식의 부호와 근의 개수·완전제곱식 조건을 연결하지 못합니다.",
+      "parent_message": "D>0, D=0, D<0 표를 쓰고 a의 부호 및 문자 범위를 함께 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C016",
+        "H1_CM1_EQINEQ_C017",
+        "H1_CM1_EQINEQ_C018"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_008",
+      "name": "근과 계수 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "roots_coefficients"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 근의 합과 곱의 부호를 틀리거나 조건을 합·곱으로 변환하지 못합니다.",
+      "parent_message": "합=-b/a, 곱=c/a를 먼저 쓰고 목표식을 대칭식으로 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C019",
+        "H1_CM1_EQINEQ_C020",
+        "H1_CM1_EQINEQ_C021",
+        "H1_CM1_EQINEQ_C022"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_009",
+      "name": "근 변환·오류 역추론 취약",
+      "trigger": {
+        "error_tags_any": [
+          "condition_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "f(ax+b)=0의 근 변환이나 잘못 보고 푼 방정식 역추론에서 원식과 변형식을 구분하지 못합니다.",
+      "parent_message": "원래 식, 잘못 본 식, 새 식을 세 칸으로 나누어 조건을 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C023",
+        "H1_CM1_EQINEQ_C024",
+        "H1_CM1_EQINEQ_C025"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_010",
+      "name": "이차함수 그래프 기본 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quadratic_function_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "이차함수 그래프, x축 교점, 실근 개수를 하나의 구조로 연결하지 못합니다.",
+      "parent_message": "꼭짓점·축·x축 교점·판별식을 한 그림에 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C026",
+        "H1_CM1_EQINEQ_C027",
+        "H1_CM1_EQINEQ_C028",
+        "H1_CM1_EQINEQ_C029"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_011",
+      "name": "직선 위치관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "graph_position",
+          "intersection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "이차함수와 직선의 위치 관계를 연립방정식과 판별식으로 바꾸지 못합니다.",
+      "parent_message": "두 식의 차를 0으로 놓고 교점 개수를 판별식으로 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C030",
+        "H1_CM1_EQINEQ_C031"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_012",
+      "name": "최대·최소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min",
+          "vertex"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "이차함수의 꼭짓점과 제한 범위 끝점 검사를 누락합니다.",
+      "parent_message": "꼭짓점이 범위 안에 있는지 확인한 뒤 양 끝점 값을 함께 비교하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C032",
+        "H1_CM1_EQINEQ_C033",
+        "H1_CM1_EQINEQ_C034"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_013",
+      "name": "고차방정식 풀이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "higher_degree_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "삼차·사차방정식에서 인수분해, 치환, 켤레근 전략 선택이 어렵습니다.",
+      "parent_message": "공통인수·인수정리·x² 치환·대칭 구조를 순서대로 점검하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C035",
+        "H1_CM1_EQINEQ_C036",
+        "H1_CM1_EQINEQ_C037",
+        "H1_CM1_EQINEQ_C038",
+        "H1_CM1_EQINEQ_C039",
+        "H1_CM1_EQINEQ_C040",
+        "H1_CM1_EQINEQ_C041"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_014",
+      "name": "연립방정식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "simultaneous_equations"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "연립방정식에서 대입·소거 후 해의 쌍을 검산하지 못합니다.",
+      "parent_message": "한 식에 대입하기 전 어떤 문자를 없앨지 쓰고, 나온 해를 두 식에 모두 대입하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C042",
+        "H1_CM1_EQINEQ_C043",
+        "H1_CM1_EQINEQ_C044",
+        "H1_CM1_EQINEQ_C045",
+        "H1_CM1_EQINEQ_C046"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_015",
+      "name": "정수 조건 방정식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integer_solution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "정수·자연수 조건을 범위와 나열로 처리하지 못합니다.",
+      "parent_message": "가능한 정수 범위를 먼저 좁힌 뒤 모든 후보를 대입하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C047"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_016",
+      "name": "일차·연립부등식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "linear_inequality",
+          "simultaneous_inequalities"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "부등호 방향, 공통 범위, 정수해 개수에서 오류가 납니다.",
+      "parent_message": "음수로 나누는 줄을 표시하고, 해는 반드시 수직선 교집합으로 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C048",
+        "H1_CM1_EQINEQ_C049",
+        "H1_CM1_EQINEQ_C050",
+        "H1_CM1_EQINEQ_C051",
+        "H1_CM1_EQINEQ_C052",
+        "H1_CM1_EQINEQ_C053"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_017",
+      "name": "절댓값 부등식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value",
+          "case_split"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "절댓값과 가우스 기호가 있는 부등식에서 경우분류와 검산을 누락합니다.",
+      "parent_message": "분기 기준을 먼저 쓰고 각 구간의 해가 그 구간 조건을 만족하는지 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C054",
+        "H1_CM1_EQINEQ_C055",
+        "H1_CM1_EQINEQ_C058"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_EQINEQ_RULE_018",
+      "name": "이차부등식·실근 위치 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quadratic_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "이차부등식의 부호 구간, 해의 조건, 실근 위치 조건을 그래프와 연결하지 못합니다.",
+      "parent_message": "근의 위치를 수직선에 표시하고, 포물선의 위/아래 부호 구간을 먼저 정하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_EQINEQ_C056",
+        "H1_CM1_EQINEQ_C057",
+        "H1_CM1_EQINEQ_C059",
+        "H1_CM1_EQINEQ_C060",
+        "H1_CM1_EQINEQ_C061",
+        "H1_CM1_EQINEQ_C062",
+        "H1_CM1_EQINEQ_C063",
+        "H1_CM1_EQINEQ_C064"
+      ],
+      "severity": "high"
+    }
+  ]
+}

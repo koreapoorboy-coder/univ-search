@@ -1,0 +1,1348 @@
+{
+  "version": "2026.07.07-h1-common-math1-equation-inequality-v1.0",
+  "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+  "unit_name": "방정식과 부등식",
+  "edge_count": 134,
+  "edges": [
+    {
+      "edge_id": "H1_CM1_EQINEQ_E001",
+      "from_concept_id": "H1_CM1_EQINEQ_C001",
+      "to_concept_id": "H1_CM1_EQINEQ_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "복소수의 뜻과 분류 이해가 실수부분과 허수부분 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E002",
+      "from_concept_id": "H1_CM1_EQINEQ_C002",
+      "to_concept_id": "H1_CM1_EQINEQ_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "실수부분과 허수부분 이해가 실수·허수·순허수 판별 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E003",
+      "from_concept_id": "H1_CM1_EQINEQ_C003",
+      "to_concept_id": "H1_CM1_EQINEQ_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "실수·허수·순허수 판별 이해가 복소수가 실수 또는 순허수가 되는 조건 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E004",
+      "from_concept_id": "H1_CM1_EQINEQ_C004",
+      "to_concept_id": "H1_CM1_EQINEQ_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "복소수의 사칙연산 이해가 복소수가 주어진 식의 값 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E005",
+      "from_concept_id": "H1_CM1_EQINEQ_C004",
+      "to_concept_id": "H1_CM1_EQINEQ_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "복소수의 사칙연산 이해가 복소수의 상등 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E006",
+      "from_concept_id": "H1_CM1_EQINEQ_C008",
+      "to_concept_id": "H1_CM1_EQINEQ_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "켤레복소수의 뜻 이해가 켤레복소수의 성질 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E007",
+      "from_concept_id": "H1_CM1_EQINEQ_C009",
+      "to_concept_id": "H1_CM1_EQINEQ_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "켤레복소수의 성질 이해가 켤레복소수를 이용한 조건 추론 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E008",
+      "from_concept_id": "H1_CM1_EQINEQ_C011",
+      "to_concept_id": "H1_CM1_EQINEQ_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "i의 거듭제곱 주기 이해가 복소수가 주어진 식의 값 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E009",
+      "from_concept_id": "H1_CM1_EQINEQ_C012",
+      "to_concept_id": "H1_CM1_EQINEQ_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "음수의 제곱근 계산 이해가 이차방정식의 풀이 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E010",
+      "from_concept_id": "H1_CM1_EQINEQ_C013",
+      "to_concept_id": "H1_CM1_EQINEQ_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 풀이 이해가 이차방정식의 근의 판별 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E011",
+      "from_concept_id": "H1_CM1_EQINEQ_C016",
+      "to_concept_id": "H1_CM1_EQINEQ_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 근의 판별 이해가 계수가 문자인 이차방정식의 판별 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E012",
+      "from_concept_id": "H1_CM1_EQINEQ_C016",
+      "to_concept_id": "H1_CM1_EQINEQ_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 근의 판별 이해가 완전제곱식이 되는 조건 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E013",
+      "from_concept_id": "H1_CM1_EQINEQ_C019",
+      "to_concept_id": "H1_CM1_EQINEQ_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 근과 계수의 관계 이해가 근의 식의 값 구하기 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E014",
+      "from_concept_id": "H1_CM1_EQINEQ_C019",
+      "to_concept_id": "H1_CM1_EQINEQ_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 근과 계수의 관계 이해가 근의 조건이 주어진 미정계수 결정 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E015",
+      "from_concept_id": "H1_CM1_EQINEQ_C019",
+      "to_concept_id": "H1_CM1_EQINEQ_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 근과 계수의 관계 이해가 두 수를 근으로 하는 이차방정식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E016",
+      "from_concept_id": "H1_CM1_EQINEQ_C013",
+      "to_concept_id": "H1_CM1_EQINEQ_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 풀이 이해가 f(x)=0의 근과 f(ax+b)=0의 근 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E017",
+      "from_concept_id": "H1_CM1_EQINEQ_C023",
+      "to_concept_id": "H1_CM1_EQINEQ_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "f(x)=0의 근과 f(ax+b)=0의 근 이해가 잘못 보고 푼 이차방정식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E018",
+      "from_concept_id": "H1_CM1_EQINEQ_C025",
+      "to_concept_id": "H1_CM1_EQINEQ_C040",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 켤레근 이해가 삼차·사차방정식의 켤레근 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E019",
+      "from_concept_id": "H1_CM1_EQINEQ_C026",
+      "to_concept_id": "H1_CM1_EQINEQ_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "일차함수 그래프와 부호 이해가 이차함수의 그래프 기본 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E020",
+      "from_concept_id": "H1_CM1_EQINEQ_C027",
+      "to_concept_id": "H1_CM1_EQINEQ_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차함수의 그래프 기본 이해가 이차함수의 그래프와 x축의 교점 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E021",
+      "from_concept_id": "H1_CM1_EQINEQ_C028",
+      "to_concept_id": "H1_CM1_EQINEQ_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차함수의 그래프와 x축의 교점 이해가 이차함수의 그래프와 x축의 위치 관계 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E022",
+      "from_concept_id": "H1_CM1_EQINEQ_C029",
+      "to_concept_id": "H1_CM1_EQINEQ_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차함수의 그래프와 x축의 위치 관계 이해가 이차함수 그래프와 직선의 교점 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E023",
+      "from_concept_id": "H1_CM1_EQINEQ_C030",
+      "to_concept_id": "H1_CM1_EQINEQ_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차함수 그래프와 직선의 교점 이해가 이차함수 그래프와 직선의 위치 관계 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E024",
+      "from_concept_id": "H1_CM1_EQINEQ_C027",
+      "to_concept_id": "H1_CM1_EQINEQ_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차함수의 그래프 기본 이해가 이차함수의 최대·최소 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E025",
+      "from_concept_id": "H1_CM1_EQINEQ_C032",
+      "to_concept_id": "H1_CM1_EQINEQ_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차함수의 최대·최소 이해가 최댓값·최솟값 조건 역추론 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E026",
+      "from_concept_id": "H1_CM1_EQINEQ_C033",
+      "to_concept_id": "H1_CM1_EQINEQ_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "최댓값·최솟값 조건 역추론 이해가 이차함수 최대·최소 활용 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E027",
+      "from_concept_id": "H1_CM1_EQINEQ_C035",
+      "to_concept_id": "H1_CM1_EQINEQ_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "삼차방정식과 사차방정식 풀이 이해가 공통부분이 있는 고차방정식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E028",
+      "from_concept_id": "H1_CM1_EQINEQ_C035",
+      "to_concept_id": "H1_CM1_EQINEQ_C037",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "삼차방정식과 사차방정식 풀이 이해가 복이차식과 대칭 사차방정식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E029",
+      "from_concept_id": "H1_CM1_EQINEQ_C035",
+      "to_concept_id": "H1_CM1_EQINEQ_C038",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "삼차방정식과 사차방정식 풀이 이해가 근이 주어진 삼·사차방정식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E030",
+      "from_concept_id": "H1_CM1_EQINEQ_C038",
+      "to_concept_id": "H1_CM1_EQINEQ_C039",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "근이 주어진 삼·사차방정식 이해가 삼차방정식의 근과 계수의 관계 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E031",
+      "from_concept_id": "H1_CM1_EQINEQ_C038",
+      "to_concept_id": "H1_CM1_EQINEQ_C040",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "근이 주어진 삼·사차방정식 이해가 삼차·사차방정식의 켤레근 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E032",
+      "from_concept_id": "H1_CM1_EQINEQ_C035",
+      "to_concept_id": "H1_CM1_EQINEQ_C041",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "삼차방정식과 사차방정식 풀이 이해가 삼차방정식과 사차방정식의 활용 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E033",
+      "from_concept_id": "H1_CM1_EQINEQ_C042",
+      "to_concept_id": "H1_CM1_EQINEQ_C043",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "미지수가 2개인 연립이차방정식 이해가 미지수가 3개인 연립방정식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E034",
+      "from_concept_id": "H1_CM1_EQINEQ_C042",
+      "to_concept_id": "H1_CM1_EQINEQ_C044",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "미지수가 2개인 연립이차방정식 이해가 일차방정식과 이차방정식의 연립 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E035",
+      "from_concept_id": "H1_CM1_EQINEQ_C044",
+      "to_concept_id": "H1_CM1_EQINEQ_C045",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "일차방정식과 이차방정식의 연립 이해가 두 이차방정식의 연립 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E036",
+      "from_concept_id": "H1_CM1_EQINEQ_C042",
+      "to_concept_id": "H1_CM1_EQINEQ_C046",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "미지수가 2개인 연립이차방정식 이해가 공통근을 갖는 이차방정식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E037",
+      "from_concept_id": "H1_CM1_EQINEQ_C048",
+      "to_concept_id": "H1_CM1_EQINEQ_C049",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "부등식의 기본성질 이해가 일차부등식 ax>b의 풀이 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E038",
+      "from_concept_id": "H1_CM1_EQINEQ_C049",
+      "to_concept_id": "H1_CM1_EQINEQ_C050",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "일차부등식 ax>b의 풀이 이해가 연립일차부등식의 풀이 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E039",
+      "from_concept_id": "H1_CM1_EQINEQ_C050",
+      "to_concept_id": "H1_CM1_EQINEQ_C051",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "연립일차부등식의 풀이 이해가 A<B<C 꼴의 부등식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E040",
+      "from_concept_id": "H1_CM1_EQINEQ_C050",
+      "to_concept_id": "H1_CM1_EQINEQ_C052",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "연립일차부등식의 풀이 이해가 특수한 해를 갖는 연립일차부등식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E041",
+      "from_concept_id": "H1_CM1_EQINEQ_C050",
+      "to_concept_id": "H1_CM1_EQINEQ_C053",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "연립일차부등식의 풀이 이해가 연립일차부등식의 활용 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E042",
+      "from_concept_id": "H1_CM1_EQINEQ_C048",
+      "to_concept_id": "H1_CM1_EQINEQ_C054",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "부등식의 기본성질 이해가 절댓값 포함 일차부등식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E043",
+      "from_concept_id": "H1_CM1_EQINEQ_C054",
+      "to_concept_id": "H1_CM1_EQINEQ_C055",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "절댓값 포함 일차부등식 이해가 가우스·새 연산 포함 일차부등식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E044",
+      "from_concept_id": "H1_CM1_EQINEQ_C056",
+      "to_concept_id": "H1_CM1_EQINEQ_C057",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "그래프를 이용한 이차부등식 풀이 이해가 인수분해를 이용한 이차부등식 풀이 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E045",
+      "from_concept_id": "H1_CM1_EQINEQ_C057",
+      "to_concept_id": "H1_CM1_EQINEQ_C058",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "인수분해를 이용한 이차부등식 풀이 이해가 절댓값·가우스 포함 이차부등식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E046",
+      "from_concept_id": "H1_CM1_EQINEQ_C057",
+      "to_concept_id": "H1_CM1_EQINEQ_C059",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "인수분해를 이용한 이차부등식 풀이 이해가 해가 주어진 이차부등식 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E047",
+      "from_concept_id": "H1_CM1_EQINEQ_C056",
+      "to_concept_id": "H1_CM1_EQINEQ_C060",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "그래프를 이용한 이차부등식 풀이 이해가 이차부등식의 해의 존재 조건 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E048",
+      "from_concept_id": "H1_CM1_EQINEQ_C060",
+      "to_concept_id": "H1_CM1_EQINEQ_C061",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차부등식의 해의 존재 조건 이해가 이차부등식과 두 그래프의 위치 관계 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E049",
+      "from_concept_id": "H1_CM1_EQINEQ_C056",
+      "to_concept_id": "H1_CM1_EQINEQ_C062",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "그래프를 이용한 이차부등식 풀이 이해가 이차부등식의 활용 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E050",
+      "from_concept_id": "H1_CM1_EQINEQ_C057",
+      "to_concept_id": "H1_CM1_EQINEQ_C063",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "인수분해를 이용한 이차부등식 풀이 이해가 연립이차부등식의 풀이 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E051",
+      "from_concept_id": "H1_CM1_EQINEQ_C016",
+      "to_concept_id": "H1_CM1_EQINEQ_C064",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차방정식의 근의 판별 이해가 이차방정식의 실근의 부호와 위치 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E052",
+      "from_concept_id": "H1_CM1_EQINEQ_C027",
+      "to_concept_id": "H1_CM1_EQINEQ_C064",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차함수의 그래프 기본 이해가 이차방정식의 실근의 부호와 위치 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E053",
+      "from_concept_id": "H1_CM1_EQINEQ_C060",
+      "to_concept_id": "H1_CM1_EQINEQ_C064",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "이차부등식의 해의 존재 조건 이해가 이차방정식의 실근의 부호와 위치 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E054",
+      "from_concept_id": "H1_CM1_EQINEQ_C001",
+      "to_concept_id": "H1_CM1_EQINEQ_C002",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'복소수의 뜻과 분류' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E055",
+      "from_concept_id": "H1_CM1_EQINEQ_C001",
+      "to_concept_id": "H1_CM1_EQINEQ_C003",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'복소수의 뜻과 분류' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E056",
+      "from_concept_id": "H1_CM1_EQINEQ_C002",
+      "to_concept_id": "H1_CM1_EQINEQ_C003",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'복소수의 뜻과 분류' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E057",
+      "from_concept_id": "H1_CM1_EQINEQ_C004",
+      "to_concept_id": "H1_CM1_EQINEQ_C005",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'복소수의 사칙연산' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E058",
+      "from_concept_id": "H1_CM1_EQINEQ_C003",
+      "to_concept_id": "H1_CM1_EQINEQ_C006",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'복소수가 실수 또는 순허수가 되는 조건' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E059",
+      "from_concept_id": "H1_CM1_EQINEQ_C007",
+      "to_concept_id": "H1_CM1_EQINEQ_C006",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'복소수의 상등' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E060",
+      "from_concept_id": "H1_CM1_EQINEQ_C008",
+      "to_concept_id": "H1_CM1_EQINEQ_C009",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'켤레복소수의 뜻과 성질' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E061",
+      "from_concept_id": "H1_CM1_EQINEQ_C009",
+      "to_concept_id": "H1_CM1_EQINEQ_C010",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'켤레복소수를 이용한 식의 값' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E062",
+      "from_concept_id": "H1_CM1_EQINEQ_C005",
+      "to_concept_id": "H1_CM1_EQINEQ_C011",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'주어진 복소수를 변형하여 고차식의 값 구하기' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E063",
+      "from_concept_id": "H1_CM1_EQINEQ_C013",
+      "to_concept_id": "H1_CM1_EQINEQ_C014",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 풀이' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E064",
+      "from_concept_id": "H1_CM1_EQINEQ_C013",
+      "to_concept_id": "H1_CM1_EQINEQ_C025",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 풀이' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E065",
+      "from_concept_id": "H1_CM1_EQINEQ_C014",
+      "to_concept_id": "H1_CM1_EQINEQ_C025",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 풀이' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E066",
+      "from_concept_id": "H1_CM1_EQINEQ_C013",
+      "to_concept_id": "H1_CM1_EQINEQ_C014",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'한 근이 주어진 이차방정식과 특수기호 방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E067",
+      "from_concept_id": "H1_CM1_EQINEQ_C013",
+      "to_concept_id": "H1_CM1_EQINEQ_C022",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'한 근이 주어진 이차방정식과 특수기호 방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E068",
+      "from_concept_id": "H1_CM1_EQINEQ_C013",
+      "to_concept_id": "H1_CM1_EQINEQ_C025",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'한 근이 주어진 이차방정식과 특수기호 방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E069",
+      "from_concept_id": "H1_CM1_EQINEQ_C014",
+      "to_concept_id": "H1_CM1_EQINEQ_C022",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'한 근이 주어진 이차방정식과 특수기호 방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E070",
+      "from_concept_id": "H1_CM1_EQINEQ_C014",
+      "to_concept_id": "H1_CM1_EQINEQ_C025",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'한 근이 주어진 이차방정식과 특수기호 방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E071",
+      "from_concept_id": "H1_CM1_EQINEQ_C022",
+      "to_concept_id": "H1_CM1_EQINEQ_C025",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'한 근이 주어진 이차방정식과 특수기호 방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E072",
+      "from_concept_id": "H1_CM1_EQINEQ_C016",
+      "to_concept_id": "H1_CM1_EQINEQ_C017",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 근의 판별' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E073",
+      "from_concept_id": "H1_CM1_EQINEQ_C016",
+      "to_concept_id": "H1_CM1_EQINEQ_C018",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 근의 판별' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E074",
+      "from_concept_id": "H1_CM1_EQINEQ_C017",
+      "to_concept_id": "H1_CM1_EQINEQ_C018",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 근의 판별' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E075",
+      "from_concept_id": "H1_CM1_EQINEQ_C016",
+      "to_concept_id": "H1_CM1_EQINEQ_C017",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'계수가 문자인 이차방정식의 근의 판별' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E076",
+      "from_concept_id": "H1_CM1_EQINEQ_C018",
+      "to_concept_id": "H1_CM1_EQINEQ_C016",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'완전제곱식과 중근 조건' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E077",
+      "from_concept_id": "H1_CM1_EQINEQ_C019",
+      "to_concept_id": "H1_CM1_EQINEQ_C020",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 근과 계수의 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E078",
+      "from_concept_id": "H1_CM1_EQINEQ_C019",
+      "to_concept_id": "H1_CM1_EQINEQ_C021",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'근 조건이 주어진 미정계수 결정' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E079",
+      "from_concept_id": "H1_CM1_EQINEQ_C022",
+      "to_concept_id": "H1_CM1_EQINEQ_C019",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'두 수를 근으로 하는 이차방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E080",
+      "from_concept_id": "H1_CM1_EQINEQ_C022",
+      "to_concept_id": "H1_CM1_EQINEQ_C021",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'두 수를 근으로 하는 이차방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E081",
+      "from_concept_id": "H1_CM1_EQINEQ_C019",
+      "to_concept_id": "H1_CM1_EQINEQ_C021",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'두 수를 근으로 하는 이차방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E082",
+      "from_concept_id": "H1_CM1_EQINEQ_C025",
+      "to_concept_id": "H1_CM1_EQINEQ_C022",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 켤레근' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E083",
+      "from_concept_id": "H1_CM1_EQINEQ_C027",
+      "to_concept_id": "H1_CM1_EQINEQ_C028",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차함수와 이차방정식의 활용' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E084",
+      "from_concept_id": "H1_CM1_EQINEQ_C027",
+      "to_concept_id": "H1_CM1_EQINEQ_C034",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차함수와 이차방정식의 활용' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E085",
+      "from_concept_id": "H1_CM1_EQINEQ_C028",
+      "to_concept_id": "H1_CM1_EQINEQ_C034",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차함수와 이차방정식의 활용' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E086",
+      "from_concept_id": "H1_CM1_EQINEQ_C028",
+      "to_concept_id": "H1_CM1_EQINEQ_C029",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차함수의 그래프와 x축의 위치 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E087",
+      "from_concept_id": "H1_CM1_EQINEQ_C028",
+      "to_concept_id": "H1_CM1_EQINEQ_C016",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차함수의 그래프와 x축의 위치 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E088",
+      "from_concept_id": "H1_CM1_EQINEQ_C029",
+      "to_concept_id": "H1_CM1_EQINEQ_C016",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차함수의 그래프와 x축의 위치 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E089",
+      "from_concept_id": "H1_CM1_EQINEQ_C030",
+      "to_concept_id": "H1_CM1_EQINEQ_C031",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차함수 그래프와 직선의 위치 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E090",
+      "from_concept_id": "H1_CM1_EQINEQ_C028",
+      "to_concept_id": "H1_CM1_EQINEQ_C029",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'절댓값 포함 방정식의 실근 개수와 함수 그래프' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E091",
+      "from_concept_id": "H1_CM1_EQINEQ_C032",
+      "to_concept_id": "H1_CM1_EQINEQ_C033",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'최댓값 또는 최솟값이 주어졌을 때 미정계수 구하기' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E092",
+      "from_concept_id": "H1_CM1_EQINEQ_C034",
+      "to_concept_id": "H1_CM1_EQINEQ_C032",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차함수 최대·최소의 활용' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E093",
+      "from_concept_id": "H1_CM1_EQINEQ_C036",
+      "to_concept_id": "H1_CM1_EQINEQ_C035",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'공통부분이 있는 삼차·사차방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E094",
+      "from_concept_id": "H1_CM1_EQINEQ_C039",
+      "to_concept_id": "H1_CM1_EQINEQ_C038",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'삼차방정식의 근의 조건과 근과 계수의 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E095",
+      "from_concept_id": "H1_CM1_EQINEQ_C040",
+      "to_concept_id": "H1_CM1_EQINEQ_C025",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'삼차·사차방정식의 켤레근' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E096",
+      "from_concept_id": "H1_CM1_EQINEQ_C040",
+      "to_concept_id": "H1_CM1_EQINEQ_C039",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'방정식 x³=1, x³=-1의 허근의 성질' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E097",
+      "from_concept_id": "H1_CM1_EQINEQ_C044",
+      "to_concept_id": "H1_CM1_EQINEQ_C042",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'일차방정식과 이차방정식으로 이루어진 연립방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E098",
+      "from_concept_id": "H1_CM1_EQINEQ_C045",
+      "to_concept_id": "H1_CM1_EQINEQ_C043",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'상수항·대칭식으로 이루어진 연립이차방정식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E099",
+      "from_concept_id": "H1_CM1_EQINEQ_C042",
+      "to_concept_id": "H1_CM1_EQINEQ_C045",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'연립이차방정식의 해의 조건과 활용' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E100",
+      "from_concept_id": "H1_CM1_EQINEQ_C042",
+      "to_concept_id": "H1_CM1_EQINEQ_C046",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'연립이차방정식의 해의 조건과 활용' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E101",
+      "from_concept_id": "H1_CM1_EQINEQ_C045",
+      "to_concept_id": "H1_CM1_EQINEQ_C046",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'연립이차방정식의 해의 조건과 활용' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E102",
+      "from_concept_id": "H1_CM1_EQINEQ_C048",
+      "to_concept_id": "H1_CM1_EQINEQ_C049",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'부등식의 기본성질과 ax>b의 풀이' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E103",
+      "from_concept_id": "H1_CM1_EQINEQ_C051",
+      "to_concept_id": "H1_CM1_EQINEQ_C052",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'A<B<C 꼴과 특수한 해' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E104",
+      "from_concept_id": "H1_CM1_EQINEQ_C056",
+      "to_concept_id": "H1_CM1_EQINEQ_C057",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차부등식의 풀이' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E105",
+      "from_concept_id": "H1_CM1_EQINEQ_C059",
+      "to_concept_id": "H1_CM1_EQINEQ_C060",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'해가 주어진 이차부등식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E106",
+      "from_concept_id": "H1_CM1_EQINEQ_C061",
+      "to_concept_id": "H1_CM1_EQINEQ_C060",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차부등식과 두 그래프의 위치 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E107",
+      "from_concept_id": "H1_CM1_EQINEQ_C061",
+      "to_concept_id": "H1_CM1_EQINEQ_C032",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차부등식과 두 그래프의 위치 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E108",
+      "from_concept_id": "H1_CM1_EQINEQ_C060",
+      "to_concept_id": "H1_CM1_EQINEQ_C032",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차부등식과 두 그래프의 위치 관계' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E109",
+      "from_concept_id": "H1_CM1_EQINEQ_C063",
+      "to_concept_id": "H1_CM1_EQINEQ_C059",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'해가 주어진 연립이차부등식과 해의 조건' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E110",
+      "from_concept_id": "H1_CM1_EQINEQ_C063",
+      "to_concept_id": "H1_CM1_EQINEQ_C060",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'해가 주어진 연립이차부등식과 해의 조건' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E111",
+      "from_concept_id": "H1_CM1_EQINEQ_C059",
+      "to_concept_id": "H1_CM1_EQINEQ_C060",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'해가 주어진 연립이차부등식과 해의 조건' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E112",
+      "from_concept_id": "H1_CM1_EQINEQ_C063",
+      "to_concept_id": "H1_CM1_EQINEQ_C062",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'연립이차부등식의 활용' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E113",
+      "from_concept_id": "H1_CM1_EQINEQ_C064",
+      "to_concept_id": "H1_CM1_EQINEQ_C016",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 근의 판별과 이차부등식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E114",
+      "from_concept_id": "H1_CM1_EQINEQ_C064",
+      "to_concept_id": "H1_CM1_EQINEQ_C040",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 근의 판별과 이차부등식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E115",
+      "from_concept_id": "H1_CM1_EQINEQ_C016",
+      "to_concept_id": "H1_CM1_EQINEQ_C040",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 근의 판별과 이차부등식' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E116",
+      "from_concept_id": "H1_CM1_EQINEQ_C064",
+      "to_concept_id": "H1_CM1_EQINEQ_C019",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 실근의 부호' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E117",
+      "from_concept_id": "H1_CM1_EQINEQ_C064",
+      "to_concept_id": "H1_CM1_EQINEQ_C027",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 실근의 위치' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E118",
+      "from_concept_id": "H1_CM1_EQINEQ_C064",
+      "to_concept_id": "H1_CM1_EQINEQ_C028",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 실근의 위치' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E119",
+      "from_concept_id": "H1_CM1_EQINEQ_C027",
+      "to_concept_id": "H1_CM1_EQINEQ_C028",
+      "relation_type": "co_diagnosis",
+      "weight": 0.55,
+      "reason": "'이차방정식의 실근의 위치' 유형에서 함께 출현하는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E120",
+      "from_concept_id": "M3_REAL_C001",
+      "to_concept_id": "H1_CM1_EQINEQ_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "중3 제곱근의 뜻이 음수의 제곱근과 허수 단위 이해의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E121",
+      "from_concept_id": "M3_REAL_C013",
+      "to_concept_id": "H1_CM1_EQINEQ_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "실수 체계 이해가 복소수 분류로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E122",
+      "from_concept_id": "M3_POLY_C027",
+      "to_concept_id": "H1_CM1_EQINEQ_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "공통인수 인수분해는 이차방정식 풀이의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E123",
+      "from_concept_id": "M3_POLY_C033",
+      "to_concept_id": "H1_CM1_EQINEQ_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "이차식 인수분해가 이차방정식의 해 구하기로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E124",
+      "from_concept_id": "M3_POLY_C050",
+      "to_concept_id": "H1_CM1_EQINEQ_C037",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "x⁴+ax²+b 꼴 인수분해가 복이차방정식 풀이로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E125",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "H1_CM1_EQINEQ_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.85,
+      "reason": "중3 이차방정식의 표준형 이해가 고1 풀이의 직접 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E126",
+      "from_concept_id": "M3_QUAD_C016",
+      "to_concept_id": "H1_CM1_EQINEQ_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.86,
+      "reason": "중3 판별식과 근의 개수 판단이 고1 문자 계수 판별로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E127",
+      "from_concept_id": "M3_QUAD_C021",
+      "to_concept_id": "H1_CM1_EQINEQ_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.86,
+      "reason": "근과 계수의 관계가 고1 대칭식과 미정계수 조건으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E128",
+      "from_concept_id": "M3_QUAD_C023",
+      "to_concept_id": "H1_CM1_EQINEQ_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "조건에 맞는 이차방정식 구성 경험이 두 수를 근으로 하는 방정식 작성의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E129",
+      "from_concept_id": "M3_QUAD_C024",
+      "to_concept_id": "H1_CM1_EQINEQ_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "잘못 보고 푼 방정식 역추론 유형이 고1 오류 역추론으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E130",
+      "from_concept_id": "H1_CM1_POLY_C029",
+      "to_concept_id": "H1_CM1_EQINEQ_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.86,
+      "reason": "인수정리는 삼차·사차방정식의 근 찾기에 직접 사용된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E131",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_EQINEQ_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "조립제법은 고차방정식 풀이의 계산 도구이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E132",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_EQINEQ_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "고1 다항식 인수분해 공식이 고차방정식 풀이의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E133",
+      "from_concept_id": "H1_CM1_POLY_C036",
+      "to_concept_id": "H1_CM1_EQINEQ_C037",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "x² 치환형 인수분해가 복이차방정식 풀이로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_EQINEQ_E134",
+      "from_concept_id": "H1_CM1_POLY_C039",
+      "to_concept_id": "H1_CM1_EQINEQ_C037",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "대칭 사차식 인수분해 전략이 대칭 사차방정식 풀이에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

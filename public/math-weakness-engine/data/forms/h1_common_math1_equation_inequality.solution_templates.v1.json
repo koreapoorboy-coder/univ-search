@@ -1,0 +1,245 @@
+{
+  "version": "2026.07.07-h1-common-math1-equation-inequality-v1.0",
+  "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+  "unit_name": "방정식과 부등식",
+  "templates": [
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_COMPLEX",
+      "name": "복소수 조건 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C001",
+        "H1_CM1_EQINEQ_C002",
+        "H1_CM1_EQINEQ_C003",
+        "H1_CM1_EQINEQ_C004",
+        "H1_CM1_EQINEQ_C005",
+        "H1_CM1_EQINEQ_C006",
+        "H1_CM1_EQINEQ_C007",
+        "H1_CM1_EQINEQ_C008",
+        "H1_CM1_EQINEQ_C009",
+        "H1_CM1_EQINEQ_C010",
+        "H1_CM1_EQINEQ_C011",
+        "H1_CM1_EQINEQ_C012"
+      ],
+      "required_fields": [
+        "a+bi 꼴 정리",
+        "실수부/허수부 표시",
+        "i²=-1 또는 켤레 사용",
+        "조건식과 검산"
+      ],
+      "reject_if_missing": [
+        "a+bi 꼴 정리",
+        "실수부/허수부 표시"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_QUAD_SOLVE",
+      "name": "이차방정식 풀이 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C013",
+        "H1_CM1_EQINEQ_C014",
+        "H1_CM1_EQINEQ_C015",
+        "H1_CM1_EQINEQ_C016",
+        "H1_CM1_EQINEQ_C017",
+        "H1_CM1_EQINEQ_C018",
+        "H1_CM1_EQINEQ_C019",
+        "H1_CM1_EQINEQ_C020",
+        "H1_CM1_EQINEQ_C021",
+        "H1_CM1_EQINEQ_C022",
+        "H1_CM1_EQINEQ_C023",
+        "H1_CM1_EQINEQ_C024",
+        "H1_CM1_EQINEQ_C025"
+      ],
+      "required_fields": [
+        "표준형 정리",
+        "풀이 방법 선택",
+        "근 계산",
+        "원식 대입 검산"
+      ],
+      "reject_if_missing": [
+        "표준형 정리",
+        "원식 대입 검산"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_DISCRIMINANT",
+      "name": "판별식·근의 개수 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C016",
+        "H1_CM1_EQINEQ_C017",
+        "H1_CM1_EQINEQ_C018",
+        "H1_CM1_EQINEQ_C029",
+        "H1_CM1_EQINEQ_C031",
+        "H1_CM1_EQINEQ_C060",
+        "H1_CM1_EQINEQ_C064"
+      ],
+      "required_fields": [
+        "a,b,c 확인",
+        "D=b²-4ac 계산",
+        "D 부호 조건",
+        "근의 개수/위치 결론"
+      ],
+      "reject_if_missing": [
+        "D=b²-4ac 계산",
+        "D 부호 조건"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_ROOTS_COEFF",
+      "name": "근과 계수 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C019",
+        "H1_CM1_EQINEQ_C020",
+        "H1_CM1_EQINEQ_C021",
+        "H1_CM1_EQINEQ_C022",
+        "H1_CM1_EQINEQ_C039"
+      ],
+      "required_fields": [
+        "두 근/세 근 표시",
+        "합과 곱 공식",
+        "목표식 변형",
+        "대입 계산"
+      ],
+      "reject_if_missing": [
+        "합과 곱 공식",
+        "목표식 변형"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_GRAPH",
+      "name": "이차함수 그래프 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C026",
+        "H1_CM1_EQINEQ_C027",
+        "H1_CM1_EQINEQ_C028",
+        "H1_CM1_EQINEQ_C029",
+        "H1_CM1_EQINEQ_C030",
+        "H1_CM1_EQINEQ_C031",
+        "H1_CM1_EQINEQ_C032",
+        "H1_CM1_EQINEQ_C033",
+        "H1_CM1_EQINEQ_C034",
+        "H1_CM1_EQINEQ_C061"
+      ],
+      "required_fields": [
+        "축과 꼭짓점",
+        "교점 또는 접점",
+        "판별식/연립식",
+        "그래프 결론"
+      ],
+      "reject_if_missing": [
+        "축과 꼭짓점",
+        "교점 또는 접점"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_HIGHER_EQ",
+      "name": "고차방정식 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C035",
+        "H1_CM1_EQINEQ_C036",
+        "H1_CM1_EQINEQ_C037",
+        "H1_CM1_EQINEQ_C038",
+        "H1_CM1_EQINEQ_C039",
+        "H1_CM1_EQINEQ_C040",
+        "H1_CM1_EQINEQ_C041"
+      ],
+      "required_fields": [
+        "인수 후보 또는 치환식",
+        "인수분해 과정",
+        "각 인수의 해",
+        "중복근/허근 확인"
+      ],
+      "reject_if_missing": [
+        "인수 후보 또는 치환식",
+        "각 인수의 해"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_SIMULTANEOUS",
+      "name": "연립방정식 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C042",
+        "H1_CM1_EQINEQ_C043",
+        "H1_CM1_EQINEQ_C044",
+        "H1_CM1_EQINEQ_C045",
+        "H1_CM1_EQINEQ_C046"
+      ],
+      "required_fields": [
+        "소거/대입 대상",
+        "정리된 단일 방정식",
+        "해의 쌍",
+        "두 원식 검산"
+      ],
+      "reject_if_missing": [
+        "해의 쌍",
+        "두 원식 검산"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_LINEAR_INEQ",
+      "name": "일차·연립부등식 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C048",
+        "H1_CM1_EQINEQ_C049",
+        "H1_CM1_EQINEQ_C050",
+        "H1_CM1_EQINEQ_C051",
+        "H1_CM1_EQINEQ_C052",
+        "H1_CM1_EQINEQ_C053"
+      ],
+      "required_fields": [
+        "부등호 방향 변화 표시",
+        "각 부등식의 해",
+        "수직선 교집합",
+        "경계값 포함 여부"
+      ],
+      "reject_if_missing": [
+        "수직선 교집합",
+        "경계값 포함 여부"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_ABS_CASE",
+      "name": "절댓값·가우스 부등식 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C014",
+        "H1_CM1_EQINEQ_C054",
+        "H1_CM1_EQINEQ_C055",
+        "H1_CM1_EQINEQ_C058"
+      ],
+      "required_fields": [
+        "분기 기준",
+        "각 구간의 식",
+        "구간 조건 검산",
+        "최종 해의 합집합"
+      ],
+      "reject_if_missing": [
+        "분기 기준",
+        "구간 조건 검산"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_EQINEQ_FORM_QUAD_INEQ",
+      "name": "이차부등식·실근 위치 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_EQINEQ_C056",
+        "H1_CM1_EQINEQ_C057",
+        "H1_CM1_EQINEQ_C058",
+        "H1_CM1_EQINEQ_C059",
+        "H1_CM1_EQINEQ_C060",
+        "H1_CM1_EQINEQ_C061",
+        "H1_CM1_EQINEQ_C062",
+        "H1_CM1_EQINEQ_C063",
+        "H1_CM1_EQINEQ_C064"
+      ],
+      "required_fields": [
+        "근 또는 경계값",
+        "포물선 개형",
+        "부호 구간",
+        "해 구간/실근 위치 결론"
+      ],
+      "reject_if_missing": [
+        "부호 구간",
+        "해 구간/실근 위치 결론"
+      ]
+    }
+  ]
+}

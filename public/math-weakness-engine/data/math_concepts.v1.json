@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.07-h1-common-math1-polynomial-v1.0",
-  "concept_count": 720,
+  "version": "2026.07.07-h1-common-math1-equation-inequality-v1.0",
+  "concept_count": 784,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -19770,6 +19770,1768 @@
       ],
       "mastery_level": "advanced",
       "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C001",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "복소수의 뜻과 성질",
+      "concept_name": "복소수의 뜻과 분류",
+      "description": "음수의 제곱근을 바탕으로 복소수를 a+bi 꼴로 나타내고 실수, 허수, 순허수를 분류한다.",
+      "diagnostic_signals": [
+        "허수와 순허수를 혼동함",
+        "a+bi 꼴 정리가 안 됨",
+        "실수 조건을 놓침"
+      ],
+      "remediation_keywords": [
+        "복소수",
+        "실수",
+        "허수",
+        "순허수"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C002",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "복소수의 뜻과 성질",
+      "concept_name": "실수부분과 허수부분",
+      "description": "복소수에서 실수부분과 허수부분을 구분하고 조건에 맞는 값을 찾는다.",
+      "diagnostic_signals": [
+        "허수부분에 i를 포함해 적음",
+        "실수부분과 허수부분을 바꿈",
+        "계수 비교를 하지 못함"
+      ],
+      "remediation_keywords": [
+        "실수부분",
+        "허수부분",
+        "계수 비교"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C003",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "복소수의 뜻과 성질",
+      "concept_name": "실수·허수·순허수 판별",
+      "description": "주어진 수 또는 식이 실수, 허수, 순허수가 되는 조건을 판별한다.",
+      "diagnostic_signals": [
+        "실수 조건 b=0 누락",
+        "순허수 조건 a=0,b≠0 누락",
+        "개수 세기에서 경계값 누락"
+      ],
+      "remediation_keywords": [
+        "실수 조건",
+        "순허수 조건",
+        "개수 세기"
+      ],
+      "source_orders": [
+        1,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C004",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "복소수의 연산",
+      "concept_name": "복소수의 사칙연산",
+      "description": "복소수의 덧셈, 뺄셈, 곱셈, 나눗셈을 i²=-1과 켤레복소수 유리화를 이용해 계산한다.",
+      "diagnostic_signals": [
+        "i² 처리를 놓침",
+        "나눗셈에서 켤레를 곱하지 않음",
+        "실수부와 허수부 정리 누락"
+      ],
+      "remediation_keywords": [
+        "복소수 사칙연산",
+        "i²=-1",
+        "켤레 유리화"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C005",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "복소수의 연산",
+      "concept_name": "복소수가 주어진 식의 값",
+      "description": "복소수 값이 주어진 조건에서 다항식, 분수식, 새 연산 값을 구한다.",
+      "diagnostic_signals": [
+        "대입 후 정리 오류",
+        "분수식 유리화 누락",
+        "새 연산 정의 적용 실패"
+      ],
+      "remediation_keywords": [
+        "식의 값",
+        "분수식",
+        "새 연산"
+      ],
+      "source_orders": [
+        2,
+        8
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C006",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "복소수 조건",
+      "concept_name": "복소수가 실수 또는 순허수가 되는 조건",
+      "description": "복소수 연산 결과가 실수 또는 순허수가 되도록 미정계수 조건을 세운다.",
+      "diagnostic_signals": [
+        "실수부분=0과 허수부분=0을 반대로 둠",
+        "분모 조건 확인 누락",
+        "미정계수 조건식이 부족함"
+      ],
+      "remediation_keywords": [
+        "실수 조건",
+        "순허수 조건",
+        "미정계수"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C007",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "복소수 조건",
+      "concept_name": "복소수의 상등",
+      "description": "두 복소수가 같을 조건을 실수부분과 허수부분의 상등으로 나누어 처리한다.",
+      "diagnostic_signals": [
+        "실수부·허수부 비교를 하지 않음",
+        "두 조건 중 하나만 사용함",
+        "연립 조건 계산 오류"
+      ],
+      "remediation_keywords": [
+        "복소수 상등",
+        "실수부 비교",
+        "허수부 비교"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C008",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "켤레복소수",
+      "concept_name": "켤레복소수의 뜻",
+      "description": "a+bi의 켤레복소수를 이해하고 실수부·허수부 부호 변화를 판단한다.",
+      "diagnostic_signals": [
+        "켤레에서 실수부 부호를 바꿈",
+        "허수부 부호 변화를 놓침",
+        "기호를 잘못 읽음"
+      ],
+      "remediation_keywords": [
+        "켤레복소수",
+        "허수부 부호",
+        "정의"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C009",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "켤레복소수",
+      "concept_name": "켤레복소수의 성질",
+      "description": "z+z̄, zz̄, z/z̄ 등 켤레복소수의 성질을 이용해 실수 조건과 식의 값을 구한다.",
+      "diagnostic_signals": [
+        "z+z̄가 실수임을 활용 못함",
+        "zz̄의 부호를 틀림",
+        "켤레와 역수를 혼동함"
+      ],
+      "remediation_keywords": [
+        "켤레 성질",
+        "z+zbar",
+        "zzbar"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C010",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "켤레복소수",
+      "concept_name": "켤레복소수를 이용한 조건 추론",
+      "description": "복소수와 켤레복소수의 합·곱·조건을 이용해 복소수를 결정한다.",
+      "diagnostic_signals": [
+        "합과 곱을 실수부/허수부 조건으로 못 바꿈",
+        "조건을 하나만 사용함",
+        "두 복소수 조건에서 연립 누락"
+      ],
+      "remediation_keywords": [
+        "켤레 조건",
+        "복소수 결정",
+        "합과 곱"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C011",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "i의 거듭제곱",
+      "concept_name": "i의 거듭제곱 주기",
+      "description": "i의 거듭제곱이 4를 주기로 반복됨을 이용해 계산하고 자연수 조건을 찾는다.",
+      "diagnostic_signals": [
+        "지수를 4로 나눈 나머지 오류",
+        "i⁰ 처리 오류",
+        "주기성 조건을 놓침"
+      ],
+      "remediation_keywords": [
+        "i 거듭제곱",
+        "주기",
+        "나머지"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C012",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "음수의 제곱근",
+      "concept_name": "음수의 제곱근 계산",
+      "description": "음수의 제곱근을 i를 사용해 나타내고 곱셈·나눗셈·성질을 적용한다.",
+      "diagnostic_signals": [
+        "√(-a)√(-b) 처리 오류",
+        "음수 근호를 먼저 i로 바꾸지 않음",
+        "부호 조건 누락"
+      ],
+      "remediation_keywords": [
+        "음수의 제곱근",
+        "허수 단위",
+        "근호 계산"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C013",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "이차방정식 풀이",
+      "concept_name": "이차방정식의 풀이",
+      "description": "인수분해, 제곱근, 근의 공식으로 이차방정식의 근을 구하고 검산한다.",
+      "diagnostic_signals": [
+        "해를 인수로부터 못 읽음",
+        "근의 공식 부호 오류",
+        "복소수 근을 버림"
+      ],
+      "remediation_keywords": [
+        "이차방정식 풀이",
+        "인수분해",
+        "근의 공식"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C014",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "특수 기호 방정식",
+      "concept_name": "절댓값·가우스 기호 포함 이차방정식",
+      "description": "절댓값, 가우스 기호, 새 연산이 포함된 이차방정식을 구간 분기와 정의 적용으로 푼다.",
+      "diagnostic_signals": [
+        "구간 분기를 하지 않음",
+        "절댓값 조건 검산 누락",
+        "가우스 기호 해석 실패"
+      ],
+      "remediation_keywords": [
+        "절댓값",
+        "가우스",
+        "구간 분기"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C015",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "활용",
+      "concept_name": "이차방정식의 활용",
+      "description": "도형, 수량, 가격, 거리 등 상황을 이차방정식으로 모델링하고 해의 적합성을 판단한다.",
+      "diagnostic_signals": [
+        "문제 상황을 식으로 못 세움",
+        "음수해 제거 누락",
+        "단위 확인 누락"
+      ],
+      "remediation_keywords": [
+        "활용",
+        "식 세우기",
+        "해 검산"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C016",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "판별식",
+      "concept_name": "이차방정식의 근의 판별",
+      "description": "판별식 D=b²-4ac로 서로 다른 두 실근, 중근, 허근 여부를 판단한다.",
+      "diagnostic_signals": [
+        "D의 부호와 근의 개수 연결 오류",
+        "a=0 조건 누락",
+        "계수에 문자가 있을 때 부등식 처리 실패"
+      ],
+      "remediation_keywords": [
+        "판별식",
+        "근의 개수",
+        "D"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C017",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "판별식",
+      "concept_name": "계수가 문자인 이차방정식의 판별",
+      "description": "미정계수 범위 또는 조건이 주어진 이차방정식의 근의 종류를 판별한다.",
+      "diagnostic_signals": [
+        "판별식 부등식 해석 오류",
+        "범위 조건 경계값 누락",
+        "두 미지수 조건을 나누지 못함"
+      ],
+      "remediation_keywords": [
+        "문자 계수",
+        "판별 조건",
+        "범위"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C018",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "판별식",
+      "concept_name": "완전제곱식이 되는 조건",
+      "description": "이차식이 완전제곱식이 되도록 하는 조건을 판별식 0 또는 계수 구조로 찾는다.",
+      "diagnostic_signals": [
+        "완전제곱식과 중근 연결 실패",
+        "계수비교 누락",
+        "k 조건 처리 오류"
+      ],
+      "remediation_keywords": [
+        "완전제곱식",
+        "D=0",
+        "중근"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C019",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "근과 계수",
+      "concept_name": "이차방정식의 근과 계수의 관계",
+      "description": "두 근의 합과 곱을 계수와 연결해 미정계수와 식의 값을 구한다.",
+      "diagnostic_signals": [
+        "합/곱 부호 오류",
+        "a로 나누는 것을 누락",
+        "두 근 조건을 하나만 사용함"
+      ],
+      "remediation_keywords": [
+        "근과 계수",
+        "합",
+        "곱"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C020",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "근과 계수",
+      "concept_name": "근의 식의 값 구하기",
+      "description": "근과 계수의 관계를 이용해 대칭식, 분수식, 고차식의 값을 구한다.",
+      "diagnostic_signals": [
+        "대칭식 변형 실패",
+        "분수식 통분 오류",
+        "근의 방정식 대입으로 차수 낮추기 실패"
+      ],
+      "remediation_keywords": [
+        "대칭식",
+        "식의 값",
+        "차수 낮추기"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C021",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "미정계수",
+      "concept_name": "근의 조건이 주어진 미정계수 결정",
+      "description": "근의 비, 차, 정수·자연수 조건 등으로 이차방정식의 미정계수를 결정한다.",
+      "diagnostic_signals": [
+        "조건을 합·곱으로 변환 못함",
+        "정수 조건 범위 누락",
+        "절댓값 조건 처리 실패"
+      ],
+      "remediation_keywords": [
+        "미정계수",
+        "근의 조건",
+        "정수 조건"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C022",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "이차방정식 작성",
+      "concept_name": "두 수를 근으로 하는 이차방정식",
+      "description": "두 수 또는 조건을 근으로 하는 이차방정식을 구성하고 도형·공통근 상황으로 확장한다.",
+      "diagnostic_signals": [
+        "표준형 작성 오류",
+        "계수 배수 처리 누락",
+        "공통근 조건을 놓침"
+      ],
+      "remediation_keywords": [
+        "이차방정식 작성",
+        "두 근",
+        "공통근"
+      ],
+      "source_orders": [
+        17
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C023",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "근 변환",
+      "concept_name": "f(x)=0의 근과 f(ax+b)=0의 근",
+      "description": "원래 방정식의 근을 선형 변환하여 새로운 방정식의 근을 구한다.",
+      "diagnostic_signals": [
+        "ax+b 대응값을 못 찾음",
+        "근을 변수 x로 되돌리는 단계 오류",
+        "함수식 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "근 변환",
+        "f(ax+b)",
+        "대응값"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C024",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "오류 역추론",
+      "concept_name": "잘못 보고 푼 이차방정식",
+      "description": "계수나 근의 공식을 잘못 적용한 풀이에서 원래 방정식의 조건을 역추론한다.",
+      "diagnostic_signals": [
+        "잘못 본 식과 원래 식을 구분 못함",
+        "근의 합·곱 재구성 오류",
+        "오류 조건을 식으로 세우지 못함"
+      ],
+      "remediation_keywords": [
+        "잘못 보고 푼",
+        "오류 역추론",
+        "원래 식"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C025",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "복소수와 이차방정식",
+      "sub_strand": "켤레근",
+      "concept_name": "이차방정식의 켤레근",
+      "description": "유리수·실수 계수 이차방정식에서 무리수근·허근의 켤레성을 활용한다.",
+      "diagnostic_signals": [
+        "켤레근 짝을 놓침",
+        "계수 조건을 확인하지 않음",
+        "새 방정식 구성 오류"
+      ],
+      "remediation_keywords": [
+        "켤레근",
+        "무리수근",
+        "허근"
+      ],
+      "source_orders": [
+        19,
+        55
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C026",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "일차함수 선행",
+      "concept_name": "일차함수 그래프와 부호",
+      "description": "일차함수의 기울기와 y절편으로 그래프의 위치와 부호 구간을 판단한다.",
+      "diagnostic_signals": [
+        "부호 구간을 그래프와 연결 못함",
+        "기울기와 절편 조건 혼동",
+        "사분면 판단 오류"
+      ],
+      "remediation_keywords": [
+        "일차함수",
+        "부호",
+        "그래프"
+      ],
+      "source_orders": [
+        20
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C027",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "이차함수 그래프",
+      "concept_name": "이차함수의 그래프 기본",
+      "description": "이차함수의 꼭짓점, 축, 평행이동, 개형을 이용해 그래프를 해석한다.",
+      "diagnostic_signals": [
+        "꼭짓점 좌표 계산 오류",
+        "축의 방정식 누락",
+        "계수 부호와 개형 연결 실패"
+      ],
+      "remediation_keywords": [
+        "이차함수 그래프",
+        "꼭짓점",
+        "축"
+      ],
+      "source_orders": [
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C028",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "그래프와 방정식",
+      "concept_name": "이차함수의 그래프와 x축의 교점",
+      "description": "이차함수와 x축의 교점 좌표를 이차방정식의 실근과 연결한다.",
+      "diagnostic_signals": [
+        "교점 수와 실근 개수 연결 오류",
+        "좌표와 근을 혼동",
+        "거리 조건 해석 실패"
+      ],
+      "remediation_keywords": [
+        "x축 교점",
+        "실근",
+        "교점 좌표"
+      ],
+      "source_orders": [
+        22,
+        23
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C029",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "위치 관계",
+      "concept_name": "이차함수의 그래프와 x축의 위치 관계",
+      "description": "판별식과 그래프 위치로 만남, 접함, 만나지 않음을 판단한다.",
+      "diagnostic_signals": [
+        "D 부호와 위치 관계 연결 실패",
+        "접선과 교점 두 개를 혼동",
+        "문자 계수 조건 누락"
+      ],
+      "remediation_keywords": [
+        "x축 위치관계",
+        "접함",
+        "판별식"
+      ],
+      "source_orders": [
+        23
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C030",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "직선과 교점",
+      "concept_name": "이차함수 그래프와 직선의 교점",
+      "description": "이차함수와 직선의 연립으로 교점 좌표, 개수, 관계를 구한다.",
+      "diagnostic_signals": [
+        "연립식 정리 오류",
+        "교점 좌표를 끝까지 구하지 않음",
+        "한 점 조건 사용 실패"
+      ],
+      "remediation_keywords": [
+        "직선 교점",
+        "연립",
+        "교점 좌표"
+      ],
+      "source_orders": [
+        24
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C031",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "직선 위치 관계",
+      "concept_name": "이차함수 그래프와 직선의 위치 관계",
+      "description": "직선과 포물선의 만남, 접함, 만나지 않음을 판별식과 접선 조건으로 판단한다.",
+      "diagnostic_signals": [
+        "위치 관계를 판별식으로 바꾸지 못함",
+        "접선 조건 D=0 누락",
+        "두 직선 조건과 혼동"
+      ],
+      "remediation_keywords": [
+        "직선 위치관계",
+        "접선",
+        "D=0"
+      ],
+      "source_orders": [
+        25,
+        26
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C032",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "최대·최소",
+      "concept_name": "이차함수의 최대·최소",
+      "description": "표준형과 꼭짓점을 이용하여 전체 범위 또는 제한 범위에서 최댓값·최솟값을 구한다.",
+      "diagnostic_signals": [
+        "제한 범위 끝점 확인 누락",
+        "꼭짓점이 범위 안인지 확인하지 않음",
+        "일반형을 표준형으로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "최대최소",
+        "제한 범위",
+        "꼭짓점"
+      ],
+      "source_orders": [
+        26,
+        27,
+        28
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C033",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "최대·최소 활용",
+      "concept_name": "최댓값·최솟값 조건 역추론",
+      "description": "최댓값·최솟값이나 최솟값의 위치가 주어진 조건에서 미정계수를 구한다.",
+      "diagnostic_signals": [
+        "최댓값 조건을 꼭짓점 값으로 못 바꿈",
+        "미정계수 조건식 누락",
+        "공통부분 치환 실패"
+      ],
+      "remediation_keywords": [
+        "최대최소 조건",
+        "미정계수",
+        "역추론"
+      ],
+      "source_orders": [
+        27,
+        28
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C034",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "이차방정식과 이차함수",
+      "sub_strand": "활용",
+      "concept_name": "이차함수 최대·최소 활용",
+      "description": "높이, 가격, 도형 넓이 등 실생활·도형 문제를 이차함수 최대·최소로 해결한다.",
+      "diagnostic_signals": [
+        "변수 범위 설정 누락",
+        "최대/최소 선택 오류",
+        "상황 단위 검산 누락"
+      ],
+      "remediation_keywords": [
+        "활용",
+        "모델링",
+        "변수 범위"
+      ],
+      "source_orders": [
+        29
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C035",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "고차방정식",
+      "concept_name": "삼차방정식과 사차방정식 풀이",
+      "description": "인수분해와 인수정리로 삼차방정식·사차방정식의 근을 구한다.",
+      "diagnostic_signals": [
+        "인수분해 후보를 찾지 못함",
+        "중복근 처리 오류",
+        "허근을 버림"
+      ],
+      "remediation_keywords": [
+        "삼차방정식",
+        "사차방정식",
+        "인수분해"
+      ],
+      "source_orders": [
+        29
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C036",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "고차방정식",
+      "concept_name": "공통부분이 있는 고차방정식",
+      "description": "공통부분을 치환하여 삼차·사차방정식을 이차방정식처럼 푼다.",
+      "diagnostic_signals": [
+        "공통부분 치환 실패",
+        "치환한 값에서 원래 변수로 돌아오지 않음",
+        "불필요한 해 제거 누락"
+      ],
+      "remediation_keywords": [
+        "공통부분",
+        "치환",
+        "고차방정식"
+      ],
+      "source_orders": [
+        30
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C037",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "고차방정식",
+      "concept_name": "복이차식과 대칭 사차방정식",
+      "description": "x⁴+ax²+b 꼴 및 계수가 대칭인 사차방정식을 치환 또는 나누기 전략으로 푼다.",
+      "diagnostic_signals": [
+        "x² 치환을 못함",
+        "대칭 구조 인식 실패",
+        "x=0 조건 확인 누락"
+      ],
+      "remediation_keywords": [
+        "복이차식",
+        "대칭 사차방정식",
+        "치환"
+      ],
+      "source_orders": [
+        30
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C038",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "고차방정식",
+      "concept_name": "근이 주어진 삼·사차방정식",
+      "description": "한 근이나 여러 근이 주어진 삼차·사차방정식에서 다른 근과 계수를 결정한다.",
+      "diagnostic_signals": [
+        "주어진 근을 인수로 연결 못함",
+        "중근 조건 누락",
+        "계수 비교 오류"
+      ],
+      "remediation_keywords": [
+        "근이 주어진 고차방정식",
+        "인수정리",
+        "계수 결정"
+      ],
+      "source_orders": [
+        30,
+        31
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C039",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "고차방정식",
+      "concept_name": "삼차방정식의 근과 계수의 관계",
+      "description": "삼차방정식의 세 근의 합, 두 근의 곱의 합, 세 근의 곱을 계수와 연결한다.",
+      "diagnostic_signals": [
+        "삼차 근계수 공식 부호 오류",
+        "대칭식 변형 실패",
+        "허근 조건 연결 실패"
+      ],
+      "remediation_keywords": [
+        "삼차 근과 계수",
+        "대칭식",
+        "세 근"
+      ],
+      "source_orders": [
+        31
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C040",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "고차방정식",
+      "concept_name": "삼차·사차방정식의 켤레근",
+      "description": "유리수·실수 계수 고차방정식에서 무리수근과 허근이 켤레쌍으로 나타남을 활용한다.",
+      "diagnostic_signals": [
+        "켤레근을 추가하지 않음",
+        "남은 인수 구성 실패",
+        "계수 조건과 연결 실패"
+      ],
+      "remediation_keywords": [
+        "고차 켤레근",
+        "허근",
+        "무리수근"
+      ],
+      "source_orders": [
+        32,
+        33
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C041",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "고차방정식 활용",
+      "concept_name": "삼차방정식과 사차방정식의 활용",
+      "description": "도형, 원기둥, 직육면체, 평면도형 조건을 고차방정식으로 모델링한다.",
+      "diagnostic_signals": [
+        "부피/넓이 식 설정 오류",
+        "근의 범위 검산 누락",
+        "불필요한 해 제거 누락"
+      ],
+      "remediation_keywords": [
+        "고차방정식 활용",
+        "도형",
+        "모델링"
+      ],
+      "source_orders": [
+        33
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C042",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립방정식",
+      "concept_name": "미지수가 2개인 연립이차방정식",
+      "description": "두 식을 소거·대입·인수분해하여 미지수가 2개인 연립이차방정식을 푼다.",
+      "diagnostic_signals": [
+        "대입 후 정리 오류",
+        "해의 쌍을 빠뜨림",
+        "무수히 많은 해 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "연립이차방정식",
+        "대입",
+        "소거"
+      ],
+      "source_orders": [
+        34,
+        35
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C043",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립방정식",
+      "concept_name": "미지수가 3개인 연립방정식",
+      "description": "미지수가 3개인 연립일차·연립이차방정식을 소거와 대칭 구조로 해결한다.",
+      "diagnostic_signals": [
+        "소거 순서가 없음",
+        "특수한 해 조건 처리 실패",
+        "해가 없음/무수히 많음 구분 오류"
+      ],
+      "remediation_keywords": [
+        "미지수 3개",
+        "소거",
+        "대칭"
+      ],
+      "source_orders": [
+        34
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C044",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립방정식",
+      "concept_name": "일차방정식과 이차방정식의 연립",
+      "description": "직선과 원/포물선 등으로 표현되는 일차·이차 연립방정식을 대수와 그래프로 푼다.",
+      "diagnostic_signals": [
+        "대입 후 이차방정식 풀이 오류",
+        "두 해 쌍 중 누락",
+        "교점 의미 연결 실패"
+      ],
+      "remediation_keywords": [
+        "일차+이차 연립",
+        "교점",
+        "대입"
+      ],
+      "source_orders": [
+        35
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C045",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립방정식",
+      "concept_name": "두 이차방정식의 연립",
+      "description": "두 이차방정식을 빼거나 조합하여 해를 구하고 원뿔곡선 교점처럼 해석한다.",
+      "diagnostic_signals": [
+        "두 식의 차를 활용하지 못함",
+        "공통근/교점 조건 혼동",
+        "계산 과정에서 해 누락"
+      ],
+      "remediation_keywords": [
+        "두 이차방정식",
+        "식의 차",
+        "교점"
+      ],
+      "source_orders": [
+        35,
+        36
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C046",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립방정식",
+      "concept_name": "공통근을 갖는 이차방정식",
+      "description": "두 이차방정식이 공통근을 갖는 조건을 방정식의 해 또는 나머지 조건으로 처리한다.",
+      "diagnostic_signals": [
+        "공통근을 대입하지 않음",
+        "두 식의 차 활용 실패",
+        "공통근 개수 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "공통근",
+        "해의 조건",
+        "두 방정식"
+      ],
+      "source_orders": [
+        36
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C047",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "부정방정식",
+      "concept_name": "정수 조건의 부정방정식",
+      "description": "정수·자연수 조건이 있는 일차·이차 부정방정식의 해를 찾는다.",
+      "diagnostic_signals": [
+        "정수 조건을 범위로 바꾸지 못함",
+        "계수 관계 활용 실패",
+        "모든 해 나열 누락"
+      ],
+      "remediation_keywords": [
+        "부정방정식",
+        "정수 조건",
+        "자연수 조건"
+      ],
+      "source_orders": [
+        37
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C048",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "일차부등식",
+      "concept_name": "부등식의 기본성질",
+      "description": "부등식의 성질과 부호 변화 규칙을 이용하여 일차부등식을 푼다.",
+      "diagnostic_signals": [
+        "음수로 나눌 때 부등호 방향 오류",
+        "범위 조건 해석 실패",
+        "수직선 표시 오류"
+      ],
+      "remediation_keywords": [
+        "부등식 성질",
+        "부등호 방향",
+        "수직선"
+      ],
+      "source_orders": [
+        38
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C049",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "일차부등식",
+      "concept_name": "일차부등식 ax>b의 풀이",
+      "description": "계수와 미정계수 조건이 있는 일차부등식을 풀고 해의 조건을 해석한다.",
+      "diagnostic_signals": [
+        "a의 부호에 따른 경우분류 누락",
+        "해가 주어진 조건 역추론 실패",
+        "분수/소수 계수 처리 오류"
+      ],
+      "remediation_keywords": [
+        "일차부등식",
+        "계수 조건",
+        "경우분류"
+      ],
+      "source_orders": [
+        38
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C050",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립일차부등식",
+      "concept_name": "연립일차부등식의 풀이",
+      "description": "두 개 이상 일차부등식의 공통 범위를 수직선으로 겹쳐 해를 구한다.",
+      "diagnostic_signals": [
+        "공통 범위 교집합 오류",
+        "수직선 표현 오류",
+        "괄호/등호 경계 혼동"
+      ],
+      "remediation_keywords": [
+        "연립일차부등식",
+        "공통 범위",
+        "수직선"
+      ],
+      "source_orders": [
+        39
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C051",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립일차부등식",
+      "concept_name": "A<B<C 꼴의 부등식",
+      "description": "A<B<C 형태를 두 부등식으로 나누어 연립부등식으로 푼다.",
+      "diagnostic_signals": [
+        "세 변 부등식을 나누지 못함",
+        "두 조건 중 하나만 사용함",
+        "잘못 변형한 조건 처리 실패"
+      ],
+      "remediation_keywords": [
+        "A<B<C",
+        "삼변 부등식",
+        "연립 변환"
+      ],
+      "source_orders": [
+        40
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C052",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립일차부등식",
+      "concept_name": "특수한 해를 갖는 연립일차부등식",
+      "description": "해가 정수, 개수, 없음, 존재 조건을 만족하도록 미정계수를 결정한다.",
+      "diagnostic_signals": [
+        "정수해 개수 세기 오류",
+        "해 존재/부존재 조건 혼동",
+        "경계값 포함 여부 누락"
+      ],
+      "remediation_keywords": [
+        "정수해",
+        "해의 개수",
+        "미정계수"
+      ],
+      "source_orders": [
+        40,
+        41
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C053",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립일차부등식 활용",
+      "concept_name": "연립일차부등식의 활용",
+      "description": "수량, 가격, 도형, 속력, 농도 상황을 연립일차부등식으로 표현한다.",
+      "diagnostic_signals": [
+        "조건을 부등식으로 세우지 못함",
+        "최소/최대 조건 해석 실패",
+        "단위 검산 누락"
+      ],
+      "remediation_keywords": [
+        "활용",
+        "조건 세우기",
+        "최대최소"
+      ],
+      "source_orders": [
+        42
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C054",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "절댓값 부등식",
+      "concept_name": "절댓값 포함 일차부등식",
+      "description": "|ax+b|<c, |ax+b|>c 및 두 절댓값 부등식을 구간으로 나누어 푼다.",
+      "diagnostic_signals": [
+        "절댓값 부등식 변환 오류",
+        "구간 분기 누락",
+        "조건식 해 검산 누락"
+      ],
+      "remediation_keywords": [
+        "절댓값 부등식",
+        "구간 분기",
+        "해의 조건"
+      ],
+      "source_orders": [
+        43,
+        44
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C055",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "기타 일차부등식",
+      "concept_name": "가우스·새 연산 포함 일차부등식",
+      "description": "가우스 기호나 새롭게 정의된 연산이 포함된 일차부등식을 정의에 따라 해석한다.",
+      "diagnostic_signals": [
+        "기호 정의 적용 실패",
+        "구간 조건 누락",
+        "정수 조건과 혼동"
+      ],
+      "remediation_keywords": [
+        "가우스",
+        "새 연산",
+        "정의 적용"
+      ],
+      "source_orders": [
+        45
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C056",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "이차부등식",
+      "concept_name": "그래프를 이용한 이차부등식 풀이",
+      "description": "이차함수 그래프의 부호 구간을 이용해 이차부등식의 해를 구한다.",
+      "diagnostic_signals": [
+        "위/아래 부호 구간 반대로 선택",
+        "근의 위치 표시 오류",
+        "등호 포함 여부 누락"
+      ],
+      "remediation_keywords": [
+        "이차부등식",
+        "그래프 부호",
+        "부호 구간"
+      ],
+      "source_orders": [
+        45,
+        46
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C057",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "이차부등식",
+      "concept_name": "인수분해를 이용한 이차부등식 풀이",
+      "description": "이차식을 인수분해하여 수직선 또는 부호표로 해를 구한다.",
+      "diagnostic_signals": [
+        "부호표 작성 오류",
+        "두 근 사이/바깥 구간 선택 오류",
+        "중근 조건 처리 실패"
+      ],
+      "remediation_keywords": [
+        "인수분해",
+        "부호표",
+        "수직선"
+      ],
+      "source_orders": [
+        46
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C058",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "이차부등식",
+      "concept_name": "절댓값·가우스 포함 이차부등식",
+      "description": "절댓값 또는 가우스 기호가 포함된 이차부등식을 구간 분기와 그래프로 푼다.",
+      "diagnostic_signals": [
+        "구간 나눔 누락",
+        "분기 후 조건 검산 누락",
+        "절댓값 제거 오류"
+      ],
+      "remediation_keywords": [
+        "절댓값 이차부등식",
+        "가우스",
+        "구간 분기"
+      ],
+      "source_orders": [
+        46,
+        47
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C059",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "이차부등식 조건",
+      "concept_name": "해가 주어진 이차부등식",
+      "description": "이차부등식의 해가 구간으로 주어질 때 이차식의 근, 계수, 미정계수를 역추론한다.",
+      "diagnostic_signals": [
+        "해 구간과 근을 연결 못함",
+        "부등호 방향 반대",
+        "미정계수 조건 누락"
+      ],
+      "remediation_keywords": [
+        "해가 주어진 부등식",
+        "역추론",
+        "근과 계수"
+      ],
+      "source_orders": [
+        47,
+        53
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C060",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "이차부등식 조건",
+      "concept_name": "이차부등식의 해의 존재 조건",
+      "description": "해를 가질 조건, 해를 갖지 않을 조건, 항상 성립 조건을 판별식과 그래프 위치로 판단한다.",
+      "diagnostic_signals": [
+        "D 조건과 부호 조건 혼동",
+        "항상 성립/해 없음 반대로 판단",
+        "a의 부호 누락"
+      ],
+      "remediation_keywords": [
+        "해의 조건",
+        "항상 성립",
+        "해 없음"
+      ],
+      "source_orders": [
+        48,
+        49,
+        50
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C061",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "이차부등식 위치관계",
+      "concept_name": "이차부등식과 두 그래프의 위치 관계",
+      "description": "이차함수와 직선 또는 두 이차함수의 위치 관계를 부등식의 해 구간으로 해석한다.",
+      "diagnostic_signals": [
+        "그래프 위/아래를 부등식과 연결 못함",
+        "교점 조건 누락",
+        "두 함수 차를 만들지 않음"
+      ],
+      "remediation_keywords": [
+        "위치관계",
+        "두 그래프",
+        "함수 차"
+      ],
+      "source_orders": [
+        50,
+        51
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C062",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "이차부등식 활용",
+      "concept_name": "이차부등식의 활용",
+      "description": "거리, 시간, 가격, 도형 등의 조건을 이차부등식으로 세우고 가능한 범위를 구한다.",
+      "diagnostic_signals": [
+        "범위 조건 설정 누락",
+        "해 구간과 문제 조건 교집합 오류",
+        "단위 검산 누락"
+      ],
+      "remediation_keywords": [
+        "활용",
+        "가능 범위",
+        "조건 해석"
+      ],
+      "source_orders": [
+        51,
+        52
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C063",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "연립이차부등식",
+      "concept_name": "연립이차부등식의 풀이",
+      "description": "일차·이차부등식 또는 두 이차부등식의 해를 각각 구한 뒤 공통 범위를 찾는다.",
+      "diagnostic_signals": [
+        "각 부등식 해를 따로 구하지 않음",
+        "공통 범위 교집합 오류",
+        "해가 주어진 조건 처리 실패"
+      ],
+      "remediation_keywords": [
+        "연립이차부등식",
+        "공통 범위",
+        "교집합"
+      ],
+      "source_orders": [
+        52,
+        53,
+        54
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_EQINEQ_C064",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "unit_name": "방정식과 부등식",
+      "strand": "여러 가지 방정식과 부등식",
+      "sub_strand": "실근 위치",
+      "concept_name": "이차방정식의 실근의 부호와 위치",
+      "description": "이차함수값, 축, 판별식 조건으로 두 실근의 부호, 구간 포함, 실근 위치를 판단한다.",
+      "diagnostic_signals": [
+        "f(a)f(b) 조건 해석 실패",
+        "축 위치 조건 누락",
+        "두 근의 부호 조건 반대로 판단"
+      ],
+      "remediation_keywords": [
+        "실근의 위치",
+        "근의 부호",
+        "구간 조건"
+      ],
+      "source_orders": [
+        54,
+        55,
+        56
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
       "status": "curated_seed_from_image_taxonomy"
     }
   ],
