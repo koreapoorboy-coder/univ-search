@@ -1,0 +1,2712 @@
+{
+  "version": "1.0",
+  "unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+  "unit_name": "도형의 방정식",
+  "rule_count": 93,
+  "rules": [
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_001",
+      "name": "수직선 위의 두 점 사이의 거리 구하기 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "수직선 위의 두 점 사이의 거리 구하기 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C001",
+        "H1_CM2_GEQ_C002"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT001",
+        "H1_CM2_GEQ_PT002",
+        "H1_CM2_GEQ_PT004",
+        "H1_CM2_GEQ_PT005"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_002",
+      "name": "좌표평면 위의 두 점 사이의 거리 구하기 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "좌표평면 위의 두 점 사이의 거리 구하기 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C003",
+        "H1_CM2_GEQ_C004",
+        "H1_CM2_GEQ_C005",
+        "H1_CM2_GEQ_C006",
+        "H1_CM2_GEQ_C007",
+        "H1_CM2_GEQ_C008"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT007",
+        "H1_CM2_GEQ_PT008",
+        "H1_CM2_GEQ_PT010",
+        "H1_CM2_GEQ_PT011",
+        "H1_CM2_GEQ_PT013",
+        "H1_CM2_GEQ_PT014",
+        "H1_CM2_GEQ_PT016",
+        "H1_CM2_GEQ_PT017",
+        "H1_CM2_GEQ_PT019",
+        "H1_CM2_GEQ_PT020"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_003",
+      "name": "x축(y축) 위에 있는 점에서 같은 거리에 있는 점 구하기 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "x축(y축) 위에 있는 점에서 같은 거리에 있는 점 구하기 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C009"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT025",
+        "H1_CM2_GEQ_PT026"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_004",
+      "name": "직선 위의 점에서 같은 거리에 있는 점 구하기 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선 위의 점에서 같은 거리에 있는 점 구하기 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C010"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT028",
+        "H1_CM2_GEQ_PT029"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_005",
+      "name": "삼각형의 외심 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "삼각형의 외심 유형에서 평면좌표와 선분의 분점의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C011",
+        "H1_CM2_GEQ_C012"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT031",
+        "H1_CM2_GEQ_PT032",
+        "H1_CM2_GEQ_PT034",
+        "H1_CM2_GEQ_PT035"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_006",
+      "name": "두 점 사이의 거리의 활용(1) 삼각형의 모양 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 점 사이의 거리의 활용(1) 삼각형의 모양 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C013",
+        "H1_CM2_GEQ_C014"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT037",
+        "H1_CM2_GEQ_PT038",
+        "H1_CM2_GEQ_PT040",
+        "H1_CM2_GEQ_PT041"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_007",
+      "name": "두 점 사이의 거리의 활용(2) 선분 길이의 합의 최솟값 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 점 사이의 거리의 활용(2) 선분 길이의 합의 최솟값 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C015",
+        "H1_CM2_GEQ_C016"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT043",
+        "H1_CM2_GEQ_PT044",
+        "H1_CM2_GEQ_PT046",
+        "H1_CM2_GEQ_PT047"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_008",
+      "name": "두 점 사이의 거리의 활용(3) 거리의 제곱의 합의 최솟값 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 점 사이의 거리의 활용(3) 거리의 제곱의 합의 최솟값 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C017",
+        "H1_CM2_GEQ_C018",
+        "H1_CM2_GEQ_C019"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT049",
+        "H1_CM2_GEQ_PT050",
+        "H1_CM2_GEQ_PT052",
+        "H1_CM2_GEQ_PT053",
+        "H1_CM2_GEQ_PT055",
+        "H1_CM2_GEQ_PT056"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_009",
+      "name": "두 점 사이의 거리의 활용(4) 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 점 사이의 거리의 활용(4) 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C020",
+        "H1_CM2_GEQ_C021"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT058",
+        "H1_CM2_GEQ_PT059",
+        "H1_CM2_GEQ_PT061",
+        "H1_CM2_GEQ_PT062"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_010",
+      "name": "좌표를 이용하여 도형의 성질 확인하기 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "좌표를 이용하여 도형의 성질 확인하기 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C022",
+        "H1_CM2_GEQ_C023"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT064",
+        "H1_CM2_GEQ_PT065",
+        "H1_CM2_GEQ_PT067",
+        "H1_CM2_GEQ_PT068"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_011",
+      "name": "파푸스의 정리(중선정리) 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "파푸스의 정리(중선정리) 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C024",
+        "H1_CM2_GEQ_C025"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT070",
+        "H1_CM2_GEQ_PT071",
+        "H1_CM2_GEQ_PT073",
+        "H1_CM2_GEQ_PT074"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_012",
+      "name": "수직선 위의 선분의 내분점 구하기 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "수직선 위의 선분의 내분점 구하기 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C026",
+        "H1_CM2_GEQ_C027",
+        "H1_CM2_GEQ_C028"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT076",
+        "H1_CM2_GEQ_PT077",
+        "H1_CM2_GEQ_PT079",
+        "H1_CM2_GEQ_PT080",
+        "H1_CM2_GEQ_PT082",
+        "H1_CM2_GEQ_PT083"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_013",
+      "name": "좌표평면 위의 선분의 내분점 구하기 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "좌표평면 위의 선분의 내분점 구하기 유형에서 평면좌표와 선분의 분점의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C029",
+        "H1_CM2_GEQ_C030",
+        "H1_CM2_GEQ_C031"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT085",
+        "H1_CM2_GEQ_PT086",
+        "H1_CM2_GEQ_PT088",
+        "H1_CM2_GEQ_PT089",
+        "H1_CM2_GEQ_PT091",
+        "H1_CM2_GEQ_PT092"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_014",
+      "name": "조건이 주어지는 경우의 선분의 내분점 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition",
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "조건이 주어지는 경우의 선분의 내분점 유형에서 평면좌표와 선분의 분점의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C032",
+        "H1_CM2_GEQ_C033"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT094",
+        "H1_CM2_GEQ_PT095",
+        "H1_CM2_GEQ_PT097",
+        "H1_CM2_GEQ_PT098"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_015",
+      "name": "등식을 만족시키는 선분의 연장선 위의 점 구하기 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition",
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "등식을 만족시키는 선분의 연장선 위의 점 구하기 유형에서 평면좌표와 선분의 분점의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C034",
+        "H1_CM2_GEQ_C035",
+        "H1_CM2_GEQ_C036"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT100",
+        "H1_CM2_GEQ_PT101",
+        "H1_CM2_GEQ_PT103",
+        "H1_CM2_GEQ_PT104",
+        "H1_CM2_GEQ_PT106",
+        "H1_CM2_GEQ_PT107"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_016",
+      "name": "삼각형의 무게중심 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "삼각형의 무게중심 유형에서 평면좌표와 선분의 분점의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C037",
+        "H1_CM2_GEQ_C038",
+        "H1_CM2_GEQ_C039",
+        "H1_CM2_GEQ_C040",
+        "H1_CM2_GEQ_C041",
+        "H1_CM2_GEQ_C042"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT109",
+        "H1_CM2_GEQ_PT110",
+        "H1_CM2_GEQ_PT112",
+        "H1_CM2_GEQ_PT113",
+        "H1_CM2_GEQ_PT115",
+        "H1_CM2_GEQ_PT116",
+        "H1_CM2_GEQ_PT118",
+        "H1_CM2_GEQ_PT119",
+        "H1_CM2_GEQ_PT121",
+        "H1_CM2_GEQ_PT122"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_017",
+      "name": "삼각형의 세 변의 중점/일정한 내분점이 주어질 때의 무게중심 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "삼각형의 세 변의 중점/일정한 내분점이 주어질 때의 무게중심 유형에서 평면좌표와 선분의 분점의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C043",
+        "H1_CM2_GEQ_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT127",
+        "H1_CM2_GEQ_PT128",
+        "H1_CM2_GEQ_PT130",
+        "H1_CM2_GEQ_PT131"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_018",
+      "name": "삼각형의 내각의 이등분선 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance_to_line",
+          "area_formula",
+          "absolute_value_distance",
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "삼각형의 내각의 이등분선 유형에서 거리와 넓이의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C045",
+        "H1_CM2_GEQ_C046"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT133",
+        "H1_CM2_GEQ_PT134",
+        "H1_CM2_GEQ_PT136",
+        "H1_CM2_GEQ_PT137"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_019",
+      "name": "선분의 내분점의 활용(1) 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance_to_line",
+          "area_formula",
+          "absolute_value_distance",
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "선분의 내분점의 활용(1) 유형에서 거리와 넓이의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C047",
+        "H1_CM2_GEQ_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT139",
+        "H1_CM2_GEQ_PT140",
+        "H1_CM2_GEQ_PT142",
+        "H1_CM2_GEQ_PT143"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_020",
+      "name": "선분의 내분점의 활용(2) 평행사변형 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "선분의 내분점의 활용(2) 평행사변형 유형에서 평면좌표와 선분의 분점의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C049",
+        "H1_CM2_GEQ_C050",
+        "H1_CM2_GEQ_C051",
+        "H1_CM2_GEQ_C052",
+        "H1_CM2_GEQ_C053",
+        "H1_CM2_GEQ_C054",
+        "H1_CM2_GEQ_C055"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT145",
+        "H1_CM2_GEQ_PT146",
+        "H1_CM2_GEQ_PT148",
+        "H1_CM2_GEQ_PT149",
+        "H1_CM2_GEQ_PT151",
+        "H1_CM2_GEQ_PT152",
+        "H1_CM2_GEQ_PT154",
+        "H1_CM2_GEQ_PT155",
+        "H1_CM2_GEQ_PT157",
+        "H1_CM2_GEQ_PT158"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_021",
+      "name": "자취의 방정식 - 점의 자취 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "locus_equation",
+          "condition_translation",
+          "equation_modeling",
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "자취의 방정식 - 점의 자취 유형에서 자취의 방정식의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C056",
+        "H1_CM2_GEQ_C057"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT166",
+        "H1_CM2_GEQ_PT167",
+        "H1_CM2_GEQ_PT169",
+        "H1_CM2_GEQ_PT170"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_022",
+      "name": "직선의 방정식(1) 한 점과 기울기가 주어질 때 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선의 방정식(1) 한 점과 기울기가 주어질 때 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C058",
+        "H1_CM2_GEQ_C059"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT172",
+        "H1_CM2_GEQ_PT173",
+        "H1_CM2_GEQ_PT175",
+        "H1_CM2_GEQ_PT176"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_023",
+      "name": "직선의 방정식(2) x축과 이루는 각의 크기가 주어질 때 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선의 방정식(2) x축과 이루는 각의 크기가 주어질 때 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C060"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT178",
+        "H1_CM2_GEQ_PT179"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_024",
+      "name": "직선의 방정식(3) 두 점이 주어질 때 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선의 방정식(3) 두 점이 주어질 때 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C061",
+        "H1_CM2_GEQ_C062",
+        "H1_CM2_GEQ_C063",
+        "H1_CM2_GEQ_C064",
+        "H1_CM2_GEQ_C065"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT181",
+        "H1_CM2_GEQ_PT182",
+        "H1_CM2_GEQ_PT184",
+        "H1_CM2_GEQ_PT185",
+        "H1_CM2_GEQ_PT187",
+        "H1_CM2_GEQ_PT188",
+        "H1_CM2_GEQ_PT190",
+        "H1_CM2_GEQ_PT191",
+        "H1_CM2_GEQ_PT193",
+        "H1_CM2_GEQ_PT194"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_025",
+      "name": "직선의 방정식(4) x절편, y절편이 주어질 때 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선의 방정식(4) x절편, y절편이 주어질 때 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C066",
+        "H1_CM2_GEQ_C067"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT196",
+        "H1_CM2_GEQ_PT197",
+        "H1_CM2_GEQ_PT199",
+        "H1_CM2_GEQ_PT200"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_026",
+      "name": "x절편·y절편과 삼각형의 넓이 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance_to_line",
+          "area_formula",
+          "absolute_value_distance"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "x절편·y절편과 삼각형의 넓이 유형에서 거리와 넓이의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C068",
+        "H1_CM2_GEQ_C069"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT202",
+        "H1_CM2_GEQ_PT203",
+        "H1_CM2_GEQ_PT205",
+        "H1_CM2_GEQ_PT206"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_027",
+      "name": "세 점이 한 직선 위에 있을 조건 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "세 점이 한 직선 위에 있을 조건 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C070"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT208",
+        "H1_CM2_GEQ_PT209"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_028",
+      "name": "도형의 넓이를 이등분하는 직선의 방정식(1) 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance_to_line",
+          "area_formula",
+          "absolute_value_distance"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도형의 넓이를 이등분하는 직선의 방정식(1) 유형에서 거리와 넓이의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C071",
+        "H1_CM2_GEQ_C072"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT211",
+        "H1_CM2_GEQ_PT212",
+        "H1_CM2_GEQ_PT214",
+        "H1_CM2_GEQ_PT215"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_029",
+      "name": "도형의 넓이를 이등분하는 직선의 방정식(2) 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도형의 넓이를 이등분하는 직선의 방정식(2) 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C073",
+        "H1_CM2_GEQ_C074"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT217",
+        "H1_CM2_GEQ_PT218",
+        "H1_CM2_GEQ_PT220",
+        "H1_CM2_GEQ_PT221"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_030",
+      "name": "계수의 부호와 그래프의 개형 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation",
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "계수의 부호와 그래프의 개형 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C075",
+        "H1_CM2_GEQ_C076"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT223",
+        "H1_CM2_GEQ_PT224",
+        "H1_CM2_GEQ_PT226",
+        "H1_CM2_GEQ_PT227"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_031",
+      "name": "정점을 지나는 직선의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "정점을 지나는 직선의 방정식 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C077",
+        "H1_CM2_GEQ_C078"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT229",
+        "H1_CM2_GEQ_PT230",
+        "H1_CM2_GEQ_PT232",
+        "H1_CM2_GEQ_PT233"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_032",
+      "name": "정점을 지나는 직선의 활용 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "정점을 지나는 직선의 활용 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C079",
+        "H1_CM2_GEQ_C080"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT235",
+        "H1_CM2_GEQ_PT236",
+        "H1_CM2_GEQ_PT238",
+        "H1_CM2_GEQ_PT239"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_033",
+      "name": "두 직선의 교점을 지나는 직선의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 직선의 교점을 지나는 직선의 방정식 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C081",
+        "H1_CM2_GEQ_C082"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT241",
+        "H1_CM2_GEQ_PT242",
+        "H1_CM2_GEQ_PT244",
+        "H1_CM2_GEQ_PT245"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_034",
+      "name": "기울기가 미정인 직선이 지나는 범위 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "기울기가 미정인 직선이 지나는 범위 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C083",
+        "H1_CM2_GEQ_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT247",
+        "H1_CM2_GEQ_PT248",
+        "H1_CM2_GEQ_PT250",
+        "H1_CM2_GEQ_PT251"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_035",
+      "name": "직선의 방정식(5) 평행 또는 수직 조건이 주어질 때 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선의 방정식(5) 평행 또는 수직 조건이 주어질 때 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C085"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT253",
+        "H1_CM2_GEQ_PT254"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_036",
+      "name": "두 직선 y=mx+n, y=m'x+n'의 위치 관계 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 직선 y=mx+n, y=m'x+n'의 위치 관계 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C086",
+        "H1_CM2_GEQ_C087",
+        "H1_CM2_GEQ_C088",
+        "H1_CM2_GEQ_C089",
+        "H1_CM2_GEQ_C090"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT256",
+        "H1_CM2_GEQ_PT257",
+        "H1_CM2_GEQ_PT259",
+        "H1_CM2_GEQ_PT260",
+        "H1_CM2_GEQ_PT262",
+        "H1_CM2_GEQ_PT263",
+        "H1_CM2_GEQ_PT265",
+        "H1_CM2_GEQ_PT266",
+        "H1_CM2_GEQ_PT268",
+        "H1_CM2_GEQ_PT269"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_037",
+      "name": "두 직선 ax+by+c=0, a'x+b'y+c'=0의 위치 관계 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 직선 ax+by+c=0, a'x+b'y+c'=0의 위치 관계 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C091",
+        "H1_CM2_GEQ_C092",
+        "H1_CM2_GEQ_C093",
+        "H1_CM2_GEQ_C094",
+        "H1_CM2_GEQ_C095"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT271",
+        "H1_CM2_GEQ_PT272",
+        "H1_CM2_GEQ_PT274",
+        "H1_CM2_GEQ_PT275",
+        "H1_CM2_GEQ_PT277",
+        "H1_CM2_GEQ_PT278",
+        "H1_CM2_GEQ_PT280",
+        "H1_CM2_GEQ_PT281",
+        "H1_CM2_GEQ_PT283",
+        "H1_CM2_GEQ_PT284"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_038",
+      "name": "기울기의 표현과 관련된 문제 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "기울기의 표현과 관련된 문제 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C096"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT286",
+        "H1_CM2_GEQ_PT287"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_039",
+      "name": "세 직선의 위치 관계 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "세 직선의 위치 관계 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C097",
+        "H1_CM2_GEQ_C098"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT289",
+        "H1_CM2_GEQ_PT290",
+        "H1_CM2_GEQ_PT292",
+        "H1_CM2_GEQ_PT293"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_040",
+      "name": "세 직선이 삼각형을 이루지 않는 경우 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "세 직선이 삼각형을 이루지 않는 경우 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C099"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT295",
+        "H1_CM2_GEQ_PT296"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_041",
+      "name": "선분의 수직이등분선의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "선분의 수직이등분선의 방정식 유형에서 평면좌표와 선분의 분점의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C100",
+        "H1_CM2_GEQ_C101"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT298",
+        "H1_CM2_GEQ_PT299",
+        "H1_CM2_GEQ_PT301",
+        "H1_CM2_GEQ_PT302"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_042",
+      "name": "삼각형의 수선의 교점 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_distance",
+          "condition_translation",
+          "geometry_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "삼각형의 수선의 교점 유형에서 평면좌표와 도형 해석의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C102"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT304",
+        "H1_CM2_GEQ_PT305"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_043",
+      "name": "이차방정식이 두 직선을 나타낼 조건 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "이차방정식이 두 직선을 나타낼 조건 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C103"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT307",
+        "H1_CM2_GEQ_PT308"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_044",
+      "name": "점과 직선 사이의 거리 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance_to_line",
+          "area_formula",
+          "absolute_value_distance"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점과 직선 사이의 거리 유형에서 거리와 넓이의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C104",
+        "H1_CM2_GEQ_C105",
+        "H1_CM2_GEQ_C106"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT310",
+        "H1_CM2_GEQ_PT311",
+        "H1_CM2_GEQ_PT313",
+        "H1_CM2_GEQ_PT314",
+        "H1_CM2_GEQ_PT316",
+        "H1_CM2_GEQ_PT317"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_045",
+      "name": "평행한 두 직선 사이의 거리 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance_to_line",
+          "area_formula",
+          "absolute_value_distance"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "평행한 두 직선 사이의 거리 유형에서 거리와 넓이의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C107",
+        "H1_CM2_GEQ_C108",
+        "H1_CM2_GEQ_C109"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT319",
+        "H1_CM2_GEQ_PT320",
+        "H1_CM2_GEQ_PT322",
+        "H1_CM2_GEQ_PT323",
+        "H1_CM2_GEQ_PT325",
+        "H1_CM2_GEQ_PT326"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_046",
+      "name": "점과 직선 사이의 거리의 활용 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance_to_line",
+          "area_formula",
+          "absolute_value_distance"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점과 직선 사이의 거리의 활용 유형에서 거리와 넓이의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C110",
+        "H1_CM2_GEQ_C111",
+        "H1_CM2_GEQ_C112",
+        "H1_CM2_GEQ_C113"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT328",
+        "H1_CM2_GEQ_PT329",
+        "H1_CM2_GEQ_PT331",
+        "H1_CM2_GEQ_PT332",
+        "H1_CM2_GEQ_PT334",
+        "H1_CM2_GEQ_PT335",
+        "H1_CM2_GEQ_PT337",
+        "H1_CM2_GEQ_PT338"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_047",
+      "name": "삼각형의 넓이 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance_to_line",
+          "area_formula",
+          "absolute_value_distance",
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "삼각형의 넓이 유형에서 거리와 넓이의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C114",
+        "H1_CM2_GEQ_C115",
+        "H1_CM2_GEQ_C116",
+        "H1_CM2_GEQ_C117"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT340",
+        "H1_CM2_GEQ_PT341",
+        "H1_CM2_GEQ_PT343",
+        "H1_CM2_GEQ_PT344",
+        "H1_CM2_GEQ_PT346",
+        "H1_CM2_GEQ_PT347",
+        "H1_CM2_GEQ_PT349",
+        "H1_CM2_GEQ_PT350"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_048",
+      "name": "두 직선으로부터 같은 거리에 있는 점의 자취 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 직선으로부터 같은 거리에 있는 점의 자취 유형에서 직선의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C118",
+        "H1_CM2_GEQ_C119",
+        "H1_CM2_GEQ_C120"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT352",
+        "H1_CM2_GEQ_PT353",
+        "H1_CM2_GEQ_PT355",
+        "H1_CM2_GEQ_PT356",
+        "H1_CM2_GEQ_PT358",
+        "H1_CM2_GEQ_PT359"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_049",
+      "name": "주어진 관계식을 만족시키는 점의 자취 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "locus_equation",
+          "condition_translation",
+          "equation_modeling",
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition",
+          "line_equation",
+          "slope_intercept",
+          "line_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "주어진 관계식을 만족시키는 점의 자취 유형에서 자취의 방정식의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C121",
+        "H1_CM2_GEQ_C122",
+        "H1_CM2_GEQ_C123",
+        "H1_CM2_GEQ_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT361",
+        "H1_CM2_GEQ_PT362",
+        "H1_CM2_GEQ_PT364",
+        "H1_CM2_GEQ_PT365",
+        "H1_CM2_GEQ_PT367",
+        "H1_CM2_GEQ_PT368",
+        "H1_CM2_GEQ_PT370",
+        "H1_CM2_GEQ_PT371"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_050",
+      "name": "원의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원의 방정식 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C125",
+        "H1_CM2_GEQ_C126",
+        "H1_CM2_GEQ_C127",
+        "H1_CM2_GEQ_C128",
+        "H1_CM2_GEQ_C129"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT373",
+        "H1_CM2_GEQ_PT374",
+        "H1_CM2_GEQ_PT376",
+        "H1_CM2_GEQ_PT377",
+        "H1_CM2_GEQ_PT379",
+        "H1_CM2_GEQ_PT380",
+        "H1_CM2_GEQ_PT382",
+        "H1_CM2_GEQ_PT383",
+        "H1_CM2_GEQ_PT385",
+        "H1_CM2_GEQ_PT386"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_051",
+      "name": "두 점을 지름의 양 끝점으로 하는 원의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 점을 지름의 양 끝점으로 하는 원의 방정식 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C130",
+        "H1_CM2_GEQ_C131"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT388",
+        "H1_CM2_GEQ_PT389",
+        "H1_CM2_GEQ_PT391",
+        "H1_CM2_GEQ_PT392"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_052",
+      "name": "세 점을 지나는 원의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "세 점을 지나는 원의 방정식 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C132",
+        "H1_CM2_GEQ_C133"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT394",
+        "H1_CM2_GEQ_PT395",
+        "H1_CM2_GEQ_PT397",
+        "H1_CM2_GEQ_PT398"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_053",
+      "name": "중심에 대한 조건이 주어진 원의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "중심에 대한 조건이 주어진 원의 방정식 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C134",
+        "H1_CM2_GEQ_C135",
+        "H1_CM2_GEQ_C136",
+        "H1_CM2_GEQ_C137"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT400",
+        "H1_CM2_GEQ_PT401",
+        "H1_CM2_GEQ_PT403",
+        "H1_CM2_GEQ_PT404",
+        "H1_CM2_GEQ_PT406",
+        "H1_CM2_GEQ_PT407",
+        "H1_CM2_GEQ_PT409",
+        "H1_CM2_GEQ_PT410"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_054",
+      "name": "원의 방정식이 되기 위한 조건 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원의 방정식이 되기 위한 조건 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C138",
+        "H1_CM2_GEQ_C139",
+        "H1_CM2_GEQ_C140"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT412",
+        "H1_CM2_GEQ_PT413",
+        "H1_CM2_GEQ_PT415",
+        "H1_CM2_GEQ_PT416",
+        "H1_CM2_GEQ_PT418",
+        "H1_CM2_GEQ_PT419"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_055",
+      "name": "x축 또는 y축에 접하는 원의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "x축 또는 y축에 접하는 원의 방정식 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C141",
+        "H1_CM2_GEQ_C142",
+        "H1_CM2_GEQ_C143",
+        "H1_CM2_GEQ_C144",
+        "H1_CM2_GEQ_C145",
+        "H1_CM2_GEQ_C146"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT421",
+        "H1_CM2_GEQ_PT422",
+        "H1_CM2_GEQ_PT424",
+        "H1_CM2_GEQ_PT425",
+        "H1_CM2_GEQ_PT427",
+        "H1_CM2_GEQ_PT428",
+        "H1_CM2_GEQ_PT430",
+        "H1_CM2_GEQ_PT431",
+        "H1_CM2_GEQ_PT433",
+        "H1_CM2_GEQ_PT434"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_056",
+      "name": "x축과 y축에 동시에 접하는 원의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "x축과 y축에 동시에 접하는 원의 방정식 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C147",
+        "H1_CM2_GEQ_C148",
+        "H1_CM2_GEQ_C149"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT439",
+        "H1_CM2_GEQ_PT440",
+        "H1_CM2_GEQ_PT442",
+        "H1_CM2_GEQ_PT443",
+        "H1_CM2_GEQ_PT445",
+        "H1_CM2_GEQ_PT446"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_057",
+      "name": "원 밖의 한 점과 원 위의 점 사이의 거리 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원 밖의 한 점과 원 위의 점 사이의 거리 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C150",
+        "H1_CM2_GEQ_C151",
+        "H1_CM2_GEQ_C152",
+        "H1_CM2_GEQ_C153"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT448",
+        "H1_CM2_GEQ_PT449",
+        "H1_CM2_GEQ_PT451",
+        "H1_CM2_GEQ_PT452",
+        "H1_CM2_GEQ_PT454",
+        "H1_CM2_GEQ_PT455",
+        "H1_CM2_GEQ_PT457",
+        "H1_CM2_GEQ_PT458"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_058",
+      "name": "자취의 방정식(1) 길이의 비를 만족시키는 점이 나타내는 도형의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "locus_equation",
+          "condition_translation",
+          "equation_modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "자취의 방정식(1) 길이의 비를 만족시키는 점이 나타내는 도형의 방정식 유형에서 자취의 방정식의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C154",
+        "H1_CM2_GEQ_C155",
+        "H1_CM2_GEQ_C156"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT460",
+        "H1_CM2_GEQ_PT461",
+        "H1_CM2_GEQ_PT463",
+        "H1_CM2_GEQ_PT464",
+        "H1_CM2_GEQ_PT466",
+        "H1_CM2_GEQ_PT467"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_059",
+      "name": "자취의 방정식(2) 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "locus_equation",
+          "condition_translation",
+          "equation_modeling",
+          "section_formula",
+          "coordinate_geometry",
+          "point_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "자취의 방정식(2) 유형에서 자취의 방정식의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C157",
+        "H1_CM2_GEQ_C158",
+        "H1_CM2_GEQ_C159"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT469",
+        "H1_CM2_GEQ_PT470",
+        "H1_CM2_GEQ_PT472",
+        "H1_CM2_GEQ_PT473",
+        "H1_CM2_GEQ_PT475",
+        "H1_CM2_GEQ_PT476"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_060",
+      "name": "두 원의 교점을 지나는 원의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 원의 교점을 지나는 원의 방정식 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C160",
+        "H1_CM2_GEQ_C161",
+        "H1_CM2_GEQ_C162"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT478",
+        "H1_CM2_GEQ_PT479",
+        "H1_CM2_GEQ_PT481",
+        "H1_CM2_GEQ_PT482",
+        "H1_CM2_GEQ_PT484",
+        "H1_CM2_GEQ_PT485"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_061",
+      "name": "두 원의 교점을 지나는 직선의 방정식 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 원의 교점을 지나는 직선의 방정식 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C163",
+        "H1_CM2_GEQ_C164",
+        "H1_CM2_GEQ_C165",
+        "H1_CM2_GEQ_C166",
+        "H1_CM2_GEQ_C167",
+        "H1_CM2_GEQ_C168"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT487",
+        "H1_CM2_GEQ_PT488",
+        "H1_CM2_GEQ_PT490",
+        "H1_CM2_GEQ_PT491",
+        "H1_CM2_GEQ_PT493",
+        "H1_CM2_GEQ_PT494",
+        "H1_CM2_GEQ_PT496",
+        "H1_CM2_GEQ_PT497",
+        "H1_CM2_GEQ_PT499",
+        "H1_CM2_GEQ_PT500"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_062",
+      "name": "공통현의 길이 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "공통현의 길이 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C169",
+        "H1_CM2_GEQ_C170"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT505",
+        "H1_CM2_GEQ_PT506",
+        "H1_CM2_GEQ_PT508",
+        "H1_CM2_GEQ_PT509"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_063",
+      "name": "직선이 원의 넓이를 이등분할 조건 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선이 원의 넓이를 이등분할 조건 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C171",
+        "H1_CM2_GEQ_C172",
+        "H1_CM2_GEQ_C173"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT511",
+        "H1_CM2_GEQ_PT512",
+        "H1_CM2_GEQ_PT514",
+        "H1_CM2_GEQ_PT515",
+        "H1_CM2_GEQ_PT517",
+        "H1_CM2_GEQ_PT518"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_064",
+      "name": "두 원의 위치 관계와 중심거리 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 원의 위치 관계와 중심거리 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C174",
+        "H1_CM2_GEQ_C175",
+        "H1_CM2_GEQ_C176",
+        "H1_CM2_GEQ_C177"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT520",
+        "H1_CM2_GEQ_PT521",
+        "H1_CM2_GEQ_PT523",
+        "H1_CM2_GEQ_PT524",
+        "H1_CM2_GEQ_PT526",
+        "H1_CM2_GEQ_PT527",
+        "H1_CM2_GEQ_PT529",
+        "H1_CM2_GEQ_PT530"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_065",
+      "name": "공통접선의 길이 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_tangent",
+          "tangent_length",
+          "line_circle_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "공통접선의 길이 유형에서 원의 접선과 현의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C178",
+        "H1_CM2_GEQ_C179",
+        "H1_CM2_GEQ_C180",
+        "H1_CM2_GEQ_C181"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT532",
+        "H1_CM2_GEQ_PT533",
+        "H1_CM2_GEQ_PT535",
+        "H1_CM2_GEQ_PT536",
+        "H1_CM2_GEQ_PT538",
+        "H1_CM2_GEQ_PT539",
+        "H1_CM2_GEQ_PT541",
+        "H1_CM2_GEQ_PT542"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_066",
+      "name": "원과 직선의 위치 관계 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation",
+          "circle_tangent",
+          "tangent_length",
+          "line_circle_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원과 직선의 위치 관계 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C182",
+        "H1_CM2_GEQ_C183",
+        "H1_CM2_GEQ_C184",
+        "H1_CM2_GEQ_C185",
+        "H1_CM2_GEQ_C186",
+        "H1_CM2_GEQ_C187",
+        "H1_CM2_GEQ_C188",
+        "H1_CM2_GEQ_C189",
+        "H1_CM2_GEQ_C190",
+        "H1_CM2_GEQ_C191",
+        "H1_CM2_GEQ_C192",
+        "H1_CM2_GEQ_C193",
+        "H1_CM2_GEQ_C194",
+        "H1_CM2_GEQ_C195"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT544",
+        "H1_CM2_GEQ_PT545",
+        "H1_CM2_GEQ_PT547",
+        "H1_CM2_GEQ_PT548",
+        "H1_CM2_GEQ_PT550",
+        "H1_CM2_GEQ_PT551",
+        "H1_CM2_GEQ_PT553",
+        "H1_CM2_GEQ_PT554",
+        "H1_CM2_GEQ_PT556",
+        "H1_CM2_GEQ_PT557"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_067",
+      "name": "현의 길이 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "현의 길이 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "H1_CM2_GEQ_C198"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT586",
+        "H1_CM2_GEQ_PT587",
+        "H1_CM2_GEQ_PT589",
+        "H1_CM2_GEQ_PT590",
+        "H1_CM2_GEQ_PT592",
+        "H1_CM2_GEQ_PT593"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_068",
+      "name": "접선의 길이 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_tangent",
+          "tangent_length",
+          "line_circle_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "접선의 길이 유형에서 원의 접선과 현의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C199"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT595",
+        "H1_CM2_GEQ_PT596"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_069",
+      "name": "원 위의 점과 직선 사이의 거리의 최대·최소 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_equation",
+          "center_radius",
+          "position_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원 위의 점과 직선 사이의 거리의 최대·최소 유형에서 원의 방정식과 위치 관계의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C200"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT598",
+        "H1_CM2_GEQ_PT599"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_070",
+      "name": "원의 접선의 방정식(1) 원 위의 한 점(접점)이 주어질 때 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_tangent",
+          "tangent_length",
+          "line_circle_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원의 접선의 방정식(1) 원 위의 한 점(접점)이 주어질 때 유형에서 원의 접선과 현의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C201",
+        "H1_CM2_GEQ_C202",
+        "H1_CM2_GEQ_C203"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT601",
+        "H1_CM2_GEQ_PT602",
+        "H1_CM2_GEQ_PT604",
+        "H1_CM2_GEQ_PT605",
+        "H1_CM2_GEQ_PT607",
+        "H1_CM2_GEQ_PT608"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_071",
+      "name": "원의 접선의 방정식(2) 기울기가 주어질 때 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_tangent",
+          "tangent_length",
+          "line_circle_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원의 접선의 방정식(2) 기울기가 주어질 때 유형에서 원의 접선과 현의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C204",
+        "H1_CM2_GEQ_C205"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT610",
+        "H1_CM2_GEQ_PT611",
+        "H1_CM2_GEQ_PT613",
+        "H1_CM2_GEQ_PT614"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_072",
+      "name": "원의 접선의 방정식(3) 원 밖의 한 점이 주어질 때 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_tangent",
+          "tangent_length",
+          "line_circle_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원의 접선의 방정식(3) 원 밖의 한 점이 주어질 때 유형에서 원의 접선과 현의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C206",
+        "H1_CM2_GEQ_C207",
+        "H1_CM2_GEQ_C208",
+        "H1_CM2_GEQ_C209"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT616",
+        "H1_CM2_GEQ_PT617",
+        "H1_CM2_GEQ_PT619",
+        "H1_CM2_GEQ_PT620",
+        "H1_CM2_GEQ_PT622",
+        "H1_CM2_GEQ_PT623",
+        "H1_CM2_GEQ_PT625",
+        "H1_CM2_GEQ_PT626"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_073",
+      "name": "원의 접선의 방정식의 활용 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_tangent",
+          "tangent_length",
+          "line_circle_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원의 접선의 방정식의 활용 유형에서 원의 접선과 현의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C210",
+        "H1_CM2_GEQ_C211",
+        "H1_CM2_GEQ_C212",
+        "H1_CM2_GEQ_C213",
+        "H1_CM2_GEQ_C214",
+        "H1_CM2_GEQ_C215"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT628",
+        "H1_CM2_GEQ_PT629",
+        "H1_CM2_GEQ_PT631",
+        "H1_CM2_GEQ_PT632",
+        "H1_CM2_GEQ_PT634",
+        "H1_CM2_GEQ_PT635",
+        "H1_CM2_GEQ_PT637",
+        "H1_CM2_GEQ_PT638",
+        "H1_CM2_GEQ_PT640",
+        "H1_CM2_GEQ_PT641"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_074",
+      "name": "점의 평행이동(1) 평행이동이 주어진 경우 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점의 평행이동(1) 평행이동이 주어진 경우 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C216",
+        "H1_CM2_GEQ_C217",
+        "H1_CM2_GEQ_C218"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT646",
+        "H1_CM2_GEQ_PT647",
+        "H1_CM2_GEQ_PT649",
+        "H1_CM2_GEQ_PT650",
+        "H1_CM2_GEQ_PT652",
+        "H1_CM2_GEQ_PT653"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_075",
+      "name": "점의 평행이동(2) 평행이동이 주어지지 않은 경우 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점의 평행이동(2) 평행이동이 주어지지 않은 경우 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C219",
+        "H1_CM2_GEQ_C220",
+        "H1_CM2_GEQ_C221"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT655",
+        "H1_CM2_GEQ_PT656",
+        "H1_CM2_GEQ_PT658",
+        "H1_CM2_GEQ_PT659",
+        "H1_CM2_GEQ_PT661",
+        "H1_CM2_GEQ_PT662"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_076",
+      "name": "직선의 평행이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선의 평행이동 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C222",
+        "H1_CM2_GEQ_C223",
+        "H1_CM2_GEQ_C224",
+        "H1_CM2_GEQ_C225"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT664",
+        "H1_CM2_GEQ_PT665",
+        "H1_CM2_GEQ_PT667",
+        "H1_CM2_GEQ_PT668",
+        "H1_CM2_GEQ_PT670",
+        "H1_CM2_GEQ_PT671",
+        "H1_CM2_GEQ_PT673",
+        "H1_CM2_GEQ_PT674"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_077",
+      "name": "원의 평행이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원의 평행이동 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C226",
+        "H1_CM2_GEQ_C227",
+        "H1_CM2_GEQ_C228",
+        "H1_CM2_GEQ_C229",
+        "H1_CM2_GEQ_C230"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT676",
+        "H1_CM2_GEQ_PT677",
+        "H1_CM2_GEQ_PT679",
+        "H1_CM2_GEQ_PT680",
+        "H1_CM2_GEQ_PT682",
+        "H1_CM2_GEQ_PT683",
+        "H1_CM2_GEQ_PT685",
+        "H1_CM2_GEQ_PT686",
+        "H1_CM2_GEQ_PT688",
+        "H1_CM2_GEQ_PT689"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_078",
+      "name": "포물선의 평행이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "포물선의 평행이동 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C231",
+        "H1_CM2_GEQ_C232",
+        "H1_CM2_GEQ_C233",
+        "H1_CM2_GEQ_C234"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT691",
+        "H1_CM2_GEQ_PT692",
+        "H1_CM2_GEQ_PT694",
+        "H1_CM2_GEQ_PT695",
+        "H1_CM2_GEQ_PT697",
+        "H1_CM2_GEQ_PT698",
+        "H1_CM2_GEQ_PT700",
+        "H1_CM2_GEQ_PT701"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_079",
+      "name": "도형의 평행이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도형의 평행이동 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C235",
+        "H1_CM2_GEQ_C236",
+        "H1_CM2_GEQ_C237"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT703",
+        "H1_CM2_GEQ_PT704",
+        "H1_CM2_GEQ_PT706",
+        "H1_CM2_GEQ_PT707",
+        "H1_CM2_GEQ_PT709",
+        "H1_CM2_GEQ_PT710"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_080",
+      "name": "평행이동의 활용 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "평행이동의 활용 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C238",
+        "H1_CM2_GEQ_C239",
+        "H1_CM2_GEQ_C240"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT712",
+        "H1_CM2_GEQ_PT713",
+        "H1_CM2_GEQ_PT715",
+        "H1_CM2_GEQ_PT716",
+        "H1_CM2_GEQ_PT718",
+        "H1_CM2_GEQ_PT719"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_081",
+      "name": "점의 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점의 대칭이동 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C241",
+        "H1_CM2_GEQ_C242",
+        "H1_CM2_GEQ_C243"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT721",
+        "H1_CM2_GEQ_PT722",
+        "H1_CM2_GEQ_PT724",
+        "H1_CM2_GEQ_PT725",
+        "H1_CM2_GEQ_PT727",
+        "H1_CM2_GEQ_PT728"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_082",
+      "name": "직선의 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선의 대칭이동 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C244",
+        "H1_CM2_GEQ_C245",
+        "H1_CM2_GEQ_C246",
+        "H1_CM2_GEQ_C247",
+        "H1_CM2_GEQ_C248"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT730",
+        "H1_CM2_GEQ_PT731",
+        "H1_CM2_GEQ_PT733",
+        "H1_CM2_GEQ_PT734",
+        "H1_CM2_GEQ_PT736",
+        "H1_CM2_GEQ_PT737",
+        "H1_CM2_GEQ_PT739",
+        "H1_CM2_GEQ_PT740",
+        "H1_CM2_GEQ_PT742",
+        "H1_CM2_GEQ_PT743"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_083",
+      "name": "원의 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "원의 대칭이동 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C249",
+        "H1_CM2_GEQ_C250",
+        "H1_CM2_GEQ_C251",
+        "H1_CM2_GEQ_C252"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT745",
+        "H1_CM2_GEQ_PT746",
+        "H1_CM2_GEQ_PT748",
+        "H1_CM2_GEQ_PT749",
+        "H1_CM2_GEQ_PT751",
+        "H1_CM2_GEQ_PT752",
+        "H1_CM2_GEQ_PT754",
+        "H1_CM2_GEQ_PT755"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_084",
+      "name": "포물선의 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "포물선의 대칭이동 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C253",
+        "H1_CM2_GEQ_C254",
+        "H1_CM2_GEQ_C255"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT757",
+        "H1_CM2_GEQ_PT758",
+        "H1_CM2_GEQ_PT760",
+        "H1_CM2_GEQ_PT761",
+        "H1_CM2_GEQ_PT763",
+        "H1_CM2_GEQ_PT764"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_085",
+      "name": "y=x, y=-x에 대한 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "y=x, y=-x에 대한 대칭이동 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C256",
+        "H1_CM2_GEQ_C257",
+        "H1_CM2_GEQ_C258",
+        "H1_CM2_GEQ_C259",
+        "H1_CM2_GEQ_C260"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT766",
+        "H1_CM2_GEQ_PT767",
+        "H1_CM2_GEQ_PT769",
+        "H1_CM2_GEQ_PT770",
+        "H1_CM2_GEQ_PT772",
+        "H1_CM2_GEQ_PT773",
+        "H1_CM2_GEQ_PT775",
+        "H1_CM2_GEQ_PT776",
+        "H1_CM2_GEQ_PT778",
+        "H1_CM2_GEQ_PT779"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_086",
+      "name": "점의 평행이동과 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점의 평행이동과 대칭이동 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C261"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT781",
+        "H1_CM2_GEQ_PT782"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_087",
+      "name": "도형의 평행이동과 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도형의 평행이동과 대칭이동 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C262",
+        "H1_CM2_GEQ_C263",
+        "H1_CM2_GEQ_C264",
+        "H1_CM2_GEQ_C265"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT784",
+        "H1_CM2_GEQ_PT785",
+        "H1_CM2_GEQ_PT787",
+        "H1_CM2_GEQ_PT788",
+        "H1_CM2_GEQ_PT790",
+        "H1_CM2_GEQ_PT791",
+        "H1_CM2_GEQ_PT793",
+        "H1_CM2_GEQ_PT794"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_088",
+      "name": "점에 대한 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점에 대한 대칭이동 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C266",
+        "H1_CM2_GEQ_C267",
+        "H1_CM2_GEQ_C268",
+        "H1_CM2_GEQ_C269"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT796",
+        "H1_CM2_GEQ_PT797",
+        "H1_CM2_GEQ_PT799",
+        "H1_CM2_GEQ_PT800",
+        "H1_CM2_GEQ_PT802",
+        "H1_CM2_GEQ_PT803",
+        "H1_CM2_GEQ_PT805",
+        "H1_CM2_GEQ_PT806"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_089",
+      "name": "직선에 대한 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직선에 대한 대칭이동 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C270",
+        "H1_CM2_GEQ_C271",
+        "H1_CM2_GEQ_C272"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT808",
+        "H1_CM2_GEQ_PT809",
+        "H1_CM2_GEQ_PT811",
+        "H1_CM2_GEQ_PT812",
+        "H1_CM2_GEQ_PT814",
+        "H1_CM2_GEQ_PT815"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_090",
+      "name": "f(x, y)=0의 평행이동과 대칭이동 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "f(x, y)=0의 평행이동과 대칭이동 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C273",
+        "H1_CM2_GEQ_C274"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT817",
+        "H1_CM2_GEQ_PT818",
+        "H1_CM2_GEQ_PT820",
+        "H1_CM2_GEQ_PT821"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_091",
+      "name": "대칭이동의 활용(1) 거리의 최솟값 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "대칭이동의 활용(1) 거리의 최솟값 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C275",
+        "H1_CM2_GEQ_C276",
+        "H1_CM2_GEQ_C277"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT823",
+        "H1_CM2_GEQ_PT824",
+        "H1_CM2_GEQ_PT826",
+        "H1_CM2_GEQ_PT827",
+        "H1_CM2_GEQ_PT829",
+        "H1_CM2_GEQ_PT830"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_092",
+      "name": "대칭이동의 활용(2) 다른 도형과의 위치 관계 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "reflection",
+          "symmetry_axis",
+          "coordinate_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "대칭이동의 활용(2) 다른 도형과의 위치 관계 유형에서 도형의 이동 - 대칭이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C278",
+        "H1_CM2_GEQ_C279",
+        "H1_CM2_GEQ_C280"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT832",
+        "H1_CM2_GEQ_PT833",
+        "H1_CM2_GEQ_PT835",
+        "H1_CM2_GEQ_PT836",
+        "H1_CM2_GEQ_PT838",
+        "H1_CM2_GEQ_PT839"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_GEQ_RULE_093",
+      "name": "평행이동과 대칭이동의 활용 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "translation",
+          "coordinate_transform",
+          "equation_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "평행이동과 대칭이동의 활용 유형에서 도형의 이동 - 평행이동의 핵심 조건을 식으로 번역하거나 검산하는 과정이 약합니다.",
+      "parent_message": "좌표·방정식 문제를 바로 계산하지 말고, 먼저 조건을 점/직선/원/이동 중 무엇으로 바꾸는지 표시한 뒤 풀이하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_GEQ_C281"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_GEQ_PT841",
+        "H1_CM2_GEQ_PT842"
+      ],
+      "severity": "high"
+    }
+  ]
+}

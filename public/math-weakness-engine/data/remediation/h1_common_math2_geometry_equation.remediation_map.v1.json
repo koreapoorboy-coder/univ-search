@@ -1,0 +1,4504 @@
+{
+  "version": "1.0",
+  "unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+  "unit_name": "도형의 방정식",
+  "remediation_count": 281,
+  "remediation": [
+    {
+      "concept_id": "H1_CM2_GEQ_C001",
+      "title": "수직선 위의 좌표가 주어진 두 점 사이의 거리 보강",
+      "priority": 1,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT001",
+        "H1_CM2_GEQ_PT002",
+        "H1_CM2_GEQ_PT003"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C002",
+      "title": "두 점 사이의 거리를 이용하여 수직선 위의 점의 좌표 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT004",
+        "H1_CM2_GEQ_PT005",
+        "H1_CM2_GEQ_PT006"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C003",
+      "title": "좌표가 주어졌을 때 두 점 사이의 거리 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT007",
+        "H1_CM2_GEQ_PT008",
+        "H1_CM2_GEQ_PT009"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C004",
+      "title": "두 점 사이의 거리가 어떤 수 이하가 되도록 하는 실수 범위 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT010",
+        "H1_CM2_GEQ_PT011",
+        "H1_CM2_GEQ_PT012"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C005",
+      "title": "선분의 길이 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT013",
+        "H1_CM2_GEQ_PT014",
+        "H1_CM2_GEQ_PT015"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C006",
+      "title": "거리의 최솟값, 선분의 길이의 최솟값 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT016",
+        "H1_CM2_GEQ_PT017",
+        "H1_CM2_GEQ_PT018"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C007",
+      "title": "도형에의 활용 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT019",
+        "H1_CM2_GEQ_PT020",
+        "H1_CM2_GEQ_PT021"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C008",
+      "title": "실생활 활용 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT022",
+        "H1_CM2_GEQ_PT023",
+        "H1_CM2_GEQ_PT024"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C009",
+      "title": "두 점으로부터 같은 거리에 있는 x축(y축) 위의 점 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT025",
+        "H1_CM2_GEQ_PT026",
+        "H1_CM2_GEQ_PT027"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C010",
+      "title": "두 점으로부터 같은 거리에 있는 직선 위의 점 보강",
+      "priority": 1,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT028",
+        "H1_CM2_GEQ_PT029",
+        "H1_CM2_GEQ_PT030"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C011",
+      "title": "삼각형의 외심의 좌표 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT031",
+        "H1_CM2_GEQ_PT032",
+        "H1_CM2_GEQ_PT033"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C012",
+      "title": "실생활 활용 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT034",
+        "H1_CM2_GEQ_PT035",
+        "H1_CM2_GEQ_PT036"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C013",
+      "title": "어떤 삼각형이 되도록 하는 점의 좌표 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT037",
+        "H1_CM2_GEQ_PT038",
+        "H1_CM2_GEQ_PT039"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C014",
+      "title": "삼각형의 모양 판단 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT040",
+        "H1_CM2_GEQ_PT041",
+        "H1_CM2_GEQ_PT042"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C015",
+      "title": "한 점이 좌표평면 임의의 점일 때 길이의 합의 최솟값 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT043",
+        "H1_CM2_GEQ_PT044",
+        "H1_CM2_GEQ_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C016",
+      "title": "두 점 사이의 거리 공식의 활용 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT046",
+        "H1_CM2_GEQ_PT047",
+        "H1_CM2_GEQ_PT048"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C017",
+      "title": "거리의 제곱의 합의 최솟값 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT049",
+        "H1_CM2_GEQ_PT050",
+        "H1_CM2_GEQ_PT051"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C018",
+      "title": "거리의 제곱의 합이 최소가 되는 점 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT052",
+        "H1_CM2_GEQ_PT053",
+        "H1_CM2_GEQ_PT054"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C019",
+      "title": "실생활 활용 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT055",
+        "H1_CM2_GEQ_PT056",
+        "H1_CM2_GEQ_PT057"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C020",
+      "title": "정사각형의 성질 활용하기 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT058",
+        "H1_CM2_GEQ_PT059",
+        "H1_CM2_GEQ_PT060"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C021",
+      "title": "일정한 속도로 움직이는 두 점 사이의 거리의 최솟값 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT061",
+        "H1_CM2_GEQ_PT062",
+        "H1_CM2_GEQ_PT063"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C022",
+      "title": "삼각형의 성질 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT064",
+        "H1_CM2_GEQ_PT065",
+        "H1_CM2_GEQ_PT066"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C023",
+      "title": "사각형의 성질 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT067",
+        "H1_CM2_GEQ_PT068",
+        "H1_CM2_GEQ_PT069"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C024",
+      "title": "중선의 길이 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT070",
+        "H1_CM2_GEQ_PT071",
+        "H1_CM2_GEQ_PT072"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C025",
+      "title": "중선정리의 활용 보강",
+      "priority": 1,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT073",
+        "H1_CM2_GEQ_PT074",
+        "H1_CM2_GEQ_PT075"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C026",
+      "title": "수직선 위의 점이 숫자로 주어졌을 때 내분점, 외분점, 중점 보강",
+      "priority": 1,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT076",
+        "H1_CM2_GEQ_PT077",
+        "H1_CM2_GEQ_PT078"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C027",
+      "title": "선분의 n등분점 보강",
+      "priority": 1,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT079",
+        "H1_CM2_GEQ_PT080",
+        "H1_CM2_GEQ_PT081"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C028",
+      "title": "수직선 위의 점에 문자가 포함되어 있을 때 내분점, 중점 보강",
+      "priority": 1,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT082",
+        "H1_CM2_GEQ_PT083",
+        "H1_CM2_GEQ_PT084"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C029",
+      "title": "점의 좌표가 숫자로 주어졌을 때 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT085",
+        "H1_CM2_GEQ_PT086",
+        "H1_CM2_GEQ_PT087"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C030",
+      "title": "점의 좌표에 문자(상수)가 포함되어 있을 때 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT088",
+        "H1_CM2_GEQ_PT089",
+        "H1_CM2_GEQ_PT090"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C031",
+      "title": "도형과 그래프에서의 내분점, 중점 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT091",
+        "H1_CM2_GEQ_PT092",
+        "H1_CM2_GEQ_PT093"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C032",
+      "title": "선분의 길이에 관한 등식을 만족시키는 점의 좌표 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT094",
+        "H1_CM2_GEQ_PT095",
+        "H1_CM2_GEQ_PT096"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C033",
+      "title": "수직선이나 도형이 주어졌을 때 조건을 만족시키는 점의 좌표 보강",
+      "priority": 1,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT097",
+        "H1_CM2_GEQ_PT098",
+        "H1_CM2_GEQ_PT099"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C034",
+      "title": "내분점의 좌표가 주어졌을 때 공식 활용하기 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT100",
+        "H1_CM2_GEQ_PT101",
+        "H1_CM2_GEQ_PT102"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C035",
+      "title": "내분점(외분점)이 좌표축 위에 있을 때 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT103",
+        "H1_CM2_GEQ_PT104",
+        "H1_CM2_GEQ_PT105"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C036",
+      "title": "내분점(외분점)이 직선이나 사분면 위에 있을 때 보강",
+      "priority": 1,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT106",
+        "H1_CM2_GEQ_PT107",
+        "H1_CM2_GEQ_PT108"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C037",
+      "title": "꼭짓점의 좌표가 숫자로 주어졌을 때 무게중심의 좌표 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT109",
+        "H1_CM2_GEQ_PT110",
+        "H1_CM2_GEQ_PT111"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C038",
+      "title": "꼭짓점의 좌표에 문자가 포함되어 있을 때 무게중심의 좌표 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT112",
+        "H1_CM2_GEQ_PT113",
+        "H1_CM2_GEQ_PT114"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C039",
+      "title": "내분점, 중점 공식을 활용하기 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT115",
+        "H1_CM2_GEQ_PT116",
+        "H1_CM2_GEQ_PT117"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C040",
+      "title": "삼각형과 임의의 한 점이 주어졌을 때 거리의 제곱의 합의 최솟값 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT118",
+        "H1_CM2_GEQ_PT119",
+        "H1_CM2_GEQ_PT120"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C041",
+      "title": "세 점과 임의의 한 점이 주어졌을 때 거리의 제곱의 합의 최솟값 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT121",
+        "H1_CM2_GEQ_PT122",
+        "H1_CM2_GEQ_PT123"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C042",
+      "title": "실생활 활용 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT124",
+        "H1_CM2_GEQ_PT125",
+        "H1_CM2_GEQ_PT126"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C043",
+      "title": "중점을 이용한 삼각형의 무게중심 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT127",
+        "H1_CM2_GEQ_PT128",
+        "H1_CM2_GEQ_PT129"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C044",
+      "title": "일정한 내분점을 이용한 삼각형의 무게중심 보강",
+      "priority": 1,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT130",
+        "H1_CM2_GEQ_PT131",
+        "H1_CM2_GEQ_PT132"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C045",
+      "title": "내각의 이등분선과 삼각형의 넓이의 비 보강",
+      "priority": 1,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT133",
+        "H1_CM2_GEQ_PT134",
+        "H1_CM2_GEQ_PT135"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C046",
+      "title": "내각의 이등분선과 점의 좌표, 선분의 길이 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT136",
+        "H1_CM2_GEQ_PT137",
+        "H1_CM2_GEQ_PT138"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C047",
+      "title": "내분점을 이용한 삼각형의 넓이의 비 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT139",
+        "H1_CM2_GEQ_PT140",
+        "H1_CM2_GEQ_PT141"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C048",
+      "title": "내분점을 이용한 선분의 길이의 제곱의 합 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT142",
+        "H1_CM2_GEQ_PT143",
+        "H1_CM2_GEQ_PT144"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C049",
+      "title": "평행사변형이 되도록 하는 점의 좌표 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT145",
+        "H1_CM2_GEQ_PT146",
+        "H1_CM2_GEQ_PT147"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C050",
+      "title": "마름모가 되도록 하는 점의 좌표 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT148",
+        "H1_CM2_GEQ_PT149",
+        "H1_CM2_GEQ_PT150"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C051",
+      "title": "평행사변형의 두 대각선의 교점의 좌표가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT151",
+        "H1_CM2_GEQ_PT152",
+        "H1_CM2_GEQ_PT153"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C052",
+      "title": "마름모의 두 대각선의 교점의 좌표가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT154",
+        "H1_CM2_GEQ_PT155",
+        "H1_CM2_GEQ_PT156"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C053",
+      "title": "평행사변형의 두 꼭짓점의 좌표와 둘레의 길이가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT157",
+        "H1_CM2_GEQ_PT158",
+        "H1_CM2_GEQ_PT159"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C054",
+      "title": "평행사변형에서 삼각형의 무게중심 활용하기 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT160",
+        "H1_CM2_GEQ_PT161",
+        "H1_CM2_GEQ_PT162"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C055",
+      "title": "마름모에서 삼각형의 성질 활용하기 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT163",
+        "H1_CM2_GEQ_PT164",
+        "H1_CM2_GEQ_PT165"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C056",
+      "title": "거리 또는 선분의 길이에 관한 식이 주어졌을 때 자취의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "움직이는 점을 (x,y)로 놓기",
+        "문장 조건을 거리식이나 비례식으로 세우기",
+        "정리된 식이 어떤 도형인지 판단"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT166",
+        "H1_CM2_GEQ_PT167",
+        "H1_CM2_GEQ_PT168"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C057",
+      "title": "직선 위를 움직이는 점에 대한 자취의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT169",
+        "H1_CM2_GEQ_PT170",
+        "H1_CM2_GEQ_PT171"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C058",
+      "title": "기울기가 숫자나 문자로 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT172",
+        "H1_CM2_GEQ_PT173",
+        "H1_CM2_GEQ_PT174"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C059",
+      "title": "기울기가 직선의 방정식으로 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT175",
+        "H1_CM2_GEQ_PT176",
+        "H1_CM2_GEQ_PT177"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C060",
+      "title": "한 점과 x축의 양의 방향이 이루는 각의 크기가 숫자로 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT178",
+        "H1_CM2_GEQ_PT179",
+        "H1_CM2_GEQ_PT180"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C061",
+      "title": "두 점의 좌표가 숫자로 주어졌을 때 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT181",
+        "H1_CM2_GEQ_PT182",
+        "H1_CM2_GEQ_PT183"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C062",
+      "title": "두 점의 좌표에 문자(상수)가 포함되어 있을 때 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT184",
+        "H1_CM2_GEQ_PT185",
+        "H1_CM2_GEQ_PT186"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C063",
+      "title": "내분점, 중점, 무게중심, 대칭을 활용한 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT187",
+        "H1_CM2_GEQ_PT188",
+        "H1_CM2_GEQ_PT189"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C064",
+      "title": "실생활 활용 문제 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT190",
+        "H1_CM2_GEQ_PT191",
+        "H1_CM2_GEQ_PT192"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C065",
+      "title": "도형의 성질을 활용하는 문제 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT193",
+        "H1_CM2_GEQ_PT194",
+        "H1_CM2_GEQ_PT195"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C066",
+      "title": "절편이 숫자나 좌표로 직접 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT196",
+        "H1_CM2_GEQ_PT197",
+        "H1_CM2_GEQ_PT198"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C067",
+      "title": "절편이 숫자나 좌표로 주어지지 않은 경우 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT199",
+        "H1_CM2_GEQ_PT200",
+        "H1_CM2_GEQ_PT201"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C068",
+      "title": "직선의 방정식에서 x절편, y절편을 구할 수 있는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT202",
+        "H1_CM2_GEQ_PT203",
+        "H1_CM2_GEQ_PT204"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C069",
+      "title": "직선의 방정식이 주어지지 않은 경우 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT205",
+        "H1_CM2_GEQ_PT206",
+        "H1_CM2_GEQ_PT207"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C070",
+      "title": "일직선 위에 있는 점 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT208",
+        "H1_CM2_GEQ_PT209",
+        "H1_CM2_GEQ_PT210"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C071",
+      "title": "삼각형의 넓이를 이등분하는 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT211",
+        "H1_CM2_GEQ_PT212",
+        "H1_CM2_GEQ_PT213"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C072",
+      "title": "삼각형의 넓이의 비, 삼등분점 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT214",
+        "H1_CM2_GEQ_PT215",
+        "H1_CM2_GEQ_PT216"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C073",
+      "title": "한 사각형의 넓이를 이등분하는 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT217",
+        "H1_CM2_GEQ_PT218",
+        "H1_CM2_GEQ_PT219"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C074",
+      "title": "두 사각형의 넓이를 동시에 이등분하는 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT220",
+        "H1_CM2_GEQ_PT221",
+        "H1_CM2_GEQ_PT222"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C075",
+      "title": "직선이 지나거나 지나지 않는 사분면 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT223",
+        "H1_CM2_GEQ_PT224",
+        "H1_CM2_GEQ_PT225"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C076",
+      "title": "그래프의 개형 추론 보강",
+      "priority": 2,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT226",
+        "H1_CM2_GEQ_PT227",
+        "H1_CM2_GEQ_PT228"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C077",
+      "title": "직선이 실수 k의 값에 관계없이 항상 지나는 점 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT229",
+        "H1_CM2_GEQ_PT230",
+        "H1_CM2_GEQ_PT231"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C078",
+      "title": "직선이 두 실수 a, b의 값에 관계없이 항상 지나는 점 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT232",
+        "H1_CM2_GEQ_PT233",
+        "H1_CM2_GEQ_PT234"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C079",
+      "title": "직선이 도형의 넓이를 이등분하기 위한 조건 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT235",
+        "H1_CM2_GEQ_PT236",
+        "H1_CM2_GEQ_PT237"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C080",
+      "title": "직선이 도형과 만나기 위한 조건 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT238",
+        "H1_CM2_GEQ_PT239",
+        "H1_CM2_GEQ_PT240"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C081",
+      "title": "두 직선의 교점과 다른 한 점을 지나는 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT241",
+        "H1_CM2_GEQ_PT242",
+        "H1_CM2_GEQ_PT243"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C082",
+      "title": "두 직선의 교점을 지나고 기울기가 주어진 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT244",
+        "H1_CM2_GEQ_PT245",
+        "H1_CM2_GEQ_PT246"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C083",
+      "title": "직선이 만나거나 지나가는 사분면 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT247",
+        "H1_CM2_GEQ_PT248",
+        "H1_CM2_GEQ_PT249"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C084",
+      "title": "직선이 선분과 한 점에서 만나기 위한 조건 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT250",
+        "H1_CM2_GEQ_PT251",
+        "H1_CM2_GEQ_PT252"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C085",
+      "title": "좌표축에 평행 또는 수직인 직선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT253",
+        "H1_CM2_GEQ_PT254",
+        "H1_CM2_GEQ_PT255"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C086",
+      "title": "두 직선(표준형)이 서로 평행 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT256",
+        "H1_CM2_GEQ_PT257",
+        "H1_CM2_GEQ_PT258"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C087",
+      "title": "두 직선(표준형)이 서로 수직 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT259",
+        "H1_CM2_GEQ_PT260",
+        "H1_CM2_GEQ_PT261"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C088",
+      "title": "두 직선(표준형)이 일치 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT262",
+        "H1_CM2_GEQ_PT263",
+        "H1_CM2_GEQ_PT264"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C089",
+      "title": "두 직선(표준형)의 위치 관계 판단하기 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT265",
+        "H1_CM2_GEQ_PT266",
+        "H1_CM2_GEQ_PT267"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C090",
+      "title": "두 직선(표준형)의 위치 관계의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT268",
+        "H1_CM2_GEQ_PT269",
+        "H1_CM2_GEQ_PT270"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C091",
+      "title": "두 직선(일반형)이 서로 평행 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT271",
+        "H1_CM2_GEQ_PT272",
+        "H1_CM2_GEQ_PT273"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C092",
+      "title": "두 직선(일반형)이 서로 수직 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT274",
+        "H1_CM2_GEQ_PT275",
+        "H1_CM2_GEQ_PT276"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C093",
+      "title": "두 직선(일반형)이 일치 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT277",
+        "H1_CM2_GEQ_PT278",
+        "H1_CM2_GEQ_PT279"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C094",
+      "title": "두 직선(일반형)의 위치 관계 판단하기 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT280",
+        "H1_CM2_GEQ_PT281",
+        "H1_CM2_GEQ_PT282"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C095",
+      "title": "두 직선(일반형)의 위치 관계의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT283",
+        "H1_CM2_GEQ_PT284",
+        "H1_CM2_GEQ_PT285"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C096",
+      "title": "도형 또는 좌표평면에서 직선의 기울기의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT286",
+        "H1_CM2_GEQ_PT287",
+        "H1_CM2_GEQ_PT288"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C097",
+      "title": "세 직선의 교점에 관한 조건이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT289",
+        "H1_CM2_GEQ_PT290",
+        "H1_CM2_GEQ_PT291"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C098",
+      "title": "세 직선의 위치 관계의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT292",
+        "H1_CM2_GEQ_PT293",
+        "H1_CM2_GEQ_PT294"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C099",
+      "title": "세 직선이 삼각형을 이루지 않도록 하는 상수의 값 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT295",
+        "H1_CM2_GEQ_PT296",
+        "H1_CM2_GEQ_PT297"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C100",
+      "title": "두 점의 좌표가 숫자로 주어졌을 때 수직이등분선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT298",
+        "H1_CM2_GEQ_PT299",
+        "H1_CM2_GEQ_PT300"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C101",
+      "title": "두 점의 좌표가 숫자로 주어지지 않았을 때 수직이등분선의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT301",
+        "H1_CM2_GEQ_PT302",
+        "H1_CM2_GEQ_PT303"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C102",
+      "title": "삼각형의 세 꼭짓점에서 각각의 대변에 그은 세 수선의 교점 보강",
+      "priority": 2,
+      "steps": [
+        "좌표 조건을 그림에 표시",
+        "도형 성질을 식으로 옮기기",
+        "구한 값이 문제의 범위 조건을 만족하는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT304",
+        "H1_CM2_GEQ_PT305",
+        "H1_CM2_GEQ_PT306"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C103",
+      "title": "주어진 이차방정식이 두 직선을 나타낼 조건 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT307",
+        "H1_CM2_GEQ_PT308",
+        "H1_CM2_GEQ_PT309"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C104",
+      "title": "점의 좌표와 직선의 방정식의 계수(상수항)가 모두 숫자인 경우 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT310",
+        "H1_CM2_GEQ_PT311",
+        "H1_CM2_GEQ_PT312"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C105",
+      "title": "점의 좌표나 직선의 방정식의 계수(상수항)에 문자가 포함된 경우 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT313",
+        "H1_CM2_GEQ_PT314",
+        "H1_CM2_GEQ_PT315"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C106",
+      "title": "한 점에서 직선까지의 거리가 주어졌을 때 직선의 방정식 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT316",
+        "H1_CM2_GEQ_PT317",
+        "H1_CM2_GEQ_PT318"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C107",
+      "title": "평행한 두 직선의 방정식이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT319",
+        "H1_CM2_GEQ_PT320",
+        "H1_CM2_GEQ_PT321"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C108",
+      "title": "평행한 두 직선의 방정식의 계수(상수항)에 상수가 포함된 경우 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT322",
+        "H1_CM2_GEQ_PT323",
+        "H1_CM2_GEQ_PT324"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C109",
+      "title": "평행한 두 직선 사이의 거리의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT325",
+        "H1_CM2_GEQ_PT326",
+        "H1_CM2_GEQ_PT327"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C110",
+      "title": "한 점과 두 직선 사이의 거리 비교 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT328",
+        "H1_CM2_GEQ_PT329",
+        "H1_CM2_GEQ_PT330"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C111",
+      "title": "직선의 방정식에 임의의 실수 k 또는 a,m이 포함되어 있을 때 한 점에 이르는 거리의 최댓값 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT331",
+        "H1_CM2_GEQ_PT332",
+        "H1_CM2_GEQ_PT333"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C112",
+      "title": "도형에의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT334",
+        "H1_CM2_GEQ_PT335",
+        "H1_CM2_GEQ_PT336"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C113",
+      "title": "실생활 활용 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT337",
+        "H1_CM2_GEQ_PT338",
+        "H1_CM2_GEQ_PT339"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C114",
+      "title": "세 꼭짓점의 좌표가 모두 숫자로 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT340",
+        "H1_CM2_GEQ_PT341",
+        "H1_CM2_GEQ_PT342"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C115",
+      "title": "세 꼭짓점의 좌표 중 일부를 직접 구해야 하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT343",
+        "H1_CM2_GEQ_PT344",
+        "H1_CM2_GEQ_PT345"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C116",
+      "title": "세 직선으로 둘러싸인 삼각형의 넓이 보강",
+      "priority": 2,
+      "steps": [
+        "거리공식에 넣을 점과 직선을 구분",
+        "절댓값과 분모의 제곱근을 빠뜨리지 않기",
+        "넓이는 밑변×높이 구조로 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT346",
+        "H1_CM2_GEQ_PT347",
+        "H1_CM2_GEQ_PT348"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C117",
+      "title": "세 직선에 둘러싸인 삼각형의 내접원 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT349",
+        "H1_CM2_GEQ_PT350",
+        "H1_CM2_GEQ_PT351"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C118",
+      "title": "두 직선으로부터 같은 거리에 있는 점이 나타내는 도형의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT352",
+        "H1_CM2_GEQ_PT353",
+        "H1_CM2_GEQ_PT354"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C119",
+      "title": "각의 이등분선의 방정식 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT355",
+        "H1_CM2_GEQ_PT356",
+        "H1_CM2_GEQ_PT357"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C120",
+      "title": "각의 이등분선의 방정식의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT358",
+        "H1_CM2_GEQ_PT359",
+        "H1_CM2_GEQ_PT360"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C121",
+      "title": "선분의 길이에 관한 관계식이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "움직이는 점을 (x,y)로 놓기",
+        "문장 조건을 거리식이나 비례식으로 세우기",
+        "정리된 식이 어떤 도형인지 판단"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT361",
+        "H1_CM2_GEQ_PT362",
+        "H1_CM2_GEQ_PT363"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C122",
+      "title": "중점, 내분점에 관한 관계식이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT364",
+        "H1_CM2_GEQ_PT365",
+        "H1_CM2_GEQ_PT366"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C123",
+      "title": "넓이에 관한 관계식이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "움직이는 점을 (x,y)로 놓기",
+        "문장 조건을 거리식이나 비례식으로 세우기",
+        "정리된 식이 어떤 도형인지 판단"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT367",
+        "H1_CM2_GEQ_PT368",
+        "H1_CM2_GEQ_PT369"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C124",
+      "title": "두 직선으로부터 같은 거리에 있는 점이 나타내는 도형의 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "기울기·절편·두 점·평행/수직 조건 중 무엇이 주어졌는지 표시",
+        "직선의 방정식을 표준형 또는 일반형으로 정리",
+        "위치 관계 또는 지나는 점 조건으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT370",
+        "H1_CM2_GEQ_PT371",
+        "H1_CM2_GEQ_PT372"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C125",
+      "title": "원의 방정식(표준형)이 주어졌을 때 중심과 반지름 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT373",
+        "H1_CM2_GEQ_PT374",
+        "H1_CM2_GEQ_PT375"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C126",
+      "title": "중심과 반지름을 이용한 원의 방정식(표준형) 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT376",
+        "H1_CM2_GEQ_PT377",
+        "H1_CM2_GEQ_PT378"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C127",
+      "title": "원의 방정식(일반형)의 계수(상수항)가 모두 숫자로 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT379",
+        "H1_CM2_GEQ_PT380",
+        "H1_CM2_GEQ_PT381"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C128",
+      "title": "원의 방정식(일반형)의 계수(상수항)에 문자가 포함된 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT382",
+        "H1_CM2_GEQ_PT383",
+        "H1_CM2_GEQ_PT384"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C129",
+      "title": "원의 방정식(표준형)의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT385",
+        "H1_CM2_GEQ_PT386",
+        "H1_CM2_GEQ_PT387"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C130",
+      "title": "지름의 양 끝 점의 좌표가 숫자로 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT388",
+        "H1_CM2_GEQ_PT389",
+        "H1_CM2_GEQ_PT390"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C131",
+      "title": "지름의 양 끝 점의 좌표에 문자가 포함되어 있거나 직접 구해야 하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT391",
+        "H1_CM2_GEQ_PT392",
+        "H1_CM2_GEQ_PT393"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C132",
+      "title": "원이 지나는 세 점의 좌표가 숫자로 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT394",
+        "H1_CM2_GEQ_PT395",
+        "H1_CM2_GEQ_PT396"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C133",
+      "title": "원이 지나는 세 점의 좌표에 문자가 포함되어 있거나 직접 구해야 하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT397",
+        "H1_CM2_GEQ_PT398",
+        "H1_CM2_GEQ_PT399"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C134",
+      "title": "중심이 같은 원의 방정식이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT400",
+        "H1_CM2_GEQ_PT401",
+        "H1_CM2_GEQ_PT402"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C135",
+      "title": "중심이 좌표축 위에 있다는 조건이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT403",
+        "H1_CM2_GEQ_PT404",
+        "H1_CM2_GEQ_PT405"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C136",
+      "title": "중심이 있는 직선의 방정식이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT406",
+        "H1_CM2_GEQ_PT407",
+        "H1_CM2_GEQ_PT408"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C137",
+      "title": "이외의 조건을 이용하여 원의 중심을 찾아야 하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT409",
+        "H1_CM2_GEQ_PT410",
+        "H1_CM2_GEQ_PT411"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C138",
+      "title": "방정식이 나타내는 도형이 원이 되기 위한 실수의 범위(정수의 개수) 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT412",
+        "H1_CM2_GEQ_PT413",
+        "H1_CM2_GEQ_PT414"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C139",
+      "title": "원의 방정식이 아닌 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT415",
+        "H1_CM2_GEQ_PT416",
+        "H1_CM2_GEQ_PT417"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C140",
+      "title": "원의 방정식에 임의의 실수가 포함되어 있을 때 원의 넓이의 최댓값, 최솟값 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT418",
+        "H1_CM2_GEQ_PT419",
+        "H1_CM2_GEQ_PT420"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C141",
+      "title": "원의 중심에 관한 조건이 주어진 경우(x축) 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT421",
+        "H1_CM2_GEQ_PT422",
+        "H1_CM2_GEQ_PT423"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C142",
+      "title": "원의 중심에 관한 조건이 주어진 경우(y축) 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT424",
+        "H1_CM2_GEQ_PT425",
+        "H1_CM2_GEQ_PT426"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C143",
+      "title": "원이 x축에 접하도록 방정식에 포함된 상수 결정하기 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT427",
+        "H1_CM2_GEQ_PT428",
+        "H1_CM2_GEQ_PT429"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C144",
+      "title": "원이 y축에 접하도록 방정식에 포함된 상수 결정하기 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT430",
+        "H1_CM2_GEQ_PT431",
+        "H1_CM2_GEQ_PT432"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C145",
+      "title": "x축에 접하는 원의 방정식의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT433",
+        "H1_CM2_GEQ_PT434",
+        "H1_CM2_GEQ_PT435"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C146",
+      "title": "y축에 접하는 원의 방정식의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT436",
+        "H1_CM2_GEQ_PT437",
+        "H1_CM2_GEQ_PT438"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C147",
+      "title": "원의 중심에 관한 조건이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT439",
+        "H1_CM2_GEQ_PT440",
+        "H1_CM2_GEQ_PT441"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C148",
+      "title": "원이 x축과 y축에 동시에 접하도록 방정식에 포함된 상수 결정하기 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT442",
+        "H1_CM2_GEQ_PT443",
+        "H1_CM2_GEQ_PT444"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C149",
+      "title": "x축과 y축에 동시에 접하는 원의 방정식의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT445",
+        "H1_CM2_GEQ_PT446",
+        "H1_CM2_GEQ_PT447"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C150",
+      "title": "원의 방정식의 모든 계수와 원 밖의 한 점이 숫자로 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT448",
+        "H1_CM2_GEQ_PT449",
+        "H1_CM2_GEQ_PT450"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C151",
+      "title": "거리의 최댓값(최솟값)이 주어졌을 때 상수 결정하기 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT451",
+        "H1_CM2_GEQ_PT452",
+        "H1_CM2_GEQ_PT453"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C152",
+      "title": "원 밖의 두 정점과 원 위를 움직이는 한 점이 주어진 경우의 삼각형의 넓이의 최댓값 또는 최솟값 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT454",
+        "H1_CM2_GEQ_PT455",
+        "H1_CM2_GEQ_PT456"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C153",
+      "title": "원 밖의 한 점과 원 위의 점 사이의 거리의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT457",
+        "H1_CM2_GEQ_PT458",
+        "H1_CM2_GEQ_PT459"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C154",
+      "title": "두 점으로부터의 거리의 비가 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "움직이는 점을 (x,y)로 놓기",
+        "문장 조건을 거리식이나 비례식으로 세우기",
+        "정리된 식이 어떤 도형인지 판단"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT460",
+        "H1_CM2_GEQ_PT461",
+        "H1_CM2_GEQ_PT462"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C155",
+      "title": "두 선분의 길이의 비가 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "움직이는 점을 (x,y)로 놓기",
+        "문장 조건을 거리식이나 비례식으로 세우기",
+        "정리된 식이 어떤 도형인지 판단"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT463",
+        "H1_CM2_GEQ_PT464",
+        "H1_CM2_GEQ_PT465"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C156",
+      "title": "실생활, 도형에의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "움직이는 점을 (x,y)로 놓기",
+        "문장 조건을 거리식이나 비례식으로 세우기",
+        "정리된 식이 어떤 도형인지 판단"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT466",
+        "H1_CM2_GEQ_PT467",
+        "H1_CM2_GEQ_PT468"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C157",
+      "title": "선분의 길이의 제곱 또는 선분의 길이에 대한 관계식이 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "움직이는 점을 (x,y)로 놓기",
+        "문장 조건을 거리식이나 비례식으로 세우기",
+        "정리된 식이 어떤 도형인지 판단"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT469",
+        "H1_CM2_GEQ_PT470",
+        "H1_CM2_GEQ_PT471"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C158",
+      "title": "중점, 내분점, 무게중심의 자취의 방정식 보강",
+      "priority": 3,
+      "steps": [
+        "문제에서 주어진 점과 묻는 점을 좌표평면에 표시",
+        "거리공식 또는 내분점/외분점 공식을 선택",
+        "구한 좌표를 원래 조건에 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT472",
+        "H1_CM2_GEQ_PT473",
+        "H1_CM2_GEQ_PT474"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C159",
+      "title": "직각(수직)에 대한 조건이 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "움직이는 점을 (x,y)로 놓기",
+        "문장 조건을 거리식이나 비례식으로 세우기",
+        "정리된 식이 어떤 도형인지 판단"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT475",
+        "H1_CM2_GEQ_PT476",
+        "H1_CM2_GEQ_PT477"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C160",
+      "title": "두 원의 교점과 한 점을 지나는 원의 방정식 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT478",
+        "H1_CM2_GEQ_PT479",
+        "H1_CM2_GEQ_PT480"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C161",
+      "title": "두 원의 교점을 지나고 중심이 좌표축이나 직선 위에 있는 원의 방정식 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT481",
+        "H1_CM2_GEQ_PT482",
+        "H1_CM2_GEQ_PT483"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C162",
+      "title": "두 원의 교점을 지나는 원의 넓이의 최솟값 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT484",
+        "H1_CM2_GEQ_PT485",
+        "H1_CM2_GEQ_PT486"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C163",
+      "title": "두 원의 방정식의 계수가 모두 숫자로 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT487",
+        "H1_CM2_GEQ_PT488",
+        "H1_CM2_GEQ_PT489"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C164",
+      "title": "두 원의 방정식의 계수에 문자가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT490",
+        "H1_CM2_GEQ_PT491",
+        "H1_CM2_GEQ_PT492"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C165",
+      "title": "공통현의 중점의 좌표 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT493",
+        "H1_CM2_GEQ_PT494",
+        "H1_CM2_GEQ_PT495"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C166",
+      "title": "한 원이 다른 원의 둘레를 이등분하기 위한 상수의 값 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT496",
+        "H1_CM2_GEQ_PT497",
+        "H1_CM2_GEQ_PT498"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C167",
+      "title": "한 원이 다른 원의 둘레를 이등분할 때 두 상수 사이의 관계 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT499",
+        "H1_CM2_GEQ_PT500",
+        "H1_CM2_GEQ_PT501"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C168",
+      "title": "공통현의 방정식의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT502",
+        "H1_CM2_GEQ_PT503",
+        "H1_CM2_GEQ_PT504"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C169",
+      "title": "두 원의 공통현의 길이 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT505",
+        "H1_CM2_GEQ_PT506",
+        "H1_CM2_GEQ_PT507"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C170",
+      "title": "공통현을 이용한 삼각형의 넓이 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT508",
+        "H1_CM2_GEQ_PT509",
+        "H1_CM2_GEQ_PT510"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C171",
+      "title": "원의 넓이를 이등분하는 직선의 방정식 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT511",
+        "H1_CM2_GEQ_PT512",
+        "H1_CM2_GEQ_PT513"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C172",
+      "title": "원의 둘레를 이등분하는 직선의 방정식 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT514",
+        "H1_CM2_GEQ_PT515",
+        "H1_CM2_GEQ_PT516"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C173",
+      "title": "원의 성질을 활용하여 직선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT517",
+        "H1_CM2_GEQ_PT518",
+        "H1_CM2_GEQ_PT519"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C174",
+      "title": "방정식이 주어진 두 원의 위치 관계 판단하기 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT520",
+        "H1_CM2_GEQ_PT521",
+        "H1_CM2_GEQ_PT522"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C175",
+      "title": "두 원의 위치 관계를 만족시키는 상수 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT523",
+        "H1_CM2_GEQ_PT524",
+        "H1_CM2_GEQ_PT525"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C176",
+      "title": "두 원 위의 접점을 이은 선분의 길이의 최댓값과 최솟값 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT526",
+        "H1_CM2_GEQ_PT527",
+        "H1_CM2_GEQ_PT528"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C177",
+      "title": "두 원의 위치 관계의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT529",
+        "H1_CM2_GEQ_PT530",
+        "H1_CM2_GEQ_PT531"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C178",
+      "title": "두 원의 방정식이 주어진 경우의 공통외접선 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT532",
+        "H1_CM2_GEQ_PT533",
+        "H1_CM2_GEQ_PT534"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C179",
+      "title": "두 원의 방정식이 주어진 경우의 공통내접선 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT535",
+        "H1_CM2_GEQ_PT536",
+        "H1_CM2_GEQ_PT537"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C180",
+      "title": "두 원의 반지름과 중심 사이의 거리가 그림으로 주어진 경우의 공통외접선 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT538",
+        "H1_CM2_GEQ_PT539",
+        "H1_CM2_GEQ_PT540"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C181",
+      "title": "두 원의 반지름과 중심 사이의 거리가 그림으로 주어진 경우의 공통내접선 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT541",
+        "H1_CM2_GEQ_PT542",
+        "H1_CM2_GEQ_PT543"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C182",
+      "title": "판별식을 이용한 원과 직선의 위치 관계 판단 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT544",
+        "H1_CM2_GEQ_PT545",
+        "H1_CM2_GEQ_PT546"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C183",
+      "title": "원의 중심에서 직선까지의 거리를 이용한 위치 관계 판단 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT547",
+        "H1_CM2_GEQ_PT548",
+        "H1_CM2_GEQ_PT549"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C184",
+      "title": "판별식을 이용한 원과 직선의 교점의 개수 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT550",
+        "H1_CM2_GEQ_PT551",
+        "H1_CM2_GEQ_PT552"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C185",
+      "title": "원의 중심에서 직선까지의 거리를 이용한 교점의 개수 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT553",
+        "H1_CM2_GEQ_PT554",
+        "H1_CM2_GEQ_PT555"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C186",
+      "title": "원과 직선이 만나지 않을 때 직선의 방정식에 상수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT556",
+        "H1_CM2_GEQ_PT557",
+        "H1_CM2_GEQ_PT558"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C187",
+      "title": "원과 직선이 접할 때 직선의 방정식에 상수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT559",
+        "H1_CM2_GEQ_PT560",
+        "H1_CM2_GEQ_PT561"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C188",
+      "title": "원과 직선이 두 점에서 만날 때 직선의 방정식에 상수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT562",
+        "H1_CM2_GEQ_PT563",
+        "H1_CM2_GEQ_PT564"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C189",
+      "title": "원과 직선이 만나지 않을 때 원의 방정식에 상수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT565",
+        "H1_CM2_GEQ_PT566",
+        "H1_CM2_GEQ_PT567"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C190",
+      "title": "원과 직선이 접할 때 원의 방정식에 상수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT568",
+        "H1_CM2_GEQ_PT569",
+        "H1_CM2_GEQ_PT570"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C191",
+      "title": "원과 직선이 두 점에서 만날 때 원의 방정식에 상수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT571",
+        "H1_CM2_GEQ_PT572",
+        "H1_CM2_GEQ_PT573"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C192",
+      "title": "직선과 접하는 원 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT574",
+        "H1_CM2_GEQ_PT575",
+        "H1_CM2_GEQ_PT576"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C193",
+      "title": "원과 직선이 만날 때(접하는 경우 포함) 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT577",
+        "H1_CM2_GEQ_PT578",
+        "H1_CM2_GEQ_PT579"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C194",
+      "title": "두 원의 공통접선의 방정식 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT580",
+        "H1_CM2_GEQ_PT581",
+        "H1_CM2_GEQ_PT582"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C195",
+      "title": "실생활 활용 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT583",
+        "H1_CM2_GEQ_PT584",
+        "H1_CM2_GEQ_PT585"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C196",
+      "title": "원과 좌표축(직선)이 만나서 생기는 현의 길이 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT586",
+        "H1_CM2_GEQ_PT587",
+        "H1_CM2_GEQ_PT588"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C197",
+      "title": "현의 길이가 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT589",
+        "H1_CM2_GEQ_PT590",
+        "H1_CM2_GEQ_PT591"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C198",
+      "title": "현의 길이의 최대, 최소 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT592",
+        "H1_CM2_GEQ_PT593",
+        "H1_CM2_GEQ_PT594"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C199",
+      "title": "원 밖의 한 점에서 원에 그은 접선의 길이 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT595",
+        "H1_CM2_GEQ_PT596",
+        "H1_CM2_GEQ_PT597"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C200",
+      "title": "원과 직선 사이의 거리의 최댓값(최솟값) 보강",
+      "priority": 3,
+      "steps": [
+        "원의 중심과 반지름을 먼저 구하기",
+        "완전제곱 또는 중심거리 조건으로 변환",
+        "접함/만남/만나지 않음 조건을 부등식 또는 등식으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT598",
+        "H1_CM2_GEQ_PT599",
+        "H1_CM2_GEQ_PT600"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C201",
+      "title": "접선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT601",
+        "H1_CM2_GEQ_PT602",
+        "H1_CM2_GEQ_PT603"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C202",
+      "title": "접선과 좌표축이 만나는 점 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT604",
+        "H1_CM2_GEQ_PT605",
+        "H1_CM2_GEQ_PT606"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C203",
+      "title": "접선이 지나는 점의 좌표 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT607",
+        "H1_CM2_GEQ_PT608",
+        "H1_CM2_GEQ_PT609"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C204",
+      "title": "접선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT610",
+        "H1_CM2_GEQ_PT611",
+        "H1_CM2_GEQ_PT612"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C205",
+      "title": "접선이 지나는 점, 선분의 길이 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT613",
+        "H1_CM2_GEQ_PT614",
+        "H1_CM2_GEQ_PT615"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C206",
+      "title": "접선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT616",
+        "H1_CM2_GEQ_PT617",
+        "H1_CM2_GEQ_PT618"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C207",
+      "title": "접선의 기울기와 그 활용 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT619",
+        "H1_CM2_GEQ_PT620",
+        "H1_CM2_GEQ_PT621"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C208",
+      "title": "원 밖의 한 점에서 접선을 그었을 때 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT622",
+        "H1_CM2_GEQ_PT623",
+        "H1_CM2_GEQ_PT624"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C209",
+      "title": "접선과 좌표축이 만나는 점, 접선이 지나는 점 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT625",
+        "H1_CM2_GEQ_PT626",
+        "H1_CM2_GEQ_PT627"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C210",
+      "title": "접선과 좌표축이 만나서 생기는 선분의 길이 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT628",
+        "H1_CM2_GEQ_PT629",
+        "H1_CM2_GEQ_PT630"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C211",
+      "title": "원 위의 점에서 접선을 그었을 때 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT631",
+        "H1_CM2_GEQ_PT632",
+        "H1_CM2_GEQ_PT633"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C212",
+      "title": "원 위의 두 점에서 접선을 긋는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT634",
+        "H1_CM2_GEQ_PT635",
+        "H1_CM2_GEQ_PT636"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C213",
+      "title": "원 밖의 한 점에서 그은 두 접선이 서로 수직 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT637",
+        "H1_CM2_GEQ_PT638",
+        "H1_CM2_GEQ_PT639"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C214",
+      "title": "세 원이 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT640",
+        "H1_CM2_GEQ_PT641",
+        "H1_CM2_GEQ_PT642"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C215",
+      "title": "삼각형의 넓이, 삼각형의 성질을 활용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "접선 조건을 중심에서 직선까지의 거리로 바꾸기",
+        "현의 길이는 중심에서 현까지의 거리와 반지름으로 계산",
+        "접점 또는 기울기 조건을 대입하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT643",
+        "H1_CM2_GEQ_PT644",
+        "H1_CM2_GEQ_PT645"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C216",
+      "title": "평행이동이 (x, y) → (x+a, y+b)의 꼴로 주어지는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT646",
+        "H1_CM2_GEQ_PT647",
+        "H1_CM2_GEQ_PT648"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C217",
+      "title": "x축, y축의 방향으로의 평행이동으로 주어지는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT649",
+        "H1_CM2_GEQ_PT650",
+        "H1_CM2_GEQ_PT651"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C218",
+      "title": "평행이동이 두 점의 좌표로 정의되는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT652",
+        "H1_CM2_GEQ_PT653",
+        "H1_CM2_GEQ_PT654"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C219",
+      "title": "평행이동 (x, y) → (x+a, y+b)에 상수(문자)가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT655",
+        "H1_CM2_GEQ_PT656",
+        "H1_CM2_GEQ_PT657"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C220",
+      "title": "x축, y축의 방향으로의 평행이동에 상수(문자)가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT658",
+        "H1_CM2_GEQ_PT659",
+        "H1_CM2_GEQ_PT660"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C221",
+      "title": "두 점의 좌표로 정의된 평행이동에 상수(문자)가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT661",
+        "H1_CM2_GEQ_PT662",
+        "H1_CM2_GEQ_PT663"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C222",
+      "title": "평행이동한 직선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT664",
+        "H1_CM2_GEQ_PT665",
+        "H1_CM2_GEQ_PT666"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C223",
+      "title": "평행이동 전후의 직선의 방정식이 주어졌을 때 상수(문자)의 값 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT667",
+        "H1_CM2_GEQ_PT668",
+        "H1_CM2_GEQ_PT669"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C224",
+      "title": "평행이동한 직선이 지나는 점이 주어졌을 때 상수(문자)의 값 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT670",
+        "H1_CM2_GEQ_PT671",
+        "H1_CM2_GEQ_PT672"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C225",
+      "title": "평행이동한 직선과 곡선의 위치 관계를 활용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT673",
+        "H1_CM2_GEQ_PT674",
+        "H1_CM2_GEQ_PT675"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C226",
+      "title": "평행이동한 원의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT676",
+        "H1_CM2_GEQ_PT677",
+        "H1_CM2_GEQ_PT678"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C227",
+      "title": "평행이동 전후의 원의 방정식이 주어졌을 때 상수(문자)의 값 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT679",
+        "H1_CM2_GEQ_PT680",
+        "H1_CM2_GEQ_PT681"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C228",
+      "title": "평행이동한 원의 중심의 좌표를 구하거나 이용하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT682",
+        "H1_CM2_GEQ_PT683",
+        "H1_CM2_GEQ_PT684"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C229",
+      "title": "평행이동한 원과 직선의 위치 관계를 활용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT685",
+        "H1_CM2_GEQ_PT686",
+        "H1_CM2_GEQ_PT687"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C230",
+      "title": "평행이동한 원과 다른 원의 위치 관계를 활용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT688",
+        "H1_CM2_GEQ_PT689",
+        "H1_CM2_GEQ_PT690"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C231",
+      "title": "평행이동한 포물선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT691",
+        "H1_CM2_GEQ_PT692",
+        "H1_CM2_GEQ_PT693"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C232",
+      "title": "평행이동 전후의 포물선의 방정식이 주어졌을 때 상수(문자)의 값 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT694",
+        "H1_CM2_GEQ_PT695",
+        "H1_CM2_GEQ_PT696"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C233",
+      "title": "평행이동한 포물선의 꼭짓점의 좌표를 구하거나 이용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT697",
+        "H1_CM2_GEQ_PT698",
+        "H1_CM2_GEQ_PT699"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C234",
+      "title": "평행이동한 포물선과 직선의 위치 관계를 활용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT700",
+        "H1_CM2_GEQ_PT701",
+        "H1_CM2_GEQ_PT702"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C235",
+      "title": "삼각형을 평행이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT703",
+        "H1_CM2_GEQ_PT704",
+        "H1_CM2_GEQ_PT705"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C236",
+      "title": "사각형을 평행이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT706",
+        "H1_CM2_GEQ_PT707",
+        "H1_CM2_GEQ_PT708"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C237",
+      "title": "평행이동의 실생활 활용 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT709",
+        "H1_CM2_GEQ_PT710",
+        "H1_CM2_GEQ_PT711"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C238",
+      "title": "원을 평행이동하여 좌표축에 접하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT712",
+        "H1_CM2_GEQ_PT713",
+        "H1_CM2_GEQ_PT714"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C239",
+      "title": "원 또는 직선을 평행이동하여 서로 접하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT715",
+        "H1_CM2_GEQ_PT716",
+        "H1_CM2_GEQ_PT717"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C240",
+      "title": "직선이 원의 넓이를 이등분하도록 평행이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT718",
+        "H1_CM2_GEQ_PT719",
+        "H1_CM2_GEQ_PT720"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C241",
+      "title": "대칭이동한 점의 좌표 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT721",
+        "H1_CM2_GEQ_PT722",
+        "H1_CM2_GEQ_PT723"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C242",
+      "title": "대칭이동한 점이 직선 위에 있는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT724",
+        "H1_CM2_GEQ_PT725",
+        "H1_CM2_GEQ_PT726"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C243",
+      "title": "대칭이동한 점을 꼭짓점으로 하는 선분의 길이 또는 도형의 넓이 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT727",
+        "H1_CM2_GEQ_PT728",
+        "H1_CM2_GEQ_PT729"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C244",
+      "title": "대칭이동한 직선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT730",
+        "H1_CM2_GEQ_PT731",
+        "H1_CM2_GEQ_PT732"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C245",
+      "title": "대칭이동한 직선과 수직(평행)인 직선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT733",
+        "H1_CM2_GEQ_PT734",
+        "H1_CM2_GEQ_PT735"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C246",
+      "title": "대칭이동한 직선이 지나는 점의 좌표가 숫자로 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT736",
+        "H1_CM2_GEQ_PT737",
+        "H1_CM2_GEQ_PT738"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C247",
+      "title": "직선의 대칭이동과 도형의 넓이 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT739",
+        "H1_CM2_GEQ_PT740",
+        "H1_CM2_GEQ_PT741"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C248",
+      "title": "대칭이동한 직선 사이의 거리 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT742",
+        "H1_CM2_GEQ_PT743",
+        "H1_CM2_GEQ_PT744"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C249",
+      "title": "대칭이동한 원의 방정식(중심의 좌표) 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT745",
+        "H1_CM2_GEQ_PT746",
+        "H1_CM2_GEQ_PT747"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C250",
+      "title": "대칭이동한 원이 지나는 점의 좌표가 숫자로 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT748",
+        "H1_CM2_GEQ_PT749",
+        "H1_CM2_GEQ_PT750"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C251",
+      "title": "대칭이동한 원의 중심이 직선 위에 있는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT751",
+        "H1_CM2_GEQ_PT752",
+        "H1_CM2_GEQ_PT753"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C252",
+      "title": "원의 일부분만 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT754",
+        "H1_CM2_GEQ_PT755",
+        "H1_CM2_GEQ_PT756"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C253",
+      "title": "대칭이동한 포물선의 방정식 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT757",
+        "H1_CM2_GEQ_PT758",
+        "H1_CM2_GEQ_PT759"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C254",
+      "title": "대칭이동한 포물선의 꼭짓점의 좌표를 구하거나 이용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT760",
+        "H1_CM2_GEQ_PT761",
+        "H1_CM2_GEQ_PT762"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C255",
+      "title": "대칭이동한 포물선이 지나는 점의 좌표를 구하거나 이용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT763",
+        "H1_CM2_GEQ_PT764",
+        "H1_CM2_GEQ_PT765"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C256",
+      "title": "점을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT766",
+        "H1_CM2_GEQ_PT767",
+        "H1_CM2_GEQ_PT768"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C257",
+      "title": "직선을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT769",
+        "H1_CM2_GEQ_PT770",
+        "H1_CM2_GEQ_PT771"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C258",
+      "title": "원을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT772",
+        "H1_CM2_GEQ_PT773",
+        "H1_CM2_GEQ_PT774"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C259",
+      "title": "포물선을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT775",
+        "H1_CM2_GEQ_PT776",
+        "H1_CM2_GEQ_PT777"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C260",
+      "title": "여러 가지 방정식이 나타내는 도형을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT778",
+        "H1_CM2_GEQ_PT779",
+        "H1_CM2_GEQ_PT780"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C261",
+      "title": "평행이동과 대칭이동 전, 후의 점의 좌표 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT781",
+        "H1_CM2_GEQ_PT782",
+        "H1_CM2_GEQ_PT783"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C262",
+      "title": "직선을 평행이동, 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT784",
+        "H1_CM2_GEQ_PT785",
+        "H1_CM2_GEQ_PT786"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C263",
+      "title": "원을 평행이동, 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT787",
+        "H1_CM2_GEQ_PT788",
+        "H1_CM2_GEQ_PT789"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C264",
+      "title": "포물선을 평행이동, 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT790",
+        "H1_CM2_GEQ_PT791",
+        "H1_CM2_GEQ_PT792"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C265",
+      "title": "여러 가지 방정식이 나타내는 도형을 평행이동, 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT793",
+        "H1_CM2_GEQ_PT794",
+        "H1_CM2_GEQ_PT795"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C266",
+      "title": "점을 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT796",
+        "H1_CM2_GEQ_PT797",
+        "H1_CM2_GEQ_PT798"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C267",
+      "title": "직선을 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT799",
+        "H1_CM2_GEQ_PT800",
+        "H1_CM2_GEQ_PT801"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C268",
+      "title": "원을 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT802",
+        "H1_CM2_GEQ_PT803",
+        "H1_CM2_GEQ_PT804"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C269",
+      "title": "포물선을 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT805",
+        "H1_CM2_GEQ_PT806",
+        "H1_CM2_GEQ_PT807"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C270",
+      "title": "점을 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT808",
+        "H1_CM2_GEQ_PT809",
+        "H1_CM2_GEQ_PT810"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C271",
+      "title": "직선을 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT811",
+        "H1_CM2_GEQ_PT812",
+        "H1_CM2_GEQ_PT813"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C272",
+      "title": "원을 대칭이동하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT814",
+        "H1_CM2_GEQ_PT815",
+        "H1_CM2_GEQ_PT816"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C273",
+      "title": "도형 f(x, y)=0이 그림으로 주어졌을 때 다른 방정식이 나타내는 도형 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT817",
+        "H1_CM2_GEQ_PT818",
+        "H1_CM2_GEQ_PT819"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C274",
+      "title": "도형 f(x, y)=0과 다른 도형이 그림으로 주어졌을 때 두 도형 사이의 관계 찾기 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT820",
+        "H1_CM2_GEQ_PT821",
+        "H1_CM2_GEQ_PT822"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C275",
+      "title": "한 점이 움직이는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT823",
+        "H1_CM2_GEQ_PT824",
+        "H1_CM2_GEQ_PT825"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C276",
+      "title": "두 개 이상의 점이 동시에 움직이는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT826",
+        "H1_CM2_GEQ_PT827",
+        "H1_CM2_GEQ_PT828"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C277",
+      "title": "실생활 활용 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT829",
+        "H1_CM2_GEQ_PT830",
+        "H1_CM2_GEQ_PT831"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C278",
+      "title": "대칭이동 후 원의 중심이 직선 위에 있을 때 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT832",
+        "H1_CM2_GEQ_PT833",
+        "H1_CM2_GEQ_PT834"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C279",
+      "title": "대칭이동 후 원과 직선의 위치 관계 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT835",
+        "H1_CM2_GEQ_PT836",
+        "H1_CM2_GEQ_PT837"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C280",
+      "title": "대칭이동 후 이차함수의 그래프와 직선의 위치 관계 보강",
+      "priority": 3,
+      "steps": [
+        "대칭 기준이 점인지 직선인지 먼저 표시",
+        "좌표 변환 규칙을 표로 작성",
+        "대칭 전후 거리와 위치 관계가 같은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT838",
+        "H1_CM2_GEQ_PT839",
+        "H1_CM2_GEQ_PT840"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM2_GEQ_C281",
+      "title": "도형의 넓이에의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "점의 이동 방향과 이동량을 먼저 표시",
+        "방정식에서는 x,y 치환의 부호를 확인",
+        "이동 전후 대표점 하나를 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM2_GEQ_PT841",
+        "H1_CM2_GEQ_PT842",
+        "H1_CM2_GEQ_PT843"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}
