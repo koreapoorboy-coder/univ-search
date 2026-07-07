@@ -1,0 +1,19 @@
+{
+  "patch_id": "math_weakness_engine_m1_expression_source_manifest_patch_20260707",
+  "date": "2026-07-07",
+  "version": "2026.07.07-m1-expression-source-manifest-v1.0",
+  "unit_id": "M1_EXPRESSION",
+  "unit_name": "문자와 식",
+  "source_upload": "문자와식.zip",
+  "source_image_count": 142,
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "patch_type": "source_manifest_only",
+  "note": "현재 업로드된 엔진에는 M1_EXPRESSION의 진단 핵심 파일이 이미 존재하고 data/sources/m1_expression.source_manifest.v1.json만 누락되어 있어 해당 파일만 보완합니다.",
+  "outputs": {
+    "source_manifest": "public/math-weakness-engine/data/sources/m1_expression.source_manifest.v1.json",
+    "patch_report": "public/math-weakness-engine/docs/patch_report_m1_expression_source_manifest_20260707.json"
+  },
+  "path_prefix": "public/math-weakness-engine/"
+}
