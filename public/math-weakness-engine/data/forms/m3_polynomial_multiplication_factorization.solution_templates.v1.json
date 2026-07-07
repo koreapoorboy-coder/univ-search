@@ -1,0 +1,139 @@
+{
+  "version": "2026.07.07-m3-polynomial-factorization-v1.0",
+  "unit_id": "M3_POLYNOMIAL_FACTORING",
+  "unit_name": "다항식의 곱셈과 인수분해",
+  "templates": [
+    {
+      "template_id": "M3_POLY_FORM_EXPANSION",
+      "name": "전개·동류항 정리 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_POLY_C001",
+        "M3_POLY_C002",
+        "M3_POLY_C008",
+        "M3_POLY_C013"
+      ],
+      "required_fields": [
+        "각 항의 곱 표시",
+        "동류항 정리 줄",
+        "최종 전개식",
+        "대입 또는 재전개 검산"
+      ],
+      "reject_if_missing": [
+        "각 항의 곱 표시",
+        "동류항 정리 줄"
+      ]
+    },
+    {
+      "template_id": "M3_POLY_FORM_MULTIPLICATION_FORMULA",
+      "name": "곱셈공식 적용 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_POLY_C003",
+        "M3_POLY_C004",
+        "M3_POLY_C005",
+        "M3_POLY_C006",
+        "M3_POLY_C007",
+        "M3_POLY_C010"
+      ],
+      "required_fields": [
+        "식의 형태 분류",
+        "사용한 공식명",
+        "가운데 항 또는 소거 항 확인",
+        "전개 결과 검산"
+      ],
+      "reject_if_missing": [
+        "사용한 공식명",
+        "가운데 항 또는 소거 항 확인"
+      ]
+    },
+    {
+      "template_id": "M3_POLY_FORM_NUMERIC_VALUE",
+      "name": "수 계산·식의 값 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_POLY_C014",
+        "M3_POLY_C015",
+        "M3_POLY_C016",
+        "M3_POLY_C020",
+        "M3_POLY_C021",
+        "M3_POLY_C023"
+      ],
+      "required_fields": [
+        "기준수 또는 조건 정리",
+        "공식 형태 변환",
+        "대입 과정",
+        "부호 검산"
+      ],
+      "reject_if_missing": [
+        "공식 형태 변환",
+        "대입 과정"
+      ]
+    },
+    {
+      "template_id": "M3_POLY_FORM_BASIC_FACTORING",
+      "name": "기본 인수분해 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_POLY_C025",
+        "M3_POLY_C027",
+        "M3_POLY_C028",
+        "M3_POLY_C031",
+        "M3_POLY_C033",
+        "M3_POLY_C034"
+      ],
+      "required_fields": [
+        "공통인수 확인",
+        "공식 또는 인수 조합 선택",
+        "인수분해 결과",
+        "전개 검산"
+      ],
+      "reject_if_missing": [
+        "공통인수 확인",
+        "전개 검산"
+      ]
+    },
+    {
+      "template_id": "M3_POLY_FORM_COMPLEX_FACTORING",
+      "name": "복잡한 식 인수분해 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_POLY_C043",
+        "M3_POLY_C044",
+        "M3_POLY_C045",
+        "M3_POLY_C046",
+        "M3_POLY_C048",
+        "M3_POLY_C050",
+        "M3_POLY_C051"
+      ],
+      "required_fields": [
+        "식 정리 또는 치환",
+        "묶기 기준",
+        "인수분해 결과",
+        "치환 되돌리기",
+        "추가 분해 확인"
+      ],
+      "reject_if_missing": [
+        "식 정리 또는 치환",
+        "추가 분해 확인"
+      ]
+    },
+    {
+      "template_id": "M3_POLY_FORM_APPLICATION",
+      "name": "활용·도형 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_POLY_C011",
+        "M3_POLY_C038",
+        "M3_POLY_C052",
+        "M3_POLY_C053",
+        "M3_POLY_C054",
+        "M3_POLY_C055"
+      ],
+      "required_fields": [
+        "문제 조건의 식 변환",
+        "사용한 전개/인수분해 공식",
+        "계산 결과",
+        "문제 맥락에 맞는 답 확인"
+      ],
+      "reject_if_missing": [
+        "문제 조건의 식 변환",
+        "문제 맥락에 맞는 답 확인"
+      ]
+    }
+  ]
+}

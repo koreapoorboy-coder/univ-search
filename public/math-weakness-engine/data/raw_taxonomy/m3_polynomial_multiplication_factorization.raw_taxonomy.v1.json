@@ -1,0 +1,1434 @@
+{
+  "version": "2026.07.07-m3-polynomial-factorization-v1.0",
+  "unit_id": "M3_POLYNOMIAL_FACTORING",
+  "unit_name": "다항식의 곱셈과 인수분해",
+  "source_format": "image_taxonomy_from_problem_authoring_program",
+  "note": "원본 이미지는 패치 ZIP에 포함하지 않고, 1.png~24.png의 분류 구조를 다항식 전개, 곱셈공식, 곱셈공식의 변형, 인수분해, 복잡한 인수분해, 활용으로 재구성했습니다.",
+  "section_count": 62,
+  "sections": [
+    {
+      "raw_section_id": "M3_POLY_RAW_001",
+      "source_orders": [
+        1
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "다항식의 곱셈",
+      "subdomain": "다항식×다항식",
+      "task_group": "다항식과 다항식의 곱셈",
+      "representative_leaf_examples": [
+        "다항식과 다항식의 곱셈",
+        "분배법칙 적용 누락",
+        "항의 개수가 늘어날 때 일부 곱을 빠뜨림"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "1.png",
+      "concept_ids": [
+        "M3_POLY_C001"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_002",
+      "source_orders": [
+        2
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "다항식의 곱셈",
+      "subdomain": "계수 조건",
+      "task_group": "전개식의 계수 구하기",
+      "representative_leaf_examples": [
+        "전개식의 계수 구하기",
+        "특정 항을 찾지 못함",
+        "문자 조건을 계수 비교로 바꾸지 못함"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "2.png",
+      "concept_ids": [
+        "M3_POLY_C002"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_003",
+      "source_orders": [
+        2
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "합의 제곱",
+      "task_group": "합의 제곱 공식",
+      "representative_leaf_examples": [
+        "합의 제곱 공식",
+        "가운데 항 2ab 누락",
+        "제곱식 전개를 단순 분배와 혼동"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "2.png",
+      "concept_ids": [
+        "M3_POLY_C003"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_004",
+      "source_orders": [
+        2
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "차의 제곱",
+      "task_group": "차의 제곱 공식",
+      "representative_leaf_examples": [
+        "차의 제곱 공식",
+        "-2ab 부호 오류",
+        "차의 제곱을 a^2-b^2로 오해"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "2.png",
+      "concept_ids": [
+        "M3_POLY_C004"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_005",
+      "source_orders": [
+        3
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "합과 차의 곱",
+      "task_group": "합과 차의 곱 공식",
+      "representative_leaf_examples": [
+        "합과 차의 곱 공식",
+        "제곱의 차를 합의 제곱과 혼동",
+        "문자 2개 이상에서 항을 잘못 대응"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "3.png",
+      "concept_ids": [
+        "M3_POLY_C005"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_006",
+      "source_orders": [
+        3
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "연속한 합과 차",
+      "task_group": "연속한 합과 차의 곱",
+      "representative_leaf_examples": [
+        "연속한 합과 차의 곱",
+        "공통 부분을 보지 못함",
+        "변형 순서 없이 직접 전개하다 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "3.png",
+      "concept_ids": [
+        "M3_POLY_C006"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_007",
+      "source_orders": [
+        3
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "일차항 계수 1",
+      "task_group": "일차항 계수가 1인 두 일차식의 곱",
+      "representative_leaf_examples": [
+        "일차항 계수가 1인 두 일차식의 곱",
+        "일차항 계수를 a+b가 아닌 ab로 처리",
+        "상수항 계산 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "3.png",
+      "concept_ids": [
+        "M3_POLY_C007"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_008",
+      "source_orders": [
+        4
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "일차항 계수 일반",
+      "task_group": "일차항 계수가 1이 아닌 두 일차식의 곱",
+      "representative_leaf_examples": [
+        "일차항 계수가 1이 아닌 두 일차식의 곱",
+        "첫항·끝항만 곱함",
+        "교차곱 ad+bc를 누락"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "4.png",
+      "concept_ids": [
+        "M3_POLY_C008"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_009",
+      "source_orders": [
+        4,
+        16
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "세제곱 공식",
+      "task_group": "세제곱 공식의 전개",
+      "representative_leaf_examples": [
+        "세제곱 공식의 전개",
+        "계수 3 누락",
+        "세제곱 공식의 부호 배열 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "4.png, 16.png",
+      "concept_ids": [
+        "M3_POLY_C009"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_010",
+      "source_orders": [
+        4
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "공식 종합",
+      "task_group": "곱셈 공식 종합 적용",
+      "representative_leaf_examples": [
+        "곱셈 공식 종합 적용",
+        "공식 선택 오류",
+        "합차곱과 제곱식을 혼동"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "4.png",
+      "concept_ids": [
+        "M3_POLY_C010"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_011",
+      "source_orders": [
+        4,
+        5,
+        6
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "도형 활용",
+      "task_group": "도형을 이용한 곱셈 공식",
+      "representative_leaf_examples": [
+        "도형을 이용한 곱셈 공식",
+        "도형의 길이를 식으로 표현하지 못함",
+        "넓이/부피와 전개식 연결 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "4.png, 5.png, 6.png",
+      "concept_ids": [
+        "M3_POLY_C011"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_012",
+      "source_orders": [
+        5
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "공통부분 전개",
+      "task_group": "공통부분이 있는 식의 전개",
+      "representative_leaf_examples": [
+        "공통부분이 있는 식의 전개",
+        "공통부분을 찾지 못함",
+        "치환 후 원래 식으로 되돌리지 않음"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "5.png",
+      "concept_ids": [
+        "M3_POLY_C012"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_013",
+      "source_orders": [
+        5,
+        20
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식",
+      "subdomain": "세 항 이상의 곱",
+      "task_group": "세 항 이상의 곱 전개",
+      "representative_leaf_examples": [
+        "세 항 이상의 곱 전개",
+        "전개 순서 혼란",
+        "중간 결과를 정리하지 않고 계산"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "5.png, 20.png",
+      "concept_ids": [
+        "M3_POLY_C013"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_014",
+      "source_orders": [
+        6
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 수 계산",
+      "subdomain": "수의 제곱",
+      "task_group": "곱셈 공식을 이용한 수의 제곱 계산",
+      "representative_leaf_examples": [
+        "곱셈 공식을 이용한 수의 제곱 계산",
+        "기준수 설정 오류",
+        "공식은 알지만 수 계산에 적용하지 못함"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "6.png",
+      "concept_ids": [
+        "M3_POLY_C014"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_015",
+      "source_orders": [
+        7
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 수 계산",
+      "subdomain": "두 수의 곱",
+      "task_group": "곱셈 공식을 이용한 두 수의 곱 계산",
+      "representative_leaf_examples": [
+        "곱셈 공식을 이용한 두 수의 곱 계산",
+        "두 수를 합과 차로 바꾸지 못함",
+        "분수 형태의 공식을 놓침"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "7.png",
+      "concept_ids": [
+        "M3_POLY_C015"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_016",
+      "source_orders": [
+        7,
+        8
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 수 계산",
+      "subdomain": "복잡한 수",
+      "task_group": "복잡한 수의 계산",
+      "representative_leaf_examples": [
+        "복잡한 수의 계산",
+        "계산 형태를 공식 구조로 변형하지 못함",
+        "복잡한 수에서 부호와 괄호 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "7.png, 8.png",
+      "concept_ids": [
+        "M3_POLY_C016"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_017",
+      "source_orders": [
+        8
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 수 계산",
+      "subdomain": "제곱근 포함",
+      "task_group": "제곱근을 포함한 수의 계산",
+      "representative_leaf_examples": [
+        "제곱근을 포함한 수의 계산",
+        "제곱근의 제곱 처리 오류",
+        "무리수 항 소거 구조를 보지 못함"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "8.png",
+      "concept_ids": [
+        "M3_POLY_C017"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_018",
+      "source_orders": [
+        8
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 수 계산",
+      "subdomain": "유리수 조건",
+      "task_group": "계산 결과가 유리수가 될 조건",
+      "representative_leaf_examples": [
+        "계산 결과가 유리수가 될 조건",
+        "유리수 조건을 무리수항 소거로 연결하지 못함",
+        "계산 결과가 유리수가 될 조건 적용"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "8.png",
+      "concept_ids": [
+        "M3_POLY_C018"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_019",
+      "source_orders": [
+        9
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 수 계산",
+      "subdomain": "분모 유리화",
+      "task_group": "분모의 유리화",
+      "representative_leaf_examples": [
+        "분모의 유리화",
+        "켤레식 선택 오류",
+        "분자까지 곱하지 않음"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "9.png",
+      "concept_ids": [
+        "M3_POLY_C019"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_020",
+      "source_orders": [
+        9
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 변형",
+      "subdomain": "식의 값 기본",
+      "task_group": "수가 주어진 식의 값",
+      "representative_leaf_examples": [
+        "수가 주어진 식의 값",
+        "대입 전 식 정리 누락",
+        "무리수 계산 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "9.png",
+      "concept_ids": [
+        "M3_POLY_C020"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_021",
+      "source_orders": [
+        10
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 변형",
+      "subdomain": "합·차·곱 조건",
+      "task_group": "두 수의 합·차·곱이 주어진 식의 값",
+      "representative_leaf_examples": [
+        "두 수의 합·차·곱이 주어진 식의 값",
+        "주어진 조건을 제곱식으로 변형하지 못함",
+        "합과 곱 조건을 혼동"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "10.png",
+      "concept_ids": [
+        "M3_POLY_C021"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_022",
+      "source_orders": [
+        10
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 변형",
+      "subdomain": "곱이 1인 경우",
+      "task_group": "두 수의 곱이 1인 경우와 식 만들기",
+      "representative_leaf_examples": [
+        "두 수의 곱이 1인 경우와 식 만들기",
+        "역수 관계 활용 부족",
+        "x+1/x 꼴 제곱식 변형 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "10.png",
+      "concept_ids": [
+        "M3_POLY_C022"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_023",
+      "source_orders": [
+        11
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 변형",
+      "subdomain": "간단히 한 뒤 대입",
+      "task_group": "식을 먼저 간단히 하여 값 구하기",
+      "representative_leaf_examples": [
+        "식을 먼저 간단히 하여 값 구하기",
+        "복잡한 식에 바로 대입해 계산 실수",
+        "관계식을 변형하지 못함"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "11.png",
+      "concept_ids": [
+        "M3_POLY_C023"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_024",
+      "source_orders": [
+        11
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 변형",
+      "subdomain": "무리수의 정수·소수 부분",
+      "task_group": "무리수의 정수 부분과 소수 부분",
+      "representative_leaf_examples": [
+        "무리수의 정수 부분과 소수 부분",
+        "정수부분 경계값 판단 오류",
+        "소수부분 표현 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "11.png",
+      "concept_ids": [
+        "M3_POLY_C024"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_025",
+      "source_orders": [
+        12
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해",
+      "subdomain": "인수의 뜻",
+      "task_group": "인수의 뜻과 주어진 식의 인수",
+      "representative_leaf_examples": [
+        "인수의 뜻과 주어진 식의 인수",
+        "인수와 항을 혼동",
+        "나누어떨어짐 조건을 확인하지 않음"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "12.png",
+      "concept_ids": [
+        "M3_POLY_C025"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_026",
+      "source_orders": [
+        12
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해",
+      "subdomain": "인수분해 전 식",
+      "task_group": "인수분해하기 전의 식 구하기",
+      "representative_leaf_examples": [
+        "인수분해하기 전의 식 구하기",
+        "전개와 인수분해 방향 혼동",
+        "미지수 계수 비교 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "12.png",
+      "concept_ids": [
+        "M3_POLY_C026"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_027",
+      "source_orders": [
+        12,
+        18
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해",
+      "subdomain": "공통인수",
+      "task_group": "공통인수를 이용한 인수분해",
+      "representative_leaf_examples": [
+        "공통인수를 이용한 인수분해",
+        "최대 공통인수 선택 오류",
+        "문자 공통인수 누락"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "12.png, 18.png",
+      "concept_ids": [
+        "M3_POLY_C027"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_028",
+      "source_orders": [
+        13
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "완전제곱식",
+      "task_group": "완전제곱식 인수분해",
+      "representative_leaf_examples": [
+        "완전제곱식 인수분해",
+        "가운데 항 조건 확인 부족",
+        "부호에 맞는 괄호 선택 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "13.png",
+      "concept_ids": [
+        "M3_POLY_C028"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_029",
+      "source_orders": [
+        13,
+        14
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "완전제곱식 조건",
+      "task_group": "완전제곱식이 될 조건",
+      "representative_leaf_examples": [
+        "완전제곱식이 될 조건",
+        "완전제곱식 조건을 계수 비교로 세우지 못함",
+        "가능한 경우의 수 누락"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "13.png, 14.png",
+      "concept_ids": [
+        "M3_POLY_C029"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_030",
+      "source_orders": [
+        14
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "근호 안 완전제곱식",
+      "task_group": "근호 안이 완전제곱식이 되도록 하는 식",
+      "representative_leaf_examples": [
+        "근호 안이 완전제곱식이 되도록 하는 식",
+        "근호 밖으로 나올 때 절댓값 조건 누락",
+        "변수 범위 미확인"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "14.png",
+      "concept_ids": [
+        "M3_POLY_C030"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_031",
+      "source_orders": [
+        14
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "합과 차의 곱",
+      "task_group": "a^2-b^2 인수분해",
+      "representative_leaf_examples": [
+        "a^2-b^2 인수분해",
+        "두 제곱꼴 인식 오류",
+        "문자가 2개인 경우 항 대응 실패"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "14.png",
+      "concept_ids": [
+        "M3_POLY_C031"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_032",
+      "source_orders": [
+        14
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "반복 인수분해",
+      "task_group": "두 번 이상 인수분해되는 식",
+      "representative_leaf_examples": [
+        "두 번 이상 인수분해되는 식",
+        "첫 단계에서 멈춤",
+        "인수분해 후 연산 처리 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "14.png",
+      "concept_ids": [
+        "M3_POLY_C032"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_033",
+      "source_orders": [
+        15
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "x²+(a+b)x+ab",
+      "task_group": "x²+(a+b)x+ab 꼴 인수분해",
+      "representative_leaf_examples": [
+        "x²+(a+b)x+ab 꼴 인수분해",
+        "합과 곱 조건 반대로 탐색",
+        "부호 조합 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "15.png",
+      "concept_ids": [
+        "M3_POLY_C033"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_034",
+      "source_orders": [
+        15
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "acx²+(ad+bc)x+bd",
+      "task_group": "일차항 계수가 1이 아닌 이차식 인수분해",
+      "representative_leaf_examples": [
+        "일차항 계수가 1이 아닌 이차식 인수분해",
+        "교차곱 검산 누락",
+        "가능한 인수 조합을 체계적으로 찾지 못함"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "15.png",
+      "concept_ids": [
+        "M3_POLY_C034"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_035",
+      "source_orders": [
+        15
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "이차동차식",
+      "task_group": "acx²+(ad+bc)xy+bdy² 꼴",
+      "representative_leaf_examples": [
+        "acx²+(ad+bc)xy+bdy² 꼴",
+        "xy항 계수 조합 오류",
+        "두 문자 항의 차수 구조를 보지 못함"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "15.png",
+      "concept_ids": [
+        "M3_POLY_C035"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_036",
+      "source_orders": [
+        16
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "세제곱 합·차",
+      "task_group": "a³±b³ 인수분해",
+      "representative_leaf_examples": [
+        "a³±b³ 인수분해",
+        "부호 배열 오류",
+        "이차식 인수까지 잘못 전개"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "16.png",
+      "concept_ids": [
+        "M3_POLY_C036"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_037",
+      "source_orders": [
+        16,
+        20,
+        21
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "공식 종합",
+      "task_group": "인수분해 공식 종합",
+      "representative_leaf_examples": [
+        "인수분해 공식 종합",
+        "공식 선택 오류",
+        "한 가지 방법만 적용하고 끝까지 분해하지 않음"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "16.png, 20.png, 21.png",
+      "concept_ids": [
+        "M3_POLY_C037"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_038",
+      "source_orders": [
+        16
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "도형 활용",
+      "task_group": "도형을 이용한 인수분해 공식",
+      "representative_leaf_examples": [
+        "도형을 이용한 인수분해 공식",
+        "도형 넓이를 식으로 세우지 못함",
+        "정사각형/직사각형 구조 혼동"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "16.png",
+      "concept_ids": [
+        "M3_POLY_C038"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_039",
+      "source_orders": [
+        16
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식",
+      "subdomain": "공통인수 구하기",
+      "task_group": "두 다항식의 공통인수 구하기",
+      "representative_leaf_examples": [
+        "두 다항식의 공통인수 구하기",
+        "각 식의 인수분해를 끝까지 하지 않음",
+        "공통인수와 공통부분 혼동"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "16.png",
+      "concept_ids": [
+        "M3_POLY_C039"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_040",
+      "source_orders": [
+        17
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수 조건",
+      "subdomain": "인수가 주어진 이차식",
+      "task_group": "인수가 주어진 이차식의 미지수와 값",
+      "representative_leaf_examples": [
+        "인수가 주어진 이차식의 미지수와 값",
+        "인수 조건을 대입 또는 계수 비교로 바꾸지 못함",
+        "인수가 주어진 이차식의 미지수와 값 적용"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "17.png",
+      "concept_ids": [
+        "M3_POLY_C040"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_041",
+      "source_orders": [
+        17
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수 조건",
+      "subdomain": "두 일차식 곱 조건",
+      "task_group": "두 일차식의 곱으로 인수분해될 때 미지수",
+      "representative_leaf_examples": [
+        "두 일차식의 곱으로 인수분해될 때 미지수",
+        "곱과 합 조건을 동시에 반영하지 않음",
+        "미지수 범위 조건 누락"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "17.png",
+      "concept_ids": [
+        "M3_POLY_C041"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_042",
+      "source_orders": [
+        17
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수 조건",
+      "subdomain": "오답 복원",
+      "task_group": "계수 또는 상수항을 잘못 보고 푼 경우",
+      "representative_leaf_examples": [
+        "계수 또는 상수항을 잘못 보고 푼 경우",
+        "잘못 본 식과 원래 식 구분 실패",
+        "계수와 상수항을 바꾸어 해석"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "17.png",
+      "concept_ids": [
+        "M3_POLY_C042"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_043",
+      "source_orders": [
+        18
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "공통인수",
+      "task_group": "복잡한 식의 공통인수 인수분해",
+      "representative_leaf_examples": [
+        "복잡한 식의 공통인수 인수분해",
+        "문자 2개 이상에서 공통인수 누락",
+        "인수인 것과 아닌 것 구분 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "18.png",
+      "concept_ids": [
+        "M3_POLY_C043"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_044",
+      "source_orders": [
+        18
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "치환 기본",
+      "task_group": "공통부분이 있는 식의 치환 인수분해",
+      "representative_leaf_examples": [
+        "공통부분이 있는 식의 치환 인수분해",
+        "공통부분 치환 누락",
+        "치환한 문자 되돌리기 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "18.png",
+      "concept_ids": [
+        "M3_POLY_C044"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_045",
+      "source_orders": [
+        19
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "다른 형태 공통부분",
+      "task_group": "다른 형태로 주어진 공통부분 치환",
+      "representative_leaf_examples": [
+        "다른 형태로 주어진 공통부분 치환",
+        "공통부분 형태 변환 실패",
+        "부호를 바꾸어 같은 식 만들기 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "19.png",
+      "concept_ids": [
+        "M3_POLY_C045"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_046",
+      "source_orders": [
+        19
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "공통부분 2개",
+      "task_group": "공통부분이 2개 있는 식의 치환",
+      "representative_leaf_examples": [
+        "공통부분이 2개 있는 식의 치환",
+        "공통부분 두 개를 따로 보지 못함",
+        "잘못된 부분 치환"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "19.png",
+      "concept_ids": [
+        "M3_POLY_C046"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_047",
+      "source_orders": [
+        20
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "세 괄호와 상수",
+      "task_group": "( )( )( )+k꼴 인수분해",
+      "representative_leaf_examples": [
+        "( )( )( )+k꼴 인수분해",
+        "세 괄호 전개 후 구조를 잃음",
+        "완전제곱식 조건을 보지 못함"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "20.png",
+      "concept_ids": [
+        "M3_POLY_C047"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_048",
+      "source_orders": [
+        20
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "두 항씩 묶기",
+      "task_group": "적당한 항끼리 묶어 인수분해",
+      "representative_leaf_examples": [
+        "적당한 항끼리 묶어 인수분해",
+        "항 묶기 선택 오류",
+        "묶은 뒤 공통인수 찾기 실패"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "20.png",
+      "concept_ids": [
+        "M3_POLY_C048"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_049",
+      "source_orders": [
+        21
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "제곱차 묶기",
+      "task_group": "제곱차 꼴로 묶어 인수분해",
+      "representative_leaf_examples": [
+        "제곱차 꼴로 묶어 인수분해",
+        "제곱차 구조 인식 실패",
+        "인수분해 후 두 번째 단계 누락"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "21.png",
+      "concept_ids": [
+        "M3_POLY_C049"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_050",
+      "source_orders": [
+        21
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "x⁴+ax²+b",
+      "task_group": "x⁴+ax²+b꼴 인수분해",
+      "representative_leaf_examples": [
+        "x⁴+ax²+b꼴 인수분해",
+        "x^2 치환을 떠올리지 못함",
+        "x^4 항 구조 해석 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "21.png",
+      "concept_ids": [
+        "M3_POLY_C050"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_051",
+      "source_orders": [
+        21
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "내림차순 정리",
+      "task_group": "내림차순으로 정리하여 인수분해",
+      "representative_leaf_examples": [
+        "내림차순으로 정리하여 인수분해",
+        "어떤 문자를 기준으로 정리할지 선택하지 못함",
+        "내림차순 정리 후 계수식 처리 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "21.png",
+      "concept_ids": [
+        "M3_POLY_C051"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_052",
+      "source_orders": [
+        22
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식의 활용",
+      "subdomain": "수의 계산",
+      "task_group": "인수분해 공식을 이용한 수의 계산",
+      "representative_leaf_examples": [
+        "인수분해 공식을 이용한 수의 계산",
+        "인수분해가 필요한 식을 전개로 처리",
+        "제곱수 결과 조건 누락"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "22.png",
+      "concept_ids": [
+        "M3_POLY_C052"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_053",
+      "source_orders": [
+        22
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식의 활용",
+      "subdomain": "합과 차의 곱 활용",
+      "task_group": "합과 차의 곱을 이용한 수의 계산",
+      "representative_leaf_examples": [
+        "합과 차의 곱을 이용한 수의 계산",
+        "합차곱 구조로 묶지 못함",
+        "분모·분자 인수분해 누락"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "22.png",
+      "concept_ids": [
+        "M3_POLY_C053"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_054",
+      "source_orders": [
+        23
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식의 활용",
+      "subdomain": "식의 값과 조건",
+      "task_group": "인수분해 공식을 이용한 식의 값 구하기",
+      "representative_leaf_examples": [
+        "인수분해 공식을 이용한 식의 값 구하기",
+        "조건을 식에 맞게 변형하지 못함",
+        "분모 유리화 또는 정수부분 조건 누락"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "23.png",
+      "concept_ids": [
+        "M3_POLY_C054"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_055",
+      "source_orders": [
+        23,
+        24
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해 공식의 활용",
+      "subdomain": "도형 활용",
+      "task_group": "인수분해 공식의 도형 활용",
+      "representative_leaf_examples": [
+        "인수분해 공식의 도형 활용",
+        "도형 조건을 식으로 세우지 못함",
+        "일부를 자른 도형의 넓이 해석 오류"
+      ],
+      "source_declared_topic_count": 1,
+      "source_declared_detail_count": 3,
+      "source_image_range": "23.png, 24.png",
+      "concept_ids": [
+        "M3_POLY_C055"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_056",
+      "source_orders": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "다항식의 곱셈",
+      "subdomain": "곱셈 공식 종합",
+      "task_group": "전개와 곱셈공식 선택",
+      "representative_leaf_examples": [
+        "분배법칙과 곱셈공식 구분",
+        "공식 선택 후 전개식 검산",
+        "계수 조건 종합"
+      ],
+      "source_declared_topic_count": 5,
+      "source_declared_detail_count": 9,
+      "source_image_range": "1.png, 2.png, 3.png, 4.png",
+      "concept_ids": [
+        "M3_POLY_C001",
+        "M3_POLY_C003",
+        "M3_POLY_C004",
+        "M3_POLY_C005",
+        "M3_POLY_C010"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_057",
+      "source_orders": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 활용",
+      "subdomain": "수 계산 종합",
+      "task_group": "곱셈공식을 이용한 계산",
+      "representative_leaf_examples": [
+        "수의 제곱 계산",
+        "두 수의 곱 계산",
+        "무리수·분모 유리화 계산"
+      ],
+      "source_declared_topic_count": 5,
+      "source_declared_detail_count": 9,
+      "source_image_range": "5.png, 6.png, 7.png, 8.png, 9.png",
+      "concept_ids": [
+        "M3_POLY_C014",
+        "M3_POLY_C015",
+        "M3_POLY_C016",
+        "M3_POLY_C017",
+        "M3_POLY_C019"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_058",
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "곱셈 공식의 변형",
+      "subdomain": "식의 값 종합",
+      "task_group": "조건을 이용한 식의 값",
+      "representative_leaf_examples": [
+        "합·차·곱 조건 이용",
+        "곱이 1인 경우 식 변형",
+        "간단히 한 뒤 대입"
+      ],
+      "source_declared_topic_count": 4,
+      "source_declared_detail_count": 9,
+      "source_image_range": "9.png, 10.png, 11.png",
+      "concept_ids": [
+        "M3_POLY_C020",
+        "M3_POLY_C021",
+        "M3_POLY_C022",
+        "M3_POLY_C023"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_059",
+      "source_orders": [
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "인수분해",
+      "subdomain": "기본 공식 종합",
+      "task_group": "공식 선택형 인수분해",
+      "representative_leaf_examples": [
+        "공통인수 먼저 확인",
+        "완전제곱식·합차공식 구분",
+        "x²+(a+b)x+ab 꼴 판별"
+      ],
+      "source_declared_topic_count": 6,
+      "source_declared_detail_count": 9,
+      "source_image_range": "12.png, 13.png, 14.png, 15.png, 16.png",
+      "concept_ids": [
+        "M3_POLY_C027",
+        "M3_POLY_C028",
+        "M3_POLY_C031",
+        "M3_POLY_C033",
+        "M3_POLY_C034",
+        "M3_POLY_C037"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_060",
+      "source_orders": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "복잡한 식의 인수분해",
+      "subdomain": "조건·치환·묶기",
+      "task_group": "복합 인수분해 전략",
+      "representative_leaf_examples": [
+        "인수가 주어진 조건 처리",
+        "공통부분 치환",
+        "두 항씩 묶기와 제곱차 묶기"
+      ],
+      "source_declared_topic_count": 6,
+      "source_declared_detail_count": 9,
+      "source_image_range": "17.png, 18.png, 19.png, 20.png, 21.png",
+      "concept_ids": [
+        "M3_POLY_C040",
+        "M3_POLY_C043",
+        "M3_POLY_C044",
+        "M3_POLY_C048",
+        "M3_POLY_C049",
+        "M3_POLY_C051"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_061",
+      "source_orders": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "고난도 인수분해 활용",
+      "subdomain": "고차식·수 계산",
+      "task_group": "x⁴꼴과 활용 계산",
+      "representative_leaf_examples": [
+        "x⁴+ax²+b 꼴 처리",
+        "인수분해를 이용한 수 계산",
+        "식의 값 조건 활용"
+      ],
+      "source_declared_topic_count": 5,
+      "source_declared_detail_count": 9,
+      "source_image_range": "20.png, 21.png, 22.png, 23.png",
+      "concept_ids": [
+        "M3_POLY_C047",
+        "M3_POLY_C050",
+        "M3_POLY_C052",
+        "M3_POLY_C053",
+        "M3_POLY_C054"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M3_POLY_RAW_062",
+      "source_orders": [
+        4,
+        6,
+        16,
+        24
+      ],
+      "chapter": "3-1 다항식의 곱셈과 인수분해",
+      "domain": "도형과 공식",
+      "subdomain": "도형 활용",
+      "task_group": "도형에서 전개·인수분해 공식 해석",
+      "representative_leaf_examples": [
+        "도형 넓이로 곱셈공식 설명",
+        "도형에서 인수분해 구조 찾기",
+        "도형 조건으로 식 세우기"
+      ],
+      "source_declared_topic_count": 3,
+      "source_declared_detail_count": 9,
+      "source_image_range": "4.png, 6.png, 16.png, 24.png",
+      "concept_ids": [
+        "M3_POLY_C011",
+        "M3_POLY_C038",
+        "M3_POLY_C055"
+      ],
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    }
+  ]
+}

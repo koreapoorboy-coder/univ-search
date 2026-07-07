@@ -1,0 +1,208 @@
+{
+  "version": "2026.07.07-m3-polynomial-factorization-v1.0",
+  "unit_id": "M3_POLYNOMIAL_FACTORING",
+  "unit_name": "다항식의 곱셈과 인수분해",
+  "rule_count": 10,
+  "rules": [
+    {
+      "rule_id": "M3_POLY_RULE_001",
+      "name": "전개·분배법칙 취약",
+      "trigger": {
+        "error_tags_any": [
+          "expansion",
+          "distribution",
+          "like_terms"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "다항식의 각 항을 빠짐없이 곱하고 동류항을 정리하는 과정이 불안정합니다.",
+      "parent_message": "전개 과정에서는 곱해야 할 항의 조합을 표로 적고 마지막에 동류항 정리를 분리해서 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C001",
+        "M3_POLY_C002"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_002",
+      "name": "제곱 공식 가운데 항 누락",
+      "trigger": {
+        "error_tags_any": [
+          "multiplication_formula",
+          "middle_term"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "합의 제곱·차의 제곱에서 가운데 항 2ab를 빠뜨리거나 부호를 잘못 처리합니다.",
+      "parent_message": "공식을 외우기보다 (a±b)(a±b)로 한 번 전개해 가운데 항이 생기는 이유를 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C003",
+        "M3_POLY_C004"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_003",
+      "name": "합차공식과 제곱공식 혼동",
+      "trigger": {
+        "error_tags_any": [
+          "multiplication_formula",
+          "sign_error"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "(a+b)(a-b)와 (a±b)^2를 구분하지 못해 항 개수와 부호가 흔들립니다.",
+      "parent_message": "곱하는 두 괄호가 같은지, 부호만 다른지 먼저 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C005",
+        "M3_POLY_C006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_004",
+      "name": "공식 선택 취약",
+      "trigger": {
+        "error_tags_any": [
+          "formula_selection",
+          "multiplication_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "문제 형태에 맞는 곱셈공식 또는 인수분해 공식을 선택하지 못합니다.",
+      "parent_message": "식의 형태를 제곱식, 합차, x²+(a+b)x+ab, 일반 이차식으로 분류하는 훈련이 필요합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C010",
+        "M3_POLY_C037"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_005",
+      "name": "수 계산 공식 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "numeric_calculation",
+          "formula_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "복잡한 수의 계산을 곱셈공식으로 바꾸지 못하고 직접 계산하다가 오류가 납니다.",
+      "parent_message": "기준수에서 얼마나 떨어졌는지 표시한 뒤 제곱 또는 합차공식으로 바꾸어야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C014",
+        "M3_POLY_C015",
+        "M3_POLY_C016"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_006",
+      "name": "식의 값 조건 변형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "expression_value",
+          "condition_translation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "합, 차, 곱 조건을 제곱식이나 대칭식으로 변형하지 못합니다.",
+      "parent_message": "구하려는 식을 먼저 곱셈공식 형태로 변형한 뒤 주어진 조건을 대입해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C020",
+        "M3_POLY_C021",
+        "M3_POLY_C022",
+        "M3_POLY_C023"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_007",
+      "name": "공통인수 확인 누락",
+      "trigger": {
+        "error_tags_any": [
+          "factorization",
+          "common_factor"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "인수분해를 시작할 때 공통인수를 먼저 확인하지 않아 식이 복잡해집니다.",
+      "parent_message": "모든 항에 공통으로 들어 있는 수·문자를 먼저 묶고 남은 식의 공식을 판단해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C027",
+        "M3_POLY_C043"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_008",
+      "name": "완전제곱식 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "factorization",
+          "complete_square",
+          "condition_translation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "완전제곱식이 되는 조건에서 가운데 항과 상수항 관계를 놓칩니다.",
+      "parent_message": "양 끝 항의 제곱근을 잡고 가운데 항이 ±2ab인지 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C028",
+        "M3_POLY_C029",
+        "M3_POLY_C030"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_009",
+      "name": "십자곱셈·일반 이차식 인수분해 취약",
+      "trigger": {
+        "error_tags_any": [
+          "factorization",
+          "formula_selection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "x²+(a+b)x+ab 꼴과 일반 이차식의 인수분해에서 두 수 또는 십자곱셈을 잘못 찾습니다.",
+      "parent_message": "상수항 곱, 일차항 합 또는 십자곱의 합을 따로 검산해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C033",
+        "M3_POLY_C034",
+        "M3_POLY_C035"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_POLY_RULE_010",
+      "name": "복잡한 식 치환·묶기 전략 취약",
+      "trigger": {
+        "error_tags_any": [
+          "factorization",
+          "substitution",
+          "grouping"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "공통부분 치환, 항끼리 묶기, 내림차순 정리 등 복합 전략 선택이 약합니다.",
+      "parent_message": "먼저 공통부분을 문자로 치환하거나 항을 두 묶음으로 나누어 구조를 단순화하는 순서를 훈련해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_POLY_C044",
+        "M3_POLY_C045",
+        "M3_POLY_C048",
+        "M3_POLY_C051"
+      ],
+      "severity": "high"
+    }
+  ]
+}
