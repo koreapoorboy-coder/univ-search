@@ -1,0 +1,42 @@
+{
+  "unit_id": "M2_LINEAR_EQUATION",
+  "unit_name": "일차방정식·연립일차방정식",
+  "sample_student_attempts": [
+    {
+      "attempt_id": "M2_LE_SAMPLE_001",
+      "problem_type_id": "M2_LE_PT010",
+      "student_work_summary": "대입법에서 x=2y+1을 다른 식에 대입하지 않고 같은 식에 다시 대입함",
+      "expected_diagnosis": [
+        "대입 위치 오류",
+        "두 식 모두 사용하지 않음"
+      ],
+      "recommended_concept_ids": [
+        "M2_LE_C010"
+      ]
+    },
+    {
+      "attempt_id": "M2_LE_SAMPLE_002",
+      "problem_type_id": "M2_LE_PT047",
+      "student_work_summary": "괄호와 분수 계수를 한 번에 처리하다가 부호와 분모 제거를 동시에 틀림",
+      "expected_diagnosis": [
+        "복잡한 계수 정리 취약",
+        "괄호 처리 오류"
+      ],
+      "recommended_concept_ids": [
+        "M2_LE_C012"
+      ]
+    },
+    {
+      "attempt_id": "M2_LE_SAMPLE_003",
+      "problem_type_id": "M2_LE_PT151",
+      "student_work_summary": "농도 문제에서 소금의 양이 아니라 소금물의 양끼리만 식을 세움",
+      "expected_diagnosis": [
+        "농도 성분량 식 누락",
+        "전체량과 성분량 혼동"
+      ],
+      "recommended_concept_ids": [
+        "M2_LE_C037"
+      ]
+    }
+  ]
+}

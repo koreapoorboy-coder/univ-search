@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.06-m3-real-numbers-operations-v1.0",
-  "concept_count": 510,
+  "version": "2026.07.07-m2-linear-equation-merged-v1.0",
+  "concept_count": 547,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -14098,6 +14098,984 @@
       ],
       "mastery_level": "core",
       "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C001",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "일차방정식",
+      "sub_strand": "일차방정식의 뜻과 표준형",
+      "concept_name": "일차방정식의 뜻과 표준형",
+      "description": "미지수가 2개인 일차방정식인지 판별하고 표준형 ax+by+c=0 꼴로 정리한다.",
+      "diagnostic_signals": [
+        "차수 판단 오류",
+        "상수항 이항 누락",
+        "미지수 2개 조건 누락"
+      ],
+      "remediation_keywords": [
+        "표준형 정리",
+        "차수 확인",
+        "미지수 개수 표시"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C002",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "일차방정식",
+      "sub_strand": "미지수가 2개인 일차방정식의 조건",
+      "concept_name": "미지수가 2개인 일차방정식의 조건",
+      "description": "계수나 상수가 문자로 주어질 때 일차방정식이 되기 위한 조건을 세운다.",
+      "diagnostic_signals": [
+        "계수가 0이 되는 경우 놓침",
+        "문자 조건과 차수 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "계수 0 조건",
+        "문자 조건표",
+        "차수 검토"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C003",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "일차방정식",
+      "sub_strand": "미지수가 2개인 일차방정식의 해",
+      "concept_name": "미지수가 2개인 일차방정식의 해",
+      "description": "순서쌍을 대입해 해인지 판단하고 조건을 만족하는 해를 찾는다.",
+      "diagnostic_signals": [
+        "순서쌍 대입 오류",
+        "해의 뜻을 단일 x값으로 착각"
+      ],
+      "remediation_keywords": [
+        "순서쌍 대입",
+        "좌우값 비교",
+        "해 검산"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C004",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "일차방정식",
+      "sub_strand": "자연수·정수 해 찾기",
+      "concept_name": "자연수·정수 해 찾기",
+      "description": "x,y가 자연수 또는 정수일 때 가능한 해를 체계적으로 찾는다.",
+      "diagnostic_signals": [
+        "후보 누락",
+        "자연수와 정수 조건 혼동",
+        "음수 허용 여부 오류"
+      ],
+      "remediation_keywords": [
+        "범위표 작성",
+        "정수 후보 대입",
+        "조건 확인"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C005",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "일차방정식",
+      "sub_strand": "계수·상수 문자 조건",
+      "concept_name": "계수·상수 문자 조건",
+      "description": "해 또는 계수가 문자로 주어진 식에서 미지수와 계수를 구분해 값을 정한다.",
+      "diagnostic_signals": [
+        "계수 문자와 미지수 혼동",
+        "해 조건 대입 누락"
+      ],
+      "remediation_keywords": [
+        "해 대입",
+        "계수 비교",
+        "문자 위치 표시"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C006",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "일차방정식",
+      "sub_strand": "미지수가 2개인 일차방정식의 활용",
+      "concept_name": "미지수가 2개인 일차방정식의 활용",
+      "description": "새로운 기호나 문장 조건을 미지수가 2개인 일차방정식으로 표현한다.",
+      "diagnostic_signals": [
+        "조건을 식으로 번역하지 못함",
+        "새로운 기호 의미 누락"
+      ],
+      "remediation_keywords": [
+        "기호 정의",
+        "문장→식 번역",
+        "단위 확인"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C007",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "일차방정식",
+      "sub_strand": "일차방정식의 성질",
+      "concept_name": "일차방정식의 성질",
+      "description": "등식의 성질과 일차방정식의 기본 변형 원리를 설명한다.",
+      "diagnostic_signals": [
+        "양변 같은 연산 원리 누락",
+        "등식 변형 근거 부족"
+      ],
+      "remediation_keywords": [
+        "등식의 성질",
+        "양변 같은 연산",
+        "검산"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C008",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "연립방정식",
+      "sub_strand": "연립방정식의 뜻과 세우기",
+      "concept_name": "연립방정식의 뜻과 세우기",
+      "description": "두 조건을 동시에 만족하는 두 일차방정식을 세워 연립방정식으로 나타낸다.",
+      "diagnostic_signals": [
+        "식 하나만 세움",
+        "두 조건을 같은 식에 섞음"
+      ],
+      "remediation_keywords": [
+        "미지수 정의",
+        "조건 2개 분리",
+        "연립식 세우기"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C009",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "연립방정식",
+      "sub_strand": "연립방정식의 해 판단",
+      "concept_name": "연립방정식의 해 판단",
+      "description": "순서쌍이 두 방정식을 모두 만족하는지 확인한다.",
+      "diagnostic_signals": [
+        "한 방정식만 대입",
+        "x,y 순서 바꿈"
+      ],
+      "remediation_keywords": [
+        "두 식 모두 대입",
+        "순서쌍 확인",
+        "공통해 검산"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C010",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "연립방정식 풀이",
+      "sub_strand": "대입법 풀이",
+      "concept_name": "대입법 풀이",
+      "description": "한 문자를 다른 문자에 대한 식으로 나타내어 대입법으로 푼다.",
+      "diagnostic_signals": [
+        "대입 대상 오류",
+        "부호 오류",
+        "대입 후 한 문자 해석 누락"
+      ],
+      "remediation_keywords": [
+        "한 문자 정리",
+        "대입",
+        "나머지 문자 구하기"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C011",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "연립방정식 풀이",
+      "sub_strand": "가감법 풀이",
+      "concept_name": "가감법 풀이",
+      "description": "계수를 맞추고 두 식을 더하거나 빼서 한 문자를 소거한다.",
+      "diagnostic_signals": [
+        "소거 방향 오류",
+        "배수 처리 오류",
+        "부호 바꿈 오류"
+      ],
+      "remediation_keywords": [
+        "계수 맞추기",
+        "더하기/빼기 선택",
+        "소거 후 검산"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C012",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "연립방정식 풀이",
+      "sub_strand": "복잡한 계수의 연립방정식 풀이",
+      "concept_name": "복잡한 계수의 연립방정식 풀이",
+      "description": "괄호, 분수, 소수, 순환소수, 비례식이 포함된 연립방정식을 정리해 푼다.",
+      "diagnostic_signals": [
+        "괄호 풀기 오류",
+        "분모 제거 누락",
+        "소수·순환소수 변환 오류"
+      ],
+      "remediation_keywords": [
+        "괄호 제거",
+        "분모 제거",
+        "소수/비례식 정리"
+      ],
+      "source_orders": [
+        5,
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C013",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "연립방정식 풀이",
+      "sub_strand": "분모에 문자가 있는 연립방정식",
+      "concept_name": "분모에 문자가 있는 연립방정식",
+      "description": "분모에 문자가 있을 때 0이 될 수 없는 조건을 확인하고 식을 정리한다.",
+      "diagnostic_signals": [
+        "분모 0 조건 누락",
+        "문자 위치 혼동"
+      ],
+      "remediation_keywords": [
+        "분모 조건",
+        "정의역 확인",
+        "식 정리"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C014",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "연립방정식 풀이",
+      "sub_strand": "A=B=C 꼴 방정식",
+      "concept_name": "A=B=C 꼴 방정식",
+      "description": "A=B=C 꼴에서 두 개의 등식을 뽑아 연립방정식으로 푼다.",
+      "diagnostic_signals": [
+        "등식 한 개만 사용",
+        "상수/식 조건 해석 오류"
+      ],
+      "remediation_keywords": [
+        "A=B, B=C 분리",
+        "두 식 세우기",
+        "해 검산"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C015",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "해와 조건",
+      "sub_strand": "해를 알 때 미지수 값 구하기",
+      "concept_name": "해를 알 때 미지수 값 구하기",
+      "description": "연립방정식의 해가 주어졌을 때 계수나 상수를 역으로 구한다.",
+      "diagnostic_signals": [
+        "해 대입 누락",
+        "두 식을 모두 이용하지 않음"
+      ],
+      "remediation_keywords": [
+        "해 대입",
+        "미지수 계수 방정식 세우기",
+        "검산"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C016",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "해와 조건",
+      "sub_strand": "해와 조건식 연결",
+      "concept_name": "해와 조건식 연결",
+      "description": "해가 조건식이나 관계식을 만족하도록 하는 값을 구한다.",
+      "diagnostic_signals": [
+        "조건식에 해 대입 누락",
+        "조건과 원래 식 혼동"
+      ],
+      "remediation_keywords": [
+        "해 구하기",
+        "조건식 대입",
+        "관계식 확인"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C017",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "해와 조건",
+      "sub_strand": "특수해: 해가 없거나 무수히 많은 경우",
+      "concept_name": "특수해: 해가 없거나 무수히 많은 경우",
+      "description": "계수비와 상수항 조건으로 해가 없거나 무수히 많은 경우를 판별한다.",
+      "diagnostic_signals": [
+        "계수비만 보고 판단",
+        "상수항 조건 누락"
+      ],
+      "remediation_keywords": [
+        "계수비 비교",
+        "상수항 비교",
+        "그래프 의미 연결"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C018",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "해와 조건",
+      "sub_strand": "잘못 보고 푼 연립방정식 역추적",
+      "concept_name": "잘못 보고 푼 연립방정식 역추적",
+      "description": "계수나 상수항을 잘못 보아 얻은 해를 이용해 원래 미지수를 역추적한다.",
+      "diagnostic_signals": [
+        "잘못 본 식과 원래 식 구분 실패",
+        "해를 잘못된 식에 대입"
+      ],
+      "remediation_keywords": [
+        "식 구분 표시",
+        "해 대입 위치 확인",
+        "원래 값 복원"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C019",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "수의 연산 활용",
+      "concept_name": "수의 연산 활용",
+      "description": "두 수의 합, 차, 배수 관계를 연립방정식으로 세운다.",
+      "diagnostic_signals": [
+        "합과 차 조건 반대로 세움",
+        "배수 관계 방향 오류"
+      ],
+      "remediation_keywords": [
+        "큰수/작은수 정의",
+        "합·차 식 세우기",
+        "검산"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C020",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "자연수 자리수 활용",
+      "concept_name": "자연수 자리수 활용",
+      "description": "두 자리 또는 세 자리 수의 자릿값을 식으로 나타낸다.",
+      "diagnostic_signals": [
+        "십의 자리·일의 자리 자릿값 누락",
+        "자리 바꾸기 식 오류"
+      ],
+      "remediation_keywords": [
+        "자릿값 표현",
+        "자리 교환 식",
+        "수 범위 확인"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C021",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "평균 활용",
+      "concept_name": "평균 활용",
+      "description": "전체 평균과 부분 평균 조건을 이용해 연립방정식을 세운다.",
+      "diagnostic_signals": [
+        "평균을 총합으로 바꾸지 못함",
+        "인원수 곱셈 누락"
+      ],
+      "remediation_keywords": [
+        "평균×개수=총합",
+        "그룹 나누기",
+        "총합 비교"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C022",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "가격과 개수 활용",
+      "concept_name": "가격과 개수 활용",
+      "description": "물건의 가격과 개수 조건을 두 식으로 세워 구한다.",
+      "diagnostic_signals": [
+        "가격과 개수 역할 혼동",
+        "총액 식 누락"
+      ],
+      "remediation_keywords": [
+        "단가×개수",
+        "총액 식",
+        "표로 정리"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C023",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "여러 가지 개수 활용",
+      "concept_name": "여러 가지 개수 활용",
+      "description": "여러 대상의 개수와 합계 조건을 식으로 세운다.",
+      "diagnostic_signals": [
+        "대상별 개수 구분 실패",
+        "총개수와 총합 혼동"
+      ],
+      "remediation_keywords": [
+        "대상 정의",
+        "총개수 식",
+        "총합 식"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C024",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "나이 활용",
+      "concept_name": "나이 활용",
+      "description": "현재 나이, 몇 년 전/후, 배수 관계를 식으로 나타낸다.",
+      "diagnostic_signals": [
+        "몇 년 후/전 적용 오류",
+        "두 사람 모두 같은 시간 변화 누락"
+      ],
+      "remediation_keywords": [
+        "현재 나이 정의",
+        "시간 변화 표시",
+        "배수 관계 식"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C025",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "비율 활용",
+      "concept_name": "비율 활용",
+      "description": "분수, 퍼센트, 비 조건을 연립방정식으로 세운다.",
+      "diagnostic_signals": [
+        "비율을 곱셈식으로 못 바꿈",
+        "퍼센트 변환 오류"
+      ],
+      "remediation_keywords": [
+        "비율식 변환",
+        "분수/퍼센트 통일",
+        "단위 확인"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C026",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "길이와 끈 활용",
+      "concept_name": "길이와 끈 활용",
+      "description": "끈이나 막대의 길이를 나누는 상황을 두 식으로 표현한다.",
+      "diagnostic_signals": [
+        "나눈 길이 총합 누락",
+        "남은 길이 처리 오류"
+      ],
+      "remediation_keywords": [
+        "전체 길이 식",
+        "부분 길이 식",
+        "단위 통일"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C027",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "도형 활용",
+      "concept_name": "도형 활용",
+      "description": "도형의 둘레, 넓이, 각 조건을 연립방정식으로 나타낸다.",
+      "diagnostic_signals": [
+        "도형 공식 적용 오류",
+        "가로·세로 또는 각 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "도형 공식 확인",
+        "변수 표시",
+        "식 2개 세우기"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C028",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "득점·감점 활용",
+      "concept_name": "득점·감점 활용",
+      "description": "정답/오답/감점 조건을 점수식과 개수식으로 세운다.",
+      "diagnostic_signals": [
+        "총문항 수 식 누락",
+        "감점 부호 오류"
+      ],
+      "remediation_keywords": [
+        "개수식",
+        "점수식",
+        "감점 부호"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C029",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "분배 활용",
+      "concept_name": "분배 활용",
+      "description": "물건을 나누어 주는 상황에서 사람 수와 물건 수를 식으로 세운다.",
+      "diagnostic_signals": [
+        "남거나 부족한 조건 방향 오류",
+        "사람 수와 물건 수 혼동"
+      ],
+      "remediation_keywords": [
+        "한 사람당 수량",
+        "남음/부족 식",
+        "검산"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C030",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "계단 활용",
+      "concept_name": "계단 활용",
+      "description": "한 번에 오르는 칸 수와 횟수 조건을 식으로 표현한다.",
+      "diagnostic_signals": [
+        "칸 수와 횟수 곱 누락",
+        "빈 칸 포함 여부 오류"
+      ],
+      "remediation_keywords": [
+        "칸수×횟수",
+        "조건표",
+        "합계 검산"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C031",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "증가·감소 비교 활용",
+      "concept_name": "증가·감소 비교 활용",
+      "description": "두 물품, 두 집단, 두 값의 증가·감소 조건을 식으로 세운다.",
+      "diagnostic_signals": [
+        "증가/감소 부호 오류",
+        "비교 기준 누락"
+      ],
+      "remediation_keywords": [
+        "기준값 표시",
+        "증가·감소 식",
+        "비교식"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C032",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "이익·할인 활용",
+      "concept_name": "이익·할인 활용",
+      "description": "원가, 정가, 판매가, 할인율, 이익률의 관계를 식으로 나타낸다.",
+      "diagnostic_signals": [
+        "할인율과 이익률 혼동",
+        "원가 기준 누락"
+      ],
+      "remediation_keywords": [
+        "원가/정가/판매가 구분",
+        "할인식",
+        "이익식"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C033",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "일률과 작업량 활용",
+      "concept_name": "일률과 작업량 활용",
+      "description": "함께 일하거나 동시에 일하는 상황에서 일률과 시간을 식으로 표현한다.",
+      "diagnostic_signals": [
+        "전체 일을 1로 두지 못함",
+        "동시 작업량 합산 오류"
+      ],
+      "remediation_keywords": [
+        "일률 표시",
+        "시간×일률",
+        "전체 일의 양"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C034",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "저울과 무게 활용",
+      "concept_name": "저울과 무게 활용",
+      "description": "저울의 평형 조건이나 물건 무게를 연립방정식으로 세운다.",
+      "diagnostic_signals": [
+        "양쪽 무게식 불일치",
+        "개수와 무게 곱 누락"
+      ],
+      "remediation_keywords": [
+        "좌우 무게식",
+        "단위 확인",
+        "평형 조건"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C035",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "속력·거리·시간 기본",
+      "concept_name": "속력·거리·시간 기본",
+      "description": "거리=속력×시간 관계를 활용 문제에 적용한다.",
+      "diagnostic_signals": [
+        "시간 단위 변환 누락",
+        "거리/속력/시간 위치 혼동"
+      ],
+      "remediation_keywords": [
+        "거리=속력×시간",
+        "단위 통일",
+        "표 작성"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C036",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "출발·도착·왕복 운동 활용",
+      "concept_name": "출발·도착·왕복 운동 활용",
+      "description": "속력이 바뀌거나 왕복하는 운동 상황에서 거리와 시간을 식으로 세운다.",
+      "diagnostic_signals": [
+        "구간별 속력 혼동",
+        "왕복 거리 처리 오류"
+      ],
+      "remediation_keywords": [
+        "구간 나누기",
+        "거리식",
+        "시간식"
+      ],
+      "source_orders": [
+        15,
+        16
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LE_C037",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "unit_name": "일차방정식·연립일차방정식",
+      "strand": "활용",
+      "sub_strand": "소금물·농도·혼합·합금 활용",
+      "concept_name": "소금물·농도·혼합·합금 활용",
+      "description": "소금물, 농도, 합금, 식품의 성분 비율을 혼합 전후 조건으로 해석한다.",
+      "diagnostic_signals": [
+        "농도×소금물 양 계산 오류",
+        "혼합 전후 총량 누락",
+        "성분량과 전체량 혼동"
+      ],
+      "remediation_keywords": [
+        "농도 표",
+        "성분량 식",
+        "혼합 전후 비교"
+      ],
+      "source_orders": [
+        17
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
       "status": "curated_seed_from_image_taxonomy"
     }
   ],

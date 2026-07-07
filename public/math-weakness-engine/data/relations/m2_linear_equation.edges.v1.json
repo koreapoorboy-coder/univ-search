@@ -1,0 +1,468 @@
+{
+  "version": "2026.07.07-m2-linear-equation-v1.0",
+  "unit_id": "M2_LINEAR_EQUATION",
+  "unit_name": "일차방정식·연립일차방정식",
+  "edge_count": 46,
+  "edges": [
+    {
+      "edge_id": "M2_LE_E001",
+      "from_concept_id": "M1_EX_C008",
+      "to_concept_id": "M2_LE_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "중1 항·계수·차수 판단이 미지수가 2개인 일차방정식 판별의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E002",
+      "from_concept_id": "M1_EX_C009",
+      "to_concept_id": "M2_LE_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "중1 식의 값 대입 경험이 연립방정식 대입법으로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E003",
+      "from_concept_id": "M1_EX_C010",
+      "to_concept_id": "M2_LE_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "중1 동류항 정리가 가감법의 계수 정리와 소거에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E004",
+      "from_concept_id": "M1_EX_C011",
+      "to_concept_id": "M2_LE_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "중1 분배법칙과 괄호 처리가 복잡한 연립방정식 정리의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E005",
+      "from_concept_id": "M1_EX_C012",
+      "to_concept_id": "M2_LE_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "중1 문장 식 세우기가 미지수가 2개인 일차방정식 활용의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E006",
+      "from_concept_id": "M1_IR_C018",
+      "to_concept_id": "M2_LE_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "중1 비율식 이해가 해와 조건식 변형에 활용된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E007",
+      "from_concept_id": "M1_IR_C027",
+      "to_concept_id": "M2_LE_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "중1 유리수 사칙계산이 분수·소수 계수 연립방정식 풀이에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E008",
+      "from_concept_id": "M1_COORD_C001",
+      "to_concept_id": "M2_LE_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "좌표 순서쌍의 의미가 연립방정식 해 판단으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E009",
+      "from_concept_id": "M2_LE_C001",
+      "to_concept_id": "M2_LE_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "정의 판별 후 계수 조건을 판단한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E010",
+      "from_concept_id": "M2_LE_C001",
+      "to_concept_id": "M2_LE_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "식의 정의를 알아야 해의 대입 검산이 가능하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E011",
+      "from_concept_id": "M2_LE_C003",
+      "to_concept_id": "M2_LE_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "해 대입 경험이 자연수·정수 해 탐색으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E012",
+      "from_concept_id": "M2_LE_C002",
+      "to_concept_id": "M2_LE_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "계수 조건 판별이 문자로 주어진 계수 문제로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E013",
+      "from_concept_id": "M2_LE_C001",
+      "to_concept_id": "M2_LE_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "일차방정식 표준형 이해가 문장 조건의 식 표현으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E014",
+      "from_concept_id": "M2_LE_C007",
+      "to_concept_id": "M2_LE_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "등식의 성질이 연립방정식을 세우고 변형하는 기반이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E015",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "연립방정식을 세운 뒤 두 식을 모두 만족하는 해를 판별한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E016",
+      "from_concept_id": "M2_LE_C009",
+      "to_concept_id": "M2_LE_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "해 판단과 대입 검산이 대입법 풀이의 기반이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E017",
+      "from_concept_id": "M2_LE_C009",
+      "to_concept_id": "M2_LE_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "두 식을 모두 만족하는 해의 개념이 가감법 풀이로 연결된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E018",
+      "from_concept_id": "M2_LE_C010",
+      "to_concept_id": "M2_LE_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "대입법으로 해를 구한 뒤 해를 이용해 계수를 역산한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E019",
+      "from_concept_id": "M2_LE_C011",
+      "to_concept_id": "M2_LE_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "가감법으로 해를 구한 뒤 해를 이용해 계수를 역산한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E020",
+      "from_concept_id": "M2_LE_C010",
+      "to_concept_id": "M2_LE_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 대입법을 복잡한 계수의 연립방정식에 적용한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E021",
+      "from_concept_id": "M2_LE_C011",
+      "to_concept_id": "M2_LE_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 가감법을 복잡한 계수의 연립방정식에 적용한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E022",
+      "from_concept_id": "M2_LE_C012",
+      "to_concept_id": "M2_LE_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "분수 계수 정리 경험이 분모에 문자 조건을 확인하는 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E023",
+      "from_concept_id": "M2_LE_C010",
+      "to_concept_id": "M2_LE_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "두 등식을 만들어 대입법이나 가감법으로 푸는 구조가 A=B=C 꼴에 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E024",
+      "from_concept_id": "M2_LE_C015",
+      "to_concept_id": "M2_LE_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "해를 역산한 뒤 조건식에 대입하여 관계를 확인한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E025",
+      "from_concept_id": "M2_LE_C016",
+      "to_concept_id": "M2_LE_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "해와 조건을 연결해야 해가 없거나 무수히 많은 경우를 판별할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E026",
+      "from_concept_id": "M2_LE_C015",
+      "to_concept_id": "M2_LE_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "해 대입 역산 능력이 잘못 보고 푼 연립방정식 복원에 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E027",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "문장 조건을 식으로 세우는 능력이 수의 연산 활용으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E028",
+      "from_concept_id": "M2_LE_C019",
+      "to_concept_id": "M2_LE_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "수의 연산 식 세우기가 자릿값 표현 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E029",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "조건 두 개를 식으로 세우는 능력이 평균 문제에 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E030",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "연립방정식 세우기가 가격과 개수 문제의 기반이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E031",
+      "from_concept_id": "M2_LE_C022",
+      "to_concept_id": "M2_LE_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "가격·개수 표 정리가 여러 가지 개수 조건으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E032",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "문장 조건의 식 변환이 나이 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E033",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "두 조건 식 세우기가 비율과 퍼센트 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E034",
+      "from_concept_id": "M2_LE_C025",
+      "to_concept_id": "M2_LE_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "비율과 전체량 관계가 길이 나누기 문제에 연결된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E035",
+      "from_concept_id": "M2_LE_C026",
+      "to_concept_id": "M2_LE_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "길이 조건식이 도형의 둘레·넓이 조건으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E036",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "두 조건을 식으로 세우는 능력이 득점·감점 문제에 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E037",
+      "from_concept_id": "M2_LE_C023",
+      "to_concept_id": "M2_LE_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "개수 조건 해석이 분배 문제로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E038",
+      "from_concept_id": "M2_LE_C029",
+      "to_concept_id": "M2_LE_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "분배 조건의 남음/부족 해석이 계단 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E039",
+      "from_concept_id": "M2_LE_C029",
+      "to_concept_id": "M2_LE_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기준량과 변화량 해석이 증가·감소 비교 문제에 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E040",
+      "from_concept_id": "M2_LE_C031",
+      "to_concept_id": "M2_LE_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "증가·감소 해석이 이익·할인율 조건으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E041",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "조건 두 개를 식으로 세우는 능력이 일률 문제에 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E042",
+      "from_concept_id": "M2_LE_C022",
+      "to_concept_id": "M2_LE_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "개수와 단위량 곱셈이 저울 무게 문제로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E043",
+      "from_concept_id": "M2_LE_C008",
+      "to_concept_id": "M2_LE_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "식 세우기 능력이 속력·거리·시간 관계 모델링으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E044",
+      "from_concept_id": "M2_LE_C035",
+      "to_concept_id": "M2_LE_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 속력 관계가 왕복·출발·도착 운동 상황으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E045",
+      "from_concept_id": "M2_LE_C025",
+      "to_concept_id": "M2_LE_C037",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "비율과 전체량 이해가 소금물 농도 문제로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LE_E046",
+      "from_concept_id": "M2_LE_C025",
+      "to_concept_id": "M2_LE_C037",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "비율과 전체량 이해가 농도·성분 혼합 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

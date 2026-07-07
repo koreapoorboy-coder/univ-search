@@ -1,0 +1,141 @@
+{
+  "version": "2026.07.07-m2-linear-equation-v1.0",
+  "unit_id": "M2_LINEAR_EQUATION",
+  "unit_name": "일차방정식·연립일차방정식",
+  "templates": [
+    {
+      "template_id": "M2_LE_FORM_TWO_VAR_LINEAR",
+      "name": "미지수가 2개인 일차방정식 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LE_C001",
+        "M2_LE_C002",
+        "M2_LE_C003",
+        "M2_LE_C004",
+        "M2_LE_C005",
+        "M2_LE_C006"
+      ],
+      "required_fields": [
+        "미지수 정의",
+        "표준형 정리",
+        "차수와 계수 조건",
+        "해 대입 검산"
+      ],
+      "reject_if_missing": [
+        "표준형 정리",
+        "해 대입 검산"
+      ]
+    },
+    {
+      "template_id": "M2_LE_FORM_SYSTEM_SETUP",
+      "name": "연립방정식 세우기 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LE_C007",
+        "M2_LE_C008",
+        "M2_LE_C009"
+      ],
+      "required_fields": [
+        "미지수 x,y 정의",
+        "조건 1에 대한 식",
+        "조건 2에 대한 식",
+        "두 식의 의미 설명"
+      ],
+      "reject_if_missing": [
+        "미지수 정의",
+        "조건별 식 2개"
+      ]
+    },
+    {
+      "template_id": "M2_LE_FORM_SUB_ELIM",
+      "name": "대입법·가감법 풀이 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LE_C010",
+        "M2_LE_C011",
+        "M2_LE_C012",
+        "M2_LE_C013",
+        "M2_LE_C014"
+      ],
+      "required_fields": [
+        "소거 또는 대입 방법 선택",
+        "식 정리 과정",
+        "한 문자 해 구하기",
+        "나머지 문자 대입",
+        "두 식 검산"
+      ],
+      "reject_if_missing": [
+        "식 정리 과정",
+        "두 식 검산"
+      ]
+    },
+    {
+      "template_id": "M2_LE_FORM_CONDITION",
+      "name": "해와 조건 역산 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LE_C015",
+        "M2_LE_C016",
+        "M2_LE_C017",
+        "M2_LE_C018"
+      ],
+      "required_fields": [
+        "주어진 해 대입",
+        "조건식 또는 계수식 작성",
+        "원래 식과 잘못 본 식 구분",
+        "구한 값 검산"
+      ],
+      "reject_if_missing": [
+        "주어진 해 대입",
+        "구한 값 검산"
+      ]
+    },
+    {
+      "template_id": "M2_LE_FORM_WORD_TABLE",
+      "name": "활용 문제 식 세우기 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LE_C019",
+        "M2_LE_C020",
+        "M2_LE_C021",
+        "M2_LE_C022",
+        "M2_LE_C023",
+        "M2_LE_C024",
+        "M2_LE_C025",
+        "M2_LE_C026",
+        "M2_LE_C027",
+        "M2_LE_C028",
+        "M2_LE_C029",
+        "M2_LE_C030",
+        "M2_LE_C031",
+        "M2_LE_C032",
+        "M2_LE_C033",
+        "M2_LE_C034"
+      ],
+      "required_fields": [
+        "미지수의 의미와 단위",
+        "표 또는 그림 정리",
+        "조건 2개 식 세우기",
+        "답의 단위 확인"
+      ],
+      "reject_if_missing": [
+        "미지수의 의미와 단위",
+        "조건 2개 식 세우기"
+      ]
+    },
+    {
+      "template_id": "M2_LE_FORM_RATE_MIXTURE",
+      "name": "속력·농도 혼합 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LE_C035",
+        "M2_LE_C036",
+        "M2_LE_C037"
+      ],
+      "required_fields": [
+        "기본 공식 표시",
+        "단위 통일",
+        "구간/혼합 전후 표 작성",
+        "해를 상황에 대입해 검산"
+      ],
+      "reject_if_missing": [
+        "단위 통일",
+        "구간/혼합 전후 표 작성"
+      ]
+    }
+  ]
+}

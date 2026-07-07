@@ -1,0 +1,258 @@
+{
+  "version": "2026.07.07-m2-linear-equation-v1.0",
+  "unit_id": "M2_LINEAR_EQUATION",
+  "unit_name": "일차방정식·연립일차방정식",
+  "rule_count": 12,
+  "rules": [
+    {
+      "rule_id": "M2_LE_RULE_001",
+      "name": "미지수가 2개인 일차방정식 판별 취약",
+      "trigger": {
+        "error_tags_any": [
+          "linear_equation_two_variables"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "미지수 2개인 일차방정식의 뜻, 표준형, 차수 조건이 불안정합니다.",
+      "parent_message": "차수와 계수 조건을 먼저 확인하고 표준형으로 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C001",
+        "M2_LE_C002",
+        "M2_LE_C003"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LE_RULE_002",
+      "name": "해 대입·자연수 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "solution_check",
+          "condition_handling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "순서쌍 대입 검산과 자연수·정수 조건에 맞는 해 탐색이 약합니다.",
+      "parent_message": "가능한 후보를 표로 만들고 두 식 또는 조건에 모두 대입해 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C003",
+        "M2_LE_C004",
+        "M2_LE_C005"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LE_RULE_003",
+      "name": "연립방정식 세우기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "simultaneous_equation",
+          "equation_modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "문장 조건 두 개를 독립된 두 식으로 세우는 과정이 약합니다.",
+      "parent_message": "미지수 정의 → 조건 1식 → 조건 2식 순서로 제출하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C006",
+        "M2_LE_C007",
+        "M2_LE_C008"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LE_RULE_004",
+      "name": "대입법 풀이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution_method"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "한 문자를 정리해 다른 식에 대입하는 과정에서 부호와 대입 위치 오류가 발생합니다.",
+      "parent_message": "한 문자 정리식을 박스로 표시하고 대입 후 남은 한 문자를 먼저 구하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C009",
+        "M2_LE_C010"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LE_RULE_005",
+      "name": "가감법 풀이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "elimination_method"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "계수를 맞추고 더하거나 빼서 한 문자를 소거하는 과정이 불안정합니다.",
+      "parent_message": "소거할 문자를 정하고 최소공배수로 계수를 맞춘 뒤 부호를 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C009",
+        "M2_LE_C011"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LE_RULE_006",
+      "name": "복잡한 계수 정리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "parentheses",
+          "fraction_coefficient",
+          "decimal_coefficient",
+          "repeating_decimal",
+          "proportion"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "괄호·분수·소수·순환소수·비례식이 포함되면 정리 단계에서 오류가 납니다.",
+      "parent_message": "계산을 시작하기 전에 괄호 제거, 분모 제거, 소수·비례식 정리를 한 줄씩 분리해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C012",
+        "M2_LE_C013",
+        "M2_LE_C014"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LE_RULE_007",
+      "name": "해와 조건 역산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "parameter_condition",
+          "condition_handling",
+          "misread_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "해가 주어졌을 때 계수나 조건식을 역으로 구하는 과정이 약합니다.",
+      "parent_message": "주어진 해를 먼저 대입하고 원래 식과 잘못 본 식을 구분해 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C015",
+        "M2_LE_C016",
+        "M2_LE_C018"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LE_RULE_008",
+      "name": "특수해 판별 취약",
+      "trigger": {
+        "error_tags_any": [
+          "infinite_solutions",
+          "no_solution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "해가 없거나 무수히 많은 경우의 계수비·상수항 조건을 연결하지 못합니다.",
+      "parent_message": "두 식의 계수비와 상수항 비를 따로 비교하고 그래프 의미를 함께 설명해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C017"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LE_RULE_009",
+      "name": "수·평균·가격 개수 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "number_word_problem",
+          "average",
+          "price_count",
+          "count_problem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "수, 평균, 가격·개수 문제에서 표를 세우지 못하거나 총합 조건을 놓칩니다.",
+      "parent_message": "단위량×개수=전체량 구조를 표로 정리한 뒤 식을 세워야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C019",
+        "M2_LE_C020",
+        "M2_LE_C021",
+        "M2_LE_C022",
+        "M2_LE_C023"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LE_RULE_010",
+      "name": "비율·이익·할인 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "ratio_percent",
+          "profit_discount"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "비율, 퍼센트, 할인율, 이익률의 기준량을 혼동합니다.",
+      "parent_message": "기준량을 표시하고 분수/소수/퍼센트를 하나의 표현으로 통일해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C025",
+        "M2_LE_C031",
+        "M2_LE_C032"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LE_RULE_011",
+      "name": "도형·분배·일 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_application",
+          "distribution_problem",
+          "work_rate",
+          "weight_balance"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "도형, 분배, 일, 무게 상황에서 필요한 관계식을 빠뜨립니다.",
+      "parent_message": "그림이나 표에 미지수를 직접 표시하고 공식 또는 평형 조건을 식으로 옮겨야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C026",
+        "M2_LE_C027",
+        "M2_LE_C028",
+        "M2_LE_C029",
+        "M2_LE_C030",
+        "M2_LE_C033",
+        "M2_LE_C034"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LE_RULE_012",
+      "name": "속력·혼합 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "speed_distance_time",
+          "round_trip",
+          "solution_mixture",
+          "concentration",
+          "mixture_alloy"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "속력·거리·시간, 소금물·농도·혼합 상황의 단위와 전체량을 혼동합니다.",
+      "parent_message": "거리=속력×시간, 성분량=전체량×비율 표를 작성한 뒤 연립방정식을 세워야 합니다.",
+      "recommended_concept_ids": [
+        "M2_LE_C035",
+        "M2_LE_C036",
+        "M2_LE_C037"
+      ],
+      "severity": "high"
+    }
+  ]
+}
