@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.07-h1-common-math2-geometry-equation-v1.0",
+  "version": "2026.07.07-h1-common-math2-set-proposition-v1.0",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -301,6 +301,20 @@
       "sources": "data/sources/h1_common_math2_geometry_equation.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/h1_common_math2_geometry_equation.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/h1_common_math2_geometry_equation.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "H1_COMMON_MATH2_SET_PROPOSITION",
+      "grade": "고1",
+      "course": "공통수학2",
+      "unit_name": "집합과 명제",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/h1_common_math2_set_proposition.problem_types.v1.json",
+      "edges": "data/relations/h1_common_math2_set_proposition.edges.v1.json",
+      "diagnosis_rules": "data/rules/h1_common_math2_set_proposition.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/h1_common_math2_set_proposition.remediation_map.v1.json",
+      "sources": "data/sources/h1_common_math2_set_proposition.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/h1_common_math2_set_proposition.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/h1_common_math2_set_proposition.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [

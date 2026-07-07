@@ -1,0 +1,1366 @@
+{
+  "version": "1.0",
+  "unit_id": "H1_COMMON_MATH2_SET_PROPOSITION",
+  "unit_name": "집합과 명제",
+  "rule_count": 47,
+  "rules": [
+    {
+      "rule_id": "H1_CM2_SET_RULE_001",
+      "name": "집합 표현 기호 판단 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "set_notation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "집합·원소·부분집합 기호를 말로 풀어 쓰지 못해 조건을 잘못 해석합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C001",
+        "H1_CM2_SET_C002",
+        "H1_CM2_SET_C003",
+        "H1_CM2_SET_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT001",
+        "H1_CM2_SET_PT002",
+        "H1_CM2_SET_PT003",
+        "H1_CM2_SET_PT004",
+        "H1_CM2_SET_PT005",
+        "H1_CM2_SET_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_002",
+      "name": "집합 표현 기호 판단 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "set_notation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "집합·원소·부분집합 기호를 말로 풀어 쓰지 못해 조건을 잘못 해석합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C001",
+        "H1_CM2_SET_C002",
+        "H1_CM2_SET_C003",
+        "H1_CM2_SET_C004",
+        "H1_CM2_SET_C005"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT001",
+        "H1_CM2_SET_PT002",
+        "H1_CM2_SET_PT003",
+        "H1_CM2_SET_PT004",
+        "H1_CM2_SET_PT005",
+        "H1_CM2_SET_PT006",
+        "H1_CM2_SET_PT007"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_003",
+      "name": "집합 표현 기호 판단 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "set_notation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "집합·원소·부분집합 기호를 말로 풀어 쓰지 못해 조건을 잘못 해석합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C001",
+        "H1_CM2_SET_C002",
+        "H1_CM2_SET_C003",
+        "H1_CM2_SET_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT001",
+        "H1_CM2_SET_PT002",
+        "H1_CM2_SET_PT003",
+        "H1_CM2_SET_PT004",
+        "H1_CM2_SET_PT005",
+        "H1_CM2_SET_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_004",
+      "name": "원소 조건 번역 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "element_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "조건제시법의 범위, 자연수/정수/실수 조건을 판별 기준으로 바꾸지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C001",
+        "H1_CM2_SET_C002",
+        "H1_CM2_SET_C003",
+        "H1_CM2_SET_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT001",
+        "H1_CM2_SET_PT002",
+        "H1_CM2_SET_PT003",
+        "H1_CM2_SET_PT004",
+        "H1_CM2_SET_PT005",
+        "H1_CM2_SET_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_005",
+      "name": "원소 조건 번역 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "element_condition"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "조건제시법의 범위, 자연수/정수/실수 조건을 판별 기준으로 바꾸지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C001",
+        "H1_CM2_SET_C002",
+        "H1_CM2_SET_C003",
+        "H1_CM2_SET_C004",
+        "H1_CM2_SET_C005"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT001",
+        "H1_CM2_SET_PT002",
+        "H1_CM2_SET_PT003",
+        "H1_CM2_SET_PT004",
+        "H1_CM2_SET_PT005",
+        "H1_CM2_SET_PT006",
+        "H1_CM2_SET_PT007"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_006",
+      "name": "원소 조건 번역 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "element_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "조건제시법의 범위, 자연수/정수/실수 조건을 판별 기준으로 바꾸지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C001",
+        "H1_CM2_SET_C002",
+        "H1_CM2_SET_C003",
+        "H1_CM2_SET_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT001",
+        "H1_CM2_SET_PT002",
+        "H1_CM2_SET_PT003",
+        "H1_CM2_SET_PT004",
+        "H1_CM2_SET_PT005",
+        "H1_CM2_SET_PT006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_007",
+      "name": "부분집합 포함 관계 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "subset_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "부분집합, 진부분집합, 서로 같은 집합의 관계를 구분하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C041",
+        "H1_CM2_SET_C042",
+        "H1_CM2_SET_C043",
+        "H1_CM2_SET_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT121",
+        "H1_CM2_SET_PT122",
+        "H1_CM2_SET_PT123",
+        "H1_CM2_SET_PT124",
+        "H1_CM2_SET_PT125",
+        "H1_CM2_SET_PT126"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_008",
+      "name": "부분집합 포함 관계 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "subset_relation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "부분집합, 진부분집합, 서로 같은 집합의 관계를 구분하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C041",
+        "H1_CM2_SET_C042",
+        "H1_CM2_SET_C043",
+        "H1_CM2_SET_C044",
+        "H1_CM2_SET_C045"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT121",
+        "H1_CM2_SET_PT122",
+        "H1_CM2_SET_PT123",
+        "H1_CM2_SET_PT124",
+        "H1_CM2_SET_PT125",
+        "H1_CM2_SET_PT126",
+        "H1_CM2_SET_PT127"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_009",
+      "name": "부분집합 포함 관계 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "subset_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "부분집합, 진부분집합, 서로 같은 집합의 관계를 구분하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C041",
+        "H1_CM2_SET_C042",
+        "H1_CM2_SET_C043",
+        "H1_CM2_SET_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT121",
+        "H1_CM2_SET_PT122",
+        "H1_CM2_SET_PT123",
+        "H1_CM2_SET_PT124",
+        "H1_CM2_SET_PT125",
+        "H1_CM2_SET_PT126"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_010",
+      "name": "부분집합 개수 계산 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "subset_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "반드시 포함/제외 조건을 2의 거듭제곱 개수 계산으로 연결하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C041",
+        "H1_CM2_SET_C042",
+        "H1_CM2_SET_C043",
+        "H1_CM2_SET_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT121",
+        "H1_CM2_SET_PT122",
+        "H1_CM2_SET_PT123",
+        "H1_CM2_SET_PT124",
+        "H1_CM2_SET_PT125",
+        "H1_CM2_SET_PT126"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_011",
+      "name": "부분집합 개수 계산 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "subset_count"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "반드시 포함/제외 조건을 2의 거듭제곱 개수 계산으로 연결하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C041",
+        "H1_CM2_SET_C042",
+        "H1_CM2_SET_C043",
+        "H1_CM2_SET_C044",
+        "H1_CM2_SET_C045"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT121",
+        "H1_CM2_SET_PT122",
+        "H1_CM2_SET_PT123",
+        "H1_CM2_SET_PT124",
+        "H1_CM2_SET_PT125",
+        "H1_CM2_SET_PT126",
+        "H1_CM2_SET_PT127"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_012",
+      "name": "부분집합 개수 계산 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "subset_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "반드시 포함/제외 조건을 2의 거듭제곱 개수 계산으로 연결하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C041",
+        "H1_CM2_SET_C042",
+        "H1_CM2_SET_C043",
+        "H1_CM2_SET_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT121",
+        "H1_CM2_SET_PT122",
+        "H1_CM2_SET_PT123",
+        "H1_CM2_SET_PT124",
+        "H1_CM2_SET_PT125",
+        "H1_CM2_SET_PT126"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_013",
+      "name": "집합 연산 순서 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "set_operation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "합집합·교집합·차집합·여집합을 영역별로 분리하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C081",
+        "H1_CM2_SET_C082",
+        "H1_CM2_SET_C083",
+        "H1_CM2_SET_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT241",
+        "H1_CM2_SET_PT242",
+        "H1_CM2_SET_PT243",
+        "H1_CM2_SET_PT244",
+        "H1_CM2_SET_PT245",
+        "H1_CM2_SET_PT246"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_014",
+      "name": "집합 연산 순서 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "set_operation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "합집합·교집합·차집합·여집합을 영역별로 분리하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C081",
+        "H1_CM2_SET_C082",
+        "H1_CM2_SET_C083",
+        "H1_CM2_SET_C084",
+        "H1_CM2_SET_C085"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT241",
+        "H1_CM2_SET_PT242",
+        "H1_CM2_SET_PT243",
+        "H1_CM2_SET_PT244",
+        "H1_CM2_SET_PT245",
+        "H1_CM2_SET_PT246",
+        "H1_CM2_SET_PT247"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_015",
+      "name": "집합 연산 순서 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "set_operation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "합집합·교집합·차집합·여집합을 영역별로 분리하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C081",
+        "H1_CM2_SET_C082",
+        "H1_CM2_SET_C083",
+        "H1_CM2_SET_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT241",
+        "H1_CM2_SET_PT242",
+        "H1_CM2_SET_PT243",
+        "H1_CM2_SET_PT244",
+        "H1_CM2_SET_PT245",
+        "H1_CM2_SET_PT246"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_016",
+      "name": "벤다이어그램 영역 배치 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "venn_diagram"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "겹치는 영역과 여집합 영역을 분리하지 못해 원소 개수 계산에서 중복이 발생합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C081",
+        "H1_CM2_SET_C082",
+        "H1_CM2_SET_C083",
+        "H1_CM2_SET_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT241",
+        "H1_CM2_SET_PT242",
+        "H1_CM2_SET_PT243",
+        "H1_CM2_SET_PT244",
+        "H1_CM2_SET_PT245",
+        "H1_CM2_SET_PT246"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_017",
+      "name": "벤다이어그램 영역 배치 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "venn_diagram"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "겹치는 영역과 여집합 영역을 분리하지 못해 원소 개수 계산에서 중복이 발생합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C081",
+        "H1_CM2_SET_C082",
+        "H1_CM2_SET_C083",
+        "H1_CM2_SET_C084",
+        "H1_CM2_SET_C085"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT241",
+        "H1_CM2_SET_PT242",
+        "H1_CM2_SET_PT243",
+        "H1_CM2_SET_PT244",
+        "H1_CM2_SET_PT245",
+        "H1_CM2_SET_PT246",
+        "H1_CM2_SET_PT247"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_018",
+      "name": "벤다이어그램 영역 배치 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "venn_diagram"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "겹치는 영역과 여집합 영역을 분리하지 못해 원소 개수 계산에서 중복이 발생합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C081",
+        "H1_CM2_SET_C082",
+        "H1_CM2_SET_C083",
+        "H1_CM2_SET_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT241",
+        "H1_CM2_SET_PT242",
+        "H1_CM2_SET_PT243",
+        "H1_CM2_SET_PT244",
+        "H1_CM2_SET_PT245",
+        "H1_CM2_SET_PT246"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_019",
+      "name": "포함배제 원리 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "inclusion_exclusion"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 집합 또는 세 집합의 합집합 개수에서 교집합을 빼거나 더하는 기준이 흔들립니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C121",
+        "H1_CM2_SET_C122",
+        "H1_CM2_SET_C123",
+        "H1_CM2_SET_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT361",
+        "H1_CM2_SET_PT362",
+        "H1_CM2_SET_PT363",
+        "H1_CM2_SET_PT364",
+        "H1_CM2_SET_PT365",
+        "H1_CM2_SET_PT366"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_020",
+      "name": "포함배제 원리 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "inclusion_exclusion"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "두 집합 또는 세 집합의 합집합 개수에서 교집합을 빼거나 더하는 기준이 흔들립니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C121",
+        "H1_CM2_SET_C122",
+        "H1_CM2_SET_C123",
+        "H1_CM2_SET_C124",
+        "H1_CM2_SET_C125"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT361",
+        "H1_CM2_SET_PT362",
+        "H1_CM2_SET_PT363",
+        "H1_CM2_SET_PT364",
+        "H1_CM2_SET_PT365",
+        "H1_CM2_SET_PT366",
+        "H1_CM2_SET_PT367"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_021",
+      "name": "포함배제 원리 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "inclusion_exclusion"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "두 집합 또는 세 집합의 합집합 개수에서 교집합을 빼거나 더하는 기준이 흔들립니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C121",
+        "H1_CM2_SET_C122",
+        "H1_CM2_SET_C123",
+        "H1_CM2_SET_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT361",
+        "H1_CM2_SET_PT362",
+        "H1_CM2_SET_PT363",
+        "H1_CM2_SET_PT364",
+        "H1_CM2_SET_PT365",
+        "H1_CM2_SET_PT366"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_022",
+      "name": "명제 참거짓 판단 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "proposition_truth"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "가정과 결론을 구분하지 못하고 반례 확인 없이 참으로 판단합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C161",
+        "H1_CM2_SET_C162",
+        "H1_CM2_SET_C163",
+        "H1_CM2_SET_C164"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT481",
+        "H1_CM2_SET_PT482",
+        "H1_CM2_SET_PT483",
+        "H1_CM2_SET_PT484",
+        "H1_CM2_SET_PT485",
+        "H1_CM2_SET_PT486"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_023",
+      "name": "명제 참거짓 판단 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "proposition_truth"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "가정과 결론을 구분하지 못하고 반례 확인 없이 참으로 판단합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C161",
+        "H1_CM2_SET_C162",
+        "H1_CM2_SET_C163",
+        "H1_CM2_SET_C164",
+        "H1_CM2_SET_C165"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT481",
+        "H1_CM2_SET_PT482",
+        "H1_CM2_SET_PT483",
+        "H1_CM2_SET_PT484",
+        "H1_CM2_SET_PT485",
+        "H1_CM2_SET_PT486",
+        "H1_CM2_SET_PT487"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_024",
+      "name": "명제 참거짓 판단 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "proposition_truth"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "가정과 결론을 구분하지 못하고 반례 확인 없이 참으로 판단합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C161",
+        "H1_CM2_SET_C162",
+        "H1_CM2_SET_C163",
+        "H1_CM2_SET_C164"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT481",
+        "H1_CM2_SET_PT482",
+        "H1_CM2_SET_PT483",
+        "H1_CM2_SET_PT484",
+        "H1_CM2_SET_PT485",
+        "H1_CM2_SET_PT486"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_025",
+      "name": "진리집합 해석 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "truth_set"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "조건의 참거짓을 진리집합 포함 관계로 번역하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C161",
+        "H1_CM2_SET_C162",
+        "H1_CM2_SET_C163",
+        "H1_CM2_SET_C164"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT481",
+        "H1_CM2_SET_PT482",
+        "H1_CM2_SET_PT483",
+        "H1_CM2_SET_PT484",
+        "H1_CM2_SET_PT485",
+        "H1_CM2_SET_PT486"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_026",
+      "name": "진리집합 해석 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "truth_set"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "조건의 참거짓을 진리집합 포함 관계로 번역하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C161",
+        "H1_CM2_SET_C162",
+        "H1_CM2_SET_C163",
+        "H1_CM2_SET_C164",
+        "H1_CM2_SET_C165"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT481",
+        "H1_CM2_SET_PT482",
+        "H1_CM2_SET_PT483",
+        "H1_CM2_SET_PT484",
+        "H1_CM2_SET_PT485",
+        "H1_CM2_SET_PT486",
+        "H1_CM2_SET_PT487"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_027",
+      "name": "진리집합 해석 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "truth_set"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "조건의 참거짓을 진리집합 포함 관계로 번역하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C161",
+        "H1_CM2_SET_C162",
+        "H1_CM2_SET_C163",
+        "H1_CM2_SET_C164"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT481",
+        "H1_CM2_SET_PT482",
+        "H1_CM2_SET_PT483",
+        "H1_CM2_SET_PT484",
+        "H1_CM2_SET_PT485",
+        "H1_CM2_SET_PT486"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_028",
+      "name": "역·이·대우 구성 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "converse_inverse_contrapositive"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "명제의 역, 이, 대우를 만들 때 부정 위치와 조건 순서를 혼동합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C201",
+        "H1_CM2_SET_C202",
+        "H1_CM2_SET_C203",
+        "H1_CM2_SET_C204"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT601",
+        "H1_CM2_SET_PT602",
+        "H1_CM2_SET_PT603",
+        "H1_CM2_SET_PT604",
+        "H1_CM2_SET_PT605",
+        "H1_CM2_SET_PT606"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_029",
+      "name": "역·이·대우 구성 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "converse_inverse_contrapositive"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "명제의 역, 이, 대우를 만들 때 부정 위치와 조건 순서를 혼동합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C201",
+        "H1_CM2_SET_C202",
+        "H1_CM2_SET_C203",
+        "H1_CM2_SET_C204",
+        "H1_CM2_SET_C205"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT601",
+        "H1_CM2_SET_PT602",
+        "H1_CM2_SET_PT603",
+        "H1_CM2_SET_PT604",
+        "H1_CM2_SET_PT605",
+        "H1_CM2_SET_PT606",
+        "H1_CM2_SET_PT607"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_030",
+      "name": "역·이·대우 구성 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "converse_inverse_contrapositive"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "명제의 역, 이, 대우를 만들 때 부정 위치와 조건 순서를 혼동합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C201",
+        "H1_CM2_SET_C202",
+        "H1_CM2_SET_C203",
+        "H1_CM2_SET_C204"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT601",
+        "H1_CM2_SET_PT602",
+        "H1_CM2_SET_PT603",
+        "H1_CM2_SET_PT604",
+        "H1_CM2_SET_PT605",
+        "H1_CM2_SET_PT606"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_031",
+      "name": "필요충분조건 판단 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "necessary_sufficient"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "p이면 q와 q이면 p를 구분하지 못해 필요조건과 충분조건을 반대로 판단합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C233",
+        "H1_CM2_SET_C234",
+        "H1_CM2_SET_C235",
+        "H1_CM2_SET_C236"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT697",
+        "H1_CM2_SET_PT698",
+        "H1_CM2_SET_PT699",
+        "H1_CM2_SET_PT700",
+        "H1_CM2_SET_PT701",
+        "H1_CM2_SET_PT702"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_032",
+      "name": "필요충분조건 판단 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "necessary_sufficient"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "p이면 q와 q이면 p를 구분하지 못해 필요조건과 충분조건을 반대로 판단합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C233",
+        "H1_CM2_SET_C234",
+        "H1_CM2_SET_C235",
+        "H1_CM2_SET_C236",
+        "H1_CM2_SET_C237"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT697",
+        "H1_CM2_SET_PT698",
+        "H1_CM2_SET_PT699",
+        "H1_CM2_SET_PT700",
+        "H1_CM2_SET_PT701",
+        "H1_CM2_SET_PT702",
+        "H1_CM2_SET_PT703"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_033",
+      "name": "필요충분조건 판단 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "necessary_sufficient"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "p이면 q와 q이면 p를 구분하지 못해 필요조건과 충분조건을 반대로 판단합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C233",
+        "H1_CM2_SET_C234",
+        "H1_CM2_SET_C235",
+        "H1_CM2_SET_C236"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT697",
+        "H1_CM2_SET_PT698",
+        "H1_CM2_SET_PT699",
+        "H1_CM2_SET_PT700",
+        "H1_CM2_SET_PT701",
+        "H1_CM2_SET_PT702"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_034",
+      "name": "증명 구조 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "proof_logic"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "직접증명, 대우증명, 귀류법, 반례 제시 중 어떤 방법을 써야 하는지 선택하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C259",
+        "H1_CM2_SET_C260",
+        "H1_CM2_SET_C261",
+        "H1_CM2_SET_C262"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT775",
+        "H1_CM2_SET_PT776",
+        "H1_CM2_SET_PT777",
+        "H1_CM2_SET_PT778",
+        "H1_CM2_SET_PT779",
+        "H1_CM2_SET_PT780"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_035",
+      "name": "증명 구조 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "proof_logic"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "직접증명, 대우증명, 귀류법, 반례 제시 중 어떤 방법을 써야 하는지 선택하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C259",
+        "H1_CM2_SET_C260",
+        "H1_CM2_SET_C261",
+        "H1_CM2_SET_C262",
+        "H1_CM2_SET_C263"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT775",
+        "H1_CM2_SET_PT776",
+        "H1_CM2_SET_PT777",
+        "H1_CM2_SET_PT778",
+        "H1_CM2_SET_PT779",
+        "H1_CM2_SET_PT780",
+        "H1_CM2_SET_PT781"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_036",
+      "name": "증명 구조 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "proof_logic"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "직접증명, 대우증명, 귀류법, 반례 제시 중 어떤 방법을 써야 하는지 선택하지 못합니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C259",
+        "H1_CM2_SET_C260",
+        "H1_CM2_SET_C261",
+        "H1_CM2_SET_C262"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT775",
+        "H1_CM2_SET_PT776",
+        "H1_CM2_SET_PT777",
+        "H1_CM2_SET_PT778",
+        "H1_CM2_SET_PT779",
+        "H1_CM2_SET_PT780"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_037",
+      "name": "절대부등식 증명 취약 - 기본",
+      "trigger": {
+        "error_tags_any": [
+          "inequality_proof"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "제곱식 또는 산술평균-기하평균을 적용할 때 등호 성립 조건을 빠뜨립니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C259",
+        "H1_CM2_SET_C260",
+        "H1_CM2_SET_C261",
+        "H1_CM2_SET_C262"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT775",
+        "H1_CM2_SET_PT776",
+        "H1_CM2_SET_PT777",
+        "H1_CM2_SET_PT778",
+        "H1_CM2_SET_PT779",
+        "H1_CM2_SET_PT780"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_038",
+      "name": "절대부등식 증명 취약 - 반복",
+      "trigger": {
+        "error_tags_any": [
+          "inequality_proof"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "제곱식 또는 산술평균-기하평균을 적용할 때 등호 성립 조건을 빠뜨립니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C259",
+        "H1_CM2_SET_C260",
+        "H1_CM2_SET_C261",
+        "H1_CM2_SET_C262",
+        "H1_CM2_SET_C263"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT775",
+        "H1_CM2_SET_PT776",
+        "H1_CM2_SET_PT777",
+        "H1_CM2_SET_PT778",
+        "H1_CM2_SET_PT779",
+        "H1_CM2_SET_PT780",
+        "H1_CM2_SET_PT781"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_039",
+      "name": "절대부등식 증명 취약 - 보기형",
+      "trigger": {
+        "error_tags_any": [
+          "inequality_proof"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "제곱식 또는 산술평균-기하평균을 적용할 때 등호 성립 조건을 빠뜨립니다.",
+      "parent_message": "집합과 명제 문제는 바로 계산하지 말고, 먼저 전체집합·조건·기호·참거짓을 표로 분리한 뒤 보기 전체를 검산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C259",
+        "H1_CM2_SET_C260",
+        "H1_CM2_SET_C261",
+        "H1_CM2_SET_C262"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT775",
+        "H1_CM2_SET_PT776",
+        "H1_CM2_SET_PT777",
+        "H1_CM2_SET_PT778",
+        "H1_CM2_SET_PT779",
+        "H1_CM2_SET_PT780"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_040",
+      "name": "집합의 뜻과 표현 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "set_notation",
+          "element_condition",
+          "domain_translation"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "집합의 뜻과 표현 유형에서 조건을 기호, 범위, 참거짓 기준으로 분해하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 묻는 것·전체집합·조건 부정·보기 OX를 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C001",
+        "H1_CM2_SET_C002",
+        "H1_CM2_SET_C003",
+        "H1_CM2_SET_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT001",
+        "H1_CM2_SET_PT002",
+        "H1_CM2_SET_PT003",
+        "H1_CM2_SET_PT004",
+        "H1_CM2_SET_PT005",
+        "H1_CM2_SET_PT006"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_041",
+      "name": "부분집합과 집합의 포함 관계 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "subset_relation",
+          "subset_count",
+          "condition_casework"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "부분집합과 집합의 포함 관계 유형에서 조건을 기호, 범위, 참거짓 기준으로 분해하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 묻는 것·전체집합·조건 부정·보기 OX를 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C041",
+        "H1_CM2_SET_C042",
+        "H1_CM2_SET_C043",
+        "H1_CM2_SET_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT121",
+        "H1_CM2_SET_PT122",
+        "H1_CM2_SET_PT123",
+        "H1_CM2_SET_PT124",
+        "H1_CM2_SET_PT125",
+        "H1_CM2_SET_PT126"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_042",
+      "name": "집합의 연산 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "set_operation",
+          "venn_diagram",
+          "complement_law"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "집합의 연산 유형에서 조건을 기호, 범위, 참거짓 기준으로 분해하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 묻는 것·전체집합·조건 부정·보기 OX를 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C081",
+        "H1_CM2_SET_C082",
+        "H1_CM2_SET_C083",
+        "H1_CM2_SET_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT241",
+        "H1_CM2_SET_PT242",
+        "H1_CM2_SET_PT243",
+        "H1_CM2_SET_PT244",
+        "H1_CM2_SET_PT245",
+        "H1_CM2_SET_PT246"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_043",
+      "name": "원소의 개수와 포함배제 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "element_count",
+          "inclusion_exclusion",
+          "venn_diagram"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "원소의 개수와 포함배제 유형에서 조건을 기호, 범위, 참거짓 기준으로 분해하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 묻는 것·전체집합·조건 부정·보기 OX를 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C121",
+        "H1_CM2_SET_C122",
+        "H1_CM2_SET_C123",
+        "H1_CM2_SET_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT361",
+        "H1_CM2_SET_PT362",
+        "H1_CM2_SET_PT363",
+        "H1_CM2_SET_PT364",
+        "H1_CM2_SET_PT365",
+        "H1_CM2_SET_PT366"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_044",
+      "name": "명제와 조건 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "proposition_truth",
+          "truth_set",
+          "counterexample"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "명제와 조건 유형에서 조건을 기호, 범위, 참거짓 기준으로 분해하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 묻는 것·전체집합·조건 부정·보기 OX를 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C161",
+        "H1_CM2_SET_C162",
+        "H1_CM2_SET_C163",
+        "H1_CM2_SET_C164"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT481",
+        "H1_CM2_SET_PT482",
+        "H1_CM2_SET_PT483",
+        "H1_CM2_SET_PT484",
+        "H1_CM2_SET_PT485",
+        "H1_CM2_SET_PT486"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_045",
+      "name": "명제의 역·이·대우 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "converse_inverse_contrapositive",
+          "negation_logic",
+          "proposition_truth"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "명제의 역·이·대우 유형에서 조건을 기호, 범위, 참거짓 기준으로 분해하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 묻는 것·전체집합·조건 부정·보기 OX를 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C201",
+        "H1_CM2_SET_C202",
+        "H1_CM2_SET_C203",
+        "H1_CM2_SET_C204"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT601",
+        "H1_CM2_SET_PT602",
+        "H1_CM2_SET_PT603",
+        "H1_CM2_SET_PT604",
+        "H1_CM2_SET_PT605",
+        "H1_CM2_SET_PT606"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_046",
+      "name": "필요조건과 충분조건 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "necessary_sufficient",
+          "truth_set_inclusion",
+          "condition_casework"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "필요조건과 충분조건 유형에서 조건을 기호, 범위, 참거짓 기준으로 분해하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 묻는 것·전체집합·조건 부정·보기 OX를 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C233",
+        "H1_CM2_SET_C234",
+        "H1_CM2_SET_C235",
+        "H1_CM2_SET_C236"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT697",
+        "H1_CM2_SET_PT698",
+        "H1_CM2_SET_PT699",
+        "H1_CM2_SET_PT700",
+        "H1_CM2_SET_PT701",
+        "H1_CM2_SET_PT702"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM2_SET_RULE_047",
+      "name": "명제의 증명과 절대부등식 종합 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "proof_logic",
+          "inequality_proof",
+          "equality_condition"
+        ],
+        "wrong_min": 3,
+        "low_difficulty_wrong_min": 2
+      },
+      "diagnosis": "명제의 증명과 절대부등식 유형에서 조건을 기호, 범위, 참거짓 기준으로 분해하지 못하는 오류가 반복됩니다.",
+      "parent_message": "학생에게 긴 해설을 읽히기보다, 문제마다 묻는 것·전체집합·조건 부정·보기 OX를 체크하게 하는 방식이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM2_SET_C259",
+        "H1_CM2_SET_C260",
+        "H1_CM2_SET_C261",
+        "H1_CM2_SET_C262"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM2_SET_PT775",
+        "H1_CM2_SET_PT776",
+        "H1_CM2_SET_PT777",
+        "H1_CM2_SET_PT778",
+        "H1_CM2_SET_PT779",
+        "H1_CM2_SET_PT780"
+      ],
+      "severity": "high"
+    }
+  ]
+}
