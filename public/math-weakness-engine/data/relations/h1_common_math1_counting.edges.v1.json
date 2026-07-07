@@ -1,0 +1,1048 @@
+{
+  "version": "2026.07.07-h1-common-math1-counting-v1.0",
+  "unit_id": "H1_COMMON_MATH1_COUNTING",
+  "unit_name": "경우의 수",
+  "edge_count": 104,
+  "edges": [
+    {
+      "edge_id": "H1_CM1_COUNT_E001",
+      "from_concept_id": "H1_CM1_COUNT_C001",
+      "to_concept_id": "H1_CM1_COUNT_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'합의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E002",
+      "from_concept_id": "H1_CM1_COUNT_C002",
+      "to_concept_id": "H1_CM1_COUNT_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'합의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E003",
+      "from_concept_id": "H1_CM1_COUNT_C003",
+      "to_concept_id": "H1_CM1_COUNT_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'합의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E004",
+      "from_concept_id": "H1_CM1_COUNT_C004",
+      "to_concept_id": "H1_CM1_COUNT_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'합의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E005",
+      "from_concept_id": "H1_CM1_COUNT_C006",
+      "to_concept_id": "H1_CM1_COUNT_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'방정식과 부등식의 해의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E006",
+      "from_concept_id": "H1_CM1_COUNT_C008",
+      "to_concept_id": "H1_CM1_COUNT_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'곱의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E007",
+      "from_concept_id": "H1_CM1_COUNT_C009",
+      "to_concept_id": "H1_CM1_COUNT_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'곱의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E008",
+      "from_concept_id": "H1_CM1_COUNT_C010",
+      "to_concept_id": "H1_CM1_COUNT_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'곱의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E009",
+      "from_concept_id": "H1_CM1_COUNT_C011",
+      "to_concept_id": "H1_CM1_COUNT_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'곱의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E010",
+      "from_concept_id": "H1_CM1_COUNT_C012",
+      "to_concept_id": "H1_CM1_COUNT_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'곱의 법칙' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E011",
+      "from_concept_id": "H1_CM1_COUNT_C014",
+      "to_concept_id": "H1_CM1_COUNT_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'약수의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E012",
+      "from_concept_id": "H1_CM1_COUNT_C015",
+      "to_concept_id": "H1_CM1_COUNT_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'약수의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E013",
+      "from_concept_id": "H1_CM1_COUNT_C016",
+      "to_concept_id": "H1_CM1_COUNT_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'약수의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E014",
+      "from_concept_id": "H1_CM1_COUNT_C018",
+      "to_concept_id": "H1_CM1_COUNT_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'지불 방법의 수와 지불 금액의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E015",
+      "from_concept_id": "H1_CM1_COUNT_C020",
+      "to_concept_id": "H1_CM1_COUNT_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'도로망에서의 경우의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E016",
+      "from_concept_id": "H1_CM1_COUNT_C021",
+      "to_concept_id": "H1_CM1_COUNT_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'도로망에서의 경우의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E017",
+      "from_concept_id": "H1_CM1_COUNT_C023",
+      "to_concept_id": "H1_CM1_COUNT_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'수형도를 이용하는 경우의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E018",
+      "from_concept_id": "H1_CM1_COUNT_C024",
+      "to_concept_id": "H1_CM1_COUNT_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'수형도를 이용하는 경우의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E019",
+      "from_concept_id": "H1_CM1_COUNT_C025",
+      "to_concept_id": "H1_CM1_COUNT_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'수형도를 이용하는 경우의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E020",
+      "from_concept_id": "H1_CM1_COUNT_C026",
+      "to_concept_id": "H1_CM1_COUNT_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'수형도를 이용하는 경우의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E021",
+      "from_concept_id": "H1_CM1_COUNT_C028",
+      "to_concept_id": "H1_CM1_COUNT_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'색칠하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E022",
+      "from_concept_id": "H1_CM1_COUNT_C030",
+      "to_concept_id": "H1_CM1_COUNT_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'nPr의 계산' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E023",
+      "from_concept_id": "H1_CM1_COUNT_C032",
+      "to_concept_id": "H1_CM1_COUNT_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E024",
+      "from_concept_id": "H1_CM1_COUNT_C034",
+      "to_concept_id": "H1_CM1_COUNT_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'이웃하는 순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E025",
+      "from_concept_id": "H1_CM1_COUNT_C036",
+      "to_concept_id": "H1_CM1_COUNT_C037",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'이웃하지 않는 순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E026",
+      "from_concept_id": "H1_CM1_COUNT_C038",
+      "to_concept_id": "H1_CM1_COUNT_C039",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자리에 대한 조건이 있는 순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E027",
+      "from_concept_id": "H1_CM1_COUNT_C039",
+      "to_concept_id": "H1_CM1_COUNT_C040",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자리에 대한 조건이 있는 순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E028",
+      "from_concept_id": "H1_CM1_COUNT_C040",
+      "to_concept_id": "H1_CM1_COUNT_C041",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자리에 대한 조건이 있는 순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E029",
+      "from_concept_id": "H1_CM1_COUNT_C041",
+      "to_concept_id": "H1_CM1_COUNT_C042",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자리에 대한 조건이 있는 순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E030",
+      "from_concept_id": "H1_CM1_COUNT_C042",
+      "to_concept_id": "H1_CM1_COUNT_C043",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자리에 대한 조건이 있는 순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E031",
+      "from_concept_id": "H1_CM1_COUNT_C044",
+      "to_concept_id": "H1_CM1_COUNT_C045",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'적어도 의 조건이 있는 순열의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E032",
+      "from_concept_id": "H1_CM1_COUNT_C046",
+      "to_concept_id": "H1_CM1_COUNT_C047",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자연수의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E033",
+      "from_concept_id": "H1_CM1_COUNT_C047",
+      "to_concept_id": "H1_CM1_COUNT_C048",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자연수의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E034",
+      "from_concept_id": "H1_CM1_COUNT_C048",
+      "to_concept_id": "H1_CM1_COUNT_C049",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자연수의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E035",
+      "from_concept_id": "H1_CM1_COUNT_C049",
+      "to_concept_id": "H1_CM1_COUNT_C050",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'자연수의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E036",
+      "from_concept_id": "H1_CM1_COUNT_C051",
+      "to_concept_id": "H1_CM1_COUNT_C052",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'사전식으로 배열하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E037",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C054",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'nCr의 계산' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E038",
+      "from_concept_id": "H1_CM1_COUNT_C055",
+      "to_concept_id": "H1_CM1_COUNT_C056",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'nPr와 nCr의 계산' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E039",
+      "from_concept_id": "H1_CM1_COUNT_C056",
+      "to_concept_id": "H1_CM1_COUNT_C057",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'nPr와 nCr의 계산' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E040",
+      "from_concept_id": "H1_CM1_COUNT_C057",
+      "to_concept_id": "H1_CM1_COUNT_C058",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'nPr와 nCr의 계산' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E041",
+      "from_concept_id": "H1_CM1_COUNT_C058",
+      "to_concept_id": "H1_CM1_COUNT_C059",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'nPr와 nCr의 계산' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E042",
+      "from_concept_id": "H1_CM1_COUNT_C060",
+      "to_concept_id": "H1_CM1_COUNT_C061",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'nPr와 nCr을 이용한 증명' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E043",
+      "from_concept_id": "H1_CM1_COUNT_C061",
+      "to_concept_id": "H1_CM1_COUNT_C062",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'nPr와 nCr을 이용한 증명' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E044",
+      "from_concept_id": "H1_CM1_COUNT_C063",
+      "to_concept_id": "H1_CM1_COUNT_C064",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E045",
+      "from_concept_id": "H1_CM1_COUNT_C064",
+      "to_concept_id": "H1_CM1_COUNT_C065",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E046",
+      "from_concept_id": "H1_CM1_COUNT_C065",
+      "to_concept_id": "H1_CM1_COUNT_C066",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E047",
+      "from_concept_id": "H1_CM1_COUNT_C066",
+      "to_concept_id": "H1_CM1_COUNT_C067",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E048",
+      "from_concept_id": "H1_CM1_COUNT_C067",
+      "to_concept_id": "H1_CM1_COUNT_C068",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E049",
+      "from_concept_id": "H1_CM1_COUNT_C068",
+      "to_concept_id": "H1_CM1_COUNT_C069",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E050",
+      "from_concept_id": "H1_CM1_COUNT_C069",
+      "to_concept_id": "H1_CM1_COUNT_C070",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E051",
+      "from_concept_id": "H1_CM1_COUNT_C071",
+      "to_concept_id": "H1_CM1_COUNT_C072",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'특정한 것을 포함하거나 포함하지 않는 조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E052",
+      "from_concept_id": "H1_CM1_COUNT_C072",
+      "to_concept_id": "H1_CM1_COUNT_C073",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'특정한 것을 포함하거나 포함하지 않는 조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E053",
+      "from_concept_id": "H1_CM1_COUNT_C073",
+      "to_concept_id": "H1_CM1_COUNT_C074",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'특정한 것을 포함하거나 포함하지 않는 조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E054",
+      "from_concept_id": "H1_CM1_COUNT_C075",
+      "to_concept_id": "H1_CM1_COUNT_C076",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'적어도의 조건이 있는 조합의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E055",
+      "from_concept_id": "H1_CM1_COUNT_C077",
+      "to_concept_id": "H1_CM1_COUNT_C078",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'뽑아서 나열하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E056",
+      "from_concept_id": "H1_CM1_COUNT_C078",
+      "to_concept_id": "H1_CM1_COUNT_C079",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'뽑아서 나열하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E057",
+      "from_concept_id": "H1_CM1_COUNT_C079",
+      "to_concept_id": "H1_CM1_COUNT_C080",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'뽑아서 나열하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E058",
+      "from_concept_id": "H1_CM1_COUNT_C081",
+      "to_concept_id": "H1_CM1_COUNT_C082",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'직선의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E059",
+      "from_concept_id": "H1_CM1_COUNT_C082",
+      "to_concept_id": "H1_CM1_COUNT_C083",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'직선의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E060",
+      "from_concept_id": "H1_CM1_COUNT_C084",
+      "to_concept_id": "H1_CM1_COUNT_C085",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'대각선의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E061",
+      "from_concept_id": "H1_CM1_COUNT_C086",
+      "to_concept_id": "H1_CM1_COUNT_C087",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'삼각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E062",
+      "from_concept_id": "H1_CM1_COUNT_C087",
+      "to_concept_id": "H1_CM1_COUNT_C088",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'삼각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E063",
+      "from_concept_id": "H1_CM1_COUNT_C088",
+      "to_concept_id": "H1_CM1_COUNT_C089",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'삼각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E064",
+      "from_concept_id": "H1_CM1_COUNT_C089",
+      "to_concept_id": "H1_CM1_COUNT_C090",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'삼각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E065",
+      "from_concept_id": "H1_CM1_COUNT_C090",
+      "to_concept_id": "H1_CM1_COUNT_C091",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'삼각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E066",
+      "from_concept_id": "H1_CM1_COUNT_C091",
+      "to_concept_id": "H1_CM1_COUNT_C092",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'삼각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E067",
+      "from_concept_id": "H1_CM1_COUNT_C092",
+      "to_concept_id": "H1_CM1_COUNT_C093",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'삼각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E068",
+      "from_concept_id": "H1_CM1_COUNT_C094",
+      "to_concept_id": "H1_CM1_COUNT_C095",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'사각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E069",
+      "from_concept_id": "H1_CM1_COUNT_C095",
+      "to_concept_id": "H1_CM1_COUNT_C096",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'사각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E070",
+      "from_concept_id": "H1_CM1_COUNT_C096",
+      "to_concept_id": "H1_CM1_COUNT_C097",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'사각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E071",
+      "from_concept_id": "H1_CM1_COUNT_C097",
+      "to_concept_id": "H1_CM1_COUNT_C098",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'사각형의 개수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E072",
+      "from_concept_id": "H1_CM1_COUNT_C099",
+      "to_concept_id": "H1_CM1_COUNT_C100",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'분할하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E073",
+      "from_concept_id": "H1_CM1_COUNT_C100",
+      "to_concept_id": "H1_CM1_COUNT_C101",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'분할하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E074",
+      "from_concept_id": "H1_CM1_COUNT_C103",
+      "to_concept_id": "H1_CM1_COUNT_C104",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'분할한 후 분배하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E075",
+      "from_concept_id": "H1_CM1_COUNT_C104",
+      "to_concept_id": "H1_CM1_COUNT_C105",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'분할한 후 분배하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E076",
+      "from_concept_id": "H1_CM1_COUNT_C105",
+      "to_concept_id": "H1_CM1_COUNT_C106",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'분할한 후 분배하는 방법의 수' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E077",
+      "from_concept_id": "H1_CM1_COUNT_C107",
+      "to_concept_id": "H1_CM1_COUNT_C108",
+      "relation_type": "prerequisite",
+      "weight": 0.64,
+      "reason": "'대진표 작성하기' 안에서 앞선 유형을 바탕으로 다음 조건을 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E078",
+      "from_concept_id": "H1_CM1_COUNT_C001",
+      "to_concept_id": "H1_CM1_COUNT_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "합의 법칙의 경우분류가 방정식과 부등식의 해의 개수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E079",
+      "from_concept_id": "H1_CM1_COUNT_C001",
+      "to_concept_id": "H1_CM1_COUNT_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "합의 법칙의 경우분류가 도로망에서의 경우의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E080",
+      "from_concept_id": "H1_CM1_COUNT_C001",
+      "to_concept_id": "H1_CM1_COUNT_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "합의 법칙의 경우분류가 수형도를 이용하는 경우의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E081",
+      "from_concept_id": "H1_CM1_COUNT_C001",
+      "to_concept_id": "H1_CM1_COUNT_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "합의 법칙의 경우분류가 색칠하는 방법의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E082",
+      "from_concept_id": "H1_CM1_COUNT_C008",
+      "to_concept_id": "H1_CM1_COUNT_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "곱의 법칙의 단계별 선택 구조가 약수의 개수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E083",
+      "from_concept_id": "H1_CM1_COUNT_C008",
+      "to_concept_id": "H1_CM1_COUNT_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "곱의 법칙의 단계별 선택 구조가 지불 방법의 수와 지불 금액의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E084",
+      "from_concept_id": "H1_CM1_COUNT_C008",
+      "to_concept_id": "H1_CM1_COUNT_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "곱의 법칙의 단계별 선택 구조가 도로망에서의 경우의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E085",
+      "from_concept_id": "H1_CM1_COUNT_C008",
+      "to_concept_id": "H1_CM1_COUNT_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "곱의 법칙의 단계별 선택 구조가 수형도를 이용하는 경우의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E086",
+      "from_concept_id": "H1_CM1_COUNT_C008",
+      "to_concept_id": "H1_CM1_COUNT_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "곱의 법칙의 단계별 선택 구조가 색칠하는 방법의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E087",
+      "from_concept_id": "H1_CM1_COUNT_C030",
+      "to_concept_id": "H1_CM1_COUNT_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nPr 계산 이해가 순열의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E088",
+      "from_concept_id": "H1_CM1_COUNT_C030",
+      "to_concept_id": "H1_CM1_COUNT_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nPr 계산 이해가 이웃하는 순열의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E089",
+      "from_concept_id": "H1_CM1_COUNT_C030",
+      "to_concept_id": "H1_CM1_COUNT_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nPr 계산 이해가 이웃하지 않는 순열의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E090",
+      "from_concept_id": "H1_CM1_COUNT_C030",
+      "to_concept_id": "H1_CM1_COUNT_C038",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nPr 계산 이해가 자리에 대한 조건이 있는 순열의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E091",
+      "from_concept_id": "H1_CM1_COUNT_C030",
+      "to_concept_id": "H1_CM1_COUNT_C046",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nPr 계산 이해가 자연수의 개수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E092",
+      "from_concept_id": "H1_CM1_COUNT_C030",
+      "to_concept_id": "H1_CM1_COUNT_C051",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nPr 계산 이해가 사전식으로 배열하는 방법의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E093",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C055",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nCr 계산 이해가 nPr와 nCr의 계산 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E094",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C063",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nCr 계산 이해가 조합의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E095",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C071",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nCr 계산 이해가 특정한 것을 포함하거나 포함하지 않는 조합의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E096",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C075",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nCr 계산 이해가 적어도의 조건이 있는 조합의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E097",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C081",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nCr 계산 이해가 직선의 개수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E098",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C084",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nCr 계산 이해가 대각선의 개수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E099",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C086",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nCr 계산 이해가 삼각형의 개수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E100",
+      "from_concept_id": "H1_CM1_COUNT_C053",
+      "to_concept_id": "H1_CM1_COUNT_C094",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "nCr 계산 이해가 사각형의 개수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E101",
+      "from_concept_id": "H1_CM1_COUNT_C063",
+      "to_concept_id": "H1_CM1_COUNT_C077",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "먼저 뽑고 나중에 나열하는 구조는 조합과 순열을 순서대로 결합한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E102",
+      "from_concept_id": "H1_CM1_COUNT_C030",
+      "to_concept_id": "H1_CM1_COUNT_C077",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "뽑은 뒤 나열하는 단계에서 순열 계산이 필요하다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E103",
+      "from_concept_id": "H1_CM1_COUNT_C099",
+      "to_concept_id": "H1_CM1_COUNT_C103",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "분할 구조 이해가 분할한 후 분배하는 방법의 수 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_COUNT_E104",
+      "from_concept_id": "H1_CM1_COUNT_C099",
+      "to_concept_id": "H1_CM1_COUNT_C107",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "분할 구조 이해가 대진표 작성하기 유형의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

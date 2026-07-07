@@ -1,0 +1,549 @@
+{
+  "version": "2026.07.07-h1-common-math1-counting-v1.0",
+  "unit_id": "H1_COMMON_MATH1_COUNTING",
+  "unit_name": "경우의 수",
+  "rule_count": 17,
+  "rules": [
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_001",
+      "name": "합의 법칙 경우분류 취약",
+      "trigger": {
+        "error_tags_any": [
+          "addition_rule",
+          "case_classification"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "합으로 더할 경우가 서로 겹치지 않는지 확인하지 못합니다.",
+      "parent_message": "경우를 표로 나누고 중복되는 경우를 빼게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C001",
+        "H1_CM1_COUNT_C002",
+        "H1_CM1_COUNT_C003",
+        "H1_CM1_COUNT_C004",
+        "H1_CM1_COUNT_C005",
+        "H1_CM1_COUNT_C006"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT001",
+        "H1_CM1_COUNT_PT002",
+        "H1_CM1_COUNT_PT004",
+        "H1_CM1_COUNT_PT005",
+        "H1_CM1_COUNT_PT007",
+        "H1_CM1_COUNT_PT008",
+        "H1_CM1_COUNT_PT010",
+        "H1_CM1_COUNT_PT011"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_002",
+      "name": "곱의 법칙 단계분해 취약",
+      "trigger": {
+        "error_tags_any": [
+          "multiplication_rule",
+          "stage_counting"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "단계별 선택 수를 곱해야 하는 구조를 한 번에 세려고 하면서 누락이 발생합니다.",
+      "parent_message": "1단계, 2단계, 3단계로 나누어 각 단계의 선택 수를 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C001",
+        "H1_CM1_COUNT_C002",
+        "H1_CM1_COUNT_C003",
+        "H1_CM1_COUNT_C004",
+        "H1_CM1_COUNT_C005",
+        "H1_CM1_COUNT_C006"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT001",
+        "H1_CM1_COUNT_PT002",
+        "H1_CM1_COUNT_PT004",
+        "H1_CM1_COUNT_PT005",
+        "H1_CM1_COUNT_PT007",
+        "H1_CM1_COUNT_PT008",
+        "H1_CM1_COUNT_PT010",
+        "H1_CM1_COUNT_PT011"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_003",
+      "name": "해의 개수와 조건 번역 취약",
+      "trigger": {
+        "error_tags_any": [
+          "equation_solution_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "해의 개수 조건을 수직선·범위·정수 조건으로 바꾸지 못합니다.",
+      "parent_message": "해가 가능한 범위를 먼저 쓰고 정수 개수 또는 구간 개수를 세게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C006",
+        "H1_CM1_COUNT_C007",
+        "H1_CM1_COUNT_C031",
+        "H1_CM1_COUNT_C054",
+        "H1_CM1_COUNT_C056",
+        "H1_CM1_COUNT_C057"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT016",
+        "H1_CM1_COUNT_PT017",
+        "H1_CM1_COUNT_PT019",
+        "H1_CM1_COUNT_PT020",
+        "H1_CM1_COUNT_PT091",
+        "H1_CM1_COUNT_PT092",
+        "H1_CM1_COUNT_PT160",
+        "H1_CM1_COUNT_PT161"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_004",
+      "name": "약수 개수 공식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "divisor_count",
+          "prime_factorization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "소인수분해 지수와 약수의 개수·합 공식을 연결하지 못합니다.",
+      "parent_message": "소인수분해 후 지수+1 구조를 줄마다 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C014",
+        "H1_CM1_COUNT_C015",
+        "H1_CM1_COUNT_C016",
+        "H1_CM1_COUNT_C017"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT040",
+        "H1_CM1_COUNT_PT041",
+        "H1_CM1_COUNT_PT043",
+        "H1_CM1_COUNT_PT044",
+        "H1_CM1_COUNT_PT046",
+        "H1_CM1_COUNT_PT047",
+        "H1_CM1_COUNT_PT049",
+        "H1_CM1_COUNT_PT050"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_005",
+      "name": "도로망·경로 경우의 수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "path_counting",
+          "route_counting"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "경로를 단계별로 나누지 못하거나 같은 경로를 중복 계산합니다.",
+      "parent_message": "출발점에서 도착점까지 중간 지점을 기준으로 경우를 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C020",
+        "H1_CM1_COUNT_C021",
+        "H1_CM1_COUNT_C022",
+        "H1_CM1_COUNT_C066"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT058",
+        "H1_CM1_COUNT_PT059",
+        "H1_CM1_COUNT_PT061",
+        "H1_CM1_COUNT_PT062",
+        "H1_CM1_COUNT_PT064",
+        "H1_CM1_COUNT_PT065",
+        "H1_CM1_COUNT_PT196",
+        "H1_CM1_COUNT_PT197"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_006",
+      "name": "수형도 누락 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tree_diagram",
+          "enumeration"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "가능한 경우를 빠짐없이 나열하지 못합니다.",
+      "parent_message": "첫 선택을 기준으로 가지를 나누고 각 가지 끝을 세게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C023",
+        "H1_CM1_COUNT_C024",
+        "H1_CM1_COUNT_C025",
+        "H1_CM1_COUNT_C026",
+        "H1_CM1_COUNT_C027"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT067",
+        "H1_CM1_COUNT_PT068",
+        "H1_CM1_COUNT_PT070",
+        "H1_CM1_COUNT_PT071",
+        "H1_CM1_COUNT_PT073",
+        "H1_CM1_COUNT_PT074",
+        "H1_CM1_COUNT_PT076",
+        "H1_CM1_COUNT_PT077"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_007",
+      "name": "색칠 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coloring_count",
+          "adjacency_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "인접 영역의 색 제한을 순서대로 반영하지 못합니다.",
+      "parent_message": "가장 제약이 큰 영역부터 칠하고 남은 색의 수를 곱하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C028",
+        "H1_CM1_COUNT_C029",
+        "H1_CM1_COUNT_C034",
+        "H1_CM1_COUNT_C035",
+        "H1_CM1_COUNT_C036",
+        "H1_CM1_COUNT_C037"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT082",
+        "H1_CM1_COUNT_PT083",
+        "H1_CM1_COUNT_PT085",
+        "H1_CM1_COUNT_PT086",
+        "H1_CM1_COUNT_PT100",
+        "H1_CM1_COUNT_PT101",
+        "H1_CM1_COUNT_PT103",
+        "H1_CM1_COUNT_PT104"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_008",
+      "name": "순열 기본 취약",
+      "trigger": {
+        "error_tags_any": [
+          "permutation",
+          "ordered_arrangement"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "순서가 중요한 상황을 조합처럼 처리하거나 nPr의 r값을 잘못 잡습니다.",
+      "parent_message": "순서가 바뀌면 다른 경우인지 먼저 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C030",
+        "H1_CM1_COUNT_C031",
+        "H1_CM1_COUNT_C032",
+        "H1_CM1_COUNT_C033",
+        "H1_CM1_COUNT_C034",
+        "H1_CM1_COUNT_C035"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT088",
+        "H1_CM1_COUNT_PT089",
+        "H1_CM1_COUNT_PT091",
+        "H1_CM1_COUNT_PT092",
+        "H1_CM1_COUNT_PT094",
+        "H1_CM1_COUNT_PT095",
+        "H1_CM1_COUNT_PT097",
+        "H1_CM1_COUNT_PT098"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_009",
+      "name": "이웃·비이웃 순열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "adjacency_condition",
+          "position_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "묶음 처리와 빈자리 배치 원리를 혼동합니다.",
+      "parent_message": "이웃은 묶고, 이웃하지 않음은 먼저 빈자리를 만든 뒤 배치하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C034",
+        "H1_CM1_COUNT_C035",
+        "H1_CM1_COUNT_C036",
+        "H1_CM1_COUNT_C037",
+        "H1_CM1_COUNT_C038",
+        "H1_CM1_COUNT_C039"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT100",
+        "H1_CM1_COUNT_PT101",
+        "H1_CM1_COUNT_PT103",
+        "H1_CM1_COUNT_PT104",
+        "H1_CM1_COUNT_PT106",
+        "H1_CM1_COUNT_PT107",
+        "H1_CM1_COUNT_PT109",
+        "H1_CM1_COUNT_PT110"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_010",
+      "name": "자리 조건 순열 취약",
+      "trigger": {
+        "error_tags_any": [
+          "position_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "고정 자리, 사이 간격, 줄 배치 조건을 한꺼번에 처리하면서 누락됩니다.",
+      "parent_message": "고정된 자리와 남은 자리를 구분하여 표로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C038",
+        "H1_CM1_COUNT_C039",
+        "H1_CM1_COUNT_C040",
+        "H1_CM1_COUNT_C041",
+        "H1_CM1_COUNT_C042",
+        "H1_CM1_COUNT_C043"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT112",
+        "H1_CM1_COUNT_PT113",
+        "H1_CM1_COUNT_PT115",
+        "H1_CM1_COUNT_PT116",
+        "H1_CM1_COUNT_PT118",
+        "H1_CM1_COUNT_PT119",
+        "H1_CM1_COUNT_PT121",
+        "H1_CM1_COUNT_PT122"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_011",
+      "name": "자연수·자릿수 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "digit_number_count",
+          "number_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "자릿수, 0의 사용 가능 여부, 짝수·배수 조건을 끝자리부터 처리하지 못합니다.",
+      "parent_message": "끝자리 조건과 첫자리 0 불가 조건을 먼저 처리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C004",
+        "H1_CM1_COUNT_C011",
+        "H1_CM1_COUNT_C046",
+        "H1_CM1_COUNT_C047",
+        "H1_CM1_COUNT_C048",
+        "H1_CM1_COUNT_C049"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT010",
+        "H1_CM1_COUNT_PT011",
+        "H1_CM1_COUNT_PT031",
+        "H1_CM1_COUNT_PT032",
+        "H1_CM1_COUNT_PT136",
+        "H1_CM1_COUNT_PT137",
+        "H1_CM1_COUNT_PT139",
+        "H1_CM1_COUNT_PT140"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_012",
+      "name": "조합 기본 취약",
+      "trigger": {
+        "error_tags_any": [
+          "combination",
+          "unordered_selection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "순서가 필요 없는 선택을 순열로 계산하여 과다 계산합니다.",
+      "parent_message": "순서가 바뀌어도 같은 경우인지 먼저 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C030",
+        "H1_CM1_COUNT_C031",
+        "H1_CM1_COUNT_C032",
+        "H1_CM1_COUNT_C033",
+        "H1_CM1_COUNT_C034",
+        "H1_CM1_COUNT_C035"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT088",
+        "H1_CM1_COUNT_PT089",
+        "H1_CM1_COUNT_PT091",
+        "H1_CM1_COUNT_PT092",
+        "H1_CM1_COUNT_PT094",
+        "H1_CM1_COUNT_PT095",
+        "H1_CM1_COUNT_PT097",
+        "H1_CM1_COUNT_PT098"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_013",
+      "name": "포함·제외 조합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "include_exclude",
+          "at_least_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "반드시 포함하거나 제외해야 하는 대상을 전체 n과 r에서 먼저 제거하지 못합니다.",
+      "parent_message": "포함 대상은 미리 선택하고, 제외 대상은 전체에서 제거한 뒤 nCr을 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C044",
+        "H1_CM1_COUNT_C045",
+        "H1_CM1_COUNT_C049",
+        "H1_CM1_COUNT_C075",
+        "H1_CM1_COUNT_C076",
+        "H1_CM1_COUNT_C079"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT130",
+        "H1_CM1_COUNT_PT131",
+        "H1_CM1_COUNT_PT133",
+        "H1_CM1_COUNT_PT134",
+        "H1_CM1_COUNT_PT145",
+        "H1_CM1_COUNT_PT146",
+        "H1_CM1_COUNT_PT223",
+        "H1_CM1_COUNT_PT224"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_014",
+      "name": "뽑아서 나열하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "select_then_arrange",
+          "permutation_combination"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "선택 단계와 배열 단계를 구분하지 못합니다.",
+      "parent_message": "먼저 nCr로 뽑고, 뽑은 대상을 nPr 또는 factorial로 나열하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C077",
+        "H1_CM1_COUNT_C078",
+        "H1_CM1_COUNT_C080"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT229",
+        "H1_CM1_COUNT_PT230",
+        "H1_CM1_COUNT_PT232",
+        "H1_CM1_COUNT_PT233",
+        "H1_CM1_COUNT_PT238",
+        "H1_CM1_COUNT_PT239"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_015",
+      "name": "도형 개수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_counting",
+          "combination_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "점들을 조합으로 고른 뒤 같은 직선 위의 불가능한 경우를 빼지 못합니다.",
+      "parent_message": "전체 조합에서 일직선·평행·겹침 조건을 제외하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C081",
+        "H1_CM1_COUNT_C082",
+        "H1_CM1_COUNT_C083",
+        "H1_CM1_COUNT_C084",
+        "H1_CM1_COUNT_C085",
+        "H1_CM1_COUNT_C086"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT241",
+        "H1_CM1_COUNT_PT242",
+        "H1_CM1_COUNT_PT244",
+        "H1_CM1_COUNT_PT245",
+        "H1_CM1_COUNT_PT247",
+        "H1_CM1_COUNT_PT248",
+        "H1_CM1_COUNT_PT250",
+        "H1_CM1_COUNT_PT251"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_016",
+      "name": "분할·분배 취약",
+      "trigger": {
+        "error_tags_any": [
+          "partition_distribution",
+          "same_different_boxes"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "같은 상자와 다른 상자, 분할과 분배의 차이를 구분하지 못합니다.",
+      "parent_message": "분할인지 분배인지 먼저 표시하고, 분할 후 배치 여부를 따로 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C099",
+        "H1_CM1_COUNT_C100",
+        "H1_CM1_COUNT_C101",
+        "H1_CM1_COUNT_C103",
+        "H1_CM1_COUNT_C104",
+        "H1_CM1_COUNT_C105"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT295",
+        "H1_CM1_COUNT_PT296",
+        "H1_CM1_COUNT_PT298",
+        "H1_CM1_COUNT_PT299",
+        "H1_CM1_COUNT_PT301",
+        "H1_CM1_COUNT_PT302",
+        "H1_CM1_COUNT_PT307",
+        "H1_CM1_COUNT_PT308"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_COUNT_RULE_017",
+      "name": "대진표 작성 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tournament_bracket",
+          "partition_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "대진표를 순서 있는 배열로 보고 같은 대진을 중복 계산합니다.",
+      "parent_message": "경기 조합을 먼저 만들고 좌우·위아래 순서 중복을 나누게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_COUNT_C107",
+        "H1_CM1_COUNT_C108"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_COUNT_PT319",
+        "H1_CM1_COUNT_PT320",
+        "H1_CM1_COUNT_PT322",
+        "H1_CM1_COUNT_PT323"
+      ],
+      "severity": "medium"
+    }
+  ]
+}

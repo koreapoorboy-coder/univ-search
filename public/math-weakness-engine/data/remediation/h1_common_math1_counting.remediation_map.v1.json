@@ -1,0 +1,1736 @@
+{
+  "version": "2026.07.07-h1-common-math1-counting-v1.0",
+  "unit_id": "H1_COMMON_MATH1_COUNTING",
+  "unit_name": "경우의 수",
+  "remediation_count": 108,
+  "remediation": [
+    {
+      "concept_id": "H1_CM1_COUNT_C001",
+      "title": "방법의 수(물건의 수)가 직접 주어졌을 때 합의 법칙 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT001",
+        "H1_CM1_COUNT_PT002",
+        "H1_CM1_COUNT_PT003"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C002",
+      "title": "주사위를 던질 때 합의 법칙 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT004",
+        "H1_CM1_COUNT_PT005",
+        "H1_CM1_COUNT_PT006"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C003",
+      "title": "숫자가 적힌 카드나 공을 꺼낼 때 합의 법칙 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT007",
+        "H1_CM1_COUNT_PT008",
+        "H1_CM1_COUNT_PT009"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C004",
+      "title": "조건을 만족하는 자연수의 개수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT010",
+        "H1_CM1_COUNT_PT011",
+        "H1_CM1_COUNT_PT012"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C005",
+      "title": "다양한 상황에서의 합의 법칙 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT013",
+        "H1_CM1_COUNT_PT014",
+        "H1_CM1_COUNT_PT015"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C006",
+      "title": "방정식의 해의 개수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT016",
+        "H1_CM1_COUNT_PT017",
+        "H1_CM1_COUNT_PT018"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C007",
+      "title": "부등식의 해의 개수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT019",
+        "H1_CM1_COUNT_PT020",
+        "H1_CM1_COUNT_PT021"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C008",
+      "title": "방법의 수(물건의 수)가 직접 주어졌을 때 곱의 법칙 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT022",
+        "H1_CM1_COUNT_PT023",
+        "H1_CM1_COUNT_PT024"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C009",
+      "title": "주사위를 던질 때 곱의 법칙 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT025",
+        "H1_CM1_COUNT_PT026",
+        "H1_CM1_COUNT_PT027"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C010",
+      "title": "숫자가 적힌 카드나 공을 꺼낼 때 곱의 법칙 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT028",
+        "H1_CM1_COUNT_PT029",
+        "H1_CM1_COUNT_PT030"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C011",
+      "title": "조건을 만족하는 자연수의 개수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT031",
+        "H1_CM1_COUNT_PT032",
+        "H1_CM1_COUNT_PT033"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C012",
+      "title": "전개식의 항의 개수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT034",
+        "H1_CM1_COUNT_PT035",
+        "H1_CM1_COUNT_PT036"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C013",
+      "title": "다양한 상황에서의 곱의 법칙 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT037",
+        "H1_CM1_COUNT_PT038",
+        "H1_CM1_COUNT_PT039"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C014",
+      "title": "약수의 개수 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT040",
+        "H1_CM1_COUNT_PT041",
+        "H1_CM1_COUNT_PT042"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C015",
+      "title": "약수의 개수를 만족하는 자연수 찾기 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT043",
+        "H1_CM1_COUNT_PT044",
+        "H1_CM1_COUNT_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C016",
+      "title": "약수의 총합 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT046",
+        "H1_CM1_COUNT_PT047",
+        "H1_CM1_COUNT_PT048"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C017",
+      "title": "자연수의 약수의 활용 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT049",
+        "H1_CM1_COUNT_PT050",
+        "H1_CM1_COUNT_PT051"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C018",
+      "title": "지불 방법의 수 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT052",
+        "H1_CM1_COUNT_PT053",
+        "H1_CM1_COUNT_PT054"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C019",
+      "title": "지불 금액의 수 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT055",
+        "H1_CM1_COUNT_PT056",
+        "H1_CM1_COUNT_PT057"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C020",
+      "title": "두 지점이 있는 도로망에서 경우의 수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT058",
+        "H1_CM1_COUNT_PT059",
+        "H1_CM1_COUNT_PT060"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C021",
+      "title": "세 지점이 있는 도로망에서 경우의 수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT061",
+        "H1_CM1_COUNT_PT062",
+        "H1_CM1_COUNT_PT063"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C022",
+      "title": "네 지점이 있는 도로망에서 경우의 수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT064",
+        "H1_CM1_COUNT_PT065",
+        "H1_CM1_COUNT_PT066"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C023",
+      "title": "입체도형에서 경우의 수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT067",
+        "H1_CM1_COUNT_PT068",
+        "H1_CM1_COUNT_PT069"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C024",
+      "title": "숫자가 적힌 카드나 공을 꺼낼 때 경우의 수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT070",
+        "H1_CM1_COUNT_PT071",
+        "H1_CM1_COUNT_PT072"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C025",
+      "title": "조건을 만족하는 자연수의 개수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT073",
+        "H1_CM1_COUNT_PT074",
+        "H1_CM1_COUNT_PT075"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C026",
+      "title": "자기 자신이 아닌 다른 사람의 것을 갖는 경우의 수(완전순열, 교란순열) 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT076",
+        "H1_CM1_COUNT_PT077",
+        "H1_CM1_COUNT_PT078"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C027",
+      "title": "문자를 나열하는 경우의 수 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT079",
+        "H1_CM1_COUNT_PT080",
+        "H1_CM1_COUNT_PT081"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C028",
+      "title": "모든 영역에 서로 다른 색을 칠해야 하는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT082",
+        "H1_CM1_COUNT_PT083",
+        "H1_CM1_COUNT_PT084"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C029",
+      "title": "영역에 동일한 색을 칠할 수 있는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT085",
+        "H1_CM1_COUNT_PT086",
+        "H1_CM1_COUNT_PT087"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C030",
+      "title": "n!, nPr의 값 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT088",
+        "H1_CM1_COUNT_PT089",
+        "H1_CM1_COUNT_PT090"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C031",
+      "title": "n!, nPr이 있는 방정식, 부등식 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT091",
+        "H1_CM1_COUNT_PT092",
+        "H1_CM1_COUNT_PT093"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C032",
+      "title": "nPr을 이용한 경우의 수 계산하기 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT094",
+        "H1_CM1_COUNT_PT095",
+        "H1_CM1_COUNT_PT096"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C033",
+      "title": "nPr을 이용한 경우의 수에서 경우의 수가 주어졌을 때 n, r 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT097",
+        "H1_CM1_COUNT_PT098",
+        "H1_CM1_COUNT_PT099"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C034",
+      "title": "한 쌍이 이웃하는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT100",
+        "H1_CM1_COUNT_PT101",
+        "H1_CM1_COUNT_PT102"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C035",
+      "title": "두 쌍 이상 이웃하는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT103",
+        "H1_CM1_COUNT_PT104",
+        "H1_CM1_COUNT_PT105"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C036",
+      "title": "이웃하지 않는다는 조건이 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT106",
+        "H1_CM1_COUNT_PT107",
+        "H1_CM1_COUNT_PT108"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C037",
+      "title": "번갈아 나열하는 조건이 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT109",
+        "H1_CM1_COUNT_PT110",
+        "H1_CM1_COUNT_PT111"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C038",
+      "title": "일렬로 앉는 경우(1) 하나의 자리가 고정될 때 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT112",
+        "H1_CM1_COUNT_PT113",
+        "H1_CM1_COUNT_PT114"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C039",
+      "title": "일렬로 앉는 경우(2) 둘 이상의 자리가 고정될 때 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT115",
+        "H1_CM1_COUNT_PT116",
+        "H1_CM1_COUNT_PT117"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C040",
+      "title": "일렬로 앉는 경우(3) 둘 사이에 m개가 나열될 때 보강",
+      "priority": 1,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT118",
+        "H1_CM1_COUNT_PT119",
+        "H1_CM1_COUNT_PT120"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C041",
+      "title": "일렬로 앉는 경우(4) 이 외의 조건이 있을 때 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT121",
+        "H1_CM1_COUNT_PT122",
+        "H1_CM1_COUNT_PT123"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C042",
+      "title": "2줄인 자리에 앉는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT124",
+        "H1_CM1_COUNT_PT125",
+        "H1_CM1_COUNT_PT126"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C043",
+      "title": "3줄 이상인 자리에 앉는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT127",
+        "H1_CM1_COUNT_PT128",
+        "H1_CM1_COUNT_PT129"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C044",
+      "title": "자리에 대한 조건에 적어도가 있는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT130",
+        "H1_CM1_COUNT_PT131",
+        "H1_CM1_COUNT_PT132"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C045",
+      "title": "적어도 하나를 포함하여 뽑는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT133",
+        "H1_CM1_COUNT_PT134",
+        "H1_CM1_COUNT_PT135"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C046",
+      "title": "모든 자연수의 개수 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT136",
+        "H1_CM1_COUNT_PT137",
+        "H1_CM1_COUNT_PT138"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C047",
+      "title": "짝수(홀수), 배수의 개수 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT139",
+        "H1_CM1_COUNT_PT140",
+        "H1_CM1_COUNT_PT141"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C048",
+      "title": "자릿수에 제약 조건이 있는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT142",
+        "H1_CM1_COUNT_PT143",
+        "H1_CM1_COUNT_PT144"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C049",
+      "title": "적어도의 조건이 있는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT145",
+        "H1_CM1_COUNT_PT146",
+        "H1_CM1_COUNT_PT147"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C050",
+      "title": "이웃하거나 이웃하지 않는 조건이 있는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT148",
+        "H1_CM1_COUNT_PT149",
+        "H1_CM1_COUNT_PT150"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C051",
+      "title": "수를 크기순으로 배열하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT151",
+        "H1_CM1_COUNT_PT152",
+        "H1_CM1_COUNT_PT153"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C052",
+      "title": "문자를 사전식으로 배열하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT154",
+        "H1_CM1_COUNT_PT155",
+        "H1_CM1_COUNT_PT156"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C053",
+      "title": "nCr의 값 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT157",
+        "H1_CM1_COUNT_PT158",
+        "H1_CM1_COUNT_PT159"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C054",
+      "title": "nCr이 있는 방정식, 부등식 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT160",
+        "H1_CM1_COUNT_PT161",
+        "H1_CM1_COUNT_PT162"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C055",
+      "title": "nPr, nCr의 값 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT163",
+        "H1_CM1_COUNT_PT164",
+        "H1_CM1_COUNT_PT165"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C056",
+      "title": "nPr, nCr의 관계를 이용하는 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT166",
+        "H1_CM1_COUNT_PT167",
+        "H1_CM1_COUNT_PT168"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C057",
+      "title": "nPr, nCr이 있는 방정식(1) n 또는 r이 미지수인 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT169",
+        "H1_CM1_COUNT_PT170",
+        "H1_CM1_COUNT_PT171"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C058",
+      "title": "nPr, nCr이 있는 방정식(2) n, r이 모두 미지수인 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT172",
+        "H1_CM1_COUNT_PT173",
+        "H1_CM1_COUNT_PT174"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C059",
+      "title": "nPr, nCr이 있는 부등식 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT175",
+        "H1_CM1_COUNT_PT176",
+        "H1_CM1_COUNT_PT177"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C060",
+      "title": "nPr, nCr의 기본 성질의 진위 판단하기 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT178",
+        "H1_CM1_COUNT_PT179",
+        "H1_CM1_COUNT_PT180"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C061",
+      "title": "nPr의 성질 증명하기 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT181",
+        "H1_CM1_COUNT_PT182",
+        "H1_CM1_COUNT_PT183"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C062",
+      "title": "nCr의 성질 증명하기 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT184",
+        "H1_CM1_COUNT_PT185",
+        "H1_CM1_COUNT_PT186"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C063",
+      "title": "조합의 수 구하기(1) 사람(물건)을 뽑는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT187",
+        "H1_CM1_COUNT_PT188",
+        "H1_CM1_COUNT_PT189"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C064",
+      "title": "조합의 수 구하기(2) 상자에 넣거나 나누어주는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT190",
+        "H1_CM1_COUNT_PT191",
+        "H1_CM1_COUNT_PT192"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C065",
+      "title": "조합의 수 구하기(3) 수에 관련된 조건이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT193",
+        "H1_CM1_COUNT_PT194",
+        "H1_CM1_COUNT_PT195"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C066",
+      "title": "조합의 수 구하기(5) 도로망에서의 경로 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT196",
+        "H1_CM1_COUNT_PT197",
+        "H1_CM1_COUNT_PT198"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C067",
+      "title": "조합의 수 구하기(6) 입체도형의 단면의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT199",
+        "H1_CM1_COUNT_PT200",
+        "H1_CM1_COUNT_PT201"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C068",
+      "title": "조합의 수 구하기(7) 그 외의 경우 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT202",
+        "H1_CM1_COUNT_PT203",
+        "H1_CM1_COUNT_PT204"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C069",
+      "title": "nCr을 이용한 경우의 수(1) 경우의 수 계산하기 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT205",
+        "H1_CM1_COUNT_PT206",
+        "H1_CM1_COUNT_PT207"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C070",
+      "title": "nCr을 이용한 경우의 수(2) 경우의 수가 주어졌을 때 n, r 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT208",
+        "H1_CM1_COUNT_PT209",
+        "H1_CM1_COUNT_PT210"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C071",
+      "title": "특정 사람(물건)을 포함하는 조합의 수 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT211",
+        "H1_CM1_COUNT_PT212",
+        "H1_CM1_COUNT_PT213"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C072",
+      "title": "특정 사람(물건)을 제외하는 조합의 수 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT214",
+        "H1_CM1_COUNT_PT215",
+        "H1_CM1_COUNT_PT216"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C073",
+      "title": "특정 사람(물건)을 포함하고 다른 특정 사람(물건)은 제외하는 조합의 수 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT217",
+        "H1_CM1_COUNT_PT218",
+        "H1_CM1_COUNT_PT219"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C074",
+      "title": "공통으로 선택하는 것이 있을 때의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT220",
+        "H1_CM1_COUNT_PT221",
+        "H1_CM1_COUNT_PT222"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C075",
+      "title": "사람(물건)을 뽑거나 넣는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT223",
+        "H1_CM1_COUNT_PT224",
+        "H1_CM1_COUNT_PT225"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C076",
+      "title": "숫자를 뽑거나 넣는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "서로 겹치지 않는 경우인지 확인",
+        "각 경우의 수를 따로 계산",
+        "겹치는 경우가 있으면 중복을 빼고 합산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT226",
+        "H1_CM1_COUNT_PT227",
+        "H1_CM1_COUNT_PT228"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C077",
+      "title": "사람(물건)을 뽑을 때(1) 일반적인 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT229",
+        "H1_CM1_COUNT_PT230",
+        "H1_CM1_COUNT_PT231"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C078",
+      "title": "사람(물건)을 뽑을 때(2) 서로 다른 상자에 넣는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT232",
+        "H1_CM1_COUNT_PT233",
+        "H1_CM1_COUNT_PT234"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C079",
+      "title": "사람(물건)을 뽑을 때(3) 특정한 것을 포함하거나 제외시키는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT235",
+        "H1_CM1_COUNT_PT236",
+        "H1_CM1_COUNT_PT237"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C080",
+      "title": "숫자를 뽑아서 나열하는 방법의 수 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT238",
+        "H1_CM1_COUNT_PT239",
+        "H1_CM1_COUNT_PT240"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C081",
+      "title": "점의 개수만 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT241",
+        "H1_CM1_COUNT_PT242",
+        "H1_CM1_COUNT_PT243"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C082",
+      "title": "평행선 위의 점을 연결할 때 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT244",
+        "H1_CM1_COUNT_PT245",
+        "H1_CM1_COUNT_PT246"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C083",
+      "title": "평면도형 위의 점을 연결할 때 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT247",
+        "H1_CM1_COUNT_PT248",
+        "H1_CM1_COUNT_PT249"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C084",
+      "title": "대각선의 개수 구하기 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT250",
+        "H1_CM1_COUNT_PT251",
+        "H1_CM1_COUNT_PT252"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C085",
+      "title": "대각선의 개수가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT253",
+        "H1_CM1_COUNT_PT254",
+        "H1_CM1_COUNT_PT255"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C086",
+      "title": "점 또는 선의 개수만 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT256",
+        "H1_CM1_COUNT_PT257",
+        "H1_CM1_COUNT_PT258"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C087",
+      "title": "평행선 위의 점을 연결할 때 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT259",
+        "H1_CM1_COUNT_PT260",
+        "H1_CM1_COUNT_PT261"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C088",
+      "title": "평면도형 위의 점을 연결할 때(1) 정n각형 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT262",
+        "H1_CM1_COUNT_PT263",
+        "H1_CM1_COUNT_PT264"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C089",
+      "title": "평면도형 위의 점을 연결할 때(2) 이 외의 경우 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT265",
+        "H1_CM1_COUNT_PT266",
+        "H1_CM1_COUNT_PT267"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C090",
+      "title": "좌표평면 위의 점을 연결할 때 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT268",
+        "H1_CM1_COUNT_PT269",
+        "H1_CM1_COUNT_PT270"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C091",
+      "title": "서로 다른 삼각형의 개수 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT271",
+        "H1_CM1_COUNT_PT272",
+        "H1_CM1_COUNT_PT273"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C092",
+      "title": "직각삼각형의 개수 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT274",
+        "H1_CM1_COUNT_PT275",
+        "H1_CM1_COUNT_PT276"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C093",
+      "title": "직각삼각형이 아닌 삼각형의 개수 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT277",
+        "H1_CM1_COUNT_PT278",
+        "H1_CM1_COUNT_PT279"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C094",
+      "title": "두 평행선 위의 점이 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT280",
+        "H1_CM1_COUNT_PT281",
+        "H1_CM1_COUNT_PT282"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C095",
+      "title": "평행선으로 만들어지는 사각형의 개수 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT283",
+        "H1_CM1_COUNT_PT284",
+        "H1_CM1_COUNT_PT285"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C096",
+      "title": "평면도형이 주어진 경우(1) 정n각형 또는 원 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT286",
+        "H1_CM1_COUNT_PT287",
+        "H1_CM1_COUNT_PT288"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C097",
+      "title": "평면도형이 주어진 경우(2) 이 외의 평면도형 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT289",
+        "H1_CM1_COUNT_PT290",
+        "H1_CM1_COUNT_PT291"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C098",
+      "title": "좌표평면 위의 점을 연결할 때 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT292",
+        "H1_CM1_COUNT_PT293",
+        "H1_CM1_COUNT_PT294"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C099",
+      "title": "조를 나누는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT295",
+        "H1_CM1_COUNT_PT296",
+        "H1_CM1_COUNT_PT297"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C100",
+      "title": "똑같은 상자에 넣거나 상자에서 꺼내는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT298",
+        "H1_CM1_COUNT_PT299",
+        "H1_CM1_COUNT_PT300"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C101",
+      "title": "분할의 수의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT301",
+        "H1_CM1_COUNT_PT302",
+        "H1_CM1_COUNT_PT303"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C102",
+      "title": "자연수를 분할하는 방법의 수 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT304",
+        "H1_CM1_COUNT_PT305",
+        "H1_CM1_COUNT_PT306"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C103",
+      "title": "빈 상자가 없도록(있도록) 담는 경우의 수 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT307",
+        "H1_CM1_COUNT_PT308",
+        "H1_CM1_COUNT_PT309"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C104",
+      "title": "정해진 인원만큼 각 조에서 내리는 경우의 수 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT310",
+        "H1_CM1_COUNT_PT311",
+        "H1_CM1_COUNT_PT312"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C105",
+      "title": "조(사람)이나 묶음(물건)을 나눈 후 분배하기 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT313",
+        "H1_CM1_COUNT_PT314",
+        "H1_CM1_COUNT_PT315"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C106",
+      "title": "분할과 분배의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT316",
+        "H1_CM1_COUNT_PT317",
+        "H1_CM1_COUNT_PT318"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C107",
+      "title": "부전승이 없는 대진표 작성하기 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT319",
+        "H1_CM1_COUNT_PT320",
+        "H1_CM1_COUNT_PT321"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C108",
+      "title": "부전승이 있는 대진표 작성하기 보강",
+      "priority": 3,
+      "steps": [
+        "순서가 중요한지 확인",
+        "고정·이웃·자리 조건을 먼저 처리",
+        "남은 대상의 순열을 곱하고 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_COUNT_PT322",
+        "H1_CM1_COUNT_PT323",
+        "H1_CM1_COUNT_PT324"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

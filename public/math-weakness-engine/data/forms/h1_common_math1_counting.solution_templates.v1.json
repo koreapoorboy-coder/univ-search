@@ -1,0 +1,283 @@
+{
+  "version": "2026.07.07-h1-common-math1-counting-v1.0",
+  "unit_id": "H1_COMMON_MATH1_COUNTING",
+  "unit_name": "경우의 수",
+  "templates": [
+    {
+      "template_id": "H1_CM1_COUNT_FORM_ADD_MUL",
+      "name": "합의 법칙·곱의 법칙 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_COUNT_C001",
+        "H1_CM1_COUNT_C002",
+        "H1_CM1_COUNT_C003",
+        "H1_CM1_COUNT_C004",
+        "H1_CM1_COUNT_C005",
+        "H1_CM1_COUNT_C006",
+        "H1_CM1_COUNT_C007",
+        "H1_CM1_COUNT_C008",
+        "H1_CM1_COUNT_C009",
+        "H1_CM1_COUNT_C010",
+        "H1_CM1_COUNT_C011",
+        "H1_CM1_COUNT_C012",
+        "H1_CM1_COUNT_C013",
+        "H1_CM1_COUNT_C031",
+        "H1_CM1_COUNT_C054",
+        "H1_CM1_COUNT_C056",
+        "H1_CM1_COUNT_C057",
+        "H1_CM1_COUNT_C058",
+        "H1_CM1_COUNT_C059",
+        "H1_CM1_COUNT_C063",
+        "H1_CM1_COUNT_C064",
+        "H1_CM1_COUNT_C065",
+        "H1_CM1_COUNT_C066",
+        "H1_CM1_COUNT_C067",
+        "H1_CM1_COUNT_C068",
+        "H1_CM1_COUNT_C069",
+        "H1_CM1_COUNT_C070",
+        "H1_CM1_COUNT_C071",
+        "H1_CM1_COUNT_C072",
+        "H1_CM1_COUNT_C073"
+      ],
+      "required_fields": [
+        "합/곱 구분",
+        "겹치는 경우 확인",
+        "단계별 선택 수 표시",
+        "최종 합산 또는 곱셈 검산"
+      ],
+      "reject_if_missing": [
+        "합/곱 구분",
+        "겹치는 경우 확인"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_COUNT_FORM_DIVISOR_PAYMENT",
+      "name": "약수·지불 경우의 수 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_COUNT_C014",
+        "H1_CM1_COUNT_C015",
+        "H1_CM1_COUNT_C016",
+        "H1_CM1_COUNT_C017",
+        "H1_CM1_COUNT_C018",
+        "H1_CM1_COUNT_C019"
+      ],
+      "required_fields": [
+        "소인수분해 또는 사용 가능한 화폐 표시",
+        "각 선택 수 표기",
+        "동일 금액 중복 확인",
+        "합 또는 곱 계산"
+      ],
+      "reject_if_missing": [
+        "각 선택 수 표기",
+        "동일 금액 중복 확인"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_COUNT_FORM_PATH_TREE_COLOR",
+      "name": "도로망·수형도·색칠 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_COUNT_C020",
+        "H1_CM1_COUNT_C021",
+        "H1_CM1_COUNT_C022",
+        "H1_CM1_COUNT_C023",
+        "H1_CM1_COUNT_C024",
+        "H1_CM1_COUNT_C025",
+        "H1_CM1_COUNT_C026",
+        "H1_CM1_COUNT_C027",
+        "H1_CM1_COUNT_C028",
+        "H1_CM1_COUNT_C029",
+        "H1_CM1_COUNT_C066"
+      ],
+      "required_fields": [
+        "출발/도착 또는 영역 순서 설정",
+        "가지 또는 단계별 경우 수 표시",
+        "인접/중복 조건 반영",
+        "누락 검산"
+      ],
+      "reject_if_missing": [
+        "가지 또는 단계별 경우 수 표시",
+        "인접/중복 조건 반영"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_COUNT_FORM_PERMUTATION",
+      "name": "순열 기본 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_COUNT_C004",
+        "H1_CM1_COUNT_C011",
+        "H1_CM1_COUNT_C025",
+        "H1_CM1_COUNT_C030",
+        "H1_CM1_COUNT_C031",
+        "H1_CM1_COUNT_C032",
+        "H1_CM1_COUNT_C033",
+        "H1_CM1_COUNT_C034",
+        "H1_CM1_COUNT_C035",
+        "H1_CM1_COUNT_C036",
+        "H1_CM1_COUNT_C037",
+        "H1_CM1_COUNT_C038",
+        "H1_CM1_COUNT_C039",
+        "H1_CM1_COUNT_C040",
+        "H1_CM1_COUNT_C041",
+        "H1_CM1_COUNT_C042",
+        "H1_CM1_COUNT_C043",
+        "H1_CM1_COUNT_C044",
+        "H1_CM1_COUNT_C045",
+        "H1_CM1_COUNT_C046",
+        "H1_CM1_COUNT_C047",
+        "H1_CM1_COUNT_C048",
+        "H1_CM1_COUNT_C049",
+        "H1_CM1_COUNT_C050",
+        "H1_CM1_COUNT_C051",
+        "H1_CM1_COUNT_C052"
+      ],
+      "required_fields": [
+        "순서가 중요한지 표시",
+        "n과 r 설정",
+        "nPr 또는 factorial 적용",
+        "자리 조건 검산"
+      ],
+      "reject_if_missing": [
+        "순서가 중요한지 표시",
+        "n과 r 설정"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_COUNT_FORM_POSITION_ADJACENCY",
+      "name": "자리·이웃 조건 순열 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_COUNT_C034",
+        "H1_CM1_COUNT_C035",
+        "H1_CM1_COUNT_C036",
+        "H1_CM1_COUNT_C037",
+        "H1_CM1_COUNT_C038",
+        "H1_CM1_COUNT_C039",
+        "H1_CM1_COUNT_C040",
+        "H1_CM1_COUNT_C041",
+        "H1_CM1_COUNT_C042",
+        "H1_CM1_COUNT_C043",
+        "H1_CM1_COUNT_C044",
+        "H1_CM1_COUNT_C045",
+        "H1_CM1_COUNT_C050"
+      ],
+      "required_fields": [
+        "고정 대상 표시",
+        "묶음 또는 빈자리 생성",
+        "내부 배열 수 계산",
+        "전체 곱 검산"
+      ],
+      "reject_if_missing": [
+        "묶음 또는 빈자리 생성",
+        "내부 배열 수 계산"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_COUNT_FORM_COMBINATION",
+      "name": "조합 기본 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_COUNT_C053",
+        "H1_CM1_COUNT_C054",
+        "H1_CM1_COUNT_C055",
+        "H1_CM1_COUNT_C056",
+        "H1_CM1_COUNT_C057",
+        "H1_CM1_COUNT_C058",
+        "H1_CM1_COUNT_C059",
+        "H1_CM1_COUNT_C060",
+        "H1_CM1_COUNT_C061",
+        "H1_CM1_COUNT_C062",
+        "H1_CM1_COUNT_C063",
+        "H1_CM1_COUNT_C064",
+        "H1_CM1_COUNT_C065",
+        "H1_CM1_COUNT_C066",
+        "H1_CM1_COUNT_C067",
+        "H1_CM1_COUNT_C068",
+        "H1_CM1_COUNT_C069",
+        "H1_CM1_COUNT_C070",
+        "H1_CM1_COUNT_C071",
+        "H1_CM1_COUNT_C072",
+        "H1_CM1_COUNT_C073",
+        "H1_CM1_COUNT_C074",
+        "H1_CM1_COUNT_C075",
+        "H1_CM1_COUNT_C076"
+      ],
+      "required_fields": [
+        "순서가 없는 선택인지 표시",
+        "n과 r 설정",
+        "nCr 적용",
+        "중복 계산 여부 검산"
+      ],
+      "reject_if_missing": [
+        "순서가 없는 선택인지 표시",
+        "n과 r 설정"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_COUNT_FORM_INCLUDE_GEOMETRY",
+      "name": "포함·제외·도형 개수 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_COUNT_C044",
+        "H1_CM1_COUNT_C045",
+        "H1_CM1_COUNT_C049",
+        "H1_CM1_COUNT_C071",
+        "H1_CM1_COUNT_C072",
+        "H1_CM1_COUNT_C073",
+        "H1_CM1_COUNT_C074",
+        "H1_CM1_COUNT_C075",
+        "H1_CM1_COUNT_C076",
+        "H1_CM1_COUNT_C079",
+        "H1_CM1_COUNT_C081",
+        "H1_CM1_COUNT_C082",
+        "H1_CM1_COUNT_C083",
+        "H1_CM1_COUNT_C084",
+        "H1_CM1_COUNT_C085",
+        "H1_CM1_COUNT_C086",
+        "H1_CM1_COUNT_C087",
+        "H1_CM1_COUNT_C088",
+        "H1_CM1_COUNT_C089",
+        "H1_CM1_COUNT_C090",
+        "H1_CM1_COUNT_C091",
+        "H1_CM1_COUNT_C092",
+        "H1_CM1_COUNT_C093",
+        "H1_CM1_COUNT_C094",
+        "H1_CM1_COUNT_C095",
+        "H1_CM1_COUNT_C096",
+        "H1_CM1_COUNT_C097",
+        "H1_CM1_COUNT_C098"
+      ],
+      "required_fields": [
+        "전체 경우 수 계산",
+        "반드시 포함/제외 조건 처리",
+        "불가능한 도형 제거",
+        "여사건 검산"
+      ],
+      "reject_if_missing": [
+        "전체 경우 수 계산",
+        "불가능한 도형 제거"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_COUNT_FORM_PARTITION_DISTRIBUTION",
+      "name": "분할·분배·대진표 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_COUNT_C099",
+        "H1_CM1_COUNT_C100",
+        "H1_CM1_COUNT_C101",
+        "H1_CM1_COUNT_C102",
+        "H1_CM1_COUNT_C103",
+        "H1_CM1_COUNT_C104",
+        "H1_CM1_COUNT_C105",
+        "H1_CM1_COUNT_C106",
+        "H1_CM1_COUNT_C107",
+        "H1_CM1_COUNT_C108"
+      ],
+      "required_fields": [
+        "같은/다른 대상 구분",
+        "분할 먼저 수행",
+        "분배 또는 배치 단계 확인",
+        "순서 중복 나누기"
+      ],
+      "reject_if_missing": [
+        "같은/다른 대상 구분",
+        "분할 먼저 수행"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "patch_id": "math_weakness_engine_h1_common_math1_counting_core_patch_20260707",
+  "base_assumption": "math-weakness-engine.zip + m2_probability + h1_common_math1_polynomial + h1_common_math1_equation_inequality patches applied",
+  "unit_id": "H1_COMMON_MATH1_COUNTING",
+  "unit_name": "경우의 수",
+  "course": "공통수학1",
+  "source_upload": "공통수학 경우의 수.zip",
+  "source_image_count": 11,
+  "excluded_original_images": true,
+  "counts": {
+    "concepts_added": 108,
+    "raw_taxonomy_sections": 108,
+    "problem_types": 324,
+    "edges": 104,
+    "diagnosis_rules": 17,
+    "remediation_items": 108,
+    "solution_templates": 8
+  },
+  "validation": [
+    "JSON load OK",
+    "index registration OK",
+    "required unit files exist",
+    "concept reference integrity OK",
+    "problem_type/rule/remediation connection OK",
+    "source images excluded from patch ZIP"
+  ]
+}

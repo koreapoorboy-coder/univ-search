@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.07-h1-common-math1-equation-inequality-v1.0",
-  "concept_count": 784,
+  "version": "2026.07.07-h1-common-math1-counting-v1.0",
+  "concept_count": 892,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -21532,6 +21532,3121 @@
       ],
       "mastery_level": "advanced",
       "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C001",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "합의 법칙",
+      "concept_name": "방법의 수(물건의 수)가 직접 주어졌을 때 합의 법칙",
+      "description": "합의 법칙 범주의 '방법의 수(물건의 수)가 직접 주어졌을 때 합의 법칙' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C002",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "합의 법칙",
+      "concept_name": "주사위를 던질 때 합의 법칙",
+      "description": "합의 법칙 범주의 '주사위를 던질 때 합의 법칙' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C003",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "합의 법칙",
+      "concept_name": "숫자가 적힌 카드나 공을 꺼낼 때 합의 법칙",
+      "description": "합의 법칙 범주의 '숫자가 적힌 카드나 공을 꺼낼 때 합의 법칙' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C004",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "합의 법칙",
+      "concept_name": "조건을 만족하는 자연수의 개수",
+      "description": "합의 법칙 범주의 '조건을 만족하는 자연수의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "digit_number_count"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C005",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "합의 법칙",
+      "concept_name": "다양한 상황에서의 합의 법칙",
+      "description": "합의 법칙 범주의 '다양한 상황에서의 합의 법칙' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C006",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "방정식과 부등식의 해의 개수",
+      "concept_name": "방정식의 해의 개수",
+      "description": "방정식과 부등식의 해의 개수 범주의 '방정식의 해의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "equation_solution_count"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C007",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "방정식과 부등식의 해의 개수",
+      "concept_name": "부등식의 해의 개수",
+      "description": "방정식과 부등식의 해의 개수 범주의 '부등식의 해의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "equation_solution_count"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C008",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "곱의 법칙",
+      "concept_name": "방법의 수(물건의 수)가 직접 주어졌을 때 곱의 법칙",
+      "description": "곱의 법칙 범주의 '방법의 수(물건의 수)가 직접 주어졌을 때 곱의 법칙' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C009",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "곱의 법칙",
+      "concept_name": "주사위를 던질 때 곱의 법칙",
+      "description": "곱의 법칙 범주의 '주사위를 던질 때 곱의 법칙' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C010",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "곱의 법칙",
+      "concept_name": "숫자가 적힌 카드나 공을 꺼낼 때 곱의 법칙",
+      "description": "곱의 법칙 범주의 '숫자가 적힌 카드나 공을 꺼낼 때 곱의 법칙' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C011",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "곱의 법칙",
+      "concept_name": "조건을 만족하는 자연수의 개수",
+      "description": "곱의 법칙 범주의 '조건을 만족하는 자연수의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "digit_number_count"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C012",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "곱의 법칙",
+      "concept_name": "전개식의 항의 개수",
+      "description": "곱의 법칙 범주의 '전개식의 항의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C013",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "곱의 법칙",
+      "concept_name": "다양한 상황에서의 곱의 법칙",
+      "description": "곱의 법칙 범주의 '다양한 상황에서의 곱의 법칙' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C014",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "약수의 개수",
+      "concept_name": "약수의 개수 구하기",
+      "description": "약수의 개수 범주의 '약수의 개수 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "divisor_count"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C015",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "약수의 개수",
+      "concept_name": "약수의 개수를 만족하는 자연수 찾기",
+      "description": "약수의 개수 범주의 '약수의 개수를 만족하는 자연수 찾기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "divisor_count"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C016",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "약수의 개수",
+      "concept_name": "약수의 총합 구하기",
+      "description": "약수의 개수 범주의 '약수의 총합 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "divisor_count"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C017",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "약수의 개수",
+      "concept_name": "자연수의 약수의 활용",
+      "description": "약수의 개수 범주의 '자연수의 약수의 활용' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "divisor_count"
+      ],
+      "source_orders": [
+        17
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C018",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "지불 방법의 수와 지불 금액의 수",
+      "concept_name": "지불 방법의 수 구하기",
+      "description": "지불 방법의 수와 지불 금액의 수 범주의 '지불 방법의 수 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "payment_count"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C019",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "지불 방법의 수와 지불 금액의 수",
+      "concept_name": "지불 금액의 수 구하기",
+      "description": "지불 방법의 수와 지불 금액의 수 범주의 '지불 금액의 수 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "payment_count"
+      ],
+      "source_orders": [
+        19
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C020",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "도로망에서의 경우의 수",
+      "concept_name": "두 지점이 있는 도로망에서 경우의 수",
+      "description": "도로망에서의 경우의 수 범주의 '두 지점이 있는 도로망에서 경우의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "path_counting"
+      ],
+      "source_orders": [
+        20
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C021",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "도로망에서의 경우의 수",
+      "concept_name": "세 지점이 있는 도로망에서 경우의 수",
+      "description": "도로망에서의 경우의 수 범주의 '세 지점이 있는 도로망에서 경우의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "path_counting"
+      ],
+      "source_orders": [
+        21
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C022",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "도로망에서의 경우의 수",
+      "concept_name": "네 지점이 있는 도로망에서 경우의 수",
+      "description": "도로망에서의 경우의 수 범주의 '네 지점이 있는 도로망에서 경우의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "path_counting"
+      ],
+      "source_orders": [
+        22
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C023",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "수형도를 이용하는 경우의 수",
+      "concept_name": "입체도형에서 경우의 수",
+      "description": "수형도를 이용하는 경우의 수 범주의 '입체도형에서 경우의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "tree_diagram"
+      ],
+      "source_orders": [
+        23
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C024",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "수형도를 이용하는 경우의 수",
+      "concept_name": "숫자가 적힌 카드나 공을 꺼낼 때 경우의 수",
+      "description": "수형도를 이용하는 경우의 수 범주의 '숫자가 적힌 카드나 공을 꺼낼 때 경우의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "tree_diagram"
+      ],
+      "source_orders": [
+        24
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C025",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "수형도를 이용하는 경우의 수",
+      "concept_name": "조건을 만족하는 자연수의 개수",
+      "description": "수형도를 이용하는 경우의 수 범주의 '조건을 만족하는 자연수의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "tree_diagram"
+      ],
+      "source_orders": [
+        25
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C026",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "수형도를 이용하는 경우의 수",
+      "concept_name": "자기 자신이 아닌 다른 사람의 것을 갖는 경우의 수(완전순열, 교란순열)",
+      "description": "수형도를 이용하는 경우의 수 범주의 '자기 자신이 아닌 다른 사람의 것을 갖는 경우의 수(완전순열, 교란순열)' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "tree_diagram"
+      ],
+      "source_orders": [
+        26
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C027",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "수형도를 이용하는 경우의 수",
+      "concept_name": "문자를 나열하는 경우의 수",
+      "description": "수형도를 이용하는 경우의 수 범주의 '문자를 나열하는 경우의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "tree_diagram"
+      ],
+      "source_orders": [
+        27
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C028",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "색칠하는 방법의 수",
+      "concept_name": "모든 영역에 서로 다른 색을 칠해야 하는 경우",
+      "description": "색칠하는 방법의 수 범주의 '모든 영역에 서로 다른 색을 칠해야 하는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "coloring_count"
+      ],
+      "source_orders": [
+        28
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C029",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "합의 법칙과 곱의 법칙",
+      "sub_strand": "색칠하는 방법의 수",
+      "concept_name": "영역에 동일한 색을 칠할 수 있는 경우",
+      "description": "색칠하는 방법의 수 범주의 '영역에 동일한 색을 칠할 수 있는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "multiplication_rule",
+        "stage_counting",
+        "coloring_count"
+      ],
+      "source_orders": [
+        29
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C030",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr의 계산",
+      "concept_name": "n!, nPr의 값 구하기",
+      "description": "nPr의 계산 범주의 'n!, nPr의 값 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        30
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C031",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr의 계산",
+      "concept_name": "n!, nPr이 있는 방정식, 부등식",
+      "description": "nPr의 계산 범주의 'n!, nPr이 있는 방정식, 부등식' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "equation_solution_count",
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        31
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C032",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "순열의 수",
+      "concept_name": "nPr을 이용한 경우의 수 계산하기",
+      "description": "순열의 수 범주의 'nPr을 이용한 경우의 수 계산하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        32
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C033",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "순열의 수",
+      "concept_name": "nPr을 이용한 경우의 수에서 경우의 수가 주어졌을 때 n, r 구하기",
+      "description": "순열의 수 범주의 'nPr을 이용한 경우의 수에서 경우의 수가 주어졌을 때 n, r 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        33
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C034",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "이웃하는 순열의 수",
+      "concept_name": "한 쌍이 이웃하는 경우",
+      "description": "이웃하는 순열의 수 범주의 '한 쌍이 이웃하는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "adjacency_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        34
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C035",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "이웃하는 순열의 수",
+      "concept_name": "두 쌍 이상 이웃하는 경우",
+      "description": "이웃하는 순열의 수 범주의 '두 쌍 이상 이웃하는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "adjacency_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        35
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C036",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "이웃하지 않는 순열의 수",
+      "concept_name": "이웃하지 않는다는 조건이 주어진 경우",
+      "description": "이웃하지 않는 순열의 수 범주의 '이웃하지 않는다는 조건이 주어진 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "adjacency_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        36
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C037",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "이웃하지 않는 순열의 수",
+      "concept_name": "번갈아 나열하는 조건이 주어진 경우",
+      "description": "이웃하지 않는 순열의 수 범주의 '번갈아 나열하는 조건이 주어진 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "adjacency_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        37
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C038",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자리에 대한 조건이 있는 순열의 수",
+      "concept_name": "일렬로 앉는 경우(1) 하나의 자리가 고정될 때",
+      "description": "자리에 대한 조건이 있는 순열의 수 범주의 '일렬로 앉는 경우(1) 하나의 자리가 고정될 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "position_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        38
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C039",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자리에 대한 조건이 있는 순열의 수",
+      "concept_name": "일렬로 앉는 경우(2) 둘 이상의 자리가 고정될 때",
+      "description": "자리에 대한 조건이 있는 순열의 수 범주의 '일렬로 앉는 경우(2) 둘 이상의 자리가 고정될 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "position_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        39
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C040",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자리에 대한 조건이 있는 순열의 수",
+      "concept_name": "일렬로 앉는 경우(3) 둘 사이에 m개가 나열될 때",
+      "description": "자리에 대한 조건이 있는 순열의 수 범주의 '일렬로 앉는 경우(3) 둘 사이에 m개가 나열될 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "position_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        40
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C041",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자리에 대한 조건이 있는 순열의 수",
+      "concept_name": "일렬로 앉는 경우(4) 이 외의 조건이 있을 때",
+      "description": "자리에 대한 조건이 있는 순열의 수 범주의 '일렬로 앉는 경우(4) 이 외의 조건이 있을 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "position_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        41
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C042",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자리에 대한 조건이 있는 순열의 수",
+      "concept_name": "2줄인 자리에 앉는 경우",
+      "description": "자리에 대한 조건이 있는 순열의 수 범주의 '2줄인 자리에 앉는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "position_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        42
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C043",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자리에 대한 조건이 있는 순열의 수",
+      "concept_name": "3줄 이상인 자리에 앉는 경우",
+      "description": "자리에 대한 조건이 있는 순열의 수 범주의 '3줄 이상인 자리에 앉는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "position_condition",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        43
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C044",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "적어도 의 조건이 있는 순열의 수",
+      "concept_name": "자리에 대한 조건에 적어도가 있는 경우",
+      "description": "적어도 의 조건이 있는 순열의 수 범주의 '자리에 대한 조건에 적어도가 있는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "position_condition",
+        "at_least_condition",
+        "complement_counting"
+      ],
+      "source_orders": [
+        44
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C045",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "적어도 의 조건이 있는 순열의 수",
+      "concept_name": "적어도 하나를 포함하여 뽑는 경우",
+      "description": "적어도 의 조건이 있는 순열의 수 범주의 '적어도 하나를 포함하여 뽑는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "at_least_condition",
+        "complement_counting",
+        "combination"
+      ],
+      "source_orders": [
+        45
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C046",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자연수의 개수",
+      "concept_name": "모든 자연수의 개수 구하기",
+      "description": "자연수의 개수 범주의 '모든 자연수의 개수 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "digit_number_count",
+        "number_condition",
+        "combination"
+      ],
+      "source_orders": [
+        46
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C047",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자연수의 개수",
+      "concept_name": "짝수(홀수), 배수의 개수 구하기",
+      "description": "자연수의 개수 범주의 '짝수(홀수), 배수의 개수 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "digit_number_count",
+        "number_condition",
+        "combination"
+      ],
+      "source_orders": [
+        47
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C048",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자연수의 개수",
+      "concept_name": "자릿수에 제약 조건이 있는 경우",
+      "description": "자연수의 개수 범주의 '자릿수에 제약 조건이 있는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "digit_number_count",
+        "number_condition",
+        "combination"
+      ],
+      "source_orders": [
+        48
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C049",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자연수의 개수",
+      "concept_name": "적어도의 조건이 있는 경우",
+      "description": "자연수의 개수 범주의 '적어도의 조건이 있는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "at_least_condition",
+        "complement_counting",
+        "digit_number_count"
+      ],
+      "source_orders": [
+        49
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C050",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자연수의 개수",
+      "concept_name": "이웃하거나 이웃하지 않는 조건이 있는 경우",
+      "description": "자연수의 개수 범주의 '이웃하거나 이웃하지 않는 조건이 있는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "adjacency_condition",
+        "digit_number_count",
+        "number_condition"
+      ],
+      "source_orders": [
+        50
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C051",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "사전식으로 배열하는 방법의 수",
+      "concept_name": "수를 크기순으로 배열하는 경우",
+      "description": "사전식으로 배열하는 방법의 수 범주의 '수를 크기순으로 배열하는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "lexicographic_order",
+        "rank_counting",
+        "combination"
+      ],
+      "source_orders": [
+        51
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C052",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "사전식으로 배열하는 방법의 수",
+      "concept_name": "문자를 사전식으로 배열하는 경우",
+      "description": "사전식으로 배열하는 방법의 수 범주의 '문자를 사전식으로 배열하는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "lexicographic_order",
+        "rank_counting",
+        "combination"
+      ],
+      "source_orders": [
+        52
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C053",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nCr의 계산",
+      "concept_name": "nCr의 값 구하기",
+      "description": "nCr의 계산 범주의 'nCr의 값 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        53
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C054",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nCr의 계산",
+      "concept_name": "nCr이 있는 방정식, 부등식",
+      "description": "nCr의 계산 범주의 'nCr이 있는 방정식, 부등식' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "equation_solution_count",
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        54
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C055",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr와 nCr의 계산",
+      "concept_name": "nPr, nCr의 값 구하기",
+      "description": "nPr와 nCr의 계산 범주의 'nPr, nCr의 값 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        55
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C056",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr와 nCr의 계산",
+      "concept_name": "nPr, nCr의 관계를 이용하는 방정식",
+      "description": "nPr와 nCr의 계산 범주의 'nPr, nCr의 관계를 이용하는 방정식' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "equation_solution_count",
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        56
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C057",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr와 nCr의 계산",
+      "concept_name": "nPr, nCr이 있는 방정식(1) n 또는 r이 미지수인 경우",
+      "description": "nPr와 nCr의 계산 범주의 'nPr, nCr이 있는 방정식(1) n 또는 r이 미지수인 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "equation_solution_count",
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        57
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C058",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr와 nCr의 계산",
+      "concept_name": "nPr, nCr이 있는 방정식(2) n, r이 모두 미지수인 경우",
+      "description": "nPr와 nCr의 계산 범주의 'nPr, nCr이 있는 방정식(2) n, r이 모두 미지수인 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "equation_solution_count",
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        58
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C059",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr와 nCr의 계산",
+      "concept_name": "nPr, nCr이 있는 부등식",
+      "description": "nPr와 nCr의 계산 범주의 'nPr, nCr이 있는 부등식' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "equation_solution_count",
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        59
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C060",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr와 nCr을 이용한 증명",
+      "concept_name": "nPr, nCr의 기본 성질의 진위 판단하기",
+      "description": "nPr와 nCr을 이용한 증명 범주의 'nPr, nCr의 기본 성질의 진위 판단하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        60
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C061",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr와 nCr을 이용한 증명",
+      "concept_name": "nPr의 성질 증명하기",
+      "description": "nPr와 nCr을 이용한 증명 범주의 'nPr의 성질 증명하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        61
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C062",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "nPr와 nCr을 이용한 증명",
+      "concept_name": "nCr의 성질 증명하기",
+      "description": "nPr와 nCr을 이용한 증명 범주의 'nCr의 성질 증명하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection"
+      ],
+      "source_orders": [
+        62
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C063",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "조합의 수",
+      "concept_name": "조합의 수 구하기(1) 사람(물건)을 뽑는 경우",
+      "description": "조합의 수 범주의 '조합의 수 구하기(1) 사람(물건)을 뽑는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        63
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C064",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "조합의 수",
+      "concept_name": "조합의 수 구하기(2) 상자에 넣거나 나누어주는 경우",
+      "description": "조합의 수 범주의 '조합의 수 구하기(2) 상자에 넣거나 나누어주는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        64
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C065",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "조합의 수",
+      "concept_name": "조합의 수 구하기(3) 수에 관련된 조건이 주어진 경우",
+      "description": "조합의 수 범주의 '조합의 수 구하기(3) 수에 관련된 조건이 주어진 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        65
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C066",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "조합의 수",
+      "concept_name": "조합의 수 구하기(5) 도로망에서의 경로",
+      "description": "조합의 수 범주의 '조합의 수 구하기(5) 도로망에서의 경로' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "path_counting",
+        "route_counting",
+        "permutation"
+      ],
+      "source_orders": [
+        66
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C067",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "조합의 수",
+      "concept_name": "조합의 수 구하기(6) 입체도형의 단면의 활용",
+      "description": "조합의 수 범주의 '조합의 수 구하기(6) 입체도형의 단면의 활용' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        67
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C068",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "조합의 수",
+      "concept_name": "조합의 수 구하기(7) 그 외의 경우",
+      "description": "조합의 수 범주의 '조합의 수 구하기(7) 그 외의 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        68
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C069",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "조합의 수",
+      "concept_name": "nCr을 이용한 경우의 수(1) 경우의 수 계산하기",
+      "description": "조합의 수 범주의 'nCr을 이용한 경우의 수(1) 경우의 수 계산하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        69
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C070",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "조합의 수",
+      "concept_name": "nCr을 이용한 경우의 수(2) 경우의 수가 주어졌을 때 n, r 구하기",
+      "description": "조합의 수 범주의 'nCr을 이용한 경우의 수(2) 경우의 수가 주어졌을 때 n, r 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        70
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C071",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "특정한 것을 포함하거나 포함하지 않는 조합의 수",
+      "concept_name": "특정 사람(물건)을 포함하는 조합의 수",
+      "description": "특정한 것을 포함하거나 포함하지 않는 조합의 수 범주의 '특정 사람(물건)을 포함하는 조합의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        71
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C072",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "특정한 것을 포함하거나 포함하지 않는 조합의 수",
+      "concept_name": "특정 사람(물건)을 제외하는 조합의 수",
+      "description": "특정한 것을 포함하거나 포함하지 않는 조합의 수 범주의 '특정 사람(물건)을 제외하는 조합의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        72
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C073",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "특정한 것을 포함하거나 포함하지 않는 조합의 수",
+      "concept_name": "특정 사람(물건)을 포함하고 다른 특정 사람(물건)은 제외하는 조합의 수",
+      "description": "특정한 것을 포함하거나 포함하지 않는 조합의 수 범주의 '특정 사람(물건)을 포함하고 다른 특정 사람(물건)은 제외하는 조합의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        73
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C074",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "특정한 것을 포함하거나 포함하지 않는 조합의 수",
+      "concept_name": "공통으로 선택하는 것이 있을 때의 활용",
+      "description": "특정한 것을 포함하거나 포함하지 않는 조합의 수 범주의 '공통으로 선택하는 것이 있을 때의 활용' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "combination"
+      ],
+      "source_orders": [
+        74
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C075",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "적어도의 조건이 있는 조합의 수",
+      "concept_name": "사람(물건)을 뽑거나 넣는 경우",
+      "description": "적어도의 조건이 있는 조합의 수 범주의 '사람(물건)을 뽑거나 넣는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "at_least_condition"
+      ],
+      "source_orders": [
+        75
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C076",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "적어도의 조건이 있는 조합의 수",
+      "concept_name": "숫자를 뽑거나 넣는 경우",
+      "description": "적어도의 조건이 있는 조합의 수 범주의 '숫자를 뽑거나 넣는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "addition_rule",
+        "case_classification",
+        "permutation",
+        "ordered_arrangement",
+        "at_least_condition"
+      ],
+      "source_orders": [
+        76
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C077",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "뽑아서 나열하는 방법의 수",
+      "concept_name": "사람(물건)을 뽑을 때(1) 일반적인 경우",
+      "description": "뽑아서 나열하는 방법의 수 범주의 '사람(물건)을 뽑을 때(1) 일반적인 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "select_then_arrange"
+      ],
+      "source_orders": [
+        77
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C078",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "뽑아서 나열하는 방법의 수",
+      "concept_name": "사람(물건)을 뽑을 때(2) 서로 다른 상자에 넣는 경우",
+      "description": "뽑아서 나열하는 방법의 수 범주의 '사람(물건)을 뽑을 때(2) 서로 다른 상자에 넣는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "select_then_arrange"
+      ],
+      "source_orders": [
+        78
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C079",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "뽑아서 나열하는 방법의 수",
+      "concept_name": "사람(물건)을 뽑을 때(3) 특정한 것을 포함하거나 제외시키는 경우",
+      "description": "뽑아서 나열하는 방법의 수 범주의 '사람(물건)을 뽑을 때(3) 특정한 것을 포함하거나 제외시키는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "include_exclude"
+      ],
+      "source_orders": [
+        79
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C080",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "뽑아서 나열하는 방법의 수",
+      "concept_name": "숫자를 뽑아서 나열하는 방법의 수",
+      "description": "뽑아서 나열하는 방법의 수 범주의 '숫자를 뽑아서 나열하는 방법의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "select_then_arrange"
+      ],
+      "source_orders": [
+        80
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C081",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "직선의 개수",
+      "concept_name": "점의 개수만 주어진 경우",
+      "description": "직선의 개수 범주의 '점의 개수만 주어진 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        81
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C082",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "직선의 개수",
+      "concept_name": "평행선 위의 점을 연결할 때",
+      "description": "직선의 개수 범주의 '평행선 위의 점을 연결할 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        82
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C083",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "직선의 개수",
+      "concept_name": "평면도형 위의 점을 연결할 때",
+      "description": "직선의 개수 범주의 '평면도형 위의 점을 연결할 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        83
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C084",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "대각선의 개수",
+      "concept_name": "대각선의 개수 구하기",
+      "description": "대각선의 개수 범주의 '대각선의 개수 구하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        84
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C085",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "대각선의 개수",
+      "concept_name": "대각선의 개수가 주어진 경우",
+      "description": "대각선의 개수 범주의 '대각선의 개수가 주어진 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        85
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C086",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "삼각형의 개수",
+      "concept_name": "점 또는 선의 개수만 주어진 경우",
+      "description": "삼각형의 개수 범주의 '점 또는 선의 개수만 주어진 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        86
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C087",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "삼각형의 개수",
+      "concept_name": "평행선 위의 점을 연결할 때",
+      "description": "삼각형의 개수 범주의 '평행선 위의 점을 연결할 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        87
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C088",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "삼각형의 개수",
+      "concept_name": "평면도형 위의 점을 연결할 때(1) 정n각형",
+      "description": "삼각형의 개수 범주의 '평면도형 위의 점을 연결할 때(1) 정n각형' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        88
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C089",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "삼각형의 개수",
+      "concept_name": "평면도형 위의 점을 연결할 때(2) 이 외의 경우",
+      "description": "삼각형의 개수 범주의 '평면도형 위의 점을 연결할 때(2) 이 외의 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        89
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C090",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "삼각형의 개수",
+      "concept_name": "좌표평면 위의 점을 연결할 때",
+      "description": "삼각형의 개수 범주의 '좌표평면 위의 점을 연결할 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        90
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C091",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "삼각형의 개수",
+      "concept_name": "서로 다른 삼각형의 개수",
+      "description": "삼각형의 개수 범주의 '서로 다른 삼각형의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        91
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C092",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "삼각형의 개수",
+      "concept_name": "직각삼각형의 개수",
+      "description": "삼각형의 개수 범주의 '직각삼각형의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        92
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C093",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "삼각형의 개수",
+      "concept_name": "직각삼각형이 아닌 삼각형의 개수",
+      "description": "삼각형의 개수 범주의 '직각삼각형이 아닌 삼각형의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        93
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C094",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "사각형의 개수",
+      "concept_name": "두 평행선 위의 점이 주어진 경우",
+      "description": "사각형의 개수 범주의 '두 평행선 위의 점이 주어진 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        94
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C095",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "사각형의 개수",
+      "concept_name": "평행선으로 만들어지는 사각형의 개수",
+      "description": "사각형의 개수 범주의 '평행선으로 만들어지는 사각형의 개수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        95
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C096",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "사각형의 개수",
+      "concept_name": "평면도형이 주어진 경우(1) 정n각형 또는 원",
+      "description": "사각형의 개수 범주의 '평면도형이 주어진 경우(1) 정n각형 또는 원' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        96
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C097",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "사각형의 개수",
+      "concept_name": "평면도형이 주어진 경우(2) 이 외의 평면도형",
+      "description": "사각형의 개수 범주의 '평면도형이 주어진 경우(2) 이 외의 평면도형' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        97
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C098",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "사각형의 개수",
+      "concept_name": "좌표평면 위의 점을 연결할 때",
+      "description": "사각형의 개수 범주의 '좌표평면 위의 점을 연결할 때' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "geometric_counting"
+      ],
+      "source_orders": [
+        98
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C099",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "분할하는 방법의 수",
+      "concept_name": "조를 나누는 경우",
+      "description": "분할하는 방법의 수 범주의 '조를 나누는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "partition_distribution"
+      ],
+      "source_orders": [
+        99
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C100",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "분할하는 방법의 수",
+      "concept_name": "똑같은 상자에 넣거나 상자에서 꺼내는 경우",
+      "description": "분할하는 방법의 수 범주의 '똑같은 상자에 넣거나 상자에서 꺼내는 경우' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "partition_distribution"
+      ],
+      "source_orders": [
+        100
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C101",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "분할하는 방법의 수",
+      "concept_name": "분할의 수의 활용",
+      "description": "분할하는 방법의 수 범주의 '분할의 수의 활용' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "partition_distribution"
+      ],
+      "source_orders": [
+        101
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C102",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "자연수를 분할하는 방법의 수",
+      "concept_name": "자연수를 분할하는 방법의 수",
+      "description": "자연수를 분할하는 방법의 수 범주의 '자연수를 분할하는 방법의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "digit_number_count",
+        "number_condition",
+        "combination"
+      ],
+      "source_orders": [
+        102
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C103",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "분할한 후 분배하는 방법의 수",
+      "concept_name": "빈 상자가 없도록(있도록) 담는 경우의 수",
+      "description": "분할한 후 분배하는 방법의 수 범주의 '빈 상자가 없도록(있도록) 담는 경우의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "partition_distribution"
+      ],
+      "source_orders": [
+        103
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C104",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "분할한 후 분배하는 방법의 수",
+      "concept_name": "정해진 인원만큼 각 조에서 내리는 경우의 수",
+      "description": "분할한 후 분배하는 방법의 수 범주의 '정해진 인원만큼 각 조에서 내리는 경우의 수' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "partition_distribution"
+      ],
+      "source_orders": [
+        104
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C105",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "분할한 후 분배하는 방법의 수",
+      "concept_name": "조(사람)이나 묶음(물건)을 나눈 후 분배하기",
+      "description": "분할한 후 분배하는 방법의 수 범주의 '조(사람)이나 묶음(물건)을 나눈 후 분배하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "partition_distribution"
+      ],
+      "source_orders": [
+        105
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C106",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "분할한 후 분배하는 방법의 수",
+      "concept_name": "분할과 분배의 활용",
+      "description": "분할한 후 분배하는 방법의 수 범주의 '분할과 분배의 활용' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "partition_distribution"
+      ],
+      "source_orders": [
+        106
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C107",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "대진표 작성하기",
+      "concept_name": "부전승이 없는 대진표 작성하기",
+      "description": "대진표 작성하기 범주의 '부전승이 없는 대진표 작성하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "tournament_bracket"
+      ],
+      "source_orders": [
+        107
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_COUNT_C108",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "unit_name": "경우의 수",
+      "strand": "순열과 조합",
+      "sub_strand": "대진표 작성하기",
+      "concept_name": "부전승이 있는 대진표 작성하기",
+      "description": "대진표 작성하기 범주의 '부전승이 있는 대진표 작성하기' 유형에서 경우를 겹치지 않게 분류하고 합의 법칙·곱의 법칙·순열·조합 중 알맞은 도구를 선택한다.",
+      "diagnostic_signals": [
+        "순서가 있는 경우와 없는 경우를 구분하지 못함",
+        "조건에 따른 경우분류가 누락되거나 중복됨",
+        "포함/제외 또는 적어도 조건을 전체-여사건 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "permutation",
+        "ordered_arrangement",
+        "combination",
+        "unordered_selection",
+        "tournament_bracket"
+      ],
+      "source_orders": [
+        108
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
       "status": "curated_seed_from_image_taxonomy"
     }
   ],
