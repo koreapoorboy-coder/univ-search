@@ -1,0 +1,28 @@
+{
+  "patch_id": "math_weakness_engine_h1_common_math1_matrix_core_patch_20260707",
+  "base_assumption": "math-weakness-engine.zip + m2_probability + h1_common_math1_polynomial + h1_common_math1_equation_inequality + h1_common_math1_counting patches applied",
+  "unit_id": "H1_COMMON_MATH1_MATRIX",
+  "unit_name": "행렬",
+  "course": "공통수학1",
+  "source_upload": "공통수학 행렬.zip",
+  "source_image_count": 7,
+  "excluded_original_images": true,
+  "counts": {
+    "concepts_added": 61,
+    "raw_taxonomy_sections": 61,
+    "estimated_detail_types_from_source": 776,
+    "problem_types": 183,
+    "edges": 136,
+    "diagnosis_rules": 19,
+    "remediation_items": 61,
+    "solution_templates": 9
+  },
+  "validation": [
+    "JSON load OK",
+    "index registration OK",
+    "required unit files exist",
+    "concept reference integrity OK",
+    "problem_type/rule/remediation connection OK",
+    "source images excluded from patch ZIP"
+  ]
+}

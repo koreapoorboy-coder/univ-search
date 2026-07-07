@@ -1,0 +1,213 @@
+{
+  "version": "1.0",
+  "unit_id": "H1_COMMON_MATH1_MATRIX",
+  "unit_name": "행렬",
+  "templates": [
+    {
+      "template_id": "H1_CM1_MAT_FORM_STRUCTURE",
+      "name": "행렬 구조·성분 확인 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C001",
+        "H1_CM1_MAT_C002",
+        "H1_CM1_MAT_C003",
+        "H1_CM1_MAT_C004",
+        "H1_CM1_MAT_C005"
+      ],
+      "required_fields": [
+        "행렬의 크기",
+        "행 번호와 열 번호",
+        "묻는 성분 위치",
+        "대입 결과"
+      ],
+      "reject_if_missing": [
+        "행렬의 크기",
+        "행 번호와 열 번호"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_MAT_FORM_EQUALITY",
+      "name": "서로 같은 행렬 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C010",
+        "H1_CM1_MAT_C011",
+        "H1_CM1_MAT_C020",
+        "H1_CM1_MAT_C021"
+      ],
+      "required_fields": [
+        "대응 성분 표시",
+        "성분별 등식",
+        "연립식 풀이",
+        "대입 검산"
+      ],
+      "reject_if_missing": [
+        "대응 성분 표시",
+        "성분별 등식"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_MAT_FORM_LINEAR_OP",
+      "name": "덧셈·뺄셈·실수배 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C012",
+        "H1_CM1_MAT_C013",
+        "H1_CM1_MAT_C014",
+        "H1_CM1_MAT_C015",
+        "H1_CM1_MAT_C016",
+        "H1_CM1_MAT_C017"
+      ],
+      "required_fields": [
+        "크기 확인",
+        "성분별 계산",
+        "부호·계수 확인",
+        "최종 행렬"
+      ],
+      "reject_if_missing": [
+        "크기 확인",
+        "성분별 계산"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_MAT_FORM_MULTIPLICATION",
+      "name": "행렬곱 계산 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C022",
+        "H1_CM1_MAT_C023",
+        "H1_CM1_MAT_C024",
+        "H1_CM1_MAT_C025",
+        "H1_CM1_MAT_C026",
+        "H1_CM1_MAT_C027",
+        "H1_CM1_MAT_C028",
+        "H1_CM1_MAT_C029",
+        "H1_CM1_MAT_C056",
+        "H1_CM1_MAT_C057"
+      ],
+      "required_fields": [
+        "곱셈 가능 조건",
+        "행×열 대응",
+        "AB와 BA 구분",
+        "각 성분 계산"
+      ],
+      "reject_if_missing": [
+        "곱셈 가능 조건",
+        "행×열 대응"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_MAT_FORM_POWER",
+      "name": "행렬 거듭제곱 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C030",
+        "H1_CM1_MAT_C031",
+        "H1_CM1_MAT_C032",
+        "H1_CM1_MAT_C033",
+        "H1_CM1_MAT_C034",
+        "H1_CM1_MAT_C052",
+        "H1_CM1_MAT_C053"
+      ],
+      "required_fields": [
+        "A^2 전개",
+        "A^3 또는 A^4 확인",
+        "반복 규칙",
+        "지수의 나머지"
+      ],
+      "reject_if_missing": [
+        "A^2 전개",
+        "반복 규칙"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_MAT_FORM_IDENTITY",
+      "name": "단위행렬 E 포함 식 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C046",
+        "H1_CM1_MAT_C047",
+        "H1_CM1_MAT_C048",
+        "H1_CM1_MAT_C049",
+        "H1_CM1_MAT_C050",
+        "H1_CM1_MAT_C051",
+        "H1_CM1_MAT_C054",
+        "H1_CM1_MAT_C055"
+      ],
+      "required_fields": [
+        "E의 크기",
+        "AE=EA=A 적용",
+        "양변 변형",
+        "대입 검산"
+      ],
+      "reject_if_missing": [
+        "E의 크기",
+        "AE=EA=A 적용"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_MAT_FORM_EQUATION",
+      "name": "행렬 방정식 풀이 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C018",
+        "H1_CM1_MAT_C019",
+        "H1_CM1_MAT_C046",
+        "H1_CM1_MAT_C047",
+        "H1_CM1_MAT_C048",
+        "H1_CM1_MAT_C049",
+        "H1_CM1_MAT_C050",
+        "H1_CM1_MAT_C051",
+        "H1_CM1_MAT_C054",
+        "H1_CM1_MAT_C055"
+      ],
+      "required_fields": [
+        "미지 성분 설정",
+        "성분별 등식",
+        "연립식 정리",
+        "행렬 대입 검산"
+      ],
+      "reject_if_missing": [
+        "미지 성분 설정",
+        "성분별 등식"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_MAT_FORM_APPLICATION",
+      "name": "행렬곱 활용 해석 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C035",
+        "H1_CM1_MAT_C036",
+        "H1_CM1_MAT_C037"
+      ],
+      "required_fields": [
+        "행의 의미",
+        "열의 의미",
+        "곱셈 결과 성분의 의미",
+        "문제 조건과 비교"
+      ],
+      "reject_if_missing": [
+        "행의 의미",
+        "열의 의미"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_MAT_FORM_CAYLEY",
+      "name": "케일리-해밀턴 정리 적용 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_MAT_C058",
+        "H1_CM1_MAT_C059",
+        "H1_CM1_MAT_C060",
+        "H1_CM1_MAT_C061",
+        "H1_CM1_MAT_C038",
+        "H1_CM1_MAT_C039",
+        "H1_CM1_MAT_C040",
+        "H1_CM1_MAT_C056",
+        "H1_CM1_MAT_C057"
+      ],
+      "required_fields": [
+        "특성방정식",
+        "행렬 A 대입",
+        "고차항 낮추기",
+        "최종식 검산"
+      ],
+      "reject_if_missing": [
+        "특성방정식",
+        "행렬 A 대입"
+      ]
+    }
+  ]
+}

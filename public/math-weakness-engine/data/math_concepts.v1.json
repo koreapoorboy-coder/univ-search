@@ -1,6 +1,6 @@
 {
   "version": "2026.07.07-h1-common-math1-counting-v1.0",
-  "concept_count": 892,
+  "concept_count": 953,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -24647,6 +24647,1617 @@
       ],
       "mastery_level": "advanced",
       "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C001",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 기본 구조",
+      "sub_strand": "행렬의 뜻",
+      "concept_name": "행렬의 꼴",
+      "description": "행렬의 행, 열, 성분을 구분하고 주어진 배열을 행렬로 해석한다.",
+      "diagnostic_signals": [
+        "행과 열을 바꾸어 읽음",
+        "성분의 위치를 반대로 해석",
+        "행렬의 꼴을 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "행·열 표시",
+        "성분 위치 읽기",
+        "행렬의 꼴 확인"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C002",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 기본 구조",
+      "sub_strand": "행렬의 뜻",
+      "concept_name": "행렬의 행과 열",
+      "description": "행렬의 행, 열, 성분을 구분하고 주어진 배열을 행렬로 해석한다.",
+      "diagnostic_signals": [
+        "행과 열을 바꾸어 읽음",
+        "성분의 위치를 반대로 해석",
+        "행렬의 꼴을 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "행·열 표시",
+        "성분 위치 읽기",
+        "행렬의 꼴 확인"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C003",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 기본 구조",
+      "sub_strand": "행렬의 뜻",
+      "concept_name": "행렬의 성분",
+      "description": "행렬의 행, 열, 성분을 구분하고 주어진 배열을 행렬로 해석한다.",
+      "diagnostic_signals": [
+        "행과 열을 바꾸어 읽음",
+        "성분의 위치를 반대로 해석",
+        "행렬의 꼴을 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "행·열 표시",
+        "성분 위치 읽기",
+        "행렬의 꼴 확인"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C004",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "성분과 위치 판단",
+      "sub_strand": "행렬의 (i,j)성분",
+      "concept_name": "행렬의 (i,j)성분",
+      "description": "성분의 위치를 (행, 열) 순서로 읽고 a_ij 표기와 식으로 주어진 성분을 계산한다.",
+      "diagnostic_signals": [
+        "a_ij에서 i와 j를 혼동",
+        "성분 공식에 행 번호와 열 번호를 반대로 대입",
+        "주어진 범위를 누락"
+      ],
+      "remediation_keywords": [
+        "a_ij 표기",
+        "행 번호·열 번호 대입",
+        "성분 공식 계산"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C005",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "성분과 위치 판단",
+      "sub_strand": "행렬의 (i,j)성분",
+      "concept_name": "행렬의 성분 a_ij가 식으로 주어진 경우",
+      "description": "성분의 위치를 (행, 열) 순서로 읽고 a_ij 표기와 식으로 주어진 성분을 계산한다.",
+      "diagnostic_signals": [
+        "a_ij에서 i와 j를 혼동",
+        "성분 공식에 행 번호와 열 번호를 반대로 대입",
+        "주어진 범위를 누락"
+      ],
+      "remediation_keywords": [
+        "a_ij 표기",
+        "행 번호·열 번호 대입",
+        "성분 공식 계산"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C006",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬 모델링",
+      "sub_strand": "행렬 구하기",
+      "concept_name": "수, 식의 활용",
+      "description": "수식, 도형, 실생활 조건을 행렬의 성분 또는 구조로 번역한다.",
+      "diagnostic_signals": [
+        "조건을 행렬 성분으로 번역하지 못함",
+        "실생활 의미와 계산 결과를 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "조건 번역",
+        "성분 배치",
+        "상황표 작성"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C007",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬 모델링",
+      "sub_strand": "행렬 구하기",
+      "concept_name": "이차방정식, 이차함수의 활용",
+      "description": "수식, 도형, 실생활 조건을 행렬의 성분 또는 구조로 번역한다.",
+      "diagnostic_signals": [
+        "조건을 행렬 성분으로 번역하지 못함",
+        "실생활 의미와 계산 결과를 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "조건 번역",
+        "성분 배치",
+        "상황표 작성"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C008",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬 모델링",
+      "sub_strand": "행렬 구하기",
+      "concept_name": "도형의 활용",
+      "description": "수식, 도형, 실생활 조건을 행렬의 성분 또는 구조로 번역한다.",
+      "diagnostic_signals": [
+        "조건을 행렬 성분으로 번역하지 못함",
+        "실생활 의미와 계산 결과를 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "조건 번역",
+        "성분 배치",
+        "상황표 작성"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C009",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬 모델링",
+      "sub_strand": "행렬 구하기",
+      "concept_name": "실생활의 활용",
+      "description": "수식, 도형, 실생활 조건을 행렬의 성분 또는 구조로 번역한다.",
+      "diagnostic_signals": [
+        "조건을 행렬 성분으로 번역하지 못함",
+        "실생활 의미와 계산 결과를 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "조건 번역",
+        "성분 배치",
+        "상황표 작성"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C010",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "같은 행렬",
+      "sub_strand": "서로 같은 행렬",
+      "concept_name": "행렬이 직접 주어지는 경우",
+      "description": "두 행렬이 같기 위한 조건을 성분별 등식으로 바꾼다.",
+      "diagnostic_signals": [
+        "성분별 비교를 하지 않음",
+        "행렬 전체 식을 한 문자 등식처럼 처리"
+      ],
+      "remediation_keywords": [
+        "성분별 비교",
+        "연립식 작성",
+        "문자 조건"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C011",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "같은 행렬",
+      "sub_strand": "서로 같은 행렬",
+      "concept_name": "행렬이 성분으로 주어지는 경우",
+      "description": "두 행렬이 같기 위한 조건을 성분별 등식으로 바꾼다.",
+      "diagnostic_signals": [
+        "성분별 비교를 하지 않음",
+        "행렬 전체 식을 한 문자 등식처럼 처리"
+      ],
+      "remediation_keywords": [
+        "성분별 비교",
+        "연립식 작성",
+        "문자 조건"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C012",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 덧셈·뺄셈·실수배",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(1)",
+      "concept_name": "행렬의 덧셈, 뺄셈, 실수배(1) 한 행렬의 계산",
+      "description": "같은 꼴의 행렬끼리 성분별 덧셈·뺄셈·실수배를 수행한다.",
+      "diagnostic_signals": [
+        "크기가 같은지 확인하지 않음",
+        "실수배 후 부호를 잘못 처리",
+        "성분별 계산 누락"
+      ],
+      "remediation_keywords": [
+        "같은 꼴 확인",
+        "성분별 계산",
+        "부호 검산"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C013",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 덧셈·뺄셈·실수배",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(1)",
+      "concept_name": "행렬의 덧셈, 뺄셈, 실수배(2) 두 행렬의 계산",
+      "description": "같은 꼴의 행렬끼리 성분별 덧셈·뺄셈·실수배를 수행한다.",
+      "diagnostic_signals": [
+        "크기가 같은지 확인하지 않음",
+        "실수배 후 부호를 잘못 처리",
+        "성분별 계산 누락"
+      ],
+      "remediation_keywords": [
+        "같은 꼴 확인",
+        "성분별 계산",
+        "부호 검산"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C014",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 덧셈·뺄셈·실수배",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(1)",
+      "concept_name": "행렬의 덧셈, 뺄셈, 실수배(3) 세 행렬의 계산",
+      "description": "같은 꼴의 행렬끼리 성분별 덧셈·뺄셈·실수배를 수행한다.",
+      "diagnostic_signals": [
+        "크기가 같은지 확인하지 않음",
+        "실수배 후 부호를 잘못 처리",
+        "성분별 계산 누락"
+      ],
+      "remediation_keywords": [
+        "같은 꼴 확인",
+        "성분별 계산",
+        "부호 검산"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C015",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 덧셈·뺄셈·실수배",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(1)",
+      "concept_name": "행렬 A 또는 B를 구하는 경우",
+      "description": "같은 꼴의 행렬끼리 성분별 덧셈·뺄셈·실수배를 수행한다.",
+      "diagnostic_signals": [
+        "크기가 같은지 확인하지 않음",
+        "실수배 후 부호를 잘못 처리",
+        "성분별 계산 누락"
+      ],
+      "remediation_keywords": [
+        "같은 꼴 확인",
+        "성분별 계산",
+        "부호 검산"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C016",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 덧셈·뺄셈·실수배",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(1)",
+      "concept_name": "등식을 만족하는 행렬 X를 구하는 경우",
+      "description": "같은 꼴의 행렬끼리 성분별 덧셈·뺄셈·실수배를 수행한다.",
+      "diagnostic_signals": [
+        "크기가 같은지 확인하지 않음",
+        "실수배 후 부호를 잘못 처리",
+        "성분별 계산 누락"
+      ],
+      "remediation_keywords": [
+        "같은 꼴 확인",
+        "성분별 계산",
+        "부호 검산"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C017",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 덧셈·뺄셈·실수배",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(1)",
+      "concept_name": "증명하기",
+      "description": "같은 꼴의 행렬끼리 성분별 덧셈·뺄셈·실수배를 수행한다.",
+      "diagnostic_signals": [
+        "크기가 같은지 확인하지 않음",
+        "실수배 후 부호를 잘못 처리",
+        "성분별 계산 누락"
+      ],
+      "remediation_keywords": [
+        "같은 꼴 확인",
+        "성분별 계산",
+        "부호 검산"
+      ],
+      "source_orders": [
+        17
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C018",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬 일차식과 연립 조건",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(2) 행렬에 대한 두 등식이 주어진 경우",
+      "concept_name": "행렬 A, B에 대한 두 등식이 주어진 경우",
+      "description": "행렬 등식을 성분별 연립식으로 바꾸어 미지 행렬 또는 문자를 구한다.",
+      "diagnostic_signals": [
+        "두 등식을 연립하지 못함",
+        "미지 행렬의 각 성분을 따로 두지 않음"
+      ],
+      "remediation_keywords": [
+        "미지 성분 설정",
+        "두 등식 연립",
+        "행렬 X 구하기"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C019",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬 일차식과 연립 조건",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(2) 행렬에 대한 두 등식이 주어진 경우",
+      "concept_name": "행렬 A, B, X, Y에 대한 두 등식이 주어진 경우",
+      "description": "행렬 등식을 성분별 연립식으로 바꾸어 미지 행렬 또는 문자를 구한다.",
+      "diagnostic_signals": [
+        "두 등식을 연립하지 못함",
+        "미지 행렬의 각 성분을 따로 두지 않음"
+      ],
+      "remediation_keywords": [
+        "미지 성분 설정",
+        "두 등식 연립",
+        "행렬 X 구하기"
+      ],
+      "source_orders": [
+        19
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C020",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "성분 비교와 표현",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(3) 행렬이 서로 같을 조건",
+      "concept_name": "두 행렬이 서로 같은 경우",
+      "description": "행렬이 서로 같을 조건을 이용해 매개변수와 선형결합 표현을 판단한다.",
+      "diagnostic_signals": [
+        "성분 비교식을 세우지 못함",
+        "xA+yB 표현에서 계수 비교 누락"
+      ],
+      "remediation_keywords": [
+        "계수 비교",
+        "선형결합",
+        "조건 정리"
+      ],
+      "source_orders": [
+        20
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C021",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "성분 비교와 표현",
+      "sub_strand": "행렬의 덧셈, 뺄셈, 실수배(3) 행렬이 서로 같을 조건",
+      "concept_name": "xA+yB꼴로 나타내는 경우",
+      "description": "행렬이 서로 같을 조건을 이용해 매개변수와 선형결합 표현을 판단한다.",
+      "diagnostic_signals": [
+        "성분 비교식을 세우지 못함",
+        "xA+yB 표현에서 계수 비교 누락"
+      ],
+      "remediation_keywords": [
+        "계수 비교",
+        "선형결합",
+        "조건 정리"
+      ],
+      "source_orders": [
+        21
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C022",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 곱셈",
+      "sub_strand": "행렬의 곱셈",
+      "concept_name": "곱셈의 정의",
+      "description": "행과 열의 대응으로 행렬곱을 계산하고 곱셈 순서에 따른 결과 차이를 판단한다.",
+      "diagnostic_signals": [
+        "AB와 BA를 같은 것으로 처리",
+        "행과 열의 곱셈 순서를 틀림",
+        "곱셈 가능 조건 미확인"
+      ],
+      "remediation_keywords": [
+        "행×열 대응",
+        "곱셈 가능 조건",
+        "AB와 BA 구분"
+      ],
+      "source_orders": [
+        22
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C023",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 곱셈",
+      "sub_strand": "행렬의 곱셈",
+      "concept_name": "두 행렬의 곱셈",
+      "description": "행과 열의 대응으로 행렬곱을 계산하고 곱셈 순서에 따른 결과 차이를 판단한다.",
+      "diagnostic_signals": [
+        "AB와 BA를 같은 것으로 처리",
+        "행과 열의 곱셈 순서를 틀림",
+        "곱셈 가능 조건 미확인"
+      ],
+      "remediation_keywords": [
+        "행×열 대응",
+        "곱셈 가능 조건",
+        "AB와 BA 구분"
+      ],
+      "source_orders": [
+        23
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C024",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 곱셈",
+      "sub_strand": "행렬의 곱셈",
+      "concept_name": "세 행렬의 곱셈",
+      "description": "행과 열의 대응으로 행렬곱을 계산하고 곱셈 순서에 따른 결과 차이를 판단한다.",
+      "diagnostic_signals": [
+        "AB와 BA를 같은 것으로 처리",
+        "행과 열의 곱셈 순서를 틀림",
+        "곱셈 가능 조건 미확인"
+      ],
+      "remediation_keywords": [
+        "행×열 대응",
+        "곱셈 가능 조건",
+        "AB와 BA 구분"
+      ],
+      "source_orders": [
+        24
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C025",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 곱셈",
+      "sub_strand": "행렬의 곱셈",
+      "concept_name": "곱셈을 포함한 혼합계산",
+      "description": "행과 열의 대응으로 행렬곱을 계산하고 곱셈 순서에 따른 결과 차이를 판단한다.",
+      "diagnostic_signals": [
+        "AB와 BA를 같은 것으로 처리",
+        "행과 열의 곱셈 순서를 틀림",
+        "곱셈 가능 조건 미확인"
+      ],
+      "remediation_keywords": [
+        "행×열 대응",
+        "곱셈 가능 조건",
+        "AB와 BA 구분"
+      ],
+      "source_orders": [
+        25
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C026",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 곱셈",
+      "sub_strand": "행렬의 곱셈",
+      "concept_name": "등식을 만족하는 행렬 X를 구하는 경우",
+      "description": "행과 열의 대응으로 행렬곱을 계산하고 곱셈 순서에 따른 결과 차이를 판단한다.",
+      "diagnostic_signals": [
+        "AB와 BA를 같은 것으로 처리",
+        "행과 열의 곱셈 순서를 틀림",
+        "곱셈 가능 조건 미확인"
+      ],
+      "remediation_keywords": [
+        "행×열 대응",
+        "곱셈 가능 조건",
+        "AB와 BA 구분"
+      ],
+      "source_orders": [
+        26
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C027",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 곱셈",
+      "sub_strand": "행렬의 곱셈",
+      "concept_name": "최댓값 또는 최솟값 구하는 경우",
+      "description": "행과 열의 대응으로 행렬곱을 계산하고 곱셈 순서에 따른 결과 차이를 판단한다.",
+      "diagnostic_signals": [
+        "AB와 BA를 같은 것으로 처리",
+        "행과 열의 곱셈 순서를 틀림",
+        "곱셈 가능 조건 미확인"
+      ],
+      "remediation_keywords": [
+        "행×열 대응",
+        "곱셈 가능 조건",
+        "AB와 BA 구분"
+      ],
+      "source_orders": [
+        27
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C028",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 곱셈",
+      "sub_strand": "행렬의 곱셈",
+      "concept_name": "새롭게 정의된 연산",
+      "description": "행과 열의 대응으로 행렬곱을 계산하고 곱셈 순서에 따른 결과 차이를 판단한다.",
+      "diagnostic_signals": [
+        "AB와 BA를 같은 것으로 처리",
+        "행과 열의 곱셈 순서를 틀림",
+        "곱셈 가능 조건 미확인"
+      ],
+      "remediation_keywords": [
+        "행×열 대응",
+        "곱셈 가능 조건",
+        "AB와 BA 구분"
+      ],
+      "source_orders": [
+        28
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C029",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 곱셈",
+      "sub_strand": "행렬의 곱셈",
+      "concept_name": "조건이 주어진 경우",
+      "description": "행과 열의 대응으로 행렬곱을 계산하고 곱셈 순서에 따른 결과 차이를 판단한다.",
+      "diagnostic_signals": [
+        "AB와 BA를 같은 것으로 처리",
+        "행과 열의 곱셈 순서를 틀림",
+        "곱셈 가능 조건 미확인"
+      ],
+      "remediation_keywords": [
+        "행×열 대응",
+        "곱셈 가능 조건",
+        "AB와 BA 구분"
+      ],
+      "source_orders": [
+        29
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C030",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 거듭제곱 계산",
+      "sub_strand": "행렬의 거듭제곱(1)",
+      "concept_name": "A^2의 계산",
+      "description": "같은 행렬의 반복 곱셈을 계산하고 거듭제곱의 성분 변화를 추적한다.",
+      "diagnostic_signals": [
+        "A^2을 성분별 제곱으로 오해",
+        "반복 곱셈 과정 누락",
+        "패턴을 검산하지 않음"
+      ],
+      "remediation_keywords": [
+        "반복 곱셈",
+        "성분별 제곱 금지",
+        "패턴 확인"
+      ],
+      "source_orders": [
+        30
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C031",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 거듭제곱 계산",
+      "sub_strand": "행렬의 거듭제곱(1)",
+      "concept_name": "A^3의 계산",
+      "description": "같은 행렬의 반복 곱셈을 계산하고 거듭제곱의 성분 변화를 추적한다.",
+      "diagnostic_signals": [
+        "A^2을 성분별 제곱으로 오해",
+        "반복 곱셈 과정 누락",
+        "패턴을 검산하지 않음"
+      ],
+      "remediation_keywords": [
+        "반복 곱셈",
+        "성분별 제곱 금지",
+        "패턴 확인"
+      ],
+      "source_orders": [
+        31
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C032",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 거듭제곱 계산",
+      "sub_strand": "행렬의 거듭제곱(1)",
+      "concept_name": "A^n(x,y)의 계산",
+      "description": "같은 행렬의 반복 곱셈을 계산하고 거듭제곱의 성분 변화를 추적한다.",
+      "diagnostic_signals": [
+        "A^2을 성분별 제곱으로 오해",
+        "반복 곱셈 과정 누락",
+        "패턴을 검산하지 않음"
+      ],
+      "remediation_keywords": [
+        "반복 곱셈",
+        "성분별 제곱 금지",
+        "패턴 확인"
+      ],
+      "source_orders": [
+        32
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C033",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "거듭제곱 규칙 찾기",
+      "sub_strand": "행렬의 거듭제곱(2) 규칙 찾기",
+      "concept_name": "A^n 구하기",
+      "description": "행렬의 거듭제곱에서 반복 주기와 일반항을 찾아 합을 계산한다.",
+      "diagnostic_signals": [
+        "거듭제곱 주기를 찾지 못함",
+        "수열 합 계산에서 항 개수 오류"
+      ],
+      "remediation_keywords": [
+        "주기 찾기",
+        "나머지 계산",
+        "거듭제곱 합"
+      ],
+      "source_orders": [
+        33
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C034",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "거듭제곱 규칙 찾기",
+      "sub_strand": "행렬의 거듭제곱(2) 규칙 찾기",
+      "concept_name": "A+A^2+A^3+⋯+A^n 구하기",
+      "description": "행렬의 거듭제곱에서 반복 주기와 일반항을 찾아 합을 계산한다.",
+      "diagnostic_signals": [
+        "거듭제곱 주기를 찾지 못함",
+        "수열 합 계산에서 항 개수 오류"
+      ],
+      "remediation_keywords": [
+        "주기 찾기",
+        "나머지 계산",
+        "거듭제곱 합"
+      ],
+      "source_orders": [
+        34
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C035",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "곱셈의 활용",
+      "sub_strand": "행렬의 곱셈의 실생활에의 활용",
+      "concept_name": "행렬의 계산결과의 의미",
+      "description": "행렬곱의 각 성분이 상황에서 무엇을 의미하는지 해석한다.",
+      "diagnostic_signals": [
+        "곱셈 결과의 성분 의미를 해석하지 못함",
+        "표의 행·열 의미를 바꾸어 읽음"
+      ],
+      "remediation_keywords": [
+        "행·열 의미",
+        "성분 해석",
+        "실생활 모델"
+      ],
+      "source_orders": [
+        35
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C036",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "곱셈의 활용",
+      "sub_strand": "행렬의 곱셈의 실생활에의 활용",
+      "concept_name": "행렬의 곱셈 성분",
+      "description": "행렬곱의 각 성분이 상황에서 무엇을 의미하는지 해석한다.",
+      "diagnostic_signals": [
+        "곱셈 결과의 성분 의미를 해석하지 못함",
+        "표의 행·열 의미를 바꾸어 읽음"
+      ],
+      "remediation_keywords": [
+        "행·열 의미",
+        "성분 해석",
+        "실생활 모델"
+      ],
+      "source_orders": [
+        36
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C037",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "곱셈의 활용",
+      "sub_strand": "행렬의 곱셈의 실생활에의 활용",
+      "concept_name": "행렬의 곱셈을 이용하여 해결하기",
+      "description": "행렬곱의 각 성분이 상황에서 무엇을 의미하는지 해석한다.",
+      "diagnostic_signals": [
+        "곱셈 결과의 성분 의미를 해석하지 못함",
+        "표의 행·열 의미를 바꾸어 읽음"
+      ],
+      "remediation_keywords": [
+        "행·열 의미",
+        "성분 해석",
+        "실생활 모델"
+      ],
+      "source_orders": [
+        37
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C038",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "곱셈의 성질",
+      "sub_strand": "행렬의 곱셈에 대한 성질(1)",
+      "concept_name": "AB≠BA",
+      "description": "행렬곱의 비가환성, 분배법칙, 증명 구조를 구분한다.",
+      "diagnostic_signals": [
+        "행렬곱의 비가환성을 무시",
+        "분배법칙 적용 순서 오류",
+        "증명에서 임의 성분 비교 누락"
+      ],
+      "remediation_keywords": [
+        "비가환성",
+        "분배법칙",
+        "성분 증명"
+      ],
+      "source_orders": [
+        38
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C039",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "곱셈의 성질",
+      "sub_strand": "행렬의 곱셈에 대한 성질(1)",
+      "concept_name": "분배법칙",
+      "description": "행렬곱의 비가환성, 분배법칙, 증명 구조를 구분한다.",
+      "diagnostic_signals": [
+        "행렬곱의 비가환성을 무시",
+        "분배법칙 적용 순서 오류",
+        "증명에서 임의 성분 비교 누락"
+      ],
+      "remediation_keywords": [
+        "비가환성",
+        "분배법칙",
+        "성분 증명"
+      ],
+      "source_orders": [
+        39
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C040",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "곱셈의 성질",
+      "sub_strand": "행렬의 곱셈에 대한 성질(1)",
+      "concept_name": "증명하기",
+      "description": "행렬곱의 비가환성, 분배법칙, 증명 구조를 구분한다.",
+      "diagnostic_signals": [
+        "행렬곱의 비가환성을 무시",
+        "분배법칙 적용 순서 오류",
+        "증명에서 임의 성분 비교 누락"
+      ],
+      "remediation_keywords": [
+        "비가환성",
+        "분배법칙",
+        "성분 증명"
+      ],
+      "source_orders": [
+        40
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C041",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "교환 가능 조건",
+      "sub_strand": "행렬의 곱셈에 대한 성질(2) AB=BA가 성립하는 경우",
+      "concept_name": "AB=BA가 성립하는 경우",
+      "description": "AB=BA가 성립하는 조건과 곱셈공식 적용 가능성을 판단한다.",
+      "diagnostic_signals": [
+        "AB=BA 조건을 자동으로 가정",
+        "곱셈공식 적용 가능 조건을 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "AB=BA 조건",
+        "곱셈공식 조건",
+        "성분 비교"
+      ],
+      "source_orders": [
+        41
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C042",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "교환 가능 조건",
+      "sub_strand": "행렬의 곱셈에 대한 성질(2) AB=BA가 성립하는 경우",
+      "concept_name": "곱셈공식이 성립하는 경우",
+      "description": "AB=BA가 성립하는 조건과 곱셈공식 적용 가능성을 판단한다.",
+      "diagnostic_signals": [
+        "AB=BA 조건을 자동으로 가정",
+        "곱셈공식 적용 가능 조건을 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "AB=BA 조건",
+        "곱셈공식 조건",
+        "성분 비교"
+      ],
+      "source_orders": [
+        42
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C043",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "교환 가능 조건",
+      "sub_strand": "행렬의 곱셈에 대한 성질(2) AB=BA가 성립하는 경우",
+      "concept_name": "AB=BA인 경우",
+      "description": "AB=BA가 성립하는 조건과 곱셈공식 적용 가능성을 판단한다.",
+      "diagnostic_signals": [
+        "AB=BA 조건을 자동으로 가정",
+        "곱셈공식 적용 가능 조건을 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "AB=BA 조건",
+        "곱셈공식 조건",
+        "성분 비교"
+      ],
+      "source_orders": [
+        43
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C044",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 변형",
+      "sub_strand": "행렬의 변형",
+      "concept_name": "A(a,b) 구하기",
+      "description": "행렬식의 매개변수 대입과 거듭제곱 변형을 수행한다.",
+      "diagnostic_signals": [
+        "매개변수 대입 위치 오류",
+        "변형 후 행렬 크기 또는 성분 검산 누락"
+      ],
+      "remediation_keywords": [
+        "매개변수 대입",
+        "변형 검산",
+        "거듭제곱 변형"
+      ],
+      "source_orders": [
+        44
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C045",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "행렬의 변형",
+      "sub_strand": "행렬의 변형",
+      "concept_name": "A^n(a,b) 구하기",
+      "description": "행렬식의 매개변수 대입과 거듭제곱 변형을 수행한다.",
+      "diagnostic_signals": [
+        "매개변수 대입 위치 오류",
+        "변형 후 행렬 크기 또는 성분 검산 누락"
+      ],
+      "remediation_keywords": [
+        "매개변수 대입",
+        "변형 검산",
+        "거듭제곱 변형"
+      ],
+      "source_orders": [
+        45
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C046",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "단위행렬 포함 식",
+      "sub_strand": "단위행렬 E를 포함한 식(1)",
+      "concept_name": "단위행렬 E",
+      "description": "단위행렬 E의 역할을 이용하여 행렬 방정식과 거듭제곱을 정리한다.",
+      "diagnostic_signals": [
+        "E를 1처럼만 처리하고 크기를 확인하지 않음",
+        "AE=EA=A의 적용 조건 누락"
+      ],
+      "remediation_keywords": [
+        "단위행렬 E",
+        "E의 크기",
+        "AE=EA=A"
+      ],
+      "source_orders": [
+        46
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C047",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "단위행렬 포함 식",
+      "sub_strand": "단위행렬 E를 포함한 식(1)",
+      "concept_name": "AE=EA=A",
+      "description": "단위행렬 E의 역할을 이용하여 행렬 방정식과 거듭제곱을 정리한다.",
+      "diagnostic_signals": [
+        "E를 1처럼만 처리하고 크기를 확인하지 않음",
+        "AE=EA=A의 적용 조건 누락"
+      ],
+      "remediation_keywords": [
+        "단위행렬 E",
+        "E의 크기",
+        "AE=EA=A"
+      ],
+      "source_orders": [
+        47
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C048",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "단위행렬 포함 식",
+      "sub_strand": "단위행렬 E를 포함한 식(1)",
+      "concept_name": "E^n=E (단, n은 자연수)",
+      "description": "단위행렬 E의 역할을 이용하여 행렬 방정식과 거듭제곱을 정리한다.",
+      "diagnostic_signals": [
+        "E를 1처럼만 처리하고 크기를 확인하지 않음",
+        "AE=EA=A의 적용 조건 누락"
+      ],
+      "remediation_keywords": [
+        "단위행렬 E",
+        "E의 크기",
+        "AE=EA=A"
+      ],
+      "source_orders": [
+        48
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C049",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "단위행렬 포함 식",
+      "sub_strand": "단위행렬 E를 포함한 식(1)",
+      "concept_name": "E가 포함된 곱셈 공식",
+      "description": "단위행렬 E의 역할을 이용하여 행렬 방정식과 거듭제곱을 정리한다.",
+      "diagnostic_signals": [
+        "E를 1처럼만 처리하고 크기를 확인하지 않음",
+        "AE=EA=A의 적용 조건 누락"
+      ],
+      "remediation_keywords": [
+        "단위행렬 E",
+        "E의 크기",
+        "AE=EA=A"
+      ],
+      "source_orders": [
+        49
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C050",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "단위행렬 포함 식",
+      "sub_strand": "단위행렬 E를 포함한 식(1)",
+      "concept_name": "A(x,y) 구하기",
+      "description": "단위행렬 E의 역할을 이용하여 행렬 방정식과 거듭제곱을 정리한다.",
+      "diagnostic_signals": [
+        "E를 1처럼만 처리하고 크기를 확인하지 않음",
+        "AE=EA=A의 적용 조건 누락"
+      ],
+      "remediation_keywords": [
+        "단위행렬 E",
+        "E의 크기",
+        "AE=EA=A"
+      ],
+      "source_orders": [
+        50
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C051",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "단위행렬 포함 식",
+      "sub_strand": "단위행렬 E를 포함한 식(1)",
+      "concept_name": "증명하기",
+      "description": "단위행렬 E의 역할을 이용하여 행렬 방정식과 거듭제곱을 정리한다.",
+      "diagnostic_signals": [
+        "E를 1처럼만 처리하고 크기를 확인하지 않음",
+        "AE=EA=A의 적용 조건 누락"
+      ],
+      "remediation_keywords": [
+        "단위행렬 E",
+        "E의 크기",
+        "AE=EA=A"
+      ],
+      "source_orders": [
+        51
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C052",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "A^n=E와 주기성",
+      "sub_strand": "행렬의 거듭제곱(3) A^n=E의 이용",
+      "concept_name": "A^n 구하기",
+      "description": "A^n=E 조건에서 거듭제곱의 주기성을 찾아 계산한다.",
+      "diagnostic_signals": [
+        "주기성을 이용하지 못함",
+        "나머지 계산을 하지 않음"
+      ],
+      "remediation_keywords": [
+        "A^n=E",
+        "주기성",
+        "합 계산"
+      ],
+      "source_orders": [
+        52
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C053",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "A^n=E와 주기성",
+      "sub_strand": "행렬의 거듭제곱(3) A^n=E의 이용",
+      "concept_name": "A+A^2+A^3+⋯+A^n 구하기",
+      "description": "A^n=E 조건에서 거듭제곱의 주기성을 찾아 계산한다.",
+      "diagnostic_signals": [
+        "주기성을 이용하지 못함",
+        "나머지 계산을 하지 않음"
+      ],
+      "remediation_keywords": [
+        "A^n=E",
+        "주기성",
+        "합 계산"
+      ],
+      "source_orders": [
+        53
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C054",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "단위행렬을 이용한 방정식",
+      "sub_strand": "단위행렬 E를 포함한 식(2)",
+      "concept_name": "양변에 A+kE 또는 B+kE를 곱하여 해결하는 경우",
+      "description": "단위행렬을 더하거나 곱하는 변형으로 행렬 방정식을 푼다.",
+      "diagnostic_signals": [
+        "양변에 같은 행렬을 더하거나 곱하는 변형을 떠올리지 못함",
+        "E의 크기를 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "E를 더하는 변형",
+        "양변 조작",
+        "조건 정리"
+      ],
+      "source_orders": [
+        54
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C055",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "단위행렬을 이용한 방정식",
+      "sub_strand": "단위행렬 E를 포함한 식(2)",
+      "concept_name": "행렬 A, B에 대한 조건이 주어진 경우",
+      "description": "단위행렬을 더하거나 곱하는 변형으로 행렬 방정식을 푼다.",
+      "diagnostic_signals": [
+        "양변에 같은 행렬을 더하거나 곱하는 변형을 떠올리지 못함",
+        "E의 크기를 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "E를 더하는 변형",
+        "양변 조작",
+        "조건 정리"
+      ],
+      "source_orders": [
+        55
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C056",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "곱셈 성질 종합",
+      "sub_strand": "행렬의 곱셈의 여러 가지 성질",
+      "concept_name": "두 행렬 A, B에 대한 성질",
+      "description": "두 개 또는 세 개 행렬의 곱셈 성질을 순서와 결합 구조 중심으로 검토한다.",
+      "diagnostic_signals": [
+        "곱셈 순서를 임의로 바꿈",
+        "결합법칙과 교환법칙을 혼동"
+      ],
+      "remediation_keywords": [
+        "순서 보존",
+        "결합 구조",
+        "성질 비교"
+      ],
+      "source_orders": [
+        56
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C057",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "곱셈 성질 종합",
+      "sub_strand": "행렬의 곱셈의 여러 가지 성질",
+      "concept_name": "세 행렬 A, B, C에 대한 성질",
+      "description": "두 개 또는 세 개 행렬의 곱셈 성질을 순서와 결합 구조 중심으로 검토한다.",
+      "diagnostic_signals": [
+        "곱셈 순서를 임의로 바꿈",
+        "결합법칙과 교환법칙을 혼동"
+      ],
+      "remediation_keywords": [
+        "순서 보존",
+        "결합 구조",
+        "성질 비교"
+      ],
+      "source_orders": [
+        57
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C058",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "케일리-해밀턴 정리",
+      "sub_strand": "케일리-해밀턴의 정리",
+      "concept_name": "케일리-해밀턴의 정리 이용하기",
+      "description": "케일리-해밀턴 정리를 이용해 높은 차수의 행렬 거듭제곱을 낮은 차수로 줄인다.",
+      "diagnostic_signals": [
+        "특성방정식을 행렬식에 대입하지 못함",
+        "고차 거듭제곱을 낮추는 과정을 생략"
+      ],
+      "remediation_keywords": [
+        "특성방정식",
+        "고차식 낮추기",
+        "정리 증명"
+      ],
+      "source_orders": [
+        58
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C059",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "케일리-해밀턴 정리",
+      "sub_strand": "케일리-해밀턴의 정리",
+      "concept_name": "케일리-해밀턴의 정리 증명하기",
+      "description": "케일리-해밀턴 정리를 이용해 높은 차수의 행렬 거듭제곱을 낮은 차수로 줄인다.",
+      "diagnostic_signals": [
+        "특성방정식을 행렬식에 대입하지 못함",
+        "고차 거듭제곱을 낮추는 과정을 생략"
+      ],
+      "remediation_keywords": [
+        "특성방정식",
+        "고차식 낮추기",
+        "정리 증명"
+      ],
+      "source_orders": [
+        59
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C060",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "케일리-해밀턴 정리",
+      "sub_strand": "케일리-해밀턴의 정리",
+      "concept_name": "케일리-해밀턴의 정리 이용, 합답형 문제",
+      "description": "케일리-해밀턴 정리를 이용해 높은 차수의 행렬 거듭제곱을 낮은 차수로 줄인다.",
+      "diagnostic_signals": [
+        "특성방정식을 행렬식에 대입하지 못함",
+        "고차 거듭제곱을 낮추는 과정을 생략"
+      ],
+      "remediation_keywords": [
+        "특성방정식",
+        "고차식 낮추기",
+        "정리 증명"
+      ],
+      "source_orders": [
+        60
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_MAT_C061",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "unit_name": "행렬",
+      "strand": "케일리-해밀턴 정리",
+      "sub_strand": "케일리-해밀턴의 정리",
+      "concept_name": "케일리-해밀턴의 정리 이용, 증명하기",
+      "description": "케일리-해밀턴 정리를 이용해 높은 차수의 행렬 거듭제곱을 낮은 차수로 줄인다.",
+      "diagnostic_signals": [
+        "특성방정식을 행렬식에 대입하지 못함",
+        "고차 거듭제곱을 낮추는 과정을 생략"
+      ],
+      "remediation_keywords": [
+        "특성방정식",
+        "고차식 낮추기",
+        "정리 증명"
+      ],
+      "source_orders": [
+        61
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
       "status": "curated_seed_from_image_taxonomy"
     }
   ],

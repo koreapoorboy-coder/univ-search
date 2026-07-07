@@ -1,0 +1,561 @@
+{
+  "version": "1.0",
+  "unit_id": "H1_COMMON_MATH1_MATRIX",
+  "unit_name": "행렬",
+  "rule_count": 19,
+  "rules": [
+    {
+      "rule_id": "H1_CM1_MAT_RULE_001",
+      "name": "행렬 기본 구조 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_shape",
+          "row_column",
+          "entry_position"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "행과 열, 성분의 위치를 구분하지 못합니다.",
+      "parent_message": "행렬의 꼴을 먼저 쓰고 행·열·성분 위치를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C001",
+        "H1_CM1_MAT_C002",
+        "H1_CM1_MAT_C003"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT001",
+        "H1_CM1_MAT_PT002",
+        "H1_CM1_MAT_PT004",
+        "H1_CM1_MAT_PT005",
+        "H1_CM1_MAT_PT007",
+        "H1_CM1_MAT_PT008"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_002",
+      "name": "성분 위치와 첨자 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "entry_position",
+          "subscript_index",
+          "formula_entry"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "a_ij에서 i와 j의 의미를 반대로 처리합니다.",
+      "parent_message": "i는 행, j는 열이라는 기준을 표 위에 직접 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C004",
+        "H1_CM1_MAT_C005"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT010",
+        "H1_CM1_MAT_PT011",
+        "H1_CM1_MAT_PT013",
+        "H1_CM1_MAT_PT014"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_003",
+      "name": "조건의 행렬 번역 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_modeling",
+          "condition_translation",
+          "application_context"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "문장·도형·실생활 조건을 행렬 성분으로 옮기지 못합니다.",
+      "parent_message": "조건을 행과 열의 의미로 먼저 표로 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C006",
+        "H1_CM1_MAT_C007",
+        "H1_CM1_MAT_C008",
+        "H1_CM1_MAT_C009"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT016",
+        "H1_CM1_MAT_PT017",
+        "H1_CM1_MAT_PT019",
+        "H1_CM1_MAT_PT020",
+        "H1_CM1_MAT_PT022",
+        "H1_CM1_MAT_PT023",
+        "H1_CM1_MAT_PT025",
+        "H1_CM1_MAT_PT026"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_004",
+      "name": "같은 행렬 성분 비교 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_equality",
+          "entrywise_comparison",
+          "condition_translation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 행렬이 같을 조건을 성분별 등식으로 만들지 못합니다.",
+      "parent_message": "대응되는 위치끼리 등식을 세우는 훈련이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C010",
+        "H1_CM1_MAT_C011"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT028",
+        "H1_CM1_MAT_PT029",
+        "H1_CM1_MAT_PT031",
+        "H1_CM1_MAT_PT032"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_005",
+      "name": "덧셈·뺄셈·실수배 성분 계산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "linear_operation",
+          "same_size_check",
+          "scalar_multiple"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "행렬의 크기 확인 없이 성분별 계산을 진행합니다.",
+      "parent_message": "같은 꼴인지 확인한 뒤 각 성분별 계산 칸을 만들게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C012",
+        "H1_CM1_MAT_C013",
+        "H1_CM1_MAT_C014",
+        "H1_CM1_MAT_C015",
+        "H1_CM1_MAT_C016",
+        "H1_CM1_MAT_C017"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT034",
+        "H1_CM1_MAT_PT035",
+        "H1_CM1_MAT_PT037",
+        "H1_CM1_MAT_PT038",
+        "H1_CM1_MAT_PT040",
+        "H1_CM1_MAT_PT041",
+        "H1_CM1_MAT_PT043",
+        "H1_CM1_MAT_PT044",
+        "H1_CM1_MAT_PT046",
+        "H1_CM1_MAT_PT047"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_006",
+      "name": "행렬 등식 연립 처리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_equation",
+          "simultaneous_condition",
+          "unknown_matrix"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 개 이상의 행렬 등식을 성분별 연립식으로 바꾸지 못합니다.",
+      "parent_message": "미지 행렬의 성분을 문자로 두고 각 위치별 등식을 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C018",
+        "H1_CM1_MAT_C019"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT052",
+        "H1_CM1_MAT_PT053",
+        "H1_CM1_MAT_PT055",
+        "H1_CM1_MAT_PT056"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_007",
+      "name": "행렬이 같을 조건과 선형결합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "entrywise_comparison",
+          "linear_combination",
+          "parameter_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "성분 비교와 계수 비교를 혼동합니다.",
+      "parent_message": "대응 성분 비교표를 만든 뒤 xA+yB 형태로 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C020",
+        "H1_CM1_MAT_C021"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT058",
+        "H1_CM1_MAT_PT059",
+        "H1_CM1_MAT_PT061",
+        "H1_CM1_MAT_PT062"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_008",
+      "name": "행렬곱 순서와 가능 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_multiplication",
+          "order_sensitive",
+          "dimension_check"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "AB와 BA를 같은 계산으로 처리하거나 행×열 대응을 놓칩니다.",
+      "parent_message": "곱셈 전에 크기 조건과 계산 순서를 반드시 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C022",
+        "H1_CM1_MAT_C023",
+        "H1_CM1_MAT_C024",
+        "H1_CM1_MAT_C025",
+        "H1_CM1_MAT_C026",
+        "H1_CM1_MAT_C027",
+        "H1_CM1_MAT_C028",
+        "H1_CM1_MAT_C029"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT064",
+        "H1_CM1_MAT_PT065",
+        "H1_CM1_MAT_PT067",
+        "H1_CM1_MAT_PT068",
+        "H1_CM1_MAT_PT070",
+        "H1_CM1_MAT_PT071",
+        "H1_CM1_MAT_PT073",
+        "H1_CM1_MAT_PT074",
+        "H1_CM1_MAT_PT076",
+        "H1_CM1_MAT_PT077"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_009",
+      "name": "행렬 거듭제곱 계산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_power",
+          "repeated_multiplication",
+          "pattern_search"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "A^2을 성분별 제곱으로 오해합니다.",
+      "parent_message": "반드시 A×A 형태로 한 번 전개한 뒤 패턴을 보게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C030",
+        "H1_CM1_MAT_C031",
+        "H1_CM1_MAT_C032"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT088",
+        "H1_CM1_MAT_PT089",
+        "H1_CM1_MAT_PT091",
+        "H1_CM1_MAT_PT092",
+        "H1_CM1_MAT_PT094",
+        "H1_CM1_MAT_PT095"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_010",
+      "name": "거듭제곱 규칙 찾기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_power",
+          "pattern_search",
+          "series_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "A^n의 반복 주기와 합의 항 개수를 놓칩니다.",
+      "parent_message": "A, A^2, A^3, A^4를 먼저 계산하고 주기를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C033",
+        "H1_CM1_MAT_C034"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT097",
+        "H1_CM1_MAT_PT098",
+        "H1_CM1_MAT_PT100",
+        "H1_CM1_MAT_PT101"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_011",
+      "name": "행렬곱 활용 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_application",
+          "entry_meaning",
+          "model_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "계산 결과의 행·열 성분 의미를 설명하지 못합니다.",
+      "parent_message": "각 행과 열이 무엇을 뜻하는지 문제 옆에 적게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C035",
+        "H1_CM1_MAT_C036",
+        "H1_CM1_MAT_C037"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT103",
+        "H1_CM1_MAT_PT104",
+        "H1_CM1_MAT_PT106",
+        "H1_CM1_MAT_PT107",
+        "H1_CM1_MAT_PT109",
+        "H1_CM1_MAT_PT110"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_012",
+      "name": "행렬곱 성질 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "non_commutativity",
+          "distributive_law",
+          "proof_structure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "교환법칙이 일반적으로 성립한다고 착각합니다.",
+      "parent_message": "반례 계산과 성분 증명을 분리해서 연습해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C038",
+        "H1_CM1_MAT_C039",
+        "H1_CM1_MAT_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT112",
+        "H1_CM1_MAT_PT113",
+        "H1_CM1_MAT_PT115",
+        "H1_CM1_MAT_PT116",
+        "H1_CM1_MAT_PT118",
+        "H1_CM1_MAT_PT119"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_013",
+      "name": "AB=BA 조건 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "commuting_matrix",
+          "polynomial_identity",
+          "entrywise_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "AB=BA가 성립하는 특별 조건을 자동으로 가정합니다.",
+      "parent_message": "AB와 BA를 따로 계산한 뒤 성분 비교를 하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C041",
+        "H1_CM1_MAT_C042",
+        "H1_CM1_MAT_C043"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT121",
+        "H1_CM1_MAT_PT122",
+        "H1_CM1_MAT_PT124",
+        "H1_CM1_MAT_PT125",
+        "H1_CM1_MAT_PT127",
+        "H1_CM1_MAT_PT128"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_014",
+      "name": "행렬 변형과 대입 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_transform",
+          "parameter_substitution",
+          "power_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "매개변수 대입 또는 거듭제곱 변형 과정에서 위치를 놓칩니다.",
+      "parent_message": "대입 전 행렬 구조와 대입 후 결과를 두 줄로 비교하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C044",
+        "H1_CM1_MAT_C045"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT130",
+        "H1_CM1_MAT_PT131",
+        "H1_CM1_MAT_PT133",
+        "H1_CM1_MAT_PT134"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_015",
+      "name": "단위행렬 E 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "identity_matrix",
+          "matrix_equation",
+          "power_of_identity"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "E를 숫자 1처럼만 처리하고 크기와 곱셈 위치를 확인하지 않습니다.",
+      "parent_message": "AE=EA=A를 쓰기 전에 E의 크기를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C046",
+        "H1_CM1_MAT_C047",
+        "H1_CM1_MAT_C048",
+        "H1_CM1_MAT_C049",
+        "H1_CM1_MAT_C050",
+        "H1_CM1_MAT_C051"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT136",
+        "H1_CM1_MAT_PT137",
+        "H1_CM1_MAT_PT139",
+        "H1_CM1_MAT_PT140",
+        "H1_CM1_MAT_PT142",
+        "H1_CM1_MAT_PT143",
+        "H1_CM1_MAT_PT145",
+        "H1_CM1_MAT_PT146",
+        "H1_CM1_MAT_PT148",
+        "H1_CM1_MAT_PT149"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_016",
+      "name": "A^n=E 주기성 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "periodicity",
+          "identity_power",
+          "series_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "A^n=E 조건에서 주기를 이용하지 못합니다.",
+      "parent_message": "지수를 주기로 나눈 나머지를 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C052",
+        "H1_CM1_MAT_C053"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT154",
+        "H1_CM1_MAT_PT155",
+        "H1_CM1_MAT_PT157",
+        "H1_CM1_MAT_PT158"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_017",
+      "name": "단위행렬 포함 방정식 변형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "identity_matrix",
+          "matrix_equation",
+          "completion_transform"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "양변에 E가 포함된 식을 같은 구조로 변형하지 못합니다.",
+      "parent_message": "양변에 같은 행렬을 더하거나 곱하는 과정을 줄별로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C054",
+        "H1_CM1_MAT_C055"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT160",
+        "H1_CM1_MAT_PT161",
+        "H1_CM1_MAT_PT163",
+        "H1_CM1_MAT_PT164"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_018",
+      "name": "여러 행렬 곱셈 성질 종합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "matrix_property",
+          "order_sensitive",
+          "proof_structure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "두 행렬과 세 행렬의 성질을 같은 방식으로 처리합니다.",
+      "parent_message": "순서 보존과 괄호 이동 가능 여부를 따로 체크하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C056",
+        "H1_CM1_MAT_C057"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT166",
+        "H1_CM1_MAT_PT167",
+        "H1_CM1_MAT_PT169",
+        "H1_CM1_MAT_PT170"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_MAT_RULE_019",
+      "name": "케일리-해밀턴 정리 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "cayley_hamilton",
+          "power_reduction",
+          "proof_structure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "특성방정식을 이용해 고차 거듭제곱을 낮추지 못합니다.",
+      "parent_message": "특성방정식 → 행렬식 대입 → 고차항 감소 순서로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_MAT_C058",
+        "H1_CM1_MAT_C059",
+        "H1_CM1_MAT_C060",
+        "H1_CM1_MAT_C061"
+      ],
+      "recommended_problem_type_ids": [
+        "H1_CM1_MAT_PT172",
+        "H1_CM1_MAT_PT173",
+        "H1_CM1_MAT_PT175",
+        "H1_CM1_MAT_PT176",
+        "H1_CM1_MAT_PT178",
+        "H1_CM1_MAT_PT179",
+        "H1_CM1_MAT_PT181",
+        "H1_CM1_MAT_PT182"
+      ],
+      "severity": "high"
+    }
+  ]
+}
