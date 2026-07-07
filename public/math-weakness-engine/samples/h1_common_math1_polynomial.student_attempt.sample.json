@@ -1,0 +1,54 @@
+{
+  "sample_id": "SAMPLE_H1_COMMON_MATH1_POLYNOMIAL_001",
+  "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+  "student_profile": {
+    "grade": "고1",
+    "course": "공통수학1",
+    "context": "공통수학1 다항식 진단 예시"
+  },
+  "attempts": [
+    {
+      "problem_type_id": "H1_CM1_POLY_PT004",
+      "is_correct": false,
+      "error_tags": [
+        "expansion",
+        "multiplication_formula"
+      ],
+      "student_note": "전개 과정에서 가운데 항을 빠뜨림"
+    },
+    {
+      "problem_type_id": "H1_CM1_POLY_PT061",
+      "is_correct": false,
+      "error_tags": [
+        "remainder_theorem"
+      ],
+      "student_note": "x+2로 나누는 경우 -2 대입을 놓침"
+    },
+    {
+      "problem_type_id": "H1_CM1_POLY_PT094",
+      "is_correct": false,
+      "error_tags": [
+        "factorization",
+        "formula_selection"
+      ],
+      "student_note": "공통인수를 먼저 묶지 않음"
+    },
+    {
+      "problem_type_id": "H1_CM1_POLY_PT091",
+      "is_correct": true,
+      "error_tags": [],
+      "student_note": "조립제법 계수 배열 정상"
+    }
+  ],
+  "expected_diagnosis": [
+    "전개·곱셈공식 누락",
+    "나머지정리 대입값 오류",
+    "인수분해 공식 선택 취약"
+  ],
+  "expected_remediation_concept_ids": [
+    "H1_CM1_POLY_C004",
+    "H1_CM1_POLY_C005",
+    "H1_CM1_POLY_C022",
+    "H1_CM1_POLY_C033"
+  ]
+}

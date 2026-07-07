@@ -1,0 +1,190 @@
+{
+  "version": "2026.07.07-h1-common-math1-polynomial-v1.0",
+  "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+  "unit_name": "다항식",
+  "templates": [
+    {
+      "template_id": "H1_CM1_POLY_FORM_POLY整理",
+      "name": "다항식 정리·동류항 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_POLY_C001",
+        "H1_CM1_POLY_C002"
+      ],
+      "required_fields": [
+        "항·계수·차수 표시",
+        "동류항 분류",
+        "괄호 앞 부호 처리",
+        "최종 정리식"
+      ],
+      "reject_if_missing": [
+        "동류항 분류",
+        "괄호 앞 부호 처리"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_POLY_FORM_EXPANSION",
+      "name": "전개·곱셈공식 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_POLY_C003",
+        "H1_CM1_POLY_C004",
+        "H1_CM1_POLY_C005",
+        "H1_CM1_POLY_C006",
+        "H1_CM1_POLY_C007",
+        "H1_CM1_POLY_C008",
+        "H1_CM1_POLY_C009",
+        "H1_CM1_POLY_C010"
+      ],
+      "required_fields": [
+        "식의 형태 분류",
+        "사용한 공식 또는 분배법칙",
+        "전개 과정",
+        "동류항 정리",
+        "대입 검산"
+      ],
+      "reject_if_missing": [
+        "식의 형태 분류",
+        "전개 과정"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_POLY_FORM_DIVISION",
+      "name": "다항식 나눗셈 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_POLY_C011",
+        "H1_CM1_POLY_C012",
+        "H1_CM1_POLY_C013",
+        "H1_CM1_POLY_C021"
+      ],
+      "required_fields": [
+        "A=BQ+R 식",
+        "나누는 식/나누어지는 식 표시",
+        "몫",
+        "나머지",
+        "나머지 차수 확인"
+      ],
+      "reject_if_missing": [
+        "A=BQ+R 식",
+        "나머지 차수 확인"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_POLY_FORM_IDENTITY",
+      "name": "항등식 미정계수 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_POLY_C016",
+        "H1_CM1_POLY_C017",
+        "H1_CM1_POLY_C018",
+        "H1_CM1_POLY_C019",
+        "H1_CM1_POLY_C020",
+        "H1_CM1_POLY_C047"
+      ],
+      "required_fields": [
+        "항등식 기준 문자",
+        "계수비교 또는 수치대입 선택",
+        "조건식 작성",
+        "미정계수 계산",
+        "검산"
+      ],
+      "reject_if_missing": [
+        "항등식 기준 문자",
+        "조건식 작성"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_POLY_FORM_REMAINDER",
+      "name": "나머지정리 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_POLY_C022",
+        "H1_CM1_POLY_C023",
+        "H1_CM1_POLY_C024",
+        "H1_CM1_POLY_C025",
+        "H1_CM1_POLY_C026",
+        "H1_CM1_POLY_C027",
+        "H1_CM1_POLY_C028"
+      ],
+      "required_fields": [
+        "나누는 식=0의 대입값",
+        "나머지의 차수 형태",
+        "대입식",
+        "미정계수 계산",
+        "나머지 검산"
+      ],
+      "reject_if_missing": [
+        "대입값",
+        "나머지의 차수 형태"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_POLY_FORM_FACTOR_THEOREM",
+      "name": "인수정리·조립제법 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_POLY_C029",
+        "H1_CM1_POLY_C030",
+        "H1_CM1_POLY_C031",
+        "H1_CM1_POLY_C032",
+        "H1_CM1_POLY_C038"
+      ],
+      "required_fields": [
+        "후보 인수 또는 대입값",
+        "f(a)=0 확인",
+        "조립제법 계수 배열",
+        "나머지 확인",
+        "추가 인수분해"
+      ],
+      "reject_if_missing": [
+        "f(a)=0 확인",
+        "조립제법 계수 배열"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_POLY_FORM_FACTORING",
+      "name": "인수분해 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_POLY_C033",
+        "H1_CM1_POLY_C034",
+        "H1_CM1_POLY_C035",
+        "H1_CM1_POLY_C036",
+        "H1_CM1_POLY_C037",
+        "H1_CM1_POLY_C039",
+        "H1_CM1_POLY_C040",
+        "H1_CM1_POLY_C041",
+        "H1_CM1_POLY_C046"
+      ],
+      "required_fields": [
+        "공통인수 확인",
+        "식의 형태 분류",
+        "치환 또는 기준 문자",
+        "인수분해 결과",
+        "전개 검산"
+      ],
+      "reject_if_missing": [
+        "공통인수 확인",
+        "전개 검산"
+      ]
+    },
+    {
+      "template_id": "H1_CM1_POLY_FORM_APPLICATION",
+      "name": "활용 문제 검수 양식",
+      "applies_to_concept_ids": [
+        "H1_CM1_POLY_C014",
+        "H1_CM1_POLY_C015",
+        "H1_CM1_POLY_C042",
+        "H1_CM1_POLY_C043",
+        "H1_CM1_POLY_C044",
+        "H1_CM1_POLY_C045",
+        "H1_CM1_POLY_C048"
+      ],
+      "required_fields": [
+        "문제 조건의 식 표현",
+        "사용 도구 선택",
+        "식 변형 과정",
+        "결과 계산",
+        "문제 상황으로 해석"
+      ],
+      "reject_if_missing": [
+        "문제 조건의 식 표현",
+        "문제 상황으로 해석"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2008 @@
+{
+  "version": "2026.07.07-h1-common-math1-polynomial-v1.0",
+  "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+  "unit_name": "다항식",
+  "edge_count": 200,
+  "edges": [
+    {
+      "edge_id": "H1_CM1_POLY_E001",
+      "from_concept_id": "M3_POLY_C001",
+      "to_concept_id": "H1_CM1_POLY_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "중3 다항식 전개 경험이 공통수학1의 복합 전개의 직접 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E002",
+      "from_concept_id": "M3_POLY_C002",
+      "to_concept_id": "H1_CM1_POLY_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "전개식의 특정 계수 확인은 고1 계수 조건 문제로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E003",
+      "from_concept_id": "M3_POLY_C003",
+      "to_concept_id": "H1_CM1_POLY_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "합의 제곱 공식은 고1 곱셈공식 변형의 기본이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E004",
+      "from_concept_id": "M3_POLY_C004",
+      "to_concept_id": "H1_CM1_POLY_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "차의 제곱 공식의 부호 처리가 공식 선택의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E005",
+      "from_concept_id": "M3_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "합차공식 이해가 수 계산과 식 변형으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E006",
+      "from_concept_id": "M3_POLY_C010",
+      "to_concept_id": "H1_CM1_POLY_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "중3 인수분해 공식 선택 경험이 고1 복합 인수분해의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E007",
+      "from_concept_id": "M3_POLY_C027",
+      "to_concept_id": "H1_CM1_POLY_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "공통인수 인식이 고1 인수분해의 기본 출발점이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E008",
+      "from_concept_id": "M3_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "완전제곱식 인수분해가 고1 조건 추론으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E009",
+      "from_concept_id": "M3_POLY_C043",
+      "to_concept_id": "H1_CM1_POLY_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "공통부분 치환 인수분해가 고1 치환형 인수분해의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E010",
+      "from_concept_id": "M2_GEOM_C038",
+      "to_concept_id": "H1_CM1_POLY_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "도형의 넓이와 길이 관계를 식으로 옮기는 능력이 도형 활용의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E011",
+      "from_concept_id": "M3_QUAD_C001",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "이차식의 완전제곱식 구조가 고1 완전제곱식 조건으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E012",
+      "from_concept_id": "H1_CM1_POLY_C001",
+      "to_concept_id": "H1_CM1_POLY_C002",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "다항식의 용어와 정리 이해가 다항식의 덧셈·뺄셈 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E013",
+      "from_concept_id": "H1_CM1_POLY_C002",
+      "to_concept_id": "H1_CM1_POLY_C003",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "다항식의 덧셈·뺄셈 이해가 전개식에서 계수 구하기 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E014",
+      "from_concept_id": "H1_CM1_POLY_C003",
+      "to_concept_id": "H1_CM1_POLY_C004",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "전개식에서 계수 구하기 이해가 분배법칙과 기본 전개 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E015",
+      "from_concept_id": "H1_CM1_POLY_C004",
+      "to_concept_id": "H1_CM1_POLY_C005",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "분배법칙과 기본 전개 이해가 곱셈공식 기본 구조 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E016",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C006",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "곱셈공식 기본 구조 이해가 공통부분 치환 전개 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E017",
+      "from_concept_id": "H1_CM1_POLY_C006",
+      "to_concept_id": "H1_CM1_POLY_C007",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "공통부분 치환 전개 이해가 두 문자 곱셈공식 변형 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E018",
+      "from_concept_id": "H1_CM1_POLY_C007",
+      "to_concept_id": "H1_CM1_POLY_C008",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "두 문자 곱셈공식 변형 이해가 역수와 분수식의 곱셈공식 변형 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E019",
+      "from_concept_id": "H1_CM1_POLY_C008",
+      "to_concept_id": "H1_CM1_POLY_C009",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "역수와 분수식의 곱셈공식 변형 이해가 세 문자 곱셈공식 변형 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E020",
+      "from_concept_id": "H1_CM1_POLY_C009",
+      "to_concept_id": "H1_CM1_POLY_C010",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "세 문자 곱셈공식 변형 이해가 곱셈공식을 이용한 수 계산 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E021",
+      "from_concept_id": "H1_CM1_POLY_C011",
+      "to_concept_id": "H1_CM1_POLY_C012",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "다항식의 나눗셈 기본 이해가 A=BQ+R 구조 이해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E022",
+      "from_concept_id": "H1_CM1_POLY_C012",
+      "to_concept_id": "H1_CM1_POLY_C013",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "A=BQ+R 구조 이해 이해가 몫과 나머지 조건 변형 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E023",
+      "from_concept_id": "H1_CM1_POLY_C016",
+      "to_concept_id": "H1_CM1_POLY_C017",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "항등식의 뜻과 성질 이해가 계수비교법 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E024",
+      "from_concept_id": "H1_CM1_POLY_C017",
+      "to_concept_id": "H1_CM1_POLY_C018",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "계수비교법 이해가 수치대입법 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E025",
+      "from_concept_id": "H1_CM1_POLY_C018",
+      "to_concept_id": "H1_CM1_POLY_C019",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "수치대입법 이해가 여러 문자 항등식 조건 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E026",
+      "from_concept_id": "H1_CM1_POLY_C019",
+      "to_concept_id": "H1_CM1_POLY_C020",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "여러 문자 항등식 조건 이해가 항등식에서 계수의 합 구하기 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E027",
+      "from_concept_id": "H1_CM1_POLY_C020",
+      "to_concept_id": "H1_CM1_POLY_C021",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "항등식에서 계수의 합 구하기 이해가 다항식의 나눗셈과 항등식 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E028",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "일차식으로 나누었을 때 나머지정리 이해가 나머지정리의 미정계수 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E029",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C024",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "나머지정리의 미정계수 이해가 이차식으로 나누었을 때 나머지 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E030",
+      "from_concept_id": "H1_CM1_POLY_C024",
+      "to_concept_id": "H1_CM1_POLY_C025",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "이차식으로 나누었을 때 나머지 이해가 삼차식으로 나누었을 때 나머지 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E031",
+      "from_concept_id": "H1_CM1_POLY_C025",
+      "to_concept_id": "H1_CM1_POLY_C026",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "삼차식으로 나누었을 때 나머지 이해가 f(ax+b) 형태의 나머지 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E032",
+      "from_concept_id": "H1_CM1_POLY_C026",
+      "to_concept_id": "H1_CM1_POLY_C027",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "f(ax+b) 형태의 나머지 이해가 몫을 x-a로 나누는 경우 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E033",
+      "from_concept_id": "H1_CM1_POLY_C027",
+      "to_concept_id": "H1_CM1_POLY_C028",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "몫을 x-a로 나누는 경우 이해가 나머지정리를 활용한 수의 나눗셈 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E034",
+      "from_concept_id": "H1_CM1_POLY_C029",
+      "to_concept_id": "H1_CM1_POLY_C030",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "인수정리 일차식 이해가 인수정리 이차식 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E035",
+      "from_concept_id": "H1_CM1_POLY_C030",
+      "to_concept_id": "H1_CM1_POLY_C031",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "인수정리 이차식 이해가 조립제법 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E036",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C032",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "조립제법 이해가 조립제법을 이용한 미정계수 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E037",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_POLY_C034",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "기본 인수분해 공식 이해가 여러 문자를 포함한 인수분해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E038",
+      "from_concept_id": "H1_CM1_POLY_C034",
+      "to_concept_id": "H1_CM1_POLY_C035",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "여러 문자를 포함한 인수분해 이해가 공통부분 치환 인수분해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E039",
+      "from_concept_id": "H1_CM1_POLY_C035",
+      "to_concept_id": "H1_CM1_POLY_C036",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "공통부분 치환 인수분해 이해가 x^4+ax^2+b 꼴 인수분해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E040",
+      "from_concept_id": "H1_CM1_POLY_C036",
+      "to_concept_id": "H1_CM1_POLY_C037",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "x^4+ax^2+b 꼴 인수분해 이해가 순환하는 꼴의 인수분해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E041",
+      "from_concept_id": "H1_CM1_POLY_C037",
+      "to_concept_id": "H1_CM1_POLY_C038",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "순환하는 꼴의 인수분해 이해가 인수정리를 이용한 인수분해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E042",
+      "from_concept_id": "H1_CM1_POLY_C038",
+      "to_concept_id": "H1_CM1_POLY_C039",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "인수정리를 이용한 인수분해 이해가 대칭 사차식의 인수분해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E043",
+      "from_concept_id": "H1_CM1_POLY_C039",
+      "to_concept_id": "H1_CM1_POLY_C040",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "대칭 사차식의 인수분해 이해가 조건이 주어진 인수분해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E044",
+      "from_concept_id": "H1_CM1_POLY_C040",
+      "to_concept_id": "H1_CM1_POLY_C041",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "조건이 주어진 인수분해 이해가 새롭게 정의된 식의 인수분해 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E045",
+      "from_concept_id": "H1_CM1_POLY_C042",
+      "to_concept_id": "H1_CM1_POLY_C043",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "인수분해를 이용한 삼각형 판단 이해가 인수분해를 이용한 수의 계산 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E046",
+      "from_concept_id": "H1_CM1_POLY_C043",
+      "to_concept_id": "H1_CM1_POLY_C044",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "인수분해를 이용한 수의 계산 이해가 인수분해를 이용한 식의 값 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E047",
+      "from_concept_id": "H1_CM1_POLY_C044",
+      "to_concept_id": "H1_CM1_POLY_C045",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "인수분해를 이용한 식의 값 이해가 인수분해의 다항식·도형 종합 활용 학습으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E048",
+      "from_concept_id": "H1_CM1_POLY_C001",
+      "to_concept_id": "H1_CM1_POLY_C002",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "다항식 용어와 동류항 구분이 덧셈·뺄셈의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E049",
+      "from_concept_id": "H1_CM1_POLY_C002",
+      "to_concept_id": "H1_CM1_POLY_C004",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "부호와 동류항 정리가 전개 후 정리의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E050",
+      "from_concept_id": "H1_CM1_POLY_C004",
+      "to_concept_id": "H1_CM1_POLY_C005",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "기본 전개 능력이 곱셈공식 구조 이해의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E051",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C007",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "곱셈공식 구조가 공식 변형 문제의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E052",
+      "from_concept_id": "H1_CM1_POLY_C007",
+      "to_concept_id": "H1_CM1_POLY_C008",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "두 문자 공식 변형이 역수·분수식 공식 변형으로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E053",
+      "from_concept_id": "H1_CM1_POLY_C007",
+      "to_concept_id": "H1_CM1_POLY_C009",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "두 문자 공식 변형이 세 문자 대칭식으로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E054",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C010",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "곱셈공식 인식이 수 계산 단순화의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E055",
+      "from_concept_id": "H1_CM1_POLY_C011",
+      "to_concept_id": "H1_CM1_POLY_C012",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "나눗셈 계산이 A=BQ+R 식 구성의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E056",
+      "from_concept_id": "H1_CM1_POLY_C012",
+      "to_concept_id": "H1_CM1_POLY_C021",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "A=BQ+R 구조가 나눗셈과 항등식 연결의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E057",
+      "from_concept_id": "H1_CM1_POLY_C016",
+      "to_concept_id": "H1_CM1_POLY_C017",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "항등식의 뜻이 계수비교법의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E058",
+      "from_concept_id": "H1_CM1_POLY_C016",
+      "to_concept_id": "H1_CM1_POLY_C018",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "항등식의 뜻이 수치대입법 선택의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E059",
+      "from_concept_id": "H1_CM1_POLY_C017",
+      "to_concept_id": "H1_CM1_POLY_C019",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "계수비교법이 여러 문자 항등식 조건 설정으로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E060",
+      "from_concept_id": "H1_CM1_POLY_C018",
+      "to_concept_id": "H1_CM1_POLY_C022",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "수치대입법이 일차식 나머지정리의 계산 원리로 연결된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E061",
+      "from_concept_id": "H1_CM1_POLY_C021",
+      "to_concept_id": "H1_CM1_POLY_C022",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "다항식 나눗셈 항등식이 나머지정리의 선행 구조다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E062",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "일차식 나머지정리가 미정계수 조건 설정의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E063",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C024",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "일차식 나머지 조건이 이차식 나머지 조건으로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E064",
+      "from_concept_id": "H1_CM1_POLY_C024",
+      "to_concept_id": "H1_CM1_POLY_C025",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "이차식 나머지의 차수 조건이 삼차식 나머지로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E065",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C026",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "일차식 대입 원리가 f(ax+b)의 변수 변환으로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E066",
+      "from_concept_id": "H1_CM1_POLY_C012",
+      "to_concept_id": "H1_CM1_POLY_C027",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "몫을 다시 나누는 문제는 원래 나눗셈 구조를 선행으로 한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E067",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C029",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "나머지정리에서 나머지가 0인 경우가 인수정리다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E068",
+      "from_concept_id": "H1_CM1_POLY_C029",
+      "to_concept_id": "H1_CM1_POLY_C030",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "일차식 인수 조건이 이차식 인수 조건으로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E069",
+      "from_concept_id": "H1_CM1_POLY_C029",
+      "to_concept_id": "H1_CM1_POLY_C031",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "인수 여부 판단이 조립제법 사용의 동기가 된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E070",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C032",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "조립제법 수행이 조립제법 결과 해석으로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E071",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C033",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "전개 공식 이해가 인수분해 공식의 역방향 적용으로 연결된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E072",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_POLY_C035",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "기본 공식 인수분해가 공통부분 치환 인수분해의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E073",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_POLY_C036",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "기본 공식 선택이 고차식 치환 인수분해의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E074",
+      "from_concept_id": "H1_CM1_POLY_C035",
+      "to_concept_id": "H1_CM1_POLY_C037",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "공통부분 치환이 순환식 인수분해로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E075",
+      "from_concept_id": "H1_CM1_POLY_C029",
+      "to_concept_id": "H1_CM1_POLY_C038",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "인수정리 이해가 고차식 인수분해의 직접 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E076",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C038",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "조립제법이 인수정리 활용 인수분해의 계산 도구다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E077",
+      "from_concept_id": "H1_CM1_POLY_C036",
+      "to_concept_id": "H1_CM1_POLY_C039",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "고차식 치환 경험이 대칭 사차식 인수분해의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E078",
+      "from_concept_id": "H1_CM1_POLY_C019",
+      "to_concept_id": "H1_CM1_POLY_C040",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "조건 항등식 해석이 조건 인수분해의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E079",
+      "from_concept_id": "H1_CM1_POLY_C048",
+      "to_concept_id": "H1_CM1_POLY_C041",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "새 연산 정의 해석이 새롭게 정의된 식의 인수분해에 필요하다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E080",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_POLY_C043",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "기본 인수분해 공식이 수 계산 활용의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E081",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_POLY_C044",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "기본 인수분해 공식이 식의 값 구하기 활용의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E082",
+      "from_concept_id": "H1_CM1_POLY_C014",
+      "to_concept_id": "H1_CM1_POLY_C045",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "도형의 식 표현이 인수분해 도형 활용의 선행이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E083",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C032",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "완전제곱식 조건이 조립제법 미정계수 추론과 연결된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E084",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "미정계수 조건 추론이 나머지정리 미정계수 문제의 공통 축이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E085",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C038",
+      "relation_type": "dependency",
+      "weight": 0.78,
+      "reason": "미정계수 조건 추론이 인수정리 활용 인수분해로 연결된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E086",
+      "from_concept_id": "H1_CM1_POLY_C002",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 덧셈과 뺄셈' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E087",
+      "from_concept_id": "H1_CM1_POLY_C003",
+      "to_concept_id": "H1_CM1_POLY_C004",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 전개식에서 계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E088",
+      "from_concept_id": "H1_CM1_POLY_C003",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 전개식에서 계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E089",
+      "from_concept_id": "H1_CM1_POLY_C004",
+      "to_concept_id": "H1_CM1_POLY_C004",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 전개식에서 계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E090",
+      "from_concept_id": "H1_CM1_POLY_C004",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 전개식에서 계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E091",
+      "from_concept_id": "H1_CM1_POLY_C004",
+      "to_concept_id": "H1_CM1_POLY_C005",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E092",
+      "from_concept_id": "H1_CM1_POLY_C004",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E093",
+      "from_concept_id": "H1_CM1_POLY_C004",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E094",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C005",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E095",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E096",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E097",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C005",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E098",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E099",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E100",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C006",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'공통부분이 있는 다항식의 전개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E101",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C007",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(1) 문자가 2개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E102",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C008",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(1) 문자가 2개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E103",
+      "from_concept_id": "H1_CM1_POLY_C007",
+      "to_concept_id": "H1_CM1_POLY_C007",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(1) 문자가 2개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E104",
+      "from_concept_id": "H1_CM1_POLY_C007",
+      "to_concept_id": "H1_CM1_POLY_C008",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(1) 문자가 2개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E105",
+      "from_concept_id": "H1_CM1_POLY_C007",
+      "to_concept_id": "H1_CM1_POLY_C008",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(2) x±1/x의 꼴' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E106",
+      "from_concept_id": "H1_CM1_POLY_C007",
+      "to_concept_id": "H1_CM1_POLY_C008",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(3) 문자가 3개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E107",
+      "from_concept_id": "H1_CM1_POLY_C007",
+      "to_concept_id": "H1_CM1_POLY_C009",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(3) 문자가 3개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E108",
+      "from_concept_id": "H1_CM1_POLY_C008",
+      "to_concept_id": "H1_CM1_POLY_C008",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(3) 문자가 3개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E109",
+      "from_concept_id": "H1_CM1_POLY_C008",
+      "to_concept_id": "H1_CM1_POLY_C009",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 변형(3) 문자가 3개' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E110",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C010",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식을 이용한 수의 계산' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E111",
+      "from_concept_id": "H1_CM1_POLY_C011",
+      "to_concept_id": "H1_CM1_POLY_C012",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 나눗셈(1) 몫과 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E112",
+      "from_concept_id": "H1_CM1_POLY_C011",
+      "to_concept_id": "H1_CM1_POLY_C012",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 나눗셈(2) A=BQ+R' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E113",
+      "from_concept_id": "H1_CM1_POLY_C011",
+      "to_concept_id": "H1_CM1_POLY_C013",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 나눗셈(2) A=BQ+R' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E114",
+      "from_concept_id": "H1_CM1_POLY_C012",
+      "to_concept_id": "H1_CM1_POLY_C012",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 나눗셈(2) A=BQ+R' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E115",
+      "from_concept_id": "H1_CM1_POLY_C012",
+      "to_concept_id": "H1_CM1_POLY_C013",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 나눗셈(2) A=BQ+R' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E116",
+      "from_concept_id": "H1_CM1_POLY_C005",
+      "to_concept_id": "H1_CM1_POLY_C014",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'곱셈 공식의 도형에의 활용' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E117",
+      "from_concept_id": "H1_CM1_POLY_C017",
+      "to_concept_id": "H1_CM1_POLY_C021",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 미정계수 구하기(1) 계수 비교법' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E118",
+      "from_concept_id": "H1_CM1_POLY_C017",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 미정계수 구하기(1) 계수 비교법' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E119",
+      "from_concept_id": "H1_CM1_POLY_C021",
+      "to_concept_id": "H1_CM1_POLY_C021",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 미정계수 구하기(1) 계수 비교법' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E120",
+      "from_concept_id": "H1_CM1_POLY_C021",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 미정계수 구하기(1) 계수 비교법' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E121",
+      "from_concept_id": "H1_CM1_POLY_C018",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 미정계수 구하기(2) 수치 대입법' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E122",
+      "from_concept_id": "H1_CM1_POLY_C017",
+      "to_concept_id": "H1_CM1_POLY_C018",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E123",
+      "from_concept_id": "H1_CM1_POLY_C017",
+      "to_concept_id": "H1_CM1_POLY_C019",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E124",
+      "from_concept_id": "H1_CM1_POLY_C017",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E125",
+      "from_concept_id": "H1_CM1_POLY_C017",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E126",
+      "from_concept_id": "H1_CM1_POLY_C018",
+      "to_concept_id": "H1_CM1_POLY_C018",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E127",
+      "from_concept_id": "H1_CM1_POLY_C018",
+      "to_concept_id": "H1_CM1_POLY_C019",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E128",
+      "from_concept_id": "H1_CM1_POLY_C018",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E129",
+      "from_concept_id": "H1_CM1_POLY_C018",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E130",
+      "from_concept_id": "H1_CM1_POLY_C019",
+      "to_concept_id": "H1_CM1_POLY_C018",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E131",
+      "from_concept_id": "H1_CM1_POLY_C019",
+      "to_concept_id": "H1_CM1_POLY_C019",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E132",
+      "from_concept_id": "H1_CM1_POLY_C019",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E133",
+      "from_concept_id": "H1_CM1_POLY_C019",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E134",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C018",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E135",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C019",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E136",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E137",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조건을 만족시키는 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E138",
+      "from_concept_id": "H1_CM1_POLY_C020",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 계수의 합 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E139",
+      "from_concept_id": "H1_CM1_POLY_C020",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 계수의 합 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E140",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 계수의 합 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E141",
+      "from_concept_id": "H1_CM1_POLY_C047",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'항등식에서 계수의 합 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E142",
+      "from_concept_id": "H1_CM1_POLY_C012",
+      "to_concept_id": "H1_CM1_POLY_C021",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'다항식의 나눗셈과 항등식' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E143",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(1) 일차식으로 나누었을 때의 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E144",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(1) 일차식으로 나누었을 때의 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E145",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(1) 일차식으로 나누었을 때의 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E146",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(1) 일차식으로 나누었을 때의 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E147",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(2) 일차식으로 나누었을 때 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E148",
+      "from_concept_id": "H1_CM1_POLY_C022",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(2) 일차식으로 나누었을 때 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E149",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(2) 일차식으로 나누었을 때 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E150",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(2) 일차식으로 나누었을 때 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E151",
+      "from_concept_id": "H1_CM1_POLY_C024",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E152",
+      "from_concept_id": "H1_CM1_POLY_C024",
+      "to_concept_id": "H1_CM1_POLY_C027",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E153",
+      "from_concept_id": "H1_CM1_POLY_C024",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E154",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E155",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C027",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E156",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E157",
+      "from_concept_id": "H1_CM1_POLY_C027",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E158",
+      "from_concept_id": "H1_CM1_POLY_C027",
+      "to_concept_id": "H1_CM1_POLY_C027",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E159",
+      "from_concept_id": "H1_CM1_POLY_C027",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(3) 이차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E160",
+      "from_concept_id": "H1_CM1_POLY_C025",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'나머지정리(4) 삼차식으로 나누었을 때 나머지' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E161",
+      "from_concept_id": "H1_CM1_POLY_C026",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'f(ax+b)를 x-a로 나누는 경우' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E162",
+      "from_concept_id": "H1_CM1_POLY_C026",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'f(ax+b)를 x-a로 나누는 경우' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E163",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C023",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'f(ax+b)를 x-a로 나누는 경우' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E164",
+      "from_concept_id": "H1_CM1_POLY_C023",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'f(ax+b)를 x-a로 나누는 경우' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E165",
+      "from_concept_id": "H1_CM1_POLY_C027",
+      "to_concept_id": "H1_CM1_POLY_C013",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'몫을 x-a로 나누는 경우' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E166",
+      "from_concept_id": "H1_CM1_POLY_C029",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수정리(1) 일차식으로 나누는 경우' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E167",
+      "from_concept_id": "H1_CM1_POLY_C030",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수정리(2) 이차식으로 나누는 경우' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E168",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C032",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E169",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E170",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E171",
+      "from_concept_id": "H1_CM1_POLY_C032",
+      "to_concept_id": "H1_CM1_POLY_C032",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E172",
+      "from_concept_id": "H1_CM1_POLY_C032",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E173",
+      "from_concept_id": "H1_CM1_POLY_C032",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E174",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C032",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E175",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E176",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'조립제법을 이용하여 항등식의 미정계수 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E177",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_POLY_C034",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E178",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E179",
+      "from_concept_id": "H1_CM1_POLY_C033",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E180",
+      "from_concept_id": "H1_CM1_POLY_C034",
+      "to_concept_id": "H1_CM1_POLY_C034",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E181",
+      "from_concept_id": "H1_CM1_POLY_C034",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E182",
+      "from_concept_id": "H1_CM1_POLY_C034",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E183",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C034",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E184",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E185",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(1) 공식을 이용한 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E186",
+      "from_concept_id": "H1_CM1_POLY_C035",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(2) 공통부분이 있는 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E187",
+      "from_concept_id": "H1_CM1_POLY_C035",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(2) 공통부분이 있는 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E188",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(2) 공통부분이 있는 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E189",
+      "from_concept_id": "H1_CM1_POLY_C046",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(2) 공통부분이 있는 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E190",
+      "from_concept_id": "H1_CM1_POLY_C036",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(3) x^4+ax^2+b 꼴의 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E191",
+      "from_concept_id": "H1_CM1_POLY_C034",
+      "to_concept_id": "H1_CM1_POLY_C046",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(4) 여러 개의 문자를 포함한 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E192",
+      "from_concept_id": "H1_CM1_POLY_C038",
+      "to_concept_id": "H1_CM1_POLY_C031",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(6) 인수 정리를 이용한 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E193",
+      "from_concept_id": "H1_CM1_POLY_C038",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(6) 인수 정리를 이용한 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E194",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C031",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(6) 인수 정리를 이용한 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E195",
+      "from_concept_id": "H1_CM1_POLY_C031",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(6) 인수 정리를 이용한 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E196",
+      "from_concept_id": "H1_CM1_POLY_C040",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(8) 조건이 주어진 다항식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E197",
+      "from_concept_id": "H1_CM1_POLY_C041",
+      "to_concept_id": "H1_CM1_POLY_C048",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해(9) 새롭게 정의된 식의 인수분해' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E198",
+      "from_concept_id": "H1_CM1_POLY_C042",
+      "to_concept_id": "H1_CM1_POLY_C045",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해의 활용(1) 삼각형의 모양 판단' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E199",
+      "from_concept_id": "H1_CM1_POLY_C044",
+      "to_concept_id": "H1_CM1_POLY_C047",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해의 활용(3) 식의 값 구하기' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H1_CM1_POLY_E200",
+      "from_concept_id": "H1_CM1_POLY_C045",
+      "to_concept_id": "H1_CM1_POLY_C014",
+      "relation_type": "co_occurrence",
+      "weight": 0.55,
+      "reason": "'인수분해의 활용(4)' 유형에서 함께 쓰이는 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

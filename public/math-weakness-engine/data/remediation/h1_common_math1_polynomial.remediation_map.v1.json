@@ -1,0 +1,420 @@
+{
+  "version": "2026.07.07-h1-common-math1-polynomial-v1.0",
+  "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+  "unit_name": "다항식",
+  "remediation_count": 25,
+  "remediation": [
+    {
+      "concept_id": "H1_CM1_POLY_C001",
+      "title": "다항식 용어·정리 보강",
+      "priority": 1,
+      "steps": [
+        "항·계수·차수를 색으로 구분",
+        "내림차순 정리 후 동류항 표시",
+        "정리 전후 항 개수 비교"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT001",
+        "H1_CM1_POLY_PT002",
+        "H1_CM1_POLY_PT003"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C002",
+      "title": "덧셈·뺄셈 보강",
+      "priority": 1,
+      "steps": [
+        "괄호 앞 부호 먼저 풀기",
+        "동류항끼리 세로로 정렬",
+        "최종식 차수 순서 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT004",
+        "H1_CM1_POLY_PT005",
+        "H1_CM1_POLY_PT006"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C004",
+      "title": "전개 기본 보강",
+      "priority": 1,
+      "steps": [
+        "각 항의 곱을 표로 표시",
+        "부호를 곱셈 단계에서 함께 처리",
+        "동류항 정리 줄을 별도로 작성"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT007",
+        "H1_CM1_POLY_PT008",
+        "H1_CM1_POLY_PT009",
+        "H1_CM1_POLY_PT010"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C005",
+      "title": "곱셈공식 선택 보강",
+      "priority": 1,
+      "steps": [
+        "식의 모양을 제곱/합차/세제곱으로 분류",
+        "사용한 공식 이름을 풀이에 적기",
+        "전개 결과 항 개수로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT010",
+        "H1_CM1_POLY_PT011",
+        "H1_CM1_POLY_PT012",
+        "H1_CM1_POLY_PT013"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C007",
+      "title": "공식 변형 보강",
+      "priority": 2,
+      "steps": [
+        "주어진 조건식과 목표식을 나란히 쓰기",
+        "조건식을 제곱하거나 세제곱해 필요한 항 만들기",
+        "대입 전 부호와 상수항 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT016",
+        "H1_CM1_POLY_PT017",
+        "H1_CM1_POLY_PT018",
+        "H1_CM1_POLY_PT019"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C008",
+      "title": "역수형 변형 보강",
+      "priority": 2,
+      "steps": [
+        "x+1/x 꼴을 제곱해 x²+1/x² 만들기",
+        "x≠0 조건 확인",
+        "분수식 통분 후 공식 적용"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT016",
+        "H1_CM1_POLY_PT017",
+        "H1_CM1_POLY_PT018",
+        "H1_CM1_POLY_PT019"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C011",
+      "title": "다항식 나눗셈 보강",
+      "priority": 1,
+      "steps": [
+        "차수 순서대로 배열",
+        "빠진 차수는 0으로 채움",
+        "몫과 나머지 차수 조건 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT028",
+        "H1_CM1_POLY_PT029",
+        "H1_CM1_POLY_PT030",
+        "H1_CM1_POLY_PT031"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C012",
+      "title": "A=BQ+R 보강",
+      "priority": 2,
+      "steps": [
+        "A, B, Q, R 위치 표시",
+        "나누어지는 식=A로 고정",
+        "나머지 차수가 제수보다 낮은지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT028",
+        "H1_CM1_POLY_PT029",
+        "H1_CM1_POLY_PT030",
+        "H1_CM1_POLY_PT031"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C016",
+      "title": "항등식 기본 보강",
+      "priority": 1,
+      "steps": [
+        "항등식과 방정식 예시 비교",
+        "모든 값에 대해 성립 조건 표시",
+        "좌우변 정리 후 방법 선택"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT043",
+        "H1_CM1_POLY_PT044",
+        "H1_CM1_POLY_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C017",
+      "title": "계수비교법 보강",
+      "priority": 2,
+      "steps": [
+        "좌우변을 차수순으로 정리",
+        "같은 차수끼리 계수 비교",
+        "연립식으로 미정계수 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT046",
+        "H1_CM1_POLY_PT047",
+        "H1_CM1_POLY_PT048",
+        "H1_CM1_POLY_PT052"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C018",
+      "title": "수치대입법 보강",
+      "priority": 2,
+      "steps": [
+        "소거가 쉬운 값을 먼저 선택",
+        "대입 후 남은 미정계수 확인",
+        "계수비교법 결과와 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT049",
+        "H1_CM1_POLY_PT050",
+        "H1_CM1_POLY_PT051",
+        "H1_CM1_POLY_PT052"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C022",
+      "title": "일차식 나머지정리 보강",
+      "priority": 1,
+      "steps": [
+        "나누는 식=0으로 대입값 찾기",
+        "f(a)=나머지 쓰기",
+        "x-a와 x+a 부호 구분"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT061",
+        "H1_CM1_POLY_PT062",
+        "H1_CM1_POLY_PT063",
+        "H1_CM1_POLY_PT064"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C024",
+      "title": "이차식 나머지 보강",
+      "priority": 2,
+      "steps": [
+        "나머지를 ax+b로 놓기",
+        "주어진 근 또는 조건 대입",
+        "연립해서 a,b 구하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT067",
+        "H1_CM1_POLY_PT068",
+        "H1_CM1_POLY_PT069"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C029",
+      "title": "인수정리 보강",
+      "priority": 1,
+      "steps": [
+        "f(a)=0 확인",
+        "x-a가 인수임을 문장으로 쓰기",
+        "나누어떨어짐과 연결"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT082",
+        "H1_CM1_POLY_PT083",
+        "H1_CM1_POLY_PT084"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C031",
+      "title": "조립제법 보강",
+      "priority": 2,
+      "steps": [
+        "계수 배열에 0 계수 포함",
+        "내려쓰기-곱하기-더하기 순서 체크",
+        "마지막 수를 나머지로 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT088",
+        "H1_CM1_POLY_PT089",
+        "H1_CM1_POLY_PT090",
+        "H1_CM1_POLY_PT091"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C033",
+      "title": "기본 인수분해 보강",
+      "priority": 1,
+      "steps": [
+        "공통인수 먼저 묶기",
+        "남은 식의 공식형 분류",
+        "전개 검산으로 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT094",
+        "H1_CM1_POLY_PT095",
+        "H1_CM1_POLY_PT096"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C035",
+      "title": "공통부분 인수분해 보강",
+      "priority": 2,
+      "steps": [
+        "반복되는 부분을 A로 치환",
+        "A에 대한 인수분해 수행",
+        "마지막에 원래 식으로 되돌리기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT097",
+        "H1_CM1_POLY_PT098",
+        "H1_CM1_POLY_PT099"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C036",
+      "title": "고차식 인수분해 보강",
+      "priority": 2,
+      "steps": [
+        "x² 또는 공통부분 치환",
+        "이차식처럼 인수분해",
+        "치환 되돌린 뒤 추가 분해 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT100",
+        "H1_CM1_POLY_PT101",
+        "H1_CM1_POLY_PT102"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C038",
+      "title": "인수정리 활용 인수분해 보강",
+      "priority": 2,
+      "steps": [
+        "상수항 약수로 후보 인수 찾기",
+        "후보값 대입 후 f(a)=0 확인",
+        "조립제법으로 차수 낮추기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT109",
+        "H1_CM1_POLY_PT110",
+        "H1_CM1_POLY_PT111"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C040",
+      "title": "조건 인수분해 보강",
+      "priority": 2,
+      "steps": [
+        "조건식을 먼저 정리",
+        "같은 값 또는 대체식을 찾기",
+        "조건 대입 후 인수분해"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT115",
+        "H1_CM1_POLY_PT116",
+        "H1_CM1_POLY_PT117"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C042",
+      "title": "도형 판단 활용 보강",
+      "priority": 2,
+      "steps": [
+        "도형 조건을 식으로 변환",
+        "인수분해 결과와 길이 조건 연결",
+        "가능한 도형 성질 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT121",
+        "H1_CM1_POLY_PT122",
+        "H1_CM1_POLY_PT123"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C043",
+      "title": "수 계산 활용 보강",
+      "priority": 2,
+      "steps": [
+        "수식을 인수분해 가능한 구조로 정리",
+        "공통인수 또는 합차 구조 찾기",
+        "계산 후 대입 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT124",
+        "H1_CM1_POLY_PT125",
+        "H1_CM1_POLY_PT126"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C044",
+      "title": "식의 값 활용 보강",
+      "priority": 2,
+      "steps": [
+        "목표식을 인수분해 형태로 바꾸기",
+        "조건식과 공통인수 연결",
+        "대입 전 식을 최대한 단순화"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT127",
+        "H1_CM1_POLY_PT128",
+        "H1_CM1_POLY_PT129"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C045",
+      "title": "종합 활용 보강",
+      "priority": 2,
+      "steps": [
+        "상황을 식으로 세우기",
+        "전개/나머지/인수분해 중 도구 선택",
+        "결과를 문제 조건으로 되돌려 해석"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT121",
+        "H1_CM1_POLY_PT122",
+        "H1_CM1_POLY_PT123",
+        "H1_CM1_POLY_PT130"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C047",
+      "title": "미정계수 추론 보강",
+      "priority": 2,
+      "steps": [
+        "조건을 방정식으로 바꾸기",
+        "조건 수와 미정계수 수 비교",
+        "연립 후 원식에 대입 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H1_CM1_POLY_PT007",
+        "H1_CM1_POLY_PT008",
+        "H1_CM1_POLY_PT009",
+        "H1_CM1_POLY_PT010"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

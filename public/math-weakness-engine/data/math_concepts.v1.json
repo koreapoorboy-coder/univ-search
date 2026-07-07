@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.07-m2-probability-v1.0",
-  "concept_count": 672,
+  "version": "2026.07.07-h1-common-math1-polynomial-v1.0",
+  "concept_count": 720,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -18443,6 +18443,1333 @@
       ],
       "mastery_level": "advanced",
       "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C001",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "정리와 용어",
+      "concept_name": "다항식의 용어와 정리",
+      "description": "항, 계수, 차수, 동류항을 구분하고 오름차순·내림차순으로 정리한다.",
+      "diagnostic_signals": [
+        "항과 계수를 혼동함",
+        "차수 기준 정렬이 흔들림",
+        "동류항이 아닌 항을 합침"
+      ],
+      "remediation_keywords": [
+        "항",
+        "계수",
+        "차수",
+        "동류항 정리"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C002",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "덧셈과 뺄셈",
+      "concept_name": "다항식의 덧셈·뺄셈",
+      "description": "여러 다항식을 부호 처리 후 동류항끼리 정리한다.",
+      "diagnostic_signals": [
+        "괄호 앞 음수 처리 오류",
+        "동류항 정리 누락",
+        "새 연산 조건 해석 실패"
+      ],
+      "remediation_keywords": [
+        "부호",
+        "괄호 해제",
+        "동류항"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C003",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "전개식 계수",
+      "concept_name": "전개식에서 계수 구하기",
+      "description": "전개 후 특정 항의 계수를 찾고 조건으로 주어진 미정계수를 결정한다.",
+      "diagnostic_signals": [
+        "원하는 항의 차수를 찾지 못함",
+        "계수와 항 전체를 혼동함",
+        "필요 없는 항까지 전개함"
+      ],
+      "remediation_keywords": [
+        "특정항",
+        "계수",
+        "미정계수"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C004",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "분배법칙",
+      "concept_name": "분배법칙과 기본 전개",
+      "description": "단항식·다항식의 곱을 빠짐없이 전개하고 동류항으로 정리한다.",
+      "diagnostic_signals": [
+        "항의 곱을 누락함",
+        "부호를 잘못 분배함",
+        "전개 후 정리 순서가 없음"
+      ],
+      "remediation_keywords": [
+        "분배법칙",
+        "전개표",
+        "동류항"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C005",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "곱셈공식",
+      "concept_name": "곱셈공식 기본 구조",
+      "description": "제곱 공식, 합차공식, 세제곱 공식의 구조를 식의 형태에 맞게 선택한다.",
+      "diagnostic_signals": [
+        "가운데 항을 누락함",
+        "합차공식과 제곱공식 혼동",
+        "공식 선택이 느림"
+      ],
+      "remediation_keywords": [
+        "곱셈공식",
+        "가운데항",
+        "합차공식"
+      ],
+      "source_orders": [
+        3,
+        4,
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C006",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "공통부분 전개",
+      "concept_name": "공통부분 치환 전개",
+      "description": "반복되는 공통부분을 치환하여 복잡한 전개식을 단순화한다.",
+      "diagnostic_signals": [
+        "공통부분을 찾지 못함",
+        "치환 후 원래 식으로 되돌리지 못함",
+        "불필요한 전체 전개를 함"
+      ],
+      "remediation_keywords": [
+        "공통부분",
+        "치환",
+        "되돌리기"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C007",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "곱셈공식 변형",
+      "concept_name": "두 문자 곱셈공식 변형",
+      "description": "두 수의 합, 차, 곱, 제곱의 합 조건을 곱셈공식 변형으로 연결한다.",
+      "diagnostic_signals": [
+        "조건식을 공식 형태로 바꾸지 못함",
+        "제곱의 합과 합의 제곱 혼동",
+        "부호 처리 오류"
+      ],
+      "remediation_keywords": [
+        "두 문자",
+        "식의 값",
+        "공식 변형"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C008",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "역수·분수식",
+      "concept_name": "역수와 분수식의 곱셈공식 변형",
+      "description": "x+1/x 꼴과 분수식 조건을 제곱·세제곱 공식으로 처리한다.",
+      "diagnostic_signals": [
+        "역수 조건을 제곱할 때 상수항 누락",
+        "분수식 통분 오류",
+        "x=0 조건을 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "역수",
+        "분수식",
+        "x+1/x"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C009",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "세 문자 공식",
+      "concept_name": "세 문자 곱셈공식 변형",
+      "description": "세 문자 조건에서 합의 제곱, 제곱의 합, 곱의 합을 연결한다.",
+      "diagnostic_signals": [
+        "세 문자 공식의 항 개수 누락",
+        "대칭식 구조를 못 봄",
+        "조건을 그대로 대입함"
+      ],
+      "remediation_keywords": [
+        "세 문자",
+        "대칭식",
+        "제곱의 합"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C010",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "수 계산",
+      "concept_name": "곱셈공식을 이용한 수 계산",
+      "description": "계산이 복잡한 수를 기준수나 합차 구조로 바꾸어 빠르게 계산한다.",
+      "diagnostic_signals": [
+        "기준수를 잡지 못함",
+        "수 계산에 공식을 적용하지 못함",
+        "부호 검산 누락"
+      ],
+      "remediation_keywords": [
+        "기준수",
+        "합차공식",
+        "빠른 계산"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C011",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 나눗셈",
+      "sub_strand": "나눗셈 기본",
+      "concept_name": "다항식의 나눗셈 기본",
+      "description": "단항식 또는 다항식으로 나누고 몫과 나머지를 구한다.",
+      "diagnostic_signals": [
+        "나눗셈의 차수 배열 오류",
+        "나머지 차수 조건을 모름",
+        "부호 계산 오류"
+      ],
+      "remediation_keywords": [
+        "다항식 나눗셈",
+        "몫",
+        "나머지"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C012",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 나눗셈",
+      "sub_strand": "A=BQ+R",
+      "concept_name": "A=BQ+R 구조 이해",
+      "description": "피제수, 제수, 몫, 나머지를 A=BQ+R로 연결하여 식을 구성한다.",
+      "diagnostic_signals": [
+        "나누는 식과 나누어지는 식을 바꿈",
+        "나머지 조건을 빠뜨림",
+        "식 구성 순서 오류"
+      ],
+      "remediation_keywords": [
+        "A=BQ+R",
+        "피제수",
+        "제수"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C013",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 나눗셈",
+      "sub_strand": "몫·나머지 변형",
+      "concept_name": "몫과 나머지 조건 변형",
+      "description": "주어진 몫·나머지 조건을 식 변형으로 연결한다.",
+      "diagnostic_signals": [
+        "몫을 다시 나누는 상황을 해석하지 못함",
+        "조건식 변형 오류",
+        "나머지 차수 조건 누락"
+      ],
+      "remediation_keywords": [
+        "몫의 변형",
+        "나머지 변형",
+        "조건식"
+      ],
+      "source_orders": [
+        7,
+        15
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C014",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "도형 활용",
+      "concept_name": "곱셈공식의 도형 활용",
+      "description": "넓이, 부피, 겉넓이, 대각선 등 도형 조건을 다항식 전개로 표현한다.",
+      "diagnostic_signals": [
+        "도형 길이를 식으로 세우지 못함",
+        "넓이와 부피 공식을 혼동함",
+        "전개식과 도형 조건 연결 실패"
+      ],
+      "remediation_keywords": [
+        "도형 활용",
+        "넓이",
+        "부피",
+        "겉넓이"
+      ],
+      "source_orders": [
+        7,
+        20,
+        21
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C015",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "다항식의 연산",
+      "sub_strand": "고차식 값",
+      "concept_name": "4차 이상 식으로 변형한 식의 값",
+      "description": "저차 조건을 이용하여 4차 이상의 식을 변형해 값을 구한다.",
+      "diagnostic_signals": [
+        "고차식을 무리하게 전개함",
+        "조건식으로 차수를 낮추지 못함",
+        "두 문자 조건 연결 실패"
+      ],
+      "remediation_keywords": [
+        "고차식",
+        "식의 값",
+        "차수 낮추기"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C016",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "항등식과 나머지정리",
+      "sub_strand": "항등식 기본",
+      "concept_name": "항등식의 뜻과 성질",
+      "description": "모든 값에 대해 성립하는 항등식과 특정 값에서만 성립하는 방정식을 구분한다.",
+      "diagnostic_signals": [
+        "항등식과 방정식 혼동",
+        "모든 값 조건을 해석하지 못함"
+      ],
+      "remediation_keywords": [
+        "항등식",
+        "모든 값",
+        "성질"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C017",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "항등식과 나머지정리",
+      "sub_strand": "계수비교",
+      "concept_name": "계수비교법",
+      "description": "좌우변을 정리한 뒤 같은 차수의 계수를 비교해 미정계수를 구한다.",
+      "diagnostic_signals": [
+        "좌우변 정리 전 비교함",
+        "차수별 계수 비교 누락",
+        "상수항 비교 오류"
+      ],
+      "remediation_keywords": [
+        "계수비교",
+        "미정계수",
+        "차수"
+      ],
+      "source_orders": [
+        8,
+        10,
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C018",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "항등식과 나머지정리",
+      "sub_strand": "수치대입",
+      "concept_name": "수치대입법",
+      "description": "특정 값을 대입하여 항등식의 미정계수와 조건을 구한다.",
+      "diagnostic_signals": [
+        "대입할 값을 선택하지 못함",
+        "수치대입 후 계수비교와 혼동",
+        "계산 오류"
+      ],
+      "remediation_keywords": [
+        "수치대입법",
+        "특수값",
+        "대입"
+      ],
+      "source_orders": [
+        9,
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C019",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "항등식과 나머지정리",
+      "sub_strand": "조건 항등식",
+      "concept_name": "여러 문자 항등식 조건",
+      "description": "x, y, z 등 여러 문자에 대해 항상 성립하는 등식의 조건을 세운다.",
+      "diagnostic_signals": [
+        "어느 문자에 대한 항등식인지 구분 못함",
+        "조건식이 여러 개일 때 누락",
+        "분수식 조건 해석 실패"
+      ],
+      "remediation_keywords": [
+        "여러 문자",
+        "조건식",
+        "항상 성립"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C020",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "항등식과 나머지정리",
+      "sub_strand": "계수의 합",
+      "concept_name": "항등식에서 계수의 합 구하기",
+      "description": "f(1), f(-1) 등 대입값을 활용해 계수의 합과 일부 계수의 합을 구한다.",
+      "diagnostic_signals": [
+        "계수의 합을 직접 전개로만 구함",
+        "f(1)의 의미를 모름",
+        "일부 계수 합 대입값 선택 실패"
+      ],
+      "remediation_keywords": [
+        "계수의 합",
+        "f(1)",
+        "일부 계수"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C021",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "항등식과 나머지정리",
+      "sub_strand": "나눗셈 연결",
+      "concept_name": "다항식의 나눗셈과 항등식",
+      "description": "나눗셈 관계를 항등식으로 놓고 몫, 나머지, 나누어떨어짐 조건을 처리한다.",
+      "diagnostic_signals": [
+        "나눗셈 식을 항등식으로 못 세움",
+        "나누어떨어짐 조건을 나머지 0으로 연결 못함",
+        "두 식으로 나누는 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "나눗셈 항등식",
+        "나머지 0",
+        "몫"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C022",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "나머지정리",
+      "sub_strand": "일차식 나머지",
+      "concept_name": "일차식으로 나누었을 때 나머지정리",
+      "description": "f(x)를 x-a로 나누었을 때 나머지가 f(a)임을 이용한다.",
+      "diagnostic_signals": [
+        "x-a의 a 부호를 반대로 대입함",
+        "나머지를 f(a)와 연결하지 못함",
+        "일차식 형태 변형 실패"
+      ],
+      "remediation_keywords": [
+        "나머지정리",
+        "f(a)",
+        "일차식"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C023",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "나머지정리",
+      "sub_strand": "미정계수",
+      "concept_name": "나머지정리의 미정계수",
+      "description": "나머지 조건을 대입식으로 바꾸어 미정계수를 구한다.",
+      "diagnostic_signals": [
+        "여러 나머지 조건을 식으로 못 세움",
+        "미정계수 방정식 설정 오류",
+        "변형된 다항식 조건 놓침"
+      ],
+      "remediation_keywords": [
+        "미정계수",
+        "나머지 조건",
+        "대입식"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C024",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "나머지정리",
+      "sub_strand": "이차식 나머지",
+      "concept_name": "이차식으로 나누었을 때 나머지",
+      "description": "이차식으로 나눌 때 나머지가 일차 이하임을 이용해 조건식을 세운다.",
+      "diagnostic_signals": [
+        "나머지 차수를 잘못 둠",
+        "두 일차식 조건을 결합하지 못함",
+        "나머지의 나머지를 혼동"
+      ],
+      "remediation_keywords": [
+        "이차식 나머지",
+        "일차 이하",
+        "연립 조건"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C025",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "나머지정리",
+      "sub_strand": "삼차식 나머지",
+      "concept_name": "삼차식으로 나누었을 때 나머지",
+      "description": "삼차식으로 나눌 때 나머지 차수와 조건을 활용한다.",
+      "diagnostic_signals": [
+        "나머지 차수 조건 누락",
+        "삼차식 조건을 무리하게 전개함",
+        "미정계수 설정 오류"
+      ],
+      "remediation_keywords": [
+        "삼차식 나머지",
+        "차수 조건",
+        "미정계수"
+      ],
+      "source_orders": [
+        13,
+        14
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C026",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "나머지정리",
+      "sub_strand": "함수 변형",
+      "concept_name": "f(ax+b) 형태의 나머지",
+      "description": "f(ax+b)를 x-a 또는 다른 식으로 나누는 조건을 변수 변환으로 처리한다.",
+      "diagnostic_signals": [
+        "대입값을 잘못 변환함",
+        "ax+b의 대응값을 찾지 못함",
+        "변형된 식 나머지 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "f(ax+b)",
+        "변수 변환",
+        "대입값"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C027",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "나머지정리",
+      "sub_strand": "몫의 나머지",
+      "concept_name": "몫을 x-a로 나누는 경우",
+      "description": "나눗셈에서 나온 몫을 다시 나눌 때 원식과 몫의 관계를 이용한다.",
+      "diagnostic_signals": [
+        "몫과 원식을 구분하지 못함",
+        "조건이 주어진 몫의 나머지 해석 실패",
+        "나눗셈 구조 재구성 오류"
+      ],
+      "remediation_keywords": [
+        "몫의 나머지",
+        "재나눗셈",
+        "조건 변형"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C028",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "나머지정리",
+      "sub_strand": "수의 나눗셈",
+      "concept_name": "나머지정리를 활용한 수의 나눗셈",
+      "description": "거듭제곱꼴 수와 연산으로 표현된 수의 나머지를 다항식 나머지로 해석한다.",
+      "diagnostic_signals": [
+        "수의 나눗셈을 다항식으로 바꾸지 못함",
+        "거듭제곱 나머지 주기 파악 실패"
+      ],
+      "remediation_keywords": [
+        "수의 나눗셈",
+        "거듭제곱",
+        "나머지"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C029",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수정리",
+      "sub_strand": "일차식 인수",
+      "concept_name": "인수정리 일차식",
+      "description": "f(a)=0이면 x-a가 인수임을 이용해 조건을 구한다.",
+      "diagnostic_signals": [
+        "인수와 나누어떨어짐 연결 실패",
+        "부호 반대 대입 오류",
+        "함수값 조건을 놓침"
+      ],
+      "remediation_keywords": [
+        "인수정리",
+        "f(a)=0",
+        "일차식 인수"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C030",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수정리",
+      "sub_strand": "이차식 인수",
+      "concept_name": "인수정리 이차식",
+      "description": "이차식을 인수로 갖는 조건을 두 일차식 또는 나누어떨어짐 조건으로 처리한다.",
+      "diagnostic_signals": [
+        "이차식 인수 조건을 하나만 사용함",
+        "두 조건 연립 누락",
+        "나누어떨어짐 조건 설정 오류"
+      ],
+      "remediation_keywords": [
+        "이차식 인수",
+        "두 조건",
+        "나누어떨어짐"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C031",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수정리",
+      "sub_strand": "조립제법",
+      "concept_name": "조립제법",
+      "description": "조립제법을 이용해 다항식 나눗셈, 나머지, 인수 여부를 빠르게 판단한다.",
+      "diagnostic_signals": [
+        "계수 배열 누락",
+        "내려쓰기와 곱하기 순서 오류",
+        "빠진 차수의 0 계수 미표시"
+      ],
+      "remediation_keywords": [
+        "조립제법",
+        "계수 배열",
+        "0 계수"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C032",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수정리",
+      "sub_strand": "조립제법 활용",
+      "concept_name": "조립제법을 이용한 미정계수",
+      "description": "조립제법 결과와 인수 조건을 이용해 항등식의 미정계수를 구한다.",
+      "diagnostic_signals": [
+        "조립제법 결과를 조건식으로 못 바꿈",
+        "완전제곱식 인수 조건 해석 실패",
+        "미정계수 계산 오류"
+      ],
+      "remediation_keywords": [
+        "조립제법 활용",
+        "미정계수",
+        "완전제곱식"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C033",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "기본 공식",
+      "concept_name": "기본 인수분해 공식",
+      "description": "공통인수, 완전제곱식, 합차, 세제곱 공식으로 인수분해한다.",
+      "diagnostic_signals": [
+        "공통인수 확인 누락",
+        "전개 공식과 인수분해 공식 방향 혼동",
+        "공식 적용 후 추가 분해 누락"
+      ],
+      "remediation_keywords": [
+        "공통인수",
+        "완전제곱식",
+        "합차",
+        "세제곱"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C034",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "여러 문자",
+      "concept_name": "여러 문자를 포함한 인수분해",
+      "description": "여러 문자 식을 한 문자 기준으로 정리하거나 대칭 구조로 인수분해한다.",
+      "diagnostic_signals": [
+        "기준 문자를 잡지 못함",
+        "내림차순 정리 미흡",
+        "다문자 완전제곱식 인식 실패"
+      ],
+      "remediation_keywords": [
+        "여러 문자",
+        "기준 문자",
+        "내림차순"
+      ],
+      "source_orders": [
+        17,
+        19
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C035",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "공통부분 치환",
+      "concept_name": "공통부분 치환 인수분해",
+      "description": "반복되는 식이나 순환 구조를 치환하여 인수분해한다.",
+      "diagnostic_signals": [
+        "공통부분을 못 찾음",
+        "치환 후 추가 분해 누락",
+        "원래 식으로 되돌리기 누락"
+      ],
+      "remediation_keywords": [
+        "공통부분",
+        "치환",
+        "추가 분해"
+      ],
+      "source_orders": [
+        18,
+        19
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C036",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "고차식",
+      "concept_name": "x^4+ax^2+b 꼴 인수분해",
+      "description": "x^2을 하나의 문자로 보고 고차식을 이차식처럼 인수분해한다.",
+      "diagnostic_signals": [
+        "x² 치환을 못함",
+        "공통인수 확인 누락",
+        "대칭 사차식과 혼동"
+      ],
+      "remediation_keywords": [
+        "고차식",
+        "x² 치환",
+        "사차식"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C037",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "순환식",
+      "concept_name": "순환하는 꼴의 인수분해",
+      "description": "순환하는 항 구조를 찾아 묶거나 공식으로 인수분해한다.",
+      "diagnostic_signals": [
+        "순환 구조를 인식하지 못함",
+        "분수식 값 활용 실패",
+        "묶기 기준 오류"
+      ],
+      "remediation_keywords": [
+        "순환식",
+        "묶기",
+        "대칭 구조"
+      ],
+      "source_orders": [
+        19
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C038",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "인수정리 활용",
+      "concept_name": "인수정리를 이용한 인수분해",
+      "description": "인수정리와 조립제법으로 고차식의 인수를 찾아 분해한다.",
+      "diagnostic_signals": [
+        "후보 인수 탐색이 없음",
+        "조립제법 후 추가 분해 누락",
+        "나머지 조건과 인수 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "인수 찾기",
+        "조립제법",
+        "추가 분해"
+      ],
+      "source_orders": [
+        19,
+        20
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C039",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "대칭 사차식",
+      "concept_name": "대칭 사차식의 인수분해",
+      "description": "계수가 대칭인 사차식을 나누기나 치환으로 인수분해한다.",
+      "diagnostic_signals": [
+        "대칭 구조 인식 실패",
+        "나누기 전략을 못 선택함",
+        "미정계수 조건 변환 오류"
+      ],
+      "remediation_keywords": [
+        "대칭 사차식",
+        "계수 대칭",
+        "치환"
+      ],
+      "source_orders": [
+        20
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C040",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "조건식",
+      "concept_name": "조건이 주어진 인수분해",
+      "description": "문자 조건이 주어진 식에서 같은 값을 찾거나 조건을 대입해 인수분해한다.",
+      "diagnostic_signals": [
+        "조건을 식 변형에 쓰지 못함",
+        "조건별 같은 값 찾기 실패",
+        "조건 대입 후 정리 오류"
+      ],
+      "remediation_keywords": [
+        "조건식",
+        "같은 값",
+        "대입"
+      ],
+      "source_orders": [
+        20
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C041",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해",
+      "sub_strand": "새 연산",
+      "concept_name": "새롭게 정의된 식의 인수분해",
+      "description": "새롭게 정의된 연산을 기존 다항식 연산으로 바꾸어 인수분해한다.",
+      "diagnostic_signals": [
+        "새 연산 정의를 전개하지 못함",
+        "정의식 적용 순서 오류",
+        "인수분해 전 정리 누락"
+      ],
+      "remediation_keywords": [
+        "새 연산",
+        "정의식",
+        "전개 후 인수분해"
+      ],
+      "source_orders": [
+        20
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C042",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해의 활용",
+      "sub_strand": "도형 판단",
+      "concept_name": "인수분해를 이용한 삼각형 판단",
+      "description": "도형 조건을 인수분해하여 삼각형 모양이나 넓이를 판단한다.",
+      "diagnostic_signals": [
+        "식 조건을 도형 성질로 해석 못함",
+        "인수분해 결과와 길이 조건 연결 실패"
+      ],
+      "remediation_keywords": [
+        "삼각형",
+        "모양 판단",
+        "넓이"
+      ],
+      "source_orders": [
+        20
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C043",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해의 활용",
+      "sub_strand": "수 계산",
+      "concept_name": "인수분해를 이용한 수의 계산",
+      "description": "수의 곱·합 구조를 인수분해하여 계산을 단순화한다.",
+      "diagnostic_signals": [
+        "인수분해 가능한 수 구조를 못 봄",
+        "분수식 약분 연결 실패",
+        "특수한 곱 구조 인식 실패"
+      ],
+      "remediation_keywords": [
+        "수 계산",
+        "분수식",
+        "특수 곱"
+      ],
+      "source_orders": [
+        21
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C044",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해의 활용",
+      "sub_strand": "식의 값",
+      "concept_name": "인수분해를 이용한 식의 값",
+      "description": "주어진 조건을 인수분해 형태로 바꾸어 식의 값을 구한다.",
+      "diagnostic_signals": [
+        "조건식을 인수분해 형태로 못 바꿈",
+        "두 문자·세 문자 조건 연결 실패",
+        "x 값 대입 전 식 변형 누락"
+      ],
+      "remediation_keywords": [
+        "식의 값",
+        "조건 변형",
+        "인수분해 활용"
+      ],
+      "source_orders": [
+        21
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C045",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "인수분해의 활용",
+      "sub_strand": "종합 활용",
+      "concept_name": "인수분해의 다항식·도형 종합 활용",
+      "description": "다항식, 평면도형, 입체도형 조건을 인수분해와 연결해 해결한다.",
+      "diagnostic_signals": [
+        "활용 상황을 식으로 세우지 못함",
+        "도형 조건과 인수분해 연결 실패",
+        "여러 입체도형 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "종합 활용",
+        "평면도형",
+        "입체도형"
+      ],
+      "source_orders": [
+        21
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C046",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "공통 추론",
+      "sub_strand": "완전제곱식 조건",
+      "concept_name": "완전제곱식 조건 추론",
+      "description": "전개·나머지·인수분해 상황에서 완전제곱식이 되기 위한 조건을 찾는다.",
+      "diagnostic_signals": [
+        "중근 조건을 못 봄",
+        "완전제곱식 계수 관계 오류",
+        "조건을 하나만 사용함"
+      ],
+      "remediation_keywords": [
+        "완전제곱식",
+        "중근",
+        "계수 관계"
+      ],
+      "source_orders": [
+        16,
+        18
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C047",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "공통 추론",
+      "sub_strand": "미정계수",
+      "concept_name": "미정계수 조건 추론",
+      "description": "전개, 항등식, 나머지정리, 인수분해 조건에서 미정계수를 구한다.",
+      "diagnostic_signals": [
+        "조건을 방정식으로 못 바꿈",
+        "식이 여러 개일 때 연립 누락",
+        "미정계수 위치 확인 오류"
+      ],
+      "remediation_keywords": [
+        "미정계수",
+        "조건식",
+        "연립"
+      ],
+      "source_orders": [
+        2,
+        3,
+        11,
+        12,
+        13,
+        16,
+        18,
+        19,
+        20,
+        21
+      ],
+      "mastery_level": "standard",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H1_CM1_POLY_C048",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "unit_name": "다항식",
+      "strand": "공통 추론",
+      "sub_strand": "새 연산",
+      "concept_name": "새롭게 정의된 연산 처리",
+      "description": "새롭게 정의된 연산을 원래 다항식 연산으로 풀어 계산·항등식·인수분해에 적용한다.",
+      "diagnostic_signals": [
+        "정의식을 그대로 쓰지 않음",
+        "연산 순서 혼동",
+        "정리 후 적용 개념 선택 실패"
+      ],
+      "remediation_keywords": [
+        "새 연산",
+        "정의 대입",
+        "연산 순서"
+      ],
+      "source_orders": [
+        3,
+        10,
+        11,
+        20
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
       "status": "curated_seed_from_image_taxonomy"
     }
   ],

@@ -1,0 +1,322 @@
+{
+  "version": "2026.07.07-h1-common-math1-polynomial-v1.0",
+  "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+  "unit_name": "다항식",
+  "rule_count": 16,
+  "rules": [
+    {
+      "rule_id": "H1_CM1_POLY_RULE_001",
+      "name": "다항식 정리·동류항 취약",
+      "trigger": {
+        "error_tags_any": [
+          "like_terms",
+          "sign_error"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "항·계수·차수와 동류항 구분이 불안정해 식 정리 단계에서 오류가 납니다.",
+      "parent_message": "항을 차수별로 세로 정렬하고, 괄호 앞 부호 처리를 먼저 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C001",
+        "H1_CM1_POLY_C002"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_002",
+      "name": "전개·분배법칙 누락",
+      "trigger": {
+        "error_tags_any": [
+          "expansion"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "다항식 전개에서 곱해야 할 항 조합을 빠뜨리거나 전개 후 정리를 누락합니다.",
+      "parent_message": "항의 곱을 표로 체크하고 동류항 정리는 다음 줄에서 별도로 검산해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C003",
+        "H1_CM1_POLY_C004"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_003",
+      "name": "곱셈공식 선택 취약",
+      "trigger": {
+        "error_tags_any": [
+          "multiplication_formula",
+          "formula_selection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "식의 형태에 맞는 곱셈공식을 선택하지 못하거나 가운데 항·부호를 놓칩니다.",
+      "parent_message": "제곱식, 합차, 세제곱, 공통부분 치환 여부를 먼저 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C005",
+        "H1_CM1_POLY_C006",
+        "H1_CM1_POLY_C007"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_004",
+      "name": "공식 변형·식의 값 취약",
+      "trigger": {
+        "error_tags_any": [
+          "condition_interpretation",
+          "numeric_calculation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "조건식을 곱셈공식의 변형 형태로 바꾸지 못해 식의 값 계산이 흔들립니다.",
+      "parent_message": "주어진 조건을 제곱하거나 세제곱해 필요한 목표식을 만드는 과정을 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C007",
+        "H1_CM1_POLY_C008",
+        "H1_CM1_POLY_C009",
+        "H1_CM1_POLY_C010",
+        "H1_CM1_POLY_C015"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_005",
+      "name": "다항식 나눗셈 구조 취약",
+      "trigger": {
+        "error_tags_any": [
+          "polynomial_division",
+          "quotient_remainder"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "몫과 나머지, 나누는 식과 나누어지는 식을 구분하지 못합니다.",
+      "parent_message": "항상 A=BQ+R을 먼저 쓰고 나머지 차수 조건을 함께 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C011",
+        "H1_CM1_POLY_C012",
+        "H1_CM1_POLY_C013"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_006",
+      "name": "항등식 판별 취약",
+      "trigger": {
+        "error_tags_any": [
+          "identity"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "항등식과 방정식을 구분하지 못하고 모든 값에 대해 성립한다는 조건을 놓칩니다.",
+      "parent_message": "좌우변을 정리한 뒤 계수비교 또는 특수값 대입 중 어떤 방법을 쓸지 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C016",
+        "H1_CM1_POLY_C017",
+        "H1_CM1_POLY_C018"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_007",
+      "name": "여러 문자 항등식 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coefficient_comparison",
+          "substitution_method"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "여러 문자에 대한 항등식에서 어느 문자 기준으로 비교할지 정하지 못합니다.",
+      "parent_message": "문제에서 모든 값에 대해 성립하는 문자를 먼저 표시하고 그 문자 기준으로 계수를 비교해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C017",
+        "H1_CM1_POLY_C019",
+        "H1_CM1_POLY_C020"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_008",
+      "name": "나머지정리 대입값 오류",
+      "trigger": {
+        "error_tags_any": [
+          "remainder_theorem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "x-a 꼴의 대입값을 반대로 넣거나 f(ax+b)의 대입 변환을 놓칩니다.",
+      "parent_message": "나누는 식=0을 풀어 대입값을 먼저 적는 습관이 필요합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C022",
+        "H1_CM1_POLY_C023",
+        "H1_CM1_POLY_C026"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_009",
+      "name": "이차식 이상 나머지 차수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "remainder_theorem",
+          "quotient_remainder"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "이차식·삼차식으로 나눌 때 나머지의 차수를 잘못 잡습니다.",
+      "parent_message": "나머지의 차수는 나누는 식보다 낮다는 조건을 먼저 적어야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C024",
+        "H1_CM1_POLY_C025"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_010",
+      "name": "인수정리와 나머지정리 연결 취약",
+      "trigger": {
+        "error_tags_any": [
+          "factor_theorem",
+          "remainder_theorem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "나머지가 0인 경우가 인수 조건이라는 연결이 약합니다.",
+      "parent_message": "f(a)=0 ⇔ x-a가 인수 ⇔ x-a로 나누어떨어짐을 세 문장으로 연결해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C029",
+        "H1_CM1_POLY_C030"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_011",
+      "name": "조립제법 절차 취약",
+      "trigger": {
+        "error_tags_any": [
+          "synthetic_division"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "조립제법에서 빠진 차수의 0 계수를 쓰지 않거나 계산 순서를 틀립니다.",
+      "parent_message": "계수 배열에 빈 차수를 0으로 채우고 마지막 수가 나머지임을 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C031",
+        "H1_CM1_POLY_C032"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_012",
+      "name": "인수분해 공식 선택 취약",
+      "trigger": {
+        "error_tags_any": [
+          "factorization",
+          "formula_selection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "공통인수, 완전제곱식, 합차, 세제곱 공식 중 무엇을 써야 할지 판단이 느립니다.",
+      "parent_message": "먼저 공통인수를 묶고, 남은 식이 공식형인지 확인하는 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C033",
+        "H1_CM1_POLY_C034",
+        "H1_CM1_POLY_C035"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_013",
+      "name": "고차·대칭식 인수분해 취약",
+      "trigger": {
+        "error_tags_any": [
+          "factorization",
+          "perfect_square"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "고차식이나 대칭식에서 치환 기준을 잡지 못합니다.",
+      "parent_message": "x² 치환, 내림차순 정리, 계수 대칭 여부를 순서대로 점검해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C036",
+        "H1_CM1_POLY_C037",
+        "H1_CM1_POLY_C039"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_014",
+      "name": "인수정리 활용 인수분해 취약",
+      "trigger": {
+        "error_tags_any": [
+          "factor_theorem",
+          "synthetic_division",
+          "factorization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "고차식에서 후보 인수를 찾고 조립제법으로 낮추는 흐름이 불안정합니다.",
+      "parent_message": "상수항의 약수 후보를 대입해 인수를 찾고 조립제법 후 남은 식을 다시 인수분해해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C038",
+        "H1_CM1_POLY_C031"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_015",
+      "name": "새 연산·조건 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "new_operation",
+          "condition_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "새롭게 정의된 연산이나 조건식을 기존 다항식 연산으로 바꾸는 과정에서 오류가 납니다.",
+      "parent_message": "정의식을 원래 연산으로 먼저 풀어쓴 뒤 전개·항등식·인수분해 중 필요한 도구를 선택해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C048",
+        "H1_CM1_POLY_C041",
+        "H1_CM1_POLY_C040"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H1_CM1_POLY_RULE_016",
+      "name": "도형·활용 식 세우기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도형·수 계산·식의 값 활용에서 조건을 다항식으로 세우지 못합니다.",
+      "parent_message": "길이·넓이·부피 조건을 식으로 먼저 쓰고, 전개할지 인수분해할지 결정해야 합니다.",
+      "recommended_concept_ids": [
+        "H1_CM1_POLY_C014",
+        "H1_CM1_POLY_C042",
+        "H1_CM1_POLY_C043",
+        "H1_CM1_POLY_C044",
+        "H1_CM1_POLY_C045"
+      ],
+      "severity": "medium"
+    }
+  ]
+}
