@@ -1,0 +1,262 @@
+{
+  "version": "2026.07.07-m2-linear-inequality-v1.0",
+  "unit_id": "M2_LINEAR_INEQUALITY",
+  "unit_name": "일차부등식",
+  "remediation_count": 16,
+  "remediation": [
+    {
+      "concept_id": "M2_LI_C001",
+      "title": "부등식의 뜻과 부등호 읽기 보강",
+      "priority": 1,
+      "steps": [
+        "등식과 부등식 예시를 분류한다.",
+        ">, <, ≥, ≤의 읽는 말과 경계 포함 여부를 정리한다.",
+        "간단한 수 대입으로 참거짓을 확인한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT001",
+        "M2_LI_PT002"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C002",
+      "title": "문장 조건을 부등식으로 나타내기 보강",
+      "priority": 2,
+      "steps": [
+        "이상/이하/초과/미만을 표로 정리한다.",
+        "문장에서 기준량과 비교량을 밑줄 친다.",
+        "문장 5개를 부등식으로 바꿔 쓴다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT003",
+        "M2_LI_PT004",
+        "M2_LI_PT005"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C005",
+      "title": "부등식의 해 판단 보강",
+      "priority": 3,
+      "steps": [
+        "후보 값을 대입해 참거짓을 확인한다.",
+        "해가 하나가 아니라 범위라는 점을 수직선으로 표시한다.",
+        "해가 아닌 예도 함께 찾는다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT016",
+        "M2_LI_PT017",
+        "M2_LI_PT018"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C008",
+      "title": "음수 곱셈·나눗셈 방향 전환 보강",
+      "priority": 4,
+      "steps": [
+        "양수 배와 음수 배의 예시를 나란히 비교한다.",
+        "마지막 나누는 수의 부호에 표시를 남긴다.",
+        "풀이 마지막 줄에서 부등호 방향을 다시 확인한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT023",
+        "M2_LI_PT024",
+        "M2_LI_PT025"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C009",
+      "title": "식의 값 범위 보강",
+      "priority": 5,
+      "steps": [
+        "x의 최소/최대에서 식의 값이 어떻게 바뀌는지 표로 확인한다.",
+        "음수 배에서는 범위 방향이 바뀌는 이유를 수직선으로 확인한다.",
+        "두 식의 범위를 연결해 푼다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT028",
+        "M2_LI_PT029",
+        "M2_LI_PT030"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C013",
+      "title": "기본 일차부등식 풀이 보강",
+      "priority": 6,
+      "steps": [
+        "이항 전후 부호 변화를 색으로 표시한다.",
+        "동류항 정리 후 계수를 확인한다.",
+        "마지막에 나누는 수가 양수인지 음수인지 표시한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT039",
+        "M2_LI_PT040",
+        "M2_LI_PT041"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C014",
+      "title": "괄호 일차부등식 보강",
+      "priority": 7,
+      "steps": [
+        "괄호 앞 계수를 모든 항에 분배한다.",
+        "음수 분배가 있는 줄만 따로 검산한다.",
+        "괄호를 푼 뒤 기본 풀이 절차로 돌아간다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT044",
+        "M2_LI_PT045",
+        "M2_LI_PT046"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C015",
+      "title": "소수·분수 계수 보강",
+      "priority": 8,
+      "steps": [
+        "소수는 10, 100을 곱해 정수 계수로 바꾼다.",
+        "분수는 양의 공통분모를 곱해 정리한다.",
+        "분모 제거 후 원래 부등식에 대입해 검산한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT048",
+        "M2_LI_PT049",
+        "M2_LI_PT050"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C017",
+      "title": "수직선 표현 보강",
+      "priority": 9,
+      "steps": [
+        "경계값 포함 여부를 빈 원/찬 원으로 표시한다.",
+        "x가 작은 쪽인지 큰 쪽인지 화살표 방향을 정한다.",
+        "부등식 표현과 수직선 표현을 서로 변환한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT043",
+        "M2_LI_PT044"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C018",
+      "title": "주어진 해로 미지수 구하기 보강",
+      "priority": 10,
+      "steps": [
+        "해의 경계값을 등식으로 두는 이유를 확인한다.",
+        "수직선에서 경계와 방향을 식으로 바꾼다.",
+        "구한 미지수를 원래 부등식에 대입한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT055",
+        "M2_LI_PT056",
+        "M2_LI_PT057"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C021",
+      "title": "자연수·정수 해 개수 보강",
+      "priority": 11,
+      "steps": [
+        "자연수와 정수의 시작점을 구분한다.",
+        "열린 경계와 닫힌 경계를 따로 표시한다.",
+        "해 개수를 세는 표를 만든다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT066",
+        "M2_LI_PT067",
+        "M2_LI_PT068"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C023",
+      "title": "수 문제 활용 보강",
+      "priority": 12,
+      "steps": [
+        "구하려는 수를 x로 둔다.",
+        "연속하는 수는 x, x+1 또는 x, x+2로 표현한다.",
+        "문장의 비교 조건을 부등호로 옮긴다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT074",
+        "M2_LI_PT075",
+        "M2_LI_PT076"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C024",
+      "title": "평균 문제 보강",
+      "priority": 13,
+      "steps": [
+        "총합=평균×개수 식을 먼저 쓴다.",
+        "추가 기록이 들어간 뒤의 총합과 개수를 구분한다.",
+        "목표 평균 조건을 부등식으로 세운다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT080",
+        "M2_LI_PT081",
+        "M2_LI_PT082"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C026",
+      "title": "금액·비용 비교 보강",
+      "priority": 14,
+      "steps": [
+        "고정비와 사용량에 따른 비용을 분리한다.",
+        "할인율을 적용한 금액을 먼저 계산한다.",
+        "두 방법의 비용을 같은 기준에서 비교한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT088",
+        "M2_LI_PT089",
+        "M2_LI_PT090"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C031",
+      "title": "거리·속력·시간 문제 보강",
+      "priority": 15,
+      "steps": [
+        "거리=속력×시간 표를 먼저 만든다.",
+        "분과 시간을 단위 통일한다.",
+        "쉬는 시간과 왕복 조건을 따로 표시한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT104",
+        "M2_LI_PT105",
+        "M2_LI_PT106"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_LI_C032",
+      "title": "농도·일 문제 보강",
+      "priority": 16,
+      "steps": [
+        "소금의 양=소금물의 양×농도를 먼저 쓴다.",
+        "물 추가와 소금 추가가 전체량과 소금량에 미치는 영향을 구분한다.",
+        "일률은 시간당 처리량으로 바꿔 누적한다."
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LI_PT111",
+        "M2_LI_PT112",
+        "M2_LI_PT113"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

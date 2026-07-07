@@ -1,0 +1,2396 @@
+{
+  "version": "2026.07.07-m2-linear-inequality-v1.0",
+  "unit_id": "M2_LINEAR_INEQUALITY",
+  "unit_name": "일차부등식",
+  "raw_taxonomy": "data/raw_taxonomy/m2_linear_inequality.raw_taxonomy.v1.json",
+  "problem_type_count": 115,
+  "problem_types": [
+    {
+      "problem_type_id": "M2_LI_PT001",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식의 판단",
+      "description": "부등식의 뜻 범주의 '부등식의 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT002",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식과 등식 구분",
+      "description": "부등식의 뜻 범주의 '부등식과 등식 구분' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT003",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "문자의 연산 표현",
+      "description": "부등식으로 나타내기 범주의 '문자의 연산 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C002"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT004",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "수량 비교를 부등식으로 나타내기",
+      "description": "부등식으로 나타내기 범주의 '수량 비교를 부등식으로 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C002"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT005",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "기준량보다 크고 작은 관계",
+      "description": "부등식으로 나타내기 범주의 '기준량보다 크고 작은 관계' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C002"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT006",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "그림 조건의 부등식 표현",
+      "description": "부등식으로 나타내기 범주의 '그림 조건의 부등식 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT007",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "수직선 조건의 부등식 표현",
+      "description": "부등식으로 나타내기 범주의 '수직선 조건의 부등식 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT008",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "실생활 상황의 부등식 표현",
+      "description": "부등식으로 나타내기 범주의 '실생활 상황의 부등식 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C002",
+        "M2_LI_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "geometry_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT009",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "도형 조건의 부등식 표현",
+      "description": "부등식으로 나타내기 범주의 '도형 조건의 부등식 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C002",
+        "M2_LI_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "geometry_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT010",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "값 대입 후 참거짓 판단",
+      "description": "부등식의 참거짓 범주의 '값 대입 후 참거짓 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C004"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT011",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "해인지 아닌지 판단",
+      "description": "부등식의 참거짓 범주의 '해인지 아닌지 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C004"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_LI_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT012",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "x의 값이 주어진 경우",
+      "description": "부등식의 해 범주의 'x의 값이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C005"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT013",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "x의 값의 조건이 주어진 경우",
+      "description": "부등식의 해 범주의 'x의 값의 조건이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C005"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT014",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "x 이외 문자가 포함된 경우",
+      "description": "부등식의 해 범주의 'x 이외 문자가 포함된 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C005"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT015",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "주어진 수를 해로 가지는 부등식",
+      "description": "부등식의 해 범주의 '주어진 수를 해로 가지는 부등식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C005",
+        "M2_LI_C004"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT016",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식의 해 판단",
+      "description": "부등식의 해 범주의 '부등식의 해 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C005",
+        "M2_LI_C004"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT017",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "두 미지수의 대소 관계",
+      "description": "부등식의 기본 성질 범주의 '두 미지수의 대소 관계' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C006",
+        "M2_LI_C007",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT018",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "다항식 대소 관계",
+      "description": "부등식의 기본 성질 범주의 '다항식 대소 관계' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C006",
+        "M2_LI_C007",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT019",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등호 방향이 다른 부등식 찾기",
+      "description": "부등식의 기본 성질 범주의 '부등호 방향이 다른 부등식 찾기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C006",
+        "M2_LI_C007",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT020",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "대소 관계와 부등호 방향 - 조건을 만족시키는 값 구하기",
+      "description": "부등식의 기본 성질 범주의 '대소 관계와 부등호 방향 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C006",
+        "M2_LI_C007",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT021",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "두 미지수의 부호 조건",
+      "description": "부등식의 기본 성질 범주의 '두 미지수의 부호 조건' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C006",
+        "M2_LI_C007",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT022",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "세 미지수 조건",
+      "description": "부등식의 기본 성질 범주의 '세 미지수 조건' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C006",
+        "M2_LI_C007",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "raw_section_id": "M2_LI_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT023",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "x의 범위가 주어진 때 다항식의 값의 범위",
+      "description": "식의 값 범위 범주의 'x의 범위가 주어진 때 다항식의 값의 범위' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C009"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT024",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "다항식 값의 범위가 주어진 때 x의 범위",
+      "description": "식의 값 범위 범주의 '다항식 값의 범위가 주어진 때 x의 범위' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C009"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT025",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "다항식의 값의 범위로 다른 식의 값 범위 구하기",
+      "description": "식의 값 범위 범주의 '다항식의 값의 범위로 다른 식의 값 범위 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C009"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT026",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "한 문자 식의 값 범위 - 조건을 만족시키는 값 구하기",
+      "description": "식의 값 범위 범주의 '한 문자 식의 값 범위 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C009"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT027",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "다항식 값의 범위 구하기",
+      "description": "식의 값 범위 범주의 '다항식 값의 범위 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C010"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT028",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "식에 포함된 미지수의 범위 구하기",
+      "description": "식의 값 범위 범주의 '식에 포함된 미지수의 범위 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C010"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT029",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "일차부등식의 판단",
+      "description": "일차부등식의 뜻 범주의 '일차부등식의 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C011"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT030",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "일차부등식 조건",
+      "description": "일차부등식의 뜻 범주의 '일차부등식 조건' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C011"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT031",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "이차항을 포함하지 않는 경우",
+      "description": "일차부등식의 조건 범주의 '이차항을 포함하지 않는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C012"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT032",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "이차항을 포함하는 경우",
+      "description": "일차부등식의 조건 범주의 '이차항을 포함하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C012"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_LI_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT033",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "일차부등식 풀기",
+      "description": "일차부등식의 풀이 범주의 '일차부등식 풀기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C013"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_LI_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT034",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "일차부등식을 만족시키는 조건에 맞는 수",
+      "description": "일차부등식의 풀이 범주의 '일차부등식을 만족시키는 조건에 맞는 수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C013"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_LI_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT035",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "방정식을 이용한 일차부등식 풀이",
+      "description": "일차부등식의 풀이 범주의 '방정식을 이용한 일차부등식 풀이' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C013"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_LI_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT036",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식의 해를 수직선 위에 나타내기",
+      "description": "해의 표현 범주의 '부등식의 해를 수직선 위에 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C017"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "number_line_solution",
+        "solution_check"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_LI_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT037",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "빈 원과 찬 원 구분",
+      "description": "해의 표현 범주의 '빈 원과 찬 원 구분' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C017"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "number_line_solution",
+        "solution_check"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_LI_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT038",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "괄호가 있는 일차부등식 풀기",
+      "description": "괄호 풀이 범주의 '괄호가 있는 일차부등식 풀기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C014"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_LI_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT039",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "일차부등식을 만족시키는 조건에 맞는 수",
+      "description": "괄호 풀이 범주의 '일차부등식을 만족시키는 조건에 맞는 수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C014"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_LI_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT040",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "분배법칙 적용",
+      "description": "괄호 풀이 범주의 '분배법칙 적용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C014"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_LI_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT041",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "계수가 소수인 경우",
+      "description": "소수·분수 계수 범주의 '계수가 소수인 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C015",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_LI_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT042",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "계수가 분수인 경우",
+      "description": "소수·분수 계수 범주의 '계수가 분수인 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C015",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_LI_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT043",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "계수에 소수와 분수 모두 포함된 경우",
+      "description": "소수·분수 계수 범주의 '계수에 소수와 분수 모두 포함된 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C015",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_LI_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT044",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "계수가 소수 또는 분수인 일차부등식의 풀이 - 조건을 만족시키는 값 구하기",
+      "description": "소수·분수 계수 범주의 '계수가 소수 또는 분수인 일차부등식의 풀이 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C015",
+        "M2_LI_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_LI_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT045",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "문자의 범위 또는 조건이 주어진 경우",
+      "description": "문자 계수 범주의 '문자의 범위 또는 조건이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C016"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_LI_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT046",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "문자를 포함한 부등식이 주어진 경우",
+      "description": "문자 계수 범주의 '문자를 포함한 부등식이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C016"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_LI_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT047",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "문자가 2개 이상인 경우",
+      "description": "문자 계수 범주의 '문자가 2개 이상인 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C016"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_LI_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT048",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "x의 계수가 문자인 일차부등식의 풀이 - 조건을 만족시키는 값 구하기",
+      "description": "문자 계수 범주의 'x의 계수가 문자인 일차부등식의 풀이 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C016"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_direction"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_LI_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT049",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식의 해가 주어진 경우",
+      "description": "해 조건 역추론 범주의 '부등식의 해가 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C018"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_LI_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT050",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "수직선으로 주어진 경우",
+      "description": "해 조건 역추론 범주의 '수직선으로 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C018"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_LI_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT051",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "조건으로 주어진 경우",
+      "description": "해 조건 역추론 범주의 '조건으로 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C018"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_LI_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT052",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식의 해가 주어진 경우",
+      "description": "해 조건 역추론 범주의 '부등식의 해가 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C018",
+        "M2_LI_C016"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction",
+        "solution_check"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_LI_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT053",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "수직선으로 주어진 경우",
+      "description": "해 조건 역추론 범주의 '수직선으로 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C018",
+        "M2_LI_C016"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction",
+        "solution_check"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_LI_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT054",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "문자가 2개 이상인 경우",
+      "description": "해 조건 역추론 범주의 '문자가 2개 이상인 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C018",
+        "M2_LI_C016"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_direction",
+        "solution_check"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_LI_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT055",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "미지수 구하기",
+      "description": "해 조건 역추론 범주의 '미지수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C019"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_LI_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT056",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "해가 같은 부등식 고르기",
+      "description": "해 조건 역추론 범주의 '해가 같은 부등식 고르기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C019"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "solution_check"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_LI_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT057",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "미지수의 값 구하기",
+      "description": "해 조건 역추론 범주의 '미지수의 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C020"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT058",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "미지수의 값의 범위 구하기",
+      "description": "해 조건 역추론 범주의 '미지수의 값의 범위 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C020"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT059",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "문자가 2개 이상인 경우",
+      "description": "해 조건 역추론 범주의 '문자가 2개 이상인 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C020"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT060",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "해 중 최댓값 또는 최솟값이 주어진 일차부등식 - 조건을 만족시키는 값 구하기",
+      "description": "해 조건 역추론 범주의 '해 중 최댓값 또는 최솟값이 주어진 일차부등식 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT061",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "자연수인 해가 존재하지 않는 일차부등식",
+      "description": "자연수 해 범주의 '자연수인 해가 존재하지 않는 일차부등식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C021"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT062",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "경계 포함 여부 판단",
+      "description": "자연수 해 범주의 '경계 포함 여부 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C021"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT063",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "미지수의 범위 구하기",
+      "description": "자연수 해 범주의 '미지수의 범위 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C021"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT064",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "조건을 만족시키는 미지수 구하기",
+      "description": "자연수 해 범주의 '조건을 만족시키는 미지수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C021"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT065",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "자연수인 해의 개수가 주어진 일차부등식 - 조건을 만족시키는 값 구하기",
+      "description": "자연수 해 범주의 '자연수인 해의 개수가 주어진 일차부등식 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C021"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "integer_solution_count",
+        "solution_check"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT066",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "절댓값을 이용한 경우",
+      "description": "기호 풀이 범주의 '절댓값을 이용한 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C022"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT067",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "연산을 정의한 경우",
+      "description": "기호 풀이 범주의 '연산을 정의한 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C022"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT068",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "가우스 기호를 이용한 경우",
+      "description": "기호 풀이 범주의 '가우스 기호를 이용한 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C022"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "linear_inequality"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_LI_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT069",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "계산한 수를 주어진 수와 비교",
+      "description": "수에 대한 문제 범주의 '계산한 수를 주어진 수와 비교' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C023"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT070",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "서로 다르게 계산한 두 수 비교",
+      "description": "수에 대한 문제 범주의 '서로 다르게 계산한 두 수 비교' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C023"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT071",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "주사위를 던져 나온 수",
+      "description": "수에 대한 문제 범주의 '주사위를 던져 나온 수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C023"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT072",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "한 수에 대한 문제 - 조건을 만족시키는 값 구하기",
+      "description": "수에 대한 문제 범주의 '한 수에 대한 문제 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT073",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "연속하는 두 수",
+      "description": "수에 대한 문제 범주의 '연속하는 두 수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C023"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT074",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "연속하는 세 수",
+      "description": "수에 대한 문제 범주의 '연속하는 세 수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C023"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT075",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "목표 평균을 위한 n번째 기록 구하기",
+      "description": "평균 문제 범주의 '목표 평균을 위한 n번째 기록 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C024"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "average_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT076",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "이전 평균이 주어진 경우",
+      "description": "평균 문제 범주의 '이전 평균이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C024"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "average_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT077",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "두 집단의 비교",
+      "description": "평균 문제 범주의 '두 집단의 비교' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C024"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "average_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_LI_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT078",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식 세우기",
+      "description": "개수 문제 범주의 '부등식 세우기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C025"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling",
+        "money_application"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT079",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식 풀이",
+      "description": "개수 문제 범주의 '부등식 풀이' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C025"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling",
+        "money_application"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT080",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식 세우기",
+      "description": "개수 문제 범주의 '부등식 세우기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C025"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT081",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식 풀이",
+      "description": "개수 문제 범주의 '부등식 풀이' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C025"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT082",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "총 개수가 고정 - 조건을 만족시키는 값 구하기",
+      "description": "개수 문제 범주의 '총 개수가 고정 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C025"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT083",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "총 개수가 고정 - 옳고 그름 판단",
+      "description": "개수 문제 범주의 '총 개수가 고정 - 옳고 그름 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C025"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT084",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "기본 금액이 포함된 비용 문제",
+      "description": "비용 문제 범주의 '기본 금액이 포함된 비용 문제' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C025",
+        "M2_LI_C026"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling",
+        "money_application"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT085",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "고정비와 변동비",
+      "description": "비용 문제 범주의 '고정비와 변동비' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C025",
+        "M2_LI_C026"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling",
+        "money_application"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT086",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "목표 금액에 대한 문제",
+      "description": "금액 비교 범주의 '목표 금액에 대한 문제' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C026"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling",
+        "money_application"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT087",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "두 금액의 비교",
+      "description": "금액 비교 범주의 '두 금액의 비교' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C026"
+      ],
+      "default_difficulty": "intermediate",
+      "error_tags": [
+        "inequality_modeling",
+        "money_application"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_LI_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT088",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식을 이용한 유리한 방법 판단",
+      "description": "선택 비교 범주의 '부등식을 이용한 유리한 방법 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C027",
+        "M2_LI_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT089",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "할인율 포함 판단",
+      "description": "선택 비교 범주의 '할인율 포함 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C027",
+        "M2_LI_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT090",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "두 상품 비교",
+      "description": "선택 비교 범주의 '두 상품 비교' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C027",
+        "M2_LI_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT091",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "유리한 방법 선택 문제 - 조건을 만족시키는 값 구하기",
+      "description": "선택 비교 범주의 '유리한 방법 선택 문제 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C027",
+        "M2_LI_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT092",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식을 이용한 정가·원가",
+      "description": "정가와 원가 범주의 '부등식을 이용한 정가·원가' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C028"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling",
+        "money_application"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT093",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "할인을 하는 경우",
+      "description": "정가와 원가 범주의 '할인을 하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C028"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling",
+        "money_application"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT094",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "삼각형의 높이 또는 밑변의 길이",
+      "description": "도형 문제 범주의 '삼각형의 높이 또는 밑변의 길이' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT095",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "직사각형의 가로와 세로, 둘레",
+      "description": "도형 문제 범주의 '직사각형의 가로와 세로, 둘레' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT096",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "사다리꼴의 윗변과 아랫변, 넓이",
+      "description": "도형 문제 범주의 '사다리꼴의 윗변과 아랫변, 넓이' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT097",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "입체도형",
+      "description": "도형 문제 범주의 '입체도형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_application",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_LI_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT098",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "여러 사람의 나이 비교",
+      "description": "종합 활용 범주의 '여러 사람의 나이 비교' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT099",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "합과 차가 주어진 두 수의 부등식",
+      "description": "종합 활용 범주의 '합과 차가 주어진 두 수의 부등식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT100",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "숫자의 각 자릿수 이용",
+      "description": "종합 활용 범주의 '숫자의 각 자릿수 이용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT101",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "실생활 활용",
+      "description": "종합 활용 범주의 '실생활 활용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT102",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식 세우기",
+      "description": "거리 속력 시간 범주의 '부등식 세우기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_speed_time",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT103",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식 풀이",
+      "description": "거리 속력 시간 범주의 '부등식 풀이' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_speed_time",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT104",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "부등식 세우기",
+      "description": "거리 속력 시간 범주의 '부등식 세우기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_speed_time",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT105",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "최대 거리 구하기",
+      "description": "거리 속력 시간 범주의 '최대 거리 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_speed_time",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT106",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "추가 소요 시간이 있는 경우",
+      "description": "거리 속력 시간 범주의 '추가 소요 시간이 있는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_speed_time",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT107",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "강을 이동하는 경우",
+      "description": "거리 속력 시간 범주의 '강을 이동하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_speed_time",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_LI_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT108",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "같은 지점에서 출발하는 경우",
+      "description": "거리 속력 시간 범주의 '같은 지점에서 출발하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_speed_time",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_LI_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT109",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "다른 지점에서 마주보는 경우",
+      "description": "거리 속력 시간 범주의 '다른 지점에서 마주보는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_speed_time",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_LI_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT110",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "두 소금물을 섞는 경우",
+      "description": "농도 문제 범주의 '두 소금물을 섞는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C032"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "concentration",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_LI_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT111",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "소금물에 물을 넣거나 증발시키는 경우",
+      "description": "농도 문제 범주의 '소금물에 물을 넣거나 증발시키는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C032"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "concentration",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_LI_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT112",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "소금물에 소금을 추가하는 경우",
+      "description": "농도 문제 범주의 '소금물에 소금을 추가하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C032"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "concentration",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_LI_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT113",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "농도에 대한 문제 - 조건을 만족시키는 값 구하기",
+      "description": "농도 문제 범주의 '농도에 대한 문제 - 조건을 만족시키는 값 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C032"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "concentration",
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_LI_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT114",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "물을 채우는 경우",
+      "description": "일·물채우기 범주의 '물을 채우는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_LI_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_LI_PT115",
+      "grade": "중2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "type_name": "물을 비우는 경우",
+      "description": "일·물채우기 범주의 '물을 비우는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_LI_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality_modeling"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_LI_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    }
+  ]
+}

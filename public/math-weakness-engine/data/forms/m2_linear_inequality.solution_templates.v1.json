@@ -1,0 +1,123 @@
+{
+  "version": "2026.07.07-m2-linear-inequality-v1.0",
+  "unit_id": "M2_LINEAR_INEQUALITY",
+  "unit_name": "일차부등식",
+  "templates": [
+    {
+      "template_id": "M2_LI_FORM_BASIC_SOLVE",
+      "name": "일차부등식 기본 풀이 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LI_C013",
+        "M2_LI_C014",
+        "M2_LI_C015"
+      ],
+      "required_fields": [
+        "원래 부등식",
+        "괄호/분모 정리",
+        "이항 과정",
+        "동류항 정리",
+        "계수 나누기",
+        "부등호 방향 확인",
+        "최종 해"
+      ],
+      "reject_if_missing": [
+        "부등호 방향 확인",
+        "최종 해"
+      ]
+    },
+    {
+      "template_id": "M2_LI_FORM_NUMBER_LINE",
+      "name": "수직선 해 표현 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LI_C017",
+        "M2_LI_C018",
+        "M2_LI_C020"
+      ],
+      "required_fields": [
+        "경계값",
+        "포함 여부",
+        "빈 원/찬 원",
+        "화살표 방향",
+        "부등식 표현"
+      ],
+      "reject_if_missing": [
+        "포함 여부",
+        "화살표 방향"
+      ]
+    },
+    {
+      "template_id": "M2_LI_FORM_PROPERTY_RANGE",
+      "name": "부등식 성질과 범위 추론 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LI_C006",
+        "M2_LI_C007",
+        "M2_LI_C008",
+        "M2_LI_C009",
+        "M2_LI_C010"
+      ],
+      "required_fields": [
+        "주어진 범위",
+        "양변에 적용한 연산",
+        "연산 수의 부호",
+        "부등호 방향 변화 여부",
+        "결과 범위"
+      ],
+      "reject_if_missing": [
+        "연산 수의 부호",
+        "부등호 방향 변화 여부"
+      ]
+    },
+    {
+      "template_id": "M2_LI_FORM_APPLICATION",
+      "name": "활용 문제 모델링 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LI_C023",
+        "M2_LI_C024",
+        "M2_LI_C025",
+        "M2_LI_C026",
+        "M2_LI_C027",
+        "M2_LI_C028",
+        "M2_LI_C029",
+        "M2_LI_C030",
+        "M2_LI_C031",
+        "M2_LI_C032",
+        "M2_LI_C033"
+      ],
+      "required_fields": [
+        "미지수 설정",
+        "조건 정리",
+        "부등식 세우기",
+        "풀이 과정",
+        "문제 조건 검산",
+        "단위가 포함된 답"
+      ],
+      "reject_if_missing": [
+        "미지수 설정",
+        "부등식 세우기",
+        "문제 조건 검산"
+      ]
+    },
+    {
+      "template_id": "M2_LI_FORM_INTEGER_CONDITION",
+      "name": "자연수·정수 해 조건 검수 양식",
+      "applies_to_concept_ids": [
+        "M2_LI_C020",
+        "M2_LI_C021",
+        "M2_LI_C034"
+      ],
+      "required_fields": [
+        "해의 범위",
+        "정수/자연수 조건",
+        "경계 포함 여부",
+        "가능한 해 나열",
+        "해의 개수",
+        "최종 조건"
+      ],
+      "reject_if_missing": [
+        "정수/자연수 조건",
+        "경계 포함 여부",
+        "가능한 해 나열"
+      ]
+    }
+  ]
+}

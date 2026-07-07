@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.07-m2-linear-equation-merged-v1.0",
-  "concept_count": 547,
+  "version": "2026.07.07-cumulative-through-m2-linear-inequality",
+  "concept_count": 581,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -15073,6 +15073,938 @@
       ],
       "source_orders": [
         17
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C001",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식 기초",
+      "sub_strand": "부등식의 뜻",
+      "concept_name": "부등식의 뜻과 부등호 읽기",
+      "description": "부등호가 들어간 식을 등식과 구분하고 크기 관계를 읽는다.",
+      "diagnostic_signals": [
+        "부등호 방향을 반대로 읽음",
+        "등호 포함 여부를 놓침",
+        "식을 모두 방정식처럼 처리"
+      ],
+      "remediation_keywords": [
+        "부등식의 뜻",
+        "부등식의",
+        "부등호 방향"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C002",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식 기초",
+      "sub_strand": "부등식으로 나타내기",
+      "concept_name": "문장 조건을 부등식으로 나타내기",
+      "description": "문장에 있는 이상, 이하, 초과, 미만, 크다, 작다를 부등식으로 번역한다.",
+      "diagnostic_signals": [
+        "이상/초과, 이하/미만을 혼동",
+        "기준량과 비교량의 위치를 반대로 둠"
+      ],
+      "remediation_keywords": [
+        "부등식으로 나타내기",
+        "문장",
+        "조건 해석"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C003",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식 기초",
+      "sub_strand": "시각 자료의 부등식 표현",
+      "concept_name": "그림과 수직선 조건의 부등식 표현",
+      "description": "수직선, 그림, 도형 조건을 부등식으로 나타낸다.",
+      "diagnostic_signals": [
+        "빈 원/찬 원을 반대로 표시",
+        "방향 화살표 해석 오류",
+        "그림 조건을 식으로 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "시각 자료의 부등식 표현",
+        "그림과",
+        "조건 해석"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C004",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식 기초",
+      "sub_strand": "참거짓 판단",
+      "concept_name": "부등식의 참·거짓 판단",
+      "description": "값을 대입하여 부등식이 참인지 거짓인지 판단한다.",
+      "diagnostic_signals": [
+        "대입 후 계산 오류",
+        "부등호 방향 확인 누락",
+        "문자 값 범위가 아니라 단일값만 확인"
+      ],
+      "remediation_keywords": [
+        "참거짓 판단",
+        "부등식의",
+        "조건 해석"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C005",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식 기초",
+      "sub_strand": "해의 의미",
+      "concept_name": "조건을 만족시키는 부등식의 해 구하기",
+      "description": "주어진 값 또는 조건이 부등식의 해가 되는지 판단하고 해를 구한다.",
+      "diagnostic_signals": [
+        "해를 등호 하나의 값으로만 생각",
+        "문자 외의 항 포함 시 판단 오류",
+        "방정식 풀이와 혼동"
+      ],
+      "remediation_keywords": [
+        "해의 의미",
+        "조건을",
+        "조건 해석"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C006",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식의 성질",
+      "sub_strand": "덧셈과 뺄셈",
+      "concept_name": "부등식의 덧셈·뺄셈 성질",
+      "description": "양변에 같은 수나 식을 더하거나 빼도 부등호 방향이 유지됨을 이용한다.",
+      "diagnostic_signals": [
+        "한쪽에만 수를 더함",
+        "이항과 성질 적용을 혼동",
+        "대소 관계 변화 여부 확인 누락"
+      ],
+      "remediation_keywords": [
+        "덧셈과 뺄셈",
+        "부등식의",
+        "부등호 방향"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C007",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식의 성질",
+      "sub_strand": "양수 곱셈과 나눗셈",
+      "concept_name": "양수 곱셈·나눗셈 성질",
+      "description": "양변에 양수를 곱하거나 나누면 부등호 방향이 유지됨을 적용한다.",
+      "diagnostic_signals": [
+        "부호와 무관하게 항상 방향을 바꿈",
+        "계수 나누기 과정 누락"
+      ],
+      "remediation_keywords": [
+        "양수 곱셈과 나눗셈",
+        "양수",
+        "부등호 방향"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C008",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식의 성질",
+      "sub_strand": "음수 곱셈과 나눗셈",
+      "concept_name": "음수 곱셈·나눗셈과 부등호 방향 전환",
+      "description": "양변에 음수를 곱하거나 나눌 때 부등호 방향이 바뀌는 이유와 절차를 적용한다.",
+      "diagnostic_signals": [
+        "음수로 나눈 뒤 부등호 방향을 바꾸지 않음",
+        "음수 계수만 보고 불필요하게 방향을 바꿈",
+        "분수 음수 계수 처리 오류"
+      ],
+      "remediation_keywords": [
+        "음수 곱셈과 나눗셈",
+        "음수",
+        "부등호 방향"
+      ],
+      "source_orders": [
+        2,
+        3,
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C009",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식의 성질",
+      "sub_strand": "식의 값 범위",
+      "concept_name": "한 문자 식의 값 범위 구하기",
+      "description": "문자 범위가 주어졌을 때 한 문자식의 값 범위를 구한다.",
+      "diagnostic_signals": [
+        "최솟값/최댓값 위치 판단 오류",
+        "음수 배에서 방향 전환 누락",
+        "대입 순서 오류"
+      ],
+      "remediation_keywords": [
+        "식의 값 범위",
+        "한",
+        "조건 해석"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C010",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "부등식의 성질",
+      "sub_strand": "두 문자 범위",
+      "concept_name": "두 문자 식의 값 범위 구하기",
+      "description": "두 문자 각각의 범위를 이용해 합, 차, 배수식의 범위를 구한다.",
+      "diagnostic_signals": [
+        "범위 끝값 조합 오류",
+        "빼기에서 최소/최대 반대로 선택",
+        "문자별 독립 조건을 섞음"
+      ],
+      "remediation_keywords": [
+        "두 문자 범위",
+        "두",
+        "조건 해석"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C011",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식",
+      "sub_strand": "일차부등식의 뜻",
+      "concept_name": "일차부등식의 판단",
+      "description": "이차항 포함 여부와 정리 후 차수를 확인하여 일차부등식인지 판단한다.",
+      "diagnostic_signals": [
+        "정리 전 모양만 보고 판단",
+        "이차항 소거 여부 확인 누락",
+        "등식과 부등식 혼동"
+      ],
+      "remediation_keywords": [
+        "일차부등식의 뜻",
+        "일차부등식의",
+        "조건 해석"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C012",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식",
+      "sub_strand": "조건 판단",
+      "concept_name": "일차부등식이 되기 위한 조건 찾기",
+      "description": "문자 계수나 매개변수 조건을 통해 일차부등식이 되는 조건을 찾는다.",
+      "diagnostic_signals": [
+        "계수가 0이 되는 경우 누락",
+        "이차항 포함 조건 확인 부족",
+        "부등호와 등호 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "조건 판단",
+        "일차부등식이",
+        "조건 해석"
+      ],
+      "source_orders": [
+        4,
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C013",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 풀이",
+      "sub_strand": "기본 풀이",
+      "concept_name": "기본 일차부등식 풀이",
+      "description": "이항, 동류항 정리, 계수 나누기를 통해 일차부등식을 푼다.",
+      "diagnostic_signals": [
+        "이항 부호 오류",
+        "동류항 정리 오류",
+        "마지막 계수 나누기에서 부등호 처리 오류"
+      ],
+      "remediation_keywords": [
+        "기본 풀이",
+        "기본",
+        "조건 해석"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C014",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 풀이",
+      "sub_strand": "괄호 처리",
+      "concept_name": "괄호가 있는 일차부등식 풀이",
+      "description": "분배법칙으로 괄호를 풀고 일차부등식을 해결한다.",
+      "diagnostic_signals": [
+        "음수 분배 오류",
+        "괄호 밖 계수 누락",
+        "괄호 정리 후 이항 오류"
+      ],
+      "remediation_keywords": [
+        "괄호 처리",
+        "괄호가",
+        "조건 해석"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C015",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 풀이",
+      "sub_strand": "분수와 소수 계수",
+      "concept_name": "소수·분수 계수 일차부등식 풀이",
+      "description": "소수와 분수 계수를 정수 계수로 바꾸거나 통분하여 부등식을 푼다.",
+      "diagnostic_signals": [
+        "분모 제거 시 음수 여부 확인 누락",
+        "소수 자리수 확대 오류",
+        "공통분모를 한쪽에만 곱함"
+      ],
+      "remediation_keywords": [
+        "분수와 소수 계수",
+        "소수·분수",
+        "조건 해석"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C016",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 풀이",
+      "sub_strand": "문자 계수 조건",
+      "concept_name": "문자 계수가 있는 일차부등식 풀이",
+      "description": "x의 계수에 문자가 포함될 때 계수의 부호와 0 여부를 나누어 해석한다.",
+      "diagnostic_signals": [
+        "문자 계수의 부호 조건 누락",
+        "0으로 나누는 경우 배제 실패",
+        "경우 나누기 없이 결론 작성"
+      ],
+      "remediation_keywords": [
+        "문자 계수 조건",
+        "문자",
+        "조건 해석"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C017",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "해의 표현",
+      "sub_strand": "수직선 표현",
+      "concept_name": "부등식의 해를 수직선에 나타내기",
+      "description": "부등식의 해를 수직선의 방향, 빈 원, 찬 원으로 나타낸다.",
+      "diagnostic_signals": [
+        "이상/이하 표시 오류",
+        "방향 화살표 반대",
+        "해 집합과 경계값을 분리하지 못함"
+      ],
+      "remediation_keywords": [
+        "수직선 표현",
+        "부등식의",
+        "조건 해석"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C018",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "해 조건 역추론",
+      "sub_strand": "미지수 역추론",
+      "concept_name": "주어진 해로 미지수 구하기",
+      "description": "부등식의 해가 주어졌을 때 상수나 문자의 값을 역으로 구한다.",
+      "diagnostic_signals": [
+        "해 경계값을 등식화하지 못함",
+        "수직선 조건을 식으로 바꾸지 못함",
+        "상수항 이동 오류"
+      ],
+      "remediation_keywords": [
+        "미지수 역추론",
+        "주어진",
+        "조건 해석"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C019",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "해 조건 역추론",
+      "sub_strand": "해 집합 비교",
+      "concept_name": "해가 같은 두 일차부등식 비교",
+      "description": "두 부등식의 해가 같다는 조건을 이용해 미지수를 찾거나 알맞은 부등식을 고른다.",
+      "diagnostic_signals": [
+        "해 집합의 경계만 비교하고 방향을 확인하지 않음",
+        "부등호 종류 차이 누락"
+      ],
+      "remediation_keywords": [
+        "해 집합 비교",
+        "해가",
+        "조건 해석"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C020",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "해 조건 역추론",
+      "sub_strand": "최대최소 조건",
+      "concept_name": "최댓값·최솟값이 주어진 일차부등식",
+      "description": "해 중 최댓값 또는 최솟값 조건을 이용해 미지수 범위와 값을 구한다.",
+      "diagnostic_signals": [
+        "정수 조건 여부 확인 누락",
+        "최대/최소와 경계값 혼동",
+        "열린 경계와 닫힌 경계 혼동"
+      ],
+      "remediation_keywords": [
+        "최대최소 조건",
+        "최댓값·최솟값이",
+        "조건 해석"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C021",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "해 조건 역추론",
+      "sub_strand": "자연수 해",
+      "concept_name": "자연수·정수 해의 존재와 개수",
+      "description": "자연수 또는 정수 해가 존재하지 않거나 개수가 정해진 조건을 해석한다.",
+      "diagnostic_signals": [
+        "자연수에 0 포함",
+        "정수 해 개수 세기 오류",
+        "부등호 경계 포함 여부 누락"
+      ],
+      "remediation_keywords": [
+        "자연수 해",
+        "자연수·정수",
+        "조건 해석"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C022",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "기호 포함 부등식",
+      "sub_strand": "절댓값과 정의된 연산",
+      "concept_name": "절댓값·기호가 있는 일차부등식 풀이",
+      "description": "절댓값, 정의된 연산, 가우스 기호가 들어간 부등식의 의미를 먼저 해석한 뒤 푼다.",
+      "diagnostic_signals": [
+        "기호 정의를 읽지 않고 계산",
+        "절댓값 안의 부호 경우 누락",
+        "가우스 기호 의미 혼동"
+      ],
+      "remediation_keywords": [
+        "절댓값과 정의된 연산",
+        "절댓값·기호가",
+        "조건 해석"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C023",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "수 문제",
+      "concept_name": "한 수와 연속하는 수의 활용",
+      "description": "한 수, 계산 결과, 연속하는 두 수·세 수 조건을 부등식으로 세운다.",
+      "diagnostic_signals": [
+        "구하려는 수 설정 오류",
+        "연속하는 수 표현 오류",
+        "비교 조건 부등호 반대"
+      ],
+      "remediation_keywords": [
+        "수 문제",
+        "한",
+        "조건 해석"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C024",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "평균 문제",
+      "concept_name": "평균에 대한 일차부등식 활용",
+      "description": "목표 평균, 이전 평균, 추가 점수 조건을 부등식으로 나타내고 해결한다.",
+      "diagnostic_signals": [
+        "평균 식의 분모 설정 오류",
+        "n번째 값과 총합 혼동",
+        "목표 평균 조건 부등호 반대"
+      ],
+      "remediation_keywords": [
+        "평균 문제",
+        "평균에",
+        "조건 해석"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C025",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "개수와 비용",
+      "concept_name": "개수와 비용에 대한 일차부등식 활용",
+      "description": "개수 증가, 총 개수 고정, 기본 금액 포함 비용 조건을 부등식으로 세운다.",
+      "diagnostic_signals": [
+        "개수와 금액의 단위 혼동",
+        "고정비와 변동비 구분 실패",
+        "총 개수 조건 누락"
+      ],
+      "remediation_keywords": [
+        "개수와 비용",
+        "개수와",
+        "조건 해석"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C026",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "금액 비교",
+      "concept_name": "예금액·요금·할인 비교 문제",
+      "description": "예금 목표, 두 금액 비교, 할인율과 요금제를 부등식으로 비교한다.",
+      "diagnostic_signals": [
+        "할인 후 금액 계산 오류",
+        "무제한 조건 해석 오류",
+        "두 상품의 기준 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "금액 비교",
+        "예금액·요금·할인",
+        "조건 해석"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C027",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "선택 비교",
+      "concept_name": "유리한 방법 선택 문제",
+      "description": "두 상품, 두 방법, 두 요금제 중 유리한 조건을 부등식으로 판단한다.",
+      "diagnostic_signals": [
+        "비교 방향을 반대로 세움",
+        "기본 요금 포함 여부 누락",
+        "할인율 적용 전후 혼동"
+      ],
+      "remediation_keywords": [
+        "선택 비교",
+        "유리한",
+        "조건 해석"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C028",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "정가와 원가",
+      "concept_name": "정가·원가·할인에 대한 문제",
+      "description": "정가, 원가, 할인, 이익 조건을 부등식으로 표현한다.",
+      "diagnostic_signals": [
+        "원가와 정가의 기준 혼동",
+        "할인율과 이익률 적용 대상 오류",
+        "이익 조건 부등호 반대"
+      ],
+      "remediation_keywords": [
+        "정가와 원가",
+        "정가·원가·할인에",
+        "조건 해석"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C029",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "도형 문제",
+      "concept_name": "도형에 대한 일차부등식 활용",
+      "description": "삼각형, 직사각형, 사다리꼴, 입체도형 등의 길이·둘레·넓이 조건을 부등식으로 세운다.",
+      "diagnostic_signals": [
+        "도형 공식 선택 오류",
+        "변의 길이 조건 누락",
+        "둘레와 넓이 혼동"
+      ],
+      "remediation_keywords": [
+        "도형 문제",
+        "도형에",
+        "조건 해석"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C030",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "종합 활용",
+      "concept_name": "여러 가지 일차부등식 활용",
+      "description": "나이, 합과 차, 자릿수, 실생활 조건 등 복합 문장을 부등식으로 모델링한다.",
+      "diagnostic_signals": [
+        "문장이 긴 문제에서 조건 누락",
+        "미지수 설정이 문제 요구와 다름",
+        "두 조건을 하나만 사용"
+      ],
+      "remediation_keywords": [
+        "종합 활용",
+        "여러",
+        "조건 해석"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C031",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "거리 속력 시간",
+      "concept_name": "거리·속력·시간에 대한 문제",
+      "description": "거리=속력×시간 관계를 이용하여 도중 속력 변화, 왕복, 반대 방향 출발 문제를 해결한다.",
+      "diagnostic_signals": [
+        "단위 환산 누락",
+        "쉬는 시간·추가 시간 반영 오류",
+        "출발 방향 해석 오류"
+      ],
+      "remediation_keywords": [
+        "거리 속력 시간",
+        "거리·속력·시간에",
+        "조건 해석"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C032",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "농도",
+      "concept_name": "농도에 대한 문제",
+      "description": "소금물의 양, 소금의 양, 농도 관계를 부등식으로 나타낸다.",
+      "diagnostic_signals": [
+        "농도 식을 소금의 양 식으로 바꾸지 못함",
+        "물 추가와 소금 추가 효과 혼동",
+        "혼합 후 전체량 누락"
+      ],
+      "remediation_keywords": [
+        "농도",
+        "농도에",
+        "조건 해석"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C033",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "일차부등식 활용",
+      "sub_strand": "일률과 물탱크",
+      "concept_name": "일과 물 채우기 문제",
+      "description": "일의 양 또는 물의 양을 시간당 변화량으로 나타내어 부등식을 세운다.",
+      "diagnostic_signals": [
+        "채우기/비우기 방향 혼동",
+        "시간당 양을 전체량으로 오해",
+        "동시에 작용하는 비율 계산 오류"
+      ],
+      "remediation_keywords": [
+        "일률과 물탱크",
+        "일과",
+        "조건 해석"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_LI_C034",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "unit_name": "일차부등식",
+      "strand": "풀이 검수",
+      "sub_strand": "검산과 답 표현",
+      "concept_name": "부등식 풀이 검산과 해석",
+      "description": "구한 해를 원래 부등식 또는 문장 조건에 대입하여 타당성을 확인하고 답의 형식을 정리한다.",
+      "diagnostic_signals": [
+        "해만 쓰고 조건 검산 없음",
+        "자연수/정수 조건 적용 누락",
+        "단위와 답 문장 누락"
+      ],
+      "remediation_keywords": [
+        "검산과 답 표현",
+        "부등식",
+        "조건 해석"
+      ],
+      "source_orders": [
+        5,
+        9,
+        10,
+        11,
+        12,
+        13
       ],
       "mastery_level": "application",
       "prerequisite_depth": 2,

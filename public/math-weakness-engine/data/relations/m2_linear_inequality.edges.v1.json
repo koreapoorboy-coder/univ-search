@@ -1,0 +1,528 @@
+{
+  "version": "2026.07.07-m2-linear-inequality-v1.0",
+  "unit_id": "M2_LINEAR_INEQUALITY",
+  "unit_name": "일차부등식",
+  "edge_count": 52,
+  "edges": [
+    {
+      "edge_id": "M2_LI_E001",
+      "from_concept_id": "M1_IR_C005",
+      "to_concept_id": "M2_LI_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "정수와 유리수의 대소 관계 이해가 부등식 참거짓 판단의 기초가 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E002",
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "M2_LI_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "수직선 위 수의 크기 비교가 부등식의 성질 이해로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E003",
+      "from_concept_id": "M1_IR_C009",
+      "to_concept_id": "M2_LI_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "음수 계산과 부호 처리 이해가 음수 곱셈·나눗셈 시 부등호 방향 전환에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E004",
+      "from_concept_id": "M1_EXPR_C001",
+      "to_concept_id": "M2_LI_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "문자를 사용한 식 표현 능력이 문장 조건을 부등식으로 바꾸는 데 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E005",
+      "from_concept_id": "M1_EXPR_C006",
+      "to_concept_id": "M2_LI_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "동류항 정리와 이항 처리 능력이 일차부등식 풀이의 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E006",
+      "from_concept_id": "M1_EXPR_C008",
+      "to_concept_id": "M2_LI_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "분배법칙과 괄호 처리가 괄호가 있는 일차부등식 풀이에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E007",
+      "from_concept_id": "M2_NE_C025",
+      "to_concept_id": "M2_LI_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "분수와 소수 계산 안정성이 계수가 소수·분수인 일차부등식 풀이로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E008",
+      "from_concept_id": "M2_LE_C013",
+      "to_concept_id": "M2_LI_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "일차방정식의 이항·정리 절차가 일차부등식 풀이에도 활용된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E009",
+      "from_concept_id": "M2_LE_C030",
+      "to_concept_id": "M2_LI_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.74,
+      "reason": "방정식 활용에서의 미지수 설정 경험이 부등식 활용의 모델링 기반이 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E010",
+      "from_concept_id": "M2_LI_C001",
+      "to_concept_id": "M2_LI_C002",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C001에서 익힌 판단 절차가 C002 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E011",
+      "from_concept_id": "M2_LI_C001",
+      "to_concept_id": "M2_LI_C004",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C001에서 익힌 판단 절차가 C004 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E012",
+      "from_concept_id": "M2_LI_C002",
+      "to_concept_id": "M2_LI_C005",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C002에서 익힌 판단 절차가 C005 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E013",
+      "from_concept_id": "M2_LI_C003",
+      "to_concept_id": "M2_LI_C017",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C003에서 익힌 판단 절차가 C017 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E014",
+      "from_concept_id": "M2_LI_C004",
+      "to_concept_id": "M2_LI_C005",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C004에서 익힌 판단 절차가 C005 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E015",
+      "from_concept_id": "M2_LI_C006",
+      "to_concept_id": "M2_LI_C007",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C006에서 익힌 판단 절차가 C007 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E016",
+      "from_concept_id": "M2_LI_C007",
+      "to_concept_id": "M2_LI_C008",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C007에서 익힌 판단 절차가 C008 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E017",
+      "from_concept_id": "M2_LI_C006",
+      "to_concept_id": "M2_LI_C009",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C006에서 익힌 판단 절차가 C009 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E018",
+      "from_concept_id": "M2_LI_C008",
+      "to_concept_id": "M2_LI_C009",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C008에서 익힌 판단 절차가 C009 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E019",
+      "from_concept_id": "M2_LI_C009",
+      "to_concept_id": "M2_LI_C010",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C009에서 익힌 판단 절차가 C010 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E020",
+      "from_concept_id": "M2_LI_C011",
+      "to_concept_id": "M2_LI_C012",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C011에서 익힌 판단 절차가 C012 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E021",
+      "from_concept_id": "M2_LI_C011",
+      "to_concept_id": "M2_LI_C013",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C011에서 익힌 판단 절차가 C013 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E022",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C014",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C013에서 익힌 판단 절차가 C014 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E023",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C015",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C013에서 익힌 판단 절차가 C015 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E024",
+      "from_concept_id": "M2_LI_C008",
+      "to_concept_id": "M2_LI_C015",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C008에서 익힌 판단 절차가 C015 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E025",
+      "from_concept_id": "M2_LI_C016",
+      "to_concept_id": "M2_LI_C018",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C016에서 익힌 판단 절차가 C018 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E026",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C017",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C013에서 익힌 판단 절차가 C017 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E027",
+      "from_concept_id": "M2_LI_C017",
+      "to_concept_id": "M2_LI_C018",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C017에서 익힌 판단 절차가 C018 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E028",
+      "from_concept_id": "M2_LI_C018",
+      "to_concept_id": "M2_LI_C019",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C018에서 익힌 판단 절차가 C019 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E029",
+      "from_concept_id": "M2_LI_C019",
+      "to_concept_id": "M2_LI_C020",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C019에서 익힌 판단 절차가 C020 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E030",
+      "from_concept_id": "M2_LI_C020",
+      "to_concept_id": "M2_LI_C021",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C020에서 익힌 판단 절차가 C021 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E031",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C022",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C013에서 익힌 판단 절차가 C022 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E032",
+      "from_concept_id": "M2_LI_C002",
+      "to_concept_id": "M2_LI_C023",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C002에서 익힌 판단 절차가 C023 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E033",
+      "from_concept_id": "M2_LI_C023",
+      "to_concept_id": "M2_LI_C024",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C023에서 익힌 판단 절차가 C024 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E034",
+      "from_concept_id": "M2_LI_C023",
+      "to_concept_id": "M2_LI_C025",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C023에서 익힌 판단 절차가 C025 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E035",
+      "from_concept_id": "M2_LI_C025",
+      "to_concept_id": "M2_LI_C026",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C025에서 익힌 판단 절차가 C026 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E036",
+      "from_concept_id": "M2_LI_C026",
+      "to_concept_id": "M2_LI_C027",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C026에서 익힌 판단 절차가 C027 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E037",
+      "from_concept_id": "M2_LI_C026",
+      "to_concept_id": "M2_LI_C028",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C026에서 익힌 판단 절차가 C028 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E038",
+      "from_concept_id": "M2_LI_C023",
+      "to_concept_id": "M2_LI_C030",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C023에서 익힌 판단 절차가 C030 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E039",
+      "from_concept_id": "M2_LI_C029",
+      "to_concept_id": "M2_LI_C030",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C029에서 익힌 판단 절차가 C030 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E040",
+      "from_concept_id": "M2_LI_C031",
+      "to_concept_id": "M2_LI_C030",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C031에서 익힌 판단 절차가 C030 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E041",
+      "from_concept_id": "M2_LI_C032",
+      "to_concept_id": "M2_LI_C030",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C032에서 익힌 판단 절차가 C030 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E042",
+      "from_concept_id": "M2_LI_C033",
+      "to_concept_id": "M2_LI_C030",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C033에서 익힌 판단 절차가 C030 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E043",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C034",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C013에서 익힌 판단 절차가 C034 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E044",
+      "from_concept_id": "M2_LI_C023",
+      "to_concept_id": "M2_LI_C034",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C023에서 익힌 판단 절차가 C034 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E045",
+      "from_concept_id": "M2_LI_C031",
+      "to_concept_id": "M2_LI_C034",
+      "relation_type": "supports",
+      "weight": 0.68,
+      "reason": "C031에서 익힌 판단 절차가 C034 유형 해결을 지원한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E046",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C023",
+      "relation_type": "application",
+      "weight": 0.72,
+      "reason": "일차부등식 풀이 절차가 C023 활용 유형에서 계산 단계로 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E047",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C024",
+      "relation_type": "application",
+      "weight": 0.72,
+      "reason": "일차부등식 풀이 절차가 C024 활용 유형에서 계산 단계로 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E048",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C025",
+      "relation_type": "application",
+      "weight": 0.72,
+      "reason": "일차부등식 풀이 절차가 C025 활용 유형에서 계산 단계로 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E049",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C029",
+      "relation_type": "application",
+      "weight": 0.72,
+      "reason": "일차부등식 풀이 절차가 C029 활용 유형에서 계산 단계로 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E050",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C031",
+      "relation_type": "application",
+      "weight": 0.72,
+      "reason": "일차부등식 풀이 절차가 C031 활용 유형에서 계산 단계로 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E051",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C032",
+      "relation_type": "application",
+      "weight": 0.72,
+      "reason": "일차부등식 풀이 절차가 C032 활용 유형에서 계산 단계로 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LI_E052",
+      "from_concept_id": "M2_LI_C013",
+      "to_concept_id": "M2_LI_C033",
+      "relation_type": "application",
+      "weight": 0.72,
+      "reason": "일차부등식 풀이 절차가 C033 활용 유형에서 계산 단계로 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

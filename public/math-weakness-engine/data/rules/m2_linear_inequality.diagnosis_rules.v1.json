@@ -1,0 +1,271 @@
+{
+  "version": "2026.07.07-m2-linear-inequality-v1.0",
+  "unit_id": "M2_LINEAR_INEQUALITY",
+  "unit_name": "일차부등식",
+  "rule_count": 14,
+  "rules": [
+    {
+      "rule_id": "M2_LI_RULE_001",
+      "name": "부등식 뜻과 표현 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inequality_modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "부등호의 의미와 문장 조건 번역이 불안정합니다.",
+      "parent_message": "부등호의 의미와 문장 조건 번역이 불안정합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C001",
+        "M2_LI_C002",
+        "M2_LI_C003"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_002",
+      "name": "이상·이하·초과·미만 혼동",
+      "trigger": {
+        "error_tags_any": [
+          "inequality_modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "경계값 포함 여부를 기준으로 부등호를 고르는 능력이 약합니다.",
+      "parent_message": "경계값 포함 여부를 기준으로 부등호를 고르는 능력이 약합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C002",
+        "M2_LI_C017"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_003",
+      "name": "부등식 참거짓·해 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "solution_check"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "값을 대입해 해인지 확인하는 과정이 흔들립니다.",
+      "parent_message": "값을 대입해 해인지 확인하는 과정이 흔들립니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C004",
+        "M2_LI_C005"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_004",
+      "name": "부등식 성질 적용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inequality_direction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "양변에 같은 연산을 할 때 부등호 방향을 안정적으로 판단하지 못합니다.",
+      "parent_message": "양변에 같은 연산을 할 때 부등호 방향을 안정적으로 판단하지 못합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C006",
+        "M2_LI_C007",
+        "M2_LI_C008"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_005",
+      "name": "음수 곱셈·나눗셈 방향 전환 오류",
+      "trigger": {
+        "error_tags_any": [
+          "inequality_direction"
+        ],
+        "wrong_min": 1,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "음수로 곱하거나 나눌 때 부등호 방향 전환이 누락됩니다.",
+      "parent_message": "음수로 곱하거나 나눌 때 부등호 방향 전환이 누락됩니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C008",
+        "M2_LI_C015"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LI_RULE_006",
+      "name": "식의 값 범위 추론 취약",
+      "trigger": {
+        "error_tags_any": [
+          "linear_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "문자의 범위에서 식의 최솟값과 최댓값을 추론하는 과정이 불안정합니다.",
+      "parent_message": "문자의 범위에서 식의 최솟값과 최댓값을 추론하는 과정이 불안정합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C009",
+        "M2_LI_C010"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_007",
+      "name": "일차부등식 풀이 절차 취약",
+      "trigger": {
+        "error_tags_any": [
+          "linear_inequality",
+          "inequality_direction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "이항, 동류항 정리, 계수 나누기 절차가 안정적이지 않습니다.",
+      "parent_message": "이항, 동류항 정리, 계수 나누기 절차가 안정적이지 않습니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C013",
+        "M2_LI_C014",
+        "M2_LI_C015"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LI_RULE_008",
+      "name": "수직선 표현 취약",
+      "trigger": {
+        "error_tags_any": [
+          "number_line_solution"
+        ],
+        "wrong_min": 1,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "해의 범위를 수직선으로 나타낼 때 방향과 경계 표시를 혼동합니다.",
+      "parent_message": "해의 범위를 수직선으로 나타낼 때 방향과 경계 표시를 혼동합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C017"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_009",
+      "name": "해 조건 역추론 취약",
+      "trigger": {
+        "error_tags_any": [
+          "solution_check",
+          "integer_solution_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "주어진 해, 최댓값·최솟값, 자연수 해 개수 조건으로 미지수를 찾는 데 약합니다.",
+      "parent_message": "주어진 해, 최댓값·최솟값, 자연수 해 개수 조건으로 미지수를 찾는 데 약합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C018",
+        "M2_LI_C019",
+        "M2_LI_C020",
+        "M2_LI_C021"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_010",
+      "name": "절댓값·정의 기호 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "linear_inequality"
+        ],
+        "wrong_min": 1,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "절댓값, 정의된 연산, 가우스 기호의 의미를 식 풀이 전에 정리하지 못합니다.",
+      "parent_message": "절댓값, 정의된 연산, 가우스 기호의 의미를 식 풀이 전에 정리하지 못합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C022"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_011",
+      "name": "문장제 미지수 설정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inequality_modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "활용 문제에서 무엇을 x로 둘지 정하고 조건을 부등식으로 옮기는 단계가 약합니다.",
+      "parent_message": "활용 문제에서 무엇을 x로 둘지 정하고 조건을 부등식으로 옮기는 단계가 약합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C023",
+        "M2_LI_C024",
+        "M2_LI_C025",
+        "M2_LI_C030"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LI_RULE_012",
+      "name": "금액·할인·비용 비교 취약",
+      "trigger": {
+        "error_tags_any": [
+          "money_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "고정비, 변동비, 할인율, 비교 기준을 구분하지 못해 부등식을 잘못 세웁니다.",
+      "parent_message": "고정비, 변동비, 할인율, 비교 기준을 구분하지 못해 부등식을 잘못 세웁니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C025",
+        "M2_LI_C026",
+        "M2_LI_C027",
+        "M2_LI_C028"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_013",
+      "name": "도형·속력·농도 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_application",
+          "distance_speed_time",
+          "concentration"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "공식과 단위 조건을 부등식 모델로 연결하는 과정이 약합니다.",
+      "parent_message": "공식과 단위 조건을 부등식 모델로 연결하는 과정이 약합니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C029",
+        "M2_LI_C031",
+        "M2_LI_C032"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LI_RULE_014",
+      "name": "답 조건 검산 누락",
+      "trigger": {
+        "error_tags_any": [
+          "solution_check"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "계산으로 얻은 해를 원문 조건, 자연수/정수 조건, 단위 조건에 다시 대입하지 않습니다.",
+      "parent_message": "계산으로 얻은 해를 원문 조건, 자연수/정수 조건, 단위 조건에 다시 대입하지 않습니다. 먼저 조건을 식으로 바꾼 뒤, 계산 결과를 원래 조건으로 검산하는 루틴이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_LI_C034"
+      ],
+      "severity": "medium"
+    }
+  ]
+}
