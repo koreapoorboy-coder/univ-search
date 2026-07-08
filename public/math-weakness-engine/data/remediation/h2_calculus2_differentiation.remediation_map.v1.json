@@ -1,0 +1,4136 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+  "unit_name": "미분법",
+  "remediation_count": 258,
+  "remediation": [
+    {
+      "concept_id": "H2_CALC2_DIFF_C001",
+      "title": "지수함수와 로그함수의 극한과 미분 - 지수함수의 극한: 다항식이 포함된 경우 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT001",
+        "H2_CALC2_DIFF_PT002",
+        "H2_CALC2_DIFF_PT003"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C002",
+      "title": "지수함수와 로그함수의 극한과 미분 - 지수함수의 극한: 분수식이 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT004",
+        "H2_CALC2_DIFF_PT005",
+        "H2_CALC2_DIFF_PT006"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C003",
+      "title": "지수함수와 로그함수의 극한과 미분 - 여러 가지 지수함수 극한이 동시에 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT007",
+        "H2_CALC2_DIFF_PT008",
+        "H2_CALC2_DIFF_PT009"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C004",
+      "title": "지수함수와 로그함수의 극한과 미분 - 수열을 활용하는 지수함수 극한 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT010",
+        "H2_CALC2_DIFF_PT011",
+        "H2_CALC2_DIFF_PT012"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C005",
+      "title": "지수함수와 로그함수의 극한과 미분 - 로그함수와 함께 주어진 지수함수 극한 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT013",
+        "H2_CALC2_DIFF_PT014",
+        "H2_CALC2_DIFF_PT015"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C006",
+      "title": "무리수 e의 정의 - 무리수 e가 포함된 식의 계산 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT016",
+        "H2_CALC2_DIFF_PT017",
+        "H2_CALC2_DIFF_PT018"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C007",
+      "title": "무리수 e의 정의 - e가 포함된 지수방정식과 부등식 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT019",
+        "H2_CALC2_DIFF_PT020",
+        "H2_CALC2_DIFF_PT021"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C008",
+      "title": "무리수 e의 정의 - e가 포함된 지수함수의 극한 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT022",
+        "H2_CALC2_DIFF_PT023",
+        "H2_CALC2_DIFF_PT024"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C009",
+      "title": "무리수 e의 정의 - e의 정의를 이용한 극한 변형 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT025",
+        "H2_CALC2_DIFF_PT026",
+        "H2_CALC2_DIFF_PT027"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C010",
+      "title": "자연로그 ln의 정의 - 자연로그가 포함된 식의 계산 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT028",
+        "H2_CALC2_DIFF_PT029",
+        "H2_CALC2_DIFF_PT030"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C011",
+      "title": "자연로그 ln의 정의 - 자연로그가 포함된 로그방정식과 부등식 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT031",
+        "H2_CALC2_DIFF_PT032",
+        "H2_CALC2_DIFF_PT033"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C012",
+      "title": "자연로그 ln의 정의 - 자연로그가 포함된 로그함수의 극한 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT034",
+        "H2_CALC2_DIFF_PT035",
+        "H2_CALC2_DIFF_PT036"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C013",
+      "title": "자연로그 ln의 정의 - ln의 정의를 이용한 극한 변형 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT037",
+        "H2_CALC2_DIFF_PT038",
+        "H2_CALC2_DIFF_PT039"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C014",
+      "title": "로그함수의 극한 - ln(1+x)/x 꼴의 극한값 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT040",
+        "H2_CALC2_DIFF_PT041",
+        "H2_CALC2_DIFF_PT042"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C015",
+      "title": "로그함수의 극한 - 로그함수 극한값이 2개 이상 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT043",
+        "H2_CALC2_DIFF_PT044",
+        "H2_CALC2_DIFF_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C016",
+      "title": "로그함수의 극한 - 함수나 수열을 활용하는 로그함수 극한 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT046",
+        "H2_CALC2_DIFF_PT047",
+        "H2_CALC2_DIFF_PT048"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C017",
+      "title": "로그함수의 극한 - log_a(1+x)/x 꼴의 극한 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT049",
+        "H2_CALC2_DIFF_PT050",
+        "H2_CALC2_DIFF_PT051"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C018",
+      "title": "로그함수의 극한 - 로그함수 극한과 밑 변환을 함께 쓰는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT052",
+        "H2_CALC2_DIFF_PT053",
+        "H2_CALC2_DIFF_PT054"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C019",
+      "title": "지수함수의 극한 - (e^x-1)/x 꼴의 극한 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT055",
+        "H2_CALC2_DIFF_PT056",
+        "H2_CALC2_DIFF_PT057"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C020",
+      "title": "지수함수의 극한 - (a^x-1)/x 꼴의 극한 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT058",
+        "H2_CALC2_DIFF_PT059",
+        "H2_CALC2_DIFF_PT060"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C021",
+      "title": "지수함수의 극한 - 지수함수 극한과 로그함수 극한을 함께 쓰는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT061",
+        "H2_CALC2_DIFF_PT062",
+        "H2_CALC2_DIFF_PT063"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C022",
+      "title": "지수함수의 극한 - 극한식의 계수 비교 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT064",
+        "H2_CALC2_DIFF_PT065",
+        "H2_CALC2_DIFF_PT066"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C023",
+      "title": "지수함수·로그함수의 극한을 이용한 미정계수 결정 - e의 정의를 이용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT067",
+        "H2_CALC2_DIFF_PT068",
+        "H2_CALC2_DIFF_PT069"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C024",
+      "title": "지수함수·로그함수의 극한을 이용한 미정계수 결정 - 지수함수의 극한을 이용하는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT070",
+        "H2_CALC2_DIFF_PT071",
+        "H2_CALC2_DIFF_PT072"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C025",
+      "title": "지수함수·로그함수의 극한을 이용한 미정계수 결정 - 로그함수의 극한을 이용하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT073",
+        "H2_CALC2_DIFF_PT074",
+        "H2_CALC2_DIFF_PT075"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C026",
+      "title": "지수함수·로그함수의 극한을 이용한 미정계수 결정 - 여러 가지 극한을 동시에 이용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT076",
+        "H2_CALC2_DIFF_PT077",
+        "H2_CALC2_DIFF_PT078"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C027",
+      "title": "지수함수·로그함수의 연속과 미정계수 결정 - e의 정의를 이용하는 연속 조건 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT079",
+        "H2_CALC2_DIFF_PT080",
+        "H2_CALC2_DIFF_PT081"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C028",
+      "title": "지수함수·로그함수의 연속과 미정계수 결정 - 지수함수의 극한을 이용하는 연속 조건 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT082",
+        "H2_CALC2_DIFF_PT083",
+        "H2_CALC2_DIFF_PT084"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C029",
+      "title": "지수함수·로그함수의 연속과 미정계수 결정 - 로그함수의 극한을 이용하는 연속 조건 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT085",
+        "H2_CALC2_DIFF_PT086",
+        "H2_CALC2_DIFF_PT087"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C030",
+      "title": "지수함수·로그함수의 연속과 미정계수 결정 - 좌우극한과 함숫값을 함께 맞추는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT088",
+        "H2_CALC2_DIFF_PT089",
+        "H2_CALC2_DIFF_PT090"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C031",
+      "title": "지수함수의 도함수 - 밑이 e인 지수함수의 도함수 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT091",
+        "H2_CALC2_DIFF_PT092",
+        "H2_CALC2_DIFF_PT093"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C032",
+      "title": "지수함수의 도함수 - 밑이 e가 아닌 지수함수의 도함수 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT094",
+        "H2_CALC2_DIFF_PT095",
+        "H2_CALC2_DIFF_PT096"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C033",
+      "title": "지수함수의 도함수 - 밑이 여러 가지인 지수함수의 도함수 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT097",
+        "H2_CALC2_DIFF_PT098",
+        "H2_CALC2_DIFF_PT099"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C034",
+      "title": "지수함수의 도함수 - 함수식에 포함된 미정계수 결정 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT100",
+        "H2_CALC2_DIFF_PT101",
+        "H2_CALC2_DIFF_PT102"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C035",
+      "title": "지수함수의 도함수 - 지수함수의 미분계수와 접선 기울기 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT103",
+        "H2_CALC2_DIFF_PT104",
+        "H2_CALC2_DIFF_PT105"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C036",
+      "title": "로그함수의 도함수 - 밑이 e인 로그함수의 도함수 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT106",
+        "H2_CALC2_DIFF_PT107",
+        "H2_CALC2_DIFF_PT108"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C037",
+      "title": "로그함수의 도함수 - 밑이 e가 아닌 로그함수의 도함수 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT109",
+        "H2_CALC2_DIFF_PT110",
+        "H2_CALC2_DIFF_PT111"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C038",
+      "title": "로그함수의 도함수 - 진수에 함수가 포함된 로그함수의 도함수 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT112",
+        "H2_CALC2_DIFF_PT113",
+        "H2_CALC2_DIFF_PT114"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C039",
+      "title": "로그함수의 도함수 - 로그함수 도함수와 미정계수 결정 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT115",
+        "H2_CALC2_DIFF_PT116",
+        "H2_CALC2_DIFF_PT117"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C040",
+      "title": "로그함수의 도함수 - 로그함수의 미분계수와 접선 기울기 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT118",
+        "H2_CALC2_DIFF_PT119",
+        "H2_CALC2_DIFF_PT120"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C041",
+      "title": "삼각함수의 부호 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT121",
+        "H2_CALC2_DIFF_PT122",
+        "H2_CALC2_DIFF_PT123"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C042",
+      "title": "삼각함수 - 각이 주어졌을 때 삼각함수의 값 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT124",
+        "H2_CALC2_DIFF_PT125",
+        "H2_CALC2_DIFF_PT126"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C043",
+      "title": "삼각함수 - 좌표가 주어졌을 때 삼각함수의 값 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT127",
+        "H2_CALC2_DIFF_PT128",
+        "H2_CALC2_DIFF_PT129"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C044",
+      "title": "삼각함수의 값이 주어졌을 때 식의 값 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT130",
+        "H2_CALC2_DIFF_PT131",
+        "H2_CALC2_DIFF_PT132"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C045",
+      "title": "삼각함수 기본 관계식 활용 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT133",
+        "H2_CALC2_DIFF_PT134",
+        "H2_CALC2_DIFF_PT135"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C046",
+      "title": "삼각함수 사이의 관계 - 삼각함수를 포함한 등식 간단히 하기 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT136",
+        "H2_CALC2_DIFF_PT137",
+        "H2_CALC2_DIFF_PT138"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C047",
+      "title": "삼각함수 사이의 관계 - sin, cos, tan 관계식 활용 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT139",
+        "H2_CALC2_DIFF_PT140",
+        "H2_CALC2_DIFF_PT141"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C048",
+      "title": "삼각함수 사이의 관계 - 삼각함수 값 사이의 관계 추론 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT142",
+        "H2_CALC2_DIFF_PT143",
+        "H2_CALC2_DIFF_PT144"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C049",
+      "title": "삼각함수의 덧셈정리 - sin, cos의 덧셈정리: 각이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT145",
+        "H2_CALC2_DIFF_PT146",
+        "H2_CALC2_DIFF_PT147"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C050",
+      "title": "삼각함수의 덧셈정리 - sin, cos의 덧셈정리: 삼각함수나 식의 값이 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT148",
+        "H2_CALC2_DIFF_PT149",
+        "H2_CALC2_DIFF_PT150"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C051",
+      "title": "삼각함수의 덧셈정리 - tan의 덧셈정리: 각이 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT151",
+        "H2_CALC2_DIFF_PT152",
+        "H2_CALC2_DIFF_PT153"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C052",
+      "title": "삼각함수의 덧셈정리 - tan의 덧셈정리: 삼각함수나 식의 값이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT154",
+        "H2_CALC2_DIFF_PT155",
+        "H2_CALC2_DIFF_PT156"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C053",
+      "title": "삼각함수의 덧셈정리 - 여러 덧셈정리를 함께 이용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT157",
+        "H2_CALC2_DIFF_PT158",
+        "H2_CALC2_DIFF_PT159"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C054",
+      "title": "삼각함수의 덧셈정리 - 주어진 식을 간단히 하기 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT160",
+        "H2_CALC2_DIFF_PT161",
+        "H2_CALC2_DIFF_PT162"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C055",
+      "title": "덧셈정리의 활용: 방정식·함수 - 삼각방정식에서 덧셈정리 활용 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT163",
+        "H2_CALC2_DIFF_PT164",
+        "H2_CALC2_DIFF_PT165"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C056",
+      "title": "덧셈정리의 활용: 방정식·함수 - 삼각함수 그래프에서 덧셈정리 활용 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT166",
+        "H2_CALC2_DIFF_PT167",
+        "H2_CALC2_DIFF_PT168"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C057",
+      "title": "덧셈정리의 활용: 방정식·함수 - 함수식 변형에서 덧셈정리 활용 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT169",
+        "H2_CALC2_DIFF_PT170",
+        "H2_CALC2_DIFF_PT171"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C058",
+      "title": "덧셈정리의 활용: 도형 - 삼각형이 주어졌을 때의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT172",
+        "H2_CALC2_DIFF_PT173",
+        "H2_CALC2_DIFF_PT174"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C059",
+      "title": "덧셈정리의 활용: 도형 - 사각형이 주어졌을 때의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT175",
+        "H2_CALC2_DIFF_PT176",
+        "H2_CALC2_DIFF_PT177"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C060",
+      "title": "덧셈정리의 활용: 도형 - 원이 주어졌을 때의 활용 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT178",
+        "H2_CALC2_DIFF_PT179",
+        "H2_CALC2_DIFF_PT180"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C061",
+      "title": "덧셈정리의 활용: 도형 - 실생활 소재에서의 활용 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT181",
+        "H2_CALC2_DIFF_PT182",
+        "H2_CALC2_DIFF_PT183"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C062",
+      "title": "덧셈정리의 활용: 도형 - 좌표평면이 주어졌을 때의 활용 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT184",
+        "H2_CALC2_DIFF_PT185",
+        "H2_CALC2_DIFF_PT186"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C063",
+      "title": "배각의 공식 - 삼각함수 1개의 값이 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT187",
+        "H2_CALC2_DIFF_PT188",
+        "H2_CALC2_DIFF_PT189"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C064",
+      "title": "배각의 공식 - 배각공식을 이용해 식 간단히 하기 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT190",
+        "H2_CALC2_DIFF_PT191",
+        "H2_CALC2_DIFF_PT192"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C065",
+      "title": "배각의 공식 - 배각공식을 이용한 방정식 풀이 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT193",
+        "H2_CALC2_DIFF_PT194",
+        "H2_CALC2_DIFF_PT195"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C066",
+      "title": "배각의 공식 - 배각공식과 도형 조건의 결합 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT196",
+        "H2_CALC2_DIFF_PT197",
+        "H2_CALC2_DIFF_PT198"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C067",
+      "title": "배각·반각 공식의 활용: 도형 - 삼각형 또는 사각형이 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT199",
+        "H2_CALC2_DIFF_PT200",
+        "H2_CALC2_DIFF_PT201"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C068",
+      "title": "배각·반각 공식의 활용: 도형 - 원이 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT202",
+        "H2_CALC2_DIFF_PT203",
+        "H2_CALC2_DIFF_PT204"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C069",
+      "title": "배각·반각 공식의 활용: 도형 - 좌표평면이 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT205",
+        "H2_CALC2_DIFF_PT206",
+        "H2_CALC2_DIFF_PT207"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C070",
+      "title": "배각·반각 공식의 활용: 도형 - 실생활 소재가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 삼각함수 공식 분류",
+        "각 조건과 부호 범위 표시",
+        "식 변형 후 원래 조건에 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT208",
+        "H2_CALC2_DIFF_PT209",
+        "H2_CALC2_DIFF_PT210"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C071",
+      "title": "삼각함수의 극한 - 부정형이 아닐 때의 극한값 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT211",
+        "H2_CALC2_DIFF_PT212",
+        "H2_CALC2_DIFF_PT213"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C072",
+      "title": "삼각함수의 극한 - 부정형일 때: 각이 같은 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT214",
+        "H2_CALC2_DIFF_PT215",
+        "H2_CALC2_DIFF_PT216"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C073",
+      "title": "삼각함수의 극한 - 부정형일 때: 서로 다른 각이 포함된 경우 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT217",
+        "H2_CALC2_DIFF_PT218",
+        "H2_CALC2_DIFF_PT219"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C074",
+      "title": "삼각함수의 극한 - 삼각함수와 다항식이 결합된 극한 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT220",
+        "H2_CALC2_DIFF_PT221",
+        "H2_CALC2_DIFF_PT222"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C075",
+      "title": "삼각함수의 극한 - 삼각함수 극한의 합답형 판단 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT223",
+        "H2_CALC2_DIFF_PT224",
+        "H2_CALC2_DIFF_PT225"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C076",
+      "title": "삼각함수 극한의 변형 - (1-cos x)/x^2 꼴의 극한 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT226",
+        "H2_CALC2_DIFF_PT227",
+        "H2_CALC2_DIFF_PT228"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C077",
+      "title": "삼각함수 극한의 변형 - 삼각함수의 극한만 이용하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT229",
+        "H2_CALC2_DIFF_PT230",
+        "H2_CALC2_DIFF_PT231"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C078",
+      "title": "삼각함수 극한의 변형 - 지수함수와 로그함수의 극한을 함께 이용하는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT232",
+        "H2_CALC2_DIFF_PT233",
+        "H2_CALC2_DIFF_PT234"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C079",
+      "title": "삼각함수 극한의 변형 - 연속함수를 활용하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT235",
+        "H2_CALC2_DIFF_PT236",
+        "H2_CALC2_DIFF_PT237"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C080",
+      "title": "삼각함수 극한의 변형 - 치환을 이용한 삼각함수의 극한 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT238",
+        "H2_CALC2_DIFF_PT239",
+        "H2_CALC2_DIFF_PT240"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C081",
+      "title": "삼각함수 극한의 변형 - x가 특정 각으로 갈 때의 삼각함수 극한 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT241",
+        "H2_CALC2_DIFF_PT242",
+        "H2_CALC2_DIFF_PT243"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C082",
+      "title": "삼각함수의 극한을 이용한 미정계수 결정 - 무리식이 없을 때 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT244",
+        "H2_CALC2_DIFF_PT245",
+        "H2_CALC2_DIFF_PT246"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C083",
+      "title": "삼각함수의 극한을 이용한 미정계수 결정 - 무리식이 포함될 때 보강",
+      "priority": 3,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT247",
+        "H2_CALC2_DIFF_PT248",
+        "H2_CALC2_DIFF_PT249"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C084",
+      "title": "삼각함수의 극한을 이용한 미정계수 결정 - 지수함수와 로그함수의 극한을 함께 이용하는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT250",
+        "H2_CALC2_DIFF_PT251",
+        "H2_CALC2_DIFF_PT252"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C085",
+      "title": "삼각함수의 극한을 이용한 미정계수 결정 - 여러 삼각함수 극한을 동시에 이용하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "사용할 표준 극한 꼴 확인",
+        "치환 또는 계수 조정으로 표준 꼴 만들기",
+        "연속 조건이나 미정계수 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT253",
+        "H2_CALC2_DIFF_PT254",
+        "H2_CALC2_DIFF_PT255"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C086",
+      "title": "삼각함수의 연속과 미정계수 결정 - 삼각함수 극한으로 좌우극한 맞추기 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT256",
+        "H2_CALC2_DIFF_PT257",
+        "H2_CALC2_DIFF_PT258"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C087",
+      "title": "삼각함수의 연속과 미정계수 결정 - 연속 조건과 함숫값 조건을 함께 맞추기 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT259",
+        "H2_CALC2_DIFF_PT260",
+        "H2_CALC2_DIFF_PT261"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C088",
+      "title": "삼각함수의 연속과 미정계수 결정 - 분모가 0이 되는 점의 연속 조건 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT262",
+        "H2_CALC2_DIFF_PT263",
+        "H2_CALC2_DIFF_PT264"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C089",
+      "title": "삼각함수의 도함수 - 삼각함수와 다항함수의 도함수 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT265",
+        "H2_CALC2_DIFF_PT266",
+        "H2_CALC2_DIFF_PT267"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C090",
+      "title": "삼각함수의 도함수 - 지수함수 또는 로그함수의 도함수와 함께 이용하는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT268",
+        "H2_CALC2_DIFF_PT269",
+        "H2_CALC2_DIFF_PT270"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C091",
+      "title": "삼각함수의 도함수 - 도함수의 정의를 이용하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT271",
+        "H2_CALC2_DIFF_PT272",
+        "H2_CALC2_DIFF_PT273"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C092",
+      "title": "삼각함수의 도함수 - 미정계수 결정하기 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT274",
+        "H2_CALC2_DIFF_PT275",
+        "H2_CALC2_DIFF_PT276"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C093",
+      "title": "삼각함수의 도함수 - 시간 또는 각도에 대한 변화율 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT277",
+        "H2_CALC2_DIFF_PT278",
+        "H2_CALC2_DIFF_PT279"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C094",
+      "title": "삼각함수의 도함수 - 미분계수를 이용한 삼각함수 극한값 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT280",
+        "H2_CALC2_DIFF_PT281",
+        "H2_CALC2_DIFF_PT282"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C095",
+      "title": "삼각함수의 도함수 - 삼각함수 도함수와 접선 조건 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT283",
+        "H2_CALC2_DIFF_PT284",
+        "H2_CALC2_DIFF_PT285"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C096",
+      "title": "함수의 몫의 미분법 - 분수함수 미분: 다항함수만 있는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT286",
+        "H2_CALC2_DIFF_PT287",
+        "H2_CALC2_DIFF_PT288"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C097",
+      "title": "함수의 몫의 미분법 - 분수함수 미분: 지수·로그함수가 있는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT289",
+        "H2_CALC2_DIFF_PT290",
+        "H2_CALC2_DIFF_PT291"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C098",
+      "title": "함수의 몫의 미분법 - 분수함수 미분: 삼각함수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT292",
+        "H2_CALC2_DIFF_PT293",
+        "H2_CALC2_DIFF_PT294"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C099",
+      "title": "함수의 몫의 미분법 - 몫의 미분법을 이용한 미분계수 결정 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT295",
+        "H2_CALC2_DIFF_PT296",
+        "H2_CALC2_DIFF_PT297"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C100",
+      "title": "몫의 미분법을 이용한 삼각함수의 도함수 - sin x, cos x만 있는 분수함수 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT298",
+        "H2_CALC2_DIFF_PT299",
+        "H2_CALC2_DIFF_PT300"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C101",
+      "title": "몫의 미분법을 이용한 삼각함수의 도함수 - tan x, csc x, sec x, cot x가 포함된 함수 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT301",
+        "H2_CALC2_DIFF_PT302",
+        "H2_CALC2_DIFF_PT303"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C102",
+      "title": "몫의 미분법을 이용한 삼각함수의 도함수 - 지수함수·로그함수가 함께 포함된 함수 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT304",
+        "H2_CALC2_DIFF_PT305",
+        "H2_CALC2_DIFF_PT306"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C103",
+      "title": "몫의 미분법을 이용한 삼각함수의 도함수 - 미정계수 결정하기 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT307",
+        "H2_CALC2_DIFF_PT308",
+        "H2_CALC2_DIFF_PT309"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C104",
+      "title": "몫의 미분법을 이용한 삼각함수의 도함수 - 몫의 미분법과 삼각함수 항등식 결합 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT310",
+        "H2_CALC2_DIFF_PT311",
+        "H2_CALC2_DIFF_PT312"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C105",
+      "title": "합성함수의 미분법: 다항함수·유리함수 - 다항함수의 합성함수 미분하기 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT313",
+        "H2_CALC2_DIFF_PT314",
+        "H2_CALC2_DIFF_PT315"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C106",
+      "title": "합성함수의 미분법: 다항함수·유리함수 - 다항함수에서 미정계수 결정하기 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT316",
+        "H2_CALC2_DIFF_PT317",
+        "H2_CALC2_DIFF_PT318"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C107",
+      "title": "합성함수의 미분법: 다항함수·유리함수 - 유리함수의 합성함수 미분하기 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT319",
+        "H2_CALC2_DIFF_PT320",
+        "H2_CALC2_DIFF_PT321"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C108",
+      "title": "합성함수의 미분법: 다항함수·유리함수 - 유리함수에서 미정계수 결정하기 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT322",
+        "H2_CALC2_DIFF_PT323",
+        "H2_CALC2_DIFF_PT324"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C109",
+      "title": "합성함수의 미분법: 지수함수 - 유리함수 또는 다항함수와 지수함수의 합성 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT325",
+        "H2_CALC2_DIFF_PT326",
+        "H2_CALC2_DIFF_PT327"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C110",
+      "title": "합성함수의 미분법: 지수함수 - 무리함수와 지수함수의 합성 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT328",
+        "H2_CALC2_DIFF_PT329",
+        "H2_CALC2_DIFF_PT330"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C111",
+      "title": "합성함수의 미분법: 지수함수 - 삼각함수와 지수함수의 합성 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT331",
+        "H2_CALC2_DIFF_PT332",
+        "H2_CALC2_DIFF_PT333"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C112",
+      "title": "합성함수의 미분법: 지수함수 - 지수함수와 로그함수의 합성 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT334",
+        "H2_CALC2_DIFF_PT335",
+        "H2_CALC2_DIFF_PT336"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C113",
+      "title": "합성함수의 미분법: 지수함수 - 미정계수 결정하기 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT337",
+        "H2_CALC2_DIFF_PT338",
+        "H2_CALC2_DIFF_PT339"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C114",
+      "title": "합성함수의 미분법: 삼각함수 - 유리함수 또는 다항함수와 삼각함수의 합성 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT340",
+        "H2_CALC2_DIFF_PT341",
+        "H2_CALC2_DIFF_PT342"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C115",
+      "title": "합성함수의 미분법: 삼각함수 - 무리함수와 삼각함수의 합성 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT343",
+        "H2_CALC2_DIFF_PT344",
+        "H2_CALC2_DIFF_PT345"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C116",
+      "title": "합성함수의 미분법: 삼각함수 - 지수함수 또는 로그함수와 삼각함수의 합성 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT346",
+        "H2_CALC2_DIFF_PT347",
+        "H2_CALC2_DIFF_PT348"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C117",
+      "title": "합성함수의 미분법: 삼각함수 - 삼각함수끼리 합성한 함수 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT349",
+        "H2_CALC2_DIFF_PT350",
+        "H2_CALC2_DIFF_PT351"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C118",
+      "title": "합성함수의 미분법: 삼각함수 - 임의의 함수와 삼각함수의 합성 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT352",
+        "H2_CALC2_DIFF_PT353",
+        "H2_CALC2_DIFF_PT354"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C119",
+      "title": "합성함수의 미분법: 삼각함수 - 미정계수 결정하기 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT355",
+        "H2_CALC2_DIFF_PT356",
+        "H2_CALC2_DIFF_PT357"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C120",
+      "title": "합성함수의 미분법: 삼각함수 - 삼각함수 합성함수 미분의 활용 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT358",
+        "H2_CALC2_DIFF_PT359",
+        "H2_CALC2_DIFF_PT360"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C121",
+      "title": "x^a의 도함수 - 지수가 유리수일 때의 도함수 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT361",
+        "H2_CALC2_DIFF_PT362",
+        "H2_CALC2_DIFF_PT363"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C122",
+      "title": "x^a의 도함수 - 지수가 무리수일 때의 도함수 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT364",
+        "H2_CALC2_DIFF_PT365",
+        "H2_CALC2_DIFF_PT366"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C123",
+      "title": "x^a의 도함수 - 거듭제곱 함수와 초월함수의 결합 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT367",
+        "H2_CALC2_DIFF_PT368",
+        "H2_CALC2_DIFF_PT369"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C124",
+      "title": "x^a의 도함수 - x^a 꼴의 미분계수 계산 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT370",
+        "H2_CALC2_DIFF_PT371",
+        "H2_CALC2_DIFF_PT372"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C125",
+      "title": "매개변수로 나타낸 함수의 미분법 - 매개변수 함수의 도함수 구하기 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT373",
+        "H2_CALC2_DIFF_PT374",
+        "H2_CALC2_DIFF_PT375"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C126",
+      "title": "매개변수로 나타낸 함수의 미분법 - 매개변수 함수의 접선 기울기 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT376",
+        "H2_CALC2_DIFF_PT377",
+        "H2_CALC2_DIFF_PT378"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C127",
+      "title": "매개변수로 나타낸 함수의 미분법 - 매개변수와 미정계수가 함께 있는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT379",
+        "H2_CALC2_DIFF_PT380",
+        "H2_CALC2_DIFF_PT381"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C128",
+      "title": "매개변수로 나타낸 함수의 미분법 - 매개변수 그래프의 변화율 해석 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT382",
+        "H2_CALC2_DIFF_PT383",
+        "H2_CALC2_DIFF_PT384"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C129",
+      "title": "음함수의 미분법 - 음함수 미분법의 기본 문제 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT385",
+        "H2_CALC2_DIFF_PT386",
+        "H2_CALC2_DIFF_PT387"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C130",
+      "title": "음함수의 미분법 - 유리식 또는 다항식으로만 주어진 음함수 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT388",
+        "H2_CALC2_DIFF_PT389",
+        "H2_CALC2_DIFF_PT390"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C131",
+      "title": "음함수의 미분법 - 무리식을 포함한 음함수 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT391",
+        "H2_CALC2_DIFF_PT392",
+        "H2_CALC2_DIFF_PT393"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C132",
+      "title": "음함수의 미분법 - 초월함수를 포함한 음함수 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT394",
+        "H2_CALC2_DIFF_PT395",
+        "H2_CALC2_DIFF_PT396"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C133",
+      "title": "음함수의 미분법 - 음함수의 접선 기울기 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT397",
+        "H2_CALC2_DIFF_PT398",
+        "H2_CALC2_DIFF_PT399"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C134",
+      "title": "역함수의 미분법 - y=f(x) 꼴 함수의 역함수 미분: 유리식만 있는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT400",
+        "H2_CALC2_DIFF_PT401",
+        "H2_CALC2_DIFF_PT402"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C135",
+      "title": "역함수의 미분법 - y=f(x) 꼴 함수의 역함수 미분: 무리식 포함 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT403",
+        "H2_CALC2_DIFF_PT404",
+        "H2_CALC2_DIFF_PT405"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C136",
+      "title": "역함수의 미분법 - y=f(x) 꼴 함수의 역함수 미분: 지수·로그·삼각함수 포함 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT406",
+        "H2_CALC2_DIFF_PT407",
+        "H2_CALC2_DIFF_PT408"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C137",
+      "title": "역함수의 미분법 - y=f(x)의 역함수 미분: 유리식으로만 표현된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT409",
+        "H2_CALC2_DIFF_PT410",
+        "H2_CALC2_DIFF_PT411"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C138",
+      "title": "역함수의 미분법 - 역함수 미분과 접선 조건 보강",
+      "priority": 1,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT412",
+        "H2_CALC2_DIFF_PT413",
+        "H2_CALC2_DIFF_PT414"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C139",
+      "title": "역함수의 미분법 - 역함수 미분과 미정계수 결정 보강",
+      "priority": 2,
+      "steps": [
+        "함수 구조를 몫·합성·음함수·역함수·매개변수 중 하나로 분류",
+        "필요한 미분 공식 선택 후 중간 변수 표시",
+        "도함수 계산 결과를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT415",
+        "H2_CALC2_DIFF_PT416",
+        "H2_CALC2_DIFF_PT417"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C140",
+      "title": "접선의 방정식: 접점 좌표가 주어진 경우 - 유리식 또는 다항식으로만 주어진 함수에서의 접선 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT418",
+        "H2_CALC2_DIFF_PT419",
+        "H2_CALC2_DIFF_PT420"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C141",
+      "title": "접선의 방정식: 접점 좌표가 주어진 경우 - 무리식을 포함하는 함수에서의 접선 보강",
+      "priority": 1,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT421",
+        "H2_CALC2_DIFF_PT422",
+        "H2_CALC2_DIFF_PT423"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C142",
+      "title": "접선의 방정식: 접점 좌표가 주어진 경우 - 지수함수를 포함하는 함수에서의 접선 보강",
+      "priority": 2,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT424",
+        "H2_CALC2_DIFF_PT425",
+        "H2_CALC2_DIFF_PT426"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C143",
+      "title": "접선의 방정식: 접점 좌표가 주어진 경우 - 로그함수를 포함하는 함수에서의 접선 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT427",
+        "H2_CALC2_DIFF_PT428",
+        "H2_CALC2_DIFF_PT429"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C144",
+      "title": "접선의 방정식: 접점 좌표가 주어진 경우 - 삼각함수를 포함하는 함수에서의 접선 보강",
+      "priority": 1,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT430",
+        "H2_CALC2_DIFF_PT431",
+        "H2_CALC2_DIFF_PT432"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C145",
+      "title": "접선의 방정식: 접점 좌표가 주어진 경우 - 접점 좌표와 미정계수가 함께 있는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT433",
+        "H2_CALC2_DIFF_PT434",
+        "H2_CALC2_DIFF_PT435"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C146",
+      "title": "접선의 방정식: 기울기가 주어진 경우 - 유리식 또는 다항식으로만 주어진 함수에서의 접선 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT436",
+        "H2_CALC2_DIFF_PT437",
+        "H2_CALC2_DIFF_PT438"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C147",
+      "title": "접선의 방정식: 기울기가 주어진 경우 - 무리식을 포함하는 함수에서의 접선 보강",
+      "priority": 1,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT439",
+        "H2_CALC2_DIFF_PT440",
+        "H2_CALC2_DIFF_PT441"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C148",
+      "title": "접선의 방정식: 기울기가 주어진 경우 - 지수함수를 포함하는 함수에서의 접선 보강",
+      "priority": 2,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT442",
+        "H2_CALC2_DIFF_PT443",
+        "H2_CALC2_DIFF_PT444"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C149",
+      "title": "접선의 방정식: 기울기가 주어진 경우 - 로그함수를 포함하는 함수에서의 접선 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT445",
+        "H2_CALC2_DIFF_PT446",
+        "H2_CALC2_DIFF_PT447"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C150",
+      "title": "접선의 방정식: 기울기가 주어진 경우 - 삼각함수를 포함하는 함수에서의 접선 보강",
+      "priority": 1,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT448",
+        "H2_CALC2_DIFF_PT449",
+        "H2_CALC2_DIFF_PT450"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C151",
+      "title": "접선의 방정식: 기울기가 주어진 경우 - 기울기가 주어진 접선의 방정식 활용 보강",
+      "priority": 2,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT451",
+        "H2_CALC2_DIFF_PT452",
+        "H2_CALC2_DIFF_PT453"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C152",
+      "title": "접선의 방정식: 곡선 밖의 한 점이 주어진 경우 - 곡선 밖의 한 점에서 그은 접선 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT454",
+        "H2_CALC2_DIFF_PT455",
+        "H2_CALC2_DIFF_PT456"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C153",
+      "title": "접선의 방정식: 곡선 밖의 한 점이 주어진 경우 - 접점 좌표를 문자로 두는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT457",
+        "H2_CALC2_DIFF_PT458",
+        "H2_CALC2_DIFF_PT459"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C154",
+      "title": "접선의 방정식: 곡선 밖의 한 점이 주어진 경우 - 초월함수를 포함한 접선 조건 보강",
+      "priority": 2,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT460",
+        "H2_CALC2_DIFF_PT461",
+        "H2_CALC2_DIFF_PT462"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C155",
+      "title": "접선의 방정식: 곡선 밖의 한 점이 주어진 경우 - 접선의 개수 판단 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT463",
+        "H2_CALC2_DIFF_PT464",
+        "H2_CALC2_DIFF_PT465"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C156",
+      "title": "공통접선 - 다항함수와 초월함수의 공통접선 보강",
+      "priority": 1,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT466",
+        "H2_CALC2_DIFF_PT467",
+        "H2_CALC2_DIFF_PT468"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C157",
+      "title": "공통접선 - 분수함수와 초월함수의 공통접선 보강",
+      "priority": 2,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT469",
+        "H2_CALC2_DIFF_PT470",
+        "H2_CALC2_DIFF_PT471"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C158",
+      "title": "공통접선 - 무리함수와 초월함수의 공통접선 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT472",
+        "H2_CALC2_DIFF_PT473",
+        "H2_CALC2_DIFF_PT474"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C159",
+      "title": "공통접선 - 두 초월함수의 공통접선 보강",
+      "priority": 1,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT475",
+        "H2_CALC2_DIFF_PT476",
+        "H2_CALC2_DIFF_PT477"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C160",
+      "title": "공통접선 조건으로 미정계수 결정 보강",
+      "priority": 2,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT478",
+        "H2_CALC2_DIFF_PT479",
+        "H2_CALC2_DIFF_PT480"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C161",
+      "title": "음함수로 나타낸 곡선의 접선의 방정식 - 유리식 또는 다항식으로만 주어진 음함수의 접선 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT481",
+        "H2_CALC2_DIFF_PT482",
+        "H2_CALC2_DIFF_PT483"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C162",
+      "title": "음함수로 나타낸 곡선의 접선의 방정식 - 무리식을 포함한 음함수의 접선 보강",
+      "priority": 1,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT484",
+        "H2_CALC2_DIFF_PT485",
+        "H2_CALC2_DIFF_PT486"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C163",
+      "title": "음함수로 나타낸 곡선의 접선의 방정식 - 초월함수를 포함한 음함수의 접선 보강",
+      "priority": 2,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT487",
+        "H2_CALC2_DIFF_PT488",
+        "H2_CALC2_DIFF_PT489"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C164",
+      "title": "음함수로 나타낸 곡선의 접선의 방정식 - 음함수 접선과 기울기 조건 보강",
+      "priority": 3,
+      "steps": [
+        "접점을 문자로 두고 함수값 조건 작성",
+        "도함수값을 접선의 기울기로 변환",
+        "통과점·기울기·공통접선 조건을 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT490",
+        "H2_CALC2_DIFF_PT491",
+        "H2_CALC2_DIFF_PT492"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C165",
+      "title": "함수의 증가와 감소 - 유리식 또는 다항식으로만 주어진 함수의 증가와 감소 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT493",
+        "H2_CALC2_DIFF_PT494",
+        "H2_CALC2_DIFF_PT495"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C166",
+      "title": "함수의 증가와 감소 - 무리식을 포함하는 함수의 증가와 감소 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT496",
+        "H2_CALC2_DIFF_PT497",
+        "H2_CALC2_DIFF_PT498"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C167",
+      "title": "함수의 증가와 감소 - 지수함수를 포함하는 함수의 증가와 감소 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT499",
+        "H2_CALC2_DIFF_PT500",
+        "H2_CALC2_DIFF_PT501"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C168",
+      "title": "함수의 증가와 감소 - 로그함수를 포함하는 함수의 증가와 감소 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT502",
+        "H2_CALC2_DIFF_PT503",
+        "H2_CALC2_DIFF_PT504"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C169",
+      "title": "함수의 증가와 감소 - 삼각함수를 포함하는 함수의 증가와 감소 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT505",
+        "H2_CALC2_DIFF_PT506",
+        "H2_CALC2_DIFF_PT507"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C170",
+      "title": "주어진 구간에서 함수가 증가 또는 감소하기 위한 조건 - 유리식 또는 다항식으로만 주어진 함수의 조건 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT508",
+        "H2_CALC2_DIFF_PT509",
+        "H2_CALC2_DIFF_PT510"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C171",
+      "title": "주어진 구간에서 함수가 증가 또는 감소하기 위한 조건 - 지수함수를 포함하는 함수의 조건 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT511",
+        "H2_CALC2_DIFF_PT512",
+        "H2_CALC2_DIFF_PT513"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C172",
+      "title": "주어진 구간에서 함수가 증가 또는 감소하기 위한 조건 - 로그함수를 포함하는 함수의 조건 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT514",
+        "H2_CALC2_DIFF_PT515",
+        "H2_CALC2_DIFF_PT516"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C173",
+      "title": "주어진 구간에서 함수가 증가 또는 감소하기 위한 조건 - 삼각함수를 포함하는 함수의 조건 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT517",
+        "H2_CALC2_DIFF_PT518",
+        "H2_CALC2_DIFF_PT519"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C174",
+      "title": "주어진 구간에서 함수가 증가 또는 감소하기 위한 조건 - 매개변수 범위 결정 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT520",
+        "H2_CALC2_DIFF_PT521",
+        "H2_CALC2_DIFF_PT522"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C175",
+      "title": "함수의 극대·극소: 지수함수 - 지수가 일차식인 경우: 지수함수×일차식 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT523",
+        "H2_CALC2_DIFF_PT524",
+        "H2_CALC2_DIFF_PT525"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C176",
+      "title": "함수의 극대·극소: 지수함수 - 지수가 일차식인 경우: 지수함수×이차식 이상 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT526",
+        "H2_CALC2_DIFF_PT527",
+        "H2_CALC2_DIFF_PT528"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C177",
+      "title": "함수의 극대·극소: 지수함수 - 지수가 일차식인 그 외의 경우 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT529",
+        "H2_CALC2_DIFF_PT530",
+        "H2_CALC2_DIFF_PT531"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C178",
+      "title": "함수의 극대·극소: 지수함수 - 지수가 이차식 이상인 경우 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT532",
+        "H2_CALC2_DIFF_PT533",
+        "H2_CALC2_DIFF_PT534"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C179",
+      "title": "함수의 극대·극소: 로그함수 - 로그의 진수가 일차식인 경우: 분수식이 아닐 때 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT535",
+        "H2_CALC2_DIFF_PT536",
+        "H2_CALC2_DIFF_PT537"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C180",
+      "title": "함수의 극대·극소: 로그함수 - 로그의 진수가 일차식인 경우: 분수식일 때 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT538",
+        "H2_CALC2_DIFF_PT539",
+        "H2_CALC2_DIFF_PT540"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C181",
+      "title": "함수의 극대·극소: 로그함수 - 로그의 진수가 이차식 이상인 경우 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT541",
+        "H2_CALC2_DIFF_PT542",
+        "H2_CALC2_DIFF_PT543"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C182",
+      "title": "함수의 극대·극소: 로그함수 - 로그함수와 다른 함수가 곱해진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT544",
+        "H2_CALC2_DIFF_PT545",
+        "H2_CALC2_DIFF_PT546"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C183",
+      "title": "극대·극소를 이용한 미정계수 결정 - 유리함수 또는 무리함수가 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT547",
+        "H2_CALC2_DIFF_PT548",
+        "H2_CALC2_DIFF_PT549"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C184",
+      "title": "극대·극소를 이용한 미정계수 결정 - 지수함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT550",
+        "H2_CALC2_DIFF_PT551",
+        "H2_CALC2_DIFF_PT552"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C185",
+      "title": "극대·극소를 이용한 미정계수 결정 - 로그함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT553",
+        "H2_CALC2_DIFF_PT554",
+        "H2_CALC2_DIFF_PT555"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C186",
+      "title": "극대·극소를 이용한 미정계수 결정 - 삼각함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT556",
+        "H2_CALC2_DIFF_PT557",
+        "H2_CALC2_DIFF_PT558"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C187",
+      "title": "극대·극소를 이용한 미정계수 결정 - 두 가지 이상의 초월함수가 포함된 경우 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT559",
+        "H2_CALC2_DIFF_PT560",
+        "H2_CALC2_DIFF_PT561"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C188",
+      "title": "곡선의 오목과 볼록 - 유리함수 또는 무리함수가 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT562",
+        "H2_CALC2_DIFF_PT563",
+        "H2_CALC2_DIFF_PT564"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C189",
+      "title": "곡선의 오목과 볼록 - 지수함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT565",
+        "H2_CALC2_DIFF_PT566",
+        "H2_CALC2_DIFF_PT567"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C190",
+      "title": "곡선의 오목과 볼록 - 로그함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT568",
+        "H2_CALC2_DIFF_PT569",
+        "H2_CALC2_DIFF_PT570"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C191",
+      "title": "곡선의 오목과 볼록 - 삼각함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT571",
+        "H2_CALC2_DIFF_PT572",
+        "H2_CALC2_DIFF_PT573"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C192",
+      "title": "곡선의 오목과 볼록 - 이계도함수의 부호 판단 보강",
+      "priority": 1,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT574",
+        "H2_CALC2_DIFF_PT575",
+        "H2_CALC2_DIFF_PT576"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C193",
+      "title": "변곡점을 이용한 미정계수 결정 - 유리함수 또는 무리함수가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT577",
+        "H2_CALC2_DIFF_PT578",
+        "H2_CALC2_DIFF_PT579"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C194",
+      "title": "변곡점을 이용한 미정계수 결정 - 지수함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT580",
+        "H2_CALC2_DIFF_PT581",
+        "H2_CALC2_DIFF_PT582"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C195",
+      "title": "변곡점을 이용한 미정계수 결정 - 로그함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT583",
+        "H2_CALC2_DIFF_PT584",
+        "H2_CALC2_DIFF_PT585"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C196",
+      "title": "변곡점을 이용한 미정계수 결정 - 삼각함수를 포함하는 함수가 주어진 경우 보강",
+      "priority": 2,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT586",
+        "H2_CALC2_DIFF_PT587",
+        "H2_CALC2_DIFF_PT588"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C197",
+      "title": "변곡점을 이용한 미정계수 결정 - 변곡점과 접선 조건을 함께 쓰는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "이계도함수 계산",
+        "이계도함수 부호 변화 확인",
+        "오목·볼록과 변곡점 조건을 그래프에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT589",
+        "H2_CALC2_DIFF_PT590",
+        "H2_CALC2_DIFF_PT591"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C198",
+      "title": "함수의 그래프: 무리함수 - 무리함수의 식이 주어진 경우 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT592",
+        "H2_CALC2_DIFF_PT593",
+        "H2_CALC2_DIFF_PT594"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C199",
+      "title": "함수의 그래프: 무리함수 - 무리함수 그래프의 정의역과 증가감소 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT595",
+        "H2_CALC2_DIFF_PT596",
+        "H2_CALC2_DIFF_PT597"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C200",
+      "title": "함수의 그래프: 무리함수 - 무리함수 그래프와 접선 조건 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT598",
+        "H2_CALC2_DIFF_PT599",
+        "H2_CALC2_DIFF_PT600"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C201",
+      "title": "함수의 그래프: 지수함수 - 지수가 일차식인 지수함수 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT601",
+        "H2_CALC2_DIFF_PT602",
+        "H2_CALC2_DIFF_PT603"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C202",
+      "title": "함수의 그래프: 지수함수 - 지수가 이차식 이상인 지수함수 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT604",
+        "H2_CALC2_DIFF_PT605",
+        "H2_CALC2_DIFF_PT606"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C203",
+      "title": "함수의 그래프: 지수함수 - 지수함수 그래프와 극값 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT607",
+        "H2_CALC2_DIFF_PT608",
+        "H2_CALC2_DIFF_PT609"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C204",
+      "title": "함수의 그래프: 지수함수 - 지수함수 그래프와 점근선 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT610",
+        "H2_CALC2_DIFF_PT611",
+        "H2_CALC2_DIFF_PT612"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C205",
+      "title": "함수의 그래프: 로그함수 - 로그함수의 진수가 일차식인 경우 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT613",
+        "H2_CALC2_DIFF_PT614",
+        "H2_CALC2_DIFF_PT615"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C206",
+      "title": "함수의 그래프: 로그함수 - 로그함수의 진수가 이차식 이상인 경우 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT616",
+        "H2_CALC2_DIFF_PT617",
+        "H2_CALC2_DIFF_PT618"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C207",
+      "title": "함수의 그래프: 로그함수 - 로그함수 그래프와 정의역 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT619",
+        "H2_CALC2_DIFF_PT620",
+        "H2_CALC2_DIFF_PT621"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C208",
+      "title": "함수의 그래프: 로그함수 - 로그함수 그래프와 점근선 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT622",
+        "H2_CALC2_DIFF_PT623",
+        "H2_CALC2_DIFF_PT624"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C209",
+      "title": "함수의 그래프: 종합 - 지수함수를 포함한 함수 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT625",
+        "H2_CALC2_DIFF_PT626",
+        "H2_CALC2_DIFF_PT627"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C210",
+      "title": "함수의 그래프: 종합 - 로그함수를 포함한 함수 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT628",
+        "H2_CALC2_DIFF_PT629",
+        "H2_CALC2_DIFF_PT630"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C211",
+      "title": "함수의 그래프: 종합 - 삼각함수를 포함한 함수 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT631",
+        "H2_CALC2_DIFF_PT632",
+        "H2_CALC2_DIFF_PT633"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C212",
+      "title": "함수의 그래프: 종합 - 여러 초월함수가 함께 포함된 함수 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT634",
+        "H2_CALC2_DIFF_PT635",
+        "H2_CALC2_DIFF_PT636"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C213",
+      "title": "함수의 최대·최소: 유리함수 - 분모가 일차식인 유리함수의 최대·최소 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT637",
+        "H2_CALC2_DIFF_PT638",
+        "H2_CALC2_DIFF_PT639"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C214",
+      "title": "함수의 최대·최소: 유리함수 - 분모가 이차식 이상인 유리함수의 최대·최소 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT640",
+        "H2_CALC2_DIFF_PT641",
+        "H2_CALC2_DIFF_PT642"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C215",
+      "title": "함수의 최대·최소: 유리함수 - 함수식에 포함된 미정계수 결정 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT643",
+        "H2_CALC2_DIFF_PT644",
+        "H2_CALC2_DIFF_PT645"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C216",
+      "title": "함수의 최대·최소: 지수함수 - 지수가 일차식인 지수함수의 최대·최소 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT646",
+        "H2_CALC2_DIFF_PT647",
+        "H2_CALC2_DIFF_PT648"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C217",
+      "title": "함수의 최대·최소: 지수함수 - 지수가 이차식 이상인 지수함수의 최대·최소 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT649",
+        "H2_CALC2_DIFF_PT650",
+        "H2_CALC2_DIFF_PT651"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C218",
+      "title": "함수의 최대·최소: 지수함수 - 함수식에 포함된 미정계수 결정 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT652",
+        "H2_CALC2_DIFF_PT653",
+        "H2_CALC2_DIFF_PT654"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C219",
+      "title": "함수의 최대·최소: 로그함수 - 로그의 진수가 일차식인 경우 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT655",
+        "H2_CALC2_DIFF_PT656",
+        "H2_CALC2_DIFF_PT657"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C220",
+      "title": "함수의 최대·최소: 로그함수 - 로그의 진수가 이차식 이상인 경우 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT658",
+        "H2_CALC2_DIFF_PT659",
+        "H2_CALC2_DIFF_PT660"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C221",
+      "title": "함수의 최대·최소: 로그함수 - 로그함수 최대·최소와 정의역 조건 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT661",
+        "H2_CALC2_DIFF_PT662",
+        "H2_CALC2_DIFF_PT663"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C222",
+      "title": "치환을 이용한 최대·최소 - 지수함수로 치환하는 경우 보강",
+      "priority": 1,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT664",
+        "H2_CALC2_DIFF_PT665",
+        "H2_CALC2_DIFF_PT666"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C223",
+      "title": "치환을 이용한 최대·최소 - 로그함수로 치환하는 경우 보강",
+      "priority": 2,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT667",
+        "H2_CALC2_DIFF_PT668",
+        "H2_CALC2_DIFF_PT669"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C224",
+      "title": "치환을 이용한 최대·최소 - 삼각함수로 치환하는 경우 보강",
+      "priority": 3,
+      "steps": [
+        "도함수 계산과 임계점 확인",
+        "부호표로 증가감소와 극값 판단",
+        "끝값·정의역·미정계수 조건까지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT670",
+        "H2_CALC2_DIFF_PT671",
+        "H2_CALC2_DIFF_PT672"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C225",
+      "title": "함수의 최대·최소의 활용 - 미분으로 최대·최소를 구하는 활용 문제 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT673",
+        "H2_CALC2_DIFF_PT674",
+        "H2_CALC2_DIFF_PT675"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C226",
+      "title": "함수의 최대·최소의 활용 - 도형 조건과 최대·최소 보강",
+      "priority": 2,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT676",
+        "H2_CALC2_DIFF_PT677",
+        "H2_CALC2_DIFF_PT678"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C227",
+      "title": "함수의 최대·최소의 활용 - 실생활 모델링과 최대·최소 보강",
+      "priority": 3,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT679",
+        "H2_CALC2_DIFF_PT680",
+        "H2_CALC2_DIFF_PT681"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C228",
+      "title": "함수의 최대·최소의 활용 - 매개변수 조건에서 최대·최소 보강",
+      "priority": 1,
+      "steps": [
+        "공식 적용 전 함수 구조 정리",
+        "도함수 공식 적용",
+        "조건 대입 후 계산값 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT682",
+        "H2_CALC2_DIFF_PT683",
+        "H2_CALC2_DIFF_PT684"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C229",
+      "title": "방정식의 실근의 개수 - 유리함수 또는 다항함수로만 주어진 방정식의 실근 보강",
+      "priority": 2,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT685",
+        "H2_CALC2_DIFF_PT686",
+        "H2_CALC2_DIFF_PT687"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C230",
+      "title": "방정식의 실근의 개수 - 무리함수를 포함하는 방정식의 실근 보강",
+      "priority": 3,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT688",
+        "H2_CALC2_DIFF_PT689",
+        "H2_CALC2_DIFF_PT690"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C231",
+      "title": "방정식의 실근의 개수 - 지수함수를 포함하는 방정식의 실근 보강",
+      "priority": 1,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT691",
+        "H2_CALC2_DIFF_PT692",
+        "H2_CALC2_DIFF_PT693"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C232",
+      "title": "방정식의 실근의 개수 - 로그함수를 포함하는 방정식의 실근 보강",
+      "priority": 2,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT694",
+        "H2_CALC2_DIFF_PT695",
+        "H2_CALC2_DIFF_PT696"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C233",
+      "title": "방정식의 실근의 개수 - 삼각함수를 포함하는 방정식의 실근 보강",
+      "priority": 3,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT697",
+        "H2_CALC2_DIFF_PT698",
+        "H2_CALC2_DIFF_PT699"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C234",
+      "title": "방정식의 실근의 개수 - 그래프 교점으로 실근 개수 판단 보강",
+      "priority": 1,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT700",
+        "H2_CALC2_DIFF_PT701",
+        "H2_CALC2_DIFF_PT702"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C235",
+      "title": "방정식이 실근을 가질 조건 - 유리함수 또는 다항함수로만 주어진 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT703",
+        "H2_CALC2_DIFF_PT704",
+        "H2_CALC2_DIFF_PT705"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C236",
+      "title": "방정식이 실근을 가질 조건 - 무리함수를 포함하는 방정식 보강",
+      "priority": 3,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT706",
+        "H2_CALC2_DIFF_PT707",
+        "H2_CALC2_DIFF_PT708"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C237",
+      "title": "방정식이 실근을 가질 조건 - 지수함수를 포함하는 방정식 보강",
+      "priority": 1,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT709",
+        "H2_CALC2_DIFF_PT710",
+        "H2_CALC2_DIFF_PT711"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C238",
+      "title": "방정식이 실근을 가질 조건 - 로그함수를 포함하는 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT712",
+        "H2_CALC2_DIFF_PT713",
+        "H2_CALC2_DIFF_PT714"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C239",
+      "title": "방정식이 실근을 가질 조건 - 삼각함수를 포함하는 방정식 보강",
+      "priority": 3,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT715",
+        "H2_CALC2_DIFF_PT716",
+        "H2_CALC2_DIFF_PT717"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C240",
+      "title": "방정식이 실근을 가질 조건 - 두 가지 이상의 초월함수가 포함된 방정식 보강",
+      "priority": 1,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT718",
+        "H2_CALC2_DIFF_PT719",
+        "H2_CALC2_DIFF_PT720"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C241",
+      "title": "부등식이 성립하도록 하는 조건 - 유리함수 또는 다항함수로만 표현된 부등식 보강",
+      "priority": 2,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT721",
+        "H2_CALC2_DIFF_PT722",
+        "H2_CALC2_DIFF_PT723"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C242",
+      "title": "부등식이 성립하도록 하는 조건 - 무리함수를 포함하는 부등식 보강",
+      "priority": 3,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT724",
+        "H2_CALC2_DIFF_PT725",
+        "H2_CALC2_DIFF_PT726"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C243",
+      "title": "부등식이 성립하도록 하는 조건 - 지수함수를 포함하는 부등식 보강",
+      "priority": 1,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT727",
+        "H2_CALC2_DIFF_PT728",
+        "H2_CALC2_DIFF_PT729"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C244",
+      "title": "부등식이 성립하도록 하는 조건 - 로그함수와 유리함수가 결합된 부등식 보강",
+      "priority": 2,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT730",
+        "H2_CALC2_DIFF_PT731",
+        "H2_CALC2_DIFF_PT732"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C245",
+      "title": "부등식이 성립하도록 하는 조건 - 로그함수와 무리함수가 결합된 부등식 보강",
+      "priority": 3,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT733",
+        "H2_CALC2_DIFF_PT734",
+        "H2_CALC2_DIFF_PT735"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C246",
+      "title": "부등식이 성립하도록 하는 조건 - 삼각함수를 포함하는 부등식 보강",
+      "priority": 1,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT736",
+        "H2_CALC2_DIFF_PT737",
+        "H2_CALC2_DIFF_PT738"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C247",
+      "title": "부등식이 성립하도록 하는 조건 - 두 가지 이상의 초월함수를 포함하는 부등식 보강",
+      "priority": 2,
+      "steps": [
+        "방정식/부등식을 그래프 관계로 전환",
+        "도함수로 그래프 개형과 최대·최소 파악",
+        "교점 개수 또는 항상 성립 조건을 매개변수 범위로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT739",
+        "H2_CALC2_DIFF_PT740",
+        "H2_CALC2_DIFF_PT741"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C248",
+      "title": "직선 운동에서의 속도와 가속도 - 위치의 식이 유리식 또는 무리식으로만 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT742",
+        "H2_CALC2_DIFF_PT743",
+        "H2_CALC2_DIFF_PT744"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C249",
+      "title": "직선 운동에서의 속도와 가속도 - 위치의 식에 지수함수가 포함된 경우 보강",
+      "priority": 1,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT745",
+        "H2_CALC2_DIFF_PT746",
+        "H2_CALC2_DIFF_PT747"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C250",
+      "title": "직선 운동에서의 속도와 가속도 - 위치의 식에 로그함수가 포함된 경우 보강",
+      "priority": 2,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT748",
+        "H2_CALC2_DIFF_PT749",
+        "H2_CALC2_DIFF_PT750"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C251",
+      "title": "직선 운동에서의 속도와 가속도 - 위치의 식에 삼각함수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT751",
+        "H2_CALC2_DIFF_PT752",
+        "H2_CALC2_DIFF_PT753"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C252",
+      "title": "직선 운동에서의 속도와 가속도 - 위치의 식에 두 가지 이상의 초월함수가 포함된 경우 보강",
+      "priority": 1,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT754",
+        "H2_CALC2_DIFF_PT755",
+        "H2_CALC2_DIFF_PT756"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C253",
+      "title": "직선 운동에서의 속도와 가속도 - 속도와 가속도 그래프 해석 보강",
+      "priority": 2,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT757",
+        "H2_CALC2_DIFF_PT758",
+        "H2_CALC2_DIFF_PT759"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C254",
+      "title": "평면 운동에서의 가속도 - 위치의 식이 유리식 또는 무리식으로만 주어진 경우 보강",
+      "priority": 3,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT760",
+        "H2_CALC2_DIFF_PT761",
+        "H2_CALC2_DIFF_PT762"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C255",
+      "title": "평면 운동에서의 가속도 - 위치의 식에 지수함수가 포함된 경우 보강",
+      "priority": 1,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT763",
+        "H2_CALC2_DIFF_PT764",
+        "H2_CALC2_DIFF_PT765"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C256",
+      "title": "평면 운동에서의 가속도 - 위치의 식에 로그함수가 포함된 경우 보강",
+      "priority": 2,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT766",
+        "H2_CALC2_DIFF_PT767",
+        "H2_CALC2_DIFF_PT768"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C257",
+      "title": "평면 운동에서의 가속도 - 위치의 식에 삼각함수가 포함된 경우 보강",
+      "priority": 3,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT769",
+        "H2_CALC2_DIFF_PT770",
+        "H2_CALC2_DIFF_PT771"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_CALC2_DIFF_C258",
+      "title": "평면 운동에서의 가속도 - 위치의 식에 두 가지 이상의 초월함수가 포함된 경우 보강",
+      "priority": 1,
+      "steps": [
+        "위치식을 성분별로 정리",
+        "1차 미분으로 속도, 2차 미분으로 가속도 계산",
+        "시간 조건과 방향·크기 조건을 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_CALC2_DIFF_PT772",
+        "H2_CALC2_DIFF_PT773",
+        "H2_CALC2_DIFF_PT774"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.08-h2-calculus1-integration-v1.0",
+  "version": "2026.07.08-h2-calculus2-differentiation-v1.0",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -427,6 +427,20 @@
       "sources": "data/sources/h2_calculus1_integration.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/h2_calculus1_integration.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/h2_calculus1_integration.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+      "grade": "고2",
+      "course": "미적분2",
+      "unit_name": "미분법",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/h2_calculus2_differentiation.problem_types.v1.json",
+      "edges": "data/relations/h2_calculus2_differentiation.edges.v1.json",
+      "diagnosis_rules": "data/rules/h2_calculus2_differentiation.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/h2_calculus2_differentiation.remediation_map.v1.json",
+      "sources": "data/sources/h2_calculus2_differentiation.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/h2_calculus2_differentiation.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/h2_calculus2_differentiation.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [

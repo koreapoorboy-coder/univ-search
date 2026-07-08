@@ -1,0 +1,1708 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+  "unit_name": "미분법",
+  "rule_count": 56,
+  "rules": [
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_001",
+      "name": "지수함수와 로그함수의 극한과 미분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_limit",
+          "log_exp_limit",
+          "transcendental_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'지수함수와 로그함수의 극한과 미분' 유형에서 표준 극한 꼴로 변형하는 과정이 약합니다.",
+      "parent_message": "초월함수 극한은 표준 극한을 먼저 적고, 계수와 치환을 통해 같은 꼴로 맞추게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C001",
+        "H2_CALC2_DIFF_C002",
+        "H2_CALC2_DIFF_C003",
+        "H2_CALC2_DIFF_C004",
+        "H2_CALC2_DIFF_C005"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT001",
+        "H2_CALC2_DIFF_PT002",
+        "H2_CALC2_DIFF_PT004",
+        "H2_CALC2_DIFF_PT005",
+        "H2_CALC2_DIFF_PT007",
+        "H2_CALC2_DIFF_PT008"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_002",
+      "name": "무리수 e의 정의 취약",
+      "trigger": {
+        "error_tags_any": [
+          "e_definition",
+          "exponential_limit",
+          "limit_standard"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'무리수 e의 정의' 유형에서 표준 극한 꼴로 변형하는 과정이 약합니다.",
+      "parent_message": "초월함수 극한은 표준 극한을 먼저 적고, 계수와 치환을 통해 같은 꼴로 맞추게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C006",
+        "H2_CALC2_DIFF_C007",
+        "H2_CALC2_DIFF_C008",
+        "H2_CALC2_DIFF_C009"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT016",
+        "H2_CALC2_DIFF_PT017",
+        "H2_CALC2_DIFF_PT019",
+        "H2_CALC2_DIFF_PT020",
+        "H2_CALC2_DIFF_PT022",
+        "H2_CALC2_DIFF_PT023"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_003",
+      "name": "자연로그 ln의 정의 취약",
+      "trigger": {
+        "error_tags_any": [
+          "natural_log",
+          "log_limit",
+          "limit_standard"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'자연로그 ln의 정의' 유형에서 표준 극한 꼴로 변형하는 과정이 약합니다.",
+      "parent_message": "초월함수 극한은 표준 극한을 먼저 적고, 계수와 치환을 통해 같은 꼴로 맞추게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C010",
+        "H2_CALC2_DIFF_C011",
+        "H2_CALC2_DIFF_C012",
+        "H2_CALC2_DIFF_C013"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT028",
+        "H2_CALC2_DIFF_PT029",
+        "H2_CALC2_DIFF_PT031",
+        "H2_CALC2_DIFF_PT032",
+        "H2_CALC2_DIFF_PT034",
+        "H2_CALC2_DIFF_PT035"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_004",
+      "name": "로그함수의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "log_limit",
+          "limit_standard",
+          "base_change"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'로그함수의 극한' 유형에서 표준 극한 꼴로 변형하는 과정이 약합니다.",
+      "parent_message": "초월함수 극한은 표준 극한을 먼저 적고, 계수와 치환을 통해 같은 꼴로 맞추게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C014",
+        "H2_CALC2_DIFF_C015",
+        "H2_CALC2_DIFF_C016",
+        "H2_CALC2_DIFF_C017",
+        "H2_CALC2_DIFF_C018"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT040",
+        "H2_CALC2_DIFF_PT041",
+        "H2_CALC2_DIFF_PT043",
+        "H2_CALC2_DIFF_PT044",
+        "H2_CALC2_DIFF_PT046",
+        "H2_CALC2_DIFF_PT047"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_005",
+      "name": "지수함수의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_limit",
+          "limit_standard",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'지수함수의 극한' 유형에서 표준 극한 꼴로 변형하는 과정이 약합니다.",
+      "parent_message": "초월함수 극한은 표준 극한을 먼저 적고, 계수와 치환을 통해 같은 꼴로 맞추게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C019",
+        "H2_CALC2_DIFF_C020",
+        "H2_CALC2_DIFF_C021",
+        "H2_CALC2_DIFF_C022"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT055",
+        "H2_CALC2_DIFF_PT056",
+        "H2_CALC2_DIFF_PT058",
+        "H2_CALC2_DIFF_PT059",
+        "H2_CALC2_DIFF_PT061",
+        "H2_CALC2_DIFF_PT062"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_006",
+      "name": "지수함수·로그함수의 극한을 이용한 미정계수 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coefficient_matching",
+          "log_exp_limit",
+          "limit_standard"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'지수함수·로그함수의 극한을 이용한 미정계수 결정' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C023",
+        "H2_CALC2_DIFF_C024",
+        "H2_CALC2_DIFF_C025",
+        "H2_CALC2_DIFF_C026"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT067",
+        "H2_CALC2_DIFF_PT068",
+        "H2_CALC2_DIFF_PT070",
+        "H2_CALC2_DIFF_PT071",
+        "H2_CALC2_DIFF_PT073",
+        "H2_CALC2_DIFF_PT074"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_007",
+      "name": "지수함수·로그함수의 연속과 미정계수 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "continuity",
+          "log_exp_limit",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'지수함수·로그함수의 연속과 미정계수 결정' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C027",
+        "H2_CALC2_DIFF_C028",
+        "H2_CALC2_DIFF_C029",
+        "H2_CALC2_DIFF_C030"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT079",
+        "H2_CALC2_DIFF_PT080",
+        "H2_CALC2_DIFF_PT082",
+        "H2_CALC2_DIFF_PT083",
+        "H2_CALC2_DIFF_PT085",
+        "H2_CALC2_DIFF_PT086"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_008",
+      "name": "지수함수의 도함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "exponential_derivative",
+          "derivative_formula",
+          "transcendental_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'지수함수의 도함수' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C031",
+        "H2_CALC2_DIFF_C032",
+        "H2_CALC2_DIFF_C033",
+        "H2_CALC2_DIFF_C034",
+        "H2_CALC2_DIFF_C035"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT091",
+        "H2_CALC2_DIFF_PT092",
+        "H2_CALC2_DIFF_PT094",
+        "H2_CALC2_DIFF_PT095",
+        "H2_CALC2_DIFF_PT097",
+        "H2_CALC2_DIFF_PT098"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_009",
+      "name": "로그함수의 도함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "log_derivative",
+          "derivative_formula",
+          "transcendental_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'로그함수의 도함수' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C036",
+        "H2_CALC2_DIFF_C037",
+        "H2_CALC2_DIFF_C038",
+        "H2_CALC2_DIFF_C039",
+        "H2_CALC2_DIFF_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT106",
+        "H2_CALC2_DIFF_PT107",
+        "H2_CALC2_DIFF_PT109",
+        "H2_CALC2_DIFF_PT110",
+        "H2_CALC2_DIFF_PT112",
+        "H2_CALC2_DIFF_PT113"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_010",
+      "name": "삼각함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "trig_basic",
+          "trig_identity",
+          "angle_value"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수' 유형에서 삼각함수 공식 선택과 식 변형이 약합니다.",
+      "parent_message": "삼각함수 공식 문제는 덧셈정리, 배각, 반각, 기본관계를 먼저 분류하고 각 조건을 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C041",
+        "H2_CALC2_DIFF_C042",
+        "H2_CALC2_DIFF_C043",
+        "H2_CALC2_DIFF_C044",
+        "H2_CALC2_DIFF_C045"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT121",
+        "H2_CALC2_DIFF_PT122",
+        "H2_CALC2_DIFF_PT124",
+        "H2_CALC2_DIFF_PT125",
+        "H2_CALC2_DIFF_PT127",
+        "H2_CALC2_DIFF_PT128"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_011",
+      "name": "삼각함수 사이의 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "trig_identity",
+          "trig_relation",
+          "algebraic_manipulation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수 사이의 관계' 유형에서 삼각함수 공식 선택과 식 변형이 약합니다.",
+      "parent_message": "삼각함수 공식 문제는 덧셈정리, 배각, 반각, 기본관계를 먼저 분류하고 각 조건을 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C046",
+        "H2_CALC2_DIFF_C047",
+        "H2_CALC2_DIFF_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT136",
+        "H2_CALC2_DIFF_PT137",
+        "H2_CALC2_DIFF_PT139",
+        "H2_CALC2_DIFF_PT140",
+        "H2_CALC2_DIFF_PT142",
+        "H2_CALC2_DIFF_PT143"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_012",
+      "name": "삼각함수의 덧셈정리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "addition_formula",
+          "trig_identity",
+          "trig_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수의 덧셈정리' 유형에서 삼각함수 공식 선택과 식 변형이 약합니다.",
+      "parent_message": "삼각함수 공식 문제는 덧셈정리, 배각, 반각, 기본관계를 먼저 분류하고 각 조건을 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C049",
+        "H2_CALC2_DIFF_C050",
+        "H2_CALC2_DIFF_C051",
+        "H2_CALC2_DIFF_C052",
+        "H2_CALC2_DIFF_C053"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT145",
+        "H2_CALC2_DIFF_PT146",
+        "H2_CALC2_DIFF_PT148",
+        "H2_CALC2_DIFF_PT149",
+        "H2_CALC2_DIFF_PT151",
+        "H2_CALC2_DIFF_PT152"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_013",
+      "name": "덧셈정리의 활용: 방정식·함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "addition_formula",
+          "trig_equation",
+          "function_transformation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'덧셈정리의 활용: 방정식·함수' 유형에서 삼각함수 공식 선택과 식 변형이 약합니다.",
+      "parent_message": "삼각함수 공식 문제는 덧셈정리, 배각, 반각, 기본관계를 먼저 분류하고 각 조건을 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C055",
+        "H2_CALC2_DIFF_C056",
+        "H2_CALC2_DIFF_C057"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT163",
+        "H2_CALC2_DIFF_PT164",
+        "H2_CALC2_DIFF_PT166",
+        "H2_CALC2_DIFF_PT167",
+        "H2_CALC2_DIFF_PT169",
+        "H2_CALC2_DIFF_PT170"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_014",
+      "name": "덧셈정리의 활용: 도형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "addition_formula",
+          "geometry_application",
+          "trig_modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'덧셈정리의 활용: 도형' 유형에서 삼각함수 공식 선택과 식 변형이 약합니다.",
+      "parent_message": "삼각함수 공식 문제는 덧셈정리, 배각, 반각, 기본관계를 먼저 분류하고 각 조건을 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C058",
+        "H2_CALC2_DIFF_C059",
+        "H2_CALC2_DIFF_C060",
+        "H2_CALC2_DIFF_C061",
+        "H2_CALC2_DIFF_C062"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT172",
+        "H2_CALC2_DIFF_PT173",
+        "H2_CALC2_DIFF_PT175",
+        "H2_CALC2_DIFF_PT176",
+        "H2_CALC2_DIFF_PT178",
+        "H2_CALC2_DIFF_PT179"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_015",
+      "name": "배각의 공식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "double_angle",
+          "trig_identity",
+          "trig_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'배각의 공식' 유형에서 삼각함수 공식 선택과 식 변형이 약합니다.",
+      "parent_message": "삼각함수 공식 문제는 덧셈정리, 배각, 반각, 기본관계를 먼저 분류하고 각 조건을 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C063",
+        "H2_CALC2_DIFF_C064",
+        "H2_CALC2_DIFF_C065",
+        "H2_CALC2_DIFF_C066"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT187",
+        "H2_CALC2_DIFF_PT188",
+        "H2_CALC2_DIFF_PT190",
+        "H2_CALC2_DIFF_PT191",
+        "H2_CALC2_DIFF_PT193",
+        "H2_CALC2_DIFF_PT194"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_016",
+      "name": "배각·반각 공식의 활용: 도형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "half_angle",
+          "double_angle",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'배각·반각 공식의 활용: 도형' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C067",
+        "H2_CALC2_DIFF_C068",
+        "H2_CALC2_DIFF_C069",
+        "H2_CALC2_DIFF_C070"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT199",
+        "H2_CALC2_DIFF_PT200",
+        "H2_CALC2_DIFF_PT202",
+        "H2_CALC2_DIFF_PT203",
+        "H2_CALC2_DIFF_PT205",
+        "H2_CALC2_DIFF_PT206"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_017",
+      "name": "삼각함수의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "trig_limit",
+          "limit_standard",
+          "angle_transformation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수의 극한' 유형에서 표준 극한 꼴로 변형하는 과정이 약합니다.",
+      "parent_message": "초월함수 극한은 표준 극한을 먼저 적고, 계수와 치환을 통해 같은 꼴로 맞추게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C071",
+        "H2_CALC2_DIFF_C072",
+        "H2_CALC2_DIFF_C073",
+        "H2_CALC2_DIFF_C074",
+        "H2_CALC2_DIFF_C075"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT211",
+        "H2_CALC2_DIFF_PT212",
+        "H2_CALC2_DIFF_PT214",
+        "H2_CALC2_DIFF_PT215",
+        "H2_CALC2_DIFF_PT217",
+        "H2_CALC2_DIFF_PT218"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_018",
+      "name": "삼각함수 극한의 변형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "trig_limit",
+          "limit_transformation",
+          "substitution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수 극한의 변형' 유형에서 표준 극한 꼴로 변형하는 과정이 약합니다.",
+      "parent_message": "초월함수 극한은 표준 극한을 먼저 적고, 계수와 치환을 통해 같은 꼴로 맞추게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C076",
+        "H2_CALC2_DIFF_C077",
+        "H2_CALC2_DIFF_C078",
+        "H2_CALC2_DIFF_C079",
+        "H2_CALC2_DIFF_C080"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT226",
+        "H2_CALC2_DIFF_PT227",
+        "H2_CALC2_DIFF_PT229",
+        "H2_CALC2_DIFF_PT230",
+        "H2_CALC2_DIFF_PT232",
+        "H2_CALC2_DIFF_PT233"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_019",
+      "name": "삼각함수의 극한을 이용한 미정계수 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "trig_limit",
+          "coefficient_matching",
+          "limit_standard"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수의 극한을 이용한 미정계수 결정' 유형에서 표준 극한 꼴로 변형하는 과정이 약합니다.",
+      "parent_message": "초월함수 극한은 표준 극한을 먼저 적고, 계수와 치환을 통해 같은 꼴로 맞추게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C082",
+        "H2_CALC2_DIFF_C083",
+        "H2_CALC2_DIFF_C084",
+        "H2_CALC2_DIFF_C085"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT244",
+        "H2_CALC2_DIFF_PT245",
+        "H2_CALC2_DIFF_PT247",
+        "H2_CALC2_DIFF_PT248",
+        "H2_CALC2_DIFF_PT250",
+        "H2_CALC2_DIFF_PT251"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_020",
+      "name": "삼각함수의 연속과 미정계수 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "trig_continuity",
+          "coefficient_matching",
+          "continuity"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수의 연속과 미정계수 결정' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C086",
+        "H2_CALC2_DIFF_C087",
+        "H2_CALC2_DIFF_C088"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT256",
+        "H2_CALC2_DIFF_PT257",
+        "H2_CALC2_DIFF_PT259",
+        "H2_CALC2_DIFF_PT260",
+        "H2_CALC2_DIFF_PT262",
+        "H2_CALC2_DIFF_PT263"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_021",
+      "name": "삼각함수의 도함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "trig_derivative",
+          "derivative_formula",
+          "rate_of_change"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수의 도함수' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C089",
+        "H2_CALC2_DIFF_C090",
+        "H2_CALC2_DIFF_C091",
+        "H2_CALC2_DIFF_C092",
+        "H2_CALC2_DIFF_C093"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT265",
+        "H2_CALC2_DIFF_PT266",
+        "H2_CALC2_DIFF_PT268",
+        "H2_CALC2_DIFF_PT269",
+        "H2_CALC2_DIFF_PT271",
+        "H2_CALC2_DIFF_PT272"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_022",
+      "name": "함수의 몫의 미분법 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quotient_rule",
+          "derivative_formula",
+          "rational_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 몫의 미분법' 유형에서 필요한 미분법을 선택하고 변수 관계를 정리하는 과정이 약합니다.",
+      "parent_message": "여러 가지 미분법 문제는 먼저 함수 구조를 몫, 합성, 음함수, 역함수, 매개변수 중 하나로 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C096",
+        "H2_CALC2_DIFF_C097",
+        "H2_CALC2_DIFF_C098",
+        "H2_CALC2_DIFF_C099"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT286",
+        "H2_CALC2_DIFF_PT287",
+        "H2_CALC2_DIFF_PT289",
+        "H2_CALC2_DIFF_PT290",
+        "H2_CALC2_DIFF_PT292",
+        "H2_CALC2_DIFF_PT293"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_023",
+      "name": "몫의 미분법을 이용한 삼각함수의 도함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quotient_rule",
+          "trig_derivative",
+          "derivative_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'몫의 미분법을 이용한 삼각함수의 도함수' 유형에서 필요한 미분법을 선택하고 변수 관계를 정리하는 과정이 약합니다.",
+      "parent_message": "여러 가지 미분법 문제는 먼저 함수 구조를 몫, 합성, 음함수, 역함수, 매개변수 중 하나로 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C100",
+        "H2_CALC2_DIFF_C101",
+        "H2_CALC2_DIFF_C102",
+        "H2_CALC2_DIFF_C103",
+        "H2_CALC2_DIFF_C104"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT298",
+        "H2_CALC2_DIFF_PT299",
+        "H2_CALC2_DIFF_PT301",
+        "H2_CALC2_DIFF_PT302",
+        "H2_CALC2_DIFF_PT304",
+        "H2_CALC2_DIFF_PT305"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_024",
+      "name": "합성함수의 미분법: 다항함수·유리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "chain_rule",
+          "polynomial_function",
+          "rational_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'합성함수의 미분법: 다항함수·유리함수' 유형에서 필요한 미분법을 선택하고 변수 관계를 정리하는 과정이 약합니다.",
+      "parent_message": "여러 가지 미분법 문제는 먼저 함수 구조를 몫, 합성, 음함수, 역함수, 매개변수 중 하나로 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C105",
+        "H2_CALC2_DIFF_C106",
+        "H2_CALC2_DIFF_C107",
+        "H2_CALC2_DIFF_C108"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT313",
+        "H2_CALC2_DIFF_PT314",
+        "H2_CALC2_DIFF_PT316",
+        "H2_CALC2_DIFF_PT317",
+        "H2_CALC2_DIFF_PT319",
+        "H2_CALC2_DIFF_PT320"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_025",
+      "name": "합성함수의 미분법: 지수함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "chain_rule",
+          "exponential_derivative",
+          "composite_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'합성함수의 미분법: 지수함수' 유형에서 필요한 미분법을 선택하고 변수 관계를 정리하는 과정이 약합니다.",
+      "parent_message": "여러 가지 미분법 문제는 먼저 함수 구조를 몫, 합성, 음함수, 역함수, 매개변수 중 하나로 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C109",
+        "H2_CALC2_DIFF_C110",
+        "H2_CALC2_DIFF_C111",
+        "H2_CALC2_DIFF_C112",
+        "H2_CALC2_DIFF_C113"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT325",
+        "H2_CALC2_DIFF_PT326",
+        "H2_CALC2_DIFF_PT328",
+        "H2_CALC2_DIFF_PT329",
+        "H2_CALC2_DIFF_PT331",
+        "H2_CALC2_DIFF_PT332"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_026",
+      "name": "합성함수의 미분법: 삼각함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "chain_rule",
+          "trig_derivative",
+          "composite_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'합성함수의 미분법: 삼각함수' 유형에서 필요한 미분법을 선택하고 변수 관계를 정리하는 과정이 약합니다.",
+      "parent_message": "여러 가지 미분법 문제는 먼저 함수 구조를 몫, 합성, 음함수, 역함수, 매개변수 중 하나로 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C114",
+        "H2_CALC2_DIFF_C115",
+        "H2_CALC2_DIFF_C116",
+        "H2_CALC2_DIFF_C117",
+        "H2_CALC2_DIFF_C118"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT340",
+        "H2_CALC2_DIFF_PT341",
+        "H2_CALC2_DIFF_PT343",
+        "H2_CALC2_DIFF_PT344",
+        "H2_CALC2_DIFF_PT346",
+        "H2_CALC2_DIFF_PT347"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_027",
+      "name": "x^a의 도함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "power_function_derivative",
+          "derivative_formula",
+          "real_exponent"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'x^a의 도함수' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C121",
+        "H2_CALC2_DIFF_C122",
+        "H2_CALC2_DIFF_C123",
+        "H2_CALC2_DIFF_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT361",
+        "H2_CALC2_DIFF_PT362",
+        "H2_CALC2_DIFF_PT364",
+        "H2_CALC2_DIFF_PT365",
+        "H2_CALC2_DIFF_PT367",
+        "H2_CALC2_DIFF_PT368"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_028",
+      "name": "매개변수로 나타낸 함수의 미분법 취약",
+      "trigger": {
+        "error_tags_any": [
+          "parametric_derivative",
+          "chain_rule",
+          "tangent_slope"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'매개변수로 나타낸 함수의 미분법' 유형에서 필요한 미분법을 선택하고 변수 관계를 정리하는 과정이 약합니다.",
+      "parent_message": "여러 가지 미분법 문제는 먼저 함수 구조를 몫, 합성, 음함수, 역함수, 매개변수 중 하나로 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C125",
+        "H2_CALC2_DIFF_C126",
+        "H2_CALC2_DIFF_C127",
+        "H2_CALC2_DIFF_C128"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT373",
+        "H2_CALC2_DIFF_PT374",
+        "H2_CALC2_DIFF_PT376",
+        "H2_CALC2_DIFF_PT377",
+        "H2_CALC2_DIFF_PT379",
+        "H2_CALC2_DIFF_PT380"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_029",
+      "name": "음함수의 미분법 취약",
+      "trigger": {
+        "error_tags_any": [
+          "implicit_derivative",
+          "derivative_formula",
+          "tangent_slope"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'음함수의 미분법' 유형에서 필요한 미분법을 선택하고 변수 관계를 정리하는 과정이 약합니다.",
+      "parent_message": "여러 가지 미분법 문제는 먼저 함수 구조를 몫, 합성, 음함수, 역함수, 매개변수 중 하나로 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C129",
+        "H2_CALC2_DIFF_C130",
+        "H2_CALC2_DIFF_C131",
+        "H2_CALC2_DIFF_C132",
+        "H2_CALC2_DIFF_C133"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT385",
+        "H2_CALC2_DIFF_PT386",
+        "H2_CALC2_DIFF_PT388",
+        "H2_CALC2_DIFF_PT389",
+        "H2_CALC2_DIFF_PT391",
+        "H2_CALC2_DIFF_PT392"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_030",
+      "name": "역함수의 미분법 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_derivative",
+          "inverse_function",
+          "derivative_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'역함수의 미분법' 유형에서 필요한 미분법을 선택하고 변수 관계를 정리하는 과정이 약합니다.",
+      "parent_message": "여러 가지 미분법 문제는 먼저 함수 구조를 몫, 합성, 음함수, 역함수, 매개변수 중 하나로 분류하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C134",
+        "H2_CALC2_DIFF_C135",
+        "H2_CALC2_DIFF_C136",
+        "H2_CALC2_DIFF_C137",
+        "H2_CALC2_DIFF_C138"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT400",
+        "H2_CALC2_DIFF_PT401",
+        "H2_CALC2_DIFF_PT403",
+        "H2_CALC2_DIFF_PT404",
+        "H2_CALC2_DIFF_PT406",
+        "H2_CALC2_DIFF_PT407"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_031",
+      "name": "접선의 방정식: 접점 좌표가 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "point_of_tangency",
+          "transcendental_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 방정식: 접점 좌표가 주어진 경우' 유형에서 접점, 기울기, 통과점 조건을 분리하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 접점을 문자로 두고 도함수값을 기울기로 바꾼 뒤, 통과점·기울기·공통접선 조건을 따로 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C140",
+        "H2_CALC2_DIFF_C141",
+        "H2_CALC2_DIFF_C142",
+        "H2_CALC2_DIFF_C143",
+        "H2_CALC2_DIFF_C144"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT418",
+        "H2_CALC2_DIFF_PT419",
+        "H2_CALC2_DIFF_PT421",
+        "H2_CALC2_DIFF_PT422",
+        "H2_CALC2_DIFF_PT424",
+        "H2_CALC2_DIFF_PT425"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_032",
+      "name": "접선의 방정식: 기울기가 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "given_slope",
+          "transcendental_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 방정식: 기울기가 주어진 경우' 유형에서 접점, 기울기, 통과점 조건을 분리하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 접점을 문자로 두고 도함수값을 기울기로 바꾼 뒤, 통과점·기울기·공통접선 조건을 따로 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C146",
+        "H2_CALC2_DIFF_C147",
+        "H2_CALC2_DIFF_C148",
+        "H2_CALC2_DIFF_C149",
+        "H2_CALC2_DIFF_C150"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT436",
+        "H2_CALC2_DIFF_PT437",
+        "H2_CALC2_DIFF_PT439",
+        "H2_CALC2_DIFF_PT440",
+        "H2_CALC2_DIFF_PT442",
+        "H2_CALC2_DIFF_PT443"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_033",
+      "name": "접선의 방정식: 곡선 밖의 한 점이 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "external_point",
+          "number_of_tangents"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 방정식: 곡선 밖의 한 점이 주어진 경우' 유형에서 접점, 기울기, 통과점 조건을 분리하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 접점을 문자로 두고 도함수값을 기울기로 바꾼 뒤, 통과점·기울기·공통접선 조건을 따로 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C152",
+        "H2_CALC2_DIFF_C153",
+        "H2_CALC2_DIFF_C154",
+        "H2_CALC2_DIFF_C155"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT454",
+        "H2_CALC2_DIFF_PT455",
+        "H2_CALC2_DIFF_PT457",
+        "H2_CALC2_DIFF_PT458",
+        "H2_CALC2_DIFF_PT460",
+        "H2_CALC2_DIFF_PT461"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_034",
+      "name": "공통접선 취약",
+      "trigger": {
+        "error_tags_any": [
+          "common_tangent",
+          "tangent_line",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'공통접선' 유형에서 접점, 기울기, 통과점 조건을 분리하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 접점을 문자로 두고 도함수값을 기울기로 바꾼 뒤, 통과점·기울기·공통접선 조건을 따로 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C156",
+        "H2_CALC2_DIFF_C157",
+        "H2_CALC2_DIFF_C158",
+        "H2_CALC2_DIFF_C159",
+        "H2_CALC2_DIFF_C160"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT466",
+        "H2_CALC2_DIFF_PT467",
+        "H2_CALC2_DIFF_PT469",
+        "H2_CALC2_DIFF_PT470",
+        "H2_CALC2_DIFF_PT472",
+        "H2_CALC2_DIFF_PT473"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_035",
+      "name": "음함수로 나타낸 곡선의 접선의 방정식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "implicit_derivative",
+          "tangent_line",
+          "equation_of_tangent"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'음함수로 나타낸 곡선의 접선의 방정식' 유형에서 접점, 기울기, 통과점 조건을 분리하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 접점을 문자로 두고 도함수값을 기울기로 바꾼 뒤, 통과점·기울기·공통접선 조건을 따로 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C161",
+        "H2_CALC2_DIFF_C162",
+        "H2_CALC2_DIFF_C163",
+        "H2_CALC2_DIFF_C164"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT481",
+        "H2_CALC2_DIFF_PT482",
+        "H2_CALC2_DIFF_PT484",
+        "H2_CALC2_DIFF_PT485",
+        "H2_CALC2_DIFF_PT487",
+        "H2_CALC2_DIFF_PT488"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_036",
+      "name": "함수의 증가와 감소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "monotonicity",
+          "derivative_sign",
+          "function_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 증가와 감소' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C165",
+        "H2_CALC2_DIFF_C166",
+        "H2_CALC2_DIFF_C167",
+        "H2_CALC2_DIFF_C168",
+        "H2_CALC2_DIFF_C169"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT493",
+        "H2_CALC2_DIFF_PT494",
+        "H2_CALC2_DIFF_PT496",
+        "H2_CALC2_DIFF_PT497",
+        "H2_CALC2_DIFF_PT499",
+        "H2_CALC2_DIFF_PT500"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_037",
+      "name": "주어진 구간에서 함수가 증가 또는 감소하기 위한 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "monotonic_condition",
+          "interval_condition",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'주어진 구간에서 함수가 증가 또는 감소하기 위한 조건' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C170",
+        "H2_CALC2_DIFF_C171",
+        "H2_CALC2_DIFF_C172",
+        "H2_CALC2_DIFF_C173",
+        "H2_CALC2_DIFF_C174"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT508",
+        "H2_CALC2_DIFF_PT509",
+        "H2_CALC2_DIFF_PT511",
+        "H2_CALC2_DIFF_PT512",
+        "H2_CALC2_DIFF_PT514",
+        "H2_CALC2_DIFF_PT515"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_038",
+      "name": "함수의 극대·극소: 지수함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "extrema",
+          "exponential_function",
+          "derivative_sign"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 극대·극소: 지수함수' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C175",
+        "H2_CALC2_DIFF_C176",
+        "H2_CALC2_DIFF_C177",
+        "H2_CALC2_DIFF_C178"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT523",
+        "H2_CALC2_DIFF_PT524",
+        "H2_CALC2_DIFF_PT526",
+        "H2_CALC2_DIFF_PT527",
+        "H2_CALC2_DIFF_PT529",
+        "H2_CALC2_DIFF_PT530"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_039",
+      "name": "함수의 극대·극소: 로그함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "extrema",
+          "log_function",
+          "derivative_sign"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 극대·극소: 로그함수' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C179",
+        "H2_CALC2_DIFF_C180",
+        "H2_CALC2_DIFF_C181",
+        "H2_CALC2_DIFF_C182"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT535",
+        "H2_CALC2_DIFF_PT536",
+        "H2_CALC2_DIFF_PT538",
+        "H2_CALC2_DIFF_PT539",
+        "H2_CALC2_DIFF_PT541",
+        "H2_CALC2_DIFF_PT542"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_040",
+      "name": "극대·극소를 이용한 미정계수 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "extrema",
+          "coefficient_matching",
+          "transcendental_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'극대·극소를 이용한 미정계수 결정' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C183",
+        "H2_CALC2_DIFF_C184",
+        "H2_CALC2_DIFF_C185",
+        "H2_CALC2_DIFF_C186",
+        "H2_CALC2_DIFF_C187"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT547",
+        "H2_CALC2_DIFF_PT548",
+        "H2_CALC2_DIFF_PT550",
+        "H2_CALC2_DIFF_PT551",
+        "H2_CALC2_DIFF_PT553",
+        "H2_CALC2_DIFF_PT554"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_041",
+      "name": "곡선의 오목과 볼록 취약",
+      "trigger": {
+        "error_tags_any": [
+          "concavity",
+          "second_derivative",
+          "function_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선의 오목과 볼록' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C188",
+        "H2_CALC2_DIFF_C189",
+        "H2_CALC2_DIFF_C190",
+        "H2_CALC2_DIFF_C191",
+        "H2_CALC2_DIFF_C192"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT562",
+        "H2_CALC2_DIFF_PT563",
+        "H2_CALC2_DIFF_PT565",
+        "H2_CALC2_DIFF_PT566",
+        "H2_CALC2_DIFF_PT568",
+        "H2_CALC2_DIFF_PT569"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_042",
+      "name": "변곡점을 이용한 미정계수 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inflection_point",
+          "second_derivative",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'변곡점을 이용한 미정계수 결정' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C193",
+        "H2_CALC2_DIFF_C194",
+        "H2_CALC2_DIFF_C195",
+        "H2_CALC2_DIFF_C196",
+        "H2_CALC2_DIFF_C197"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT577",
+        "H2_CALC2_DIFF_PT578",
+        "H2_CALC2_DIFF_PT580",
+        "H2_CALC2_DIFF_PT581",
+        "H2_CALC2_DIFF_PT583",
+        "H2_CALC2_DIFF_PT584"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_043",
+      "name": "함수의 그래프: 무리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_graph",
+          "radical_function",
+          "derivative_sign"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 그래프: 무리함수' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C198",
+        "H2_CALC2_DIFF_C199",
+        "H2_CALC2_DIFF_C200"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT592",
+        "H2_CALC2_DIFF_PT593",
+        "H2_CALC2_DIFF_PT595",
+        "H2_CALC2_DIFF_PT596",
+        "H2_CALC2_DIFF_PT598",
+        "H2_CALC2_DIFF_PT599"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_044",
+      "name": "함수의 그래프: 지수함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_graph",
+          "exponential_function",
+          "derivative_sign"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 그래프: 지수함수' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C201",
+        "H2_CALC2_DIFF_C202",
+        "H2_CALC2_DIFF_C203",
+        "H2_CALC2_DIFF_C204"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT601",
+        "H2_CALC2_DIFF_PT602",
+        "H2_CALC2_DIFF_PT604",
+        "H2_CALC2_DIFF_PT605",
+        "H2_CALC2_DIFF_PT607",
+        "H2_CALC2_DIFF_PT608"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_045",
+      "name": "함수의 그래프: 로그함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_graph",
+          "log_function",
+          "derivative_sign"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 그래프: 로그함수' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C205",
+        "H2_CALC2_DIFF_C206",
+        "H2_CALC2_DIFF_C207",
+        "H2_CALC2_DIFF_C208"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT613",
+        "H2_CALC2_DIFF_PT614",
+        "H2_CALC2_DIFF_PT616",
+        "H2_CALC2_DIFF_PT617",
+        "H2_CALC2_DIFF_PT619",
+        "H2_CALC2_DIFF_PT620"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_046",
+      "name": "함수의 그래프: 종합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_graph",
+          "transcendental_function",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 그래프: 종합' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C209",
+        "H2_CALC2_DIFF_C210",
+        "H2_CALC2_DIFF_C211",
+        "H2_CALC2_DIFF_C212"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT625",
+        "H2_CALC2_DIFF_PT626",
+        "H2_CALC2_DIFF_PT628",
+        "H2_CALC2_DIFF_PT629",
+        "H2_CALC2_DIFF_PT631",
+        "H2_CALC2_DIFF_PT632"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_047",
+      "name": "함수의 최대·최소: 유리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min",
+          "rational_function",
+          "optimization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 최대·최소: 유리함수' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C213",
+        "H2_CALC2_DIFF_C214",
+        "H2_CALC2_DIFF_C215"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT637",
+        "H2_CALC2_DIFF_PT638",
+        "H2_CALC2_DIFF_PT640",
+        "H2_CALC2_DIFF_PT641",
+        "H2_CALC2_DIFF_PT643",
+        "H2_CALC2_DIFF_PT644"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_048",
+      "name": "함수의 최대·최소: 지수함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min",
+          "exponential_function",
+          "optimization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 최대·최소: 지수함수' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C216",
+        "H2_CALC2_DIFF_C217",
+        "H2_CALC2_DIFF_C218"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT646",
+        "H2_CALC2_DIFF_PT647",
+        "H2_CALC2_DIFF_PT649",
+        "H2_CALC2_DIFF_PT650",
+        "H2_CALC2_DIFF_PT652",
+        "H2_CALC2_DIFF_PT653"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_049",
+      "name": "함수의 최대·최소: 로그함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min",
+          "log_function",
+          "optimization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 최대·최소: 로그함수' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C219",
+        "H2_CALC2_DIFF_C220",
+        "H2_CALC2_DIFF_C221"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT655",
+        "H2_CALC2_DIFF_PT656",
+        "H2_CALC2_DIFF_PT658",
+        "H2_CALC2_DIFF_PT659",
+        "H2_CALC2_DIFF_PT661",
+        "H2_CALC2_DIFF_PT662"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_050",
+      "name": "치환을 이용한 최대·최소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "max_min",
+          "optimization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환을 이용한 최대·최소' 유형에서 도함수·이계도함수 부호 해석이 약합니다.",
+      "parent_message": "그래프 해석 문제는 도함수 부호표와 이계도함수 부호표를 분리해서 증가감소, 극값, 오목볼록, 변곡점을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C222",
+        "H2_CALC2_DIFF_C223",
+        "H2_CALC2_DIFF_C224"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT664",
+        "H2_CALC2_DIFF_PT665",
+        "H2_CALC2_DIFF_PT667",
+        "H2_CALC2_DIFF_PT668",
+        "H2_CALC2_DIFF_PT670",
+        "H2_CALC2_DIFF_PT671"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_051",
+      "name": "함수의 최대·최소의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min_application",
+          "optimization",
+          "modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 최대·최소의 활용' 유형에서 초월함수 미분 공식과 조건 적용이 약합니다.",
+      "parent_message": "공식 적용 전 함수 구조와 정의역·연속·미정계수 조건을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C225",
+        "H2_CALC2_DIFF_C226",
+        "H2_CALC2_DIFF_C227",
+        "H2_CALC2_DIFF_C228"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT673",
+        "H2_CALC2_DIFF_PT674",
+        "H2_CALC2_DIFF_PT676",
+        "H2_CALC2_DIFF_PT677",
+        "H2_CALC2_DIFF_PT679",
+        "H2_CALC2_DIFF_PT680"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_052",
+      "name": "방정식의 실근의 개수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "equation_roots",
+          "graph_interpretation",
+          "transcendental_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'방정식의 실근의 개수' 유형에서 그래프 개형을 방정식·부등식 조건으로 바꾸는 과정이 약합니다.",
+      "parent_message": "방정식과 부등식 활용은 식을 직접 풀기 전에 그래프 교점, 최대·최소, 위치 관계로 해석하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C229",
+        "H2_CALC2_DIFF_C230",
+        "H2_CALC2_DIFF_C231",
+        "H2_CALC2_DIFF_C232",
+        "H2_CALC2_DIFF_C233"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT685",
+        "H2_CALC2_DIFF_PT686",
+        "H2_CALC2_DIFF_PT688",
+        "H2_CALC2_DIFF_PT689",
+        "H2_CALC2_DIFF_PT691",
+        "H2_CALC2_DIFF_PT692"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_053",
+      "name": "방정식이 실근을 가질 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "root_existence",
+          "equation_roots",
+          "parameter_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'방정식이 실근을 가질 조건' 유형에서 그래프 개형을 방정식·부등식 조건으로 바꾸는 과정이 약합니다.",
+      "parent_message": "방정식과 부등식 활용은 식을 직접 풀기 전에 그래프 교점, 최대·최소, 위치 관계로 해석하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C235",
+        "H2_CALC2_DIFF_C236",
+        "H2_CALC2_DIFF_C237",
+        "H2_CALC2_DIFF_C238",
+        "H2_CALC2_DIFF_C239"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT703",
+        "H2_CALC2_DIFF_PT704",
+        "H2_CALC2_DIFF_PT706",
+        "H2_CALC2_DIFF_PT707",
+        "H2_CALC2_DIFF_PT709",
+        "H2_CALC2_DIFF_PT710"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_054",
+      "name": "부등식이 성립하도록 하는 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inequality",
+          "always_true",
+          "parameter_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부등식이 성립하도록 하는 조건' 유형에서 그래프 개형을 방정식·부등식 조건으로 바꾸는 과정이 약합니다.",
+      "parent_message": "방정식과 부등식 활용은 식을 직접 풀기 전에 그래프 교점, 최대·최소, 위치 관계로 해석하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C241",
+        "H2_CALC2_DIFF_C242",
+        "H2_CALC2_DIFF_C243",
+        "H2_CALC2_DIFF_C244",
+        "H2_CALC2_DIFF_C245"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT721",
+        "H2_CALC2_DIFF_PT722",
+        "H2_CALC2_DIFF_PT724",
+        "H2_CALC2_DIFF_PT725",
+        "H2_CALC2_DIFF_PT727",
+        "H2_CALC2_DIFF_PT728"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_055",
+      "name": "직선 운동에서의 속도와 가속도 취약",
+      "trigger": {
+        "error_tags_any": [
+          "motion",
+          "velocity",
+          "acceleration"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'직선 운동에서의 속도와 가속도' 유형에서 위치, 속도, 가속도의 미분 관계 해석이 약합니다.",
+      "parent_message": "운동 문제는 위치식을 1번 미분하면 속도, 2번 미분하면 가속도라는 구조와 성분별 계산을 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C248",
+        "H2_CALC2_DIFF_C249",
+        "H2_CALC2_DIFF_C250",
+        "H2_CALC2_DIFF_C251",
+        "H2_CALC2_DIFF_C252"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT742",
+        "H2_CALC2_DIFF_PT743",
+        "H2_CALC2_DIFF_PT745",
+        "H2_CALC2_DIFF_PT746",
+        "H2_CALC2_DIFF_PT748",
+        "H2_CALC2_DIFF_PT749"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_DIFF_RULE_056",
+      "name": "평면 운동에서의 가속도 취약",
+      "trigger": {
+        "error_tags_any": [
+          "plane_motion",
+          "velocity",
+          "acceleration"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'평면 운동에서의 가속도' 유형에서 위치, 속도, 가속도의 미분 관계 해석이 약합니다.",
+      "parent_message": "운동 문제는 위치식을 1번 미분하면 속도, 2번 미분하면 가속도라는 구조와 성분별 계산을 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_DIFF_C254",
+        "H2_CALC2_DIFF_C255",
+        "H2_CALC2_DIFF_C256",
+        "H2_CALC2_DIFF_C257",
+        "H2_CALC2_DIFF_C258"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_DIFF_PT760",
+        "H2_CALC2_DIFF_PT761",
+        "H2_CALC2_DIFF_PT763",
+        "H2_CALC2_DIFF_PT764",
+        "H2_CALC2_DIFF_PT766",
+        "H2_CALC2_DIFF_PT767"
+      ],
+      "severity": "high"
+    }
+  ]
+}
