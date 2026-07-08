@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.07-h2-algebra-sequence-v1.0",
+  "version": "2026.07.07-h2-calculus1-limit-continuity-v1.0",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -371,6 +371,20 @@
       "sources": "data/sources/h2_algebra_sequence.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/h2_algebra_sequence.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/h2_algebra_sequence.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+      "grade": "고2",
+      "course": "미적분1",
+      "unit_name": "함수의 극한과 연속",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/h2_calculus1_limit_continuity.problem_types.v1.json",
+      "edges": "data/relations/h2_calculus1_limit_continuity.edges.v1.json",
+      "diagnosis_rules": "data/rules/h2_calculus1_limit_continuity.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/h2_calculus1_limit_continuity.remediation_map.v1.json",
+      "sources": "data/sources/h2_calculus1_limit_continuity.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/h2_calculus1_limit_continuity.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/h2_calculus1_limit_continuity.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [

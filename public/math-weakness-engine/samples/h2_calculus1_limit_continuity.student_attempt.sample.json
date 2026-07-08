@@ -1,0 +1,35 @@
+{
+  "unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+  "unit_name": "함수의 극한과 연속",
+  "student_id": "SAMPLE_H2_CALC1_LC_001",
+  "attempts": [
+    {
+      "problem_type_id": "H2_CALC1_LC_PT001",
+      "is_correct": false,
+      "difficulty": "basic",
+      "observed_error_tags": [
+        "limit_basic",
+        "convergence_divergence"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC1_LC_PT028",
+      "is_correct": false,
+      "difficulty": "core",
+      "observed_error_tags": [
+        "indeterminate_0_0",
+        "factorization"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC1_LC_PT426",
+      "is_correct": true,
+      "difficulty": "advanced",
+      "observed_error_tags": []
+    }
+  ],
+  "expected_diagnosis": [
+    "극한에서 접근 방향과 부정형 여부를 먼저 분리해야 함",
+    "0/0꼴에서는 인수분해·유리화 후 재대입 검산 필요"
+  ]
+}
