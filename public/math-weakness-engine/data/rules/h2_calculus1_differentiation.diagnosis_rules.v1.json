@@ -1,0 +1,2223 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+  "unit_name": "미분",
+  "rule_count": 78,
+  "rules": [
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_001",
+      "name": "평균변화율 취약",
+      "trigger": {
+        "error_tags_any": [
+          "average_rate",
+          "secant_slope",
+          "substitution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'평균변화율' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C001",
+        "H2_CALC1_DIFF_C002",
+        "H2_CALC1_DIFF_C003",
+        "H2_CALC1_DIFF_C004"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT001",
+        "H2_CALC1_DIFF_PT002",
+        "H2_CALC1_DIFF_PT004",
+        "H2_CALC1_DIFF_PT005",
+        "H2_CALC1_DIFF_PT007",
+        "H2_CALC1_DIFF_PT008"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_002",
+      "name": "평균변화율의 기하적 의미 취약",
+      "trigger": {
+        "error_tags_any": [
+          "average_rate",
+          "secant_slope",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'평균변화율의 기하적 의미' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C005",
+        "H2_CALC1_DIFF_C006"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT013",
+        "H2_CALC1_DIFF_PT014",
+        "H2_CALC1_DIFF_PT016",
+        "H2_CALC1_DIFF_PT017"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_003",
+      "name": "순간변화율과 미분계수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_definition",
+          "instantaneous_rate",
+          "limit_form"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'순간변화율과 미분계수' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C007",
+        "H2_CALC1_DIFF_C008",
+        "H2_CALC1_DIFF_C009",
+        "H2_CALC1_DIFF_C010",
+        "H2_CALC1_DIFF_C011"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT019",
+        "H2_CALC1_DIFF_PT020",
+        "H2_CALC1_DIFF_PT022",
+        "H2_CALC1_DIFF_PT023",
+        "H2_CALC1_DIFF_PT025",
+        "H2_CALC1_DIFF_PT026"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_004",
+      "name": "기본형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_limit",
+          "limit_form",
+          "derivative_coefficient"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'기본형' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C013",
+        "H2_CALC1_DIFF_C014",
+        "H2_CALC1_DIFF_C015",
+        "H2_CALC1_DIFF_C016",
+        "H2_CALC1_DIFF_C017"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT037",
+        "H2_CALC1_DIFF_PT038",
+        "H2_CALC1_DIFF_PT040",
+        "H2_CALC1_DIFF_PT041",
+        "H2_CALC1_DIFF_PT043",
+        "H2_CALC1_DIFF_PT044"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_005",
+      "name": "변형형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_limit",
+          "limit_transformation",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'변형형' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C018",
+        "H2_CALC1_DIFF_C019",
+        "H2_CALC1_DIFF_C020",
+        "H2_CALC1_DIFF_C021",
+        "H2_CALC1_DIFF_C022"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT052",
+        "H2_CALC1_DIFF_PT053",
+        "H2_CALC1_DIFF_PT055",
+        "H2_CALC1_DIFF_PT056",
+        "H2_CALC1_DIFF_PT058",
+        "H2_CALC1_DIFF_PT059"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_006",
+      "name": "함수식 조건형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_definition",
+          "functional_equation",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수식 조건형' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C023",
+        "H2_CALC1_DIFF_C024",
+        "H2_CALC1_DIFF_C025"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT067",
+        "H2_CALC1_DIFF_PT068",
+        "H2_CALC1_DIFF_PT070",
+        "H2_CALC1_DIFF_PT071",
+        "H2_CALC1_DIFF_PT073",
+        "H2_CALC1_DIFF_PT074"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_007",
+      "name": "미분계수의 기하적 의미 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_slope",
+          "derivative_meaning",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'미분계수의 기하적 의미' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C026",
+        "H2_CALC1_DIFF_C027",
+        "H2_CALC1_DIFF_C028",
+        "H2_CALC1_DIFF_C029",
+        "H2_CALC1_DIFF_C030"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT076",
+        "H2_CALC1_DIFF_PT077",
+        "H2_CALC1_DIFF_PT079",
+        "H2_CALC1_DIFF_PT080",
+        "H2_CALC1_DIFF_PT082",
+        "H2_CALC1_DIFF_PT083"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_008",
+      "name": "미분가능성과 연속성 취약",
+      "trigger": {
+        "error_tags_any": [
+          "differentiability",
+          "continuity",
+          "left_right_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'미분가능성과 연속성' 유형에서 연속 조건과 좌우 미분계수 일치 조건을 구분하지 못합니다.",
+      "parent_message": "조각함수는 함숫값 연결과 좌미분계수·우미분계수 일치 조건을 따로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C031",
+        "H2_CALC1_DIFF_C032",
+        "H2_CALC1_DIFF_C033",
+        "H2_CALC1_DIFF_C034"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT091",
+        "H2_CALC1_DIFF_PT092",
+        "H2_CALC1_DIFF_PT094",
+        "H2_CALC1_DIFF_PT095",
+        "H2_CALC1_DIFF_PT097",
+        "H2_CALC1_DIFF_PT098"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_009",
+      "name": "그래프가 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "differentiability",
+          "graph_interpretation",
+          "left_right_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'그래프가 주어진 경우' 유형에서 연속 조건과 좌우 미분계수 일치 조건을 구분하지 못합니다.",
+      "parent_message": "조각함수는 함숫값 연결과 좌미분계수·우미분계수 일치 조건을 따로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C035",
+        "H2_CALC1_DIFF_C036"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT103",
+        "H2_CALC1_DIFF_PT104",
+        "H2_CALC1_DIFF_PT106",
+        "H2_CALC1_DIFF_PT107"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_010",
+      "name": "조각함수 조건형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "piecewise_function",
+          "differentiability",
+          "continuity"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'조각함수 조건형' 유형에서 연속 조건과 좌우 미분계수 일치 조건을 구분하지 못합니다.",
+      "parent_message": "조각함수는 함숫값 연결과 좌미분계수·우미분계수 일치 조건을 따로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C037",
+        "H2_CALC1_DIFF_C038",
+        "H2_CALC1_DIFF_C039",
+        "H2_CALC1_DIFF_C040",
+        "H2_CALC1_DIFF_C041"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT109",
+        "H2_CALC1_DIFF_PT110",
+        "H2_CALC1_DIFF_PT112",
+        "H2_CALC1_DIFF_PT113",
+        "H2_CALC1_DIFF_PT115",
+        "H2_CALC1_DIFF_PT116"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_011",
+      "name": "도함수의 정의를 이용하여 도함수 구하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_function",
+          "definition_to_formula",
+          "polynomial_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'도함수의 정의를 이용하여 도함수 구하기' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C042",
+        "H2_CALC1_DIFF_C043",
+        "H2_CALC1_DIFF_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT124",
+        "H2_CALC1_DIFF_PT125",
+        "H2_CALC1_DIFF_PT127",
+        "H2_CALC1_DIFF_PT128",
+        "H2_CALC1_DIFF_PT130",
+        "H2_CALC1_DIFF_PT131"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_012",
+      "name": "관계식이 주어질 때 도함수 구하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_function",
+          "functional_equation",
+          "implicit_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'관계식이 주어질 때 도함수 구하기' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C045",
+        "H2_CALC1_DIFF_C046",
+        "H2_CALC1_DIFF_C047"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT133",
+        "H2_CALC1_DIFF_PT134",
+        "H2_CALC1_DIFF_PT136",
+        "H2_CALC1_DIFF_PT137",
+        "H2_CALC1_DIFF_PT139",
+        "H2_CALC1_DIFF_PT140"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_013",
+      "name": "미분법 공식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_formula",
+          "polynomial_derivative",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'미분법 공식' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C048",
+        "H2_CALC1_DIFF_C049",
+        "H2_CALC1_DIFF_C050",
+        "H2_CALC1_DIFF_C051",
+        "H2_CALC1_DIFF_C052"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT142",
+        "H2_CALC1_DIFF_PT143",
+        "H2_CALC1_DIFF_PT145",
+        "H2_CALC1_DIFF_PT146",
+        "H2_CALC1_DIFF_PT148",
+        "H2_CALC1_DIFF_PT149"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_014",
+      "name": "곱의 미분법 취약",
+      "trigger": {
+        "error_tags_any": [
+          "product_rule",
+          "derivative_formula",
+          "polynomial_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곱의 미분법' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C054",
+        "H2_CALC1_DIFF_C055",
+        "H2_CALC1_DIFF_C056",
+        "H2_CALC1_DIFF_C057",
+        "H2_CALC1_DIFF_C058"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT160",
+        "H2_CALC1_DIFF_PT161",
+        "H2_CALC1_DIFF_PT163",
+        "H2_CALC1_DIFF_PT164",
+        "H2_CALC1_DIFF_PT166",
+        "H2_CALC1_DIFF_PT167"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_015",
+      "name": "곱·합성 조건형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_limit",
+          "product_rule",
+          "limit_transformation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곱·합성 조건형' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C065",
+        "H2_CALC1_DIFF_C066",
+        "H2_CALC1_DIFF_C067"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT193",
+        "H2_CALC1_DIFF_PT194",
+        "H2_CALC1_DIFF_PT196",
+        "H2_CALC1_DIFF_PT197",
+        "H2_CALC1_DIFF_PT199",
+        "H2_CALC1_DIFF_PT200"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_016",
+      "name": "미분계수를 이용한 미정계수의 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coefficient_matching",
+          "derivative_limit",
+          "polynomial_derivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'미분계수를 이용한 미정계수의 결정' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C068",
+        "H2_CALC1_DIFF_C069",
+        "H2_CALC1_DIFF_C070",
+        "H2_CALC1_DIFF_C071"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT202",
+        "H2_CALC1_DIFF_PT203",
+        "H2_CALC1_DIFF_PT205",
+        "H2_CALC1_DIFF_PT206",
+        "H2_CALC1_DIFF_PT208",
+        "H2_CALC1_DIFF_PT209"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_017",
+      "name": "사칙연산을 이용한 극한값의 계산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "limit_transformation",
+          "derivative_coefficient",
+          "algebraic_manipulation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'사칙연산을 이용한 극한값의 계산' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C072",
+        "H2_CALC1_DIFF_C073"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT214",
+        "H2_CALC1_DIFF_PT215",
+        "H2_CALC1_DIFF_PT217",
+        "H2_CALC1_DIFF_PT218"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_018",
+      "name": "접선의 기울기를 이용한 미정계수의 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "slope_condition",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 기울기를 이용한 미정계수의 결정' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C074",
+        "H2_CALC1_DIFF_C075"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT220",
+        "H2_CALC1_DIFF_PT221",
+        "H2_CALC1_DIFF_PT223",
+        "H2_CALC1_DIFF_PT224"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_019",
+      "name": "평행선에서 미분법의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "parallel_condition",
+          "derivative_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'평행선에서 미분법의 활용' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C076",
+        "H2_CALC1_DIFF_C077",
+        "H2_CALC1_DIFF_C078",
+        "H2_CALC1_DIFF_C079"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT226",
+        "H2_CALC1_DIFF_PT227",
+        "H2_CALC1_DIFF_PT229",
+        "H2_CALC1_DIFF_PT230",
+        "H2_CALC1_DIFF_PT232",
+        "H2_CALC1_DIFF_PT233"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_020",
+      "name": "다항식 나눗셈에서 미분법의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "polynomial_division",
+          "derivative_application",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'다항식 나눗셈에서 미분법의 활용' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C080",
+        "H2_CALC1_DIFF_C081",
+        "H2_CALC1_DIFF_C082",
+        "H2_CALC1_DIFF_C083"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT238",
+        "H2_CALC1_DIFF_PT239",
+        "H2_CALC1_DIFF_PT241",
+        "H2_CALC1_DIFF_PT242",
+        "H2_CALC1_DIFF_PT244",
+        "H2_CALC1_DIFF_PT245"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_021",
+      "name": "접선의 기울기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "tangent_slope",
+          "derivative_formula"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 기울기' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C084",
+        "H2_CALC1_DIFF_C085",
+        "H2_CALC1_DIFF_C086"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT250",
+        "H2_CALC1_DIFF_PT251",
+        "H2_CALC1_DIFF_PT253",
+        "H2_CALC1_DIFF_PT254",
+        "H2_CALC1_DIFF_PT256",
+        "H2_CALC1_DIFF_PT257"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_022",
+      "name": "접선의 기울기의 최댓값 또는 최솟값 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_slope",
+          "max_min",
+          "derivative_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 기울기의 최댓값 또는 최솟값' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C087",
+        "H2_CALC1_DIFF_C088"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT259",
+        "H2_CALC1_DIFF_PT260",
+        "H2_CALC1_DIFF_PT262",
+        "H2_CALC1_DIFF_PT263"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_023",
+      "name": "접점의 좌표가 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "point_of_tangency",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접점의 좌표가 주어진 경우' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C089",
+        "H2_CALC1_DIFF_C090",
+        "H2_CALC1_DIFF_C091",
+        "H2_CALC1_DIFF_C092",
+        "H2_CALC1_DIFF_C093"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT265",
+        "H2_CALC1_DIFF_PT266",
+        "H2_CALC1_DIFF_PT268",
+        "H2_CALC1_DIFF_PT269",
+        "H2_CALC1_DIFF_PT271",
+        "H2_CALC1_DIFF_PT272"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_024",
+      "name": "접선과 수직인 직선의 방정식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "normal_line",
+          "tangent_line",
+          "slope_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선과 수직인 직선의 방정식' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C096",
+        "H2_CALC1_DIFF_C097",
+        "H2_CALC1_DIFF_C098"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT286",
+        "H2_CALC1_DIFF_PT287",
+        "H2_CALC1_DIFF_PT289",
+        "H2_CALC1_DIFF_PT290",
+        "H2_CALC1_DIFF_PT292",
+        "H2_CALC1_DIFF_PT293"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_025",
+      "name": "접선이 직선과 다시 만나는 점 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "intersection",
+          "polynomial_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선이 직선과 다시 만나는 점' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C099",
+        "H2_CALC1_DIFF_C100",
+        "H2_CALC1_DIFF_C101"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT295",
+        "H2_CALC1_DIFF_PT296",
+        "H2_CALC1_DIFF_PT298",
+        "H2_CALC1_DIFF_PT299",
+        "H2_CALC1_DIFF_PT301",
+        "H2_CALC1_DIFF_PT302"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_026",
+      "name": "기울기가 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "given_slope",
+          "slope_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'기울기가 주어진 경우' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C102",
+        "H2_CALC1_DIFF_C103",
+        "H2_CALC1_DIFF_C104",
+        "H2_CALC1_DIFF_C105",
+        "H2_CALC1_DIFF_C106"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT304",
+        "H2_CALC1_DIFF_PT305",
+        "H2_CALC1_DIFF_PT307",
+        "H2_CALC1_DIFF_PT308",
+        "H2_CALC1_DIFF_PT310",
+        "H2_CALC1_DIFF_PT311"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_027",
+      "name": "곡선과 직선이 접할 때 미정계수의 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "coefficient_matching",
+          "intersection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 직선이 접할 때 미정계수의 결정' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C110",
+        "H2_CALC1_DIFF_C111",
+        "H2_CALC1_DIFF_C112"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT328",
+        "H2_CALC1_DIFF_PT329",
+        "H2_CALC1_DIFF_PT331",
+        "H2_CALC1_DIFF_PT332",
+        "H2_CALC1_DIFF_PT334",
+        "H2_CALC1_DIFF_PT335"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_028",
+      "name": "기울기가 주어진 접선의 방정식의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "given_slope",
+          "equation_of_tangent"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'기울기가 주어진 접선의 방정식의 활용' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C113",
+        "H2_CALC1_DIFF_C114",
+        "H2_CALC1_DIFF_C115"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT337",
+        "H2_CALC1_DIFF_PT338",
+        "H2_CALC1_DIFF_PT340",
+        "H2_CALC1_DIFF_PT341",
+        "H2_CALC1_DIFF_PT343",
+        "H2_CALC1_DIFF_PT344"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_029",
+      "name": "곡선 위의 점과 직선 사이의 거리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "distance",
+          "max_min"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선 위의 점과 직선 사이의 거리' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C116",
+        "H2_CALC1_DIFF_C117"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT346",
+        "H2_CALC1_DIFF_PT347",
+        "H2_CALC1_DIFF_PT349",
+        "H2_CALC1_DIFF_PT350"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_030",
+      "name": "접선의 방정식(3): 곡선 밖의 한 점이 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "external_point",
+          "equation_of_tangent"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 방정식(3): 곡선 밖의 한 점이 주어진 경우' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C118",
+        "H2_CALC1_DIFF_C119"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT352",
+        "H2_CALC1_DIFF_PT353",
+        "H2_CALC1_DIFF_PT355",
+        "H2_CALC1_DIFF_PT356"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_031",
+      "name": "곡선 밖의 한 점에서 곡선에 그은 접선의 방정식의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "external_point",
+          "number_of_tangents"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선 밖의 한 점에서 곡선에 그은 접선의 방정식의 활용' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C120",
+        "H2_CALC1_DIFF_C121",
+        "H2_CALC1_DIFF_C122",
+        "H2_CALC1_DIFF_C123",
+        "H2_CALC1_DIFF_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT358",
+        "H2_CALC1_DIFF_PT359",
+        "H2_CALC1_DIFF_PT361",
+        "H2_CALC1_DIFF_PT362",
+        "H2_CALC1_DIFF_PT364",
+        "H2_CALC1_DIFF_PT365"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_032",
+      "name": "공통접선 취약",
+      "trigger": {
+        "error_tags_any": [
+          "common_tangent",
+          "tangent_line",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'공통접선' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C125",
+        "H2_CALC1_DIFF_C126"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT373",
+        "H2_CALC1_DIFF_PT374",
+        "H2_CALC1_DIFF_PT376",
+        "H2_CALC1_DIFF_PT377"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_033",
+      "name": "두 곡선의 교점에서의 접선 취약",
+      "trigger": {
+        "error_tags_any": [
+          "intersection",
+          "tangent_line",
+          "derivative_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 곡선의 교점에서의 접선' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C127"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT379",
+        "H2_CALC1_DIFF_PT380"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_034",
+      "name": "접선과 좌표축으로 둘러싸인 도형의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "area",
+          "coordinate_axes"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선과 좌표축으로 둘러싸인 도형의 넓이' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C128",
+        "H2_CALC1_DIFF_C129",
+        "H2_CALC1_DIFF_C130"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT382",
+        "H2_CALC1_DIFF_PT383",
+        "H2_CALC1_DIFF_PT385",
+        "H2_CALC1_DIFF_PT386",
+        "H2_CALC1_DIFF_PT388",
+        "H2_CALC1_DIFF_PT389"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_035",
+      "name": "곡선과 원의 접선 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_tangent",
+          "tangent_line",
+          "intersection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 원의 접선' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C131",
+        "H2_CALC1_DIFF_C132"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT391",
+        "H2_CALC1_DIFF_PT392",
+        "H2_CALC1_DIFF_PT394",
+        "H2_CALC1_DIFF_PT395"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_036",
+      "name": "접선의 방정식의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_line",
+          "geometry_application",
+          "derivative_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 방정식의 활용' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C133"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT397",
+        "H2_CALC1_DIFF_PT398"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_037",
+      "name": "롤의 정리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "rolle_theorem",
+          "mean_value_theorem",
+          "existence_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'롤의 정리' 유형에서 정리의 적용 조건과 결론을 분리하는 과정이 약합니다.",
+      "parent_message": "롤의 정리와 평균값 정리는 닫힌구간 연속, 열린구간 미분가능, 끝값 조건을 먼저 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C134",
+        "H2_CALC1_DIFF_C135",
+        "H2_CALC1_DIFF_C136"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT400",
+        "H2_CALC1_DIFF_PT401",
+        "H2_CALC1_DIFF_PT403",
+        "H2_CALC1_DIFF_PT404",
+        "H2_CALC1_DIFF_PT406",
+        "H2_CALC1_DIFF_PT407"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_038",
+      "name": "평균값 정리(1) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "mean_value_theorem",
+          "average_rate",
+          "existence_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'평균값 정리(1)' 유형에서 정리의 적용 조건과 결론을 분리하는 과정이 약합니다.",
+      "parent_message": "롤의 정리와 평균값 정리는 닫힌구간 연속, 열린구간 미분가능, 끝값 조건을 먼저 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C137",
+        "H2_CALC1_DIFF_C138",
+        "H2_CALC1_DIFF_C139",
+        "H2_CALC1_DIFF_C140",
+        "H2_CALC1_DIFF_C141"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT409",
+        "H2_CALC1_DIFF_PT410",
+        "H2_CALC1_DIFF_PT412",
+        "H2_CALC1_DIFF_PT413",
+        "H2_CALC1_DIFF_PT415",
+        "H2_CALC1_DIFF_PT416"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_039",
+      "name": "평균값 정리(2): 그래프가 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "mean_value_theorem",
+          "graph_interpretation",
+          "tangent_slope"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'평균값 정리(2): 그래프가 주어진 경우' 유형에서 정리의 적용 조건과 결론을 분리하는 과정이 약합니다.",
+      "parent_message": "롤의 정리와 평균값 정리는 닫힌구간 연속, 열린구간 미분가능, 끝값 조건을 먼저 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C146"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT436",
+        "H2_CALC1_DIFF_PT437"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_040",
+      "name": "함수의 증가와 감소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "increasing_decreasing",
+          "derivative_sign",
+          "sign_chart"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 증가와 감소' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C147",
+        "H2_CALC1_DIFF_C148",
+        "H2_CALC1_DIFF_C149"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT439",
+        "H2_CALC1_DIFF_PT440",
+        "H2_CALC1_DIFF_PT442",
+        "H2_CALC1_DIFF_PT443",
+        "H2_CALC1_DIFF_PT445",
+        "H2_CALC1_DIFF_PT446"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_041",
+      "name": "실수 전체의 집합에서 삼차함수가 증가 또는 감소하기 위한 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "monotonic_condition",
+          "cubic_function",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'실수 전체의 집합에서 삼차함수가 증가 또는 감소하기 위한 조건' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C150",
+        "H2_CALC1_DIFF_C151",
+        "H2_CALC1_DIFF_C152"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT448",
+        "H2_CALC1_DIFF_PT449",
+        "H2_CALC1_DIFF_PT451",
+        "H2_CALC1_DIFF_PT452",
+        "H2_CALC1_DIFF_PT454",
+        "H2_CALC1_DIFF_PT455"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_042",
+      "name": "주어진 구간에서 삼차함수가 증가 또는 감소하기 위한 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "monotonic_condition",
+          "interval_condition",
+          "cubic_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'주어진 구간에서 삼차함수가 증가 또는 감소하기 위한 조건' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C153",
+        "H2_CALC1_DIFF_C154"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT457",
+        "H2_CALC1_DIFF_PT458",
+        "H2_CALC1_DIFF_PT460",
+        "H2_CALC1_DIFF_PT461"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_043",
+      "name": "함수의 그래프와 증가감소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_graph",
+          "increasing_decreasing",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 그래프와 증가감소' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C155",
+        "H2_CALC1_DIFF_C156"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT463",
+        "H2_CALC1_DIFF_PT464",
+        "H2_CALC1_DIFF_PT466",
+        "H2_CALC1_DIFF_PT467"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_044",
+      "name": "함수의 극대·극소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "local_extrema",
+          "derivative_sign",
+          "polynomial_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 극대·극소' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C157",
+        "H2_CALC1_DIFF_C158",
+        "H2_CALC1_DIFF_C159",
+        "H2_CALC1_DIFF_C160",
+        "H2_CALC1_DIFF_C161"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT469",
+        "H2_CALC1_DIFF_PT470",
+        "H2_CALC1_DIFF_PT472",
+        "H2_CALC1_DIFF_PT473",
+        "H2_CALC1_DIFF_PT475",
+        "H2_CALC1_DIFF_PT476"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_045",
+      "name": "함수의 극대·극소를 이용한 미정계수의 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "local_extrema",
+          "coefficient_matching",
+          "cubic_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 극대·극소를 이용한 미정계수의 결정' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C163",
+        "H2_CALC1_DIFF_C164",
+        "H2_CALC1_DIFF_C165",
+        "H2_CALC1_DIFF_C166"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT487",
+        "H2_CALC1_DIFF_PT488",
+        "H2_CALC1_DIFF_PT490",
+        "H2_CALC1_DIFF_PT491",
+        "H2_CALC1_DIFF_PT493",
+        "H2_CALC1_DIFF_PT494"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_046",
+      "name": "함수의 극대·극소의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "local_extrema",
+          "application",
+          "polynomial_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 극대·극소의 활용' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C167",
+        "H2_CALC1_DIFF_C168",
+        "H2_CALC1_DIFF_C169",
+        "H2_CALC1_DIFF_C170"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT499",
+        "H2_CALC1_DIFF_PT500",
+        "H2_CALC1_DIFF_PT502",
+        "H2_CALC1_DIFF_PT503",
+        "H2_CALC1_DIFF_PT505",
+        "H2_CALC1_DIFF_PT506"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_047",
+      "name": "함수의 극대·극소를 이용한 삼차함수의 계수와 부호 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "local_extrema",
+          "coefficient_sign",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 극대·극소를 이용한 삼차함수의 계수와 부호 결정' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C171",
+        "H2_CALC1_DIFF_C172"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT511",
+        "H2_CALC1_DIFF_PT512",
+        "H2_CALC1_DIFF_PT514",
+        "H2_CALC1_DIFF_PT515"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_048",
+      "name": "도함수의 그래프와 함수의 극대·극소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_graph",
+          "local_extrema",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'도함수의 그래프와 함수의 극대·극소' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C173",
+        "H2_CALC1_DIFF_C174",
+        "H2_CALC1_DIFF_C175"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT517",
+        "H2_CALC1_DIFF_PT518",
+        "H2_CALC1_DIFF_PT520",
+        "H2_CALC1_DIFF_PT521",
+        "H2_CALC1_DIFF_PT523",
+        "H2_CALC1_DIFF_PT524"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_049",
+      "name": "함수의 그래프 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_graph",
+          "derivative_sign",
+          "local_extrema"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 그래프' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C176",
+        "H2_CALC1_DIFF_C177",
+        "H2_CALC1_DIFF_C178"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT526",
+        "H2_CALC1_DIFF_PT527",
+        "H2_CALC1_DIFF_PT529",
+        "H2_CALC1_DIFF_PT530",
+        "H2_CALC1_DIFF_PT532",
+        "H2_CALC1_DIFF_PT533"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_050",
+      "name": "도함수의 그래프의 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_graph",
+          "graph_interpretation",
+          "function_reconstruction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'도함수의 그래프의 해석' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C179",
+        "H2_CALC1_DIFF_C180",
+        "H2_CALC1_DIFF_C181",
+        "H2_CALC1_DIFF_C182"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT535",
+        "H2_CALC1_DIFF_PT536",
+        "H2_CALC1_DIFF_PT538",
+        "H2_CALC1_DIFF_PT539",
+        "H2_CALC1_DIFF_PT541",
+        "H2_CALC1_DIFF_PT542"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_051",
+      "name": "삼차함수가 극값을 가질 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "cubic_function",
+          "local_extrema",
+          "discriminant"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼차함수가 극값을 가질 조건' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C183"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT547",
+        "H2_CALC1_DIFF_PT548"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_052",
+      "name": "삼차함수가 극값을 갖지 않을 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "cubic_function",
+          "no_extrema",
+          "discriminant"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼차함수가 극값을 갖지 않을 조건' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C184",
+        "H2_CALC1_DIFF_C185",
+        "H2_CALC1_DIFF_C186"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT550",
+        "H2_CALC1_DIFF_PT551",
+        "H2_CALC1_DIFF_PT553",
+        "H2_CALC1_DIFF_PT554",
+        "H2_CALC1_DIFF_PT556",
+        "H2_CALC1_DIFF_PT557"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_053",
+      "name": "삼차함수가 주어진 구간에서 극값을 가질 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "cubic_function",
+          "interval_condition",
+          "local_extrema"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼차함수가 주어진 구간에서 극값을 가질 조건' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C187",
+        "H2_CALC1_DIFF_C188",
+        "H2_CALC1_DIFF_C189"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT559",
+        "H2_CALC1_DIFF_PT560",
+        "H2_CALC1_DIFF_PT562",
+        "H2_CALC1_DIFF_PT563",
+        "H2_CALC1_DIFF_PT565",
+        "H2_CALC1_DIFF_PT566"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_054",
+      "name": "사차함수가 극값을 가질 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quartic_function",
+          "local_extrema",
+          "discriminant"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'사차함수가 극값을 가질 조건' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C190",
+        "H2_CALC1_DIFF_C191"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT568",
+        "H2_CALC1_DIFF_PT569",
+        "H2_CALC1_DIFF_PT571",
+        "H2_CALC1_DIFF_PT572"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_055",
+      "name": "사차함수가 극값을 갖지 않을 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quartic_function",
+          "no_extrema",
+          "discriminant"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'사차함수가 극값을 갖지 않을 조건' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C192"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT574",
+        "H2_CALC1_DIFF_PT575"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_056",
+      "name": "함수의 최대·최소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min",
+          "closed_interval",
+          "polynomial_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 최대·최소' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C193",
+        "H2_CALC1_DIFF_C194",
+        "H2_CALC1_DIFF_C195",
+        "H2_CALC1_DIFF_C196"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT577",
+        "H2_CALC1_DIFF_PT578",
+        "H2_CALC1_DIFF_PT580",
+        "H2_CALC1_DIFF_PT581",
+        "H2_CALC1_DIFF_PT583",
+        "H2_CALC1_DIFF_PT584"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_057",
+      "name": "함수의 최대·최소를 이용한 미정계수의 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min",
+          "coefficient_matching",
+          "polynomial_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수의 최대·최소를 이용한 미정계수의 결정' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C197",
+        "H2_CALC1_DIFF_C198",
+        "H2_CALC1_DIFF_C199"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT589",
+        "H2_CALC1_DIFF_PT590",
+        "H2_CALC1_DIFF_PT592",
+        "H2_CALC1_DIFF_PT593",
+        "H2_CALC1_DIFF_PT595",
+        "H2_CALC1_DIFF_PT596"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_058",
+      "name": "최대·최소의 활용(1): 길이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min_application",
+          "length",
+          "optimization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'최대·최소의 활용(1): 길이' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C200"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT598",
+        "H2_CALC1_DIFF_PT599"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_059",
+      "name": "최대·최소의 활용(2): 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min_application",
+          "area",
+          "optimization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'최대·최소의 활용(2): 넓이' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C201",
+        "H2_CALC1_DIFF_C202",
+        "H2_CALC1_DIFF_C203"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT601",
+        "H2_CALC1_DIFF_PT602",
+        "H2_CALC1_DIFF_PT604",
+        "H2_CALC1_DIFF_PT605",
+        "H2_CALC1_DIFF_PT607",
+        "H2_CALC1_DIFF_PT608"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_060",
+      "name": "최대·최소의 활용(3): 부피 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min_application",
+          "volume",
+          "optimization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'최대·최소의 활용(3): 부피' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C204",
+        "H2_CALC1_DIFF_C205",
+        "H2_CALC1_DIFF_C206"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT610",
+        "H2_CALC1_DIFF_PT611",
+        "H2_CALC1_DIFF_PT613",
+        "H2_CALC1_DIFF_PT614",
+        "H2_CALC1_DIFF_PT616",
+        "H2_CALC1_DIFF_PT617"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_061",
+      "name": "최대·최소의 활용(4) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "max_min_application",
+          "optimization",
+          "modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'최대·최소의 활용(4)' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C207",
+        "H2_CALC1_DIFF_C208"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT619",
+        "H2_CALC1_DIFF_PT620",
+        "H2_CALC1_DIFF_PT622",
+        "H2_CALC1_DIFF_PT623"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_062",
+      "name": "방정식 f(x)=k의 실근의 개수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "equation_roots",
+          "graph_interpretation",
+          "local_extrema"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'방정식 f(x)=k의 실근의 개수' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C209",
+        "H2_CALC1_DIFF_C210",
+        "H2_CALC1_DIFF_C211",
+        "H2_CALC1_DIFF_C212",
+        "H2_CALC1_DIFF_C213"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT625",
+        "H2_CALC1_DIFF_PT626",
+        "H2_CALC1_DIFF_PT628",
+        "H2_CALC1_DIFF_PT629",
+        "H2_CALC1_DIFF_PT631",
+        "H2_CALC1_DIFF_PT632"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_063",
+      "name": "방정식 f(x)=k의 실근의 부호 취약",
+      "trigger": {
+        "error_tags_any": [
+          "root_sign",
+          "equation_roots",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'방정식 f(x)=k의 실근의 부호' 유형에서 그래프 해석을 방정식·부등식 조건으로 바꾸는 과정이 약합니다.",
+      "parent_message": "방정식과 부등식 활용은 함수 그래프를 먼저 그리고 교점·위치 관계로 해석하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C221",
+        "H2_CALC1_DIFF_C222",
+        "H2_CALC1_DIFF_C223"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT661",
+        "H2_CALC1_DIFF_PT662",
+        "H2_CALC1_DIFF_PT664",
+        "H2_CALC1_DIFF_PT665",
+        "H2_CALC1_DIFF_PT667",
+        "H2_CALC1_DIFF_PT668"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_064",
+      "name": "삼차방정식의 근의 판별 취약",
+      "trigger": {
+        "error_tags_any": [
+          "cubic_equation",
+          "root_classification",
+          "discriminant"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼차방정식의 근의 판별' 유형에서 미분계수 정의식과 도함수 계산식을 구분하는 과정이 약합니다.",
+      "parent_message": "미분계수는 극한식의 기준점과 변화량을 먼저 표시하게 하고, 도함수 공식 적용 전 정의식을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C224",
+        "H2_CALC1_DIFF_C225",
+        "H2_CALC1_DIFF_C226",
+        "H2_CALC1_DIFF_C227",
+        "H2_CALC1_DIFF_C228"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT670",
+        "H2_CALC1_DIFF_PT671",
+        "H2_CALC1_DIFF_PT673",
+        "H2_CALC1_DIFF_PT674",
+        "H2_CALC1_DIFF_PT676",
+        "H2_CALC1_DIFF_PT677"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_065",
+      "name": "두 그래프의 교점의 개수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "intersection_count",
+          "equation_roots",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 그래프의 교점의 개수' 유형에서 그래프 해석을 방정식·부등식 조건으로 바꾸는 과정이 약합니다.",
+      "parent_message": "방정식과 부등식 활용은 함수 그래프를 먼저 그리고 교점·위치 관계로 해석하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C229",
+        "H2_CALC1_DIFF_C230",
+        "H2_CALC1_DIFF_C231",
+        "H2_CALC1_DIFF_C232",
+        "H2_CALC1_DIFF_C233"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT685",
+        "H2_CALC1_DIFF_PT686",
+        "H2_CALC1_DIFF_PT688",
+        "H2_CALC1_DIFF_PT689",
+        "H2_CALC1_DIFF_PT691",
+        "H2_CALC1_DIFF_PT692"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_066",
+      "name": "접선의 개수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "number_of_tangents",
+          "tangent_line",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'접선의 개수' 유형에서 접점, 기울기, 접선이 지나는 점을 구분하는 과정이 약합니다.",
+      "parent_message": "접선 문제는 먼저 접점의 좌표를 문자로 두고, 도함수값을 기울기로 바꾼 뒤 직선 조건을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C234",
+        "H2_CALC1_DIFF_C235",
+        "H2_CALC1_DIFF_C236",
+        "H2_CALC1_DIFF_C237"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT700",
+        "H2_CALC1_DIFF_PT701",
+        "H2_CALC1_DIFF_PT703",
+        "H2_CALC1_DIFF_PT704",
+        "H2_CALC1_DIFF_PT706",
+        "H2_CALC1_DIFF_PT707"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_067",
+      "name": "모든 실수에서 부등식이 항상 성립할 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inequality",
+          "always_true",
+          "max_min"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'모든 실수에서 부등식이 항상 성립할 조건' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C238",
+        "H2_CALC1_DIFF_C239"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT712",
+        "H2_CALC1_DIFF_PT713",
+        "H2_CALC1_DIFF_PT715",
+        "H2_CALC1_DIFF_PT716"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_068",
+      "name": "주어진 구간에서 부등식이 항상 성립할 조건(1): 증가·감소의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inequality",
+          "monotonic_condition",
+          "interval_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'주어진 구간에서 부등식이 항상 성립할 조건(1): 증가·감소의 활용' 유형에서 그래프 해석을 방정식·부등식 조건으로 바꾸는 과정이 약합니다.",
+      "parent_message": "방정식과 부등식 활용은 함수 그래프를 먼저 그리고 교점·위치 관계로 해석하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C240",
+        "H2_CALC1_DIFF_C241",
+        "H2_CALC1_DIFF_C242"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT718",
+        "H2_CALC1_DIFF_PT719",
+        "H2_CALC1_DIFF_PT721",
+        "H2_CALC1_DIFF_PT722",
+        "H2_CALC1_DIFF_PT724",
+        "H2_CALC1_DIFF_PT725"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_069",
+      "name": "주어진 구간에서 부등식이 항상 성립할 조건(2): 최대·최소의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inequality",
+          "max_min",
+          "interval_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'주어진 구간에서 부등식이 항상 성립할 조건(2): 최대·최소의 활용' 유형에서 도함수의 부호 변화와 극값·최대최소 판단이 약합니다.",
+      "parent_message": "극값과 최대·최소는 f′(x)=0 이후 부호표와 끝값 비교를 반드시 남기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C243",
+        "H2_CALC1_DIFF_C244",
+        "H2_CALC1_DIFF_C245"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT727",
+        "H2_CALC1_DIFF_PT728",
+        "H2_CALC1_DIFF_PT730",
+        "H2_CALC1_DIFF_PT731",
+        "H2_CALC1_DIFF_PT733",
+        "H2_CALC1_DIFF_PT734"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_070",
+      "name": "부등식 f(x)>g(x)가 항상 성립할 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inequality",
+          "comparison_function",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부등식 f(x)>g(x)가 항상 성립할 조건' 유형에서 그래프 해석을 방정식·부등식 조건으로 바꾸는 과정이 약합니다.",
+      "parent_message": "방정식과 부등식 활용은 함수 그래프를 먼저 그리고 교점·위치 관계로 해석하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C246",
+        "H2_CALC1_DIFF_C247",
+        "H2_CALC1_DIFF_C248"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT736",
+        "H2_CALC1_DIFF_PT737",
+        "H2_CALC1_DIFF_PT739",
+        "H2_CALC1_DIFF_PT740",
+        "H2_CALC1_DIFF_PT742",
+        "H2_CALC1_DIFF_PT743"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_071",
+      "name": "속도와 가속도 취약",
+      "trigger": {
+        "error_tags_any": [
+          "motion",
+          "velocity",
+          "acceleration"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'속도와 가속도' 유형에서 위치, 속도, 가속도와 시간 변화율의 의미 구분이 약합니다.",
+      "parent_message": "운동 문제는 위치→속도→가속도 관계와 속력·이동거리의 부호 처리를 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C249",
+        "H2_CALC1_DIFF_C250",
+        "H2_CALC1_DIFF_C251",
+        "H2_CALC1_DIFF_C252",
+        "H2_CALC1_DIFF_C253"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT745",
+        "H2_CALC1_DIFF_PT746",
+        "H2_CALC1_DIFF_PT748",
+        "H2_CALC1_DIFF_PT749",
+        "H2_CALC1_DIFF_PT751",
+        "H2_CALC1_DIFF_PT752"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_072",
+      "name": "속도·가속도와 운동 방향 취약",
+      "trigger": {
+        "error_tags_any": [
+          "motion",
+          "velocity_sign",
+          "direction_change"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'속도·가속도와 운동 방향' 유형에서 위치, 속도, 가속도와 시간 변화율의 의미 구분이 약합니다.",
+      "parent_message": "운동 문제는 위치→속도→가속도 관계와 속력·이동거리의 부호 처리를 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C257",
+        "H2_CALC1_DIFF_C258",
+        "H2_CALC1_DIFF_C259"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT769",
+        "H2_CALC1_DIFF_PT770",
+        "H2_CALC1_DIFF_PT772",
+        "H2_CALC1_DIFF_PT773",
+        "H2_CALC1_DIFF_PT775",
+        "H2_CALC1_DIFF_PT776"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_073",
+      "name": "정지하는 물체의 속도와 움직인 거리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "motion",
+          "distance_traveled",
+          "stationary_point"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정지하는 물체의 속도와 움직인 거리' 유형에서 위치, 속도, 가속도와 시간 변화율의 의미 구분이 약합니다.",
+      "parent_message": "운동 문제는 위치→속도→가속도 관계와 속력·이동거리의 부호 처리를 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C260",
+        "H2_CALC1_DIFF_C261"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT778",
+        "H2_CALC1_DIFF_PT779",
+        "H2_CALC1_DIFF_PT781",
+        "H2_CALC1_DIFF_PT782"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_074",
+      "name": "위로 던진 물체의 위치와 속도 취약",
+      "trigger": {
+        "error_tags_any": [
+          "motion",
+          "vertical_motion",
+          "velocity"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'위로 던진 물체의 위치와 속도' 유형에서 위치, 속도, 가속도와 시간 변화율의 의미 구분이 약합니다.",
+      "parent_message": "운동 문제는 위치→속도→가속도 관계와 속력·이동거리의 부호 처리를 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C262",
+        "H2_CALC1_DIFF_C263"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT784",
+        "H2_CALC1_DIFF_PT785",
+        "H2_CALC1_DIFF_PT787",
+        "H2_CALC1_DIFF_PT788"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_075",
+      "name": "속도의 그래프의 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "velocity_graph",
+          "motion",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'속도의 그래프의 해석' 유형에서 위치, 속도, 가속도와 시간 변화율의 의미 구분이 약합니다.",
+      "parent_message": "운동 문제는 위치→속도→가속도 관계와 속력·이동거리의 부호 처리를 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C264",
+        "H2_CALC1_DIFF_C265"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT790",
+        "H2_CALC1_DIFF_PT791",
+        "H2_CALC1_DIFF_PT793",
+        "H2_CALC1_DIFF_PT794"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_076",
+      "name": "위치의 그래프의 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "position_graph",
+          "motion",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'위치의 그래프의 해석' 유형에서 위치, 속도, 가속도와 시간 변화율의 의미 구분이 약합니다.",
+      "parent_message": "운동 문제는 위치→속도→가속도 관계와 속력·이동거리의 부호 처리를 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C266",
+        "H2_CALC1_DIFF_C267"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT796",
+        "H2_CALC1_DIFF_PT797",
+        "H2_CALC1_DIFF_PT799",
+        "H2_CALC1_DIFF_PT800"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_077",
+      "name": "시간에 대한 길이의 변화율 취약",
+      "trigger": {
+        "error_tags_any": [
+          "related_rates",
+          "rate_of_change",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'시간에 대한 길이의 변화율' 유형에서 위치, 속도, 가속도와 시간 변화율의 의미 구분이 약합니다.",
+      "parent_message": "운동 문제는 위치→속도→가속도 관계와 속력·이동거리의 부호 처리를 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C268",
+        "H2_CALC1_DIFF_C269",
+        "H2_CALC1_DIFF_C270",
+        "H2_CALC1_DIFF_C271",
+        "H2_CALC1_DIFF_C272"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT802",
+        "H2_CALC1_DIFF_PT803",
+        "H2_CALC1_DIFF_PT805",
+        "H2_CALC1_DIFF_PT806",
+        "H2_CALC1_DIFF_PT808",
+        "H2_CALC1_DIFF_PT809"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_DIFF_RULE_078",
+      "name": "시간에 대한 부피의 변화율 취약",
+      "trigger": {
+        "error_tags_any": [
+          "related_rates",
+          "volume",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'시간에 대한 부피의 변화율' 유형에서 위치, 속도, 가속도와 시간 변화율의 의미 구분이 약합니다.",
+      "parent_message": "운동 문제는 위치→속도→가속도 관계와 속력·이동거리의 부호 처리를 분리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_DIFF_C273",
+        "H2_CALC1_DIFF_C274",
+        "H2_CALC1_DIFF_C275",
+        "H2_CALC1_DIFF_C276",
+        "H2_CALC1_DIFF_C277"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_DIFF_PT817",
+        "H2_CALC1_DIFF_PT818",
+        "H2_CALC1_DIFF_PT820",
+        "H2_CALC1_DIFF_PT821",
+        "H2_CALC1_DIFF_PT823",
+        "H2_CALC1_DIFF_PT824"
+      ],
+      "severity": "medium"
+    }
+  ]
+}
