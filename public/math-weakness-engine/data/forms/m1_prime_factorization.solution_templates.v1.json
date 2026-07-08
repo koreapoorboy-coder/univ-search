@@ -1,0 +1,215 @@
+{
+  "version": "1.0",
+  "unit_id": "M1_PRIME_FACTORIZATION",
+  "unit_name": "소인수분해",
+  "templates": [
+    {
+      "template_id": "M1_PF_FORM_DIVISOR_MULTIPLE",
+      "name": "약수·배수 기본 검수 양식",
+      "applies_to_concept_ids": [
+        "M1_PF_C001",
+        "M1_PF_C002",
+        "M1_PF_C003",
+        "M1_PF_C004"
+      ],
+      "required_work_lines": [
+        "약수/배수 중 무엇을 묻는지 표시",
+        "나누어떨어짐 여부를 나눗셈으로 확인",
+        "범위 조건을 마지막에 다시 확인"
+      ],
+      "student_prompt": "약수와 배수 문제는 먼저 “나누는 수/나누어지는 수”의 방향을 표시하세요."
+    },
+    {
+      "template_id": "M1_PF_FORM_PRIME_COMPOSITE",
+      "name": "소수·합성수 판별 양식",
+      "applies_to_concept_ids": [
+        "M1_PF_C005",
+        "M1_PF_C006",
+        "M1_PF_C007",
+        "M1_PF_C008",
+        "M1_PF_C009",
+        "M1_PF_C010",
+        "M1_PF_C011",
+        "M1_PF_C012"
+      ],
+      "required_work_lines": [
+        "1은 소수가 아님 표시",
+        "약수의 개수가 2개인지 확인",
+        "범위 안의 소수는 누락 없이 나열"
+      ],
+      "student_prompt": "소수 판별에서는 1을 따로 제외하고 약수의 개수를 기준으로 판단하세요."
+    },
+    {
+      "template_id": "M1_PF_FORM_POWER",
+      "name": "거듭제곱 표현 양식",
+      "applies_to_concept_ids": [
+        "M1_PF_C013",
+        "M1_PF_C014",
+        "M1_PF_C015",
+        "M1_PF_C016",
+        "M1_PF_C017"
+      ],
+      "required_work_lines": [
+        "같은 인수끼리 묶기",
+        "밑과 지수 구분",
+        "거듭제곱을 곱으로 풀어 검산"
+      ],
+      "student_prompt": "거듭제곱은 같은 인수가 몇 번 곱해졌는지를 먼저 세세요."
+    },
+    {
+      "template_id": "M1_PF_FORM_FACTORIZATION",
+      "name": "소인수분해 표준 양식",
+      "applies_to_concept_ids": [
+        "M1_PF_C018",
+        "M1_PF_C019",
+        "M1_PF_C020",
+        "M1_PF_C021",
+        "M1_PF_C022",
+        "M1_PF_C023",
+        "M1_PF_C024",
+        "M1_PF_C025",
+        "M1_PF_C026",
+        "M1_PF_C027",
+        "M1_PF_C028",
+        "M1_PF_C029",
+        "M1_PF_C030",
+        "M1_PF_C031"
+      ],
+      "required_work_lines": [
+        "나눌 수 있는 소수부터 차례대로 나누기",
+        "소인수분해꼴을 지수로 정리",
+        "제곱수/세제곱수 조건은 지수의 배수성으로 확인"
+      ],
+      "student_prompt": "소인수분해 결과에서 각 소인수의 지수가 조건을 만족하는지 확인하세요."
+    },
+    {
+      "template_id": "M1_PF_FORM_DIVISOR_COUNT",
+      "name": "약수 개수·약수 찾기 양식",
+      "applies_to_concept_ids": [
+        "M1_PF_C032",
+        "M1_PF_C033",
+        "M1_PF_C034",
+        "M1_PF_C035",
+        "M1_PF_C036",
+        "M1_PF_C037",
+        "M1_PF_C038",
+        "M1_PF_C039",
+        "M1_PF_C040",
+        "M1_PF_C041",
+        "M1_PF_C042",
+        "M1_PF_C043",
+        "M1_PF_C044",
+        "M1_PF_C045",
+        "M1_PF_C046",
+        "M1_PF_C047"
+      ],
+      "required_work_lines": [
+        "소인수분해꼴 작성",
+        "각 지수에 1을 더해 곱하기",
+        "약수 나열은 작은 수부터 짝지어 검산"
+      ],
+      "student_prompt": "약수 개수는 소인수분해의 지수에서 나오므로 지수 정리를 먼저 하세요."
+    },
+    {
+      "template_id": "M1_PF_FORM_COPRIME_GCD",
+      "name": "서로소·최대공약수 양식",
+      "applies_to_concept_ids": [
+        "M1_PF_C048",
+        "M1_PF_C049",
+        "M1_PF_C050",
+        "M1_PF_C051",
+        "M1_PF_C052",
+        "M1_PF_C053",
+        "M1_PF_C054",
+        "M1_PF_C055"
+      ],
+      "required_work_lines": [
+        "공통 소인수 여부 확인",
+        "서로소는 최대공약수가 1인지 확인",
+        "GCD는 공통 소인수의 작은 지수를 선택"
+      ],
+      "student_prompt": "서로소와 최대공약수는 공통 소인수를 기준으로 판단하세요."
+    },
+    {
+      "template_id": "M1_PF_FORM_LCM_RELATION",
+      "name": "최소공배수·관계식 양식",
+      "applies_to_concept_ids": [
+        "M1_PF_C056",
+        "M1_PF_C057",
+        "M1_PF_C058",
+        "M1_PF_C059",
+        "M1_PF_C060",
+        "M1_PF_C061",
+        "M1_PF_C062",
+        "M1_PF_C063",
+        "M1_PF_C064",
+        "M1_PF_C065",
+        "M1_PF_C066",
+        "M1_PF_C067",
+        "M1_PF_C068",
+        "M1_PF_C069",
+        "M1_PF_C070",
+        "M1_PF_C071",
+        "M1_PF_C072",
+        "M1_PF_C073",
+        "M1_PF_C074",
+        "M1_PF_C075",
+        "M1_PF_C076",
+        "M1_PF_C077",
+        "M1_PF_C078",
+        "M1_PF_C079"
+      ],
+      "required_work_lines": [
+        "LCM은 모든 소인수의 큰 지수 선택",
+        "GCD×LCM 관계 적용 가능 여부 확인",
+        "미지수 조건은 지수 비교로 정리"
+      ],
+      "student_prompt": "최소공배수는 빠뜨린 소인수가 없는지 확인하는 것이 핵심입니다."
+    },
+    {
+      "template_id": "M1_PF_FORM_APPLICATION",
+      "name": "활용 문제 번역 양식",
+      "applies_to_concept_ids": [
+        "M1_PF_C080",
+        "M1_PF_C081",
+        "M1_PF_C082",
+        "M1_PF_C083",
+        "M1_PF_C084",
+        "M1_PF_C085",
+        "M1_PF_C086",
+        "M1_PF_C087",
+        "M1_PF_C088",
+        "M1_PF_C089",
+        "M1_PF_C090",
+        "M1_PF_C091",
+        "M1_PF_C092",
+        "M1_PF_C093",
+        "M1_PF_C094",
+        "M1_PF_C095",
+        "M1_PF_C096",
+        "M1_PF_C097",
+        "M1_PF_C098",
+        "M1_PF_C099",
+        "M1_PF_C100",
+        "M1_PF_C101",
+        "M1_PF_C102",
+        "M1_PF_C103",
+        "M1_PF_C104",
+        "M1_PF_C105",
+        "M1_PF_C106",
+        "M1_PF_C107",
+        "M1_PF_C108",
+        "M1_PF_C109",
+        "M1_PF_C110",
+        "M1_PF_C111",
+        "M1_PF_C112"
+      ],
+      "required_work_lines": [
+        "같이 나누는 문제인지 같이 반복되는 문제인지 분류",
+        "최대공약수/최소공배수 선택 이유 쓰기",
+        "나머지·시각·도형 조건을 원래 문장에 대입해 검산"
+      ],
+      "student_prompt": "활용 문제는 계산 전에 최대공약수형인지 최소공배수형인지 먼저 쓰세요."
+    }
+  ]
+}

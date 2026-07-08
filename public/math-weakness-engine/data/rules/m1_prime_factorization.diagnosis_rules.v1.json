@@ -1,0 +1,536 @@
+{
+  "version": "1.0",
+  "unit_id": "M1_PRIME_FACTORIZATION",
+  "unit_name": "소인수분해",
+  "rule_count": 23,
+  "rules": [
+    {
+      "rule_id": "M1_PF_RULE_001",
+      "name": "자연수의 약수와 배수 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "divisor_multiple_basic",
+          "divisor_listing",
+          "multiple_listing",
+          "counting_basic"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "자연수의 약수와 배수에서 기준 설정 또는 계산 절차가 불안정합니다. 약수·배수의 뜻과 나열 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "자연수의 약수와 배수은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C001",
+        "M1_PF_C002",
+        "M1_PF_C003"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_002",
+      "name": "배수판별법 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "divisibility_rule",
+          "digit_condition",
+          "multiple_judgement"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "배수판별법에서 기준 설정 또는 계산 절차가 불안정합니다. 배수판별법을 이용한 수 찾기 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "배수판별법은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C004"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_003",
+      "name": "소수와 합성수의 구분 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "prime_composite",
+          "prime_judgement",
+          "range_counting",
+          "one_exception"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "소수와 합성수의 구분에서 기준 설정 또는 계산 절차가 불안정합니다. 소수·합성수 판별과 범위 문제 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "소수와 합성수의 구분은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C005",
+        "M1_PF_C006",
+        "M1_PF_C007",
+        "M1_PF_C008",
+        "M1_PF_C009"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_004",
+      "name": "거듭제곱 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "power_notation",
+          "exponent_base",
+          "repeated_multiplication",
+          "unit_digit_cycle"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "거듭제곱에서 기준 설정 또는 계산 절차가 불안정합니다. 곱을 거듭제곱으로 나타내기 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "거듭제곱은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C013",
+        "M1_PF_C014",
+        "M1_PF_C015",
+        "M1_PF_C016",
+        "M1_PF_C017"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_005",
+      "name": "소인수분해 기본 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "prime_factorization",
+          "factor_tree",
+          "exponent_interpretation",
+          "canonical_form"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "소인수분해 기본에서 기준 설정 또는 계산 절차가 불안정합니다. 자연수의 소인수분해와 표현 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "소인수분해 기본은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C018",
+        "M1_PF_C019",
+        "M1_PF_C020",
+        "M1_PF_C021",
+        "M1_PF_C022"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_006",
+      "name": "제곱인수와 세제곱인수 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "square_factor_condition",
+          "cube_factor_condition",
+          "exponent_parity",
+          "least_multiplier"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "제곱인수와 세제곱인수에서 기준 설정 또는 계산 절차가 불안정합니다. 제곱수·세제곱수가 되게 하는 수 찾기 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "제곱인수와 세제곱인수은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C025",
+        "M1_PF_C026",
+        "M1_PF_C027",
+        "M1_PF_C028",
+        "M1_PF_C029"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_007",
+      "name": "약수 구하기 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "divisor_from_factorization",
+          "divisor_count",
+          "divisor_listing_table",
+          "factor_vs_divisor"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "약수 구하기에서 기준 설정 또는 계산 절차가 불안정합니다. 소인수분해로 약수와 약수 개수 구하기 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "약수 구하기은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C032",
+        "M1_PF_C033",
+        "M1_PF_C034",
+        "M1_PF_C035",
+        "M1_PF_C036"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_008",
+      "name": "약수의 개수와 조건 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "divisor_count_formula",
+          "sum_of_divisors",
+          "unknown_exponent",
+          "condition_search"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "약수의 개수와 조건에서 기준 설정 또는 계산 절차가 불안정합니다. 약수 개수·약수의 합·미지수 조건 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "약수의 개수와 조건은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C040",
+        "M1_PF_C041",
+        "M1_PF_C042",
+        "M1_PF_C043",
+        "M1_PF_C044"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_009",
+      "name": "서로소의 판단 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "coprime_judgement",
+          "gcd_one",
+          "pair_counting",
+          "coprime_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "서로소의 판단에서 기준 설정 또는 계산 절차가 불안정합니다. 공약수가 1뿐인 두 수 판별 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "서로소의 판단은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C048",
+        "M1_PF_C049",
+        "M1_PF_C050"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_010",
+      "name": "최대공약수 구하기 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "gcd_basic",
+          "common_divisor",
+          "gcd_prime_factorization",
+          "gcd_three_numbers"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "최대공약수 구하기에서 기준 설정 또는 계산 절차가 불안정합니다. 소인수분해를 이용한 최대공약수 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "최대공약수 구하기은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C051",
+        "M1_PF_C052",
+        "M1_PF_C053",
+        "M1_PF_C054",
+        "M1_PF_C055"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_011",
+      "name": "최소공배수의 성질 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "lcm_basic",
+          "common_multiple",
+          "lcm_prime_factorization",
+          "lcm_three_numbers"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "최소공배수의 성질에서 기준 설정 또는 계산 절차가 불안정합니다. 공배수와 최소공배수 구분 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "최소공배수의 성질은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C056",
+        "M1_PF_C057",
+        "M1_PF_C058",
+        "M1_PF_C059",
+        "M1_PF_C060"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_012",
+      "name": "최소공배수 구하기 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "lcm_by_division",
+          "lcm_process",
+          "prime_factor_vs_division_method",
+          "blank_process"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "최소공배수 구하기에서 기준 설정 또는 계산 절차가 불안정합니다. 공약수로 나누어 최소공배수 구하기 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "최소공배수 구하기은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C062",
+        "M1_PF_C063",
+        "M1_PF_C064",
+        "M1_PF_C065",
+        "M1_PF_C066"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_013",
+      "name": "성질과 관계 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "gcd_lcm_relation",
+          "exponent_compare",
+          "unknown_condition",
+          "simultaneous_gcd_lcm"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "성질과 관계에서 기준 설정 또는 계산 절차가 불안정합니다. 최대공약수·최소공배수 관계 활용 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "성질과 관계은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C067",
+        "M1_PF_C068",
+        "M1_PF_C069",
+        "M1_PF_C070",
+        "M1_PF_C071"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_PF_RULE_014",
+      "name": "미지수 포함 조건 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "unknown_multiplier",
+          "gcd_lcm_unknown",
+          "integer_condition",
+          "counting_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "미지수 포함 조건에서 기준 설정 또는 계산 절차가 불안정합니다. m×a, n×a 꼴의 최대공약수·최소공배수 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "미지수 포함 조건은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C072",
+        "M1_PF_C073",
+        "M1_PF_C074",
+        "M1_PF_C075",
+        "M1_PF_C076"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_015",
+      "name": "나누어떨어지는 조건 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "word_problem_gcd",
+          "remainder_condition",
+          "equal_grouping",
+          "division_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "나누어떨어지는 조건에서 기준 설정 또는 계산 절차가 불안정합니다. 나머지와 부족/초과 조건 활용 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "나누어떨어지는 조건은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C080",
+        "M1_PF_C081",
+        "M1_PF_C082",
+        "M1_PF_C083",
+        "M1_PF_C084"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_016",
+      "name": "도형과 배열 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_gcd_lcm",
+          "tiling",
+          "arrangement",
+          "rectangular_partition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도형과 배열에서 기준 설정 또는 계산 절차가 불안정합니다. 타일·직사각형·정사각형 배열 문제 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "도형과 배열은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C087",
+        "M1_PF_C088",
+        "M1_PF_C089",
+        "M1_PF_C090",
+        "M1_PF_C091"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_017",
+      "name": "주기와 반복 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "periodic_lcm",
+          "time_schedule",
+          "simultaneous_event",
+          "cycle_reasoning"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "주기와 반복에서 기준 설정 또는 계산 절차가 불안정합니다. 동시에 다시 만나는 시각과 주기 문제 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "주기와 반복은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C092",
+        "M1_PF_C093",
+        "M1_PF_C094",
+        "M1_PF_C095",
+        "M1_PF_C096"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_018",
+      "name": "복합 조건과 실생활 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "integrated_application",
+          "fraction_coprime",
+          "complex_condition",
+          "true_false_reasoning"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "복합 조건과 실생활에서 기준 설정 또는 계산 절차가 불안정합니다. 소인수분해·서로소·GCD·LCM 종합 문제 유형에서 같은 오답 신호가 반복될 수 있습니다.",
+      "parent_message": "복합 조건과 실생활은 이후 소인수분해, 최대공약수·최소공배수 활용으로 이어지는 기반입니다. 먼저 정의-분해-검산 순서를 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C101",
+        "M1_PF_C102",
+        "M1_PF_C103",
+        "M1_PF_C104",
+        "M1_PF_C105"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_DIVISOR_MULTIPLE_SWAP",
+      "name": "약수와 배수 혼동",
+      "trigger": {
+        "error_tags_any": [
+          "divisor_multiple_basic",
+          "divisor_listing",
+          "multiple_listing"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "약수와 배수 혼동가 반복됩니다. 문제의 표현이 “나누어지는가/함께 반복되는가/서로 나누는가” 중 무엇인지 먼저 분류해야 합니다.",
+      "parent_message": "계산 실수처럼 보여도 실제로는 문제 조건을 어느 개념으로 번역할지 결정하는 단계가 흔들리는 상태입니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C001",
+        "M1_PF_C002",
+        "M1_PF_C003"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_PRIME_ONE_CONFUSION",
+      "name": "1을 소수로 보는 오류",
+      "trigger": {
+        "error_tags_any": [
+          "prime_composite",
+          "one_exception",
+          "prime_judgement"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "1을 소수로 보는 오류가 반복됩니다. 문제의 표현이 “나누어지는가/함께 반복되는가/서로 나누는가” 중 무엇인지 먼저 분류해야 합니다.",
+      "parent_message": "계산 실수처럼 보여도 실제로는 문제 조건을 어느 개념으로 번역할지 결정하는 단계가 흔들리는 상태입니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C005",
+        "M1_PF_C006",
+        "M1_PF_C007"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_POWER_EXPONENT_CONFUSION",
+      "name": "밑과 지수 혼동",
+      "trigger": {
+        "error_tags_any": [
+          "power_notation",
+          "exponent_base",
+          "repeated_multiplication"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "밑과 지수 혼동가 반복됩니다. 문제의 표현이 “나누어지는가/함께 반복되는가/서로 나누는가” 중 무엇인지 먼저 분류해야 합니다.",
+      "parent_message": "계산 실수처럼 보여도 실제로는 문제 조건을 어느 개념으로 번역할지 결정하는 단계가 흔들리는 상태입니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C013",
+        "M1_PF_C014",
+        "M1_PF_C015"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_GCD_LCM_SWAP",
+      "name": "최대공약수와 최소공배수 선택 혼동",
+      "trigger": {
+        "error_tags_any": [
+          "gcd_basic",
+          "lcm_basic",
+          "gcd_lcm_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "최대공약수와 최소공배수 선택 혼동가 반복됩니다. 문제의 표현이 “나누어지는가/함께 반복되는가/서로 나누는가” 중 무엇인지 먼저 분류해야 합니다.",
+      "parent_message": "계산 실수처럼 보여도 실제로는 문제 조건을 어느 개념으로 번역할지 결정하는 단계가 흔들리는 상태입니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C051",
+        "M1_PF_C056",
+        "M1_PF_C067"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_PF_RULE_WORD_PROBLEM_TRANSLATION",
+      "name": "문장제에서 GCD/LCM 선택 실패",
+      "trigger": {
+        "error_tags_any": [
+          "word_problem_gcd",
+          "periodic_lcm",
+          "integrated_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "문장제에서 GCD/LCM 선택 실패가 반복됩니다. 문제의 표현이 “나누어지는가/함께 반복되는가/서로 나누는가” 중 무엇인지 먼저 분류해야 합니다.",
+      "parent_message": "계산 실수처럼 보여도 실제로는 문제 조건을 어느 개념으로 번역할지 결정하는 단계가 흔들리는 상태입니다.",
+      "recommended_concept_ids": [
+        "M1_PF_C080",
+        "M1_PF_C092",
+        "M1_PF_C101"
+      ],
+      "severity": "high"
+    }
+  ]
+}

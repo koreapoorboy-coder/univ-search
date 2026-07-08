@@ -1,6 +1,20 @@
 {
-  "version": "2026.07.07-h2-calculus1-limit-continuity-v1.0",
+  "version": "2026.07.08 cumulative with M1_PRIME_FACTORIZATION",
   "units": [
+    {
+      "unit_id": "M1_PRIME_FACTORIZATION",
+      "grade": "중1",
+      "course": "중학수학 1-1",
+      "unit_name": "소인수분해",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m1_prime_factorization.problem_types.v1.json",
+      "edges": "data/relations/m1_prime_factorization.edges.v1.json",
+      "diagnosis_rules": "data/rules/m1_prime_factorization.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m1_prime_factorization.remediation_map.v1.json",
+      "sources": "data/sources/m1_prime_factorization.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m1_prime_factorization.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m1_prime_factorization.solution_templates.v1.json"
+    },
     {
       "unit_id": "M1_INT_RATIONAL",
       "grade": "중1",

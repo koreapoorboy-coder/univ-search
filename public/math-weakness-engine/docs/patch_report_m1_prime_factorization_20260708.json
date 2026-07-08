@@ -1,0 +1,83 @@
+{
+  "patch_id": "math_weakness_engine_m1_prime_factorization_core_patch_20260708",
+  "version": "2026.07.08-m1_prime_factorization-v1.0",
+  "unit_id": "M1_PRIME_FACTORIZATION",
+  "slug": "m1_prime_factorization",
+  "unit_name": "소인수분해",
+  "course": "중학수학 1-1",
+  "source_upload": "소인수분해.zip",
+  "source_image_count": 112,
+  "normalized_source_image_range": "1.png ~ 112.png",
+  "ignored_files": [],
+  "counts": {
+    "concepts": 112,
+    "raw_sections": 112,
+    "estimated_detail_types": 672,
+    "problem_types": 448,
+    "edges": 140,
+    "diagnosis_rules": 23,
+    "remediation": 112,
+    "solution_templates": 8,
+    "index_units_after_patch": 30,
+    "math_concepts_total_after_patch": 2901
+  },
+  "coverage_summary": [
+    {
+      "source_images": "1.png ~ 4.png",
+      "coverage": "자연수의 약수와 배수, 배수판별법"
+    },
+    {
+      "source_images": "5.png ~ 12.png",
+      "coverage": "소수와 합성수의 구분과 범위 문제"
+    },
+    {
+      "source_images": "13.png ~ 31.png",
+      "coverage": "거듭제곱, 소인수분해, 제곱수·세제곱수 조건"
+    },
+    {
+      "source_images": "32.png ~ 47.png",
+      "coverage": "소인수분해를 이용한 약수, 약수의 개수와 조건"
+    },
+    {
+      "source_images": "48.png ~ 55.png",
+      "coverage": "서로소, 공약수와 최대공약수"
+    },
+    {
+      "source_images": "56.png ~ 79.png",
+      "coverage": "공배수와 최소공배수, GCD·LCM 관계와 미지수 조건"
+    },
+    {
+      "source_images": "80.png ~ 112.png",
+      "coverage": "최대공약수·최소공배수의 도형·실생활·주기·복합 활용"
+    }
+  ],
+  "includes_original_images": false,
+  "patch_files": [
+    "public/math-weakness-engine/data/forms/m1_prime_factorization.solution_templates.v1.json",
+    "public/math-weakness-engine/data/index.v1.json",
+    "public/math-weakness-engine/data/math_concepts.v1.json",
+    "public/math-weakness-engine/data/problem_types/m1_prime_factorization.problem_types.v1.csv",
+    "public/math-weakness-engine/data/problem_types/m1_prime_factorization.problem_types.v1.json",
+    "public/math-weakness-engine/data/raw_taxonomy/m1_prime_factorization.raw_taxonomy.v1.csv",
+    "public/math-weakness-engine/data/raw_taxonomy/m1_prime_factorization.raw_taxonomy.v1.json",
+    "public/math-weakness-engine/data/relations/m1_prime_factorization.edges.v1.json",
+    "public/math-weakness-engine/data/remediation/m1_prime_factorization.remediation_map.v1.json",
+    "public/math-weakness-engine/data/rules/m1_prime_factorization.diagnosis_rules.v1.json",
+    "public/math-weakness-engine/data/sources/m1_prime_factorization.source_manifest.v1.json",
+    "public/math-weakness-engine/docs/patch_report_m1_prime_factorization_20260708.json",
+    "public/math-weakness-engine/samples/m1_prime_factorization.student_attempt.sample.json"
+  ],
+  "validation": {
+    "json_load_ok": true,
+    "index_unit_registered": true,
+    "new_concept_count_matches": true,
+    "problem_type_refs_ok": true,
+    "edge_refs_ok": true,
+    "rule_refs_ok": true,
+    "remediation_refs_ok": true,
+    "templates_refs_ok": true,
+    "source_images_not_in_patch": true
+  },
+  "commit_message": "Add M1 prime factorization weakness diagnosis data",
+  "note": "중1-1 소인수분해 신규 단원. 원본 이미지는 패치 ZIP에 포함하지 않고 source_manifest에만 기록했습니다."
+}

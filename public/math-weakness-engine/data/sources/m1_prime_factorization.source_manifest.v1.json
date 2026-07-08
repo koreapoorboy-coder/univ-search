@@ -1,0 +1,828 @@
+{
+  "source_id": "m1_prime_factorization_source_20260708",
+  "unit_id": "M1_PRIME_FACTORIZATION",
+  "unit_name": "소인수분해",
+  "source_type": "uploaded_image_taxonomy_zip",
+  "original_upload_name": "소인수분해.zip",
+  "image_count": 112,
+  "ignored_files": [],
+  "file_naming_rule": "1.png ~ 112.png, numeric order by filename stem",
+  "source_zip_sha256": "d1248b85f6415a4520edec9a51b7efe7acb4af800f89f4cc2671f1fab1cf8e1f",
+  "extraction_note": "112개 PNG를 단원 진단용 raw taxonomy/concept/problem_type으로 정규화. 원본 이미지는 사용자 보관 기준이며 패치 ZIP에는 포함하지 않음.",
+  "coverage_ranges": [
+    {
+      "source_images": "1.png ~ 4.png",
+      "coverage": "자연수의 약수와 배수, 배수판별법"
+    },
+    {
+      "source_images": "5.png ~ 12.png",
+      "coverage": "소수와 합성수의 구분과 범위 문제"
+    },
+    {
+      "source_images": "13.png ~ 31.png",
+      "coverage": "거듭제곱, 소인수분해, 제곱수·세제곱수 조건"
+    },
+    {
+      "source_images": "32.png ~ 47.png",
+      "coverage": "소인수분해를 이용한 약수, 약수의 개수와 조건"
+    },
+    {
+      "source_images": "48.png ~ 55.png",
+      "coverage": "서로소, 공약수와 최대공약수"
+    },
+    {
+      "source_images": "56.png ~ 79.png",
+      "coverage": "공배수와 최소공배수, GCD·LCM 관계와 미지수 조건"
+    },
+    {
+      "source_images": "80.png ~ 112.png",
+      "coverage": "최대공약수·최소공배수의 도형·실생활·주기·복합 활용"
+    }
+  ],
+  "source_files": [
+    {
+      "order": 1,
+      "filename": "1.png",
+      "byte_size": 49121,
+      "sha256": "ef25172567ba99297ebc55f33cebd490248e53a13412d34aa5d6230e84ebd484",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 2,
+      "filename": "2.png",
+      "byte_size": 79033,
+      "sha256": "636461aa03606fa96cbd705901e700117052fc007f7d433b4412a4dde3771979",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 3,
+      "filename": "3.png",
+      "byte_size": 96523,
+      "sha256": "09337d9181b40a96ac239482bdde21e93ab42de997a491b526aec42eaa7fb766",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 4,
+      "filename": "4.png",
+      "byte_size": 103931,
+      "sha256": "2c993d3cbf455c05f7d123760bc4669b6b511d97aa4401bcdbe586b4d5339247",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 5,
+      "filename": "5.png",
+      "byte_size": 49825,
+      "sha256": "dfa95317d556ac1df2194b80a7cc819f25ab0dac18fe66b385f5be4e8700d762",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 6,
+      "filename": "6.png",
+      "byte_size": 65039,
+      "sha256": "77a0634a411d323f5d39245a12c0be6d82a392ec23d7d1fce830d255b093a613",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 7,
+      "filename": "7.png",
+      "byte_size": 41891,
+      "sha256": "492d09c2a52e7c9857f00d03d287c1faa34cb9bd9df8de47b636ba686d7ec046",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 8,
+      "filename": "8.png",
+      "byte_size": 114725,
+      "sha256": "d1ba8541c395f922366178c546381fded7b1f7191119a841a4c294ffaee3394c",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 9,
+      "filename": "9.png",
+      "byte_size": 100593,
+      "sha256": "8f1bfe6c14b44dfbcf436996f9288f27c033da21761a976bf25cb025bf0be437",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 10,
+      "filename": "10.png",
+      "byte_size": 69089,
+      "sha256": "1a35c0841ba3c7b979c3f436617436462a15abd3a713ed1563dfcf76dd6fcbb3",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 11,
+      "filename": "11.png",
+      "byte_size": 74775,
+      "sha256": "4d0365b4690f3352acaa2807a129e0214b3d5eb2d26921f93de4955729142fa6",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 12,
+      "filename": "12.png",
+      "byte_size": 25776,
+      "sha256": "1c963124be789ad62709f3252cd2560abb4304d99536944f197755dafe5db354",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 13,
+      "filename": "13.png",
+      "byte_size": 127236,
+      "sha256": "c2b7a8b2d28c5c65fff2834350ae65a2fac2478fc1f406808accaa8a3a6be5ba",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 14,
+      "filename": "14.png",
+      "byte_size": 97305,
+      "sha256": "2dc2397cb717ba1f71493ecc2bef6faf2184eb779b10a2b7521f4342ffe277ec",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 15,
+      "filename": "15.png",
+      "byte_size": 77747,
+      "sha256": "4d99181906e720bf98ec9015669dad8742c72ea4c5d20a70b6e52de53019556b",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 16,
+      "filename": "16.png",
+      "byte_size": 138296,
+      "sha256": "67656b494f6ad07e559e05cfe844e62d8bd9ea378701c70ec58d1840d343c7f7",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 17,
+      "filename": "17.png",
+      "byte_size": 65904,
+      "sha256": "94359484b95bb471762efe5166a62c279849a26056005ac0435a135c2b01d8ea",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 18,
+      "filename": "18.png",
+      "byte_size": 39543,
+      "sha256": "59d271203ed256bcc44e4707d9122842dcd17a669dec43465c34205d7d6bcd34",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 19,
+      "filename": "19.png",
+      "byte_size": 59144,
+      "sha256": "14102b68edbdf1a1b9bbfbc3b3c535eff8dd32dc76453b588fa7a1ff8630b17f",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 20,
+      "filename": "20.png",
+      "byte_size": 42837,
+      "sha256": "a7420f9cd028b7eba6342b662fb87276b655b997143010b92dc084e1d5d60c73",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 21,
+      "filename": "21.png",
+      "byte_size": 96351,
+      "sha256": "981e9582bcdf65665c1ad969e45865f9bf6667c7fcb7ca1f797cff9d312224bb",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 22,
+      "filename": "22.png",
+      "byte_size": 69230,
+      "sha256": "f478c294a02aa41ce6c7de71ea4659d0a28194c70dc24c79e24792792aa50432",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 23,
+      "filename": "23.png",
+      "byte_size": 99605,
+      "sha256": "e0b62fe87b166f85e329df595e7ed73de979c7259ba7200760bc23edb2468dcb",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 24,
+      "filename": "24.png",
+      "byte_size": 74491,
+      "sha256": "29188f3b04f2ab9d8e869b0d4d01465114758e75f1e33e6dfdcec7fafcc2cfdb",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 25,
+      "filename": "25.png",
+      "byte_size": 120186,
+      "sha256": "ca71732bc96c3553402c9249f4071923849eb194952cf35ee94c1c8c3a1753e1",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 26,
+      "filename": "26.png",
+      "byte_size": 80765,
+      "sha256": "4971abe17cc82f1fe5a0ab3644e036f0e122d9861503ea57d09afd2eefff6d86",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 27,
+      "filename": "27.png",
+      "byte_size": 117543,
+      "sha256": "262e1535b1763e0852dee8f774ce88e1173dbc42cf08cd082f20b9790dfa3b60",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 28,
+      "filename": "28.png",
+      "byte_size": 133166,
+      "sha256": "4caacb66011ac21ff071da998df52fbaf08733bf86a913edbabf5eb67d9a454a",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 29,
+      "filename": "29.png",
+      "byte_size": 91989,
+      "sha256": "f6c4cc154181e1d831d37f6504690d7af105262e0577fdff0143bd4917068ce7",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 30,
+      "filename": "30.png",
+      "byte_size": 115917,
+      "sha256": "f44b037274f72973f8969b3853d2025731690b5f6d030e9b2e3f01bbb9722067",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 31,
+      "filename": "31.png",
+      "byte_size": 126890,
+      "sha256": "19975d07acd43ffa5b09810f33944c40c7c522f00ea3c9892bda1b25985a365d",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 32,
+      "filename": "32.png",
+      "byte_size": 102041,
+      "sha256": "3a6e680358a43a1e0123e844b63fbe473860ee807b52974a642647d019534f48",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 33,
+      "filename": "33.png",
+      "byte_size": 45830,
+      "sha256": "1af1254d043b76b6a311daf2217176bfa78673b87d1ec1de4d197343226e5ec8",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 34,
+      "filename": "34.png",
+      "byte_size": 82079,
+      "sha256": "b5cf1d3854edc98e276a3d69126ddab36848442c7bfa7472fe91f9c12414aee2",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 35,
+      "filename": "35.png",
+      "byte_size": 131556,
+      "sha256": "7d7e509896aa7e538d1f9cfa812e1b4bc6ba785ef8f6337affa58cbced6c07fc",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 36,
+      "filename": "36.png",
+      "byte_size": 69664,
+      "sha256": "de39aa20c7f61445f92ec0cc12fd9ac0d1a51cb496eff6e5863e8eaced6b64d4",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 37,
+      "filename": "37.png",
+      "byte_size": 127922,
+      "sha256": "7bb050fa04e27dcebcd219f8d9342103e5ac3893d9eca1f20d8ad3f88e31f6d7",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 38,
+      "filename": "38.png",
+      "byte_size": 23969,
+      "sha256": "f94202060b066dbad4947aa058e1e7197ed43d646b2be50d68cc2e80c93ec9f6",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 39,
+      "filename": "39.png",
+      "byte_size": 156637,
+      "sha256": "93c6519790fd1213ba3ecc24af6b5fa890c57acfba0dcf021dfc49083556917e",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 40,
+      "filename": "40.png",
+      "byte_size": 82972,
+      "sha256": "64ff250dc6004863552bb82b93601a1563861c616ce8dce0b603fdbcdddf713c",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 41,
+      "filename": "41.png",
+      "byte_size": 99801,
+      "sha256": "edbffad6df139e86073556c24cbe9d385185d1403f5b012b7c5d4cf833f18bd5",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 42,
+      "filename": "42.png",
+      "byte_size": 96529,
+      "sha256": "fcee8139baf42522ee54688c2f9025b16930366c93126e89fc40649aa936f0c2",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 43,
+      "filename": "43.png",
+      "byte_size": 146536,
+      "sha256": "34e812978ab613a359600b51d4c573afaf09b18d3d4dba8f9b51fbfc4f785c1d",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 44,
+      "filename": "44.png",
+      "byte_size": 60617,
+      "sha256": "1b8b497c948dba8656928eb0fb0ab4b0af52619cc206ab8ab2472fd233efbf19",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 45,
+      "filename": "45.png",
+      "byte_size": 125389,
+      "sha256": "f9abfd047643a131b2ab0e975ba79f136788bd9531c53ba5c0bcc4e8a6c3bb06",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 46,
+      "filename": "46.png",
+      "byte_size": 66786,
+      "sha256": "1a83d61e6878cf30eee06cedb3b877b7266353374667baa57d33dfd1297d9ea5",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 47,
+      "filename": "47.png",
+      "byte_size": 25265,
+      "sha256": "68a3b6521eeb803fdf0089f27bc795494b564b527c7c638f08fb56d2540d3649",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 48,
+      "filename": "48.png",
+      "byte_size": 91580,
+      "sha256": "03d6f41124b457e9f0b811016244a88ccc98700164735e1fd9df5ed94261d113",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 49,
+      "filename": "49.png",
+      "byte_size": 114192,
+      "sha256": "2a37178fea1c3a8a1162136ba6c2e95254e3ef07f08917fdf7440a482e9b8b9c",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 50,
+      "filename": "50.png",
+      "byte_size": 126336,
+      "sha256": "3bbe62ed19c0b48276f74fc8891e9ea04b2a27fc9ba058605189ac6a53cbe9ba",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 51,
+      "filename": "51.png",
+      "byte_size": 112414,
+      "sha256": "e67b1a3cca4f369d8584bb7ed8f4f3ca6bf0b762790c35084aa08b6ff6417378",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 52,
+      "filename": "52.png",
+      "byte_size": 83651,
+      "sha256": "7e12c6cd191296cf7cf4a0cec68295305645993b58925d5ff5da19ebb4e185f7",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 53,
+      "filename": "53.png",
+      "byte_size": 92907,
+      "sha256": "ecdacec220f766cc48c03643825c424c9273725b7e1870398687bd7cf3d8fb0d",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 54,
+      "filename": "54.png",
+      "byte_size": 83603,
+      "sha256": "8803a3a7d6e5e95692a9dd556d1a51efb95a6166cb1f7c87818c00b536a773f9",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 55,
+      "filename": "55.png",
+      "byte_size": 48615,
+      "sha256": "ff4ce488239e4c200cffde8e026c0ae4769a2ef18f970cfa13b86fb683bd7924",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 56,
+      "filename": "56.png",
+      "byte_size": 81256,
+      "sha256": "9221289eb57b176e7569d64245e1fcead53289f024af60c67828c5bfd25cba66",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 57,
+      "filename": "57.png",
+      "byte_size": 114904,
+      "sha256": "ae17b50c29d686560c1fa5816ce2953a09a6dc0949385f28b663578f2d304e2b",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 58,
+      "filename": "58.png",
+      "byte_size": 92390,
+      "sha256": "5a5b2495c524527f042ad0c09a601e2633c8168afc8e923142b9c7623edd04dd",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 59,
+      "filename": "59.png",
+      "byte_size": 123523,
+      "sha256": "2c9977aa2470b6f5bd6bbd7e23398f0b7bb40f7a6a9ad1692d60633e3ce7abaf",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 60,
+      "filename": "60.png",
+      "byte_size": 81394,
+      "sha256": "e09e7ee9eb2ea5d3cb073d3c81d6063fb05626c6f4294ae761036dce174f0b08",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 61,
+      "filename": "61.png",
+      "byte_size": 103781,
+      "sha256": "9b95a94dac95580684ee04a823cc597297bde0eb1e3518d5b95d583d47b47d93",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 62,
+      "filename": "62.png",
+      "byte_size": 89639,
+      "sha256": "6f9d58a908fc1345edf8391ed0c6ed47d495b5e9990f19f790ff67b564d4aef9",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 63,
+      "filename": "63.png",
+      "byte_size": 109260,
+      "sha256": "5afbc30033b3fe9018743ec53c99a54e3f0612e49e9a2db4c2ddeac427d1b160",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 64,
+      "filename": "64.png",
+      "byte_size": 74804,
+      "sha256": "656d799eae919b36ef9e3bd6a2b52d8474fd8de8202060223b77d0f732560d94",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 65,
+      "filename": "65.png",
+      "byte_size": 75681,
+      "sha256": "550beb3dcc57153f7485d2c20b924a47e007ba8fcbe06b948e45b1dc7779896c",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 66,
+      "filename": "66.png",
+      "byte_size": 153534,
+      "sha256": "3b7143e38ed444a07fb877405ca5ff384b8c8592e6d29a55d609875d3a280e7f",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 67,
+      "filename": "67.png",
+      "byte_size": 85545,
+      "sha256": "49a57b132ed7ce03e4dcd27a25e5a64d3567d100fbdf7c2b7e258cf979be7b18",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 68,
+      "filename": "68.png",
+      "byte_size": 110652,
+      "sha256": "29a723defbd6fdb767c8b6e86fd3caa6f5d2b4257adacca6f08a344bf1f339de",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 69,
+      "filename": "69.png",
+      "byte_size": 86115,
+      "sha256": "861e16c9c610341cc05296aa94a6d17b0397b9d12b21be31fb32634c244e10d4",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 70,
+      "filename": "70.png",
+      "byte_size": 133760,
+      "sha256": "92b25fe48bfd29ce4db65e871565f52870bdbc47f26e25ed2f4a46829b2cf83f",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 71,
+      "filename": "71.png",
+      "byte_size": 85779,
+      "sha256": "5af930a52e1bc0c11c7316963ec8620fcafda6b9c8c1b49b13f05eb783a44b98",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 72,
+      "filename": "72.png",
+      "byte_size": 63621,
+      "sha256": "30457dbf432a97d0bc28b8986b24be1374beeed380d1407938733ae4fee53b50",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 73,
+      "filename": "73.png",
+      "byte_size": 83604,
+      "sha256": "029dc7015ea062270e98873a450384f6ca22374181c90cbbed5210f83ad88981",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 74,
+      "filename": "74.png",
+      "byte_size": 50329,
+      "sha256": "dc65593c7721f9246f319fbee1a0a6154595e85447423105096d4f30de3dcad0",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 75,
+      "filename": "75.png",
+      "byte_size": 162272,
+      "sha256": "9934982405d8f7c3b91776cbf402ef8c4802a46f42ede58f63df27af2e64be3a",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 76,
+      "filename": "76.png",
+      "byte_size": 145182,
+      "sha256": "cc1c1d81f4e3e2834847677d5b8a5eeee693b6aadea8c089047b8a892aa9d05f",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 77,
+      "filename": "77.png",
+      "byte_size": 80984,
+      "sha256": "8161ebaf17e77b905b8653ccd1a1f91b807898662a0ce50ab8398f6da695e793",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 78,
+      "filename": "78.png",
+      "byte_size": 114910,
+      "sha256": "fdd9e35285bd50573f6ac05c1f2aa5bbcc238cf7384b32391bd0c30e4c8abf41",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 79,
+      "filename": "79.png",
+      "byte_size": 122488,
+      "sha256": "bb6170df4a20d2dee0697479061840e73a8618e72f52f6d8505d52b67d2a3ad2",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 80,
+      "filename": "80.png",
+      "byte_size": 49339,
+      "sha256": "33ef030667a9764e30fa4bbb3b718470de30729c4b2d1a5259c890dec740f524",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 81,
+      "filename": "81.png",
+      "byte_size": 135931,
+      "sha256": "f1eea2fc2cb08d56b998ca648a2aed46976b04f37281d52debfb81468fb9d59f",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 82,
+      "filename": "82.png",
+      "byte_size": 81598,
+      "sha256": "4e014eae942f443a3302a0669ce75fde8f08b5656e2fe278f75a3fb71256bcf8",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 83,
+      "filename": "83.png",
+      "byte_size": 43478,
+      "sha256": "0ec6a3435d5650086f8e749d0ca9cab9b1a3b6b42f2495a5a6bc53fdf81dbc6c",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 84,
+      "filename": "84.png",
+      "byte_size": 126781,
+      "sha256": "3dcfbfc4469bd361cf65cb7c224281e7edb3747ebb2d135bda729548aa50a6e8",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 85,
+      "filename": "85.png",
+      "byte_size": 110674,
+      "sha256": "b2a47757ae982db4433455173b3267227c09e6fb3eb87119cea51c9383470455",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 86,
+      "filename": "86.png",
+      "byte_size": 153298,
+      "sha256": "6f11a0dac297971752aaf0564a3a410f5f195a3d1ebae186f0344968d1787a8d",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 87,
+      "filename": "87.png",
+      "byte_size": 112734,
+      "sha256": "eb3601cb49a32e762119fccb4e902665aaf9a244d2d1170e4eadcb4130d3ef7b",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 88,
+      "filename": "88.png",
+      "byte_size": 66491,
+      "sha256": "bf5dc04c791534feb75b2d8f58f184ca41d6667dff0ff00453f327f5e72c93b3",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 89,
+      "filename": "89.png",
+      "byte_size": 115685,
+      "sha256": "04038a434a33aa81678d665c3500e4a7560217617f984213177abf2fd7088308",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 90,
+      "filename": "90.png",
+      "byte_size": 121143,
+      "sha256": "d61257bd5f6a25b600321878b1bc592feeeb971739084691a3561793b19b2f27",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 91,
+      "filename": "91.png",
+      "byte_size": 41916,
+      "sha256": "1b9efc10404add510fe3caa1cd153de59bf24b126cacbceeeb8ef9995fe2bf57",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 92,
+      "filename": "92.png",
+      "byte_size": 131956,
+      "sha256": "faf5dba44c840e6e6becf2cdecadfbc7db99ce602a9e5678f5962100872e5777",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 93,
+      "filename": "93.png",
+      "byte_size": 131720,
+      "sha256": "8613453ab00bde018b92601309f6ffef93fa6b16e4d667b166570246194bf1f9",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 94,
+      "filename": "94.png",
+      "byte_size": 93778,
+      "sha256": "28a16cf4b25d5dce6ef34d08adeb7ab5443730a646ac847447c610625e7f82dc",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 95,
+      "filename": "95.png",
+      "byte_size": 66311,
+      "sha256": "cf80c5bbb9da314c461d47ff4e181e8b4a335fa9e0f316a08fe133bd2873b0fa",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 96,
+      "filename": "96.png",
+      "byte_size": 122405,
+      "sha256": "c3efd4874470c5ebff8c0ad6d59ac5cbf065656ccb2c4e2a340cb3ddd1261ece",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 97,
+      "filename": "97.png",
+      "byte_size": 80633,
+      "sha256": "1b7184f0ff2cbe3d761df1d231863aff54b1b0842bf1399681e8ffea5e914a45",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 98,
+      "filename": "98.png",
+      "byte_size": 99841,
+      "sha256": "58747b675751d785a13ecb1164f4f28afaccc80a137d58efd604e0612d7dbc2d",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 99,
+      "filename": "99.png",
+      "byte_size": 81590,
+      "sha256": "a9cc169f86b5ec03b8015a96b63414727b68bda32f1c4475ae26aa523404caa7",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 100,
+      "filename": "100.png",
+      "byte_size": 93655,
+      "sha256": "e4b7093d1a4c3ca8fa9be7e003d78917f1db260da3195dafdc815ac99857d30b",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 101,
+      "filename": "101.png",
+      "byte_size": 72729,
+      "sha256": "cf44f6d8e92e177fa06f622406a63cf837c17b0f1b1c285f0725482f96a754fa",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 102,
+      "filename": "102.png",
+      "byte_size": 50701,
+      "sha256": "fd81182b9d5308807a18ec6c50b6f18f46c32b46b62011f3924e2763e56207d0",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 103,
+      "filename": "103.png",
+      "byte_size": 137708,
+      "sha256": "05e1deafb184dc7e8334f7d4f951951193e9a6946351cb34b87fcb77c580c5ff",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 104,
+      "filename": "104.png",
+      "byte_size": 119100,
+      "sha256": "e993032c54900804353939cd8d34751144685d47074753c3827ba9ae935dff41",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 105,
+      "filename": "105.png",
+      "byte_size": 128840,
+      "sha256": "3083503c36ebbacd9055436d9f67e09f7bb452abab66de4fe301a24fe12484e6",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 106,
+      "filename": "106.png",
+      "byte_size": 113074,
+      "sha256": "12f90cbb32364d36146a0eeab9c441f1cd8a97808165f9f6e54ed8188c419f67",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 107,
+      "filename": "107.png",
+      "byte_size": 78085,
+      "sha256": "15eddda1a2b66f7909555125fe17555fa38f2d8d820b628523c711100161b006",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 108,
+      "filename": "108.png",
+      "byte_size": 157176,
+      "sha256": "da418b27cc6b5d395fd56fc7092307811b45717e9599f2e2fc3f00f0add514c0",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 109,
+      "filename": "109.png",
+      "byte_size": 153374,
+      "sha256": "a27e07f58be2e497bad27ed8c5e627961126bc0f63c8210ae246a2c3742e3fac",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 110,
+      "filename": "110.png",
+      "byte_size": 109470,
+      "sha256": "a58ec31bd733799458e7651687b9fff604828b64c4c4793da85f1b299ae3e443",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 111,
+      "filename": "111.png",
+      "byte_size": 83651,
+      "sha256": "a9d68bad84fceac1ce062538c5767e47f81656159bf4197baf601656f161aa6a",
+      "included_in_patch_zip": false
+    },
+    {
+      "order": 112,
+      "filename": "112.png",
+      "byte_size": 58430,
+      "sha256": "2e989a8bb56ba845ded5ff2c240b3b74eddf5199f4bc2deef3ccc132d09c704e",
+      "included_in_patch_zip": false
+    }
+  ]
+}
