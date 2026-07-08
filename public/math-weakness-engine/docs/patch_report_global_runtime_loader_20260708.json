@@ -1,0 +1,35 @@
+{
+  "patch_id": "math_weakness_engine_global_runtime_loader_patch_20260708",
+  "created_at": "2026-07-08",
+  "patch_type": "runtime_loader_and_ui",
+  "purpose": "1차 전역 진단 로직 데이터를 실제 브라우저 엔진에서 로드하고 화면에 문항분류, 행동지시, backtrack, future route를 출력한다.",
+  "changed_files": [
+    "assets/math_weakness_engine.js",
+    "index.html",
+    "samples/global_runtime.student_attempt.sample.json"
+  ],
+  "new_runtime_methods": [
+    "getProblemInstruction(problemTypeId)",
+    "getWrongAnswerDiagnosis(attempt)",
+    "getLearningConnection(unitId)",
+    "diagnoseWithGuidance(input)"
+  ],
+  "compatibility_fixes": [
+    "correct, is_correct, isCorrect, result 입력값을 모두 정오답 판정에 사용",
+    "problem_type_instruction_map split manifest와 part01~part04 자동 로드",
+    "global_logic가 없는 구버전 index에서도 기존 진단은 계속 동작"
+  ],
+  "validation": {
+    "json_files": "loaded",
+    "split_instruction_parts": "supported",
+    "web_upload_safe": true,
+    "large_files_included": false,
+    "source_images_included": false
+  },
+  "expected_after_upload": {
+    "global_logic_status.loaded": true,
+    "global_logic_status.instruction_count": 12523,
+    "wrong_answer_diagnoses": "오답 문항별 행동지시 출력",
+    "learning_connections": "현재 단원에서 상위 단원으로 이어지는 실제 문제 장면 출력"
+  }
+}
