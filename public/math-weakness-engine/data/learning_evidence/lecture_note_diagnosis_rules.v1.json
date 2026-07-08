@@ -1,0 +1,132 @@
+{
+  "rule_pack_id": "lecture_note_diagnosis_rules.v1",
+  "signal_rules": [
+    {
+      "id": "definition_fraction_form",
+      "positive_score": 14,
+      "patterns": [
+        "분수",
+        "a/b",
+        "b≠0",
+        "b != 0",
+        "0이 아닌"
+      ],
+      "meaning": "유리수 정의의 핵심 조건을 적음"
+    },
+    {
+      "id": "rational_classification",
+      "positive_score": 16,
+      "patterns": [
+        "정수",
+        "유한소수",
+        "순환소수",
+        "유리수"
+      ],
+      "meaning": "유리수에 포함되는 수의 분류를 적음"
+    },
+    {
+      "id": "irrational_exclusion",
+      "positive_score": 12,
+      "patterns": [
+        "비순환",
+        "무한소수",
+        "무리수",
+        "π",
+        "루트"
+      ],
+      "meaning": "무리수와의 경계를 인식함"
+    },
+    {
+      "id": "repeating_decimal_example",
+      "positive_score": 10,
+      "patterns": [
+        "0.121212",
+        "121212",
+        "순환마디",
+        "반복",
+        "..."
+      ],
+      "meaning": "순환소수 예시를 남김"
+    },
+    {
+      "id": "conversion_procedure",
+      "positive_score": 18,
+      "patterns": [
+        "10x",
+        "100x",
+        "99x",
+        "분수로",
+        "기약분수",
+        "양변",
+        "빼면"
+      ],
+      "meaning": "순환소수를 분수로 바꾸는 절차가 있음"
+    },
+    {
+      "id": "own_explanation",
+      "positive_score": 12,
+      "patterns": [
+        "왜냐하면",
+        "따라서",
+        "즉",
+        "정리하면",
+        "내 말로",
+        "기준은"
+      ],
+      "meaning": "자기 언어화 또는 이유 설명이 있음"
+    },
+    {
+      "id": "problem_application",
+      "positive_score": 10,
+      "patterns": [
+        "예제",
+        "문제",
+        "풀이",
+        "확인",
+        "오답",
+        "검산"
+      ],
+      "meaning": "강의 내용을 문제 풀이로 연결함"
+    }
+  ],
+  "risk_rules": [
+    {
+      "id": "copy_only_risk",
+      "penalty": 12,
+      "trigger_when_missing": [
+        "own_explanation",
+        "problem_application"
+      ],
+      "message": "개념어는 있으나 자기 설명과 문제 적용이 부족해 베껴쓰기 가능성이 있음"
+    },
+    {
+      "id": "classification_gap",
+      "penalty": 10,
+      "trigger_when_missing": [
+        "rational_classification",
+        "irrational_exclusion"
+      ],
+      "message": "유리수/무리수 분류 기준을 정확히 말했는지 확인 필요"
+    },
+    {
+      "id": "procedure_gap",
+      "penalty": 14,
+      "trigger_when_missing": [
+        "conversion_procedure"
+      ],
+      "message": "순환소수를 분수로 바꾸는 절차가 없어 실제 문제 해결 가능성 확인 필요"
+    },
+    {
+      "id": "example_without_reason",
+      "penalty": 8,
+      "trigger_when_present": [
+        "repeating_decimal_example"
+      ],
+      "trigger_when_missing": [
+        "conversion_procedure",
+        "own_explanation"
+      ],
+      "message": "예시는 있지만 왜 유리수인지 설명하는 근거가 부족함"
+    }
+  ]
+}

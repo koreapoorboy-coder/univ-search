@@ -1,0 +1,27 @@
+{
+  "patch_id": "global_note_evidence_review_patch3_20260708",
+  "purpose": "오답 진단 엔진에 인강 필기 검수/개념 이해 증거 평가 레이어를 추가한다.",
+  "files_added_or_updated": [
+    "data/index.v1.json",
+    "data/learning_evidence/student_note_input_schema.v1.json",
+    "data/learning_evidence/note_review_rubric.v1.json",
+    "data/learning_evidence/lecture_note_diagnosis_rules.v1.json",
+    "data/learning_evidence/concept_summary_checklist.v1.json",
+    "data/learning_evidence/student_note_feedback_templates.v1.json",
+    "assets/math_weakness_evidence_review.js",
+    "index.html",
+    "samples/lecture_note_review.student_note.sample.json"
+  ],
+  "web_upload_safe": true,
+  "max_file_size_mb_estimate": "< 0.1MB",
+  "expected_behavior": [
+    "student_note 입력을 받아 watch_confidence_score와 understanding_score 출력",
+    "필기 증거 신호, 위험 플래그, 교사 확인 질문, 재제출 과제 출력",
+    "유리수와 순환소수 필기 예시 샘플 제공"
+  ],
+  "validation": [
+    "JSON load OK",
+    "all files <25MB",
+    "extension JS syntax checked"
+  ]
+}

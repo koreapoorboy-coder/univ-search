@@ -733,7 +733,7 @@
     }
   ],
   "global_logic": {
-    "version": "2026.07.08-global-diagnosis-logic-v1.0",
+    "version": "2026.07.08-global-diagnosis-logic-v1.1-note-evidence",
     "display": {
       "problem_type_instruction_map": "data/display/problem_type_instruction_map.v1.json",
       "student_action_templates": "data/display/student_action_templates.v1.json",
@@ -766,6 +766,14 @@
     "samples": {
       "global_student_diagnosis": "samples/global_student_diagnosis.sample.json",
       "future_learning_route": "samples/future_learning_route.sample.json"
+    },
+    "learning_evidence": {
+      "student_note_input_schema": "data/learning_evidence/student_note_input_schema.v1.json",
+      "note_review_rubric": "data/learning_evidence/note_review_rubric.v1.json",
+      "lecture_note_diagnosis_rules": "data/learning_evidence/lecture_note_diagnosis_rules.v1.json",
+      "concept_summary_checklist": "data/learning_evidence/concept_summary_checklist.v1.json",
+      "student_note_feedback_templates": "data/learning_evidence/student_note_feedback_templates.v1.json"
     }
-  }
+  },
+  "last_patch": "global_note_evidence_review_patch3_20260708"
 }

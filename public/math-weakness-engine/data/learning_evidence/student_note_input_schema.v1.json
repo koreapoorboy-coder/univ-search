@@ -1,0 +1,32 @@
+{
+  "schema_id": "student_note_input_schema.v1",
+  "purpose": "학생이 인강을 보고 정리한 필기 또는 사진 판독 내용을 근거로 시청 흔적과 개념 이해도를 진단한다.",
+  "input_shape": {
+    "student_note": {
+      "unit_id": "m1_int_rational",
+      "lesson_title": "유리수와 순환소수",
+      "note_text": "학생 필기 내용을 텍스트로 옮긴 내용. 사진만 있을 경우 교사가 관찰한 항목을 observed_items에 넣는다.",
+      "observed_items": [
+        "definition_present",
+        "classification_present",
+        "examples_present"
+      ],
+      "teacher_context": {
+        "lecture_assigned": "강의명 또는 회차",
+        "student_grade": "중2",
+        "submitted_at": "YYYY-MM-DD"
+      }
+    }
+  },
+  "output_shape": {
+    "watch_confidence_score": "0-100. 실제 인강을 봤을 가능성 추정. 단, 확정 판정은 아님.",
+    "understanding_score": "0-100. 개념을 자기 힘으로 설명·적용할 수 있는지 추정.",
+    "understanding_level": "A/B/C/D",
+    "evidence_signals": "필기에서 확인된 긍정 증거",
+    "risk_flags": "오개념 또는 베껴쓰기 가능성 신호",
+    "teacher_check_questions": "교사가 바로 확인할 질문",
+    "redo_task": "학생에게 다시 시킬 보완 과제",
+    "parent_feedback": "학부모 전달용 짧은 문장"
+  },
+  "important_note": "사진 자체만으로 강의 시청 여부를 확정하지 않는다. 필기 구조, 개념 정확성, 예시·반례, 변환 과정, 자기 설명을 함께 본다."
+}

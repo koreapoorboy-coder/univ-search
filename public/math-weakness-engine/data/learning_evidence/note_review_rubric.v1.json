@@ -1,0 +1,62 @@
+{
+  "rubric_id": "note_review_rubric.v1",
+  "total_score": 100,
+  "dimensions": [
+    {
+      "id": "coverage",
+      "name": "강의 핵심 구조 포착",
+      "weight": 20,
+      "check": "대단원-소단원-정의-분류-예시가 순서대로 남아 있는가"
+    },
+    {
+      "id": "accuracy",
+      "name": "개념 정확성",
+      "weight": 30,
+      "check": "정의, 포함관계, 반례가 수학적으로 맞는가"
+    },
+    {
+      "id": "reasoning",
+      "name": "이유 설명과 변환 과정",
+      "weight": 25,
+      "check": "왜 그런지, 어떤 기준으로 나누는지, 순환소수를 분수로 바꾸는 절차가 있는가"
+    },
+    {
+      "id": "application",
+      "name": "문항 적용 가능성",
+      "weight": 15,
+      "check": "예제 풀이, 직접 만든 예시, 확인 문제 또는 오답 점검이 있는가"
+    },
+    {
+      "id": "self_check",
+      "name": "자기 언어화",
+      "weight": 10,
+      "check": "강의 문장 복사가 아니라 자신의 말로 다시 정리한 문장이 있는가"
+    }
+  ],
+  "levels": [
+    {
+      "level": "A",
+      "range": "85-100",
+      "meaning": "인강 시청 흔적과 개념 이해가 모두 충분함",
+      "teacher_action": "유형 문제로 바로 연결 가능"
+    },
+    {
+      "level": "B",
+      "range": "70-84",
+      "meaning": "시청 흔적은 있으나 설명/적용 증거가 일부 부족함",
+      "teacher_action": "확인 질문 2개 후 문제 적용"
+    },
+    {
+      "level": "C",
+      "range": "50-69",
+      "meaning": "개념을 적었지만 분류 기준이나 변환 과정이 약함",
+      "teacher_action": "필기 재구성 후 기본 문제 재확인"
+    },
+    {
+      "level": "D",
+      "range": "0-49",
+      "meaning": "베껴쓰기 또는 부분 시청 가능성이 크고 이해 증거가 부족함",
+      "teacher_action": "인강 재시청+필수 산출물 재제출"
+    }
+  ]
+}

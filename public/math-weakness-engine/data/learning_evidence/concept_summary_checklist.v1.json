@@ -1,0 +1,48 @@
+{
+  "checklist_id": "concept_summary_checklist.v1",
+  "default_required_items": [
+    {
+      "id": "definition",
+      "label": "정의",
+      "student_requirement": "공식/정의를 그대로 쓰는 것이 아니라 조건까지 쓴다."
+    },
+    {
+      "id": "classification",
+      "label": "분류 기준",
+      "student_requirement": "왜 이 항목이 같은 묶음인지 기준을 말한다."
+    },
+    {
+      "id": "example",
+      "label": "예시 2개 이상",
+      "student_requirement": "정답 예시와 헷갈리는 반례를 같이 쓴다."
+    },
+    {
+      "id": "procedure",
+      "label": "풀이 절차",
+      "student_requirement": "문제에서 무엇을 먼저 확인하고 어떤 순서로 쓰는지 남긴다."
+    },
+    {
+      "id": "self_sentence",
+      "label": "자기 설명 한 문장",
+      "student_requirement": "친구에게 설명하듯 한 문장으로 정리한다."
+    }
+  ],
+  "unit_specific": [
+    {
+      "unit_id": "m1_int_rational",
+      "unit_name": "정수와 유리수 / 유리수와 순환소수",
+      "must_include": [
+        "유리수는 a/b 꼴이며 b≠0",
+        "정수·유한소수·순환소수는 유리수",
+        "비순환무한소수는 무리수",
+        "순환마디 표시",
+        "순환소수를 분수로 바꾸는 10x 또는 100x 절차"
+      ],
+      "misconception_watch": [
+        "무한소수를 전부 무리수로 보는 오류",
+        "순환소수와 비순환소수를 같은 무한소수로만 묶는 오류",
+        "0.121212...를 예시로만 쓰고 왜 유리수인지 설명하지 못하는 오류"
+      ]
+    }
+  ]
+}
