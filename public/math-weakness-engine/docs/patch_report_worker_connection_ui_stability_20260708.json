@@ -1,0 +1,25 @@
+{
+  "patch_id": "math_worker_connection_ui_patch6_20260708",
+  "patch_name": "Worker connection UI stability patch",
+  "date": "2026-07-08",
+  "purpose": "Make Cloudflare Worker URL save/check actions visibly confirmable and persistent in hybrid.html.",
+  "changed_files": [
+    "hybrid.html",
+    "assets/math_ai_bridge_client.js",
+    "assets/math_weakness_engine.json",
+    "manifest.json",
+    "docs/PATCH6_WORKER_CONNECTION_UI_GUIDE.md",
+    "docs/patch_report_worker_connection_ui_stability_20260708.json"
+  ],
+  "checks_after_upload": [
+    "Open /math-weakness-engine/hybrid.html",
+    "Enter https://math-diagnosis-worker.koreapoorboy.workers.dev",
+    "Click URL 저장 and confirm URL 저장 완료",
+    "Click Worker 확인 and confirm hasOpenAIKey=true",
+    "Refresh page and confirm URL is restored"
+  ],
+  "notes": [
+    "OpenAI API key is still stored only in Cloudflare Secret, not in browser files.",
+    "Worker connection UI is independent from the main diagnosis engine initialization."
+  ]
+}

@@ -1,17 +1,34 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.08-hybrid-ai-bridge-v1.0",
+  "version": "2026.07.08-worker-connection-ui-stability-v1.2",
   "build_date": "2026-07-08",
   "scope": "중1~고2 주요 단원 35개, 문항유형 12,523개, 오답 진단·필기 검수·검수 문항·답안 재검수 하이브리드 구조",
   "description": "학생 시험지 PDF/풀이 사진/인강 필기 사진을 AI가 구조화하고, 수학 취약유형 엔진이 선행 원인·후행 영향·검수 문항·학생 답안 재검수 리포트를 생성하도록 연결하는 하이브리드 수학 진단 엔진.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_hybrid_ai_bridge_patch4_20260708",
+  "last_patch": "math_worker_connection_ui_patch6_20260708",
   "unit_count": 35,
   "problem_type_count": 12523,
   "has_global_diagnosis_logic": true,
   "has_note_evidence_review": true,
-  "has_hybrid_ai_bridge": true
+  "has_hybrid_ai_bridge": true,
+  "has_deploy_ready_worker": true,
+  "has_worker_connection_ui_stability_patch": true,
+  "worker_entry": "worker_skeleton/math_diagnosis_worker.js",
+  "worker_config": "worker_skeleton/wrangler.toml",
+  "worker_endpoints": [
+    "/health",
+    "/config",
+    "/api/math-diagnose/analyze",
+    "/api/math-diagnose/generate-verification",
+    "/api/math-diagnose/review-verification",
+    "/api/math-diagnose/final-report"
+  ],
+  "patch6_expected_worker_status": {
+    "health_ok": true,
+    "hasOpenAIKey": true,
+    "required_visible_ui_message": "Worker 연결 성공 · OpenAI Key 연결됨"
+  }
 }
