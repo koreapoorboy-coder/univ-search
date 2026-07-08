@@ -1,0 +1,55 @@
+{
+  "unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+  "unit_name": "수열의 극한",
+  "student_id": "SAMPLE_H2_CALC2_SEQ_001",
+  "attempts": [
+    {
+      "problem_type_id": "H2_CALC2_SEQ_PT001",
+      "is_correct": false,
+      "difficulty": "basic",
+      "observed_error_tags": [
+        "sequence_convergence",
+        "basic_limit"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC2_SEQ_PT040",
+      "is_correct": false,
+      "difficulty": "core",
+      "observed_error_tags": [
+        "indeterminate_form",
+        "zero_over_zero"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC2_SEQ_PT160",
+      "is_correct": false,
+      "difficulty": "advanced",
+      "observed_error_tags": [
+        "geometric_sequence",
+        "ratio_condition"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC2_SEQ_PT250",
+      "is_correct": false,
+      "difficulty": "core",
+      "observed_error_tags": [
+        "series_sum",
+        "partial_fraction"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC2_SEQ_PT420",
+      "is_correct": true,
+      "difficulty": "core",
+      "observed_error_tags": []
+    }
+  ],
+  "expected_diagnosis": [
+    "수열의 수렴·발산 기본 성질 보강",
+    "부정형 극한 변형 보강",
+    "등비수열의 공비 조건과 극한 보강",
+    "부분합을 이용한 급수의 합 보강"
+  ]
+}

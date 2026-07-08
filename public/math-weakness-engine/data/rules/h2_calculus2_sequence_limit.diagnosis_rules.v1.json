@@ -1,0 +1,1279 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+  "unit_name": "수열의 극한",
+  "rule_count": 45,
+  "rules": [
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_001",
+      "name": "수열의 수렴과 발산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sequence_convergence",
+          "basic_limit",
+          "sequence_general_term"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 수렴과 발산' 유형에서 수열의 극한과 급수의 기본 성질 적용이 약합니다.",
+      "parent_message": "정의와 성질을 먼저 쓰고 계산을 연결하는 습관을 갖게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C001",
+        "H2_CALC2_SEQ_C002"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT001",
+        "H2_CALC2_SEQ_PT002",
+        "H2_CALC2_SEQ_PT004",
+        "H2_CALC2_SEQ_PT005"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_002",
+      "name": "수열의 극한에 대한 성질 취약",
+      "trigger": {
+        "error_tags_any": [
+          "limit_properties",
+          "algebraic_limit",
+          "sequence_general_term"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 극한에 대한 성질' 유형에서 수열의 극한과 급수의 기본 성질 적용이 약합니다.",
+      "parent_message": "정의와 성질을 먼저 쓰고 계산을 연결하는 습관을 갖게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C003",
+        "H2_CALC2_SEQ_C004",
+        "H2_CALC2_SEQ_C005",
+        "H2_CALC2_SEQ_C006"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT007",
+        "H2_CALC2_SEQ_PT008",
+        "H2_CALC2_SEQ_PT010",
+        "H2_CALC2_SEQ_PT011",
+        "H2_CALC2_SEQ_PT013",
+        "H2_CALC2_SEQ_PT014"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_003",
+      "name": "q^n 꼴의 이용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_factor",
+          "q_power",
+          "limit_properties"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'q^n 꼴의 이용' 유형에서 수열의 극한과 급수의 기본 성질 적용이 약합니다.",
+      "parent_message": "정의와 성질을 먼저 쓰고 계산을 연결하는 습관을 갖게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C007",
+        "H2_CALC2_SEQ_C008",
+        "H2_CALC2_SEQ_C009"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT019",
+        "H2_CALC2_SEQ_PT020",
+        "H2_CALC2_SEQ_PT022",
+        "H2_CALC2_SEQ_PT023",
+        "H2_CALC2_SEQ_PT025",
+        "H2_CALC2_SEQ_PT026"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_004",
+      "name": "∞/∞ 꼴의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indeterminate_form",
+          "infty_over_infty",
+          "algebraic_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'∞/∞ 꼴의 극한' 유형에서 부정형을 표준 계산 구조로 바꾸는 과정이 약합니다.",
+      "parent_message": "∞/∞, 0/0 꼴은 바로 대입하지 말고 차수 비교, 인수분해, 유리화 등으로 형태를 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C010",
+        "H2_CALC2_SEQ_C011",
+        "H2_CALC2_SEQ_C012",
+        "H2_CALC2_SEQ_C013",
+        "H2_CALC2_SEQ_C014"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT028",
+        "H2_CALC2_SEQ_PT029",
+        "H2_CALC2_SEQ_PT031",
+        "H2_CALC2_SEQ_PT032",
+        "H2_CALC2_SEQ_PT034",
+        "H2_CALC2_SEQ_PT035"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_005",
+      "name": "0/0 꼴의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indeterminate_form",
+          "zero_over_zero",
+          "algebraic_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'0/0 꼴의 극한' 유형에서 부정형을 표준 계산 구조로 바꾸는 과정이 약합니다.",
+      "parent_message": "∞/∞, 0/0 꼴은 바로 대입하지 말고 차수 비교, 인수분해, 유리화 등으로 형태를 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C018",
+        "H2_CALC2_SEQ_C019",
+        "H2_CALC2_SEQ_C020",
+        "H2_CALC2_SEQ_C021",
+        "H2_CALC2_SEQ_C022"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT052",
+        "H2_CALC2_SEQ_PT053",
+        "H2_CALC2_SEQ_PT055",
+        "H2_CALC2_SEQ_PT056",
+        "H2_CALC2_SEQ_PT058",
+        "H2_CALC2_SEQ_PT059"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_006",
+      "name": "수열의 극한을 이용한 미정계수의 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coefficient_matching",
+          "algebraic_limit",
+          "indeterminate_form"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 극한을 이용한 미정계수의 결정' 유형에서 부정형을 표준 계산 구조로 바꾸는 과정이 약합니다.",
+      "parent_message": "∞/∞, 0/0 꼴은 바로 대입하지 말고 차수 비교, 인수분해, 유리화 등으로 형태를 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C024",
+        "H2_CALC2_SEQ_C025",
+        "H2_CALC2_SEQ_C026",
+        "H2_CALC2_SEQ_C027"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT070",
+        "H2_CALC2_SEQ_PT071",
+        "H2_CALC2_SEQ_PT073",
+        "H2_CALC2_SEQ_PT074",
+        "H2_CALC2_SEQ_PT076",
+        "H2_CALC2_SEQ_PT077"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_007",
+      "name": "a_n과 S_n 사이의 관계를 이용한 극한값 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sequence_sum_relation",
+          "an_sn_relation",
+          "basic_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'a_n과 S_n 사이의 관계를 이용한 극한값' 유형에서 수열의 극한과 급수의 기본 성질 적용이 약합니다.",
+      "parent_message": "정의와 성질을 먼저 쓰고 계산을 연결하는 습관을 갖게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C028",
+        "H2_CALC2_SEQ_C029",
+        "H2_CALC2_SEQ_C030"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT082",
+        "H2_CALC2_SEQ_PT083",
+        "H2_CALC2_SEQ_PT085",
+        "H2_CALC2_SEQ_PT086",
+        "H2_CALC2_SEQ_PT088",
+        "H2_CALC2_SEQ_PT089"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_008",
+      "name": "일반항 a_n을 포함한 식의 극한값 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sequence_general_term",
+          "algebraic_limit",
+          "basic_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'일반항 a_n을 포함한 식의 극한값' 유형에서 수열의 극한과 급수의 기본 성질 적용이 약합니다.",
+      "parent_message": "정의와 성질을 먼저 쓰고 계산을 연결하는 습관을 갖게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C031",
+        "H2_CALC2_SEQ_C032",
+        "H2_CALC2_SEQ_C033",
+        "H2_CALC2_SEQ_C034",
+        "H2_CALC2_SEQ_C035"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT091",
+        "H2_CALC2_SEQ_PT092",
+        "H2_CALC2_SEQ_PT094",
+        "H2_CALC2_SEQ_PT095",
+        "H2_CALC2_SEQ_PT097",
+        "H2_CALC2_SEQ_PT098"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_009",
+      "name": "수열의 극한의 대소관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "comparison_theorem",
+          "order_relation",
+          "basic_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 극한의 대소관계' 유형에서 대소관계와 조임 원리 적용이 약합니다.",
+      "parent_message": "대소관계 문제는 기준이 되는 두 수열을 먼저 잡고, 극한까지 함께 비교하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C036",
+        "H2_CALC2_SEQ_C037",
+        "H2_CALC2_SEQ_C038",
+        "H2_CALC2_SEQ_C039",
+        "H2_CALC2_SEQ_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT106",
+        "H2_CALC2_SEQ_PT107",
+        "H2_CALC2_SEQ_PT109",
+        "H2_CALC2_SEQ_PT110",
+        "H2_CALC2_SEQ_PT112",
+        "H2_CALC2_SEQ_PT113"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_010",
+      "name": "삼각함수를 포함한 수열의 극한의 대소관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "comparison_theorem",
+          "trig_sequence_limit",
+          "order_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수를 포함한 수열의 극한의 대소관계' 유형에서 대소관계와 조임 원리 적용이 약합니다.",
+      "parent_message": "대소관계 문제는 기준이 되는 두 수열을 먼저 잡고, 극한까지 함께 비교하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C041"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT121",
+        "H2_CALC2_SEQ_PT122"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_011",
+      "name": "수열의 극한에 대한 합답형 문제 취약",
+      "trigger": {
+        "error_tags_any": [
+          "answer_type",
+          "limit_properties",
+          "basic_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열의 극한에 대한 합답형 문제' 유형에서 수열의 극한과 급수의 기본 성질 적용이 약합니다.",
+      "parent_message": "정의와 성질을 먼저 쓰고 계산을 연결하는 습관을 갖게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C042",
+        "H2_CALC2_SEQ_C043",
+        "H2_CALC2_SEQ_C044"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT124",
+        "H2_CALC2_SEQ_PT125",
+        "H2_CALC2_SEQ_PT127",
+        "H2_CALC2_SEQ_PT128",
+        "H2_CALC2_SEQ_PT130",
+        "H2_CALC2_SEQ_PT131"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_012",
+      "name": "그래프와 좌표 취약",
+      "trigger": {
+        "error_tags_any": [
+          "application",
+          "graph_coordinate",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'그래프와 좌표' 유형에서 반복 구조를 수열·급수 모델로 바꾸는 과정이 약합니다.",
+      "parent_message": "좌표·도형 응용은 반복되는 규칙을 먼저 수열 또는 급수로 식으로 옮기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C045",
+        "H2_CALC2_SEQ_C046",
+        "H2_CALC2_SEQ_C047",
+        "H2_CALC2_SEQ_C048",
+        "H2_CALC2_SEQ_C049"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT133",
+        "H2_CALC2_SEQ_PT134",
+        "H2_CALC2_SEQ_PT136",
+        "H2_CALC2_SEQ_PT137",
+        "H2_CALC2_SEQ_PT139",
+        "H2_CALC2_SEQ_PT140"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_013",
+      "name": "도형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "application",
+          "geometry_application",
+          "repeating_figure"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'도형' 유형에서 반복 구조를 수열·급수 모델로 바꾸는 과정이 약합니다.",
+      "parent_message": "좌표·도형 응용은 반복되는 규칙을 먼저 수열 또는 급수로 식으로 옮기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C052",
+        "H2_CALC2_SEQ_C053",
+        "H2_CALC2_SEQ_C054",
+        "H2_CALC2_SEQ_C084",
+        "H2_CALC2_SEQ_C085"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT154",
+        "H2_CALC2_SEQ_PT155",
+        "H2_CALC2_SEQ_PT157",
+        "H2_CALC2_SEQ_PT158",
+        "H2_CALC2_SEQ_PT160",
+        "H2_CALC2_SEQ_PT161"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_014",
+      "name": "그 외의 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "application",
+          "number_theory",
+          "modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'그 외의 경우' 유형에서 수론·방정식 조건을 수열/급수 식으로 번역하는 과정이 약합니다.",
+      "parent_message": "나머지, 약수·배수, 방정식 조건은 수열 또는 급수 식으로 바꾼 뒤 계산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C055",
+        "H2_CALC2_SEQ_C056",
+        "H2_CALC2_SEQ_C057",
+        "H2_CALC2_SEQ_C058",
+        "H2_CALC2_SEQ_C086"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT163",
+        "H2_CALC2_SEQ_PT164",
+        "H2_CALC2_SEQ_PT166",
+        "H2_CALC2_SEQ_PT167",
+        "H2_CALC2_SEQ_PT169",
+        "H2_CALC2_SEQ_PT170"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_015",
+      "name": "등비수열의 수렴과 발산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "sequence_convergence",
+          "ratio_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 수렴과 발산' 유형에서 등비수열의 공비 조건과 일반항·부분합 관계 해석이 약합니다.",
+      "parent_message": "등비수열은 공비의 절댓값 조건과 일반항/합 공식을 함께 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C059",
+        "H2_CALC2_SEQ_C060",
+        "H2_CALC2_SEQ_C061"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT175",
+        "H2_CALC2_SEQ_PT176",
+        "H2_CALC2_SEQ_PT178",
+        "H2_CALC2_SEQ_PT179",
+        "H2_CALC2_SEQ_PT181",
+        "H2_CALC2_SEQ_PT182"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_016",
+      "name": "등비수열의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "algebraic_limit",
+          "ratio_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 극한' 유형에서 등비수열의 공비 조건과 일반항·부분합 관계 해석이 약합니다.",
+      "parent_message": "등비수열은 공비의 절댓값 조건과 일반항/합 공식을 함께 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C062",
+        "H2_CALC2_SEQ_C063",
+        "H2_CALC2_SEQ_C064",
+        "H2_CALC2_SEQ_C065"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT184",
+        "H2_CALC2_SEQ_PT185",
+        "H2_CALC2_SEQ_PT187",
+        "H2_CALC2_SEQ_PT188",
+        "H2_CALC2_SEQ_PT190",
+        "H2_CALC2_SEQ_PT191"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_017",
+      "name": "a_n과 S_n 사이의 관계를 이용한 등비수열의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "an_sn_relation",
+          "basic_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'a_n과 S_n 사이의 관계를 이용한 등비수열의 극한' 유형에서 등비수열의 공비 조건과 일반항·부분합 관계 해석이 약합니다.",
+      "parent_message": "등비수열은 공비의 절댓값 조건과 일반항/합 공식을 함께 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C066"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT196",
+        "H2_CALC2_SEQ_PT197"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_018",
+      "name": "등비수열의 극한을 이용한 미정계수의 결정 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "coefficient_matching",
+          "ratio_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 극한을 이용한 미정계수의 결정' 유형에서 조건식으로 미정계수를 세우는 과정이 약합니다.",
+      "parent_message": "미정계수 문제는 극한값, 합, 수렴 조건에서 독립적인 식을 충분히 세운 뒤 풀게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C067",
+        "H2_CALC2_SEQ_C068"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT199",
+        "H2_CALC2_SEQ_PT200",
+        "H2_CALC2_SEQ_PT202",
+        "H2_CALC2_SEQ_PT203"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_019",
+      "name": "등비수열의 수렴 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_sequence",
+          "ratio_condition",
+          "sequence_convergence"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비수열의 수렴 조건' 유형에서 등비수열의 공비 조건과 일반항·부분합 관계 해석이 약합니다.",
+      "parent_message": "등비수열은 공비의 절댓값 조건과 일반항/합 공식을 함께 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C069",
+        "H2_CALC2_SEQ_C070",
+        "H2_CALC2_SEQ_C071"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT205",
+        "H2_CALC2_SEQ_PT206",
+        "H2_CALC2_SEQ_PT208",
+        "H2_CALC2_SEQ_PT209",
+        "H2_CALC2_SEQ_PT211",
+        "H2_CALC2_SEQ_PT212"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_020",
+      "name": "문자를 포함한 수열의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "parameter_sequence",
+          "basic_limit",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'문자를 포함한 수열의 극한' 유형에서 조건식으로 미정계수를 세우는 과정이 약합니다.",
+      "parent_message": "미정계수 문제는 극한값, 합, 수렴 조건에서 독립적인 식을 충분히 세운 뒤 풀게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C072",
+        "H2_CALC2_SEQ_C073",
+        "H2_CALC2_SEQ_C074"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT214",
+        "H2_CALC2_SEQ_PT215",
+        "H2_CALC2_SEQ_PT217",
+        "H2_CALC2_SEQ_PT218",
+        "H2_CALC2_SEQ_PT220",
+        "H2_CALC2_SEQ_PT221"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_021",
+      "name": "문자를 포함한 극한으로 정의된 함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "parameter_sequence",
+          "limit_defined_function",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'문자를 포함한 극한으로 정의된 함수' 유형에서 조건식으로 미정계수를 세우는 과정이 약합니다.",
+      "parent_message": "미정계수 문제는 극한값, 합, 수렴 조건에서 독립적인 식을 충분히 세운 뒤 풀게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C075",
+        "H2_CALC2_SEQ_C076",
+        "H2_CALC2_SEQ_C077"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT223",
+        "H2_CALC2_SEQ_PT224",
+        "H2_CALC2_SEQ_PT226",
+        "H2_CALC2_SEQ_PT227",
+        "H2_CALC2_SEQ_PT229",
+        "H2_CALC2_SEQ_PT230"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_022",
+      "name": "증명 문제 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_sequence",
+          "mathematical_induction",
+          "proof"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'증명 문제' 유형에서 점화식의 형태를 분류하고 극한 방정식을 세우는 과정이 약합니다.",
+      "parent_message": "귀납 정의 수열은 점화식 형태를 먼저 분류하고 수렴 가정 후 극한 방정식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C089"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT265",
+        "H2_CALC2_SEQ_PT266"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_023",
+      "name": "귀납적으로 정의된 수열의 극한 취약",
+      "trigger": {
+        "error_tags_any": [
+          "recursive_sequence",
+          "limit_of_recursive_sequence",
+          "proof"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'귀납적으로 정의된 수열의 극한' 유형에서 점화식의 형태를 분류하고 극한 방정식을 세우는 과정이 약합니다.",
+      "parent_message": "귀납 정의 수열은 점화식 형태를 먼저 분류하고 수렴 가정 후 극한 방정식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C090",
+        "H2_CALC2_SEQ_C091",
+        "H2_CALC2_SEQ_C092",
+        "H2_CALC2_SEQ_C093",
+        "H2_CALC2_SEQ_C094"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT268",
+        "H2_CALC2_SEQ_PT269",
+        "H2_CALC2_SEQ_PT271",
+        "H2_CALC2_SEQ_PT272",
+        "H2_CALC2_SEQ_PT274",
+        "H2_CALC2_SEQ_PT275"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_024",
+      "name": "급수의 수렴과 발산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series",
+          "series_convergence",
+          "partial_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'급수의 수렴과 발산' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C095",
+        "H2_CALC2_SEQ_C096",
+        "H2_CALC2_SEQ_C097",
+        "H2_CALC2_SEQ_C098"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT283",
+        "H2_CALC2_SEQ_PT284",
+        "H2_CALC2_SEQ_PT286",
+        "H2_CALC2_SEQ_PT287",
+        "H2_CALC2_SEQ_PT289",
+        "H2_CALC2_SEQ_PT290"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_025",
+      "name": "부분분수를 이용한 급수의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_sum",
+          "partial_fraction",
+          "partial_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부분분수를 이용한 급수의 합' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C099",
+        "H2_CALC2_SEQ_C100",
+        "H2_CALC2_SEQ_C101",
+        "H2_CALC2_SEQ_C102",
+        "H2_CALC2_SEQ_C103"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT295",
+        "H2_CALC2_SEQ_PT296",
+        "H2_CALC2_SEQ_PT298",
+        "H2_CALC2_SEQ_PT299",
+        "H2_CALC2_SEQ_PT301",
+        "H2_CALC2_SEQ_PT302"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_026",
+      "name": "무리식을 포함한 급수의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_sum",
+          "radical_series",
+          "rationalization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'무리식을 포함한 급수의 합' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C104",
+        "H2_CALC2_SEQ_C105"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT310",
+        "H2_CALC2_SEQ_PT311",
+        "H2_CALC2_SEQ_PT313",
+        "H2_CALC2_SEQ_PT314"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_027",
+      "name": "로그를 포함한 급수의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_sum",
+          "log_series",
+          "partial_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'로그를 포함한 급수의 합' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C106",
+        "H2_CALC2_SEQ_C107",
+        "H2_CALC2_SEQ_C108"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT316",
+        "H2_CALC2_SEQ_PT317",
+        "H2_CALC2_SEQ_PT319",
+        "H2_CALC2_SEQ_PT320",
+        "H2_CALC2_SEQ_PT322",
+        "H2_CALC2_SEQ_PT323"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_028",
+      "name": "항의 부호가 교대로 바뀌는 급수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "alternating_series",
+          "series_convergence",
+          "answer_type"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'항의 부호가 교대로 바뀌는 급수' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C109",
+        "H2_CALC2_SEQ_C110"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT325",
+        "H2_CALC2_SEQ_PT326",
+        "H2_CALC2_SEQ_PT328",
+        "H2_CALC2_SEQ_PT329"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_029",
+      "name": "급수와 수열의 극한값 사이의 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_sequence_relation",
+          "series_convergence",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'급수와 수열의 극한값 사이의 관계' 유형에서 조건식으로 미정계수를 세우는 과정이 약합니다.",
+      "parent_message": "미정계수 문제는 극한값, 합, 수렴 조건에서 독립적인 식을 충분히 세운 뒤 풀게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C111",
+        "H2_CALC2_SEQ_C112",
+        "H2_CALC2_SEQ_C113",
+        "H2_CALC2_SEQ_C114",
+        "H2_CALC2_SEQ_C115"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT331",
+        "H2_CALC2_SEQ_PT332",
+        "H2_CALC2_SEQ_PT334",
+        "H2_CALC2_SEQ_PT335",
+        "H2_CALC2_SEQ_PT337",
+        "H2_CALC2_SEQ_PT338"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_030",
+      "name": "급수의 성질 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_properties",
+          "partial_sum",
+          "answer_type"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'급수의 성질' 유형에서 수열의 극한과 급수의 기본 성질 적용이 약합니다.",
+      "parent_message": "정의와 성질을 먼저 쓰고 계산을 연결하는 습관을 갖게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C118",
+        "H2_CALC2_SEQ_C119"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT352",
+        "H2_CALC2_SEQ_PT353",
+        "H2_CALC2_SEQ_PT355",
+        "H2_CALC2_SEQ_PT356"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_031",
+      "name": "급수의 성질에 대한 합답형 문제 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_properties",
+          "answer_type",
+          "series_convergence"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'급수의 성질에 대한 합답형 문제' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C120",
+        "H2_CALC2_SEQ_C121",
+        "H2_CALC2_SEQ_C122"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT358",
+        "H2_CALC2_SEQ_PT359",
+        "H2_CALC2_SEQ_PT361",
+        "H2_CALC2_SEQ_PT362",
+        "H2_CALC2_SEQ_PT364",
+        "H2_CALC2_SEQ_PT365"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_032",
+      "name": "등비급수의 수렴과 발산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "series_convergence",
+          "ratio_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비급수의 수렴과 발산' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C131",
+        "H2_CALC2_SEQ_C132"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT391",
+        "H2_CALC2_SEQ_PT392",
+        "H2_CALC2_SEQ_PT394",
+        "H2_CALC2_SEQ_PT395"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_033",
+      "name": "등비급수의 합 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "series_sum",
+          "partial_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비급수의 합' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C133",
+        "H2_CALC2_SEQ_C134",
+        "H2_CALC2_SEQ_C135",
+        "H2_CALC2_SEQ_C136",
+        "H2_CALC2_SEQ_C137"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT397",
+        "H2_CALC2_SEQ_PT398",
+        "H2_CALC2_SEQ_PT400",
+        "H2_CALC2_SEQ_PT401",
+        "H2_CALC2_SEQ_PT403",
+        "H2_CALC2_SEQ_PT404"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_034",
+      "name": "합이 주어진 등비급수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "given_sum",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'합이 주어진 등비급수' 유형에서 조건식으로 미정계수를 세우는 과정이 약합니다.",
+      "parent_message": "미정계수 문제는 극한값, 합, 수렴 조건에서 독립적인 식을 충분히 세운 뒤 풀게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C139",
+        "H2_CALC2_SEQ_C140",
+        "H2_CALC2_SEQ_C141"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT415",
+        "H2_CALC2_SEQ_PT416",
+        "H2_CALC2_SEQ_PT418",
+        "H2_CALC2_SEQ_PT419",
+        "H2_CALC2_SEQ_PT421",
+        "H2_CALC2_SEQ_PT422"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_035",
+      "name": "등비급수의 수렴 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "ratio_condition",
+          "series_convergence"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비급수의 수렴 조건' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C142",
+        "H2_CALC2_SEQ_C143",
+        "H2_CALC2_SEQ_C144",
+        "H2_CALC2_SEQ_C145"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT424",
+        "H2_CALC2_SEQ_PT425",
+        "H2_CALC2_SEQ_PT427",
+        "H2_CALC2_SEQ_PT428",
+        "H2_CALC2_SEQ_PT430",
+        "H2_CALC2_SEQ_PT431"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_036",
+      "name": "등비급수에 대한 합답형 문제 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "answer_type",
+          "series_convergence"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'등비급수에 대한 합답형 문제' 유형에서 급수를 부분합 관점으로 해석하는 과정이 약합니다.",
+      "parent_message": "급수 문제는 먼저 부분합 S_n을 보고, 수렴·발산과 합을 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C146"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT436",
+        "H2_CALC2_SEQ_PT437"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_037",
+      "name": "수열이 수렴할 때 수렴하는 급수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "series_sequence_relation",
+          "convergence_test"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'수열이 수렴할 때 수렴하는 급수' 유형에서 등비급수의 합 공식과 수렴 조건 적용이 약합니다.",
+      "parent_message": "등비급수는 |r|<1 조건을 먼저 판단하고, 필요한 경우 부분합 공식을 거쳐 무한합을 구하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C147",
+        "H2_CALC2_SEQ_C148"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT439",
+        "H2_CALC2_SEQ_PT440",
+        "H2_CALC2_SEQ_PT442",
+        "H2_CALC2_SEQ_PT443"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_038",
+      "name": "부분합과 일반항 사이의 관계를 이용하는 급수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "partial_sum",
+          "an_sn_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부분합과 일반항 사이의 관계를 이용하는 급수' 유형에서 등비급수의 합 공식과 수렴 조건 적용이 약합니다.",
+      "parent_message": "등비급수는 |r|<1 조건을 먼저 판단하고, 필요한 경우 부분합 공식을 거쳐 무한합을 구하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C149",
+        "H2_CALC2_SEQ_C150"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT445",
+        "H2_CALC2_SEQ_PT446",
+        "H2_CALC2_SEQ_PT448",
+        "H2_CALC2_SEQ_PT449"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_039",
+      "name": "순환소수와 등비급수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series",
+          "repeating_decimal",
+          "number_theory"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'순환소수와 등비급수' 유형에서 등비급수의 합 공식과 수렴 조건 적용이 약합니다.",
+      "parent_message": "등비급수는 |r|<1 조건을 먼저 판단하고, 필요한 경우 부분합 공식을 거쳐 무한합을 구하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C151",
+        "H2_CALC2_SEQ_C152"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT451",
+        "H2_CALC2_SEQ_PT452",
+        "H2_CALC2_SEQ_PT454",
+        "H2_CALC2_SEQ_PT455"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_040",
+      "name": "자릿수와 나머지 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series_application",
+          "digits_remainder",
+          "number_theory"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'자릿수와 나머지' 유형에서 수론·방정식 조건을 수열/급수 식으로 번역하는 과정이 약합니다.",
+      "parent_message": "나머지, 약수·배수, 방정식 조건은 수열 또는 급수 식으로 바꾼 뒤 계산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C153"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT457",
+        "H2_CALC2_SEQ_PT458"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_041",
+      "name": "좌표 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series_application",
+          "graph_coordinate",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'좌표' 유형에서 반복 구조를 수열·급수 모델로 바꾸는 과정이 약합니다.",
+      "parent_message": "좌표·도형 응용은 반복되는 규칙을 먼저 수열 또는 급수로 식으로 옮기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C154",
+        "H2_CALC2_SEQ_C155",
+        "H2_CALC2_SEQ_C156",
+        "H2_CALC2_SEQ_C157"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT460",
+        "H2_CALC2_SEQ_PT461",
+        "H2_CALC2_SEQ_PT463",
+        "H2_CALC2_SEQ_PT464",
+        "H2_CALC2_SEQ_PT466",
+        "H2_CALC2_SEQ_PT467"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_042",
+      "name": "선분의 길이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series_application",
+          "segment_length",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'선분의 길이' 유형에서 반복 구조를 수열·급수 모델로 바꾸는 과정이 약합니다.",
+      "parent_message": "좌표·도형 응용은 반복되는 규칙을 먼저 수열 또는 급수로 식으로 옮기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C158",
+        "H2_CALC2_SEQ_C159",
+        "H2_CALC2_SEQ_C160",
+        "H2_CALC2_SEQ_C161",
+        "H2_CALC2_SEQ_C162"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT472",
+        "H2_CALC2_SEQ_PT473",
+        "H2_CALC2_SEQ_PT475",
+        "H2_CALC2_SEQ_PT476",
+        "H2_CALC2_SEQ_PT478",
+        "H2_CALC2_SEQ_PT479"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_043",
+      "name": "둘레의 길이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series_application",
+          "perimeter",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'둘레의 길이' 유형에서 반복 구조를 수열·급수 모델로 바꾸는 과정이 약합니다.",
+      "parent_message": "좌표·도형 응용은 반복되는 규칙을 먼저 수열 또는 급수로 식으로 옮기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C165",
+        "H2_CALC2_SEQ_C166"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT493",
+        "H2_CALC2_SEQ_PT494",
+        "H2_CALC2_SEQ_PT496",
+        "H2_CALC2_SEQ_PT497"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_044",
+      "name": "넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series_application",
+          "area",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'넓이' 유형에서 반복 구조를 수열·급수 모델로 바꾸는 과정이 약합니다.",
+      "parent_message": "좌표·도형 응용은 반복되는 규칙을 먼저 수열 또는 급수로 식으로 옮기게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C167",
+        "H2_CALC2_SEQ_C168",
+        "H2_CALC2_SEQ_C169",
+        "H2_CALC2_SEQ_C170",
+        "H2_CALC2_SEQ_C171"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT499",
+        "H2_CALC2_SEQ_PT500",
+        "H2_CALC2_SEQ_PT502",
+        "H2_CALC2_SEQ_PT503",
+        "H2_CALC2_SEQ_PT505",
+        "H2_CALC2_SEQ_PT506"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_SEQ_RULE_045",
+      "name": "실생활 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometric_series_application",
+          "modeling",
+          "real_life"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'실생활' 유형에서 수열의 극한과 급수의 기본 성질 적용이 약합니다.",
+      "parent_message": "정의와 성질을 먼저 쓰고 계산을 연결하는 습관을 갖게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_SEQ_C175"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_SEQ_PT523",
+        "H2_CALC2_SEQ_PT524"
+      ],
+      "severity": "medium"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "patch_id": "math_weakness_engine_h2_calculus2_sequence_limit_core_patch_20260708",
+  "version": "2026.07.08-h2-calculus2-sequence-limit-v1.0",
+  "unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+  "unit_name": "수열의 극한",
+  "course": "미적분2",
+  "source_upload": "미적분2 수열의 극한.zip",
+  "image_count": 17,
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "concept_count_added": 177,
+  "raw_section_count": 177,
+  "estimated_detail_type_total": 953,
+  "problem_type_count": 531,
+  "edge_count": 439,
+  "diagnosis_rule_count": 45,
+  "remediation_count": 177,
+  "solution_template_count": 9,
+  "index_unit_count_after_patch": 34,
+  "math_concept_count_after_patch": 3802,
+  "includes_original_images": false,
+  "patch_files": [
+    "public/math-weakness-engine/data/index.v1.json",
+    "public/math-weakness-engine/data/math_concepts.v1.json",
+    "public/math-weakness-engine/data/problem_types/h2_calculus2_sequence_limit.problem_types.v1.csv",
+    "public/math-weakness-engine/data/problem_types/h2_calculus2_sequence_limit.problem_types.v1.json",
+    "public/math-weakness-engine/data/raw_taxonomy/h2_calculus2_sequence_limit.raw_taxonomy.v1.csv",
+    "public/math-weakness-engine/data/raw_taxonomy/h2_calculus2_sequence_limit.raw_taxonomy.v1.json",
+    "public/math-weakness-engine/data/relations/h2_calculus2_sequence_limit.edges.v1.json",
+    "public/math-weakness-engine/data/remediation/h2_calculus2_sequence_limit.remediation_map.v1.json",
+    "public/math-weakness-engine/data/rules/h2_calculus2_sequence_limit.diagnosis_rules.v1.json",
+    "public/math-weakness-engine/data/sources/h2_calculus2_sequence_limit.source_manifest.v1.json",
+    "public/math-weakness-engine/data/forms/h2_calculus2_sequence_limit.solution_templates.v1.json",
+    "public/math-weakness-engine/docs/patch_report_h2_calculus2_sequence_limit_20260708.json",
+    "public/math-weakness-engine/samples/h2_calculus2_sequence_limit.student_attempt.sample.json"
+  ],
+  "validation": {
+    "json_load": "pass",
+    "index_unit_registered": true,
+    "concept_reference_integrity": "pass",
+    "problem_type_reference_integrity": "pass",
+    "rule_reference_integrity": "pass",
+    "remediation_reference_integrity": "pass",
+    "solution_template_reference_integrity": "pass",
+    "source_images_included": false
+  }
+}
