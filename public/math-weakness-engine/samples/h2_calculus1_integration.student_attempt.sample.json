@@ -1,0 +1,55 @@
+{
+  "unit_id": "H2_CALCULUS1_INTEGRATION",
+  "unit_name": "적분",
+  "student_id": "SAMPLE_H2_CALC1_INT_001",
+  "attempts": [
+    {
+      "problem_type_id": "H2_CALC1_INT_PT001",
+      "is_correct": false,
+      "difficulty": "basic",
+      "observed_error_tags": [
+        "indefinite_integral",
+        "definition"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC1_INT_PT145",
+      "is_correct": false,
+      "difficulty": "core",
+      "observed_error_tags": [
+        "even_odd_integral",
+        "symmetry"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC1_INT_PT280",
+      "is_correct": false,
+      "difficulty": "advanced",
+      "observed_error_tags": [
+        "integral_defined_function",
+        "ftc"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC1_INT_PT420",
+      "is_correct": false,
+      "difficulty": "core",
+      "observed_error_tags": [
+        "area_between_curves",
+        "geometry_application"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC1_INT_PT540",
+      "is_correct": true,
+      "difficulty": "core",
+      "observed_error_tags": []
+    }
+  ],
+  "expected_diagnosis": [
+    "부정적분 계산과 적분상수 처리 보강",
+    "우함수·기함수 및 대칭성 정적분 보강",
+    "정적분으로 정의된 함수의 그래프·극값 해석 보강",
+    "넓이 계산 시 구간 분할과 위·아래 함수 판정 보강"
+  ]
+}

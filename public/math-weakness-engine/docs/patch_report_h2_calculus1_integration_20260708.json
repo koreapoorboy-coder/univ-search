@@ -1,0 +1,48 @@
+{
+  "patch_id": "math_weakness_engine_h2_calculus1_integration_core_patch_20260708",
+  "version": "2026.07.08-h2-calculus1-integration-v1.0",
+  "unit_id": "H2_CALCULUS1_INTEGRATION",
+  "unit_name": "적분",
+  "course": "미적분1",
+  "source_upload": "미적분1 적분.zip",
+  "image_count": 19,
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "concept_count_added": 189,
+  "raw_section_count": 189,
+  "estimated_detail_type_total": 871,
+  "problem_type_count": 567,
+  "edge_count": 479,
+  "diagnosis_rule_count": 45,
+  "remediation_count": 189,
+  "solution_template_count": 9,
+  "index_unit_count_after_patch": 32,
+  "math_concept_count_after_patch": 3367,
+  "includes_original_images": false,
+  "patch_files": [
+    "public/math-weakness-engine/data/index.v1.json",
+    "public/math-weakness-engine/data/math_concepts.v1.json",
+    "public/math-weakness-engine/data/problem_types/h2_calculus1_integration.problem_types.v1.csv",
+    "public/math-weakness-engine/data/problem_types/h2_calculus1_integration.problem_types.v1.json",
+    "public/math-weakness-engine/data/raw_taxonomy/h2_calculus1_integration.raw_taxonomy.v1.csv",
+    "public/math-weakness-engine/data/raw_taxonomy/h2_calculus1_integration.raw_taxonomy.v1.json",
+    "public/math-weakness-engine/data/relations/h2_calculus1_integration.edges.v1.json",
+    "public/math-weakness-engine/data/remediation/h2_calculus1_integration.remediation_map.v1.json",
+    "public/math-weakness-engine/data/rules/h2_calculus1_integration.diagnosis_rules.v1.json",
+    "public/math-weakness-engine/data/sources/h2_calculus1_integration.source_manifest.v1.json",
+    "public/math-weakness-engine/data/forms/h2_calculus1_integration.solution_templates.v1.json",
+    "public/math-weakness-engine/docs/patch_report_h2_calculus1_integration_20260708.json",
+    "public/math-weakness-engine/samples/h2_calculus1_integration.student_attempt.sample.json"
+  ],
+  "validation": {
+    "json_load": "pass",
+    "index_unit_registered": true,
+    "concept_reference_integrity": "pass",
+    "problem_type_reference_integrity": "pass",
+    "rule_reference_integrity": "pass",
+    "remediation_reference_integrity": "pass",
+    "solution_template_reference_integrity": "pass",
+    "source_images_included": false
+  }
+}

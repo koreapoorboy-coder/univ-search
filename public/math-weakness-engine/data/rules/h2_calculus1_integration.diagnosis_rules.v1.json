@@ -1,0 +1,1304 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_CALCULUS1_INTEGRATION",
+  "unit_name": "적분",
+  "rule_count": 45,
+  "rules": [
+    {
+      "rule_id": "H2_CALC1_INT_RULE_001",
+      "name": "부정적분의 정의 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indefinite_integral",
+          "antiderivative",
+          "definition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분의 정의' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C001",
+        "H2_CALC1_INT_C002",
+        "H2_CALC1_INT_C003",
+        "H2_CALC1_INT_C004",
+        "H2_CALC1_INT_C005"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT001",
+        "H2_CALC1_INT_PT002",
+        "H2_CALC1_INT_PT004",
+        "H2_CALC1_INT_PT005",
+        "H2_CALC1_INT_PT007",
+        "H2_CALC1_INT_PT008"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_002",
+      "name": "부정적분과 미분의 관계 (1) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indefinite_integral",
+          "derivative_antiderivative",
+          "equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분과 미분의 관계 (1)' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C007",
+        "H2_CALC1_INT_C008"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT019",
+        "H2_CALC1_INT_PT020",
+        "H2_CALC1_INT_PT022",
+        "H2_CALC1_INT_PT023"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_003",
+      "name": "부정적분과 미분의 관계 (2) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indefinite_integral",
+          "derivative_antiderivative",
+          "equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분과 미분의 관계 (2)' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C009",
+        "H2_CALC1_INT_C010"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT025",
+        "H2_CALC1_INT_PT026",
+        "H2_CALC1_INT_PT028",
+        "H2_CALC1_INT_PT029"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_004",
+      "name": "부정적분과 미분의 관계를 이용하여 함수 구하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_reconstruction",
+          "indefinite_integral",
+          "derivative_antiderivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분과 미분의 관계를 이용하여 함수 구하기' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C011",
+        "H2_CALC1_INT_C012",
+        "H2_CALC1_INT_C013"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT031",
+        "H2_CALC1_INT_PT032",
+        "H2_CALC1_INT_PT034",
+        "H2_CALC1_INT_PT035",
+        "H2_CALC1_INT_PT037",
+        "H2_CALC1_INT_PT038"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_005",
+      "name": "부정적분의 계산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_calculation",
+          "indefinite_integral",
+          "algebraic_manipulation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분의 계산' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C014",
+        "H2_CALC1_INT_C015",
+        "H2_CALC1_INT_C016",
+        "H2_CALC1_INT_C017",
+        "H2_CALC1_INT_C018"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT040",
+        "H2_CALC1_INT_PT041",
+        "H2_CALC1_INT_PT043",
+        "H2_CALC1_INT_PT044",
+        "H2_CALC1_INT_PT046",
+        "H2_CALC1_INT_PT047"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_006",
+      "name": "도함수가 주어질 때 함수 구하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_reconstruction",
+          "derivative_graph",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'도함수가 주어질 때 함수 구하기' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C026",
+        "H2_CALC1_INT_C027",
+        "H2_CALC1_INT_C028",
+        "H2_CALC1_INT_C029",
+        "H2_CALC1_INT_C030"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT076",
+        "H2_CALC1_INT_PT077",
+        "H2_CALC1_INT_PT079",
+        "H2_CALC1_INT_PT080",
+        "H2_CALC1_INT_PT082",
+        "H2_CALC1_INT_PT083"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_007",
+      "name": "함수와 부정적분 사이의 관계식이 주어질 때 함수 구하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_reconstruction",
+          "integral_equation",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수와 부정적분 사이의 관계식이 주어질 때 함수 구하기' 유형에서 정적분이 포함된 등식을 미분 또는 대입으로 정리하는 과정이 약합니다.",
+      "parent_message": "정적분 등식은 미지수가 피적분함수, 적분구간, 결과식 중 어디에 있는지 먼저 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C033",
+        "H2_CALC1_INT_C034",
+        "H2_CALC1_INT_C035",
+        "H2_CALC1_INT_C036"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT097",
+        "H2_CALC1_INT_PT098",
+        "H2_CALC1_INT_PT100",
+        "H2_CALC1_INT_PT101",
+        "H2_CALC1_INT_PT103",
+        "H2_CALC1_INT_PT104"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_008",
+      "name": "부정적분과 함수의 연속성 취약",
+      "trigger": {
+        "error_tags_any": [
+          "continuity",
+          "indefinite_integral",
+          "function_reconstruction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분과 함수의 연속성' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C037",
+        "H2_CALC1_INT_C038",
+        "H2_CALC1_INT_C039"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT109",
+        "H2_CALC1_INT_PT110",
+        "H2_CALC1_INT_PT112",
+        "H2_CALC1_INT_PT113",
+        "H2_CALC1_INT_PT115",
+        "H2_CALC1_INT_PT116"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_009",
+      "name": "부정적분과 접선의 기울기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_slope",
+          "indefinite_integral",
+          "derivative_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분과 접선의 기울기' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C040",
+        "H2_CALC1_INT_C041",
+        "H2_CALC1_INT_C042"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT118",
+        "H2_CALC1_INT_PT119",
+        "H2_CALC1_INT_PT121",
+        "H2_CALC1_INT_PT122",
+        "H2_CALC1_INT_PT124",
+        "H2_CALC1_INT_PT125"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_010",
+      "name": "부정적분과 미분계수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "derivative_limit",
+          "indefinite_integral",
+          "limit_form"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분과 미분계수' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C043",
+        "H2_CALC1_INT_C044",
+        "H2_CALC1_INT_C045",
+        "H2_CALC1_INT_C046"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT127",
+        "H2_CALC1_INT_PT128",
+        "H2_CALC1_INT_PT130",
+        "H2_CALC1_INT_PT131",
+        "H2_CALC1_INT_PT133",
+        "H2_CALC1_INT_PT134"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_011",
+      "name": "부정적분과 도함수의 정의를 이용하여 함수 구하기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_reconstruction",
+          "derivative_definition",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분과 도함수의 정의를 이용하여 함수 구하기' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C047",
+        "H2_CALC1_INT_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT139",
+        "H2_CALC1_INT_PT140",
+        "H2_CALC1_INT_PT142",
+        "H2_CALC1_INT_PT143"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_012",
+      "name": "부정적분과 극대·극소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "extrema",
+          "indefinite_integral",
+          "derivative_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분과 극대·극소' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C049",
+        "H2_CALC1_INT_C050",
+        "H2_CALC1_INT_C051",
+        "H2_CALC1_INT_C052",
+        "H2_CALC1_INT_C053"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT145",
+        "H2_CALC1_INT_PT146",
+        "H2_CALC1_INT_PT148",
+        "H2_CALC1_INT_PT149",
+        "H2_CALC1_INT_PT151",
+        "H2_CALC1_INT_PT152"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_013",
+      "name": "부정적분의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "application",
+          "indefinite_integral",
+          "modeling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부정적분의 활용' 유형에서 부정적분 계산과 적분상수 처리 과정이 약합니다.",
+      "parent_message": "부정적분은 항별 적분 후 적분상수 C를 반드시 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C058",
+        "H2_CALC1_INT_C059",
+        "H2_CALC1_INT_C060"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT172",
+        "H2_CALC1_INT_PT173",
+        "H2_CALC1_INT_PT175",
+        "H2_CALC1_INT_PT176",
+        "H2_CALC1_INT_PT178",
+        "H2_CALC1_INT_PT179"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_014",
+      "name": "정적분의 정의 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral_definition",
+          "riemann_sum",
+          "definition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분의 정의' 유형에서 정적분의 정의와 미적분의 기본정리를 연결하는 과정이 약합니다.",
+      "parent_message": "정적분은 F(b)-F(a) 구조와 적분함수 미분 규칙을 먼저 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C061"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT181",
+        "H2_CALC1_INT_PT182"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_015",
+      "name": "적분과 미분의 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "ftc",
+          "definite_integral_definition",
+          "derivative_antiderivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'적분과 미분의 관계' 유형에서 정적분의 정의와 미적분의 기본정리를 연결하는 과정이 약합니다.",
+      "parent_message": "정적분은 F(b)-F(a) 구조와 적분함수 미분 규칙을 먼저 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C062"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT184",
+        "H2_CALC1_INT_PT185"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_016",
+      "name": "미적분의 기본정리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "ftc",
+          "integral_calculation",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'미적분의 기본정리' 유형에서 정적분의 정의와 미적분의 기본정리를 연결하는 과정이 약합니다.",
+      "parent_message": "정적분은 F(b)-F(a) 구조와 적분함수 미분 규칙을 먼저 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C063",
+        "H2_CALC1_INT_C064",
+        "H2_CALC1_INT_C065",
+        "H2_CALC1_INT_C066"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT187",
+        "H2_CALC1_INT_PT188",
+        "H2_CALC1_INT_PT190",
+        "H2_CALC1_INT_PT191",
+        "H2_CALC1_INT_PT193",
+        "H2_CALC1_INT_PT194"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_017",
+      "name": "미적분의 기본정리의 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "ftc_application",
+          "definite_integral",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'미적분의 기본정리의 활용' 유형에서 적분 조건을 식으로 번역하는 과정이 약합니다.",
+      "parent_message": "문장의 조건을 먼저 식으로 바꾼 뒤, 적절한 적분 계산이나 성질 적용을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C067",
+        "H2_CALC1_INT_C068",
+        "H2_CALC1_INT_C069"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT199",
+        "H2_CALC1_INT_PT200",
+        "H2_CALC1_INT_PT202",
+        "H2_CALC1_INT_PT203",
+        "H2_CALC1_INT_PT205",
+        "H2_CALC1_INT_PT206"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_018",
+      "name": "정적분의 계산 (1) 적분구간이 같은 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_calc",
+          "interval_matching",
+          "algebraic_manipulation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분의 계산 (1) 적분구간이 같은 경우' 유형에서 구간을 나누거나 절댓값의 부호를 분리하는 과정이 약합니다.",
+      "parent_message": "절댓값·구간별 정의 함수는 부호가 바뀌는 지점과 구간별 식을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C070",
+        "H2_CALC1_INT_C071"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT208",
+        "H2_CALC1_INT_PT209",
+        "H2_CALC1_INT_PT211",
+        "H2_CALC1_INT_PT212"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_019",
+      "name": "정적분의 계산 (2) 피적분함수가 같은 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_calc",
+          "same_integrand",
+          "algebraic_manipulation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분의 계산 (2) 피적분함수가 같은 경우' 유형에서 구간을 나누거나 절댓값의 부호를 분리하는 과정이 약합니다.",
+      "parent_message": "절댓값·구간별 정의 함수는 부호가 바뀌는 지점과 구간별 식을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C072",
+        "H2_CALC1_INT_C073"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT214",
+        "H2_CALC1_INT_PT215",
+        "H2_CALC1_INT_PT217",
+        "H2_CALC1_INT_PT218"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_020",
+      "name": "정적분의 계산 (3) 구간에 따라 다르게 정의된 함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "piecewise_integral",
+          "definite_calc",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분의 계산 (3) 구간에 따라 다르게 정의된 함수' 유형에서 구간을 나누거나 절댓값의 부호를 분리하는 과정이 약합니다.",
+      "parent_message": "절댓값·구간별 정의 함수는 부호가 바뀌는 지점과 구간별 식을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C074",
+        "H2_CALC1_INT_C075",
+        "H2_CALC1_INT_C076",
+        "H2_CALC1_INT_C077"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT220",
+        "H2_CALC1_INT_PT221",
+        "H2_CALC1_INT_PT223",
+        "H2_CALC1_INT_PT224",
+        "H2_CALC1_INT_PT226",
+        "H2_CALC1_INT_PT227"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_021",
+      "name": "정적분의 계산 (4) 절댓값 기호를 포함한 함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "abs_integral",
+          "definite_calc",
+          "sign_split"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분의 계산 (4) 절댓값 기호를 포함한 함수' 유형에서 구간을 나누거나 절댓값의 부호를 분리하는 과정이 약합니다.",
+      "parent_message": "절댓값·구간별 정의 함수는 부호가 바뀌는 지점과 구간별 식을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C078",
+        "H2_CALC1_INT_C079",
+        "H2_CALC1_INT_C080",
+        "H2_CALC1_INT_C081",
+        "H2_CALC1_INT_C082"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT232",
+        "H2_CALC1_INT_PT233",
+        "H2_CALC1_INT_PT235",
+        "H2_CALC1_INT_PT236",
+        "H2_CALC1_INT_PT238",
+        "H2_CALC1_INT_PT239"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_022",
+      "name": "정적분의 계산 (5) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_calc",
+          "application",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분의 계산 (5)' 유형에서 구간을 나누거나 절댓값의 부호를 분리하는 과정이 약합니다.",
+      "parent_message": "절댓값·구간별 정의 함수는 부호가 바뀌는 지점과 구간별 식을 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C083",
+        "H2_CALC1_INT_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT247",
+        "H2_CALC1_INT_PT248",
+        "H2_CALC1_INT_PT250",
+        "H2_CALC1_INT_PT251"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_023",
+      "name": "우함수·기함수의 정적분 (1) 피적분함수가 주어진 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "even_odd_integral",
+          "symmetry",
+          "definite_calc"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'우함수·기함수의 정적분 (1) 피적분함수가 주어진 경우' 유형에서 대칭성과 주기성을 먼저 판정하지 못합니다.",
+      "parent_message": "우함수·기함수와 주기함수 문제는 계산 전에 대칭축, 주기, 대칭구간을 먼저 체크하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C085",
+        "H2_CALC1_INT_C086",
+        "H2_CALC1_INT_C087",
+        "H2_CALC1_INT_C088"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT253",
+        "H2_CALC1_INT_PT254",
+        "H2_CALC1_INT_PT256",
+        "H2_CALC1_INT_PT257",
+        "H2_CALC1_INT_PT259",
+        "H2_CALC1_INT_PT260"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_024",
+      "name": "우함수·기함수의 정적분 (2) 피적분함수가 주어지지 않은 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "even_odd_integral",
+          "symmetry",
+          "function_reconstruction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'우함수·기함수의 정적분 (2) 피적분함수가 주어지지 않은 경우' 유형에서 대칭성과 주기성을 먼저 판정하지 못합니다.",
+      "parent_message": "우함수·기함수와 주기함수 문제는 계산 전에 대칭축, 주기, 대칭구간을 먼저 체크하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C089",
+        "H2_CALC1_INT_C090",
+        "H2_CALC1_INT_C091",
+        "H2_CALC1_INT_C092",
+        "H2_CALC1_INT_C093"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT265",
+        "H2_CALC1_INT_PT266",
+        "H2_CALC1_INT_PT268",
+        "H2_CALC1_INT_PT269",
+        "H2_CALC1_INT_PT271",
+        "H2_CALC1_INT_PT272"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_025",
+      "name": "주기함수의 정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "periodic_integral",
+          "symmetry",
+          "definite_calc"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'주기함수의 정적분' 유형에서 대칭성과 주기성을 먼저 판정하지 못합니다.",
+      "parent_message": "우함수·기함수와 주기함수 문제는 계산 전에 대칭축, 주기, 대칭구간을 먼저 체크하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C095",
+        "H2_CALC1_INT_C096",
+        "H2_CALC1_INT_C097",
+        "H2_CALC1_INT_C098",
+        "H2_CALC1_INT_C099"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT283",
+        "H2_CALC1_INT_PT284",
+        "H2_CALC1_INT_PT286",
+        "H2_CALC1_INT_PT287",
+        "H2_CALC1_INT_PT289",
+        "H2_CALC1_INT_PT290"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_026",
+      "name": "정적분을 포함한 등식 (1) 아래끝과 위끝이 상수인 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_equation",
+          "definite_integral",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분을 포함한 등식 (1) 아래끝과 위끝이 상수인 경우' 유형에서 정적분이 포함된 등식을 미분 또는 대입으로 정리하는 과정이 약합니다.",
+      "parent_message": "정적분 등식은 미지수가 피적분함수, 적분구간, 결과식 중 어디에 있는지 먼저 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C100",
+        "H2_CALC1_INT_C101",
+        "H2_CALC1_INT_C102"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT298",
+        "H2_CALC1_INT_PT299",
+        "H2_CALC1_INT_PT301",
+        "H2_CALC1_INT_PT302",
+        "H2_CALC1_INT_PT304",
+        "H2_CALC1_INT_PT305"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_027",
+      "name": "정적분을 포함한 등식 (2) 아래끝 또는 위끝에 변수가 있는 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_equation",
+          "integral_defined_function",
+          "ftc"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분을 포함한 등식 (2) 아래끝 또는 위끝에 변수가 있는 경우' 유형에서 정적분으로 정의된 함수의 미분·그래프 해석이 약합니다.",
+      "parent_message": "적분함수는 미적분의 기본정리로 도함수를 만들고, 그 부호로 증가감소와 극값을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C103",
+        "H2_CALC1_INT_C104",
+        "H2_CALC1_INT_C105",
+        "H2_CALC1_INT_C106",
+        "H2_CALC1_INT_C107"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT307",
+        "H2_CALC1_INT_PT308",
+        "H2_CALC1_INT_PT310",
+        "H2_CALC1_INT_PT311",
+        "H2_CALC1_INT_PT313",
+        "H2_CALC1_INT_PT314"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_028",
+      "name": "정적분을 포함한 등식 (3) 아래끝 또는 위끝과 피적분함수에 변수가 있는 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_equation",
+          "integral_defined_function",
+          "variable_limit"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분을 포함한 등식 (3) 아래끝 또는 위끝과 피적분함수에 변수가 있는 경우' 유형에서 정적분으로 정의된 함수의 미분·그래프 해석이 약합니다.",
+      "parent_message": "적분함수는 미적분의 기본정리로 도함수를 만들고, 그 부호로 증가감소와 극값을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C111",
+        "H2_CALC1_INT_C112",
+        "H2_CALC1_INT_C113"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT331",
+        "H2_CALC1_INT_PT332",
+        "H2_CALC1_INT_PT334",
+        "H2_CALC1_INT_PT335",
+        "H2_CALC1_INT_PT337",
+        "H2_CALC1_INT_PT338"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_029",
+      "name": "정적분으로 정의된 함수의 극대·극소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_defined_function",
+          "extrema",
+          "ftc"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분으로 정의된 함수의 극대·극소' 유형에서 정적분으로 정의된 함수의 미분·그래프 해석이 약합니다.",
+      "parent_message": "적분함수는 미적분의 기본정리로 도함수를 만들고, 그 부호로 증가감소와 극값을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C114",
+        "H2_CALC1_INT_C115",
+        "H2_CALC1_INT_C116",
+        "H2_CALC1_INT_C117",
+        "H2_CALC1_INT_C118"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT340",
+        "H2_CALC1_INT_PT341",
+        "H2_CALC1_INT_PT343",
+        "H2_CALC1_INT_PT344",
+        "H2_CALC1_INT_PT346",
+        "H2_CALC1_INT_PT347"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_030",
+      "name": "정적분으로 정의된 함수의 최대·최소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_defined_function",
+          "max_min",
+          "ftc"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분으로 정의된 함수의 최대·최소' 유형에서 정적분으로 정의된 함수의 미분·그래프 해석이 약합니다.",
+      "parent_message": "적분함수는 미적분의 기본정리로 도함수를 만들고, 그 부호로 증가감소와 극값을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C120",
+        "H2_CALC1_INT_C121",
+        "H2_CALC1_INT_C122",
+        "H2_CALC1_INT_C123",
+        "H2_CALC1_INT_C124"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT358",
+        "H2_CALC1_INT_PT359",
+        "H2_CALC1_INT_PT361",
+        "H2_CALC1_INT_PT362",
+        "H2_CALC1_INT_PT364",
+        "H2_CALC1_INT_PT365"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_031",
+      "name": "정적분으로 정의된 함수의 그래프 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_defined_function",
+          "graph_interpretation",
+          "ftc"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분으로 정의된 함수의 그래프' 유형에서 정적분으로 정의된 함수의 미분·그래프 해석이 약합니다.",
+      "parent_message": "적분함수는 미적분의 기본정리로 도함수를 만들고, 그 부호로 증가감소와 극값을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C127",
+        "H2_CALC1_INT_C128"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT379",
+        "H2_CALC1_INT_PT380",
+        "H2_CALC1_INT_PT382",
+        "H2_CALC1_INT_PT383"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_032",
+      "name": "정적분으로 정의된 함수의 극한 (1) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_limit",
+          "integral_defined_function",
+          "ftc"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분으로 정의된 함수의 극한 (1)' 유형에서 정적분으로 정의된 함수의 미분·그래프 해석이 약합니다.",
+      "parent_message": "적분함수는 미적분의 기본정리로 도함수를 만들고, 그 부호로 증가감소와 극값을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C129",
+        "H2_CALC1_INT_C130"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT385",
+        "H2_CALC1_INT_PT386",
+        "H2_CALC1_INT_PT388",
+        "H2_CALC1_INT_PT389"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_033",
+      "name": "정적분으로 정의된 함수의 극한 (2) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_limit",
+          "integral_defined_function",
+          "ftc"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분으로 정의된 함수의 극한 (2)' 유형에서 정적분으로 정의된 함수의 미분·그래프 해석이 약합니다.",
+      "parent_message": "적분함수는 미적분의 기본정리로 도함수를 만들고, 그 부호로 증가감소와 극값을 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C131",
+        "H2_CALC1_INT_C132",
+        "H2_CALC1_INT_C133"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT391",
+        "H2_CALC1_INT_PT392",
+        "H2_CALC1_INT_PT394",
+        "H2_CALC1_INT_PT395",
+        "H2_CALC1_INT_PT397",
+        "H2_CALC1_INT_PT398"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_034",
+      "name": "곡선과 x축 사이의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area_xaxis",
+          "definite_integral",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 x축 사이의 넓이' 유형에서 넓이 계산을 위한 구간 분할과 위·아래 함수 판정이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점과 부호를 표시하고, 필요한 경우 절댓값 또는 위-아래 차를 식으로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C134",
+        "H2_CALC1_INT_C135",
+        "H2_CALC1_INT_C136",
+        "H2_CALC1_INT_C137",
+        "H2_CALC1_INT_C138"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT400",
+        "H2_CALC1_INT_PT401",
+        "H2_CALC1_INT_PT403",
+        "H2_CALC1_INT_PT404",
+        "H2_CALC1_INT_PT406",
+        "H2_CALC1_INT_PT407"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_035",
+      "name": "곡선과 직선 사이의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area_between_curves",
+          "area_line",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 직선 사이의 넓이' 유형에서 넓이 계산을 위한 구간 분할과 위·아래 함수 판정이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점과 부호를 표시하고, 필요한 경우 절댓값 또는 위-아래 차를 식으로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C142",
+        "H2_CALC1_INT_C143",
+        "H2_CALC1_INT_C144",
+        "H2_CALC1_INT_C145",
+        "H2_CALC1_INT_C146"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT424",
+        "H2_CALC1_INT_PT425",
+        "H2_CALC1_INT_PT427",
+        "H2_CALC1_INT_PT428",
+        "H2_CALC1_INT_PT430",
+        "H2_CALC1_INT_PT431"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_036",
+      "name": "두 곡선 사이의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area_between_curves",
+          "definite_integral",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 곡선 사이의 넓이' 유형에서 넓이 계산을 위한 구간 분할과 위·아래 함수 판정이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점과 부호를 표시하고, 필요한 경우 절댓값 또는 위-아래 차를 식으로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C149",
+        "H2_CALC1_INT_C150",
+        "H2_CALC1_INT_C151",
+        "H2_CALC1_INT_C152"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT445",
+        "H2_CALC1_INT_PT446",
+        "H2_CALC1_INT_PT448",
+        "H2_CALC1_INT_PT449",
+        "H2_CALC1_INT_PT451",
+        "H2_CALC1_INT_PT452"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_037",
+      "name": "곡선과 접선으로 둘러싸인 도형의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "tangent_area",
+          "tangent_slope",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 접선으로 둘러싸인 도형의 넓이' 유형에서 넓이 계산을 위한 구간 분할과 위·아래 함수 판정이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점과 부호를 표시하고, 필요한 경우 절댓값 또는 위-아래 차를 식으로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C153",
+        "H2_CALC1_INT_C154"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT457",
+        "H2_CALC1_INT_PT458",
+        "H2_CALC1_INT_PT460",
+        "H2_CALC1_INT_PT461"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_038",
+      "name": "두 도형의 넓이가 같을 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "equal_area",
+          "area_between_curves",
+          "coefficient_matching"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 도형의 넓이가 같을 조건' 유형에서 넓이 계산을 위한 구간 분할과 위·아래 함수 판정이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점과 부호를 표시하고, 필요한 경우 절댓값 또는 위-아래 차를 식으로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C155",
+        "H2_CALC1_INT_C156",
+        "H2_CALC1_INT_C157",
+        "H2_CALC1_INT_C158"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT463",
+        "H2_CALC1_INT_PT464",
+        "H2_CALC1_INT_PT466",
+        "H2_CALC1_INT_PT467",
+        "H2_CALC1_INT_PT469",
+        "H2_CALC1_INT_PT470"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_039",
+      "name": "두 곡선 사이의 넓이의 활용 (1) 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area_application",
+          "area_between_curves",
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 곡선 사이의 넓이의 활용 (1)' 유형에서 넓이 계산을 위한 구간 분할과 위·아래 함수 판정이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점과 부호를 표시하고, 필요한 경우 절댓값 또는 위-아래 차를 식으로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C159",
+        "H2_CALC1_INT_C160",
+        "H2_CALC1_INT_C161",
+        "H2_CALC1_INT_C162"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT475",
+        "H2_CALC1_INT_PT476",
+        "H2_CALC1_INT_PT478",
+        "H2_CALC1_INT_PT479",
+        "H2_CALC1_INT_PT481",
+        "H2_CALC1_INT_PT482"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_040",
+      "name": "두 곡선 사이의 넓이의 활용 (2) 넓이의 최솟값 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area_application",
+          "max_min",
+          "optimization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 곡선 사이의 넓이의 활용 (2) 넓이의 최솟값' 유형에서 적분 조건을 식으로 번역하는 과정이 약합니다.",
+      "parent_message": "문장의 조건을 먼저 식으로 바꾼 뒤, 적절한 적분 계산이나 성질 적용을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C163",
+        "H2_CALC1_INT_C164"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT487",
+        "H2_CALC1_INT_PT488",
+        "H2_CALC1_INT_PT490",
+        "H2_CALC1_INT_PT491"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_041",
+      "name": "함수와 그 역함수의 정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_function",
+          "symmetry",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수와 그 역함수의 정적분' 유형에서 대칭성과 주기성을 먼저 판정하지 못합니다.",
+      "parent_message": "우함수·기함수와 주기함수 문제는 계산 전에 대칭축, 주기, 대칭구간을 먼저 체크하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C165",
+        "H2_CALC1_INT_C166"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT493",
+        "H2_CALC1_INT_PT494",
+        "H2_CALC1_INT_PT496",
+        "H2_CALC1_INT_PT497"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_042",
+      "name": "함수와 그 역함수의 그래프로 둘러싸인 도형의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_function_area",
+          "area_between_curves",
+          "symmetry"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'함수와 그 역함수의 그래프로 둘러싸인 도형의 넓이' 유형에서 넓이 계산을 위한 구간 분할과 위·아래 함수 판정이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점과 부호를 표시하고, 필요한 경우 절댓값 또는 위-아래 차를 식으로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C167",
+        "H2_CALC1_INT_C168",
+        "H2_CALC1_INT_C169"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT499",
+        "H2_CALC1_INT_PT500",
+        "H2_CALC1_INT_PT502",
+        "H2_CALC1_INT_PT503",
+        "H2_CALC1_INT_PT505",
+        "H2_CALC1_INT_PT506"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_043",
+      "name": "위치와 위치의 변화량 취약",
+      "trigger": {
+        "error_tags_any": [
+          "motion_position",
+          "displacement",
+          "velocity"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'위치와 위치의 변화량' 유형에서 변위와 움직인 거리, 속도 부호를 구분하는 과정이 약합니다.",
+      "parent_message": "속도와 거리 문제는 속도의 부호가 바뀌는 시점을 먼저 찾고, 변위와 움직인 거리를 따로 계산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C170",
+        "H2_CALC1_INT_C171",
+        "H2_CALC1_INT_C172",
+        "H2_CALC1_INT_C173",
+        "H2_CALC1_INT_C174"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT508",
+        "H2_CALC1_INT_PT509",
+        "H2_CALC1_INT_PT511",
+        "H2_CALC1_INT_PT512",
+        "H2_CALC1_INT_PT514",
+        "H2_CALC1_INT_PT515"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_044",
+      "name": "움직인 거리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "motion_distance",
+          "distance_traveled",
+          "velocity_sign"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'움직인 거리' 유형에서 변위와 움직인 거리, 속도 부호를 구분하는 과정이 약합니다.",
+      "parent_message": "속도와 거리 문제는 속도의 부호가 바뀌는 시점을 먼저 찾고, 변위와 움직인 거리를 따로 계산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C177",
+        "H2_CALC1_INT_C178",
+        "H2_CALC1_INT_C179",
+        "H2_CALC1_INT_C180",
+        "H2_CALC1_INT_C181"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT529",
+        "H2_CALC1_INT_PT530",
+        "H2_CALC1_INT_PT532",
+        "H2_CALC1_INT_PT533",
+        "H2_CALC1_INT_PT535",
+        "H2_CALC1_INT_PT536"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC1_INT_RULE_045",
+      "name": "그래프에서의 위치와 움직인 거리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "motion_graph",
+          "distance_traveled",
+          "graph_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'그래프에서의 위치와 움직인 거리' 유형에서 변위와 움직인 거리, 속도 부호를 구분하는 과정이 약합니다.",
+      "parent_message": "속도와 거리 문제는 속도의 부호가 바뀌는 시점을 먼저 찾고, 변위와 움직인 거리를 따로 계산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC1_INT_C187",
+        "H2_CALC1_INT_C188",
+        "H2_CALC1_INT_C189"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC1_INT_PT559",
+        "H2_CALC1_INT_PT560",
+        "H2_CALC1_INT_PT562",
+        "H2_CALC1_INT_PT563",
+        "H2_CALC1_INT_PT565",
+        "H2_CALC1_INT_PT566"
+      ],
+      "severity": "medium"
+    }
+  ]
+}
