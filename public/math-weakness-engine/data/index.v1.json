@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.08-h2-calculus2-integration-v1.0",
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -731,5 +731,41 @@
       "concept_name": "조건을 만족하는 경우의 수와 확률 계산",
       "status": "future_target_seed"
     }
-  ]
+  ],
+  "global_logic": {
+    "version": "2026.07.08-global-diagnosis-logic-v1.0",
+    "display": {
+      "problem_type_instruction_map": "data/display/problem_type_instruction_map.v1.json",
+      "student_action_templates": "data/display/student_action_templates.v1.json",
+      "parent_feedback_templates": "data/display/parent_feedback_templates.v1.json",
+      "future_learning_map": "data/display/future_learning_map.v1.json",
+      "problem_type_instruction_map_split_mode": true,
+      "problem_type_instruction_map_part_count": 4,
+      "problem_type_instruction_map_parts": [
+        "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part01.v1.json",
+        "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part02.v1.json",
+        "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part03.v1.json",
+        "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part04.v1.json"
+      ]
+    },
+    "relations": {
+      "cross_unit_edges": "data/relations/cross_unit_edges.v1.json"
+    },
+    "routes": {
+      "backtrack_routes": "data/routes/backtrack_routes.v1.json",
+      "future_extension_routes": "data/routes/future_extension_routes.v1.json"
+    },
+    "diagnosis": {
+      "global_diagnosis_rules": "data/diagnosis/global_diagnosis_rules.v1.json",
+      "weakness_scoring_rules": "data/diagnosis/weakness_scoring_rules.v1.json",
+      "diagnosis_output_schema": "data/diagnosis/diagnosis_output_schema.v1.json"
+    },
+    "remediation": {
+      "global_remediation_routes": "data/remediation/global_remediation_routes.v1.json"
+    },
+    "samples": {
+      "global_student_diagnosis": "samples/global_student_diagnosis.sample.json",
+      "future_learning_route": "samples/future_learning_route.sample.json"
+    }
+  }
 }

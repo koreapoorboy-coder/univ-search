@@ -1,0 +1,165 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "patch_name": "global_diagnosis_logic_first_patch",
+  "description": "문항분류 기반 학생 행동지시 + 하향 backtrack + 상향 future extension 전체 연계로직 1차 패치",
+  "source_engine_summary": {
+    "unit_count": 35,
+    "problem_type_file_count": 35,
+    "problem_type_count": 12523,
+    "unique_problem_type_id_count": 12523
+  },
+  "created_or_modified_files": [
+    {
+      "path": "data/diagnosis/diagnosis_output_schema.v1.json",
+      "bytes": 2820,
+      "sha256": "1c6897ee1a84f829fe96aaab9a551a070afe4f88a85f58cc39e32fd04a532061"
+    },
+    {
+      "path": "data/diagnosis/global_diagnosis_rules.v1.json",
+      "bytes": 2307,
+      "sha256": "bb53fa62a9be892cd5f9d1b38d328c29f9b3fa465ed56e1f33fcead5baad46ef"
+    },
+    {
+      "path": "data/diagnosis/weakness_scoring_rules.v1.json",
+      "bytes": 1571,
+      "sha256": "286d5f7e40154339b88a72316a01463e48504f5fb2c6439d2b7e7d63f5aa9042"
+    },
+    {
+      "path": "data/display/future_learning_map.v1.json",
+      "bytes": 29117,
+      "sha256": "bb0aef1ff4125b5cbdefffd849eb818f72181bb2232ba0395f5272e205c02c17"
+    },
+    {
+      "path": "data/display/parent_feedback_templates.v1.json",
+      "bytes": 14198,
+      "sha256": "58321e17f51a9512741e37e9730ac0581b34a9b8568bcc1982285a684882bd7f"
+    },
+    {
+      "path": "data/display/problem_type_instruction_map.v1.json",
+      "bytes": 39295833,
+      "sha256": "02a4a70f167abcea8d21580028495daae13813bcbbd6386574cdac8bb2c9f626"
+    },
+    {
+      "path": "data/display/student_action_templates.v1.json",
+      "bytes": 55944,
+      "sha256": "0d74d150aa39ba07ccec8c75af21ed1a29900ea1b939d010a9da0e6221013710"
+    },
+    {
+      "path": "data/index.v1.json",
+      "bytes": 35946,
+      "sha256": "951b3b2d89c42c034cd1d6a99ac693f0c4b7e2c3c3a09cdb7bac10f5d49c6132"
+    },
+    {
+      "path": "data/relations/cross_unit_edges.v1.json",
+      "bytes": 33642,
+      "sha256": "14768d373b651ccaa826eb9359b905bcdfdcf36c0fdb8d12f8d90476fda4af2a"
+    },
+    {
+      "path": "data/remediation/global_remediation_routes.v1.json",
+      "bytes": 20468,
+      "sha256": "1c586846c00d9059b1e792ec2e66036537d4308e47f4b8a80430223648c7106f"
+    },
+    {
+      "path": "data/routes/backtrack_routes.v1.json",
+      "bytes": 30846,
+      "sha256": "c1c13fb985a35c81dda98dc4257b8b18ee3f0454308a56ecd2b8545db436ad57"
+    },
+    {
+      "path": "data/routes/future_extension_routes.v1.json",
+      "bytes": 29481,
+      "sha256": "b88148ab21ef942f707c873c4c84291618d93de793e1db2bf863219d1d2d768b"
+    },
+    {
+      "path": "samples/future_learning_route.sample.json",
+      "bytes": 2665,
+      "sha256": "91088d0c170c3c373154970e2b61409bfb79ee0ce6ac13da643361da555aa27a"
+    },
+    {
+      "path": "samples/global_student_diagnosis.sample.json",
+      "bytes": 1460,
+      "sha256": "89782504ac010b229c787600765a274f37a51eb07af51fb082eea7f064bf99a2"
+    }
+  ],
+  "counts": {
+    "student_action_templates": 22,
+    "parent_feedback_templates": 22,
+    "problem_type_instructions": 12523,
+    "backtrack_routes": 20,
+    "future_extension_routes": 12,
+    "future_learning_unit_maps": 35,
+    "cross_unit_edges": 79,
+    "global_remediation_routes": 20
+  },
+  "template_usage": {
+    "ACTION_COUNTING_CASEWORK": 487,
+    "ACTION_EQUATION_ROOTS": 777,
+    "ACTION_EQUATION_MODELING": 1796,
+    "ACTION_INEQUALITY_ALWAYS_TRUE": 623,
+    "ACTION_MATRIX_ROW_COLUMN": 209,
+    "ACTION_FACTORIZATION": 598,
+    "ACTION_FUNCTION_GRAPH": 2260,
+    "ACTION_LINEAR_FUNCTION": 376,
+    "ACTION_COORDINATE_GRAPH": 174,
+    "ACTION_ANALYTIC_GEOMETRY": 328,
+    "ACTION_TANGENT_LINE": 360,
+    "ACTION_SET_LOGIC": 846,
+    "ACTION_GEOMETRIC_SEQUENCE": 1065,
+    "ACTION_GEOMETRIC_SERIES": 450,
+    "ACTION_AREA_BETWEEN_CURVES": 441,
+    "ACTION_SUBSTITUTION_INTEGRAL": 189,
+    "ACTION_MOTION_DISTANCE": 217,
+    "ACTION_INTEGRAL_DEFINED_FUNCTION": 312,
+    "ACTION_SEQUENCE_INDETERMINATE": 452,
+    "ACTION_INTEGRATION_BY_PARTS": 45,
+    "ACTION_GENERIC_STRUCTURED_SOLUTION": 403,
+    "ACTION_QUADRATIC_FUNCTION": 115
+  },
+  "validation": {
+    "json_load_ok": true,
+    "index_global_logic_ok": true,
+    "all_problem_type_ids_mapped": true,
+    "problem_type_id_unique": true,
+    "route_references_ok": true,
+    "source_images_included": false
+  },
+  "commit_message_recommendation": "Add global diagnosis and future learning route logic",
+  "github_web_upload_safe": true,
+  "split_large_file": {
+    "original_file": "data/display/problem_type_instruction_map.v1.json",
+    "original_uncompressed_size_bytes": 39295833,
+    "manifest_file": "data/display/problem_type_instruction_map.v1.json",
+    "parts": [
+      {
+        "part_no": 1,
+        "path": "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part01.v1.json",
+        "instruction_count": 3500,
+        "instruction_start_index": 0,
+        "instruction_end_index": 3499
+      },
+      {
+        "part_no": 2,
+        "path": "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part02.v1.json",
+        "instruction_count": 3500,
+        "instruction_start_index": 3500,
+        "instruction_end_index": 6999
+      },
+      {
+        "part_no": 3,
+        "path": "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part03.v1.json",
+        "instruction_count": 3500,
+        "instruction_start_index": 7000,
+        "instruction_end_index": 10499
+      },
+      {
+        "part_no": 4,
+        "path": "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part04.v1.json",
+        "instruction_count": 2023,
+        "instruction_start_index": 10500,
+        "instruction_end_index": 12522
+      }
+    ],
+    "max_file_size_bytes": 11099760,
+    "reason": "GitHub web upload has a practical per-file limit around 25MB; the original JSON was larger than 25MB."
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "problem_type_instruction_map + student_action_templates + routes를 결합하는 전역 진단 규칙.",
+  "modes": [
+    {
+      "mode_id": "WRONG_ANSWER_DIAGNOSIS",
+      "use_when": "학생이 문제를 틀렸을 때",
+      "input_required": [
+        "problem_type_id",
+        "is_correct=false",
+        "wrong_reason_optional",
+        "student_solution_optional"
+      ],
+      "output_sequence": [
+        "문항분류",
+        "이 유형의 정체",
+        "반드시 써야 하는 풀이 순서",
+        "자주 틀리는 행동",
+        "학생 행동 지시",
+        "선행 원인",
+        "보강 순서"
+      ],
+      "logic": [
+        "problem_type_id로 instruction을 찾는다.",
+        "matched_template_id로 공통 행동 템플릿을 찾는다.",
+        "error_tags 또는 matched_template_id로 backtrack_route를 찾는다.",
+        "weakness_scoring_rules로 심각도를 계산한다."
+      ]
+    },
+    {
+      "mode_id": "LEARNING_CONNECTION",
+      "use_when": "학생이 현재 단원을 공부할 때",
+      "input_required": [
+        "unit_id"
+      ],
+      "output_sequence": [
+        "현재 단원",
+        "지금 하는 것",
+        "지금 반드시 해야 하는 행동",
+        "나중에 쓰이는 실제 문제 장면",
+        "그때 하게 되는 풀이 행동",
+        "왜 지금 제대로 해야 하는지"
+      ],
+      "logic": [
+        "unit_id로 future_learning_map을 찾는다.",
+        "상세 route가 있으면 future_extension_routes를 연결한다.",
+        "상세 route가 없으면 generic_first_patch_pending_detail 문장을 사용한다."
+      ]
+    }
+  ],
+  "template_priority_rule": "error_tags 일치 수를 우선하고, type_name 키워드를 보조로 사용한다. 동점이면 priority가 높은 템플릿을 사용한다.",
+  "student_language_policy": [
+    "개념이 약하다고만 말하지 않는다.",
+    "반드시 써야 하는 풀이 순서를 먼저 보여준다.",
+    "답이 맞아도 풀이 순서가 없으면 다시 풀게 하는 문장을 포함한다.",
+    "future route는 단원명 나열이 아니라 실제 문제 장면과 나중 풀이 행동을 포함한다."
+  ]
+}

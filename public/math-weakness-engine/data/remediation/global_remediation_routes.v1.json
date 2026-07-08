@@ -1,0 +1,401 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "전역 backtrack route에 따른 보강 실행 규칙.",
+  "route_count": 20,
+  "routes": [
+    {
+      "remediation_id": "REMEDIATE_AREA_BETWEEN_CURVES",
+      "linked_backtrack_route_id": "BACKTRACK_AREA_BETWEEN_CURVES",
+      "trigger_error_tags_any": [
+        "area",
+        "curve_line",
+        "two_curves",
+        "curve_xaxis",
+        "curve_yaxis",
+        "absolute_value_integral"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_TANGENT_LINE",
+      "linked_backtrack_route_id": "BACKTRACK_TANGENT_LINE",
+      "trigger_error_tags_any": [
+        "tangent_line",
+        "tangent_slope",
+        "given_slope",
+        "point_of_tangency",
+        "common_tangent"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_FUNCTION_GRAPH",
+      "linked_backtrack_route_id": "BACKTRACK_FUNCTION_GRAPH",
+      "trigger_error_tags_any": [
+        "function_graph",
+        "graph_interpretation",
+        "domain_range",
+        "translation",
+        "reflection",
+        "asymptote"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_EQUATION_ROOTS",
+      "linked_backtrack_route_id": "BACKTRACK_EQUATION_ROOTS",
+      "trigger_error_tags_any": [
+        "equation_roots",
+        "quadratic_equation",
+        "discriminant",
+        "solution_check",
+        "simultaneous_equation"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_INEQUALITY_ALWAYS_TRUE",
+      "linked_backtrack_route_id": "BACKTRACK_INEQUALITY_ALWAYS_TRUE",
+      "trigger_error_tags_any": [
+        "inequality",
+        "truth_set",
+        "sign_error",
+        "always_true",
+        "max_min",
+        "parameter_condition"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_SEQUENCE_LIMIT_INDETERMINATE",
+      "linked_backtrack_route_id": "BACKTRACK_SEQUENCE_LIMIT_INDETERMINATE",
+      "trigger_error_tags_any": [
+        "indeterminate_form",
+        "infty_over_infty",
+        "zero_over_zero",
+        "algebraic_limit",
+        "rationalization"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_GEOMETRIC_SEQUENCE_SERIES",
+      "linked_backtrack_route_id": "BACKTRACK_GEOMETRIC_SEQUENCE_SERIES",
+      "trigger_error_tags_any": [
+        "geometric_sequence",
+        "geometric_series",
+        "series_convergence",
+        "common_ratio"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_SUBSTITUTION_INTEGRAL",
+      "linked_backtrack_route_id": "BACKTRACK_SUBSTITUTION_INTEGRAL",
+      "trigger_error_tags_any": [
+        "substitution",
+        "definite_integral_substitution",
+        "chain_form_integral"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_INTEGRATION_BY_PARTS",
+      "linked_backtrack_route_id": "BACKTRACK_INTEGRATION_BY_PARTS",
+      "trigger_error_tags_any": [
+        "integration_by_parts",
+        "product_integral",
+        "log_integral"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_INTEGRAL_DEFINED_FUNCTION",
+      "linked_backtrack_route_id": "BACKTRACK_INTEGRAL_DEFINED_FUNCTION",
+      "trigger_error_tags_any": [
+        "integral_defined_function",
+        "ftc",
+        "variable_limit_integral"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_MOTION_DISTANCE",
+      "linked_backtrack_route_id": "BACKTRACK_MOTION_DISTANCE",
+      "trigger_error_tags_any": [
+        "motion",
+        "velocity",
+        "acceleration",
+        "distance"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_COORDINATE_GRAPH",
+      "linked_backtrack_route_id": "BACKTRACK_COORDINATE_GRAPH",
+      "trigger_error_tags_any": [
+        "coordinate_graph",
+        "coordinate_geometry",
+        "graph_coordinate",
+        "intersection",
+        "coordinate_distance"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_LINEAR_FUNCTION",
+      "linked_backtrack_route_id": "BACKTRACK_LINEAR_FUNCTION",
+      "trigger_error_tags_any": [
+        "linear_function",
+        "slope_intercept",
+        "line_equation",
+        "given_slope"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_QUADRATIC_FUNCTION",
+      "linked_backtrack_route_id": "BACKTRACK_QUADRATIC_FUNCTION",
+      "trigger_error_tags_any": [
+        "quadratic_function",
+        "parabola",
+        "vertex_axis",
+        "symmetry_axis",
+        "maximum_minimum"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_FACTORIZATION",
+      "linked_backtrack_route_id": "BACKTRACK_FACTORIZATION",
+      "trigger_error_tags_any": [
+        "factorization",
+        "common_factor",
+        "multiplication_formula",
+        "polynomial_division"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_CONDITION_MODELING",
+      "linked_backtrack_route_id": "BACKTRACK_CONDITION_MODELING",
+      "trigger_error_tags_any": [
+        "condition_translation",
+        "word_problem_modeling",
+        "modeling",
+        "coefficient_matching",
+        "parameter_condition"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_ANALYTIC_GEOMETRY",
+      "linked_backtrack_route_id": "BACKTRACK_ANALYTIC_GEOMETRY",
+      "trigger_error_tags_any": [
+        "coordinate_geometry",
+        "circle_equation",
+        "line_circle_relation",
+        "distance_to_line",
+        "center_radius"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_COUNTING_CASEWORK",
+      "linked_backtrack_route_id": "BACKTRACK_COUNTING_CASEWORK",
+      "trigger_error_tags_any": [
+        "addition_rule",
+        "multiplication_rule",
+        "case_classification",
+        "permutation",
+        "combination",
+        "inclusion_exclusion"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_SET_LOGIC",
+      "linked_backtrack_route_id": "BACKTRACK_SET_LOGIC",
+      "trigger_error_tags_any": [
+        "set_notation",
+        "subset_relation",
+        "venn_diagram",
+        "proposition_truth",
+        "necessary_sufficient"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    },
+    {
+      "remediation_id": "REMEDIATE_MATRIX_ROW_COLUMN",
+      "linked_backtrack_route_id": "BACKTRACK_MATRIX_ROW_COLUMN",
+      "trigger_error_tags_any": [
+        "matrix_shape",
+        "row_column",
+        "entry_position",
+        "matrix_multiplication"
+      ],
+      "student_remediation_sequence": [
+        "틀린 문항의 문항분류와 matched_template_id를 확인한다.",
+        "해당 템플릿의 must_write_steps를 빈칸 없이 다시 쓰게 한다.",
+        "backtrack_steps의 level 1부터 확인 문제를 풀린다.",
+        "같은 error_tags가 반복되면 다음 level로 내려간다.",
+        "다시 원래 문항유형으로 올라와 같은 구조의 문제를 재풀이한다."
+      ],
+      "minimum_recheck": "같은 문항분류 2문항 + 같은 템플릿 다른 문항분류 1문항",
+      "student_pass_condition": "풀이 첫 줄에 강제 행동 지시가 보이고, 마지막 줄에 원조건 검산이 있어야 통과한다."
+    }
+  ]
+}

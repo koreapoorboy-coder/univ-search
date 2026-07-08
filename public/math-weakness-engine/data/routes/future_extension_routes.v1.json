@@ -1,0 +1,526 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "현재 단원이 나중에 어디에서 어떻게 쓰이는지 실제 문제 장면과 풀이 행동으로 보여주는 상향 route 1차 패치.",
+  "route_count": 12,
+  "routes": [
+    {
+      "route_id": "FUTURE_M1_PRIME_FACTORIZATION",
+      "source_unit_id": "M1_PRIME_FACTORIZATION",
+      "source_unit_hint": "중1 소인수분해",
+      "current_learning_action": "숫자를 소수들의 곱으로 쪼갠다.",
+      "current_must_do": [
+        "나누어지는 소수를 찾는다.",
+        "더 이상 나누어지지 않을 때까지 쪼갠다.",
+        "같은 소수는 거듭제곱으로 묶는다.",
+        "약수, 최대공약수, 최소공배수에 활용한다."
+      ],
+      "why_it_matters_now": "소인수분해는 숫자를 쪼개는 단원이 아니라, 복잡한 수와 식을 작은 재료로 나누어 보는 훈련이다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M3_POLYNOMIAL_FACTORING",
+          "target_unit_hint": "중3 다항식의 곱셈과 인수분해",
+          "future_scene": "다항식을 곱의 형태로 쪼갠다.",
+          "used_as": "숫자를 소수들의 곱으로 쪼개던 사고가 식을 곱으로 쪼개는 사고로 확장된다.",
+          "student_action_later": [
+            "공통인수를 찾는다.",
+            "곱해서 원래 식이 되는 두 식을 찾는다.",
+            "인수분해 후 식을 약분하거나 방정식으로 푼다."
+          ],
+          "example_bridge": "24 = 2^3 × 3 처럼 x^2 + 5x + 6 = (x+2)(x+3) 으로 쪼갠다.",
+          "teacher_explanation": "소인수분해는 수의 인수분해이고, 중3 인수분해는 식의 인수분해입니다.",
+          "parent_explanation": "지금은 숫자를 나누지만, 고등에서는 복잡한 식을 나누는 사고로 확장됩니다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+          "target_unit_hint": "미적분2 수열의 극한",
+          "future_scene": "0/0꼴 극한에서 식을 인수분해해 약분한다.",
+          "used_as": "극한 계산에서 식을 작은 인수로 분해해 0이 되는 부분을 제거한다.",
+          "student_action_later": [
+            "분자와 분모를 인수분해한다.",
+            "공통인수를 약분한다.",
+            "남은 식에 극한을 대입한다."
+          ],
+          "example_bridge": "0/0꼴 극한에서 인수분해 후 약분하는 과정은 소인수분해의 사고가 식으로 확장된 것이다.",
+          "teacher_explanation": "소인수분해의 핵심은 쪼개서 구조를 보는 힘입니다.",
+          "parent_explanation": "초등·중등 계산처럼 보여도 고등 극한 계산의 기초 사고가 됩니다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M1_COORD_GRAPH",
+      "source_unit_id": "M1_COORD_GRAPH",
+      "source_unit_hint": "중1 좌표평면과 그래프",
+      "current_learning_action": "점을 좌표로 읽고 두 양의 관계를 그래프로 나타낸다.",
+      "current_must_do": [
+        "x좌표와 y좌표를 구분한다.",
+        "점의 위치를 좌표로 읽는다.",
+        "두 양의 관계를 표와 그래프로 나타낸다.",
+        "그래프에서 증가, 감소, 만나는 점을 읽는다."
+      ],
+      "why_it_matters_now": "좌표평면은 점 찍는 단원이 아니라, 문제를 그래프로 바꾸어 해석하는 첫 단계다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M2_LINEAR_FUNCTION",
+          "target_unit_hint": "중2 일차함수",
+          "future_scene": "두 양의 관계를 직선 그래프로 나타낸다.",
+          "used_as": "좌표를 이용해 기울기와 절편을 읽는다.",
+          "student_action_later": [
+            "두 점을 좌표로 읽는다.",
+            "x가 변할 때 y가 얼마나 변하는지 본다.",
+            "기울기를 구한다."
+          ],
+          "example_bridge": "좌표평면에서 두 점을 읽는 능력이 있어야 일차함수의 기울기를 구할 수 있다.",
+          "teacher_explanation": "좌표를 이용해 기울기와 절편을 읽는다.",
+          "parent_explanation": "좌표평면에서 두 점을 읽는 능력이 있어야 일차함수의 기울기를 구할 수 있다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS2_INTEGRATION",
+          "target_unit_hint": "미적분2 적분법",
+          "future_scene": "두 곡선 사이의 넓이를 구한다.",
+          "used_as": "교점, 구간, 그래프의 위아래 관계를 판단한다.",
+          "student_action_later": [
+            "교점을 좌표로 구한다.",
+            "교점을 기준으로 구간을 나눈다.",
+            "각 구간에서 위쪽 그래프와 아래쪽 그래프를 판단한다.",
+            "정적분식을 세운다."
+          ],
+          "example_bridge": "중1에서 점을 좌표로 읽지 못하면, 고등에서 교점과 구간을 나누는 적분 문제를 세울 수 없다.",
+          "teacher_explanation": "좌표평면은 고등 그래프 해석의 출발점입니다.",
+          "parent_explanation": "이 단원은 단순히 그래프를 그리는 단원이 아니라 고등 미적분의 교점·접선·넓이 문제로 이어집니다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M1_EXPRESSION",
+      "source_unit_id": "M1_EXPRESSION",
+      "source_unit_hint": "중1 문자와 식",
+      "current_learning_action": "문자를 사용해 수량 관계를 식으로 나타낸다.",
+      "current_must_do": [
+        "무엇을 문자로 둘지 정한다.",
+        "문장 조건을 식으로 바꾼다.",
+        "동류항을 정리한다.",
+        "식에 값을 대입해 검산한다."
+      ],
+      "why_it_matters_now": "문자와 식은 계산 단원이 아니라, 말로 된 조건을 수학식으로 번역하는 출발점이다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M2_LINEAR_EQUATION",
+          "target_unit_hint": "중2 일차방정식·연립일차방정식",
+          "future_scene": "문장 조건을 방정식으로 세운다.",
+          "used_as": "조건을 x, y에 대한 식으로 나누어 해를 구한다.",
+          "student_action_later": [
+            "미지수를 정한다.",
+            "조건마다 식을 세운다.",
+            "해를 구한 뒤 원문에 대입한다."
+          ],
+          "example_bridge": "중1에서 “x가 무엇인지”를 쓰지 못하면 중2 방정식 문장제에서 식이 흔들린다.",
+          "teacher_explanation": "조건을 x, y에 대한 식으로 나누어 해를 구한다.",
+          "parent_explanation": "중1에서 “x가 무엇인지”를 쓰지 못하면 중2 방정식 문장제에서 식이 흔들린다."
+        },
+        {
+          "target_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+          "target_unit_hint": "공통수학1 방정식과 부등식",
+          "future_scene": "매개변수 조건을 식으로 바꿔 해의 범위를 구한다.",
+          "used_as": "문장 조건을 방정식·부등식·함수 조건으로 번역한다.",
+          "student_action_later": [
+            "조건을 번호로 나눈다.",
+            "각 조건을 식으로 쓴다.",
+            "해의 범위를 확인한다."
+          ],
+          "example_bridge": "고등 조건 문제의 첫 줄은 대부분 “미지수 설정”에서 시작된다.",
+          "teacher_explanation": "문장 조건을 방정식·부등식·함수 조건으로 번역한다.",
+          "parent_explanation": "고등 조건 문제의 첫 줄은 대부분 “미지수 설정”에서 시작된다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M2_LINEAR_FUNCTION",
+      "source_unit_id": "M2_LINEAR_FUNCTION",
+      "source_unit_hint": "중2 일차함수",
+      "current_learning_action": "두 양의 관계를 y=ax+b 꼴로 나타내고 기울기와 절편을 읽는다.",
+      "current_must_do": [
+        "기울기의 의미를 설명한다.",
+        "y절편을 그래프에서 읽는다.",
+        "두 점으로 직선의 방정식을 세운다.",
+        "그래프에서 x값 변화에 따른 y값 변화를 읽는다."
+      ],
+      "why_it_matters_now": "일차함수는 직선 그래프를 그리는 단원이 아니라, 나중에 접선의 방정식을 세우는 기본 언어다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+          "target_unit_hint": "미적분1 미분",
+          "future_scene": "접선의 방정식을 구한다.",
+          "used_as": "도함수값을 기울기로 보고 직선의 방정식을 세운다.",
+          "student_action_later": [
+            "접점을 (a, f(a))로 둔다.",
+            "f'(a)를 접선의 기울기로 쓴다.",
+            "y - f(a) = f'(a)(x-a)를 쓴다.",
+            "문제의 추가 조건을 대입한다."
+          ],
+          "example_bridge": "중2의 y-y1=m(x-x1)이 미분에서 y-f(a)=f'(a)(x-a)로 그대로 쓰인다.",
+          "teacher_explanation": "접선은 결국 특정 점에서의 직선입니다. 일차함수의 직선 방정식이 미분의 언어가 됩니다.",
+          "parent_explanation": "일차함수를 제대로 못하면 고등 미분의 접선 문제에서 식을 세우기 어렵습니다."
+        },
+        {
+          "target_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+          "target_unit_hint": "공통수학2 도형의 방정식",
+          "future_scene": "직선과 원, 직선과 직선의 위치 관계를 판단한다.",
+          "used_as": "기울기와 절편으로 평행·수직·교점을 해석한다.",
+          "student_action_later": [
+            "직선의 기울기를 구한다.",
+            "평행·수직 조건을 적용한다.",
+            "연립해서 교점을 구한다."
+          ],
+          "example_bridge": "중2 일차함수의 직선식이 고1 도형의 방정식에서 위치 관계 판단 도구가 된다.",
+          "teacher_explanation": "기울기와 절편으로 평행·수직·교점을 해석한다.",
+          "parent_explanation": "중2 일차함수의 직선식이 고1 도형의 방정식에서 위치 관계 판단 도구가 된다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M3_POLYNOMIAL_FACTORING",
+      "source_unit_id": "M3_POLYNOMIAL_FACTORING",
+      "source_unit_hint": "중3 다항식의 곱셈과 인수분해",
+      "current_learning_action": "다항식을 전개하고 인수분해해 식의 구조를 바꾼다.",
+      "current_must_do": [
+        "공통인수를 먼저 찾는다.",
+        "곱셈공식 형태를 확인한다.",
+        "인수분해 후 전개 검산한다.",
+        "방정식이나 약분에 연결한다."
+      ],
+      "why_it_matters_now": "인수분해는 중3 단원에서 끝나는 기술이 아니라, 고등 극한·방정식·함수 해석의 식 정리 도구다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+          "target_unit_hint": "공통수학1 다항식",
+          "future_scene": "나머지정리와 인수정리에서 식을 나눈다.",
+          "used_as": "인수 구조를 이용해 나머지, 근, 계수 조건을 찾는다.",
+          "student_action_later": [
+            "인수인지 확인한다.",
+            "다항식을 나눈다.",
+            "계수 조건을 비교한다."
+          ],
+          "example_bridge": "중3 인수분해가 고1에서 인수정리와 조립제법으로 확장된다.",
+          "teacher_explanation": "인수 구조를 이용해 나머지, 근, 계수 조건을 찾는다.",
+          "parent_explanation": "중3 인수분해가 고1에서 인수정리와 조립제법으로 확장된다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+          "target_unit_hint": "미적분1 함수의 극한과 연속",
+          "future_scene": "0/0꼴 극한에서 약분 가능한 인수를 찾는다.",
+          "used_as": "극한 계산 전에 식을 인수분해해 구조를 단순화한다.",
+          "student_action_later": [
+            "분자·분모를 인수분해한다.",
+            "공통인수를 약분한다.",
+            "남은 식에 값을 대입한다."
+          ],
+          "example_bridge": "인수분해를 못하면 0/0꼴 극한에서 계산이 멈춘다.",
+          "teacher_explanation": "극한 계산 전에 식을 인수분해해 구조를 단순화한다.",
+          "parent_explanation": "인수분해를 못하면 0/0꼴 극한에서 계산이 멈춘다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M3_QUADRATIC_EQUATION",
+      "source_unit_id": "M3_QUADRATIC_EQUATION",
+      "source_unit_hint": "중3 이차방정식",
+      "current_learning_action": "이차방정식의 해를 인수분해, 완전제곱식, 근의 공식으로 구한다.",
+      "current_must_do": [
+        "이차방정식의 꼴을 확인한다.",
+        "인수분해 가능성을 먼저 본다.",
+        "판별식으로 근의 개수를 판단한다.",
+        "구한 근을 원식에 검산한다."
+      ],
+      "why_it_matters_now": "이차방정식은 단순한 해 구하기가 아니라, 그래프의 교점과 조건의 개수를 판단하는 도구다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+          "target_unit_hint": "공통수학1 방정식과 부등식",
+          "future_scene": "고차방정식, 복소수, 판별식 조건을 다룬다.",
+          "used_as": "근의 개수와 실근 조건을 판별한다.",
+          "student_action_later": [
+            "판별식을 쓴다.",
+            "근의 조건을 부등식으로 바꾼다.",
+            "원조건을 검산한다."
+          ],
+          "example_bridge": "중3 판별식이 고1에서는 매개변수 조건 판단으로 확장된다.",
+          "teacher_explanation": "근의 개수와 실근 조건을 판별한다.",
+          "parent_explanation": "중3 판별식이 고1에서는 매개변수 조건 판단으로 확장된다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+          "target_unit_hint": "미적분1 미분",
+          "future_scene": "도함수가 0이 되는 점을 찾아 극값 후보를 구한다.",
+          "used_as": "이차방정식의 근을 함수의 변화가 바뀌는 지점으로 사용한다.",
+          "student_action_later": [
+            "f'(x)=0을 푼다.",
+            "근을 기준으로 부호표를 만든다.",
+            "극대·극소를 판단한다."
+          ],
+          "example_bridge": "방정식의 근은 미분에서 그래프의 변화가 바뀌는 후보점이 된다.",
+          "teacher_explanation": "이차방정식의 근을 함수의 변화가 바뀌는 지점으로 사용한다.",
+          "parent_explanation": "방정식의 근은 미분에서 그래프의 변화가 바뀌는 후보점이 된다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M3_QUADRATIC_FUNCTION",
+      "source_unit_id": "M3_QUADRATIC_FUNCTION",
+      "source_unit_hint": "중3 이차함수",
+      "current_learning_action": "이차함수의 그래프, 꼭짓점, 축, 최댓값·최솟값을 해석한다.",
+      "current_must_do": [
+        "a의 부호를 확인한다.",
+        "표준형으로 바꾼다.",
+        "꼭짓점과 축을 쓴다.",
+        "정의역 제한이 있으면 끝점값을 비교한다."
+      ],
+      "why_it_matters_now": "이차함수는 고등 함수 그래프와 최적화 문제를 이해하는 첫 번째 그래프 언어다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+          "target_unit_hint": "공통수학2 함수와 그래프",
+          "future_scene": "여러 함수의 그래프와 정의역·치역을 해석한다.",
+          "used_as": "기준점, 대칭, 범위를 좌표로 판단한다.",
+          "student_action_later": [
+            "기준 그래프를 잡는다.",
+            "변환 순서를 쓴다.",
+            "범위를 확인한다."
+          ],
+          "example_bridge": "이차함수에서 꼭짓점·축을 읽는 훈련이 고1 함수 그래프 해석으로 확장된다.",
+          "teacher_explanation": "기준점, 대칭, 범위를 좌표로 판단한다.",
+          "parent_explanation": "이차함수에서 꼭짓점·축을 읽는 훈련이 고1 함수 그래프 해석으로 확장된다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+          "target_unit_hint": "미적분1 미분",
+          "future_scene": "도함수 부호로 증가·감소와 극값을 판단한다.",
+          "used_as": "그래프의 최고·최저를 부호표로 일반화한다.",
+          "student_action_later": [
+            "도함수를 구한다.",
+            "f'(x)=0을 푼다.",
+            "부호표로 증가·감소를 판단한다."
+          ],
+          "example_bridge": "이차함수의 꼭짓점 판단이 미분에서는 도함수 부호 변화 판단으로 바뀐다.",
+          "teacher_explanation": "그래프의 최고·최저를 부호표로 일반화한다.",
+          "parent_explanation": "이차함수의 꼭짓점 판단이 미분에서는 도함수 부호 변화 판단으로 바뀐다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "source_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "source_unit_hint": "공통수학2 함수와 그래프",
+      "current_learning_action": "함수의 정의역, 치역, 그래프 변환, 역함수·합성함수를 해석한다.",
+      "current_must_do": [
+        "정의역을 먼저 확인한다.",
+        "기준 그래프를 잡는다.",
+        "변환 순서를 기록한다.",
+        "교점과 구간을 좌표로 확인한다."
+      ],
+      "why_it_matters_now": "함수와 그래프는 고등 미적분에서 극한, 미분, 적분을 그래프로 해석하는 핵심 기반이다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+          "target_unit_hint": "미적분1 함수의 극한과 연속",
+          "future_scene": "그래프에서 극한값과 함수값의 일치 여부를 판단한다.",
+          "used_as": "좌우 극한, 함수값, 연속 조건을 구분한다.",
+          "student_action_later": [
+            "좌극한과 우극한을 본다.",
+            "함수값을 따로 확인한다.",
+            "연속 조건을 쓴다."
+          ],
+          "example_bridge": "함수 그래프를 읽지 못하면 연속 조건을 식으로만 외우게 된다.",
+          "teacher_explanation": "좌우 극한, 함수값, 연속 조건을 구분한다.",
+          "parent_explanation": "함수 그래프를 읽지 못하면 연속 조건을 식으로만 외우게 된다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS2_INTEGRATION",
+          "target_unit_hint": "미적분2 적분법",
+          "future_scene": "그래프의 위아래 관계로 넓이식을 세운다.",
+          "used_as": "교점과 구간 분할을 이용한다.",
+          "student_action_later": [
+            "교점을 구한다.",
+            "구간을 나눈다.",
+            "위쪽-아래쪽 함수를 적분한다."
+          ],
+          "example_bridge": "고1 함수 그래프 해석이 고2 적분 넓이식 세팅으로 직접 연결된다.",
+          "teacher_explanation": "교점과 구간 분할을 이용한다.",
+          "parent_explanation": "고1 함수 그래프 해석이 고2 적분 넓이식 세팅으로 직접 연결된다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "source_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "source_unit_hint": "공통수학2 도형의 방정식",
+      "current_learning_action": "점, 직선, 원의 조건을 좌표와 방정식으로 나타낸다.",
+      "current_must_do": [
+        "점과 직선을 좌표로 정리한다.",
+        "거리·중점·내분점 공식을 선택한다.",
+        "직선과 원의 위치 관계를 판정한다.",
+        "교점 조건을 연립으로 확인한다."
+      ],
+      "why_it_matters_now": "도형의 방정식은 그림을 식으로 바꾸는 단원이며, 미적분의 접선·넓이 문제에 그대로 쓰인다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+          "target_unit_hint": "미적분1 미분",
+          "future_scene": "접선의 방정식을 구하고 접점 조건을 해석한다.",
+          "used_as": "직선과 곡선의 접함을 좌표와 기울기로 판정한다.",
+          "student_action_later": [
+            "접점을 둔다.",
+            "기울기를 쓴다.",
+            "직선식을 만든다."
+          ],
+          "example_bridge": "도형의 방정식에서 배운 직선식이 접선 방정식의 틀이 된다.",
+          "teacher_explanation": "직선과 곡선의 접함을 좌표와 기울기로 판정한다.",
+          "parent_explanation": "도형의 방정식에서 배운 직선식이 접선 방정식의 틀이 된다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS2_INTEGRATION",
+          "target_unit_hint": "미적분2 적분법",
+          "future_scene": "곡선과 직선, 두 곡선 사이의 넓이를 구한다.",
+          "used_as": "교점을 연립으로 구하고 구간을 나눈다.",
+          "student_action_later": [
+            "두 식을 연립한다.",
+            "교점을 기준으로 구간을 나눈다.",
+            "위쪽-아래쪽으로 적분한다."
+          ],
+          "example_bridge": "교점을 구하지 못하면 적분 넓이 문제는 식 자체를 세울 수 없다.",
+          "teacher_explanation": "교점을 연립으로 구하고 구간을 나눈다.",
+          "parent_explanation": "교점을 구하지 못하면 적분 넓이 문제는 식 자체를 세울 수 없다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_H2_ALGEBRA_SEQUENCE",
+      "source_unit_id": "H2_ALGEBRA_SEQUENCE",
+      "source_unit_hint": "대수 수열",
+      "current_learning_action": "수열의 일반항, 점화식, 합을 구조화한다.",
+      "current_must_do": [
+        "일반항과 점화식을 구분한다.",
+        "등차·등비 여부를 판단한다.",
+        "부분합과 일반항 관계를 확인한다.",
+        "시그마 기호를 식으로 풀어 쓴다."
+      ],
+      "why_it_matters_now": "수열은 미적분2에서 극한과 급수를 다루기 위한 언어다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+          "target_unit_hint": "미적분2 수열의 극한",
+          "future_scene": "수열의 수렴·발산과 급수의 합을 판단한다.",
+          "used_as": "일반항의 극한, 부분합의 극한, 공비 조건을 사용한다.",
+          "student_action_later": [
+            "일반항을 확인한다.",
+            "극한 형태를 분류한다.",
+            "수렴·발산을 판단한다."
+          ],
+          "example_bridge": "대수에서 일반항을 세우지 못하면 미적분2에서 수열의 극한을 판단할 수 없다.",
+          "teacher_explanation": "일반항의 극한, 부분합의 극한, 공비 조건을 사용한다.",
+          "parent_explanation": "대수에서 일반항을 세우지 못하면 미적분2에서 수열의 극한을 판단할 수 없다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS2_INTEGRATION",
+          "target_unit_hint": "미적분2 적분법",
+          "future_scene": "정적분과 급수의 합, 구분구적법을 연결한다.",
+          "used_as": "합을 극한으로 보고 넓이를 정적분으로 바꾼다.",
+          "student_action_later": [
+            "구간을 n등분한다.",
+            "합을 시그마로 쓴다.",
+            "극한을 정적분으로 바꾼다."
+          ],
+          "example_bridge": "수열의 합과 극한이 정적분의 정의로 확장된다.",
+          "teacher_explanation": "합을 극한으로 보고 넓이를 정적분으로 바꾼다.",
+          "parent_explanation": "수열의 합과 극한이 정적분의 정의로 확장된다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_H2_CALCULUS1_DIFFERENTIATION",
+      "source_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "source_unit_hint": "미적분1 미분",
+      "current_learning_action": "도함수로 접선, 증가·감소, 극값을 판단한다.",
+      "current_must_do": [
+        "도함수를 구한다.",
+        "f'(x)=0 또는 미분불가능점을 찾는다.",
+        "부호표를 만든다.",
+        "그래프의 변화와 극값을 해석한다."
+      ],
+      "why_it_matters_now": "미분은 그래프의 순간 변화율을 보는 도구이며, 미적분2의 초월함수·적분 활용으로 확장된다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+          "target_unit_hint": "미적분2 미분법",
+          "future_scene": "지수·로그·삼각함수의 접선과 극값을 판단한다.",
+          "used_as": "다양한 함수의 도함수를 같은 그래프 해석 방식으로 사용한다.",
+          "student_action_later": [
+            "도함수 공식을 선택한다.",
+            "접점과 기울기를 연결한다.",
+            "부호표를 만든다."
+          ],
+          "example_bridge": "미적분1의 접선·극값 구조가 미적분2에서는 초월함수로 확장된다.",
+          "teacher_explanation": "다양한 함수의 도함수를 같은 그래프 해석 방식으로 사용한다.",
+          "parent_explanation": "미적분1의 접선·극값 구조가 미적분2에서는 초월함수로 확장된다."
+        },
+        {
+          "target_unit_id": "H2_CALCULUS2_INTEGRATION",
+          "target_unit_hint": "미적분2 적분법",
+          "future_scene": "정적분으로 넓이·부피·거리 문제를 푼다.",
+          "used_as": "미분으로 만든 속도·변화율을 적분해 누적량으로 해석한다.",
+          "student_action_later": [
+            "함수의 부호를 본다.",
+            "구간을 나눈다.",
+            "정적분으로 누적량을 구한다."
+          ],
+          "example_bridge": "미분의 변화율 해석이 적분의 누적량 해석과 연결된다.",
+          "teacher_explanation": "미분으로 만든 속도·변화율을 적분해 누적량으로 해석한다.",
+          "parent_explanation": "미분의 변화율 해석이 적분의 누적량 해석과 연결된다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_H2_CALCULUS2_SEQUENCE_LIMIT",
+      "source_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+      "source_unit_hint": "미적분2 수열의 극한",
+      "current_learning_action": "수열과 급수의 수렴·발산을 판단한다.",
+      "current_must_do": [
+        "부정형을 분류한다.",
+        "최고차항, 인수분해, 유리화를 선택한다.",
+        "등비수열·등비급수의 공비 조건을 확인한다.",
+        "급수의 부분합과 수렴값을 구분한다."
+      ],
+      "why_it_matters_now": "수열의 극한은 무한히 반복되는 구조를 다루는 단원이며, 정적분의 정의와 구분구적법으로 이어진다.",
+      "future_routes": [
+        {
+          "target_unit_id": "H2_CALCULUS2_INTEGRATION",
+          "target_unit_hint": "미적분2 적분법",
+          "future_scene": "정적분을 구분구적법과 급수의 극한으로 정의한다.",
+          "used_as": "합의 극한을 넓이로 해석한다.",
+          "student_action_later": [
+            "구간을 나눈다.",
+            "직사각형 넓이의 합을 쓴다.",
+            "n→∞ 극한을 정적분으로 바꾼다."
+          ],
+          "example_bridge": "급수의 극한을 이해해야 정적분이 왜 넓이가 되는지 설명할 수 있다.",
+          "teacher_explanation": "합의 극한을 넓이로 해석한다.",
+          "parent_explanation": "급수의 극한을 이해해야 정적분이 왜 넓이가 되는지 설명할 수 있다."
+        },
+        {
+          "target_unit_id": "H2_ALGEBRA_SEQUENCE",
+          "target_unit_hint": "대수 수열 복습",
+          "future_scene": "점화식과 일반항을 역으로 확인한다.",
+          "used_as": "극한 계산이 흔들리면 일반항·부분합 단계로 내려간다.",
+          "student_action_later": [
+            "일반항을 다시 세운다.",
+            "공비와 첫 항을 확인한다.",
+            "부분합 공식을 검산한다."
+          ],
+          "example_bridge": "수열의 극한 오답은 대수 수열의 일반항에서 다시 올라와야 해결되는 경우가 많다.",
+          "teacher_explanation": "극한 계산이 흔들리면 일반항·부분합 단계로 내려간다.",
+          "parent_explanation": "수열의 극한 오답은 대수 수열의 일반항에서 다시 올라와야 해결되는 경우가 많다."
+        }
+      ]
+    }
+  ]
+}

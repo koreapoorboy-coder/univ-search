@@ -1,0 +1,569 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "단원별 학습 연결 모드 표시용 맵. 상세 route가 있는 단원은 future_extension_routes와 연결된다.",
+  "unit_count": 35,
+  "detailed_route_count": 12,
+  "units": [
+    {
+      "unit_id": "M1_PRIME_FACTORIZATION",
+      "grade": "중1",
+      "course": "중학수학 1-1",
+      "unit_name": "소인수분해",
+      "route_id": "FUTURE_M1_PRIME_FACTORIZATION",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "숫자를 소수들의 곱으로 쪼갠다.",
+      "current_must_do": [
+        "나누어지는 소수를 찾는다.",
+        "더 이상 나누어지지 않을 때까지 쪼갠다.",
+        "같은 소수는 거듭제곱으로 묶는다.",
+        "약수, 최대공약수, 최소공배수에 활용한다."
+      ],
+      "why_it_matters_now": "소인수분해는 숫자를 쪼개는 단원이 아니라, 복잡한 수와 식을 작은 재료로 나누어 보는 훈련이다."
+    },
+    {
+      "unit_id": "M1_INT_RATIONAL",
+      "grade": "중1",
+      "course": null,
+      "unit_name": "정수와 유리수",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "정수와 유리수의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "정수와 유리수은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M1_EXPRESSION",
+      "grade": "중1",
+      "course": null,
+      "unit_name": "문자와 식",
+      "route_id": "FUTURE_M1_EXPRESSION",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "문자를 사용해 수량 관계를 식으로 나타낸다.",
+      "current_must_do": [
+        "무엇을 문자로 둘지 정한다.",
+        "문장 조건을 식으로 바꾼다.",
+        "동류항을 정리한다.",
+        "식에 값을 대입해 검산한다."
+      ],
+      "why_it_matters_now": "문자와 식은 계산 단원이 아니라, 말로 된 조건을 수학식으로 번역하는 출발점이다."
+    },
+    {
+      "unit_id": "M1_COORD_GRAPH",
+      "grade": "중1",
+      "course": null,
+      "unit_name": "좌표평면과 그래프",
+      "route_id": "FUTURE_M1_COORD_GRAPH",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "점을 좌표로 읽고 두 양의 관계를 그래프로 나타낸다.",
+      "current_must_do": [
+        "x좌표와 y좌표를 구분한다.",
+        "점의 위치를 좌표로 읽는다.",
+        "두 양의 관계를 표와 그래프로 나타낸다.",
+        "그래프에서 증가, 감소, 만나는 점을 읽는다."
+      ],
+      "why_it_matters_now": "좌표평면은 점 찍는 단원이 아니라, 문제를 그래프로 바꾸어 해석하는 첫 단계다."
+    },
+    {
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "grade": "중1",
+      "course": null,
+      "unit_name": "기본 도형과 작도",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "기본 도형과 작도의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "기본 도형과 작도은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "grade": "중1",
+      "course": null,
+      "unit_name": "평면도형의 성질",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "평면도형의 성질의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "평면도형의 성질은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "grade": "중1",
+      "course": null,
+      "unit_name": "입체도형의 성질",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "입체도형의 성질의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "입체도형의 성질은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M1_DATA_ANALYSIS",
+      "grade": "중1",
+      "course": null,
+      "unit_name": "자료 정리와 해석",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "자료 정리와 해석의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "자료 정리와 해석은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "grade": "중2",
+      "course": null,
+      "unit_name": "수와 식",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "수와 식의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "수와 식은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_name": "일차부등식",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "일차부등식의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "일차부등식은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H2_EXP_LOG",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_name": "지수와 로그",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "지수와 로그의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "지수와 로그은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M2_LINEAR_EQUATION",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_name": "일차방정식·연립일차방정식",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "일차방정식·연립일차방정식의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "일차방정식·연립일차방정식은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "grade": "중2",
+      "course": null,
+      "unit_name": "일차함수",
+      "route_id": "FUTURE_M2_LINEAR_FUNCTION",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "두 양의 관계를 y=ax+b 꼴로 나타내고 기울기와 절편을 읽는다.",
+      "current_must_do": [
+        "기울기의 의미를 설명한다.",
+        "y절편을 그래프에서 읽는다.",
+        "두 점으로 직선의 방정식을 세운다.",
+        "그래프에서 x값 변화에 따른 y값 변화를 읽는다."
+      ],
+      "why_it_matters_now": "일차함수는 직선 그래프를 그리는 단원이 아니라, 나중에 접선의 방정식을 세우는 기본 언어다."
+    },
+    {
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_name": "도형의 성질",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "도형의 성질의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "도형의 성질은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M2_PROBABILITY",
+      "grade": "중2",
+      "course": null,
+      "unit_name": "확률",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "확률의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "확률은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M3_POLYNOMIAL_FACTORING",
+      "grade": "중3",
+      "course": null,
+      "unit_name": "다항식의 곱셈과 인수분해",
+      "route_id": "FUTURE_M3_POLYNOMIAL_FACTORING",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "다항식을 전개하고 인수분해해 식의 구조를 바꾼다.",
+      "current_must_do": [
+        "공통인수를 먼저 찾는다.",
+        "곱셈공식 형태를 확인한다.",
+        "인수분해 후 전개 검산한다.",
+        "방정식이나 약분에 연결한다."
+      ],
+      "why_it_matters_now": "인수분해는 중3 단원에서 끝나는 기술이 아니라, 고등 극한·방정식·함수 해석의 식 정리 도구다."
+    },
+    {
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "grade": "중3",
+      "course": null,
+      "unit_name": "실수와 그 계산",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "실수와 그 계산의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "실수와 그 계산은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "M3_QUADRATIC_EQUATION",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_name": "이차방정식",
+      "route_id": "FUTURE_M3_QUADRATIC_EQUATION",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "이차방정식의 해를 인수분해, 완전제곱식, 근의 공식으로 구한다.",
+      "current_must_do": [
+        "이차방정식의 꼴을 확인한다.",
+        "인수분해 가능성을 먼저 본다.",
+        "판별식으로 근의 개수를 판단한다.",
+        "구한 근을 원식에 검산한다."
+      ],
+      "why_it_matters_now": "이차방정식은 단순한 해 구하기가 아니라, 그래프의 교점과 조건의 개수를 판단하는 도구다."
+    },
+    {
+      "unit_id": "M3_QUADRATIC_FUNCTION",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_name": "이차함수",
+      "route_id": "FUTURE_M3_QUADRATIC_FUNCTION",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "이차함수의 그래프, 꼭짓점, 축, 최댓값·최솟값을 해석한다.",
+      "current_must_do": [
+        "a의 부호를 확인한다.",
+        "표준형으로 바꾼다.",
+        "꼭짓점과 축을 쓴다.",
+        "정의역 제한이 있으면 끝점값을 비교한다."
+      ],
+      "why_it_matters_now": "이차함수는 고등 함수 그래프와 최적화 문제를 이해하는 첫 번째 그래프 언어다."
+    },
+    {
+      "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_name": "다항식",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "다항식의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "다항식은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_name": "방정식과 부등식",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "방정식과 부등식의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "방정식과 부등식은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H1_COMMON_MATH1_COUNTING",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_name": "경우의 수",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "경우의 수의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "경우의 수은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H1_COMMON_MATH1_MATRIX",
+      "grade": "고1",
+      "course": "공통수학1",
+      "unit_name": "행렬",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "행렬의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "행렬은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "grade": "고1",
+      "course": "공통수학2",
+      "unit_name": "도형의 방정식",
+      "route_id": "FUTURE_H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "점, 직선, 원의 조건을 좌표와 방정식으로 나타낸다.",
+      "current_must_do": [
+        "점과 직선을 좌표로 정리한다.",
+        "거리·중점·내분점 공식을 선택한다.",
+        "직선과 원의 위치 관계를 판정한다.",
+        "교점 조건을 연립으로 확인한다."
+      ],
+      "why_it_matters_now": "도형의 방정식은 그림을 식으로 바꾸는 단원이며, 미적분의 접선·넓이 문제에 그대로 쓰인다."
+    },
+    {
+      "unit_id": "H1_COMMON_MATH2_SET_PROPOSITION",
+      "grade": "고1",
+      "course": "공통수학2",
+      "unit_name": "집합과 명제",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "집합과 명제의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "집합과 명제은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "grade": "고1",
+      "course": "공통수학2",
+      "unit_name": "함수와 그래프",
+      "route_id": "FUTURE_H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "함수의 정의역, 치역, 그래프 변환, 역함수·합성함수를 해석한다.",
+      "current_must_do": [
+        "정의역을 먼저 확인한다.",
+        "기준 그래프를 잡는다.",
+        "변환 순서를 기록한다.",
+        "교점과 구간을 좌표로 확인한다."
+      ],
+      "why_it_matters_now": "함수와 그래프는 고등 미적분에서 극한, 미분, 적분을 그래프로 해석하는 핵심 기반이다."
+    },
+    {
+      "unit_id": "H2_ALGEBRA_EXP_LOG_FUNCTION",
+      "grade": "고2",
+      "course": "대수",
+      "unit_name": "지수함수와 로그함수",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "지수함수와 로그함수의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "지수함수와 로그함수은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H2_ALGEBRA_TRIGONOMETRIC_FUNCTION",
+      "grade": "고2",
+      "course": "대수",
+      "unit_name": "삼각함수",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "삼각함수의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "삼각함수은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H2_ALGEBRA_SEQUENCE",
+      "grade": "고2",
+      "course": "대수",
+      "unit_name": "수열",
+      "route_id": "FUTURE_H2_ALGEBRA_SEQUENCE",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "수열의 일반항, 점화식, 합을 구조화한다.",
+      "current_must_do": [
+        "일반항과 점화식을 구분한다.",
+        "등차·등비 여부를 판단한다.",
+        "부분합과 일반항 관계를 확인한다.",
+        "시그마 기호를 식으로 풀어 쓴다."
+      ],
+      "why_it_matters_now": "수열은 미적분2에서 극한과 급수를 다루기 위한 언어다."
+    },
+    {
+      "unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+      "grade": "고2",
+      "course": "미적분1",
+      "unit_name": "함수의 극한과 연속",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "함수의 극한과 연속의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "함수의 극한과 연속은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "grade": "고2",
+      "course": "미적분1",
+      "unit_name": "미분",
+      "route_id": "FUTURE_H2_CALCULUS1_DIFFERENTIATION",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "도함수로 접선, 증가·감소, 극값을 판단한다.",
+      "current_must_do": [
+        "도함수를 구한다.",
+        "f'(x)=0 또는 미분불가능점을 찾는다.",
+        "부호표를 만든다.",
+        "그래프의 변화와 극값을 해석한다."
+      ],
+      "why_it_matters_now": "미분은 그래프의 순간 변화율을 보는 도구이며, 미적분2의 초월함수·적분 활용으로 확장된다."
+    },
+    {
+      "unit_id": "H2_CALCULUS1_INTEGRATION",
+      "grade": "고2",
+      "course": "미적분1",
+      "unit_name": "적분",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "적분의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "적분은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+      "grade": "고2",
+      "course": "미적분2",
+      "unit_name": "미분법",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "미분법의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "미분법은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    },
+    {
+      "unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+      "grade": "고2",
+      "course": "미적분2",
+      "unit_name": "수열의 극한",
+      "route_id": "FUTURE_H2_CALCULUS2_SEQUENCE_LIMIT",
+      "coverage_status": "detailed_first_patch",
+      "current_learning_action": "수열과 급수의 수렴·발산을 판단한다.",
+      "current_must_do": [
+        "부정형을 분류한다.",
+        "최고차항, 인수분해, 유리화를 선택한다.",
+        "등비수열·등비급수의 공비 조건을 확인한다.",
+        "급수의 부분합과 수렴값을 구분한다."
+      ],
+      "why_it_matters_now": "수열의 극한은 무한히 반복되는 구조를 다루는 단원이며, 정적분의 정의와 구분구적법으로 이어진다."
+    },
+    {
+      "unit_id": "H2_CALCULUS2_INTEGRATION",
+      "grade": "고2",
+      "course": "미적분2",
+      "unit_name": "적분법",
+      "route_id": null,
+      "coverage_status": "generic_first_patch_pending_detail",
+      "current_learning_action": "적분법의 조건과 풀이 구조를 문항유형별로 정리한다.",
+      "current_must_do": [
+        "문항분류를 먼저 확인한다.",
+        "주어진 조건을 식·그래프·도형 정보로 나누어 쓴다.",
+        "필요한 공식이나 성질을 선택한다.",
+        "풀이 마지막에 원조건을 검산한다."
+      ],
+      "why_it_matters_now": "적분법은 이후 단원의 계산·그래프·조건 해석에서 선행 구조로 사용된다. 1차 패치에서는 전역 문항유형 템플릿과 backtrack route를 우선 적용한다."
+    }
+  ]
+}

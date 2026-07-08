@@ -1,0 +1,92 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "전역 진단 결과를 화면에 표시하기 위한 출력 스키마.",
+  "schemas": {
+    "wrong_answer_diagnosis": {
+      "required_fields": [
+        "problem_type_id",
+        "visible_path",
+        "problem_nature",
+        "must_write_steps",
+        "common_wrong_actions",
+        "student_command",
+        "backtrack_route",
+        "severity"
+      ],
+      "display_blocks": [
+        {
+          "block_id": "classification",
+          "title": "문항분류",
+          "source": "problem_type_instruction_map.visible_path"
+        },
+        {
+          "block_id": "nature",
+          "title": "이 유형의 정체",
+          "source": "problem_type_instruction_map.problem_nature"
+        },
+        {
+          "block_id": "steps",
+          "title": "반드시 써야 하는 풀이 순서",
+          "source": "problem_type_instruction_map.must_write_steps"
+        },
+        {
+          "block_id": "wrong_actions",
+          "title": "자주 틀리는 행동",
+          "source": "problem_type_instruction_map.common_wrong_actions"
+        },
+        {
+          "block_id": "command",
+          "title": "학생 행동 지시",
+          "source": "problem_type_instruction_map.student_command"
+        },
+        {
+          "block_id": "backtrack",
+          "title": "선행 원인과 보강 순서",
+          "source": "backtrack_routes.backtrack_steps"
+        }
+      ]
+    },
+    "learning_connection": {
+      "required_fields": [
+        "unit_id",
+        "current_learning_action",
+        "current_must_do",
+        "why_it_matters_now",
+        "future_routes"
+      ],
+      "display_blocks": [
+        {
+          "block_id": "current_unit",
+          "title": "현재 단원",
+          "source": "future_learning_map.unit_name"
+        },
+        {
+          "block_id": "current_action",
+          "title": "지금 하는 것",
+          "source": "future_learning_map.current_learning_action"
+        },
+        {
+          "block_id": "must_do",
+          "title": "지금 반드시 해야 하는 행동",
+          "source": "future_learning_map.current_must_do"
+        },
+        {
+          "block_id": "future_scene",
+          "title": "나중에 쓰이는 실제 문제 장면",
+          "source": "future_extension_routes.future_routes.future_scene"
+        },
+        {
+          "block_id": "later_action",
+          "title": "그때 하게 되는 풀이 행동",
+          "source": "future_extension_routes.future_routes.student_action_later"
+        },
+        {
+          "block_id": "why_now",
+          "title": "왜 지금 제대로 해야 하는지",
+          "source": "future_learning_map.why_it_matters_now"
+        }
+      ]
+    }
+  }
+}

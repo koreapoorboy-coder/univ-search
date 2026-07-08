@@ -1,0 +1,184 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "문항유형별 학부모 상담 문장을 템플릿화한 파일.",
+  "template_count": 22,
+  "templates": [
+    {
+      "feedback_id": "PARENT_AREA_BETWEEN_CURVES",
+      "source_template_id": "ACTION_AREA_BETWEEN_CURVES",
+      "student_visible_focus": "그래프의 위치 관계를 판단한 뒤 정적분식으로 넓이를 세우는 유형",
+      "parent_message": "계산력보다 그래프 해석과 조건 정리에서 약점이 보이는 문항입니다.",
+      "home_check_question": "풀이에서 '교점 또는 축과 만나는 점을 먼저 구한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "계산보다 그래프 위치 관계·구간 분할 누락에서 오답이 발생하는지 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_TANGENT_LINE",
+      "source_template_id": "ACTION_TANGENT_LINE",
+      "student_visible_focus": "접점, 기울기, 통과점 조건을 분리해 직선 방정식을 세우는 유형",
+      "parent_message": "접선 문제는 계산보다 접점을 잡고 직선 방정식을 세우는 순서가 중요합니다.",
+      "home_check_question": "풀이에서 '접점 좌표를 (a, f(a)) 또는 문제 조건에 맞는 문자로 둔다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "접점·기울기·통과점을 한 줄에 섞는 학생은 접선 기본 양식을 강제한다."
+    },
+    {
+      "feedback_id": "PARENT_FUNCTION_GRAPH",
+      "source_template_id": "ACTION_FUNCTION_GRAPH",
+      "student_visible_focus": "식의 조건을 좌표·구간·그래프 변화로 바꾸어 해석하는 유형",
+      "parent_message": "그래프 문제는 암기보다 조건을 그림과 좌표로 바꾸는 힘을 확인하는 문항입니다.",
+      "home_check_question": "풀이에서 '정의역과 조건을 먼저 표시한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "그래프 유형은 그림을 그렸는지보다 조건을 좌표와 구간으로 바꾸었는지를 본다."
+    },
+    {
+      "feedback_id": "PARENT_EQUATION_ROOTS",
+      "source_template_id": "ACTION_EQUATION_ROOTS",
+      "student_visible_focus": "조건을 방정식으로 바꾸고 해의 범위와 개수를 검산하는 유형",
+      "parent_message": "방정식 문제는 답을 찾는 것보다 답이 될 수 있는 조건을 먼저 정리하는 훈련이 필요합니다.",
+      "home_check_question": "풀이에서 '문장 조건을 방정식으로 바꾼다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "방정식 오답은 해법 부재보다 조건 누락·가짜해 검산 누락인지 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_INEQUALITY_ALWAYS_TRUE",
+      "source_template_id": "ACTION_INEQUALITY_ALWAYS_TRUE",
+      "student_visible_focus": "부호 구간과 최댓값·최솟값을 이용해 조건의 성립 범위를 판단하는 유형",
+      "parent_message": "부등식 문제는 계산보다 조건이 성립하는 범위를 끝까지 따지는 훈련이 필요합니다.",
+      "home_check_question": "풀이에서 '정의역과 부등식의 방향을 먼저 확인한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "항상 성립은 매개변수 조건과 함수의 범위 연결 여부를 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_SEQUENCE_INDETERMINATE",
+      "source_template_id": "ACTION_SEQUENCE_INDETERMINATE",
+      "student_visible_focus": "부정형을 차수 비교, 인수분해, 유리화로 정리한 뒤 극한을 판단하는 유형",
+      "parent_message": "극한 문제는 공식 암기보다 먼저 식이 어떤 형태인지 분류하는 습관이 중요합니다.",
+      "home_check_question": "풀이에서 '대입했을 때 어떤 부정형인지 먼저 쓴다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "극한 오답은 계산력보다 식의 형태 분류가 빠졌는지를 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_GEOMETRIC_SEQUENCE",
+      "source_template_id": "ACTION_GEOMETRIC_SEQUENCE",
+      "student_visible_focus": "첫째항과 공비를 찾아 일반항·부분합·극한으로 연결하는 유형",
+      "parent_message": "등비수열은 첫째항과 공비를 잡는 순간 대부분의 풀이가 정리됩니다.",
+      "home_check_question": "풀이에서 '첫째항 a와 공비 r을 먼저 표시한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "등비수열은 공식 암기보다 공비의 의미와 수렴 조건 연결을 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_GEOMETRIC_SERIES",
+      "source_template_id": "ACTION_GEOMETRIC_SERIES",
+      "student_visible_focus": "급수를 첫째항과 공비로 바꾸고 수렴 조건을 확인한 뒤 합을 구하는 유형",
+      "parent_message": "급수 문제는 공식을 외우는 것보다 첫 항과 공비를 정확히 잡는 것이 핵심입니다.",
+      "home_check_question": "풀이에서 '급수의 첫 항을 확인한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "등비급수 활용은 닮음비와 면적비를 구분하는지 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_SUBSTITUTION_INTEGRAL",
+      "source_template_id": "ACTION_SUBSTITUTION_INTEGRAL",
+      "student_visible_focus": "안쪽 함수와 그 도함수 관계를 찾아 적분 구조를 단순화하는 유형",
+      "parent_message": "치환적분은 계산보다 어떤 부분을 하나의 덩어리로 볼지 판단하는 문제입니다.",
+      "home_check_question": "풀이에서 '치환할 안쪽 함수를 u로 둔다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "정적분 치환에서 구간 변환 누락은 반복 오답으로 따로 체크한다."
+    },
+    {
+      "feedback_id": "PARENT_INTEGRATION_BY_PARTS",
+      "source_template_id": "ACTION_INTEGRATION_BY_PARTS",
+      "student_visible_focus": "곱 형태의 적분에서 미분할 함수와 적분할 함수를 나누는 유형",
+      "parent_message": "부분적분은 복잡한 곱을 더 쉬운 적분으로 바꾸는 전략형 문항입니다.",
+      "home_check_question": "풀이에서 '적분식이 두 함수의 곱인지 확인한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "부분적분 오답은 공식 암기보다 선택 기준과 부호 오류를 따로 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_INTEGRAL_DEFINED_FUNCTION",
+      "source_template_id": "ACTION_INTEGRAL_DEFINED_FUNCTION",
+      "student_visible_focus": "적분기호 안의 변수와 적분구간 변수를 구분하고 미분·대입하는 유형",
+      "parent_message": "이 유형은 적분 계산보다 변수의 역할을 구분하는 능력을 확인합니다.",
+      "home_check_question": "풀이에서 '정적분 안의 적분 변수와 바깥 변수를 구분한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "정적분 함수는 변수 구분과 기본정리 적용 순서를 강제한다."
+    },
+    {
+      "feedback_id": "PARENT_MOTION_DISTANCE",
+      "source_template_id": "ACTION_MOTION_DISTANCE",
+      "student_visible_focus": "위치-속도-가속도의 미분·적분 관계와 부호를 구분하는 유형",
+      "parent_message": "속도·거리 문제는 계산보다 부호 변화와 실제 움직임을 해석하는 힘이 중요합니다.",
+      "home_check_question": "풀이에서 '주어진 함수가 위치, 속도, 가속도 중 무엇인지 표시한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "모션 유형은 거리와 변위 구분을 반복 체크한다."
+    },
+    {
+      "feedback_id": "PARENT_COORDINATE_GRAPH",
+      "source_template_id": "ACTION_COORDINATE_GRAPH",
+      "student_visible_focus": "점의 위치와 그래프 관계를 좌표로 읽고 식으로 바꾸는 유형",
+      "parent_message": "좌표평면은 단순한 점 찍기가 아니라 고등 그래프 문제의 출발점입니다.",
+      "home_check_question": "풀이에서 'x좌표와 y좌표를 구분해서 점을 표시한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "좌표 해석은 고등 그래프·미적분 넓이 문제의 하위 누수로 자주 나타난다."
+    },
+    {
+      "feedback_id": "PARENT_LINEAR_FUNCTION",
+      "source_template_id": "ACTION_LINEAR_FUNCTION",
+      "student_visible_focus": "기울기와 절편을 이용해 두 양의 관계를 직선으로 표현하는 유형",
+      "parent_message": "일차함수는 고등 미분에서 접선의 방정식으로 그대로 이어집니다.",
+      "home_check_question": "풀이에서 '기울기가 무엇을 의미하는지 먼저 쓴다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "일차함수는 미분 접선식의 선행 언어로 연결해 설명한다."
+    },
+    {
+      "feedback_id": "PARENT_QUADRATIC_FUNCTION",
+      "source_template_id": "ACTION_QUADRATIC_FUNCTION",
+      "student_visible_focus": "이차식의 계수와 그래프의 꼭짓점·축·범위를 연결하는 유형",
+      "parent_message": "이차함수는 고등 함수 그래프와 최댓값·최솟값 문제의 기본 구조입니다.",
+      "home_check_question": "풀이에서 '이차함수의 a값 부호를 먼저 확인한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "이차함수 오답은 완전제곱식 변환과 정의역 제한 검토를 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_FACTORIZATION",
+      "source_template_id": "ACTION_FACTORIZATION",
+      "student_visible_focus": "식을 곱의 구조로 쪼개거나 전개해 방정식·약분·극한에 활용하는 유형",
+      "parent_message": "인수분해는 복잡한 식을 작게 쪼개 고등 계산을 가능하게 하는 핵심 도구입니다.",
+      "home_check_question": "풀이에서 '항마다 공통으로 들어 있는 인수를 먼저 찾는다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "인수분해는 중3에서 끝나는 내용이 아니라 극한·방정식·미분 계산의 선행 구조다."
+    },
+    {
+      "feedback_id": "PARENT_EQUATION_MODELING",
+      "source_template_id": "ACTION_EQUATION_MODELING",
+      "student_visible_focus": "문장 조건을 수식, 표, 그래프 중 하나로 번역해 미지수를 결정하는 유형",
+      "parent_message": "이 유형은 공식을 아는 것보다 문제의 문장을 수학식으로 바꾸는 힘이 중요합니다.",
+      "home_check_question": "풀이에서 '구해야 하는 값을 미지수로 둔다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "조건 번역형은 계산 오답보다 조건 분리 여부를 먼저 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_ANALYTIC_GEOMETRY",
+      "source_template_id": "ACTION_ANALYTIC_GEOMETRY",
+      "student_visible_focus": "도형 조건을 좌표와 방정식으로 바꾸어 위치 관계를 판단하는 유형",
+      "parent_message": "도형의 방정식은 그림을 식으로 바꾸는 단원이라 고등 그래프·미적분과 연결됩니다.",
+      "home_check_question": "풀이에서 '그림에서 주어진 점, 직선, 원의 정보를 좌표로 정리한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "도형의 방정식은 좌표평면과 그래프 해석의 고1 확장으로 본다."
+    },
+    {
+      "feedback_id": "PARENT_COUNTING_CASEWORK",
+      "source_template_id": "ACTION_COUNTING_CASEWORK",
+      "student_visible_focus": "조건을 겹치지 않는 경우로 나누고 순서의 유무를 판단해 세는 유형",
+      "parent_message": "경우의 수는 공식보다 조건을 빠짐없이 나누는 사고가 중요합니다.",
+      "home_check_question": "풀이에서 '세는 대상이 무엇인지 한 문장으로 쓴다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "경우의 수 오답은 공식 선택보다 분류 누락·중복 카운팅을 본다."
+    },
+    {
+      "feedback_id": "PARENT_SET_LOGIC",
+      "source_template_id": "ACTION_SET_LOGIC",
+      "student_visible_focus": "조건의 포함 관계와 참·거짓을 그림 또는 논리식으로 확인하는 유형",
+      "parent_message": "집합과 명제는 조건을 정확히 읽고 참·거짓의 근거를 쓰는 훈련입니다.",
+      "home_check_question": "풀이에서 '집합의 원소 조건을 문장으로 풀어쓴다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "논리 유형은 답보다 포함 관계를 표면화했는지 확인한다."
+    },
+    {
+      "feedback_id": "PARENT_MATRIX_ROW_COLUMN",
+      "source_template_id": "ACTION_MATRIX_ROW_COLUMN",
+      "student_visible_focus": "행렬의 크기와 성분 위치를 확인하고 연산 가능 조건을 적용하는 유형",
+      "parent_message": "행렬 문제는 계산보다 행과 열의 위치, 연산 순서를 정확히 보는 훈련입니다.",
+      "home_check_question": "풀이에서 '각 행렬의 크기를 먼저 쓴다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "행렬 오답은 계산보다 크기 조건과 순서 인식 누락을 본다."
+    },
+    {
+      "feedback_id": "PARENT_GENERIC_STRUCTURED_SOLUTION",
+      "source_template_id": "ACTION_GENERIC_STRUCTURED_SOLUTION",
+      "student_visible_focus": "조건을 구조화하고 필요한 개념을 순서대로 적용하는 유형",
+      "parent_message": "이 문항은 답보다 풀이 순서와 조건 정리 습관을 확인해야 합니다.",
+      "home_check_question": "풀이에서 '문항에서 묻는 값을 한 문장으로 정리한다.' 단계가 보이는지 확인해 주세요.",
+      "teacher_followup": "아직 세부 템플릿이 없는 유형은 조건 분리와 검산 습관을 우선 적용한다."
+    }
+  ]
+}

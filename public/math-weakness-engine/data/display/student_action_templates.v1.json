@@ -1,0 +1,1359 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "error_tags/type_name 기반으로 학생에게 강제 풀이 순서와 행동 지시를 보여주기 위한 공통 템플릿.",
+  "template_count": 22,
+  "templates": [
+    {
+      "template_id": "ACTION_AREA_BETWEEN_CURVES",
+      "template_name": "넓이·구간분할 유형",
+      "priority": 100,
+      "applies_to_error_tags_any": [
+        "area",
+        "area_between_curves",
+        "curve_line",
+        "two_curves",
+        "curve_xaxis",
+        "curve_yaxis",
+        "absolute_value_integral",
+        "equal_area",
+        "bisect_area",
+        "inverse_function_area",
+        "tangent_enclosed",
+        "area_volume"
+      ],
+      "applies_to_type_keywords_any": [
+        "넓이",
+        "두 곡선",
+        "곡선과 직선",
+        "x축 사이",
+        "y축 사이",
+        "이등분",
+        "둘러싸인 도형"
+      ],
+      "problem_nature": "그래프의 위치 관계를 판단한 뒤 정적분식으로 넓이를 세우는 유형",
+      "required_thinking": [
+        "교점 확인",
+        "구간 분할",
+        "위쪽 함수와 아래쪽 함수 판단",
+        "정적분식 구성",
+        "넓이의 부호 검산"
+      ],
+      "must_write_steps": [
+        "교점 또는 축과 만나는 점을 먼저 구한다.",
+        "교점·근을 기준으로 적분 구간을 나눈다.",
+        "각 구간에서 위쪽 함수와 아래쪽 함수를 판단한다.",
+        "넓이식 ∫(위쪽 함수 - 아래쪽 함수) dx 또는 절댓값 정적분을 쓴다.",
+        "계산값이 넓이로 타당한 양수인지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "교점을 구하지 않고 바로 적분식을 쓴다.",
+        "위쪽 함수와 아래쪽 함수를 반대로 둔다.",
+        "부호가 바뀌는 구간을 나누지 않는다.",
+        "정적분값과 넓이를 같은 것으로 생각한다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "AREA_INTERSECTION_MISSING",
+          "label": "교점 미확인",
+          "diagnosis": "두 그래프가 어디서 만나는지 확인하지 않고 적분식부터 세웠다.",
+          "student_fix": "풀이 첫 줄에 교점 또는 경계점을 먼저 써라."
+        },
+        {
+          "error_code": "AREA_INTERVAL_SPLIT_MISSING",
+          "label": "구간 분할 누락",
+          "diagnosis": "부호나 위아래 관계가 바뀌는데 한 번에 적분했다.",
+          "student_fix": "교점과 근을 기준으로 구간을 나누어라."
+        },
+        {
+          "error_code": "AREA_UPPER_LOWER_REVERSED",
+          "label": "위아래 판단 오류",
+          "diagnosis": "위쪽 함수와 아래쪽 함수를 반대로 놓았다.",
+          "student_fix": "구간 안의 대표 x값을 넣어 위아래를 확인해라."
+        }
+      ],
+      "student_command": "이 유형은 교점 없이 적분식부터 쓰면 다시 풀어야 한다.",
+      "teacher_note": "계산보다 그래프 위치 관계·구간 분할 누락에서 오답이 발생하는지 확인한다.",
+      "parent_message": "계산력보다 그래프 해석과 조건 정리에서 약점이 보이는 문항입니다."
+    },
+    {
+      "template_id": "ACTION_TANGENT_LINE",
+      "template_name": "접선 방정식 유형",
+      "priority": 98,
+      "applies_to_error_tags_any": [
+        "tangent_line",
+        "tangent_slope",
+        "common_tangent",
+        "given_slope",
+        "point_of_tangency",
+        "circle_tangent",
+        "tangent_length",
+        "tangent_enclosed"
+      ],
+      "applies_to_type_keywords_any": [
+        "접선",
+        "공통접선",
+        "접점",
+        "기울기"
+      ],
+      "problem_nature": "접점, 기울기, 통과점 조건을 분리해 직선 방정식을 세우는 유형",
+      "required_thinking": [
+        "접점 설정",
+        "도함수 또는 기울기 연결",
+        "직선 방정식 작성",
+        "추가 조건 대입",
+        "해 검산"
+      ],
+      "must_write_steps": [
+        "접점 좌표를 (a, f(a)) 또는 문제 조건에 맞는 문자로 둔다.",
+        "접선의 기울기를 f'(a) 또는 주어진 기울기로 쓴다.",
+        "접선의 방정식 y - f(a) = f'(a)(x - a)를 쓴다.",
+        "통과점, 평행, 수직, 공통접선 조건을 대입한다.",
+        "구한 접점과 직선이 원래 조건을 만족하는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "접점을 두지 않고 직선부터 가정한다.",
+        "기울기 조건과 통과점 조건을 섞어 쓴다.",
+        "f(a)와 f'(a)를 혼동한다.",
+        "구한 직선이 실제로 접하는지 확인하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "TANGENT_POINT_MISSING",
+          "label": "접점 설정 누락",
+          "diagnosis": "접점을 정하지 않아 접선 조건을 식으로 만들지 못했다.",
+          "student_fix": "풀이 첫 줄에 접점을 (a, f(a))로 둬라."
+        },
+        {
+          "error_code": "TANGENT_SLOPE_MISMATCH",
+          "label": "기울기 연결 오류",
+          "diagnosis": "접선의 기울기와 도함수값을 연결하지 못했다.",
+          "student_fix": "기울기 자리에는 f'(a)를 먼저 써라."
+        }
+      ],
+      "student_command": "풀이에 접점 (a, f(a))가 없으면 구조를 잘못 잡은 것이다.",
+      "teacher_note": "접점·기울기·통과점을 한 줄에 섞는 학생은 접선 기본 양식을 강제한다.",
+      "parent_message": "접선 문제는 계산보다 접점을 잡고 직선 방정식을 세우는 순서가 중요합니다."
+    },
+    {
+      "template_id": "ACTION_FUNCTION_GRAPH",
+      "template_name": "함수 그래프 해석 유형",
+      "priority": 85,
+      "applies_to_error_tags_any": [
+        "function_graph",
+        "graph_interpretation",
+        "graph_reading",
+        "graph_property",
+        "graph_coordinate",
+        "domain_range",
+        "domain_condition",
+        "range_restriction",
+        "asymptote",
+        "symmetry",
+        "reflection",
+        "translation",
+        "coordinate_transform",
+        "piecewise_function",
+        "absolute_value_graph",
+        "rational_graph",
+        "radical_graph",
+        "polynomial_graph",
+        "derivative_graph"
+      ],
+      "applies_to_type_keywords_any": [
+        "그래프",
+        "정의역",
+        "치역",
+        "대칭",
+        "평행이동",
+        "점근선",
+        "구간별",
+        "절댓값 함수"
+      ],
+      "problem_nature": "식의 조건을 좌표·구간·그래프 변화로 바꾸어 해석하는 유형",
+      "required_thinking": [
+        "정의역 확인",
+        "기준 그래프 파악",
+        "변환 순서 기록",
+        "특징점 좌표 확인",
+        "구간별 해석"
+      ],
+      "must_write_steps": [
+        "정의역과 조건을 먼저 표시한다.",
+        "기준이 되는 함수나 기본 그래프를 확인한다.",
+        "평행이동, 대칭, 확대·축소가 있으면 순서대로 적는다.",
+        "교점, 꼭짓점, 절편, 점근선 등 특징점을 좌표로 쓴다.",
+        "구간별 증가·감소 또는 부호를 확인한다."
+      ],
+      "common_wrong_actions": [
+        "그래프를 그리지 않고 식만 변형한다.",
+        "정의역 제한을 놓친다.",
+        "이동과 대칭 순서를 바꾼다.",
+        "교점이나 절편을 좌표로 확인하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "GRAPH_DOMAIN_MISSING",
+          "label": "정의역 누락",
+          "diagnosis": "그래프를 보기 전에 정의역 제한을 확인하지 않았다.",
+          "student_fix": "풀이 맨 위에 정의역과 제외값을 써라."
+        },
+        {
+          "error_code": "GRAPH_KEYPOINT_MISSING",
+          "label": "특징점 누락",
+          "diagnosis": "꼭짓점, 절편, 교점, 점근선을 좌표로 쓰지 않았다.",
+          "student_fix": "그래프 판단 전 특징점을 좌표로 표시해라."
+        }
+      ],
+      "student_command": "이 유형은 식 변형 전에 정의역·특징점·구간을 먼저 표시해라.",
+      "teacher_note": "그래프 유형은 그림을 그렸는지보다 조건을 좌표와 구간으로 바꾸었는지를 본다.",
+      "parent_message": "그래프 문제는 암기보다 조건을 그림과 좌표로 바꾸는 힘을 확인하는 문항입니다."
+    },
+    {
+      "template_id": "ACTION_EQUATION_ROOTS",
+      "template_name": "방정식 실근·근의 개수 유형",
+      "priority": 82,
+      "applies_to_error_tags_any": [
+        "equation_roots",
+        "quadratic_equation",
+        "discriminant",
+        "solution_check",
+        "root_condition",
+        "trig_equation",
+        "log_equation",
+        "exponential_equation",
+        "simultaneous_equation",
+        "condition_equation",
+        "integral_equation"
+      ],
+      "applies_to_type_keywords_any": [
+        "방정식",
+        "실근",
+        "근의 개수",
+        "해의 개수",
+        "판별식",
+        "연립"
+      ],
+      "problem_nature": "조건을 방정식으로 바꾸고 해의 범위와 개수를 검산하는 유형",
+      "required_thinking": [
+        "식 세우기",
+        "정의역·범위 확인",
+        "해법 선택",
+        "근 후보 계산",
+        "원조건 대입 검산"
+      ],
+      "must_write_steps": [
+        "문장 조건을 방정식으로 바꾼다.",
+        "정의역, 밑의 조건, 진수 조건, 분모 0 제외 등 해의 범위를 먼저 쓴다.",
+        "인수분해, 판별식, 그래프 교점 등 해법을 선택한다.",
+        "근 후보를 구한다.",
+        "모든 근 후보를 원래 조건에 다시 대입해 버릴 해를 제거한다."
+      ],
+      "common_wrong_actions": [
+        "정의역 조건 없이 해를 구한다.",
+        "제곱·로그 변형 후 생긴 가짜해를 제거하지 않는다.",
+        "근의 개수 문제를 계산 문제처럼만 푼다.",
+        "판별식 조건과 실제 해 조건을 구분하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "ROOT_DOMAIN_MISSING",
+          "label": "해의 범위 누락",
+          "diagnosis": "해를 구하기 전에 가능한 값의 범위를 쓰지 않았다.",
+          "student_fix": "정의역과 제외 조건을 식 위에 먼저 써라."
+        },
+        {
+          "error_code": "ROOT_CHECK_MISSING",
+          "label": "근 검산 누락",
+          "diagnosis": "구한 근이 원래 식을 만족하는지 확인하지 않았다.",
+          "student_fix": "마지막 줄에 원식 대입 검산을 반드시 해라."
+        }
+      ],
+      "student_command": "이 유형은 해를 구하기 전에 가능한 값의 범위를 먼저 써라.",
+      "teacher_note": "방정식 오답은 해법 부재보다 조건 누락·가짜해 검산 누락인지 확인한다.",
+      "parent_message": "방정식 문제는 답을 찾는 것보다 답이 될 수 있는 조건을 먼저 정리하는 훈련이 필요합니다."
+    },
+    {
+      "template_id": "ACTION_INEQUALITY_ALWAYS_TRUE",
+      "template_name": "부등식·항상 성립 유형",
+      "priority": 81,
+      "applies_to_error_tags_any": [
+        "inequality",
+        "inequality_proof",
+        "inequality_modeling",
+        "truth_set",
+        "truth_set_inclusion",
+        "interval_condition",
+        "sign_error",
+        "domain_restriction",
+        "always_true",
+        "max_min",
+        "maximum_minimum",
+        "parameter_condition"
+      ],
+      "applies_to_type_keywords_any": [
+        "부등식",
+        "항상 성립",
+        "범위",
+        "최댓값",
+        "최솟값",
+        "부호",
+        "해집합"
+      ],
+      "problem_nature": "부호 구간과 최댓값·최솟값을 이용해 조건의 성립 범위를 판단하는 유형",
+      "required_thinking": [
+        "정의역 확인",
+        "부호 기준점 찾기",
+        "구간 나누기",
+        "최대·최소 연결",
+        "매개변수 범위 확정"
+      ],
+      "must_write_steps": [
+        "정의역과 부등식의 방향을 먼저 확인한다.",
+        "0이 되는 값, 분모가 0인 값, 절댓값 기준점을 표시한다.",
+        "기준점으로 수직선을 나누고 각 구간의 부호를 판단한다.",
+        "항상 성립 문제이면 좌변-우변의 최솟값 또는 최댓값을 찾는다.",
+        "구한 범위가 원래 조건을 만족하는지 검산한다."
+      ],
+      "common_wrong_actions": [
+        "부등식 양변에 음수를 곱하고 방향을 바꾸지 않는다.",
+        "분모 0 제외를 놓친다.",
+        "항상 성립을 단순히 한 값 대입으로 판단한다.",
+        "구간별 부호표 없이 결론을 쓴다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "INEQUALITY_SIGN_TABLE_MISSING",
+          "label": "부호표 누락",
+          "diagnosis": "부호가 바뀌는 기준점을 나누지 않았다.",
+          "student_fix": "수직선 부호표를 먼저 그려라."
+        },
+        {
+          "error_code": "INEQUALITY_ALWAYS_TRUE_MISREAD",
+          "label": "항상 성립 해석 오류",
+          "diagnosis": "모든 값에서 성립해야 한다는 조건을 특정 값 대입으로 처리했다.",
+          "student_fix": "최대·최소 또는 포함 관계로 바꿔라."
+        }
+      ],
+      "student_command": "이 유형은 수직선 부호표 없이 답만 쓰면 다시 풀어야 한다.",
+      "teacher_note": "항상 성립은 매개변수 조건과 함수의 범위 연결 여부를 확인한다.",
+      "parent_message": "부등식 문제는 계산보다 조건이 성립하는 범위를 끝까지 따지는 훈련이 필요합니다."
+    },
+    {
+      "template_id": "ACTION_SEQUENCE_INDETERMINATE",
+      "template_name": "수열·극한 부정형 유형",
+      "priority": 95,
+      "applies_to_error_tags_any": [
+        "indeterminate_form",
+        "infty_over_infty",
+        "zero_over_zero",
+        "algebraic_limit",
+        "infinity_limit",
+        "basic_limit",
+        "limit_standard",
+        "rationalization",
+        "sequence_limit",
+        "series_convergence"
+      ],
+      "applies_to_type_keywords_any": [
+        "극한",
+        "부정형",
+        "수렴",
+        "발산",
+        "무한대",
+        "0/0",
+        "∞/∞"
+      ],
+      "problem_nature": "부정형을 차수 비교, 인수분해, 유리화로 정리한 뒤 극한을 판단하는 유형",
+      "required_thinking": [
+        "부정형 종류 확인",
+        "최고차항 비교",
+        "인수분해 또는 유리화",
+        "수렴·발산 판단",
+        "부호 검산"
+      ],
+      "must_write_steps": [
+        "대입했을 때 어떤 부정형인지 먼저 쓴다.",
+        "∞/∞이면 분자와 분모의 최고차항을 표시한다.",
+        "0/0이면 인수분해, 약분, 유리화 중 필요한 정리를 먼저 한다.",
+        "정리된 식에 극한을 다시 대입한다.",
+        "수렴값, 발산 방향, 부호를 마지막에 확인한다."
+      ],
+      "common_wrong_actions": [
+        "부정형 확인 없이 바로 대입한다.",
+        "최고차항이 아닌 항을 기준으로 판단한다.",
+        "0/0에서 인수분해나 유리화를 하지 않는다.",
+        "발산과 수렴값을 구분하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "LIMIT_FORM_MISSING",
+          "label": "부정형 확인 누락",
+          "diagnosis": "극한 계산 전에 식의 형태를 확인하지 않았다.",
+          "student_fix": "첫 줄에 0/0, ∞/∞, ∞-∞ 중 무엇인지 써라."
+        },
+        {
+          "error_code": "LIMIT_DOMINANT_TERM_ERROR",
+          "label": "최고차항 판단 오류",
+          "diagnosis": "무한대로 갈 때 지배하는 항을 잘못 골랐다.",
+          "student_fix": "분자·분모 최고차항에 밑줄을 쳐라."
+        }
+      ],
+      "student_command": "계산 전에 반드시 부정형의 종류를 먼저 써라.",
+      "teacher_note": "극한 오답은 계산력보다 식의 형태 분류가 빠졌는지를 확인한다.",
+      "parent_message": "극한 문제는 공식 암기보다 먼저 식이 어떤 형태인지 분류하는 습관이 중요합니다."
+    },
+    {
+      "template_id": "ACTION_GEOMETRIC_SEQUENCE",
+      "template_name": "등비수열 유형",
+      "priority": 78,
+      "applies_to_error_tags_any": [
+        "geometric_sequence",
+        "common_ratio",
+        "term_value",
+        "recursive_definition",
+        "general_term",
+        "partial_sum",
+        "geometric_series"
+      ],
+      "applies_to_type_keywords_any": [
+        "등비수열",
+        "공비",
+        "일반항",
+        "부분합"
+      ],
+      "problem_nature": "첫째항과 공비를 찾아 일반항·부분합·극한으로 연결하는 유형",
+      "required_thinking": [
+        "첫째항 확인",
+        "공비 확인",
+        "일반항 작성",
+        "부분합 공식 선택",
+        "공비 범위 검산"
+      ],
+      "must_write_steps": [
+        "첫째항 a와 공비 r을 먼저 표시한다.",
+        "일반항 a_n = ar^{n-1} 꼴을 쓴다.",
+        "필요하면 부분합 공식을 선택한다.",
+        "극한이 나오면 |r|<1, r=1, |r|>1을 구분한다.",
+        "문제 조건에 맞게 n값 또는 매개변수를 검산한다."
+      ],
+      "common_wrong_actions": [
+        "공비를 차이로 착각한다.",
+        "n과 n-1의 지수 위치를 틀린다.",
+        "수렴 조건 |r|<1을 확인하지 않는다.",
+        "부분합과 일반항을 혼동한다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "GEOM_RATIO_MISSING",
+          "label": "공비 확인 누락",
+          "diagnosis": "등비수열의 핵심인 공비를 먼저 구하지 않았다.",
+          "student_fix": "a, r 값을 먼저 박스로 표시해라."
+        },
+        {
+          "error_code": "GEOM_CONVERGENCE_CONDITION_MISSING",
+          "label": "수렴 조건 누락",
+          "diagnosis": "등비수열·등비급수의 수렴 조건을 확인하지 않았다.",
+          "student_fix": "극한이나 급수가 나오면 |r|<1을 먼저 써라."
+        }
+      ],
+      "student_command": "등비 유형은 첫 줄에 a와 r을 쓰지 않으면 다시 풀어야 한다.",
+      "teacher_note": "등비수열은 공식 암기보다 공비의 의미와 수렴 조건 연결을 확인한다.",
+      "parent_message": "등비수열은 첫째항과 공비를 잡는 순간 대부분의 풀이가 정리됩니다."
+    },
+    {
+      "template_id": "ACTION_GEOMETRIC_SERIES",
+      "template_name": "등비급수 유형",
+      "priority": 87,
+      "applies_to_error_tags_any": [
+        "geometric_series",
+        "series_sum",
+        "series_convergence",
+        "geometric_series_application",
+        "series_application",
+        "series_integral_relation"
+      ],
+      "applies_to_type_keywords_any": [
+        "등비급수",
+        "급수",
+        "무한급수",
+        "합"
+      ],
+      "problem_nature": "급수를 첫째항과 공비로 바꾸고 수렴 조건을 확인한 뒤 합을 구하는 유형",
+      "required_thinking": [
+        "첫 항 확인",
+        "공비 확인",
+        "수렴 조건 확인",
+        "급수 합 공식 적용",
+        "활용 장면 검산"
+      ],
+      "must_write_steps": [
+        "급수의 첫 항을 확인한다.",
+        "연속한 항의 비로 공비 r을 구한다.",
+        "무한급수이면 |r|<1인지 먼저 확인한다.",
+        "수렴할 때 S = a/(1-r)을 적용한다.",
+        "도형·넓이 활용이면 각 단계의 닮음비 또는 면적비를 검산한다."
+      ],
+      "common_wrong_actions": [
+        "수렴 조건 없이 합 공식을 쓴다.",
+        "공비와 닮음비, 면적비를 혼동한다.",
+        "첫 항을 잘못 잡는다.",
+        "유한합과 무한급수 합을 혼동한다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "SERIES_CONVERGENCE_MISSING",
+          "label": "수렴 조건 누락",
+          "diagnosis": "무한급수의 합을 구하면서 |r|<1 조건을 확인하지 않았다.",
+          "student_fix": "합 공식보다 먼저 수렴 조건을 써라."
+        },
+        {
+          "error_code": "SERIES_FIRST_TERM_ERROR",
+          "label": "첫 항 설정 오류",
+          "diagnosis": "급수의 시작 항을 잘못 잡았다.",
+          "student_fix": "sigma의 시작 번호와 첫 항을 따로 계산해라."
+        }
+      ],
+      "student_command": "무한급수는 합 공식보다 |r|<1을 먼저 써라.",
+      "teacher_note": "등비급수 활용은 닮음비와 면적비를 구분하는지 확인한다.",
+      "parent_message": "급수 문제는 공식을 외우는 것보다 첫 항과 공비를 정확히 잡는 것이 핵심입니다."
+    },
+    {
+      "template_id": "ACTION_SUBSTITUTION_INTEGRAL",
+      "template_name": "치환적분 유형",
+      "priority": 96,
+      "applies_to_error_tags_any": [
+        "substitution",
+        "chain_form_integral",
+        "definite_integral_substitution",
+        "trig_substitution",
+        "u_substitution"
+      ],
+      "applies_to_type_keywords_any": [
+        "치환적분",
+        "치환",
+        "합성함수 적분",
+        "삼각치환"
+      ],
+      "problem_nature": "안쪽 함수와 그 도함수 관계를 찾아 적분 구조를 단순화하는 유형",
+      "required_thinking": [
+        "안쪽 함수 선택",
+        "du 대응 확인",
+        "식 전체 변환",
+        "정적분 구간 변환",
+        "원변수 복귀 또는 값 계산"
+      ],
+      "must_write_steps": [
+        "치환할 안쪽 함수를 u로 둔다.",
+        "du가 식 안에 있는지 확인하고 부족한 상수는 보정한다.",
+        "식 전체를 u에 대한 식으로 바꾼다.",
+        "정적분이면 x구간을 u구간으로 반드시 바꾼다.",
+        "부정적분이면 마지막에 원래 변수로 되돌린다."
+      ],
+      "common_wrong_actions": [
+        "u만 두고 du를 확인하지 않는다.",
+        "정적분에서 적분구간을 바꾸지 않는다.",
+        "x와 u를 한 식에 섞어 쓴다.",
+        "상수 보정을 빠뜨린다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "SUBSTITUTION_DU_MISSING",
+          "label": "du 확인 누락",
+          "diagnosis": "치환한 함수의 미분이 식 안에 있는지 확인하지 않았다.",
+          "student_fix": "u=..., du=...를 반드시 나란히 써라."
+        },
+        {
+          "error_code": "SUBSTITUTION_BOUND_ERROR",
+          "label": "적분구간 미변환",
+          "diagnosis": "정적분에서 x구간을 u구간으로 바꾸지 않았다.",
+          "student_fix": "정적분 치환은 구간 변환 줄을 따로 써라."
+        }
+      ],
+      "student_command": "치환만 하고 du와 구간을 쓰지 않으면 다시 풀어야 한다.",
+      "teacher_note": "정적분 치환에서 구간 변환 누락은 반복 오답으로 따로 체크한다.",
+      "parent_message": "치환적분은 계산보다 어떤 부분을 하나의 덩어리로 볼지 판단하는 문제입니다."
+    },
+    {
+      "template_id": "ACTION_INTEGRATION_BY_PARTS",
+      "template_name": "부분적분 유형",
+      "priority": 94,
+      "applies_to_error_tags_any": [
+        "integration_by_parts",
+        "product_integral",
+        "log_integral",
+        "inverse_trig_integral"
+      ],
+      "applies_to_type_keywords_any": [
+        "부분적분",
+        "곱의 적분",
+        "ln",
+        "로그함수 적분"
+      ],
+      "problem_nature": "곱 형태의 적분에서 미분할 함수와 적분할 함수를 나누는 유형",
+      "required_thinking": [
+        "곱 구조 확인",
+        "u와 dv 선택",
+        "du와 v 계산",
+        "부분적분 공식 적용",
+        "남은 적분 단순화"
+      ],
+      "must_write_steps": [
+        "적분식이 두 함수의 곱인지 확인한다.",
+        "미분하면 단순해지는 함수를 u로 둔다.",
+        "나머지를 dv로 두고 v를 구한다.",
+        "∫u dv = uv - ∫v du를 쓴다.",
+        "남은 적분이 쉬워졌는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "u와 dv 선택 기준 없이 잡는다.",
+        "부호 uv - ∫vdu를 틀린다.",
+        "v를 구하지 않고 원래 식을 반복한다.",
+        "부분적분 후 적분이 더 복잡해지는 선택을 한다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "PARTS_SELECTION_ERROR",
+          "label": "u, dv 선택 오류",
+          "diagnosis": "미분해서 단순해지는 항을 u로 선택하지 않았다.",
+          "student_fix": "u, dv, du, v 네 줄을 표로 써라."
+        },
+        {
+          "error_code": "PARTS_SIGN_ERROR",
+          "label": "공식 부호 오류",
+          "diagnosis": "uv - ∫vdu의 마이너스 부호를 놓쳤다.",
+          "student_fix": "공식을 먼저 쓰고 대입해라."
+        }
+      ],
+      "student_command": "부분적분은 u, dv, du, v 표가 없으면 다시 풀어야 한다.",
+      "teacher_note": "부분적분 오답은 공식 암기보다 선택 기준과 부호 오류를 따로 확인한다.",
+      "parent_message": "부분적분은 복잡한 곱을 더 쉬운 적분으로 바꾸는 전략형 문항입니다."
+    },
+    {
+      "template_id": "ACTION_INTEGRAL_DEFINED_FUNCTION",
+      "template_name": "정적분으로 정의된 함수 유형",
+      "priority": 90,
+      "applies_to_error_tags_any": [
+        "integral_defined_function",
+        "ftc",
+        "fundamental_theorem",
+        "definite_integral",
+        "variable_limit_integral"
+      ],
+      "applies_to_type_keywords_any": [
+        "정적분으로 정의된 함수",
+        "적분으로 정의",
+        "위끝",
+        "아래끝",
+        "미분"
+      ],
+      "problem_nature": "적분기호 안의 변수와 적분구간 변수를 구분하고 미분·대입하는 유형",
+      "required_thinking": [
+        "함수 정의 확인",
+        "적분 변수 구분",
+        "미적분 기본정리 적용",
+        "구간 변형",
+        "조건 대입"
+      ],
+      "must_write_steps": [
+        "정적분 안의 적분 변수와 바깥 변수를 구분한다.",
+        "위끝 또는 아래끝이 변수인지 확인한다.",
+        "필요하면 미적분의 기본정리로 미분한다.",
+        "아래끝이 변수이면 부호가 바뀌는지 확인한다.",
+        "초기값 또는 조건을 대입해 상수를 결정한다."
+      ],
+      "common_wrong_actions": [
+        "적분 변수와 x를 혼동한다.",
+        "아래끝이 변수일 때 부호를 놓친다.",
+        "정적분 함수에 바로 적분공식만 적용한다.",
+        "상수 조건을 마지막에 확인하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "FTC_VARIABLE_CONFUSION",
+          "label": "변수 혼동",
+          "diagnosis": "적분 변수와 함수의 변수를 구분하지 못했다.",
+          "student_fix": "적분 변수는 t로 바꿔 써라."
+        },
+        {
+          "error_code": "FTC_LOWER_LIMIT_SIGN_ERROR",
+          "label": "아래끝 변수 부호 오류",
+          "diagnosis": "아래끝이 변수일 때 부호가 바뀌는 것을 놓쳤다.",
+          "student_fix": "위끝·아래끝을 나누어 미분해라."
+        }
+      ],
+      "student_command": "이 유형은 적분 변수부터 t로 바꿔 쓰고 시작해라.",
+      "teacher_note": "정적분 함수는 변수 구분과 기본정리 적용 순서를 강제한다.",
+      "parent_message": "이 유형은 적분 계산보다 변수의 역할을 구분하는 능력을 확인합니다."
+    },
+    {
+      "template_id": "ACTION_MOTION_DISTANCE",
+      "template_name": "속도·거리·가속도 유형",
+      "priority": 89,
+      "applies_to_error_tags_any": [
+        "motion",
+        "velocity",
+        "acceleration",
+        "distance",
+        "speed",
+        "position_function",
+        "rate_of_change"
+      ],
+      "applies_to_type_keywords_any": [
+        "속도",
+        "거리",
+        "가속도",
+        "위치",
+        "움직인 거리",
+        "변위"
+      ],
+      "problem_nature": "위치-속도-가속도의 미분·적분 관계와 부호를 구분하는 유형",
+      "required_thinking": [
+        "위치·속도·가속도 관계 확인",
+        "부호 변화점 찾기",
+        "구간 분할",
+        "거리와 변위 구분",
+        "단위 검산"
+      ],
+      "must_write_steps": [
+        "주어진 함수가 위치, 속도, 가속도 중 무엇인지 표시한다.",
+        "미분·적분으로 필요한 함수를 만든다.",
+        "속도가 0이 되는 시각을 구한다.",
+        "부호가 바뀌면 구간을 나누어 거리와 변위를 구분한다.",
+        "단위와 부호가 문제 상황에 맞는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "변위와 움직인 거리를 같은 것으로 생각한다.",
+        "속도 부호가 바뀌는 시간을 놓친다.",
+        "위치·속도·가속도의 미분 관계를 반대로 쓴다.",
+        "단위 확인 없이 계산값만 쓴다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "MOTION_DISTANCE_DISPLACEMENT_CONFUSION",
+          "label": "거리·변위 혼동",
+          "diagnosis": "속도의 부호가 바뀌는데 절댓값 또는 구간 분할 없이 계산했다.",
+          "student_fix": "v(t)=0인 시각으로 구간을 나누어라."
+        },
+        {
+          "error_code": "MOTION_RELATION_ERROR",
+          "label": "미분·적분 관계 오류",
+          "diagnosis": "위치, 속도, 가속도의 관계를 반대로 연결했다.",
+          "student_fix": "s'(t)=v(t), v'(t)=a(t)를 먼저 써라."
+        }
+      ],
+      "student_command": "움직인 거리는 v(t)=0인 시각을 찾지 않으면 다시 풀어야 한다.",
+      "teacher_note": "모션 유형은 거리와 변위 구분을 반복 체크한다.",
+      "parent_message": "속도·거리 문제는 계산보다 부호 변화와 실제 움직임을 해석하는 힘이 중요합니다."
+    },
+    {
+      "template_id": "ACTION_COORDINATE_GRAPH",
+      "template_name": "좌표평면·그래프 읽기 유형",
+      "priority": 70,
+      "applies_to_error_tags_any": [
+        "coordinate_graph",
+        "coordinate_geometry",
+        "graph_coordinate",
+        "coordinate_distance",
+        "point_condition",
+        "intersection",
+        "position_relation",
+        "coordinate_transform",
+        "section_formula"
+      ],
+      "applies_to_type_keywords_any": [
+        "좌표",
+        "좌표평면",
+        "교점",
+        "거리",
+        "중점",
+        "내분",
+        "외분"
+      ],
+      "problem_nature": "점의 위치와 그래프 관계를 좌표로 읽고 식으로 바꾸는 유형",
+      "required_thinking": [
+        "좌표축 구분",
+        "점 좌표 읽기",
+        "관계식 설정",
+        "교점·거리 계산",
+        "그래프 위치 검산"
+      ],
+      "must_write_steps": [
+        "x좌표와 y좌표를 구분해서 점을 표시한다.",
+        "문제에서 주어진 점, 교점, 축과 만나는 점을 좌표로 쓴다.",
+        "거리, 중점, 내분점, 기울기 등 필요한 공식을 선택한다.",
+        "그래프나 도형의 조건을 식으로 바꾼다.",
+        "구한 좌표가 그림의 위치와 맞는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "x좌표와 y좌표를 바꿔 읽는다.",
+        "교점을 식으로 구하지 않고 눈대중으로 판단한다.",
+        "거리 공식과 기울기 공식을 혼동한다.",
+        "좌표가 그림의 위치와 맞는지 검산하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "COORDINATE_READ_ERROR",
+          "label": "좌표 읽기 오류",
+          "diagnosis": "점의 위치를 좌표로 정확히 읽지 못했다.",
+          "student_fix": "점마다 (x, y)를 괄호로 써라."
+        },
+        {
+          "error_code": "COORDINATE_INTERSECTION_MISSING",
+          "label": "교점 계산 누락",
+          "diagnosis": "두 그래프의 만나는 점을 연립으로 구하지 않았다.",
+          "student_fix": "교점은 두 식을 연립해 구해라."
+        }
+      ],
+      "student_command": "좌표 문제는 모든 점을 (x, y)로 먼저 표시하고 시작해라.",
+      "teacher_note": "좌표 해석은 고등 그래프·미적분 넓이 문제의 하위 누수로 자주 나타난다.",
+      "parent_message": "좌표평면은 단순한 점 찍기가 아니라 고등 그래프 문제의 출발점입니다."
+    },
+    {
+      "template_id": "ACTION_LINEAR_FUNCTION",
+      "template_name": "일차함수·직선 유형",
+      "priority": 76,
+      "applies_to_error_tags_any": [
+        "linear_function",
+        "slope_intercept",
+        "line_equation",
+        "line_relation",
+        "parallel_lines",
+        "given_slope",
+        "slope",
+        "y_intercept"
+      ],
+      "applies_to_type_keywords_any": [
+        "일차함수",
+        "직선",
+        "기울기",
+        "절편",
+        "평행",
+        "수직"
+      ],
+      "problem_nature": "기울기와 절편을 이용해 두 양의 관계를 직선으로 표현하는 유형",
+      "required_thinking": [
+        "기울기 의미 확인",
+        "절편 확인",
+        "두 점으로 식 세우기",
+        "평행·수직 조건 적용",
+        "그래프 검산"
+      ],
+      "must_write_steps": [
+        "기울기가 무엇을 의미하는지 먼저 쓴다.",
+        "y절편 또는 지나는 점을 확인한다.",
+        "두 점이 주어지면 기울기를 먼저 구한다.",
+        "직선의 방정식을 y=ax+b 또는 y-y1=m(x-x1)로 세운다.",
+        "평행이면 기울기 같음, 수직이면 기울기의 곱 -1을 확인한다."
+      ],
+      "common_wrong_actions": [
+        "기울기를 x증가량/y증가량으로 거꾸로 계산한다.",
+        "절편을 x절편과 y절편으로 혼동한다.",
+        "평행·수직 조건을 암기만 하고 식에 적용하지 않는다.",
+        "두 점 중 하나를 대입해 검산하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "LINE_SLOPE_ERROR",
+          "label": "기울기 계산 오류",
+          "diagnosis": "y의 변화량과 x의 변화량 순서를 바꾸었다.",
+          "student_fix": "기울기는 y변화량/x변화량으로 써라."
+        },
+        {
+          "error_code": "LINE_POINT_FORM_MISSING",
+          "label": "직선식 구성 누락",
+          "diagnosis": "점과 기울기로 직선식을 만들지 못했다.",
+          "student_fix": "y-y1=m(x-x1)을 먼저 써라."
+        }
+      ],
+      "student_command": "직선 문제는 기울기를 먼저 쓰고, 그다음 지나는 점을 대입해라.",
+      "teacher_note": "일차함수는 미분 접선식의 선행 언어로 연결해 설명한다.",
+      "parent_message": "일차함수는 고등 미분에서 접선의 방정식으로 그대로 이어집니다."
+    },
+    {
+      "template_id": "ACTION_QUADRATIC_FUNCTION",
+      "template_name": "이차함수·포물선 유형",
+      "priority": 77,
+      "applies_to_error_tags_any": [
+        "quadratic_function",
+        "parabola",
+        "vertex_axis",
+        "symmetry_axis",
+        "coefficient",
+        "maximum_minimum",
+        "extrema",
+        "graph_property"
+      ],
+      "applies_to_type_keywords_any": [
+        "이차함수",
+        "포물선",
+        "꼭짓점",
+        "축",
+        "최댓값",
+        "최솟값"
+      ],
+      "problem_nature": "이차식의 계수와 그래프의 꼭짓점·축·범위를 연결하는 유형",
+      "required_thinking": [
+        "표준형 변환",
+        "꼭짓점 확인",
+        "축 확인",
+        "최대·최소 판단",
+        "교점 검산"
+      ],
+      "must_write_steps": [
+        "이차함수의 a값 부호를 먼저 확인한다.",
+        "완전제곱식 또는 표준형으로 바꾼다.",
+        "꼭짓점과 축의 방정식을 쓴다.",
+        "정의역이 제한되면 끝점과 꼭짓점 값을 비교한다.",
+        "교점이나 근 조건이 있으면 방정식으로 검산한다."
+      ],
+      "common_wrong_actions": [
+        "a의 부호와 그래프 방향을 연결하지 않는다.",
+        "꼭짓점 좌표를 잘못 읽는다.",
+        "정의역 제한에서 끝점 확인을 빠뜨린다.",
+        "근과 x절편의 의미를 분리하지 못한다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "QUAD_VERTEX_MISSING",
+          "label": "꼭짓점 누락",
+          "diagnosis": "이차함수 문제에서 꼭짓점과 축을 확인하지 않았다.",
+          "student_fix": "표준형으로 바꾸고 꼭짓점 좌표를 써라."
+        },
+        {
+          "error_code": "QUAD_DOMAIN_ENDPOINT_ERROR",
+          "label": "끝점 비교 누락",
+          "diagnosis": "정의역 제한이 있는데 끝점값을 비교하지 않았다.",
+          "student_fix": "꼭짓점값과 양 끝점값을 모두 계산해라."
+        }
+      ],
+      "student_command": "이차함수는 꼭짓점과 축을 쓰지 않으면 다시 풀어야 한다.",
+      "teacher_note": "이차함수 오답은 완전제곱식 변환과 정의역 제한 검토를 확인한다.",
+      "parent_message": "이차함수는 고등 함수 그래프와 최댓값·최솟값 문제의 기본 구조입니다."
+    },
+    {
+      "template_id": "ACTION_FACTORIZATION",
+      "template_name": "인수분해·식 구조 유형",
+      "priority": 75,
+      "applies_to_error_tags_any": [
+        "factorization",
+        "common_factor",
+        "middle_term",
+        "multiplication_formula",
+        "expansion",
+        "polynomial_division",
+        "common_factorization",
+        "algebraic_manipulation"
+      ],
+      "applies_to_type_keywords_any": [
+        "인수분해",
+        "공통인수",
+        "전개",
+        "곱셈공식",
+        "나머지정리",
+        "조립제법"
+      ],
+      "problem_nature": "식을 곱의 구조로 쪼개거나 전개해 방정식·약분·극한에 활용하는 유형",
+      "required_thinking": [
+        "공통인수 찾기",
+        "공식 형태 확인",
+        "곱 구조 만들기",
+        "전개 검산",
+        "활용 목적 확인"
+      ],
+      "must_write_steps": [
+        "항마다 공통으로 들어 있는 인수를 먼저 찾는다.",
+        "곱셈공식 형태인지 확인한다.",
+        "인수분해 후 다시 전개해 원래 식이 되는지 검산한다.",
+        "방정식이면 각 인수=0으로 나눈다.",
+        "약분이나 극한이면 공통인수를 제거할 수 있는 조건을 확인한다."
+      ],
+      "common_wrong_actions": [
+        "공통인수를 먼저 보지 않는다.",
+        "부호가 다른 곱셈공식을 혼동한다.",
+        "인수분해 후 전개 검산을 하지 않는다.",
+        "약분해도 되는 조건을 확인하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "FACTOR_COMMON_FACTOR_MISSING",
+          "label": "공통인수 누락",
+          "diagnosis": "공통인수를 먼저 꺼내지 않아 식이 복잡해졌다.",
+          "student_fix": "각 항에 공통으로 있는 문자와 수를 동그라미 쳐라."
+        },
+        {
+          "error_code": "FACTOR_EXPANSION_CHECK_MISSING",
+          "label": "전개 검산 누락",
+          "diagnosis": "인수분해 결과가 원래 식과 같은지 확인하지 않았다.",
+          "student_fix": "인수분해 후 한 번 전개해 확인해라."
+        }
+      ],
+      "student_command": "인수분해는 공통인수를 먼저 찾고, 마지막에 전개 검산해라.",
+      "teacher_note": "인수분해는 중3에서 끝나는 내용이 아니라 극한·방정식·미분 계산의 선행 구조다.",
+      "parent_message": "인수분해는 복잡한 식을 작게 쪼개 고등 계산을 가능하게 하는 핵심 도구입니다."
+    },
+    {
+      "template_id": "ACTION_EQUATION_MODELING",
+      "template_name": "식 세우기·조건 번역 유형",
+      "priority": 64,
+      "applies_to_error_tags_any": [
+        "condition_translation",
+        "condition_interpretation",
+        "word_problem_modeling",
+        "modeling",
+        "real_context",
+        "application_modeling",
+        "number_word_problem",
+        "formula_selection",
+        "parameter_condition",
+        "coefficient_matching",
+        "coefficient_condition"
+      ],
+      "applies_to_type_keywords_any": [
+        "조건",
+        "활용",
+        "문장제",
+        "미지수",
+        "계수",
+        "모델링"
+      ],
+      "problem_nature": "문장 조건을 수식, 표, 그래프 중 하나로 번역해 미지수를 결정하는 유형",
+      "required_thinking": [
+        "미지수 설정",
+        "조건 분리",
+        "식 작성",
+        "계수 비교",
+        "원문 검산"
+      ],
+      "must_write_steps": [
+        "구해야 하는 값을 미지수로 둔다.",
+        "문장 조건을 한 줄에 하나씩 분리한다.",
+        "각 조건을 식, 표, 그래프 중 하나로 바꾼다.",
+        "계수 비교나 대입으로 미지수를 구한다.",
+        "구한 값이 문제 문장 전체를 만족하는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "미지수를 정하지 않고 계산부터 한다.",
+        "조건을 한 식에 섞어서 쓴다.",
+        "필요 없는 조건과 핵심 조건을 구분하지 않는다.",
+        "구한 값을 문장에 다시 대입하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "MODELING_UNKNOWN_MISSING",
+          "label": "미지수 설정 누락",
+          "diagnosis": "무엇을 x로 둘지 정하지 않아 조건식이 흔들렸다.",
+          "student_fix": "첫 줄에 x가 무엇인지 문장으로 써라."
+        },
+        {
+          "error_code": "MODELING_CONDITION_MIXED",
+          "label": "조건 혼합",
+          "diagnosis": "여러 조건을 구분하지 않고 한꺼번에 처리했다.",
+          "student_fix": "조건을 ①, ②, ③으로 나누어 식을 세워라."
+        }
+      ],
+      "student_command": "문장제는 계산 전에 x가 무엇인지 한 문장으로 써라.",
+      "teacher_note": "조건 번역형은 계산 오답보다 조건 분리 여부를 먼저 확인한다.",
+      "parent_message": "이 유형은 공식을 아는 것보다 문제의 문장을 수학식으로 바꾸는 힘이 중요합니다."
+    },
+    {
+      "template_id": "ACTION_ANALYTIC_GEOMETRY",
+      "template_name": "도형의 방정식 유형",
+      "priority": 80,
+      "applies_to_error_tags_any": [
+        "coordinate_geometry",
+        "circle_equation",
+        "center_radius",
+        "line_circle_relation",
+        "distance_to_line",
+        "section_formula",
+        "line_equation",
+        "point_condition",
+        "position_relation"
+      ],
+      "applies_to_type_keywords_any": [
+        "원의 방정식",
+        "도형의 방정식",
+        "직선과 원",
+        "거리",
+        "내분점",
+        "외분점",
+        "중점"
+      ],
+      "problem_nature": "도형 조건을 좌표와 방정식으로 바꾸어 위치 관계를 판단하는 유형",
+      "required_thinking": [
+        "도형 조건 확인",
+        "좌표 설정",
+        "공식 선택",
+        "위치 관계 판정",
+        "그림 검산"
+      ],
+      "must_write_steps": [
+        "그림에서 주어진 점, 직선, 원의 정보를 좌표로 정리한다.",
+        "중점, 거리, 내분점, 원의 중심과 반지름 중 필요한 공식을 고른다.",
+        "도형 조건을 방정식으로 바꾼다.",
+        "교점, 접함, 만나지 않음 등 위치 관계를 판정한다.",
+        "구한 식이 그림의 위치와 맞는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "그림만 보고 좌표식을 세우지 않는다.",
+        "원의 중심과 반지름을 식에서 잘못 읽는다.",
+        "접한다는 조건을 거리=반지름으로 바꾸지 못한다.",
+        "좌표 검산 없이 답을 낸다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "ANALYTIC_GEOM_CONDITION_TRANSLATION_ERROR",
+          "label": "도형 조건 번역 오류",
+          "diagnosis": "도형의 조건을 좌표식으로 바꾸지 못했다.",
+          "student_fix": "도형 조건 옆에 대응하는 공식을 써라."
+        },
+        {
+          "error_code": "ANALYTIC_GEOM_POSITION_ERROR",
+          "label": "위치 관계 판정 오류",
+          "diagnosis": "교점·접함·분리 조건을 판정하지 못했다.",
+          "student_fix": "거리, 판별식, 연립 중 필요한 판정 도구를 선택해라."
+        }
+      ],
+      "student_command": "도형의 방정식은 그림 정보를 좌표식으로 바꾸고 시작해라.",
+      "teacher_note": "도형의 방정식은 좌표평면과 그래프 해석의 고1 확장으로 본다.",
+      "parent_message": "도형의 방정식은 그림을 식으로 바꾸는 단원이라 고등 그래프·미적분과 연결됩니다."
+    },
+    {
+      "template_id": "ACTION_COUNTING_CASEWORK",
+      "template_name": "경우의 수·분류 유형",
+      "priority": 65,
+      "applies_to_error_tags_any": [
+        "addition_rule",
+        "multiplication_rule",
+        "case_classification",
+        "casework",
+        "condition_casework",
+        "permutation",
+        "combination",
+        "ordered_arrangement",
+        "unordered_selection",
+        "inclusion_exclusion",
+        "counting",
+        "sample_space",
+        "event_operation"
+      ],
+      "applies_to_type_keywords_any": [
+        "경우의 수",
+        "순열",
+        "조합",
+        "합의 법칙",
+        "곱의 법칙",
+        "포함배제",
+        "확률"
+      ],
+      "problem_nature": "조건을 겹치지 않는 경우로 나누고 순서의 유무를 판단해 세는 유형",
+      "required_thinking": [
+        "전체 조건 확인",
+        "순서 유무 판단",
+        "중복 가능성 확인",
+        "경우 분류",
+        "합산 검산"
+      ],
+      "must_write_steps": [
+        "세는 대상이 무엇인지 한 문장으로 쓴다.",
+        "순서가 중요한지 아닌지 판단한다.",
+        "중복이 가능한지 확인한다.",
+        "조건별로 겹치지 않게 경우를 나눈다.",
+        "각 경우를 더한 값이 전체 조건과 맞는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "순열과 조합을 구분하지 않는다.",
+        "겹치는 경우를 중복해서 센다.",
+        "빠지는 경우가 있는지 확인하지 않는다.",
+        "전체에서 빼는 방법과 직접 세는 방법을 섞는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "COUNTING_ORDER_MISREAD",
+          "label": "순서 판단 오류",
+          "diagnosis": "순서가 중요한 상황인지 확인하지 않았다.",
+          "student_fix": "순서 O/X를 먼저 표시해라."
+        },
+        {
+          "error_code": "COUNTING_OVERLAP_ERROR",
+          "label": "중복 계산",
+          "diagnosis": "서로 겹치는 경우를 따로 세어 중복이 생겼다.",
+          "student_fix": "경우를 나눈 뒤 서로 겹치는지 확인해라."
+        }
+      ],
+      "student_command": "경우의 수는 순서 O/X와 중복 O/X를 먼저 쓰고 풀어라.",
+      "teacher_note": "경우의 수 오답은 공식 선택보다 분류 누락·중복 카운팅을 본다.",
+      "parent_message": "경우의 수는 공식보다 조건을 빠짐없이 나누는 사고가 중요합니다."
+    },
+    {
+      "template_id": "ACTION_SET_LOGIC",
+      "template_name": "집합·명제 논리 유형",
+      "priority": 62,
+      "applies_to_error_tags_any": [
+        "set_notation",
+        "element_condition",
+        "subset_relation",
+        "set_operation",
+        "complement_law",
+        "venn_diagram",
+        "proposition_truth",
+        "proof_logic",
+        "counterexample",
+        "necessary_sufficient",
+        "converse_inverse_contrapositive",
+        "negation_logic"
+      ],
+      "applies_to_type_keywords_any": [
+        "집합",
+        "명제",
+        "필요조건",
+        "충분조건",
+        "부정",
+        "벤 다이어그램",
+        "부분집합"
+      ],
+      "problem_nature": "조건의 포함 관계와 참·거짓을 그림 또는 논리식으로 확인하는 유형",
+      "required_thinking": [
+        "원소 조건 해석",
+        "포함 관계 판단",
+        "벤다이어그램 또는 진리값 표시",
+        "반례 확인",
+        "명제 변형"
+      ],
+      "must_write_steps": [
+        "집합의 원소 조건을 문장으로 풀어쓴다.",
+        "포함 관계가 있는지 확인한다.",
+        "필요하면 벤다이어그램이나 수직선으로 나타낸다.",
+        "명제는 참·거짓 또는 반례를 확인한다.",
+        "역·이·대우 또는 필요·충분 조건을 구분한다."
+      ],
+      "common_wrong_actions": [
+        "원소와 부분집합 기호를 혼동한다.",
+        "전체집합과 여집합을 확인하지 않는다.",
+        "명제가 거짓일 때 반례를 들지 않는다.",
+        "필요조건과 충분조건을 반대로 말한다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "SET_SYMBOL_CONFUSION",
+          "label": "기호 혼동",
+          "diagnosis": "원소 기호와 포함 기호를 혼동했다.",
+          "student_fix": "∈는 원소, ⊂는 집합 포함이라고 옆에 써라."
+        },
+        {
+          "error_code": "LOGIC_COUNTEREXAMPLE_MISSING",
+          "label": "반례 누락",
+          "diagnosis": "거짓 명제를 판단할 때 반례를 제시하지 않았다.",
+          "student_fix": "거짓이면 숫자나 사례 하나를 반드시 써라."
+        }
+      ],
+      "student_command": "집합·명제는 그림이나 반례 없이 결론만 쓰면 다시 풀어야 한다.",
+      "teacher_note": "논리 유형은 답보다 포함 관계를 표면화했는지 확인한다.",
+      "parent_message": "집합과 명제는 조건을 정확히 읽고 참·거짓의 근거를 쓰는 훈련입니다."
+    },
+    {
+      "template_id": "ACTION_MATRIX_ROW_COLUMN",
+      "template_name": "행렬 연산 유형",
+      "priority": 60,
+      "applies_to_error_tags_any": [
+        "matrix_shape",
+        "row_column",
+        "entry_position",
+        "matrix_operation",
+        "matrix_multiplication",
+        "matrix_power"
+      ],
+      "applies_to_type_keywords_any": [
+        "행렬",
+        "성분",
+        "행",
+        "열",
+        "곱셈"
+      ],
+      "problem_nature": "행렬의 크기와 성분 위치를 확인하고 연산 가능 조건을 적용하는 유형",
+      "required_thinking": [
+        "행렬 크기 확인",
+        "성분 위치 확인",
+        "연산 가능 조건 확인",
+        "행×열 계산",
+        "결과 크기 검산"
+      ],
+      "must_write_steps": [
+        "각 행렬의 크기를 먼저 쓴다.",
+        "찾는 성분의 행 번호와 열 번호를 확인한다.",
+        "덧셈, 곱셈, 거듭제곱이 가능한지 조건을 확인한다.",
+        "곱셈이면 앞 행렬의 행과 뒤 행렬의 열을 대응시킨다.",
+        "결과 행렬의 크기가 맞는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "행과 열을 바꿔 읽는다.",
+        "곱셈 가능 조건을 확인하지 않는다.",
+        "AB와 BA가 같다고 생각한다.",
+        "결과 행렬의 크기를 검산하지 않는다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "MATRIX_SIZE_CHECK_MISSING",
+          "label": "크기 확인 누락",
+          "diagnosis": "행렬 연산 가능 조건을 먼저 확인하지 않았다.",
+          "student_fix": "풀이 첫 줄에 행렬 크기를 써라."
+        },
+        {
+          "error_code": "MATRIX_ROW_COLUMN_ERROR",
+          "label": "행·열 대응 오류",
+          "diagnosis": "곱셈에서 행과 열의 대응을 바꾸었다.",
+          "student_fix": "구하는 성분의 행×열을 화살표로 표시해라."
+        }
+      ],
+      "student_command": "행렬은 크기 확인 없이 연산을 시작하면 다시 풀어야 한다.",
+      "teacher_note": "행렬 오답은 계산보다 크기 조건과 순서 인식 누락을 본다.",
+      "parent_message": "행렬 문제는 계산보다 행과 열의 위치, 연산 순서를 정확히 보는 훈련입니다."
+    },
+    {
+      "template_id": "ACTION_GENERIC_STRUCTURED_SOLUTION",
+      "template_name": "일반 구조화 풀이 유형",
+      "priority": 1,
+      "applies_to_error_tags_any": [],
+      "applies_to_type_keywords_any": [],
+      "problem_nature": "조건을 구조화하고 필요한 개념을 순서대로 적용하는 유형",
+      "required_thinking": [
+        "문항분류 확인",
+        "주어진 조건 표시",
+        "필요 공식 선택",
+        "계산 수행",
+        "원조건 검산"
+      ],
+      "must_write_steps": [
+        "문항에서 묻는 값을 한 문장으로 정리한다.",
+        "주어진 조건을 식, 표, 그래프, 도형 정보로 나누어 쓴다.",
+        "이 유형에서 필요한 공식 또는 성질을 먼저 적는다.",
+        "조건을 순서대로 대입해 계산한다.",
+        "답이 원래 조건과 단위에 맞는지 확인한다."
+      ],
+      "common_wrong_actions": [
+        "문항분류를 확인하지 않고 계산부터 한다.",
+        "조건을 한꺼번에 처리해 누락이 생긴다.",
+        "공식을 왜 쓰는지 설명하지 못한다.",
+        "검산 없이 답만 쓴다."
+      ],
+      "error_checkpoints": [
+        {
+          "error_code": "GENERIC_CONDITION_MISSING",
+          "label": "조건 정리 누락",
+          "diagnosis": "풀이 전에 주어진 조건을 분리하지 않았다.",
+          "student_fix": "조건을 ①, ②, ③으로 나누어 적어라."
+        },
+        {
+          "error_code": "GENERIC_CHECK_MISSING",
+          "label": "검산 누락",
+          "diagnosis": "계산 결과를 원래 문항 조건에 대입해 확인하지 않았다.",
+          "student_fix": "마지막 줄에 원조건 검산을 써라."
+        }
+      ],
+      "student_command": "이 유형은 계산 전에 조건을 번호로 나누어 쓰고 시작해라.",
+      "teacher_note": "아직 세부 템플릿이 없는 유형은 조건 분리와 검산 습관을 우선 적용한다.",
+      "parent_message": "이 문항은 답보다 풀이 순서와 조건 정리 습관을 확인해야 합니다."
+    }
+  ]
+}

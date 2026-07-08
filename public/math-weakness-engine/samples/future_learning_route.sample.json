@@ -1,0 +1,51 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "sample_type": "learning_connection",
+  "input": {
+    "unit_id": "M2_LINEAR_FUNCTION"
+  },
+  "output": {
+    "route_id": "FUTURE_M2_LINEAR_FUNCTION",
+    "source_unit_id": "M2_LINEAR_FUNCTION",
+    "source_unit_hint": "중2 일차함수",
+    "current_learning_action": "두 양의 관계를 y=ax+b 꼴로 나타내고 기울기와 절편을 읽는다.",
+    "current_must_do": [
+      "기울기의 의미를 설명한다.",
+      "y절편을 그래프에서 읽는다.",
+      "두 점으로 직선의 방정식을 세운다.",
+      "그래프에서 x값 변화에 따른 y값 변화를 읽는다."
+    ],
+    "why_it_matters_now": "일차함수는 직선 그래프를 그리는 단원이 아니라, 나중에 접선의 방정식을 세우는 기본 언어다.",
+    "future_routes": [
+      {
+        "target_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+        "target_unit_hint": "미적분1 미분",
+        "future_scene": "접선의 방정식을 구한다.",
+        "used_as": "도함수값을 기울기로 보고 직선의 방정식을 세운다.",
+        "student_action_later": [
+          "접점을 (a, f(a))로 둔다.",
+          "f'(a)를 접선의 기울기로 쓴다.",
+          "y - f(a) = f'(a)(x-a)를 쓴다.",
+          "문제의 추가 조건을 대입한다."
+        ],
+        "example_bridge": "중2의 y-y1=m(x-x1)이 미분에서 y-f(a)=f'(a)(x-a)로 그대로 쓰인다.",
+        "teacher_explanation": "접선은 결국 특정 점에서의 직선입니다. 일차함수의 직선 방정식이 미분의 언어가 됩니다.",
+        "parent_explanation": "일차함수를 제대로 못하면 고등 미분의 접선 문제에서 식을 세우기 어렵습니다."
+      },
+      {
+        "target_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+        "target_unit_hint": "공통수학2 도형의 방정식",
+        "future_scene": "직선과 원, 직선과 직선의 위치 관계를 판단한다.",
+        "used_as": "기울기와 절편으로 평행·수직·교점을 해석한다.",
+        "student_action_later": [
+          "직선의 기울기를 구한다.",
+          "평행·수직 조건을 적용한다.",
+          "연립해서 교점을 구한다."
+        ],
+        "example_bridge": "중2 일차함수의 직선식이 고1 도형의 방정식에서 위치 관계 판단 도구가 된다.",
+        "teacher_explanation": "기울기와 절편으로 평행·수직·교점을 해석한다.",
+        "parent_explanation": "중2 일차함수의 직선식이 고1 도형의 방정식에서 위치 관계 판단 도구가 된다."
+      }
+    ]
+  }
+}

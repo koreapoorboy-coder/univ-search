@@ -1,0 +1,822 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "오답 발생 시 현재 문항유형에서 선행 개념 누수까지 내려가는 전역 backtrack route 1차 패치.",
+  "route_count": 20,
+  "routes": [
+    {
+      "route_id": "BACKTRACK_AREA_BETWEEN_CURVES",
+      "trigger_template_ids_any": [
+        "ACTION_AREA_BETWEEN_CURVES"
+      ],
+      "trigger_error_tags_any": [
+        "area",
+        "curve_line",
+        "two_curves",
+        "curve_xaxis",
+        "curve_yaxis",
+        "absolute_value_integral"
+      ],
+      "current_weakness": "그래프의 위치 관계와 구간 분할을 이용한 넓이 세팅이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "미적분1 적분",
+          "concept_focus": "곡선과 x축 사이의 넓이",
+          "student_action": "넓이는 정적분값이 아니라 절댓값 또는 구간별 합이라는 것을 확인한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "공통수학2 도형의 방정식",
+          "concept_focus": "교점 좌표",
+          "student_action": "두 식을 연립해서 그래프가 만나는 점을 구한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학2 함수와 그래프",
+          "concept_focus": "그래프 위치 관계",
+          "student_action": "각 구간에서 어느 그래프가 위에 있는지 판단한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 좌표평면과 그래프",
+          "concept_focus": "좌표 해석",
+          "student_action": "점의 좌표와 그래프의 위치를 읽는다."
+        }
+      ],
+      "student_summary": "이 오답은 적분 공식보다 교점, 구간 분할, 위아래 그래프 판단에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_TANGENT_LINE",
+      "trigger_template_ids_any": [
+        "ACTION_TANGENT_LINE"
+      ],
+      "trigger_error_tags_any": [
+        "tangent_line",
+        "tangent_slope",
+        "given_slope",
+        "point_of_tangency",
+        "common_tangent"
+      ],
+      "current_weakness": "접점과 기울기를 연결해 직선 방정식을 세우는 구조가 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "미적분1 미분",
+          "concept_focus": "도함수와 접선의 기울기",
+          "student_action": "f'(a)가 x=a에서의 접선 기울기임을 확인한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중2 일차함수",
+          "concept_focus": "점과 기울기로 직선의 방정식 세우기",
+          "student_action": "y-y1=m(x-x1)을 먼저 쓴다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중1 좌표평면과 그래프",
+          "concept_focus": "점의 좌표 읽기",
+          "student_action": "접점을 좌표로 정확히 표시한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "공통수학2 도형의 방정식",
+          "concept_focus": "직선과 곡선의 위치 관계",
+          "student_action": "접한다는 조건을 교점이 하나라는 조건으로 바꾼다."
+        }
+      ],
+      "student_summary": "이 오답은 미분 계산보다 접점 설정과 직선 방정식 구성에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_FUNCTION_GRAPH",
+      "trigger_template_ids_any": [
+        "ACTION_FUNCTION_GRAPH"
+      ],
+      "trigger_error_tags_any": [
+        "function_graph",
+        "graph_interpretation",
+        "domain_range",
+        "translation",
+        "reflection",
+        "asymptote"
+      ],
+      "current_weakness": "함수식의 조건을 그래프의 위치와 구간으로 바꾸는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "공통수학2 함수와 그래프",
+          "concept_focus": "정의역·치역과 그래프 변환",
+          "student_action": "정의역 제한과 기본 그래프를 먼저 확인한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중3 이차함수",
+          "concept_focus": "꼭짓점과 축",
+          "student_action": "그래프의 기준점과 대칭축을 좌표로 읽는다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중2 일차함수",
+          "concept_focus": "기울기와 절편",
+          "student_action": "직선의 증가·감소와 절편을 읽는다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 좌표평면과 그래프",
+          "concept_focus": "좌표와 그래프 읽기",
+          "student_action": "점, 축, 증가·감소를 그래프에서 읽는다."
+        }
+      ],
+      "student_summary": "이 오답은 식 변형 자체보다 그래프의 기준점·정의역·구간 해석에서 시작되었을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_EQUATION_ROOTS",
+      "trigger_template_ids_any": [
+        "ACTION_EQUATION_ROOTS"
+      ],
+      "trigger_error_tags_any": [
+        "equation_roots",
+        "quadratic_equation",
+        "discriminant",
+        "solution_check",
+        "simultaneous_equation"
+      ],
+      "current_weakness": "방정식의 해를 구한 뒤 해의 조건과 원식 검산을 하지 못함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "공통수학1 방정식과 부등식",
+          "concept_focus": "해의 조건과 판별식",
+          "student_action": "근의 개수와 해의 범위를 먼저 판단한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중3 이차방정식",
+          "concept_focus": "인수분해와 판별식",
+          "student_action": "이차방정식의 풀이 방법을 선택한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중2 일차방정식·연립방정식",
+          "concept_focus": "방정식 세우기",
+          "student_action": "문장 조건을 식으로 바꾸고 해를 검산한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 문자와 식",
+          "concept_focus": "문자식 대입과 식의 값",
+          "student_action": "구한 값을 원래 식에 대입해 확인한다."
+        }
+      ],
+      "student_summary": "이 오답은 해법 공식보다 정의역 조건과 가짜해 제거가 누락되어 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_INEQUALITY_ALWAYS_TRUE",
+      "trigger_template_ids_any": [
+        "ACTION_INEQUALITY_ALWAYS_TRUE"
+      ],
+      "trigger_error_tags_any": [
+        "inequality",
+        "truth_set",
+        "sign_error",
+        "always_true",
+        "max_min",
+        "parameter_condition"
+      ],
+      "current_weakness": "부등식의 부호 구간과 항상 성립 조건을 함수의 범위로 바꾸는 힘이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "공통수학1 방정식과 부등식",
+          "concept_focus": "해집합과 항상 성립",
+          "student_action": "항상 성립 조건을 범위 포함 관계로 바꾼다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중3 이차함수",
+          "concept_focus": "최댓값·최솟값",
+          "student_action": "그래프의 꼭짓점과 끝점으로 범위를 구한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중2 일차부등식",
+          "concept_focus": "부등식의 성질",
+          "student_action": "음수를 곱하거나 나눌 때 부등호 방향을 바꾼다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 정수와 유리수",
+          "concept_focus": "양수·음수 부호 판단",
+          "student_action": "수의 부호와 크기 비교를 정확히 한다."
+        }
+      ],
+      "student_summary": "이 오답은 계산보다 부호 변화와 범위 조건을 끝까지 추적하지 못해서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_SEQUENCE_LIMIT_INDETERMINATE",
+      "trigger_template_ids_any": [
+        "ACTION_SEQUENCE_INDETERMINATE"
+      ],
+      "trigger_error_tags_any": [
+        "indeterminate_form",
+        "infty_over_infty",
+        "zero_over_zero",
+        "algebraic_limit",
+        "rationalization"
+      ],
+      "current_weakness": "극한 계산 전에 식의 형태를 분류하고 정리하는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "미적분2 수열의 극한",
+          "concept_focus": "부정형 극한",
+          "student_action": "0/0, ∞/∞ 등 형태를 먼저 분류한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "공통수학1 다항식",
+          "concept_focus": "인수분해와 약분",
+          "student_action": "공통인수를 찾아 약분 가능한 구조로 만든다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중3 실수와 그 계산",
+          "concept_focus": "유리화와 근호 계산",
+          "student_action": "무리식이 있으면 켤레식을 이용해 유리화한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중3 다항식의 곱셈과 인수분해",
+          "concept_focus": "식 구조 분해",
+          "student_action": "복잡한 식을 곱의 구조로 쪼갠다."
+        }
+      ],
+      "student_summary": "이 오답은 극한 공식보다 인수분해·유리화·최고차항 판단에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_GEOMETRIC_SEQUENCE_SERIES",
+      "trigger_template_ids_any": [
+        "ACTION_GEOMETRIC_SEQUENCE",
+        "ACTION_GEOMETRIC_SERIES"
+      ],
+      "trigger_error_tags_any": [
+        "geometric_sequence",
+        "geometric_series",
+        "series_convergence",
+        "common_ratio"
+      ],
+      "current_weakness": "첫째항과 공비를 잡고 수렴 조건으로 연결하는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "미적분2 수열의 극한",
+          "concept_focus": "등비수열·등비급수의 극한",
+          "student_action": "|r|<1일 때 수렴한다는 조건을 먼저 확인한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "대수 수열",
+          "concept_focus": "등비수열의 일반항과 부분합",
+          "student_action": "첫째항 a와 공비 r을 찾아 일반항과 부분합을 쓴다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중1 소인수분해",
+          "concept_focus": "반복 곱 구조",
+          "student_action": "같은 수가 반복해서 곱해지는 구조를 거듭제곱으로 본다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중2 확률·비율",
+          "concept_focus": "비율 해석",
+          "student_action": "단계가 반복될 때 비율이 어떻게 누적되는지 확인한다."
+        }
+      ],
+      "student_summary": "이 오답은 급수 공식보다 첫 항·공비·수렴 조건을 분리하지 못해서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_SUBSTITUTION_INTEGRAL",
+      "trigger_template_ids_any": [
+        "ACTION_SUBSTITUTION_INTEGRAL"
+      ],
+      "trigger_error_tags_any": [
+        "substitution",
+        "definite_integral_substitution",
+        "chain_form_integral"
+      ],
+      "current_weakness": "합성함수 구조에서 안쪽 함수와 미분된 형태를 연결하는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "미적분2 적분법",
+          "concept_focus": "치환적분",
+          "student_action": "u와 du를 함께 쓰고 정적분 구간을 바꾼다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "미적분2 미분법",
+          "concept_focus": "합성함수의 미분",
+          "student_action": "안쪽 함수와 그 도함수를 확인한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학2 함수와 그래프",
+          "concept_focus": "합성함수 구조",
+          "student_action": "겉함수와 안쪽 함수를 구분한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 문자와 식",
+          "concept_focus": "치환과 대입",
+          "student_action": "복잡한 식의 일부를 다른 문자로 바꿔 본다."
+        }
+      ],
+      "student_summary": "이 오답은 적분 공식보다 합성함수 구조와 변수 변환을 놓친 데서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_INTEGRATION_BY_PARTS",
+      "trigger_template_ids_any": [
+        "ACTION_INTEGRATION_BY_PARTS"
+      ],
+      "trigger_error_tags_any": [
+        "integration_by_parts",
+        "product_integral",
+        "log_integral"
+      ],
+      "current_weakness": "곱 형태 적분에서 무엇을 미분하고 무엇을 적분할지 선택하는 기준이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "미적분2 적분법",
+          "concept_focus": "부분적분 공식",
+          "student_action": "u, dv, du, v 표를 만든다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "미적분2 미분법",
+          "concept_focus": "곱의 미분법",
+          "student_action": "부분적분이 곱의 미분의 역과정임을 확인한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "대수 지수함수와 로그함수",
+          "concept_focus": "로그함수의 미분·적분 구조",
+          "student_action": "ln x는 미분하면 단순해진다는 특징을 확인한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "공통수학1 다항식",
+          "concept_focus": "곱 구조 인식",
+          "student_action": "식이 곱으로 되어 있는지 먼저 본다."
+        }
+      ],
+      "student_summary": "이 오답은 공식보다 u와 dv 선택 기준이 불명확해서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_INTEGRAL_DEFINED_FUNCTION",
+      "trigger_template_ids_any": [
+        "ACTION_INTEGRAL_DEFINED_FUNCTION"
+      ],
+      "trigger_error_tags_any": [
+        "integral_defined_function",
+        "ftc",
+        "variable_limit_integral"
+      ],
+      "current_weakness": "정적분 기호 안의 변수와 바깥 변수를 구분하는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "미적분2 적분법",
+          "concept_focus": "정적분으로 정의된 함수",
+          "student_action": "적분 변수와 위끝·아래끝 변수를 분리한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "미적분1 적분",
+          "concept_focus": "미적분의 기본정리",
+          "student_action": "정적분과 원시함수의 관계를 확인한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학2 함수와 그래프",
+          "concept_focus": "함수값과 변수",
+          "student_action": "f(x), f(t)의 변수를 구분한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 문자와 식",
+          "concept_focus": "문자의 역할",
+          "student_action": "문자가 값인지 변수인지 구분한다."
+        }
+      ],
+      "student_summary": "이 오답은 적분 계산보다 변수 역할 구분에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_MOTION_DISTANCE",
+      "trigger_template_ids_any": [
+        "ACTION_MOTION_DISTANCE"
+      ],
+      "trigger_error_tags_any": [
+        "motion",
+        "velocity",
+        "acceleration",
+        "distance"
+      ],
+      "current_weakness": "위치·속도·가속도의 관계와 거리·변위 차이를 구분하지 못함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "미적분1 미분·적분",
+          "concept_focus": "위치-속도-가속도 관계",
+          "student_action": "s'(t)=v(t), v'(t)=a(t)를 먼저 쓴다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "미적분1 적분",
+          "concept_focus": "정적분과 누적량",
+          "student_action": "속도의 정적분이 변위이고 절댓값 적분이 거리임을 확인한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학2 함수와 그래프",
+          "concept_focus": "부호와 구간",
+          "student_action": "속도가 0이 되는 시점으로 구간을 나눈다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 좌표평면과 그래프",
+          "concept_focus": "그래프 변화 읽기",
+          "student_action": "그래프가 위/아래에 있는 구간을 읽는다."
+        }
+      ],
+      "student_summary": "이 오답은 미분·적분 계산보다 부호 변화와 실제 의미 해석에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_COORDINATE_GRAPH",
+      "trigger_template_ids_any": [
+        "ACTION_COORDINATE_GRAPH"
+      ],
+      "trigger_error_tags_any": [
+        "coordinate_graph",
+        "coordinate_geometry",
+        "graph_coordinate",
+        "intersection",
+        "coordinate_distance"
+      ],
+      "current_weakness": "좌표로 점과 그래프의 위치를 정확히 읽고 식으로 바꾸는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "중1 좌표평면과 그래프",
+          "concept_focus": "점의 좌표",
+          "student_action": "모든 점을 (x, y)로 표시한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중2 일차함수",
+          "concept_focus": "두 점과 기울기",
+          "student_action": "두 점으로 기울기와 직선식을 만든다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학2 도형의 방정식",
+          "concept_focus": "거리·중점·교점",
+          "student_action": "좌표 공식을 선택한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "미적분2 적분법",
+          "concept_focus": "그래프 넓이",
+          "student_action": "교점과 구간 분할로 넓이식을 세운다."
+        }
+      ],
+      "student_summary": "이 오답은 상위 단원 계산 이전에 좌표 읽기와 교점 확인에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_LINEAR_FUNCTION",
+      "trigger_template_ids_any": [
+        "ACTION_LINEAR_FUNCTION"
+      ],
+      "trigger_error_tags_any": [
+        "linear_function",
+        "slope_intercept",
+        "line_equation",
+        "given_slope"
+      ],
+      "current_weakness": "기울기와 지나는 점으로 직선의 방정식을 구성하는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "중2 일차함수",
+          "concept_focus": "기울기와 절편",
+          "student_action": "기울기와 y절편을 그래프에서 읽는다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중1 좌표평면과 그래프",
+          "concept_focus": "두 점의 좌표",
+          "student_action": "두 점을 정확히 읽고 변화량을 계산한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학2 도형의 방정식",
+          "concept_focus": "직선의 방정식",
+          "student_action": "점-기울기형으로 직선을 세운다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "미적분1 미분",
+          "concept_focus": "접선의 방정식",
+          "student_action": "도함수값을 기울기로 사용한다."
+        }
+      ],
+      "student_summary": "이 오답은 직선의 기울기와 점-기울기식이 흔들려 상위 접선 문제로 이어질 수 있다."
+    },
+    {
+      "route_id": "BACKTRACK_QUADRATIC_FUNCTION",
+      "trigger_template_ids_any": [
+        "ACTION_QUADRATIC_FUNCTION"
+      ],
+      "trigger_error_tags_any": [
+        "quadratic_function",
+        "parabola",
+        "vertex_axis",
+        "symmetry_axis",
+        "maximum_minimum"
+      ],
+      "current_weakness": "이차함수의 표준형, 꼭짓점, 정의역 제한을 연결하지 못함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "중3 이차함수",
+          "concept_focus": "꼭짓점과 축",
+          "student_action": "표준형으로 바꿔 꼭짓점과 축을 찾는다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중3 이차방정식",
+          "concept_focus": "근과 x절편",
+          "student_action": "그래프의 x절편을 방정식의 근으로 본다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학2 함수와 그래프",
+          "concept_focus": "함수의 최대·최소",
+          "student_action": "정의역 제한에서 끝점과 꼭짓점을 비교한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "미적분1 미분",
+          "concept_focus": "극값 판단",
+          "student_action": "도함수 부호 변화로 최대·최소를 판단한다."
+        }
+      ],
+      "student_summary": "이 오답은 꼭짓점과 정의역 제한을 보지 않아 최댓값·최솟값 판단에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_FACTORIZATION",
+      "trigger_template_ids_any": [
+        "ACTION_FACTORIZATION"
+      ],
+      "trigger_error_tags_any": [
+        "factorization",
+        "common_factor",
+        "multiplication_formula",
+        "polynomial_division"
+      ],
+      "current_weakness": "복잡한 식을 곱의 구조로 쪼개는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "중3 다항식의 곱셈과 인수분해",
+          "concept_focus": "공통인수와 곱셈공식",
+          "student_action": "공통인수, 제곱식, 합차공식을 순서대로 확인한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "공통수학1 다항식",
+          "concept_focus": "나머지정리와 인수정리",
+          "student_action": "인수인지 확인하고 식을 나눈다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "미적분1 함수의 극한",
+          "concept_focus": "0/0꼴 약분",
+          "student_action": "인수분해 후 공통인수를 약분한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 소인수분해",
+          "concept_focus": "쪼개서 구조 보기",
+          "student_action": "숫자를 소수의 곱으로 쪼개는 사고를 식으로 확장한다."
+        }
+      ],
+      "student_summary": "이 오답은 공식 암기보다 공통인수와 곱 구조를 먼저 보는 습관이 약해서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_CONDITION_MODELING",
+      "trigger_template_ids_any": [
+        "ACTION_EQUATION_MODELING"
+      ],
+      "trigger_error_tags_any": [
+        "condition_translation",
+        "word_problem_modeling",
+        "modeling",
+        "coefficient_matching",
+        "parameter_condition"
+      ],
+      "current_weakness": "문장 조건을 미지수와 식으로 분리하는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "중1 문자와 식",
+          "concept_focus": "문자 사용과 식 세우기",
+          "student_action": "무엇을 x로 둘지 문장으로 쓴다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중2 일차방정식",
+          "concept_focus": "조건식 만들기",
+          "student_action": "조건을 한 줄에 하나씩 식으로 바꾼다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학1 방정식과 부등식",
+          "concept_focus": "매개변수 조건",
+          "student_action": "식의 조건을 해의 범위와 연결한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "고등 전 단원",
+          "concept_focus": "계수 비교와 조건 대입",
+          "student_action": "구한 값이 모든 조건을 만족하는지 검산한다."
+        }
+      ],
+      "student_summary": "이 오답은 계산력보다 조건 번역과 미지수 설정에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_ANALYTIC_GEOMETRY",
+      "trigger_template_ids_any": [
+        "ACTION_ANALYTIC_GEOMETRY"
+      ],
+      "trigger_error_tags_any": [
+        "coordinate_geometry",
+        "circle_equation",
+        "line_circle_relation",
+        "distance_to_line",
+        "center_radius"
+      ],
+      "current_weakness": "도형 조건을 좌표·방정식으로 바꾸는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "공통수학2 도형의 방정식",
+          "concept_focus": "직선·원·거리 공식",
+          "student_action": "도형 조건을 좌표식으로 바꾼다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중1 좌표평면과 그래프",
+          "concept_focus": "점의 좌표와 거리",
+          "student_action": "좌표를 정확히 읽고 거리감을 확인한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중2 일차함수",
+          "concept_focus": "직선의 기울기와 절편",
+          "student_action": "직선의 위치 관계를 기울기로 판단한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "미적분1·2",
+          "concept_focus": "접선과 넓이",
+          "student_action": "좌표와 위치 관계를 접선·넓이 문제에 적용한다."
+        }
+      ],
+      "student_summary": "이 오답은 도형을 식으로 바꾸는 번역 단계에서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_COUNTING_CASEWORK",
+      "trigger_template_ids_any": [
+        "ACTION_COUNTING_CASEWORK"
+      ],
+      "trigger_error_tags_any": [
+        "addition_rule",
+        "multiplication_rule",
+        "case_classification",
+        "permutation",
+        "combination",
+        "inclusion_exclusion"
+      ],
+      "current_weakness": "조건을 겹치지 않게 나누고 순서·중복 여부를 판단하는 과정이 약함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "공통수학1 경우의 수",
+          "concept_focus": "순열·조합·포함배제",
+          "student_action": "순서 O/X, 중복 O/X를 먼저 판단한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중2 확률",
+          "concept_focus": "전체 경우와 사건",
+          "student_action": "표본공간과 사건을 분리한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중1 자료 정리와 해석",
+          "concept_focus": "표로 분류하기",
+          "student_action": "조건을 표나 목록으로 빠짐없이 정리한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "중1 문자와 식",
+          "concept_focus": "규칙 표현",
+          "student_action": "반복 조건을 식이나 기호로 표현한다."
+        }
+      ],
+      "student_summary": "이 오답은 공식을 몰라서가 아니라 조건 분류와 중복 제거가 불완전해서 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_SET_LOGIC",
+      "trigger_template_ids_any": [
+        "ACTION_SET_LOGIC"
+      ],
+      "trigger_error_tags_any": [
+        "set_notation",
+        "subset_relation",
+        "venn_diagram",
+        "proposition_truth",
+        "necessary_sufficient"
+      ],
+      "current_weakness": "조건의 포함 관계와 명제의 참·거짓 근거를 표면화하지 못함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "공통수학2 집합과 명제",
+          "concept_focus": "포함 관계와 필요충분조건",
+          "student_action": "조건 p와 q의 포함 관계를 그림으로 확인한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중1 집합적 사고/자료 분류",
+          "concept_focus": "대상 분류",
+          "student_action": "대상을 조건별로 나누고 겹침을 확인한다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "공통수학1 방정식과 부등식",
+          "concept_focus": "해집합 포함",
+          "student_action": "해집합의 포함 관계로 조건을 판단한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "고등 함수·그래프",
+          "concept_focus": "정의역과 치역 조건",
+          "student_action": "조건을 그래프의 영역으로 해석한다."
+        }
+      ],
+      "student_summary": "이 오답은 계산보다 조건의 포함 관계를 그림이나 반례로 확인하지 않아 생겼을 가능성이 높다."
+    },
+    {
+      "route_id": "BACKTRACK_MATRIX_ROW_COLUMN",
+      "trigger_template_ids_any": [
+        "ACTION_MATRIX_ROW_COLUMN"
+      ],
+      "trigger_error_tags_any": [
+        "matrix_shape",
+        "row_column",
+        "entry_position",
+        "matrix_multiplication"
+      ],
+      "current_weakness": "행렬의 크기와 행·열 위치를 먼저 확인하지 못함",
+      "backtrack_steps": [
+        {
+          "level": 1,
+          "unit_hint": "공통수학1 행렬",
+          "concept_focus": "행렬의 크기와 성분",
+          "student_action": "행 번호와 열 번호를 구분한다."
+        },
+        {
+          "level": 2,
+          "unit_hint": "중1 좌표평면과 그래프",
+          "concept_focus": "순서쌍",
+          "student_action": "(x, y)처럼 순서가 있는 정보를 읽는다."
+        },
+        {
+          "level": 3,
+          "unit_hint": "중1 문자와 식",
+          "concept_focus": "기호와 위치",
+          "student_action": "문자와 첨자의 위치 의미를 구분한다."
+        },
+        {
+          "level": 4,
+          "unit_hint": "고등 함수·자료 해석",
+          "concept_focus": "표와 배열 해석",
+          "student_action": "행과 열로 정리된 정보를 조건에 맞게 읽는다."
+        }
+      ],
+      "student_summary": "이 오답은 연산 공식보다 행·열의 위치와 순서 인식에서 생겼을 가능성이 높다."
+    }
+  ]
+}

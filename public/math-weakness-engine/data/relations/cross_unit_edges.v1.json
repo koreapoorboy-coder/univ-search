@@ -1,0 +1,798 @@
+{
+  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "generated_at": "2026-07-08",
+  "description": "단원 간 선행 보강(backtrack) 및 상향 확장(future extension)을 위한 전역 cross-unit edge 1차 패치.",
+  "edge_count": 79,
+  "edges": [
+    {
+      "edge_id": "GLOBAL_CROSS_E001",
+      "from_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "to_unit_id": "H2_CALCULUS1_INTEGRATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_AREA_BETWEEN_CURVES",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS1_INTEGRATION 취약 진단 시 H1_COMMON_MATH2_GEOMETRY_EQUATION의 교점 좌표를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E002",
+      "from_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "to_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_AREA_BETWEEN_CURVES",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_GEOMETRY_EQUATION 취약 진단 시 H1_COMMON_MATH2_FUNCTION_GRAPH의 그래프 위치 관계를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E003",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_AREA_BETWEEN_CURVES",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_FUNCTION_GRAPH 취약 진단 시 M1_COORD_GRAPH의 좌표 해석를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E004",
+      "from_unit_id": "M2_LINEAR_FUNCTION",
+      "to_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_TANGENT_LINE",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS1_DIFFERENTIATION 취약 진단 시 M2_LINEAR_FUNCTION의 점과 기울기로 직선의 방정식 세우기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E005",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "M2_LINEAR_FUNCTION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_TANGENT_LINE",
+      "weight": 0.74,
+      "reason": "M2_LINEAR_FUNCTION 취약 진단 시 M1_COORD_GRAPH의 점의 좌표 읽기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E006",
+      "from_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "to_unit_id": "M1_COORD_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_TANGENT_LINE",
+      "weight": 0.74,
+      "reason": "M1_COORD_GRAPH 취약 진단 시 H1_COMMON_MATH2_GEOMETRY_EQUATION의 직선과 곡선의 위치 관계를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E007",
+      "from_unit_id": "M3_QUADRATIC_FUNCTION",
+      "to_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_FUNCTION_GRAPH",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_FUNCTION_GRAPH 취약 진단 시 M3_QUADRATIC_FUNCTION의 꼭짓점과 축를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E008",
+      "from_unit_id": "M2_LINEAR_FUNCTION",
+      "to_unit_id": "M3_QUADRATIC_FUNCTION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_FUNCTION_GRAPH",
+      "weight": 0.74,
+      "reason": "M3_QUADRATIC_FUNCTION 취약 진단 시 M2_LINEAR_FUNCTION의 기울기와 절편를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E009",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "M2_LINEAR_FUNCTION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_FUNCTION_GRAPH",
+      "weight": 0.74,
+      "reason": "M2_LINEAR_FUNCTION 취약 진단 시 M1_COORD_GRAPH의 좌표와 그래프 읽기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E010",
+      "from_unit_id": "M3_QUADRATIC_EQUATION",
+      "to_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_EQUATION_ROOTS",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH1_EQUATION_INEQUALITY 취약 진단 시 M3_QUADRATIC_EQUATION의 인수분해와 판별식를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E011",
+      "from_unit_id": "M2_LINEAR_EQUATION",
+      "to_unit_id": "M3_QUADRATIC_EQUATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_EQUATION_ROOTS",
+      "weight": 0.74,
+      "reason": "M3_QUADRATIC_EQUATION 취약 진단 시 M2_LINEAR_EQUATION의 방정식 세우기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E012",
+      "from_unit_id": "M1_EXPRESSION",
+      "to_unit_id": "M2_LINEAR_EQUATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_EQUATION_ROOTS",
+      "weight": 0.74,
+      "reason": "M2_LINEAR_EQUATION 취약 진단 시 M1_EXPRESSION의 문자식 대입과 식의 값를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E013",
+      "from_unit_id": "M3_QUADRATIC_FUNCTION",
+      "to_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INEQUALITY_ALWAYS_TRUE",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH1_EQUATION_INEQUALITY 취약 진단 시 M3_QUADRATIC_FUNCTION의 최댓값·최솟값를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E014",
+      "from_unit_id": "M2_LINEAR_INEQUALITY",
+      "to_unit_id": "M3_QUADRATIC_FUNCTION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INEQUALITY_ALWAYS_TRUE",
+      "weight": 0.74,
+      "reason": "M3_QUADRATIC_FUNCTION 취약 진단 시 M2_LINEAR_INEQUALITY의 부등식의 성질를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E015",
+      "from_unit_id": "M1_INT_RATIONAL",
+      "to_unit_id": "M2_LINEAR_INEQUALITY",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INEQUALITY_ALWAYS_TRUE",
+      "weight": 0.74,
+      "reason": "M2_LINEAR_INEQUALITY 취약 진단 시 M1_INT_RATIONAL의 양수·음수 부호 판단를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E016",
+      "from_unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "to_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_SEQUENCE_LIMIT_INDETERMINATE",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS2_SEQUENCE_LIMIT 취약 진단 시 H1_COMMON_MATH1_POLYNOMIAL의 인수분해와 약분를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E017",
+      "from_unit_id": "M3_REAL_NUMBER_CALC",
+      "to_unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_SEQUENCE_LIMIT_INDETERMINATE",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH1_POLYNOMIAL 취약 진단 시 M3_REAL_NUMBER_CALC의 유리화와 근호 계산를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E018",
+      "from_unit_id": "M3_POLYNOMIAL_FACTORING",
+      "to_unit_id": "M3_REAL_NUMBER_CALC",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_SEQUENCE_LIMIT_INDETERMINATE",
+      "weight": 0.74,
+      "reason": "M3_REAL_NUMBER_CALC 취약 진단 시 M3_POLYNOMIAL_FACTORING의 식 구조 분해를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E019",
+      "from_unit_id": "H2_ALGEBRA_SEQUENCE",
+      "to_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_GEOMETRIC_SEQUENCE_SERIES",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS2_SEQUENCE_LIMIT 취약 진단 시 H2_ALGEBRA_SEQUENCE의 등비수열의 일반항과 부분합를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E020",
+      "from_unit_id": "M1_PRIME_FACTORIZATION",
+      "to_unit_id": "H2_ALGEBRA_SEQUENCE",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_GEOMETRIC_SEQUENCE_SERIES",
+      "weight": 0.74,
+      "reason": "H2_ALGEBRA_SEQUENCE 취약 진단 시 M1_PRIME_FACTORIZATION의 반복 곱 구조를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E021",
+      "from_unit_id": "M2_PROBABILITY",
+      "to_unit_id": "M1_PRIME_FACTORIZATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_GEOMETRIC_SEQUENCE_SERIES",
+      "weight": 0.74,
+      "reason": "M1_PRIME_FACTORIZATION 취약 진단 시 M2_PROBABILITY의 비율 해석를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E022",
+      "from_unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_SUBSTITUTION_INTEGRAL",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS2_INTEGRATION 취약 진단 시 H2_CALCULUS2_DIFFERENTIATION의 합성함수의 미분를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E023",
+      "from_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "to_unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_SUBSTITUTION_INTEGRAL",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS2_DIFFERENTIATION 취약 진단 시 H1_COMMON_MATH2_FUNCTION_GRAPH의 합성함수 구조를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E024",
+      "from_unit_id": "M1_EXPRESSION",
+      "to_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_SUBSTITUTION_INTEGRAL",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_FUNCTION_GRAPH 취약 진단 시 M1_EXPRESSION의 치환과 대입를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E025",
+      "from_unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INTEGRATION_BY_PARTS",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS2_INTEGRATION 취약 진단 시 H2_CALCULUS2_DIFFERENTIATION의 곱의 미분법를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E026",
+      "from_unit_id": "H2_ALGEBRA_EXP_LOG_FUNCTION",
+      "to_unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INTEGRATION_BY_PARTS",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS2_DIFFERENTIATION 취약 진단 시 H2_ALGEBRA_EXP_LOG_FUNCTION의 로그함수의 미분·적분 구조를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E027",
+      "from_unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "to_unit_id": "H2_ALGEBRA_EXP_LOG_FUNCTION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INTEGRATION_BY_PARTS",
+      "weight": 0.74,
+      "reason": "H2_ALGEBRA_EXP_LOG_FUNCTION 취약 진단 시 H1_COMMON_MATH1_POLYNOMIAL의 곱 구조 인식를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E028",
+      "from_unit_id": "H2_CALCULUS1_INTEGRATION",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INTEGRAL_DEFINED_FUNCTION",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS2_INTEGRATION 취약 진단 시 H2_CALCULUS1_INTEGRATION의 미적분의 기본정리를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E029",
+      "from_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "to_unit_id": "H2_CALCULUS1_INTEGRATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INTEGRAL_DEFINED_FUNCTION",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS1_INTEGRATION 취약 진단 시 H1_COMMON_MATH2_FUNCTION_GRAPH의 함수값과 변수를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E030",
+      "from_unit_id": "M1_EXPRESSION",
+      "to_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_INTEGRAL_DEFINED_FUNCTION",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_FUNCTION_GRAPH 취약 진단 시 M1_EXPRESSION의 문자의 역할를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E031",
+      "from_unit_id": "H2_CALCULUS1_INTEGRATION",
+      "to_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_MOTION_DISTANCE",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS1_DIFFERENTIATION 취약 진단 시 H2_CALCULUS1_INTEGRATION의 정적분과 누적량를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E032",
+      "from_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "to_unit_id": "H2_CALCULUS1_INTEGRATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_MOTION_DISTANCE",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS1_INTEGRATION 취약 진단 시 H1_COMMON_MATH2_FUNCTION_GRAPH의 부호와 구간를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E033",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_MOTION_DISTANCE",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_FUNCTION_GRAPH 취약 진단 시 M1_COORD_GRAPH의 그래프 변화 읽기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E034",
+      "from_unit_id": "M2_LINEAR_FUNCTION",
+      "to_unit_id": "M1_COORD_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_COORDINATE_GRAPH",
+      "weight": 0.74,
+      "reason": "M1_COORD_GRAPH 취약 진단 시 M2_LINEAR_FUNCTION의 두 점과 기울기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E035",
+      "from_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "to_unit_id": "M2_LINEAR_FUNCTION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_COORDINATE_GRAPH",
+      "weight": 0.74,
+      "reason": "M2_LINEAR_FUNCTION 취약 진단 시 H1_COMMON_MATH2_GEOMETRY_EQUATION의 거리·중점·교점를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E036",
+      "from_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "to_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_COORDINATE_GRAPH",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_GEOMETRY_EQUATION 취약 진단 시 H2_CALCULUS2_INTEGRATION의 그래프 넓이를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E037",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "M2_LINEAR_FUNCTION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_LINEAR_FUNCTION",
+      "weight": 0.74,
+      "reason": "M2_LINEAR_FUNCTION 취약 진단 시 M1_COORD_GRAPH의 두 점의 좌표를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E038",
+      "from_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "to_unit_id": "M1_COORD_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_LINEAR_FUNCTION",
+      "weight": 0.74,
+      "reason": "M1_COORD_GRAPH 취약 진단 시 H1_COMMON_MATH2_GEOMETRY_EQUATION의 직선의 방정식를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E039",
+      "from_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "to_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_LINEAR_FUNCTION",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_GEOMETRY_EQUATION 취약 진단 시 H2_CALCULUS1_DIFFERENTIATION의 접선의 방정식를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E040",
+      "from_unit_id": "M3_QUADRATIC_EQUATION",
+      "to_unit_id": "M3_QUADRATIC_FUNCTION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_QUADRATIC_FUNCTION",
+      "weight": 0.74,
+      "reason": "M3_QUADRATIC_FUNCTION 취약 진단 시 M3_QUADRATIC_EQUATION의 근과 x절편를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E041",
+      "from_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "to_unit_id": "M3_QUADRATIC_EQUATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_QUADRATIC_FUNCTION",
+      "weight": 0.74,
+      "reason": "M3_QUADRATIC_EQUATION 취약 진단 시 H1_COMMON_MATH2_FUNCTION_GRAPH의 함수의 최대·최소를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E042",
+      "from_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "to_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_QUADRATIC_FUNCTION",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_FUNCTION_GRAPH 취약 진단 시 H2_CALCULUS1_DIFFERENTIATION의 극값 판단를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E043",
+      "from_unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "to_unit_id": "M3_POLYNOMIAL_FACTORING",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_FACTORIZATION",
+      "weight": 0.74,
+      "reason": "M3_POLYNOMIAL_FACTORING 취약 진단 시 H1_COMMON_MATH1_POLYNOMIAL의 나머지정리와 인수정리를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E044",
+      "from_unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+      "to_unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_FACTORIZATION",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH1_POLYNOMIAL 취약 진단 시 H2_CALCULUS1_LIMIT_CONTINUITY의 0/0꼴 약분를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E045",
+      "from_unit_id": "M1_PRIME_FACTORIZATION",
+      "to_unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_FACTORIZATION",
+      "weight": 0.74,
+      "reason": "H2_CALCULUS1_LIMIT_CONTINUITY 취약 진단 시 M1_PRIME_FACTORIZATION의 쪼개서 구조 보기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E046",
+      "from_unit_id": "M2_LINEAR_EQUATION",
+      "to_unit_id": "M1_EXPRESSION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_CONDITION_MODELING",
+      "weight": 0.74,
+      "reason": "M1_EXPRESSION 취약 진단 시 M2_LINEAR_EQUATION의 조건식 만들기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E047",
+      "from_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "to_unit_id": "M2_LINEAR_EQUATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_CONDITION_MODELING",
+      "weight": 0.74,
+      "reason": "M2_LINEAR_EQUATION 취약 진단 시 H1_COMMON_MATH1_EQUATION_INEQUALITY의 매개변수 조건를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E048",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_ANALYTIC_GEOMETRY",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_GEOMETRY_EQUATION 취약 진단 시 M1_COORD_GRAPH의 점의 좌표와 거리를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E049",
+      "from_unit_id": "M2_LINEAR_FUNCTION",
+      "to_unit_id": "M1_COORD_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_ANALYTIC_GEOMETRY",
+      "weight": 0.74,
+      "reason": "M1_COORD_GRAPH 취약 진단 시 M2_LINEAR_FUNCTION의 직선의 기울기와 절편를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E050",
+      "from_unit_id": "M2_PROBABILITY",
+      "to_unit_id": "H1_COMMON_MATH1_COUNTING",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_COUNTING_CASEWORK",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH1_COUNTING 취약 진단 시 M2_PROBABILITY의 전체 경우와 사건를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E051",
+      "from_unit_id": "M1_DATA_ANALYSIS",
+      "to_unit_id": "M2_PROBABILITY",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_COUNTING_CASEWORK",
+      "weight": 0.74,
+      "reason": "M2_PROBABILITY 취약 진단 시 M1_DATA_ANALYSIS의 표로 분류하기를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E052",
+      "from_unit_id": "M1_EXPRESSION",
+      "to_unit_id": "M1_DATA_ANALYSIS",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_COUNTING_CASEWORK",
+      "weight": 0.74,
+      "reason": "M1_DATA_ANALYSIS 취약 진단 시 M1_EXPRESSION의 규칙 표현를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E053",
+      "from_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "to_unit_id": "H1_COMMON_MATH2_SET_PROPOSITION",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_SET_LOGIC",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH2_SET_PROPOSITION 취약 진단 시 H1_COMMON_MATH1_EQUATION_INEQUALITY의 해집합 포함를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E054",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "H1_COMMON_MATH1_MATRIX",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_MATRIX_ROW_COLUMN",
+      "weight": 0.74,
+      "reason": "H1_COMMON_MATH1_MATRIX 취약 진단 시 M1_COORD_GRAPH의 순서쌍를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E055",
+      "from_unit_id": "M1_EXPRESSION",
+      "to_unit_id": "M1_COORD_GRAPH",
+      "relation_type": "backtrack_prerequisite",
+      "route_id": "BACKTRACK_MATRIX_ROW_COLUMN",
+      "weight": 0.74,
+      "reason": "M1_COORD_GRAPH 취약 진단 시 M1_EXPRESSION의 기호와 위치를 선행 보강한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E056",
+      "from_unit_id": "M1_PRIME_FACTORIZATION",
+      "to_unit_id": "M3_POLYNOMIAL_FACTORING",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_PRIME_FACTORIZATION",
+      "weight": 0.82,
+      "reason": "숫자를 소수들의 곱으로 쪼개던 사고가 식을 곱으로 쪼개는 사고로 확장된다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E057",
+      "from_unit_id": "M1_PRIME_FACTORIZATION",
+      "to_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_PRIME_FACTORIZATION",
+      "weight": 0.82,
+      "reason": "극한 계산에서 식을 작은 인수로 분해해 0이 되는 부분을 제거한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E058",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "M2_LINEAR_FUNCTION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_COORD_GRAPH",
+      "weight": 0.82,
+      "reason": "좌표를 이용해 기울기와 절편을 읽는다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E059",
+      "from_unit_id": "M1_COORD_GRAPH",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_COORD_GRAPH",
+      "weight": 0.82,
+      "reason": "교점, 구간, 그래프의 위아래 관계를 판단한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E060",
+      "from_unit_id": "M1_EXPRESSION",
+      "to_unit_id": "M2_LINEAR_EQUATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_EXPRESSION",
+      "weight": 0.82,
+      "reason": "조건을 x, y에 대한 식으로 나누어 해를 구한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E061",
+      "from_unit_id": "M1_EXPRESSION",
+      "to_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_EXPRESSION",
+      "weight": 0.82,
+      "reason": "문장 조건을 방정식·부등식·함수 조건으로 번역한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E062",
+      "from_unit_id": "M2_LINEAR_FUNCTION",
+      "to_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M2_LINEAR_FUNCTION",
+      "weight": 0.82,
+      "reason": "도함수값을 기울기로 보고 직선의 방정식을 세운다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E063",
+      "from_unit_id": "M2_LINEAR_FUNCTION",
+      "to_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M2_LINEAR_FUNCTION",
+      "weight": 0.82,
+      "reason": "기울기와 절편으로 평행·수직·교점을 해석한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E064",
+      "from_unit_id": "M3_POLYNOMIAL_FACTORING",
+      "to_unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M3_POLYNOMIAL_FACTORING",
+      "weight": 0.82,
+      "reason": "인수 구조를 이용해 나머지, 근, 계수 조건을 찾는다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E065",
+      "from_unit_id": "M3_POLYNOMIAL_FACTORING",
+      "to_unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M3_POLYNOMIAL_FACTORING",
+      "weight": 0.82,
+      "reason": "극한 계산 전에 식을 인수분해해 구조를 단순화한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E066",
+      "from_unit_id": "M3_QUADRATIC_EQUATION",
+      "to_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M3_QUADRATIC_EQUATION",
+      "weight": 0.82,
+      "reason": "근의 개수와 실근 조건을 판별한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E067",
+      "from_unit_id": "M3_QUADRATIC_EQUATION",
+      "to_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M3_QUADRATIC_EQUATION",
+      "weight": 0.82,
+      "reason": "이차방정식의 근을 함수의 변화가 바뀌는 지점으로 사용한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E068",
+      "from_unit_id": "M3_QUADRATIC_FUNCTION",
+      "to_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M3_QUADRATIC_FUNCTION",
+      "weight": 0.82,
+      "reason": "기준점, 대칭, 범위를 좌표로 판단한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E069",
+      "from_unit_id": "M3_QUADRATIC_FUNCTION",
+      "to_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M3_QUADRATIC_FUNCTION",
+      "weight": 0.82,
+      "reason": "그래프의 최고·최저를 부호표로 일반화한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E070",
+      "from_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "to_unit_id": "H2_CALCULUS1_LIMIT_CONTINUITY",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "weight": 0.82,
+      "reason": "좌우 극한, 함수값, 연속 조건을 구분한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E071",
+      "from_unit_id": "H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H1_COMMON_MATH2_FUNCTION_GRAPH",
+      "weight": 0.82,
+      "reason": "교점과 구간 분할을 이용한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E072",
+      "from_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "to_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "weight": 0.82,
+      "reason": "직선과 곡선의 접함을 좌표와 기울기로 판정한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E073",
+      "from_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H1_COMMON_MATH2_GEOMETRY_EQUATION",
+      "weight": 0.82,
+      "reason": "교점을 연립으로 구하고 구간을 나눈다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E074",
+      "from_unit_id": "H2_ALGEBRA_SEQUENCE",
+      "to_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H2_ALGEBRA_SEQUENCE",
+      "weight": 0.82,
+      "reason": "일반항의 극한, 부분합의 극한, 공비 조건을 사용한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E075",
+      "from_unit_id": "H2_ALGEBRA_SEQUENCE",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H2_ALGEBRA_SEQUENCE",
+      "weight": 0.82,
+      "reason": "합을 극한으로 보고 넓이를 정적분으로 바꾼다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E076",
+      "from_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "to_unit_id": "H2_CALCULUS2_DIFFERENTIATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H2_CALCULUS1_DIFFERENTIATION",
+      "weight": 0.82,
+      "reason": "다양한 함수의 도함수를 같은 그래프 해석 방식으로 사용한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E077",
+      "from_unit_id": "H2_CALCULUS1_DIFFERENTIATION",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H2_CALCULUS1_DIFFERENTIATION",
+      "weight": 0.82,
+      "reason": "미분으로 만든 속도·변화율을 적분해 누적량으로 해석한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E078",
+      "from_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+      "to_unit_id": "H2_CALCULUS2_INTEGRATION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H2_CALCULUS2_SEQUENCE_LIMIT",
+      "weight": 0.82,
+      "reason": "합의 극한을 넓이로 해석한다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E079",
+      "from_unit_id": "H2_CALCULUS2_SEQUENCE_LIMIT",
+      "to_unit_id": "H2_ALGEBRA_SEQUENCE",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H2_CALCULUS2_SEQUENCE_LIMIT",
+      "weight": 0.82,
+      "reason": "극한 계산이 흔들리면 일반항·부분합 단계로 내려간다.",
+      "status": "global_logic_seed"
+    }
+  ]
+}
