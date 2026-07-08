@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.08-h2-calculus2-sequence-limit-v1.0",
+  "version": "2026.07.08-h2-calculus2-integration-v1.0",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -455,6 +455,20 @@
       "sources": "data/sources/h2_calculus2_sequence_limit.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/h2_calculus2_sequence_limit.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/h2_calculus2_sequence_limit.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "H2_CALCULUS2_INTEGRATION",
+      "grade": "고2",
+      "course": "미적분2",
+      "unit_name": "적분법",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/h2_calculus2_integration.problem_types.v1.json",
+      "edges": "data/relations/h2_calculus2_integration.edges.v1.json",
+      "diagnosis_rules": "data/rules/h2_calculus2_integration.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/h2_calculus2_integration.remediation_map.v1.json",
+      "sources": "data/sources/h2_calculus2_integration.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/h2_calculus2_integration.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/h2_calculus2_integration.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [

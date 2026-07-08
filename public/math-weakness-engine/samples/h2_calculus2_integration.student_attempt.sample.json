@@ -1,0 +1,55 @@
+{
+  "unit_id": "H2_CALCULUS2_INTEGRATION",
+  "unit_name": "적분법",
+  "student_id": "SAMPLE_H2_CALC2_INT_001",
+  "attempts": [
+    {
+      "problem_type_id": "H2_CALC2_INT_PT001",
+      "is_correct": false,
+      "difficulty": "basic",
+      "observed_error_tags": [
+        "indefinite_integral",
+        "power_integral"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC2_INT_PT120",
+      "is_correct": false,
+      "difficulty": "core",
+      "observed_error_tags": [
+        "substitution",
+        "chain_form_integral"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC2_INT_PT210",
+      "is_correct": false,
+      "difficulty": "advanced",
+      "observed_error_tags": [
+        "integration_by_parts",
+        "single_parts"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC2_INT_PT330",
+      "is_correct": false,
+      "difficulty": "core",
+      "observed_error_tags": [
+        "area",
+        "curve_line"
+      ]
+    },
+    {
+      "problem_type_id": "H2_CALC2_INT_PT420",
+      "is_correct": true,
+      "difficulty": "core",
+      "observed_error_tags": []
+    }
+  ],
+  "expected_diagnosis": [
+    "기본 적분 공식 보강",
+    "치환적분에서 미분 인자 맞추기 보강",
+    "부분적분의 u, dv 선택 보강",
+    "넓이 문제의 위아래 함수 판단 보강"
+  ]
+}

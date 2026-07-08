@@ -1,0 +1,1828 @@
+{
+  "version": "1.0",
+  "unit_id": "H2_CALCULUS2_INTEGRATION",
+  "unit_name": "적분법",
+  "rule_count": 62,
+  "rules": [
+    {
+      "rule_id": "H2_CALC2_INT_RULE_001",
+      "name": "x^a의 부정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indefinite_integral",
+          "power_integral",
+          "fundamental_antiderivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'x^a의 부정적분' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C001",
+        "H2_CALC2_INT_C002",
+        "H2_CALC2_INT_C003",
+        "H2_CALC2_INT_C004",
+        "H2_CALC2_INT_C005"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT001",
+        "H2_CALC2_INT_PT002",
+        "H2_CALC2_INT_PT004",
+        "H2_CALC2_INT_PT005",
+        "H2_CALC2_INT_PT007",
+        "H2_CALC2_INT_PT008"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_002",
+      "name": "지수함수의 부정적분: 밑이 e인 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indefinite_integral",
+          "exponential_integral",
+          "fundamental_antiderivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'지수함수의 부정적분: 밑이 e인 경우' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C007",
+        "H2_CALC2_INT_C008",
+        "H2_CALC2_INT_C009",
+        "H2_CALC2_INT_C010",
+        "H2_CALC2_INT_C011"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT019",
+        "H2_CALC2_INT_PT020",
+        "H2_CALC2_INT_PT022",
+        "H2_CALC2_INT_PT023",
+        "H2_CALC2_INT_PT025",
+        "H2_CALC2_INT_PT026"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_003",
+      "name": "지수함수의 부정적분: 밑이 e가 아닌 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indefinite_integral",
+          "exponential_integral",
+          "base_change"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'지수함수의 부정적분: 밑이 e가 아닌 경우' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C012",
+        "H2_CALC2_INT_C013",
+        "H2_CALC2_INT_C014"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT034",
+        "H2_CALC2_INT_PT035",
+        "H2_CALC2_INT_PT037",
+        "H2_CALC2_INT_PT038",
+        "H2_CALC2_INT_PT040",
+        "H2_CALC2_INT_PT041"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_004",
+      "name": "삼각함수의 부정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "indefinite_integral",
+          "trigonometric_integral",
+          "fundamental_antiderivative"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각함수의 부정적분' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C015",
+        "H2_CALC2_INT_C016",
+        "H2_CALC2_INT_C017",
+        "H2_CALC2_INT_C018",
+        "H2_CALC2_INT_C019"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT043",
+        "H2_CALC2_INT_PT044",
+        "H2_CALC2_INT_PT046",
+        "H2_CALC2_INT_PT047",
+        "H2_CALC2_INT_PT049",
+        "H2_CALC2_INT_PT050"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_005",
+      "name": "정적분의 정의와 성질 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "definition_property",
+          "fundamental_theorem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분의 정의와 성질' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C021",
+        "H2_CALC2_INT_C022"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT061",
+        "H2_CALC2_INT_PT062",
+        "H2_CALC2_INT_PT064",
+        "H2_CALC2_INT_PT065"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_006",
+      "name": "정적분: 유리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "rational_integral",
+          "fundamental_theorem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분: 유리함수' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C023",
+        "H2_CALC2_INT_C024",
+        "H2_CALC2_INT_C025"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT067",
+        "H2_CALC2_INT_PT068",
+        "H2_CALC2_INT_PT070",
+        "H2_CALC2_INT_PT071",
+        "H2_CALC2_INT_PT073",
+        "H2_CALC2_INT_PT074"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_007",
+      "name": "정적분: 무리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "radical_integral",
+          "fundamental_theorem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분: 무리함수' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C026",
+        "H2_CALC2_INT_C027"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT076",
+        "H2_CALC2_INT_PT077",
+        "H2_CALC2_INT_PT079",
+        "H2_CALC2_INT_PT080"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_008",
+      "name": "정적분: 지수함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "exponential_integral",
+          "fundamental_theorem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분: 지수함수' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C028",
+        "H2_CALC2_INT_C029"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT082",
+        "H2_CALC2_INT_PT083",
+        "H2_CALC2_INT_PT085",
+        "H2_CALC2_INT_PT086"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_009",
+      "name": "정적분: 삼각함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "trigonometric_integral",
+          "fundamental_theorem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분: 삼각함수' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C030",
+        "H2_CALC2_INT_C031",
+        "H2_CALC2_INT_C032",
+        "H2_CALC2_INT_C033"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT088",
+        "H2_CALC2_INT_PT089",
+        "H2_CALC2_INT_PT091",
+        "H2_CALC2_INT_PT092",
+        "H2_CALC2_INT_PT094",
+        "H2_CALC2_INT_PT095"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_010",
+      "name": "정적분: 구간에 따라 다르게 정의된 함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "piecewise_function",
+          "fundamental_theorem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분: 구간에 따라 다르게 정의된 함수' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C034",
+        "H2_CALC2_INT_C035",
+        "H2_CALC2_INT_C036"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT100",
+        "H2_CALC2_INT_PT101",
+        "H2_CALC2_INT_PT103",
+        "H2_CALC2_INT_PT104",
+        "H2_CALC2_INT_PT106",
+        "H2_CALC2_INT_PT107"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_011",
+      "name": "정적분: 절댓값 기호를 포함한 함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "absolute_value_integral",
+          "piecewise_function"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분: 절댓값 기호를 포함한 함수' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C037",
+        "H2_CALC2_INT_C038",
+        "H2_CALC2_INT_C039",
+        "H2_CALC2_INT_C040"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT109",
+        "H2_CALC2_INT_PT110",
+        "H2_CALC2_INT_PT112",
+        "H2_CALC2_INT_PT113",
+        "H2_CALC2_INT_PT115",
+        "H2_CALC2_INT_PT116"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_012",
+      "name": "우함수·기함수의 정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "even_odd_symmetry",
+          "symmetry"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'우함수·기함수의 정적분' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C041",
+        "H2_CALC2_INT_C042",
+        "H2_CALC2_INT_C043",
+        "H2_CALC2_INT_C044",
+        "H2_CALC2_INT_C045"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT121",
+        "H2_CALC2_INT_PT122",
+        "H2_CALC2_INT_PT124",
+        "H2_CALC2_INT_PT125",
+        "H2_CALC2_INT_PT127",
+        "H2_CALC2_INT_PT128"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_013",
+      "name": "주기함수의 정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "periodic_integral",
+          "symmetry"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'주기함수의 정적분' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C046",
+        "H2_CALC2_INT_C047",
+        "H2_CALC2_INT_C048"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT136",
+        "H2_CALC2_INT_PT137",
+        "H2_CALC2_INT_PT139",
+        "H2_CALC2_INT_PT140",
+        "H2_CALC2_INT_PT142",
+        "H2_CALC2_INT_PT143"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_014",
+      "name": "그래프의 대칭성과 주기를 이용한 정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "definite_integral",
+          "symmetry",
+          "periodic_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'그래프의 대칭성과 주기를 이용한 정적분' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C049",
+        "H2_CALC2_INT_C050",
+        "H2_CALC2_INT_C051"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT145",
+        "H2_CALC2_INT_PT146",
+        "H2_CALC2_INT_PT148",
+        "H2_CALC2_INT_PT149",
+        "H2_CALC2_INT_PT151",
+        "H2_CALC2_INT_PT152"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_015",
+      "name": "치환적분법: 다항함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "polynomial_substitution",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법: 다항함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C052",
+        "H2_CALC2_INT_C053"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT154",
+        "H2_CALC2_INT_PT155",
+        "H2_CALC2_INT_PT157",
+        "H2_CALC2_INT_PT158"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_016",
+      "name": "치환적분법: 유리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "rational_substitution",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법: 유리함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C054"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT160",
+        "H2_CALC2_INT_PT161"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_017",
+      "name": "치환적분법: 무리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "radical_substitution",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법: 무리함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C055",
+        "H2_CALC2_INT_C056",
+        "H2_CALC2_INT_C057",
+        "H2_CALC2_INT_C058"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT163",
+        "H2_CALC2_INT_PT164",
+        "H2_CALC2_INT_PT166",
+        "H2_CALC2_INT_PT167",
+        "H2_CALC2_INT_PT169",
+        "H2_CALC2_INT_PT170"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_018",
+      "name": "치환적분법: 지수함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "exponential_substitution",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법: 지수함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C059",
+        "H2_CALC2_INT_C060",
+        "H2_CALC2_INT_C061",
+        "H2_CALC2_INT_C062",
+        "H2_CALC2_INT_C063"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT175",
+        "H2_CALC2_INT_PT176",
+        "H2_CALC2_INT_PT178",
+        "H2_CALC2_INT_PT179",
+        "H2_CALC2_INT_PT181",
+        "H2_CALC2_INT_PT182"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_019",
+      "name": "치환적분법: 로그함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "log_substitution",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법: 로그함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C065",
+        "H2_CALC2_INT_C066",
+        "H2_CALC2_INT_C067"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT193",
+        "H2_CALC2_INT_PT194",
+        "H2_CALC2_INT_PT196",
+        "H2_CALC2_INT_PT197",
+        "H2_CALC2_INT_PT199",
+        "H2_CALC2_INT_PT200"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_020",
+      "name": "치환적분법: 삼각함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "trigonometric_substitution_basic",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법: 삼각함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C068",
+        "H2_CALC2_INT_C069"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT202",
+        "H2_CALC2_INT_PT203",
+        "H2_CALC2_INT_PT205",
+        "H2_CALC2_INT_PT206"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_021",
+      "name": "f(g(x))g'(x) 꼴의 부정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "chain_form_integral",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'f(g(x))g'(x) 꼴의 부정적분' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C070",
+        "H2_CALC2_INT_C071",
+        "H2_CALC2_INT_C072",
+        "H2_CALC2_INT_C073",
+        "H2_CALC2_INT_C074"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT208",
+        "H2_CALC2_INT_PT209",
+        "H2_CALC2_INT_PT211",
+        "H2_CALC2_INT_PT212",
+        "H2_CALC2_INT_PT214",
+        "H2_CALC2_INT_PT215"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_022",
+      "name": "f(g(x))g'(x)/g(x) 꼴의 부정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "log_derivative_form",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'f(g(x))g'(x)/g(x) 꼴의 부정적분' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C077",
+        "H2_CALC2_INT_C078",
+        "H2_CALC2_INT_C079"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT229",
+        "H2_CALC2_INT_PT230",
+        "H2_CALC2_INT_PT232",
+        "H2_CALC2_INT_PT233",
+        "H2_CALC2_INT_PT235",
+        "H2_CALC2_INT_PT236"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_023",
+      "name": "분수함수의 부정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "partial_fraction",
+          "rational_integral",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'분수함수의 부정적분' 유형에서 적분 공식 선택과 정적분 성질 활용이 약합니다.",
+      "parent_message": "기본 적분 문제는 함수 종류를 먼저 분류하고 해당 공식을 선택하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C080",
+        "H2_CALC2_INT_C081"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT238",
+        "H2_CALC2_INT_PT239",
+        "H2_CALC2_INT_PT241",
+        "H2_CALC2_INT_PT242"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_024",
+      "name": "치환적분법을 이용한 정적분: 다항함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "definite_integral_substitution",
+          "polynomial_substitution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법을 이용한 정적분: 다항함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C082",
+        "H2_CALC2_INT_C083",
+        "H2_CALC2_INT_C084"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT244",
+        "H2_CALC2_INT_PT245",
+        "H2_CALC2_INT_PT247",
+        "H2_CALC2_INT_PT248",
+        "H2_CALC2_INT_PT250",
+        "H2_CALC2_INT_PT251"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_025",
+      "name": "치환적분법을 이용한 정적분: 유리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "definite_integral_substitution",
+          "rational_substitution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법을 이용한 정적분: 유리함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C085",
+        "H2_CALC2_INT_C086"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT253",
+        "H2_CALC2_INT_PT254",
+        "H2_CALC2_INT_PT256",
+        "H2_CALC2_INT_PT257"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_026",
+      "name": "치환적분법을 이용한 정적분: 무리함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "definite_integral_substitution",
+          "radical_substitution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법을 이용한 정적분: 무리함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C087",
+        "H2_CALC2_INT_C088",
+        "H2_CALC2_INT_C089"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT259",
+        "H2_CALC2_INT_PT260",
+        "H2_CALC2_INT_PT262",
+        "H2_CALC2_INT_PT263",
+        "H2_CALC2_INT_PT265",
+        "H2_CALC2_INT_PT266"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_027",
+      "name": "치환적분법을 이용한 정적분: 지수함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "definite_integral_substitution",
+          "exponential_substitution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법을 이용한 정적분: 지수함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C090",
+        "H2_CALC2_INT_C091",
+        "H2_CALC2_INT_C092"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT268",
+        "H2_CALC2_INT_PT269",
+        "H2_CALC2_INT_PT271",
+        "H2_CALC2_INT_PT272",
+        "H2_CALC2_INT_PT274",
+        "H2_CALC2_INT_PT275"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_028",
+      "name": "치환적분법을 이용한 정적분: 로그함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "definite_integral_substitution",
+          "log_substitution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법을 이용한 정적분: 로그함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C093",
+        "H2_CALC2_INT_C094"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT277",
+        "H2_CALC2_INT_PT278",
+        "H2_CALC2_INT_PT280",
+        "H2_CALC2_INT_PT281"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_029",
+      "name": "치환적분법을 이용한 정적분: 삼각함수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "definite_integral_substitution",
+          "trigonometric_substitution_basic"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'치환적분법을 이용한 정적분: 삼각함수' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C095",
+        "H2_CALC2_INT_C096",
+        "H2_CALC2_INT_C097",
+        "H2_CALC2_INT_C098"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT283",
+        "H2_CALC2_INT_PT284",
+        "H2_CALC2_INT_PT286",
+        "H2_CALC2_INT_PT287",
+        "H2_CALC2_INT_PT289",
+        "H2_CALC2_INT_PT290"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_030",
+      "name": "삼각치환 취약",
+      "trigger": {
+        "error_tags_any": [
+          "trigonometric_substitution",
+          "radical_substitution",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'삼각치환' 유형에서 치환 선택과 미분 인자 맞추기가 약합니다.",
+      "parent_message": "치환적분은 안쪽 함수와 그 도함수 관계를 먼저 쓰고, 정적분에서는 구간까지 함께 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C099",
+        "H2_CALC2_INT_C100",
+        "H2_CALC2_INT_C101"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT295",
+        "H2_CALC2_INT_PT296",
+        "H2_CALC2_INT_PT298",
+        "H2_CALC2_INT_PT299",
+        "H2_CALC2_INT_PT301",
+        "H2_CALC2_INT_PT302"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_031",
+      "name": "부분적분법: 한 번 이용하는 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integration_by_parts",
+          "single_parts",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부분적분법: 한 번 이용하는 경우' 유형에서 부분적분의 u, dv 선택과 식 정리가 약합니다.",
+      "parent_message": "부분적분은 어떤 항을 미분하고 어떤 항을 적분할지 먼저 정한 뒤 반복이 필요한지 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C102",
+        "H2_CALC2_INT_C103",
+        "H2_CALC2_INT_C104",
+        "H2_CALC2_INT_C105",
+        "H2_CALC2_INT_C106"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT304",
+        "H2_CALC2_INT_PT305",
+        "H2_CALC2_INT_PT307",
+        "H2_CALC2_INT_PT308",
+        "H2_CALC2_INT_PT310",
+        "H2_CALC2_INT_PT311"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_032",
+      "name": "부분적분법: 여러 번 이용하는 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integration_by_parts",
+          "repeated_parts",
+          "indefinite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부분적분법: 여러 번 이용하는 경우' 유형에서 부분적분의 u, dv 선택과 식 정리가 약합니다.",
+      "parent_message": "부분적분은 어떤 항을 미분하고 어떤 항을 적분할지 먼저 정한 뒤 반복이 필요한지 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C108",
+        "H2_CALC2_INT_C109",
+        "H2_CALC2_INT_C110",
+        "H2_CALC2_INT_C111"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT322",
+        "H2_CALC2_INT_PT323",
+        "H2_CALC2_INT_PT325",
+        "H2_CALC2_INT_PT326",
+        "H2_CALC2_INT_PT328",
+        "H2_CALC2_INT_PT329"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_033",
+      "name": "부분적분법을 이용한 정적분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integration_by_parts",
+          "definite_integral_parts",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'부분적분법을 이용한 정적분' 유형에서 부분적분의 u, dv 선택과 식 정리가 약합니다.",
+      "parent_message": "부분적분은 어떤 항을 미분하고 어떤 항을 적분할지 먼저 정한 뒤 반복이 필요한지 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C112",
+        "H2_CALC2_INT_C113",
+        "H2_CALC2_INT_C114",
+        "H2_CALC2_INT_C115",
+        "H2_CALC2_INT_C116"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT334",
+        "H2_CALC2_INT_PT335",
+        "H2_CALC2_INT_PT337",
+        "H2_CALC2_INT_PT338",
+        "H2_CALC2_INT_PT340",
+        "H2_CALC2_INT_PT341"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_034",
+      "name": "적분구간이 상수인 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_equation",
+          "constant_bounds",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'적분구간이 상수인 경우' 유형에서 정적분을 포함한 등식을 미분하여 해석하는 과정이 약합니다.",
+      "parent_message": "적분 포함 등식은 양변 미분, 경계값 대입, 상수항 확인을 순서대로 하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C117",
+        "H2_CALC2_INT_C118",
+        "H2_CALC2_INT_C119",
+        "H2_CALC2_INT_C120"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT349",
+        "H2_CALC2_INT_PT350",
+        "H2_CALC2_INT_PT352",
+        "H2_CALC2_INT_PT353",
+        "H2_CALC2_INT_PT355",
+        "H2_CALC2_INT_PT356"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_035",
+      "name": "적분구간에 변수가 있는 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_equation",
+          "variable_bounds",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'적분구간에 변수가 있는 경우' 유형에서 정적분을 포함한 등식을 미분하여 해석하는 과정이 약합니다.",
+      "parent_message": "적분 포함 등식은 양변 미분, 경계값 대입, 상수항 확인을 순서대로 하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C121",
+        "H2_CALC2_INT_C122",
+        "H2_CALC2_INT_C123",
+        "H2_CALC2_INT_C124",
+        "H2_CALC2_INT_C125"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT361",
+        "H2_CALC2_INT_PT362",
+        "H2_CALC2_INT_PT364",
+        "H2_CALC2_INT_PT365",
+        "H2_CALC2_INT_PT367",
+        "H2_CALC2_INT_PT368"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_036",
+      "name": "적분구간과 피적분함수에 변수가 있는 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_equation",
+          "variable_bounds_and_integrand",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'적분구간과 피적분함수에 변수가 있는 경우' 유형에서 정적분을 포함한 등식을 미분하여 해석하는 과정이 약합니다.",
+      "parent_message": "적분 포함 등식은 양변 미분, 경계값 대입, 상수항 확인을 순서대로 하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C130",
+        "H2_CALC2_INT_C131",
+        "H2_CALC2_INT_C132",
+        "H2_CALC2_INT_C133",
+        "H2_CALC2_INT_C134"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT388",
+        "H2_CALC2_INT_PT389",
+        "H2_CALC2_INT_PT391",
+        "H2_CALC2_INT_PT392",
+        "H2_CALC2_INT_PT394",
+        "H2_CALC2_INT_PT395"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_037",
+      "name": "극대·극소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_defined_function",
+          "extrema",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'극대·극소' 유형에서 정적분으로 정의된 함수의 도함수와 극값 해석이 약합니다.",
+      "parent_message": "정적분 정의 함수는 먼저 미분한 뒤 증가감소, 극값, 극한으로 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C136",
+        "H2_CALC2_INT_C137",
+        "H2_CALC2_INT_C138",
+        "H2_CALC2_INT_C139",
+        "H2_CALC2_INT_C140"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT406",
+        "H2_CALC2_INT_PT407",
+        "H2_CALC2_INT_PT409",
+        "H2_CALC2_INT_PT410",
+        "H2_CALC2_INT_PT412",
+        "H2_CALC2_INT_PT413"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_038",
+      "name": "최대·최소 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_defined_function",
+          "max_min",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'최대·최소' 유형에서 정적분으로 정의된 함수의 도함수와 극값 해석이 약합니다.",
+      "parent_message": "정적분 정의 함수는 먼저 미분한 뒤 증가감소, 극값, 극한으로 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C141",
+        "H2_CALC2_INT_C142",
+        "H2_CALC2_INT_C143",
+        "H2_CALC2_INT_C144"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT421",
+        "H2_CALC2_INT_PT422",
+        "H2_CALC2_INT_PT424",
+        "H2_CALC2_INT_PT425",
+        "H2_CALC2_INT_PT427",
+        "H2_CALC2_INT_PT428"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_039",
+      "name": "극한 1: ∫_0^x f(t)dt / x 꼴 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_defined_function",
+          "integral_limit",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'극한 1: ∫_0^x f(t)dt / x 꼴' 유형에서 정적분으로 정의된 함수의 도함수와 극값 해석이 약합니다.",
+      "parent_message": "정적분 정의 함수는 먼저 미분한 뒤 증가감소, 극값, 극한으로 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C145",
+        "H2_CALC2_INT_C146",
+        "H2_CALC2_INT_C147",
+        "H2_CALC2_INT_C148"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT433",
+        "H2_CALC2_INT_PT434",
+        "H2_CALC2_INT_PT436",
+        "H2_CALC2_INT_PT437",
+        "H2_CALC2_INT_PT439",
+        "H2_CALC2_INT_PT440"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_040",
+      "name": "극한 2: (1/x)∫_a^x f(t)dt 꼴 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integral_defined_function",
+          "integral_limit",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'극한 2: (1/x)∫_a^x f(t)dt 꼴' 유형에서 정적분으로 정의된 함수의 도함수와 극값 해석이 약합니다.",
+      "parent_message": "정적분 정의 함수는 먼저 미분한 뒤 증가감소, 극값, 극한으로 연결하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C149",
+        "H2_CALC2_INT_C150",
+        "H2_CALC2_INT_C151",
+        "H2_CALC2_INT_C152"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT445",
+        "H2_CALC2_INT_PT446",
+        "H2_CALC2_INT_PT448",
+        "H2_CALC2_INT_PT449",
+        "H2_CALC2_INT_PT451",
+        "H2_CALC2_INT_PT452"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_041",
+      "name": "구분구적법 취약",
+      "trigger": {
+        "error_tags_any": [
+          "riemann_sum",
+          "area_volume",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'구분구적법' 유형에서 구분구적법과 급수의 합을 정적분으로 바꾸는 과정이 약합니다.",
+      "parent_message": "리만합은 합의 구조를 표준 형태로 정리한 뒤 정적분으로 대응시키게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C153",
+        "H2_CALC2_INT_C154"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT457",
+        "H2_CALC2_INT_PT458",
+        "H2_CALC2_INT_PT460",
+        "H2_CALC2_INT_PT461"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_042",
+      "name": "정적분과 급수의 합 사이의 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_integral_relation",
+          "riemann_sum",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분과 급수의 합 사이의 관계' 유형에서 구분구적법과 급수의 합을 정적분으로 바꾸는 과정이 약합니다.",
+      "parent_message": "리만합은 합의 구조를 표준 형태로 정리한 뒤 정적분으로 대응시키게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C155",
+        "H2_CALC2_INT_C156",
+        "H2_CALC2_INT_C157",
+        "H2_CALC2_INT_C158",
+        "H2_CALC2_INT_C159"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT463",
+        "H2_CALC2_INT_PT464",
+        "H2_CALC2_INT_PT466",
+        "H2_CALC2_INT_PT467",
+        "H2_CALC2_INT_PT469",
+        "H2_CALC2_INT_PT470"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_043",
+      "name": "정적분과 급수의 활용: 그래프·좌표 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_integral_relation",
+          "graph_coordinate",
+          "area"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분과 급수의 활용: 그래프·좌표' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C162",
+        "H2_CALC2_INT_C163",
+        "H2_CALC2_INT_C164"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT484",
+        "H2_CALC2_INT_PT485",
+        "H2_CALC2_INT_PT487",
+        "H2_CALC2_INT_PT488",
+        "H2_CALC2_INT_PT490",
+        "H2_CALC2_INT_PT491"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_044",
+      "name": "정적분과 급수의 활용: 도형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "series_integral_relation",
+          "geometry_application",
+          "area"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'정적분과 급수의 활용: 도형' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C165",
+        "H2_CALC2_INT_C166"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT493",
+        "H2_CALC2_INT_PT494",
+        "H2_CALC2_INT_PT496",
+        "H2_CALC2_INT_PT497"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_045",
+      "name": "곡선과 x축 사이의 넓이 1 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "curve_xaxis",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 x축 사이의 넓이 1' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C167",
+        "H2_CALC2_INT_C168",
+        "H2_CALC2_INT_C169",
+        "H2_CALC2_INT_C170",
+        "H2_CALC2_INT_C171"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT499",
+        "H2_CALC2_INT_PT500",
+        "H2_CALC2_INT_PT502",
+        "H2_CALC2_INT_PT503",
+        "H2_CALC2_INT_PT505",
+        "H2_CALC2_INT_PT506"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_046",
+      "name": "곡선과 x축 사이의 넓이 2 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "curve_xaxis",
+          "absolute_value_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 x축 사이의 넓이 2' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C173",
+        "H2_CALC2_INT_C174",
+        "H2_CALC2_INT_C175",
+        "H2_CALC2_INT_C176",
+        "H2_CALC2_INT_C177"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT517",
+        "H2_CALC2_INT_PT518",
+        "H2_CALC2_INT_PT520",
+        "H2_CALC2_INT_PT521",
+        "H2_CALC2_INT_PT523",
+        "H2_CALC2_INT_PT524"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_047",
+      "name": "곡선과 y축 사이의 넓이 1 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "curve_yaxis",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 y축 사이의 넓이 1' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C178",
+        "H2_CALC2_INT_C179",
+        "H2_CALC2_INT_C180",
+        "H2_CALC2_INT_C181",
+        "H2_CALC2_INT_C182"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT532",
+        "H2_CALC2_INT_PT533",
+        "H2_CALC2_INT_PT535",
+        "H2_CALC2_INT_PT536",
+        "H2_CALC2_INT_PT538",
+        "H2_CALC2_INT_PT539"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_048",
+      "name": "곡선과 y축 사이의 넓이 2 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "curve_yaxis",
+          "absolute_value_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 y축 사이의 넓이 2' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C183",
+        "H2_CALC2_INT_C184",
+        "H2_CALC2_INT_C185",
+        "H2_CALC2_INT_C186"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT547",
+        "H2_CALC2_INT_PT548",
+        "H2_CALC2_INT_PT550",
+        "H2_CALC2_INT_PT551",
+        "H2_CALC2_INT_PT553",
+        "H2_CALC2_INT_PT554"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_049",
+      "name": "곡선과 직선 사이의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "curve_line",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 직선 사이의 넓이' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C187",
+        "H2_CALC2_INT_C188",
+        "H2_CALC2_INT_C189",
+        "H2_CALC2_INT_C190",
+        "H2_CALC2_INT_C191"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT559",
+        "H2_CALC2_INT_PT560",
+        "H2_CALC2_INT_PT562",
+        "H2_CALC2_INT_PT563",
+        "H2_CALC2_INT_PT565",
+        "H2_CALC2_INT_PT566"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_050",
+      "name": "두 곡선 사이의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "two_curves",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 곡선 사이의 넓이' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C194",
+        "H2_CALC2_INT_C195",
+        "H2_CALC2_INT_C196",
+        "H2_CALC2_INT_C197",
+        "H2_CALC2_INT_C198"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT580",
+        "H2_CALC2_INT_PT581",
+        "H2_CALC2_INT_PT583",
+        "H2_CALC2_INT_PT584",
+        "H2_CALC2_INT_PT586",
+        "H2_CALC2_INT_PT587"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_051",
+      "name": "곡선과 접선으로 둘러싸인 도형의 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "tangent_enclosed",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선과 접선으로 둘러싸인 도형의 넓이' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C200",
+        "H2_CALC2_INT_C201",
+        "H2_CALC2_INT_C202",
+        "H2_CALC2_INT_C203",
+        "H2_CALC2_INT_C204"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT598",
+        "H2_CALC2_INT_PT599",
+        "H2_CALC2_INT_PT601",
+        "H2_CALC2_INT_PT602",
+        "H2_CALC2_INT_PT604",
+        "H2_CALC2_INT_PT605"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_052",
+      "name": "두 도형의 넓이가 같은 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "equal_area",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'두 도형의 넓이가 같은 경우' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C205",
+        "H2_CALC2_INT_C206",
+        "H2_CALC2_INT_C207",
+        "H2_CALC2_INT_C208",
+        "H2_CALC2_INT_C209"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT613",
+        "H2_CALC2_INT_PT614",
+        "H2_CALC2_INT_PT616",
+        "H2_CALC2_INT_PT617",
+        "H2_CALC2_INT_PT619",
+        "H2_CALC2_INT_PT620"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_053",
+      "name": "도형의 넓이를 이등분하는 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "bisect_area",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'도형의 넓이를 이등분하는 경우' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C210",
+        "H2_CALC2_INT_C211",
+        "H2_CALC2_INT_C212",
+        "H2_CALC2_INT_C213",
+        "H2_CALC2_INT_C214"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT628",
+        "H2_CALC2_INT_PT629",
+        "H2_CALC2_INT_PT631",
+        "H2_CALC2_INT_PT632",
+        "H2_CALC2_INT_PT634",
+        "H2_CALC2_INT_PT635"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_054",
+      "name": "역함수의 그래프와 넓이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "area",
+          "inverse_function_area",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'역함수의 그래프와 넓이' 유형에서 그래프의 위아래 관계와 구간 분할이 약합니다.",
+      "parent_message": "넓이 문제는 먼저 교점을 구하고, 어느 함수가 위에 있는지 확인한 뒤 정적분식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C215",
+        "H2_CALC2_INT_C216",
+        "H2_CALC2_INT_C217",
+        "H2_CALC2_INT_C218",
+        "H2_CALC2_INT_C219"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT643",
+        "H2_CALC2_INT_PT644",
+        "H2_CALC2_INT_PT646",
+        "H2_CALC2_INT_PT647",
+        "H2_CALC2_INT_PT649",
+        "H2_CALC2_INT_PT650"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_055",
+      "name": "입체도형의 부피 1: 단면이 밑면과 평행한 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "volume",
+          "cross_section_parallel",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'입체도형의 부피 1: 단면이 밑면과 평행한 경우' 유형에서 단면적 또는 회전체 공식을 선택하는 과정이 약합니다.",
+      "parent_message": "부피 문제는 단면이 주어졌는지, 회전체인지 먼저 구분하고 해당 공식을 적용하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C220",
+        "H2_CALC2_INT_C221",
+        "H2_CALC2_INT_C222",
+        "H2_CALC2_INT_C223",
+        "H2_CALC2_INT_C224"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT658",
+        "H2_CALC2_INT_PT659",
+        "H2_CALC2_INT_PT661",
+        "H2_CALC2_INT_PT662",
+        "H2_CALC2_INT_PT664",
+        "H2_CALC2_INT_PT665"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_056",
+      "name": "입체도형의 부피 2: 단면이 밑면과 수직인 경우 취약",
+      "trigger": {
+        "error_tags_any": [
+          "volume",
+          "cross_section_perpendicular",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'입체도형의 부피 2: 단면이 밑면과 수직인 경우' 유형에서 단면적 또는 회전체 공식을 선택하는 과정이 약합니다.",
+      "parent_message": "부피 문제는 단면이 주어졌는지, 회전체인지 먼저 구분하고 해당 공식을 적용하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C225",
+        "H2_CALC2_INT_C226",
+        "H2_CALC2_INT_C227",
+        "H2_CALC2_INT_C228",
+        "H2_CALC2_INT_C229"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT673",
+        "H2_CALC2_INT_PT674",
+        "H2_CALC2_INT_PT676",
+        "H2_CALC2_INT_PT677",
+        "H2_CALC2_INT_PT679",
+        "H2_CALC2_INT_PT680"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_057",
+      "name": "회전체의 부피 취약",
+      "trigger": {
+        "error_tags_any": [
+          "volume",
+          "solid_of_revolution",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'회전체의 부피' 유형에서 단면적 또는 회전체 공식을 선택하는 과정이 약합니다.",
+      "parent_message": "부피 문제는 단면이 주어졌는지, 회전체인지 먼저 구분하고 해당 공식을 적용하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C231",
+        "H2_CALC2_INT_C232",
+        "H2_CALC2_INT_C233"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT691",
+        "H2_CALC2_INT_PT692",
+        "H2_CALC2_INT_PT694",
+        "H2_CALC2_INT_PT695",
+        "H2_CALC2_INT_PT697",
+        "H2_CALC2_INT_PT698"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_058",
+      "name": "단면의 넓이와 부피 사이의 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "volume",
+          "cross_section_area_relation",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'단면의 넓이와 부피 사이의 관계' 유형에서 단면적 또는 회전체 공식을 선택하는 과정이 약합니다.",
+      "parent_message": "부피 문제는 단면이 주어졌는지, 회전체인지 먼저 구분하고 해당 공식을 적용하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C234",
+        "H2_CALC2_INT_C235"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT700",
+        "H2_CALC2_INT_PT701",
+        "H2_CALC2_INT_PT703",
+        "H2_CALC2_INT_PT704"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_059",
+      "name": "직선 위에서 움직인 거리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance",
+          "motion_on_line",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'직선 위에서 움직인 거리' 유형에서 거리와 변위를 구분하고 절댓값 처리를 하는 과정이 약합니다.",
+      "parent_message": "거리 문제는 속도 부호가 바뀌는 구간을 찾고 절댓값 또는 구간 분할을 하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C236",
+        "H2_CALC2_INT_C237",
+        "H2_CALC2_INT_C238"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT706",
+        "H2_CALC2_INT_PT707",
+        "H2_CALC2_INT_PT709",
+        "H2_CALC2_INT_PT710",
+        "H2_CALC2_INT_PT712",
+        "H2_CALC2_INT_PT713"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_060",
+      "name": "평면 위에서 움직인 거리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "distance",
+          "motion_on_plane",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'평면 위에서 움직인 거리' 유형에서 거리와 변위를 구분하고 절댓값 처리를 하는 과정이 약합니다.",
+      "parent_message": "거리 문제는 속도 부호가 바뀌는 구간을 찾고 절댓값 또는 구간 분할을 하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C239",
+        "H2_CALC2_INT_C240",
+        "H2_CALC2_INT_C241",
+        "H2_CALC2_INT_C242",
+        "H2_CALC2_INT_C243"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT715",
+        "H2_CALC2_INT_PT716",
+        "H2_CALC2_INT_PT718",
+        "H2_CALC2_INT_PT719",
+        "H2_CALC2_INT_PT721",
+        "H2_CALC2_INT_PT722"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_061",
+      "name": "매개곡선 x=f(t), y=g(t)의 길이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arc_length",
+          "parametric_length",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'매개곡선 x=f(t), y=g(t)의 길이' 유형에서 길이 공식 선택과 미분 계산이 약합니다.",
+      "parent_message": "곡선의 길이는 y=f(x)인지 매개곡선인지 먼저 구분하고 길이 공식을 적용하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C245",
+        "H2_CALC2_INT_C246",
+        "H2_CALC2_INT_C247",
+        "H2_CALC2_INT_C248"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT733",
+        "H2_CALC2_INT_PT734",
+        "H2_CALC2_INT_PT736",
+        "H2_CALC2_INT_PT737",
+        "H2_CALC2_INT_PT739",
+        "H2_CALC2_INT_PT740"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_CALC2_INT_RULE_062",
+      "name": "곡선 y=f(x)의 길이 취약",
+      "trigger": {
+        "error_tags_any": [
+          "arc_length",
+          "curve_length",
+          "definite_integral"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "'곡선 y=f(x)의 길이' 유형에서 길이 공식 선택과 미분 계산이 약합니다.",
+      "parent_message": "곡선의 길이는 y=f(x)인지 매개곡선인지 먼저 구분하고 길이 공식을 적용하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_CALC2_INT_C249",
+        "H2_CALC2_INT_C250",
+        "H2_CALC2_INT_C251",
+        "H2_CALC2_INT_C252",
+        "H2_CALC2_INT_C253"
+      ],
+      "recommended_problem_type_ids": [
+        "H2_CALC2_INT_PT745",
+        "H2_CALC2_INT_PT746",
+        "H2_CALC2_INT_PT748",
+        "H2_CALC2_INT_PT749",
+        "H2_CALC2_INT_PT751",
+        "H2_CALC2_INT_PT752"
+      ],
+      "severity": "medium"
+    }
+  ]
+}
