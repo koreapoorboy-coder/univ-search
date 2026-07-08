@@ -1,0 +1,31 @@
+{
+  "review_id": "sample_review_m1_rational_001",
+  "overall_result": {
+    "level": "A",
+    "score": 9,
+    "decision": "understood",
+    "summary": "순환소수를 분수로 바꾸는 과정과 유리수 판정 근거가 확인됨"
+  },
+  "question_reviews": [
+    {
+      "question_id": "VQ1",
+      "status": "correct",
+      "score": 4,
+      "confirmed_understanding": [
+        "순환소수의 반복 부분 제거 과정 이해",
+        "분수 표현 가능성과 유리수 정의 연결"
+      ],
+      "missing_elements": [],
+      "misconceptions": [],
+      "feedback": "과정과 이유가 모두 적절함"
+    }
+  ],
+  "final_instruction": {
+    "student_message": "순환소수의 유리수 판정은 이해했습니다. 다른 순환소수에도 같은 과정을 적용해 보세요.",
+    "teacher_action": "다른 예시 하나를 구두로 확인하면 됩니다.",
+    "redo_tasks": [
+      "1.272727...을 분수로 바꾸기"
+    ],
+    "parent_message": "학생이 단순 암기가 아니라 계산 과정으로 설명할 수 있는 수준까지 확인되었습니다."
+  }
+}

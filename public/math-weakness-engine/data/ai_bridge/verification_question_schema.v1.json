@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://koreapoorboy-coder.github.io/univ-search/math-weakness-engine/data/ai_bridge/verification_question_schema.v1.json",
+  "title": "Math Verification Question Set",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "set_id",
+    "target_concepts",
+    "source_diagnosis",
+    "questions",
+    "teacher_decision_rule"
+  ],
+  "properties": {
+    "set_id": {
+      "type": "string"
+    },
+    "target_concepts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_diagnosis": {
+      "type": "string"
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "question_id",
+          "question_type",
+          "prompt",
+          "student_answer_format",
+          "required_elements",
+          "answer_key",
+          "rubric"
+        ],
+        "properties": {
+          "question_id": {
+            "type": "string"
+          },
+          "question_type": {
+            "type": "string",
+            "enum": [
+              "definition",
+              "classification",
+              "process",
+              "proof_explanation",
+              "error_correction",
+              "self_explanation",
+              "example_generation"
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "student_answer_format": {
+            "type": "string"
+          },
+          "required_elements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer_key": {
+            "type": "string"
+          },
+          "rubric": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "score",
+                "condition"
+              ],
+              "properties": {
+                "score": {
+                  "type": "number"
+                },
+                "condition": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "minimum_pass_score": {
+            "type": "number"
+          },
+          "teacher_note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "teacher_decision_rule": {
+      "type": "string"
+    },
+    "redo_policy": {
+      "type": "string"
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "version": "2026.07.08-global-diagnosis-note-evidence-hybrid-ai-v1.0",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -775,5 +775,52 @@
       "student_note_feedback_templates": "data/learning_evidence/student_note_feedback_templates.v1.json"
     }
   },
-  "last_patch": "global_note_evidence_review_patch3_20260708"
+  "last_patch": "math_hybrid_ai_bridge_patch4_20260708",
+  "ai_bridge": {
+    "version": "2026.07.08-math-hybrid-ai-bridge-v1.0",
+    "purpose": "학생 PDF/풀이/필기 업로드를 AI가 구조화하고, 수학 취약유형 엔진이 검수 문항 생성과 답안 재검수를 수행하기 위한 연결 레이어",
+    "mode": "hybrid_ai_engine",
+    "schemas": {
+      "student_upload_input": "data/ai_bridge/student_upload_input_schema.v1.json",
+      "ai_extraction_output": "data/ai_bridge/ai_extraction_output_schema.v1.json",
+      "verification_question_set": "data/ai_bridge/verification_question_schema.v1.json",
+      "verification_answer_review": "data/ai_bridge/verification_answer_review_schema.v1.json",
+      "final_report": "data/ai_bridge/final_report_schema.v1.json"
+    },
+    "prompts": {
+      "math_hybrid_prompt_pack": "data/ai_bridge/math_hybrid_prompt_pack.v1.json"
+    },
+    "rules": {
+      "hybrid_adapter_rules": "data/ai_bridge/hybrid_adapter_rules.v1.json",
+      "verification_question_blueprints": "data/ai_bridge/verification_question_blueprints.v1.json",
+      "answer_review_rubric": "data/ai_bridge/verification_answer_review_rubric.v1.json"
+    },
+    "runtime": {
+      "client": "assets/math_ai_bridge_client.js",
+      "verification_flow": "assets/math_verification_flow.js",
+      "report_renderer": "assets/math_hybrid_report_renderer.js",
+      "standalone_page": "hybrid.html"
+    },
+    "worker_skeleton": {
+      "worker": "worker_skeleton/math_diagnosis_worker.js",
+      "wrangler": "worker_skeleton/wrangler.toml",
+      "request_response_schema": "worker_skeleton/request_response_schema.json"
+    },
+    "samples": {
+      "student_upload": "samples/hybrid_student_upload.sample.json",
+      "ai_extraction": "samples/hybrid_ai_extraction.sample.json",
+      "verification_questions": "samples/hybrid_verification_questions.sample.json",
+      "verification_answer_review": "samples/hybrid_verification_answer_review.sample.json",
+      "final_report": "samples/hybrid_final_report.sample.json"
+    },
+    "pipeline": [
+      "student_upload",
+      "ai_extraction",
+      "engine_diagnosis",
+      "verification_question_generation",
+      "student_verification_submission",
+      "verification_answer_review",
+      "final_report"
+    ]
+  }
 }

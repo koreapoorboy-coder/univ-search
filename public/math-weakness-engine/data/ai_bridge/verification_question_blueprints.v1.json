@@ -1,0 +1,61 @@
+{
+  "version": "2026.07.08-v1.0",
+  "question_blueprints": [
+    {
+      "gap_type": "definition_without_reason",
+      "description": "개념어는 적었지만 왜 그런지 설명이 없음",
+      "question_types": [
+        "definition",
+        "proof_explanation",
+        "example_generation"
+      ],
+      "template": "{concept}의 뜻을 자기 말로 설명하고, 예시 1개와 예시가 아닌 것 1개를 들어라."
+    },
+    {
+      "gap_type": "process_missing",
+      "description": "계산 결과나 용어만 있고 풀이 과정이 없음",
+      "question_types": [
+        "process",
+        "error_correction"
+      ],
+      "template": "{example}을 처음부터 끝까지 계산 과정으로 설명하라. 중간 식을 생략하지 말라."
+    },
+    {
+      "gap_type": "classification_confusion",
+      "description": "유형/개념 분류가 흔들림",
+      "question_types": [
+        "classification"
+      ],
+      "template": "다음 대상을 {category_a}/{category_b}로 분류하고, 각각의 이유를 한 문장으로 쓰라."
+    },
+    {
+      "gap_type": "memorized_only",
+      "description": "표현은 맞지만 적용 문제가 불안정함",
+      "question_types": [
+        "self_explanation",
+        "example_generation"
+      ],
+      "template": "네가 직접 예시를 만들고, 그 예시가 조건을 만족하는 이유를 설명하라."
+    }
+  ],
+  "unit_specific_examples": [
+    {
+      "unit_hint": "유리수와 순환소수",
+      "missing_evidence": "순환소수가 왜 유리수인지 설명 부족",
+      "verification_questions": [
+        "0.121212...를 분수로 바꾸고 왜 유리수인지 설명하라.",
+        "무한소수는 모두 무리수인지 O/X로 판단하고 이유를 쓰라.",
+        "순환소수와 비순환무한소수의 차이를 예시로 설명하라."
+      ]
+    },
+    {
+      "unit_hint": "지수법칙",
+      "missing_evidence": "지수의 의미와 지수법칙 조건 설명 부족",
+      "verification_questions": [
+        "a^m a^n = a^(m+n)이 되는 이유를 같은 밑의 곱셈 관점에서 설명하라.",
+        "(a^m)^n = a^(mn)과 a^m a^n의 차이를 예시로 설명하라.",
+        "음수 밑과 괄호가 있는 지수 계산에서 틀리기 쉬운 예시를 직접 만들어라."
+      ]
+    }
+  ]
+}

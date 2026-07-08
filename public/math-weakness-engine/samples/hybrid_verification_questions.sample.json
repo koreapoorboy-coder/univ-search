@@ -1,0 +1,67 @@
+{
+  "set_id": "sample_vq_m1_rational_001",
+  "target_concepts": [
+    "순환소수의 유리수 판정",
+    "무한소수 분류"
+  ],
+  "source_diagnosis": "순환소수가 왜 유리수인지 과정 설명이 부족함",
+  "questions": [
+    {
+      "question_id": "VQ1",
+      "question_type": "process",
+      "prompt": "0.121212...를 분수로 바꾸고, 왜 유리수인지 설명하세요.",
+      "student_answer_format": "x로 두고 계산 과정 작성",
+      "required_elements": [
+        "x=0.121212...",
+        "100x=12.121212...",
+        "99x=12",
+        "4/33",
+        "분수로 나타낼 수 있으므로 유리수"
+      ],
+      "answer_key": "x=0.121212..., 100x=12.121212..., 99x=12, x=4/33. 분수로 표현되므로 유리수.",
+      "rubric": [
+        {
+          "score": 4,
+          "condition": "계산 과정과 이유 모두 정확"
+        },
+        {
+          "score": 2,
+          "condition": "분수 표현만 쓰고 과정 일부 누락"
+        },
+        {
+          "score": 1,
+          "condition": "반복되니까 유리수라고만 씀"
+        }
+      ],
+      "minimum_pass_score": 3,
+      "teacher_note": "반복성 암기와 분수 표현 가능성 이해를 구분"
+    },
+    {
+      "question_id": "VQ2",
+      "question_type": "classification",
+      "prompt": "무한소수는 모두 무리수인가요? O/X를 쓰고 이유를 설명하세요.",
+      "student_answer_format": "O/X + 이유",
+      "required_elements": [
+        "X",
+        "순환무한소수",
+        "비순환무한소수",
+        "유리수/무리수 구분"
+      ],
+      "answer_key": "X. 무한소수 중 순환소수는 유리수이고, 비순환무한소수는 무리수이다.",
+      "rubric": [
+        {
+          "score": 3,
+          "condition": "O/X와 이유 정확"
+        },
+        {
+          "score": 1,
+          "condition": "정답만 있고 이유 부족"
+        }
+      ],
+      "minimum_pass_score": 2,
+      "teacher_note": "무한소수 전체를 무리수로 보는 오류 확인"
+    }
+  ],
+  "teacher_decision_rule": "VQ1을 통과하지 못하면 이해 완료로 보지 않는다.",
+  "redo_policy": "분수 변환 과정이 없으면 0.333..., 1.272727...로 같은 과정을 다시 작성시킨다."
+}

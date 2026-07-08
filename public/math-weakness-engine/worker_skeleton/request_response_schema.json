@@ -1,0 +1,44 @@
+{
+  "version": "2026.07.08-v1.0",
+  "endpoints": {
+    "GET /health": {
+      "response": "{ ok, service, hasOpenAIKey, mode }"
+    },
+    "GET /config": {
+      "response": "worker config without secrets"
+    },
+    "POST /api/math-diagnose/analyze": {
+      "content_type": "multipart/form-data or application/json",
+      "payload": "student_upload_input_schema.v1.json",
+      "files": [
+        "exam_pdf",
+        "marked_exam_pdf",
+        "solution_image",
+        "lecture_note_image"
+      ],
+      "response": "ai_extraction_output_schema.v1.json"
+    },
+    "POST /api/math-diagnose/generate-verification": {
+      "payload": "{ ai_extraction, engine_diagnosis, note_review }",
+      "response": "verification_question_schema.v1.json"
+    },
+    "POST /api/math-diagnose/review-verification": {
+      "content_type": "multipart/form-data or application/json",
+      "payload": "{ student_upload, verification_set, student_answer_text }",
+      "files": [
+        "verification_answer_image"
+      ],
+      "response": "verification_answer_review_schema.v1.json"
+    },
+    "POST /api/math-diagnose/final-report": {
+      "payload": "{ student_upload, ai_extraction, engine_diagnosis, note_review, verification_set, answer_review }",
+      "response": "final_report_schema.v1.json"
+    }
+  },
+  "security": [
+    "Do not expose OPENAI_API_KEY in browser code",
+    "Set OPENAI_API_KEY as Cloudflare Worker secret",
+    "Use CORS allowlist in production if needed"
+  ],
+  "fallback_mode": "ALLOW_STUB=true returns deterministic test outputs without OpenAI calls."
+}

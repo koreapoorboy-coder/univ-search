@@ -1,0 +1,50 @@
+{
+  "version": "2026.07.08-v1.0",
+  "input_to_engine_mapping": {
+    "wrong_question_numbers + problem_type_candidates": "student_attempt.attempts[].question_no / problem_type_id / observed_error_tags",
+    "lecture_note_text + note image evidence": "student_note.note_text / detected_keywords / missing_evidence",
+    "verification_need.focus_concepts": "verification_question_set.target_concepts",
+    "verification_answer_text": "verification_answer_review.question_reviews"
+  },
+  "confidence_policy": [
+    {
+      "condition": "problem_type_id가 확실하지 않음",
+      "action": "problem_type_hint만 저장하고 teacher confirmation required 표시"
+    },
+    {
+      "condition": "학생 풀이가 흐리거나 누락됨",
+      "action": "source_quality를 partially_clear 이하로 낮추고 풀이 과정 판단을 보류"
+    },
+    {
+      "condition": "오답 번호만 있고 풀이가 없음",
+      "action": "개념 취약 후보는 출력하되 학생 행동 오류는 낮은 확신으로 표시"
+    },
+    {
+      "condition": "필기에는 개념어만 있고 예시/과정/자기 설명 없음",
+      "action": "watch_evidence는 some 이하, understanding_level은 C 이하로 제한"
+    }
+  ],
+  "verification_trigger_policy": [
+    {
+      "trigger": "필기 검수 understanding_level C 또는 D",
+      "must_generate": true
+    },
+    {
+      "trigger": "missing_evidence에 과정/이유/예시/반례가 포함됨",
+      "must_generate": true
+    },
+    {
+      "trigger": "오답이 2개 이상 같은 개념군에 몰림",
+      "must_generate": true
+    },
+    {
+      "trigger": "학생 답안이 정답만 있고 풀이 과정 없음",
+      "must_generate": true
+    }
+  ],
+  "report_policy": {
+    "student": "직접적이되 비난하지 않는다. 다음 행동을 1~3개로 제한한다.",
+    "parent": "강의 시청 여부를 단정하지 않고 확인된 흔적과 부족한 증거로 설명한다.",
+    "teacher": "수업에서 바로 물어볼 질문과 다시 시킬 과제를 구체화한다."
+  }
+}

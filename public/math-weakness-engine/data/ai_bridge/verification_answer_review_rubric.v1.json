@@ -1,0 +1,63 @@
+{
+  "version": "2026.07.08-v1.0",
+  "levels": {
+    "A": {
+      "label": "이해 완료",
+      "conditions": [
+        "정의 연결 가능",
+        "풀이 과정 제시",
+        "예시 적용 가능",
+        "자기 말 설명 가능"
+      ]
+    },
+    "B": {
+      "label": "부분 이해",
+      "conditions": [
+        "방향은 맞음",
+        "핵심 이유 일부 누락",
+        "과정 일부 생략"
+      ]
+    },
+    "C": {
+      "label": "암기 수준",
+      "conditions": [
+        "용어 반복",
+        "왜 그런지 설명 부족",
+        "새 예시에 적용 불안"
+      ]
+    },
+    "D": {
+      "label": "재학습 필요",
+      "conditions": [
+        "개념 분류 오류",
+        "핵심 정의 오해",
+        "풀이 과정 부재"
+      ]
+    }
+  },
+  "score_policy": [
+    {
+      "criterion": "정의와 연결",
+      "points": 2
+    },
+    {
+      "criterion": "풀이 과정",
+      "points": 3
+    },
+    {
+      "criterion": "핵심 근거 설명",
+      "points": 3
+    },
+    {
+      "criterion": "예시/반례 적용",
+      "points": 2
+    }
+  ],
+  "minimum_understanding_score": 7,
+  "redo_required_when": [
+    "score < 7",
+    "level C 또는 D",
+    "process_missing",
+    "concept_definition_wrong"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "ok": true,
+  "extraction_summary": {
+    "source_quality": "partially_clear",
+    "student_did_work_evidence": "some",
+    "confidence": 0.62,
+    "missing_materials": [
+      "학생이 직접 푼 확인 문항 답안"
+    ]
+  },
+  "student_material_review": {
+    "lecture_note_review": {
+      "watch_evidence": "possibly_watched",
+      "understanding_level": "C",
+      "confirmed_concepts": [
+        "유리수",
+        "무리수",
+        "유한소수",
+        "순환소수"
+      ],
+      "missing_evidence": [
+        "순환소수를 분수로 바꾸는 과정",
+        "비순환무한소수와 순환소수의 차이 설명"
+      ],
+      "risk_flags": [
+        "개념어 중심 필기",
+        "자기 말 설명 부족"
+      ],
+      "teacher_observation": "인강 시청 흔적은 있으나 이해 확인 문항 필요"
+    },
+    "solution_review": {
+      "process_evidence": "not_visible",
+      "main_error_candidates": [
+        "과정 확인 필요"
+      ],
+      "calculation_error_candidates": [],
+      "concept_error_candidates": [
+        "무한소수 전체를 무리수로 오해할 가능성"
+      ],
+      "quoted_student_steps": []
+    }
+  },
+  "math_signal": {
+    "unit_candidates": [
+      {
+        "unit_id": "M1_INT_RATIONAL",
+        "unit_name": "유리수와 순환소수",
+        "confidence": 0.82
+      }
+    ],
+    "problem_type_candidates": [],
+    "concept_candidates": [
+      {
+        "concept_id": "",
+        "concept_name": "순환소수의 유리수 판정",
+        "evidence": "0.121212... 예시만 있고 분수 변환 과정 없음"
+      }
+    ],
+    "misconception_candidates": [
+      {
+        "misconception": "반복되는 소수라는 표현만으로 유리수 판정을 암기함",
+        "why_it_matters": "분수 표현 가능성과 연결하지 못하면 이후 유리수/무리수 분류가 흔들림",
+        "severity": "high"
+      }
+    ]
+  },
+  "engine_adapter": {
+    "student_attempt": {
+      "attempts": []
+    },
+    "note_review_input": {
+      "student_note": {
+        "unit_id": "M1_INT_RATIONAL",
+        "lesson_title": "유리수와 순환소수",
+        "note_text": "유리수는 분수로 나타낼 수 있는 수. 유한소수, 무한소수, 순환소수, 비순환소수 정리. 0.121212... 예시 작성."
+      }
+    },
+    "recommended_engine_actions": [
+      "run_reviewStudentNote",
+      "generate_verification_questions"
+    ]
+  },
+  "verification_need": {
+    "needed": true,
+    "reason": "순환소수가 왜 유리수인지 과정 증거가 없음",
+    "focus_concepts": [
+      "순환소수의 유리수 판정",
+      "무한소수 분류"
+    ],
+    "must_check_actions": [
+      "0.121212...를 분수로 변환",
+      "무한소수는 모두 무리수인지 판단",
+      "자기 말 설명"
+    ]
+  }
+}

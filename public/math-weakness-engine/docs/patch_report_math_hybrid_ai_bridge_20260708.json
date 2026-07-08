@@ -1,0 +1,38 @@
+{
+  "patch_id": "math_hybrid_ai_bridge_patch4_20260708",
+  "created_at": "2026-07-08",
+  "target": "public/math-weakness-engine",
+  "purpose": "수학 취약유형 진단 엔진에 학생 PDF/풀이/필기 AI 구조화, 검수 문항 생성, 학생 답안 재검수 흐름 추가",
+  "files_added_or_updated": [
+    "assets/math_ai_bridge_client.js",
+    "assets/math_hybrid_report_renderer.js",
+    "assets/math_verification_flow.js",
+    "data/ai_bridge/ai_extraction_output_schema.v1.json",
+    "data/ai_bridge/final_report_schema.v1.json",
+    "data/ai_bridge/hybrid_adapter_rules.v1.json",
+    "data/ai_bridge/math_hybrid_prompt_pack.v1.json",
+    "data/ai_bridge/student_upload_input_schema.v1.json",
+    "data/ai_bridge/verification_answer_review_rubric.v1.json",
+    "data/ai_bridge/verification_answer_review_schema.v1.json",
+    "data/ai_bridge/verification_question_blueprints.v1.json",
+    "data/ai_bridge/verification_question_schema.v1.json",
+    "data/index.v1.json",
+    "hybrid.html",
+    "manifest.json",
+    "samples/hybrid_ai_extraction.sample.json",
+    "samples/hybrid_final_report.sample.json",
+    "samples/hybrid_student_upload.sample.json",
+    "samples/hybrid_verification_answer_review.sample.json",
+    "samples/hybrid_verification_questions.sample.json",
+    "worker_skeleton/README.md",
+    "worker_skeleton/math_diagnosis_worker.js",
+    "worker_skeleton/request_response_schema.json",
+    "worker_skeleton/wrangler.toml"
+  ],
+  "safety": {
+    "openai_api_key_exposed_in_frontend": false,
+    "worker_uses_secret": true,
+    "fallback_mode_available": true
+  },
+  "upload_mode": "GitHub web upload safe; no file exceeds 25MB"
+}

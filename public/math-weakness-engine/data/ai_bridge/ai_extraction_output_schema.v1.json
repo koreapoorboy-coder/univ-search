@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://koreapoorboy-coder.github.io/univ-search/math-weakness-engine/data/ai_bridge/ai_extraction_output_schema.v1.json",
+  "title": "Math Hybrid AI Extraction Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ok",
+    "extraction_summary",
+    "student_material_review",
+    "math_signal",
+    "engine_adapter",
+    "verification_need"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean"
+    },
+    "extraction_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_quality",
+        "student_did_work_evidence",
+        "confidence"
+      ],
+      "properties": {
+        "source_quality": {
+          "type": "string",
+          "enum": [
+            "clear",
+            "partially_clear",
+            "hard_to_read",
+            "insufficient"
+          ]
+        },
+        "student_did_work_evidence": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "some",
+            "weak",
+            "none"
+          ]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "missing_materials": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "student_material_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lecture_note_review",
+        "solution_review"
+      ],
+      "properties": {
+        "lecture_note_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "watch_evidence",
+            "understanding_level",
+            "confirmed_concepts",
+            "missing_evidence",
+            "risk_flags"
+          ],
+          "properties": {
+            "watch_evidence": {
+              "type": "string",
+              "enum": [
+                "likely_watched",
+                "possibly_watched",
+                "copied_terms_only",
+                "not_enough_evidence"
+              ]
+            },
+            "understanding_level": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ]
+            },
+            "confirmed_concepts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "missing_evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "risk_flags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "teacher_observation": {
+              "type": "string"
+            }
+          }
+        },
+        "solution_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "process_evidence",
+            "main_error_candidates",
+            "calculation_error_candidates",
+            "concept_error_candidates"
+          ],
+          "properties": {
+            "process_evidence": {
+              "type": "string",
+              "enum": [
+                "full_process",
+                "partial_process",
+                "answer_only",
+                "not_visible"
+              ]
+            },
+            "main_error_candidates": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "calculation_error_candidates": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "concept_error_candidates": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "quoted_student_steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "math_signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_candidates",
+        "problem_type_candidates",
+        "concept_candidates",
+        "misconception_candidates"
+      ],
+      "properties": {
+        "unit_candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "unit_name",
+              "confidence"
+            ],
+            "properties": {
+              "unit_id": {
+                "type": "string"
+              },
+              "unit_name": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "problem_type_candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "question_no",
+              "problem_type_hint",
+              "confidence"
+            ],
+            "properties": {
+              "question_no": {
+                "type": [
+                  "string",
+                  "integer"
+                ]
+              },
+              "problem_type_id": {
+                "type": "string"
+              },
+              "problem_type_hint": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "number"
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "concept_candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "concept_name",
+              "evidence"
+            ],
+            "properties": {
+              "concept_id": {
+                "type": "string"
+              },
+              "concept_name": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "misconception_candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "misconception",
+              "why_it_matters"
+            ],
+            "properties": {
+              "misconception": {
+                "type": "string"
+              },
+              "why_it_matters": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "engine_adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "student_attempt",
+        "note_review_input",
+        "recommended_engine_actions"
+      ],
+      "properties": {
+        "student_attempt": {
+          "type": "object",
+          "description": "MathWeaknessEngine.diagnoseWithGuidance에 바로 넣을 수 있는 attempts 구조"
+        },
+        "note_review_input": {
+          "type": "object",
+          "description": "reviewStudentNote에 넣을 수 있는 student_note 구조"
+        },
+        "recommended_engine_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verification_need": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "needed",
+        "reason",
+        "focus_concepts",
+        "must_check_actions"
+      ],
+      "properties": {
+        "needed": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "focus_concepts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "must_check_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

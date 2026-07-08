@@ -1,0 +1,54 @@
+{
+  "request_id": "sample_m1_rational_001",
+  "student_profile": {
+    "student_name": "김OO",
+    "grade_label": "중1",
+    "school_name": "",
+    "class_group": "",
+    "teacher_memo": "인강 필기 사진 제출"
+  },
+  "learning_context": {
+    "course": "중학수학 1-1",
+    "unit_id": "M1_INT_RATIONAL",
+    "unit_name": "유리수와 순환소수",
+    "lesson_title": "유리수와 무리수, 순환소수",
+    "exam_title": "개념 확인",
+    "wrong_question_numbers": [
+      4,
+      5,
+      6
+    ],
+    "known_problem_type_ids": [],
+    "teacher_focus": [
+      "순환소수가 왜 유리수인지 설명 가능한지 확인"
+    ]
+  },
+  "submission": {
+    "text_inputs": {
+      "student_solution_text": "",
+      "lecture_note_text": "유리수는 분수로 나타낼 수 있는 수. 유한소수, 무한소수, 순환소수, 비순환소수 정리. 0.121212... 예시 작성.",
+      "verification_answer_text": "",
+      "student_self_reflection": ""
+    },
+    "file_manifest": [
+      {
+        "file_role": "lecture_note_image",
+        "filename": "student_note.jpg",
+        "mime_type": "image/jpeg",
+        "page_or_question_hint": "인강 필기",
+        "student_note": "유리수/무리수 필기"
+      }
+    ]
+  },
+  "analysis_options": {
+    "mode": "balanced",
+    "output_targets": [
+      "student",
+      "parent",
+      "teacher"
+    ],
+    "generate_verification_questions": true,
+    "review_verification_answer": false,
+    "use_existing_math_engine": true
+  }
+}
