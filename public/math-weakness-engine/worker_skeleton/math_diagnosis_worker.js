@@ -1,5 +1,5 @@
 const SERVICE_NAME = 'math-diagnosis-worker';
-const VERSION = '2026.07.09-patch12-counterexample-note-review';
+const VERSION = '2026.07.09-patch13-student-result-answer-key';
 const DEFAULT_MODEL = 'gpt-5.5';
 const DEFAULT_REASONING_EFFORT = 'xhigh';
 const DEFAULT_MAX_OUTPUT_TOKENS = 25000;
@@ -252,13 +252,19 @@ function buildAnalyzePrompt(payload, files) {
 ${JSON.stringify(payload, null, 2)}`;
 }
 function buildVerificationPrompt(payload) {
-  return `1차 진단 결과를 바탕으로 학생에게 풀릴 검수 문항 세트를 생성하라.
+  return `1차 진단 결과를 바탕으로 학생에게 보여줄 확인 문제 세트를 생성하라.
 
-요구사항:
-- 문항은 정의 확인, 구분 확인, 과정 확인, 자기 설명, 직접 예시 생성, 반례 생성, 비예시 구분 중 필요한 것만 조합한다.
+중요한 출력 원칙:
+- 학생 화면에는 과정 설명이 아니라 '결과 확인 문제'처럼 보여야 한다.
+- 각 문항은 학생이 바로 무엇을 해야 하는지 알 수 있게 구체적인 문제 문장으로 쓴다.
+- answer_key에는 학생/교사가 확인할 수 있는 정답 또는 모범답안 기준을 반드시 넣는다. '정확해야 한다'처럼 추상적으로 쓰지 말고, 포함되어야 할 핵심어·조건·반례 예시·채점 기준을 적는다.
+- 반례/비예시 문항은 가능한 경우 '가능한 모범답안 예시'를 answer_key에 포함한다. 단, 자료에서 특정 개념이 확정되지 않으면 '정답 기준' 형태로 적는다.
+- 학생이 단순히 강의 내용을 베껴쓴 경우, 정의·사용 조건·대표 예시·반례/비예시·문제 적용 기준을 확인하는 문항을 낸다.
 - 개념정리/인강필기 검수 결과가 있으면 반례 생성 또는 비예시 구분 문항을 최소 1개 포함한다.
-- 각 문항에는 required_elements와 teacher_note를 반드시 구체화한다.
-- 정답만 맞히는 문항이 아니라, 학생이 왜 그렇게 생각했는지, 어떤 경우에는 그 개념을 쓰면 안 되는지 드러나야 한다.
+- 문제풀이 자료이면 정답만 묻지 말고 풀이 과정과 왜 그 조건을 써야 하는지 확인하는 문항을 포함한다.
+- required_elements는 학생 답안에 꼭 들어가야 하는 요소를 짧게 적는다.
+- teacher_note는 출제 의도와 교사가 볼 통과 기준을 적는다.
+- teacher_decision_rule은 학생에게 '몇 개를 통과해야 하는지'가 보이도록 명확히 쓴다.
 
 입력:
 ${JSON.stringify(payload, null, 2)}`;
@@ -333,7 +339,7 @@ ${solutionText}`;
 function buildVerificationFallback(payload) {
   const focus = payload?.ai_extraction?.verification_need?.focus_concepts || payload?.verification_need?.focus_concepts || ['핵심 개념'];
   const concept = focus[0] || '핵심 개념';
-  return { set_id:`fallback_vq_${Date.now()}`, target_concepts:focus, source_diagnosis:'AI fallback 검수 문항', questions:[{ question_id:'VQ1', question_type:'definition', prompt:`${concept}의 뜻을 자기 말로 설명하고 예시를 1개 쓰세요.`, student_answer_format:'서술형', required_elements:['정의','예시','이유'], answer_key:'정의와 예시가 정확해야 한다.', rubric:[{score:3,condition:'정의와 예시 정확'},{score:1,condition:'용어만 반복'}], minimum_pass_score:2, teacher_note:'암기와 이해를 구분' },{ question_id:'VQ2', question_type:'counterexample_generation', prompt:`${concept}을/를 적용하면 안 되는 반례 또는 비예시를 1개 만들고, 왜 안 되는지 이유를 쓰세요.`, student_answer_format:'반례+이유 서술형', required_elements:['반례 또는 비예시','적용 불가 조건','왜 틀리는지 설명'], answer_key:'반례가 실제로 개념의 적용 조건을 벗어나야 하며, 이유 설명이 있어야 한다.', rubric:[{score:4,condition:'반례와 이유가 정확'},{score:2,condition:'반례는 있으나 이유 부족'},{score:1,condition:'다른 예시를 반례로 착각'}], minimum_pass_score:3, teacher_note:'반례를 통해 복붙 정리와 실제 이해를 구분' },{ question_id:'VQ3', question_type:'process', prompt:'대표 문제 하나를 풀이 과정 전체로 다시 쓰세요. 중간 식과 판단 이유를 생략하지 마세요.', student_answer_format:'단계별 풀이', required_elements:['시작식','중간 과정','판단 이유','결론'], answer_key:'과정이 생략되지 않고 개념 판단 기준이 드러나야 한다.', rubric:[{score:4,condition:'과정과 이유 정확'},{score:1,condition:'정답만 있음'}], minimum_pass_score:3, teacher_note:'과정 누락 확인' }], teacher_decision_rule:'반례 문항과 과정 문항 중 하나라도 통과하지 못하면 재학습 처리', redo_policy:'틀린 문항은 정의-조건-예시-반례 순서로 다시 정리한 뒤 다른 구조의 예시로 재작성' };
+  return { set_id:`fallback_vq_${Date.now()}`, target_concepts:focus, source_diagnosis:'AI fallback 검수 문항', questions:[{ question_id:'VQ1', question_type:'definition', prompt:`${concept}의 뜻을 자기 말로 설명하고 예시를 1개 쓰세요.`, student_answer_format:'서술형', required_elements:['정의','예시','이유'], answer_key:'모범답안 기준: 개념의 뜻을 자기 말로 쓰고, 그 개념이 성립하는 조건을 1개 이상 포함하며, 대표 예시가 정의와 맞아야 한다.', rubric:[{score:3,condition:'정의와 예시 정확'},{score:1,condition:'용어만 반복'}], minimum_pass_score:2, teacher_note:'암기와 이해를 구분' },{ question_id:'VQ2', question_type:'counterexample_generation', prompt:`${concept}을/를 적용하면 안 되는 반례 또는 비예시를 1개 만들고, 왜 안 되는지 이유를 쓰세요.`, student_answer_format:'반례+이유 서술형', required_elements:['반례 또는 비예시','적용 불가 조건','왜 틀리는지 설명'], answer_key:'모범답안 기준: 반례/비예시는 그 개념을 적용하면 안 되는 경우여야 한다. 왜 적용하면 안 되는지 조건 위반 이유를 함께 써야 한다.', rubric:[{score:4,condition:'반례와 이유가 정확'},{score:2,condition:'반례는 있으나 이유 부족'},{score:1,condition:'다른 예시를 반례로 착각'}], minimum_pass_score:3, teacher_note:'반례를 통해 복붙 정리와 실제 이해를 구분' },{ question_id:'VQ3', question_type:'process', prompt:'대표 문제 하나를 풀이 과정 전체로 다시 쓰세요. 중간 식과 판단 이유를 생략하지 마세요.', student_answer_format:'단계별 풀이', required_elements:['시작식','중간 과정','판단 이유','결론'], answer_key:'모범답안 기준: 시작식, 중간식, 사용한 개념, 그 개념을 선택한 이유, 결론이 순서대로 보여야 한다. 정답만 쓰면 통과하지 않는다.', rubric:[{score:4,condition:'과정과 이유 정확'},{score:1,condition:'정답만 있음'}], minimum_pass_score:3, teacher_note:'과정 누락 확인' }], teacher_decision_rule:'반례 문항과 과정 문항 중 하나라도 통과하지 못하면 재학습 처리', redo_policy:'틀린 문항은 정의-조건-예시-반례 순서로 다시 정리한 뒤 다른 구조의 예시로 재작성' };
 }
 function buildAnswerReviewFallback(payload) {
   const txt = payload?.student_answer_text || payload?.student_upload?.submission?.text_inputs?.verification_answer_text || '';

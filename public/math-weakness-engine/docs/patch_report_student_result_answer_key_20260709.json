@@ -1,0 +1,18 @@
+{
+  "patch": "Patch 13",
+  "version": "2026.07.09-patch13-student-result-answer-key",
+  "summary": "Changed diagnosis output from developer-style JSON/process view to student-facing result cards and answer-key verification questions.",
+  "files_changed": [
+    "hybrid.html",
+    "manifest.json",
+    "assets/math_hybrid_report_renderer.js",
+    "worker_skeleton/math_diagnosis_worker.js"
+  ],
+  "cloudflare_worker_update_required": true,
+  "student_visible_changes": [
+    "result verdict card",
+    "reason / missing evidence / misconception risk sections",
+    "redo task card",
+    "verification questions with answer key and rubric collapsed"
+  ]
+}

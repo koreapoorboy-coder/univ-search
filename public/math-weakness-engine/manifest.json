@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.09-patch12-counterexample-note-review",
+  "version": "2026.07.09-patch13-student-result-answer-key",
   "build_date": "2026-07-08",
   "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 기본 Worker URL 자동 적용, 학생 화면 연결 설정 숨김",
-  "description": "학생은 이름, 학년, 파일만 제출하고 Worker 연결은 기본 URL로 자동 적용된다. 교사용 고급 연결 설정에서만 Worker URL 저장, 확인, 설정 확인을 사용할 수 있다.",
+  "description": "학생 화면은 원자료 JSON이 아니라 판정 결과, 이유, 부족한 부분, 다시 할 과제, 정답/모범답안이 포함된 확인 문제 중심으로 표시한다.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_default_worker_hidden_settings_patch11_20260708",
+  "last_patch": "math_student_result_answer_key_patch13_20260709",
   "unit_count": 35,
   "problem_type_count": 12523,
   "has_global_diagnosis_logic": true,
@@ -33,11 +33,18 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "Patch 12: Counterexample-aware lecture note and concept summary review",
+  "patch": "Patch 13: Student-facing result cards and answer-key verification questions",
   "features": [
     "counterexample_review",
     "non_example_classification",
     "boundary_condition_review",
-    "concept_rewrite_template"
-  ]
+    "concept_rewrite_template",
+    "student_result_cards",
+    "answer_key_verification_questions",
+    "raw_json_collapsed_teacher_view"
+  ],
+  "has_student_facing_result_cards": true,
+  "hides_raw_json_by_default": true,
+  "has_answer_key_verification_questions": true,
+  "worker_version": "2026.07.09-patch13-student-result-answer-key"
 }
