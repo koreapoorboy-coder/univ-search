@@ -1,0 +1,16 @@
+{
+  "patch": "patch19",
+  "version": "2026.07.09-patch19-diagnosis-modes-and-safe-renderer",
+  "changes": [
+    "diagnosis_kind_selector",
+    "solution_process_diagnosis",
+    "verification_answer_review_flow",
+    "safe_teacher_renderer_guard",
+    "student_pdf_kept",
+    "internal_diagnostics_hidden"
+  ],
+  "fixed_errors": [
+    "TypeError: MathHybridReportRenderer.renderTeacherDiagnostics is not a function"
+  ],
+  "commit_message": "patch: add diagnosis modes and safe teacher renderer"
+}

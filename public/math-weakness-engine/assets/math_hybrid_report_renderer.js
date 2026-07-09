@@ -1,4 +1,4 @@
-/* Math Hybrid Report Renderer v1.6 · Patch 17 precise mathematical diagnosis and unit connection output */
+/* Math Hybrid Report Renderer v1.8 · Patch 19 diagnostic modes and safe teacher diagnostics */
 class MathHybridReportRenderer {
   static esc(v) { return String(v == null ? '' : v).replace(/[&<>\"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
   static list(items) {
@@ -93,6 +93,41 @@ class MathHybridReportRenderer {
       questionPolicy: '아래 10문항으로 조건 판정, 반례, 비교 설명까지 확인합니다.'
     };
   }
+  static isSolveDiagnosis(data) {
+    const purpose = data?.file_purpose_review || {};
+    const chosen = data?.analysis_options?.diagnosis_kind || data?._request?.analysis_options?.diagnosis_kind || '';
+    return chosen === 'solve_diagnosis' || purpose.routing_decision === 'solve_diagnosis' || purpose.primary_material_type === 'problem_solving' || purpose.primary_material_type === 'wrong_answer_note';
+  }
+  static buildSolutionPlan(data) {
+    const math = data?.math_signal || {};
+    const unit = (math.unit_candidates || [])[0]?.unit_name || data?.learning_context?.unit_name || '현재 풀이 단원';
+    const concepts = (math.concept_candidates || []).map(x => x.concept_name).filter(Boolean);
+    const concept = concepts[0] || unit || '풀이 과정';
+    const sol = data?.student_material_review?.solution_review || {};
+    const mainErrors = (sol.main_error_candidates || []).filter(Boolean);
+    const conceptErrors = (sol.concept_error_candidates || []).filter(Boolean);
+    const calcErrors = (sol.calculation_error_candidates || []).filter(Boolean);
+    const problems = [];
+    if (mainErrors[0]) problems.push({ title: '풀이가 틀어진 위치 확인 필요', body: mainErrors[0] });
+    if (conceptErrors[0]) problems.push({ title: '필요한 개념 연결 부족', body: conceptErrors[0] });
+    if (calcErrors[0]) problems.push({ title: '계산 전개 또는 식 변형 확인 필요', body: calcErrors[0] });
+    const fallback = [
+      { title: '문제 조건을 식으로 바꾸는 단계 확인 필요', body: '문장 조건, 범위 조건, 그래프 조건을 풀이 첫 줄에서 정확히 식으로 옮겼는지 봐야 합니다.' },
+      { title: '풀이 중간 단계의 근거 부족', body: '계산 결과보다 왜 그 식을 세웠는지, 왜 그 변형이 가능한지 설명이 필요합니다.' },
+      { title: '답의 범위와 원래 조건 검산 부족', body: '구한 답이 정의역, 범위, 문제 조건을 실제로 만족하는지 마지막에 확인해야 합니다.' }
+    ];
+    return {
+      title: '풀이 과정 진단',
+      oneLine: `이 자료는 정답 여부보다 풀이가 어느 단계에서 틀어졌는지 확인해야 합니다. 핵심은 조건 해석 → 식 세우기 → 계산 전개 → 답 검산입니다.`,
+      problems: (problems.length ? problems : fallback).slice(0, 3),
+      connections: [
+        { now: '조건 해석·식 세우기', next: '고1: 방정식과 부등식', why: '문제 문장을 식으로 바꾸는 단계가 틀리면 뒤 계산이 맞아도 답이 달라집니다.' },
+        { now: '함수·그래프 조건 확인', next: '고1·고2: 함수와 그래프, 함수의 극한', why: '정의역, 치역, 그래프 조건을 확인해야 해가 실제 조건을 만족합니다.' },
+        { now: `${concept} 풀이 근거`, next: unit ? `현재 단원: ${unit}` : '현재 풀이 단원', why: '같은 유형을 다시 풀 때 어떤 개념을 써야 하는지 기준이 됩니다.' }
+      ],
+      questionPolicy: '아래 10문항으로 오류 위치 찾기, 조건을 식으로 바꾸기, 계산 전개, 답 검산, 유사 유형 재풀이까지 확인합니다.'
+    };
+  }
   static decideOutcome(data) {
     const s = data?.extraction_summary || {};
     const purpose = data?.file_purpose_review || {};
@@ -124,6 +159,48 @@ class MathHybridReportRenderer {
     return { verdict, kind, purposeKo, routeKo: this.routeKo(purpose.routing_decision), level, reasons, missing, risks };
   }
 
+  static renderStudentPdfCard(set) {
+    const count = (set?.questions || []).length;
+    const disabled = count ? '' : 'disabled';
+    const help = count ? `${count}문항을 학생용 문제지로 열어 PDF 저장 또는 인쇄할 수 있습니다.` : '문항 생성 후 PDF 문제지를 만들 수 있습니다.';
+    return `<section class="pdf-download-card student-action-card">
+      <h3>학생용 PDF 문제지</h3>
+      <p>${this.esc(help)}</p>
+      <button type="button" class="pdf-open-btn" data-action="open-student-pdf" ${disabled}>학생용 PDF 문제지 열기/저장</button>
+      <p class="muted small">새 창에서 열리면 인쇄 창에서 “PDF로 저장”을 선택하면 됩니다. 학생용 문제지에는 정답을 넣지 않습니다.</p>
+    </section>`;
+  }
+
+  static renderTeacherDiagnostics(extraction, engineDiagnosis, noteReview) {
+    if (!extraction && !engineDiagnosis && !noteReview) return '';
+    const parts = [];
+    if (engineDiagnosis) {
+      const s = engineDiagnosis.summary || {};
+      const top = engineDiagnosis.top_concepts || [];
+      const wrong = engineDiagnosis.wrong_answer_diagnoses || [];
+      const risks = engineDiagnosis.cross_grade_risks || [];
+      parts.push(`<section class="result-box"><h3>엔진 매칭 결과</h3>
+        <p><b>오답:</b> ${this.esc(s.wrong_count || 0)}개 · <b>매칭 실패:</b> ${this.esc(s.missing_type_count || 0)}개 · <b>로드 단원:</b> ${this.esc(s.loaded_unit_count || '')}개</p>
+        <h4>핵심 취약 후보</h4>${this.list(top.map(x => x.concept_name || x.concept_id || x))}
+        <h4>주의할 연결</h4>${this.list([...(wrong || []).map(x => x.diagnosis || x.observed_error || x.problem_type_id), ...(risks || []).map(x => x.message || x.risk || x)])}
+        ${this.details('엔진 JSON 보기', this.pre(engineDiagnosis))}</section>`);
+    }
+    if (noteReview) {
+      const s = noteReview.summary || {};
+      const flags = noteReview.risk_flags || [];
+      const qs = noteReview.teacher_check_questions || [];
+      const redo = noteReview.redo_task || [];
+      parts.push(`<section class="result-box"><h3>필기/개념정리 증명 검수 결과</h3>
+        <p><b>시청 흔적:</b> ${this.esc(s.watch_confidence_score)}점 · <b>이해:</b> ${this.esc(s.understanding_score)}점 · <b>등급:</b> ${this.esc(s.understanding_level)}</p>
+        <h4>위험 신호</h4>${this.list(flags.map(x => x.message || x.id || x))}
+        <h4>다시 할 증명 과제</h4>${this.list(redo)}
+        <h4>교사가 확인할 질문</h4>${this.list(qs)}
+        ${this.details('필기 검수 JSON 보기', this.pre(noteReview))}</section>`);
+    }
+    if (extraction) parts.push(`<section class="result-box"><h3>1차 AI 분석 원자료</h3>${this.details('분석 JSON 보기', this.pre(extraction))}</section>`);
+    return this.card('교사용 내부 데이터', this.details('엔진·필기 검수·JSON 열기', parts.join(''), false), 'info teacher-only-card');
+  }
+
   static renderProofPlan(plan) {
     const issues = (plan.problems || []).slice(0, 3).map((x, idx) => {
       const title = typeof x === 'object' && x ? x.title : x;
@@ -146,6 +223,27 @@ class MathHybridReportRenderer {
       </section>`;
   }
 
+  static renderSolutionPlan(plan) {
+    const issues = (plan.problems || []).slice(0, 3).map((x, idx) => {
+      const title = typeof x === 'object' && x ? x.title : x;
+      const body = typeof x === 'object' && x ? x.body : '';
+      return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b>${this.esc(title)}</b>${body ? `<br><span>${this.esc(body)}</span>` : ''}</p></div>`;
+    }).join('');
+    const rows = (plan.connections || []).slice(0, 3).map(c => `
+      <tr><td>${this.esc(c.now)}</td><td>${this.esc(c.next)}</td><td>${this.esc(c.why)}</td></tr>`).join('');
+    return `
+      <section class="compact-diagnosis-box">
+        <h3>${this.esc(plan.title)}</h3>
+        <p class="one-line-diagnosis">${this.esc(plan.oneLine)}</p>
+        <div class="compact-section-title">지금 문제점</div>
+        <div class="compact-issues">${issues}</div>
+        <div class="compact-section-title">이 풀이가 연결되는 곳</div>
+        <div class="connection-table-wrap">
+          <table class="connection-table"><thead><tr><th>현재 오류</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead><tbody>${rows}</tbody></table>
+        </div>
+        <div class="ten-question-policy">${this.esc(plan.questionPolicy)}</div>
+      </section>`;
+  }
   static renderExtraction(data) {
     if (!data) return '';
     const purpose = data.file_purpose_review || {};
@@ -154,7 +252,8 @@ class MathHybridReportRenderer {
     const boundary = concept.boundary_condition_review || {};
     const rewrite = concept.concept_rewrite_template || {};
     const outcome = this.decideOutcome(data);
-    const proofPlan = this.buildProofPlan(data);
+    const isSolve = this.isSolveDiagnosis(data);
+    const proofPlan = isSolve ? this.buildSolutionPlan(data) : this.buildProofPlan(data);
     const detected = (purpose.detected_materials || []).map(m => `
       <div class="mini-row">
         <b>${this.esc(m.filename || '자료')}</b>
@@ -174,7 +273,7 @@ class MathHybridReportRenderer {
         <div class="result-title compact-result-title">${this.esc(outcome.verdict)}</div>
         <div class="result-meta">자료 유형: ${this.esc(outcome.purposeKo)} · 진단 경로: ${this.esc(outcome.routeKo)}</div>
       </div>
-      ${this.renderProofPlan(proofPlan)}
+      ${isSolve ? this.renderSolutionPlan(proofPlan) : this.renderProofPlan(proofPlan)}
       ${this.details('교사용 상세 진단 열기', teacherSummary)}
     `, outcome.kind);
   }
@@ -228,15 +327,20 @@ class MathHybridReportRenderer {
       </div>`;
     }).join('');
     return this.card('오늘 풀 10문항', `
-      <p class="muted">학생에게 먼저 보이는 것은 문제점과 연결 과정만입니다. 실제 이해 확인은 아래 ${this.esc(questions.length)}문항으로 진행합니다.</p>
-      <p><b>진단 근거:</b> ${this.esc(set.source_diagnosis)}</p>
+      <p class="muted">화면에서 끝내는 것이 목표가 아니라, PDF 문제지로 내려받아 풀이 과정 또는 증명 과정을 직접 쓰는 것이 목표입니다.</p>
+      ${this.renderStudentPdfCard(set)}
       ${questions.length < 10 ? '<p class="warn-inline">주의: 현재 문항 수가 10개보다 적습니다. Worker 또는 로컬 fallback에서 10문항 생성을 확인하세요.</p>' : ''}
       ${qhtml}
       <section class="student-action-card"><h3>통과 기준</h3><p>${this.esc(set.teacher_decision_rule)}</p><p><b>다시 해야 할 때:</b> ${this.esc(set.redo_policy)}</p></section>
-      ${this.details('검수 문항 전체 JSON 보기', this.pre(set))}
+      ${this.details('교사용 검수 문항 JSON 보기', this.pre(set))}
     `, '');
   }
 
+  static renderQuestionReviewTable(items) {
+    const rows = (items || []).map((x, idx) => `<tr><td>${this.esc(x.question_id || idx + 1)}</td><td>${this.esc(x.status || '')}</td><td>${this.esc((x.missing_elements || []).join(', ') || x.feedback || '')}</td></tr>`).join('');
+    if (!rows) return '';
+    return `<h3>문항별 검수</h3><div class="connection-table-wrap"><table class="connection-table"><thead><tr><th>문항</th><th>판정</th><th>보완할 점</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
   static renderAnswerReview(review) {
     if (!review) return '';
     const o = review.overall_result || {};
@@ -244,7 +348,8 @@ class MathHybridReportRenderer {
     return this.card('검수 답안 증명 결과', `
       <div class="student-result-head ${kind}"><div class="result-label">재검수 판정</div><div class="result-title">${this.esc(o.decision || o.level)}</div><div class="result-meta">점수 ${this.esc(o.score)} · 등급 ${this.esc(o.level)}</div></div>
       <p>${this.esc(o.summary)}</p>
-      <h3>다시 시킬 증명 과제</h3>${this.list(review.final_instruction?.redo_tasks)}
+      ${this.renderQuestionReviewTable(review.question_reviews)}
+      <h3>다시 시킬 과제</h3>${this.list(review.final_instruction?.redo_tasks)}
       <p><b>학생 안내:</b> ${this.esc(review.final_instruction?.student_message)}</p>
       <p><b>학부모 안내:</b> ${this.esc(review.final_instruction?.parent_message)}</p>
       ${this.details('교사용 재검수 JSON 보기', this.pre(review))}

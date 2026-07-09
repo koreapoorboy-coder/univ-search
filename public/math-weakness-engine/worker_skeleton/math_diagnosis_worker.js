@@ -1,5 +1,5 @@
 const SERVICE_NAME = 'math-diagnosis-worker';
-const VERSION = '2026.07.09-patch17-precise-math-connection-output';
+const VERSION = '2026.07.09-patch19-diagnosis-modes-and-safe-renderer';
 const DEFAULT_MODEL = 'gpt-5.5';
 const DEFAULT_REASONING_EFFORT = 'xhigh';
 const DEFAULT_MAX_OUTPUT_TOKENS = 25000;
@@ -228,7 +228,9 @@ function buildAnalyzePrompt(payload, files) {
 
 반드시 지킬 원칙:
 - 먼저 첨부 자료의 목적을 분류한다. 문제풀이, 오답노트, 개념정리, 수업필기, 검수답안, 혼합, 판별불가 중에서 판단한다.
+- 학생이 선택한 diagnosis_kind가 auto가 아니면 그 의도를 우선 반영한다. concept_review는 개념정리 진단, solve_diagnosis는 실제 풀이 과정 진단, verification_review는 프로그램이 준 10문항 재제출 답안 검수로 본다.
 - 학생이 올린 자료가 개념정리 파일이면 문제풀이처럼 맞고 틀림만 보지 말고, 정의·조건·공식의 의미·예시·반례·비예시·이전 개념 연결·다음 단원 활용을 검수한다.
+- 학생이 실제 문제 풀이 사진이나 오답 풀이를 올렸으면 정답 설명보다 '어느 줄에서 틀어졌는지', '오류 유형이 무엇인지', '필요한 개념이 무엇인지', '무엇을 다시 해야 하는지'를 우선 검수한다.
 - 수학 개념 이해의 최종 기준은 '증명 가능성'이다. 학생이 정의를 외운 것이 아니라, 왜 성립하는지/언제 성립하지 않는지/비슷한 대상과 무엇이 다른지 증명할 수 있는지 본다.
 - 공식만 나열되어 있으면 '암기형 정리'로 분류하고, 언제 쓰는지/왜 그렇게 되는지/어떤 조건에서 쓰는지/어떤 경우에는 쓰면 안 되는지/증명으로 확인할 수 있는지 부족한 부분을 concept_note_review에 적는다.
 - 개념정리/인강필기 검수에서는 반드시 반례 또는 비예시 관점을 본다. 학생이 반례를 쓰지 않았으면 counterexample_review.missing_counterexample_task에 '다시 써야 할 반례 과제'를 구체적으로 적는다.
@@ -239,6 +241,7 @@ function buildAnalyzePrompt(payload, files) {
 - 오답 번호, 단원명, problem_type_id 힌트가 있으면 engine_adapter.student_attempt에 연결한다.
 - 검수 문항이 필요한 지점을 verification_need에 명확히 적는다.
 - 한국 중고등 수학 교사용 표현으로 간결하되, 학생 관리에 쓸 수 있게 구체적으로 쓴다.
+- 학생 화면에는 엔진 매칭 점수, 로드 단원 수, 내부 JSON, 시청 흔적 점수 같은 내부 데이터를 노출하지 않는다. 이런 항목은 교사용 상세로만 둔다.
 - 학생용 상단 결과에 들어갈 문장은 일반 코칭 문장이 아니라 수학적으로 정확한 판정 기준과 단원명을 포함해야 한다.
 - 유리수/무리수 자료에서는 '정수/정수 꼴 가능 여부', '순환소수의 분수 변환', '√4와 √2의 차이'를 핵심 문제점으로 우선 검토한다.
 
@@ -262,7 +265,7 @@ function buildVerificationPrompt(payload) {
 - 목표는 정답 맞히기가 아니라 학생이 개념을 증명 가능한 수준으로 이해했는지 확인하는 것이다.
 - 각 문항은 '주장 → 조건 확인 → 근거/계산 과정 → 반례/비예시 → 결론' 중 필요한 요소가 드러나게 만든다.
 - 단순 O/X, 단순 정의 암기, 빈칸 짜맞추기 문항만 내지 않는다.
-- 반드시 10문항을 생성한다. 학생에게 보여주는 상단 설명은 짧게 유지하고, 실제 이해 확인은 10문항으로 한다.
+- 반드시 10문항을 생성한다. 학생에게 보여주는 상단 설명은 짧게 유지하고, 실제 이해 확인은 10문항으로 한다. 화면에는 내부 매칭 결과나 점수형 검수 데이터를 기본 노출하지 않고, 학생은 PDF 문제지로 풀 수 있게 한다.
 - 학생 상단 진단에는 '핵심 개념', '다음 학년 핵심 단원', '서술형·융합형 문제' 같은 넓은 표현을 쓰지 말고, 실제 수학 개념명·판정 조건·연결 단원명을 쓴다.
 - 유리수/무리수 단원이 감지되면 한 줄 진단에 '정수 a, b에 대해 a/b 꼴로 나타낼 수 있는가'라는 판정 기준을 반드시 포함한다.
 - 유리수/무리수 단원이 감지되면 연결 단원은 '중2: 유리수와 순환소수', '중3: 제곱근과 실수', '고등: 방정식·부등식, 함수의 정의역'을 우선 사용한다.
@@ -271,7 +274,7 @@ function buildVerificationPrompt(payload) {
 - 반례/비예시 문항은 가능한 경우 '가능한 모범답안 예시'를 answer_key에 포함한다. 단, 자료에서 특정 개념이 확정되지 않으면 '정답 기준' 형태로 적는다.
 - 학생이 단순히 강의 내용을 베껴쓴 경우, 정의·성립 조건·성립하지 않는 조건·대표 예시 증명·반례 증명·비교 설명을 확인하는 문항을 낸다.
 - 유리수/무리수 단원이 감지되면 반드시 10문항 구조로 낸다: 0.5 유리수 증명, -3 유리수 증명, 0.333... 유리수 증명, 0.121212... 유리수 증명, 0.333...이 무리수가 아닌 이유, √4가 무리수가 아닌 이유, √9가 무리수가 아닌 이유, √2가 무리수인 이유, '끝나지 않는 소수는 모두 무리수' 반례, √4와 √2 비교.
-- 문제풀이 자료이면 정답만 묻지 말고 풀이 과정과 왜 그 조건을 써야 하는지 증명하는 문항을 포함한다.
+- 문제풀이 자료이면 정답만 묻지 말고 오류 위치 찾기, 조건을 식으로 바꾸기, 풀이 중간 단계 근거 쓰기, 답의 범위·정의역·원래 조건 검산, 유사 유형 재풀이 문항을 포함한다.
 - required_elements는 학생 답안에 꼭 들어가야 하는 증명 요소를 짧게 적는다.
 - teacher_note는 출제 의도와 교사가 볼 통과 기준을 적는다.
 - teacher_decision_rule은 학생에게 '10문항 중 몇 개를 통과해야 하는지'가 보이도록 명확히 쓴다.
@@ -309,6 +312,7 @@ ${JSON.stringify(payload, null, 2)}`;
 
 function buildAnalyzeFallback(payload, reason = 'fallback') {
   const ctx = payload?.learning_context || {};
+  const diagnosisKind = payload?.analysis_options?.diagnosis_kind || 'auto';
   const noteText = payload?.submission?.text_inputs?.lecture_note_text || '';
   const solutionText = payload?.submission?.text_inputs?.student_solution_text || '';
   const manifest = payload?.submission?.file_manifest || [];
@@ -319,8 +323,11 @@ ${solutionText}`;
   const hasNote = noteText.trim().length > 20;
   const hasProcess = /\=|따라서|왜냐하면|풀이|과정|x\s*=/.test(solutionText);
   const conceptWords = /정의|개념|공식|성질|조건|예시|반례|비예시|증명|가정|모순|유리수|무리수|순환소수|루트|제곱근|유리수 지수|로그|지수법칙|그래프|원리/.test(combinedText);
-  const primaryType = conceptWords && !hasProcess ? 'concept_summary' : hasProcess ? 'problem_solving' : hasNote ? 'lecture_note' : (manifest[0]?.file_role === 'exam_pdf' ? 'problem_solving' : 'unknown');
-  const routing = primaryType === 'concept_summary' || primaryType === 'lecture_note' ? 'concept_review' : primaryType === 'problem_solving' ? 'solve_diagnosis' : 'insufficient';
+  let primaryType = conceptWords && !hasProcess ? 'concept_summary' : hasProcess ? 'problem_solving' : hasNote ? 'lecture_note' : (manifest[0]?.file_role === 'exam_pdf' ? 'problem_solving' : 'unknown');
+  if (diagnosisKind === 'concept_review') primaryType = 'concept_summary';
+  if (diagnosisKind === 'solve_diagnosis') primaryType = 'problem_solving';
+  if (diagnosisKind === 'verification_review') primaryType = 'verification_answer';
+  const routing = primaryType === 'concept_summary' || primaryType === 'lecture_note' ? 'concept_review' : primaryType === 'problem_solving' || primaryType === 'wrong_answer_note' ? 'solve_diagnosis' : primaryType === 'verification_answer' ? 'verification_review' : 'insufficient';
   const detected = (manifest.length ? manifest : [{ filename:'text_input', file_role: primaryType }]).map((f) => ({
     filename: f.filename || 'text_input',
     material_type: f.file_role === 'concept_summary_image' ? 'concept_summary' : f.file_role === 'wrong_answer_note_image' ? 'wrong_answer_note' : f.file_role === 'lecture_note_image' ? 'lecture_note' : f.file_role === 'solution_image' ? 'problem_solving' : f.file_role === 'verification_answer_image' ? 'verification_answer' : primaryType,
@@ -369,6 +376,22 @@ function buildVerificationFallback(payload) {
   const focus = payload?.ai_extraction?.verification_need?.focus_concepts || payload?.verification_need?.focus_concepts || ['유리수·무리수 판정 기준'];
   const concept = focus[0] || '핵심 개념';
   const text = JSON.stringify(payload);
+  const isSolve = payload?.ai_extraction?.file_purpose_review?.routing_decision === 'solve_diagnosis' || payload?.ai_extraction?.file_purpose_review?.primary_material_type === 'problem_solving' || payload?.student_upload?.analysis_options?.diagnosis_kind === 'solve_diagnosis';
+  if (isSolve) {
+    const questions = [
+      makeProofQuestion('Q1','error_correction','학생 풀이에서 처음으로 판단이 필요한 줄을 찾고, 그 줄이 왜 중요한지 설명하세요.','오류 위치 후보 → 이유 → 확인할 조건',['오류 위치 또는 확인 위치','그 줄이 중요한 이유','확인해야 할 조건'],'풀이가 틀어지는 지점은 보통 조건을 식으로 바꾸는 줄, 식 변형이 시작되는 줄, 답을 결정하는 줄이다. 해당 줄을 쓰고 왜 확인해야 하는지 설명해야 한다.',3,'풀이 진단은 어느 줄에서 틀어졌는지 찾는 것이 핵심이다.'),
+      makeProofQuestion('Q2','process','문제의 조건을 식 또는 그림/그래프 조건으로 다시 정리하세요.','조건 나열 → 식/그래프 변환 → 빠진 조건 확인',['문제 조건','식 또는 그래프 조건','범위 조건','빠진 조건 확인'],'문제 문장을 그대로 반복하지 말고 수식, 범위, 그래프 조건으로 바꾸어야 한다.',3,'조건 해석과 식 세우기 능력을 본다.'),
+      makeProofQuestion('Q3','process','풀이의 시작식을 다시 세우고, 왜 그 식으로 시작하는지 설명하세요.','시작식 → 사용 개념 → 이유',['시작식','사용 개념','왜 그 식인지','결론 방향'],'시작식은 문제 조건에서 나와야 하며, 사용한 개념의 조건이 맞아야 한다.',3,'공식 대입 전 조건 확인을 본다.'),
+      makeProofQuestion('Q4','process','중간 계산을 한 줄씩 생략하지 말고 다시 전개하세요.','식 변형 단계별 작성',['이전 식','다음 식','변형 이유','계산 확인'],'계산은 결과만 쓰지 말고 이전 식에서 다음 식으로 왜 바뀌는지 보여야 한다.',3,'계산 실수와 식 변형 오류를 구분한다.'),
+      makeProofQuestion('Q5','classification','구한 답이 문제의 조건을 만족하는지 원래 조건에 대입해 확인하세요.','답 대입 → 조건 만족 여부 → 결론',['구한 답','원래 조건 대입','조건 만족 여부','최종 결론'],'답을 구한 뒤 원래 조건에 대입해 맞는지 확인해야 한다.',3,'검산과 조건 확인 습관을 본다.'),
+      makeProofQuestion('Q6','proof_explanation','이 풀이에서 필요한 핵심 개념 1개를 쓰고, 그 개념을 써도 되는 조건을 설명하세요.','개념명 → 사용 조건 → 적용 이유',['핵심 개념','사용 조건','문제에서 조건 충족','결론'],'개념명만 쓰지 말고 왜 이 문제에 적용 가능한지 설명해야 한다.',3,'개념 연결 진단이다.'),
+      makeProofQuestion('Q7','error_correction','틀린 풀이가 있다면 바른 풀이로 고치고, 달라진 부분을 설명하세요.','틀린 부분 → 수정 → 이유',['틀린 줄','바른 식','수정 이유','결론'],'단순히 답만 고치지 말고 틀린 줄과 수정 이유를 써야 한다.',3,'오류 수정 능력을 본다.'),
+      makeProofQuestion('Q8','example_generation','같은 개념을 쓰는 유사 문제를 하나 만들고 풀이 전략만 쓰세요.','유사 조건 → 풀이 전략',['유사 문제 조건','사용 개념','풀이 시작 방법','주의 조건'],'완전한 새 문제를 만들지 못해도 같은 개념을 쓰는 조건과 전략을 설명해야 한다.',2,'전이 가능성을 확인한다.'),
+      makeProofQuestion('Q9','self_explanation','다음에 같은 유형을 풀 때 반드시 확인할 체크리스트 3개를 쓰세요.','조건·식·검산 체크리스트',['조건 확인','식 세우기','범위/검산','자기 말 기준'],'체크리스트는 실제 풀이 행동으로 이어져야 한다.',2,'학생의 자기 점검 기준을 본다.'),
+      makeProofQuestion('Q10','proof_explanation','이 풀이 오류가 연결되는 단원명을 쓰고, 왜 그 단원과 연결되는지 설명하세요.','오류 → 연결 단원 → 이유',['현재 오류','정확한 연결 단원명','연결 이유','다시 할 학습'],'막연한 상위 단원이 아니라 실제 단원명과 이유를 써야 한다.',2,'현재 오류와 학습 경로를 연결한다.')
+    ];
+    return { set_id:`fallback_solution_vq_${Date.now()}`, target_concepts:focus, source_diagnosis:'AI fallback 풀이 과정 진단 10문항', questions, teacher_decision_rule:'10문항 중 7문항 이상 통과하면 풀이 과정 보완 가능으로 본다. Q1~Q5 중 2개 이상 틀리면 조건 해석 또는 풀이 전개를 다시 학습한다.', redo_policy:'틀린 문항은 원래 풀이 사진의 해당 줄을 표시하고 조건-식-근거-검산 순서로 다시 작성한다.' };
+  }
   const isIrrational = /무리수|유리수|순환소수|비순환|루트|제곱근|√|π|분수 꼴|유한소수|무한소수/.test(text);
   if (isIrrational) {
     const questions = [
