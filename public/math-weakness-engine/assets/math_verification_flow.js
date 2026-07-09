@@ -1,4 +1,4 @@
-/* Math Verification Flow v1.6 · Patch 21 engine-locked output contract
+/* Math Verification Flow v1.7 · Patch 22 diagnosis-first question-generation split
  * Local orchestration helpers for hybrid math diagnosis.
  */
 class MathVerificationFlow {
@@ -49,7 +49,7 @@ class MathVerificationFlow {
       analysis_options: {
         mode: form.mode || 'balanced',
         output_targets: ['student', 'parent', 'teacher'],
-        generate_verification_questions: true,
+        generate_verification_questions: false,
         review_verification_answer: Boolean(form.verificationAnswerText),
         use_existing_math_engine: true,
         proof_based_concept_check: true

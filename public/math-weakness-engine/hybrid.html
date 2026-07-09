@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>수학 하이브리드 AI 진단 · 엔진 우선 출력 계약</title>
+<title>수학 하이브리드 AI 진단 · 2단계 진단/문제생성 분리</title>
 <style>
 body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:24px;line-height:1.55;color:#111827;background:#f8fafc}h1{font-size:24px}h2{font-size:19px;margin-top:0}h3{font-size:16px;margin-bottom:6px}label{display:block;font-weight:700;margin-top:10px}input,select,textarea{width:100%;box-sizing:border-box;padding:9px;border:1px solid #cbd5e1;border-radius:8px;background:white}textarea{min-height:100px;font-family:ui-monospace,Menlo,Consolas,monospace}button{padding:10px 14px;border:0;border-radius:8px;background:#111827;color:white;cursor:pointer;margin:4px 4px 4px 0}button:disabled{opacity:.55;cursor:not-allowed}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card,.subcard{background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}.subcard{background:#f8fafc}.muted{color:#64748b}.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#e2e8f0;margin:2px;font-size:12px}.warn{background:#fff7ed;border-color:#fed7aa}.ok{background:#ecfdf5;border-color:#a7f3d0}.danger{background:#fef2f2;border-color:#fecaca}.info{background:#eff6ff;border-color:#bfdbfe}pre{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:12px;border-radius:8px;overflow:auto}.tabs button{background:#475569}.small{font-size:12px}.button-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}.status-panel{margin-top:12px;border-radius:12px;border:1px solid #cbd5e1;padding:14px;background:#f8fafc}.status-panel h3{margin:0 0 6px}.status-line{font-weight:700}.status-detail{margin-top:6px;color:#475569;font-size:13px}.status-success{background:#ecfdf5;border-color:#86efac}.status-warning{background:#fff7ed;border-color:#fdba74}.status-error{background:#fef2f2;border-color:#fca5a5}.status-loading{background:#eff6ff;border-color:#93c5fd}.status-badge{display:inline-block;border-radius:999px;padding:3px 9px;font-size:12px;margin-right:6px;background:#e2e8f0}.status-badge.success{background:#bbf7d0}.status-badge.warning{background:#fed7aa}.status-badge.error{background:#fecaca}.status-badge.loading{background:#bfdbfe}.simple-card{border:2px solid #111827;background:#ffffff}.simple-title{display:flex;align-items:center;gap:8px}.step-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:#111827;color:white;font-weight:800}.upload-box{border:2px dashed #94a3b8;border-radius:14px;padding:16px;background:#f8fafc;margin-top:10px}.upload-box input{background:white}.primary-action{font-size:16px;font-weight:800;padding:13px 20px;margin-top:14px}.student-help{background:#f1f5f9;border-left:4px solid #334155;padding:12px;border-radius:10px;margin-top:12px}.advanced-wrap{background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px;padding:14px;margin:14px 0}.advanced-wrap summary{font-weight:800;cursor:pointer}.advanced-note{font-size:13px;color:#64748b;margin:6px 0 12px}.hidden-teacher-note{font-size:12px;color:#64748b}.progress-card{background:#eff6ff;border-color:#93c5fd}.required-mark{color:#dc2626;font-weight:800}code{background:#e2e8f0;border-radius:6px;padding:2px 5px}.admin-connection-wrap{border-style:dashed}.admin-connection-wrap summary::after{content:" · 학생 화면에서는 사용하지 않음";font-weight:500;color:#64748b;font-size:12px}
 .student-result-head{border:1px solid #cbd5e1;border-radius:14px;padding:16px;margin:12px 0;background:#f8fafc}.student-result-head.ok{background:#ecfdf5;border-color:#86efac}.student-result-head.warn{background:#fff7ed;border-color:#fdba74}.student-result-head.danger{background:#fef2f2;border-color:#fca5a5}.result-label{font-size:13px;color:#64748b;font-weight:800}.result-title{font-size:24px;font-weight:900;margin-top:2px}.result-meta{font-size:13px;color:#475569;margin-top:6px}.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}.result-box{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin:10px 0}.student-action-card{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px;margin:12px 0}.counter-box{background:#fff7ed;border-color:#fed7aa}.mini-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid #e5e7eb;padding:8px 0}.mini-row:last-child{border-bottom:0}.question-card{background:#ffffff;border:1px solid #dbeafe;border-radius:14px;padding:18px;margin:14px 0}.question-top{display:flex;gap:8px;align-items:center;margin-bottom:8px}.qnum{font-weight:900;background:#111827;color:white;border-radius:999px;padding:4px 10px}.question-prompt{font-size:18px;font-weight:700;line-height:1.6}.answer-key-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px;margin-top:10px}.answer-key-box summary{font-weight:900;cursor:pointer}.teacher-raw{margin-top:10px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px;padding:10px}.teacher-raw summary{cursor:pointer;font-weight:800;color:#475569}.result-badge{display:inline-block;border-radius:999px;padding:3px 9px;background:#e2e8f0;font-size:12px;font-weight:800}.result-badge.ok{background:#bbf7d0}.result-badge.warn{background:#fed7aa}.result-badge.danger{background:#fecaca}.proof-diagnosis-box{background:#f8fafc;border:2px solid #111827;border-radius:16px;padding:16px;margin:14px 0}.proof-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}.proof-panel{background:#ffffff;border:1px solid #cbd5e1;border-radius:12px;padding:12px}.proof-panel h4{margin-top:0}.proof-task{display:flex;gap:12px;align-items:flex-start;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin:8px 0}.proof-step-no{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:999px;background:#111827;color:white;font-weight:900}.proof-task p{margin:4px 0 0}.proof-action-card{background:#eef2ff;border-color:#c7d2fe}.proof-question-card{border-color:#111827}.proof-question-card .qnum{background:#111827}
@@ -19,13 +19,13 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 </head>
 <body>
 <h1>수학 하이브리드 AI 진단</h1>
-<p class="muted">학생은 이름·학년·파일만 제출합니다. AI가 먼저 자료를 읽고, 엔진이 단원·개념을 확정한 뒤, AI가 그 결과 안에서만 학생용 문제점·연결 단원·PDF 문항을 작성합니다.</p>
+<p class="muted">학생은 먼저 진단만 받습니다. 문제 생성이 필요한 경우에만 1차 진단에서 확정된 단원 기준으로 보강 10문항과 PDF 문제지를 따로 생성합니다.</p>
 
 
 
 <div class="card simple-card">
   <h2 class="simple-title"><span class="step-badge">1</span> 학생 진단 자료 제출</h2>
-  <p class="muted">학생은 아래 3가지만 입력하면 됩니다. 파일이 시험지/풀이인지, 개념정리/필기인지, 오답노트인지도 AI가 먼저 자동 판별합니다. 개념정리는 상단 설명을 길게 보여주지 않고 문제점·연결 과정만 짧게 제시한 뒤 10문항으로 검수합니다.</p>
+  <p class="muted">학생은 아래 3가지만 입력하면 됩니다. 1차에서는 문제를 만들지 않고 자료 유형, 확정 단원, 현재 문제점, 연결 단원만 진단합니다. 필요할 때만 보강 문제 생성을 따로 실행합니다.</p>
   <div class="grid">
     <div>
       <label>학생 이름 <span class="required-mark">*</span></label>
@@ -57,10 +57,12 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
     <input id="files" type="file" multiple accept="application/pdf,image/*" />
     <p class="muted small">PDF 또는 사진 파일을 올리면 됩니다. 여러 장이면 한 번에 선택하세요. 개념정리 노트, 오답노트, 시험지, 학생 풀이 사진 모두 가능합니다.</p>
   </div>
-  <button type="button" id="analyze_btn" class="primary-action">진단 시작</button>
+  <button type="button" id="analyze_btn" class="primary-action">1차 진단 시작</button>
+  <button type="button" id="generate_vq_btn" class="primary-action" disabled>2차 보강 문제 생성</button>
+  <button type="button" id="student_pdf_top_btn" class="primary-action" disabled>학생용 PDF 열기/저장</button>
   <div class="student-help">
     <b>학생 안내 문구</b>
-    <p class="muted small">파일에 문제 번호, 풀이 흔적, 오답 표시, 개념 정의, 예시, 자기 설명이 보일수록 진단이 정확해집니다. 개념정리는 증명형 10문항으로, 실제 풀이는 오류 위치·개념 연결·보강 10문항으로 확인합니다.</p>
+    <p class="muted small">파일에 문제 번호, 풀이 흔적, 오답 표시, 개념 정의, 예시, 자기 설명이 보일수록 진단이 정확해집니다. 1차 진단 후 문제가 필요한 경우에만 보강 문제 생성 버튼을 누르세요.</p>
   </div>
 </div>
 
@@ -112,7 +114,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
     <option value="high_precision" selected>high_precision · 정밀 검수</option>
     <option value="low_cost">low_cost · 비용 절감</option>
   </select>
-  <button type="button" id="local_vq_btn">로컬 검수 문항 생성</button>
+  <button type="button" id="local_vq_btn">로컬 보강 문제 생성</button>
 </details>
 
 <details class="advanced-wrap">
@@ -422,7 +424,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function openStudentWorksheetPdf() {
     if (!state.verificationSet?.questions?.length) {
-      alert('먼저 진단을 실행해서 10문항을 생성하세요.');
+      alert('먼저 1차 진단 후 2차 보강 문제 생성을 실행하세요.');
       return;
     }
     const w = window.open('', '_blank');
@@ -439,9 +441,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
   window.MathHybridPDF = { openStudentWorksheet: openStudentWorksheetPdf, buildStudentWorksheetHtml };
   document.addEventListener('click', (event) => {
-    const target = event.target.closest('[data-action="open-student-pdf"]');
-    if (target) openStudentWorksheetPdf();
+    const pdfTarget = event.target.closest('[data-action="open-student-pdf"]');
+    if (pdfTarget) openStudentWorksheetPdf();
+    const genTarget = event.target.closest('[data-action="generate-verification"]');
+    if (genTarget) generateVerificationSet();
   });
+
+  function renderPostDiagnosisActionCard() {
+    if (!state.extraction) return '';
+    if (state.verificationSet?.questions?.length) return '';
+    return `<section class="card info"><h2>다음 단계 선택</h2><p><b>1차 진단은 완료되었습니다.</b> 아직 문제지는 생성하지 않았습니다.</p><p class="muted">학생에게 분석만 보여줘도 되는 경우는 여기서 멈추면 됩니다. 보강 문제가 필요한 경우에만 아래 버튼을 눌러 1차 진단에서 확정된 단원 기준으로 10문항을 생성하세요.</p><button type="button" data-action="generate-verification" class="pdf-open-btn">보강 문제 10문항 생성</button></section>`;
+  }
+
+  function updateStepButtons() {
+    const genBtn = $('#generate_vq_btn');
+    const pdfBtn = $('#student_pdf_top_btn');
+    if (genBtn) genBtn.disabled = !state.extraction;
+    if (pdfBtn) pdfBtn.disabled = !(state.verificationSet?.questions?.length);
+  }
 
   function render() {
     const teacherDiagnostics = (typeof MathHybridReportRenderer.renderTeacherDiagnostics === 'function')
@@ -449,11 +466,54 @@ window.addEventListener('DOMContentLoaded', () => {
       : '';
     $('#result').innerHTML = [
       MathHybridReportRenderer.renderExtraction(state.extraction, state.engineDiagnosis),
+      renderPostDiagnosisActionCard(),
       MathHybridReportRenderer.renderVerificationQuestions(state.verificationSet),
       teacherDiagnostics,
       MathHybridReportRenderer.renderAnswerReview(state.answerReview),
       MathHybridReportRenderer.renderFinalReport(state.finalReport)
     ].join('');
+    updateStepButtons();
+  }
+
+  async function generateVerificationSet() {
+    if (!state.extraction) {
+      resultEl.innerHTML = `<div class="card warn"><h2>1차 진단이 필요합니다</h2><p>먼저 학생 자료를 업로드하고 1차 진단을 완료한 뒤 보강 문제를 생성하세요.</p></div>`;
+      return;
+    }
+    const btn = $('#generate_vq_btn');
+    try {
+      syncBridgeWorkerUrl();
+      if (btn) { btn.disabled = true; btn.textContent = '2차 문제 생성 중...'; }
+      resultEl.insertAdjacentHTML('afterbegin', `<div class="card progress-card"><h2>2차 보강 문제 생성 중</h2><p>1차 진단에서 확정된 단원과 개념을 기준으로만 10문항을 생성합니다. 이전 샘플 문제나 다른 단원 문제는 사용하지 않습니다.</p></div>`);
+      const generationPayload = {
+        generation_mode: 'post_diagnosis_only',
+        source_diagnosis_id: state.extraction?._meta?.requestId || state.extraction?.diagnosis_id || state.extraction?.extraction_summary?.analysis_id || '',
+        locked_output_contract: {
+          phase: 'verification_generation_after_diagnosis',
+          do_not_reclassify_unit: true,
+          use_engine_locked_context_only: true,
+          no_default_sample_questions: true
+        },
+        ai_extraction: state.extraction,
+        engine_diagnosis: state.engineDiagnosis,
+        engine_locked_context: state.extraction?._engine_context,
+        note_review: state.noteReview
+      };
+      if (bridge.hasWorker()) {
+        state.verificationSet = await bridge.generateVerification(generationPayload);
+      } else {
+        state.verificationSet = flow.buildFallbackVerificationQuestions(state.extraction, state.engineDiagnosis, state.noteReview);
+      }
+      state.answerReview = null;
+      state.finalReport = null;
+      render();
+    } catch (e) {
+      try { state.verificationSet = flow.buildFallbackVerificationQuestions(state.extraction, state.engineDiagnosis, state.noteReview); render(); }
+      catch (fallbackError) { showError('2차 보강 문제 생성 오류', e); }
+    } finally {
+      if (btn) { btn.disabled = !state.extraction; btn.textContent = '2차 보강 문제 생성'; }
+      updateStepButtons();
+    }
   }
 
   async function initEngine() {
@@ -472,6 +532,10 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function bindMainButtons() {
+    const genTop = $('#generate_vq_btn');
+    if (genTop) genTop.onclick = generateVerificationSet;
+    const pdfTop = $('#student_pdf_top_btn');
+    if (pdfTop) pdfTop.onclick = openStudentWorksheetPdf;
     $('#analyze_btn').onclick = async () => {
       const btn = $('#analyze_btn');
       try {
@@ -488,8 +552,12 @@ window.addEventListener('DOMContentLoaded', () => {
           resultEl.innerHTML = `<div class="card warn"><h2>Worker 연결 필요</h2><p>기본 Worker URL 자동 적용에 문제가 있습니다. 교사용 연결 설정을 열어 Worker 상태를 확인하세요.</p></div>`;
           return;
         }
-        if (btn) { btn.disabled = true; btn.textContent = '진단 분석 중...'; }
-        resultEl.innerHTML = `<div class="card progress-card"><h2>AI 진단 분석 중</h2><p>파일 목적을 먼저 구분한 뒤, 문제풀이·오답·개념정리·필기 각각에 맞춰 취약 개념을 추출하고 있습니다. 파일 크기에 따라 시간이 걸릴 수 있습니다.</p></div>`;
+        if (btn) { btn.disabled = true; btn.textContent = '1차 진단 중...'; }
+        const genBtn = $('#generate_vq_btn');
+        const pdfBtn = $('#student_pdf_top_btn');
+        if (genBtn) genBtn.disabled = true;
+        if (pdfBtn) pdfBtn.disabled = true;
+        resultEl.innerHTML = `<div class="card progress-card"><h2>1차 진단 분석 중</h2><p>파일 목적을 먼저 구분한 뒤, 엔진 매칭으로 단원·개념을 확정합니다. 이 단계에서는 보강 문제를 자동 생성하지 않습니다. 파일 크기에 따라 시간이 걸릴 수 있습니다.</p></div>`;
         state.payload = collectForm();
         state.extraction = await bridge.analyze(state.payload, $('#files').files);
         if (state.extraction && typeof state.extraction === 'object') {
@@ -508,18 +576,20 @@ window.addEventListener('DOMContentLoaded', () => {
           };
         }
         state.noteReview = await flow.runLocalNoteReview(state.extraction);
-        if (state.extraction?.verification_need?.needed) {
-          try {
-            state.verificationSet = await bridge.generateVerification({ ai_extraction:state.extraction, engine_diagnosis:state.engineDiagnosis, engine_locked_context: state.extraction?._engine_context, note_review:state.noteReview });
-          } catch (e) {
-            state.verificationSet = flow.buildFallbackVerificationQuestions(state.extraction, state.engineDiagnosis, state.noteReview);
-          }
-        }
+        // Patch22: 1차 진단 단계에서는 보강 문제를 자동 생성하지 않는다.
+        // 문제 생성은 사용자가 [2차 보강 문제 생성]을 눌렀을 때만 실행한다.
+        state.verificationSet = null;
+        state.answerReview = null;
+        state.finalReport = null;
         render();
       } catch (e) {
         showError('1차 AI 분석 오류', e);
       } finally {
-        if (btn) { btn.disabled = false; btn.textContent = '진단 시작'; }
+        if (btn) { btn.disabled = false; btn.textContent = '1차 진단 시작'; }
+        const genBtn = $('#generate_vq_btn');
+        if (genBtn) genBtn.disabled = !state.extraction;
+        const pdfBtn = $('#student_pdf_top_btn');
+        if (pdfBtn) pdfBtn.disabled = !(state.verificationSet?.questions?.length);
       }
     };
 
@@ -531,9 +601,11 @@ window.addEventListener('DOMContentLoaded', () => {
           student_material_review:{ lecture_note_review:{ missing_evidence:['과정/이유 설명 확인 필요'] } }
         };
         state.verificationSet = flow.buildFallbackVerificationQuestions(state.extraction, state.engineDiagnosis, state.noteReview);
+        state.answerReview = null;
+        state.finalReport = null;
         render();
       } catch (e) {
-        showError('로컬 검수 문항 생성 오류', e);
+        showError('로컬 보강 문제 생성 오류', e);
       }
     };
 

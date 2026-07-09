@@ -1,0 +1,25 @@
+{
+  "patch": "patch22-diagnosis-first-question-generation",
+  "date": "2026-07-09",
+  "summary": "Split 1st diagnosis and 2nd optional question generation to prevent fixed sample worksheets from appearing before a confirmed diagnosis.",
+  "changed_files": [
+    "hybrid.html",
+    "assets/math_hybrid_report_renderer.js",
+    "assets/math_verification_flow.js",
+    "worker_skeleton/math_diagnosis_worker.js",
+    "manifest.json"
+  ],
+  "student_flow": [
+    "1st diagnosis only",
+    "optional 2nd question generation",
+    "student PDF after questions exist",
+    "answer review after submission"
+  ],
+  "guards": [
+    "no automatic verification generation in analyze",
+    "question generation requires existing diagnosis state",
+    "engine_locked_context passed into generation payload",
+    "previous verificationSet cleared on every new diagnosis",
+    "top PDF button disabled until question set exists"
+  ]
+}

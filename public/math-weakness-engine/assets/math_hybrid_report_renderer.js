@@ -1,4 +1,4 @@
-/* Math Hybrid Report Renderer v2.0 · Patch 21 engine-locked output contract */
+/* Math Hybrid Report Renderer v2.1 · Patch 22 diagnosis-first question-generation split */
 class MathHybridReportRenderer {
   static esc(v) { return String(v == null ? '' : v).replace(/[&<>\"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
   static list(items) {
@@ -74,7 +74,7 @@ class MathHybridReportRenderer {
           { now: '짝수/홀수 거듭제곱근 조건', next: '고등: 방정식과 부등식', why: 'x^n=a의 실수해 개수와 부호 조건을 판단해야 합니다.' },
           { now: '지수법칙 적용 조건', next: '고등: 함수의 정의역과 그래프', why: '밑의 범위와 정의역을 확인하지 않으면 지수함수·로그함수에서 잘못된 변형을 하게 됩니다.' }
         ],
-        questionPolicy: '아래 10문항으로 거듭제곱근의 정의, 존재 조건, 주값, 유리수 지수 변환, 반례와 비교 설명까지 확인합니다.'
+        questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 거듭제곱근의 정의, 존재 조건, 주값, 유리수 지수 변환, 반례와 비교 설명을 확인하는 10문항을 만듭니다.'
       };
     }
     if (looksIrrational) {
@@ -91,7 +91,7 @@ class MathHybridReportRenderer {
           { now: '무리수와 실수', next: '중3: 제곱근과 실수', why: '√2, √3처럼 분수로 나타낼 수 없는 수를 구분해야 합니다.' },
           { now: '수의 범위 판단', next: '고등: 방정식·부등식, 함수의 정의역', why: '해가 정수·유리수·실수 중 어디인지에 따라 풀이와 답의 범위가 달라집니다.' }
         ],
-        questionPolicy: '아래 10문항으로 유리수 판정, 무리수 판정, 반례, 비교 설명까지 확인합니다.'
+        questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 유리수 판정, 무리수 판정, 반례, 비교 설명을 확인하는 10문항을 만듭니다.'
       };
     }
     const boundary = data?.student_material_review?.concept_note_review?.boundary_condition_review || {};
@@ -114,7 +114,7 @@ class MathHybridReportRenderer {
         { now: '증명형 설명', next: '상위 단원 개념 적용', why: '공식을 외워도 언제 쓰는지 설명하지 못하면 응용 문제에서 막힙니다.' }
       ],
       requiredConditions: boundary.required_conditions || [],
-      questionPolicy: '아래 10문항으로 조건 판정, 반례, 비교 설명까지 확인합니다.'
+      questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 조건 판정, 반례, 비교 설명을 확인하는 10문항을 만듭니다.'
     };
   }
   static isSolveDiagnosis(data) {
@@ -149,7 +149,7 @@ class MathHybridReportRenderer {
         { now: '함수·그래프 조건 확인', next: '고1·고2: 함수와 그래프, 함수의 극한', why: '정의역, 치역, 그래프 조건을 확인해야 해가 실제 조건을 만족합니다.' },
         { now: `${concept} 풀이 근거`, next: unit ? `현재 단원: ${unit}` : '현재 풀이 단원', why: '같은 유형을 다시 풀 때 어떤 개념을 써야 하는지 기준이 됩니다.' }
       ],
-      questionPolicy: '아래 10문항으로 오류 위치 찾기, 조건을 식으로 바꾸기, 계산 전개, 답 검산, 유사 유형 재풀이까지 확인합니다.'
+      questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 오류 위치 찾기, 조건을 식으로 바꾸기, 계산 전개, 답 검산, 유사 유형 재풀이를 확인하는 10문항을 만듭니다.'
     };
   }
   static decideOutcome(data) {
@@ -243,7 +243,7 @@ class MathHybridReportRenderer {
         <div class="connection-table-wrap">
           <table class="connection-table"><thead><tr><th>지금 확인하는 개념</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead><tbody>${rows}</tbody></table>
         </div>
-        <div class="ten-question-policy">${this.esc(plan.questionPolicy)}</div>
+        <div class="ten-question-policy"><b>문제 생성 안내:</b> ${this.esc(plan.questionPolicy)}</div>
       </section>`;
   }
 
@@ -265,7 +265,7 @@ class MathHybridReportRenderer {
         <div class="connection-table-wrap">
           <table class="connection-table"><thead><tr><th>현재 오류</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead><tbody>${rows}</tbody></table>
         </div>
-        <div class="ten-question-policy">${this.esc(plan.questionPolicy)}</div>
+        <div class="ten-question-policy"><b>문제 생성 안내:</b> ${this.esc(plan.questionPolicy)}</div>
       </section>`;
   }
   static renderExtraction(data, engineDiagnosis = null) {

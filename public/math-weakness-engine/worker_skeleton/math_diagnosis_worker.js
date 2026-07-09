@@ -1,5 +1,5 @@
 const SERVICE_NAME = 'math-diagnosis-worker';
-const VERSION = '2026.07.09-patch21-engine-locked-output-contract';
+const VERSION = '2026.07.09-patch22-diagnosis-first-question-generation';
 const DEFAULT_MODEL = 'gpt-5.5';
 const DEFAULT_REASONING_EFFORT = 'xhigh';
 const DEFAULT_MAX_OUTPUT_TOKENS = 25000;
@@ -226,9 +226,10 @@ async function fileToBase64(file) {
 function buildAnalyzePrompt(payload, files) {
   return `너는 수학 취약유형 진단 AI Bridge다. 학생 자료를 읽고 JSON schema에 맞춰 구조화하라.
 
-Patch21 핵심 계약:
+Patch22 핵심 계약:
 - 1차 AI 분석 단계에서는 학생 자료를 읽고 자료유형·감지 키워드·수식·풀이 흔적만 구조화한다.
 - 1차 AI 분석 단계에서 최종 단원 결론, 학생용 출력 문구, 10문항 세트를 마음대로 확정하지 않는다.
+- 1차 AI 분석은 진단까지만 수행한다. 보강 문제 생성은 별도 2차 요청에서만 수행한다.
 - 최종 확정 단원과 출력 유형은 엔진 매칭 결과(engine_diagnosis, engine_locked_context)가 우선이다.
 - AI는 엔진이 확정한 단원·개념 밖의 예시 문제를 출력하지 않는다.
 
@@ -265,10 +266,13 @@ Patch21 핵심 계약:
 ${JSON.stringify(payload, null, 2)}`;
 }
 function buildVerificationPrompt(payload) {
-  return `1차 진단 결과와 엔진 매칭 결과를 바탕으로 학생에게 보여줄 확인 문제 세트를 생성하라.
+  return `이 요청은 1차 진단 이후 사용자가 별도로 실행한 2차 보강 문제 생성 요청이다. 1차 진단 결과와 엔진 매칭 결과를 바탕으로 학생에게 보여줄 확인 문제 세트를 생성하라.
 
 중요한 출력 원칙:
-- Patch21 엔진 우선 계약을 반드시 따른다.
+- Patch22 진단-문제생성 분리 계약을 반드시 따른다.
+- 1차 analyze 단계에서는 문제를 만들지 않는다. 이 generate-verification 엔드포인트에서만 10문항을 만든다.
+- payload.generation_mode는 post_diagnosis_only 또는 그에 준하는 2차 생성 모드여야 한다.
+- source_diagnosis_id, ai_extraction, engine_diagnosis, engine_locked_context를 하나의 run으로 묶어 사용한다. 이전 학생/이전 단원/이전 fallback 문제 세트를 재사용하지 않는다.
 - engine_diagnosis.top_concepts, engine_diagnosis.top_units, engine_locked_context가 있으면 그것을 확정 단원/확정 개념으로 본다.
 - AI 추출 결과의 예시·샘플·이전 fallback 문항은 엔진 확정 단원과 충돌하면 모두 폐기한다.
 - 엔진이 확정한 단원이 거듭제곱근/유리수 지수이면 유리수·무리수/순환소수 10문항을 절대 출력하지 않는다.
@@ -277,7 +281,7 @@ function buildVerificationPrompt(payload) {
 - 목표는 정답 맞히기가 아니라 학생이 개념을 증명 가능한 수준으로 이해했는지 확인하는 것이다.
 - 각 문항은 '주장 → 조건 확인 → 근거/계산 과정 → 반례/비예시 → 결론' 중 필요한 요소가 드러나게 만든다.
 - 단순 O/X, 단순 정의 암기, 빈칸 짜맞추기 문항만 내지 않는다.
-- 반드시 10문항을 생성한다. 학생에게 보여주는 상단 설명은 짧게 유지하고, 실제 이해 확인은 10문항으로 한다. 화면에는 내부 매칭 결과나 점수형 검수 데이터를 기본 노출하지 않고, 학생은 PDF 문제지로 풀 수 있게 한다.
+- 반드시 10문항을 생성한다. 단, 이 10문항은 1차 진단에서 확정된 단원·개념에만 묶인다. 학생에게 보여주는 상단 설명은 짧게 유지하고, 실제 이해 확인은 10문항으로 한다. 화면에는 내부 매칭 결과나 점수형 검수 데이터를 기본 노출하지 않고, 학생은 PDF 문제지로 풀 수 있게 한다.
 - 학생 상단 진단에는 '핵심 개념', '다음 학년 핵심 단원', '서술형·융합형 문제' 같은 넓은 표현을 쓰지 말고, 실제 수학 개념명·판정 조건·연결 단원명을 쓴다.
 - 유리수/무리수 단원이 감지되면 한 줄 진단에 '정수 a, b에 대해 a/b 꼴로 나타낼 수 있는가'라는 판정 기준을 반드시 포함한다.
 - 유리수/무리수 단원이 감지되면 연결 단원은 '중2: 유리수와 순환소수', '중3: 제곱근과 실수', '고등: 방정식·부등식, 함수의 정의역'을 우선 사용한다.
@@ -290,6 +294,7 @@ function buildVerificationPrompt(payload) {
 - required_elements는 학생 답안에 꼭 들어가야 하는 증명 요소를 짧게 적는다.
 - teacher_note는 출제 의도와 교사가 볼 통과 기준을 적는다.
 - teacher_decision_rule은 학생에게 '10문항 중 몇 개를 통과해야 하는지'가 보이도록 명확히 쓴다.
+- 유리수·무리수 예시 10문항은 엔진 확정 단원이 유리수·무리수일 때만 허용된다. 거듭제곱근/유리수 지수, 함수, 방정식 등 다른 단원에서 샘플 세트로 재사용하면 안 된다.
 
 입력:
 ${JSON.stringify(payload, null, 2)}`;
