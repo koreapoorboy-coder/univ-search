@@ -9,7 +9,8 @@
     "target_concepts",
     "source_diagnosis",
     "questions",
-    "teacher_decision_rule"
+    "teacher_decision_rule",
+    "redo_policy"
   ],
   "properties": {
     "set_id": {
@@ -52,7 +53,9 @@
               "proof_explanation",
               "error_correction",
               "self_explanation",
-              "example_generation"
+              "example_generation",
+              "counterexample_generation",
+              "non_example_classification"
             ]
           },
           "prompt": {

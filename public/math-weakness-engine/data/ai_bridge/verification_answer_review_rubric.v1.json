@@ -1,20 +1,22 @@
 {
-  "version": "2026.07.08-v1.0",
+  "version": "2026.07.09-patch15-proof-based-concept-diagnosis",
   "levels": {
     "A": {
-      "label": "이해 완료",
+      "label": "증명 가능",
       "conditions": [
         "정의 연결 가능",
-        "풀이 과정 제시",
-        "예시 적용 가능",
-        "자기 말 설명 가능"
+        "성립 조건 설명 가능",
+        "성립하지 않는 조건/반례 제시 가능",
+        "풀이 또는 증명 과정 제시",
+        "새 예시에 적용 가능"
       ]
     },
     "B": {
-      "label": "부분 이해",
+      "label": "부분 증명 가능",
       "conditions": [
         "방향은 맞음",
         "핵심 이유 일부 누락",
+        "반례 또는 비교 설명 일부 약함",
         "과정 일부 생략"
       ]
     },
@@ -23,6 +25,7 @@
       "conditions": [
         "용어 반복",
         "왜 그런지 설명 부족",
+        "반례/비예시 구분 불안",
         "새 예시에 적용 불안"
       ]
     },
@@ -31,33 +34,40 @@
       "conditions": [
         "개념 분류 오류",
         "핵심 정의 오해",
-        "풀이 과정 부재"
+        "증명 과정 부재",
+        "조건 없이 일반화"
       ]
     }
   },
   "score_policy": [
     {
-      "criterion": "정의와 연결",
+      "criterion": "정의와 판정 조건",
       "points": 2
     },
     {
-      "criterion": "풀이 과정",
+      "criterion": "증명 과정 또는 풀이 과정",
       "points": 3
     },
     {
       "criterion": "핵심 근거 설명",
-      "points": 3
+      "points": 2
     },
     {
-      "criterion": "예시/반례 적용",
+      "criterion": "반례/비예시 적용",
       "points": 2
+    },
+    {
+      "criterion": "비교 설명 또는 결론",
+      "points": 1
     }
   ],
-  "minimum_understanding_score": 7,
+  "minimum_understanding_score": 8,
   "redo_required_when": [
-    "score < 7",
+    "score < 8",
     "level C 또는 D",
-    "process_missing",
+    "proof_process_missing",
+    "condition_missing",
+    "counterexample_missing",
     "concept_definition_wrong"
   ]
 }

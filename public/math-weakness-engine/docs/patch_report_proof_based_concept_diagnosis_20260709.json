@@ -1,0 +1,26 @@
+{
+  "patch_id": "math_proof_based_concept_diagnosis_patch15_20260709",
+  "version": "2026.07.09-patch15-proof-based-concept-diagnosis",
+  "goal": "Turn concept-note diagnosis into proof-based concept verification.",
+  "student_facing_changes": [
+    "Show proof-based concept diagnosis before teacher/debug data.",
+    "Replace definition-only tasks with condition, non-condition, counterexample, comparison, and proof tasks.",
+    "Use rational/irrational number specific proof tasks when relevant terms are detected."
+  ],
+  "worker_changes": [
+    "Analyze prompt now evaluates proof possibility as the key indicator of mathematical understanding.",
+    "Verification prompt requires proof-based question sets.",
+    "Fallback questions include rational/irrational proof tasks when unit signals match."
+  ],
+  "updated_files": [
+    "hybrid.html",
+    "assets/math_hybrid_report_renderer.js",
+    "assets/math_verification_flow.js",
+    "data/ai_bridge/verification_question_blueprints.v1.json",
+    "data/ai_bridge/verification_answer_review_rubric.v1.json",
+    "data/ai_bridge/verification_question_schema.v1.json",
+    "worker_skeleton/math_diagnosis_worker.js",
+    "manifest.json",
+    "docs/PATCH15_PROOF_BASED_CONCEPT_DIAGNOSIS_GUIDE.md"
+  ]
+}

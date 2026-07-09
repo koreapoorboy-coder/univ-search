@@ -79,3 +79,9 @@ GitHub Pages 기준:
 - Added high school Math I unit: 지수와 로그.
 - Added raw taxonomy, problem types, diagnosis rules, remediation map, relation edges, source manifest, and solution templates.
 - Focus: condition judgment for powers/roots, logarithm domain conditions, log substitution, common logarithm integer/fractional parts.
+
+## 2026-07-09 Patch15: 증명형 개념 진단
+
+- 학생이 인강 내용을 정리했는지보다, 개념을 증명 가능한 수준으로 이해했는지 확인하도록 학생 화면을 변경했습니다.
+- 개념정리 자료는 정의 암기가 아니라 성립 조건, 성립하지 않는 조건, 반례, 비교 설명, 증명 과제 중심으로 검수합니다.
+- 유리수·무리수 단원은 `0.333... 유리수 증명`, `√4 무리수 아님 증명`, `√2 무리수 증명`, `무한소수 일반화 반례`를 우선 과제로 생성합니다.

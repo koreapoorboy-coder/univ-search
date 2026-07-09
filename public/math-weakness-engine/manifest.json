@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.09-patch14-student-workbook-layout",
+  "version": "2026.07.09-patch15-proof-based-concept-diagnosis",
   "build_date": "2026-07-08",
-  "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 학생용 결과 학습지 우선 출력, 교사용 JSON/엔진 로그 접힘 처리",
-  "description": "학생 화면은 내부 진단 과정이 아니라 오늘 결과, 부족한 것 3개, 다시 정리할 틀, 확인 문제, 정답/모범답안, 재제출 기준 중심의 학습지 구조로 표시한다.",
+  "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 기본 Worker URL 자동 적용, 학생 화면 연결 설정 숨김",
+  "description": "학생 화면을 개념 설명형이 아니라 증명형 개념 진단지로 전환한다. 정의 암기보다 성립 조건, 비성립 조건, 반례, 비교 설명, 증명 과제를 우선 출력한다.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_student_workbook_layout_patch14_20260709",
+  "last_patch": "math_proof_based_concept_diagnosis_patch15_20260709",
   "unit_count": 35,
   "problem_type_count": 12523,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "Patch 14: Student-facing result workbook layout",
+  "patch": "Patch 15: Proof-based concept diagnosis and verification questions",
   "features": [
     "counterexample_review",
     "non_example_classification",
@@ -42,16 +42,16 @@
     "student_result_cards",
     "answer_key_verification_questions",
     "raw_json_collapsed_teacher_view",
-    "student_workbook_layout",
-    "student_rewrite_table",
-    "student_answer_space",
-    "teacher_diagnostic_collapsed"
+    "proof_based_concept_diagnosis",
+    "condition_proof_tasks",
+    "counterexample_proof_tasks",
+    "comparison_explanation_tasks",
+    "rational_irrational_proof_set"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
   "has_answer_key_verification_questions": true,
-  "worker_version": "2026.07.09-patch14-student-workbook-layout",
-  "has_student_workbook_layout": true,
-  "hides_internal_diagnosis_values_from_student": true,
-  "teacher_raw_json_collapsed": true
+  "worker_version": "2026.07.09-patch15-proof-based-concept-diagnosis",
+  "has_proof_based_concept_diagnosis": true,
+  "has_condition_boundary_proof_tasks": true
 }
