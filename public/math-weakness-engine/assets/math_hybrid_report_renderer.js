@@ -1,4 +1,4 @@
-/* Math Hybrid Report Renderer v1.4 · Patch 15 proof-based concept diagnosis */
+/* Math Hybrid Report Renderer v1.5 · Patch 16 compact 10-question student output */
 class MathHybridReportRenderer {
   static esc(v) { return String(v == null ? '' : v).replace(/[&<>\"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
   static list(items) {
@@ -55,36 +55,42 @@ class MathHybridReportRenderer {
     const looksIrrational = /무리수|유리수|순환소수|비순환|루트|제곱근|√|pi|π|분수 꼴|유한소수|무한소수/.test(text);
     if (looksIrrational) {
       return {
-        title: '유리수·무리수 증명형 판정',
-        thesis: '정답을 고르는 것이 아니라, 그 수가 왜 유리수인지 또는 왜 무리수인지 증명할 수 있는지를 확인합니다.',
-        boundary: [
-          '유리수임을 보이려면 정수/정수 꼴로 나타낼 수 있음을 보여야 합니다.',
-          '무리수임을 보이려면 분수 꼴로 나타낼 수 없다는 근거를 제시해야 합니다.',
-          '끝나지 않는 소수라도 반복되면 유리수입니다.',
-          '루트가 있어도 값이 정수나 분수로 나오면 무리수가 아닙니다.'
+        title: '유리수·무리수 증명형 확인',
+        oneLine: '정의 정리는 보이지만, 왜 유리수인지·왜 무리수가 아닌지·왜 무리수인지 증명하는 힘은 확인이 필요합니다.',
+        problems: [
+          '끝나지 않는 소수라고 해서 모두 무리수라고 판단할 가능성이 있습니다.',
+          '루트가 있으면 모두 무리수라고 판단할 가능성이 있습니다.',
+          '답은 고를 수 있어도 분수 꼴 가능 여부를 근거로 설명하는 증명이 부족할 수 있습니다.'
         ],
-        tasks: [
-          { label: '유리수 증명', body: '0.333... 또는 0.121212...가 끝나지 않는데도 유리수인 이유를 분수 변환으로 증명하기' },
-          { label: '무리수가 아님 증명', body: '√4, √9처럼 루트가 있어도 값이 정수로 나오면 유리수임을 증명하기' },
-          { label: '무리수 증명', body: '√2가 유리수라고 가정했을 때 모순이 생기는 구조를 설명하기' },
-          { label: '반례 증명', body: '“무한소수는 모두 무리수이다”, “루트가 있으면 모두 무리수이다”가 틀렸음을 반례로 보이기' }
+        connections: [
+          { now: '유리수·무리수 구분', next: '중3 실수와 제곱근', why: '√2, √3, √5처럼 새로 나오는 수를 정확히 판정해야 합니다.' },
+          { now: '순환소수의 분수 변환', next: '중3 실수·고등 수 체계', why: '끝나지 않아도 반복되면 분수로 바뀐다는 기준이 수 체계의 기본이 됩니다.' },
+          { now: '무리수 판정 기준', next: '고등 방정식·함수·그래프', why: '해의 범위, 정의역, 그래프 위의 점을 실수 범위에서 해석할 때 필요합니다.' }
         ],
-        format: ['주장: 이 수는 유리수/무리수이다.', '근거: 분수 꼴 가능 여부 또는 조건을 보인다.', '반례/비예시: 헷갈리는 일반화를 깨뜨린다.', '결론: 따라서 왜 그렇게 판정되는지 한 문장으로 마무리한다.']
+        questionPolicy: '아래 10문항으로 증명형 이해를 확인합니다. 문제는 많게, 위 설명은 짧게 보여줍니다.'
       };
     }
     const boundary = data?.student_material_review?.concept_note_review?.boundary_condition_review || {};
-    const required = boundary.required_conditions || ['정의가 성립하는 조건', '공식을 적용할 수 있는 조건', '적용하면 안 되는 조건'];
+    const missing = [
+      ...(data?.student_material_review?.lecture_note_review?.missing_evidence || []),
+      ...(data?.student_material_review?.concept_note_review?.missing_links || []),
+      ...(data?.student_material_review?.concept_note_review?.misuse_risks || [])
+    ];
     return {
-      title: `${conceptName} 증명형 개념 판정`,
-      thesis: '개념을 외웠는지가 아니라, 그 개념이 왜 성립하고 언제 성립하지 않는지를 근거로 설명할 수 있는지 확인합니다.',
-      boundary: required,
-      tasks: [
-        { label: '성립 조건 증명', body: `${conceptName}이/가 성립하는 조건을 쓰고, 대표 예시가 그 조건을 만족함을 보이기` },
-        { label: '비성립 조건 증명', body: `${conceptName}을/를 적용하면 안 되는 경우를 만들고, 어떤 조건이 깨졌는지 설명하기` },
-        { label: '반례 증명', body: `틀린 일반화 문장 1개를 만들고, 반례로 왜 틀렸는지 보이기` },
-        { label: '비교 설명', body: `겉모양이 비슷하지만 판정이 달라지는 두 예시를 비교하기` }
+      title: `${conceptName} 증명형 확인`,
+      oneLine: '개념을 정리한 흔적은 있지만, 성립 조건·성립하지 않는 조건·반례를 이용해 설명하는 힘은 확인이 필요합니다.',
+      problems: (missing.length ? missing : [
+        '정의만 쓰고 왜 성립하는지 설명하지 못할 수 있습니다.',
+        '적용하면 안 되는 조건이나 반례가 부족할 수 있습니다.',
+        '다음 단원에서 이 개념이 어디에 쓰이는지 연결이 약할 수 있습니다.'
+      ]).slice(0, 3),
+      connections: [
+        { now: conceptName, next: '다음 학년 핵심 단원', why: '공식 적용 전에 조건을 확인하는 습관이 필요합니다.' },
+        { now: '성립 조건·비성립 조건', next: '서술형·융합형 문제', why: '문제 상황이 바뀌어도 왜 그 개념을 써야 하는지 설명해야 합니다.' },
+        { now: '반례·비예시', next: '고등 수학의 정의역·해석 문제', why: '겉모양이 비슷한 문제를 조건으로 구분해야 합니다.' }
       ],
-      format: ['주장', '조건 확인', '근거 또는 계산 과정', '반례/비예시', '결론']
+      requiredConditions: boundary.required_conditions || [],
+      questionPolicy: '아래 10문항으로 조건 판정, 반례, 비교 설명까지 확인합니다.'
     };
   }
   static decideOutcome(data) {
@@ -119,93 +125,54 @@ class MathHybridReportRenderer {
   }
 
   static renderProofPlan(plan) {
-    const taskHtml = (plan.tasks || []).map((t, idx) => `
-      <div class="proof-task">
-        <div class="proof-step-no">${idx + 1}</div>
-        <div><b>${this.esc(t.label)}</b><p>${this.esc(t.body)}</p></div>
-      </div>`).join('');
+    const issues = (plan.problems || []).slice(0, 3).map((x, idx) => `
+      <div class="compact-issue"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
+    const rows = (plan.connections || []).slice(0, 3).map(c => `
+      <tr><td>${this.esc(c.now)}</td><td>${this.esc(c.next)}</td><td>${this.esc(c.why)}</td></tr>`).join('');
     return `
-      <section class="proof-diagnosis-box">
+      <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
-        <p>${this.esc(plan.thesis)}</p>
-        <div class="proof-grid">
-          <div class="proof-panel"><h4>판정 경계</h4>${this.list(plan.boundary)}</div>
-          <div class="proof-panel"><h4>증명 답안 기본형</h4>${this.list(plan.format)}</div>
+        <p class="one-line-diagnosis">${this.esc(plan.oneLine)}</p>
+        <div class="compact-section-title">지금 문제점</div>
+        <div class="compact-issues">${issues}</div>
+        <div class="compact-section-title">이 과정이 나중에 연결되는 곳</div>
+        <div class="connection-table-wrap">
+          <table class="connection-table"><thead><tr><th>지금 하는 것</th><th>연결 단원</th><th>왜 필요한가</th></tr></thead><tbody>${rows}</tbody></table>
         </div>
-        <h4>학생이 다시 제출해야 할 증명 과제</h4>
-        ${taskHtml}
+        <div class="ten-question-policy">${this.esc(plan.questionPolicy)}</div>
       </section>`;
   }
 
   static renderExtraction(data) {
     if (!data) return '';
-    const s = data.extraction_summary || {};
     const purpose = data.file_purpose_review || {};
-    const note = data.student_material_review?.lecture_note_review || {};
     const concept = data.student_material_review?.concept_note_review || {};
-    const sol = data.student_material_review?.solution_review || {};
     const counter = concept.counterexample_review || {};
     const boundary = concept.boundary_condition_review || {};
     const rewrite = concept.concept_rewrite_template || {};
     const outcome = this.decideOutcome(data);
     const proofPlan = this.buildProofPlan(data);
-
     const detected = (purpose.detected_materials || []).map(m => `
       <div class="mini-row">
         <b>${this.esc(m.filename || '자료')}</b>
         <span>${this.esc(this.materialTypeKo(m.material_type))}</span>
       </div>`).join('');
+    const teacherSummary = `
+      <section class="result-box"><h3>자료별 판별</h3>${detected || '<p class="muted">자료별 판별 정보가 부족합니다.</p>'}</section>
+      <section class="result-box"><h3>확인된 근거</h3>${this.list(outcome.reasons)}</section>
+      <section class="result-box"><h3>증명에서 비어 있는 부분</h3>${this.list(outcome.missing)}</section>
+      <section class="result-box"><h3>암기로 넘어갈 위험</h3>${this.list(outcome.risks)}</section>
+      ${concept.summary_type ? `<section class="result-box counter-box"><h3>조건·반례 검수 결과</h3><p><b>반례 포함:</b> ${this.esc(counter.counterexample_present || 'unknown')} · <b>반례 품질:</b> ${this.esc(counter.student_counterexample_quality || 'unknown')}</p><p><b>조건 오용 위험:</b> ${this.esc(boundary.condition_misuse_risk || '확인 필요')}</p><p><b>확인해야 할 조건:</b> ${(boundary.required_conditions || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join('') || '<span class="muted">조건 정보 부족</span>'}</p><p><b>재정리 지시:</b> ${this.esc(rewrite.student_rewrite_prompt || '')}</p></section>` : ''}
+      ${this.details('원본 AI JSON 보기', this.pre(data))}`;
 
-    const rewriteOrder = rewrite.required_order?.length ? rewrite.required_order : ['개념 정의','성립 조건','성립하지 않는 조건','대표 예시 증명','반례/비예시 증명','비교 설명','최종 결론'];
-    const redoPrompt = rewrite.student_rewrite_prompt || '강의 내용을 그대로 옮기지 말고, 이 개념이 왜 성립하는지와 언제 성립하지 않는지를 증명형 문장으로 다시 정리하세요.';
-    const counterTask = counter.missing_counterexample_task || '틀린 일반화 문장을 하나 만들고, 반례 1개와 이유로 그 문장이 왜 틀렸는지 증명하세요.';
-
-    return this.card('증명형 개념 진단 결과', `
+    return this.card('학생용 진단 결과', `
       <div class="student-result-head ${outcome.kind}">
-        <div class="result-label">오늘 판정</div>
-        <div class="result-title">${this.esc(outcome.verdict)}</div>
+        <div class="result-label">오늘 한 줄 진단</div>
+        <div class="result-title compact-result-title">${this.esc(outcome.verdict)}</div>
         <div class="result-meta">자료 유형: ${this.esc(outcome.purposeKo)} · 진단 경로: ${this.esc(outcome.routeKo)}</div>
       </div>
-
       ${this.renderProofPlan(proofPlan)}
-
-      <div class="result-grid">
-        <div class="result-box">
-          <h3>현재 확인된 것</h3>
-          ${this.list(outcome.reasons)}
-        </div>
-        <div class="result-box">
-          <h3>증명에서 비어 있는 부분</h3>
-          ${this.list(outcome.missing)}
-        </div>
-        <div class="result-box">
-          <h3>암기로 넘어갈 위험</h3>
-          ${this.list(outcome.risks)}
-        </div>
-      </div>
-
-      <section class="student-action-card proof-action-card">
-        <h3>학생이 지금 다시 해야 할 것</h3>
-        <p><b>재정리 순서:</b> ${rewriteOrder.map(x => `<span class="tag">${this.esc(x)}</span>`).join('')}</p>
-        <p>${this.esc(redoPrompt)}</p>
-        <p><b>반례 증명 과제:</b> ${this.esc(counterTask)}</p>
-        <p><b>통과 기준:</b> 정의만 쓰면 통과가 아닙니다. 조건, 비조건, 반례, 비교 설명, 결론 중 최소 4개가 증명형 문장으로 보여야 합니다.</p>
-      </section>
-
-      <section class="result-box">
-        <h3>자료별 판별</h3>
-        ${detected || '<p class="muted">자료별 판별 정보가 부족합니다.</p>'}
-      </section>
-
-      ${concept.summary_type ? `
-      <section class="result-box counter-box">
-        <h3>조건·반례 검수 결과</h3>
-        <p><b>반례 포함:</b> ${this.esc(counter.counterexample_present || 'unknown')} · <b>반례 품질:</b> ${this.esc(counter.student_counterexample_quality || 'unknown')}</p>
-        <p><b>조건 오용 위험:</b> ${this.esc(boundary.condition_misuse_risk || '확인 필요')}</p>
-        <p><b>확인해야 할 조건:</b> ${(boundary.required_conditions || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join('') || '<span class="muted">조건 정보 부족</span>'}</p>
-      </section>` : ''}
-
-      ${this.details('교사용 상세 진단 열기', this.pre(data))}
+      ${this.details('교사용 상세 진단 열기', teacherSummary)}
     `, outcome.kind);
   }
 
@@ -241,12 +208,13 @@ class MathHybridReportRenderer {
 
   static renderVerificationQuestions(set) {
     if (!set) return '';
-    const qhtml = (set.questions || []).map((q, idx) => {
+    const questions = set.questions || [];
+    const qhtml = questions.map((q, idx) => {
       const rubric = (q.rubric || []).map(r => `${r.score}점: ${r.condition}`);
       return `<div class="question-card proof-question-card">
-        <div class="question-top"><span class="qnum">증명 문제 ${idx + 1}</span><span class="tag">${this.esc(this.questionTypeKo(q.question_type))}</span></div>
+        <div class="question-top"><span class="qnum">문제 ${idx + 1}</span><span class="tag">${this.esc(this.questionTypeKo(q.question_type))}</span></div>
         <p class="question-prompt">${this.esc(q.prompt)}</p>
-        <p><b>학생 답안에 꼭 들어갈 것:</b> ${(q.required_elements || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join('')}</p>
+        <p><b>답안에 꼭 들어갈 것:</b> ${(q.required_elements || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join('')}</p>
         <details class="answer-key-box">
           <summary>정답/모범답안 확인</summary>
           <p><b>정답 기준:</b> ${this.esc(q.answer_key || '정답 기준 정보 부족')}</p>
@@ -256,9 +224,10 @@ class MathHybridReportRenderer {
         <details class="teacher-raw"><summary>교사용 출제 의도</summary><p>${this.esc(q.teacher_note || '')}</p></details>
       </div>`;
     }).join('');
-    return this.card('학생 증명 확인 문제', `
-      <p class="muted">아래 문제는 학생이 개념을 외웠는지가 아니라, 조건과 반례를 이용해 증명할 수 있는지 확인하는 문제입니다.</p>
+    return this.card('오늘 풀 10문항', `
+      <p class="muted">학생에게 먼저 보이는 것은 문제점과 연결 과정만입니다. 실제 이해 확인은 아래 ${this.esc(questions.length)}문항으로 진행합니다.</p>
       <p><b>진단 근거:</b> ${this.esc(set.source_diagnosis)}</p>
+      ${questions.length < 10 ? '<p class="warn-inline">주의: 현재 문항 수가 10개보다 적습니다. Worker 또는 로컬 fallback에서 10문항 생성을 확인하세요.</p>' : ''}
       ${qhtml}
       <section class="student-action-card"><h3>통과 기준</h3><p>${this.esc(set.teacher_decision_rule)}</p><p><b>다시 해야 할 때:</b> ${this.esc(set.redo_policy)}</p></section>
       ${this.details('검수 문항 전체 JSON 보기', this.pre(set))}

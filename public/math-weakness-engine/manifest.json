@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.09-patch15-proof-based-concept-diagnosis",
+  "version": "2026.07.09-patch16-compact-10q-student-output",
   "build_date": "2026-07-08",
   "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 기본 Worker URL 자동 적용, 학생 화면 연결 설정 숨김",
-  "description": "학생 화면을 개념 설명형이 아니라 증명형 개념 진단지로 전환한다. 정의 암기보다 성립 조건, 비성립 조건, 반례, 비교 설명, 증명 과제를 우선 출력한다.",
+  "description": "학생 화면은 한 줄 진단, 문제점 최대 3개, 다음 과정 연결만 짧게 보여주고 실제 이해 확인은 10문항 증명형 문제로 수행한다.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_proof_based_concept_diagnosis_patch15_20260709",
+  "last_patch": "math_compact_10q_student_output_patch16_20260709",
   "unit_count": 35,
   "problem_type_count": 12523,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "Patch 15: Proof-based concept diagnosis and verification questions",
+  "patch": "Patch 16: Compact student output with 10 proof questions and learning connections",
   "features": [
     "counterexample_review",
     "non_example_classification",
@@ -46,12 +46,20 @@
     "condition_proof_tasks",
     "counterexample_proof_tasks",
     "comparison_explanation_tasks",
-    "rational_irrational_proof_set"
+    "rational_irrational_proof_set",
+    "compact_student_problem_summary",
+    "future_learning_connection_map",
+    "ten_question_verification_set",
+    "teacher_detail_collapsed"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
   "has_answer_key_verification_questions": true,
-  "worker_version": "2026.07.09-patch15-proof-based-concept-diagnosis",
+  "worker_version": "2026.07.09-patch16-compact-10q-student-output",
   "has_proof_based_concept_diagnosis": true,
-  "has_condition_boundary_proof_tasks": true
+  "has_condition_boundary_proof_tasks": true,
+  "has_compact_student_problem_summary": true,
+  "has_future_learning_connection_section": true,
+  "verification_question_count": 10,
+  "hides_broad_analysis_from_student_view": true
 }

@@ -1,0 +1,22 @@
+{
+  "patch": "Patch16",
+  "version": "2026.07.09-patch16-compact-10q-student-output",
+  "changes": [
+    "학생 상단 진단 간결화",
+    "문제점 최대 3개 표시",
+    "연결 단원 표 추가",
+    "검수 문항 기본 10문항 생성",
+    "정답/모범답안 접힘 유지",
+    "교사용 상세 진단 접힘 처리"
+  ],
+  "files": [
+    "assets/math_hybrid_report_renderer.js",
+    "assets/math_verification_flow.js",
+    "data/ai_bridge/verification_question_blueprints.v1.json",
+    "data/ai_bridge/verification_answer_review_rubric.v1.json",
+    "data/ai_bridge/verification_question_schema.v1.json",
+    "worker_skeleton/math_diagnosis_worker.js",
+    "hybrid.html",
+    "manifest.json"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.09-patch15-proof-based-concept-diagnosis",
+  "version": "2026.07.09-patch16-compact-10q-student-output",
   "levels": {
     "A": {
       "label": "증명 가능",
@@ -69,5 +69,10 @@
     "condition_missing",
     "counterexample_missing",
     "concept_definition_wrong"
-  ]
+  ],
+  "student_display_policy": {
+    "summary_first": "한 줄 진단과 문제점 최대 3개만 먼저 표시",
+    "question_count": 10,
+    "pass_policy": "10문항 중 7문항 이상 통과, 경계 문항 2개 이상 통과"
+  }
 }
