@@ -1,5 +1,5 @@
 const SERVICE_NAME = 'math-diagnosis-worker';
-const VERSION = '2026.07.09-patch16-compact-10q-student-output';
+const VERSION = '2026.07.09-patch17-precise-math-connection-output';
 const DEFAULT_MODEL = 'gpt-5.5';
 const DEFAULT_REASONING_EFFORT = 'xhigh';
 const DEFAULT_MAX_OUTPUT_TOKENS = 25000;
@@ -239,6 +239,8 @@ function buildAnalyzePrompt(payload, files) {
 - 오답 번호, 단원명, problem_type_id 힌트가 있으면 engine_adapter.student_attempt에 연결한다.
 - 검수 문항이 필요한 지점을 verification_need에 명확히 적는다.
 - 한국 중고등 수학 교사용 표현으로 간결하되, 학생 관리에 쓸 수 있게 구체적으로 쓴다.
+- 학생용 상단 결과에 들어갈 문장은 일반 코칭 문장이 아니라 수학적으로 정확한 판정 기준과 단원명을 포함해야 한다.
+- 유리수/무리수 자료에서는 '정수/정수 꼴 가능 여부', '순환소수의 분수 변환', '√4와 √2의 차이'를 핵심 문제점으로 우선 검토한다.
 
 자료 목적 분류 기준:
 - problem_solving: 문제와 풀이 과정 중심
@@ -261,6 +263,9 @@ function buildVerificationPrompt(payload) {
 - 각 문항은 '주장 → 조건 확인 → 근거/계산 과정 → 반례/비예시 → 결론' 중 필요한 요소가 드러나게 만든다.
 - 단순 O/X, 단순 정의 암기, 빈칸 짜맞추기 문항만 내지 않는다.
 - 반드시 10문항을 생성한다. 학생에게 보여주는 상단 설명은 짧게 유지하고, 실제 이해 확인은 10문항으로 한다.
+- 학생 상단 진단에는 '핵심 개념', '다음 학년 핵심 단원', '서술형·융합형 문제' 같은 넓은 표현을 쓰지 말고, 실제 수학 개념명·판정 조건·연결 단원명을 쓴다.
+- 유리수/무리수 단원이 감지되면 한 줄 진단에 '정수 a, b에 대해 a/b 꼴로 나타낼 수 있는가'라는 판정 기준을 반드시 포함한다.
+- 유리수/무리수 단원이 감지되면 연결 단원은 '중2: 유리수와 순환소수', '중3: 제곱근과 실수', '고등: 방정식·부등식, 함수의 정의역'을 우선 사용한다.
 - 10문항 안에는 성립 조건 증명, 성립하지 않는 조건 증명, 반례로 틀린 일반화 깨기, 겉모양이 비슷한 두 대상 비교 설명, 대표 문제 풀이 과정 증명을 모두 포함한다.
 - answer_key에는 학생/교사가 확인할 수 있는 정답 또는 모범답안 기준을 반드시 넣는다. '정확해야 한다'처럼 추상적으로 쓰지 말고, 포함되어야 할 핵심어·조건·반례 예시·채점 기준을 적는다.
 - 반례/비예시 문항은 가능한 경우 '가능한 모범답안 예시'를 answer_key에 포함한다. 단, 자료에서 특정 개념이 확정되지 않으면 '정답 기준' 형태로 적는다.
@@ -334,13 +339,13 @@ ${solutionText}`;
     },
     extraction_summary: { source_quality: 'partially_clear', student_did_work_evidence: hasNote || hasProcess ? 'some' : 'weak', confidence: 0.45, missing_materials: [`${reason}: 정밀 AI 분석 전 임시 결과`] },
     student_material_review: {
-      lecture_note_review: { watch_evidence: hasNote ? 'possibly_watched' : 'not_enough_evidence', understanding_level: hasNote ? conceptLevel : 'D', confirmed_concepts: [ctx.unit_name].filter(Boolean), missing_evidence: ['자기 말 설명 또는 증명 과정 추가 확인 필요'], risk_flags: ['fallback_mode'], teacher_observation: '정밀 검수 전 임시 판단입니다.' },
-      concept_note_review: { summary_type: conceptWords ? (hasProcess ? 'mixed' : 'formula_list') : 'not_present', conceptual_accuracy: conceptualAccuracy, connected_understanding_level: conceptLevel, strengths: conceptWords ? ['핵심 용어 또는 공식 정리 흔적이 있음'] : [], missing_links: ['정의와 조건을 자기 말로 설명하는 증거 부족', '왜 성립하는지 증명하는 과정 부족', '성립하지 않는 조건을 반례/비예시로 보이는 증거 부족', '이전 개념과 다음 단원 활용 연결 부족'], misuse_risks: ['공식 암기 후 적용 조건을 놓칠 가능성', '다른 예시를 반례로 착각하거나 반례 없이 일반화할 가능성'], next_rewrite_task: '개념을 정의-성립 조건-성립하지 않는 조건-대표 예시 증명-반례 증명-비교 설명-대표 문제 적용 순서로 다시 정리', counterexample_review: { counterexample_present: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'present' : 'missing', student_counterexample_quality: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'needs_teacher_check' : 'not_present', missing_counterexample_task: '이 개념이 성립하지 않는 경우 또는 쓰면 안 되는 조건을 반례 1개와 이유로 증명하기', teacher_note: '개념정리 검수에서는 반례와 증명 가능 여부를 암기형 정리와 이해형 정리를 가르는 기준으로 본다.' }, boundary_condition_review: { required_conditions: ['정의가 성립하는 조건', '왜 성립하는지 보이는 증명 근거', '공식을 적용할 수 있는 조건', '적용하면 안 되는 경우'], condition_misuse_risk: '조건 없이 공식을 외우면 문제에서 적용 대상을 잘못 고를 수 있음', forbidden_generalization: '한 예시에서 성립한 규칙을 모든 경우로 일반화하지 않게 확인 필요' }, concept_rewrite_template: { required_order: ['정의', '성립 조건', '성립하지 않는 조건', '대표 예시 증명', '반례/비예시 증명', '비교 설명', '문제 적용 기준'], student_rewrite_prompt: '강의 내용을 그대로 옮기지 말고, 이 개념이 왜 성립하고 언제 성립하지 않는지를 증명형 문장으로 다시 정리하세요.', example_requirement: '대표 예시는 계산 또는 그래프/조건 판단이 보이게 1개 이상 작성', counterexample_requirement: '반례 또는 비예시는 왜 이 개념을 적용하면 안 되는지 조건 위반 이유까지 증명형으로 작성' } },
+      lecture_note_review: { watch_evidence: hasNote ? 'possibly_watched' : 'not_enough_evidence', understanding_level: hasNote ? conceptLevel : 'D', confirmed_concepts: [ctx.unit_name].filter(Boolean), missing_evidence: ['정수/정수 꼴 가능 여부를 기준으로 설명하는 증명 과정 추가 확인 필요'], risk_flags: ['fallback_mode'], teacher_observation: '정밀 검수 전 임시 판단입니다.' },
+      concept_note_review: { summary_type: conceptWords ? (hasProcess ? 'mixed' : 'formula_list') : 'not_present', conceptual_accuracy: conceptualAccuracy, connected_understanding_level: conceptLevel, strengths: conceptWords ? ['핵심 용어 또는 공식 정리 흔적이 있음'] : [], missing_links: ['유리수·무리수의 판정 기준을 정수/정수 꼴 가능 여부로 설명하는 증거 부족', '순환소수를 분수로 바꾸어 유리수임을 보이는 과정 부족', '루트가 있는 수가 항상 무리수라는 일반화를 반례로 깨는 설명 부족', '중2 유리수와 순환소수 → 중3 제곱근과 실수 → 고등 함수의 정의역 연결 이해 부족'], misuse_risks: ['끝나지 않는 소수를 모두 무리수로 판단할 가능성', '루트가 있으면 모두 무리수라고 판단할 가능성', '분수 꼴 가능 여부를 확인하지 않고 소수 모양만 보고 판정할 가능성'], next_rewrite_task: '개념을 정의-성립 조건-성립하지 않는 조건-대표 예시 증명-반례 증명-비교 설명-대표 문제 적용 순서로 다시 정리', counterexample_review: { counterexample_present: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'present' : 'missing', student_counterexample_quality: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'needs_teacher_check' : 'not_present', missing_counterexample_task: '이 개념이 성립하지 않는 경우 또는 쓰면 안 되는 조건을 반례 1개와 이유로 증명하기', teacher_note: '개념정리 검수에서는 반례와 증명 가능 여부를 암기형 정리와 이해형 정리를 가르는 기준으로 본다.' }, boundary_condition_review: { required_conditions: ['정의가 성립하는 조건', '왜 성립하는지 보이는 증명 근거', '공식을 적용할 수 있는 조건', '적용하면 안 되는 경우'], condition_misuse_risk: '조건 없이 공식을 외우면 문제에서 적용 대상을 잘못 고를 수 있음', forbidden_generalization: '한 예시에서 성립한 규칙을 모든 경우로 일반화하지 않게 확인 필요' }, concept_rewrite_template: { required_order: ['정의', '성립 조건', '성립하지 않는 조건', '대표 예시 증명', '반례/비예시 증명', '비교 설명', '문제 적용 기준'], student_rewrite_prompt: '강의 내용을 그대로 옮기지 말고, 이 개념이 왜 성립하고 언제 성립하지 않는지를 증명형 문장으로 다시 정리하세요.', example_requirement: '대표 예시는 계산 또는 그래프/조건 판단이 보이게 1개 이상 작성', counterexample_requirement: '반례 또는 비예시는 왜 이 개념을 적용하면 안 되는지 조건 위반 이유까지 증명형으로 작성' } },
       solution_review: { process_evidence: hasProcess ? 'partial_process' : 'not_visible', main_error_candidates: ['정밀 분석 필요'], calculation_error_candidates: [], concept_error_candidates: [], quoted_student_steps: [] }
     },
-    math_signal: { unit_candidates: [{ unit_id: ctx.unit_id || '', unit_name: ctx.unit_name || '', confidence: 0.5 }], problem_type_candidates: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', problem_type_hint: known[i] || 'unknown', confidence: known[i] ? 0.7 : 0.2, evidence:'user_input' })), concept_candidates: [{ concept_id:'', concept_name: ctx.unit_name || '핵심 개념', evidence:'user_context_or_concept_note' }], misconception_candidates: [{ misconception:'풀이 과정 또는 개념 설명 확인 필요', why_it_matters:'필기/풀이/개념정리만으로 이해 여부를 확정할 수 없음', severity:'medium' }] },
+    math_signal: { unit_candidates: [{ unit_id: ctx.unit_id || '', unit_name: ctx.unit_name || '', confidence: 0.5 }], problem_type_candidates: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', problem_type_hint: known[i] || 'unknown', confidence: known[i] ? 0.7 : 0.2, evidence:'user_input' })), concept_candidates: [{ concept_id:'', concept_name: ctx.unit_name || '유리수·무리수 판정 기준', evidence:'user_context_or_concept_note' }], misconception_candidates: [{ misconception:'풀이 과정 또는 개념 설명 확인 필요', why_it_matters:'필기/풀이/개념정리만으로 이해 여부를 확정할 수 없음', severity:'medium' }] },
     engine_adapter: { student_attempt: { attempts: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', is_correct:false, correct:false, difficulty:'core', observed_error_tags:['ai_bridge_fallback'] })) }, note_review_input: { student_note: { unit_id: ctx.unit_id || '', lesson_title: ctx.lesson_title || ctx.unit_name || '', note_text: noteText } }, recommended_engine_actions: ['classify_material_purpose','run_diagnoseWithGuidance','run_reviewStudentNote','generate_verification_questions'] },
-    verification_need: { needed: true, reason: primaryType === 'concept_summary' ? '개념정리의 이해 수준 검수 필요' : '정밀 이해 확인 필요', focus_concepts:[ctx.unit_name || '핵심 개념'], must_check_actions:['정의 설명','성립 조건 증명','성립하지 않는 조건 증명','대표 예시 증명','반례 생성','비예시 구분','비교 설명','풀이 과정 작성'] }
+    verification_need: { needed: true, reason: primaryType === 'concept_summary' ? '개념정리의 이해 수준 검수 필요' : '정밀 이해 확인 필요', focus_concepts:[ctx.unit_name || '유리수·무리수 판정 기준'], must_check_actions:['정의 설명','성립 조건 증명','성립하지 않는 조건 증명','대표 예시 증명','반례 생성','비예시 구분','비교 설명','풀이 과정 작성'] }
   };
 }
 function makeProofQuestion(id, type, prompt, format, required, answer, pass = 3, note = '') {
@@ -361,7 +366,7 @@ function makeProofQuestion(id, type, prompt, format, required, answer, pass = 3,
   };
 }
 function buildVerificationFallback(payload) {
-  const focus = payload?.ai_extraction?.verification_need?.focus_concepts || payload?.verification_need?.focus_concepts || ['핵심 개념'];
+  const focus = payload?.ai_extraction?.verification_need?.focus_concepts || payload?.verification_need?.focus_concepts || ['유리수·무리수 판정 기준'];
   const concept = focus[0] || '핵심 개념';
   const text = JSON.stringify(payload);
   const isIrrational = /무리수|유리수|순환소수|비순환|루트|제곱근|√|π|분수 꼴|유한소수|무한소수/.test(text);
@@ -391,7 +396,7 @@ function buildVerificationFallback(payload) {
     q('Q7','error_correction',`${concept}을/를 잘못 적용한 풀이를 하나 가정하고, 어디가 왜 틀렸는지 고치세요.`,['오류 위치','틀린 이유','바른 조건','수정 결론'],'오류 수정은 개념 적용 조건을 알고 있는지 확인하는 문항이다.'),
     q('Q8','example_generation',`${concept}을/를 확인할 수 있는 새 예시를 직접 만들고, 답까지 증명하세요.`,['새 예시','조건 확인','답 또는 결론','근거'],'새 예시에 적용할 수 있어야 이해로 본다.'),
     q('Q9','classification',`${concept}을/를 쓸 수 있는 경우와 쓸 수 없는 경우를 각각 1개씩 쓰고 비교하세요.`,['사용 가능 예시','사용 불가 예시','조건 차이','비교 결론'],'적용 조건과 비적용 조건을 나란히 비교해야 한다.'),
-    q('Q10','self_explanation',`이 개념이 다음 단원이나 융합 문제에서 왜 필요한지 한 문단으로 설명하세요.`,['현재 개념','연결 단원','필요한 이유','자기 말 설명'],'학년이 올라가서 어디에 쓰이는지 연결할 수 있어야 한다.',2,'학생 동기와 개념 연결성을 확인한다.')
+    q('Q10','self_explanation',`이 개념이 연결되는 정확한 단원명을 쓰고, 그 단원에서 왜 필요한지 한 문단으로 설명하세요.`,['현재 개념','정확한 연결 단원명','필요한 이유','자기 말 설명'],'막연한 다음 단원이 아니라 실제 연결 단원명을 써야 한다.',2,'학생 동기와 개념 연결성을 확인한다.')
   ];
   return { set_id:`fallback_proof_vq_${Date.now()}`, target_concepts:focus, source_diagnosis:'AI fallback 10문항 증명형 검수', questions, teacher_decision_rule:'10문항 중 7문항 이상 통과하면 부분 이해 이상으로 본다. 반례·비예시·비교 설명 문항 중 2개 이상 틀리면 암기형으로 본다.', redo_policy:'틀린 문항은 주장-조건-근거-반례/비예시-결론 순서로 다시 작성한다.' };
 }

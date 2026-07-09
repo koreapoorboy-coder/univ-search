@@ -1,4 +1,4 @@
-/* Math Hybrid Report Renderer v1.5 · Patch 16 compact 10-question student output */
+/* Math Hybrid Report Renderer v1.6 · Patch 17 precise mathematical diagnosis and unit connection output */
 class MathHybridReportRenderer {
   static esc(v) { return String(v == null ? '' : v).replace(/[&<>\"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
   static list(items) {
@@ -55,19 +55,19 @@ class MathHybridReportRenderer {
     const looksIrrational = /무리수|유리수|순환소수|비순환|루트|제곱근|√|pi|π|분수 꼴|유한소수|무한소수/.test(text);
     if (looksIrrational) {
       return {
-        title: '유리수·무리수 증명형 확인',
-        oneLine: '정의 정리는 보이지만, 왜 유리수인지·왜 무리수가 아닌지·왜 무리수인지 증명하는 힘은 확인이 필요합니다.',
+        title: '유리수·무리수 판정 기준 확인',
+        oneLine: '유리수와 무리수는 소수의 모양이 아니라 “정수 a, b에 대해 a/b 꼴로 나타낼 수 있는가”를 기준으로 판단합니다.',
         problems: [
-          '끝나지 않는 소수라고 해서 모두 무리수라고 판단할 가능성이 있습니다.',
-          '루트가 있으면 모두 무리수라고 판단할 가능성이 있습니다.',
-          '답은 고를 수 있어도 분수 꼴 가능 여부를 근거로 설명하는 증명이 부족할 수 있습니다.'
+          { title: '유리수 판단 기준이 불명확함', body: '유리수는 정수/정수 꼴로 나타낼 수 있어야 합니다. 소수가 끝나거나 반복된다는 말만으로 끝내면 기준이 약합니다.' },
+          { title: '순환소수가 왜 유리수인지 증명 부족', body: '0.333..., 0.121212...는 끝나지 않지만 반복됩니다. 반복되는 소수는 식을 세워 분수로 바꿀 수 있어야 합니다.' },
+          { title: '루트가 있으면 모두 무리수라고 착각할 가능성', body: '√4=2이므로 유리수이고, √2는 정수/정수 꼴로 나타낼 수 없으므로 무리수입니다.' }
         ],
         connections: [
-          { now: '유리수·무리수 구분', next: '중3 실수와 제곱근', why: '√2, √3, √5처럼 새로 나오는 수를 정확히 판정해야 합니다.' },
-          { now: '순환소수의 분수 변환', next: '중3 실수·고등 수 체계', why: '끝나지 않아도 반복되면 분수로 바뀐다는 기준이 수 체계의 기본이 됩니다.' },
-          { now: '무리수 판정 기준', next: '고등 방정식·함수·그래프', why: '해의 범위, 정의역, 그래프 위의 점을 실수 범위에서 해석할 때 필요합니다.' }
+          { now: '유리수와 순환소수', next: '중2: 유리수와 순환소수', why: '순환소수를 분수 꼴로 바꾸어 유리수임을 증명해야 합니다.' },
+          { now: '무리수와 실수', next: '중3: 제곱근과 실수', why: '√2, √3처럼 분수로 나타낼 수 없는 수를 구분해야 합니다.' },
+          { now: '수의 범위 판단', next: '고등: 방정식·부등식, 함수의 정의역', why: '해가 정수·유리수·실수 중 어디인지에 따라 풀이와 답의 범위가 달라집니다.' }
         ],
-        questionPolicy: '아래 10문항으로 증명형 이해를 확인합니다. 문제는 많게, 위 설명은 짧게 보여줍니다.'
+        questionPolicy: '아래 10문항으로 유리수 판정, 무리수 판정, 반례, 비교 설명까지 확인합니다.'
       };
     }
     const boundary = data?.student_material_review?.concept_note_review?.boundary_condition_review || {};
@@ -77,17 +77,17 @@ class MathHybridReportRenderer {
       ...(data?.student_material_review?.concept_note_review?.misuse_risks || [])
     ];
     return {
-      title: `${conceptName} 증명형 확인`,
-      oneLine: '개념을 정리한 흔적은 있지만, 성립 조건·성립하지 않는 조건·반례를 이용해 설명하는 힘은 확인이 필요합니다.',
+      title: `${conceptName} 판정 기준 확인`,
+      oneLine: `${conceptName}은(는) 이름을 외우는 것이 아니라, 적용 조건과 적용하면 안 되는 조건을 구분해 판단해야 합니다.`,
       problems: (missing.length ? missing : [
-        '정의만 쓰고 왜 성립하는지 설명하지 못할 수 있습니다.',
-        '적용하면 안 되는 조건이나 반례가 부족할 수 있습니다.',
-        '다음 단원에서 이 개념이 어디에 쓰이는지 연결이 약할 수 있습니다.'
+        { title: '정의의 적용 기준이 불명확함', body: '정의를 말하는 것과 실제 문제에서 그 조건을 확인하는 것은 다릅니다.' },
+        { title: '반례·비예시 확인 부족', body: '그 개념을 쓰면 안 되는 경우를 구분해야 응용 문제에서 흔들리지 않습니다.' },
+        { title: '풀이에서 조건 확인 과정 부족', body: '공식이나 개념을 적용하기 전에 왜 적용 가능한지 근거를 써야 합니다.' }
       ]).slice(0, 3),
       connections: [
-        { now: conceptName, next: '다음 학년 핵심 단원', why: '공식 적용 전에 조건을 확인하는 습관이 필요합니다.' },
-        { now: '성립 조건·비성립 조건', next: '서술형·융합형 문제', why: '문제 상황이 바뀌어도 왜 그 개념을 써야 하는지 설명해야 합니다.' },
-        { now: '반례·비예시', next: '고등 수학의 정의역·해석 문제', why: '겉모양이 비슷한 문제를 조건으로 구분해야 합니다.' }
+        { now: `${conceptName}의 적용 조건`, next: '같은 단원의 대표 유형', why: '정의가 맞는 경우와 아닌 경우를 구분해야 풀이를 시작할 수 있습니다.' },
+        { now: '반례·비예시 구분', next: '학교 서술형 조건 판단 문제', why: '문제에서 요구하는 조건을 빠뜨리면 계산이 맞아도 감점될 수 있습니다.' },
+        { now: '증명형 설명', next: '상위 단원 개념 적용', why: '공식을 외워도 언제 쓰는지 설명하지 못하면 응용 문제에서 막힙니다.' }
       ],
       requiredConditions: boundary.required_conditions || [],
       questionPolicy: '아래 10문항으로 조건 판정, 반례, 비교 설명까지 확인합니다.'
@@ -125,8 +125,11 @@ class MathHybridReportRenderer {
   }
 
   static renderProofPlan(plan) {
-    const issues = (plan.problems || []).slice(0, 3).map((x, idx) => `
-      <div class="compact-issue"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
+    const issues = (plan.problems || []).slice(0, 3).map((x, idx) => {
+      const title = typeof x === 'object' && x ? x.title : x;
+      const body = typeof x === 'object' && x ? x.body : '';
+      return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b>${this.esc(title)}</b>${body ? `<br><span>${this.esc(body)}</span>` : ''}</p></div>`;
+    }).join('');
     const rows = (plan.connections || []).slice(0, 3).map(c => `
       <tr><td>${this.esc(c.now)}</td><td>${this.esc(c.next)}</td><td>${this.esc(c.why)}</td></tr>`).join('');
     return `
@@ -135,9 +138,9 @@ class MathHybridReportRenderer {
         <p class="one-line-diagnosis">${this.esc(plan.oneLine)}</p>
         <div class="compact-section-title">지금 문제점</div>
         <div class="compact-issues">${issues}</div>
-        <div class="compact-section-title">이 과정이 나중에 연결되는 곳</div>
+        <div class="compact-section-title">이 개념이 연결되는 곳</div>
         <div class="connection-table-wrap">
-          <table class="connection-table"><thead><tr><th>지금 하는 것</th><th>연결 단원</th><th>왜 필요한가</th></tr></thead><tbody>${rows}</tbody></table>
+          <table class="connection-table"><thead><tr><th>지금 확인하는 개념</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead><tbody>${rows}</tbody></table>
         </div>
         <div class="ten-question-policy">${this.esc(plan.questionPolicy)}</div>
       </section>`;

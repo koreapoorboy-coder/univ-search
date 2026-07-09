@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.09-patch16-compact-10q-student-output",
+  "version": "2026.07.09-patch17-precise-math-connection-output",
   "build_date": "2026-07-08",
   "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 기본 Worker URL 자동 적용, 학생 화면 연결 설정 숨김",
   "description": "학생 화면은 한 줄 진단, 문제점 최대 3개, 다음 과정 연결만 짧게 보여주고 실제 이해 확인은 10문항 증명형 문제로 수행한다.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_compact_10q_student_output_patch16_20260709",
+  "last_patch": "math_precise_math_connection_output_patch17_20260709",
   "unit_count": 35,
   "problem_type_count": 12523,
   "has_global_diagnosis_logic": true,
@@ -55,11 +55,12 @@
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
   "has_answer_key_verification_questions": true,
-  "worker_version": "2026.07.09-patch16-compact-10q-student-output",
+  "worker_version": "2026.07.09-patch17-precise-math-connection-output",
   "has_proof_based_concept_diagnosis": true,
   "has_condition_boundary_proof_tasks": true,
   "has_compact_student_problem_summary": true,
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
-  "hides_broad_analysis_from_student_view": true
+  "hides_broad_analysis_from_student_view": true,
+  "patch_summary": "학생 상단 진단을 수학적으로 정확한 개념명·조건·연결 단원 중심으로 수정하고, 10문항 구조는 유지합니다."
 }

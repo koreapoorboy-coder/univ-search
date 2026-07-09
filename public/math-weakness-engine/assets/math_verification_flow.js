@@ -1,4 +1,4 @@
-/* Math Verification Flow v1.3 · Patch 16 compact 10-question student output
+/* Math Verification Flow v1.4 · Patch 17 precise mathematical diagnosis and unit connection output
  * Local orchestration helpers for hybrid math diagnosis.
  */
 class MathVerificationFlow {
@@ -136,7 +136,7 @@ class MathVerificationFlow {
       q('Q7','error_correction',`${concept}을/를 잘못 적용한 풀이를 하나 가정하고, 어디가 왜 틀렸는지 고치세요.`,['오류 위치','틀린 이유','바른 조건','수정 결론'],'오류 수정은 개념 적용 조건을 알고 있는지 확인하는 문항이다.'),
       q('Q8','example_generation',`${concept}을/를 확인할 수 있는 새 예시를 직접 만들고, 답까지 증명하세요.`,['새 예시','조건 확인','답 또는 결론','근거'],'새 예시에 적용할 수 있어야 이해로 본다.'),
       q('Q9','classification',`${concept}을/를 쓸 수 있는 경우와 쓸 수 없는 경우를 각각 1개씩 쓰고 비교하세요.`,['사용 가능 예시','사용 불가 예시','조건 차이','비교 결론'],'적용 조건과 비적용 조건을 나란히 비교해야 한다.'),
-      q('Q10','self_explanation',`이 개념이 다음 단원이나 융합 문제에서 왜 필요한지 한 문단으로 설명하세요.`,['현재 개념','연결 단원','필요한 이유','자기 말 설명'],'학년이 올라가서 어디에 쓰이는지 연결할 수 있어야 한다.',2,'학생 동기와 개념 연결성을 확인한다.')
+      q('Q10','self_explanation',`이 개념이 연결되는 정확한 단원명을 쓰고, 그 단원에서 왜 필요한지 한 문단으로 설명하세요.`,['현재 개념','정확한 연결 단원명','필요한 이유','자기 말 설명'],'막연한 다음 단원이 아니라 실제 연결 단원명을 써야 한다.',2,'학생 동기와 개념 연결성을 확인한다.')
     ];
     return {
       set_id: `local_proof_vq_${Date.now()}`,
