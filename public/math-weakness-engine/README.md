@@ -1,32 +1,41 @@
-# Patch22 · Diagnosis-first, optional question generation
+# SIDAE SU1 MORE -> Algebra full book item bank patch
 
 ## 목적
-진단과 문제 생성을 2단계로 분리했습니다. 학생 자료를 올리면 먼저 1차 진단만 수행하고, 보강 문제가 필요할 때만 2차 보강 문제 생성 버튼을 눌러 10문항과 PDF 문제지를 생성합니다.
+`2027 시대인재 수능기출 MORE 수학Ⅰ` 전체 문항을 수학 진단 엔진의 `대수` 기준 item_bank로 누적하기 위한 GitHub-ready 패치입니다.
 
-## 핵심 변경
-- 1차 진단에서는 문제지를 자동 생성하지 않습니다.
-- 1차 진단은 자료 읽기, 단원/개념 매칭, 학생 문제점, 연결 단원까지만 출력합니다.
-- 2차 보강 문제 생성은 사용자가 별도로 실행할 때만 동작합니다.
-- 2차 문제 생성은 1차 진단에서 확정된 `engine_locked_context` 기준으로만 생성됩니다.
-- 이전 학생, 이전 단원, 이전 fallback 문제 세트가 새 진단에 섞이지 않도록 run 단위로 상태를 초기화합니다.
-- 대수 거듭제곱근 자료가 들어왔는데 유리수·무리수 샘플 PDF가 출력되는 문제를 구조적으로 방지합니다.
+## 이번 패치 범위
+- 전체 8개 문제 PDF 기준 문항 번호 001~661 전체 등록
+- 수학Ⅰ 원본 단원 → 대수 엔진 단원으로 매핑
+- 동일 유형은 같은 `matched_problem_type_id`로 묶고, 표현 차이는 `variant_id`로 저장
+- 완전 중복 원문은 저장하지 않으며, 현재 exact duplicate는 0건으로 시작
+- 문제 원문/해설 원문 전문은 저장하지 않고 문항분류 메타데이터만 저장
 
-## 적용 파일
-- `hybrid.html`
-- `assets/math_hybrid_report_renderer.js`
-- `assets/math_verification_flow.js`
-- `worker_skeleton/math_diagnosis_worker.js`
-- `manifest.json`
+## 전체 문항 수
+- 전체: 661문항
+- 지수와 로그: 001~127
+- 지수함수와 로그함수: 128~239
+- 지수함수와 로그함수 활용: 240~280
+- 삼각함수 뜻과 그래프: 281~377
+- 사인법칙과 코사인법칙: 378~417
+- 등차수열과 등비수열: 418~523
+- 수열의 합: 524~599
+- 수학적 귀납법: 600~661
 
-## 새 사용 흐름
-1. 학생 자료 업로드
-2. `1차 진단 시작`
-3. 진단 결과 확인
-4. 문제가 필요하면 `2차 보강 문제 생성`
-5. 필요한 경우 `학생용 PDF 열기/저장`
-6. 학생이 풀어오면 재검수
+## 적용 경로
+- `data/sources/`
+- `data/coverage/`
+- `data/item_bank/algebra/exp_log_foundation/`
+- `data/item_bank/algebra/exp_log_function/`
+- `data/item_bank/algebra/trigonometric_function/`
+- `data/item_bank/algebra/sequence/`
+- `data/type_variant_bank/algebra/`
+- `data/duplicate_map/algebra/`
+
+## 상태
+- `coverage_status`: `full_book_completed`
+- `mapping_status`: `matched_by_source_subunit`
+- `review_status`: `teacher_review_recommended`
+- `solution_ref_status`: `pending_solution_page_mapping`
 
 ## Commit message
-```text
-patch: split diagnosis and optional question generation
-```
+`Add SIDAE SU1 MORE algebra full book item bank`
