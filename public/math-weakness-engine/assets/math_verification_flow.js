@@ -1,4 +1,4 @@
-/* Math Verification Flow v1.1 · Patch 10 material purpose hints
+/* Math Verification Flow v1.4 · Patch 14 student workbook fallback questions
  * Local orchestration helpers for hybrid math diagnosis.
  */
 class MathVerificationFlow {
@@ -84,41 +84,41 @@ class MathVerificationFlow {
       source_diagnosis: reason,
       questions: [
         {
-          question_id: 'VQ1',
+          question_id: 'Q1',
           question_type: 'definition',
-          prompt: `${concept}의 뜻을 교과서 문장을 그대로 베끼지 말고 자기 말로 설명하세요.`,
+          prompt: `${concept}의 뜻을 자기 말로 설명하고, 언제 쓸 수 있는지 조건을 1개 쓰세요.`,
           student_answer_format: '2~4문장 서술',
-          required_elements: ['정의', '자기 말 설명', '예시 1개'],
-          answer_key: '개념의 핵심 조건이 드러나야 하며 예시가 조건을 만족해야 한다.',
+          required_elements: ['정의', '사용 조건', '대표 예시'],
+          answer_key: '모범답안 기준: 개념의 뜻, 적용 가능한 조건 1개, 조건을 만족하는 예시 1개가 함께 있어야 한다. 용어만 반복하면 통과하지 않는다.',
           rubric: [{ score: 3, condition: '정의와 예시가 모두 정확함' }, { score: 2, condition: '방향은 맞지만 이유가 부족함' }, { score: 1, condition: '용어만 반복함' }],
           minimum_pass_score: 2,
           teacher_note: '개념어 암기와 이해 설명을 구분한다.'
         },
         {
-          question_id: 'VQ2',
+          question_id: 'Q2',
+          question_type: 'counterexample_generation',
+          prompt: `${concept}을/를 적용하면 안 되는 반례 또는 비예시를 1개 만들고, 왜 안 되는지 이유를 쓰세요.`,
+          student_answer_format: '반례/비예시 + 이유 서술',
+          required_elements: ['반례 또는 비예시', '적용 불가 조건', '왜 안 되는지 설명'],
+          answer_key: '모범답안 기준: 반례/비예시는 그 개념의 조건을 어기는 경우여야 하며, 왜 적용하면 안 되는지 조건 위반 이유를 함께 써야 한다.',
+          rubric: [{ score: 4, condition: '반례와 이유 모두 정확함' }, { score: 2, condition: '반례는 있으나 이유가 부족함' }, { score: 1, condition: '다른 예시를 반례로 착각함' }],
+          minimum_pass_score: 3,
+          teacher_note: '반례/비예시 구분으로 복붙 정리와 실제 이해를 구분한다.'
+        },
+        {
+          question_id: 'Q3',
           question_type: 'process',
-          prompt: '수업에서 다룬 대표 예시 하나를 골라 처음부터 끝까지 풀이 과정을 쓰세요. 중간 식을 생략하지 마세요.',
-          student_answer_format: '식 또는 단계별 풀이',
-          required_elements: ['시작식', '중간 과정', '결론', '왜 그렇게 하는지 한 문장'],
-          answer_key: '과정이 논리적으로 연결되고 결론이 개념 정의와 맞아야 한다.',
+          prompt: '대표 문제 하나를 골라 풀이 과정을 처음부터 끝까지 쓰고, 중간에 사용한 개념 이름과 이유를 표시하세요.',
+          student_answer_format: '단계별 풀이',
+          required_elements: ['시작식', '중간 과정', '사용한 개념', '선택 이유', '결론'],
+          answer_key: '모범답안 기준: 시작식, 중간식, 사용한 개념, 그 개념을 선택한 이유, 결론이 순서대로 보여야 한다. 정답만 쓰면 통과하지 않는다.',
           rubric: [{ score: 4, condition: '과정과 이유 모두 정확함' }, { score: 2, condition: '계산은 맞지만 이유 설명이 부족함' }, { score: 1, condition: '정답만 있음' }],
           minimum_pass_score: 3,
           teacher_note: '과정 생략이 많으면 다시 풀이하게 한다.'
-        },
-        {
-          question_id: 'VQ3',
-          question_type: 'self_explanation',
-          prompt: `이번 자료에서 본인이 가장 헷갈린 부분을 쓰고, 그 부분을 해결하는 기준을 한 문장으로 정리하세요.`,
-          student_answer_format: '자기 설명',
-          required_elements: ['헷갈린 지점', '판단 기준', '다음에 적용할 행동'],
-          answer_key: '오류 원인을 구체화하고 다음 행동 기준이 있어야 한다.',
-          rubric: [{ score: 3, condition: '오류와 기준이 구체적임' }, { score: 2, condition: '오류는 있으나 기준이 약함' }, { score: 1, condition: '느낀 점만 있음' }],
-          minimum_pass_score: 2,
-          teacher_note: '학생이 스스로 기준을 세우는지 본다.'
         }
       ],
-      teacher_decision_rule: '정의 설명 + 풀이 과정 + 자기 설명 중 2개 이상 통과하면 부분 이해 이상, 과정 문항을 통과하지 못하면 재학습으로 판정한다.',
-      redo_policy: '통과하지 못한 문항은 같은 구조의 다른 예시로 다시 작성시킨다.'
+      teacher_decision_rule: '확인 문제 3개 중 2개 이상 통과해야 부분 이해 이상으로 본다. 반례/비예시 문항을 통과하지 못하면 개념정리를 다시 해야 한다.',
+      redo_policy: '통과하지 못한 문항은 정의-조건-예시-반례 순서로 다시 정리한 뒤 같은 구조의 다른 예시로 재작성한다.'
     };
   }
   buildFallbackAnswerReview(verificationSet, answerText) {

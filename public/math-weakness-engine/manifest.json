@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.09-patch13-student-result-answer-key",
+  "version": "2026.07.09-patch14-student-workbook-layout",
   "build_date": "2026-07-08",
-  "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 기본 Worker URL 자동 적용, 학생 화면 연결 설정 숨김",
-  "description": "학생 화면은 원자료 JSON이 아니라 판정 결과, 이유, 부족한 부분, 다시 할 과제, 정답/모범답안이 포함된 확인 문제 중심으로 표시한다.",
+  "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 학생용 결과 학습지 우선 출력, 교사용 JSON/엔진 로그 접힘 처리",
+  "description": "학생 화면은 내부 진단 과정이 아니라 오늘 결과, 부족한 것 3개, 다시 정리할 틀, 확인 문제, 정답/모범답안, 재제출 기준 중심의 학습지 구조로 표시한다.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_student_result_answer_key_patch13_20260709",
+  "last_patch": "math_student_workbook_layout_patch14_20260709",
   "unit_count": 35,
   "problem_type_count": 12523,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "Patch 13: Student-facing result cards and answer-key verification questions",
+  "patch": "Patch 14: Student-facing result workbook layout",
   "features": [
     "counterexample_review",
     "non_example_classification",
@@ -41,10 +41,17 @@
     "concept_rewrite_template",
     "student_result_cards",
     "answer_key_verification_questions",
-    "raw_json_collapsed_teacher_view"
+    "raw_json_collapsed_teacher_view",
+    "student_workbook_layout",
+    "student_rewrite_table",
+    "student_answer_space",
+    "teacher_diagnostic_collapsed"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
   "has_answer_key_verification_questions": true,
-  "worker_version": "2026.07.09-patch13-student-result-answer-key"
+  "worker_version": "2026.07.09-patch14-student-workbook-layout",
+  "has_student_workbook_layout": true,
+  "hides_internal_diagnosis_values_from_student": true,
+  "teacher_raw_json_collapsed": true
 }

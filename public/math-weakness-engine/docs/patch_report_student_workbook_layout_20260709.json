@@ -1,0 +1,36 @@
+{
+  "patch_id": "math_student_workbook_layout_patch14_20260709",
+  "version": "2026.07.09-patch14-student-workbook-layout",
+  "title": "Patch 14: Student-facing result workbook layout",
+  "changed_files": [
+    "hybrid.html",
+    "assets/math_hybrid_report_renderer.js",
+    "assets/math_verification_flow.js",
+    "worker_skeleton/math_diagnosis_worker.js",
+    "manifest.json",
+    "docs/PATCH14_STUDENT_WORKBOOK_LAYOUT_GUIDE.md"
+  ],
+  "student_visible_sections": [
+    "오늘 결과",
+    "왜 이렇게 나왔나요",
+    "지금 부족한 것 3개",
+    "다시 해야 할 정리 양식",
+    "확인 문제",
+    "정답/모범답안",
+    "재제출 기준"
+  ],
+  "hidden_teacher_sections": [
+    "자료 품질",
+    "파일 목적",
+    "진단 경로",
+    "JSON 원자료",
+    "엔진 매칭 결과",
+    "confidence/runtime meta"
+  ],
+  "success_criteria": [
+    "student screen does not expose confidence values",
+    "student screen does not expose raw JSON by default",
+    "verification questions use Korean labels and answer keys",
+    "teacher diagnostics remain available in collapsed details"
+  ]
+}
