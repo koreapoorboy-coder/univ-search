@@ -1,0 +1,29 @@
+{
+  "patch_id": "patch11_default_worker_hidden_settings_20260708",
+  "version": "2026.07.08-patch11-default-worker-hidden-settings",
+  "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
+  "changed_files": [
+    "hybrid.html",
+    "manifest.json",
+    "docs/PATCH11_DEFAULT_WORKER_HIDDEN_SETTINGS_GUIDE.md",
+    "docs/patch_report_default_worker_hidden_settings_20260708.json"
+  ],
+  "student_visible_fields": [
+    "student_name",
+    "grade_label",
+    "files",
+    "analyze_btn"
+  ],
+  "hidden_admin_controls": [
+    "worker_url",
+    "save_worker_btn",
+    "health_btn",
+    "config_btn",
+    "clear_worker_btn"
+  ],
+  "notes": [
+    "Worker URL is auto-applied via DEFAULT_WORKER_URL.",
+    "Connection settings are kept inside an admin details block.",
+    "Cloudflare Worker code is unchanged from patch10."
+  ]
+}

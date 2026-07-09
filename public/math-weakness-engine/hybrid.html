@@ -5,35 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>수학 하이브리드 AI 진단 · Math Weakness Engine</title>
 <style>
-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:24px;line-height:1.55;color:#111827;background:#f8fafc}h1{font-size:24px}h2{font-size:19px;margin-top:0}h3{font-size:16px;margin-bottom:6px}label{display:block;font-weight:700;margin-top:10px}input,select,textarea{width:100%;box-sizing:border-box;padding:9px;border:1px solid #cbd5e1;border-radius:8px;background:white}textarea{min-height:100px;font-family:ui-monospace,Menlo,Consolas,monospace}button{padding:10px 14px;border:0;border-radius:8px;background:#111827;color:white;cursor:pointer;margin:4px 4px 4px 0}button:disabled{opacity:.55;cursor:not-allowed}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card,.subcard{background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}.subcard{background:#f8fafc}.muted{color:#64748b}.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#e2e8f0;margin:2px;font-size:12px}.warn{background:#fff7ed;border-color:#fed7aa}.ok{background:#ecfdf5;border-color:#a7f3d0}.danger{background:#fef2f2;border-color:#fecaca}.info{background:#eff6ff;border-color:#bfdbfe}pre{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:12px;border-radius:8px;overflow:auto}.tabs button{background:#475569}.small{font-size:12px}.button-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}.status-panel{margin-top:12px;border-radius:12px;border:1px solid #cbd5e1;padding:14px;background:#f8fafc}.status-panel h3{margin:0 0 6px}.status-line{font-weight:700}.status-detail{margin-top:6px;color:#475569;font-size:13px}.status-success{background:#ecfdf5;border-color:#86efac}.status-warning{background:#fff7ed;border-color:#fdba74}.status-error{background:#fef2f2;border-color:#fca5a5}.status-loading{background:#eff6ff;border-color:#93c5fd}.status-badge{display:inline-block;border-radius:999px;padding:3px 9px;font-size:12px;margin-right:6px;background:#e2e8f0}.status-badge.success{background:#bbf7d0}.status-badge.warning{background:#fed7aa}.status-badge.error{background:#fecaca}.status-badge.loading{background:#bfdbfe}.simple-card{border:2px solid #111827;background:#ffffff}.simple-title{display:flex;align-items:center;gap:8px}.step-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:#111827;color:white;font-weight:800}.upload-box{border:2px dashed #94a3b8;border-radius:14px;padding:16px;background:#f8fafc;margin-top:10px}.upload-box input{background:white}.primary-action{font-size:16px;font-weight:800;padding:13px 20px;margin-top:14px}.student-help{background:#f1f5f9;border-left:4px solid #334155;padding:12px;border-radius:10px;margin-top:12px}.advanced-wrap{background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px;padding:14px;margin:14px 0}.advanced-wrap summary{font-weight:800;cursor:pointer}.advanced-note{font-size:13px;color:#64748b;margin:6px 0 12px}.hidden-teacher-note{font-size:12px;color:#64748b}.progress-card{background:#eff6ff;border-color:#93c5fd}.required-mark{color:#dc2626;font-weight:800}@media(max-width:800px){.grid{grid-template-columns:1fr}}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:24px;line-height:1.55;color:#111827;background:#f8fafc}h1{font-size:24px}h2{font-size:19px;margin-top:0}h3{font-size:16px;margin-bottom:6px}label{display:block;font-weight:700;margin-top:10px}input,select,textarea{width:100%;box-sizing:border-box;padding:9px;border:1px solid #cbd5e1;border-radius:8px;background:white}textarea{min-height:100px;font-family:ui-monospace,Menlo,Consolas,monospace}button{padding:10px 14px;border:0;border-radius:8px;background:#111827;color:white;cursor:pointer;margin:4px 4px 4px 0}button:disabled{opacity:.55;cursor:not-allowed}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card,.subcard{background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}.subcard{background:#f8fafc}.muted{color:#64748b}.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#e2e8f0;margin:2px;font-size:12px}.warn{background:#fff7ed;border-color:#fed7aa}.ok{background:#ecfdf5;border-color:#a7f3d0}.danger{background:#fef2f2;border-color:#fecaca}.info{background:#eff6ff;border-color:#bfdbfe}pre{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:12px;border-radius:8px;overflow:auto}.tabs button{background:#475569}.small{font-size:12px}.button-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}.status-panel{margin-top:12px;border-radius:12px;border:1px solid #cbd5e1;padding:14px;background:#f8fafc}.status-panel h3{margin:0 0 6px}.status-line{font-weight:700}.status-detail{margin-top:6px;color:#475569;font-size:13px}.status-success{background:#ecfdf5;border-color:#86efac}.status-warning{background:#fff7ed;border-color:#fdba74}.status-error{background:#fef2f2;border-color:#fca5a5}.status-loading{background:#eff6ff;border-color:#93c5fd}.status-badge{display:inline-block;border-radius:999px;padding:3px 9px;font-size:12px;margin-right:6px;background:#e2e8f0}.status-badge.success{background:#bbf7d0}.status-badge.warning{background:#fed7aa}.status-badge.error{background:#fecaca}.status-badge.loading{background:#bfdbfe}.simple-card{border:2px solid #111827;background:#ffffff}.simple-title{display:flex;align-items:center;gap:8px}.step-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:#111827;color:white;font-weight:800}.upload-box{border:2px dashed #94a3b8;border-radius:14px;padding:16px;background:#f8fafc;margin-top:10px}.upload-box input{background:white}.primary-action{font-size:16px;font-weight:800;padding:13px 20px;margin-top:14px}.student-help{background:#f1f5f9;border-left:4px solid #334155;padding:12px;border-radius:10px;margin-top:12px}.advanced-wrap{background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px;padding:14px;margin:14px 0}.advanced-wrap summary{font-weight:800;cursor:pointer}.advanced-note{font-size:13px;color:#64748b;margin:6px 0 12px}.hidden-teacher-note{font-size:12px;color:#64748b}.progress-card{background:#eff6ff;border-color:#93c5fd}.required-mark{color:#dc2626;font-weight:800}code{background:#e2e8f0;border-radius:6px;padding:2px 5px}.admin-connection-wrap{border-style:dashed}.admin-connection-wrap summary::after{content:" · 학생 화면에서는 사용하지 않음";font-weight:500;color:#64748b;font-size:12px}@media(max-width:800px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <h1>수학 하이브리드 AI 진단</h1>
-<p class="muted">학생은 이름·학년·파일만 제출합니다. AI가 파일이 문제풀이인지, 오답노트인지, 개념정리인지 먼저 구분한 뒤 수학 취약유형 엔진과 연결합니다.</p>
+<p class="muted">학생은 이름·학년·파일만 제출합니다. Worker 연결은 자동 적용되며, AI가 파일이 문제풀이인지, 오답노트인지, 개념정리인지 먼저 구분한 뒤 수학 취약유형 엔진과 연결합니다.</p>
 
-<div class="card warn">
-  <h2>Worker 연결</h2>
-  <p class="muted">OpenAI API Key는 브라우저에 넣지 않습니다. Cloudflare Worker URL만 입력합니다. 저장하면 이 브라우저에만 보관됩니다.</p>
-  <label>Cloudflare Worker URL</label>
-  <input id="worker_url" placeholder="https://math-diagnosis-worker.your-name.workers.dev" autocomplete="off" />
-  <div class="button-row">
-    <button type="button" id="save_worker_btn">URL 저장</button>
-    <button type="button" id="health_btn">Worker 확인</button>
-    <button type="button" id="config_btn">설정 확인</button>
-    <button type="button" id="clear_worker_btn">URL 삭제</button>
-  </div>
-  <div id="worker_status_panel" class="status-panel">
-    <h3>연결 상태</h3>
-    <div id="worker_status_line" class="status-line"><span class="status-badge">대기</span>Worker URL을 입력하고 URL 저장을 누르세요.</div>
-    <div id="worker_status_detail" class="status-detail">저장 후 새로고침해도 URL이 다시 들어오면 정상입니다.</div>
-    <pre id="worker_status_json" style="display:none"></pre>
-  </div>
-  <div class="subcard">
-    <b>상태 기준</b>
-    <p class="muted small">health에서 hasOpenAIKey=true, stubMode=false가 나오면 실제 OpenAI 연결 준비가 된 상태입니다. hasOpenAIKey=true만 보여도 API Key Secret 연결은 성공입니다.</p>
-  </div>
-</div>
 
 
 <div class="card simple-card">
@@ -68,6 +46,33 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
     <p class="muted small">파일에 문제 번호, 풀이 흔적, 오답 표시, 개념 정의, 예시, 자기 설명이 보일수록 진단이 정확해집니다. 개념정리 파일은 공식만 있는지, 조건·예시·이유까지 있는지를 따로 검수합니다.</p>
   </div>
 </div>
+
+<details class="advanced-wrap admin-connection-wrap">
+  <summary>관리자 연결 설정 열기</summary>
+  <p class="advanced-note">학생은 이 영역을 사용할 필요가 없습니다. 기본 Worker 주소가 자동 적용됩니다. 연결 오류가 있을 때만 교사가 확인합니다.</p>
+  <div class="subcard info">
+    <b>기본 Worker URL</b>
+    <p class="muted small">현재 기본값은 <code>https://math-diagnosis-worker.koreapoorboy.workers.dev</code> 입니다. 새 브라우저나 학생 기기에서도 자동으로 이 주소를 사용합니다.</p>
+  </div>
+  <label>Cloudflare Worker URL</label>
+  <input id="worker_url" placeholder="https://math-diagnosis-worker.koreapoorboy.workers.dev" autocomplete="off" />
+  <div class="button-row">
+    <button type="button" id="save_worker_btn">URL 저장</button>
+    <button type="button" id="health_btn">Worker 확인</button>
+    <button type="button" id="config_btn">설정 확인</button>
+    <button type="button" id="clear_worker_btn">기본 URL로 복원</button>
+  </div>
+  <div id="worker_status_panel" class="status-panel">
+    <h3>연결 상태</h3>
+    <div id="worker_status_line" class="status-line"><span class="status-badge">자동 적용</span>기본 Worker URL을 사용합니다.</div>
+    <div id="worker_status_detail" class="status-detail">학생은 URL 저장이나 Worker 확인을 누를 필요가 없습니다.</div>
+    <pre id="worker_status_json" style="display:none"></pre>
+  </div>
+  <div class="subcard">
+    <b>상태 기준</b>
+    <p class="muted small">health에서 hasOpenAIKey=true, stubMode=false가 나오면 실제 OpenAI 연결 준비가 된 상태입니다. hasOpenAIKey=true만 보여도 API Key Secret 연결은 성공입니다.</p>
+  </div>
+</details>
 
 <details class="advanced-wrap">
   <summary>교사용 고급 입력 열기</summary>
@@ -110,6 +115,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 (function(){
   const STORAGE_KEY = 'mathDiagnosisWorkerUrl';
   const LEGACY_KEYS = ['mweWorkerUrl', 'mathWeaknessWorkerUrl'];
+  const DEFAULT_WORKER_URL = 'https://math-diagnosis-worker.koreapoorboy.workers.dev';
   const $ = (id) => document.getElementById(id);
 
   function normalizeUrl(url) {
@@ -120,7 +126,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
   }
 
   function saveUrl(url) {
-    const normalized = normalizeUrl(url);
+    const normalized = normalizeUrl(url || DEFAULT_WORKER_URL);
     try {
       if (normalized) {
         localStorage.setItem(STORAGE_KEY, normalized);
@@ -144,7 +150,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
         if (found) return normalizeUrl(found);
       }
     } catch (_) {}
-    return '';
+    return normalizeUrl(DEFAULT_WORKER_URL);
   }
 
   function clearUrl() {
@@ -201,7 +207,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 
   function currentInputUrl() {
     const input = $('worker_url');
-    return normalizeUrl(input ? input.value : '');
+    return normalizeUrl((input && input.value) ? input.value : DEFAULT_WORKER_URL);
   }
 
   function fillInput(url) {
@@ -213,7 +219,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
     const url = saveUrl(currentInputUrl());
     fillInput(url);
     if (!url) {
-      setStatus('warning', '저장할 URL이 비어 있습니다.', 'Cloudflare Worker 주소를 입력한 뒤 다시 저장하세요.');
+      setStatus('warning', '기본 Worker URL을 사용할 수 없습니다.', '관리자 연결 설정에서 Worker 주소를 확인하세요.');
       return;
     }
     setStatus('success', 'URL 저장 완료', '저장된 주소: ' + url + ' · 이제 Worker 확인을 누르세요.', { savedWorkerUrl: url });
@@ -270,15 +276,19 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
   function handleClear() {
     clearUrl();
     const input = $('worker_url');
-    if (input) input.value = '';
-    setStatus('warning', '저장된 URL을 삭제했습니다.', '다시 연결하려면 Worker URL을 입력하고 URL 저장을 누르세요.');
+    if (input) input.value = DEFAULT_WORKER_URL;
+    saveUrl(DEFAULT_WORKER_URL);
+    setStatus('success', '기본 Worker URL로 복원했습니다.', '학생 화면에서는 별도 저장 없이 기본 Worker가 자동 적용됩니다.', { defaultWorkerUrl: DEFAULT_WORKER_URL });
   }
 
   function init() {
-    const saved = loadUrl();
+    const saved = loadUrl() || DEFAULT_WORKER_URL;
     fillInput(saved);
-    if (saved) {
-      setStatus('success', '저장된 Worker URL을 불러왔습니다.', '저장된 주소: ' + saved + ' · Worker 확인을 누르면 연결 상태를 다시 확인합니다.', { savedWorkerUrl: saved });
+    saveUrl(saved);
+    if (saved === DEFAULT_WORKER_URL) {
+      setStatus('success', '기본 Worker URL 자동 적용 완료', '학생은 URL 저장이나 Worker 확인을 누르지 않아도 진단 시작을 사용할 수 있습니다.', { defaultWorkerUrl: saved });
+    } else {
+      setStatus('success', '저장된 Worker URL을 불러왔습니다.', '저장된 주소: ' + saved + ' · 교사용 설정에서 연결 상태를 다시 확인할 수 있습니다.', { savedWorkerUrl: saved });
     }
     const saveBtn = $('save_worker_btn');
     const healthBtn = $('health_btn');
@@ -290,7 +300,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
     if (clearBtn) clearBtn.addEventListener('click', handleClear);
   }
 
-  window.MathWorkerConnection = { normalizeUrl, saveUrl, loadUrl, clearUrl, setStatus, handleHealth };
+  window.MathWorkerConnection = { normalizeUrl, saveUrl, loadUrl, clearUrl, setStatus, handleHealth, DEFAULT_WORKER_URL };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
@@ -389,7 +399,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         syncBridgeWorkerUrl();
         if (!bridge.hasWorker()) {
-          resultEl.innerHTML = `<div class="card warn"><h2>Worker 연결 필요</h2><p>먼저 상단에서 Worker URL을 저장하고 Worker 확인을 완료하세요.</p></div>`;
+          resultEl.innerHTML = `<div class="card warn"><h2>Worker 연결 필요</h2><p>기본 Worker URL 자동 적용에 문제가 있습니다. 교사용 연결 설정을 열어 Worker 상태를 확인하세요.</p></div>`;
           return;
         }
         if (btn) { btn.disabled = true; btn.textContent = '진단 분석 중...'; }

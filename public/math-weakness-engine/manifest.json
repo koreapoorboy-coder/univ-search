@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.08-patch10-material-purpose-concept-review",
+  "version": "2026.07.08-patch11-default-worker-hidden-settings",
   "build_date": "2026-07-08",
-  "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 문제풀이/오답/개념정리/필기 검수",
-  "description": "학생은 이름, 학년, 파일만 제출하고 AI가 먼저 자료 목적을 문제풀이·오답노트·개념정리·수업필기·검수답안·혼합으로 분류한 뒤, 문제풀이 진단과 개념정리 검수를 분기 처리하는 하이브리드 수학 진단 엔진.",
+  "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 기본 Worker URL 자동 적용, 학생 화면 연결 설정 숨김",
+  "description": "학생은 이름, 학년, 파일만 제출하고 Worker 연결은 기본 URL로 자동 적용된다. 교사용 고급 연결 설정에서만 Worker URL 저장, 확인, 설정 확인을 사용할 수 있다.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_material_purpose_concept_review_patch10_20260708",
+  "last_patch": "math_default_worker_hidden_settings_patch11_20260708",
   "unit_count": 35,
   "problem_type_count": 12523,
   "has_global_diagnosis_logic": true,
@@ -29,5 +29,8 @@
     "/api/math-diagnose/final-report"
   ],
   "has_material_purpose_classifier": true,
-  "has_concept_note_review_mode": true
+  "has_concept_note_review_mode": true,
+  "has_default_worker_url": true,
+  "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
+  "hides_worker_settings_from_student_view": true
 }
