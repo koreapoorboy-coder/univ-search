@@ -1,0 +1,20 @@
+{
+  "patch": "20",
+  "version": "2026.07.09-patch20-topic-aware-verification",
+  "fixed": [
+    "rational_irrational_question_set_was_used_for_power_root_topic",
+    "renderer_detected_generic_root_as_irrational_unit",
+    "worker_fallback_detected_generic_root_as_irrational_unit"
+  ],
+  "added": [
+    "power_root_proof_set_10_questions",
+    "topic_aware_verification_routing",
+    "engine_context_in_student_summary"
+  ],
+  "validation": [
+    "node --check renderer",
+    "node --check verification_flow",
+    "node --check worker",
+    "inline hybrid script syntax check"
+  ]
+}

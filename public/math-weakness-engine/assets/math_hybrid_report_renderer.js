@@ -1,4 +1,4 @@
-/* Math Hybrid Report Renderer v1.8 · Patch 19 diagnostic modes and safe teacher diagnostics */
+/* Math Hybrid Report Renderer v2.0 · Patch 21 engine-locked output contract */
 class MathHybridReportRenderer {
   static esc(v) { return String(v == null ? '' : v).replace(/[&<>\"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
   static list(items) {
@@ -41,18 +41,42 @@ class MathHybridReportRenderer {
       verification: data?.verification_need,
       concept: data?.student_material_review?.concept_note_review,
       math: data?.math_signal,
-      engine: data?.engine_adapter
+      engine: data?.engine_adapter,
+      engineContext: data?._engine_context
     });
   }
   static buildProofPlan(data) {
-    const text = this.proofSignalText(data);
-    const focus = [
+    const engineFocus = [
+      ...(data?._engine_context?.top_concepts || []).map(x => x.concept_name || x.concept_id || x).filter(Boolean),
+      ...(data?._engine_context?.top_units || []).map(x => x.unit_name || x.unit_id || x).filter(Boolean)
+    ];
+    const aiFocus = [
       ...(data?.verification_need?.focus_concepts || []),
       ...(data?.math_signal?.concept_candidates || []).map(x => x.concept_name).filter(Boolean),
       ...(data?.math_signal?.unit_candidates || []).map(x => x.unit_name).filter(Boolean)
     ];
+    const focus = (engineFocus.length ? engineFocus : aiFocus).filter(Boolean);
+    const text = engineFocus.length ? JSON.stringify({ engine_locked_context: data?._engine_context }) : this.proofSignalText(data);
     const conceptName = focus[0] || '핵심 개념';
-    const looksIrrational = /무리수|유리수|순환소수|비순환|루트|제곱근|√|pi|π|분수 꼴|유한소수|무한소수/.test(text);
+    const looksPowerRoot = /거듭제곱근|n제곱근|세제곱근|네제곱근|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|지수법칙|a\^\(1\/n\)|1\/n\)|root/i.test(text);
+    const looksIrrational = !looksPowerRoot && /유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text);
+    if (looksPowerRoot) {
+      return {
+        title: '거듭제곱근·유리수 지수 판정 기준 확인',
+        oneLine: '거듭제곱근은 “몇 제곱해서 주어진 수가 되는가”와 함께 짝수/홀수 지수, 밑의 부호, 주값 조건을 확인해야 합니다.',
+        problems: [
+          { title: '거듭제곱근의 존재 조건 확인 부족', body: 'n이 짝수일 때 음수의 실수 n제곱근은 존재하지 않습니다. n이 홀수일 때는 음수도 하나의 실수 거듭제곱근을 가집니다.' },
+          { title: '주값과 모든 해를 구분하는 기준 부족', body: '√a는 주값을 뜻하지만, x²=a의 해는 ±√a처럼 두 개가 될 수 있습니다. 기호의 의미와 방정식의 해를 구분해야 합니다.' },
+          { title: '유리수 지수로 바꿀 때 조건 확인 부족', body: 'a^(m/n)은 n제곱근과 연결됩니다. 밑 a가 음수이거나 n이 짝수인 경우 실수 범위에서 정의 여부를 먼저 확인해야 합니다.' }
+        ],
+        connections: [
+          { now: '거듭제곱근', next: '대수: 지수함수와 로그함수', why: '분수 지수 a^(m/n)을 해석하려면 n제곱근의 의미와 조건을 알아야 합니다.' },
+          { now: '짝수/홀수 거듭제곱근 조건', next: '고등: 방정식과 부등식', why: 'x^n=a의 실수해 개수와 부호 조건을 판단해야 합니다.' },
+          { now: '지수법칙 적용 조건', next: '고등: 함수의 정의역과 그래프', why: '밑의 범위와 정의역을 확인하지 않으면 지수함수·로그함수에서 잘못된 변형을 하게 됩니다.' }
+        ],
+        questionPolicy: '아래 10문항으로 거듭제곱근의 정의, 존재 조건, 주값, 유리수 지수 변환, 반례와 비교 설명까지 확인합니다.'
+      };
+    }
     if (looksIrrational) {
       return {
         title: '유리수·무리수 판정 기준 확인',
@@ -244,8 +268,15 @@ class MathHybridReportRenderer {
         <div class="ten-question-policy">${this.esc(plan.questionPolicy)}</div>
       </section>`;
   }
-  static renderExtraction(data) {
+  static renderExtraction(data, engineDiagnosis = null) {
     if (!data) return '';
+    if (engineDiagnosis) {
+      data = { ...data, _engine_context: {
+        top_concepts: engineDiagnosis.top_concepts || [],
+        top_units: engineDiagnosis.top_units || [],
+        summary: engineDiagnosis.summary || {}
+      }};
+    }
     const purpose = data.file_purpose_review || {};
     const concept = data.student_material_review?.concept_note_review || {};
     const counter = concept.counterexample_review || {};

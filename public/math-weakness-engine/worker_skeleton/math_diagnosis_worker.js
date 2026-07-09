@@ -1,5 +1,5 @@
 const SERVICE_NAME = 'math-diagnosis-worker';
-const VERSION = '2026.07.09-patch19-diagnosis-modes-and-safe-renderer';
+const VERSION = '2026.07.09-patch21-engine-locked-output-contract';
 const DEFAULT_MODEL = 'gpt-5.5';
 const DEFAULT_REASONING_EFFORT = 'xhigh';
 const DEFAULT_MAX_OUTPUT_TOKENS = 25000;
@@ -226,6 +226,12 @@ async function fileToBase64(file) {
 function buildAnalyzePrompt(payload, files) {
   return `너는 수학 취약유형 진단 AI Bridge다. 학생 자료를 읽고 JSON schema에 맞춰 구조화하라.
 
+Patch21 핵심 계약:
+- 1차 AI 분석 단계에서는 학생 자료를 읽고 자료유형·감지 키워드·수식·풀이 흔적만 구조화한다.
+- 1차 AI 분석 단계에서 최종 단원 결론, 학생용 출력 문구, 10문항 세트를 마음대로 확정하지 않는다.
+- 최종 확정 단원과 출력 유형은 엔진 매칭 결과(engine_diagnosis, engine_locked_context)가 우선이다.
+- AI는 엔진이 확정한 단원·개념 밖의 예시 문제를 출력하지 않는다.
+
 반드시 지킬 원칙:
 - 먼저 첨부 자료의 목적을 분류한다. 문제풀이, 오답노트, 개념정리, 수업필기, 검수답안, 혼합, 판별불가 중에서 판단한다.
 - 학생이 선택한 diagnosis_kind가 auto가 아니면 그 의도를 우선 반영한다. concept_review는 개념정리 진단, solve_diagnosis는 실제 풀이 과정 진단, verification_review는 프로그램이 준 10문항 재제출 답안 검수로 본다.
@@ -235,7 +241,7 @@ function buildAnalyzePrompt(payload, files) {
 - 공식만 나열되어 있으면 '암기형 정리'로 분류하고, 언제 쓰는지/왜 그렇게 되는지/어떤 조건에서 쓰는지/어떤 경우에는 쓰면 안 되는지/증명으로 확인할 수 있는지 부족한 부분을 concept_note_review에 적는다.
 - 개념정리/인강필기 검수에서는 반드시 반례 또는 비예시 관점을 본다. 학생이 반례를 쓰지 않았으면 counterexample_review.missing_counterexample_task에 '다시 써야 할 반례 과제'를 구체적으로 적는다.
 - 정리 결과는 복붙 느낌의 요약이 아니라 '정의 → 성립 조건 → 성립하지 않는 조건 → 대표 예시 증명 → 반례/비예시 증명 → 비교 설명 → 문제 적용 기준' 순서로 다시 쓰게 만든다.
-- 예: 유리수/무리수 단원에서는 0.333...이 유리수임을 분수 변환으로 증명, √4가 무리수가 아님을 증명, √2가 무리수임을 모순법 구조로 설명, '무한소수는 모두 무리수'의 반례를 요구한다.
+- 예: 유리수/무리수 단원에서는 0.333...이 유리수임을 분수 변환으로 증명, √4가 무리수가 아님을 증명, √2가 무리수임을 모순법 구조로 설명, '무한소수는 모두 무리수'의 반례를 요구한다. 단, 대수의 거듭제곱근/유리수 지수 자료에는 이 예시를 사용하지 말고 거듭제곱근의 존재 조건, 주값, 짝수/홀수 근, 유리수 지수 변환 조건을 요구한다.
 - 학생이 인강을 봤는지 단정하지 말고, 확인된 흔적과 부족한 증거를 분리한다.
 - 보이는 풀이/필기/정리에서만 판단하고, 보이지 않는 내용은 missing_materials 또는 missing_evidence에 넣는다.
 - 오답 번호, 단원명, problem_type_id 힌트가 있으면 engine_adapter.student_attempt에 연결한다.
@@ -243,7 +249,7 @@ function buildAnalyzePrompt(payload, files) {
 - 한국 중고등 수학 교사용 표현으로 간결하되, 학생 관리에 쓸 수 있게 구체적으로 쓴다.
 - 학생 화면에는 엔진 매칭 점수, 로드 단원 수, 내부 JSON, 시청 흔적 점수 같은 내부 데이터를 노출하지 않는다. 이런 항목은 교사용 상세로만 둔다.
 - 학생용 상단 결과에 들어갈 문장은 일반 코칭 문장이 아니라 수학적으로 정확한 판정 기준과 단원명을 포함해야 한다.
-- 유리수/무리수 자료에서는 '정수/정수 꼴 가능 여부', '순환소수의 분수 변환', '√4와 √2의 차이'를 핵심 문제점으로 우선 검토한다.
+- 유리수/무리수 자료에서만 '정수/정수 꼴 가능 여부', '순환소수의 분수 변환', '√4와 √2의 차이'를 핵심 문제점으로 검토한다. '제곱근'이라는 단어만 있다고 유리수/무리수 단원으로 고정하지 않는다.
 
 자료 목적 분류 기준:
 - problem_solving: 문제와 풀이 과정 중심
@@ -259,9 +265,15 @@ function buildAnalyzePrompt(payload, files) {
 ${JSON.stringify(payload, null, 2)}`;
 }
 function buildVerificationPrompt(payload) {
-  return `1차 진단 결과를 바탕으로 학생에게 보여줄 증명형 확인 문제 세트를 생성하라.
+  return `1차 진단 결과와 엔진 매칭 결과를 바탕으로 학생에게 보여줄 확인 문제 세트를 생성하라.
 
 중요한 출력 원칙:
+- Patch21 엔진 우선 계약을 반드시 따른다.
+- engine_diagnosis.top_concepts, engine_diagnosis.top_units, engine_locked_context가 있으면 그것을 확정 단원/확정 개념으로 본다.
+- AI 추출 결과의 예시·샘플·이전 fallback 문항은 엔진 확정 단원과 충돌하면 모두 폐기한다.
+- 엔진이 확정한 단원이 거듭제곱근/유리수 지수이면 유리수·무리수/순환소수 10문항을 절대 출력하지 않는다.
+- 엔진이 확정한 단원이 유리수·무리수이면 거듭제곱근 전용 문항을 출력하지 않는다.
+- 엔진 매칭이 없거나 확정 단원이 비어 있을 때만 AI 추출 키워드로 일반형 문항을 만든다. 이때도 특정 샘플 세트를 기본값으로 고정하지 않는다.
 - 목표는 정답 맞히기가 아니라 학생이 개념을 증명 가능한 수준으로 이해했는지 확인하는 것이다.
 - 각 문항은 '주장 → 조건 확인 → 근거/계산 과정 → 반례/비예시 → 결론' 중 필요한 요소가 드러나게 만든다.
 - 단순 O/X, 단순 정의 암기, 빈칸 짜맞추기 문항만 내지 않는다.
@@ -273,7 +285,7 @@ function buildVerificationPrompt(payload) {
 - answer_key에는 학생/교사가 확인할 수 있는 정답 또는 모범답안 기준을 반드시 넣는다. '정확해야 한다'처럼 추상적으로 쓰지 말고, 포함되어야 할 핵심어·조건·반례 예시·채점 기준을 적는다.
 - 반례/비예시 문항은 가능한 경우 '가능한 모범답안 예시'를 answer_key에 포함한다. 단, 자료에서 특정 개념이 확정되지 않으면 '정답 기준' 형태로 적는다.
 - 학생이 단순히 강의 내용을 베껴쓴 경우, 정의·성립 조건·성립하지 않는 조건·대표 예시 증명·반례 증명·비교 설명을 확인하는 문항을 낸다.
-- 유리수/무리수 단원이 감지되면 반드시 10문항 구조로 낸다: 0.5 유리수 증명, -3 유리수 증명, 0.333... 유리수 증명, 0.121212... 유리수 증명, 0.333...이 무리수가 아닌 이유, √4가 무리수가 아닌 이유, √9가 무리수가 아닌 이유, √2가 무리수인 이유, '끝나지 않는 소수는 모두 무리수' 반례, √4와 √2 비교.
+- 단, 아래 유리수/무리수 고정 구조는 엔진이 유리수/무리수 단원을 확정했을 때만 사용한다. 유리수/무리수 단원이 감지되면 반드시 유리수/무리수 10문항 구조로 낸다: 0.5 유리수 증명, -3 유리수 증명, 0.333... 유리수 증명, 0.121212... 유리수 증명, 0.333...이 무리수가 아닌 이유, √4가 무리수가 아닌 이유, √9가 무리수가 아닌 이유, √2가 무리수인 이유, '끝나지 않는 소수는 모두 무리수' 반례, √4와 √2 비교. 단, 대수 거듭제곱근/유리수 지수 자료이면 이 구조를 쓰지 않는다. 거듭제곱근의 정의, n의 짝홀성, 밑의 부호, 주값과 모든 해의 차이, a^(m/n) 변환 조건 중심으로 10문항을 생성한다.
 - 문제풀이 자료이면 정답만 묻지 말고 오류 위치 찾기, 조건을 식으로 바꾸기, 풀이 중간 단계 근거 쓰기, 답의 범위·정의역·원래 조건 검산, 유사 유형 재풀이 문항을 포함한다.
 - required_elements는 학생 답안에 꼭 들어가야 하는 증명 요소를 짧게 적는다.
 - teacher_note는 출제 의도와 교사가 볼 통과 기준을 적는다.
@@ -346,13 +358,13 @@ ${solutionText}`;
     },
     extraction_summary: { source_quality: 'partially_clear', student_did_work_evidence: hasNote || hasProcess ? 'some' : 'weak', confidence: 0.45, missing_materials: [`${reason}: 정밀 AI 분석 전 임시 결과`] },
     student_material_review: {
-      lecture_note_review: { watch_evidence: hasNote ? 'possibly_watched' : 'not_enough_evidence', understanding_level: hasNote ? conceptLevel : 'D', confirmed_concepts: [ctx.unit_name].filter(Boolean), missing_evidence: ['정수/정수 꼴 가능 여부를 기준으로 설명하는 증명 과정 추가 확인 필요'], risk_flags: ['fallback_mode'], teacher_observation: '정밀 검수 전 임시 판단입니다.' },
+      lecture_note_review: { watch_evidence: hasNote ? 'possibly_watched' : 'not_enough_evidence', understanding_level: hasNote ? conceptLevel : 'D', confirmed_concepts: [ctx.unit_name].filter(Boolean), missing_evidence: ['정의·성립 조건·비성립 조건·대표 예시·반례를 이용한 증명 과정 추가 확인 필요'], risk_flags: ['fallback_mode'], teacher_observation: '정밀 검수 전 임시 판단입니다.' },
       concept_note_review: { summary_type: conceptWords ? (hasProcess ? 'mixed' : 'formula_list') : 'not_present', conceptual_accuracy: conceptualAccuracy, connected_understanding_level: conceptLevel, strengths: conceptWords ? ['핵심 용어 또는 공식 정리 흔적이 있음'] : [], missing_links: ['유리수·무리수의 판정 기준을 정수/정수 꼴 가능 여부로 설명하는 증거 부족', '순환소수를 분수로 바꾸어 유리수임을 보이는 과정 부족', '루트가 있는 수가 항상 무리수라는 일반화를 반례로 깨는 설명 부족', '중2 유리수와 순환소수 → 중3 제곱근과 실수 → 고등 함수의 정의역 연결 이해 부족'], misuse_risks: ['끝나지 않는 소수를 모두 무리수로 판단할 가능성', '루트가 있으면 모두 무리수라고 판단할 가능성', '분수 꼴 가능 여부를 확인하지 않고 소수 모양만 보고 판정할 가능성'], next_rewrite_task: '개념을 정의-성립 조건-성립하지 않는 조건-대표 예시 증명-반례 증명-비교 설명-대표 문제 적용 순서로 다시 정리', counterexample_review: { counterexample_present: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'present' : 'missing', student_counterexample_quality: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'needs_teacher_check' : 'not_present', missing_counterexample_task: '이 개념이 성립하지 않는 경우 또는 쓰면 안 되는 조건을 반례 1개와 이유로 증명하기', teacher_note: '개념정리 검수에서는 반례와 증명 가능 여부를 암기형 정리와 이해형 정리를 가르는 기준으로 본다.' }, boundary_condition_review: { required_conditions: ['정의가 성립하는 조건', '왜 성립하는지 보이는 증명 근거', '공식을 적용할 수 있는 조건', '적용하면 안 되는 경우'], condition_misuse_risk: '조건 없이 공식을 외우면 문제에서 적용 대상을 잘못 고를 수 있음', forbidden_generalization: '한 예시에서 성립한 규칙을 모든 경우로 일반화하지 않게 확인 필요' }, concept_rewrite_template: { required_order: ['정의', '성립 조건', '성립하지 않는 조건', '대표 예시 증명', '반례/비예시 증명', '비교 설명', '문제 적용 기준'], student_rewrite_prompt: '강의 내용을 그대로 옮기지 말고, 이 개념이 왜 성립하고 언제 성립하지 않는지를 증명형 문장으로 다시 정리하세요.', example_requirement: '대표 예시는 계산 또는 그래프/조건 판단이 보이게 1개 이상 작성', counterexample_requirement: '반례 또는 비예시는 왜 이 개념을 적용하면 안 되는지 조건 위반 이유까지 증명형으로 작성' } },
       solution_review: { process_evidence: hasProcess ? 'partial_process' : 'not_visible', main_error_candidates: ['정밀 분석 필요'], calculation_error_candidates: [], concept_error_candidates: [], quoted_student_steps: [] }
     },
     math_signal: { unit_candidates: [{ unit_id: ctx.unit_id || '', unit_name: ctx.unit_name || '', confidence: 0.5 }], problem_type_candidates: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', problem_type_hint: known[i] || 'unknown', confidence: known[i] ? 0.7 : 0.2, evidence:'user_input' })), concept_candidates: [{ concept_id:'', concept_name: ctx.unit_name || '유리수·무리수 판정 기준', evidence:'user_context_or_concept_note' }], misconception_candidates: [{ misconception:'풀이 과정 또는 개념 설명 확인 필요', why_it_matters:'필기/풀이/개념정리만으로 이해 여부를 확정할 수 없음', severity:'medium' }] },
     engine_adapter: { student_attempt: { attempts: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', is_correct:false, correct:false, difficulty:'core', observed_error_tags:['ai_bridge_fallback'] })) }, note_review_input: { student_note: { unit_id: ctx.unit_id || '', lesson_title: ctx.lesson_title || ctx.unit_name || '', note_text: noteText } }, recommended_engine_actions: ['classify_material_purpose','run_diagnoseWithGuidance','run_reviewStudentNote','generate_verification_questions'] },
-    verification_need: { needed: true, reason: primaryType === 'concept_summary' ? '개념정리의 이해 수준 검수 필요' : '정밀 이해 확인 필요', focus_concepts:[ctx.unit_name || '유리수·무리수 판정 기준'], must_check_actions:['정의 설명','성립 조건 증명','성립하지 않는 조건 증명','대표 예시 증명','반례 생성','비예시 구분','비교 설명','풀이 과정 작성'] }
+    verification_need: { needed: true, reason: primaryType === 'concept_summary' ? '개념정리의 이해 수준 검수 필요' : '정밀 이해 확인 필요', focus_concepts:[ctx.unit_name || '자료 기반 핵심 개념'], must_check_actions:['정의 설명','성립 조건 증명','성립하지 않는 조건 증명','대표 예시 증명','반례 생성','비예시 구분','비교 설명','풀이 과정 작성'] }
   };
 }
 function makeProofQuestion(id, type, prompt, format, required, answer, pass = 3, note = '') {
@@ -372,10 +384,43 @@ function makeProofQuestion(id, type, prompt, format, required, answer, pass = 3,
     teacher_note: note
   };
 }
+
+function collectEngineLockedContext(payload = {}) {
+  const ed = payload.engine_diagnosis || payload.engineDiagnosis || null;
+  const explicit = payload.engine_locked_context || payload?.ai_extraction?._engine_context || null;
+  const conceptObjs = Array.isArray(ed?.top_concepts) ? ed.top_concepts : Array.isArray(explicit?.top_concepts) ? explicit.top_concepts : [];
+  const unitObjs = Array.isArray(ed?.top_units) ? ed.top_units : Array.isArray(explicit?.top_units) ? explicit.top_units : [];
+  const concepts = conceptObjs.map(x => x?.concept_name || x?.name || x?.concept_id || x).filter(Boolean).map(String);
+  const units = unitObjs.map(x => x?.unit_name || x?.name || x?.unit_id || x).filter(Boolean).map(String);
+  const summary = ed?.summary || explicit?.summary || {};
+  const locked = concepts.length > 0 || units.length > 0;
+  const focus = Array.from(new Set([...concepts, ...units])).filter(Boolean);
+  return { locked, concepts, units, summary, focus, source: locked ? 'engine_diagnosis' : 'ai_extraction', text: JSON.stringify({ concepts, units, summary }) };
+}
+
+function buildPowerRootFallback(focus, reason = 'AI fallback 거듭제곱근 10문항') {
+  const questions = [
+    makeProofQuestion('Q1','proof_explanation','거듭제곱근의 정의를 쓰고, √[n]{a}가 의미하는 조건을 설명하세요.','정의 → 방정식 x^n=a 연결 → 조건 확인 → 결론',['x^n=a','n제곱하여 a가 되는 수','실수 범위 조건','결론'],'√[n]{a}는 n제곱해서 a가 되는 수를 뜻한다. 즉 x=√[n]{a}라면 x^n=a를 만족해야 한다. 단, 실수 범위에서는 n의 짝홀성과 a의 부호에 따라 존재 여부가 달라진다.',3,'거듭제곱근을 기호 암기가 아니라 x^n=a 조건으로 이해하는지 확인한다.'),
+    makeProofQuestion('Q2','classification','n이 짝수일 때 a<0이면 실수 n제곱근이 존재하지 않는 이유를 설명하세요.','짝수 제곱의 부호 → 음수가 될 수 없음 → 결론',['짝수 제곱','항상 0 이상','a<0','실수해 없음'],'실수 x에 대해 x^{2k}는 항상 0 이상이다. 따라서 x^{2k}=a에서 a<0이면 이를 만족하는 실수 x가 없다. 그러므로 짝수 거듭제곱근은 음수에 대해 실수 범위에서 존재하지 않는다.',3,'짝수 거듭제곱근의 존재 조건을 확인한다.'),
+    makeProofQuestion('Q3','classification','n이 홀수일 때 음수의 실수 n제곱근이 존재하는 이유를 예로 설명하세요.','홀수 제곱의 부호 유지 → 예시 → 결론',['홀수 제곱','음수 가능','∛(-8)=-2','결론'],'홀수 제곱은 음수의 부호를 유지할 수 있다. 예를 들어 (-2)^3=-8이므로 ∛(-8)=-2이다. 따라서 홀수 거듭제곱근은 음수에서도 실수값을 가질 수 있다.',3,'짝수와 홀수 거듭제곱근의 차이를 확인한다.'),
+    makeProofQuestion('Q4','process','√[4]{16}의 값을 구하고, 그 이유를 증명하세요.','후보값 확인 → 4제곱 → 주값 결론',['2^4=16','주값','양수','결론'],'2^4=16이므로 16의 네제곱근 중 주값은 2이다. √[4]{16}은 주값을 나타내므로 √[4]{16}=2이다.',3,'짝수 거듭제곱근에서 주값 기호를 구분하는지 확인한다.'),
+    makeProofQuestion('Q5','proof_explanation','x^2=16의 해와 √16의 값을 비교하여 설명하세요.','방정식의 해 → 기호의 주값 → 비교 결론',['x=±4','√16=4','방정식과 기호 구분','결론'],'x^2=16의 해는 x=4 또는 x=-4이다. 하지만 √16은 제곱근 중 주값을 나타내므로 4이다. 따라서 방정식의 모든 해와 √ 기호의 값은 구분해야 한다.',3,'모든 해와 주값을 혼동하는지 확인한다.'),
+    makeProofQuestion('Q6','error_correction','√(a^2)=a라고 항상 쓰면 안 되는 이유를 반례로 설명하세요.','틀린 일반화 → 반례 → 절댓값 결론',['a=-3 반례','√9=3','a와 다름','√(a^2)=|a|'],'반례로 a=-3을 넣으면 √(a^2)=√9=3이지만 a=-3이다. 따라서 √(a^2)=a가 항상 성립하지 않는다. 실수 a에 대해 √(a^2)=|a|이다.',4,'제곱근과 절댓값 연결을 확인한다.'),
+    makeProofQuestion('Q7','process','27^(2/3)을 거듭제곱근을 이용해 계산하고 과정을 쓰세요.','분수 지수 변환 → 세제곱근 → 제곱',['27^(1/3)=3','3^2=9','분수 지수 의미','결론'],'27^(2/3)=(27^(1/3))^2이다. 27^(1/3)=3이므로 27^(2/3)=3^2=9이다.',3,'유리수 지수와 거듭제곱근의 연결을 확인한다.'),
+    makeProofQuestion('Q8','classification','(-8)^(1/3)과 (-8)^(1/2)이 실수 범위에서 어떻게 다른지 설명하세요.','홀수근/짝수근 비교 → 실수 존재 여부',['(-8)^(1/3)=-2','(-8)^(1/2) 실수 아님','홀수/짝수 차이','결론'],'(-8)^(1/3)은 ∛(-8)이므로 -2이다. 하지만 (-8)^(1/2)은 √(-8)을 뜻하므로 실수 범위에서는 정의되지 않는다. 차이는 분모 3은 홀수, 분모 2는 짝수라는 점이다.',4,'음수 밑과 분수 지수에서 정의역 조건을 확인한다.'),
+    makeProofQuestion('Q9','counterexample_generation','“거듭제곱근 기호가 있으면 항상 두 값이 나온다”가 틀렸음을 반례로 보이세요.','틀린 문장 → 반례 → 이유 → 결론',['∛8=2','하나의 실수값','또는 √16=4 주값','문장 반박'],'반례는 ∛8=2이다. 세제곱근은 홀수근이므로 실수 범위에서 하나의 값을 가진다. 또한 √16은 주값 기호라 4를 뜻한다. 따라서 거듭제곱근 기호가 있다고 항상 두 값이 나오는 것은 아니다.',3,'겉모양으로 일반화하지 않는지 확인한다.'),
+    makeProofQuestion('Q10','proof_explanation','거듭제곱근이 지수함수와 로그함수 단원에 왜 연결되는지 설명하세요.','분수 지수 → 지수법칙 → 정의역 조건 → 연결 단원',['a^(m/n)','거듭제곱근','밑의 조건','지수함수와 로그함수'],'거듭제곱근은 a^(m/n) 같은 유리수 지수를 해석하는 기준이다. 이때 밑 a의 부호와 n의 짝홀성에 따라 실수 범위에서 정의 여부가 달라진다. 그래서 지수함수와 로그함수에서 지수법칙을 적용하기 전에 정의역과 조건을 확인해야 한다.',2,'왜 이 내용을 대수에서 배우는지 연결성을 확인한다.')
+  ];
+  return { set_id:`fallback_power_root_vq_${Date.now()}`, target_concepts:[...new Set((focus || []).concat(['거듭제곱근과 유리수 지수의 조건 판정']))], source_diagnosis:reason, questions, teacher_decision_rule:'10문항 중 7문항 이상 통과하면 부분 이해 이상으로 본다. Q2, Q5, Q6, Q8 중 2개 이상 틀리면 거듭제곱근의 조건 판정이 약한 것으로 본다.', redo_policy:'틀린 문항은 n의 짝홀성, 밑의 부호, 주값 여부, 유리수 지수 변환 조건을 표시해서 다시 증명한다.' };
+}
+
 function buildVerificationFallback(payload) {
-  const focus = payload?.ai_extraction?.verification_need?.focus_concepts || payload?.verification_need?.focus_concepts || ['유리수·무리수 판정 기준'];
-  const concept = focus[0] || '핵심 개념';
-  const text = JSON.stringify(payload);
+  const engineLock = collectEngineLockedContext(payload);
+  const contextUnit = engineLock.focus[0] || payload?.ai_extraction?.math_signal?.unit_candidates?.[0]?.unit_name || payload?.student_upload?.learning_context?.unit_name || payload?.learning_context?.unit_name || '핵심 개념';
+  const aiFocus = (payload?.ai_extraction?.verification_need?.focus_concepts || payload?.verification_need?.focus_concepts || [contextUnit]).filter(Boolean);
+  const focus = (engineLock.locked ? engineLock.focus : aiFocus).filter(Boolean);
+  const concept = focus[0] || contextUnit || '핵심 개념';
+  const text = engineLock.locked ? engineLock.text : JSON.stringify(payload);
   const isSolve = payload?.ai_extraction?.file_purpose_review?.routing_decision === 'solve_diagnosis' || payload?.ai_extraction?.file_purpose_review?.primary_material_type === 'problem_solving' || payload?.student_upload?.analysis_options?.diagnosis_kind === 'solve_diagnosis';
   if (isSolve) {
     const questions = [
@@ -392,7 +437,9 @@ function buildVerificationFallback(payload) {
     ];
     return { set_id:`fallback_solution_vq_${Date.now()}`, target_concepts:focus, source_diagnosis:'AI fallback 풀이 과정 진단 10문항', questions, teacher_decision_rule:'10문항 중 7문항 이상 통과하면 풀이 과정 보완 가능으로 본다. Q1~Q5 중 2개 이상 틀리면 조건 해석 또는 풀이 전개를 다시 학습한다.', redo_policy:'틀린 문항은 원래 풀이 사진의 해당 줄을 표시하고 조건-식-근거-검산 순서로 다시 작성한다.' };
   }
-  const isIrrational = /무리수|유리수|순환소수|비순환|루트|제곱근|√|π|분수 꼴|유한소수|무한소수/.test(text);
+  const isPowerRoot = /거듭제곱근|n제곱근|세제곱근|네제곱근|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|지수법칙|a\^\(1\/n\)|1\/n\)|root/i.test(text);
+  const isIrrational = !isPowerRoot && /유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text);
+  if (isPowerRoot) return buildPowerRootFallback(focus, engineLock.locked ? '엔진 확정 단원 기반 거듭제곱근·유리수 지수 10문항' : 'AI fallback 거듭제곱근·유리수 지수 10문항');
   if (isIrrational) {
     const questions = [
       makeProofQuestion('Q1','proof_explanation','0.5가 유리수임을 증명하세요.','분수 변환 → 정수/정수 꼴 확인 → 결론',['0.5=5/10=1/2','분자와 분모가 정수','분모가 0이 아님','유리수 결론'],'0.5=5/10=1/2이다. 1과 2는 정수이고 2는 0이 아니다. 따라서 0.5는 정수/정수 꼴로 나타낼 수 있으므로 유리수이다.',3,'유한소수가 유리수임을 분수 변환으로 확인한다.'),
@@ -406,7 +453,7 @@ function buildVerificationFallback(payload) {
       makeProofQuestion('Q9','counterexample_generation','“끝나지 않는 소수는 모두 무리수이다”가 틀렸음을 반례로 증명하세요.','틀린 문장 → 반례 → 이유 → 결론',['0.333... 또는 0.121212...','끝나지 않음','반복됨','분수 꼴 가능','문장 반박'],'반례는 0.333...이다. 이 수는 끝나지 않는 소수이지만 3이 반복되고 1/3로 나타낼 수 있다. 따라서 끝나지 않는 소수라고 해서 모두 무리수는 아니다.',3,'반례를 만들 수 있어야 개념 경계를 이해한 것으로 본다.'),
       makeProofQuestion('Q10','proof_explanation','√4와 √2는 둘 다 루트가 있는데 왜 하나는 유리수이고 하나는 무리수인지 비교하세요.','공통점 → 차이 조건 → 각각 판정 → 결론',['둘 다 루트가 있음','√4=2','√2는 분수 꼴 불가능','루트 여부가 아니라 분수 꼴 가능 여부','판정 결론'],'√4와 √2는 둘 다 루트가 있다. 그러나 √4=2이고 2=2/1로 나타낼 수 있으므로 유리수이다. 반면 √2는 정수/정수 꼴로 정확히 나타낼 수 없으므로 무리수이다. 즉 루트가 있는지가 아니라 분수 꼴 가능 여부가 기준이다.',3,'겉모양이 비슷한 수를 조건으로 비교하는지 확인한다.')
     ];
-    return { set_id:`fallback_proof_vq_${Date.now()}`, target_concepts:[...new Set(focus.concat(['유리수와 무리수의 증명형 판정']))], source_diagnosis:'AI fallback 10문항 증명형 검수', questions, teacher_decision_rule:'10문항 중 7문항 이상 통과하면 부분 이해 이상으로 본다. Q5, Q9, Q10 중 2개 이상 틀리면 개념 경계가 약한 것으로 판정한다.', redo_policy:'틀린 문항은 같은 구조로 다른 수를 넣어 다시 증명하게 한다. 정답만 쓰면 통과하지 않는다.' };
+    return { set_id:`fallback_proof_vq_${Date.now()}`, target_concepts:[...new Set(focus.concat(['유리수와 무리수의 증명형 판정']))], source_diagnosis: engineLock.locked ? '엔진 확정 단원 기반 유리수·무리수 10문항' : 'AI fallback 10문항 증명형 검수', questions, teacher_decision_rule:'10문항 중 7문항 이상 통과하면 부분 이해 이상으로 본다. Q5, Q9, Q10 중 2개 이상 틀리면 개념 경계가 약한 것으로 판정한다.', redo_policy:'틀린 문항은 같은 구조로 다른 수를 넣어 다시 증명하게 한다. 정답만 쓰면 통과하지 않는다.' };
   }
   const q = (id, type, prompt, required, answer, pass = 3, note = '') => makeProofQuestion(id, type, prompt, '주장 → 조건 확인 → 근거/계산 → 결론', required, answer, pass, note);
   const questions = [

@@ -1,4 +1,4 @@
-/* Math Verification Flow v1.4 · Patch 17 precise mathematical diagnosis and unit connection output
+/* Math Verification Flow v1.6 · Patch 21 engine-locked output contract
  * Local orchestration helpers for hybrid math diagnosis.
  */
 class MathVerificationFlow {
@@ -62,6 +62,16 @@ class MathVerificationFlow {
     if (this.engine.diagnoseWithGuidance) return this.engine.diagnoseWithGuidance(aiExtraction.engine_adapter.student_attempt);
     return null;
   }
+
+  _resolveEngineLockedContext(aiExtraction, engineDiagnosis) {
+    const conceptObjs = Array.isArray(engineDiagnosis?.top_concepts) ? engineDiagnosis.top_concepts : Array.isArray(aiExtraction?._engine_context?.top_concepts) ? aiExtraction._engine_context.top_concepts : [];
+    const unitObjs = Array.isArray(engineDiagnosis?.top_units) ? engineDiagnosis.top_units : Array.isArray(aiExtraction?._engine_context?.top_units) ? aiExtraction._engine_context.top_units : [];
+    const concepts = conceptObjs.map(x => x?.concept_name || x?.name || x?.concept_id || x).filter(Boolean).map(String);
+    const units = unitObjs.map(x => x?.unit_name || x?.name || x?.unit_id || x).filter(Boolean).map(String);
+    const focus = Array.from(new Set([...concepts, ...units])).filter(Boolean);
+    return { locked: focus.length > 0, focus, concepts, units, source: focus.length ? 'engine_diagnosis' : 'ai_extraction' };
+  }
+
   async runLocalNoteReview(aiExtraction) {
     if (!this.engine || !aiExtraction?.engine_adapter?.note_review_input) return null;
     if (this.engine.loadEvidenceLogic) await this.engine.loadEvidenceLogic();
@@ -69,10 +79,13 @@ class MathVerificationFlow {
     return null;
   }
   buildFallbackVerificationQuestions(aiExtraction, engineDiagnosis, noteReview) {
-    const focus = [
+    const engineLock = this._resolveEngineLockedContext(aiExtraction, engineDiagnosis);
+    const aiFocus = [
       ...(aiExtraction?.verification_need?.focus_concepts || []),
-      ...(engineDiagnosis?.top_concepts || []).slice(0, 2).map(c => c.concept_name).filter(Boolean)
+      ...(aiExtraction?.math_signal?.concept_candidates || []).map(c => c.concept_name).filter(Boolean),
+      ...(aiExtraction?.math_signal?.unit_candidates || []).map(c => c.unit_name).filter(Boolean)
     ];
+    const focus = (engineLock.locked ? engineLock.focus : aiFocus).filter(Boolean);
     const missing = [
       ...(aiExtraction?.student_material_review?.lecture_note_review?.missing_evidence || []),
       ...(aiExtraction?.student_material_review?.concept_note_review?.missing_links || []),
@@ -80,8 +93,10 @@ class MathVerificationFlow {
     ];
     const concept = focus[0] || '핵심 개념';
     const reason = missing[0] || aiExtraction?.verification_need?.reason || '학생 이해 확인 필요';
-    const text = JSON.stringify({ focus, missing, aiExtraction, engineDiagnosis });
-    const isIrrational = /무리수|유리수|순환소수|비순환|루트|제곱근|√|π|분수 꼴|유한소수|무한소수/.test(text);
+    const text = JSON.stringify(engineLock.locked ? { engine_locked_context: engineLock } : { focus, missing, aiExtraction, engineDiagnosis });
+    const isPowerRoot = /거듭제곱근|n제곱근|세제곱근|네제곱근|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|지수법칙|a\^\(1\/n\)|1\/n\)|root/i.test(text);
+    const isIrrational = !isPowerRoot && /유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text);
+    if (isPowerRoot) return this._buildPowerRootProofSet(focus, reason);
     if (isIrrational) return this._buildRationalIrrationalProofSet(focus, reason);
     return this._buildGenericProofSet(concept, focus, reason);
   }
@@ -102,6 +117,29 @@ class MathVerificationFlow {
       teacher_note: note
     };
   }
+  _buildPowerRootProofSet(focus, reason) {
+    const questions = [
+      this._proofQuestion('Q1','proof_explanation','거듭제곱근의 정의를 쓰고, √[n]{a}가 의미하는 조건을 설명하세요.','정의 → 방정식 x^n=a 연결 → 조건 확인 → 결론',['x^n=a','n제곱하여 a가 되는 수','실수 범위 조건','결론'],'√[n]{a}는 n제곱해서 a가 되는 수를 뜻한다. 즉 x=√[n]{a}라면 x^n=a를 만족해야 한다. 단, 실수 범위에서는 n의 짝홀성과 a의 부호에 따라 존재 여부가 달라진다.',3,'거듭제곱근을 기호 암기가 아니라 x^n=a 조건으로 이해하는지 확인한다.'),
+      this._proofQuestion('Q2','classification','n이 짝수일 때 a<0이면 실수 n제곱근이 존재하지 않는 이유를 설명하세요.','짝수 제곱의 부호 → 음수가 될 수 없음 → 결론',['짝수 제곱','항상 0 이상','a<0','실수해 없음'],'실수 x에 대해 x^{2k}는 항상 0 이상이다. 따라서 x^{2k}=a에서 a<0이면 이를 만족하는 실수 x가 없다. 그러므로 짝수 거듭제곱근은 음수에 대해 실수 범위에서 존재하지 않는다.',3,'짝수 거듭제곱근의 존재 조건을 확인한다.'),
+      this._proofQuestion('Q3','classification','n이 홀수일 때 음수의 실수 n제곱근이 존재하는 이유를 예로 설명하세요.','홀수 제곱의 부호 유지 → 예시 → 결론',['홀수 제곱','음수 가능','∛(-8)=-2','결론'],'홀수 제곱은 음수의 부호를 유지할 수 있다. 예를 들어 (-2)^3=-8이므로 ∛(-8)=-2이다. 따라서 홀수 거듭제곱근은 음수에서도 실수값을 가질 수 있다.',3,'짝수와 홀수 거듭제곱근의 차이를 확인한다.'),
+      this._proofQuestion('Q4','process','√[4]{16}의 값을 구하고, 그 이유를 증명하세요.','후보값 확인 → 4제곱 → 주값 결론',['2^4=16','주값','양수','결론'],'2^4=16이므로 16의 네제곱근 중 주값은 2이다. √[4]{16}은 주값을 나타내므로 √[4]{16}=2이다.',3,'짝수 거듭제곱근에서 주값 기호를 구분하는지 확인한다.'),
+      this._proofQuestion('Q5','proof_explanation','x^2=16의 해와 √16의 값을 비교하여 설명하세요.','방정식의 해 → 기호의 주값 → 비교 결론',['x=±4','√16=4','방정식과 기호 구분','결론'],'x^2=16의 해는 x=4 또는 x=-4이다. 하지만 √16은 제곱근 중 주값을 나타내므로 4이다. 따라서 방정식의 모든 해와 √ 기호의 값은 구분해야 한다.',3,'모든 해와 주값을 혼동하는지 확인한다.'),
+      this._proofQuestion('Q6','error_correction','√(a^2)=a라고 항상 쓰면 안 되는 이유를 반례로 설명하세요.','틀린 일반화 → 반례 → 절댓값 결론',['a=-3 반례','√9=3','a와 다름','√(a^2)=|a|'],'반례로 a=-3을 넣으면 √(a^2)=√9=3이지만 a=-3이다. 따라서 √(a^2)=a가 항상 성립하지 않는다. 실수 a에 대해 √(a^2)=|a|이다.',4,'제곱근과 절댓값 연결을 확인한다.'),
+      this._proofQuestion('Q7','process','27^(2/3)을 거듭제곱근을 이용해 계산하고 과정을 쓰세요.','분수 지수 변환 → 세제곱근 → 제곱',['27^(1/3)=3','3^2=9','분수 지수 의미','결론'],'27^(2/3)=(27^(1/3))^2이다. 27^(1/3)=3이므로 27^(2/3)=3^2=9이다.',3,'유리수 지수와 거듭제곱근의 연결을 확인한다.'),
+      this._proofQuestion('Q8','classification','(-8)^(1/3)과 (-8)^(1/2)이 실수 범위에서 어떻게 다른지 설명하세요.','홀수근/짝수근 비교 → 실수 존재 여부',['(-8)^(1/3)=-2','(-8)^(1/2) 실수 아님','홀수/짝수 차이','결론'],'(-8)^(1/3)은 ∛(-8)이므로 -2이다. 하지만 (-8)^(1/2)은 √(-8)을 뜻하므로 실수 범위에서는 정의되지 않는다. 차이는 분모 3은 홀수, 분모 2는 짝수라는 점이다.',4,'음수 밑과 분수 지수에서 정의역 조건을 확인한다.'),
+      this._proofQuestion('Q9','counterexample_generation','“거듭제곱근 기호가 있으면 항상 두 값이 나온다”가 틀렸음을 반례로 보이세요.','틀린 문장 → 반례 → 이유 → 결론',['∛8=2','하나의 실수값','또는 √16=4 주값','문장 반박'],'반례는 ∛8=2이다. 세제곱근은 홀수근이므로 실수 범위에서 하나의 값을 가진다. 또한 √16은 주값 기호라 4를 뜻한다. 따라서 거듭제곱근 기호가 있다고 항상 두 값이 나오는 것은 아니다.',3,'겉모양으로 일반화하지 않는지 확인한다.'),
+      this._proofQuestion('Q10','proof_explanation','거듭제곱근이 지수함수와 로그함수 단원에 왜 연결되는지 설명하세요.','분수 지수 → 지수법칙 → 정의역 조건 → 연결 단원',['a^(m/n)','거듭제곱근','밑의 조건','지수함수와 로그함수'],'거듭제곱근은 a^(m/n) 같은 유리수 지수를 해석하는 기준이다. 이때 밑 a의 부호와 n의 짝홀성에 따라 실수 범위에서 정의 여부가 달라진다. 그래서 지수함수와 로그함수에서 지수법칙을 적용하기 전에 정의역과 조건을 확인해야 한다.',2,'왜 이 내용을 대수에서 배우는지 연결성을 확인한다.')
+    ];
+    return {
+      set_id: `local_power_root_vq_${Date.now()}`,
+      target_concepts: Array.from(new Set(focus.concat(['거듭제곱근과 유리수 지수의 조건 판정']))).slice(0, 5),
+      source_diagnosis: reason,
+      questions,
+      teacher_decision_rule: '10문항 중 7문항 이상 통과하면 부분 이해 이상으로 본다. Q2, Q5, Q6, Q8 중 2개 이상 틀리면 거듭제곱근의 조건 판정이 약한 것으로 본다.',
+      redo_policy: '틀린 문항은 n의 짝홀성, 밑의 부호, 주값 여부, 유리수 지수 변환 조건을 표시해서 다시 증명한다.'
+    };
+  }
+
   _buildRationalIrrationalProofSet(focus, reason) {
     const questions = [
       this._proofQuestion('Q1','proof_explanation','0.5가 유리수임을 증명하세요.','분수 변환 → 정수/정수 꼴 확인 → 결론',['0.5=5/10=1/2','분자와 분모가 정수','분모가 0이 아님','유리수 결론'],'0.5=5/10=1/2이다. 1과 2는 정수이고 2는 0이 아니다. 따라서 0.5는 정수/정수 꼴로 나타낼 수 있으므로 유리수이다.',3,'유한소수가 유리수임을 분수 변환으로 확인한다.'),
