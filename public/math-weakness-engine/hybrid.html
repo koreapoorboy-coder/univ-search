@@ -10,7 +10,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 </head>
 <body>
 <h1>수학 하이브리드 AI 진단</h1>
-<p class="muted">학생은 이름·학년·파일만 제출하고, 나머지 과목/단원/오답 정보는 AI와 수학 취약유형 엔진이 뒤에서 자동 추출하는 간편 진단 페이지입니다.</p>
+<p class="muted">학생은 이름·학년·파일만 제출합니다. AI가 파일이 문제풀이인지, 오답노트인지, 개념정리인지 먼저 구분한 뒤 수학 취약유형 엔진과 연결합니다.</p>
 
 <div class="card warn">
   <h2>Worker 연결</h2>
@@ -38,7 +38,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 
 <div class="card simple-card">
   <h2 class="simple-title"><span class="step-badge">1</span> 학생 진단 자료 제출</h2>
-  <p class="muted">학생은 아래 3가지만 입력하면 됩니다. 과목, 단원, 오답 번호, 문제 유형은 AI가 파일에서 먼저 추출하고 수학 취약유형 엔진이 뒤에서 매칭합니다.</p>
+  <p class="muted">학생은 아래 3가지만 입력하면 됩니다. 파일이 시험지/풀이인지, 개념정리/필기인지, 오답노트인지도 AI가 먼저 자동 판별합니다.</p>
   <div class="grid">
     <div>
       <label>학생 이름 <span class="required-mark">*</span></label>
@@ -58,14 +58,14 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
     </div>
   </div>
   <div class="upload-box">
-    <label>시험지 / 오답 / 풀이 / 필기 파일 업로드 <span class="required-mark">*</span></label>
+    <label>시험지 / 오답 / 풀이 / 개념정리 / 필기 파일 업로드 <span class="required-mark">*</span></label>
     <input id="files" type="file" multiple accept="application/pdf,image/*" />
-    <p class="muted small">PDF 또는 사진 파일을 올리면 됩니다. 여러 장이면 한 번에 선택하세요. 권장: 시험지, 학생 풀이, 오답 표시가 보이는 파일.</p>
+    <p class="muted small">PDF 또는 사진 파일을 올리면 됩니다. 여러 장이면 한 번에 선택하세요. 개념정리 노트, 오답노트, 시험지, 학생 풀이 사진 모두 가능합니다.</p>
   </div>
   <button type="button" id="analyze_btn" class="primary-action">진단 시작</button>
   <div class="student-help">
     <b>학생 안내 문구</b>
-    <p class="muted small">파일에 문제 번호, 풀이 흔적, 오답 표시가 보일수록 진단이 정확해집니다. 정답만 보이는 자료보다 풀이 과정이 보이는 자료가 좋습니다.</p>
+    <p class="muted small">파일에 문제 번호, 풀이 흔적, 오답 표시, 개념 정의, 예시, 자기 설명이 보일수록 진단이 정확해집니다. 개념정리 파일은 공식만 있는지, 조건·예시·이유까지 있는지를 따로 검수합니다.</p>
   </div>
 </div>
 
@@ -83,7 +83,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
   <label>학생 풀이 텍스트</label>
   <textarea id="solution_text" placeholder="선택: 풀이 사진을 텍스트로 옮긴 내용 또는 학생이 직접 입력한 풀이"></textarea>
   <label>인강 필기/개념 정리 텍스트</label>
-  <textarea id="note_text" placeholder="선택: 필기 사진을 텍스트로 옮긴 내용"></textarea>
+  <textarea id="note_text" placeholder="선택: 필기/개념정리 사진을 텍스트로 옮긴 내용"></textarea>
   <label>분석 모드</label>
   <select id="mode">
     <option value="balanced">balanced · 기본</option>
@@ -393,7 +393,7 @@ window.addEventListener('DOMContentLoaded', () => {
           return;
         }
         if (btn) { btn.disabled = true; btn.textContent = '진단 분석 중...'; }
-        resultEl.innerHTML = `<div class="card progress-card"><h2>AI 진단 분석 중</h2><p>파일을 읽고 과목·단원·오답 흔적·취약 개념을 추출하고 있습니다. 파일 크기에 따라 시간이 걸릴 수 있습니다.</p></div>`;
+        resultEl.innerHTML = `<div class="card progress-card"><h2>AI 진단 분석 중</h2><p>파일 목적을 먼저 구분한 뒤, 문제풀이·오답·개념정리·필기 각각에 맞춰 취약 개념을 추출하고 있습니다. 파일 크기에 따라 시간이 걸릴 수 있습니다.</p></div>`;
         state.payload = collectForm();
         state.extraction = await bridge.analyze(state.payload, $('#files').files);
         state.engineDiagnosis = await flow.runLocalEngineDiagnosis(state.extraction);

@@ -1,0 +1,33 @@
+{
+  "patch_id": "patch10_material_purpose_concept_review_20260708",
+  "title": "Material purpose classifier and concept note review mode",
+  "version": "2026.07.08-patch10-material-purpose-concept-review",
+  "student_visible_inputs": [
+    "student_name",
+    "grade_label",
+    "files"
+  ],
+  "auto_detected_material_types": [
+    "problem_solving",
+    "wrong_answer_note",
+    "concept_summary",
+    "lecture_note",
+    "verification_answer",
+    "mixed",
+    "unknown"
+  ],
+  "new_worker_schema_fields": [
+    "file_purpose_review",
+    "student_material_review.concept_note_review"
+  ],
+  "new_result_blocks": [
+    "자료별 자동 판별",
+    "개념정리 검수",
+    "다시 정리할 과제"
+  ],
+  "cloudflare_update_required": true,
+  "github_update_required": true,
+  "worker_model": "gpt-5.5",
+  "worker_reasoning_effort": "xhigh",
+  "commit_message": "Add material purpose and concept note review mode"
+}

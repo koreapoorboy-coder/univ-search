@@ -1,4 +1,4 @@
-/* Math Verification Flow v1.0
+/* Math Verification Flow v1.1 · Patch 10 material purpose hints
  * Local orchestration helpers for hybrid math diagnosis.
  */
 class MathVerificationFlow {
@@ -153,6 +153,8 @@ class MathVerificationFlow {
   }
   _guessFileRole(name) {
     const n = String(name || '').toLowerCase();
+    if (n.includes('concept') || n.includes('개념') || n.includes('정리') || n.includes('summary')) return 'concept_summary_image';
+    if (n.includes('오답') || n.includes('wrong') || n.includes('review')) return 'wrong_answer_note_image';
     if (n.includes('note') || n.includes('필기') || n.includes('인강')) return 'lecture_note_image';
     if (n.includes('solution') || n.includes('풀이')) return 'solution_image';
     if (n.includes('answer') || n.includes('검수')) return 'verification_answer_image';
