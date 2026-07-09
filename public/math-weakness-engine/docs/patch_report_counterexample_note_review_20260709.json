@@ -1,0 +1,12 @@
+{
+  "patch": "patch12-counterexample-note-review",
+  "version": "2026.07.09-patch12-counterexample-note-review",
+  "changes": [
+    "add counterexample_review to concept_note_review schema",
+    "add boundary_condition_review",
+    "add concept_rewrite_template",
+    "update verification question schema with counterexample_generation and non_example_classification",
+    "update renderer to show counterexample and rewrite blocks"
+  ],
+  "cloudflare_worker_changed": true
+}

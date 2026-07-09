@@ -1,7 +1,7 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.08-patch11-default-worker-hidden-settings",
+  "version": "2026.07.09-patch12-counterexample-note-review",
   "build_date": "2026-07-08",
   "scope": "중1~고2 주요 단원, 학생 이름·학년·파일 업로드 기반 AI 자동 자료 목적 판별, 기본 Worker URL 자동 적용, 학생 화면 연결 설정 숨김",
   "description": "학생은 이름, 학년, 파일만 제출하고 Worker 연결은 기본 URL로 자동 적용된다. 교사용 고급 연결 설정에서만 Worker URL 저장, 확인, 설정 확인을 사용할 수 있다.",
@@ -32,5 +32,12 @@
   "has_concept_note_review_mode": true,
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
-  "hides_worker_settings_from_student_view": true
+  "hides_worker_settings_from_student_view": true,
+  "patch": "Patch 12: Counterexample-aware lecture note and concept summary review",
+  "features": [
+    "counterexample_review",
+    "non_example_classification",
+    "boundary_condition_review",
+    "concept_rewrite_template"
+  ]
 }

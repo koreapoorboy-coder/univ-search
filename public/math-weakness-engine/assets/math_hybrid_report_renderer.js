@@ -1,4 +1,4 @@
-/* Math Hybrid Report Renderer v1.1 · Patch 10 concept-note aware */
+/* Math Hybrid Report Renderer v1.2 · Patch 12 counterexample-aware */
 class MathHybridReportRenderer {
   static esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
   static list(items) { return `<ol>${(items || []).map(x => `<li>${this.esc(typeof x === 'string' ? x : JSON.stringify(x))}</li>`).join('')}</ol>`; }
@@ -13,12 +13,34 @@ class MathHybridReportRenderer {
     const concept = data.student_material_review?.concept_note_review || {};
     const sol = data.student_material_review?.solution_review || {};
     const detected = (purpose.detected_materials || []).map(m => `<div class="subcard"><b>${this.esc(m.filename || '자료')}</b><br><span class="tag">${this.esc(m.material_type)}</span> <span class="tag">확신도 ${this.esc(m.confidence)}</span><p class="muted">${this.esc(m.evidence)}</p></div>`).join('');
+    const counter = concept.counterexample_review || {};
+    const boundary = concept.boundary_condition_review || {};
+    const rewrite = concept.concept_rewrite_template || {};
     const conceptBlock = concept.summary_type ? `
       <h3>개념정리 검수</h3>
       <p><b>정리 유형:</b> ${this.esc(concept.summary_type)} / <b>정확도:</b> ${this.esc(concept.conceptual_accuracy)} / <b>연결 이해:</b> ${this.esc(concept.connected_understanding_level)}</p>
       <p><b>다시 정리할 과제:</b> ${this.esc(concept.next_rewrite_task)}</p>
       <h4>부족한 연결</h4>${this.list(concept.missing_links)}
       <h4>오개념 위험</h4>${this.list(concept.misuse_risks)}
+      <div class="subcard danger">
+        <h4>반례/비예시 검수</h4>
+        <p><b>반례 포함:</b> ${this.esc(counter.counterexample_present || 'unknown')} / <b>반례 품질:</b> ${this.esc(counter.student_counterexample_quality || 'unknown')}</p>
+        <p><b>반례 보완 과제:</b> ${this.esc(counter.missing_counterexample_task || '')}</p>
+        <p class="muted"><b>교사용:</b> ${this.esc(counter.teacher_note || '')}</p>
+      </div>
+      <div class="subcard warn">
+        <h4>조건/일반화 위험</h4>
+        <p><b>조건 오용 위험:</b> ${this.esc(boundary.condition_misuse_risk || '')}</p>
+        <p><b>금지 일반화:</b> ${this.esc(boundary.forbidden_generalization || '')}</p>
+        <p><b>확인할 조건:</b> ${(boundary.required_conditions || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join('')}</p>
+      </div>
+      <div class="subcard info">
+        <h4>학생 재정리 틀</h4>
+        <p><b>순서:</b> ${(rewrite.required_order || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join('')}</p>
+        <p>${this.esc(rewrite.student_rewrite_prompt || '')}</p>
+        <p><b>예시 조건:</b> ${this.esc(rewrite.example_requirement || '')}</p>
+        <p><b>반례 조건:</b> ${this.esc(rewrite.counterexample_requirement || '')}</p>
+      </div>
     ` : '';
     return this.card('1차 AI 자료 분석', `
       <p><b>자료 품질:</b> ${this.esc(s.source_quality)} / <b>학생 수행 흔적:</b> ${this.esc(s.student_did_work_evidence)} / <b>확신도:</b> ${this.esc(s.confidence)}</p>

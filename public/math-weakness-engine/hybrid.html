@@ -16,7 +16,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 
 <div class="card simple-card">
   <h2 class="simple-title"><span class="step-badge">1</span> 학생 진단 자료 제출</h2>
-  <p class="muted">학생은 아래 3가지만 입력하면 됩니다. 파일이 시험지/풀이인지, 개념정리/필기인지, 오답노트인지도 AI가 먼저 자동 판별합니다.</p>
+  <p class="muted">학생은 아래 3가지만 입력하면 됩니다. 파일이 시험지/풀이인지, 개념정리/필기인지, 오답노트인지도 AI가 먼저 자동 판별합니다. 개념정리는 반례/비예시까지 포함되어 있는지 함께 검수합니다.</p>
   <div class="grid">
     <div>
       <label>학생 이름 <span class="required-mark">*</span></label>
@@ -43,7 +43,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
   <button type="button" id="analyze_btn" class="primary-action">진단 시작</button>
   <div class="student-help">
     <b>학생 안내 문구</b>
-    <p class="muted small">파일에 문제 번호, 풀이 흔적, 오답 표시, 개념 정의, 예시, 자기 설명이 보일수록 진단이 정확해집니다. 개념정리 파일은 공식만 있는지, 조건·예시·이유까지 있는지를 따로 검수합니다.</p>
+    <p class="muted small">파일에 문제 번호, 풀이 흔적, 오답 표시, 개념 정의, 예시, 자기 설명이 보일수록 진단이 정확해집니다. 개념정리 파일은 공식만 있는지, 조건·예시·이유·반례/비예시까지 있는지를 따로 검수합니다.</p>
   </div>
 </div>
 

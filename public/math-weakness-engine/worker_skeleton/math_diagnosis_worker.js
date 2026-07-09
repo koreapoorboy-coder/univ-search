@@ -1,5 +1,5 @@
 const SERVICE_NAME = 'math-diagnosis-worker';
-const VERSION = '2026.07.08-patch10-material-purpose-concept-review';
+const VERSION = '2026.07.09-patch12-counterexample-note-review';
 const DEFAULT_MODEL = 'gpt-5.5';
 const DEFAULT_REASONING_EFFORT = 'xhigh';
 const DEFAULT_MAX_OUTPUT_TOKENS = 25000;
@@ -228,8 +228,10 @@ function buildAnalyzePrompt(payload, files) {
 
 반드시 지킬 원칙:
 - 먼저 첨부 자료의 목적을 분류한다. 문제풀이, 오답노트, 개념정리, 수업필기, 검수답안, 혼합, 판별불가 중에서 판단한다.
-- 학생이 올린 자료가 개념정리 파일이면 문제풀이처럼 맞고 틀림만 보지 말고, 정의·조건·공식의 의미·예시·이전 개념 연결·다음 단원 활용을 검수한다.
-- 공식만 나열되어 있으면 '암기형 정리'로 분류하고, 언제 쓰는지/왜 그렇게 되는지/어떤 조건에서 쓰는지 부족한 부분을 concept_note_review에 적는다.
+- 학생이 올린 자료가 개념정리 파일이면 문제풀이처럼 맞고 틀림만 보지 말고, 정의·조건·공식의 의미·예시·반례·비예시·이전 개념 연결·다음 단원 활용을 검수한다.
+- 공식만 나열되어 있으면 '암기형 정리'로 분류하고, 언제 쓰는지/왜 그렇게 되는지/어떤 조건에서 쓰는지/어떤 경우에는 쓰면 안 되는지 부족한 부분을 concept_note_review에 적는다.
+- 개념정리/인강필기 검수에서는 반드시 반례 또는 비예시 관점을 본다. 학생이 반례를 쓰지 않았으면 counterexample_review.missing_counterexample_task에 '다시 써야 할 반례 과제'를 구체적으로 적는다.
+- 정리 결과는 복붙 느낌의 요약이 아니라 '정의 → 사용 조건 → 대표 예시 → 반례/비예시 → 자주 하는 착각 → 문제 적용 기준' 순서로 다시 쓰게 만든다.
 - 학생이 인강을 봤는지 단정하지 말고, 확인된 흔적과 부족한 증거를 분리한다.
 - 보이는 풀이/필기/정리에서만 판단하고, 보이지 않는 내용은 missing_materials 또는 missing_evidence에 넣는다.
 - 오답 번호, 단원명, problem_type_id 힌트가 있으면 engine_adapter.student_attempt에 연결한다.
@@ -239,8 +241,8 @@ function buildAnalyzePrompt(payload, files) {
 자료 목적 분류 기준:
 - problem_solving: 문제와 풀이 과정 중심
 - wrong_answer_note: 오답 번호, 틀린 이유, 다시 푼 흔적 중심
-- concept_summary: 개념 정의, 공식, 조건, 예시, 단원 정리 중심
-- lecture_note: 수업/인강 필기, 판서, 선생님 설명 기록 중심
+- concept_summary: 개념 정의, 공식, 조건, 예시, 반례/비예시, 단원 정리 중심
+- lecture_note: 수업/인강 필기, 판서, 선생님 설명 기록 중심. 단순 판서 복사인지, 반례·조건·자기 말 설명이 있는지 반드시 구분
 - verification_answer: 검수 문항에 대한 재제출 답안 중심
 - mixed: 위 성격이 2개 이상 섞임
 - unknown: 화질 또는 정보 부족으로 판단 곤란
@@ -253,9 +255,10 @@ function buildVerificationPrompt(payload) {
   return `1차 진단 결과를 바탕으로 학생에게 풀릴 검수 문항 세트를 생성하라.
 
 요구사항:
-- 문항은 정의 확인, 구분 확인, 과정 확인, 자기 설명, 직접 예시 생성 중 필요한 것만 조합한다.
+- 문항은 정의 확인, 구분 확인, 과정 확인, 자기 설명, 직접 예시 생성, 반례 생성, 비예시 구분 중 필요한 것만 조합한다.
+- 개념정리/인강필기 검수 결과가 있으면 반례 생성 또는 비예시 구분 문항을 최소 1개 포함한다.
 - 각 문항에는 required_elements와 teacher_note를 반드시 구체화한다.
-- 정답만 맞히는 문항이 아니라, 학생이 왜 그렇게 생각했는지 드러나야 한다.
+- 정답만 맞히는 문항이 아니라, 학생이 왜 그렇게 생각했는지, 어떤 경우에는 그 개념을 쓰면 안 되는지 드러나야 한다.
 
 입력:
 ${JSON.stringify(payload, null, 2)}`;
@@ -264,7 +267,8 @@ function buildReviewPrompt(payload, files) {
   return `학생이 검수 문항에 작성한 답안을 재검수하라.
 
 판정 기준:
-- 정답 여부만 보지 말고 정의 연결, 풀이 과정, 핵심 근거, 예시 적용 가능성을 본다.
+- 정답 여부만 보지 말고 정의 연결, 풀이 과정, 핵심 근거, 예시 적용 가능성, 반례/비예시 구분 가능성을 본다.
+- 학생이 든 반례가 진짜 반례인지, 단순히 다른 예시를 반례라고 착각한 것인지 구분한다.
 - A는 이해 완료, B는 부분 이해, C는 암기 수준, D는 재학습 필요로 판정한다.
 - 학생에게 다시 시킬 과제를 final_instruction.redo_tasks에 구체적으로 적는다.
 
@@ -277,8 +281,9 @@ function buildFinalReportPrompt(payload) {
 
 출력 원칙:
 - 학생용은 무엇을 다시 해야 하는지 행동 중심으로 쓴다.
+- 개념정리 보완이 필요한 학생에게는 '정의-조건-예시-반례-문제 적용 기준' 순서로 다시 쓰게 안내한다.
 - 학부모용은 왜 다시 해야 하는지 쉬운 말로 쓴다.
-- 교사용은 다음 수업에서 확인할 개념과 재학습 순서를 쓴다.
+- 교사용은 다음 수업에서 확인할 개념, 반례 질문, 재학습 순서를 쓴다.
 
 입력:
 ${JSON.stringify(payload, null, 2)}`;
@@ -295,7 +300,7 @@ function buildAnalyzeFallback(payload, reason = 'fallback') {
 ${solutionText}`;
   const hasNote = noteText.trim().length > 20;
   const hasProcess = /\=|따라서|왜냐하면|풀이|과정|x\s*=/.test(solutionText);
-  const conceptWords = /정의|개념|공식|성질|조건|예시|유리수 지수|로그|지수법칙|그래프|원리/.test(combinedText);
+  const conceptWords = /정의|개념|공식|성질|조건|예시|반례|비예시|유리수 지수|로그|지수법칙|그래프|원리/.test(combinedText);
   const primaryType = conceptWords && !hasProcess ? 'concept_summary' : hasProcess ? 'problem_solving' : hasNote ? 'lecture_note' : (manifest[0]?.file_role === 'exam_pdf' ? 'problem_solving' : 'unknown');
   const routing = primaryType === 'concept_summary' || primaryType === 'lecture_note' ? 'concept_review' : primaryType === 'problem_solving' ? 'solve_diagnosis' : 'insufficient';
   const detected = (manifest.length ? manifest : [{ filename:'text_input', file_role: primaryType }]).map((f) => ({
@@ -304,7 +309,7 @@ ${solutionText}`;
     evidence: `${reason}: 파일명/입력 텍스트 기반 임시 판별`,
     confidence: primaryType === 'unknown' ? 0.25 : 0.45
   }));
-  const conceptLevel = conceptWords ? (/(왜|이유|조건|예시|반례|연결|그래프|정의에서)/.test(combinedText) ? 'B' : 'C') : 'D';
+  const conceptLevel = conceptWords ? (/(왜|이유|조건|예시|반례|비예시|쓰면 안|아닌 경우|연결|그래프|정의에서)/.test(combinedText) ? 'B' : 'C') : 'D';
   const conceptualAccuracy = !conceptWords ? 'not_enough_evidence' : conceptLevel === 'B' ? 'partially_correct' : 'memorized_only';
   return {
     ok: true,
@@ -317,30 +322,30 @@ ${solutionText}`;
     extraction_summary: { source_quality: 'partially_clear', student_did_work_evidence: hasNote || hasProcess ? 'some' : 'weak', confidence: 0.45, missing_materials: [`${reason}: 정밀 AI 분석 전 임시 결과`] },
     student_material_review: {
       lecture_note_review: { watch_evidence: hasNote ? 'possibly_watched' : 'not_enough_evidence', understanding_level: hasNote ? conceptLevel : 'D', confirmed_concepts: [ctx.unit_name].filter(Boolean), missing_evidence: ['자기 말 설명 또는 풀이 과정 추가 확인 필요'], risk_flags: ['fallback_mode'], teacher_observation: '정밀 검수 전 임시 판단입니다.' },
-      concept_note_review: { summary_type: conceptWords ? (hasProcess ? 'mixed' : 'formula_list') : 'not_present', conceptual_accuracy: conceptualAccuracy, connected_understanding_level: conceptLevel, strengths: conceptWords ? ['핵심 용어 또는 공식 정리 흔적이 있음'] : [], missing_links: ['정의와 조건을 자기 말로 설명하는 증거 부족', '이전 개념과 다음 단원 활용 연결 부족'], misuse_risks: ['공식 암기 후 적용 조건을 놓칠 가능성'], next_rewrite_task: '개념을 정의-조건-예시-왜 필요한가-대표 문제 적용 순서로 다시 정리' },
+      concept_note_review: { summary_type: conceptWords ? (hasProcess ? 'mixed' : 'formula_list') : 'not_present', conceptual_accuracy: conceptualAccuracy, connected_understanding_level: conceptLevel, strengths: conceptWords ? ['핵심 용어 또는 공식 정리 흔적이 있음'] : [], missing_links: ['정의와 조건을 자기 말로 설명하는 증거 부족', '이전 개념과 다음 단원 활용 연결 부족', '반례/비예시를 통한 경계 조건 설명 부족'], misuse_risks: ['공식 암기 후 적용 조건을 놓칠 가능성', '다른 예시를 반례로 착각하거나 반례 없이 일반화할 가능성'], next_rewrite_task: '개념을 정의-조건-대표 예시-반례/비예시-자주 하는 착각-대표 문제 적용 순서로 다시 정리', counterexample_review: { counterexample_present: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'present' : 'missing', student_counterexample_quality: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'needs_teacher_check' : 'not_present', missing_counterexample_task: '이 개념이 성립하지 않는 경우 또는 쓰면 안 되는 조건을 반례 1개와 이유로 다시 쓰기', teacher_note: '개념정리 검수에서는 반례 유무를 암기형 정리와 이해형 정리를 가르는 기준으로 본다.' }, boundary_condition_review: { required_conditions: ['정의가 성립하는 조건', '공식을 적용할 수 있는 조건', '적용하면 안 되는 경우'], condition_misuse_risk: '조건 없이 공식을 외우면 문제에서 적용 대상을 잘못 고를 수 있음', forbidden_generalization: '한 예시에서 성립한 규칙을 모든 경우로 일반화하지 않게 확인 필요' }, concept_rewrite_template: { required_order: ['정의', '사용 조건', '대표 예시', '반례/비예시', '자주 하는 착각', '문제 적용 기준'], student_rewrite_prompt: '강의 내용을 그대로 옮기지 말고, 이 개념이 언제 쓰이고 언제 쓰면 안 되는지를 자기 말로 다시 정리하세요.', example_requirement: '대표 예시는 계산 또는 그래프/조건 판단이 보이게 1개 이상 작성', counterexample_requirement: '반례 또는 비예시는 왜 이 개념을 적용하면 안 되는지 이유까지 작성' } },
       solution_review: { process_evidence: hasProcess ? 'partial_process' : 'not_visible', main_error_candidates: ['정밀 분석 필요'], calculation_error_candidates: [], concept_error_candidates: [], quoted_student_steps: [] }
     },
     math_signal: { unit_candidates: [{ unit_id: ctx.unit_id || '', unit_name: ctx.unit_name || '', confidence: 0.5 }], problem_type_candidates: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', problem_type_hint: known[i] || 'unknown', confidence: known[i] ? 0.7 : 0.2, evidence:'user_input' })), concept_candidates: [{ concept_id:'', concept_name: ctx.unit_name || '핵심 개념', evidence:'user_context_or_concept_note' }], misconception_candidates: [{ misconception:'풀이 과정 또는 개념 설명 확인 필요', why_it_matters:'필기/풀이/개념정리만으로 이해 여부를 확정할 수 없음', severity:'medium' }] },
     engine_adapter: { student_attempt: { attempts: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', is_correct:false, correct:false, difficulty:'core', observed_error_tags:['ai_bridge_fallback'] })) }, note_review_input: { student_note: { unit_id: ctx.unit_id || '', lesson_title: ctx.lesson_title || ctx.unit_name || '', note_text: noteText } }, recommended_engine_actions: ['classify_material_purpose','run_diagnoseWithGuidance','run_reviewStudentNote','generate_verification_questions'] },
-    verification_need: { needed: true, reason: primaryType === 'concept_summary' ? '개념정리의 이해 수준 검수 필요' : '정밀 이해 확인 필요', focus_concepts:[ctx.unit_name || '핵심 개념'], must_check_actions:['정의 설명','조건 설명','예시 생성','풀이 과정 작성','자기 말 설명'] }
+    verification_need: { needed: true, reason: primaryType === 'concept_summary' ? '개념정리의 이해 수준 검수 필요' : '정밀 이해 확인 필요', focus_concepts:[ctx.unit_name || '핵심 개념'], must_check_actions:['정의 설명','조건 설명','예시 생성','반례 생성','비예시 구분','풀이 과정 작성','자기 말 설명'] }
   };
 }
 function buildVerificationFallback(payload) {
   const focus = payload?.ai_extraction?.verification_need?.focus_concepts || payload?.verification_need?.focus_concepts || ['핵심 개념'];
   const concept = focus[0] || '핵심 개념';
-  return { set_id:`fallback_vq_${Date.now()}`, target_concepts:focus, source_diagnosis:'AI fallback 검수 문항', questions:[{ question_id:'VQ1', question_type:'definition', prompt:`${concept}의 뜻을 자기 말로 설명하고 예시를 1개 쓰세요.`, student_answer_format:'서술형', required_elements:['정의','예시','이유'], answer_key:'정의와 예시가 정확해야 한다.', rubric:[{score:3,condition:'정의와 예시 정확'},{score:1,condition:'용어만 반복'}], minimum_pass_score:2, teacher_note:'암기와 이해를 구분' },{ question_id:'VQ2', question_type:'process', prompt:'대표 문제 하나를 풀이 과정 전체로 다시 쓰세요. 중간 식과 판단 이유를 생략하지 마세요.', student_answer_format:'단계별 풀이', required_elements:['시작식','중간 과정','판단 이유','결론'], answer_key:'과정이 생략되지 않고 개념 판단 기준이 드러나야 한다.', rubric:[{score:4,condition:'과정과 이유 정확'},{score:1,condition:'정답만 있음'}], minimum_pass_score:3, teacher_note:'과정 누락 확인' }], teacher_decision_rule:'과정 문항을 통과하지 못하면 재학습 처리', redo_policy:'틀린 문항은 같은 구조의 다른 예시로 다시 작성' };
+  return { set_id:`fallback_vq_${Date.now()}`, target_concepts:focus, source_diagnosis:'AI fallback 검수 문항', questions:[{ question_id:'VQ1', question_type:'definition', prompt:`${concept}의 뜻을 자기 말로 설명하고 예시를 1개 쓰세요.`, student_answer_format:'서술형', required_elements:['정의','예시','이유'], answer_key:'정의와 예시가 정확해야 한다.', rubric:[{score:3,condition:'정의와 예시 정확'},{score:1,condition:'용어만 반복'}], minimum_pass_score:2, teacher_note:'암기와 이해를 구분' },{ question_id:'VQ2', question_type:'counterexample_generation', prompt:`${concept}을/를 적용하면 안 되는 반례 또는 비예시를 1개 만들고, 왜 안 되는지 이유를 쓰세요.`, student_answer_format:'반례+이유 서술형', required_elements:['반례 또는 비예시','적용 불가 조건','왜 틀리는지 설명'], answer_key:'반례가 실제로 개념의 적용 조건을 벗어나야 하며, 이유 설명이 있어야 한다.', rubric:[{score:4,condition:'반례와 이유가 정확'},{score:2,condition:'반례는 있으나 이유 부족'},{score:1,condition:'다른 예시를 반례로 착각'}], minimum_pass_score:3, teacher_note:'반례를 통해 복붙 정리와 실제 이해를 구분' },{ question_id:'VQ3', question_type:'process', prompt:'대표 문제 하나를 풀이 과정 전체로 다시 쓰세요. 중간 식과 판단 이유를 생략하지 마세요.', student_answer_format:'단계별 풀이', required_elements:['시작식','중간 과정','판단 이유','결론'], answer_key:'과정이 생략되지 않고 개념 판단 기준이 드러나야 한다.', rubric:[{score:4,condition:'과정과 이유 정확'},{score:1,condition:'정답만 있음'}], minimum_pass_score:3, teacher_note:'과정 누락 확인' }], teacher_decision_rule:'반례 문항과 과정 문항 중 하나라도 통과하지 못하면 재학습 처리', redo_policy:'틀린 문항은 정의-조건-예시-반례 순서로 다시 정리한 뒤 다른 구조의 예시로 재작성' };
 }
 function buildAnswerReviewFallback(payload) {
   const txt = payload?.student_answer_text || payload?.student_upload?.submission?.text_inputs?.verification_answer_text || '';
-  const hasReason = /왜냐하면|이유|정의|때문|조건|분수|근거/.test(txt);
+  const hasReason = /왜냐하면|이유|정의|때문|조건|분수|근거|반례|비예시|안 되는 경우/.test(txt);
   const hasProcess = /=|따라서|과정|풀이|단계|계산/.test(txt);
   const score = (hasReason?4:0)+(hasProcess?4:0)+(txt.length>80?2:0);
   const level = score>=8?'A':score>=6?'B':score>=3?'C':'D';
-  return { review_id:`fallback_review_${Date.now()}`, overall_result:{ level, score, decision: score>=8?'understood':score>=6?'partial_understanding':score>=3?'memorized_only':'needs_relearning', summary:'fallback 재검수 결과입니다.' }, question_reviews:[], final_instruction:{ student_message: score>=6?'방향은 맞지만 더 명확한 설명이 필요합니다.':'풀이 과정과 이유를 다시 작성해야 합니다.', teacher_action:'구두 확인 후 재작성 지시', redo_tasks:['정의-과정-결론 3단계로 다시 작성'], parent_message:'학생 답안에서 과정과 이유 설명을 추가 확인해야 합니다.' } };
+  return { review_id:`fallback_review_${Date.now()}`, overall_result:{ level, score, decision: score>=8?'understood':score>=6?'partial_understanding':score>=3?'memorized_only':'needs_relearning', summary:'fallback 재검수 결과입니다.' }, question_reviews:[], final_instruction:{ student_message: score>=6?'방향은 맞지만 더 명확한 설명이 필요합니다.':'풀이 과정과 이유를 다시 작성해야 합니다.', teacher_action:'구두 확인 후 재작성 지시', redo_tasks:['정의-조건-예시-반례-과정-결론 순서로 다시 작성'], parent_message:'학생 답안에서 과정과 이유 설명을 추가 확인해야 합니다.' } };
 }
 function buildFinalReportFallback(payload) {
   const name = payload?.student_upload?.student_profile?.student_name || '학생';
-  return { report_id:`fallback_report_${Date.now()}`, report_type:'full_cycle', student_summary:{ status:`${name}의 임시 진단 결과입니다.`, what_is_understood:[], what_is_missing:['정밀 AI 분석 또는 교사 확인 필요'], next_action:['검수 문항 답안을 과정 중심으로 다시 작성'] }, teacher_summary:{ diagnosis:'fallback 리포트입니다. Worker/OpenAI 연결 후 정밀 분석하세요.', evidence:['입력 payload 기반'], instruction_plan:['검수 문항 재작성','오답 문항 풀이 과정 확인'], watch_points:['개념어 암기와 실제 이해 구분'] }, parent_summary:{ plain_message:'학생이 학습한 흔적은 자료로 확인해야 하며, 현재는 정밀 분석 전 임시 결과입니다.', home_support:['정답보다 풀이 과정과 이유를 말로 설명하게 해주세요.'] }, next_plan:{ redo_tasks:['검수 문항 답안 재작성'], verification_required_again:true, recommended_due_date_hint:'다음 수업 전' } };
+  return { report_id:`fallback_report_${Date.now()}`, report_type:'full_cycle', student_summary:{ status:`${name}의 임시 진단 결과입니다.`, what_is_understood:[], what_is_missing:['정밀 AI 분석 또는 교사 확인 필요'], next_action:['검수 문항 답안을 정의-조건-예시-반례-과정 중심으로 다시 작성'] }, teacher_summary:{ diagnosis:'fallback 리포트입니다. Worker/OpenAI 연결 후 정밀 분석하세요.', evidence:['입력 payload 기반'], instruction_plan:['검수 문항 재작성','오답 문항 풀이 과정 확인'], watch_points:['개념어 암기와 실제 이해 구분','반례/비예시를 만들 수 있는지 확인'] }, parent_summary:{ plain_message:'학생이 학습한 흔적은 자료로 확인해야 하며, 현재는 정밀 분석 전 임시 결과입니다.', home_support:['정답보다 풀이 과정과 이유를 말로 설명하게 해주세요.'] }, next_plan:{ redo_tasks:['검수 문항 답안 재작성','개념정리를 정의-조건-예시-반례 순서로 재작성'], verification_required_again:true, recommended_due_date_hint:'다음 수업 전' } };
 }
 
 function attachMeta(result, requestId, task) {
@@ -595,7 +600,10 @@ const AI_EXTRACTION_SCHEMA = {
             "strengths",
             "missing_links",
             "misuse_risks",
-            "next_rewrite_task"
+            "next_rewrite_task",
+            "counterexample_review",
+            "boundary_condition_review",
+            "concept_rewrite_template"
           ],
           "properties": {
             "summary_type": {
@@ -647,6 +655,93 @@ const AI_EXTRACTION_SCHEMA = {
             },
             "next_rewrite_task": {
               "type": "string"
+            },
+            "counterexample_review": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "counterexample_present",
+                "student_counterexample_quality",
+                "missing_counterexample_task",
+                "teacher_note"
+              ],
+              "properties": {
+                "counterexample_present": {
+                  "type": "string",
+                  "enum": [
+                    "present",
+                    "weak",
+                    "missing",
+                    "not_applicable"
+                  ]
+                },
+                "student_counterexample_quality": {
+                  "type": "string",
+                  "enum": [
+                    "accurate",
+                    "partially_correct",
+                    "misidentified_example",
+                    "not_present",
+                    "needs_teacher_check"
+                  ]
+                },
+                "missing_counterexample_task": {
+                  "type": "string"
+                },
+                "teacher_note": {
+                  "type": "string"
+                }
+              }
+            },
+            "boundary_condition_review": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "required_conditions",
+                "condition_misuse_risk",
+                "forbidden_generalization"
+              ],
+              "properties": {
+                "required_conditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "condition_misuse_risk": {
+                  "type": "string"
+                },
+                "forbidden_generalization": {
+                  "type": "string"
+                }
+              }
+            },
+            "concept_rewrite_template": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "required_order",
+                "student_rewrite_prompt",
+                "example_requirement",
+                "counterexample_requirement"
+              ],
+              "properties": {
+                "required_order": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "student_rewrite_prompt": {
+                  "type": "string"
+                },
+                "example_requirement": {
+                  "type": "string"
+                },
+                "counterexample_requirement": {
+                  "type": "string"
+                }
+              }
             }
           }
         },
@@ -872,6 +967,6 @@ const AI_EXTRACTION_SCHEMA = {
     }
   }
 };
-const VERIFICATION_QUESTION_SCHEMA = { type:'object', additionalProperties:false, required:['set_id','target_concepts','source_diagnosis','questions','teacher_decision_rule','redo_policy'], properties:{ set_id:{type:'string'}, target_concepts:{type:'array',items:{type:'string'}}, source_diagnosis:{type:'string'}, questions:{type:'array',items:{type:'object',additionalProperties:false,required:['question_id','question_type','prompt','student_answer_format','required_elements','answer_key','rubric','minimum_pass_score','teacher_note'],properties:{question_id:{type:'string'},question_type:{type:'string',enum:['definition','classification','process','proof_explanation','error_correction','self_explanation','example_generation']},prompt:{type:'string'},student_answer_format:{type:'string'},required_elements:{type:'array',items:{type:'string'}},answer_key:{type:'string'},rubric:{type:'array',items:{type:'object',additionalProperties:false,required:['score','condition'],properties:{score:{type:'number'},condition:{type:'string'}}}},minimum_pass_score:{type:'number'},teacher_note:{type:'string'}}}}, teacher_decision_rule:{type:'string'}, redo_policy:{type:'string'} } };
+const VERIFICATION_QUESTION_SCHEMA = { type:'object', additionalProperties:false, required:['set_id','target_concepts','source_diagnosis','questions','teacher_decision_rule','redo_policy'], properties:{ set_id:{type:'string'}, target_concepts:{type:'array',items:{type:'string'}}, source_diagnosis:{type:'string'}, questions:{type:'array',items:{type:'object',additionalProperties:false,required:['question_id','question_type','prompt','student_answer_format','required_elements','answer_key','rubric','minimum_pass_score','teacher_note'],properties:{question_id:{type:'string'},question_type:{type:'string',enum:['definition','classification','process','proof_explanation','error_correction','self_explanation','example_generation','counterexample_generation','non_example_classification']},prompt:{type:'string'},student_answer_format:{type:'string'},required_elements:{type:'array',items:{type:'string'}},answer_key:{type:'string'},rubric:{type:'array',items:{type:'object',additionalProperties:false,required:['score','condition'],properties:{score:{type:'number'},condition:{type:'string'}}}},minimum_pass_score:{type:'number'},teacher_note:{type:'string'}}}}, teacher_decision_rule:{type:'string'}, redo_policy:{type:'string'} } };
 const ANSWER_REVIEW_SCHEMA = { type:'object',additionalProperties:false,required:['review_id','overall_result','question_reviews','final_instruction'],properties:{ review_id:{type:'string'}, overall_result:{type:'object',additionalProperties:false,required:['level','score','decision','summary'],properties:{level:{type:'string',enum:['A','B','C','D']},score:{type:'number'},decision:{type:'string',enum:['understood','partial_understanding','memorized_only','needs_relearning']},summary:{type:'string'}}}, question_reviews:{type:'array',items:{type:'object',additionalProperties:false,required:['question_id','status','score','confirmed_understanding','missing_elements','misconceptions','feedback'],properties:{question_id:{type:'string'},status:{type:'string',enum:['correct','partial','incorrect','unanswered']},score:{type:'number'},confirmed_understanding:{type:'array',items:{type:'string'}},missing_elements:{type:'array',items:{type:'string'}},misconceptions:{type:'array',items:{type:'string'}},feedback:{type:'string'}}}}, final_instruction:{type:'object',additionalProperties:false,required:['student_message','teacher_action','redo_tasks','parent_message'],properties:{student_message:{type:'string'},teacher_action:{type:'string'},redo_tasks:{type:'array',items:{type:'string'}},parent_message:{type:'string'}}} } };
 const FINAL_REPORT_SCHEMA = { type:'object',additionalProperties:false,required:['report_id','report_type','student_summary','teacher_summary','parent_summary','next_plan'],properties:{ report_id:{type:'string'}, report_type:{type:'string',enum:['initial_diagnosis','after_verification_review','full_cycle']}, student_summary:{type:'object',additionalProperties:false,required:['status','what_is_understood','what_is_missing','next_action'],properties:{status:{type:'string'},what_is_understood:{type:'array',items:{type:'string'}},what_is_missing:{type:'array',items:{type:'string'}},next_action:{type:'array',items:{type:'string'}}}}, teacher_summary:{type:'object',additionalProperties:false,required:['diagnosis','evidence','instruction_plan','watch_points'],properties:{diagnosis:{type:'string'},evidence:{type:'array',items:{type:'string'}},instruction_plan:{type:'array',items:{type:'string'}},watch_points:{type:'array',items:{type:'string'}}}}, parent_summary:{type:'object',additionalProperties:false,required:['plain_message','home_support'],properties:{plain_message:{type:'string'},home_support:{type:'array',items:{type:'string'}}}}, next_plan:{type:'object',additionalProperties:false,required:['redo_tasks','verification_required_again','recommended_due_date_hint'],properties:{redo_tasks:{type:'array',items:{type:'string'}},verification_required_again:{type:'boolean'},recommended_due_date_hint:{type:'string'}}} } };
