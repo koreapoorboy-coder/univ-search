@@ -1,5 +1,5 @@
 const SERVICE_NAME = 'math-diagnosis-worker';
-const VERSION = '2026.07.09-patch22-diagnosis-first-question-generation';
+const VERSION = '2026.07.09-patch23-first-diagnosis-precision';
 const DEFAULT_MODEL = 'gpt-5.5';
 const DEFAULT_REASONING_EFFORT = 'xhigh';
 const DEFAULT_MAX_OUTPUT_TOKENS = 25000;
@@ -327,6 +327,121 @@ function buildFinalReportPrompt(payload) {
 ${JSON.stringify(payload, null, 2)}`;
 }
 
+
+function collectFallbackSignalText(payload = {}, manifest = [], combinedText = '') {
+  const ctx = payload.learning_context || {};
+  const profile = payload.student_profile || {};
+  const textInputs = payload.submission?.text_inputs || {};
+  const fileText = (manifest || []).map(f => [f.filename, f.file_role, f.page_or_question_hint, f.student_note].filter(Boolean).join(' ')).join('\n');
+  const teacherFocus = Array.isArray(ctx.teacher_focus) ? ctx.teacher_focus.join(' ') : String(ctx.teacher_focus || '');
+  return [
+    combinedText,
+    fileText,
+    ctx.course,
+    ctx.unit_id,
+    ctx.unit_name,
+    ctx.lesson_title,
+    ctx.exam_title,
+    teacherFocus,
+    profile.teacher_memo,
+    textInputs.student_self_reflection
+  ].filter(Boolean).join('\n');
+}
+
+function inferFallbackMathTopic(signalText = '') {
+  const text = String(signalText || '');
+  if (/거듭제곱근|거듭제곱과\s*거듭제곱근|거듭제곱|n제곱근|세제곱근|네제곱근|제곱근\s*중\s*실수|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|지수법칙|a\^\(1\/n\)|root/i.test(text)) return 'power_root';
+  if (/유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text)) return 'rational_irrational';
+  return 'generic';
+}
+
+function fallbackTopicProfile(topic, ctx = {}) {
+  const currentUnit = ctx.unit_name || '';
+  if (topic === 'power_root') {
+    return {
+      unitCandidates: [{ unit_id: ctx.unit_id || 'h2_algebra_exp_log_power_root', unit_name: currentUnit || '대수: 거듭제곱과 거듭제곱근', confidence: 0.72 }],
+      conceptCandidates: [
+        { concept_id:'power_root_real_count', concept_name:'거듭제곱근의 실수해 개수 판정', evidence:'파일명/단원명/자료 키워드에서 거듭제곱근 유형 감지' },
+        { concept_id:'even_odd_root_condition', concept_name:'짝수·홀수 거듭제곱근의 존재 조건', evidence:'n제곱근, 세제곱근, 네제곱근 유형 감지' },
+        { concept_id:'principal_root_vs_all_solutions', concept_name:'주값과 방정식의 모든 해 구분', evidence:'제곱근·네제곱근 보기형 문항에서 필요한 판정 기준' },
+        { concept_id:'rational_exponent_conversion', concept_name:'거듭제곱근과 유리수 지수 변환 조건', evidence:'대수 지수법칙 연결 개념' }
+      ],
+      missingLinks: [
+        'n이 짝수인지 홀수인지에 따라 실수 거듭제곱근의 존재 여부와 개수를 먼저 나누는 과정 부족',
+        '√ 기호의 주값과 x^n=a 방정식의 모든 실수해를 구분하는 설명 부족',
+        '밑이 음수일 때 짝수근/홀수근이 어떻게 달라지는지 조건 판정 부족',
+        '근호식 또는 유리수 지수로 바꾼 뒤 원래 식에 대입해 검산하는 과정 부족'
+      ],
+      misuseRisks: [
+        '거듭제곱근 기호가 보이면 무조건 두 값이 나온다고 일반화할 위험',
+        '음수의 짝수 거듭제곱근을 실수 범위에서 존재한다고 판단할 위험',
+        '√a와 x²=a의 해를 같은 것으로 처리할 위험',
+        '분수 지수 변환에서 밑의 부호와 분모의 짝홀성을 확인하지 않을 위험'
+      ],
+      mainErrorCandidates: [
+        '거듭제곱근 문항에서 n의 짝수/홀수 여부와 밑의 부호를 먼저 분리해 판단했는지 확인 필요',
+        '제곱근 기호의 주값과 방정식 x^n=a의 모든 실수해를 구분하는 단계 확인 필요',
+        '근호식·유리수 지수 계산 후 원래 식에 다시 대입해 값과 부호를 검산하는 단계 확인 필요'
+      ],
+      calculationErrorCandidates: ['근호를 지수로 바꾸는 과정, 지수법칙 적용, 원래 식 대입 검산에서 계산 생략 가능성'],
+      conceptErrorCandidates: ['짝수근/홀수근, 양수/0/음수, 주값/모든 해 판정 기준 혼동 가능성'],
+      misconceptions: [
+        { misconception:'거듭제곱근의 개수를 n만 보고 판단하고 밑의 부호를 늦게 확인함', why_it_matters:'음수의 짝수근은 실수 범위에서 존재하지 않으므로 답의 개수가 달라진다.', severity:'high' },
+        { misconception:'√ 기호와 x^n=a의 모든 해를 같은 것으로 처리함', why_it_matters:'주값과 모든 해를 혼동하면 보기형 문제에서 오답이 생긴다.', severity:'high' },
+        { misconception:'유리수 지수 변환에서 정의 조건을 확인하지 않음', why_it_matters:'지수함수와 로그함수에서 정의역과 식 변형 오류로 연결된다.', severity:'medium' }
+      ],
+      verificationFocus: ['거듭제곱근의 실수해 개수 판정', '짝수·홀수 거듭제곱근 조건', '주값과 모든 해 구분', '유리수 지수 변환 조건'],
+      verificationReason: '거듭제곱근 풀이에서 조건 판정과 검산 과정을 확인해야 함'
+    };
+  }
+  if (topic === 'rational_irrational') {
+    return {
+      unitCandidates: [{ unit_id: ctx.unit_id || 'm3_real_numbers_and_operations', unit_name: currentUnit || '중3: 제곱근과 실수 / 유리수와 무리수', confidence: 0.68 }],
+      conceptCandidates: [
+        { concept_id:'rational_number_criterion', concept_name:'유리수와 무리수의 분수 꼴 판정', evidence:'유리수·무리수 키워드 감지' },
+        { concept_id:'repeating_decimal_fraction', concept_name:'순환소수의 분수 변환', evidence:'순환소수 키워드 감지' },
+        { concept_id:'root_value_classification', concept_name:'제곱근 값에 따른 유리수·무리수 구분', evidence:'제곱근/루트 키워드 감지' }
+      ],
+      missingLinks: [
+        '유리수·무리수의 판정 기준을 정수/정수 꼴 가능 여부로 설명하는 증거 부족',
+        '순환소수를 분수로 바꾸어 유리수임을 보이는 과정 부족',
+        '루트가 있는 수가 항상 무리수라는 일반화를 반례로 깨는 설명 부족',
+        '중2 유리수와 순환소수 → 중3 제곱근과 실수 → 고등 함수의 정의역 연결 이해 부족'
+      ],
+      misuseRisks: [
+        '끝나지 않는 소수를 모두 무리수로 판단할 가능성',
+        '루트가 있으면 모두 무리수라고 판단할 가능성',
+        '분수 꼴 가능 여부를 확인하지 않고 소수 모양만 보고 판정할 가능성'
+      ],
+      mainErrorCandidates: [
+        '유리수·무리수 판정에서 정수/정수 꼴 가능 여부를 먼저 확인했는지 확인 필요',
+        '순환소수와 비순환소수를 구분하고 분수 변환을 했는지 확인 필요',
+        '루트 기호가 아니라 실제 값으로 판정했는지 확인 필요'
+      ],
+      calculationErrorCandidates: ['순환소수를 x로 놓고 10x 또는 100x를 빼는 과정 확인 필요'],
+      conceptErrorCandidates: ['끝나지 않는 소수=무리수, 루트가 있으면 무리수라는 일반화 가능성'],
+      misconceptions: [
+        { misconception:'끝나지 않는 소수를 모두 무리수로 판단함', why_it_matters:'순환소수는 분수로 바꿀 수 있어 유리수이다.', severity:'high' },
+        { misconception:'루트 기호만 보고 무리수로 판단함', why_it_matters:'√4, √9는 유리수이므로 실제 값을 확인해야 한다.', severity:'high' }
+      ],
+      verificationFocus: ['유리수와 무리수의 분수 꼴 판정', '순환소수의 분수 변환', '제곱근 값에 따른 유리수·무리수 구분'],
+      verificationReason: '유리수·무리수 판정 기준과 반례 확인 필요'
+    };
+  }
+  return {
+    unitCandidates: [{ unit_id: ctx.unit_id || '', unit_name: currentUnit || '', confidence: currentUnit ? 0.5 : 0.2 }].filter(x => x.unit_name || x.unit_id),
+    conceptCandidates: [{ concept_id:'', concept_name: currentUnit || '자료 기반 핵심 개념', evidence:'user_context_or_fallback' }],
+    missingLinks: ['정의·성립 조건·비성립 조건·대표 예시·반례를 이용한 증명 과정 추가 확인 필요'],
+    misuseRisks: ['조건 없이 공식을 외워 적용 대상을 잘못 고를 가능성'],
+    mainErrorCandidates: ['문제 조건을 식으로 바꾸는 단계, 계산 전개, 답 검산 중 어느 단계에서 틀어졌는지 확인 필요'],
+    calculationErrorCandidates: [],
+    conceptErrorCandidates: ['자료 기반 핵심 개념 적용 조건 확인 필요'],
+    misconceptions: [{ misconception:'풀이 과정 또는 개념 설명 확인 필요', why_it_matters:'필기/풀이/개념정리만으로 이해 여부를 확정할 수 없음', severity:'medium' }],
+    verificationFocus: [currentUnit || '자료 기반 핵심 개념'],
+    verificationReason: '정밀 이해 확인 필요'
+  };
+}
+
 function buildAnalyzeFallback(payload, reason = 'fallback') {
   const ctx = payload?.learning_context || {};
   const diagnosisKind = payload?.analysis_options?.diagnosis_kind || 'auto';
@@ -335,23 +450,26 @@ function buildAnalyzeFallback(payload, reason = 'fallback') {
   const manifest = payload?.submission?.file_manifest || [];
   const wrongs = ctx.wrong_question_numbers || [];
   const known = ctx.known_problem_type_ids || [];
-  const combinedText = `${noteText}
-${solutionText}`;
+  const combinedText = `${noteText}\n${solutionText}`;
+  const signalText = collectFallbackSignalText(payload, manifest, combinedText);
+  const topic = inferFallbackMathTopic(signalText);
+  const profile = fallbackTopicProfile(topic, ctx);
   const hasNote = noteText.trim().length > 20;
-  const hasProcess = /\=|따라서|왜냐하면|풀이|과정|x\s*=/.test(solutionText);
-  const conceptWords = /정의|개념|공식|성질|조건|예시|반례|비예시|증명|가정|모순|유리수|무리수|순환소수|루트|제곱근|유리수 지수|로그|지수법칙|그래프|원리/.test(combinedText);
+  const hasProcess = /\=|따라서|왜냐하면|풀이|과정|x\s*=/.test(solutionText) || topic !== 'generic';
+  const conceptWords = /정의|개념|공식|성질|조건|예시|반례|비예시|증명|가정|모순|유리수|무리수|순환소수|루트|제곱근|거듭제곱근|n제곱근|유리수 지수|분수 지수|로그|지수법칙|그래프|원리/.test(signalText);
   let primaryType = conceptWords && !hasProcess ? 'concept_summary' : hasProcess ? 'problem_solving' : hasNote ? 'lecture_note' : (manifest[0]?.file_role === 'exam_pdf' ? 'problem_solving' : 'unknown');
   if (diagnosisKind === 'concept_review') primaryType = 'concept_summary';
   if (diagnosisKind === 'solve_diagnosis') primaryType = 'problem_solving';
   if (diagnosisKind === 'verification_review') primaryType = 'verification_answer';
   const routing = primaryType === 'concept_summary' || primaryType === 'lecture_note' ? 'concept_review' : primaryType === 'problem_solving' || primaryType === 'wrong_answer_note' ? 'solve_diagnosis' : primaryType === 'verification_answer' ? 'verification_review' : 'insufficient';
+  const topicEvidence = topic === 'power_root' ? '거듭제곱근/유리수 지수 키워드 감지' : topic === 'rational_irrational' ? '유리수·무리수/순환소수 키워드 감지' : `${reason}: 파일명/입력 텍스트 기반 임시 판별`;
   const detected = (manifest.length ? manifest : [{ filename:'text_input', file_role: primaryType }]).map((f) => ({
     filename: f.filename || 'text_input',
     material_type: f.file_role === 'concept_summary_image' ? 'concept_summary' : f.file_role === 'wrong_answer_note_image' ? 'wrong_answer_note' : f.file_role === 'lecture_note_image' ? 'lecture_note' : f.file_role === 'solution_image' ? 'problem_solving' : f.file_role === 'verification_answer_image' ? 'verification_answer' : primaryType,
-    evidence: `${reason}: 파일명/입력 텍스트 기반 임시 판별`,
-    confidence: primaryType === 'unknown' ? 0.25 : 0.45
+    evidence: topicEvidence,
+    confidence: primaryType === 'unknown' ? 0.25 : (topic === 'generic' ? 0.45 : 0.72)
   }));
-  const conceptLevel = conceptWords ? (/(증명|가정|모순|왜|이유|조건|예시|반례|비예시|쓰면 안|아닌 경우|연결|그래프|정의에서|따라서)/.test(combinedText) ? 'B' : 'C') : 'D';
+  const conceptLevel = conceptWords ? (/(증명|가정|모순|왜|이유|조건|예시|반례|비예시|쓰면 안|아닌 경우|연결|그래프|정의에서|따라서)/.test(signalText) ? 'B' : 'C') : 'D';
   const conceptualAccuracy = !conceptWords ? 'not_enough_evidence' : conceptLevel === 'B' ? 'partially_correct' : 'memorized_only';
   return {
     ok: true,
@@ -359,17 +477,17 @@ ${solutionText}`;
       primary_material_type: primaryType,
       detected_materials: detected,
       routing_decision: routing,
-      teacher_note: primaryType === 'concept_summary' ? '개념정리 자료로 보고 정의·조건·예시·연결 설명을 우선 검수해야 합니다.' : '정밀 AI 분석 전 임시 파일 목적 판별입니다.'
+      teacher_note: topic === 'power_root' ? 'fallback 상태에서도 파일명/단원명에서 거듭제곱근 풀이 자료로 감지했습니다. 1차 진단은 조건 판정·주값/해 구분·검산 중심으로 보여줍니다.' : primaryType === 'concept_summary' ? '개념정리 자료로 보고 정의·조건·예시·연결 설명을 우선 검수해야 합니다.' : '정밀 AI 분석 전 임시 파일 목적 판별입니다.'
     },
-    extraction_summary: { source_quality: 'partially_clear', student_did_work_evidence: hasNote || hasProcess ? 'some' : 'weak', confidence: 0.45, missing_materials: [`${reason}: 정밀 AI 분석 전 임시 결과`] },
+    extraction_summary: { source_quality: 'partially_clear', student_did_work_evidence: hasNote || hasProcess ? 'some' : 'weak', confidence: topic === 'generic' ? 0.45 : 0.72, missing_materials: [`${reason}: 정밀 AI 분석 전 임시 결과`, topic === 'generic' ? '단원명을 입력하거나 파일명에 단원명이 드러나면 1차 진단이 더 구체화됩니다.' : '실제 학생 풀이의 어느 줄에서 틀어졌는지는 정밀 AI 분석 또는 교사 확인이 필요합니다.'].filter(Boolean) },
     student_material_review: {
-      lecture_note_review: { watch_evidence: hasNote ? 'possibly_watched' : 'not_enough_evidence', understanding_level: hasNote ? conceptLevel : 'D', confirmed_concepts: [ctx.unit_name].filter(Boolean), missing_evidence: ['정의·성립 조건·비성립 조건·대표 예시·반례를 이용한 증명 과정 추가 확인 필요'], risk_flags: ['fallback_mode'], teacher_observation: '정밀 검수 전 임시 판단입니다.' },
-      concept_note_review: { summary_type: conceptWords ? (hasProcess ? 'mixed' : 'formula_list') : 'not_present', conceptual_accuracy: conceptualAccuracy, connected_understanding_level: conceptLevel, strengths: conceptWords ? ['핵심 용어 또는 공식 정리 흔적이 있음'] : [], missing_links: ['유리수·무리수의 판정 기준을 정수/정수 꼴 가능 여부로 설명하는 증거 부족', '순환소수를 분수로 바꾸어 유리수임을 보이는 과정 부족', '루트가 있는 수가 항상 무리수라는 일반화를 반례로 깨는 설명 부족', '중2 유리수와 순환소수 → 중3 제곱근과 실수 → 고등 함수의 정의역 연결 이해 부족'], misuse_risks: ['끝나지 않는 소수를 모두 무리수로 판단할 가능성', '루트가 있으면 모두 무리수라고 판단할 가능성', '분수 꼴 가능 여부를 확인하지 않고 소수 모양만 보고 판정할 가능성'], next_rewrite_task: '개념을 정의-성립 조건-성립하지 않는 조건-대표 예시 증명-반례 증명-비교 설명-대표 문제 적용 순서로 다시 정리', counterexample_review: { counterexample_present: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'present' : 'missing', student_counterexample_quality: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(combinedText) ? 'needs_teacher_check' : 'not_present', missing_counterexample_task: '이 개념이 성립하지 않는 경우 또는 쓰면 안 되는 조건을 반례 1개와 이유로 증명하기', teacher_note: '개념정리 검수에서는 반례와 증명 가능 여부를 암기형 정리와 이해형 정리를 가르는 기준으로 본다.' }, boundary_condition_review: { required_conditions: ['정의가 성립하는 조건', '왜 성립하는지 보이는 증명 근거', '공식을 적용할 수 있는 조건', '적용하면 안 되는 경우'], condition_misuse_risk: '조건 없이 공식을 외우면 문제에서 적용 대상을 잘못 고를 수 있음', forbidden_generalization: '한 예시에서 성립한 규칙을 모든 경우로 일반화하지 않게 확인 필요' }, concept_rewrite_template: { required_order: ['정의', '성립 조건', '성립하지 않는 조건', '대표 예시 증명', '반례/비예시 증명', '비교 설명', '문제 적용 기준'], student_rewrite_prompt: '강의 내용을 그대로 옮기지 말고, 이 개념이 왜 성립하고 언제 성립하지 않는지를 증명형 문장으로 다시 정리하세요.', example_requirement: '대표 예시는 계산 또는 그래프/조건 판단이 보이게 1개 이상 작성', counterexample_requirement: '반례 또는 비예시는 왜 이 개념을 적용하면 안 되는지 조건 위반 이유까지 증명형으로 작성' } },
-      solution_review: { process_evidence: hasProcess ? 'partial_process' : 'not_visible', main_error_candidates: ['정밀 분석 필요'], calculation_error_candidates: [], concept_error_candidates: [], quoted_student_steps: [] }
+      lecture_note_review: { watch_evidence: hasNote ? 'possibly_watched' : 'not_enough_evidence', understanding_level: hasNote ? conceptLevel : 'D', confirmed_concepts: profile.verificationFocus.filter(Boolean), missing_evidence: profile.missingLinks, risk_flags: topic === 'generic' ? ['fallback_mode'] : ['fallback_mode', `${topic}_detected_from_filename_or_context`], teacher_observation: topic === 'generic' ? '정밀 검수 전 임시 판단입니다.' : '정밀 AI 분석이 실패해도 파일명/단원명 기반으로 학생용 1차 진단을 단원 맞춤형으로 표시합니다.' },
+      concept_note_review: { summary_type: conceptWords ? (hasProcess ? 'mixed' : 'formula_list') : 'not_present', conceptual_accuracy: conceptualAccuracy, connected_understanding_level: conceptLevel, strengths: conceptWords ? ['핵심 용어 또는 공식 정리/풀이 흔적이 있음'] : [], missing_links: profile.missingLinks, misuse_risks: profile.misuseRisks, next_rewrite_task: topic === 'power_root' ? '오답 문항을 n의 짝홀성-밑의 부호-주값/모든 해-원래 식 검산 순서로 다시 정리' : '개념을 정의-성립 조건-성립하지 않는 조건-대표 예시 증명-반례 증명-비교 설명-대표 문제 적용 순서로 다시 정리', counterexample_review: { counterexample_present: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(signalText) ? 'present' : 'missing', student_counterexample_quality: /반례|비예시|아닌 경우|틀린 경우|안 되는 경우/.test(signalText) ? 'needs_teacher_check' : 'not_present', missing_counterexample_task: topic === 'power_root' ? '음수의 짝수 거듭제곱근, √16과 x²=16의 차이, ∛(-8)처럼 조건이 달라지는 반례/비예시를 각각 1개씩 증명하기' : '이 개념이 성립하지 않는 경우 또는 쓰면 안 되는 조건을 반례 1개와 이유로 증명하기', teacher_note: '개념정리 검수에서는 반례와 증명 가능 여부를 암기형 정리와 이해형 정리를 가르는 기준으로 본다.' }, boundary_condition_review: { required_conditions: topic === 'power_root' ? ['n의 짝수/홀수 여부', '밑의 부호', '주값인지 모든 해인지', '실수 범위에서 존재 여부', '원래 식 대입 검산'] : ['정의가 성립하는 조건', '왜 성립하는지 보이는 증명 근거', '공식을 적용할 수 있는 조건', '적용하면 안 되는 경우'], condition_misuse_risk: profile.misuseRisks[0] || '조건 없이 공식을 외우면 문제에서 적용 대상을 잘못 고를 수 있음', forbidden_generalization: topic === 'power_root' ? '거듭제곱근은 항상 n개 또는 항상 두 개라고 일반화하지 않기' : '한 예시에서 성립한 규칙을 모든 경우로 일반화하지 않게 확인 필요' }, concept_rewrite_template: { required_order: topic === 'power_root' ? ['문제 문장 표시', 'n의 짝홀성', '밑의 부호', '주값/모든 해 구분', '계산 전개', '원래 식 검산', '결론'] : ['정의', '성립 조건', '성립하지 않는 조건', '대표 예시 증명', '반례/비예시 증명', '비교 설명', '문제 적용 기준'], student_rewrite_prompt: topic === 'power_root' ? '각 문항을 n의 짝홀성, 밑의 부호, 주값/모든 해, 검산 순서로 다시 쓰세요.' : '강의 내용을 그대로 옮기지 말고, 이 개념이 왜 성립하고 언제 성립하지 않는지를 증명형 문장으로 다시 정리하세요.', example_requirement: '대표 예시는 계산 또는 그래프/조건 판단이 보이게 1개 이상 작성', counterexample_requirement: topic === 'power_root' ? '음수의 짝수근 또는 주값/모든 해가 달라지는 비예시를 조건 위반 이유와 함께 작성' : '반례 또는 비예시는 왜 이 개념을 적용하면 안 되는지 조건 위반 이유까지 증명형으로 작성' } },
+      solution_review: { process_evidence: hasProcess ? 'partial_process' : 'not_visible', main_error_candidates: profile.mainErrorCandidates, calculation_error_candidates: profile.calculationErrorCandidates, concept_error_candidates: profile.conceptErrorCandidates, quoted_student_steps: [] }
     },
-    math_signal: { unit_candidates: [{ unit_id: ctx.unit_id || '', unit_name: ctx.unit_name || '', confidence: 0.5 }], problem_type_candidates: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', problem_type_hint: known[i] || 'unknown', confidence: known[i] ? 0.7 : 0.2, evidence:'user_input' })), concept_candidates: [{ concept_id:'', concept_name: ctx.unit_name || '유리수·무리수 판정 기준', evidence:'user_context_or_concept_note' }], misconception_candidates: [{ misconception:'풀이 과정 또는 개념 설명 확인 필요', why_it_matters:'필기/풀이/개념정리만으로 이해 여부를 확정할 수 없음', severity:'medium' }] },
-    engine_adapter: { student_attempt: { attempts: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', is_correct:false, correct:false, difficulty:'core', observed_error_tags:['ai_bridge_fallback'] })) }, note_review_input: { student_note: { unit_id: ctx.unit_id || '', lesson_title: ctx.lesson_title || ctx.unit_name || '', note_text: noteText } }, recommended_engine_actions: ['classify_material_purpose','run_diagnoseWithGuidance','run_reviewStudentNote','generate_verification_questions'] },
-    verification_need: { needed: true, reason: primaryType === 'concept_summary' ? '개념정리의 이해 수준 검수 필요' : '정밀 이해 확인 필요', focus_concepts:[ctx.unit_name || '자료 기반 핵심 개념'], must_check_actions:['정의 설명','성립 조건 증명','성립하지 않는 조건 증명','대표 예시 증명','반례 생성','비예시 구분','비교 설명','풀이 과정 작성'] }
+    math_signal: { unit_candidates: profile.unitCandidates, problem_type_candidates: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', problem_type_hint: known[i] || 'unknown', confidence: known[i] ? 0.7 : 0.2, evidence:'user_input' })), concept_candidates: profile.conceptCandidates, misconception_candidates: profile.misconceptions },
+    engine_adapter: { student_attempt: { attempts: wrongs.map((q,i) => ({ question_no:q, problem_type_id: known[i] || '', is_correct:false, correct:false, difficulty:'core', observed_error_tags:['ai_bridge_fallback', topic].filter(Boolean) })) }, note_review_input: { student_note: { unit_id: ctx.unit_id || profile.unitCandidates?.[0]?.unit_id || '', lesson_title: ctx.lesson_title || ctx.unit_name || profile.unitCandidates?.[0]?.unit_name || '', note_text: noteText || signalText } }, recommended_engine_actions: ['classify_material_purpose','run_diagnoseWithGuidance','run_reviewStudentNote','generate_verification_questions'] },
+    verification_need: { needed: true, reason: profile.verificationReason, focus_concepts: profile.verificationFocus, must_check_actions: topic === 'power_root' ? ['n의 짝수/홀수 판정','밑의 부호 판정','주값과 모든 해 구분','근호식·유리수 지수 계산','원래 식 검산'] : ['정의 설명','성립 조건 증명','성립하지 않는 조건 증명','대표 예시 증명','반례 생성','비예시 구분','비교 설명','풀이 과정 작성'] }
   };
 }
 function makeProofQuestion(id, type, prompt, format, required, answer, pass = 3, note = '') {

@@ -1,0 +1,21 @@
+{
+  "patch": "Patch23",
+  "date": "2026-07-09",
+  "name": "first_diagnosis_precision",
+  "goal": "Make first diagnosis output specific enough for students while keeping question generation optional.",
+  "changed_files": [
+    "assets/math_hybrid_report_renderer.js",
+    "hybrid.html",
+    "worker_skeleton/math_diagnosis_worker.js",
+    "docs/PATCH23_FIRST_DIAGNOSIS_PRECISION_GUIDE.md",
+    "docs/patch_report_first_diagnosis_precision_20260709.json"
+  ],
+  "fixed_issue": "Fallback or partial AI analysis showed generic text such as '정밀 분석 필요' for power-root PDF submissions.",
+  "new_behavior": {
+    "first_diagnosis": "Shows topic-specific diagnosis for power/root materials: even-odd n, sign of base, principal value vs all solutions, rational exponent conversion, and original-condition checking.",
+    "student_action_steps": "Adds a '학생이 바로 할 일' block to the first diagnosis screen.",
+    "question_generation": "Still remains separate and optional after first diagnosis."
+  },
+  "test_target": "260706 대수 거듭제곱 취약파트.pdf",
+  "expected_first_diagnosis_title": "거듭제곱근 조건 판정과 주값/해 구분 확인 필요"
+}

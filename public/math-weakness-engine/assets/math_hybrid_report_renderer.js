@@ -45,6 +45,25 @@ class MathHybridReportRenderer {
       engineContext: data?._engine_context
     });
   }
+  static signalText(data) {
+    const fileNames = (data?.file_purpose_review?.detected_materials || [])
+      .map(m => [m.filename, m.material_type, m.evidence].filter(Boolean).join(' '));
+    const request = data?._request || {};
+    const ctx = request.learning_context || data?.learning_context || {};
+    return JSON.stringify({
+      files: fileNames,
+      request_context: ctx,
+      proof: JSON.parse(this.proofSignalText(data) || '{}'),
+      runtime: data?._runtime,
+      meta: data?._meta
+    });
+  }
+  static inferMathTopic(data) {
+    const text = this.signalText(data);
+    if (/거듭제곱근|거듭제곱과\s*거듭제곱근|거듭제곱|n제곱근|세제곱근|네제곱근|제곱근\s*중\s*실수|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|지수법칙|a\^\(1\/n\)|root/i.test(text)) return 'power_root';
+    if (/유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text)) return 'rational_irrational';
+    return 'generic';
+  }
   static buildProofPlan(data) {
     const engineFocus = [
       ...(data?._engine_context?.top_concepts || []).map(x => x.concept_name || x.concept_id || x).filter(Boolean),
@@ -63,6 +82,7 @@ class MathHybridReportRenderer {
     if (looksPowerRoot) {
       return {
         title: '거듭제곱근·유리수 지수 판정 기준 확인',
+        studentVerdict: '거듭제곱근의 존재 조건과 주값/해 구분 확인 필요',
         oneLine: '거듭제곱근은 “몇 제곱해서 주어진 수가 되는가”와 함께 짝수/홀수 지수, 밑의 부호, 주값 조건을 확인해야 합니다.',
         problems: [
           { title: '거듭제곱근의 존재 조건 확인 부족', body: 'n이 짝수일 때 음수의 실수 n제곱근은 존재하지 않습니다. n이 홀수일 때는 음수도 하나의 실수 거듭제곱근을 가집니다.' },
@@ -74,12 +94,18 @@ class MathHybridReportRenderer {
           { now: '짝수/홀수 거듭제곱근 조건', next: '고등: 방정식과 부등식', why: 'x^n=a의 실수해 개수와 부호 조건을 판단해야 합니다.' },
           { now: '지수법칙 적용 조건', next: '고등: 함수의 정의역과 그래프', why: '밑의 범위와 정의역을 확인하지 않으면 지수함수·로그함수에서 잘못된 변형을 하게 됩니다.' }
         ],
+        actionSteps: [
+          '문항마다 n의 짝수/홀수 여부와 밑의 부호를 먼저 표시합니다.',
+          '√ 기호가 주값을 묻는지, x^n=a의 모든 실수해를 묻는지 구분합니다.',
+          '답을 구한 뒤 원래 식에 다시 n제곱하여 부호와 개수를 검산합니다.'
+        ],
         questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 거듭제곱근의 정의, 존재 조건, 주값, 유리수 지수 변환, 반례와 비교 설명을 확인하는 10문항을 만듭니다.'
       };
     }
     if (looksIrrational) {
       return {
         title: '유리수·무리수 판정 기준 확인',
+        studentVerdict: '유리수·무리수의 분수 꼴 판정 기준 확인 필요',
         oneLine: '유리수와 무리수는 소수의 모양이 아니라 “정수 a, b에 대해 a/b 꼴로 나타낼 수 있는가”를 기준으로 판단합니다.',
         problems: [
           { title: '유리수 판단 기준이 불명확함', body: '유리수는 정수/정수 꼴로 나타낼 수 있어야 합니다. 소수가 끝나거나 반복된다는 말만으로 끝내면 기준이 약합니다.' },
@@ -90,6 +116,11 @@ class MathHybridReportRenderer {
           { now: '유리수와 순환소수', next: '중2: 유리수와 순환소수', why: '순환소수를 분수 꼴로 바꾸어 유리수임을 증명해야 합니다.' },
           { now: '무리수와 실수', next: '중3: 제곱근과 실수', why: '√2, √3처럼 분수로 나타낼 수 없는 수를 구분해야 합니다.' },
           { now: '수의 범위 판단', next: '고등: 방정식·부등식, 함수의 정의역', why: '해가 정수·유리수·실수 중 어디인지에 따라 풀이와 답의 범위가 달라집니다.' }
+        ],
+        actionSteps: [
+          '먼저 정수/정수 꼴로 나타낼 수 있는지 확인합니다.',
+          '끝나지 않는 소수는 반복 여부를 보고 순환소수인지 확인합니다.',
+          '루트가 있더라도 실제 값이 정수 또는 유리수인지 계산해 판정합니다.'
         ],
         questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 유리수 판정, 무리수 판정, 반례, 비교 설명을 확인하는 10문항을 만듭니다.'
       };
@@ -102,6 +133,7 @@ class MathHybridReportRenderer {
     ];
     return {
       title: `${conceptName} 판정 기준 확인`,
+      studentVerdict: `${conceptName}의 적용 조건과 반례 확인 필요`,
       oneLine: `${conceptName}은(는) 이름을 외우는 것이 아니라, 적용 조건과 적용하면 안 되는 조건을 구분해 판단해야 합니다.`,
       problems: (missing.length ? missing : [
         { title: '정의의 적용 기준이 불명확함', body: '정의를 말하는 것과 실제 문제에서 그 조건을 확인하는 것은 다릅니다.' },
@@ -114,6 +146,11 @@ class MathHybridReportRenderer {
         { now: '증명형 설명', next: '상위 단원 개념 적용', why: '공식을 외워도 언제 쓰는지 설명하지 못하면 응용 문제에서 막힙니다.' }
       ],
       requiredConditions: boundary.required_conditions || [],
+      actionSteps: [
+        '정의만 쓰지 말고 그 정의가 성립하는 조건을 함께 적습니다.',
+        '그 개념을 쓰면 안 되는 비예시 또는 반례를 1개 이상 확인합니다.',
+        '대표 문제에서 왜 이 개념을 써야 하는지 한 줄 근거를 붙입니다.'
+      ],
       questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 조건 판정, 반례, 비교 설명을 확인하는 10문항을 만듭니다.'
     };
   }
@@ -124,9 +161,57 @@ class MathHybridReportRenderer {
   }
   static buildSolutionPlan(data) {
     const math = data?.math_signal || {};
-    const unit = (math.unit_candidates || [])[0]?.unit_name || data?.learning_context?.unit_name || '현재 풀이 단원';
+    const requestCtx = data?._request?.learning_context || data?.learning_context || {};
+    const unit = (math.unit_candidates || [])[0]?.unit_name || requestCtx.unit_name || '현재 풀이 단원';
     const concepts = (math.concept_candidates || []).map(x => x.concept_name).filter(Boolean);
     const concept = concepts[0] || unit || '풀이 과정';
+    const topic = this.inferMathTopic(data);
+    if (topic === 'power_root') {
+      return {
+        title: '거듭제곱근 풀이 과정 진단',
+        studentVerdict: '거듭제곱근 조건 판정과 주값/해 구분 확인 필요',
+        oneLine: '이 자료는 대수 「거듭제곱과 거듭제곱근」 풀이입니다. 정답보다 n의 짝수/홀수, 밑의 부호, 주값과 모든 해, 유리수 지수 변환 조건을 풀이 첫 줄에서 분리했는지 확인해야 합니다.',
+        problems: [
+          { title: '짝수/홀수 거듭제곱근 조건 분리 필요', body: 'n이 짝수이면 음수의 실수 n제곱근은 없고, 양수는 보통 ± 두 값을 봅니다. n이 홀수이면 음수도 하나의 실수 거듭제곱근을 가집니다.' },
+          { title: '주값과 방정식의 모든 해 구분 필요', body: '√16은 4를 뜻하지만 x²=16의 해는 ±4입니다. 보기형 문제에서는 “제곱근”, “네제곱근”, “x^n=a의 실수해”라는 문장을 구분해야 합니다.' },
+          { title: '근호식·유리수 지수 변환 후 검산 필요', body: '근호를 지수로 바꾸거나 계산한 뒤에는 원래 식에 다시 제곱·세제곱·n제곱해 부호와 값이 맞는지 확인해야 합니다.' }
+        ],
+        connections: [
+          { now: '거듭제곱근의 실수해 개수 판정', next: '대수: 거듭제곱과 거듭제곱근', why: '양수·0·음수와 n의 짝홀성에 따라 실수해 개수가 달라지므로 풀이 시작 기준이 됩니다.' },
+          { now: '주값과 모든 해 구분', next: '공통수학1: 방정식과 부등식', why: '√ 기호의 값과 x^n=a 방정식의 해를 혼동하면 답의 개수와 부호가 달라집니다.' },
+          { now: '유리수 지수 변환 조건', next: '대수: 지수함수와 로그함수', why: 'a^(m/n)을 다룰 때 밑의 부호와 n의 짝홀성을 확인해야 지수법칙을 안전하게 적용할 수 있습니다.' }
+        ],
+        actionSteps: [
+          '오답 문항마다 n의 짝수/홀수 여부와 밑의 부호를 먼저 표시합니다.',
+          '√ 기호의 주값을 묻는지, x^n=a의 모든 실수해를 묻는지 문제 문장을 표시합니다.',
+          '계산한 값을 원래 식에 다시 대입해 부호·개수·값을 검산합니다.'
+        ],
+        questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 오류 위치 찾기, n의 짝홀성·밑의 부호 판정, 주값/모든 해 구분, 유리수 지수 변환, 원래 식 검산을 확인하는 10문항을 만듭니다.'
+      };
+    }
+    if (topic === 'rational_irrational') {
+      return {
+        title: '유리수·무리수 풀이 과정 진단',
+        studentVerdict: '분수 꼴 판정 기준과 루트/소수 겉모양 구분 확인 필요',
+        oneLine: '이 자료는 수의 판정 풀이입니다. 소수·루트의 겉모양보다 정수 a, b에 대해 a/b 꼴로 나타낼 수 있는지, 순환 여부와 완전제곱수 여부를 확인해야 합니다.',
+        problems: [
+          { title: '분수 꼴 가능 여부 확인 부족', body: '유리수는 정수/정수 꼴로 나타낼 수 있는 수입니다. 소수 모양만 보고 판단하면 안 됩니다.' },
+          { title: '순환소수와 무리수 구분 필요', body: '끝나지 않는 소수라도 반복되면 분수로 바꿀 수 있으므로 유리수입니다.' },
+          { title: '루트 기호와 실제 값 구분 필요', body: '√4는 2라서 유리수이고, √2는 분수 꼴로 정확히 나타낼 수 없어 무리수입니다.' }
+        ],
+        connections: [
+          { now: '유리수 판정', next: '중2: 유리수와 순환소수', why: '순환소수를 분수로 바꿀 수 있어야 유리수 판정 기준이 세워집니다.' },
+          { now: '무리수 판정', next: '중3: 제곱근과 실수', why: '완전제곱수의 제곱근과 그렇지 않은 제곱근을 구분해야 합니다.' },
+          { now: '수의 범위', next: '고등: 방정식·부등식, 함수의 정의역', why: '해가 어느 수 범위에 속하는지에 따라 조건과 답이 달라집니다.' }
+        ],
+        actionSteps: [
+          '판정 전에 정수/정수 꼴 가능 여부를 먼저 씁니다.',
+          '끝나지 않는 소수는 반복되는지 확인하고 필요하면 x로 놓아 분수로 바꿉니다.',
+          '루트가 있으면 실제 값을 계산해 완전제곱수인지 확인합니다.'
+        ],
+        questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 분수 꼴 판정, 순환소수 변환, 루트 값 비교, 반례 설명을 확인하는 10문항을 만듭니다.'
+      };
+    }
     const sol = data?.student_material_review?.solution_review || {};
     const mainErrors = (sol.main_error_candidates || []).filter(Boolean);
     const conceptErrors = (sol.concept_error_candidates || []).filter(Boolean);
@@ -142,12 +227,18 @@ class MathHybridReportRenderer {
     ];
     return {
       title: '풀이 과정 진단',
+      studentVerdict: `${concept} 풀이의 조건 해석·식 세우기·검산 확인 필요`,
       oneLine: `이 자료는 정답 여부보다 풀이가 어느 단계에서 틀어졌는지 확인해야 합니다. 핵심은 조건 해석 → 식 세우기 → 계산 전개 → 답 검산입니다.`,
       problems: (problems.length ? problems : fallback).slice(0, 3),
       connections: [
         { now: '조건 해석·식 세우기', next: '고1: 방정식과 부등식', why: '문제 문장을 식으로 바꾸는 단계가 틀리면 뒤 계산이 맞아도 답이 달라집니다.' },
         { now: '함수·그래프 조건 확인', next: '고1·고2: 함수와 그래프, 함수의 극한', why: '정의역, 치역, 그래프 조건을 확인해야 해가 실제 조건을 만족합니다.' },
         { now: `${concept} 풀이 근거`, next: unit ? `현재 단원: ${unit}` : '현재 풀이 단원', why: '같은 유형을 다시 풀 때 어떤 개념을 써야 하는지 기준이 됩니다.' }
+      ],
+      actionSteps: [
+        '오류가 의심되는 줄을 표시하고 그 줄에서 확인해야 할 조건을 씁니다.',
+        '문제 문장을 식·범위·그래프 조건으로 다시 바꿔 씁니다.',
+        '구한 답을 원래 조건에 대입해 검산합니다.'
       ],
       questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 오류 위치 찾기, 조건을 식으로 바꾸기, 계산 전개, 답 검산, 유사 유형 재풀이를 확인하는 10문항을 만듭니다.'
     };
@@ -233,12 +324,14 @@ class MathHybridReportRenderer {
     }).join('');
     const rows = (plan.connections || []).slice(0, 3).map(c => `
       <tr><td>${this.esc(c.now)}</td><td>${this.esc(c.next)}</td><td>${this.esc(c.why)}</td></tr>`).join('');
+    const actions = (plan.actionSteps || []).slice(0, 3).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
     return `
       <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
         <p class="one-line-diagnosis">${this.esc(plan.oneLine)}</p>
         <div class="compact-section-title">지금 문제점</div>
         <div class="compact-issues">${issues}</div>
+        ${actions ? `<div class="compact-section-title">학생이 바로 할 일</div><div class="compact-actions">${actions}</div>` : ''}
         <div class="compact-section-title">이 개념이 연결되는 곳</div>
         <div class="connection-table-wrap">
           <table class="connection-table"><thead><tr><th>지금 확인하는 개념</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead><tbody>${rows}</tbody></table>
@@ -255,12 +348,14 @@ class MathHybridReportRenderer {
     }).join('');
     const rows = (plan.connections || []).slice(0, 3).map(c => `
       <tr><td>${this.esc(c.now)}</td><td>${this.esc(c.next)}</td><td>${this.esc(c.why)}</td></tr>`).join('');
+    const actions = (plan.actionSteps || []).slice(0, 3).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
     return `
       <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
         <p class="one-line-diagnosis">${this.esc(plan.oneLine)}</p>
         <div class="compact-section-title">지금 문제점</div>
         <div class="compact-issues">${issues}</div>
+        ${actions ? `<div class="compact-section-title">학생이 바로 할 일</div><div class="compact-actions">${actions}</div>` : ''}
         <div class="compact-section-title">이 풀이가 연결되는 곳</div>
         <div class="connection-table-wrap">
           <table class="connection-table"><thead><tr><th>현재 오류</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead><tbody>${rows}</tbody></table>
@@ -301,7 +396,7 @@ class MathHybridReportRenderer {
     return this.card('학생용 진단 결과', `
       <div class="student-result-head ${outcome.kind}">
         <div class="result-label">오늘 한 줄 진단</div>
-        <div class="result-title compact-result-title">${this.esc(outcome.verdict)}</div>
+        <div class="result-title compact-result-title">${this.esc(proofPlan.studentVerdict || outcome.verdict)}</div>
         <div class="result-meta">자료 유형: ${this.esc(outcome.purposeKo)} · 진단 경로: ${this.esc(outcome.routeKo)}</div>
       </div>
       ${isSolve ? this.renderSolutionPlan(proofPlan) : this.renderProofPlan(proofPlan)}
