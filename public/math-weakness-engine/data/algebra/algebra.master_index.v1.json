@@ -1,0 +1,40 @@
+{
+  "version": "2026.07.10-patch24",
+  "subject": "대수",
+  "mode": "source_independent_master_type_matching",
+  "principles": [
+    "problem_type_bank is the primary diagnosis standard",
+    "source_item_bank is evidence and variant coverage only",
+    "student output must not expose source book names or source question numbers",
+    "low-confidence matches must be blocked or teacher-reviewed"
+  ],
+  "paths": {
+    "concept_map": "data/algebra/concept_map/algebra.concepts.v1.json",
+    "problem_type_bank": "data/algebra/problem_type_bank/algebra.problem_types.v1.json",
+    "error_pattern_bank": "data/algebra/error_pattern_bank/algebra.error_patterns.v1.json",
+    "type_variant_bank": "data/algebra/type_variant_bank/algebra.type_variants.v1.json",
+    "source_item_links": "data/algebra/source_item_links/algebra.source_item_to_type.links.v1.json"
+  },
+  "matching_policy": {
+    "minimum_registered_type_confidence": 0.72,
+    "minimum_variant_confidence": 0.58,
+    "blocked_below_confidence": 0.42,
+    "source_evidence_max_weight": 0.08,
+    "candidate_limit": 5,
+    "statuses": [
+      "registered_type_match",
+      "variant_match",
+      "new_item_candidate",
+      "new_type_candidate",
+      "blocked"
+    ]
+  },
+  "counts": {
+    "concepts": 832,
+    "problem_types": 2576,
+    "error_patterns": 253,
+    "variants": 140,
+    "source_item_links": 1169
+  },
+  "unmatched_source_item_count": 0
+}

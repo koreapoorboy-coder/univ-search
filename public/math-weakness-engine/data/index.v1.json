@@ -775,7 +775,7 @@
       "student_note_feedback_templates": "data/learning_evidence/student_note_feedback_templates.v1.json"
     }
   },
-  "last_patch": "math_hybrid_ai_bridge_patch4_20260708",
+  "last_patch": "patch24_algebra_master_problem_type_matching_20260710",
   "ai_bridge": {
     "version": "2026.07.08-math-hybrid-ai-bridge-v1.0",
     "purpose": "학생 PDF/풀이/필기 업로드를 AI가 구조화하고, 수학 취약유형 엔진이 검수 문항 생성과 답안 재검수를 수행하기 위한 연결 레이어",
@@ -822,5 +822,13 @@
       "verification_answer_review",
       "final_report"
     ]
+  },
+  "algebra_master_matching": {
+    "version": "2026.07.10-patch24",
+    "index": "data/algebra/algebra.master_index.v1.json",
+    "runtime": "assets/algebra_master_matcher.js",
+    "primary_standard": "problem_type_bank",
+    "source_item_role": "example_variant_evidence_only",
+    "student_source_disclosure": false
   }
 }

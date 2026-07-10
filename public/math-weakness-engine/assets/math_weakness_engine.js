@@ -70,8 +70,30 @@
       this.problemTypeById=byId(this.allProblemTypes,'problem_type_id');
       this.remediationByConcept=byId(this.allRemediation,'concept_id');
       await this._loadGlobalLogic();
+      await this._loadAlgebraMasterMatcher();
       this.loaded=true;
       return this;
+    }
+
+    async _loadAlgebraMasterMatcher(){
+      this.algebraMasterMatcher=null;
+      this.algebraMasterMatcherError=null;
+      const cfg=this.index&&this.index.algebra_master_matching;
+      if(!cfg||!global.AlgebraMasterMatcher) return;
+      try{
+        this.algebraMasterMatcher=new global.AlgebraMasterMatcher(this);
+        await this.algebraMasterMatcher.load(cfg.index);
+      }catch(err){
+        this.algebraMasterMatcherError=err.message;
+        console.warn('[MathWeaknessEngine] algebra master matcher load failed:',err);
+      }
+    }
+    classifyAlgebraProblem(extracted){
+      if(!this.algebraMasterMatcher) return {status:'blocked',confidence:0,teacher_review_required:true,student_safe:false,error:this.algebraMasterMatcherError||'algebra master matcher unavailable'};
+      return this.algebraMasterMatcher.classify(extracted);
+    }
+    sanitizeStudentDiagnosis(result){
+      return this.algebraMasterMatcher?this.algebraMasterMatcher.sanitizeStudentResult(result):result;
     }
     async _loadGlobalLogic(){
       const gl=this.index&&this.index.global_logic;

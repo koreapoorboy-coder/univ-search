@@ -1,0 +1,32 @@
+{
+  "patch": "Patch24",
+  "name": "algebra master problem-type matching layer",
+  "date": "2026-07-10",
+  "decision": "patch_required_and_applied",
+  "reason": "1,169 source items already exist, but a source-independent algebra master loader and classifier were missing.",
+  "counts": {
+    "problem_types": 2576,
+    "concepts": 832,
+    "source_item_links": 1169,
+    "variants": 140,
+    "error_patterns": 253,
+    "unmatched_source_items": 0
+  },
+  "modified_files": [
+    "assets/math_weakness_engine.js",
+    "index.html",
+    "hybrid.html",
+    "data/index.v1.json"
+  ],
+  "added_runtime": [
+    "assets/algebra_master_matcher.js"
+  ],
+  "added_data_root": "data/algebra/",
+  "student_output_policy": "book/source names and question numbers are removed from student-facing output",
+  "validation": {
+    "json_parse": "passed_408_files",
+    "javascript_syntax": "passed_node_check",
+    "reference_integrity": "passed_1169_links_to_2576_master_types",
+    "unmatched_source_items": 0
+  }
+}
