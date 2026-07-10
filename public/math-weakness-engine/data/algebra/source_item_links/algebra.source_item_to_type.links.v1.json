@@ -1,13 +1,14 @@
 {
-  "version": "2026.07.10-patch24",
+  "version": "2026.07.10-patch25",
   "subject": "대수",
   "policy": "source items are examples/evidence only and never the diagnosis standard",
-  "link_count": 1169,
+  "link_count": 1319,
   "source_counts": {
     "idea_su1": 135,
     "sibal_algebra_workbook": 298,
     "SIDAE_SU1_MORE": 661,
-    "drill_su1": 75
+    "drill_su1": 75,
+    "js_exp_log_150": 150
   },
   "links": [
     {
@@ -27272,6 +27273,3456 @@
       "mapping_status": "matched_by_source_subunit",
       "review_status": "teacher_review_recommended",
       "diagnosis_weight": 1.0,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_001",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "001",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT005",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT005_JS150_001",
+      "variant_tags": [
+        "nth_root",
+        "root_condition"
+      ],
+      "near_duplicate_group": "H2_EL_PT005::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_002",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "002",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT005",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT005_JS150_002",
+      "variant_tags": [
+        "nth_root",
+        "root_condition"
+      ],
+      "near_duplicate_group": "H2_EL_PT005::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_003",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "003",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT016",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT016_JS150_003",
+      "variant_tags": [
+        "nth_root",
+        "root_condition"
+      ],
+      "near_duplicate_group": "H2_EL_PT016::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_004",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "004",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT004",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT004_JS150_004",
+      "variant_tags": [
+        "nth_root",
+        "root_condition"
+      ],
+      "near_duplicate_group": "H2_EL_PT004::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_005",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "005",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT008",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT008_JS150_005",
+      "variant_tags": [
+        "nth_root",
+        "root_condition"
+      ],
+      "near_duplicate_group": "H2_EL_PT008::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_006",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "006",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT005",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT005_JS150_006",
+      "variant_tags": [
+        "nth_root",
+        "root_condition"
+      ],
+      "near_duplicate_group": "H2_EL_PT005::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_007",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "007",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT023",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT023_JS150_007",
+      "variant_tags": [
+        "nth_root",
+        "root_condition"
+      ],
+      "near_duplicate_group": "H2_EL_PT023::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_008",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "008",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT023",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT023_JS150_008",
+      "variant_tags": [
+        "nth_root",
+        "root_condition"
+      ],
+      "near_duplicate_group": "H2_EL_PT023::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_009",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "009",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT079",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT079_JS150_009",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT079::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_010",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "010",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT053",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT053_JS150_010",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT053::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_011",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "011",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT076",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT076_JS150_011",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT076::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_012",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "012",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT073",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT073_JS150_012",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT073::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_013",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "013",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT054",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT054_JS150_013",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT054::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_014",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "014",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT051",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT051_JS150_014",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT051::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_015",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "015",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT057",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT057_JS150_015",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT057::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_016",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "016",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT058",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT058_JS150_016",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT058::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_017",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "017",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT073",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT073_JS150_017",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT073::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_018",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "018",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT073",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT073_JS150_018",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT073::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_019",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "019",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT069",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT069_JS150_019",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT069::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_020",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "020",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT066",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT066_JS150_020",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT066::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_021",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "021",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT072",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT072_JS150_021",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT072::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_022",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "022",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT079",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT079_JS150_022",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT079::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_023",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "023",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT073",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT073_JS150_023",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT073::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_024",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "024",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT076",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT076_JS150_024",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT076::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_025",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "025",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT074",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT074_JS150_025",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT074::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_026",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "026",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT079",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT079_JS150_026",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT079::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_027",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "027",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT080",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT080_JS150_027",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT080::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_028",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "028",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT073",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT073_JS150_028",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT073::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_029",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "029",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT123",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT123_JS150_029",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT123::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_030",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "030",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT082",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_EXPONENT"
+      ],
+      "variant_id": "H2_EL_PT082_JS150_030",
+      "variant_tags": [
+        "exponent_law",
+        "algebraic_transformation"
+      ],
+      "near_duplicate_group": "H2_EL_PT082::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_031",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "031",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT159",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT159_JS150_031",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT159::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_032",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "032",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT159",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT159_JS150_032",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT159::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_033",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "033",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT105",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT105_JS150_033",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT105::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_034",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "034",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT101",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT101_JS150_034",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT101::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_035",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "035",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT095",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT095_JS150_035",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT095::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_036",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "036",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT100",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT100_JS150_036",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT100::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_037",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "037",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT103",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT103_JS150_037",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT103::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_038",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "038",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT100",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT100_JS150_038",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT100::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_039",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "039",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT110",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT110_JS150_039",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT110::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_040",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "040",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT112",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT112_JS150_040",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT112::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_041",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "041",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT113",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT113_JS150_041",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT113::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_042",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "042",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT100",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT100_JS150_042",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT100::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_043",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "043",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT116",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT116_JS150_043",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT116::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_044",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "044",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT111",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT111_JS150_044",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT111::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_045",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "045",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT100",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT100_JS150_045",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT100::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_046",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "046",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT109",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT109_JS150_046",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT109::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_047",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "047",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT125",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT125_JS150_047",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT125::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_048",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "048",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT128",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT128_JS150_048",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT128::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_049",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "049",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT128",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT128_JS150_049",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT128::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_050",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "050",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT100",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT100_JS150_050",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT100::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_051",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "051",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT140",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT140_JS150_051",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT140::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_052",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "052",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT105",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT105_JS150_052",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT105::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_053",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "053",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT105",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT105_JS150_053",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT105::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_054",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "054",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT159",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT159_JS150_054",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT159::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_055",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "055",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT159",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT159_JS150_055",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT159::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_056",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "056",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT133",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT133_JS150_056",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT133::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_057",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "057",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT135",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT135_JS150_057",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT135::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_058",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "058",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT136",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT136_JS150_058",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT136::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_059",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "059",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT143",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT143_JS150_059",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT143::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_060",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "060",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT123",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT123_JS150_060",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT123::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_061",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "061",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT159",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT159_JS150_061",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT159::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_062",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "062",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT159",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT159_JS150_062",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT159::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_063",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "063",
+      "engine_unit_id": "ALG_EXPLOG_FOUNDATION",
+      "problem_type_id": "H2_EL_PT159",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FOUNDATION_LOG"
+      ],
+      "variant_id": "H2_EL_PT159_JS150_063",
+      "variant_tags": [
+        "log_property",
+        "log_calculation"
+      ],
+      "near_duplicate_group": "H2_EL_PT159::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_064",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "064",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT032",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT032_JS150_064",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT032::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_065",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "065",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT032",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT032_JS150_065",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT032::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_066",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "066",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT032",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT032_JS150_066",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT032::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_067",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "067",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT032",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT032_JS150_067",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT032::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_068",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "068",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT044",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT044_JS150_068",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT044::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_069",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "069",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT044",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT044_JS150_069",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT044::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_070",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "070",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT115",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT115_JS150_070",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT115::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_071",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "071",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT044",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT044_JS150_071",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT044::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_072",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "072",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT044",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT044_JS150_072",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT044::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_073",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "073",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT044",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT044_JS150_073",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT044::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_074",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "074",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT044",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT044_JS150_074",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT044::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_075",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "075",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT104",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT104_JS150_075",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT104::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_076",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "076",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT104",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT104_JS150_076",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT104::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_077",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "077",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT104",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT104_JS150_077",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT104::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_078",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "078",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT104",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT104_JS150_078",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT104::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_079",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "079",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT104",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT104_JS150_079",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT104::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_080",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "080",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT104",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT104_JS150_080",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT104::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_081",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "081",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT104",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT104_JS150_081",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT104::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_082",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "082",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT104",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT104_JS150_082",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT104::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_083",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "083",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT176",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EXP"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT176_JS150_083",
+      "variant_tags": [
+        "exponential_function",
+        "graph_or_condition"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT176::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_084",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "084",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT224",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT224_JS150_084",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT224::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_085",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "085",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT236",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT236_JS150_085",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT236::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_086",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "086",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT224",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT224_JS150_086",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT224::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_087",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "087",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT236",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT236_JS150_087",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT236::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_088",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "088",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT236",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT236_JS150_088",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT236::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_089",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "089",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT236",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT236_JS150_089",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT236::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_090",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "090",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT236",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT236_JS150_090",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT236::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_091",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "091",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT236",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT236_JS150_091",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT236::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_092",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "092",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT236",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT236_JS150_092",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT236::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_093",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "093",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_093",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_094",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "094",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT236",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT236_JS150_094",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT236::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_095",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "095",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_095",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_096",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "096",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_096",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_097",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "097",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_097",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_098",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "098",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_098",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_099",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "099",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_099",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_100",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "100",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_100",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_101",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "101",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_101",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_102",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "102",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_102",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_103",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "103",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT296",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT296_JS150_103",
+      "variant_tags": [
+        "logarithmic_function",
+        "graph_or_extremum"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT296::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_104",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "104",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT379",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT379_JS150_104",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT379::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_105",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "105",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT379",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT379_JS150_105",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT379::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_106",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "106",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT379",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT379_JS150_106",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT379::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_107",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "107",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT379",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT379_JS150_107",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT379::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_108",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "108",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT379",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT379_JS150_108",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT379::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_109",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "109",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT379",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT379_JS150_109",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT379::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_110",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "110",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT379",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT379_JS150_110",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT379::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_111",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "111",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT379",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT379_JS150_111",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT379::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_112",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "112",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT391",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT391_JS150_112",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT391::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_113",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "113",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT409",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT409_JS150_113",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT409::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_114",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "114",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT403",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT403_JS150_114",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT403::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_115",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "115",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT403",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT403_JS150_115",
+      "variant_tags": [
+        "exponential_equation",
+        "substitution"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT403::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_116",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "116",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT433",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT433_JS150_116",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT433::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_117",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "117",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT433",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT433_JS150_117",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT433::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_118",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "118",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT433",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT433_JS150_118",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT433::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_119",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "119",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT433",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT433_JS150_119",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT433::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_120",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "120",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT433",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT433_JS150_120",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT433::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_121",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "121",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT433",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT433_JS150_121",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT433::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_122",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "122",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT457",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT457_JS150_122",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT457::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_123",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "123",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT457",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT457_JS150_123",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT457::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_124",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "124",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT469",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT469_JS150_124",
+      "variant_tags": [
+        "exponential_inequality",
+        "monotonicity"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT469::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_125",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "125",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT481",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT481_JS150_125",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT481::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_126",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "126",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT481",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT481_JS150_126",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT481::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_127",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "127",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT481",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT481_JS150_127",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT481::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_128",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "128",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT481",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT481_JS150_128",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT481::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_129",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "129",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT481",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT481_JS150_129",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT481::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_130",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "130",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT481",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT481_JS150_130",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT481::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_131",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "131",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT481",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT481_JS150_131",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT481::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_132",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "132",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT481",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT481_JS150_132",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT481::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_133",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "133",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT499",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_EQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT499_JS150_133",
+      "variant_tags": [
+        "logarithmic_equation",
+        "domain_check"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT499::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_134",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "134",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT505",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT505_JS150_134",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT505::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_135",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "135",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT505",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT505_JS150_135",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT505::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_136",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "136",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT505",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT505_JS150_136",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT505::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_137",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "137",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT589",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT589_JS150_137",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT589::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_138",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "138",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT529",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.82,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT529_JS150_138",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT529::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_139",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "139",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT529",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT529_JS150_139",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT529::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_140",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "140",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT529",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT529_JS150_140",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT529::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_141",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "141",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT529",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT529_JS150_141",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT529::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_142",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "142",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT529",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT529_JS150_142",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT529::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_143",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "143",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT529",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT529_JS150_143",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT529::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_144",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "144",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT529",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT529_JS150_144",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT529::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_145",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "145",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT529",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT529_JS150_145",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT529::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_146",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "146",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT577",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT577_JS150_146",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT577::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_147",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "147",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT589",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT589_JS150_147",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT589::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_148",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "148",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT577",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT577_JS150_148",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT577::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_149",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "149",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT505",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT505_JS150_149",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT505::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "js_exp_log_150_150",
+      "source_id": "js_exp_log_150",
+      "source_question_no": "150",
+      "engine_unit_id": "ALG_EXPLOG_FUNCTION",
+      "problem_type_id": "H2_ALG_EXLOG_FUNC_PT505",
+      "source_problem_type_id": null,
+      "alias_confidence": 0.72,
+      "concept_ids": [
+        "ALG_EXPLOG_FUNCTION_LOG_INEQ"
+      ],
+      "variant_id": "H2_ALG_EXLOG_FUNC_PT505_JS150_150",
+      "variant_tags": [
+        "logarithmic_inequality",
+        "application"
+      ],
+      "near_duplicate_group": "H2_ALG_EXLOG_FUNC_PT505::js_exp_log_150",
+      "duplicate_of": null,
+      "mapping_status": "registered_type_match",
+      "review_status": "verified_by_taxonomy",
+      "diagnosis_weight": 0.9,
       "source_role": "example_of_engine_type"
     }
   ]
