@@ -624,5 +624,112 @@
       "order": 142,
       "filename": "142.png"
     }
-  ]
+  ],
+  "additional_sources": [
+    {
+      "source_id": "SRC_YBM_M1_TEXTBOOK_2024_M1_EXPRESSION",
+      "source_family_id": "SRC_YBM_M1_TEXTBOOK_2024_FULL",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "YBM",
+      "grade": "중학교 1학년",
+      "subject": "수학",
+      "original_upload_name": "YBM 중1 수학 교과서.pdf",
+      "pdf_page_range": {
+        "start": 63,
+        "end": 98
+      },
+      "printed_page_range": {
+        "start": 68,
+        "end": 103
+      },
+      "chapter_sections": [
+        "문자의 사용과 식의 값",
+        "일차식과 수의 곱셈·나눗셈",
+        "일차식의 덧셈과 뺄셈",
+        "등식과 방정식",
+        "일차방정식의 풀이"
+      ],
+      "alignment_target": "data/problem_types/m1_expression.problem_types.v1.json",
+      "aligned_problem_type_count": 60,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "full_chapter_reference_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·해설 전문은 엔진에 저장하지 않고 단원 범위, 개념, 유형 연결용 메타데이터만 저장",
+      "added_patch": 60,
+      "added_at": "2026-07-10"
+    },
+    {
+      "source_id": "SRC_SINSAGO_M1_TEXTBOOK_2017_M1_EXPRESSION",
+      "source_family_id": "SRC_SINSAGO_M1_TEXTBOOK_2017_SEM1",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "좋은책신사고",
+      "grade": "중학교 1학년",
+      "subject": "수학",
+      "original_upload_name": "（신사고） 중1 수학 교과서.pdf",
+      "pdf_page_range": {
+        "start": 57,
+        "end": 95
+      },
+      "printed_page_range": {
+        "start": 62,
+        "end": 100
+      },
+      "chapter_sections": [
+        "문자의 사용",
+        "일차식의 계산",
+        "방정식과 그 해",
+        "일차방정식"
+      ],
+      "alignment_target": "data/problem_types/m1_expression.problem_types.v1.json",
+      "aligned_problem_type_count": 60,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "full_available_volume_chapter_reference_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·해설 전문은 엔진에 저장하지 않고 단원 범위, 개념, 유형 연결용 메타데이터만 저장",
+      "added_patch": 61,
+      "added_at": "2026-07-10"
+    },
+    {
+      "source_id": "SRC_MIRAEN_HWANG_M1_TEXTBOOK_2022_M1_EXPRESSION",
+      "source_family_id": "SRC_MIRAEN_HWANG_M1_TEXTBOOK_2022_FULL",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "미래엔",
+      "author_series": "황선욱",
+      "grade": "중학교 1학년",
+      "subject": "수학",
+      "curriculum": "2022 개정 교육과정",
+      "original_upload_name": "미래엔(황) 중1 수학(22개정) 교과서.pdf",
+      "pdf_page_range": {
+        "start": 71,
+        "end": 106
+      },
+      "printed_page_range": {
+        "start": 71,
+        "end": 106
+      },
+      "chapter_sections": [
+        "문자의 사용과 식의 값",
+        "일차식과 수의 곱셈·나눗셈",
+        "일차식의 덧셈과 뺄셈",
+        "등식과 방정식",
+        "일차방정식의 풀이"
+      ],
+      "alignment_target": "data/problem_types/m1_expression.problem_types.v1.json",
+      "aligned_problem_type_count": 60,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "full_chapter_reference_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·해설 전문은 엔진에 저장하지 않고 단원 범위, 개념, 유형 연결용 메타데이터만 저장",
+      "added_patch": 63,
+      "added_at": "2026-07-10"
+    }
+  ],
+  "latest_source_update_patch": 63,
+  "latest_source_update_note": "미래엔 황선욱 중1 수학 2022 개정 교과서 전체 8개 단원을 기존 중1 유형 체계에 연결함."
 }
