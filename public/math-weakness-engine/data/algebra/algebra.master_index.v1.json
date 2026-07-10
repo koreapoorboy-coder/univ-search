@@ -1,7 +1,7 @@
 {
-  "version": "2026.07.10-patch36",
+  "version": "2026.07.10-patch47",
   "subject": "대수",
-  "mode": "subject_level_consolidated_master",
+  "mode": "single_algebra_consolidated_master",
   "principles": [
     "대수 전체를 하나의 진단 영역으로 관리한다.",
     "문제집은 유형 판별을 위한 출처·예시 데이터이며 진단 기준이 아니다.",
@@ -24,11 +24,11 @@
     "problem_types": 2576,
     "error_patterns": 253,
     "base_variants": 140,
-    "source_items": 2519,
-    "sources": 13,
-    "covered_problem_types": 182,
-    "answer_key_items": 1350,
-    "review_required_items": 1200
+    "source_items": 4019,
+    "sources": 23,
+    "covered_problem_types": 201,
+    "answer_key_items": 2850,
+    "review_required_items": 2700
   },
   "unmatched_source_item_count": 0,
   "migration": {
@@ -36,5 +36,21 @@
     "to": "single algebra subject master item bank",
     "old_patch35_not_required": true,
     "old_patch25_to_patch35_not_required": true
-  }
+  },
+  "latest_source_addition": {
+    "source_id": "js_trigonometry_150_set10",
+    "unit": "삼각함수",
+    "item_count": 150,
+    "type_group_count": 11,
+    "status": "merged_into_single_algebra_subject_master"
+  },
+  "operational_files": [
+    "data/algebra/source_item_bank/algebra.source_items.master.v1.json",
+    "data/algebra/source_item_bank/algebra.source_items.master.v1.csv",
+    "data/algebra/source_item_links/algebra.source_item_to_type.links.v1.json",
+    "data/algebra/source_registry/algebra.sources.master.v1.json",
+    "data/algebra/coverage/algebra.coverage.master.v1.json"
+  ],
+  "separate_set_runtime_files": 0,
+  "legacy_per_set_docs_removed": true
 }
