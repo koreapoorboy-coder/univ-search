@@ -1,45 +1,40 @@
 {
-  "version": "2026.07.10-patch25",
+  "version": "2026.07.10-patch36",
   "subject": "대수",
-  "mode": "source_independent_master_type_matching",
+  "mode": "subject_level_consolidated_master",
   "principles": [
-    "problem_type_bank is the primary diagnosis standard",
-    "source_item_bank is evidence and variant coverage only",
-    "student output must not expose source book names or source question numbers",
-    "low-confidence matches must be blocked or teacher-reviewed"
+    "대수 전체를 하나의 진단 영역으로 관리한다.",
+    "문제집은 유형 판별을 위한 출처·예시 데이터이며 진단 기준이 아니다.",
+    "진단 기준은 대수 마스터 개념과 마스터 문항유형이다.",
+    "학생 결과에는 문제집명, 원본 번호, 파일명을 노출하지 않는다.",
+    "새 자료는 임시 분석 후 대수 통합 마스터 파일에 병합한다."
   ],
   "paths": {
     "concept_map": "data/algebra/concept_map/algebra.concepts.v1.json",
     "problem_type_bank": "data/algebra/problem_type_bank/algebra.problem_types.v1.json",
     "error_pattern_bank": "data/algebra/error_pattern_bank/algebra.error_patterns.v1.json",
     "type_variant_bank": "data/algebra/type_variant_bank/algebra.type_variants.v1.json",
-    "source_item_links": "data/algebra/source_item_links/algebra.source_item_to_type.links.v1.json"
-  },
-  "matching_policy": {
-    "minimum_registered_type_confidence": 0.72,
-    "minimum_variant_confidence": 0.58,
-    "blocked_below_confidence": 0.42,
-    "source_evidence_max_weight": 0.08,
-    "candidate_limit": 5,
-    "statuses": [
-      "registered_type_match",
-      "variant_match",
-      "new_item_candidate",
-      "new_type_candidate",
-      "blocked"
-    ]
+    "source_item_master": "data/algebra/source_item_bank/algebra.source_items.master.v1.json",
+    "source_item_links": "data/algebra/source_item_links/algebra.source_item_to_type.links.v1.json",
+    "source_registry": "data/algebra/source_registry/algebra.sources.master.v1.json",
+    "coverage": "data/algebra/coverage/algebra.coverage.master.v1.json"
   },
   "counts": {
     "concepts": 832,
     "problem_types": 2576,
     "error_patterns": 253,
-    "variants": 140,
-    "source_item_links": 1319
+    "base_variants": 140,
+    "source_items": 2519,
+    "sources": 13,
+    "covered_problem_types": 182,
+    "answer_key_items": 1350,
+    "review_required_items": 1200
   },
   "unmatched_source_item_count": 0,
-  "latest_source_addition": {
-    "source_id": "js_exp_log_150",
-    "item_count": 150,
-    "unit": "지수함수와 로그함수"
+  "migration": {
+    "from": "per-source split item files",
+    "to": "single algebra subject master item bank",
+    "old_patch35_not_required": true,
+    "old_patch25_to_patch35_not_required": true
   }
 }
