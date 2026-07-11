@@ -1,0 +1,6743 @@
+{
+  "version": "1.0",
+  "source_id": "SRC_M1_PG_150_WORKSHEET_SET09_20260710",
+  "unit_id": "M1_PLANE_GEOMETRY",
+  "grade": "중1",
+  "unit_name": "평면도형의 성질",
+  "title": "중1 평면도형의 성질 - 삼각형의 내각과 외각부터 부채꼴의 호의 길이와 넓이 (세트 09, 150문항)",
+  "source_file": "260710_평면도형의 성질(8).pdf",
+  "published_date": "2026-07-10",
+  "registered_date": "2026-07-11",
+  "problem_count": 150,
+  "page_count": 51,
+  "problem_pages": "1-27",
+  "quick_answer_pages": "28-29",
+  "solution_pages": "30-51",
+  "has_quick_answers": true,
+  "has_full_solutions": true,
+  "source_sha256": "5006d9b0507b97885b860bc74f88e05d0cfc7e7b999e209e8ed7d27ed7587548",
+  "integration_mode": "기존 M1_PLANE_GEOMETRY 통합 분류 체계, 30개 개념, 54개 문항 유형과 27개 5단계 풀이 프로토콜에 아홉 번째 독립 근거 세트로 누적 연결",
+  "storage_policy": "문제·정답·해설 원문과 페이지 이미지는 저장하지 않고 문항 번호, 내부 유형·개념·풀이 프로토콜·시각·정답률·연결 메타데이터만 저장",
+  "canonical_taxonomy_note": "문제집 유형명은 source_label 증거로만 보존하고 별도 문제집 분류 체계를 생성하지 않음",
+  "distinct_source_note": "세트 01·02·03·04·05·06·07·08과 다른 독립 문제집 세트이며 기존 개념·문항 유형·풀이 프로토콜 ID를 그대로 사용",
+  "coverage": [
+    {
+      "problem_range": "001-011",
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "problem_type_ids": [
+        "M1_PG_PT053",
+        "M1_PG_PT010",
+        "M1_PG_PT011",
+        "M1_PG_PT013",
+        "M1_PG_PT012"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004",
+        "M1_PG_C005"
+      ],
+      "primary_protocol_ids": [
+        "COMPLEX_ANGLE_EQUATION",
+        "TRIANGLE_ANGLE_SUM",
+        "ISOSCELES_ANGLE_CHAIN",
+        "ANGLE_BISECTOR_CHAIN",
+        "TRIANGLE_EXTERIOR_ANGLE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum",
+        "triangle_angles",
+        "condition_reasoning",
+        "triangle_exterior_angle",
+        "unknown_angle",
+        "angle_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ]
+    },
+    {
+      "problem_range": "012-022",
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "problem_type_ids": [
+        "M1_PG_PT053",
+        "M1_PG_PT013",
+        "M1_PG_PT012",
+        "M1_PG_PT007",
+        "M1_PG_PT023",
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C005",
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_ids": [
+        "ANGLE_BISECTOR_CHAIN",
+        "TRIANGLE_EXTERIOR_ANGLE",
+        "REGULAR_POLYGON_ANGLE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_exterior_angle",
+        "unknown_angle",
+        "angle_relation",
+        "regular_polygon",
+        "property_judgement",
+        "exterior_angle",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C002",
+        "M1_PG_C001",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ]
+    },
+    {
+      "problem_range": "023-028",
+      "source_label": "삼각형의 내각의 크기의 합의 활용",
+      "problem_type_ids": [
+        "M1_PG_PT053",
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_ids": [
+        "COMPLEX_ANGLE_EQUATION",
+        "ISOSCELES_ANGLE_CHAIN"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ]
+    },
+    {
+      "problem_range": "029-039",
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "problem_type_ids": [
+        "M1_PG_PT053",
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_ids": [
+        "ISOSCELES_ANGLE_CHAIN"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ]
+    },
+    {
+      "problem_range": "040-050",
+      "source_label": "다각형의 대각선의 개수",
+      "problem_type_ids": [
+        "M1_PG_PT016"
+      ],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_ids": [
+        "DIAGONAL_COUNT"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ]
+    },
+    {
+      "problem_range": "051-061",
+      "source_label": "다각형의 내각의 크기",
+      "problem_type_ids": [
+        "M1_PG_PT020",
+        "M1_PG_PT053",
+        "M1_PG_PT019",
+        "M1_PG_PT015"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C009",
+        "M1_PG_C007"
+      ],
+      "primary_protocol_ids": [
+        "POLYGON_INTERIOR_SUM"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_sum",
+        "reverse_reasoning",
+        "diagonal",
+        "n_minus_3"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022",
+        "M1_PG_C007",
+        "M1_PG_C001"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C003",
+        "M2_GEOM_C030"
+      ]
+    },
+    {
+      "problem_range": "062-081",
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "problem_type_ids": [
+        "M1_PG_PT053",
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_ids": [
+        "COMPLEX_ANGLE_EQUATION"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ]
+    },
+    {
+      "problem_range": "082-094",
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "problem_type_ids": [
+        "M1_PG_PT025",
+        "M1_PG_PT016",
+        "M1_PG_PT053",
+        "M1_PG_PT024",
+        "M1_PG_PT007",
+        "M1_PG_PT023"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030",
+        "M1_PG_C008",
+        "M1_PG_C006",
+        "M1_PG_C003"
+      ],
+      "primary_protocol_ids": [
+        "REGULAR_POLYGON_ANGLE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle",
+        "geometry_equation",
+        "angle_equation",
+        "property_judgement",
+        "exterior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_PG_C001",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ]
+    },
+    {
+      "problem_range": "095-107",
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "problem_type_ids": [
+        "M1_PG_PT053",
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_ids": [
+        "REGULAR_POLYGON_ANGLE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ]
+    },
+    {
+      "problem_range": "108-118",
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "problem_type_ids": [
+        "M1_PG_PT042",
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_ids": [
+        "CENTRAL_ANGLE_ARC_RATIO"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ]
+    },
+    {
+      "problem_range": "119-129",
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_ids": [
+        "CHORD_CENTRAL_ANGLE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ]
+    },
+    {
+      "problem_range": "130-135",
+      "source_label": "색칠한 부분의 둘레의 길이",
+      "problem_type_ids": [
+        "M1_PG_PT048",
+        "M1_PG_PT046",
+        "M1_PG_PT047"
+      ],
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_ids": [
+        "COMPOSITE_BOUNDARY"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_perimeter",
+        "boundary_selection",
+        "arc_length",
+        "geometry_decomposition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C021",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C038"
+      ]
+    },
+    {
+      "problem_range": "136-144",
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "problem_type_ids": [
+        "M1_PG_PT050",
+        "M1_PG_PT052",
+        "M1_PG_PT044",
+        "M1_PG_PT043"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029",
+        "M1_PG_C025",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_ids": [
+        "COMPOSITE_AREA",
+        "SECTOR_AREA_RATIO"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area",
+        "sector_area",
+        "reverse_reasoning",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ]
+    },
+    {
+      "problem_range": "145-150",
+      "source_label": "색칠한 부분의 넓이 구하기(3)",
+      "problem_type_ids": [
+        "M1_PG_PT052",
+        "M1_PG_PT051"
+      ],
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_ids": [
+        "COMPOSITE_AREA"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "geometry_decomposition",
+        "area",
+        "composite_area",
+        "circle_parts"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ]
+    }
+  ],
+  "item_mappings": [
+    {
+      "item_no": 1,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 86,
+      "source_page": 1,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 2,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 78,
+      "source_page": 1,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 3,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 88,
+      "source_page": 1,
+      "problem_type_id": "M1_PG_PT011",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C006"
+      ],
+      "primary_protocol_id": "TRIANGLE_ANGLE_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_angles",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C007",
+        "M1_BG_C008",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 4,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 82,
+      "source_page": 1,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 5,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 82,
+      "source_page": 1,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 6,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 86,
+      "source_page": 2,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 7,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 88,
+      "source_page": 2,
+      "problem_type_id": "M1_PG_PT011",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C006"
+      ],
+      "primary_protocol_id": "TRIANGLE_ANGLE_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_angles",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C007",
+        "M1_BG_C008",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 8,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 71,
+      "source_page": 2,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT013"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C005"
+      ],
+      "primary_protocol_id": "ANGLE_BISECTOR_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_exterior_angle",
+        "unknown_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 9,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 74,
+      "source_page": 2,
+      "problem_type_id": "M1_PG_PT011",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C006"
+      ],
+      "primary_protocol_id": "TRIANGLE_ANGLE_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_angles",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C007",
+        "M1_BG_C008",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 10,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 82,
+      "source_page": 2,
+      "problem_type_id": "M1_PG_PT013",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT012"
+      ],
+      "concept_ids": [
+        "M1_PG_C005",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "TRIANGLE_EXTERIOR_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_exterior_angle",
+        "angle_equation",
+        "unknown_angle",
+        "angle_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C002",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 11,
+      "source_label": "삼각형의 세 내각의 크기의 합",
+      "correct_rate_percent": 85,
+      "source_page": 3,
+      "problem_type_id": "M1_PG_PT013",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT012"
+      ],
+      "concept_ids": [
+        "M1_PG_C005",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "TRIANGLE_EXTERIOR_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_exterior_angle",
+        "angle_equation",
+        "unknown_angle",
+        "angle_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C002",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 12,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 79,
+      "source_page": 3,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT013"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C005"
+      ],
+      "primary_protocol_id": "ANGLE_BISECTOR_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_exterior_angle",
+        "unknown_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 13,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 85,
+      "source_page": 3,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT013"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C005"
+      ],
+      "primary_protocol_id": "ANGLE_BISECTOR_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_exterior_angle",
+        "unknown_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 14,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 89,
+      "source_page": 3,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT013"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C005"
+      ],
+      "primary_protocol_id": "ANGLE_BISECTOR_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_exterior_angle",
+        "unknown_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 15,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 91,
+      "source_page": 3,
+      "problem_type_id": "M1_PG_PT013",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT012"
+      ],
+      "concept_ids": [
+        "M1_PG_C005",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "TRIANGLE_EXTERIOR_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_exterior_angle",
+        "angle_equation",
+        "unknown_angle",
+        "angle_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C002",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 16,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 84,
+      "source_page": 3,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT013"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C005"
+      ],
+      "primary_protocol_id": "ANGLE_BISECTOR_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_exterior_angle",
+        "unknown_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 17,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 88,
+      "source_page": 4,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT013"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C005"
+      ],
+      "primary_protocol_id": "ANGLE_BISECTOR_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_exterior_angle",
+        "unknown_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 18,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 78,
+      "source_page": 4,
+      "problem_type_id": "M1_PG_PT007",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT023",
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "property_judgement",
+        "exterior_angle",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C001",
+        "M1_PG_C002",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 19,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 90,
+      "source_page": 4,
+      "problem_type_id": "M1_PG_PT013",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT012"
+      ],
+      "concept_ids": [
+        "M1_PG_C005",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "TRIANGLE_EXTERIOR_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_exterior_angle",
+        "angle_equation",
+        "unknown_angle",
+        "angle_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C002",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 20,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 76,
+      "source_page": 4,
+      "problem_type_id": "M1_PG_PT013",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT012"
+      ],
+      "concept_ids": [
+        "M1_PG_C005",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "TRIANGLE_EXTERIOR_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_exterior_angle",
+        "angle_equation",
+        "unknown_angle",
+        "angle_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C002",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 21,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 81,
+      "source_page": 4,
+      "problem_type_id": "M1_PG_PT013",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT012"
+      ],
+      "concept_ids": [
+        "M1_PG_C005",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "TRIANGLE_EXTERIOR_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "triangle_exterior_angle",
+        "angle_equation",
+        "unknown_angle",
+        "angle_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C002",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C002",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 22,
+      "source_label": "삼각형의 내각과 외각의 관계",
+      "correct_rate_percent": 83,
+      "source_page": 4,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT013"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C005"
+      ],
+      "primary_protocol_id": "ANGLE_BISECTOR_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_exterior_angle",
+        "unknown_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C002"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 23,
+      "source_label": "삼각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 89,
+      "source_page": 5,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 24,
+      "source_label": "삼각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 85,
+      "source_page": 5,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 25,
+      "source_label": "삼각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 89,
+      "source_page": 5,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 26,
+      "source_label": "삼각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 80,
+      "source_page": 5,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 27,
+      "source_label": "삼각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 79,
+      "source_page": 5,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 28,
+      "source_label": "삼각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 76,
+      "source_page": 5,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 29,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 82,
+      "source_page": 6,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 30,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 75,
+      "source_page": 6,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 31,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 79,
+      "source_page": 6,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 32,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 87,
+      "source_page": 6,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 33,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 89,
+      "source_page": 6,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 34,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 67,
+      "source_page": 6,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 35,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 50,
+      "source_page": 7,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 36,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 48,
+      "source_page": 7,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 37,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 74,
+      "source_page": 7,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 38,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 69,
+      "source_page": 7,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 39,
+      "source_label": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "correct_rate_percent": 91,
+      "source_page": 7,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT010"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C004"
+      ],
+      "primary_protocol_id": "ISOSCELES_ANGLE_CHAIN",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "triangle_angle_sum"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_BG_C007",
+        "M1_BG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 40,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 88,
+      "source_page": 7,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 41,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 78,
+      "source_page": 8,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 42,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 70,
+      "source_page": 8,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 43,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 88,
+      "source_page": 8,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 44,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 78,
+      "source_page": 8,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 45,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 62,
+      "source_page": 8,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 46,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 58,
+      "source_page": 8,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 47,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 67,
+      "source_page": 9,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 48,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 79,
+      "source_page": 9,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 49,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 46,
+      "source_page": 9,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 50,
+      "source_label": "다각형의 대각선의 개수",
+      "correct_rate_percent": 69,
+      "source_page": 9,
+      "problem_type_id": "M1_PG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "DIAGONAL_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C007",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 51,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 86,
+      "source_page": 9,
+      "problem_type_id": "M1_PG_PT020",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT053"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 52,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 70,
+      "source_page": 9,
+      "problem_type_id": "M1_PG_PT020",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT053"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 53,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 77,
+      "source_page": 9,
+      "problem_type_id": "M1_PG_PT020",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT053"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 54,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 88,
+      "source_page": 10,
+      "problem_type_id": "M1_PG_PT020",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT053"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 55,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 86,
+      "source_page": 10,
+      "problem_type_id": "M1_PG_PT020",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT053"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 56,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 64,
+      "source_page": 10,
+      "problem_type_id": "M1_PG_PT020",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT053"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 57,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 78,
+      "source_page": 10,
+      "problem_type_id": "M1_PG_PT020",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT053"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 58,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 71,
+      "source_page": 10,
+      "problem_type_id": "M1_PG_PT020",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT053"
+      ],
+      "concept_ids": [
+        "M1_PG_C010",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation",
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 59,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 46,
+      "source_page": 10,
+      "problem_type_id": "M1_PG_PT019",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT015"
+      ],
+      "concept_ids": [
+        "M1_PG_C009",
+        "M1_PG_C010",
+        "M1_PG_C007"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_sum",
+        "reverse_reasoning",
+        "diagonal",
+        "n_minus_3"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C007",
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C001"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C003",
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 60,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 45,
+      "source_page": 10,
+      "problem_type_id": "M1_PG_PT019",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT015"
+      ],
+      "concept_ids": [
+        "M1_PG_C009",
+        "M1_PG_C010",
+        "M1_PG_C007"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_sum",
+        "reverse_reasoning",
+        "diagonal",
+        "n_minus_3"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C007",
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C001"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C003",
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 61,
+      "source_label": "다각형의 내각의 크기",
+      "correct_rate_percent": 41,
+      "source_page": 11,
+      "problem_type_id": "M1_PG_PT019",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT015"
+      ],
+      "concept_ids": [
+        "M1_PG_C009",
+        "M1_PG_C010",
+        "M1_PG_C007"
+      ],
+      "primary_protocol_id": "POLYGON_INTERIOR_SUM",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "polygon_interior_sum",
+        "reverse_reasoning",
+        "diagonal",
+        "n_minus_3"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C007",
+        "M1_PG_C009",
+        "M1_EX_C020",
+        "M1_PG_C001"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C003",
+        "M2_GEOM_C019",
+        "M2_GEOM_C037",
+        "M2_GEOM_C030"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 62,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 78,
+      "source_page": 11,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 63,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 78,
+      "source_page": 11,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 64,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 75,
+      "source_page": 11,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 65,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 80,
+      "source_page": 11,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 66,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 80,
+      "source_page": 11,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 67,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 74,
+      "source_page": 12,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 68,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 74,
+      "source_page": 12,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 69,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 68,
+      "source_page": 12,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 70,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 59,
+      "source_page": 12,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 71,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 71,
+      "source_page": 12,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 72,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 60,
+      "source_page": 12,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 73,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 67,
+      "source_page": 13,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 74,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 65,
+      "source_page": 13,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 75,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 57,
+      "source_page": 13,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 76,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 55,
+      "source_page": 13,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 77,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 46,
+      "source_page": 13,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 78,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 46,
+      "source_page": 14,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 79,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 47,
+      "source_page": 14,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 80,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 44,
+      "source_page": 14,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 81,
+      "source_label": "다각형의 내각의 크기의 합의 활용",
+      "correct_rate_percent": 62,
+      "source_page": 14,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT020"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C010"
+      ],
+      "primary_protocol_id": "COMPLEX_ANGLE_EQUATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C009"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C019"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 82,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 49,
+      "source_page": 14,
+      "problem_type_id": "M1_PG_PT025",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT016"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030",
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 83,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 47,
+      "source_page": 14,
+      "problem_type_id": "M1_PG_PT025",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT016"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030",
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 84,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 47,
+      "source_page": 15,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 85,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 63,
+      "source_page": 15,
+      "problem_type_id": "M1_PG_PT025",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 86,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 69,
+      "source_page": 15,
+      "problem_type_id": "M1_PG_PT007",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT023",
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "property_judgement",
+        "exterior_angle",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C001",
+        "M1_PG_C002",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 87,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 62,
+      "source_page": 15,
+      "problem_type_id": "M1_PG_PT007",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT023",
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "property_judgement",
+        "exterior_angle",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C001",
+        "M1_PG_C002",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 88,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 61,
+      "source_page": 15,
+      "problem_type_id": "M1_PG_PT025",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT016"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030",
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 89,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 70,
+      "source_page": 15,
+      "problem_type_id": "M1_PG_PT025",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT016"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030",
+        "M1_PG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 90,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 68,
+      "source_page": 15,
+      "problem_type_id": "M1_PG_PT007",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT023",
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "property_judgement",
+        "exterior_angle",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C001",
+        "M1_PG_C002",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 91,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 85,
+      "source_page": 16,
+      "problem_type_id": "M1_PG_PT007",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT023",
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "property_judgement",
+        "exterior_angle",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C001",
+        "M1_PG_C002",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 92,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 80,
+      "source_page": 16,
+      "problem_type_id": "M1_PG_PT025",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 93,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 63,
+      "source_page": 16,
+      "problem_type_id": "M1_PG_PT025",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 94,
+      "source_label": "정다각형의 한 내각과 한 외각의 크기",
+      "correct_rate_percent": 74,
+      "source_page": 16,
+      "problem_type_id": "M1_PG_PT025",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "regular_polygon",
+        "reverse_reasoning",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C003",
+        "M1_PG_C011",
+        "M1_EX_C020",
+        "M1_EX_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C010",
+        "M2_GEOM_C027",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 95,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 78,
+      "source_page": 16,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 96,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 76,
+      "source_page": 16,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 97,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 73,
+      "source_page": 16,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 98,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 87,
+      "source_page": 17,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 99,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 60,
+      "source_page": 17,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 100,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 74,
+      "source_page": 17,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 101,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 81,
+      "source_page": 17,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 102,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 59,
+      "source_page": 17,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 103,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 56,
+      "source_page": 17,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 104,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 47,
+      "source_page": 18,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 105,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 50,
+      "source_page": 18,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 106,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 53,
+      "source_page": 18,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 107,
+      "source_label": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "correct_rate_percent": 50,
+      "source_page": 18,
+      "problem_type_id": "M1_PG_PT053",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT024"
+      ],
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030",
+        "M1_PG_C012"
+      ],
+      "primary_protocol_id": "REGULAR_POLYGON_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "polygon_and_angle"
+      ],
+      "likely_error_tags": [
+        "geometry_equation",
+        "angle_equation",
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C003",
+        "M1_PG_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "M2_GEOM_C010",
+        "M2_GEOM_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 108,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 59,
+      "source_page": 18,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 109,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 71,
+      "source_page": 18,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 110,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 55,
+      "source_page": 19,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 111,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 77,
+      "source_page": 19,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 112,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 84,
+      "source_page": 19,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 113,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 79,
+      "source_page": 19,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 114,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 72,
+      "source_page": 19,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 115,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 87,
+      "source_page": 19,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 116,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 75,
+      "source_page": 20,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 117,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 79,
+      "source_page": 20,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 118,
+      "source_label": "중심각의 크기와 호의 길이(2)",
+      "correct_rate_percent": 70,
+      "source_page": 20,
+      "problem_type_id": "M1_PG_PT042",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT040"
+      ],
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CENTRAL_ANGLE_ARC_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning",
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 119,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 49,
+      "source_page": 20,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 120,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 63,
+      "source_page": 20,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 121,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 83,
+      "source_page": 21,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 122,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 66,
+      "source_page": 21,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 123,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 66,
+      "source_page": 21,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 124,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 55,
+      "source_page": 21,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 125,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 76,
+      "source_page": 22,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 126,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 57,
+      "source_page": 22,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 127,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 57,
+      "source_page": 22,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 128,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 63,
+      "source_page": 22,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 129,
+      "source_label": "중심각의 크기에 정비례하는 것",
+      "correct_rate_percent": 70,
+      "source_page": 23,
+      "problem_type_id": "M1_PG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "CHORD_CENTRAL_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 130,
+      "source_label": "색칠한 부분의 둘레의 길이",
+      "correct_rate_percent": 68,
+      "source_page": 23,
+      "problem_type_id": "M1_PG_PT048",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT046",
+        "M1_PG_PT047"
+      ],
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_BOUNDARY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_perimeter",
+        "boundary_selection",
+        "arc_length",
+        "geometry_decomposition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C021",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C038"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 131,
+      "source_label": "색칠한 부분의 둘레의 길이",
+      "correct_rate_percent": 65,
+      "source_page": 23,
+      "problem_type_id": "M1_PG_PT048",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT046",
+        "M1_PG_PT047"
+      ],
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_BOUNDARY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_perimeter",
+        "boundary_selection",
+        "arc_length",
+        "geometry_decomposition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C021",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C038"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 132,
+      "source_label": "색칠한 부분의 둘레의 길이",
+      "correct_rate_percent": 71,
+      "source_page": 23,
+      "problem_type_id": "M1_PG_PT048",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT046",
+        "M1_PG_PT047"
+      ],
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_BOUNDARY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_perimeter",
+        "boundary_selection",
+        "arc_length",
+        "geometry_decomposition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C021",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C038"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 133,
+      "source_label": "색칠한 부분의 둘레의 길이",
+      "correct_rate_percent": 84,
+      "source_page": 23,
+      "problem_type_id": "M1_PG_PT048",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT046",
+        "M1_PG_PT047"
+      ],
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_BOUNDARY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_perimeter",
+        "boundary_selection",
+        "arc_length",
+        "geometry_decomposition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C021",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C038"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 134,
+      "source_label": "색칠한 부분의 둘레의 길이",
+      "correct_rate_percent": 78,
+      "source_page": 24,
+      "problem_type_id": "M1_PG_PT048",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT046",
+        "M1_PG_PT047"
+      ],
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_BOUNDARY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_perimeter",
+        "boundary_selection",
+        "arc_length",
+        "geometry_decomposition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C021",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C038"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 135,
+      "source_label": "색칠한 부분의 둘레의 길이",
+      "correct_rate_percent": 73,
+      "source_page": 24,
+      "problem_type_id": "M1_PG_PT048",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT046",
+        "M1_PG_PT047"
+      ],
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_BOUNDARY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_perimeter",
+        "boundary_selection",
+        "arc_length",
+        "geometry_decomposition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C021",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C035",
+        "M2_GEOM_C036",
+        "M2_GEOM_C038"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 136,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 59,
+      "source_page": 24,
+      "problem_type_id": "M1_PG_PT050",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT052"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 137,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 73,
+      "source_page": 24,
+      "problem_type_id": "M1_PG_PT050",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT052"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 138,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 71,
+      "source_page": 24,
+      "problem_type_id": "M1_PG_PT050",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT052"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 139,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 67,
+      "source_page": 25,
+      "problem_type_id": "M1_PG_PT050",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT052"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 140,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 76,
+      "source_page": 25,
+      "problem_type_id": "M1_PG_PT050",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT052"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 141,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 52,
+      "source_page": 25,
+      "problem_type_id": "M1_PG_PT050",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT052"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 142,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 64,
+      "source_page": 25,
+      "problem_type_id": "M1_PG_PT050",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT052"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 143,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 68,
+      "source_page": 26,
+      "problem_type_id": "M1_PG_PT050",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT052"
+      ],
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "composite_area",
+        "subtract_parts",
+        "geometry_decomposition",
+        "area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_EX_C006",
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C140",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 144,
+      "source_label": "색칠한 부분의 넓이 구하기(1)",
+      "correct_rate_percent": 58,
+      "source_page": 26,
+      "problem_type_id": "M1_PG_PT044",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT043"
+      ],
+      "concept_ids": [
+        "M1_PG_C025",
+        "M1_PG_C030",
+        "M1_PG_C023"
+      ],
+      "primary_protocol_id": "SECTOR_AREA_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "circle_and_sector"
+      ],
+      "likely_error_tags": [
+        "sector_area",
+        "reverse_reasoning",
+        "formula"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C023",
+        "M1_EX_C020",
+        "M1_EX_C022",
+        "M1_PG_C021",
+        "M1_EX_C003"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C037",
+        "M2_GEOM_C040",
+        "H1_CM2_GEQ_C196",
+        "H1_CM2_GEQ_C197"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 145,
+      "source_label": "색칠한 부분의 넓이 구하기(3)",
+      "correct_rate_percent": 74,
+      "source_page": 26,
+      "problem_type_id": "M1_PG_PT052",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT051"
+      ],
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "geometry_decomposition",
+        "area",
+        "composite_area",
+        "circle_parts"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 146,
+      "source_label": "색칠한 부분의 넓이 구하기(3)",
+      "correct_rate_percent": 59,
+      "source_page": 26,
+      "problem_type_id": "M1_PG_PT052",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT051"
+      ],
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "geometry_decomposition",
+        "area",
+        "composite_area",
+        "circle_parts"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 147,
+      "source_label": "색칠한 부분의 넓이 구하기(3)",
+      "correct_rate_percent": 74,
+      "source_page": 26,
+      "problem_type_id": "M1_PG_PT052",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT051"
+      ],
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "geometry_decomposition",
+        "area",
+        "composite_area",
+        "circle_parts"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 148,
+      "source_label": "색칠한 부분의 넓이 구하기(3)",
+      "correct_rate_percent": 74,
+      "source_page": 27,
+      "problem_type_id": "M1_PG_PT052",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT051"
+      ],
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "geometry_decomposition",
+        "area",
+        "composite_area",
+        "circle_parts"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 149,
+      "source_label": "색칠한 부분의 넓이 구하기(3)",
+      "correct_rate_percent": 74,
+      "source_page": 27,
+      "problem_type_id": "M1_PG_PT052",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT051"
+      ],
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "geometry_decomposition",
+        "area",
+        "composite_area",
+        "circle_parts"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 150,
+      "source_label": "색칠한 부분의 넓이 구하기(3)",
+      "correct_rate_percent": 75,
+      "source_page": 27,
+      "problem_type_id": "M1_PG_PT052",
+      "secondary_problem_type_ids": [
+        "M1_PG_PT051"
+      ],
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "primary_protocol_id": "COMPOSITE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "composite_perimeter_or_area"
+      ],
+      "likely_error_tags": [
+        "geometry_decomposition",
+        "area",
+        "composite_area",
+        "circle_parts"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C025",
+        "M1_PG_C027",
+        "M1_PG_C028"
+      ],
+      "next_learning_concept_ids": [
+        "M2_GEOM_C038",
+        "H1_CM2_GEQ_C281",
+        "M2_GEOM_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    }
+  ],
+  "source_flags": {
+    "visual_problem_count": 127,
+    "visual_items": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      43,
+      44,
+      46,
+      49,
+      51,
+      52,
+      53,
+      54,
+      55,
+      57,
+      58,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      84,
+      91,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150
+    ],
+    "new_trend_items": [],
+    "low_accuracy_threshold_percent": 50,
+    "low_accuracy_items_at_or_below_50_percent": [
+      35,
+      36,
+      49,
+      59,
+      60,
+      61,
+      77,
+      78,
+      79,
+      80,
+      82,
+      83,
+      84,
+      104,
+      105,
+      107,
+      119
+    ],
+    "minimum_correct_rate_percent": 41,
+    "minimum_correct_rate_items": [
+      61
+    ],
+    "maximum_correct_rate_percent": 91,
+    "maximum_correct_rate_items": [
+      15,
+      39
+    ]
+  },
+  "notes": [
+    "문제 1-27쪽, 빠른 정답 28-29쪽, 전체 해설 30-51쪽 구성",
+    "원본 문항·정답·해설·페이지 이미지는 엔진에 저장하지 않음",
+    "세트 01에서 추가한 M1_PLANE_GEOMETRY 전용 5단계 풀이 프로토콜 27종을 변경 없이 재사용",
+    "삼각형 내각·외각, 각의 이등분선, 이등변삼각형, 대각선, 다각형 내각, 정다각형, 원과 부채꼴, 복합 둘레와 넓이 문항을 기존 유형 ID에 누적 연결",
+    "정답률 50% 이하 문항은 35, 36, 49, 59, 60, 61, 77, 78, 79, 80, 82, 83, 84, 104, 105, 107, 119번이며 최저 정답률은 61번의 41%",
+    "61번은 두 다각형의 한 꼭짓점에서 그은 대각선 수의 비와 내각의 합의 비를 함께 이용해 변의 수와 전체 대각선 수를 복원하는 복합 다각형 문항으로 연결함",
+    "84번은 모든 변의 길이가 같은 별 모양에서 오목 꼭짓점과 볼록 꼭짓점의 각 차를 이용해 반복 횟수와 정다각형의 변의 수를 역산하는 정다각형 복합 활용 문항으로 연결함",
+    "119번은 호의 길이 비에서 중심각, 부채꼴 넓이, 삼각형 넓이 관계를 구분하는 원의 정비례 판별 문항으로 연결함",
+    "150번은 네 방향으로 합동인 원이 반복 배치된 색칠 영역을 대칭과 재배열로 정리하는 복합 넓이 문항으로 연결함"
+  ]
+}

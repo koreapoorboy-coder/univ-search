@@ -1,0 +1,69 @@
+{
+  "patch_id": "PATCH130",
+  "status": "PASS",
+  "unit_id": "M1_PLANE_GEOMETRY",
+  "source_id": "SRC_M1_PG_150_WORKSHEET_SET09_20260710",
+  "checks": {
+    "source_pdf_exists": true,
+    "problem_count": 150,
+    "page_count": 51,
+    "problem_page_range": "1-27",
+    "quick_answer_page_range": "28-29",
+    "solution_page_range": "30-51",
+    "last_solution_page_contains_problem_150": true,
+    "item_mapping_starts_at": 1,
+    "item_mapping_ends_at": 150,
+    "item_mapping_has_no_gap": true,
+    "item_mapping_count": 150,
+    "coverage_block_count": 14,
+    "source_label_count": 14,
+    "concept_count_existing": 30,
+    "problem_type_count_existing": 54,
+    "protocol_count_after_patch": 27,
+    "protocol_file_change_required": false,
+    "worksheet_count_after_patch": 9,
+    "total_problem_count_after_patch": 1350,
+    "cumulative_index_valid": true,
+    "all_source_pdf_hashes_distinct": true,
+    "source_sha256_recorded": true,
+    "textbook_taxonomy_integration": true,
+    "separate_workbook_taxonomy_created": false,
+    "quick_answers_present": true,
+    "full_solutions_present": true,
+    "visual_problem_count": 127,
+    "new_trend_problem_count": 0,
+    "low_accuracy_problem_count_at_or_below_50_percent": 17,
+    "minimum_correct_rate_percent": 41,
+    "maximum_correct_rate_percent": 91,
+    "problem_061_uses_polygon_sum_and_one_vertex_diagonal_mapping": true,
+    "problem_084_uses_regular_polygon_application_mapping": true,
+    "problem_119_uses_central_proportion_mapping": true,
+    "problem_144_uses_sector_area_ratio_mapping": true,
+    "problem_150_uses_composite_area_mapping": true,
+    "original_content_embedded": false,
+    "all_problem_type_ids_valid": true,
+    "all_concept_ids_valid": true,
+    "all_protocol_ids_valid": true,
+    "prerequisite_and_next_learning_metadata_present": true,
+    "json_valid": true,
+    "english_output_filenames": true,
+    "applicable_file_count": 4
+  },
+  "files": [
+    {
+      "path": "math-weakness-engine/data/sources/m1_plane_geometry_150worksheet_set09.registry.v1.json",
+      "sha256": "de83a71a49c1ab9fc7cf02538b8517a675b1da5b271200efc4bcd712a846b8ff",
+      "bytes": 173875
+    },
+    {
+      "path": "math-weakness-engine/data/sources/m1_plane_geometry_worksheets.index.v1.json",
+      "sha256": "b7bb939f50346ecd1f2bd5737e4553bea06ee22dccc378240181ec031466226d",
+      "bytes": 4501
+    },
+    {
+      "path": "math-weakness-engine/docs/PATCH130_M1_PLANE_GEOMETRY_WORKSHEET_SET09.md",
+      "sha256": "f9ca4d84d1e14191157ee24c279264a5984742e7e280d103447173db492e30ea",
+      "bytes": 2528
+    }
+  ]
+}
