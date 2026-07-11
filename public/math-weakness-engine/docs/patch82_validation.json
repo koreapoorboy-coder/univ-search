@@ -1,0 +1,45 @@
+{
+  "patch_id": "PATCH82",
+  "status": "PASS",
+  "unit_id": "M1_INT_RATIONAL",
+  "source_id": "SRC_M1_IR_150_WORKSHEET_SET11_20260710",
+  "checks": {
+    "problem_count": 150,
+    "page_count": 41,
+    "coverage_starts_at": 1,
+    "coverage_ends_at": 150,
+    "coverage_has_no_gap": true,
+    "protocol_count": 22,
+    "worksheet_count_after_patch": 11,
+    "total_problem_count_after_patch": 1650,
+    "textbook_taxonomy_integration": true,
+    "separate_workbook_taxonomy_created": false,
+    "quick_answers_present": true,
+    "full_solutions_present": true,
+    "original_content_embedded": false,
+    "source_sha256_recorded": true,
+    "json_valid": true
+  },
+  "files": [
+    {
+      "path": "math-weakness-engine/data/forms/m1_int_rational.solve_protocols.v2.json",
+      "sha256": "4128be5c00f7e2ad691d055ffb90a6ffc80420ef2a6de33c52afe5ffe5338dcc",
+      "bytes": 14951
+    },
+    {
+      "path": "math-weakness-engine/data/sources/m1_int_rational_150worksheet_set11.registry.v1.json",
+      "sha256": "b4907108374a3b1b84a1cf035dc706acdec54969eb8e5803278f5a2f9badcb47",
+      "bytes": 5033
+    },
+    {
+      "path": "math-weakness-engine/data/sources/m1_int_rational_worksheets.index.v1.json",
+      "sha256": "742bbca20430d6aa5df2abc34e41d84bd246f5d199355ab5083d159379d6030b",
+      "bytes": 4140
+    },
+    {
+      "path": "math-weakness-engine/docs/PATCH82_M1_INT_RATIONAL_WORKSHEET_SET11.md",
+      "sha256": "41bc7a655f569327d884c857e037d5d1fbffd4c23f25bb898b678b70b222ca5c",
+      "bytes": 857
+    }
+  ]
+}
