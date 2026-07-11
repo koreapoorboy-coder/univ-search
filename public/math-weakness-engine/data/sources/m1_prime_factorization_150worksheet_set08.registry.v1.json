@@ -1,0 +1,130 @@
+{
+  "version": "1.0",
+  "source_id": "SRC_M1_PF_150_WORKSHEET_SET08_20260710",
+  "source_sequence": 8,
+  "unit_id": "M1_PRIME_FACTORIZATION",
+  "problem_count": 150,
+  "source_pdf_pages": 36,
+  "source_pdf_sha256": "3fca78c364cb9da5e85326a7781995e6c42b1df8d0e18ad8f89f78d331d1e52b",
+  "mapping_target": "data/problem_types/m1_prime_factorization.problem_types.v1.json",
+  "protocol_target": "data/forms/m1_prime_factorization.solve_protocols.v2.json",
+  "item_text_stored": false,
+  "answer_explanation_stored": false,
+  "deduplication_scope": "map by internal taxonomy and protocol; do not use worksheet type names as canonical ids",
+  "ranges": [
+    {
+      "start_no": 1,
+      "end_no": 8,
+      "type_group": "소수와 합성수 및 성질",
+      "protocol_id": "PRIME_COMPOSITE_DEFINITION"
+    },
+    {
+      "start_no": 9,
+      "end_no": 16,
+      "type_group": "소인수 구하기",
+      "protocol_id": "PRIME_FACTORIZATION_CORE"
+    },
+    {
+      "start_no": 17,
+      "end_no": 21,
+      "type_group": "소인수분해 결과의 밑과 지수",
+      "protocol_id": "PRIME_FACTORIZATION_CORE"
+    },
+    {
+      "start_no": 22,
+      "end_no": 29,
+      "type_group": "제곱수 만들기: 곱하는 조건",
+      "protocol_id": "PERFECT_SQUARE_EXPONENT_PARITY"
+    },
+    {
+      "start_no": 30,
+      "end_no": 37,
+      "type_group": "제곱수 만들기: 나누는 조건",
+      "protocol_id": "PERFECT_SQUARE_EXPONENT_PARITY"
+    },
+    {
+      "start_no": 38,
+      "end_no": 47,
+      "type_group": "소인수분해를 이용한 약수 구하기",
+      "protocol_id": "DIVISOR_ENUMERATION_COUNT"
+    },
+    {
+      "start_no": 48,
+      "end_no": 55,
+      "type_group": "약수의 개수 구하기",
+      "protocol_id": "DIVISOR_ENUMERATION_COUNT"
+    },
+    {
+      "start_no": 56,
+      "end_no": 66,
+      "type_group": "약수의 개수가 주어진 자연수 구하기",
+      "protocol_id": "DIVISOR_COUNT_REVERSE"
+    },
+    {
+      "start_no": 67,
+      "end_no": 74,
+      "type_group": "약수의 개수 조건에서 빈칸 수 구하기",
+      "protocol_id": "DIVISOR_COUNT_REVERSE"
+    },
+    {
+      "start_no": 75,
+      "end_no": 82,
+      "type_group": "서로소와 기약분수",
+      "protocol_id": "COPRIME_GCD_ONE"
+    },
+    {
+      "start_no": 83,
+      "end_no": 90,
+      "type_group": "공약수와 최대공약수",
+      "protocol_id": "GCD_MIN_EXPONENT"
+    },
+    {
+      "start_no": 91,
+      "end_no": 98,
+      "type_group": "공배수와 최소공배수",
+      "protocol_id": "LCM_MAX_EXPONENT"
+    },
+    {
+      "start_no": 99,
+      "end_no": 106,
+      "type_group": "미지수가 포함된 수들의 최소공배수",
+      "protocol_id": "LCM_RATIO_VARIABLE"
+    },
+    {
+      "start_no": 107,
+      "end_no": 114,
+      "type_group": "최대공약수가 주어진 미지수 구하기",
+      "protocol_id": "GCD_LCM_UNKNOWN_NUMBER"
+    },
+    {
+      "start_no": 115,
+      "end_no": 123,
+      "type_group": "어떤 자연수로 주어진 수들을 나누기",
+      "protocol_id": "DIVIDE_GIVEN_NUMBERS_REMAINDER_ADJUST"
+    },
+    {
+      "start_no": 124,
+      "end_no": 132,
+      "type_group": "어떤 자연수를 여러 수로 나누기",
+      "protocol_id": "UNKNOWN_NUMBER_COMMON_REMAINDER"
+    },
+    {
+      "start_no": 133,
+      "end_no": 138,
+      "type_group": "분수에 곱하여 자연수 만들기",
+      "protocol_id": "FRACTION_MULTIPLIER_GCD_LCM"
+    },
+    {
+      "start_no": 139,
+      "end_no": 146,
+      "type_group": "최대공약수와 최소공배수 관계로 수 구하기",
+      "protocol_id": "GCD_LCM_REDUCED_PAIR"
+    },
+    {
+      "start_no": 147,
+      "end_no": 150,
+      "type_group": "두 수의 곱과 최대공약수·최소공배수 관계",
+      "protocol_id": "PRODUCT_EQUALS_GCD_TIMES_LCM"
+    }
+  ]
+}
