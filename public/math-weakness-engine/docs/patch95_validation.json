@@ -1,0 +1,45 @@
+{
+  "patch_id": "PATCH95",
+  "status": "PASS",
+  "unit_id": "M1_EXPRESSION",
+  "source_id": "SRC_M1_EX_150_WORKSHEET_SET13_20260710",
+  "checks": {
+    "problem_count": 150,
+    "page_count": 43,
+    "coverage_starts_at": 1,
+    "coverage_ends_at": 150,
+    "coverage_has_no_gap": true,
+    "protocol_count": 30,
+    "worksheet_count_after_patch": 13,
+    "total_problem_count_after_patch": 1950,
+    "textbook_taxonomy_integration": true,
+    "separate_workbook_taxonomy_created": false,
+    "quick_answers_present": true,
+    "full_solutions_present": true,
+    "original_content_embedded": false,
+    "source_sha256_recorded": true,
+    "json_valid": true
+  },
+  "files": [
+    {
+      "path": "math-weakness-engine/data/forms/m1_expression.solve_protocols.v2.json",
+      "sha256": "562679324312a6cb6b3d00b53fbb457d46da464def6a2f3518e7cf9dbc2b16e3",
+      "bytes": 20236
+    },
+    {
+      "path": "math-weakness-engine/data/sources/m1_expression_150worksheet_set13.registry.v1.json",
+      "sha256": "56ec0324fd9f479ab6911836b6013cece831890e7cb48b8d07cab45c1ff7f71a",
+      "bytes": 7570
+    },
+    {
+      "path": "math-weakness-engine/data/sources/m1_expression_worksheets.index.v1.json",
+      "sha256": "48274c17ad1fa0f75ef27d3d0f949b8faea0addb32cbc24b115a85e81e4ae8b5",
+      "bytes": 4744
+    },
+    {
+      "path": "math-weakness-engine/docs/PATCH95_M1_EXPRESSION_WORKSHEET_SET13.md",
+      "sha256": "1ee0cde37b98f1822faeaebba76c2ee38fa8a8cd86d8a55540b747f64429f963",
+      "bytes": 695
+    }
+  ]
+}
