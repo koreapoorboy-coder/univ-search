@@ -1,0 +1,55 @@
+{
+  "patch_id": "PATCH106",
+  "status": "PASS",
+  "unit_id": "M1_COORD_GRAPH",
+  "source_id": "SRC_M1_CG_33_WORKSHEET_SET11_20260710",
+  "checks": {
+    "source_pdf_exists": true,
+    "problem_count": 33,
+    "page_count": 14,
+    "problem_page_range": "1-7",
+    "quick_answer_page_range": "8",
+    "solution_page_range": "9-14",
+    "coverage_starts_at": 1,
+    "coverage_ends_at": 33,
+    "coverage_has_no_gap": true,
+    "concept_count_existing": 28,
+    "problem_type_count_existing": 61,
+    "protocol_count_existing": 32,
+    "protocol_file_change_required": false,
+    "worksheet_count_after_patch": 11,
+    "total_problem_count_after_patch": 1506,
+    "cumulative_index_valid": true,
+    "textbook_taxonomy_integration": true,
+    "separate_workbook_taxonomy_created": false,
+    "quick_answers_present": true,
+    "full_solutions_present": true,
+    "visual_problem_count": 22,
+    "new_trend_problem_count": 0,
+    "low_accuracy_problem_count_at_or_below_50_percent": 0,
+    "minimum_correct_rate_percent": 52,
+    "maximum_correct_rate_percent": 84,
+    "original_content_embedded": false,
+    "source_sha256_recorded": true,
+    "json_valid": true,
+    "english_output_filenames": true,
+    "applicable_file_count": 4
+  },
+  "files": [
+    {
+      "path": "math-weakness-engine/data/sources/m1_coordinate_graph_33worksheet_set11.registry.v1.json",
+      "sha256": "5fa3f2f1c060bbb93cea2dfb98ddc160e2f953e81f5847f9f7c454c0ef71ead4",
+      "bytes": 3062
+    },
+    {
+      "path": "math-weakness-engine/data/sources/m1_coordinate_graph_worksheets.index.v1.json",
+      "sha256": "7cea1b0c8f24b4730c2c7fe3c85afab5672c8b23da2ced241ae1ee3e8b36dbf5",
+      "bytes": 4305
+    },
+    {
+      "path": "math-weakness-engine/docs/PATCH106_M1_COORDINATE_GRAPH_WORKSHEET_SET11.md",
+      "sha256": "1ebb8cf551f9e0eef2303a5f8aad5aa44940cc8e5b583d50f9974afe35d97c6c",
+      "bytes": 1613
+    }
+  ]
+}
