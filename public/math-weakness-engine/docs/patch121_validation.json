@@ -1,0 +1,64 @@
+{
+  "patch_id": "PATCH121",
+  "status": "PASS",
+  "unit_id": "M1_BASIC_GEOMETRY",
+  "source_id": "SRC_M1_BG_081_WORKSHEET_SET15_20260710",
+  "checks": {
+    "source_pdf_exists": true,
+    "problem_count": 81,
+    "page_count": 27,
+    "problem_page_range": "1-14",
+    "quick_answer_page_range": "15",
+    "solution_page_range": "16-27",
+    "last_solution_page_contains_problem_81": true,
+    "item_mapping_starts_at": 1,
+    "item_mapping_ends_at": 81,
+    "item_mapping_has_no_gap": true,
+    "item_mapping_count": 81,
+    "coverage_block_count": 5,
+    "source_label_count": 5,
+    "concept_count_existing": 34,
+    "problem_type_count_existing": 55,
+    "protocol_count_after_patch": 44,
+    "protocol_file_change_required": false,
+    "worksheet_count_after_patch": 15,
+    "total_problem_count_after_patch": 2181,
+    "cumulative_index_valid": true,
+    "all_source_pdf_hashes_distinct": true,
+    "source_sha256_recorded": true,
+    "textbook_taxonomy_integration": true,
+    "separate_workbook_taxonomy_created": false,
+    "quick_answers_present": true,
+    "full_solutions_present": true,
+    "visual_problem_count": 69,
+    "new_trend_problem_count": 0,
+    "low_accuracy_problem_count_at_or_below_50_percent": 10,
+    "minimum_correct_rate_percent": 42,
+    "maximum_correct_rate_percent": 87,
+    "original_content_embedded": false,
+    "all_problem_type_ids_valid": true,
+    "all_concept_ids_valid": true,
+    "all_protocol_ids_valid": true,
+    "prerequisite_and_next_learning_metadata_present": true,
+    "json_valid": true,
+    "english_output_filenames": true,
+    "applicable_file_count": 4
+  },
+  "files": [
+    {
+      "path": "math-weakness-engine/data/sources/m1_basic_geometry_81worksheet_set15.registry.v1.json",
+      "sha256": "688b1b06b58597b165b16ef48b78111fd20477ad613eede822330e33da5aa1d1",
+      "bytes": 75082
+    },
+    {
+      "path": "math-weakness-engine/data/sources/m1_basic_geometry_worksheets.index.v1.json",
+      "sha256": "64d32352f97572e99ba68cf3f3bf3371fd00d8ab1bb2adeeddc9e92651bbf262",
+      "bytes": 7173
+    },
+    {
+      "path": "math-weakness-engine/docs/PATCH121_M1_BASIC_GEOMETRY_WORKSHEET_SET15.md",
+      "sha256": "4221fc5eb6bd383684a426a387f49798325ece472d5b4913497000596b2c2875",
+      "bytes": 2060
+    }
+  ]
+}

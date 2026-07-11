@@ -1,0 +1,2724 @@
+{
+  "version": "1.0",
+  "source_id": "SRC_M1_BG_081_WORKSHEET_SET15_20260710",
+  "unit_id": "M1_BASIC_GEOMETRY",
+  "grade": "중1",
+  "unit_name": "기본 도형과 작도",
+  "title": "중1 기본 도형과 작도 - 점·선·면부터 삼각형의 합동 (세트 15, 81문항)",
+  "source_file": "260710_기본 도형과 작도(14).pdf",
+  "published_date": "2026-07-10",
+  "registered_date": "2026-07-11",
+  "problem_count": 81,
+  "page_count": 27,
+  "problem_pages": "1-14",
+  "quick_answer_pages": "15",
+  "solution_pages": "16-27",
+  "has_quick_answers": true,
+  "has_full_solutions": true,
+  "source_sha256": "fbe0b126aeefd52fb930ed553c774e904aa841b2e0ef793166a71875f775c317",
+  "integration_mode": "기존 교과서 기반 M1_BASIC_GEOMETRY 통합 분류 체계, 34개 개념, 55개 문제 유형, 44개 풀이 프로토콜에 열다섯 번째 독립 근거 세트로 누적 연결",
+  "storage_policy": "문제·정답·해설 원문과 페이지 이미지는 저장하지 않고 문항 번호, 내부 유형·개념·풀이 프로토콜·시각·정답률·연결 메타데이터만 저장",
+  "canonical_taxonomy_note": "문제집 유형명은 source_label 증거로만 보존하고 별도 문제집 분류 체계를 생성하지 않음",
+  "distinct_source_note": "세트 01-14와 단원 및 일부 유형은 겹치지만, 81문항·27쪽의 부분 집중 세트이며 문항 구성, 정답률, 유형 구간이 다르므로 열다섯 번째 독립 근거 세트로 등록. 로컬의 15개 기본 도형과 작도 PDF는 SHA-256이 모두 서로 다름",
+  "coverage": [
+    {
+      "problem_range": "001-051",
+      "source_label": "두 점 사이의 거리(2)",
+      "problem_type_ids": [
+        "M1_BG_PT007"
+      ],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_ids": [
+        "MIDPOINT_DISTANCE_CONDITION"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": []
+    },
+    {
+      "problem_range": "052-063",
+      "source_label": "평행선에서의 활용(1)",
+      "problem_type_ids": [
+        "M1_BG_PT035"
+      ],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_ids": [
+        "PARALLEL_COMPLEX_ANGLE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ]
+    },
+    {
+      "problem_range": "064-074",
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "problem_type_ids": [
+        "M1_BG_PT036"
+      ],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_ids": [
+        "PAPER_FOLDING"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": []
+    },
+    {
+      "problem_range": "075-078",
+      "source_label": "삼각형의 합동 조건(3) ASA합동",
+      "problem_type_ids": [
+        "M1_BG_PT053"
+      ],
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "primary_protocol_ids": [
+        "ASA_CONGRUENCE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "ASA_congruence",
+        "included_side"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M2_GEOM_C005"
+      ]
+    },
+    {
+      "problem_range": "079-081",
+      "source_label": "삼각형의 합동의 활용(2) 정사각형",
+      "problem_type_ids": [
+        "M1_BG_PT055"
+      ],
+      "concept_ids": [
+        "M1_BG_C034",
+        "M1_BG_C033"
+      ],
+      "primary_protocol_ids": [
+        "SPECIAL_SHAPE_CONGRUENCE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "congruence_application",
+        "rectangle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M1_PG_C020",
+        "M2_GEOM_C005"
+      ]
+    }
+  ],
+  "item_mappings": [
+    {
+      "item_no": 1,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 73,
+      "source_page": 1,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 2,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 67,
+      "source_page": 1,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 3,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 81,
+      "source_page": 1,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 4,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 69,
+      "source_page": 1,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 5,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 68,
+      "source_page": 1,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 6,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 69,
+      "source_page": 1,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 7,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 75,
+      "source_page": 2,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 8,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 76,
+      "source_page": 2,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 9,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 42,
+      "source_page": 2,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 10,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 85,
+      "source_page": 2,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 11,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 43,
+      "source_page": 2,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 12,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 74,
+      "source_page": 2,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 13,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 42,
+      "source_page": 2,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 14,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 47,
+      "source_page": 2,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 15,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 79,
+      "source_page": 3,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 16,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 71,
+      "source_page": 3,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 17,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 81,
+      "source_page": 3,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 18,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 81,
+      "source_page": 3,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 19,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 83,
+      "source_page": 3,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 20,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 73,
+      "source_page": 3,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 21,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 49,
+      "source_page": 3,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 22,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 78,
+      "source_page": 4,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 23,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 47,
+      "source_page": 4,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 24,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 76,
+      "source_page": 4,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 25,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 50,
+      "source_page": 4,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 26,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 76,
+      "source_page": 4,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 27,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 74,
+      "source_page": 4,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 28,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 63,
+      "source_page": 4,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 29,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 87,
+      "source_page": 5,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 30,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 66,
+      "source_page": 5,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 31,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 84,
+      "source_page": 5,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 32,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 67,
+      "source_page": 5,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 33,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 46,
+      "source_page": 5,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 34,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 66,
+      "source_page": 5,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 35,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 78,
+      "source_page": 5,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 36,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 86,
+      "source_page": 6,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 37,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 67,
+      "source_page": 6,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 38,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 73,
+      "source_page": 6,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 39,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 60,
+      "source_page": 6,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 40,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 77,
+      "source_page": 6,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 41,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 64,
+      "source_page": 6,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 42,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 83,
+      "source_page": 6,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 43,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 69,
+      "source_page": 7,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 44,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 85,
+      "source_page": 7,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 45,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 75,
+      "source_page": 7,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 46,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 74,
+      "source_page": 7,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 47,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 76,
+      "source_page": 7,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 48,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 58,
+      "source_page": 7,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 49,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 52,
+      "source_page": 7,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 50,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 65,
+      "source_page": 7,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 51,
+      "source_label": "두 점 사이의 거리(2)",
+      "correct_rate_percent": 55,
+      "source_page": 8,
+      "problem_type_id": "M1_BG_PT007",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "primary_protocol_id": "MIDPOINT_DISTANCE_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "point_line_segment",
+        "symbolic_or_verbal_statement",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C003",
+        "M1_BG_C005",
+        "M1_EX_C006",
+        "M1_IR_C004"
+      ],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 52,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 69,
+      "source_page": 8,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 53,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 70,
+      "source_page": 8,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 54,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 72,
+      "source_page": 8,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 55,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 80,
+      "source_page": 8,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 56,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 80,
+      "source_page": 9,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 57,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 71,
+      "source_page": 9,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 58,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 73,
+      "source_page": 9,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 59,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 63,
+      "source_page": 9,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 60,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 45,
+      "source_page": 9,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 61,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 76,
+      "source_page": 9,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 62,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 85,
+      "source_page": 10,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 63,
+      "source_label": "평행선에서의 활용(1)",
+      "correct_rate_percent": 82,
+      "source_page": 10,
+      "problem_type_id": "M1_BG_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "primary_protocol_id": "PARALLEL_COMPLEX_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [
+        "M1_PG_C006",
+        "M2_GEOM_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 64,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 48,
+      "source_page": 10,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 65,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 64,
+      "source_page": 10,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 66,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 65,
+      "source_page": 10,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 67,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 70,
+      "source_page": 10,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 68,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 81,
+      "source_page": 11,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 69,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 76,
+      "source_page": 11,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 70,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 66,
+      "source_page": 11,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 71,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 63,
+      "source_page": 11,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 72,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 66,
+      "source_page": 11,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 73,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 71,
+      "source_page": 12,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 74,
+      "source_label": "종이를 접었을 때 각의 크기 구하기",
+      "correct_rate_percent": 83,
+      "source_page": 12,
+      "problem_type_id": "M1_BG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "primary_protocol_id": "PAPER_FOLDING",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "parallel_angle"
+      ],
+      "likely_error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "prerequisite_concept_ids": [],
+      "next_learning_concept_ids": [],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 75,
+      "source_label": "삼각형의 합동 조건(3) ASA합동",
+      "correct_rate_percent": 69,
+      "source_page": 12,
+      "problem_type_id": "M1_BG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "primary_protocol_id": "ASA_CONGRUENCE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "ASA_congruence",
+        "included_side"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M2_GEOM_C005"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 76,
+      "source_label": "삼각형의 합동 조건(3) ASA합동",
+      "correct_rate_percent": 84,
+      "source_page": 12,
+      "problem_type_id": "M1_BG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "primary_protocol_id": "ASA_CONGRUENCE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "ASA_congruence",
+        "included_side"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M2_GEOM_C005"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 77,
+      "source_label": "삼각형의 합동 조건(3) ASA합동",
+      "correct_rate_percent": 82,
+      "source_page": 13,
+      "problem_type_id": "M1_BG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "primary_protocol_id": "ASA_CONGRUENCE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "ASA_congruence",
+        "included_side"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M2_GEOM_C005"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 78,
+      "source_label": "삼각형의 합동 조건(3) ASA합동",
+      "correct_rate_percent": 66,
+      "source_page": 13,
+      "problem_type_id": "M1_BG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "primary_protocol_id": "ASA_CONGRUENCE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "ASA_congruence",
+        "included_side"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M2_GEOM_C005"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 79,
+      "source_label": "삼각형의 합동의 활용(2) 정사각형",
+      "correct_rate_percent": 76,
+      "source_page": 13,
+      "problem_type_id": "M1_BG_PT055",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C034",
+        "M1_BG_C033"
+      ],
+      "primary_protocol_id": "SPECIAL_SHAPE_CONGRUENCE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "congruence_application",
+        "rectangle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M1_PG_C020",
+        "M2_GEOM_C005"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 80,
+      "source_label": "삼각형의 합동의 활용(2) 정사각형",
+      "correct_rate_percent": 71,
+      "source_page": 13,
+      "problem_type_id": "M1_BG_PT055",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C034",
+        "M1_BG_C033"
+      ],
+      "primary_protocol_id": "SPECIAL_SHAPE_CONGRUENCE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "congruence_application",
+        "rectangle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M1_PG_C020",
+        "M2_GEOM_C005"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 81,
+      "source_label": "삼각형의 합동의 활용(2) 정사각형",
+      "correct_rate_percent": 85,
+      "source_page": 14,
+      "problem_type_id": "M1_BG_PT055",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_BG_C034",
+        "M1_BG_C033"
+      ],
+      "primary_protocol_id": "SPECIAL_SHAPE_CONGRUENCE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "diagram",
+        "triangle_congruence"
+      ],
+      "likely_error_tags": [
+        "congruence_application",
+        "rectangle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_PG_C019",
+        "M1_PG_C020",
+        "M2_GEOM_C005"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    }
+  ],
+  "source_flags": {
+    "visual_problem_count": 69,
+    "visual_items": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      12,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      22,
+      24,
+      26,
+      27,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      36,
+      37,
+      38,
+      40,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81
+    ],
+    "new_trend_items": [],
+    "low_accuracy_threshold_percent": 50,
+    "low_accuracy_items_at_or_below_50_percent": [
+      9,
+      11,
+      13,
+      14,
+      21,
+      23,
+      25,
+      33,
+      60,
+      64
+    ],
+    "minimum_correct_rate_percent": 42,
+    "minimum_correct_rate_items": [
+      9,
+      13
+    ],
+    "maximum_correct_rate_percent": 87,
+    "maximum_correct_rate_items": [
+      29
+    ]
+  },
+  "notes": [
+    "문제 1-14쪽, 빠른 정답 15쪽, 전체 해설 16-27쪽 구성",
+    "문항 1-51은 중점, 삼등분·사등분·오등분·팔등분, 좌표 분할, 연속 중점과 선분비를 포함한 두 점 사이 거리 유형으로 연결",
+    "문항 9, 11, 13, 14는 중점·등분 연산을 기호화한 수직선 반복 연산 유형으로 연결",
+    "문항 21, 23, 25는 좌표를 문자 a, b로 놓고 내분점 위치를 식으로 나타내는 유형으로 연결",
+    "문항 52-63은 정다각형, 이등변삼각형, 정삼각형, 정사각형과 평행선을 결합한 각도 활용 유형으로 연결",
+    "문항 64-74는 한 번·두 번 접기, 접은 각의 대칭, 리본 및 종이테이프 상황의 종이접기 유형으로 연결",
+    "문항 75-78은 공통변, 직각, 각의 이등분선을 이용한 ASA 합동 판별 유형으로 연결",
+    "문항 79-81은 겹친 정사각형과 합동삼각형을 이용한 넓이·각도·대응변 판별 유형으로 연결",
+    "기존 44개 풀이 프로토콜로 모든 문항을 처리할 수 있어 신규 프로토콜은 추가하지 않음"
+  ]
+}
