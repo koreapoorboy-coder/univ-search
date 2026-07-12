@@ -1,0 +1,3662 @@
+{
+  "version": "1.0",
+  "source_id": "SRC_M1_DA_097_WORKSHEET_SET08_20260710",
+  "unit_id": "M1_DATA_ANALYSIS",
+  "grade": "중1",
+  "unit_name": "자료 정리와 해석",
+  "title": "중1 자료의 정리와 해석 - 대푯값부터 상대도수와 그 그래프 (세트 08, 97문항)",
+  "source_file": "260710_자료의 정리와 해석(7).pdf",
+  "published_date": "2026-07-10",
+  "registered_date": "2026-07-12",
+  "problem_count": 97,
+  "page_count": 37,
+  "problem_pages": "1-22",
+  "quick_answer_pages": "23",
+  "solution_pages": "24-37",
+  "has_quick_answers": true,
+  "has_full_solutions": true,
+  "source_sha256": "39faff96504bb743148a876a2a2debcfe273c0f73fcb890011146514415c68d0",
+  "integration_mode": "기존 M1_DATA_ANALYSIS 통합 분류 체계의 36개 개념·84개 canonical 문항 유형에 여덟 번째 독립 97문항 근거 세트로 문항 단위 누적 연결",
+  "storage_policy": "문제·정답·해설 원문과 페이지 이미지는 저장하지 않고 문항 번호, canonical 유형·개념·풀이 프로토콜·시각·정답률·연결 메타데이터만 저장",
+  "canonical_taxonomy_note": "문제집의 인쇄 유형명은 source_label 증거로만 보존하고 별도 문제집 전용 분류 체계를 생성하지 않음",
+  "distinct_source_note": "세트 01-07과 다른 97문항을 기존 통합 분류 체계에 추가하여 누적 8세트·1141문항의 진단 근거를 구성하는 여덟 번째 worksheet registry",
+  "coverage": [
+    {
+      "problem_range": "001-013",
+      "source_label": "최빈값과 중앙값·평균 조건을 결합한 미지 변량 복원",
+      "problem_type_ids": [
+        "M1_DA_PT027"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_ids": [
+        "MODE_FREQUENCY_TRACK"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ]
+    },
+    {
+      "problem_range": "014-017",
+      "source_label": "평균·중앙값·최빈값과 최댓값·최솟값 조건의 경우의 수",
+      "problem_type_ids": [
+        "M1_DA_PT026",
+        "M1_DA_PT027"
+      ],
+      "concept_ids": [
+        "M1_DA_C008",
+        "M1_DA_C007",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_ids": [
+        "MODE_FREQUENCY_TRACK"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "max_min",
+        "condition_interpretation",
+        "representative_value",
+        "same_value_condition"
+      ]
+    },
+    {
+      "problem_range": "018-030",
+      "source_label": "줄기와 잎 그림의 누락값·순위·비율·두 집단 비교",
+      "problem_type_ids": [
+        "M1_DA_PT035",
+        "M1_DA_PT036"
+      ],
+      "concept_ids": [
+        "M1_DA_C012",
+        "M1_DA_C025"
+      ],
+      "primary_protocol_ids": [
+        "STEM_LEAF_RECONSTRUCT"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range",
+        "two_groups",
+        "compare"
+      ]
+    },
+    {
+      "problem_range": "031-043",
+      "source_label": "도수분포표의 계급 수·누락 도수·전체 도수·설명 판단",
+      "problem_type_ids": [
+        "M1_DA_PT042",
+        "M1_DA_PT044",
+        "M1_DA_PT045"
+      ],
+      "concept_ids": [
+        "M1_DA_C016",
+        "M1_DA_C017"
+      ],
+      "primary_protocol_ids": [
+        "FREQUENCY_TABLE_CLASS_INTERVAL"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "frequency",
+        "total_count",
+        "explanation",
+        "true_false",
+        "application"
+      ]
+    },
+    {
+      "problem_range": "044-048",
+      "source_label": "특정 계급과 누적 구간의 백분율 및 전체 도수 역산",
+      "problem_type_ids": [
+        "M1_DA_PT046",
+        "M1_DA_PT047"
+      ],
+      "concept_ids": [
+        "M1_DA_C018"
+      ],
+      "primary_protocol_ids": [
+        "FREQUENCY_TABLE_CLASS_INTERVAL"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "percentage",
+        "condition_interpretation"
+      ]
+    },
+    {
+      "problem_range": "049-058",
+      "source_label": "찢어진 히스토그램의 누락 도수·비율·넓이 복원",
+      "problem_type_ids": [
+        "M1_DA_PT053"
+      ],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_ids": [
+        "HISTOGRAM_READ_AREA_RESTORE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ]
+    },
+    {
+      "problem_range": "059-077",
+      "source_label": "찢어진 도수분포다각형의 도수·백분율·넓이 복원",
+      "problem_type_ids": [
+        "M1_DA_PT061"
+      ],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_ids": [
+        "FREQUENCY_POLYGON_READ_COMPARE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ]
+    },
+    {
+      "problem_range": "078-087",
+      "source_label": "상대도수분포표의 실제 도수·전체 도수·문자 관계",
+      "problem_type_ids": [
+        "M1_DA_PT069",
+        "M1_DA_PT071"
+      ],
+      "concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C027"
+      ],
+      "primary_protocol_ids": [
+        "RELATIVE_FREQUENCY_TABLE_RELATION"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_table",
+        "application",
+        "relative_frequency",
+        "unknown_variable"
+      ]
+    },
+    {
+      "problem_range": "088-097",
+      "source_label": "찢어진 상대도수 그래프의 상대도수·실제 도수 복원",
+      "problem_type_ids": [
+        "M1_DA_PT078"
+      ],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_ids": [
+        "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ]
+    }
+  ],
+  "item_mappings": [
+    {
+      "item_no": 1,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 84,
+      "source_page": 1,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT017",
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 2,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 83,
+      "source_page": 1,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT017",
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 3,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 89,
+      "source_page": 1,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 4,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 79,
+      "source_page": 1,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 5,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 77,
+      "source_page": 1,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT005",
+        "M1_DA_PT028"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 6,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 76,
+      "source_page": 1,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 7,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 76,
+      "source_page": 1,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 8,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 77,
+      "source_page": 2,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 9,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 75,
+      "source_page": 2,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 10,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 82,
+      "source_page": 2,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 11,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 81,
+      "source_page": 2,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 12,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 88,
+      "source_page": 2,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 13,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 76,
+      "source_page": 2,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 14,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 38,
+      "source_page": 2,
+      "problem_type_id": "M1_DA_PT026",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT017",
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C008"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "max_min",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M2_EQ_C001",
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 15,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 47,
+      "source_page": 2,
+      "problem_type_id": "M1_DA_PT027",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT017",
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008",
+        "M1_DA_C009"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "representative_value",
+        "same_value_condition"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C005"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 16,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 38,
+      "source_page": 3,
+      "problem_type_id": "M1_DA_PT026",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT017",
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C008"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "max_min",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M2_EQ_C001",
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 17,
+      "source_label": "대푯값을 이용하여 변량 구하기(3) 최빈값이 주어진 경우",
+      "correct_rate_percent": 39,
+      "source_page": 3,
+      "problem_type_id": "M1_DA_PT026",
+      "secondary_problem_type_ids": [
+        "M1_DA_PT017",
+        "M1_DA_PT021"
+      ],
+      "concept_ids": [
+        "M1_DA_C008"
+      ],
+      "primary_protocol_id": "MODE_FREQUENCY_TRACK",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "mode",
+        "max_min",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M2_EQ_C001",
+        "M1_DA_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 18,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 89,
+      "source_page": 3,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 19,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 84,
+      "source_page": 3,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 20,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 73,
+      "source_page": 3,
+      "problem_type_id": "M1_DA_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012",
+        "M1_DA_C025"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "two_groups",
+        "compare"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011",
+        "M1_DA_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013",
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 21,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 92,
+      "source_page": 4,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 22,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 82,
+      "source_page": 4,
+      "problem_type_id": "M1_DA_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012",
+        "M1_DA_C025"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "two_groups",
+        "compare"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011",
+        "M1_DA_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013",
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 23,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 80,
+      "source_page": 4,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 24,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 92,
+      "source_page": 4,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 25,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 87,
+      "source_page": 5,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 26,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 77,
+      "source_page": 5,
+      "problem_type_id": "M1_DA_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012",
+        "M1_DA_C025"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "two_groups",
+        "compare"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011",
+        "M1_DA_C022"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013",
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 27,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 57,
+      "source_page": 5,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 28,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 60,
+      "source_page": 5,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 29,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 59,
+      "source_page": 6,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 30,
+      "source_label": "줄기와 잎 그림의 이해",
+      "correct_rate_percent": 60,
+      "source_page": 6,
+      "problem_type_id": "M1_DA_PT035",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C012"
+      ],
+      "primary_protocol_id": "STEM_LEAF_RECONSTRUCT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "stem_leaf",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "stem_leaf",
+        "interpretation",
+        "range"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C011"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C013"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 31,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 65,
+      "source_page": 6,
+      "problem_type_id": "M1_DA_PT042",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C016"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "frequency",
+        "total_count"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C015"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C017",
+        "M1_DA_C018",
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 32,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 62,
+      "source_page": 6,
+      "problem_type_id": "M1_DA_PT042",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C016"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "frequency",
+        "total_count"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C015"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C017",
+        "M1_DA_C018",
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 33,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 61,
+      "source_page": 6,
+      "problem_type_id": "M1_DA_PT042",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C016"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "frequency",
+        "total_count"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C015"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C017",
+        "M1_DA_C018",
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 34,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 73,
+      "source_page": 6,
+      "problem_type_id": "M1_DA_PT044",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C017"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "explanation",
+        "true_false"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 35,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 81,
+      "source_page": 7,
+      "problem_type_id": "M1_DA_PT044",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C017"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "explanation",
+        "true_false"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 36,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 81,
+      "source_page": 7,
+      "problem_type_id": "M1_DA_PT042",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C016"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "frequency",
+        "total_count"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C015"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C017",
+        "M1_DA_C018",
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 37,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 78,
+      "source_page": 7,
+      "problem_type_id": "M1_DA_PT042",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C016"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "frequency",
+        "total_count"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C015"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C017",
+        "M1_DA_C018",
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 38,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 50,
+      "source_page": 7,
+      "problem_type_id": "M1_DA_PT045",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C017"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 39,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 52,
+      "source_page": 8,
+      "problem_type_id": "M1_DA_PT045",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C017"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 40,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 75,
+      "source_page": 8,
+      "problem_type_id": "M1_DA_PT045",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C017"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 41,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 81,
+      "source_page": 8,
+      "problem_type_id": "M1_DA_PT044",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C017"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "explanation",
+        "true_false"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 42,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 81,
+      "source_page": 8,
+      "problem_type_id": "M1_DA_PT044",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C017"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "explanation",
+        "true_false"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 43,
+      "source_label": "도수분포표의 이해",
+      "correct_rate_percent": 82,
+      "source_page": 9,
+      "problem_type_id": "M1_DA_PT044",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C017"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "explanation",
+        "true_false"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 44,
+      "source_label": "특정 계급의 백분율",
+      "correct_rate_percent": 77,
+      "source_page": 9,
+      "problem_type_id": "M1_DA_PT046",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C018"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "percentage"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_IR_C021",
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 45,
+      "source_label": "특정 계급의 백분율",
+      "correct_rate_percent": 83,
+      "source_page": 9,
+      "problem_type_id": "M1_DA_PT046",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C018"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_table",
+        "percentage"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_IR_C021",
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 46,
+      "source_label": "특정 계급의 백분율",
+      "correct_rate_percent": 66,
+      "source_page": 9,
+      "problem_type_id": "M1_DA_PT047",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C018"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "percentage",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_IR_C021",
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 47,
+      "source_label": "특정 계급의 백분율",
+      "correct_rate_percent": 86,
+      "source_page": 10,
+      "problem_type_id": "M1_DA_PT047",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C018"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "percentage",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_IR_C021",
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 48,
+      "source_label": "특정 계급의 백분율",
+      "correct_rate_percent": 81,
+      "source_page": 10,
+      "problem_type_id": "M1_DA_PT047",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C018"
+      ],
+      "primary_protocol_id": "FREQUENCY_TABLE_CLASS_INTERVAL",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_table",
+        "table",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "percentage",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_IR_C021",
+        "M1_DA_C016"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 49,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 84,
+      "source_page": 10,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 50,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 79,
+      "source_page": 10,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 51,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 82,
+      "source_page": 10,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 52,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 83,
+      "source_page": 11,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 53,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 73,
+      "source_page": 11,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 54,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 84,
+      "source_page": 11,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 55,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 78,
+      "source_page": 11,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 56,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 69,
+      "source_page": 12,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 57,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 76,
+      "source_page": 12,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 58,
+      "source_label": "찢어진 히스토그램",
+      "correct_rate_percent": 83,
+      "source_page": 12,
+      "problem_type_id": "M1_DA_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C021"
+      ],
+      "primary_protocol_id": "HISTOGRAM_READ_AREA_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "histogram",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "histogram",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C024",
+        "M1_DA_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 59,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 59,
+      "source_page": 12,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 60,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 79,
+      "source_page": 13,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 61,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 61,
+      "source_page": 13,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 62,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 69,
+      "source_page": 13,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 63,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 71,
+      "source_page": 13,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 64,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 80,
+      "source_page": 14,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 65,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 69,
+      "source_page": 14,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 66,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 69,
+      "source_page": 14,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 67,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 59,
+      "source_page": 14,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 68,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 65,
+      "source_page": 15,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 69,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 65,
+      "source_page": 15,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 70,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 79,
+      "source_page": 15,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 71,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 70,
+      "source_page": 15,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 72,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 77,
+      "source_page": 16,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 73,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 76,
+      "source_page": 16,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 74,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 79,
+      "source_page": 16,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 75,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 77,
+      "source_page": 17,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 76,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 77,
+      "source_page": 17,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 77,
+      "source_label": "찢어진 도수분포다각형",
+      "correct_rate_percent": 63,
+      "source_page": 17,
+      "problem_type_id": "M1_DA_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C024"
+      ],
+      "primary_protocol_id": "FREQUENCY_POLYGON_READ_COMPARE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "frequency_polygon",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "frequency_polygon",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 78,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 86,
+      "source_page": 18,
+      "problem_type_id": "M1_DA_PT069",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C027"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C029",
+        "M1_DA_C030",
+        "M1_DA_C031",
+        "M2_FUNC_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 79,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 68,
+      "source_page": 18,
+      "problem_type_id": "M1_DA_PT071",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C027",
+        "M1_DA_C028"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency",
+        "unknown_variable"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C031",
+        "M2_FUNC_C004",
+        "M1_DA_C029",
+        "M1_DA_C030"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 80,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 79,
+      "source_page": 18,
+      "problem_type_id": "M1_DA_PT069",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C027"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C029",
+        "M1_DA_C030",
+        "M1_DA_C031",
+        "M2_FUNC_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 81,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 65,
+      "source_page": 18,
+      "problem_type_id": "M1_DA_PT069",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C027"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C029",
+        "M1_DA_C030",
+        "M1_DA_C031",
+        "M2_FUNC_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 82,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 85,
+      "source_page": 19,
+      "problem_type_id": "M1_DA_PT069",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C027"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C029",
+        "M1_DA_C030",
+        "M1_DA_C031",
+        "M2_FUNC_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 83,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 78,
+      "source_page": 19,
+      "problem_type_id": "M1_DA_PT069",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C027"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C029",
+        "M1_DA_C030",
+        "M1_DA_C031",
+        "M2_FUNC_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 84,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 83,
+      "source_page": 19,
+      "problem_type_id": "M1_DA_PT071",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C027",
+        "M1_DA_C028"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency",
+        "unknown_variable"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C031",
+        "M2_FUNC_C004",
+        "M1_DA_C029",
+        "M1_DA_C030"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 85,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 80,
+      "source_page": 19,
+      "problem_type_id": "M1_DA_PT071",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C027",
+        "M1_DA_C028"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency",
+        "unknown_variable"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C031",
+        "M2_FUNC_C004",
+        "M1_DA_C029",
+        "M1_DA_C030"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 86,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 73,
+      "source_page": 19,
+      "problem_type_id": "M1_DA_PT069",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C027"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C029",
+        "M1_DA_C030",
+        "M1_DA_C031",
+        "M2_FUNC_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 87,
+      "source_label": "상대도수의 분포표",
+      "correct_rate_percent": 73,
+      "source_page": 20,
+      "problem_type_id": "M1_DA_PT069",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C027"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_TABLE_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency",
+        "table_or_statement",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_table",
+        "application"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_EX_C006",
+        "M1_DA_C026"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C029",
+        "M1_DA_C030",
+        "M1_DA_C031",
+        "M2_FUNC_C004"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 88,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 68,
+      "source_page": 20,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 89,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 70,
+      "source_page": 20,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 90,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 78,
+      "source_page": 20,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 91,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 70,
+      "source_page": 21,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 92,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 74,
+      "source_page": 21,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 93,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 71,
+      "source_page": 21,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 94,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 78,
+      "source_page": 21,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 95,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 62,
+      "source_page": 22,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 96,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 59,
+      "source_page": 22,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 97,
+      "source_label": "상대도수의 분포를 나타낸 그래프가 찢어진 경우",
+      "correct_rate_percent": 54,
+      "source_page": 22,
+      "problem_type_id": "M1_DA_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_DA_C033"
+      ],
+      "primary_protocol_id": "RELATIVE_FREQUENCY_GRAPH_READ_RESTORE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "statistics",
+        "relative_frequency_graph",
+        "graph",
+        "visual_data_required"
+      ],
+      "likely_error_tags": [
+        "relative_frequency_graph",
+        "torn_graph",
+        "restore"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_DA_C030",
+        "M1_DA_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_DA_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    }
+  ],
+  "source_flags": {
+    "visual_problem_count": 91,
+    "visual_items": [
+      1,
+      2,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97
+    ],
+    "new_trend_items": [],
+    "low_accuracy_threshold_percent": 50,
+    "low_accuracy_items_at_or_below_50_percent": [
+      14,
+      15,
+      16,
+      17,
+      38
+    ],
+    "minimum_correct_rate_percent": 38,
+    "minimum_correct_rate_items": [
+      14,
+      16
+    ],
+    "maximum_correct_rate_percent": 92,
+    "maximum_correct_rate_items": [
+      21,
+      24
+    ]
+  },
+  "notes": [
+    "문제 1-22쪽, 빠른 정답 23쪽, 전체 해설 24-37쪽 구성",
+    "원본 문항·정답·해설·페이지 이미지는 엔진에 저장하지 않음",
+    "기존 M1_DATA_ANALYSIS 36개 개념과 84개 canonical 문항 유형을 변경하지 않고 여덟 번째 97문항을 문항별로 연결",
+    "세트 01-08을 합쳐 자료 정리와 해석 worksheet registry는 누적 8세트·1141문항",
+    "정답률 50% 이하 문항은 14, 15, 16, 17, 38번이며 최저 정답률은 38%(14, 16번)",
+    "1-17번은 최빈값과 평균·중앙값 조건을 각각 분리하고 최댓값·최솟값 및 자료 추가 조건과 결합하는 문항으로 연결",
+    "18-30번은 줄기와 잎 그림에서 누락값·순위·두 집단·비율 조건을 해석하는 문항으로 연결",
+    "31-48번은 도수분포표의 계급 수·누락 도수·전체 도수·백분율 관계를 복원하는 문항으로 연결",
+    "49-58번은 찢어진 히스토그램에서 총도수·도수비·백분율·직사각형 넓이를 이용해 누락 부분을 복원하는 문항으로 연결",
+    "59-77번은 찢어진 도수분포다각형에서 계급값·도수·도수비·넓이 조건을 이용하는 문항으로 연결",
+    "78-87번은 상대도수분포표에서 상대도수의 합 1과 도수/전체 도수 관계를 이용하는 문항으로 연결",
+    "88-97번은 찢어진 상대도수 그래프에서 상대도수의 합 1, 전체 인원, 구간 도수 조건을 결합하는 문항으로 연결"
+  ]
+}
