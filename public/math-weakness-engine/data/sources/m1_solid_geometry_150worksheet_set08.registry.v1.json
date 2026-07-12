@@ -1,0 +1,6570 @@
+{
+  "version": "1.0",
+  "source_id": "SRC_M1_SG_150_WORKSHEET_SET08_20260710",
+  "unit_id": "M1_SOLID_GEOMETRY",
+  "grade": "중1",
+  "unit_name": "입체도형의 성질",
+  "title": "중1 입체도형의 성질 - 다면체부터 구의 겉넓이와 부피 (세트 08, 150문항)",
+  "source_file": "260710_입체도형의 성질(8).pdf",
+  "published_date": "2026-07-10",
+  "registered_date": "2026-07-12",
+  "problem_count": 150,
+  "page_count": 47,
+  "problem_pages": "1-28",
+  "quick_answer_pages": "29-30",
+  "solution_pages": "31-47",
+  "has_quick_answers": true,
+  "has_full_solutions": true,
+  "source_sha256": "3f1ded715db8b325bf883ad56861c814b15d7e2a60d8a957c02af17c365ba809",
+  "integration_mode": "기존 M1_SOLID_GEOMETRY 통합 분류 체계의 36개 개념·83개 canonical 문항 유형·36개 풀이 프로토콜에 여덟 번째 독립 근거 세트로 누적 연결",
+  "storage_policy": "문제·정답·해설 원문과 페이지 이미지는 저장하지 않고 문항 번호, 내부 유형·개념·풀이 프로토콜·시각·정답률·연결 메타데이터만 저장",
+  "canonical_taxonomy_note": "문제집 유형명은 source_label 증거로만 보존하고 별도 문제집 분류 체계를 생성하지 않음",
+  "distinct_source_note": "세트 01-07과 별개의 150문항 자료이며 동일 단원 순서를 따르더라도 각 문항을 독립 진단 근거로 누적하고 기존 canonical ID에 연결",
+  "coverage": [
+    {
+      "problem_range": "001-021",
+      "source_label": "다면체 요소 관계와 정다면체의 조건·요소 개수",
+      "problem_type_ids": [
+        "M1_SG_PT013",
+        "M1_SG_PT008",
+        "M1_SG_PT015",
+        "M1_SG_PT017",
+        "M1_SG_PT016"
+      ],
+      "concept_ids": [
+        "M1_SG_C005",
+        "M1_SG_C007",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_ids": [
+        "POLYHEDRON_ELEMENT_RELATION",
+        "REGULAR_POLYHEDRON_CLASSIFY",
+        "REGULAR_POLYHEDRON_ELEMENT_COUNT"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "polyhedron",
+        "regular_polyhedron",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "euler_relation",
+        "element_relation",
+        "condition_interpretation",
+        "regular_polyhedron",
+        "classification",
+        "element_count"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004",
+        "M1_SG_C001",
+        "M1_SG_C007",
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006",
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ]
+    },
+    {
+      "problem_range": "022-035",
+      "source_label": "정다면체의 전개도와 평면 단면",
+      "problem_type_ids": [
+        "M1_SG_PT019",
+        "M1_SG_PT020",
+        "M1_SG_PT024"
+      ],
+      "concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C008",
+        "M1_SG_C010"
+      ],
+      "primary_protocol_ids": [
+        "NET_FOLD_ADJACENCY",
+        "SOLID_CROSS_SECTION"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "net",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "net",
+        "spatial_folding",
+        "regular_polyhedron",
+        "cross_section"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C019",
+        "M1_SG_C008",
+        "M1_SG_C007",
+        "M1_SG_C009",
+        "M1_BG_C014"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C010",
+        "M3_GEOM_C002"
+      ]
+    },
+    {
+      "problem_range": "036-058",
+      "source_label": "회전체의 단면·단면 크기·전개도·원뿔 부채꼴",
+      "problem_type_ids": [
+        "M1_SG_PT032",
+        "M1_SG_PT033",
+        "M1_SG_PT038",
+        "M1_SG_PT034",
+        "M1_SG_PT036",
+        "M1_SG_PT031"
+      ],
+      "concept_ids": [
+        "M1_SG_C013",
+        "M1_SG_C014",
+        "M1_SG_C015",
+        "M1_SG_C025",
+        "M1_SG_C024"
+      ],
+      "primary_protocol_ids": [
+        "REVOLUTION_CROSS_SECTION",
+        "REVOLUTION_CROSS_SECTION_MEASURE",
+        "FRUSTUM_NET_ARC",
+        "REVOLUTION_NET",
+        "CONE_NET_ARC_ANGLE"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "solid_of_revolution",
+        "cross_section",
+        "symbolic_or_verbal_statement",
+        "diagram",
+        "net"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "condition_interpretation",
+        "length_perimeter",
+        "frustum_net",
+        "solid_of_revolution",
+        "net",
+        "cone_net",
+        "sector",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C012",
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019",
+        "M1_PG_C024",
+        "M1_SG_C015",
+        "M1_SG_C024",
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_PG_C025"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002",
+        "M3_TRIG_C001",
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C024",
+        "M1_SG_C028",
+        "M1_SG_C034",
+        "M1_SG_C025",
+        "M1_SG_C027"
+      ]
+    },
+    {
+      "problem_range": "059-079",
+      "source_label": "각기둥의 겉넓이·부피와 구멍이 뚫린 기둥",
+      "problem_type_ids": [
+        "M1_SG_PT040",
+        "M1_SG_PT039",
+        "M1_SG_PT052",
+        "M1_SG_PT043",
+        "M1_SG_PT045",
+        "M1_SG_PT050",
+        "M1_SG_PT051"
+      ],
+      "concept_ids": [
+        "M1_SG_C017",
+        "M1_SG_C036",
+        "M1_SG_C022",
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C018",
+        "M1_SG_C020"
+      ],
+      "primary_protocol_ids": [
+        "PRISM_SURFACE_AREA",
+        "HOLE_AND_CUT_SOLID",
+        "PRISM_VOLUME"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area",
+        "surface_area_or_volume",
+        "symbolic_or_verbal_statement",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "prism_surface_area",
+        "reverse_reasoning",
+        "base_lateral_area",
+        "cut_solid",
+        "surface_area_change",
+        "prism_volume",
+        "base_area_height",
+        "hole_solid",
+        "cylinder_surface_area",
+        "cylinder_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_BG_C001",
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_SG_C018",
+        "M1_SG_C019",
+        "M1_SG_C020",
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_SG_C015"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "H1_EQ_C002",
+        "M1_SG_C034",
+        "M1_SG_C026",
+        "M1_SG_C020",
+        "M1_SG_C022",
+        "M2_GEOM_C003",
+        "M1_SG_C027",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033"
+      ]
+    },
+    {
+      "problem_range": "080-097",
+      "source_label": "일부분을 잘라 낸 기둥·원뿔 겉넓이·각뿔 부피",
+      "problem_type_ids": [
+        "M1_SG_PT053",
+        "M1_SG_PT052",
+        "M1_SG_PT058",
+        "M1_SG_PT057",
+        "M1_SG_PT061",
+        "M1_SG_PT062",
+        "M1_SG_PT067"
+      ],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C019",
+        "M1_SG_C017",
+        "M1_SG_C024",
+        "M1_SG_C015",
+        "M1_SG_C026",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_ids": [
+        "HOLE_AND_CUT_SOLID",
+        "CONE_SURFACE_AREA",
+        "PYRAMID_VOLUME"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "volume",
+        "surface_area",
+        "pyramid_cone_or_frustum",
+        "net",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "volume_difference",
+        "surface_area_change",
+        "cone_net",
+        "central_angle",
+        "surface_area",
+        "cone_surface_area",
+        "sector",
+        "pyramid_volume",
+        "one_third",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_BG_C019",
+        "M1_PG_C021",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C034"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M3_TRIG_C001",
+        "M1_SG_C016",
+        "M1_SG_C029",
+        "H1_EQ_C002"
+      ]
+    },
+    {
+      "problem_range": "098-118",
+      "source_label": "각기둥에서 잘라 낸 각뿔·물의 부피 보존·원뿔 부피",
+      "problem_type_ids": [
+        "M1_SG_PT064",
+        "M1_SG_PT065",
+        "M1_SG_PT066",
+        "M1_SG_PT067"
+      ],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C022",
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_ids": [
+        "PYRAMID_VOLUME",
+        "WATER_VOLUME_CONSERVATION",
+        "CONE_VOLUME"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume",
+        "pyramid_cone_frustum",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "pyramid_volume",
+        "water_volume",
+        "volume_comparison",
+        "cone_volume",
+        "one_third",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_SG_C026",
+        "M1_SG_C027",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C034"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C034",
+        "M1_SG_C028",
+        "M1_SG_C033",
+        "M3_TRIG_C001",
+        "H1_EQ_C002"
+      ]
+    },
+    {
+      "problem_range": "119-128",
+      "source_label": "뿔대의 부피와 원뿔형 회전체 합성",
+      "problem_type_ids": [
+        "M1_SG_PT068",
+        "M1_SG_PT083",
+        "M1_SG_PT070",
+        "M1_SG_PT071",
+        "M1_SG_PT059",
+        "M1_SG_PT036"
+      ],
+      "concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C034",
+        "M1_SG_C036",
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C021"
+      ],
+      "primary_protocol_ids": [
+        "FRUSTUM_VOLUME",
+        "REVERSE_SURFACE_VOLUME_CONDITION",
+        "REVOLVED_COMPOSITE_VOLUME"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume",
+        "pyramid_cone_frustum",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "frustum_volume",
+        "difference_of_solids",
+        "integrated_surface_volume",
+        "reverse_reasoning",
+        "solid_of_revolution",
+        "cone_surface_area",
+        "cone_volume",
+        "hole_solid"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_SG_C018",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C034",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_SG_C017",
+        "M1_SG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C036",
+        "M1_SG_C025",
+        "M3_TRIG_C001",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "H1_GEOM_C001",
+        "M1_SG_C022",
+        "M1_SG_C027"
+      ]
+    },
+    {
+      "problem_range": "129-144",
+      "source_label": "구의 부피·구형 회전체·원기둥에 꼭 맞는 구와 원뿔",
+      "problem_type_ids": [
+        "M1_SG_PT075",
+        "M1_SG_PT076",
+        "M1_SG_PT067",
+        "M1_SG_PT078",
+        "M1_SG_PT077",
+        "M1_SG_PT079",
+        "M1_SG_PT066",
+        "M1_SG_PT080",
+        "M1_SG_PT048"
+      ],
+      "concept_ids": [
+        "M1_SG_C031",
+        "M1_SG_C036",
+        "M1_SG_C027",
+        "M1_SG_C026",
+        "M1_SG_C030",
+        "M1_SG_C034",
+        "M1_SG_C032",
+        "M1_SG_C033"
+      ],
+      "primary_protocol_ids": [
+        "SPHERE_VOLUME",
+        "CONE_VOLUME",
+        "REVOLVED_COMPOSITE_VOLUME",
+        "INSCRIBED_SOLID_RATIO"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere",
+        "diagram",
+        "sphere_or_spatial_fit",
+        "volume",
+        "symbolic_or_verbal_statement",
+        "pyramid_cone_or_frustum"
+      ],
+      "likely_error_tags": [
+        "sphere_volume",
+        "radius",
+        "reverse_reasoning",
+        "volume_comparison",
+        "condition_interpretation",
+        "solid_of_revolution",
+        "sphere",
+        "inscribed_circumscribed",
+        "cylinder_sphere_fit",
+        "inscribed",
+        "cylinder_cone_fit"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_SG_C024",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C034",
+        "H1_EQ_C002",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M3_TRIG_C001",
+        "M1_SG_C036",
+        "H1_GEOM_C001",
+        "M1_SG_C035"
+      ]
+    },
+    {
+      "problem_range": "145-150",
+      "source_label": "정육면체·직육면체·구에 꼭 맞는 내접 입체",
+      "problem_type_ids": [
+        "M1_SG_PT082",
+        "M1_SG_PT081"
+      ],
+      "concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C032"
+      ],
+      "primary_protocol_ids": [
+        "INSCRIBED_SOLID_RATIO"
+      ],
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere_or_spatial_fit",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "cuboid_fit",
+        "spatial_diagonal",
+        "sphere_fit",
+        "spatial_visualization"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C032",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C033",
+        "M1_SG_C035"
+      ]
+    }
+  ],
+  "item_mappings": [
+    {
+      "item_no": 1,
+      "source_label": "다면체의 면, 모서리, 꼭짓점의 개수의 활용",
+      "correct_rate_percent": 87,
+      "source_page": 1,
+      "problem_type_id": "M1_SG_PT013",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "POLYHEDRON_ELEMENT_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "polyhedron"
+      ],
+      "likely_error_tags": [
+        "euler_relation",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 2,
+      "source_label": "다면체의 면, 모서리, 꼭짓점의 개수의 활용",
+      "correct_rate_percent": 66,
+      "source_page": 1,
+      "problem_type_id": "M1_SG_PT013",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "POLYHEDRON_ELEMENT_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "polyhedron"
+      ],
+      "likely_error_tags": [
+        "euler_relation",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 3,
+      "source_label": "다면체의 면, 모서리, 꼭짓점의 개수의 활용",
+      "correct_rate_percent": 79,
+      "source_page": 1,
+      "problem_type_id": "M1_SG_PT013",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "POLYHEDRON_ELEMENT_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "polyhedron"
+      ],
+      "likely_error_tags": [
+        "euler_relation",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 4,
+      "source_label": "다면체의 면, 모서리, 꼭짓점의 개수의 활용",
+      "correct_rate_percent": 91,
+      "source_page": 1,
+      "problem_type_id": "M1_SG_PT008",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "POLYHEDRON_ELEMENT_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "element_relation",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 5,
+      "source_label": "다면체의 면, 모서리, 꼭짓점의 개수의 활용",
+      "correct_rate_percent": 73,
+      "source_page": 1,
+      "problem_type_id": "M1_SG_PT013",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "POLYHEDRON_ELEMENT_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "polyhedron"
+      ],
+      "likely_error_tags": [
+        "euler_relation",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 6,
+      "source_label": "다면체의 면, 모서리, 꼭짓점의 개수의 활용",
+      "correct_rate_percent": 87,
+      "source_page": 1,
+      "problem_type_id": "M1_SG_PT008",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "POLYHEDRON_ELEMENT_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "element_relation",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 7,
+      "source_label": "다면체의 면, 모서리, 꼭짓점의 개수의 활용",
+      "correct_rate_percent": 93,
+      "source_page": 1,
+      "problem_type_id": "M1_SG_PT008",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "POLYHEDRON_ELEMENT_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "element_relation",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 8,
+      "source_label": "정다면체의 이해(한 꼭짓점에 모인 면의 개수,면의 모양)",
+      "correct_rate_percent": 67,
+      "source_page": 1,
+      "problem_type_id": "M1_SG_PT015",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C007",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_CLASSIFY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "regular_polyhedron"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "classification"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C001",
+        "M1_SG_C007",
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 9,
+      "source_label": "정다면체의 이해(한 꼭짓점에 모인 면의 개수,면의 모양)",
+      "correct_rate_percent": 69,
+      "source_page": 2,
+      "problem_type_id": "M1_SG_PT015",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C007",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_CLASSIFY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "regular_polyhedron"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "classification"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C001",
+        "M1_SG_C007",
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 10,
+      "source_label": "정다면체의 이해(한 꼭짓점에 모인 면의 개수,면의 모양)",
+      "correct_rate_percent": 67,
+      "source_page": 2,
+      "problem_type_id": "M1_SG_PT013",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "POLYHEDRON_ELEMENT_RELATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "polyhedron",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "euler_relation",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 11,
+      "source_label": "정다면체의 이해(한 꼭짓점에 모인 면의 개수,면의 모양)",
+      "correct_rate_percent": 81,
+      "source_page": 2,
+      "problem_type_id": "M1_SG_PT015",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C007",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_CLASSIFY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "regular_polyhedron"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "classification"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C001",
+        "M1_SG_C007",
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 12,
+      "source_label": "정다면체의 이해(한 꼭짓점에 모인 면의 개수,면의 모양)",
+      "correct_rate_percent": 85,
+      "source_page": 2,
+      "problem_type_id": "M1_SG_PT015",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C007",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_CLASSIFY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "regular_polyhedron"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "classification"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C001",
+        "M1_SG_C007",
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 13,
+      "source_label": "정다면체의 이해(한 꼭짓점에 모인 면의 개수,면의 모양)",
+      "correct_rate_percent": 75,
+      "source_page": 2,
+      "problem_type_id": "M1_SG_PT015",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C007",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_CLASSIFY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "regular_polyhedron"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "classification"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C001",
+        "M1_SG_C007",
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 14,
+      "source_label": "정다면체의 이해(한 꼭짓점에 모인 면의 개수,면의 모양)",
+      "correct_rate_percent": 73,
+      "source_page": 2,
+      "problem_type_id": "M1_SG_PT015",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C007",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_CLASSIFY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "regular_polyhedron"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "classification"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C001",
+        "M1_SG_C007",
+        "M1_PG_C003",
+        "M1_PG_C012"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 15,
+      "source_label": "정다면체의 면, 모서리, 꼭짓점의 개수",
+      "correct_rate_percent": 81,
+      "source_page": 2,
+      "problem_type_id": "M1_SG_PT017",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_ELEMENT_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004",
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006",
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 16,
+      "source_label": "정다면체의 면, 모서리, 꼭짓점의 개수",
+      "correct_rate_percent": 78,
+      "source_page": 3,
+      "problem_type_id": "M1_SG_PT017",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_ELEMENT_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004",
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006",
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 17,
+      "source_label": "정다면체의 면, 모서리, 꼭짓점의 개수",
+      "correct_rate_percent": 91,
+      "source_page": 3,
+      "problem_type_id": "M1_SG_PT016",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_ELEMENT_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "element_count"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 18,
+      "source_label": "정다면체의 면, 모서리, 꼭짓점의 개수",
+      "correct_rate_percent": 76,
+      "source_page": 3,
+      "problem_type_id": "M1_SG_PT017",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_ELEMENT_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004",
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006",
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 19,
+      "source_label": "정다면체의 면, 모서리, 꼭짓점의 개수",
+      "correct_rate_percent": 69,
+      "source_page": 3,
+      "problem_type_id": "M1_SG_PT017",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_ELEMENT_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004",
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006",
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 20,
+      "source_label": "정다면체의 면, 모서리, 꼭짓점의 개수",
+      "correct_rate_percent": 68,
+      "source_page": 3,
+      "problem_type_id": "M1_SG_PT017",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_ELEMENT_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004",
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006",
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 21,
+      "source_label": "정다면체의 면, 모서리, 꼭짓점의 개수",
+      "correct_rate_percent": 65,
+      "source_page": 3,
+      "problem_type_id": "M1_SG_PT017",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C005"
+      ],
+      "primary_protocol_id": "REGULAR_POLYHEDRON_ELEMENT_COUNT",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "regular_polyhedron",
+        "element_relation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C002",
+        "M1_SG_C003",
+        "M1_SG_C004",
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C006",
+        "M1_SG_C009",
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 22,
+      "source_label": "정다면체의 전개도",
+      "correct_rate_percent": 80,
+      "source_page": 3,
+      "problem_type_id": "M1_SG_PT019",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C009"
+      ],
+      "primary_protocol_id": "NET_FOLD_ADJACENCY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "net"
+      ],
+      "likely_error_tags": [
+        "net",
+        "spatial_folding"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C019",
+        "M1_SG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 23,
+      "source_label": "정다면체의 전개도",
+      "correct_rate_percent": 74,
+      "source_page": 3,
+      "problem_type_id": "M1_SG_PT020",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "NET_FOLD_ADJACENCY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "net"
+      ],
+      "likely_error_tags": [
+        "net",
+        "regular_polyhedron",
+        "spatial_folding"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C019",
+        "M1_SG_C008",
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 24,
+      "source_label": "정다면체의 전개도",
+      "correct_rate_percent": 67,
+      "source_page": 4,
+      "problem_type_id": "M1_SG_PT020",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C009",
+        "M1_SG_C008"
+      ],
+      "primary_protocol_id": "NET_FOLD_ADJACENCY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "net"
+      ],
+      "likely_error_tags": [
+        "net",
+        "regular_polyhedron",
+        "spatial_folding"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C019",
+        "M1_SG_C008",
+        "M1_SG_C007"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 25,
+      "source_label": "정다면체의 전개도",
+      "correct_rate_percent": 92,
+      "source_page": 4,
+      "problem_type_id": "M1_SG_PT019",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C009"
+      ],
+      "primary_protocol_id": "NET_FOLD_ADJACENCY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "net"
+      ],
+      "likely_error_tags": [
+        "net",
+        "spatial_folding"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C019",
+        "M1_SG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 26,
+      "source_label": "정다면체의 전개도",
+      "correct_rate_percent": 88,
+      "source_page": 4,
+      "problem_type_id": "M1_SG_PT019",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C009"
+      ],
+      "primary_protocol_id": "NET_FOLD_ADJACENCY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "net"
+      ],
+      "likely_error_tags": [
+        "net",
+        "spatial_folding"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C019",
+        "M1_SG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 27,
+      "source_label": "정다면체의 전개도",
+      "correct_rate_percent": 84,
+      "source_page": 4,
+      "problem_type_id": "M1_SG_PT019",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C009"
+      ],
+      "primary_protocol_id": "NET_FOLD_ADJACENCY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "net"
+      ],
+      "likely_error_tags": [
+        "net",
+        "spatial_folding"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C019",
+        "M1_SG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 28,
+      "source_label": "정다면체의 전개도",
+      "correct_rate_percent": 82,
+      "source_page": 4,
+      "problem_type_id": "M1_SG_PT019",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C009"
+      ],
+      "primary_protocol_id": "NET_FOLD_ADJACENCY",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "net"
+      ],
+      "likely_error_tags": [
+        "net",
+        "spatial_folding"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C019",
+        "M1_SG_C008"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C010"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 29,
+      "source_label": "정다면체의 단면",
+      "correct_rate_percent": 69,
+      "source_page": 5,
+      "problem_type_id": "M1_SG_PT024",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C010"
+      ],
+      "primary_protocol_id": "SOLID_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "regular_polyhedron"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C009",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 30,
+      "source_label": "정다면체의 단면",
+      "correct_rate_percent": 71,
+      "source_page": 5,
+      "problem_type_id": "M1_SG_PT024",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C010"
+      ],
+      "primary_protocol_id": "SOLID_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "regular_polyhedron"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C009",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 31,
+      "source_label": "정다면체의 단면",
+      "correct_rate_percent": 52,
+      "source_page": 5,
+      "problem_type_id": "M1_SG_PT024",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C010"
+      ],
+      "primary_protocol_id": "SOLID_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "regular_polyhedron",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "regular_polyhedron"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C009",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 32,
+      "source_label": "정다면체의 단면",
+      "correct_rate_percent": 43,
+      "source_page": 5,
+      "problem_type_id": "M1_SG_PT024",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C010"
+      ],
+      "primary_protocol_id": "SOLID_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "regular_polyhedron"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C009",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 33,
+      "source_label": "정다면체의 단면",
+      "correct_rate_percent": 70,
+      "source_page": 5,
+      "problem_type_id": "M1_SG_PT024",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C010"
+      ],
+      "primary_protocol_id": "SOLID_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "regular_polyhedron"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C009",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 34,
+      "source_label": "정다면체의 단면",
+      "correct_rate_percent": 63,
+      "source_page": 6,
+      "problem_type_id": "M1_SG_PT024",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C010"
+      ],
+      "primary_protocol_id": "SOLID_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "regular_polyhedron"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C009",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 35,
+      "source_label": "정다면체의 단면",
+      "correct_rate_percent": 56,
+      "source_page": 6,
+      "problem_type_id": "M1_SG_PT024",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C010"
+      ],
+      "primary_protocol_id": "SOLID_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "regular_polyhedron",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "regular_polyhedron"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C008",
+        "M1_SG_C009",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 36,
+      "source_label": "회전체의 단면의 모양(1)",
+      "correct_rate_percent": 76,
+      "source_page": 6,
+      "problem_type_id": "M1_SG_PT032",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C013",
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "solid_of_revolution",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C012",
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 37,
+      "source_label": "회전체의 단면의 모양(1)",
+      "correct_rate_percent": 91,
+      "source_page": 6,
+      "problem_type_id": "M1_SG_PT032",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C013",
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "solid_of_revolution",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C012",
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 38,
+      "source_label": "회전체의 단면의 모양(1)",
+      "correct_rate_percent": 79,
+      "source_page": 6,
+      "problem_type_id": "M1_SG_PT032",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C013",
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "solid_of_revolution",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C012",
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 39,
+      "source_label": "회전체의 단면의 모양(1)",
+      "correct_rate_percent": 81,
+      "source_page": 6,
+      "problem_type_id": "M1_SG_PT032",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C013",
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "solid_of_revolution",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C012",
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 40,
+      "source_label": "회전체의 단면의 모양(1)",
+      "correct_rate_percent": 77,
+      "source_page": 6,
+      "problem_type_id": "M1_SG_PT032",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C013",
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "solid_of_revolution",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C012",
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 41,
+      "source_label": "회전체의 단면의 모양(1)",
+      "correct_rate_percent": 74,
+      "source_page": 6,
+      "problem_type_id": "M1_SG_PT032",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C013",
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "solid_of_revolution",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C012",
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 42,
+      "source_label": "회전체의 단면의 모양(1)",
+      "correct_rate_percent": 90,
+      "source_page": 7,
+      "problem_type_id": "M1_SG_PT032",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C013",
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "solid_of_revolution",
+        "cross_section",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C012",
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 43,
+      "source_label": "회전체의 단면의 넓이와 둘레의 길이",
+      "correct_rate_percent": 58,
+      "source_page": 7,
+      "problem_type_id": "M1_SG_PT033",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION_MEASURE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "length_perimeter"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 44,
+      "source_label": "회전체의 단면의 넓이와 둘레의 길이",
+      "correct_rate_percent": 54,
+      "source_page": 7,
+      "problem_type_id": "M1_SG_PT033",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION_MEASURE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "length_perimeter"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 45,
+      "source_label": "회전체의 단면의 넓이와 둘레의 길이",
+      "correct_rate_percent": 59,
+      "source_page": 7,
+      "problem_type_id": "M1_SG_PT033",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION_MEASURE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "length_perimeter"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 46,
+      "source_label": "회전체의 단면의 넓이와 둘레의 길이",
+      "correct_rate_percent": 74,
+      "source_page": 7,
+      "problem_type_id": "M1_SG_PT033",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION_MEASURE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "length_perimeter"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 47,
+      "source_label": "회전체의 단면의 넓이와 둘레의 길이",
+      "correct_rate_percent": 88,
+      "source_page": 8,
+      "problem_type_id": "M1_SG_PT033",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION_MEASURE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "length_perimeter"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 48,
+      "source_label": "회전체의 단면의 넓이와 둘레의 길이",
+      "correct_rate_percent": 70,
+      "source_page": 8,
+      "problem_type_id": "M1_SG_PT033",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION_MEASURE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "length_perimeter"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 49,
+      "source_label": "회전체의 단면의 넓이와 둘레의 길이",
+      "correct_rate_percent": 88,
+      "source_page": 8,
+      "problem_type_id": "M1_SG_PT033",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C014"
+      ],
+      "primary_protocol_id": "REVOLUTION_CROSS_SECTION_MEASURE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "cross_section"
+      ],
+      "likely_error_tags": [
+        "cross_section",
+        "length_perimeter"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C013",
+        "M1_BG_C014",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M3_GEOM_C002",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 50,
+      "source_label": "회전체의 전개도",
+      "correct_rate_percent": 80,
+      "source_page": 8,
+      "problem_type_id": "M1_SG_PT038",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C015",
+        "M1_SG_C025"
+      ],
+      "primary_protocol_id": "FRUSTUM_NET_ARC",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "frustum_net",
+        "solid_of_revolution"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_SG_C015",
+        "M1_SG_C024",
+        "M1_BG_C019",
+        "M1_PG_C021",
+        "M1_PG_C023",
+        "M1_PG_C025"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C024",
+        "M1_SG_C028",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 51,
+      "source_label": "회전체의 전개도",
+      "correct_rate_percent": 87,
+      "source_page": 9,
+      "problem_type_id": "M1_SG_PT034",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT031"
+      ],
+      "concept_ids": [
+        "M1_SG_C015"
+      ],
+      "primary_protocol_id": "REVOLUTION_NET",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "net",
+        "solid_of_revolution"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_BG_C019"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C024",
+        "M1_SG_C025"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 52,
+      "source_label": "원뿔의 전개도의 성질",
+      "correct_rate_percent": 79,
+      "source_page": 9,
+      "problem_type_id": "M1_SG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C015",
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_NET_ARC_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "sector",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C025",
+        "M1_SG_C027",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 53,
+      "source_label": "원뿔의 전개도의 성질",
+      "correct_rate_percent": 71,
+      "source_page": 9,
+      "problem_type_id": "M1_SG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C015",
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_NET_ARC_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "sector",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C025",
+        "M1_SG_C027",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 54,
+      "source_label": "원뿔의 전개도의 성질",
+      "correct_rate_percent": 84,
+      "source_page": 9,
+      "problem_type_id": "M1_SG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C015",
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_NET_ARC_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "sector",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C025",
+        "M1_SG_C027",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 55,
+      "source_label": "원뿔의 전개도의 성질",
+      "correct_rate_percent": 76,
+      "source_page": 9,
+      "problem_type_id": "M1_SG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C015",
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_NET_ARC_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "sector",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C025",
+        "M1_SG_C027",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 56,
+      "source_label": "원뿔의 전개도의 성질",
+      "correct_rate_percent": 78,
+      "source_page": 10,
+      "problem_type_id": "M1_SG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C015",
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_NET_ARC_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "sector",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C025",
+        "M1_SG_C027",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 57,
+      "source_label": "원뿔의 전개도의 성질",
+      "correct_rate_percent": 84,
+      "source_page": 10,
+      "problem_type_id": "M1_SG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C015",
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_NET_ARC_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "sector",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C025",
+        "M1_SG_C027",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 58,
+      "source_label": "원뿔의 전개도의 성질",
+      "correct_rate_percent": 61,
+      "source_page": 10,
+      "problem_type_id": "M1_SG_PT036",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C015",
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_NET_ARC_ANGLE",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "solid_of_revolution",
+        "net"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "sector",
+        "central_angle"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C016",
+        "M1_SG_C018",
+        "M1_SG_C025",
+        "M1_SG_C027",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 59,
+      "source_label": "각기둥의 겉넓이",
+      "correct_rate_percent": 83,
+      "source_page": 10,
+      "problem_type_id": "M1_SG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C017",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "PRISM_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "prism_surface_area",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 60,
+      "source_label": "각기둥의 겉넓이",
+      "correct_rate_percent": 51,
+      "source_page": 10,
+      "problem_type_id": "M1_SG_PT039",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C017"
+      ],
+      "primary_protocol_id": "PRISM_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "prism_surface_area",
+        "base_lateral_area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C001"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 61,
+      "source_label": "각기둥의 겉넓이",
+      "correct_rate_percent": 79,
+      "source_page": 10,
+      "problem_type_id": "M1_SG_PT039",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C017"
+      ],
+      "primary_protocol_id": "PRISM_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "prism_surface_area",
+        "base_lateral_area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_BG_C001"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 62,
+      "source_label": "각기둥의 겉넓이",
+      "correct_rate_percent": 79,
+      "source_page": 11,
+      "problem_type_id": "M1_SG_PT040",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C017",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "PRISM_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "prism_surface_area",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 63,
+      "source_label": "각기둥의 겉넓이",
+      "correct_rate_percent": 41,
+      "source_page": 11,
+      "problem_type_id": "M1_SG_PT052",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C017"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "surface_area_change"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023",
+        "M1_SG_C018"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 64,
+      "source_label": "각기둥의 겉넓이",
+      "correct_rate_percent": 48,
+      "source_page": 11,
+      "problem_type_id": "M1_SG_PT052",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C017"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "prism_or_cylinder",
+        "surface_area",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "surface_area_change"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023",
+        "M1_SG_C018"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 65,
+      "source_label": "각기둥의 겉넓이",
+      "correct_rate_percent": 42,
+      "source_page": 11,
+      "problem_type_id": "M1_SG_PT052",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C017"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "surface_area_change"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023",
+        "M1_SG_C018"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 66,
+      "source_label": "각기둥의 부피",
+      "correct_rate_percent": 89,
+      "source_page": 11,
+      "problem_type_id": "M1_SG_PT043",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "PRISM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "prism_volume",
+        "base_area_height"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 67,
+      "source_label": "각기둥의 부피",
+      "correct_rate_percent": 72,
+      "source_page": 11,
+      "problem_type_id": "M1_SG_PT045",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "PRISM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "prism_or_cylinder",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "prism_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 68,
+      "source_label": "각기둥의 부피",
+      "correct_rate_percent": 68,
+      "source_page": 12,
+      "problem_type_id": "M1_SG_PT043",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "PRISM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "prism_volume",
+        "base_area_height"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 69,
+      "source_label": "각기둥의 부피",
+      "correct_rate_percent": 51,
+      "source_page": 12,
+      "problem_type_id": "M1_SG_PT043",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "PRISM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "prism_volume",
+        "base_area_height"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 70,
+      "source_label": "각기둥의 부피",
+      "correct_rate_percent": 69,
+      "source_page": 12,
+      "problem_type_id": "M1_SG_PT045",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "PRISM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "prism_or_cylinder",
+        "volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "prism_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 71,
+      "source_label": "각기둥의 부피",
+      "correct_rate_percent": 79,
+      "source_page": 12,
+      "problem_type_id": "M1_SG_PT043",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "PRISM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "prism_volume",
+        "base_area_height"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C026"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 72,
+      "source_label": "각기둥의 부피",
+      "correct_rate_percent": 75,
+      "source_page": 12,
+      "problem_type_id": "M1_SG_PT045",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "PRISM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "prism_or_cylinder",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "prism_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 73,
+      "source_label": "구멍이 뚫린 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 65,
+      "source_page": 12,
+      "problem_type_id": "M1_SG_PT050",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "hole_solid",
+        "prism_surface_area",
+        "prism_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017",
+        "M1_SG_C018",
+        "M1_SG_C019",
+        "M1_SG_C020",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C034",
+        "M2_GEOM_C003",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 74,
+      "source_label": "구멍이 뚫린 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 48,
+      "source_page": 12,
+      "problem_type_id": "M1_SG_PT051",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C018",
+        "M1_SG_C020"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "hole_solid",
+        "cylinder_surface_area",
+        "cylinder_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_SG_C015",
+        "M1_SG_C018",
+        "M1_SG_C017",
+        "M1_SG_C019",
+        "M1_SG_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C021",
+        "M1_SG_C022",
+        "M1_SG_C027",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 75,
+      "source_label": "구멍이 뚫린 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 51,
+      "source_page": 13,
+      "problem_type_id": "M1_SG_PT050",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "hole_solid",
+        "prism_surface_area",
+        "prism_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017",
+        "M1_SG_C018",
+        "M1_SG_C019",
+        "M1_SG_C020",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C034",
+        "M2_GEOM_C003",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 76,
+      "source_label": "구멍이 뚫린 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 69,
+      "source_page": 13,
+      "problem_type_id": "M1_SG_PT050",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "hole_solid",
+        "prism_surface_area",
+        "prism_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017",
+        "M1_SG_C018",
+        "M1_SG_C019",
+        "M1_SG_C020",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C034",
+        "M2_GEOM_C003",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 77,
+      "source_label": "구멍이 뚫린 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 41,
+      "source_page": 13,
+      "problem_type_id": "M1_SG_PT051",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C018",
+        "M1_SG_C020"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "hole_solid",
+        "cylinder_surface_area",
+        "cylinder_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_SG_C015",
+        "M1_SG_C018",
+        "M1_SG_C017",
+        "M1_SG_C019",
+        "M1_SG_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C021",
+        "M1_SG_C022",
+        "M1_SG_C027",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 78,
+      "source_label": "구멍이 뚫린 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 54,
+      "source_page": 13,
+      "problem_type_id": "M1_SG_PT050",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "hole_solid",
+        "prism_surface_area",
+        "prism_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C017",
+        "M1_SG_C018",
+        "M1_SG_C019",
+        "M1_SG_C020",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C034",
+        "M2_GEOM_C003",
+        "M1_SG_C023",
+        "M1_SG_C018",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 79,
+      "source_label": "구멍이 뚫린 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 72,
+      "source_page": 14,
+      "problem_type_id": "M1_SG_PT051",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C018",
+        "M1_SG_C020"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "surface_area_or_volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "hole_solid",
+        "cylinder_surface_area",
+        "cylinder_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_SG_C015",
+        "M1_SG_C018",
+        "M1_SG_C017",
+        "M1_SG_C019",
+        "M1_SG_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C021",
+        "M1_SG_C022",
+        "M1_SG_C027",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 80,
+      "source_label": "일부분을 잘라 낸 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 66,
+      "source_page": 14,
+      "problem_type_id": "M1_SG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "volume_difference"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 81,
+      "source_label": "일부분을 잘라 낸 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 63,
+      "source_page": 14,
+      "problem_type_id": "M1_SG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "volume_difference"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 82,
+      "source_label": "일부분을 잘라 낸 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 75,
+      "source_page": 14,
+      "problem_type_id": "M1_SG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "volume_difference"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 83,
+      "source_label": "일부분을 잘라 낸 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 55,
+      "source_page": 14,
+      "problem_type_id": "M1_SG_PT052",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C017"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "surface_area_change"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023",
+        "M1_SG_C018"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 84,
+      "source_label": "일부분을 잘라 낸 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 69,
+      "source_page": 14,
+      "problem_type_id": "M1_SG_PT052",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C017"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "surface_area_change"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C019",
+        "M1_SG_C021",
+        "M1_SG_C023",
+        "M1_SG_C018"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 85,
+      "source_label": "일부분을 잘라 낸 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 83,
+      "source_page": 15,
+      "problem_type_id": "M1_SG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "volume_difference"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 86,
+      "source_label": "일부분을 잘라 낸 기둥의 겉넓이와 부피",
+      "correct_rate_percent": 68,
+      "source_page": 15,
+      "problem_type_id": "M1_SG_PT053",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C019"
+      ],
+      "primary_protocol_id": "HOLE_AND_CUT_SOLID",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "prism_or_cylinder",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "volume_difference"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C017",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C021",
+        "M1_SG_C026",
+        "M1_SG_C020"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 87,
+      "source_label": "원뿔의 겉넓이",
+      "correct_rate_percent": 74,
+      "source_page": 15,
+      "problem_type_id": "M1_SG_PT058",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C024",
+        "M1_SG_C015"
+      ],
+      "primary_protocol_id": "CONE_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "net",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "central_angle",
+        "surface_area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C034",
+        "M3_TRIG_C001",
+        "M1_SG_C016",
+        "M1_SG_C018"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 88,
+      "source_label": "원뿔의 겉넓이",
+      "correct_rate_percent": 72,
+      "source_page": 15,
+      "problem_type_id": "M1_SG_PT057",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cone_surface_area",
+        "sector"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_PG_C021",
+        "M1_PG_C024"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 89,
+      "source_label": "원뿔의 겉넓이",
+      "correct_rate_percent": 71,
+      "source_page": 15,
+      "problem_type_id": "M1_SG_PT057",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT067"
+      ],
+      "concept_ids": [
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cone_surface_area",
+        "sector"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_PG_C021",
+        "M1_PG_C024"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 90,
+      "source_label": "원뿔의 겉넓이",
+      "correct_rate_percent": 71,
+      "source_page": 15,
+      "problem_type_id": "M1_SG_PT057",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_or_frustum",
+        "surface_area",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cone_surface_area",
+        "sector"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_PG_C021",
+        "M1_PG_C024"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 91,
+      "source_label": "원뿔의 겉넓이",
+      "correct_rate_percent": 82,
+      "source_page": 16,
+      "problem_type_id": "M1_SG_PT057",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C024"
+      ],
+      "primary_protocol_id": "CONE_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cone_surface_area",
+        "sector"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_PG_C021",
+        "M1_PG_C024"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 92,
+      "source_label": "원뿔의 겉넓이",
+      "correct_rate_percent": 71,
+      "source_page": 16,
+      "problem_type_id": "M1_SG_PT058",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C024",
+        "M1_SG_C015"
+      ],
+      "primary_protocol_id": "CONE_SURFACE_AREA",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "net",
+        "surface_area"
+      ],
+      "likely_error_tags": [
+        "cone_net",
+        "central_angle",
+        "surface_area"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_PG_C024",
+        "M1_SG_C012",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_BG_C019",
+        "M1_PG_C021"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C034",
+        "M3_TRIG_C001",
+        "M1_SG_C016",
+        "M1_SG_C018"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 93,
+      "source_label": "각뿔의 부피",
+      "correct_rate_percent": 77,
+      "source_page": 16,
+      "problem_type_id": "M1_SG_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "pyramid_volume",
+        "one_third"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 94,
+      "source_label": "각뿔의 부피",
+      "correct_rate_percent": 75,
+      "source_page": 16,
+      "problem_type_id": "M1_SG_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "pyramid_volume",
+        "one_third"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 95,
+      "source_label": "각뿔의 부피",
+      "correct_rate_percent": 87,
+      "source_page": 16,
+      "problem_type_id": "M1_SG_PT062",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "pyramid_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 96,
+      "source_label": "각뿔의 부피",
+      "correct_rate_percent": 85,
+      "source_page": 17,
+      "problem_type_id": "M1_SG_PT061",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_or_frustum",
+        "volume",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "pyramid_volume",
+        "one_third"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 97,
+      "source_label": "각뿔의 부피",
+      "correct_rate_percent": 66,
+      "source_page": 17,
+      "problem_type_id": "M1_SG_PT062",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "pyramid_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 98,
+      "source_label": "각기둥에서 잘라 낸 각뿔의 부피",
+      "correct_rate_percent": 58,
+      "source_page": 17,
+      "problem_type_id": "M1_SG_PT064",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C022"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "pyramid_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 99,
+      "source_label": "각기둥에서 잘라 낸 각뿔의 부피",
+      "correct_rate_percent": 73,
+      "source_page": 17,
+      "problem_type_id": "M1_SG_PT064",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C022"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "pyramid_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 100,
+      "source_label": "각기둥에서 잘라 낸 각뿔의 부피",
+      "correct_rate_percent": 72,
+      "source_page": 17,
+      "problem_type_id": "M1_SG_PT064",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C022"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "pyramid_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 101,
+      "source_label": "각기둥에서 잘라 낸 각뿔의 부피",
+      "correct_rate_percent": 88,
+      "source_page": 18,
+      "problem_type_id": "M1_SG_PT064",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C022"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "pyramid_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 102,
+      "source_label": "각기둥에서 잘라 낸 각뿔의 부피",
+      "correct_rate_percent": 82,
+      "source_page": 18,
+      "problem_type_id": "M1_SG_PT064",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C022"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "pyramid_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 103,
+      "source_label": "각기둥에서 잘라 낸 각뿔의 부피",
+      "correct_rate_percent": 72,
+      "source_page": 18,
+      "problem_type_id": "M1_SG_PT064",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C022"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "pyramid_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 104,
+      "source_label": "각기둥에서 잘라 낸 각뿔의 부피",
+      "correct_rate_percent": 53,
+      "source_page": 18,
+      "problem_type_id": "M1_SG_PT064",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C022"
+      ],
+      "primary_protocol_id": "PYRAMID_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "cut_solid",
+        "pyramid_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C021",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 105,
+      "source_label": "그릇에 담긴 물의 부피",
+      "correct_rate_percent": 83,
+      "source_page": 19,
+      "problem_type_id": "M1_SG_PT065",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C026",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "WATER_VOLUME_CONSERVATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "water_volume",
+        "volume_comparison"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C027",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 106,
+      "source_label": "그릇에 담긴 물의 부피",
+      "correct_rate_percent": 62,
+      "source_page": 19,
+      "problem_type_id": "M1_SG_PT065",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C026",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "WATER_VOLUME_CONSERVATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "water_volume",
+        "volume_comparison"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C027",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 107,
+      "source_label": "그릇에 담긴 물의 부피",
+      "correct_rate_percent": 73,
+      "source_page": 19,
+      "problem_type_id": "M1_SG_PT065",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C026",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "WATER_VOLUME_CONSERVATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "water_volume",
+        "volume_comparison"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C027",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 108,
+      "source_label": "그릇에 담긴 물의 부피",
+      "correct_rate_percent": 59,
+      "source_page": 19,
+      "problem_type_id": "M1_SG_PT065",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C026",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "WATER_VOLUME_CONSERVATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "water_volume",
+        "volume_comparison"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C027",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 109,
+      "source_label": "그릇에 담긴 물의 부피",
+      "correct_rate_percent": 76,
+      "source_page": 20,
+      "problem_type_id": "M1_SG_PT065",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C026",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "WATER_VOLUME_CONSERVATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "water_volume",
+        "volume_comparison"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C027",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 110,
+      "source_label": "그릇에 담긴 물의 부피",
+      "correct_rate_percent": 75,
+      "source_page": 20,
+      "problem_type_id": "M1_SG_PT065",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C026",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "WATER_VOLUME_CONSERVATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "water_volume",
+        "volume_comparison"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C027",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 111,
+      "source_label": "그릇에 담긴 물의 부피",
+      "correct_rate_percent": 66,
+      "source_page": 20,
+      "problem_type_id": "M1_SG_PT065",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C029",
+        "M1_SG_C026",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "WATER_VOLUME_CONSERVATION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "water_volume",
+        "volume_comparison"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C026",
+        "M1_SG_C027",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 112,
+      "source_label": "원뿔의 부피",
+      "correct_rate_percent": 85,
+      "source_page": 20,
+      "problem_type_id": "M1_SG_PT066",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "CONE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_frustum",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "cone_volume",
+        "one_third"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C024"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 113,
+      "source_label": "원뿔의 부피",
+      "correct_rate_percent": 87,
+      "source_page": 20,
+      "problem_type_id": "M1_SG_PT067",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C026",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "CONE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "pyramid_cone_or_frustum",
+        "volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "volume_comparison",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 114,
+      "source_label": "원뿔의 부피",
+      "correct_rate_percent": 81,
+      "source_page": 20,
+      "problem_type_id": "M1_SG_PT066",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT065"
+      ],
+      "concept_ids": [
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "CONE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_frustum",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "cone_volume",
+        "one_third"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C024"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 115,
+      "source_label": "원뿔의 부피",
+      "correct_rate_percent": 83,
+      "source_page": 21,
+      "problem_type_id": "M1_SG_PT066",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "CONE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_frustum",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "cone_volume",
+        "one_third"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C024"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 116,
+      "source_label": "원뿔의 부피",
+      "correct_rate_percent": 88,
+      "source_page": 21,
+      "problem_type_id": "M1_SG_PT067",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C026",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "CONE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "pyramid_cone_or_frustum",
+        "volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "volume_comparison",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 117,
+      "source_label": "원뿔의 부피",
+      "correct_rate_percent": 85,
+      "source_page": 21,
+      "problem_type_id": "M1_SG_PT067",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT065"
+      ],
+      "concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C026",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "CONE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_frustum",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "volume_comparison",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C030",
+        "M1_SG_C019",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C023",
+        "M1_SG_C034"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 118,
+      "source_label": "원뿔의 부피",
+      "correct_rate_percent": 78,
+      "source_page": 21,
+      "problem_type_id": "M1_SG_PT067",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT065"
+      ],
+      "concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C026",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "CONE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_frustum",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "volume_comparison",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C030",
+        "M1_SG_C019",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C023",
+        "M1_SG_C034"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 119,
+      "source_label": "뿔대의 부피",
+      "correct_rate_percent": 68,
+      "source_page": 21,
+      "problem_type_id": "M1_SG_PT068",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C028"
+      ],
+      "primary_protocol_id": "FRUSTUM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "frustum_volume",
+        "difference_of_solids"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 120,
+      "source_label": "뿔대의 부피",
+      "correct_rate_percent": 74,
+      "source_page": 22,
+      "problem_type_id": "M1_SG_PT068",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C028"
+      ],
+      "primary_protocol_id": "FRUSTUM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "frustum_volume",
+        "difference_of_solids"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 121,
+      "source_label": "뿔대의 부피",
+      "correct_rate_percent": 47,
+      "source_page": 22,
+      "problem_type_id": "M1_SG_PT068",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C028"
+      ],
+      "primary_protocol_id": "FRUSTUM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "frustum_volume",
+        "difference_of_solids"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 122,
+      "source_label": "뿔대의 부피",
+      "correct_rate_percent": 64,
+      "source_page": 22,
+      "problem_type_id": "M1_SG_PT068",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C028"
+      ],
+      "primary_protocol_id": "FRUSTUM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "frustum_volume",
+        "difference_of_solids"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 123,
+      "source_label": "뿔대의 부피",
+      "correct_rate_percent": 47,
+      "source_page": 22,
+      "problem_type_id": "M1_SG_PT083",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT068",
+        "M1_SG_PT059"
+      ],
+      "concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "REVERSE_SURFACE_VOLUME_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_frustum",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "integrated_surface_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_SG_C018",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C034"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 124,
+      "source_label": "뿔대의 부피",
+      "correct_rate_percent": 47,
+      "source_page": 22,
+      "problem_type_id": "M1_SG_PT083",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT068",
+        "M1_SG_PT059"
+      ],
+      "concept_ids": [
+        "M1_SG_C034",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "REVERSE_SURFACE_VOLUME_CONDITION",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_frustum",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "integrated_surface_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C029",
+        "M1_PG_C030",
+        "M1_SG_C018",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C034"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": true
+    },
+    {
+      "item_no": 125,
+      "source_label": "뿔대의 부피",
+      "correct_rate_percent": 69,
+      "source_page": 22,
+      "problem_type_id": "M1_SG_PT068",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C028"
+      ],
+      "primary_protocol_id": "FRUSTUM_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "frustum_volume",
+        "difference_of_solids"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 126,
+      "source_label": "회전체의 겉넓이와 부피(1) 원뿔",
+      "correct_rate_percent": 81,
+      "source_page": 23,
+      "problem_type_id": "M1_SG_PT070",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "primary_protocol_id": "REVOLVED_COMPOSITE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "surface_area",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "solid_of_revolution",
+        "cone_surface_area",
+        "cone_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_PG_C029",
+        "M1_SG_C018",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C025",
+        "M3_TRIG_C001",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C036",
+        "H1_GEOM_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 127,
+      "source_label": "회전체의 겉넓이와 부피(1) 원뿔",
+      "correct_rate_percent": 81,
+      "source_page": 23,
+      "problem_type_id": "M1_SG_PT071",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C021",
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "primary_protocol_id": "REVOLVED_COMPOSITE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "pyramid_cone_frustum",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "hole_solid",
+        "solid_of_revolution"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_PG_C029",
+        "M1_SG_C015",
+        "M1_SG_C017",
+        "M1_SG_C018",
+        "M1_SG_C019",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C022",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M1_SG_C036"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 128,
+      "source_label": "회전체의 겉넓이와 부피(1) 원뿔",
+      "correct_rate_percent": 74,
+      "source_page": 23,
+      "problem_type_id": "M1_SG_PT070",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT036"
+      ],
+      "concept_ids": [
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C034"
+      ],
+      "primary_protocol_id": "REVOLVED_COMPOSITE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "pyramid_cone_or_frustum",
+        "surface_area",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "solid_of_revolution",
+        "cone_surface_area",
+        "cone_volume"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025",
+        "M1_SG_C015",
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_PG_C029",
+        "M1_SG_C018",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C025",
+        "M3_TRIG_C001",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C036",
+        "H1_GEOM_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 129,
+      "source_label": "구의 부피",
+      "correct_rate_percent": 83,
+      "source_page": 23,
+      "problem_type_id": "M1_SG_PT075",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C031"
+      ],
+      "primary_protocol_id": "SPHERE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "sphere_volume",
+        "radius"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 130,
+      "source_label": "구의 부피",
+      "correct_rate_percent": 75,
+      "source_page": 24,
+      "problem_type_id": "M1_SG_PT075",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C031"
+      ],
+      "primary_protocol_id": "SPHERE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "sphere_volume",
+        "radius"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 131,
+      "source_label": "구의 부피",
+      "correct_rate_percent": 65,
+      "source_page": 24,
+      "problem_type_id": "M1_SG_PT076",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C031",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "SPHERE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere_or_spatial_fit",
+        "volume",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "sphere_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C034",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 132,
+      "source_label": "구의 부피",
+      "correct_rate_percent": 60,
+      "source_page": 24,
+      "problem_type_id": "M1_SG_PT076",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C031",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "SPHERE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "sphere_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C034",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 133,
+      "source_label": "구의 부피",
+      "correct_rate_percent": 67,
+      "source_page": 24,
+      "problem_type_id": "M1_SG_PT076",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C031",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "SPHERE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit",
+        "volume"
+      ],
+      "likely_error_tags": [
+        "sphere_volume",
+        "reverse_reasoning"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C034",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 134,
+      "source_label": "구의 부피",
+      "correct_rate_percent": 69,
+      "source_page": 24,
+      "problem_type_id": "M1_SG_PT067",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT075",
+        "M1_SG_PT066"
+      ],
+      "concept_ids": [
+        "M1_SG_C027",
+        "M1_SG_C026",
+        "M1_SG_C036"
+      ],
+      "primary_protocol_id": "CONE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "symbolic_or_verbal_statement",
+        "pyramid_cone_or_frustum",
+        "volume",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "volume_comparison",
+        "condition_interpretation"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C024",
+        "M1_SG_C019",
+        "M1_SG_C023",
+        "M1_PG_C030",
+        "M1_SG_C034",
+        "M1_EX_C022",
+        "M1_PG_C029"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M1_SG_C033",
+        "M1_SG_C034",
+        "M3_TRIG_C001",
+        "H1_EQ_C002"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 135,
+      "source_label": "구의 부피",
+      "correct_rate_percent": 68,
+      "source_page": 24,
+      "problem_type_id": "M1_SG_PT075",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C031"
+      ],
+      "primary_protocol_id": "SPHERE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "sphere_volume",
+        "radius"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C034"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 136,
+      "source_label": "회전체의 겉넓이와 부피; 구",
+      "correct_rate_percent": 66,
+      "source_page": 25,
+      "problem_type_id": "M1_SG_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C034"
+      ],
+      "primary_protocol_id": "REVOLVED_COMPOSITE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "solid_of_revolution",
+        "sphere"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_PG_C029",
+        "M1_SG_C018",
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C036",
+        "H1_GEOM_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 137,
+      "source_label": "회전체의 겉넓이와 부피; 구",
+      "correct_rate_percent": 55,
+      "source_page": 25,
+      "problem_type_id": "M1_SG_PT078",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C034"
+      ],
+      "primary_protocol_id": "REVOLVED_COMPOSITE_VOLUME",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "solid_of_revolution",
+        "sphere"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_PG_C029",
+        "M1_SG_C018",
+        "M1_SG_C024",
+        "M1_SG_C027",
+        "M1_SG_C025",
+        "M1_SG_C028",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C036",
+        "H1_GEOM_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 138,
+      "source_label": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
+      "correct_rate_percent": 84,
+      "source_page": 25,
+      "problem_type_id": "M1_SG_PT077",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT079",
+        "M1_SG_PT080"
+      ],
+      "concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "inscribed_circumscribed",
+        "sphere",
+        "cylinder_sphere_fit",
+        "inscribed",
+        "cylinder_cone_fit"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C020",
+        "M1_SG_C027",
+        "M1_SG_C032",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C034",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 139,
+      "source_label": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
+      "correct_rate_percent": 74,
+      "source_page": 25,
+      "problem_type_id": "M1_SG_PT077",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT079",
+        "M1_SG_PT080"
+      ],
+      "concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "inscribed_circumscribed",
+        "sphere",
+        "cylinder_sphere_fit",
+        "inscribed",
+        "cylinder_cone_fit"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C020",
+        "M1_SG_C027",
+        "M1_SG_C032",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C034",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 140,
+      "source_label": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
+      "correct_rate_percent": 65,
+      "source_page": 26,
+      "problem_type_id": "M1_SG_PT077",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT079",
+        "M1_SG_PT080"
+      ],
+      "concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "inscribed_circumscribed",
+        "sphere",
+        "cylinder_sphere_fit",
+        "inscribed",
+        "cylinder_cone_fit"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C020",
+        "M1_SG_C027",
+        "M1_SG_C032",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C034",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 141,
+      "source_label": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
+      "correct_rate_percent": 72,
+      "source_page": 26,
+      "problem_type_id": "M1_SG_PT077",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT079",
+        "M1_SG_PT080"
+      ],
+      "concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere_or_spatial_fit",
+        "symbolic_or_verbal_statement"
+      ],
+      "likely_error_tags": [
+        "inscribed_circumscribed",
+        "sphere",
+        "cylinder_sphere_fit",
+        "inscribed",
+        "cylinder_cone_fit"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C020",
+        "M1_SG_C027",
+        "M1_SG_C032",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C034",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": false,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 142,
+      "source_label": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
+      "correct_rate_percent": 52,
+      "source_page": 26,
+      "problem_type_id": "M1_SG_PT077",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT079",
+        "M1_SG_PT080"
+      ],
+      "concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "inscribed_circumscribed",
+        "sphere",
+        "cylinder_sphere_fit",
+        "inscribed",
+        "cylinder_cone_fit"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C020",
+        "M1_SG_C027",
+        "M1_SG_C032",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C034",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 143,
+      "source_label": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
+      "correct_rate_percent": 67,
+      "source_page": 26,
+      "problem_type_id": "M1_SG_PT077",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT079"
+      ],
+      "concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C033",
+        "M1_SG_C027"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "inscribed_circumscribed",
+        "sphere",
+        "cylinder_sphere_fit",
+        "inscribed",
+        "cylinder_cone_fit"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C020",
+        "M1_SG_C027",
+        "M1_SG_C032",
+        "M1_SG_C024",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C034",
+        "M1_SG_C028",
+        "M1_SG_C029",
+        "M3_TRIG_C001"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 144,
+      "source_label": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
+      "correct_rate_percent": 67,
+      "source_page": 27,
+      "problem_type_id": "M1_SG_PT079",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT048"
+      ],
+      "concept_ids": [
+        "M1_SG_C033",
+        "M1_SG_C032"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "cylinder_sphere_fit",
+        "inscribed"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C020",
+        "M1_SG_C027",
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 145,
+      "source_label": "입체도형에 꼭 맞게 들어가는 입체도형",
+      "correct_rate_percent": 57,
+      "source_page": 27,
+      "problem_type_id": "M1_SG_PT082",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT081"
+      ],
+      "concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C032"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere_or_spatial_fit",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "cuboid_fit",
+        "spatial_diagonal"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C033",
+        "M1_SG_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 146,
+      "source_label": "입체도형에 꼭 맞게 들어가는 입체도형",
+      "correct_rate_percent": 81,
+      "source_page": 27,
+      "problem_type_id": "M1_SG_PT081",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C032"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "sphere_fit",
+        "spatial_visualization"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 147,
+      "source_label": "입체도형에 꼭 맞게 들어가는 입체도형",
+      "correct_rate_percent": 73,
+      "source_page": 27,
+      "problem_type_id": "M1_SG_PT082",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C032"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "cuboid_fit",
+        "spatial_diagonal"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 148,
+      "source_label": "입체도형에 꼭 맞게 들어가는 입체도형",
+      "correct_rate_percent": 67,
+      "source_page": 27,
+      "problem_type_id": "M1_SG_PT081",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C032"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "sphere_fit",
+        "spatial_visualization"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 149,
+      "source_label": "입체도형에 꼭 맞게 들어가는 입체도형",
+      "correct_rate_percent": 73,
+      "source_page": 28,
+      "problem_type_id": "M1_SG_PT082",
+      "secondary_problem_type_ids": [
+        "M1_SG_PT081"
+      ],
+      "concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C032"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "sphere_or_spatial_fit",
+        "diagram"
+      ],
+      "likely_error_tags": [
+        "cuboid_fit",
+        "spatial_diagonal"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_SG_C032"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C033",
+        "M1_SG_C035"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    },
+    {
+      "item_no": 150,
+      "source_label": "입체도형에 꼭 맞게 들어가는 입체도형",
+      "correct_rate_percent": 65,
+      "source_page": 28,
+      "problem_type_id": "M1_SG_PT081",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M1_SG_C035",
+        "M1_SG_C032"
+      ],
+      "primary_protocol_id": "INSCRIBED_SOLID_RATIO",
+      "representation_tags": [
+        "multiple_choice_or_short_answer",
+        "solid_geometry",
+        "diagram",
+        "sphere_or_spatial_fit"
+      ],
+      "likely_error_tags": [
+        "sphere_fit",
+        "spatial_visualization"
+      ],
+      "prerequisite_concept_ids": [
+        "M1_SG_C032",
+        "M1_SG_C030",
+        "M1_SG_C031",
+        "M1_EX_C022",
+        "M1_PG_C029",
+        "M1_PG_C030"
+      ],
+      "next_learning_concept_ids": [
+        "M1_SG_C033"
+      ],
+      "is_visual_problem": true,
+      "is_low_accuracy_at_or_below_50_percent": false
+    }
+  ],
+  "source_flags": {
+    "visual_problem_count": 110,
+    "visual_items": [
+      10,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      30,
+      31,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      65,
+      66,
+      68,
+      69,
+      70,
+      71,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      91,
+      92,
+      93,
+      94,
+      95,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150
+    ],
+    "new_trend_items": [],
+    "low_accuracy_threshold_percent": 50,
+    "low_accuracy_items_at_or_below_50_percent": [
+      32,
+      63,
+      64,
+      65,
+      74,
+      77,
+      121,
+      123,
+      124
+    ],
+    "minimum_correct_rate_percent": 41,
+    "minimum_correct_rate_items": [
+      63,
+      77
+    ],
+    "maximum_correct_rate_percent": 93,
+    "maximum_correct_rate_items": [
+      7
+    ]
+  },
+  "notes": [
+    "문제 1-28쪽, 빠른 정답 29-30쪽, 전체 해설 31-47쪽 구성",
+    "원본 문항·정답·해설·페이지 이미지는 엔진에 저장하지 않음",
+    "기존 M1_SOLID_GEOMETRY 36개 개념, 83개 문항 유형, 36개 풀이 프로토콜을 변경하지 않고 문항별로 연결",
+    "문항 1-35는 다면체 요소 관계·정다면체·전개도·단면, 36-58은 회전체 단면·전개도, 59-128은 기둥·뿔·뿔대의 겉넓이와 부피, 129-150은 구와 내접·외접 입체로 연결",
+    "정답률 50% 이하 문항은 32, 63, 64, 65, 74, 77, 121, 123, 124번이며 최저 정답률은 63, 77번의 41%",
+    "10번은 큰 정육면체를 작은 정육면체로 분할한 뒤 색칠된 면의 개수로 작은 정육면체를 분류하는 공간 계수 문항으로 연결",
+    "22-28번은 정사면체·정육면체·정팔면체·정이십면체의 전개도에서 겹치는 점·모서리와 꼬인 위치·평행 관계를 추적하는 문항으로 연결",
+    "31·32·35번은 정육면체·정사면체·정팔면체를 평면으로 자른 뒤 두 입체의 면 또는 모서리 개수를 합산하는 단면 문항으로 연결",
+    "43-49번은 회전축을 포함하거나 밑면에 평행한 평면으로 자른 단면의 넓이·둘레·최댓값을 구하는 문항으로 연결",
+    "63-65번은 정육면체의 반복 절단 또는 블록 재배치에서 새로 드러난 면을 추적해 겉넓이를 비교하는 문항으로 연결",
+    "74·77·79번은 원기둥에 원기둥형 구멍을 뚫을 때 제거되는 부피와 새로 생기는 안쪽 옆면을 함께 계산하는 문항으로 연결",
+    "80-86번은 정육면체·직육면체에서 삼각뿔·직육면체·반원기둥을 잘라 낸 뒤 남은 부피 또는 겉넓이를 구하는 문항으로 연결",
+    "98-104번은 정육면체 내부의 삼각뿔을 잘라 내거나 단면으로 나뉜 두 입체의 부피비를 구하는 문항으로 연결",
+    "105-111번은 서로 다른 그릇으로 물을 옮기거나 기울인 그릇의 물을 회전시켜도 부피가 보존된다는 원리를 적용하는 문항으로 연결",
+    "121-124번은 닮음으로 잘린 원뿔대·사각뿔대의 부피비와 겉넓이를 동시에 추적하는 종합 문항으로 연결",
+    "136·137번은 반원·사분원을 회전해 얻는 구형 회전체의 겉넓이 또는 비를 구하는 문항으로 연결",
+    "138-144번은 원기둥에 꼭 맞는 구와 원뿔의 공통 반지름·높이 조건을 부피비·겉넓이비·물 높이로 변환하는 문항으로 연결",
+    "145-150번은 정육면체·직육면체·구 안에 꼭 맞는 구·원뿔·정팔면체의 부피와 겉넓이를 비교하는 내접 입체 문항으로 연결"
+  ]
+}
