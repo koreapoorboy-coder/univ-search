@@ -35,5 +35,123 @@
       "range": "17.png~22.png",
       "coverage": "계수 조건, 도형·실생활 활용, 종합 문제"
     }
-  ]
+  ],
+  "additional_sources": [
+    {
+      "source_id": "SRC_DONGA_KANG_M3_TEXTBOOK_2015_M3_QUADRATIC_FUNCTION",
+      "source_family_id": "SRC_DONGA_KANG_M3_TEXTBOOK_2015_FULL",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "동아출판",
+      "author_series": "강옥기",
+      "grade": "중학교 3학년",
+      "subject": "수학",
+      "curriculum": "2015 개정 교육과정",
+      "original_upload_name": "중3 수학 동아(강) 교과서.pdf",
+      "textbook_major_unit": "4 이차함수와 그래프",
+      "pdf_page_range": {
+        "start": 111,
+        "end": 148
+      },
+      "printed_page_range": {
+        "start": 118,
+        "end": 155
+      },
+      "chapter_sections": [
+        "이차함수의 뜻",
+        "y=x²와 y=-x²",
+        "y=ax²",
+        "y=ax²+q",
+        "y=a(x-p)²",
+        "y=a(x-p)²+q",
+        "y=ax²+bx+c"
+      ],
+      "alignment_target": "data/problem_types/m3_quadratic_function.problem_types.v1.json",
+      "aligned_problem_type_count": 176,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "existing_canonical_taxonomy_reused_and_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·정답·해설 전문과 페이지 이미지는 저장하지 않고 단원·개념·유형 연결 메타데이터만 저장",
+      "added_patch": "PATCH150",
+      "added_at": "2026-07-13"
+    },
+    {
+      "source_id": "SRC_CHUNJAE_LEE_M3_TEXTBOOK_2015_M3_QUADRATIC_FUNCTION",
+      "source_family_id": "SRC_CHUNJAE_LEE_M3_TEXTBOOK_2015_FULL",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "천재교육",
+      "author_series": "이준열",
+      "grade": "중학교 3학년",
+      "subject": "수학",
+      "curriculum": "2015 개정 교육과정",
+      "original_upload_name": "중3 수학 천재(이) 교과서.pdf",
+      "textbook_major_unit": "Ⅲ 함수 - 1 이차함수와 그래프",
+      "pdf_page_range": {
+        "start": 105,
+        "end": 140
+      },
+      "printed_page_range": {
+        "start": 112,
+        "end": 147
+      },
+      "chapter_sections": [
+        "이차함수의 뜻",
+        "이차함수 y=ax²의 그래프",
+        "이차함수 y=a(x-p)²+q의 그래프",
+        "이차함수 y=ax²+bx+c의 그래프",
+        "이차함수의 식 구하기"
+      ],
+      "alignment_target": "data/problem_types/m3_quadratic_function.problem_types.v1.json",
+      "aligned_problem_type_count": 176,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "existing_canonical_taxonomy_reused_and_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·정답·해설 전문과 페이지 이미지는 저장하지 않고 단원·개념·유형 연결 메타데이터만 저장",
+      "added_patch": "PATCH151",
+      "added_at": "2026-07-13"
+    },
+    {
+      "source_id": "SRC_CHUNJAE_RYU_M3_TEXTBOOK_2015_M3_QUADRATIC_FUNCTION",
+      "source_family_id": "SRC_CHUNJAE_RYU_M3_TEXTBOOK_2015_FULL",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "천재교육",
+      "author_series": "류희찬",
+      "grade": "중학교 3학년",
+      "subject": "수학",
+      "curriculum": "2015 개정 교육과정",
+      "original_upload_name": "중3 천재(류) 수학 교과서.pdf",
+      "textbook_major_unit": "Ⅳ 이차함수와 그래프",
+      "pdf_page_range": {
+        "start": 107,
+        "end": 142
+      },
+      "printed_page_range": {
+        "start": 115,
+        "end": 150
+      },
+      "chapter_sections": [
+        "이차함수의 뜻",
+        "이차함수 y=ax²의 그래프",
+        "이차함수 y=ax²+q의 그래프",
+        "이차함수 y=a(x-p)²의 그래프",
+        "이차함수 y=a(x-p)²+q의 그래프",
+        "이차함수 y=ax²+bx+c의 그래프"
+      ],
+      "alignment_target": "data/problem_types/m3_quadratic_function.problem_types.v1.json",
+      "aligned_problem_type_count": 176,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "existing_canonical_taxonomy_reused_and_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·정답·해설 전문과 페이지 이미지는 저장하지 않고 단원·개념·유형 연결 메타데이터만 저장",
+      "added_patch": "PATCH152",
+      "added_at": "2026-07-13"
+    }
+  ],
+  "latest_source_update_patch": "PATCH151",
+  "latest_source_update_note": "천재교육 이준열 중3 수학 2015 개정 교과서 전권의 해당 범위를 기존 canonical 유형 체계에 추가 연결함."
 }

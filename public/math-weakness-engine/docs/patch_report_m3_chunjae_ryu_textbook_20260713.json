@@ -1,0 +1,72 @@
+{
+  "patch": "PATCH152",
+  "patch_slug": "math_weakness_engine_patch152_m3_chunjae_ryu_textbook_alignment_20260713",
+  "build_date": "2026-07-13",
+  "baseline": "PATCH151 applied engine",
+  "source": {
+    "file": "중3 천재(류) 수학 교과서.pdf",
+    "publisher": "천재교육",
+    "author_series": "류희찬",
+    "curriculum": "2015 개정 교육과정",
+    "sha256": "8dc0d4b5a825435763980b90a4eb69c564eadfb3e0cb068b870ee702bef06426",
+    "size_bytes": 36262596,
+    "pdf_pages": 226,
+    "printed_pages": "9-234",
+    "answer_solution_appendix_present": false
+  },
+  "outputs": {
+    "textbook_major_units": 7,
+    "aligned_canonical_units": 7,
+    "existing_canonical_units_reused": 7,
+    "new_canonical_units_created": 0,
+    "new_concepts": 0,
+    "new_problem_types": 0,
+    "aligned_problem_types_total": 1077,
+    "source_reference_records_added": 7,
+    "source_manifest_files_updated": 7,
+    "source_registry_files_added": 1,
+    "engine_unit_count_after": 39,
+    "engine_problem_type_count_after": 13042,
+    "unmatched_pdf_pages": 0,
+    "unmatched_textbook_units": 0
+  },
+  "direct_alignment": [
+    {
+      "textbook_chapter": "Ⅰ 제곱근과 실수",
+      "scope": "PDF 1-40 / 인쇄면 9-48",
+      "canonical_unit_id": "M3_REAL_NUMBER_CALC"
+    },
+    {
+      "textbook_chapter": "Ⅱ 다항식의 곱셈과 인수분해",
+      "scope": "PDF 41-76 / 인쇄면 49-84",
+      "canonical_unit_id": "M3_POLYNOMIAL_FACTORING"
+    },
+    {
+      "textbook_chapter": "Ⅲ 이차방정식",
+      "scope": "PDF 77-106 / 인쇄면 85-114",
+      "canonical_unit_id": "M3_QUADRATIC_EQUATION"
+    },
+    {
+      "textbook_chapter": "Ⅳ 이차함수와 그래프",
+      "scope": "PDF 107-142 / 인쇄면 115-150",
+      "canonical_unit_id": "M3_QUADRATIC_FUNCTION"
+    },
+    {
+      "textbook_chapter": "Ⅴ 삼각비",
+      "scope": "PDF 143-172 / 인쇄면 151-180",
+      "canonical_unit_id": "M3_TRIGONOMETRIC_RATIO"
+    },
+    {
+      "textbook_chapter": "Ⅵ 원의 성질",
+      "scope": "PDF 173-202 / 인쇄면 181-210",
+      "canonical_unit_id": "M3_CIRCLE_PROPERTIES"
+    },
+    {
+      "textbook_chapter": "Ⅶ 통계",
+      "scope": "PDF 203-226 / 인쇄면 211-234",
+      "canonical_unit_id": "M3_STATISTICS"
+    }
+  ],
+  "copyright_policy": "원문 문항·정답·해설·페이지 이미지는 패치에 포함하지 않고 단원·개념·유형 연결 메타데이터만 저장",
+  "apply_order": "PATCH151 적용 상태 위에 PATCH152를 덮어쓰기"
+}

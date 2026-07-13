@@ -44,5 +44,118 @@
       ],
       "section": "수, 연속수, 비율·농도, 개수·나이, 운동, 도형, 상자와 도로 활용"
     }
-  ]
+  ],
+  "additional_sources": [
+    {
+      "source_id": "SRC_DONGA_KANG_M3_TEXTBOOK_2015_M3_QUADRATIC_EQUATION",
+      "source_family_id": "SRC_DONGA_KANG_M3_TEXTBOOK_2015_FULL",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "동아출판",
+      "author_series": "강옥기",
+      "grade": "중학교 3학년",
+      "subject": "수학",
+      "curriculum": "2015 개정 교육과정",
+      "original_upload_name": "중3 수학 동아(강) 교과서.pdf",
+      "textbook_major_unit": "3 이차방정식",
+      "pdf_page_range": {
+        "start": 83,
+        "end": 110
+      },
+      "printed_page_range": {
+        "start": 90,
+        "end": 117
+      },
+      "chapter_sections": [
+        "이차방정식과 그 해",
+        "인수분해를 이용한 풀이",
+        "제곱근을 이용한 풀이",
+        "근의 공식을 이용한 풀이"
+      ],
+      "alignment_target": "data/problem_types/m3_quadratic_equation.problem_types.v1.json",
+      "aligned_problem_type_count": 144,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "existing_canonical_taxonomy_reused_and_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·정답·해설 전문과 페이지 이미지는 저장하지 않고 단원·개념·유형 연결 메타데이터만 저장",
+      "added_patch": "PATCH150",
+      "added_at": "2026-07-13"
+    },
+    {
+      "source_id": "SRC_CHUNJAE_LEE_M3_TEXTBOOK_2015_M3_QUADRATIC_EQUATION",
+      "source_family_id": "SRC_CHUNJAE_LEE_M3_TEXTBOOK_2015_FULL",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "천재교육",
+      "author_series": "이준열",
+      "grade": "중학교 3학년",
+      "subject": "수학",
+      "curriculum": "2015 개정 교육과정",
+      "original_upload_name": "중3 수학 천재(이) 교과서.pdf",
+      "textbook_major_unit": "Ⅱ 문자와 식 - 2 이차방정식",
+      "pdf_page_range": {
+        "start": 78,
+        "end": 104
+      },
+      "printed_page_range": {
+        "start": 85,
+        "end": 111
+      },
+      "chapter_sections": [
+        "이차방정식과 그 해",
+        "인수분해를 이용한 풀이",
+        "제곱근과 완전제곱식을 이용한 풀이",
+        "근의 공식을 이용한 풀이",
+        "이차방정식의 활용"
+      ],
+      "alignment_target": "data/problem_types/m3_quadratic_equation.problem_types.v1.json",
+      "aligned_problem_type_count": 144,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "existing_canonical_taxonomy_reused_and_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·정답·해설 전문과 페이지 이미지는 저장하지 않고 단원·개념·유형 연결 메타데이터만 저장",
+      "added_patch": "PATCH151",
+      "added_at": "2026-07-13"
+    },
+    {
+      "source_id": "SRC_CHUNJAE_RYU_M3_TEXTBOOK_2015_M3_QUADRATIC_EQUATION",
+      "source_family_id": "SRC_CHUNJAE_RYU_M3_TEXTBOOK_2015_FULL",
+      "source_type": "curriculum_textbook_pdf",
+      "publisher": "천재교육",
+      "author_series": "류희찬",
+      "grade": "중학교 3학년",
+      "subject": "수학",
+      "curriculum": "2015 개정 교육과정",
+      "original_upload_name": "중3 천재(류) 수학 교과서.pdf",
+      "textbook_major_unit": "Ⅲ 이차방정식",
+      "pdf_page_range": {
+        "start": 77,
+        "end": 106
+      },
+      "printed_page_range": {
+        "start": 85,
+        "end": 114
+      },
+      "chapter_sections": [
+        "이차방정식의 뜻",
+        "인수분해를 이용한 이차방정식의 풀이",
+        "제곱근을 이용한 이차방정식의 풀이",
+        "근의 공식을 이용한 이차방정식의 풀이"
+      ],
+      "alignment_target": "data/problem_types/m3_quadratic_equation.problem_types.v1.json",
+      "aligned_problem_type_count": 144,
+      "alignment_mode": "curriculum_scope_and_semantic_type_reference",
+      "coverage_status": "existing_canonical_taxonomy_reused_and_connected",
+      "item_text_storage": "not_stored",
+      "student_visible_source": false,
+      "teacher_review_required": true,
+      "copyright_handling": "원문 문항·정답·해설 전문과 페이지 이미지는 저장하지 않고 단원·개념·유형 연결 메타데이터만 저장",
+      "added_patch": "PATCH152",
+      "added_at": "2026-07-13"
+    }
+  ],
+  "latest_source_update_patch": "PATCH151",
+  "latest_source_update_note": "천재교육 이준열 중3 수학 2015 개정 교과서 전권의 해당 범위를 기존 canonical 유형 체계에 추가 연결함."
 }
