@@ -1,0 +1,484 @@
+{
+  "version": "2026.07.13-patch158",
+  "source_id": "SRC_M2_NE_150_WORKSHEET_SET06_20260710",
+  "unit_id": "M2_NUMBER_EXPRESSION",
+  "total_item_count": 150,
+  "matched_item_count": 150,
+  "unmatched_count": 0,
+  "new_canonical_type_count": 0,
+  "matched_canonical_type_count": 71,
+  "coverage_ranges": [
+    {
+      "problem_range": "001-004",
+      "item_count": 4,
+      "source_label": "유한소수로 나타낼 수 있는(없는) 분수",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT011"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "005-008",
+      "item_count": 4,
+      "source_label": "B/A X x가 유한소수가 되도록 하는 x의 값 구하기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT013",
+        "M2_NE_PT014"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "009-012",
+      "item_count": 4,
+      "source_label": "B/(A X x)가 유한소수가 되도록 하는 x의 값 구하기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT018",
+        "M2_NE_PT016"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "013-015",
+      "item_count": 3,
+      "source_label": "유한소수가 되는 x/A를 기약분수로 나타내기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT019"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "016-018",
+      "item_count": 3,
+      "source_label": "2개 이상의 분수가 동시에 유한소수가 되도록 하는 미지수의 값",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT022"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "019-022",
+      "item_count": 4,
+      "source_label": "순환마디",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT025",
+        "M2_NE_PT024"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "023-026",
+      "item_count": 4,
+      "source_label": "소수점 아래 n번째 자리의 숫자 구하기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT033",
+        "M2_NE_PT031"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "027-029",
+      "item_count": 3,
+      "source_label": "순환소수가 되도록 하는 미지수의 값",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT034"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "030-033",
+      "item_count": 4,
+      "source_label": "순환소수를 분수로 나타내기(3) - 조건제한이 없는 경우",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT045",
+        "M2_NE_PT043"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "034-037",
+      "item_count": 4,
+      "source_label": "순환소수의 대소 관계",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT048"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "038-041",
+      "item_count": 4,
+      "source_label": "순환소수를 포함한 식의 계산",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT050",
+        "M2_NE_PT051"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "042-045",
+      "item_count": 4,
+      "source_label": "순환소수를 포함한 부등식의 계산",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT053"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "046-049",
+      "item_count": 4,
+      "source_label": "순환소수를 포함한 등식에서 미지수의 값 구하기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT057",
+        "M2_NE_PT055"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "050-053",
+      "item_count": 4,
+      "source_label": "잘못 계산한 경우 어떤 수/바르게 계산한 값 구하기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT062"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "054-056",
+      "item_count": 3,
+      "source_label": "(순환소수)X x가 유한소수 또는 자연수가 되도록 하는 x의 값 구하기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT063",
+        "M2_NE_PT064"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "057-059",
+      "item_count": 3,
+      "source_label": "유리수와 순환소수의 관계-소수의 이해",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT068"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "060-062",
+      "item_count": 3,
+      "source_label": "지수법칙(1) - 거듭제곱의 곱셈",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT073",
+        "M2_NE_PT072"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "063-066",
+      "item_count": 4,
+      "source_label": "지수법칙(3) - 거듭제곱의 나눗셈",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT080"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "067-069",
+      "item_count": 3,
+      "source_label": "지수법칙(4) - 곱의 거듭제곱",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT085",
+        "M2_NE_PT084"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "070-073",
+      "item_count": 4,
+      "source_label": "지수법칙(6) - 종합",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT090",
+        "M2_NE_PT091"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "074-077",
+      "item_count": 4,
+      "source_label": "지수법칙을 이용한 실생활 문제",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT096",
+        "M2_NE_PT097"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "078-081",
+      "item_count": 4,
+      "source_label": "지수법칙의 응용(1) - 같은 수의 덧셈식",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT103",
+        "M2_NE_PT101"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "082-085",
+      "item_count": 4,
+      "source_label": "지수법칙의 응용(2) - 다른 문자를 이용하여 나타내기(1)",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT105",
+        "M2_NE_PT106"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "086-089",
+      "item_count": 4,
+      "source_label": "지수법칙의 응용(3) - 다른 문자를 이용하여 나타내기(2)",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT108",
+        "M2_NE_PT107"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "090-093",
+      "item_count": 4,
+      "source_label": "지수법칙의 응용(4) - 지수법칙과 일의 자릿수",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT109",
+        "M2_NE_PT110"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "094-097",
+      "item_count": 4,
+      "source_label": "지수법칙의 응용(5) - 지수법칙과 자연수의 자릿수",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT112",
+        "M2_NE_PT113"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "098-101",
+      "item_count": 4,
+      "source_label": "지수에 미지수가 포함된 방정식의 풀이",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT115",
+        "M2_NE_PT119",
+        "M2_NE_PT120"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "102-104",
+      "item_count": 3,
+      "source_label": "단항식의 곱셈",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT123"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "105-108",
+      "item_count": 4,
+      "source_label": "단항식의 나눗셈",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT128"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "109-110",
+      "item_count": 2,
+      "source_label": "단항식의 곱셈과 나눗셈의 혼합 계산",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT132",
+        "M2_NE_PT130"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "111-113",
+      "item_count": 3,
+      "source_label": "단항식의 계산에서 빈 칸에 알맞은 식 구하기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT135",
+        "M2_NE_PT136"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "114-117",
+      "item_count": 4,
+      "source_label": "도형에서의 단항식의 계산(2) - 입체도형",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT143"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "118-121",
+      "item_count": 4,
+      "source_label": "다항식의 덧셈과 뺄셈",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT148",
+        "M2_NE_PT149"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "122-123",
+      "item_count": 2,
+      "source_label": "이차식의 덧셈과 뺄셈",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT152"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "124-126",
+      "item_count": 3,
+      "source_label": "여러 가지 괄호가 있는 식의 계산",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT157",
+        "M2_NE_PT159"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "127-130",
+      "item_count": 4,
+      "source_label": "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT163",
+        "M2_NE_PT164"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "131-134",
+      "item_count": 4,
+      "source_label": "사칙연산이 혼합된 계산",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT178",
+        "M2_NE_PT177",
+        "M2_NE_PT179"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "135-138",
+      "item_count": 4,
+      "source_label": "도형에서의 다항식의 계산(1) - 평면도형",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT181",
+        "M2_NE_PT182"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "139-142",
+      "item_count": 4,
+      "source_label": "도형에서의 다항식의 계산(2) - 입체도형",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT184",
+        "M2_NE_PT185"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "143-146",
+      "item_count": 4,
+      "source_label": "식의 값",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT190",
+        "M2_NE_PT191"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "147-150",
+      "item_count": 4,
+      "source_label": "식의 대입",
+      "canonical_problem_type_ids": [
+        "M2_NE_PT193",
+        "M2_NE_PT194"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    }
+  ],
+  "problem_type_distribution": {
+    "M2_NE_PT011": 4,
+    "M2_NE_PT013": 3,
+    "M2_NE_PT014": 1,
+    "M2_NE_PT018": 1,
+    "M2_NE_PT016": 3,
+    "M2_NE_PT019": 3,
+    "M2_NE_PT022": 3,
+    "M2_NE_PT025": 3,
+    "M2_NE_PT024": 1,
+    "M2_NE_PT033": 2,
+    "M2_NE_PT031": 2,
+    "M2_NE_PT034": 3,
+    "M2_NE_PT045": 3,
+    "M2_NE_PT043": 1,
+    "M2_NE_PT048": 4,
+    "M2_NE_PT050": 1,
+    "M2_NE_PT051": 3,
+    "M2_NE_PT053": 4,
+    "M2_NE_PT057": 2,
+    "M2_NE_PT055": 2,
+    "M2_NE_PT062": 4,
+    "M2_NE_PT063": 2,
+    "M2_NE_PT064": 1,
+    "M2_NE_PT068": 3,
+    "M2_NE_PT073": 2,
+    "M2_NE_PT072": 1,
+    "M2_NE_PT080": 4,
+    "M2_NE_PT085": 2,
+    "M2_NE_PT084": 1,
+    "M2_NE_PT090": 2,
+    "M2_NE_PT091": 2,
+    "M2_NE_PT096": 3,
+    "M2_NE_PT097": 1,
+    "M2_NE_PT103": 3,
+    "M2_NE_PT101": 1,
+    "M2_NE_PT105": 2,
+    "M2_NE_PT106": 2,
+    "M2_NE_PT108": 1,
+    "M2_NE_PT107": 3,
+    "M2_NE_PT109": 3,
+    "M2_NE_PT110": 1,
+    "M2_NE_PT112": 2,
+    "M2_NE_PT113": 2,
+    "M2_NE_PT115": 2,
+    "M2_NE_PT119": 1,
+    "M2_NE_PT120": 1,
+    "M2_NE_PT123": 3,
+    "M2_NE_PT128": 4,
+    "M2_NE_PT132": 1,
+    "M2_NE_PT130": 1,
+    "M2_NE_PT135": 2,
+    "M2_NE_PT136": 1,
+    "M2_NE_PT143": 4,
+    "M2_NE_PT148": 2,
+    "M2_NE_PT149": 2,
+    "M2_NE_PT152": 2,
+    "M2_NE_PT157": 1,
+    "M2_NE_PT159": 2,
+    "M2_NE_PT163": 2,
+    "M2_NE_PT164": 2,
+    "M2_NE_PT178": 1,
+    "M2_NE_PT177": 1,
+    "M2_NE_PT179": 2,
+    "M2_NE_PT181": 1,
+    "M2_NE_PT182": 3,
+    "M2_NE_PT184": 2,
+    "M2_NE_PT185": 2,
+    "M2_NE_PT190": 2,
+    "M2_NE_PT191": 2,
+    "M2_NE_PT193": 2,
+    "M2_NE_PT194": 2
+  }
+}
