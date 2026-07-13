@@ -1,0 +1,125 @@
+{
+  "version": "2026.07.13-unit-solution-routines-v1.0",
+  "generated_at": "2026-07-13",
+  "description": "학생이 문제를 보자마자 첫 행동을 선택하도록 하는 단원별 간단 풀이 규칙. 학생 화면에는 수식 렌더링 없이 일반 문자로 표시한다.",
+  "units": [
+    {
+      "unit_id": "H2_ALGEBRA_EXP_LOG_FUNCTION",
+      "aliases": [
+        "H2_EXP_LOG"
+      ],
+      "unit_name": "지수함수와 로그함수",
+      "student_core_rules": [
+        "그림이나 좌표가 있으면: 점의 좌표를 잡는다 → 함수식에 대입한다 → 도형 조건을 식으로 바꾼다 → 물어본 값을 구한다.",
+        "x가 지수 자리에 있으면: 밑을 같게 만들 수 있는지 본다 → 밑을 맞출 수 없고 같은 지수식이 반복되면 네모로 놓는다 → 마지막에 네모를 원래 지수식으로 바꾸어 x를 구한다.",
+        "log가 있으면: 로그 안이 0보다 큰지 먼저 본다 → 로그를 하나로 합친다 → 방정식이나 부등식을 푼다 → 처음 조건에 맞는 답만 남긴다.",
+        "부등식이면: 밑이 1보다 큰지 작은지 본다 → 증가함수인지 감소함수인지 정한다 → 부등호 방향을 확인한다.",
+        "최대·최소이면: 지수나 로그의 안쪽 식에서 가장 큰 값과 가장 작은 값을 먼저 구한다 → 밑에 따른 증가·감소를 적용한다.",
+        "역함수이면: y=f(x)로 놓는다 → x와 y를 바꾼다 → y에 대하여 정리한다."
+      ],
+      "routines": [
+        {
+          "routine_id": "EXPLOG_GRAPH_COORDINATE",
+          "visible_trigger": "그림 또는 좌표가 있음",
+          "steps": [
+            "점의 좌표를 잡는다.",
+            "좌표를 함수식에 대입한다.",
+            "도형 조건을 식으로 바꾼다.",
+            "문제에서 물어본 값을 구한다."
+          ],
+          "linked_profiles": [
+            "MULTI_CONDITION_OVERLOAD",
+            "TRANSFER_FAILURE"
+          ]
+        },
+        {
+          "routine_id": "EXPLOG_EXPONENT_X",
+          "visible_trigger": "x가 지수 자리에 있음",
+          "steps": [
+            "밑을 같게 만들 수 있는지 본다.",
+            "가능하면 밑을 맞추고 지수끼리 비교한다.",
+            "밑을 맞추기 어렵고 같은 지수식이 반복되면 네모로 놓는다.",
+            "네모에 대한 식을 푼 뒤 원래 지수식으로 돌아가 x를 구한다."
+          ],
+          "linked_profiles": [
+            "START_PROCEDURE_ABSENT",
+            "SURFACE_PATTERN_MATCHING",
+            "VARIABLE_ROLE_CONFUSION",
+            "PROCEDURE_INCOMPLETE"
+          ]
+        },
+        {
+          "routine_id": "EXPLOG_LOG_VISIBLE",
+          "visible_trigger": "log가 있음",
+          "steps": [
+            "로그 안이 0보다 큰지 먼저 적는다.",
+            "로그를 하나로 합친다.",
+            "방정식 또는 부등식을 푼다.",
+            "처음 조건에 맞지 않는 답을 지운다."
+          ],
+          "linked_profiles": [
+            "START_PROCEDURE_ABSENT",
+            "CONDITION_CHECK_MISSING",
+            "FINAL_VERIFICATION_MISSING"
+          ]
+        },
+        {
+          "routine_id": "EXPLOG_INEQUALITY",
+          "visible_trigger": "부등호가 있음",
+          "steps": [
+            "밑이 1보다 큰지 작은지 확인한다.",
+            "증가함수인지 감소함수인지 정한다.",
+            "부등호 방향을 유지할지 바꿀지 결정한다.",
+            "로그 문제이면 로그 안의 조건과 답의 공통부분만 남긴다."
+          ],
+          "linked_profiles": [
+            "CONDITION_CHECK_MISSING",
+            "TRANSFER_FAILURE"
+          ]
+        },
+        {
+          "routine_id": "EXPLOG_MAX_MIN",
+          "visible_trigger": "최댓값 또는 최솟값을 물음",
+          "steps": [
+            "지수나 로그의 안쪽 식부터 본다.",
+            "안쪽 식의 최댓값과 최솟값을 구한다.",
+            "밑에 따른 증가·감소를 확인한다.",
+            "최종 최댓값과 최솟값을 구한다."
+          ],
+          "linked_profiles": [
+            "START_PROCEDURE_ABSENT",
+            "TRANSFER_FAILURE"
+          ]
+        },
+        {
+          "routine_id": "EXPLOG_INVERSE",
+          "visible_trigger": "역함수 또는 f의 역함수가 있음",
+          "steps": [
+            "y=f(x)로 놓는다.",
+            "x와 y를 바꾼다.",
+            "y에 대하여 정리한다.",
+            "정의역과 치역이 바뀌었는지 확인한다."
+          ],
+          "linked_profiles": [
+            "TRANSFER_FAILURE",
+            "PROCEDURE_INCOMPLETE"
+          ]
+        },
+        {
+          "routine_id": "EXPLOG_FINAL_CHECK",
+          "visible_trigger": "풀이가 끝남",
+          "steps": [
+            "문제에서 물어본 값을 구했는지 본다.",
+            "네모나 중간값을 원래 x로 돌렸는지 본다.",
+            "로그 안의 조건과 부등호 방향이 맞는지 본다.",
+            "원래 식에 넣어 성립하는지 본다."
+          ],
+          "linked_profiles": [
+            "FINAL_VERIFICATION_MISSING",
+            "VARIABLE_ROLE_CONFUSION"
+          ]
+        }
+      ]
+    }
+  ]
+}

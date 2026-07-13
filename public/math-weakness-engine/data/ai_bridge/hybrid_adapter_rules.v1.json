@@ -1,10 +1,14 @@
 {
-  "version": "2026.07.08-v1.0",
+  "version": "2026.07.13-v1.1-student-solution-behavior",
   "input_to_engine_mapping": {
     "wrong_question_numbers + problem_type_candidates": "student_attempt.attempts[].question_no / problem_type_id / observed_error_tags",
     "lecture_note_text + note image evidence": "student_note.note_text / detected_keywords / missing_evidence",
     "verification_need.focus_concepts": "verification_question_set.target_concepts",
-    "verification_answer_text": "verification_answer_review.question_reviews"
+    "verification_answer_text": "verification_answer_review.question_reviews",
+    "all visible questions": "student_attempt.attempts[] with response_status including blank and partial stop",
+    "student writing steps": "student_attempt.attempts[].process_flags and observed_error_tags",
+    "same structure / changed appearance": "problem_family_id + variant_level",
+    "graph / equation / inequality representation": "representation_type"
   },
   "confidence_policy": [
     {
@@ -22,6 +26,22 @@
     {
       "condition": "필기에는 개념어만 있고 예시/과정/자기 설명 없음",
       "action": "watch_evidence는 some 이하, understanding_level은 C 이하로 제한"
+    },
+    {
+      "condition": "전체 문항 수와 빈칸을 확인할 수 있음",
+      "action": "total_question_count와 BLANK_UNKNOWN을 반드시 기록"
+    },
+    {
+      "condition": "한 줄 이상 시작했지만 답을 끝내지 못함",
+      "action": "WRONG_COMPLETE가 아니라 PARTIAL_STOP으로 기록"
+    },
+    {
+      "condition": "답만 있고 과정이 없음",
+      "action": "ANSWER_ONLY로 기록하고 이해 판정 확신도를 낮춤"
+    },
+    {
+      "condition": "오답 번호만 있고 전체 시험지가 없음",
+      "action": "기억 의존형과 시도율 판정은 보류"
     }
   ],
   "verification_trigger_policy": [

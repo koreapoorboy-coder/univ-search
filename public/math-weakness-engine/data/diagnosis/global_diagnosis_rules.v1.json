@@ -1,7 +1,7 @@
 {
-  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "version": "2026.07.13-global-diagnosis-behavior-analysis-v1.2",
   "generated_at": "2026-07-08",
-  "description": "problem_type_instruction_map + student_action_templates + routes를 결합하는 전역 진단 규칙.",
+  "description": "문항 유형 진단에 정답·오답·빈칸·중단·풀이 단계 집계를 결합하는 전역 진단 규칙.",
   "modes": [
     {
       "mode_id": "WRONG_ANSWER_DIAGNOSIS",
@@ -47,6 +47,31 @@
         "상세 route가 있으면 future_extension_routes를 연결한다.",
         "상세 route가 없으면 generic_first_patch_pending_detail 문장을 사용한다."
       ]
+    },
+    {
+      "mode_id": "STUDENT_SOLUTION_BEHAVIOR_ANALYSIS",
+      "use_when": "학생이 여러 문항을 풀었거나 빈칸·중단을 포함한 시험지/문제집 풀이를 제출했을 때",
+      "input_required": [
+        "attempts[].response_status",
+        "attempts[].problem_type_id_optional",
+        "process_flags_optional",
+        "total_question_count_optional"
+      ],
+      "output_sequence": [
+        "문항 반응 요약",
+        "현재 가능한 것",
+        "현재 막히는 지점",
+        "학생 풀이 성향",
+        "고정할 풀이 규칙",
+        "교사용 훈련 방향"
+      ],
+      "logic": [
+        "문항 반응을 CORRECT_COMPLETE, WRONG_COMPLETE, PARTIAL_STOP, BLANK_UNKNOWN, ANSWER_ONLY로 구분한다.",
+        "시도율과 시도 문항 정답률을 분리한다.",
+        "기본형-변형형, 그래프-방정식-부등식의 해결률 차이를 계산한다.",
+        "한 문항이 아니라 여러 문항에서 반복되는 행동으로 학생 성향을 판정한다.",
+        "단원별 unit_solution_routines에서 학생이 바로 사용할 규칙을 연결한다."
+      ]
     }
   ],
   "template_priority_rule": "error_tags 일치 수를 우선하고, type_name 키워드를 보조로 사용한다. 동점이면 priority가 높은 템플릿을 사용한다.",
@@ -54,6 +79,10 @@
     "개념이 약하다고만 말하지 않는다.",
     "반드시 써야 하는 풀이 순서를 먼저 보여준다.",
     "답이 맞아도 풀이 순서가 없으면 다시 풀게 하는 문장을 포함한다.",
-    "future route는 단원명 나열이 아니라 실제 문제 장면과 나중 풀이 행동을 포함한다."
+    "future route는 단원명 나열이 아니라 실제 문제 장면과 나중 풀이 행동을 포함한다.",
+    "빈칸은 단순 오답이 아니라 시작 절차 부재 가능성으로 분리한다.",
+    "시도한 문항의 정답률과 전체 해결률을 반드시 구분한다.",
+    "학생에게는 내부 성향 코드 대신 쉬운 한 문장과 실행 규칙을 보여준다.",
+    "기억의 편린 의존형은 개념 전체 미이해로 단정하지 않는다."
   ]
 }

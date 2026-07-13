@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://koreapoorboy-coder.github.io/univ-search/math-weakness-engine/data/ai_bridge/ai_extraction_output_schema.v1.json",
-  "title": "Math Hybrid AI Extraction Output",
+  "title": "Math Hybrid AI Extraction Output with Student Solution Behavior",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -289,7 +289,72 @@
       "properties": {
         "student_attempt": {
           "type": "object",
-          "description": "MathWeaknessEngine.diagnoseWithGuidance에 바로 넣을 수 있는 attempts 구조"
+          "description": "MathWeaknessEngine.diagnoseWithGuidance 입력. 보이는 전체 문항을 attempts에 넣고 빈칸·중단도 response_status로 구분한다.",
+          "properties": {
+            "total_question_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "attempts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "question_no": {
+                    "type": [
+                      "string",
+                      "integer"
+                    ]
+                  },
+                  "problem_type_id": {
+                    "type": "string"
+                  },
+                  "response_status": {
+                    "type": "string",
+                    "enum": [
+                      "CORRECT_COMPLETE",
+                      "WRONG_COMPLETE",
+                      "PARTIAL_STOP",
+                      "BLANK_UNKNOWN",
+                      "ANSWER_ONLY",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "correct": {
+                    "type": "boolean"
+                  },
+                  "variant_level": {
+                    "type": "string"
+                  },
+                  "representation_type": {
+                    "type": "string"
+                  },
+                  "problem_family_id": {
+                    "type": "string"
+                  },
+                  "condition_count": {
+                    "type": "integer"
+                  },
+                  "process_flags": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "observed_error_tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "response_summary": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": true
         },
         "note_review_input": {
           "type": "object",

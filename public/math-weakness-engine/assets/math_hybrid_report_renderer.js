@@ -294,8 +294,13 @@ class MathHybridReportRenderer {
       const top = engineDiagnosis.top_concepts || [];
       const wrong = engineDiagnosis.wrong_answer_diagnoses || [];
       const risks = engineDiagnosis.cross_grade_risks || [];
+      const behavior = engineDiagnosis.student_behavior_analysis || {};
+      const br = behavior.response_summary || {};
+      const bm = behavior.metrics || {};
+      const bp = behavior.profiles || [];
       parts.push(`<section class="result-box"><h3>엔진 매칭 결과</h3>
-        <p><b>오답:</b> ${this.esc(s.wrong_count || 0)}개 · <b>매칭 실패:</b> ${this.esc(s.missing_type_count || 0)}개 · <b>로드 단원:</b> ${this.esc(s.loaded_unit_count || '')}개</p>
+        <p><b>오답 완결:</b> ${this.esc(s.wrong_count || 0)}개 · <b>빈칸:</b> ${this.esc(s.blank_count || 0)}개 · <b>중단:</b> ${this.esc(s.partial_stop_count || 0)}개 · <b>매칭 실패:</b> ${this.esc(s.missing_type_count || 0)}개</p>
+        ${behavior.student_view ? `<h4>학생 풀이 행동 분석</h4><p>${this.esc(behavior.student_view.one_line_diagnosis || '')}</p><p><b>시도율:</b> ${this.esc(Math.round((bm.attempt_rate || 0) * 100))}% · <b>시도 문항 정답률:</b> ${this.esc(Math.round((bm.attempted_accuracy || 0) * 100))}% · <b>전체 해결률:</b> ${this.esc(Math.round((bm.overall_resolution_rate || 0) * 100))}%</p><h4>판정 성향</h4>${this.list(bp.map(x => `${x.label || x.pattern_id} (${Math.round((x.confidence || 0) * 100)}%)`))}<h4>교사용 훈련 방향</h4>${this.list(behavior.teacher_view?.training_direction || [])}` : ''}
         <h4>핵심 취약 후보</h4>${this.list(top.map(x => x.concept_name || x.concept_id || x))}
         <h4>주의할 연결</h4>${this.list([...(wrong || []).map(x => x.diagnosis || x.observed_error || x.problem_type_id), ...(risks || []).map(x => x.message || x.risk || x)])}
         ${this.details('엔진 JSON 보기', this.pre(engineDiagnosis))}</section>`);
@@ -363,6 +368,24 @@ class MathHybridReportRenderer {
         <div class="ten-question-policy"><b>문제 생성 안내:</b> ${this.esc(plan.questionPolicy)}</div>
       </section>`;
   }
+  static renderStudentBehaviorAnalysis(diagnosis) {
+    const b = diagnosis?.student_behavior_analysis;
+    if (!b) return '';
+    const view = b.student_view || {};
+    const summary = b.response_summary || {};
+    const strengths = (view.strengths || []).slice(0, 3);
+    const blockers = (view.blockers || []).slice(0, 3);
+    const rules = (view.first_rules || []).slice(0, 3);
+    return `<section class="compact-diagnosis-box behavior-analysis-box">
+      <h3>풀이 습관 분석</h3>
+      <p class="one-line-diagnosis">${this.esc(view.one_line_diagnosis || '풀이 습관을 확인하고 있습니다.')}</p>
+      <div class="result-meta">정답 완결 ${this.esc(summary.correct_complete_count || 0)} · 오답 완결 ${this.esc(summary.wrong_complete_count || 0)} · 풀이 중단 ${this.esc(summary.partial_stop_count || 0)} · 빈칸 ${this.esc(summary.blank_unknown_count || 0)}</div>
+      <div class="compact-section-title">현재 가능한 것</div>${this.list(strengths)}
+      <div class="compact-section-title">현재 막히는 지점</div>${this.list(blockers)}
+      <div class="compact-section-title">앞으로 사용할 규칙</div>${this.list(rules)}
+    </section>`;
+  }
+
   static renderExtraction(data, engineDiagnosis = null) {
     if (!data) return '';
     if (engineDiagnosis) {
@@ -400,6 +423,7 @@ class MathHybridReportRenderer {
         <div class="result-meta">자료 유형: ${this.esc(outcome.purposeKo)} · 진단 경로: ${this.esc(outcome.routeKo)}</div>
       </div>
       ${isSolve ? this.renderSolutionPlan(proofPlan) : this.renderProofPlan(proofPlan)}
+      ${this.renderStudentBehaviorAnalysis(engineDiagnosis)}
       ${this.details('교사용 상세 진단 열기', teacherSummary)}
     `, outcome.kind);
   }

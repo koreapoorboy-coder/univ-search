@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://koreapoorboy-coder.github.io/univ-search/math-weakness-engine/data/diagnosis/student_analysis_output_schema.v1.json",
+  "title": "Student Solution Behavior Analysis",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_status",
+    "response_summary",
+    "metrics",
+    "profiles",
+    "student_view",
+    "teacher_view",
+    "recommended_routines"
+  ],
+  "properties": {
+    "evidence_status": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "response_summary": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "student_view": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "teacher_view": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "recommended_routines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "version": "2026.07.13-global-diagnosis-behavior-analysis-v1.2",
   "generated_at": "2026-07-08",
   "rule_id": "WEAKNESS_SCORE_V1",
   "components": [
@@ -57,5 +57,46 @@
       "label": "구조적 취약",
       "action": "하위 단원부터 재학습"
     }
-  ]
+  ],
+  "behavior_components": [
+    {
+      "name": "blank_unknown_rate",
+      "weight": 0.22,
+      "description": "모르거나 시작하지 못한 문항 비율"
+    },
+    {
+      "name": "partial_stop_rate",
+      "weight": 0.16,
+      "description": "풀이를 시작했지만 중단한 문항 비율"
+    },
+    {
+      "name": "attempted_accuracy_coverage_gap",
+      "weight": 0.2,
+      "description": "시도 문항 정답률과 전체 해결률의 차이"
+    },
+    {
+      "name": "basic_variant_gap",
+      "weight": 0.16,
+      "description": "기본형과 외형 변형형 해결률 차이"
+    },
+    {
+      "name": "representation_gap",
+      "weight": 0.12,
+      "description": "그래프·방정식·부등식 표현별 해결률 차이"
+    },
+    {
+      "name": "process_stage_failure",
+      "weight": 0.14,
+      "description": "조건·변환·복귀·검산 단계 누락"
+    }
+  ],
+  "response_status_weight": {
+    "CORRECT_COMPLETE": 0.0,
+    "WRONG_COMPLETE": 1.0,
+    "PARTIAL_STOP": 0.9,
+    "BLANK_UNKNOWN": 1.0,
+    "ANSWER_ONLY": 0.45,
+    "UNKNOWN": 0.0
+  },
+  "coverage_guard": "전체 문항 수 또는 빈칸 정보가 없으면 기억 의존형·제한 범위 고정답형을 확정하지 않는다."
 }

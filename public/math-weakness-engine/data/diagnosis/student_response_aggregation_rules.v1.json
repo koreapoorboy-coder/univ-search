@@ -1,0 +1,86 @@
+{
+  "version": "2026.07.13-student-response-aggregation-v1.0",
+  "generated_at": "2026-07-13",
+  "description": "문항별 반응을 학생 단위 행동 지표로 집계하는 규칙.",
+  "input_contract": {
+    "root": "student_attempt",
+    "attempt_fields": {
+      "question_no": "문항 번호",
+      "problem_type_id": "엔진 문항유형 ID. 불확실하면 빈 문자열 허용",
+      "response_status": "CORRECT_COMPLETE|WRONG_COMPLETE|PARTIAL_STOP|BLANK_UNKNOWN|ANSWER_ONLY|UNKNOWN",
+      "correct": "정답 여부. 빈칸·중단은 false",
+      "variant_level": "basic|standard|variant|complex",
+      "representation_type": "graph|equation|inequality|word_condition|mixed",
+      "problem_family_id": "같은 수학 구조를 묶는 ID",
+      "condition_count": "문제에 결합된 주요 조건 수",
+      "process_flags": "recognized,start_action,condition_written,transformation_correct,calculation_complete,returned_to_original_variable,verification_done",
+      "observed_error_tags": "문항에서 확인된 오류 태그"
+    },
+    "optional_summary_fields": [
+      "total_question_count",
+      "correct_complete_count",
+      "wrong_complete_count",
+      "partial_stop_count",
+      "blank_unknown_count",
+      "answer_only_count"
+    ]
+  },
+  "metrics": [
+    {
+      "metric_id": "attempt_rate",
+      "formula": "(total - blank_unknown - unknown) / total",
+      "meaning": "전체 문항 중 풀이를 시작한 비율"
+    },
+    {
+      "metric_id": "attempted_accuracy",
+      "formula": "correct_complete / (correct_complete + wrong_complete)",
+      "meaning": "완결한 문항 중 정답 비율"
+    },
+    {
+      "metric_id": "overall_resolution_rate",
+      "formula": "correct_complete / total",
+      "meaning": "전체 문항 중 정답까지 해결한 비율"
+    },
+    {
+      "metric_id": "blank_rate",
+      "formula": "blank_unknown / total",
+      "meaning": "모르거나 시작하지 못한 비율"
+    },
+    {
+      "metric_id": "partial_stop_rate",
+      "formula": "partial_stop / total",
+      "meaning": "시작했으나 중단한 비율"
+    },
+    {
+      "metric_id": "process_completion_rate",
+      "formula": "calculation_complete / process_observed_count",
+      "meaning": "풀이 과정이 관찰된 문항 중 계산을 완결한 비율"
+    },
+    {
+      "metric_id": "return_rate",
+      "formula": "returned_to_original_variable / return_required_count",
+      "meaning": "치환 후 원래 변수로 복귀한 비율"
+    },
+    {
+      "metric_id": "verification_rate",
+      "formula": "verification_done / attempted_count",
+      "meaning": "풀이 후 검산을 한 비율"
+    },
+    {
+      "metric_id": "basic_variant_gap",
+      "formula": "basic_accuracy - variant_or_complex_accuracy",
+      "meaning": "기본형과 변형형의 해결률 차이"
+    },
+    {
+      "metric_id": "representation_gap",
+      "formula": "max_representation_accuracy - min_representation_accuracy",
+      "meaning": "그래프·방정식·부등식 등 표현별 해결률 차이"
+    }
+  ],
+  "guardrails": [
+    "전체 문항 수 또는 빈칸 정보가 없으면 시도율·전체 해결률 기반 성향을 확정하지 않는다.",
+    "오답 번호만 입력된 경우에는 개념 취약 후보만 계산하고 기억 의존형 판정은 보류한다.",
+    "자료 화질이 낮아 UNKNOWN이 30%를 넘으면 행동 성향 확신도를 낮춘다.",
+    "한 문항의 실수만으로 학생 성향을 확정하지 않는다."
+  ]
+}

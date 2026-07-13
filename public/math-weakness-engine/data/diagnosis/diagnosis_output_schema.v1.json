@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.08-global-diagnosis-logic-v1.0",
+  "version": "2026.07.13-global-diagnosis-behavior-analysis-v1.2",
   "generated_at": "2026-07-08",
   "description": "전역 진단 결과를 화면에 표시하기 위한 출력 스키마.",
   "schemas": {
@@ -85,6 +85,48 @@
           "block_id": "why_now",
           "title": "왜 지금 제대로 해야 하는지",
           "source": "future_learning_map.why_it_matters_now"
+        }
+      ]
+    },
+    "student_solution_behavior_analysis": {
+      "required_fields": [
+        "response_summary",
+        "metrics",
+        "profiles",
+        "student_view",
+        "teacher_view",
+        "recommended_routines"
+      ],
+      "display_blocks": [
+        {
+          "block_id": "response_summary",
+          "title": "풀이 반응 요약",
+          "source": "student_behavior_analysis.response_summary"
+        },
+        {
+          "block_id": "strengths",
+          "title": "현재 가능한 것",
+          "source": "student_behavior_analysis.student_view.strengths"
+        },
+        {
+          "block_id": "blockers",
+          "title": "현재 막히는 지점",
+          "source": "student_behavior_analysis.student_view.blockers"
+        },
+        {
+          "block_id": "profile",
+          "title": "풀이 습관 분석",
+          "source": "student_behavior_analysis.student_view.one_line_diagnosis"
+        },
+        {
+          "block_id": "routine",
+          "title": "앞으로 사용할 규칙",
+          "source": "student_behavior_analysis.recommended_routines"
+        },
+        {
+          "block_id": "direction",
+          "title": "교사용 훈련 방향",
+          "source": "student_behavior_analysis.teacher_view.training_direction"
         }
       ]
     }

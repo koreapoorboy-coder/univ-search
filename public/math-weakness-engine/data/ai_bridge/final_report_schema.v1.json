@@ -130,6 +130,18 @@
           "type": "string"
         }
       }
+    },
+    "student_behavior_analysis": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "엔진이 계산한 학생 풀이 행동 성향 요약"
+    },
+    "solution_routine_plan": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "학생에게 고정할 단원별 첫 행동 규칙"
     }
   }
 }

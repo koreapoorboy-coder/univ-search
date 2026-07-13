@@ -1,0 +1,46 @@
+{
+  "patch_id": "patch159_github_student_solution_behavior_analysis_20260713",
+  "base_manifest_version": "2026.07.13-patch158-m2-number-expression-150-set06-ingestion",
+  "new_manifest_version": "2026.07.13-patch159-student-solution-behavior-analysis",
+  "new_files": [
+    "data/diagnosis/student_solution_behavior_patterns.v1.json",
+    "data/diagnosis/student_response_aggregation_rules.v1.json",
+    "data/diagnosis/student_profile_inference_rules.v1.json",
+    "data/diagnosis/student_analysis_output_schema.v1.json",
+    "data/display/unit_solution_routines.v1.json",
+    "data/display/student_profile_feedback_templates.v1.json",
+    "samples/student_solution_behavior.sample.json",
+    "docs/PATCH159_STUDENT_SOLUTION_BEHAVIOR_ANALYSIS.md"
+  ],
+  "modified_files": [
+    "manifest.json",
+    "data/index.v1.json",
+    "assets/math_weakness_engine.json",
+    "assets/math_weakness_engine.js",
+    "assets/math_hybrid_report_renderer.js",
+    "data/diagnosis/global_diagnosis_rules.v1.json",
+    "data/diagnosis/weakness_scoring_rules.v1.json",
+    "data/diagnosis/diagnosis_output_schema.v1.json",
+    "data/ai_bridge/ai_extraction_output_schema.v1.json",
+    "data/ai_bridge/hybrid_adapter_rules.v1.json",
+    "data/ai_bridge/math_hybrid_prompt_pack.v1.json",
+    "data/ai_bridge/final_report_schema.v1.json"
+  ],
+  "checks": {
+    "json_parse": "passed (18 changed/new JSON files)",
+    "javascript_syntax": "passed (engine, renderer, worker, flow)",
+    "runtime_behavior_sample": "passed (complete 12-item coverage sample: fragmented recall + start procedure + transfer profiles)",
+    "full_engine_load": "passed with file-backed fetch; global logic and 10 behavior patterns loaded",
+    "backward_compatibility": "existing diagnoseWithGuidance input remains supported; coverage profiles are guarded when only wrong answers are supplied",
+    "cloudflare_worker_syntax": "validated in separate Cloudflare package",
+    "partial_coverage_guard": "passed (unreported items are counted as unknown and coverage profiles are withheld)"
+  },
+  "validation_result": "PASS",
+  "separate_cloudflare_patch": {
+    "required": true,
+    "package": "math_weakness_engine_patch159_cloudflare_edit_20260713.zip",
+    "file": "math_diagnosis_worker_patch159_cloudflare_edit.js",
+    "base": "user supplied Cloudflare Edit code",
+    "d1_migration_required": false
+  }
+}

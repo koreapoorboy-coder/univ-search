@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.08-global-diagnosis-note-evidence-hybrid-ai-v1.0",
+  "version": "2026.07.13-student-solution-behavior-analysis-v1.0",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -739,7 +739,7 @@
     }
   ],
   "global_logic": {
-    "version": "2026.07.08-global-diagnosis-logic-v1.1-note-evidence",
+    "version": "2026.07.13-global-diagnosis-behavior-analysis-v1.2",
     "display": {
       "problem_type_instruction_map": "data/display/problem_type_instruction_map.v1.json",
       "student_action_templates": "data/display/student_action_templates.v1.json",
@@ -752,7 +752,9 @@
         "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part02.v1.json",
         "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part03.v1.json",
         "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part04.v1.json"
-      ]
+      ],
+      "unit_solution_routines": "data/display/unit_solution_routines.v1.json",
+      "student_profile_feedback_templates": "data/display/student_profile_feedback_templates.v1.json"
     },
     "relations": {
       "cross_unit_edges": "data/relations/cross_unit_edges.v1.json"
@@ -764,14 +766,19 @@
     "diagnosis": {
       "global_diagnosis_rules": "data/diagnosis/global_diagnosis_rules.v1.json",
       "weakness_scoring_rules": "data/diagnosis/weakness_scoring_rules.v1.json",
-      "diagnosis_output_schema": "data/diagnosis/diagnosis_output_schema.v1.json"
+      "diagnosis_output_schema": "data/diagnosis/diagnosis_output_schema.v1.json",
+      "student_solution_behavior_patterns": "data/diagnosis/student_solution_behavior_patterns.v1.json",
+      "student_response_aggregation_rules": "data/diagnosis/student_response_aggregation_rules.v1.json",
+      "student_profile_inference_rules": "data/diagnosis/student_profile_inference_rules.v1.json",
+      "student_analysis_output_schema": "data/diagnosis/student_analysis_output_schema.v1.json"
     },
     "remediation": {
       "global_remediation_routes": "data/remediation/global_remediation_routes.v1.json"
     },
     "samples": {
       "global_student_diagnosis": "samples/global_student_diagnosis.sample.json",
-      "future_learning_route": "samples/future_learning_route.sample.json"
+      "future_learning_route": "samples/future_learning_route.sample.json",
+      "student_solution_behavior": "samples/student_solution_behavior.sample.json"
     },
     "learning_evidence": {
       "student_note_input_schema": "data/learning_evidence/student_note_input_schema.v1.json",
@@ -781,7 +788,7 @@
       "student_note_feedback_templates": "data/learning_evidence/student_note_feedback_templates.v1.json"
     }
   },
-  "last_patch": "patch158_m2_number_expression_150_set06_ingestion_20260713",
+  "last_patch": "patch159_student_solution_behavior_analysis_20260713",
   "ai_bridge": {
     "version": "2026.07.08-math-hybrid-ai-bridge-v1.0",
     "purpose": "학생 PDF/풀이/필기 업로드를 AI가 구조화하고, 수학 취약유형 엔진이 검수 문항 생성과 답안 재검수를 수행하기 위한 연결 레이어",

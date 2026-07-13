@@ -1,0 +1,161 @@
+{
+  "version": "2026.07.13-student-profile-inference-v1.0",
+  "generated_at": "2026-07-13",
+  "description": "집계 지표와 풀이 단계 증거를 학생 풀이 성향으로 변환하는 판정 규칙.",
+  "minimum_evidence": {
+    "recommended_total_questions": 8,
+    "recommended_observed_process_items": 3
+  },
+  "rules": [
+    {
+      "rule_id": "PROFILE_HIGH_ACCURACY_LOW_COVERAGE",
+      "pattern_id": "HIGH_ACCURACY_LOW_COVERAGE",
+      "requires_coverage_evidence": true,
+      "conditions": {
+        "attempted_accuracy_min": 0.7,
+        "attempt_rate_max": 0.6,
+        "total_question_count_min": 8
+      },
+      "base_score": 0.82
+    },
+    {
+      "rule_id": "PROFILE_START_PROCEDURE_ABSENT",
+      "pattern_id": "START_PROCEDURE_ABSENT",
+      "requires_coverage_evidence": true,
+      "conditions_any": [
+        {
+          "blank_plus_partial_rate_min": 0.45
+        },
+        {
+          "start_action_failure_rate_min": 0.45
+        }
+      ],
+      "base_score": 0.8
+    },
+    {
+      "rule_id": "PROFILE_FRAGMENTED_RECALL",
+      "pattern_id": "FRAGMENTED_RECALL_DEPENDENCE",
+      "requires_coverage_evidence": true,
+      "conditions": {
+        "attempted_accuracy_min": 0.7,
+        "attempt_rate_max": 0.65
+      },
+      "support_any": [
+        "basic_variant_gap>=0.30",
+        "representation_gap>=0.35",
+        "surface_pattern_error_count>=2",
+        "transfer_failure_error_count>=2"
+      ],
+      "base_score": 0.88
+    },
+    {
+      "rule_id": "PROFILE_SURFACE_PATTERN",
+      "pattern_id": "SURFACE_PATTERN_MATCHING",
+      "conditions_any": [
+        {
+          "basic_variant_gap_min": 0.3
+        },
+        {
+          "surface_pattern_error_count_min": 2
+        }
+      ],
+      "base_score": 0.78
+    },
+    {
+      "rule_id": "PROFILE_TRANSFER_FAILURE",
+      "pattern_id": "TRANSFER_FAILURE",
+      "conditions_any": [
+        {
+          "representation_gap_min": 0.35
+        },
+        {
+          "transfer_failure_error_count_min": 2
+        }
+      ],
+      "base_score": 0.78
+    },
+    {
+      "rule_id": "PROFILE_PROCEDURE_INCOMPLETE",
+      "pattern_id": "PROCEDURE_INCOMPLETE",
+      "conditions_any": [
+        {
+          "partial_stop_rate_min": 0.12
+        },
+        {
+          "calculation_incomplete_count_min": 2
+        }
+      ],
+      "base_score": 0.74
+    },
+    {
+      "rule_id": "PROFILE_VARIABLE_ROLE_CONFUSION",
+      "pattern_id": "VARIABLE_ROLE_CONFUSION",
+      "conditions_any": [
+        {
+          "return_failure_count_min": 2
+        },
+        {
+          "variable_role_error_count_min": 1
+        }
+      ],
+      "base_score": 0.82
+    },
+    {
+      "rule_id": "PROFILE_CONDITION_MISSING",
+      "pattern_id": "CONDITION_CHECK_MISSING",
+      "conditions_any": [
+        {
+          "condition_failure_rate_min": 0.3
+        },
+        {
+          "condition_error_count_min": 2
+        }
+      ],
+      "base_score": 0.76
+    },
+    {
+      "rule_id": "PROFILE_VERIFICATION_MISSING",
+      "pattern_id": "FINAL_VERIFICATION_MISSING",
+      "conditions_any": [
+        {
+          "verification_rate_max": 0.35
+        },
+        {
+          "verification_error_count_min": 2
+        }
+      ],
+      "base_score": 0.7
+    },
+    {
+      "rule_id": "PROFILE_MULTI_CONDITION_OVERLOAD",
+      "pattern_id": "MULTI_CONDITION_OVERLOAD",
+      "conditions_any": [
+        {
+          "complex_condition_failure_rate_min": 0.6
+        },
+        {
+          "multi_condition_error_count_min": 2
+        }
+      ],
+      "base_score": 0.76
+    }
+  ],
+  "priority_order": [
+    "FRAGMENTED_RECALL_DEPENDENCE",
+    "START_PROCEDURE_ABSENT",
+    "TRANSFER_FAILURE",
+    "SURFACE_PATTERN_MATCHING",
+    "PROCEDURE_INCOMPLETE",
+    "VARIABLE_ROLE_CONFUSION",
+    "CONDITION_CHECK_MISSING",
+    "FINAL_VERIFICATION_MISSING",
+    "MULTI_CONDITION_OVERLOAD",
+    "HIGH_ACCURACY_LOW_COVERAGE"
+  ],
+  "output_policy": [
+    "학생 화면에는 상위 성향 3개까지만 보여준다.",
+    "교사용 분석에는 지표·근거 문항·확신도를 함께 제공한다.",
+    "학생에게는 코드명을 노출하지 않고 쉬운 문장으로 변환한다.",
+    "강점과 취약을 함께 출력한다."
+  ]
+}
