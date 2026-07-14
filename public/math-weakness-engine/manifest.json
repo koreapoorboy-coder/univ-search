@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.14-patch174-m2-linear-equation-150-set01-ingestion",
+  "version": "2026.07.14-patch181-m2-linear-equation-150-set08-ingestion",
   "build_date": "2026-07-14",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 student solution behavior analysis preserved; M2 linear equation worksheet set 1 adds 150 canonical-aligned source items with variant tracking and behavior metadata.",
+  "description": "PATCH159 student solution behavior analysis preserved; M2 linear equation worksheet set 8 adds 150 canonical-aligned source items with eight-set variant tracking and behavior metadata.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch174_m2_linear_equation_150_set01_ingestion_20260714",
+  "last_patch": "math_weakness_engine_patch181_m2_linear_equation_150_set08_ingestion_20260714",
   "unit_count": 39,
   "problem_type_count": 13042,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch174-m2-linear-equation-150-set01-ingestion",
+  "patch": "patch181-m2-linear-equation-150-set08-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -146,7 +146,22 @@
     "all_1500_m2_linear_inequality_items_canonical_matched",
     "m2_linear_equation_150_set01_item_ingestion",
     "m2_linear_equation_variant_and_duplicate_tracking",
-    "all_150_m2_linear_equation_items_canonical_matched"
+    "all_150_m2_linear_equation_items_canonical_matched",
+    "m2_linear_equation_150_set02_item_ingestion",
+    "m2_linear_equation_cross_set_variant_links",
+    "all_300_m2_linear_equation_items_canonical_matched",
+    "m2_linear_equation_150_set03_item_ingestion",
+    "m2_linear_equation_three_set_variant_links",
+    "all_450_m2_linear_equation_items_canonical_matched",
+    "m2_linear_equation_150_set04_item_ingestion",
+    "m2_linear_equation_four_set_variant_links",
+    "all_600_m2_linear_equation_items_canonical_matched",
+    "m2_linear_equation_150_set05_item_ingestion",
+    "m2_linear_equation_five_set_variant_links",
+    "all_750_m2_linear_equation_items_canonical_matched",
+    "m2_linear_equation_150_set06_item_ingestion",
+    "m2_linear_equation_six_set_variant_links",
+    "all_900_m2_linear_equation_items_canonical_matched"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -158,7 +173,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중2 방정식 150문항 세트 1을 기존 canonical 문항유형 79개에 연결하고 유형별 variant·중복 추적 및 PATCH159 학생 풀이 행동 분석 메타데이터를 추가했습니다. 신규 canonical 유형은 생성하지 않았습니다.",
+  "patch_summary": "중2 방정식 150문항 세트 8을 기존 canonical 문항유형 46개에 연결하고 SET01-SET07과의 유형 단위 variant 관계 및 PATCH159 학생 풀이 행동 분석 메타데이터를 추가했습니다. 신규 canonical 유형은 생성하지 않았습니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -174,11 +189,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 24,
-  "latest_source_registry": "data/sources/m2_linear_equation_150worksheet_set01.registry.v1.json",
-  "problem_ingestion_source_count": 21,
+  "source_alignment_count": 31,
+  "latest_source_registry": "data/sources/m2_linear_equation_150worksheet_set08.registry.v1.json",
+  "problem_ingestion_source_count": 28,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 3150,
+  "problem_item_count_total": 4200,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -195,5 +210,73 @@
     "first_action_hint",
     "expected_process_stages",
     "likely_error_tags"
+  ],
+  "base_integrity_note": "PATCH181 was built on the PATCH180-applied overlay. SET07 physical ingestion files were present and validated; SET01-SET06 remain earlier prerequisites referenced by the cumulative worksheet index and duplicate map.",
+  "patch_files": [
+    {
+      "path": "data/coverage/m2_linear_equation_150worksheet_set08.coverage_manifest.v1.csv",
+      "size_bytes": 3489,
+      "sha256": "9ab9138d7ab742168bc10f31bf9cee66a6cfb2ab97c426f24f86a2a80bc8e2ce"
+    },
+    {
+      "path": "data/coverage/m2_linear_equation_150worksheet_set08.coverage_manifest.v1.json",
+      "size_bytes": 10415,
+      "sha256": "aec60424c0268b51cabada00cba48d3d593a536228bb7e51b51e207ed39feba2"
+    },
+    {
+      "path": "data/duplicate_map/m2_linear_equation/m2_linear_equation_150worksheet_set08.duplicate_map.v1.json",
+      "size_bytes": 92693,
+      "sha256": "41cde92714509f230325d89d1ae72e4ad595e7c84fb0bf76cad87f5de9e363d4"
+    },
+    {
+      "path": "data/index.v1.json",
+      "size_bytes": 41898,
+      "sha256": "429853f2cf2195c8a44f6078dcfc241df9cd3cddefacdbfc81243656d241b880"
+    },
+    {
+      "path": "data/item_bank/m2_linear_equation/m2_linear_equation_150worksheet_set08.item_bank_index.v1.json",
+      "size_bytes": 1005,
+      "sha256": "b0724f2c4c9e3ef04635d004d35520d0092967d791c09cc30a3991363bb793c7"
+    },
+    {
+      "path": "data/source_item_bank/m2_linear_equation/m2_linear_equation_150worksheet_set08.source_items.v1.csv",
+      "size_bytes": 115326,
+      "sha256": "9267f2698450d6147a446090d0c55b37058be5fb73c4ce38d94fa95be39bb34c"
+    },
+    {
+      "path": "data/source_item_bank/m2_linear_equation/m2_linear_equation_150worksheet_set08.source_items.v1.json",
+      "size_bytes": 585084,
+      "sha256": "1ffe87615e9beef160d72925234ab7ef7ea0b0947edefba6be33061d1f621b00"
+    },
+    {
+      "path": "data/source_item_links/m2_linear_equation/m2_linear_equation_150worksheet_set08.links.v1.json",
+      "size_bytes": 202831,
+      "sha256": "8268ca97e83f5ecd729e662795cb895a3e34aecacd4032975c52464c3c578a36"
+    },
+    {
+      "path": "data/sources/m2_linear_equation_150worksheet_set08.registry.v1.json",
+      "size_bytes": 3076,
+      "sha256": "a37b7b23b61f420a67b0443f5b2b67867d4b49449360fa499f1c52c37aa31051"
+    },
+    {
+      "path": "data/sources/m2_linear_equation_worksheets.index.v1.json",
+      "size_bytes": 3796,
+      "sha256": "bad13a9845d8f242561b9021f5b2498bd33db75ee25d5f8d609bc4a046a55e4c"
+    },
+    {
+      "path": "data/type_variant_bank/m2_linear_equation/m2_linear_equation_150worksheet_set08.type_variants.v1.json",
+      "size_bytes": 39996,
+      "sha256": "cd3177df208287ec34fb58d61fc5be60e9da487ae669c66e921d76b86e960bfc"
+    },
+    {
+      "path": "docs/patch181_m2_linear_equation_set08_validation.json",
+      "size_bytes": 1197,
+      "sha256": "9d9d6924544ea8bbba1db684660fc00e6e7baf739a8ed546fd220aa213d46b4e"
+    },
+    {
+      "path": "manifest.json",
+      "size_bytes": 12811,
+      "sha256": "b7aa072db127fe2a2b83641365b8925e6012e450000bd76e24e68b35b69d9d57"
+    }
   ]
 }
