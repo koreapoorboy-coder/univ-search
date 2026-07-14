@@ -1,0 +1,56 @@
+{
+  "version": "2026.07.14-patch186",
+  "source_id": "SRC_M2_LE_42_WORKSHEET_SET13_20260710",
+  "unit_id": "M2_LINEAR_EQUATION",
+  "total_item_count": 42,
+  "matched_item_count": 42,
+  "unmatched_count": 0,
+  "new_canonical_type_count": 0,
+  "matched_canonical_type_count": 5,
+  "coverage_ranges": [
+    {
+      "problem_range": "001",
+      "item_count": 1,
+      "source_label": "일차방정식의 해 또는 계수가 문자로 주어질 때",
+      "canonical_problem_type_ids": [
+        "M2_LE_PT015"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "002-004",
+      "item_count": 3,
+      "source_label": "연립방정식의 해를 알 때, 미지수의 값 구하기",
+      "canonical_problem_type_ids": [
+        "M2_LE_PT061"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "005-039",
+      "item_count": 35,
+      "source_label": "연립방정식의 해와 조건식(1) - 연립방정식의 해를 한 해로 갖는 일차방정식",
+      "canonical_problem_type_ids": [
+        "M2_LE_PT065"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "040-042",
+      "item_count": 3,
+      "source_label": "비율에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LE_PT103",
+        "M2_LE_PT104"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    }
+  ],
+  "problem_type_distribution": {
+    "M2_LE_PT015": 1,
+    "M2_LE_PT061": 3,
+    "M2_LE_PT065": 35,
+    "M2_LE_PT103": 1,
+    "M2_LE_PT104": 2
+  }
+}
