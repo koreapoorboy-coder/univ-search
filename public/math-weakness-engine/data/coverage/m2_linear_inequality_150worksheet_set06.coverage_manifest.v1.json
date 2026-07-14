@@ -1,0 +1,706 @@
+{
+  "version": "2026.07.14-patch169",
+  "source_id": "SRC_M2_LI_150_WORKSHEET_SET06_20260710",
+  "unit_id": "M2_LINEAR_INEQUALITY",
+  "total_item_count": 150,
+  "matched_item_count": 150,
+  "unmatched_count": 0,
+  "new_canonical_type_count": 0,
+  "matched_canonical_type_count": 43,
+  "coverage_ranges": [
+    {
+      "problem_range": "001-001",
+      "item_count": 1,
+      "source_label": "조건을 만족시키는 부등식의 해 구하기",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT013",
+        "M2_LI_PT016"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "002-007",
+      "item_count": 6,
+      "source_label": "부등식의 기본 성질",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT021",
+        "M2_LI_PT019",
+        "M2_LI_PT017"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "008-013",
+      "item_count": 6,
+      "source_label": "부등식의 성질을 이용하여 식의 값의 범위 구하기(1) - 한 문자에 대한 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT026",
+        "M2_LI_PT023"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "014-015",
+      "item_count": 2,
+      "source_label": "부등식의 성질을 이용하여 식의 값의 범위 구하기(2) - 두 문자에 대한 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT027",
+        "M2_LI_PT028"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "016-016",
+      "item_count": 1,
+      "source_label": "일차부등식의 풀이",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT045",
+        "M2_LI_PT046"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "017-022",
+      "item_count": 6,
+      "source_label": "계수가 소수 또는 분수인 일차부등식의 풀이",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT043",
+        "M2_LI_PT041",
+        "M2_LI_PT042",
+        "M2_LI_PT044"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "023-028",
+      "item_count": 6,
+      "source_label": "x의 계수가 문자인 일차부등식의 풀이",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT045",
+        "M2_LI_PT046",
+        "M2_LI_PT047",
+        "M2_LI_PT048",
+        "M2_LI_PT030"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "029-034",
+      "item_count": 6,
+      "source_label": "부등식의 해가 주어진 경우 미지수 구하기(1) - 문자가 상수인 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT049",
+        "M2_LI_PT051",
+        "M2_LI_PT050"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "035-040",
+      "item_count": 6,
+      "source_label": "부등식의 해가 주어진 경우 미지수 구하기(2) - 계수가 문자인 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT052",
+        "M2_LI_PT048",
+        "M2_LI_PT053",
+        "M2_LI_PT054"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "041-046",
+      "item_count": 6,
+      "source_label": "해가 서로 같은 두 일차부등식",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT055",
+        "M2_LI_PT056"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "047-052",
+      "item_count": 6,
+      "source_label": "부등식의 해 중 최댓값 또는 최솟값이 주어진 일차부등식",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT060",
+        "M2_LI_PT057"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "053-058",
+      "item_count": 6,
+      "source_label": "자연수인 해의 개수가 주어진 일차부등식",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT065",
+        "M2_LI_PT064"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "059-064",
+      "item_count": 6,
+      "source_label": "수에 대한 문제(1) - 한 수에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT071",
+        "M2_LI_PT072",
+        "M2_LI_PT069"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "065-070",
+      "item_count": 6,
+      "source_label": "평균에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT077",
+        "M2_LI_PT075"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "071-076",
+      "item_count": 6,
+      "source_label": "개수에 대한 문제(2) - 총 개수가 고정",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT082",
+        "M2_LI_PT080",
+        "M2_LI_PT081"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "077-082",
+      "item_count": 6,
+      "source_label": "기본 금액이 포함된 비용에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT084",
+        "M2_LI_PT085"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "083-088",
+      "item_count": 6,
+      "source_label": "예금액에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT087",
+        "M2_LI_PT086"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "089-094",
+      "item_count": 6,
+      "source_label": "유리한 방법을 선택하는 문제(1) - 단체 입장 시 할인",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT089",
+        "M2_LI_PT088"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "095-100",
+      "item_count": 6,
+      "source_label": "유리한 방법을 선택하는 문제(2)",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT090",
+        "M2_LI_PT091",
+        "M2_LI_PT088"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "101-107",
+      "item_count": 7,
+      "source_label": "정가, 원가에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT093",
+        "M2_LI_PT092"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "108-113",
+      "item_count": 6,
+      "source_label": "도형에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT101",
+        "M2_LI_PT095",
+        "M2_LI_PT094"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "114-119",
+      "item_count": 6,
+      "source_label": "여러 가지 일차부등식의 활용",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT099",
+        "M2_LI_PT101",
+        "M2_LI_PT100"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "120-126",
+      "item_count": 7,
+      "source_label": "거리, 속력, 시간에 대한 문제(1) - 도중에 속력이 바뀌는 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT105",
+        "M2_LI_PT104"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "127-132",
+      "item_count": 6,
+      "source_label": "거리, 속력, 시간에 대한 문제(2) - 왕복하는 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT103",
+        "M2_LI_PT102"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "133-138",
+      "item_count": 6,
+      "source_label": "농도에 대한 문제(1) - 두 소금물을 섞는 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT110",
+        "M2_LI_PT113"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "139-144",
+      "item_count": 6,
+      "source_label": "농도에 대한 문제(2) - 소금물에 물을 넣거나 증발시키는 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT111",
+        "M2_LI_PT113"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "145-150",
+      "item_count": 6,
+      "source_label": "일에 대한 문제/물채우기 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT114",
+        "M2_LI_PT115"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    }
+  ],
+  "problem_type_distribution": {
+    "M2_LI_PT013": {
+      "type_name": "x의 값의 조건이 주어진 경우",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q001"
+      ]
+    },
+    "M2_LI_PT019": {
+      "type_name": "부등호 방향이 다른 부등식 찾기",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q004",
+        "M2_LI_150_S06_Q005",
+        "M2_LI_150_S06_Q006"
+      ]
+    },
+    "M2_LI_PT021": {
+      "type_name": "두 미지수의 부호 조건",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q002",
+        "M2_LI_150_S06_Q003",
+        "M2_LI_150_S06_Q007"
+      ]
+    },
+    "M2_LI_PT023": {
+      "type_name": "x의 범위가 주어진 때 다항식의 값의 범위",
+      "item_count": 4,
+      "item_ids": [
+        "M2_LI_150_S06_Q010",
+        "M2_LI_150_S06_Q011",
+        "M2_LI_150_S06_Q012",
+        "M2_LI_150_S06_Q013"
+      ]
+    },
+    "M2_LI_PT026": {
+      "type_name": "한 문자 식의 값 범위 - 조건을 만족시키는 값 구하기",
+      "item_count": 2,
+      "item_ids": [
+        "M2_LI_150_S06_Q008",
+        "M2_LI_150_S06_Q009"
+      ]
+    },
+    "M2_LI_PT027": {
+      "type_name": "다항식 값의 범위 구하기",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q014"
+      ]
+    },
+    "M2_LI_PT028": {
+      "type_name": "식에 포함된 미지수의 범위 구하기",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q015"
+      ]
+    },
+    "M2_LI_PT043": {
+      "type_name": "계수에 소수와 분수 모두 포함된 경우",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q017",
+        "M2_LI_150_S06_Q018",
+        "M2_LI_150_S06_Q019"
+      ]
+    },
+    "M2_LI_PT044": {
+      "type_name": "계수가 소수 또는 분수인 일차부등식의 풀이 - 조건을 만족시키는 값 구하기",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q020",
+        "M2_LI_150_S06_Q021",
+        "M2_LI_150_S06_Q022"
+      ]
+    },
+    "M2_LI_PT045": {
+      "type_name": "문자의 범위 또는 조건이 주어진 경우",
+      "item_count": 4,
+      "item_ids": [
+        "M2_LI_150_S06_Q016",
+        "M2_LI_150_S06_Q023",
+        "M2_LI_150_S06_Q024",
+        "M2_LI_150_S06_Q025"
+      ]
+    },
+    "M2_LI_PT046": {
+      "type_name": "문자를 포함한 부등식이 주어진 경우",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q028"
+      ]
+    },
+    "M2_LI_PT047": {
+      "type_name": "문자가 2개 이상인 경우",
+      "item_count": 2,
+      "item_ids": [
+        "M2_LI_150_S06_Q026",
+        "M2_LI_150_S06_Q027"
+      ]
+    },
+    "M2_LI_PT049": {
+      "type_name": "부등식의 해가 주어진 경우",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q029"
+      ]
+    },
+    "M2_LI_PT050": {
+      "type_name": "수직선으로 주어진 경우",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q030",
+        "M2_LI_150_S06_Q031",
+        "M2_LI_150_S06_Q034"
+      ]
+    },
+    "M2_LI_PT051": {
+      "type_name": "조건으로 주어진 경우",
+      "item_count": 2,
+      "item_ids": [
+        "M2_LI_150_S06_Q032",
+        "M2_LI_150_S06_Q033"
+      ]
+    },
+    "M2_LI_PT052": {
+      "type_name": "부등식의 해가 주어진 경우",
+      "item_count": 2,
+      "item_ids": [
+        "M2_LI_150_S06_Q035",
+        "M2_LI_150_S06_Q037"
+      ]
+    },
+    "M2_LI_PT053": {
+      "type_name": "수직선으로 주어진 경우",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q036"
+      ]
+    },
+    "M2_LI_PT054": {
+      "type_name": "문자가 2개 이상인 경우",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q038",
+        "M2_LI_150_S06_Q039",
+        "M2_LI_150_S06_Q040"
+      ]
+    },
+    "M2_LI_PT055": {
+      "type_name": "미지수 구하기",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q041",
+        "M2_LI_150_S06_Q042",
+        "M2_LI_150_S06_Q043",
+        "M2_LI_150_S06_Q044",
+        "M2_LI_150_S06_Q045",
+        "M2_LI_150_S06_Q046"
+      ]
+    },
+    "M2_LI_PT060": {
+      "type_name": "해 중 최댓값 또는 최솟값이 주어진 일차부등식 - 조건을 만족시키는 값 구하기",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q047",
+        "M2_LI_150_S06_Q048",
+        "M2_LI_150_S06_Q049",
+        "M2_LI_150_S06_Q050",
+        "M2_LI_150_S06_Q051",
+        "M2_LI_150_S06_Q052"
+      ]
+    },
+    "M2_LI_PT065": {
+      "type_name": "자연수인 해의 개수가 주어진 일차부등식 - 조건을 만족시키는 값 구하기",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q053",
+        "M2_LI_150_S06_Q054",
+        "M2_LI_150_S06_Q055",
+        "M2_LI_150_S06_Q056",
+        "M2_LI_150_S06_Q057",
+        "M2_LI_150_S06_Q058"
+      ]
+    },
+    "M2_LI_PT071": {
+      "type_name": "주사위를 던져 나온 수",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q059",
+        "M2_LI_150_S06_Q060",
+        "M2_LI_150_S06_Q064"
+      ]
+    },
+    "M2_LI_PT072": {
+      "type_name": "한 수에 대한 문제 - 조건을 만족시키는 값 구하기",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q061",
+        "M2_LI_150_S06_Q062",
+        "M2_LI_150_S06_Q063"
+      ]
+    },
+    "M2_LI_PT075": {
+      "type_name": "목표 평균을 위한 n번째 기록 구하기",
+      "item_count": 5,
+      "item_ids": [
+        "M2_LI_150_S06_Q066",
+        "M2_LI_150_S06_Q067",
+        "M2_LI_150_S06_Q068",
+        "M2_LI_150_S06_Q069",
+        "M2_LI_150_S06_Q070"
+      ]
+    },
+    "M2_LI_PT077": {
+      "type_name": "두 집단의 비교",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q065"
+      ]
+    },
+    "M2_LI_PT082": {
+      "type_name": "총 개수가 고정 - 조건을 만족시키는 값 구하기",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q071",
+        "M2_LI_150_S06_Q072",
+        "M2_LI_150_S06_Q073",
+        "M2_LI_150_S06_Q074",
+        "M2_LI_150_S06_Q075",
+        "M2_LI_150_S06_Q076"
+      ]
+    },
+    "M2_LI_PT084": {
+      "type_name": "기본 금액이 포함된 비용 문제",
+      "item_count": 5,
+      "item_ids": [
+        "M2_LI_150_S06_Q077",
+        "M2_LI_150_S06_Q078",
+        "M2_LI_150_S06_Q079",
+        "M2_LI_150_S06_Q081",
+        "M2_LI_150_S06_Q082"
+      ]
+    },
+    "M2_LI_PT085": {
+      "type_name": "고정비와 변동비",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q080"
+      ]
+    },
+    "M2_LI_PT087": {
+      "type_name": "두 금액의 비교",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q083",
+        "M2_LI_150_S06_Q084",
+        "M2_LI_150_S06_Q085",
+        "M2_LI_150_S06_Q086",
+        "M2_LI_150_S06_Q087",
+        "M2_LI_150_S06_Q088"
+      ]
+    },
+    "M2_LI_PT088": {
+      "type_name": "부등식을 이용한 유리한 방법 판단",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q097",
+        "M2_LI_150_S06_Q099",
+        "M2_LI_150_S06_Q100"
+      ]
+    },
+    "M2_LI_PT089": {
+      "type_name": "할인율 포함 판단",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q089",
+        "M2_LI_150_S06_Q090",
+        "M2_LI_150_S06_Q091",
+        "M2_LI_150_S06_Q092",
+        "M2_LI_150_S06_Q093",
+        "M2_LI_150_S06_Q094"
+      ]
+    },
+    "M2_LI_PT090": {
+      "type_name": "두 상품 비교",
+      "item_count": 3,
+      "item_ids": [
+        "M2_LI_150_S06_Q095",
+        "M2_LI_150_S06_Q096",
+        "M2_LI_150_S06_Q098"
+      ]
+    },
+    "M2_LI_PT092": {
+      "type_name": "부등식을 이용한 정가·원가",
+      "item_count": 2,
+      "item_ids": [
+        "M2_LI_150_S06_Q103",
+        "M2_LI_150_S06_Q107"
+      ]
+    },
+    "M2_LI_PT093": {
+      "type_name": "할인을 하는 경우",
+      "item_count": 5,
+      "item_ids": [
+        "M2_LI_150_S06_Q101",
+        "M2_LI_150_S06_Q102",
+        "M2_LI_150_S06_Q104",
+        "M2_LI_150_S06_Q105",
+        "M2_LI_150_S06_Q106"
+      ]
+    },
+    "M2_LI_PT095": {
+      "type_name": "직사각형의 가로와 세로, 둘레",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q111"
+      ]
+    },
+    "M2_LI_PT099": {
+      "type_name": "합과 차가 주어진 두 수의 부등식",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q114"
+      ]
+    },
+    "M2_LI_PT100": {
+      "type_name": "숫자의 각 자릿수 이용",
+      "item_count": 1,
+      "item_ids": [
+        "M2_LI_150_S06_Q116"
+      ]
+    },
+    "M2_LI_PT101": {
+      "type_name": "실생활 활용",
+      "item_count": 9,
+      "item_ids": [
+        "M2_LI_150_S06_Q108",
+        "M2_LI_150_S06_Q109",
+        "M2_LI_150_S06_Q110",
+        "M2_LI_150_S06_Q112",
+        "M2_LI_150_S06_Q113",
+        "M2_LI_150_S06_Q115",
+        "M2_LI_150_S06_Q117",
+        "M2_LI_150_S06_Q118",
+        "M2_LI_150_S06_Q119"
+      ]
+    },
+    "M2_LI_PT103": {
+      "type_name": "부등식 풀이",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q127",
+        "M2_LI_150_S06_Q128",
+        "M2_LI_150_S06_Q129",
+        "M2_LI_150_S06_Q130",
+        "M2_LI_150_S06_Q131",
+        "M2_LI_150_S06_Q132"
+      ]
+    },
+    "M2_LI_PT105": {
+      "type_name": "최대 거리 구하기",
+      "item_count": 7,
+      "item_ids": [
+        "M2_LI_150_S06_Q120",
+        "M2_LI_150_S06_Q121",
+        "M2_LI_150_S06_Q122",
+        "M2_LI_150_S06_Q123",
+        "M2_LI_150_S06_Q124",
+        "M2_LI_150_S06_Q125",
+        "M2_LI_150_S06_Q126"
+      ]
+    },
+    "M2_LI_PT110": {
+      "type_name": "두 소금물을 섞는 경우",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q133",
+        "M2_LI_150_S06_Q134",
+        "M2_LI_150_S06_Q135",
+        "M2_LI_150_S06_Q136",
+        "M2_LI_150_S06_Q137",
+        "M2_LI_150_S06_Q138"
+      ]
+    },
+    "M2_LI_PT111": {
+      "type_name": "소금물에 물을 넣거나 증발시키는 경우",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q139",
+        "M2_LI_150_S06_Q140",
+        "M2_LI_150_S06_Q141",
+        "M2_LI_150_S06_Q142",
+        "M2_LI_150_S06_Q143",
+        "M2_LI_150_S06_Q144"
+      ]
+    },
+    "M2_LI_PT114": {
+      "type_name": "물을 채우는 경우",
+      "item_count": 6,
+      "item_ids": [
+        "M2_LI_150_S06_Q145",
+        "M2_LI_150_S06_Q146",
+        "M2_LI_150_S06_Q147",
+        "M2_LI_150_S06_Q148",
+        "M2_LI_150_S06_Q149",
+        "M2_LI_150_S06_Q150"
+      ]
+    }
+  }
+}

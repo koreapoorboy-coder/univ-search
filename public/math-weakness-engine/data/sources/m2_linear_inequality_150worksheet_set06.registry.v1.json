@@ -1,0 +1,374 @@
+{
+  "version": "1.0",
+  "source_id": "SRC_M2_LI_150_WORKSHEET_SET06_20260710",
+  "source_family": "SRC_M2_LINEAR_INEQUALITY_DIAGNOSTIC_WORKSHEETS",
+  "unit_id": "M2_LINEAR_INEQUALITY",
+  "grade": "중2",
+  "subject": "수학",
+  "unit_name": "일차부등식",
+  "title": "중2 부등식 - 부등식부터 일차부등식의 활용(2) (세트 6)",
+  "source_file": "260710_부등식(5).pdf",
+  "published_date": "2026-07-10",
+  "registered_date": "2026-07-14",
+  "problem_count": 150,
+  "page_count": 39,
+  "problem_pages": "1-19",
+  "quick_answer_pages": "20-21",
+  "solution_pages": "22-39",
+  "has_quick_answers": true,
+  "has_full_solutions": true,
+  "source_sha256": "40e98116ce48de5ed741b8677eea0723372c0011ea88d1c70c40201940b21234",
+  "source_size_bytes": 8159925,
+  "integration_mode": "문항 단위 구조 정규화 후 기존 M2_LINEAR_INEQUALITY canonical 문항유형과 PATCH159 행동 분석 메타데이터에 연결",
+  "storage_policy": "문제·해설 원문과 페이지 이미지는 저장하지 않고 구조 메타데이터, 정답 키, 유형·개념 연결, 행동 분석 호환 필드만 저장",
+  "canonical_alignment": {
+    "matched_items": 150,
+    "unmatched_items": 0,
+    "matched_problem_type_count": 43,
+    "new_problem_types_created": 0
+  },
+  "coverage": [
+    {
+      "problem_range": "001-001",
+      "item_count": 1,
+      "source_label": "조건을 만족시키는 부등식의 해 구하기",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT013",
+        "M2_LI_PT016"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "002-007",
+      "item_count": 6,
+      "source_label": "부등식의 기본 성질",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT021",
+        "M2_LI_PT019",
+        "M2_LI_PT017"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "008-013",
+      "item_count": 6,
+      "source_label": "부등식의 성질을 이용하여 식의 값의 범위 구하기(1) - 한 문자에 대한 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT026",
+        "M2_LI_PT023"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "014-015",
+      "item_count": 2,
+      "source_label": "부등식의 성질을 이용하여 식의 값의 범위 구하기(2) - 두 문자에 대한 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT027",
+        "M2_LI_PT028"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "016-016",
+      "item_count": 1,
+      "source_label": "일차부등식의 풀이",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT045",
+        "M2_LI_PT046"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "017-022",
+      "item_count": 6,
+      "source_label": "계수가 소수 또는 분수인 일차부등식의 풀이",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT043",
+        "M2_LI_PT041",
+        "M2_LI_PT042",
+        "M2_LI_PT044"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "023-028",
+      "item_count": 6,
+      "source_label": "x의 계수가 문자인 일차부등식의 풀이",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT045",
+        "M2_LI_PT046",
+        "M2_LI_PT047",
+        "M2_LI_PT048",
+        "M2_LI_PT030"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "029-034",
+      "item_count": 6,
+      "source_label": "부등식의 해가 주어진 경우 미지수 구하기(1) - 문자가 상수인 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT049",
+        "M2_LI_PT051",
+        "M2_LI_PT050"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "035-040",
+      "item_count": 6,
+      "source_label": "부등식의 해가 주어진 경우 미지수 구하기(2) - 계수가 문자인 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT052",
+        "M2_LI_PT048",
+        "M2_LI_PT053",
+        "M2_LI_PT054"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "041-046",
+      "item_count": 6,
+      "source_label": "해가 서로 같은 두 일차부등식",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT055",
+        "M2_LI_PT056"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "047-052",
+      "item_count": 6,
+      "source_label": "부등식의 해 중 최댓값 또는 최솟값이 주어진 일차부등식",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT060",
+        "M2_LI_PT057"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "053-058",
+      "item_count": 6,
+      "source_label": "자연수인 해의 개수가 주어진 일차부등식",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT065",
+        "M2_LI_PT064"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "059-064",
+      "item_count": 6,
+      "source_label": "수에 대한 문제(1) - 한 수에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT071",
+        "M2_LI_PT072",
+        "M2_LI_PT069"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "065-070",
+      "item_count": 6,
+      "source_label": "평균에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT077",
+        "M2_LI_PT075"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "071-076",
+      "item_count": 6,
+      "source_label": "개수에 대한 문제(2) - 총 개수가 고정",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT082",
+        "M2_LI_PT080",
+        "M2_LI_PT081"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "077-082",
+      "item_count": 6,
+      "source_label": "기본 금액이 포함된 비용에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT084",
+        "M2_LI_PT085"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "083-088",
+      "item_count": 6,
+      "source_label": "예금액에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT087",
+        "M2_LI_PT086"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "089-094",
+      "item_count": 6,
+      "source_label": "유리한 방법을 선택하는 문제(1) - 단체 입장 시 할인",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT089",
+        "M2_LI_PT088"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "095-100",
+      "item_count": 6,
+      "source_label": "유리한 방법을 선택하는 문제(2)",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT090",
+        "M2_LI_PT091",
+        "M2_LI_PT088"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "101-107",
+      "item_count": 7,
+      "source_label": "정가, 원가에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT093",
+        "M2_LI_PT092"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "108-113",
+      "item_count": 6,
+      "source_label": "도형에 대한 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT101",
+        "M2_LI_PT095",
+        "M2_LI_PT094"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "114-119",
+      "item_count": 6,
+      "source_label": "여러 가지 일차부등식의 활용",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT099",
+        "M2_LI_PT101",
+        "M2_LI_PT100"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "120-126",
+      "item_count": 7,
+      "source_label": "거리, 속력, 시간에 대한 문제(1) - 도중에 속력이 바뀌는 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT105",
+        "M2_LI_PT104"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "127-132",
+      "item_count": 6,
+      "source_label": "거리, 속력, 시간에 대한 문제(2) - 왕복하는 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT103",
+        "M2_LI_PT102"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "133-138",
+      "item_count": 6,
+      "source_label": "농도에 대한 문제(1) - 두 소금물을 섞는 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT110",
+        "M2_LI_PT113"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "139-144",
+      "item_count": 6,
+      "source_label": "농도에 대한 문제(2) - 소금물에 물을 넣거나 증발시키는 경우",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT111",
+        "M2_LI_PT113"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    },
+    {
+      "problem_range": "145-150",
+      "item_count": 6,
+      "source_label": "일에 대한 문제/물채우기 문제",
+      "canonical_problem_type_ids": [
+        "M2_LI_PT114",
+        "M2_LI_PT115"
+      ],
+      "mapping_status": "existing_canonical_type_matched"
+    }
+  ],
+  "visual_problem_numbers": [
+    18,
+    19,
+    29,
+    30,
+    31,
+    34,
+    36,
+    61,
+    62,
+    63,
+    97,
+    100,
+    108,
+    113,
+    115
+  ],
+  "low_accuracy_threshold_percent": 60,
+  "low_accuracy_problem_numbers": [
+    9,
+    13,
+    15,
+    16,
+    22,
+    26,
+    27,
+    55,
+    56,
+    100,
+    103,
+    106,
+    107,
+    118,
+    119,
+    128,
+    129,
+    138,
+    147,
+    148
+  ],
+  "exact_duplicate_problem_pairs": [],
+  "behavior_metadata": {
+    "problem_family_id": true,
+    "variant_level": true,
+    "representation_type": true,
+    "condition_count": true,
+    "first_action_hint": true,
+    "expected_process_stages": true,
+    "likely_error_tags": true
+  },
+  "item_bank_index": "data/item_bank/m2_linear_inequality/m2_linear_inequality_150worksheet_set06.item_bank_index.v1.json",
+  "source_item_bank": "data/source_item_bank/m2_linear_inequality/m2_linear_inequality_150worksheet_set06.source_items.v1.json",
+  "source_item_links": "data/source_item_links/m2_linear_inequality/m2_linear_inequality_150worksheet_set06.links.v1.json",
+  "type_variant_bank": "data/type_variant_bank/m2_linear_inequality/m2_linear_inequality_150worksheet_set06.type_variants.v1.json",
+  "duplicate_map": "data/duplicate_map/m2_linear_inequality/m2_linear_inequality_150worksheet_set06.duplicate_map.v1.json",
+  "coverage_manifest": "data/coverage/m2_linear_inequality_150worksheet_set06.coverage_manifest.v1.json",
+  "student_visible_source": false,
+  "notes": "PATCH168을 기준으로 부등식 세트 6의 150문항을 기존 canonical taxonomy의 43개 문항유형에 연결했다. 빠른정답 20-21쪽과 해설 22-39쪽을 교차 확인했으며, 동일 문항으로 확정할 수 있는 within-source exact duplicate는 없다."
+}
