@@ -1,0 +1,1963 @@
+{
+  "version": "2026.07.15-patch195",
+  "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "policy": "source items are linked to existing canonical problem types; source text is not stored",
+  "link_count": 50,
+  "links": [
+    {
+      "item_id": "M2_LF_50_S09_Q001",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "001",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT004",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C001"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT004",
+      "variant_level": "variant",
+      "representation_type": "mapping_relation",
+      "condition_count": 4,
+      "first_action_hint": "주어진 조건을 식·좌표·그래프 표현으로 바꾼 뒤 계산 결과를 원래 조건에 대입해 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "function_definition",
+        "mapping_relation",
+        "domain_range"
+      ],
+      "variant_id": "M2_LF_PT004__M2LF50S09_Q001",
+      "near_duplicate_group": "M2_LF_PT004::M2_LF_CROSSSET_06_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q002",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "002",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT001",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT024"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C001"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT001",
+      "variant_level": "variant",
+      "representation_type": "word_relationship",
+      "condition_count": 3,
+      "first_action_hint": "각 x값에 대응하는 y값이 정확히 하나인지 확인하고, 조건에 따라 가능한 입력값을 빠짐없이 센다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "function_definition",
+        "mapping_relation",
+        "domain_range"
+      ],
+      "variant_id": "M2_LF_PT001__M2LF50S09_Q002",
+      "near_duplicate_group": "M2_LF_PT001::M2_LF_CROSSSET_06_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q003",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "003",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT013",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C003"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT013",
+      "variant_level": "variant",
+      "representation_type": "symbolic_function",
+      "condition_count": 2,
+      "first_action_hint": "함수의 조건을 먼저 해석하고 필요한 입력값을 순서대로 계산해 합이나 값을 구한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "function_value",
+        "substitution",
+        "sign_error"
+      ],
+      "variant_id": "M2_LF_PT013__M2LF50S09_Q003",
+      "near_duplicate_group": "M2_LF_PT013::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q004",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "004",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT020",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C004"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT020",
+      "variant_level": "variant",
+      "representation_type": "symbolic_function",
+      "condition_count": 4,
+      "first_action_hint": "주어진 함숫값 조건을 각각 대입해 계수와 입력값을 순서대로 구한 뒤 요구한 식을 계산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "unknown_from_function_value",
+        "equation_setup",
+        "substitution"
+      ],
+      "variant_id": "M2_LF_PT020__M2LF50S09_Q004",
+      "near_duplicate_group": "M2_LF_PT020::M2_LF_CROSSSET_06_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q005",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "005",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT013",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C003"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT013",
+      "variant_level": "variant",
+      "representation_type": "rule_based_function",
+      "condition_count": 2,
+      "first_action_hint": "함수의 조건을 먼저 해석하고 필요한 입력값을 순서대로 계산해 합이나 값을 구한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "function_value",
+        "substitution",
+        "sign_error"
+      ],
+      "variant_id": "M2_LF_PT013__M2LF50S09_Q005",
+      "near_duplicate_group": "M2_LF_PT013::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q006",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "006",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT024",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT103"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C005",
+        "M2_FUNC_C006"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT024",
+      "variant_level": "variant",
+      "representation_type": "word_problem",
+      "condition_count": 3,
+      "first_action_hint": "주어진 조건을 식·좌표·그래프 표현으로 바꾼 뒤 계산 결과를 원래 조건에 대입해 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "linear_function_definition",
+        "a_not_zero",
+        "degree_check"
+      ],
+      "variant_id": "M2_LF_PT024__M2LF50S09_Q006",
+      "near_duplicate_group": "M2_LF_PT024::M2_LF_CROSSSET_06_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q007",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "007",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT022",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT024"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C005",
+        "M2_FUNC_C006"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT022",
+      "variant_level": "variant",
+      "representation_type": "symbolic_equation",
+      "condition_count": 3,
+      "first_action_hint": "식을 정리해 x의 계수가 0이 되지 않는 조건을 확인한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "linear_function_definition",
+        "a_not_zero",
+        "degree_check"
+      ],
+      "variant_id": "M2_LF_PT022__M2LF50S09_Q007",
+      "near_duplicate_group": "M2_LF_PT022::M2_LF_CROSSSET_06_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q008",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "008",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT039",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT040"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C010"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT039",
+      "variant_level": "variant",
+      "representation_type": "symbolic_function",
+      "condition_count": 4,
+      "first_action_hint": "주어진 조건을 식·좌표·그래프 표현으로 바꾼 뒤 계산 결과를 원래 조건에 대입해 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "rate_of_change",
+        "slope",
+        "delta_x_delta_y"
+      ],
+      "variant_id": "M2_LF_PT039__M2LF50S09_Q008",
+      "near_duplicate_group": "M2_LF_PT039::M2_LF_CROSSSET_06_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q009",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "009",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT043",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT041"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C011"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT043",
+      "variant_level": "variant",
+      "representation_type": "symbolic_function",
+      "condition_count": 2,
+      "first_action_hint": "x가 증가할 때 y가 감소하려면 기울기가 음수여야 한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "slope_sign",
+        "increasing_decreasing",
+        "graph_shape"
+      ],
+      "variant_id": "M2_LF_PT043__M2LF50S09_Q009",
+      "near_duplicate_group": "M2_LF_PT043::M2_LF_CROSSSET_06_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q010",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "010",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT048",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C012"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT048",
+      "variant_level": "variant",
+      "representation_type": "coordinate_graph",
+      "condition_count": 3,
+      "first_action_hint": "두 점 또는 두 함숫값의 변화량을 같은 순서로 빼서 기울기를 구하고 조건을 대입한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "slope_from_two_points",
+        "coordinate_order",
+        "fraction_slope"
+      ],
+      "variant_id": "M2_LF_PT048__M2LF50S09_Q010",
+      "near_duplicate_group": "M2_LF_PT048::M2_LF_CROSSSET_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q011",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "011",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT048",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C012"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT048",
+      "variant_level": "variant",
+      "representation_type": "coordinate_equation",
+      "condition_count": 4,
+      "first_action_hint": "두 점 또는 두 함숫값의 변화량을 같은 순서로 빼서 기울기를 구하고 조건을 대입한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "slope_from_two_points",
+        "coordinate_order",
+        "fraction_slope"
+      ],
+      "variant_id": "M2_LF_PT048__M2LF50S09_Q011",
+      "near_duplicate_group": "M2_LF_PT048::M2_LF_CROSSSET_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q012",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "012",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT052",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT033"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C013",
+        "M2_FUNC_C014"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT052",
+      "variant_level": "variant",
+      "representation_type": "symbolic_equation",
+      "condition_count": 4,
+      "first_action_hint": "주어진 조건을 식·좌표·그래프 표현으로 바꾼 뒤 계산 결과를 원래 조건에 대입해 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "slope_intercept",
+        "coefficient_reading",
+        "graph_equation_match"
+      ],
+      "variant_id": "M2_LF_PT052__M2LF50S09_Q012",
+      "near_duplicate_group": "M2_LF_PT052::M2_LF_CROSSSET_06_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q013",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "013",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT055",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C014"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT055",
+      "variant_level": "exact_duplicate",
+      "representation_type": "multiple_graphs",
+      "condition_count": 3,
+      "first_action_hint": "기울기의 부호와 x절편·y절편을 먼저 구한 뒤 보기의 그래프와 대조한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "graph_drawing",
+        "two_points",
+        "intercepts"
+      ],
+      "variant_id": "M2_LF_PT055__M2LF50S09_Q013",
+      "near_duplicate_group": "M2_LF_PT055::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": "M2_LF_50_S08_Q014",
+      "mapping_confidence": 0.97,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q014",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "014",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT060",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C015"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT060",
+      "variant_level": "variant",
+      "representation_type": "geometric_equation",
+      "condition_count": 4,
+      "first_action_hint": "직선과 좌표축의 교점을 먼저 구하고, 절편의 절댓값을 밑변과 높이로 사용한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "axis_triangle_area",
+        "intercepts",
+        "absolute_length"
+      ],
+      "variant_id": "M2_LF_PT060__M2LF50S09_Q014",
+      "near_duplicate_group": "M2_LF_PT060::M2_LF_CROSSSET_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q015",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "015",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT125",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT127"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C034"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT125",
+      "variant_level": "variant",
+      "representation_type": "geometric_graph",
+      "condition_count": 4,
+      "first_action_hint": "직선과 좌표축의 교점을 먼저 구하고, 절편의 절댓값을 밑변과 높이로 사용한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "area_between_lines",
+        "intersection",
+        "coordinate_area"
+      ],
+      "variant_id": "M2_LF_PT125__M2LF50S09_Q015",
+      "near_duplicate_group": "M2_LF_PT125::M2_LF_CROSSSET_06_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q016",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "016",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT066",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT065"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C017",
+        "M2_FUNC_C018"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT066",
+      "variant_level": "variant",
+      "representation_type": "multiple_graphs",
+      "condition_count": 2,
+      "first_action_hint": "기울기의 부호·크기와 y절편의 부호를 분리해 그래프의 방향과 사분면을 판단한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "coefficient_sign",
+        "quadrant",
+        "intercept_sign"
+      ],
+      "variant_id": "M2_LF_PT066__M2LF50S09_Q016",
+      "near_duplicate_group": "M2_LF_PT066::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q017",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "017",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT070",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C018"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT070",
+      "variant_level": "variant",
+      "representation_type": "coordinate_graph",
+      "condition_count": 4,
+      "first_action_hint": "기울기의 부호·크기와 y절편의 부호를 분리해 그래프의 방향과 사분면을 판단한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "coefficient_graph_relation",
+        "graph_comparison",
+        "parameter_range"
+      ],
+      "variant_id": "M2_LF_PT070__M2LF50S09_Q017",
+      "near_duplicate_group": "M2_LF_PT070::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q018",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "018",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT066",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C017",
+        "M2_FUNC_C018"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT066",
+      "variant_level": "variant",
+      "representation_type": "symbolic_equation",
+      "condition_count": 3,
+      "first_action_hint": "기울기의 부호·크기와 y절편의 부호를 분리해 그래프의 방향과 사분면을 판단한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "coefficient_sign",
+        "quadrant",
+        "intercept_sign"
+      ],
+      "variant_id": "M2_LF_PT066__M2LF50S09_Q018",
+      "near_duplicate_group": "M2_LF_PT066::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q019",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "019",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT127",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C034"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT127",
+      "variant_level": "variant",
+      "representation_type": "geometric_equation",
+      "condition_count": 5,
+      "first_action_hint": "직선들의 교점과 절편 좌표를 먼저 구하고 밑변과 높이를 좌표 차로 계산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "area_between_lines",
+        "intersection",
+        "coordinate_area"
+      ],
+      "variant_id": "M2_LF_PT127__M2LF50S09_Q019",
+      "near_duplicate_group": "M2_LF_PT127::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q020",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "020",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT073",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C019"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT073",
+      "variant_level": "variant",
+      "representation_type": "symbolic_equation",
+      "condition_count": 4,
+      "first_action_hint": "평행이면 기울기가 같고 일치하면 기울기와 y절편이 모두 같다는 조건을 각각 적용한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "same_slope",
+        "different_intercept"
+      ],
+      "variant_id": "M2_LF_PT073__M2LF50S09_Q020",
+      "near_duplicate_group": "M2_LF_PT073::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q021",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "021",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT073",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT076"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C019"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT073",
+      "variant_level": "variant",
+      "representation_type": "coordinate_graph",
+      "condition_count": 3,
+      "first_action_hint": "평행이면 기울기가 같고 일치하면 기울기와 y절편이 모두 같다는 조건을 각각 적용한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "parallel_lines",
+        "same_slope",
+        "different_intercept"
+      ],
+      "variant_id": "M2_LF_PT073__M2LF50S09_Q021",
+      "near_duplicate_group": "M2_LF_PT073::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q022",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "022",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT087",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C022"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT087",
+      "variant_level": "variant",
+      "representation_type": "symbolic_function",
+      "condition_count": 3,
+      "first_action_hint": "먼저 기울기를 정하고 한 점 또는 절편 조건을 대입해 y절편을 구한 뒤 식을 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "line_equation_from_point_slope",
+        "substitute_point",
+        "find_b"
+      ],
+      "variant_id": "M2_LF_PT087__M2LF50S09_Q022",
+      "near_duplicate_group": "M2_LF_PT087::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q023",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "023",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT092",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C023"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT092",
+      "variant_level": "variant",
+      "representation_type": "coordinate_equation",
+      "condition_count": 4,
+      "first_action_hint": "먼저 기울기를 정하고 한 점 또는 절편 조건을 대입해 y절편을 구한 뒤 식을 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "line_equation_from_two_points",
+        "slope_then_intercept"
+      ],
+      "variant_id": "M2_LF_PT092__M2LF50S09_Q023",
+      "near_duplicate_group": "M2_LF_PT092::M2_LF_CROSSSET_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q024",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "024",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT096",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C024"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT096",
+      "variant_level": "variant",
+      "representation_type": "coordinate_equation",
+      "condition_count": 4,
+      "first_action_hint": "먼저 기울기를 정하고 한 점 또는 절편 조건을 대입해 y절편을 구한 뒤 식을 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "line_equation_from_intercepts",
+        "intercept_form",
+        "sign_of_intercept"
+      ],
+      "variant_id": "M2_LF_PT096__M2LF50S09_Q024",
+      "near_duplicate_group": "M2_LF_PT096::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q025",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "025",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT100",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C025"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT100",
+      "variant_level": "variant",
+      "representation_type": "coordinate_equation",
+      "condition_count": 5,
+      "first_action_hint": "먼저 기울기를 정하고 한 점 또는 절편 조건을 대입해 y절편을 구한 뒤 식을 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "combined_conditions",
+        "line_equation",
+        "parameter"
+      ],
+      "variant_id": "M2_LF_PT100__M2LF50S09_Q025",
+      "near_duplicate_group": "M2_LF_PT100::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q026",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "026",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT104",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT102"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C026"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT104",
+      "variant_level": "variant",
+      "representation_type": "word_problem",
+      "condition_count": 3,
+      "first_action_hint": "처음값과 단위당 변화량을 구분해 일차함수 식 또는 그래프의 의미를 연결한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "linear_modeling",
+        "initial_value",
+        "rate_of_change"
+      ],
+      "variant_id": "M2_LF_PT104__M2LF50S09_Q026",
+      "near_duplicate_group": "M2_LF_PT104::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q027",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "027",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT104",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT102"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C026"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT104",
+      "variant_level": "variant",
+      "representation_type": "word_problem",
+      "condition_count": 4,
+      "first_action_hint": "처음값과 단위당 변화량을 구분해 일차함수 식 또는 그래프의 의미를 연결한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "linear_modeling",
+        "initial_value",
+        "rate_of_change"
+      ],
+      "variant_id": "M2_LF_PT104__M2LF50S09_Q027",
+      "near_duplicate_group": "M2_LF_PT104::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q028",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "028",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT104",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT102"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C026"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT104",
+      "variant_level": "variant",
+      "representation_type": "word_problem",
+      "condition_count": 3,
+      "first_action_hint": "처음값과 단위당 변화량을 구분해 일차함수 식 또는 그래프의 의미를 연결한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "linear_modeling",
+        "initial_value",
+        "rate_of_change"
+      ],
+      "variant_id": "M2_LF_PT104__M2LF50S09_Q028",
+      "near_duplicate_group": "M2_LF_PT104::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q029",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "029",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT112",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C028"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT112",
+      "variant_level": "variant",
+      "representation_type": "multiple_graphs",
+      "condition_count": 2,
+      "first_action_hint": "방정식을 y=ax+b 꼴로 바꾸거나 두 절편을 구해 보기의 그래프와 비교한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "linear_equation_graph",
+        "standard_form",
+        "intercepts"
+      ],
+      "variant_id": "M2_LF_PT112__M2LF50S09_Q029",
+      "near_duplicate_group": "M2_LF_PT112::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q030",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "030",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT111",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C028"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT111",
+      "variant_level": "variant",
+      "representation_type": "coordinate_graph",
+      "condition_count": 4,
+      "first_action_hint": "일차방정식을 y=ax+b 꼴로 정리해 주어진 일차함수의 그래프와 방향·절편을 연결한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "linear_equation_graph",
+        "standard_form",
+        "intercepts"
+      ],
+      "variant_id": "M2_LF_PT111__M2LF50S09_Q030",
+      "near_duplicate_group": "M2_LF_PT111::M2_LF_CROSSSET_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q031",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "031",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT113",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C029"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT113",
+      "variant_level": "exact_duplicate",
+      "representation_type": "coordinate_substitution",
+      "condition_count": 2,
+      "first_action_hint": "주어진 점의 x, y좌표를 식에 동시에 대입하고 생기는 방정식을 순서대로 정리한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "point_on_equation_graph",
+        "coordinate_substitution",
+        "unknown_coordinate"
+      ],
+      "variant_id": "M2_LF_PT113__M2LF50S09_Q031",
+      "near_duplicate_group": "M2_LF_PT113::M2_LF_CROSSSET_07_09",
+      "duplicate_of": "M2_LF_50_S07_Q031",
+      "mapping_confidence": 0.97,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q032",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "032",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT120",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT117",
+        "M2_LF_PT124"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C030",
+        "M2_FUNC_C031"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT120",
+      "variant_level": "variant",
+      "representation_type": "multiple_conditions",
+      "condition_count": 5,
+      "first_action_hint": "주어진 점의 x, y좌표를 식에 동시에 대입하고 생기는 방정식을 순서대로 정리한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "standard_to_slope_intercept",
+        "coefficient_relation",
+        "graph_property"
+      ],
+      "variant_id": "M2_LF_PT120__M2LF50S09_Q032",
+      "near_duplicate_group": "M2_LF_PT120::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q033",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "033",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT119",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C030",
+        "M2_FUNC_C031"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT119",
+      "variant_level": "variant",
+      "representation_type": "symbolic_equation",
+      "condition_count": 4,
+      "first_action_hint": "ax+by+c=0을 y=ax+b 꼴로 정리해 기울기와 y절편을 계수와 연결한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "standard_to_slope_intercept",
+        "coefficient_relation",
+        "graph_property"
+      ],
+      "variant_id": "M2_LF_PT119__M2LF50S09_Q033",
+      "near_duplicate_group": "M2_LF_PT119::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q034",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "034",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT120",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C030",
+        "M2_FUNC_C031"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT120",
+      "variant_level": "exact_duplicate",
+      "representation_type": "multiple_lines",
+      "condition_count": 5,
+      "first_action_hint": "주어진 점의 x, y좌표를 식에 동시에 대입하고 생기는 방정식을 순서대로 정리한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "standard_to_slope_intercept",
+        "coefficient_relation",
+        "graph_property"
+      ],
+      "variant_id": "M2_LF_PT120__M2LF50S09_Q034",
+      "near_duplicate_group": "M2_LF_PT120::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": "M2_LF_50_S08_Q034",
+      "mapping_confidence": 0.97,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q035",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "035",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT118",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C030",
+        "M2_FUNC_C031"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT118",
+      "variant_level": "variant",
+      "representation_type": "coordinate_graph",
+      "condition_count": 4,
+      "first_action_hint": "기울기의 부호·크기와 y절편의 부호를 분리해 그래프의 방향과 사분면을 판단한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "standard_to_slope_intercept",
+        "coefficient_relation",
+        "graph_property"
+      ],
+      "variant_id": "M2_LF_PT118__M2LF50S09_Q035",
+      "near_duplicate_group": "M2_LF_PT118::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q036",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "036",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT092",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C023"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT092",
+      "variant_level": "variant",
+      "representation_type": "coordinate_equation",
+      "condition_count": 4,
+      "first_action_hint": "먼저 기울기를 정하고 한 점 또는 절편 조건을 대입해 y절편을 구한 뒤 식을 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "line_equation_from_two_points",
+        "slope_then_intercept"
+      ],
+      "variant_id": "M2_LF_PT092__M2LF50S09_Q036",
+      "near_duplicate_group": "M2_LF_PT092::M2_LF_CROSSSET_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q037",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "037",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT096",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C024"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT096",
+      "variant_level": "variant",
+      "representation_type": "symbolic_equation",
+      "condition_count": 4,
+      "first_action_hint": "먼저 기울기를 정하고 한 점 또는 절편 조건을 대입해 y절편을 구한 뒤 식을 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "line_equation_from_intercepts",
+        "intercept_form",
+        "sign_of_intercept"
+      ],
+      "variant_id": "M2_LF_PT096__M2LF50S09_Q037",
+      "near_duplicate_group": "M2_LF_PT096::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q038",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "038",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT100",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C025"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT100",
+      "variant_level": "variant",
+      "representation_type": "symbolic_equation",
+      "condition_count": 5,
+      "first_action_hint": "먼저 기울기를 정하고 한 점 또는 절편 조건을 대입해 y절편을 구한 뒤 식을 검산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "combined_conditions",
+        "line_equation",
+        "parameter"
+      ],
+      "variant_id": "M2_LF_PT100__M2LF50S09_Q038",
+      "near_duplicate_group": "M2_LF_PT100::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.6,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q039",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "039",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT124",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C032",
+        "M2_FUNC_C033"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT124",
+      "variant_level": "exact_duplicate",
+      "representation_type": "symbolic_equation",
+      "condition_count": 4,
+      "first_action_hint": "x=p는 수직선, y=q는 수평선임을 확인하고 해당 계수가 0이 되는 조건을 세운다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "vertical_horizontal_line",
+        "x_equals_a",
+        "y_equals_b"
+      ],
+      "variant_id": "M2_LF_PT124__M2LF50S09_Q039",
+      "near_duplicate_group": "M2_LF_PT124::M2_LF_CROSSSET_07_08_09",
+      "duplicate_of": "M2_LF_50_S07_Q040",
+      "mapping_confidence": 0.97,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q040",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "040",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT124",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT127"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C032",
+        "M2_FUNC_C033"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT124",
+      "variant_level": "variant",
+      "representation_type": "symbolic_geometry",
+      "condition_count": 4,
+      "first_action_hint": "x=p는 수직선, y=q는 수평선임을 확인하고 해당 계수가 0이 되는 조건을 세운다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "vertical_horizontal_line",
+        "x_equals_a",
+        "y_equals_b"
+      ],
+      "variant_id": "M2_LF_PT124__M2LF50S09_Q040",
+      "near_duplicate_group": "M2_LF_PT124::M2_LF_CROSSSET_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q041",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "041",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT118",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C030",
+        "M2_FUNC_C031"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT118",
+      "variant_level": "variant",
+      "representation_type": "symbolic_equation",
+      "condition_count": 4,
+      "first_action_hint": "기울기의 부호·크기와 y절편의 부호를 분리해 그래프의 방향과 사분면을 판단한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "standard_to_slope_intercept",
+        "coefficient_relation",
+        "graph_property"
+      ],
+      "variant_id": "M2_LF_PT118__M2LF50S09_Q041",
+      "near_duplicate_group": "M2_LF_PT118::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q042",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "042",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT127",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT126"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C034"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT127",
+      "variant_level": "variant",
+      "representation_type": "geometric_graph",
+      "condition_count": 5,
+      "first_action_hint": "직선들의 교점과 절편 좌표를 먼저 구하고 밑변과 높이를 좌표 차로 계산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "area_between_lines",
+        "intersection",
+        "coordinate_area"
+      ],
+      "variant_id": "M2_LF_PT127__M2LF50S09_Q042",
+      "near_duplicate_group": "M2_LF_PT127::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q043",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "043",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT142",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C021",
+        "M2_FUNC_C022",
+        "M2_FUNC_C025"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT142",
+      "variant_level": "variant",
+      "representation_type": "coordinate_equation",
+      "condition_count": 4,
+      "first_action_hint": "교점·절편·평행·넓이 조건을 좌표와 식으로 하나씩 바꾸어 미지수 조건을 연립한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "combined_conditions",
+        "find_line_equation",
+        "parameter"
+      ],
+      "variant_id": "M2_LF_PT142__M2LF50S09_Q043",
+      "near_duplicate_group": "M2_LF_PT142::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q044",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "044",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT130",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C035",
+        "M2_FUNC_C036"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT130",
+      "variant_level": "variant",
+      "representation_type": "coordinate_graph",
+      "condition_count": 5,
+      "first_action_hint": "교점은 두 방정식의 공통해이므로 연립해 좌표를 구한 뒤 남은 조건에 대입한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "intersection_solution",
+        "simultaneous_equation_graph",
+        "graph_solution"
+      ],
+      "variant_id": "M2_LF_PT130__M2LF50S09_Q044",
+      "near_duplicate_group": "M2_LF_PT130::M2_LF_CROSSSET_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q045",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "045",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT138",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C038",
+        "M2_FUNC_C039"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT138",
+      "variant_level": "variant",
+      "representation_type": "coordinate_graph",
+      "condition_count": 5,
+      "first_action_hint": "교점은 두 방정식의 공통해이므로 연립해 좌표를 구한 뒤 남은 조건에 대입한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "three_lines",
+        "intersection_modeling",
+        "parameter_condition"
+      ],
+      "variant_id": "M2_LF_PT138__M2LF50S09_Q045",
+      "near_duplicate_group": "M2_LF_PT138::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q046",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "046",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT138",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C038",
+        "M2_FUNC_C039"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT138",
+      "variant_level": "variant",
+      "representation_type": "symbolic_system",
+      "condition_count": 4,
+      "first_action_hint": "교점은 두 방정식의 공통해이므로 연립해 좌표를 구한 뒤 남은 조건에 대입한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "three_lines",
+        "intersection_modeling",
+        "parameter_condition"
+      ],
+      "variant_id": "M2_LF_PT138__M2LF50S09_Q046",
+      "near_duplicate_group": "M2_LF_PT138::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q047",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "047",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT137",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C038",
+        "M2_FUNC_C039"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT137",
+      "variant_level": "variant",
+      "representation_type": "symbolic_system",
+      "condition_count": 4,
+      "first_action_hint": "각 직선의 기울기와 절편을 비교해 한 점에서 만남·평행·일치 조건을 구분한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "three_lines",
+        "intersection_modeling",
+        "parameter_condition"
+      ],
+      "variant_id": "M2_LF_PT137__M2LF50S09_Q047",
+      "near_duplicate_group": "M2_LF_PT137::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q048",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "048",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT127",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C034"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT127",
+      "variant_level": "variant",
+      "representation_type": "geometric_graph",
+      "condition_count": 4,
+      "first_action_hint": "직선들의 교점과 절편 좌표를 먼저 구하고 밑변과 높이를 좌표 차로 계산한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "area_between_lines",
+        "intersection",
+        "coordinate_area"
+      ],
+      "variant_id": "M2_LF_PT127__M2LF50S09_Q048",
+      "near_duplicate_group": "M2_LF_PT127::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q049",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "049",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT142",
+      "secondary_problem_type_ids": [],
+      "concept_ids": [
+        "M2_FUNC_C021",
+        "M2_FUNC_C022",
+        "M2_FUNC_C025"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT142",
+      "variant_level": "variant",
+      "representation_type": "geometric_graph",
+      "condition_count": 5,
+      "first_action_hint": "교점·절편·평행·넓이 조건을 좌표와 식으로 하나씩 바꾸어 미지수 조건을 연립한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "combined_conditions",
+        "find_line_equation",
+        "parameter"
+      ],
+      "variant_id": "M2_LF_PT142__M2LF50S09_Q049",
+      "near_duplicate_group": "M2_LF_PT142::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.9,
+      "source_role": "example_of_engine_type"
+    },
+    {
+      "item_id": "M2_LF_50_S09_Q050",
+      "source_id": "SRC_M2_LF_50_WORKSHEET_SET09_20260710",
+      "source_question_no": "050",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "primary_problem_type_id": "M2_LF_PT142",
+      "secondary_problem_type_ids": [
+        "M2_LF_PT105"
+      ],
+      "concept_ids": [
+        "M2_FUNC_C021",
+        "M2_FUNC_C022",
+        "M2_FUNC_C025"
+      ],
+      "prerequisite_concept_ids": [],
+      "future_connection_ids": [],
+      "problem_family_id": "M2_LF_FAM_M2_LF_PT142",
+      "variant_level": "variant",
+      "representation_type": "coordinate_geometry",
+      "condition_count": 5,
+      "first_action_hint": "교점·절편·평행·넓이 조건을 좌표와 식으로 하나씩 바꾸어 미지수 조건을 연립한다.",
+      "expected_process_stages": [
+        "RECOGNIZE",
+        "START",
+        "CONDITION",
+        "TRANSFORM",
+        "CALCULATE",
+        "VERIFY"
+      ],
+      "likely_error_tags": [
+        "combined_conditions",
+        "find_line_equation",
+        "parameter"
+      ],
+      "variant_id": "M2_LF_PT142__M2LF50S09_Q050",
+      "near_duplicate_group": "M2_LF_PT142::M2_LF_CROSSSET_06_07_08_09",
+      "duplicate_of": null,
+      "mapping_confidence": 0.96,
+      "review_status": "verified_against_problem_answer_and_solution",
+      "diagnosis_weight": 0.75,
+      "source_role": "example_of_engine_type"
+    }
+  ],
+  "source_item_bank_path": "data/source_item_bank/m2_linear_function/m2_linear_function_50worksheet_set09.source_items.v1.json"
+}

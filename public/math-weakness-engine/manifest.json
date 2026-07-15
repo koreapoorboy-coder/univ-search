@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.15-patch192-m2-linear-function-50-set06-ingestion",
+  "version": "2026.07.15-patch195-m2-linear-function-50-set09-ingestion",
   "build_date": "2026-07-15",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 student solution behavior analysis preserved; M2 linear function worksheet set 6 adds 50 canonical-aligned source items with cross-set variant and conservative exact-duplicate tracking.",
+  "description": "PATCH159 student solution behavior analysis preserved; M2 linear function worksheet set 9 adds 50 canonical-aligned source items with cross-set variant and conservative exact-duplicate tracking.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch192_m2_linear_function_50_set06_ingestion_20260715",
+  "last_patch": "math_weakness_engine_patch195_m2_linear_function_50_set09_ingestion_20260715",
   "unit_count": 39,
   "problem_type_count": 13042,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch192-m2-linear-function-50-set06-ingestion",
+  "patch": "patch195-m2-linear-function-50-set09-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -192,7 +192,16 @@
     "all_100_m2_linear_function_items_canonical_matched",
     "m2_linear_function_50_set03_item_ingestion",
     "m2_linear_function_three_set_variant_links",
-    "all_150_m2_linear_function_items_canonical_matched"
+    "all_150_m2_linear_function_items_canonical_matched",
+    "m2_linear_function_50_set07_item_ingestion",
+    "m2_linear_function_seven_set_variant_links",
+    "all_350_m2_linear_function_items_canonical_matched",
+    "m2_linear_function_50_set08_item_ingestion",
+    "m2_linear_function_eight_set_variant_links",
+    "all_400_m2_linear_function_items_canonical_matched",
+    "m2_linear_function_50_set09_item_ingestion",
+    "m2_linear_function_nine_set_variant_links",
+    "all_450_m2_linear_function_items_canonical_matched"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -204,7 +213,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중2 함수 50문항 세트 6을 기존 canonical 문항유형 38개에 연결하고 SET01-SET06 유형 단위 variant 관계와 시각·해설 교차검증된 exact duplicate 8건을 기록했습니다. 신규 canonical 유형은 생성하지 않았습니다.",
+  "patch_summary": "중2 함수 50문항 세트 9를 기존 canonical 문항유형 33개에 연결하고 SET01-SET09 유형 단위 variant 관계와 시각·해설 교차검증된 exact duplicate 4건을 기록했습니다. 신규 canonical 유형은 생성하지 않았습니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -220,11 +229,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 42,
-  "latest_source_registry": "data/sources/m2_linear_function_50worksheet_set06.registry.v1.json",
-  "problem_ingestion_source_count": 39,
+  "source_alignment_count": 45,
+  "latest_source_registry": "data/sources/m2_linear_function_50worksheet_set09.registry.v1.json",
+  "problem_ingestion_source_count": 42,
   "problem_item_count_added": 50,
-  "problem_item_count_total": 5133,
+  "problem_item_count_total": 5283,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -242,67 +251,67 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH192는 PATCH191가 실제 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 함수 SET06 구조 데이터만 누적한다.",
+  "base_integrity_note": "PATCH195는 PATCH194가 실제 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 함수 SET09 구조 데이터만 누적한다.",
   "patch_files": [
     {
-      "path": "data/coverage/m2_linear_function_50worksheet_set06.coverage_manifest.v1.csv",
-      "size_bytes": 1293,
-      "sha256": "f1a14416d53772f11e4b62fecee19ada7100a619576602b54b2e51c57d9b4d41"
+      "path": "data/coverage/m2_linear_function_50worksheet_set09.coverage_manifest.v1.csv",
+      "size_bytes": 1375,
+      "sha256": "17303a92af1e79a512f688a0c0e88fcfd6d9e9d0058ad7a240e185ba3a92a87c"
     },
     {
-      "path": "data/coverage/m2_linear_function_50worksheet_set06.coverage_manifest.v1.json",
-      "size_bytes": 3964,
-      "sha256": "4314fabbd54b03db6677f183f52637b2599386313f4cac802a3dd4b4e111379d"
+      "path": "data/coverage/m2_linear_function_50worksheet_set09.coverage_manifest.v1.json",
+      "size_bytes": 3903,
+      "sha256": "3327a1f030b83f95f988705a7dd4ac928961b44e408df20df272fd80489fb773"
     },
     {
-      "path": "data/duplicate_map/m2_linear_function/m2_linear_function_50worksheet_set06.duplicate_map.v1.json",
-      "size_bytes": 50312,
-      "sha256": "5230e0b601fb2418d530ed6e50b1fbd598a179fa97f2a7eec2c92d654c04e929"
+      "path": "data/duplicate_map/m2_linear_function/m2_linear_function_50worksheet_set09.duplicate_map.v1.json",
+      "size_bytes": 35173,
+      "sha256": "4484f317874b0846dc9ae3965c6e534cee4f19a85b5e6548cb5d663ea70505d1"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 42633,
-      "sha256": "15dd70074aea6745593b4f7f843f16d3590fb29279b761a51360cf70df6dfa57"
+      "size_bytes": 43368,
+      "sha256": "aad041454ec2a0e3e2993efa5c105eca0faecc6ba5a56d9fcc15ce7a09dc937f"
     },
     {
-      "path": "data/item_bank/m2_linear_function/m2_linear_function_50worksheet_set06.item_bank_index.v1.json",
+      "path": "data/item_bank/m2_linear_function/m2_linear_function_50worksheet_set09.item_bank_index.v1.json",
       "size_bytes": 996,
-      "sha256": "8bc2b2add6228c01a41db90750c1623e060115b1ff1be8777b7192baa51024b2"
+      "sha256": "f03d50f74f9c9ad6a3d7cbadf44b5476b0e2b25c9f4d1cdbb8bc77d75a4a3046"
     },
     {
-      "path": "data/source_item_bank/m2_linear_function/m2_linear_function_50worksheet_set06.source_items.v1.csv",
-      "size_bytes": 38507,
-      "sha256": "a7915cc647142179e1b35783c73199423c7da1b0f5deb23e8123d53131dacabc"
+      "path": "data/source_item_bank/m2_linear_function/m2_linear_function_50worksheet_set09.source_items.v1.csv",
+      "size_bytes": 38359,
+      "sha256": "48f9f32dc58c75839c3c23ccce0a0308c3a43a569b84d3ae8cb172ead4aa6234"
     },
     {
-      "path": "data/source_item_bank/m2_linear_function/m2_linear_function_50worksheet_set06.source_items.v1.json",
-      "size_bytes": 197343,
-      "sha256": "67009791aa6b5c0515618aa15e38569427552ae228e117293b3a76dec8e00e75"
+      "path": "data/source_item_bank/m2_linear_function/m2_linear_function_50worksheet_set09.source_items.v1.json",
+      "size_bytes": 198509,
+      "sha256": "3e2e3d563fd6897759e5803f2ffe0871c973e33887319509837c48c8dae0407b"
     },
     {
-      "path": "data/source_item_links/m2_linear_function/m2_linear_function_50worksheet_set06.links.v1.json",
-      "size_bytes": 68370,
-      "sha256": "2b0e2f6ed6bc69211bf9c9ca5f4192293e77442804a243558e01c616af5c5f4f"
+      "path": "data/source_item_links/m2_linear_function/m2_linear_function_50worksheet_set09.links.v1.json",
+      "size_bytes": 67540,
+      "sha256": "133c09e3e61c0f31993798260af5556169d061e030d1e1c132d37fa3ed61cbe7"
     },
     {
-      "path": "data/sources/m2_linear_function_50worksheet_set06.registry.v1.json",
-      "size_bytes": 3109,
-      "sha256": "8e9d57b87c1a346f252093df03a37fcd96a0c569cc635f218102116314164260"
+      "path": "data/sources/m2_linear_function_50worksheet_set09.registry.v1.json",
+      "size_bytes": 3097,
+      "sha256": "879fd39471e3e18d54cfe28505e652983f73a8c2793e042f501550fe80ae86c7"
     },
     {
       "path": "data/sources/m2_linear_function_worksheets.index.v1.json",
-      "size_bytes": 2823,
-      "sha256": "fc63c406f22d1fdb15e8cd8e71c0181152a5cc4fb58175a7b7615137efda9356"
+      "size_bytes": 4155,
+      "sha256": "b66b62137b09df0d8ad1a526c15381b22bd098c00a3cb509a8c37a3b2c2168a8"
     },
     {
-      "path": "data/type_variant_bank/m2_linear_function/m2_linear_function_50worksheet_set06.type_variants.v1.json",
-      "size_bytes": 39275,
-      "sha256": "866aa87066537b9bf9770874d7505097df2ff5d2feeb21e4eb0d26bc773193bb"
+      "path": "data/type_variant_bank/m2_linear_function/m2_linear_function_50worksheet_set09.type_variants.v1.json",
+      "size_bytes": 32118,
+      "sha256": "588f4211ccdd53246032043237d14c4a6992c8834b8f067250e92a4961e3f076"
     },
     {
-      "path": "docs/patch192_m2_linear_function_set06_validation.json",
-      "size_bytes": 1359,
-      "sha256": "54edaf6ff67bdbd3be53bbce6550ea4203186f5d77f39721cc7d2727310a0a2a"
+      "path": "docs/patch195_m2_linear_function_set09_validation.json",
+      "size_bytes": 1329,
+      "sha256": "5cdfd15c59b20371ca4fd3727e1f0004133c1d808282c1b7362d69da7358a498"
     }
   ]
 }
