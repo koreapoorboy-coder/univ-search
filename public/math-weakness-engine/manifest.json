@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.15-patch202-m2-geometry-properties-150-set07-ingestion",
+  "version": "2026.07.15-patch209-m2-similarity-pythagoras-150-set04-ingestion",
   "build_date": "2026-07-15",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 student solution behavior analysis preserved; M2 linear function worksheet set 9 adds 50 canonical-aligned source items with cross-set variant and conservative exact-duplicate tracking.",
+  "description": "PATCH159 student solution behavior analysis preserved; M2 similarity and Pythagorean theorem worksheet SET04 adds 150 canonical-aligned structural source items with cross-set variant tracking and no stored problem images.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch202_m2_geometry_properties_150_set07_ingestion_20260715",
+  "last_patch": "math_weakness_engine_patch209_m2_similarity_pythagoras_150_set04_ingestion_20260715",
   "unit_count": 39,
   "problem_type_count": 13042,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch202-m2-geometry-properties-150-set07-ingestion",
+  "patch": "patch209-m2-similarity-pythagoras-150-set04-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -223,7 +223,17 @@
     "all_900_m2_geometry_properties_items_canonical_matched",
     "m2_geometry_properties_150_set07_item_ingestion",
     "m2_geometry_properties_seven_set_variant_links",
-    "all_1050_m2_geometry_properties_items_canonical_matched"
+    "all_1050_m2_geometry_properties_items_canonical_matched",
+    "m2_similarity_pythagoras_canonical_files_active",
+    "m2_similarity_pythagoras_150_set01_item_ingestion",
+    "m2_similarity_pythagoras_structural_metadata_without_source_images",
+    "all_150_m2_similarity_pythagoras_items_canonical_matched",
+    "m2_similarity_pythagoras_150_set02_item_ingestion",
+    "m2_similarity_pythagoras_cross_set_01_02_variant_tracking",
+    "m2_similarity_pythagoras_150_set03_item_ingestion",
+    "m2_similarity_pythagoras_cross_set_01_02_03_variant_tracking",
+    "m2_similarity_pythagoras_150_set04_item_ingestion",
+    "m2_similarity_pythagoras_cross_set_01_02_03_04_variant_tracking"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -235,7 +245,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중2 도형의 성질 150문항 세트 7을 기존 canonical 문항유형 27개에 연결하고 SET01·SET02·SET03·SET04·SET05·SET06과의 cross-set 변형 관계 27개를 기록했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중2 도형의 닮음·피타고라스 정리 SET04 150문항을 기존 canonical 문항유형 87개에 연결하고 SET01·SET02·SET03과의 cross-set 변형 관계 87개를 기록했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -251,11 +261,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 52,
-  "latest_source_registry": "data/sources/m2_geometry_properties_150worksheet_set07.registry.v1.json",
-  "problem_ingestion_source_count": 49,
+  "source_alignment_count": 59,
+  "latest_source_registry": "data/sources/m2_similarity_pythagoras_150worksheet_set04.registry.v1.json",
+  "problem_ingestion_source_count": 56,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 6333,
+  "problem_item_count_total": 7383,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -273,67 +283,67 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH202는 PATCH201이 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 도형의 성질 SET07 구조 데이터만 누적한다.",
+  "base_integrity_note": "PATCH209는 PATCH208이 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 도형의 닮음·피타고라스 정리 SET04 구조 데이터만 누적한다.",
   "patch_files": [
     {
-      "path": "data/coverage/m2_geometry_properties_150worksheet_set07.coverage_manifest.v1.csv",
-      "size_bytes": 1732,
-      "sha256": "84c925217af83f667506e7480a4fc6cdc10096e3975afa7d658755e2dbfe7133"
+      "path": "data/coverage/m2_similarity_pythagoras_150worksheet_set04.coverage_manifest.v1.csv",
+      "size_bytes": 2400,
+      "sha256": "faf275e44e130ce013a81798cb5da89e971cadce40c77eef4f60c957d60dbfb4"
     },
     {
-      "path": "data/coverage/m2_geometry_properties_150worksheet_set07.coverage_manifest.v1.json",
-      "size_bytes": 4921,
-      "sha256": "3cef3f466d0047614f33908aac70ad3e3b668519315e8361c7722227c5d2f9d0"
+      "path": "data/coverage/m2_similarity_pythagoras_150worksheet_set04.coverage_manifest.v1.json",
+      "size_bytes": 7453,
+      "sha256": "6bf7558ad750b30a61ccac2210a54a0a2191283dfa38c83a7757caa6f16b823f"
     },
     {
-      "path": "data/duplicate_map/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.duplicate_map.v1.json",
-      "size_bytes": 81837,
-      "sha256": "ed6a334eaa32ea0164c5416279330be5ec393bae5e218e6329d6e73dd051fac2"
+      "path": "data/duplicate_map/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set04.duplicate_map.v1.json",
+      "size_bytes": 115863,
+      "sha256": "88df23e6d34d8c8d333a36945ae2dc070e12e5ed2c5838f7daa7868688acec0d"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 44149,
-      "sha256": "d6e1f0fc893b146afe3b8b03b070af6038260361aef5d0f36d05d6d8a558c948"
+      "size_bytes": 45787,
+      "sha256": "9f8862d01197fa950d2c4871fca8d811b9889eb84c1b007bdacf10b8cef7108a"
     },
     {
-      "path": "data/item_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.item_bank_index.v1.json",
-      "size_bytes": 1056,
-      "sha256": "192df5e5737ff7e6973096962a3f89c0259a31157868ea29965d48a13aa4afea"
+      "path": "data/item_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set04.item_bank_index.v1.json",
+      "size_bytes": 1083,
+      "sha256": "f990aafb558f26409dff171d9a3a1cca053668a63d5300aa16e664c850927703"
     },
     {
-      "path": "data/source_item_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.source_items.v1.csv",
-      "size_bytes": 132611,
-      "sha256": "f0e6fbf6f760fbefd2913d02095956c0aa1db375a96193d5144d55f0cd38c317"
+      "path": "data/source_item_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set04.source_items.v1.csv",
+      "size_bytes": 126841,
+      "sha256": "49711083a9a539c7336a4e995129304ab183db0eaa4750119264d8c7cdfb3ef6"
     },
     {
-      "path": "data/source_item_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.source_items.v1.json",
-      "size_bytes": 679934,
-      "sha256": "feb93a7e725edfd15f70782a1980bf9eb04326ed82af457508b917533e3c27b1"
+      "path": "data/source_item_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set04.source_items.v1.json",
+      "size_bytes": 649310,
+      "sha256": "c44f189cfafba8c945aa4bbb45f35338fb61c308e3bd8395581889b1bfa0ef15"
     },
     {
-      "path": "data/source_item_links/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.links.v1.json",
-      "size_bytes": 230324,
-      "sha256": "1dc7018da6d1d9d3adb9e0468a16e2e587c18f9bd169e6f0465452372578cc66"
+      "path": "data/source_item_links/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set04.links.v1.json",
+      "size_bytes": 225106,
+      "sha256": "662dfb9ad62873d107ba0e2f96b3b723fcbd1f95e9027910014a8e6e9393e6c9"
     },
     {
-      "path": "data/sources/m2_geometry_properties_150worksheet_set07.registry.v1.json",
-      "size_bytes": 4716,
-      "sha256": "61961a3c8ce9c9a8daa4cf3652f7dc74c49e9c9687aa17933c49988ca5bb2995"
+      "path": "data/sources/m2_similarity_pythagoras_150worksheet_set04.registry.v1.json",
+      "size_bytes": 4851,
+      "sha256": "15cb03f4db38e4825ca58c5f2b2c6d547605f3bfd7acc1780d1c8baf3de4d2a4"
     },
     {
-      "path": "data/sources/m2_geometry_properties_worksheets.index.v1.json",
-      "size_bytes": 4078,
-      "sha256": "fce38e94a24c85e3dc4a820076c9e7fe7d00e8d47e5dfd4536c3cab75aee7816"
+      "path": "data/sources/m2_similarity_pythagoras_worksheets.index.v1.json",
+      "size_bytes": 2539,
+      "sha256": "0075fc842ab414d9a52d68e9555f1a8b52cd22d6bcd0694785a1764d984a94b5"
     },
     {
-      "path": "data/type_variant_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.type_variants.v1.json",
-      "size_bytes": 27679,
-      "sha256": "ebfc07fad2ec640d46a737dbff13eea3d9b0acba33f3e1d4ea19a81ccf439299"
+      "path": "data/type_variant_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set04.type_variants.v1.json",
+      "size_bytes": 75106,
+      "sha256": "c6afad04c6cda6d02df3ca45f910c2a9961fd2d9119810b426d75687f77e812e"
     },
     {
-      "path": "docs/patch202_m2_geometry_properties_set07_validation.json",
-      "size_bytes": 1497,
-      "sha256": "69971f76468e13f572c34513ced1a8e5dc965591707ad5c14c0eb9e6f1ee11dd"
+      "path": "docs/patch209_m2_similarity_pythagoras_set04_validation.json",
+      "size_bytes": 1586,
+      "sha256": "bf9f16377bf116b38a15f4dc871cb54b8787ba49b6f9baea0f9ec776e262e512"
     }
   ]
 }

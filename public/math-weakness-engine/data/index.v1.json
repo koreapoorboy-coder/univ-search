@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.15-m2-geometry-properties-set07-cross-set-v1.0",
+  "version": "2026.07.15-m2-similarity-pythagoras-set04-cross-set-v1.0",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -499,6 +499,26 @@
       "sources": "data/sources/h2_calculus2_integration.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/h2_calculus2_integration.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/h2_calculus2_integration.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "M2_SIMILARITY_PYTHAGORAS",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_name": "도형의 닮음과 피타고라스 정리",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m2_similarity_pythagoras.problem_types.v1.json",
+      "edges": "data/relations/m2_similarity_pythagoras.edges.v1.json",
+      "diagnosis_rules": "data/rules/m2_similarity_pythagoras.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m2_similarity_pythagoras.remediation_map.v1.json",
+      "sources": "data/sources/m2_similarity_pythagoras.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m2_similarity_pythagoras.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m2_similarity_pythagoras.solution_templates.v1.json",
+      "worksheet_sources_index": "data/sources/m2_similarity_pythagoras_worksheets.index.v1.json",
+      "latest_item_bank_index": "data/item_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set01.item_bank_index.v1.json",
+      "latest_source_item_links": "data/source_item_links/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set01.links.v1.json",
+      "latest_type_variant_bank": "data/type_variant_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set01.type_variants.v1.json",
+      "latest_duplicate_map": "data/duplicate_map/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set01.duplicate_map.v1.json",
+      "latest_coverage_manifest": "data/coverage/m2_similarity_pythagoras_150worksheet_set01.coverage_manifest.v1.json"
     }
   ],
   "cross_grade_targets": [
@@ -812,7 +832,7 @@
       "student_note_feedback_templates": "data/learning_evidence/student_note_feedback_templates.v1.json"
     }
   },
-  "last_patch": "patch202_m2_geometry_properties_150_set07_ingestion_20260715",
+  "last_patch": "patch209_m2_similarity_pythagoras_150_set04_ingestion_20260715",
   "ai_bridge": {
     "version": "2026.07.08-math-hybrid-ai-bridge-v1.0",
     "purpose": "학생 PDF/풀이/필기 업로드를 AI가 구조화하고, 수학 취약유형 엔진이 검수 문항 생성과 답안 재검수를 수행하기 위한 연결 레이어",
