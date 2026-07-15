@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.15-m2-linear-function-set09-behavior-metadata-v1.0",
+  "version": "2026.07.15-m2-geometry-properties-set07-cross-set-v1.0",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -201,7 +201,13 @@
       "remediation": "data/remediation/m2_geometry_properties.remediation_map.v1.json",
       "sources": "data/sources/m2_geometry_properties.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/m2_geometry_properties.raw_taxonomy.v1.json",
-      "solution_templates": "data/forms/m2_geometry_properties.solution_templates.v1.json"
+      "solution_templates": "data/forms/m2_geometry_properties.solution_templates.v1.json",
+      "worksheet_sources_index": "data/sources/m2_geometry_properties_worksheets.index.v1.json",
+      "latest_item_bank_index": "data/item_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.item_bank_index.v1.json",
+      "latest_source_item_links": "data/source_item_links/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.links.v1.json",
+      "latest_type_variant_bank": "data/type_variant_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.type_variants.v1.json",
+      "latest_duplicate_map": "data/duplicate_map/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.duplicate_map.v1.json",
+      "latest_coverage_manifest": "data/coverage/m2_geometry_properties_150worksheet_set07.coverage_manifest.v1.json"
     },
     {
       "unit_id": "M2_PROBABILITY",
@@ -806,7 +812,7 @@
       "student_note_feedback_templates": "data/learning_evidence/student_note_feedback_templates.v1.json"
     }
   },
-  "last_patch": "patch195_m2_linear_function_50_set09_ingestion_20260715",
+  "last_patch": "patch202_m2_geometry_properties_150_set07_ingestion_20260715",
   "ai_bridge": {
     "version": "2026.07.08-math-hybrid-ai-bridge-v1.0",
     "purpose": "학생 PDF/풀이/필기 업로드를 AI가 구조화하고, 수학 취약유형 엔진이 검수 문항 생성과 답안 재검수를 수행하기 위한 연결 레이어",

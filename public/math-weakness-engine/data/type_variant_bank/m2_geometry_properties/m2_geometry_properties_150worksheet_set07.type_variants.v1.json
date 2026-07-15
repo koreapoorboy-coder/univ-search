@@ -1,0 +1,880 @@
+{
+  "version": "2026.07.15-patch202",
+  "source_id": "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710",
+  "unit_id": "M2_GEOMETRY_PROPERTIES",
+  "variant_group_count": 27,
+  "total_variant_item_count": 150,
+  "variants": [
+    {
+      "problem_type_id": "M2_GEOM_PT023",
+      "type_name": "이등변삼각형의 성질 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT023::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 14,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q001",
+        "M2_GEOM_150_S07_Q002",
+        "M2_GEOM_150_S07_Q003",
+        "M2_GEOM_150_S07_Q004",
+        "M2_GEOM_150_S07_Q005",
+        "M2_GEOM_150_S07_Q006",
+        "M2_GEOM_150_S07_Q007",
+        "M2_GEOM_150_S07_Q008",
+        "M2_GEOM_150_S07_Q009",
+        "M2_GEOM_150_S07_Q010",
+        "M2_GEOM_150_S07_Q011",
+        "M2_GEOM_150_S07_Q012",
+        "M2_GEOM_150_S07_Q013",
+        "M2_GEOM_150_S07_Q014"
+      ],
+      "response_formats": [
+        "angle",
+        "integer",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 14
+      },
+      "representation_types": {
+        "triangle_geometry_diagram": 14
+      },
+      "difficulty_distribution": {
+        "core": 14
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT023",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT026",
+      "type_name": "이등변삼각형이 되는 조건 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT026::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 4,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q015",
+        "M2_GEOM_150_S07_Q016",
+        "M2_GEOM_150_S07_Q017",
+        "M2_GEOM_150_S07_Q018"
+      ],
+      "response_formats": [
+        "integer",
+        "length",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 4
+      },
+      "representation_types": {
+        "triangle_geometry_diagram": 4
+      },
+      "difficulty_distribution": {
+        "standard": 4
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT026",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT029",
+      "type_name": "직각삼각형의 합동 조건 RHS·RHA - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT029::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 8,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q021",
+        "M2_GEOM_150_S07_Q022",
+        "M2_GEOM_150_S07_Q023",
+        "M2_GEOM_150_S07_Q024",
+        "M2_GEOM_150_S07_Q025",
+        "M2_GEOM_150_S07_Q026",
+        "M2_GEOM_150_S07_Q027",
+        "M2_GEOM_150_S07_Q028"
+      ],
+      "response_formats": [
+        "angle",
+        "integer",
+        "length",
+        "multiple_select",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 8
+      },
+      "representation_types": {
+        "triangle_congruence_diagram": 8
+      },
+      "difficulty_distribution": {
+        "advanced": 8
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT029",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT038",
+      "type_name": "삼각형의 외심과 외접원 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT038::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 4,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q032",
+        "M2_GEOM_150_S07_Q033",
+        "M2_GEOM_150_S07_Q034",
+        "M2_GEOM_150_S07_Q035"
+      ],
+      "response_formats": [
+        "angle",
+        "area",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 4
+      },
+      "representation_types": {
+        "triangle_center_diagram": 4
+      },
+      "difficulty_distribution": {
+        "standard": 4
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT038",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT041",
+      "type_name": "외심을 이용한 길이와 각 계산 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT041::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 11,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q038",
+        "M2_GEOM_150_S07_Q039",
+        "M2_GEOM_150_S07_Q040",
+        "M2_GEOM_150_S07_Q041",
+        "M2_GEOM_150_S07_Q042",
+        "M2_GEOM_150_S07_Q043",
+        "M2_GEOM_150_S07_Q044",
+        "M2_GEOM_150_S07_Q045",
+        "M2_GEOM_150_S07_Q046",
+        "M2_GEOM_150_S07_Q047",
+        "M2_GEOM_150_S07_Q048"
+      ],
+      "response_formats": [
+        "angle",
+        "integer",
+        "length",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 11
+      },
+      "representation_types": {
+        "triangle_center_diagram": 11
+      },
+      "difficulty_distribution": {
+        "advanced": 11
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT041",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT044",
+      "type_name": "삼각형의 종류와 외심 위치 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT044::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 2,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q036",
+        "M2_GEOM_150_S07_Q037"
+      ],
+      "response_formats": [
+        "angle",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 2
+      },
+      "representation_types": {
+        "triangle_center_diagram": 2
+      },
+      "difficulty_distribution": {
+        "basic": 2
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT044",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT047",
+      "type_name": "각의 이등분선과 거리 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT047::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 3,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q029",
+        "M2_GEOM_150_S07_Q030",
+        "M2_GEOM_150_S07_Q031"
+      ],
+      "response_formats": [
+        "length",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 3
+      },
+      "representation_types": {
+        "geometry_diagram": 3
+      },
+      "difficulty_distribution": {
+        "core": 3
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT047",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT050",
+      "type_name": "삼각형의 내심과 내접원 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT050::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 4,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q049",
+        "M2_GEOM_150_S07_Q050",
+        "M2_GEOM_150_S07_Q051",
+        "M2_GEOM_150_S07_Q052"
+      ],
+      "response_formats": [
+        "angle",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 4
+      },
+      "representation_types": {
+        "triangle_center_diagram": 4
+      },
+      "difficulty_distribution": {
+        "standard": 4
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT050",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT053",
+      "type_name": "내심을 이용한 각과 길이 계산 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT053::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 15,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q053",
+        "M2_GEOM_150_S07_Q054",
+        "M2_GEOM_150_S07_Q055",
+        "M2_GEOM_150_S07_Q056",
+        "M2_GEOM_150_S07_Q057",
+        "M2_GEOM_150_S07_Q058",
+        "M2_GEOM_150_S07_Q059",
+        "M2_GEOM_150_S07_Q060",
+        "M2_GEOM_150_S07_Q061",
+        "M2_GEOM_150_S07_Q062",
+        "M2_GEOM_150_S07_Q063",
+        "M2_GEOM_150_S07_Q064",
+        "M2_GEOM_150_S07_Q065",
+        "M2_GEOM_150_S07_Q066",
+        "M2_GEOM_150_S07_Q067"
+      ],
+      "response_formats": [
+        "angle",
+        "area",
+        "integer",
+        "length",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 15
+      },
+      "representation_types": {
+        "triangle_center_diagram": 15
+      },
+      "difficulty_distribution": {
+        "advanced": 15
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT053",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT055",
+      "type_name": "외심·내심의 정의와 성질 비교 - 조건 적용",
+      "variant_group_id": "M2_GEOM_PT055::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 3,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q071",
+        "M2_GEOM_150_S07_Q072",
+        "M2_GEOM_150_S07_Q073"
+      ],
+      "response_formats": [
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 3
+      },
+      "representation_types": {
+        "property_statement_or_condition_list": 3
+      },
+      "difficulty_distribution": {
+        "advanced": 3
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT055",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT067",
+      "type_name": "평행사변형이 되는 조건 - 조건 적용",
+      "variant_group_id": "M2_GEOM_PT067::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 2,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q094",
+        "M2_GEOM_150_S07_Q095"
+      ],
+      "response_formats": [
+        "multiple_select",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 2
+      },
+      "representation_types": {
+        "property_statement_or_condition_list": 2
+      },
+      "difficulty_distribution": {
+        "advanced": 2
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT067",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT071",
+      "type_name": "평행사변형의 각 관계 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT071::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 4,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q085",
+        "M2_GEOM_150_S07_Q086",
+        "M2_GEOM_150_S07_Q087",
+        "M2_GEOM_150_S07_Q088"
+      ],
+      "response_formats": [
+        "angle",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 4
+      },
+      "representation_types": {
+        "quadrilateral_geometry_diagram": 4
+      },
+      "difficulty_distribution": {
+        "core": 4
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT071",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT074",
+      "type_name": "평행사변형의 길이 관계 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT074::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 7,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q081",
+        "M2_GEOM_150_S07_Q082",
+        "M2_GEOM_150_S07_Q083",
+        "M2_GEOM_150_S07_Q084",
+        "M2_GEOM_150_S07_Q089",
+        "M2_GEOM_150_S07_Q090",
+        "M2_GEOM_150_S07_Q091"
+      ],
+      "response_formats": [
+        "integer",
+        "length",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 7
+      },
+      "representation_types": {
+        "quadrilateral_geometry_diagram": 7
+      },
+      "difficulty_distribution": {
+        "standard": 7
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT074",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT077",
+      "type_name": "직사각형의 성질과 조건 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT077::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 4,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q108",
+        "M2_GEOM_150_S07_Q109",
+        "M2_GEOM_150_S07_Q110",
+        "M2_GEOM_150_S07_Q111"
+      ],
+      "response_formats": [
+        "angle",
+        "length",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 4
+      },
+      "representation_types": {
+        "quadrilateral_geometry_diagram": 4
+      },
+      "difficulty_distribution": {
+        "advanced": 4
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT077",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT080",
+      "type_name": "마름모의 성질과 조건 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT080::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 2,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q115",
+        "M2_GEOM_150_S07_Q116"
+      ],
+      "response_formats": [
+        "length"
+      ],
+      "variant_levels": {
+        "variant": 2
+      },
+      "representation_types": {
+        "quadrilateral_geometry_diagram": 2
+      },
+      "difficulty_distribution": {
+        "basic": 2
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT080",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT083",
+      "type_name": "정사각형의 성질 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT083::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 4,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q119",
+        "M2_GEOM_150_S07_Q120",
+        "M2_GEOM_150_S07_Q121",
+        "M2_GEOM_150_S07_Q122"
+      ],
+      "response_formats": [
+        "angle",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 4
+      },
+      "representation_types": {
+        "shaded_area_diagram": 2,
+        "quadrilateral_geometry_diagram": 2
+      },
+      "difficulty_distribution": {
+        "core": 4
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT083",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT086",
+      "type_name": "등변사다리꼴의 성질 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT086::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 1,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q125"
+      ],
+      "response_formats": [
+        "integer"
+      ],
+      "variant_levels": {
+        "variant": 1
+      },
+      "representation_types": {
+        "quadrilateral_geometry_diagram": 1
+      },
+      "difficulty_distribution": {
+        "standard": 1
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT086",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT089",
+      "type_name": "여러 사각형의 포함 관계 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT089::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 4,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q128",
+        "M2_GEOM_150_S07_Q129",
+        "M2_GEOM_150_S07_Q130",
+        "M2_GEOM_150_S07_Q131"
+      ],
+      "response_formats": [
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 4
+      },
+      "representation_types": {
+        "quadrilateral_classification_diagram": 4
+      },
+      "difficulty_distribution": {
+        "advanced": 4
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT089",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT092",
+      "type_name": "여러 사각형의 대각선 성질 비교 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT092::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 1,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q132"
+      ],
+      "response_formats": [
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 1
+      },
+      "representation_types": {
+        "quadrilateral_classification_diagram": 1
+      },
+      "difficulty_distribution": {
+        "basic": 1
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT092",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT100",
+      "type_name": "평행사변형이 되는 조건 증명 - 조건 적용",
+      "variant_group_id": "M2_GEOM_PT100::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 4,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q092",
+        "M2_GEOM_150_S07_Q093",
+        "M2_GEOM_150_S07_Q096",
+        "M2_GEOM_150_S07_Q097"
+      ],
+      "response_formats": [
+        "multiple_select",
+        "short_answer",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 4
+      },
+      "representation_types": {
+        "proof_completion_diagram": 4
+      },
+      "difficulty_distribution": {
+        "standard": 4
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT100",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT103",
+      "type_name": "직사각형·마름모·정사각형 증명 - 조건 적용",
+      "variant_group_id": "M2_GEOM_PT103::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 2,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q123",
+        "M2_GEOM_150_S07_Q124"
+      ],
+      "response_formats": [
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 2
+      },
+      "representation_types": {
+        "property_statement_or_condition_list": 2
+      },
+      "difficulty_distribution": {
+        "advanced": 2
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT103",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT104",
+      "type_name": "직사각형·마름모·정사각형 증명 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT104::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 5,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q112",
+        "M2_GEOM_150_S07_Q113",
+        "M2_GEOM_150_S07_Q114",
+        "M2_GEOM_150_S07_Q117",
+        "M2_GEOM_150_S07_Q118"
+      ],
+      "response_formats": [
+        "angle",
+        "area",
+        "multiple_select",
+        "single_choice",
+        "text"
+      ],
+      "variant_levels": {
+        "variant": 5
+      },
+      "representation_types": {
+        "quadrilateral_geometry_diagram": 5
+      },
+      "difficulty_distribution": {
+        "basic": 5
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT104",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT107",
+      "type_name": "보조선을 이용한 각·길이 계산 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT107::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 2,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q019",
+        "M2_GEOM_150_S07_Q020"
+      ],
+      "response_formats": [
+        "length",
+        "multiple_select"
+      ],
+      "variant_levels": {
+        "variant": 2
+      },
+      "representation_types": {
+        "folding_geometry_diagram": 2
+      },
+      "difficulty_distribution": {
+        "core": 2
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT107",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT116",
+      "type_name": "사각형 성질과 넓이 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT116::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 22,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q100",
+        "M2_GEOM_150_S07_Q101",
+        "M2_GEOM_150_S07_Q102",
+        "M2_GEOM_150_S07_Q103",
+        "M2_GEOM_150_S07_Q104",
+        "M2_GEOM_150_S07_Q105",
+        "M2_GEOM_150_S07_Q106",
+        "M2_GEOM_150_S07_Q107",
+        "M2_GEOM_150_S07_Q137",
+        "M2_GEOM_150_S07_Q138",
+        "M2_GEOM_150_S07_Q139",
+        "M2_GEOM_150_S07_Q140",
+        "M2_GEOM_150_S07_Q141",
+        "M2_GEOM_150_S07_Q142",
+        "M2_GEOM_150_S07_Q143",
+        "M2_GEOM_150_S07_Q144",
+        "M2_GEOM_150_S07_Q145",
+        "M2_GEOM_150_S07_Q146",
+        "M2_GEOM_150_S07_Q147",
+        "M2_GEOM_150_S07_Q148",
+        "M2_GEOM_150_S07_Q149",
+        "M2_GEOM_150_S07_Q150"
+      ],
+      "response_formats": [
+        "area",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 22
+      },
+      "representation_types": {
+        "shaded_area_diagram": 22
+      },
+      "difficulty_distribution": {
+        "basic": 22
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT116",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT119",
+      "type_name": "삼각형 중심과 사각형 성질 종합 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT119::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 10,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q068",
+        "M2_GEOM_150_S07_Q069",
+        "M2_GEOM_150_S07_Q070",
+        "M2_GEOM_150_S07_Q074",
+        "M2_GEOM_150_S07_Q075",
+        "M2_GEOM_150_S07_Q076",
+        "M2_GEOM_150_S07_Q077",
+        "M2_GEOM_150_S07_Q078",
+        "M2_GEOM_150_S07_Q079",
+        "M2_GEOM_150_S07_Q080"
+      ],
+      "response_formats": [
+        "angle",
+        "area",
+        "integer",
+        "length",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 10
+      },
+      "representation_types": {
+        "triangle_center_diagram": 10
+      },
+      "difficulty_distribution": {
+        "core": 10
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT119",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT134",
+      "type_name": "직사각형·마름모·정사각형·등변사다리꼴 비교 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT134::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 2,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q126",
+        "M2_GEOM_150_S07_Q127"
+      ],
+      "response_formats": [
+        "length",
+        "multiple_select"
+      ],
+      "variant_levels": {
+        "variant": 2
+      },
+      "representation_types": {
+        "quadrilateral_classification_diagram": 2
+      },
+      "difficulty_distribution": {
+        "standard": 2
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT134",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    },
+    {
+      "problem_type_id": "M2_GEOM_PT140",
+      "type_name": "도형 성질을 연결한 고난도 활용 - 계산·추론",
+      "variant_group_id": "M2_GEOM_PT140::M2_GEOM_SET07",
+      "source_ids": [
+        "SRC_M2_GEOM_150_WORKSHEET_SET07_20260710"
+      ],
+      "variant_item_count": 6,
+      "item_ids": [
+        "M2_GEOM_150_S07_Q098",
+        "M2_GEOM_150_S07_Q099",
+        "M2_GEOM_150_S07_Q133",
+        "M2_GEOM_150_S07_Q134",
+        "M2_GEOM_150_S07_Q135",
+        "M2_GEOM_150_S07_Q136"
+      ],
+      "response_formats": [
+        "angle",
+        "area",
+        "integer",
+        "length",
+        "single_choice"
+      ],
+      "variant_levels": {
+        "variant": 6
+      },
+      "representation_types": {
+        "quadrilateral_geometry_diagram": 2,
+        "quadrilateral_classification_diagram": 4
+      },
+      "difficulty_distribution": {
+        "basic": 6
+      },
+      "problem_family_id": "M2_GEOM_FAM_M2_GEOM_PT140",
+      "variant_policy": "same canonical problem type; source items expand cross-set evidence, behavior metadata, and geometry surface-form diversity only"
+    }
+  ]
+}

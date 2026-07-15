@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.15-patch195-m2-linear-function-50-set09-ingestion",
+  "version": "2026.07.15-patch202-m2-geometry-properties-150-set07-ingestion",
   "build_date": "2026-07-15",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
   "description": "PATCH159 student solution behavior analysis preserved; M2 linear function worksheet set 9 adds 50 canonical-aligned source items with cross-set variant and conservative exact-duplicate tracking.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch195_m2_linear_function_50_set09_ingestion_20260715",
+  "last_patch": "math_weakness_engine_patch202_m2_geometry_properties_150_set07_ingestion_20260715",
   "unit_count": 39,
   "problem_type_count": 13042,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch195-m2-linear-function-50-set09-ingestion",
+  "patch": "patch202-m2-geometry-properties-150-set07-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -201,7 +201,29 @@
     "all_400_m2_linear_function_items_canonical_matched",
     "m2_linear_function_50_set09_item_ingestion",
     "m2_linear_function_nine_set_variant_links",
-    "all_450_m2_linear_function_items_canonical_matched"
+    "all_450_m2_linear_function_items_canonical_matched",
+    "m2_geometry_properties_150_set01_item_ingestion",
+    "m2_geometry_properties_variant_and_duplicate_tracking",
+    "all_150_m2_geometry_properties_items_canonical_matched",
+    "geometry_structural_metadata_without_source_images",
+    "m2_geometry_properties_150_set02_item_ingestion",
+    "m2_geometry_properties_cross_set_variant_links",
+    "all_300_m2_geometry_properties_items_canonical_matched",
+    "m2_geometry_properties_150_set03_item_ingestion",
+    "m2_geometry_properties_three_set_variant_links",
+    "all_450_m2_geometry_properties_items_canonical_matched",
+    "m2_geometry_properties_150_set04_item_ingestion",
+    "m2_geometry_properties_four_set_variant_links",
+    "all_600_m2_geometry_properties_items_canonical_matched",
+    "m2_geometry_properties_150_set05_item_ingestion",
+    "m2_geometry_properties_five_set_variant_links",
+    "all_750_m2_geometry_properties_items_canonical_matched",
+    "m2_geometry_properties_150_set06_item_ingestion",
+    "m2_geometry_properties_six_set_variant_links",
+    "all_900_m2_geometry_properties_items_canonical_matched",
+    "m2_geometry_properties_150_set07_item_ingestion",
+    "m2_geometry_properties_seven_set_variant_links",
+    "all_1050_m2_geometry_properties_items_canonical_matched"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -213,7 +235,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중2 함수 50문항 세트 9를 기존 canonical 문항유형 33개에 연결하고 SET01-SET09 유형 단위 variant 관계와 시각·해설 교차검증된 exact duplicate 4건을 기록했습니다. 신규 canonical 유형은 생성하지 않았습니다.",
+  "patch_summary": "중2 도형의 성질 150문항 세트 7을 기존 canonical 문항유형 27개에 연결하고 SET01·SET02·SET03·SET04·SET05·SET06과의 cross-set 변형 관계 27개를 기록했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -229,11 +251,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 45,
-  "latest_source_registry": "data/sources/m2_linear_function_50worksheet_set09.registry.v1.json",
-  "problem_ingestion_source_count": 42,
-  "problem_item_count_added": 50,
-  "problem_item_count_total": 5283,
+  "source_alignment_count": 52,
+  "latest_source_registry": "data/sources/m2_geometry_properties_150worksheet_set07.registry.v1.json",
+  "problem_ingestion_source_count": 49,
+  "problem_item_count_added": 150,
+  "problem_item_count_total": 6333,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -251,67 +273,67 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH195는 PATCH194가 실제 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 함수 SET09 구조 데이터만 누적한다.",
+  "base_integrity_note": "PATCH202는 PATCH201이 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 도형의 성질 SET07 구조 데이터만 누적한다.",
   "patch_files": [
     {
-      "path": "data/coverage/m2_linear_function_50worksheet_set09.coverage_manifest.v1.csv",
-      "size_bytes": 1375,
-      "sha256": "17303a92af1e79a512f688a0c0e88fcfd6d9e9d0058ad7a240e185ba3a92a87c"
+      "path": "data/coverage/m2_geometry_properties_150worksheet_set07.coverage_manifest.v1.csv",
+      "size_bytes": 1732,
+      "sha256": "84c925217af83f667506e7480a4fc6cdc10096e3975afa7d658755e2dbfe7133"
     },
     {
-      "path": "data/coverage/m2_linear_function_50worksheet_set09.coverage_manifest.v1.json",
-      "size_bytes": 3903,
-      "sha256": "3327a1f030b83f95f988705a7dd4ac928961b44e408df20df272fd80489fb773"
+      "path": "data/coverage/m2_geometry_properties_150worksheet_set07.coverage_manifest.v1.json",
+      "size_bytes": 4921,
+      "sha256": "3cef3f466d0047614f33908aac70ad3e3b668519315e8361c7722227c5d2f9d0"
     },
     {
-      "path": "data/duplicate_map/m2_linear_function/m2_linear_function_50worksheet_set09.duplicate_map.v1.json",
-      "size_bytes": 35173,
-      "sha256": "4484f317874b0846dc9ae3965c6e534cee4f19a85b5e6548cb5d663ea70505d1"
+      "path": "data/duplicate_map/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.duplicate_map.v1.json",
+      "size_bytes": 81837,
+      "sha256": "ed6a334eaa32ea0164c5416279330be5ec393bae5e218e6329d6e73dd051fac2"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 43368,
-      "sha256": "aad041454ec2a0e3e2993efa5c105eca0faecc6ba5a56d9fcc15ce7a09dc937f"
+      "size_bytes": 44149,
+      "sha256": "d6e1f0fc893b146afe3b8b03b070af6038260361aef5d0f36d05d6d8a558c948"
     },
     {
-      "path": "data/item_bank/m2_linear_function/m2_linear_function_50worksheet_set09.item_bank_index.v1.json",
-      "size_bytes": 996,
-      "sha256": "f03d50f74f9c9ad6a3d7cbadf44b5476b0e2b25c9f4d1cdbb8bc77d75a4a3046"
+      "path": "data/item_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.item_bank_index.v1.json",
+      "size_bytes": 1056,
+      "sha256": "192df5e5737ff7e6973096962a3f89c0259a31157868ea29965d48a13aa4afea"
     },
     {
-      "path": "data/source_item_bank/m2_linear_function/m2_linear_function_50worksheet_set09.source_items.v1.csv",
-      "size_bytes": 38359,
-      "sha256": "48f9f32dc58c75839c3c23ccce0a0308c3a43a569b84d3ae8cb172ead4aa6234"
+      "path": "data/source_item_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.source_items.v1.csv",
+      "size_bytes": 132611,
+      "sha256": "f0e6fbf6f760fbefd2913d02095956c0aa1db375a96193d5144d55f0cd38c317"
     },
     {
-      "path": "data/source_item_bank/m2_linear_function/m2_linear_function_50worksheet_set09.source_items.v1.json",
-      "size_bytes": 198509,
-      "sha256": "3e2e3d563fd6897759e5803f2ffe0871c973e33887319509837c48c8dae0407b"
+      "path": "data/source_item_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.source_items.v1.json",
+      "size_bytes": 679934,
+      "sha256": "feb93a7e725edfd15f70782a1980bf9eb04326ed82af457508b917533e3c27b1"
     },
     {
-      "path": "data/source_item_links/m2_linear_function/m2_linear_function_50worksheet_set09.links.v1.json",
-      "size_bytes": 67540,
-      "sha256": "133c09e3e61c0f31993798260af5556169d061e030d1e1c132d37fa3ed61cbe7"
+      "path": "data/source_item_links/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.links.v1.json",
+      "size_bytes": 230324,
+      "sha256": "1dc7018da6d1d9d3adb9e0468a16e2e587c18f9bd169e6f0465452372578cc66"
     },
     {
-      "path": "data/sources/m2_linear_function_50worksheet_set09.registry.v1.json",
-      "size_bytes": 3097,
-      "sha256": "879fd39471e3e18d54cfe28505e652983f73a8c2793e042f501550fe80ae86c7"
+      "path": "data/sources/m2_geometry_properties_150worksheet_set07.registry.v1.json",
+      "size_bytes": 4716,
+      "sha256": "61961a3c8ce9c9a8daa4cf3652f7dc74c49e9c9687aa17933c49988ca5bb2995"
     },
     {
-      "path": "data/sources/m2_linear_function_worksheets.index.v1.json",
-      "size_bytes": 4155,
-      "sha256": "b66b62137b09df0d8ad1a526c15381b22bd098c00a3cb509a8c37a3b2c2168a8"
+      "path": "data/sources/m2_geometry_properties_worksheets.index.v1.json",
+      "size_bytes": 4078,
+      "sha256": "fce38e94a24c85e3dc4a820076c9e7fe7d00e8d47e5dfd4536c3cab75aee7816"
     },
     {
-      "path": "data/type_variant_bank/m2_linear_function/m2_linear_function_50worksheet_set09.type_variants.v1.json",
-      "size_bytes": 32118,
-      "sha256": "588f4211ccdd53246032043237d14c4a6992c8834b8f067250e92a4961e3f076"
+      "path": "data/type_variant_bank/m2_geometry_properties/m2_geometry_properties_150worksheet_set07.type_variants.v1.json",
+      "size_bytes": 27679,
+      "sha256": "ebfc07fad2ec640d46a737dbff13eea3d9b0acba33f3e1d4ea19a81ccf439299"
     },
     {
-      "path": "docs/patch195_m2_linear_function_set09_validation.json",
-      "size_bytes": 1329,
-      "sha256": "5cdfd15c59b20371ca4fd3727e1f0004133c1d808282c1b7362d69da7358a498"
+      "path": "docs/patch202_m2_geometry_properties_set07_validation.json",
+      "size_bytes": 1497,
+      "sha256": "69971f76468e13f572c34513ced1a8e5dc965591707ad5c14c0eb9e6f1ee11dd"
     }
   ]
 }
