@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-16-patch225-m2-probability-150-set11-ingestion",
+  "version": "2026-07-16-patch232-m3-real-numbers-150-set07-ingestion",
   "build_date": "2026-07-16",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 student solution behavior analysis preserved; M2 counting and probability worksheet SET11 adds 150 canonical-aligned structural source items with answer keys and cross-set variant tracking.",
+  "description": "PATCH159 behavior analysis preserved; M3 real numbers and radical operations worksheet SET07 adds 150 canonical-aligned structural source items.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch225_m2_probability_150_set11_ingestion_20260716",
+  "last_patch": "math_weakness_engine_patch232_m3_real_numbers_150_set07_ingestion_20260716",
   "unit_count": 39,
   "problem_type_count": 13042,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch225-m2-probability-150-set11-ingestion",
+  "patch": "patch232-m3-real-numbers-150-set07-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -293,7 +293,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중2 경우의 수와 확률 SET11 150문항을 기존 canonical 문항유형 55개에 연결하고 SET01~SET10과의 cross-set 변형 관계 55개를 기록했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중3 실수와 그 계산 SET07 150문항을 기존 canonical 문항유형 89개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -309,11 +309,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 74,
-  "latest_source_registry": "data/sources/m2_probability_150worksheet_set11.registry.v1.json",
-  "problem_ingestion_source_count": 72,
+  "source_alignment_count": 81,
+  "latest_source_registry": "data/sources/m3_real_numbers_and_operations_150worksheet_set07.registry.v1.json",
+  "problem_ingestion_source_count": 79,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 9783,
+  "problem_item_count_total": 10833,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -331,67 +331,72 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH225는 PATCH224가 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 경우의 수와 확률 SET11 구조 데이터만 누적한다.",
+  "base_integrity_note": "PATCH232는 PATCH231 적용 엔진 기준이며 Worker 및 D1 변경 없이 중3 실수와 그 계산 SET07 구조 데이터만 누적한다.",
   "patch_files": [
     {
-      "path": "data/coverage/m2_probability_150worksheet_set11.coverage_manifest.v1.csv",
-      "size_bytes": 1470,
-      "sha256": "6563d1eab8e1c319f438750d6c86a4aa5c2927e05062324aad3e887e36295d4a"
+      "path": "data/coverage/m3_real_numbers_and_operations_150worksheet_set07.coverage_manifest.v1.csv",
+      "size_bytes": 2146,
+      "sha256": "7ce9c27e52ec8fec3ec9070846f1c0b5a0b19a018e53770e22eb36972a08d4b7"
     },
     {
-      "path": "data/coverage/m2_probability_150worksheet_set11.coverage_manifest.v1.json",
-      "size_bytes": 4747,
-      "sha256": "805a33fb0f663041029fc9a71d9a085e0cb6cd126f2abdf841148076a6fdd0b8"
+      "path": "data/coverage/m3_real_numbers_and_operations_150worksheet_set07.coverage_manifest.v1.json",
+      "size_bytes": 6785,
+      "sha256": "a57a6a325a3df2955f3ab02bf9f941d7b2b6044d38e0765e85fed1d92aeda6a2"
     },
     {
-      "path": "data/duplicate_map/m2_probability/m2_probability_150worksheet_set11.duplicate_map.v1.json",
-      "size_bytes": 93750,
-      "sha256": "3c281b15c58e310fe7916d983697066000ab51f384bd6c5dc1128bb16aad0262"
+      "path": "data/duplicate_map/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.duplicate_map.v1.json",
+      "size_bytes": 90950,
+      "sha256": "7772f32200cba8abefed8b89cb90f8b15df5eed4aa2512aa87714d89c7d793e9"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 46461,
-      "sha256": "4a98d296f7b0ba74dd3f510c0736a3676ff492d4df763e17701aa01e17f9600a"
+      "size_bytes": 47321,
+      "sha256": "0b64a010524aec6927842f0906b0452d29d6230fb788bc5e2ed595614a425d86"
     },
     {
-      "path": "data/item_bank/m2_probability/m2_probability_150worksheet_set11.item_bank_index.v1.json",
-      "size_bytes": 960,
-      "sha256": "ba7e5caef58c38edd9a3706a3606180112a9c650eba08d6e66f48d1fc5f6f689"
+      "path": "data/item_bank/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.item_bank_index.v1.json",
+      "size_bytes": 1141,
+      "sha256": "2584f4171a01a4d75503b4ce85841b95c5875056d2d1619806e306a6c239870e"
     },
     {
-      "path": "data/source_item_bank/m2_probability/m2_probability_150worksheet_set11.source_items.v1.csv",
-      "size_bytes": 125152,
-      "sha256": "27cbc7c1df341e9560740cb1f970788a9832bbc20c803d99e8ca3bb0aa21b657"
+      "path": "data/source_item_bank/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.source_items.v1.csv",
+      "size_bytes": 27952,
+      "sha256": "b56e5e9e2cd973fe2c9d92dceb051ca83e2245d7d04730a6f58ca52fba54b5f1"
     },
     {
-      "path": "data/source_item_bank/m2_probability/m2_probability_150worksheet_set11.source_items.v1.json",
-      "size_bytes": 655173,
-      "sha256": "2438aeb587325e8366289872b96087f816b18bb959464b0a4a7968e6f8f73aef"
+      "path": "data/source_item_bank/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.source_items.v1.json",
+      "size_bytes": 532435,
+      "sha256": "c86f82a8cd65a67be1bfb8f869a4ab1564edad8c412adc6073f8547c09a87764"
     },
     {
-      "path": "data/source_item_links/m2_probability/m2_probability_150worksheet_set11.links.v1.json",
-      "size_bytes": 219781,
-      "sha256": "87bad50a952bcb6e1a1141817605c346c6288e03fd6573177a6b61e0543c5bf5"
+      "path": "data/source_item_links/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.links.v1.json",
+      "size_bytes": 194080,
+      "sha256": "b28ee8a754df1ad96a194db946ea1ce1c97c5f73ac50a33f913548d8e8ece59f"
     },
     {
-      "path": "data/sources/m2_probability_150worksheet_set11.registry.v1.json",
-      "size_bytes": 3612,
-      "sha256": "f7020e9fcccae7897e090d08bbcb30c94ed0e629b7d593cb6cd85e36a62ebe3b"
+      "path": "data/sources/m3_real_numbers_and_operations.source_manifest.v1.json",
+      "size_bytes": 11464,
+      "sha256": "8911622773cf787f3ae0f9529216b77db67b770ab6639676ea706cd47eedee40"
     },
     {
-      "path": "data/sources/m2_probability_worksheets.index.v1.json",
-      "size_bytes": 6286,
-      "sha256": "91223609ec265e42e1c3dff788964a8524a3f6248c1ff9cd2d997981fd6ed668"
+      "path": "data/sources/m3_real_numbers_and_operations_150worksheet_set07.registry.v1.json",
+      "size_bytes": 3144,
+      "sha256": "0dd07160035cd707fe6bbb407786f58b2a2f01374a684faacdd3a1d5784078d8"
     },
     {
-      "path": "data/type_variant_bank/m2_probability/m2_probability_150worksheet_set11.type_variants.v1.json",
-      "size_bytes": 73050,
-      "sha256": "e0286009c5a4da654ad3872f01de725293cf88b9d4157c14b9f02051ada0dee4"
+      "path": "data/sources/m3_real_numbers_and_operations_worksheets.index.v1.json",
+      "size_bytes": 4392,
+      "sha256": "690d6df5c7a429c0792ecd786d9aa664769ee2279371d00d1eb7daab1b105d60"
     },
     {
-      "path": "docs/patch225_m2_probability_set11_validation.json",
-      "size_bytes": 2152,
-      "sha256": "a4a55262616464002ea4de22df7b895260d077b9098a632f6a076e9eb0d1a989"
+      "path": "data/type_variant_bank/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.type_variants.v1.json",
+      "size_bytes": 95132,
+      "sha256": "8d4775fae13c8d21c5a3a9337f58092e1a97da80e7c25798097fc7f2d131a78f"
+    },
+    {
+      "path": "docs/patch232_m3_real_numbers_set07_validation.json",
+      "size_bytes": 1395,
+      "sha256": "1ab7b63784ca36cdceea300ba6cd94f94380ba814d8a83c4015ee9cfa9805fd8"
     }
   ]
 }
