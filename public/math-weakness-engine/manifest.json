@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-16-patch220-m2-probability-150-set06-ingestion",
+  "version": "2026-07-16-patch225-m2-probability-150-set11-ingestion",
   "build_date": "2026-07-16",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 student solution behavior analysis preserved; M2 counting and probability worksheet SET06 adds 150 canonical-aligned structural source items with answer keys and cross-set variant tracking.",
+  "description": "PATCH159 student solution behavior analysis preserved; M2 counting and probability worksheet SET11 adds 150 canonical-aligned structural source items with answer keys and cross-set variant tracking.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch220_m2_probability_150_set06_ingestion_20260716",
+  "last_patch": "math_weakness_engine_patch225_m2_probability_150_set11_ingestion_20260716",
   "unit_count": 39,
   "problem_type_count": 13042,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch220-m2-probability-150-set06-ingestion",
+  "patch": "patch225-m2-probability-150-set11-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -266,7 +266,22 @@
     "all_750_m2_probability_items_canonical_aligned",
     "m2_probability_150_set06_item_ingestion",
     "m2_probability_cross_set_01_02_03_04_05_06_variant_tracking",
-    "all_900_m2_probability_items_canonical_aligned"
+    "all_900_m2_probability_items_canonical_aligned",
+    "m2_probability_150_set07_item_ingestion",
+    "m2_probability_cross_set_01_02_03_04_05_06_07_variant_tracking",
+    "all_1050_m2_probability_items_canonical_aligned",
+    "m2_probability_150_set08_item_ingestion",
+    "m2_probability_cross_set_01_02_03_04_05_06_07_08_variant_tracking",
+    "all_1200_m2_probability_items_canonical_aligned",
+    "m2_probability_150_set09_item_ingestion",
+    "m2_probability_cross_set_01_02_03_04_05_06_07_08_09_variant_tracking",
+    "all_1350_m2_probability_items_canonical_aligned",
+    "m2_probability_150_set10_item_ingestion",
+    "m2_probability_cross_set_01_02_03_04_05_06_07_08_09_10_variant_tracking",
+    "all_1500_m2_probability_items_canonical_aligned",
+    "m2_probability_150_set11_item_ingestion",
+    "m2_probability_cross_set_01_02_03_04_05_06_07_08_09_10_11_variant_tracking",
+    "all_1650_m2_probability_items_canonical_aligned"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -278,7 +293,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중2 도형의 닮음·피타고라스 정리 SET09 150문항을 기존 canonical 문항유형 66개에 연결하고 SET01·SET02·SET03·SET04·SET05·SET06·SET07·SET08과의 cross-set 변형 관계 66개를 기록했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중2 경우의 수와 확률 SET11 150문항을 기존 canonical 문항유형 55개에 연결하고 SET01~SET10과의 cross-set 변형 관계 55개를 기록했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -294,11 +309,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 69,
-  "latest_source_registry": "data/sources/m2_probability_150worksheet_set06.registry.v1.json",
-  "problem_ingestion_source_count": 67,
+  "source_alignment_count": 74,
+  "latest_source_registry": "data/sources/m2_probability_150worksheet_set11.registry.v1.json",
+  "problem_ingestion_source_count": 72,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 9033,
+  "problem_item_count_total": 9783,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -316,67 +331,67 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH214는 PATCH213이 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 도형의 닮음·피타고라스 정리 SET09 구조 데이터만 누적한다.",
+  "base_integrity_note": "PATCH225는 PATCH224가 적용된 엔진을 기준으로 작성되었으며 Worker 및 D1 변경 없이 중2 경우의 수와 확률 SET11 구조 데이터만 누적한다.",
   "patch_files": [
     {
-      "path": "data/coverage/m2_similarity_pythagoras_150worksheet_set09.coverage_manifest.v1.csv",
-      "size_bytes": 1999,
-      "sha256": "c8a6bbd77b3a72f26534f6a907618e0661d7ebb17828038ebbde32bebaa4717a"
+      "path": "data/coverage/m2_probability_150worksheet_set11.coverage_manifest.v1.csv",
+      "size_bytes": 1470,
+      "sha256": "6563d1eab8e1c319f438750d6c86a4aa5c2927e05062324aad3e887e36295d4a"
     },
     {
-      "path": "data/coverage/m2_similarity_pythagoras_150worksheet_set09.coverage_manifest.v1.json",
-      "size_bytes": 6208,
-      "sha256": "108fa41e04840d867548f7c1b1b5b588ebc93a299087e55edc12840a64ea2ff4"
+      "path": "data/coverage/m2_probability_150worksheet_set11.coverage_manifest.v1.json",
+      "size_bytes": 4747,
+      "sha256": "805a33fb0f663041029fc9a71d9a085e0cb6cd126f2abdf841148076a6fdd0b8"
     },
     {
-      "path": "data/duplicate_map/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set09.duplicate_map.v1.json",
-      "size_bytes": 165083,
-      "sha256": "c30dceab8c24e6fcdc6d0f297a7c94f4daf4e4dfa4795bb9930209e542a9fdab"
+      "path": "data/duplicate_map/m2_probability/m2_probability_150worksheet_set11.duplicate_map.v1.json",
+      "size_bytes": 93750,
+      "sha256": "3c281b15c58e310fe7916d983697066000ab51f384bd6c5dc1128bb16aad0262"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 45771,
-      "sha256": "64b00db1f060cc91b0801654f80b6e641ff9efe4503c79b99c30f99b52f523d4"
+      "size_bytes": 46461,
+      "sha256": "4a98d296f7b0ba74dd3f510c0736a3676ff492d4df763e17701aa01e17f9600a"
     },
     {
-      "path": "data/item_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set09.item_bank_index.v1.json",
-      "size_bytes": 1083,
-      "sha256": "a083ce3b4d751170d21182cdccf462374fd8237cf981bc9f608cee4d95e03a42"
+      "path": "data/item_bank/m2_probability/m2_probability_150worksheet_set11.item_bank_index.v1.json",
+      "size_bytes": 960,
+      "sha256": "ba7e5caef58c38edd9a3706a3606180112a9c650eba08d6e66f48d1fc5f6f689"
     },
     {
-      "path": "data/source_item_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set09.source_items.v1.csv",
-      "size_bytes": 126718,
-      "sha256": "866da864cc4806405d603435a913eb5b771fed9f95bd479255b191362c017a9b"
+      "path": "data/source_item_bank/m2_probability/m2_probability_150worksheet_set11.source_items.v1.csv",
+      "size_bytes": 125152,
+      "sha256": "27cbc7c1df341e9560740cb1f970788a9832bbc20c803d99e8ca3bb0aa21b657"
     },
     {
-      "path": "data/source_item_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set09.source_items.v1.json",
-      "size_bytes": 649242,
-      "sha256": "b60ee2093a646bf03ca918e015c001352a45f86c7ba4d9bbc593103aa834f8e0"
+      "path": "data/source_item_bank/m2_probability/m2_probability_150worksheet_set11.source_items.v1.json",
+      "size_bytes": 655173,
+      "sha256": "2438aeb587325e8366289872b96087f816b18bb959464b0a4a7968e6f8f73aef"
     },
     {
-      "path": "data/source_item_links/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set09.links.v1.json",
-      "size_bytes": 224679,
-      "sha256": "7789399e3754e7570a99d6f40872cc8fdd7af301dc5015ab84be9223b7812c4e"
+      "path": "data/source_item_links/m2_probability/m2_probability_150worksheet_set11.links.v1.json",
+      "size_bytes": 219781,
+      "sha256": "87bad50a952bcb6e1a1141817605c346c6288e03fd6573177a6b61e0543c5bf5"
     },
     {
-      "path": "data/sources/m2_similarity_pythagoras_150worksheet_set09.registry.v1.json",
-      "size_bytes": 4350,
-      "sha256": "3e4f67be5a8aa7053ed9f8e049b8012f1eaca0caea24f07282bac4e7750ad3ca"
+      "path": "data/sources/m2_probability_150worksheet_set11.registry.v1.json",
+      "size_bytes": 3612,
+      "sha256": "f7020e9fcccae7897e090d08bbcb30c94ed0e629b7d593cb6cd85e36a62ebe3b"
     },
     {
-      "path": "data/sources/m2_similarity_pythagoras_worksheets.index.v1.json",
-      "size_bytes": 5450,
-      "sha256": "b56d109867568fffcbafc95ab3812b8324021ad6c579ff2ec81505d82a815f05"
+      "path": "data/sources/m2_probability_worksheets.index.v1.json",
+      "size_bytes": 6286,
+      "sha256": "91223609ec265e42e1c3dff788964a8524a3f6248c1ff9cd2d997981fd6ed668"
     },
     {
-      "path": "data/type_variant_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set09.type_variants.v1.json",
-      "size_bytes": 60012,
-      "sha256": "533584f0a6a7318e20787f3343896ef843fca3146e2d057b68f8ef3474aa3c9b"
+      "path": "data/type_variant_bank/m2_probability/m2_probability_150worksheet_set11.type_variants.v1.json",
+      "size_bytes": 73050,
+      "sha256": "e0286009c5a4da654ad3872f01de725293cf88b9d4157c14b9f02051ada0dee4"
     },
     {
-      "path": "docs/patch214_m2_similarity_pythagoras_set09_validation.json",
-      "size_bytes": 1812,
-      "sha256": "4eb8e130a575cdfc342aadc2b0d936e543d65f59ed79e223008b5f36eba62e80"
+      "path": "docs/patch225_m2_probability_set11_validation.json",
+      "size_bytes": 2152,
+      "sha256": "a4a55262616464002ea4de22df7b895260d077b9098a632f6a076e9eb0d1a989"
     }
   ]
 }

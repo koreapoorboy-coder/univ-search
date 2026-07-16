@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-16-patch220",
+  "version": "2026-07-16-patch225",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -220,7 +220,13 @@
       "remediation": "data/remediation/m2_probability.remediation_map.v1.json",
       "sources": "data/sources/m2_probability.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/m2_probability.raw_taxonomy.v1.json",
-      "solution_templates": "data/forms/m2_probability.solution_templates.v1.json"
+      "solution_templates": "data/forms/m2_probability.solution_templates.v1.json",
+      "worksheet_sources_index": "data/sources/m2_probability_worksheets.index.v1.json",
+      "latest_item_bank_index": "data/item_bank/m2_probability/m2_probability_150worksheet_set11.item_bank_index.v1.json",
+      "latest_source_item_links": "data/source_item_links/m2_probability/m2_probability_150worksheet_set11.links.v1.json",
+      "latest_type_variant_bank": "data/type_variant_bank/m2_probability/m2_probability_150worksheet_set11.type_variants.v1.json",
+      "latest_duplicate_map": "data/duplicate_map/m2_probability/m2_probability_150worksheet_set11.duplicate_map.v1.json",
+      "latest_coverage_manifest": "data/coverage/m2_probability_150worksheet_set11.coverage_manifest.v1.json"
     },
     {
       "unit_id": "M3_POLYNOMIAL_FACTORING",
@@ -832,7 +838,7 @@
       "student_note_feedback_templates": "data/learning_evidence/student_note_feedback_templates.v1.json"
     }
   },
-  "last_patch": "math_weakness_engine_patch220_m2_probability_150_set06_ingestion_20260716",
+  "last_patch": "math_weakness_engine_patch225_m2_probability_150_set11_ingestion_20260716",
   "ai_bridge": {
     "version": "2026.07.08-math-hybrid-ai-bridge-v1.0",
     "purpose": "학생 PDF/풀이/필기 업로드를 AI가 구조화하고, 수학 취약유형 엔진이 검수 문항 생성과 답안 재검수를 수행하기 위한 연결 레이어",
