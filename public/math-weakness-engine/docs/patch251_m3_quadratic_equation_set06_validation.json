@@ -1,0 +1,77 @@
+{
+  "patch": "patch251",
+  "source_id": "SRC_M3_QUADRATIC_EQUATION_150_WORKSHEET_SET06_20260711",
+  "pdf_sha256": "554956edb02fb0b924bbc8a28892b77396f982ad19c1c22d0458456c593febf9",
+  "pdf_size_bytes": 9757598,
+  "pdf_page_count": 62,
+  "problem_pages": "1-38",
+  "quick_answer_pages": "39-40",
+  "solution_pages": "41-62",
+  "item_count": 150,
+  "matched_item_count": 150,
+  "unmatched_item_count": 0,
+  "canonical_unit_id": "M3_QUADRATIC_EQUATION",
+  "canonical_problem_type_count": 144,
+  "matched_problem_type_count": 74,
+  "new_problem_type_count": 0,
+  "coverage_range_count": 7,
+  "variant_group_count": 74,
+  "exact_duplicate_count": 0,
+  "cross_set_near_duplicate_group_count": 73,
+  "low_accuracy_item_count": 18,
+  "visual_problem_count": 31,
+  "answer_verification_note": "150 quick answers transcribed from rendered pages 39-40; solution-page question ranges indexed for all items",
+  "storage_policy": "problem and solution text/images not stored; answer keys and structural quadratic metadata only",
+  "base_engine_check": {
+    "manifest_reported_patch": "math_weakness_engine_patch250_m3_quadratic_equation_150_set05_ingestion_20260717",
+    "m3_quadratic_canonical_unit_found": true,
+    "m3_quadratic_canonical_problem_type_count": 144,
+    "prior_quadratic_worksheet_set_count": 5,
+    "prior_quadratic_item_count": 750,
+    "build_contract": "PATCH251 applies after PATCH250 and adds M3 quadratic equation SET06"
+  },
+  "validation_status": "passed",
+  "merged_validation": {
+    "json_files_checked": 646,
+    "json_errors": [],
+    "reference_checks": [
+      [
+        "data/item_bank/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.item_bank_index.v1.json",
+        true
+      ],
+      [
+        "data/source_item_bank/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.source_items.v1.json",
+        true
+      ],
+      [
+        "data/source_item_links/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.links.v1.json",
+        true
+      ],
+      [
+        "data/type_variant_bank/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.type_variants.v1.json",
+        true
+      ],
+      [
+        "data/duplicate_map/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.duplicate_map.v1.json",
+        true
+      ],
+      [
+        "data/coverage/m3_quadratic_equation_150worksheet_set06.coverage_manifest.v1.json",
+        true
+      ]
+    ],
+    "logical_checks": {
+      "items_150": true,
+      "links_150": true,
+      "all_mapped": true,
+      "answers_150": true,
+      "worksheet_count_6": true,
+      "root_total_13683": true,
+      "source_counts": true,
+      "prior_sets_preserved": true,
+      "cross_set_groups": true,
+      "references_exist": true,
+      "json_parse": true
+    }
+  }
+}

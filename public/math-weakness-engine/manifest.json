@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-17-patch245-m3-polynomial-factorization-150-set10-ingestion",
+  "version": "2026-07-17-patch251-m3-quadratic-equation-150-set06-ingestion",
   "build_date": "2026-07-17",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 behavior analysis preserved; M3 polynomial multiplication and factorization worksheet SET10 adds 150 canonical-aligned structural source items.",
+  "description": "PATCH159 behavior analysis preserved; M3 quadratic equation worksheet SET06 adds 150 canonical-aligned structural source items with cross-set variant tracking across SET01-SET06.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch245_m3_polynomial_factorization_150_set10_ingestion_20260717",
+  "last_patch": "math_weakness_engine_patch251_m3_quadratic_equation_150_set06_ingestion_20260717",
   "unit_count": 39,
   "problem_type_count": 13042,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch245-m3-polynomial-factorization-150-set10-ingestion",
+  "patch": "patch251-m3-quadratic-equation-150-set06-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -281,7 +281,24 @@
     "all_1500_m2_probability_items_canonical_aligned",
     "m2_probability_150_set11_item_ingestion",
     "m2_probability_cross_set_01_02_03_04_05_06_07_08_09_10_11_variant_tracking",
-    "all_1650_m2_probability_items_canonical_aligned"
+    "all_1650_m2_probability_items_canonical_aligned",
+    "m3_quadratic_equation_150_set01_item_ingestion",
+    "m3_quadratic_equation_variant_and_duplicate_tracking",
+    "all_150_m3_quadratic_equation_items_canonical_matched",
+    "m3_quadratic_equation_150_set02_item_ingestion",
+    "m3_quadratic_equation_cross_set_variant_tracking",
+    "m3_quadratic_equation_set01_set02_300_items_complete",
+    "m3_quadratic_equation_150_set03_item_ingestion",
+    "m3_quadratic_equation_set01_set02_set03_450_items_complete",
+    "m3_quadratic_equation_150_set04_item_ingestion",
+    "m3_quadratic_equation_set01_set02_set03_set04_variant_tracking",
+    "m3_quadratic_equation_set01_set02_set03_set04_600_items_complete",
+    "m3_quadratic_equation_150_set05_item_ingestion",
+    "m3_quadratic_equation_set01_set02_set03_set04_set05_variant_tracking",
+    "m3_quadratic_equation_set01_set02_set03_set04_set05_750_items_complete",
+    "m3_quadratic_equation_150_set06_item_ingestion",
+    "m3_quadratic_equation_set01_set02_set03_set04_set05_set06_variant_tracking",
+    "m3_quadratic_equation_set01_set02_set03_set04_set05_set06_900_items_complete"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -293,7 +310,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중3 다항식의 곱셈과 인수분해 SET10 150문항을 기존 canonical 문항유형 31개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중3 이차방정식 SET06 150문항을 기존 canonical 문항유형에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -309,11 +326,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 94,
-  "latest_source_registry": "data/sources/m3_polynomial_multiplication_factorization_150worksheet_set10.registry.v1.json",
-  "problem_ingestion_source_count": 92,
+  "source_alignment_count": 100,
+  "latest_source_registry": "data/sources/m3_quadratic_equation_150worksheet_set06.registry.v1.json",
+  "problem_ingestion_source_count": 98,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 12783,
+  "problem_item_count_total": 13683,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -331,72 +348,72 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH245는 PATCH244 적용 엔진 기준이며 Worker 및 D1 변경 없이 중3 다항식의 곱셈과 인수분해 SET10 구조 데이터만 누적한다.",
+  "base_integrity_note": "PATCH251는 PATCH250 적용 엔진 기준이며 Worker 및 D1 변경 없이 중3 이차방정식 SET06 구조 데이터만 누적한다.",
   "patch_files": [
     {
-      "path": "data/coverage/m3_polynomial_multiplication_factorization_150worksheet_set10.coverage_manifest.v1.csv",
-      "size_bytes": 1211,
-      "sha256": "bc6198598d08014517f67cb38bb2dcbdb0cf09d8e1274d121afe7a690d8722b8"
+      "path": "data/coverage/m3_quadratic_equation_150worksheet_set06.coverage_manifest.v1.csv",
+      "size_bytes": 1865,
+      "sha256": "7765629f05e8ad3a64d7747cb216a34894ab5a15cc085ec5ca74c4d6c24574e8"
     },
     {
-      "path": "data/coverage/m3_polynomial_multiplication_factorization_150worksheet_set10.coverage_manifest.v1.json",
-      "size_bytes": 3686,
-      "sha256": "3b9e789e9e6ae23992bf42490e62e393599c8de259d8221186f9c66e83e1e1da"
+      "path": "data/coverage/m3_quadratic_equation_150worksheet_set06.coverage_manifest.v1.json",
+      "size_bytes": 5850,
+      "sha256": "3d0ac39376304233e68987d2229825db4783619922f8d1a5fc786d9818b098dc"
     },
     {
-      "path": "data/duplicate_map/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set10.duplicate_map.v1.json",
-      "size_bytes": 64124,
-      "sha256": "7f18a692dbd91283040c51a097af392b2dc2484421281c44711e9199c0a8b506"
+      "path": "data/duplicate_map/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.duplicate_map.v1.json",
+      "size_bytes": 62021,
+      "sha256": "53944f8316f7fae688073e2c80e6b0f6713b543ce2a550d9b4a8691b62292c4c"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 48301,
-      "sha256": "9e81e0458e794a939879f91f5e3c45d055e1ba58cc169da78fe424338edc7683"
+      "size_bytes": 49078,
+      "sha256": "b0dc964757d6703661bbd4f127dee832f97fae9a657544d12a95affc033792e6"
     },
     {
-      "path": "data/item_bank/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set10.item_bank_index.v1.json",
-      "size_bytes": 1284,
-      "sha256": "8f28c240406fcdab4e274b71ed117f5758784906fcec1b4888255254eec18640"
+      "path": "data/item_bank/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.item_bank_index.v1.json",
+      "size_bytes": 1058,
+      "sha256": "c2404acce58bc02c02f0c77e04e0c7cbb1122dc023ea71f2f4453b37449772e8"
     },
     {
-      "path": "data/source_item_bank/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set10.source_items.v1.csv",
-      "size_bytes": 31284,
-      "sha256": "4522a758e70ce303727a174f975e0ecf32229cc3e41b9572c4c761523576e6c3"
+      "path": "data/source_item_bank/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.source_items.v1.csv",
+      "size_bytes": 32342,
+      "sha256": "4bc22e144a44f51d58269af42027036886d7b45e46817801db806a7ce653624f"
     },
     {
-      "path": "data/source_item_bank/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set10.source_items.v1.json",
-      "size_bytes": 617157,
-      "sha256": "f19a87db14adcff22f9764670310466ea6a46f60daaedc491648d21d205a5e0d"
+      "path": "data/source_item_bank/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.source_items.v1.json",
+      "size_bytes": 532148,
+      "sha256": "6b307fdb305b11863e058ce8d1e43874e2adb9288770ec9327689001bc5affe0"
     },
     {
-      "path": "data/source_item_links/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set10.links.v1.json",
-      "size_bytes": 220766,
-      "sha256": "ccfa0180e9c1adb47097e5eaf8285fe042b5d116dd292b160d95c8ae0a950404"
+      "path": "data/source_item_links/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.links.v1.json",
+      "size_bytes": 209711,
+      "sha256": "34937d8af2ca2fa355f515978c9d3094a1f772ca37310d7ff3524481f18151e6"
     },
     {
-      "path": "data/sources/m3_polynomial_multiplication_factorization.source_manifest.v1.json",
-      "size_bytes": 14139,
-      "sha256": "7c33fbc7c391301ea9fb0da6c3a2d9a07355000d9d75136ca6105188ba461fc7"
+      "path": "data/sources/m3_quadratic_equation.source_manifest.v1.json",
+      "size_bytes": 10724,
+      "sha256": "dbc7ba1ecd854aa91378d2d4084d34784e94a8c1ddaf8fa4316627c3c1569829"
     },
     {
-      "path": "data/sources/m3_polynomial_multiplication_factorization_150worksheet_set10.registry.v1.json",
-      "size_bytes": 3194,
-      "sha256": "f46df0b04e157f2b750f1194947e034c87a6cfb4dfebfeb36f8ed0aa1864bb33"
+      "path": "data/sources/m3_quadratic_equation_150worksheet_set06.registry.v1.json",
+      "size_bytes": 3079,
+      "sha256": "336196f95ef9363450e8c5340a813e04785ede37e509a453e1d43dc6350247d8"
     },
     {
-      "path": "data/sources/m3_polynomial_multiplication_factorization_worksheets.index.v1.json",
-      "size_bytes": 6799,
-      "sha256": "4c6afaf13a99f068a25b297409511a0ec17c564aa4b3f36f49f15cf7b15e891e"
+      "path": "data/sources/m3_quadratic_equation_worksheets.index.v1.json",
+      "size_bytes": 3679,
+      "sha256": "28abf4e22790a7d8109bf4f9fcedc80f7ef2cd781279f9ae5a942d1ec180eb15"
     },
     {
-      "path": "data/type_variant_bank/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set10.type_variants.v1.json",
-      "size_bytes": 73319,
-      "sha256": "e31cb5b5be986faa43c023d1b2df908f597917fdc9bcb17fdaad08b3ee416c81"
+      "path": "data/type_variant_bank/m3_quadratic_equation/m3_quadratic_equation_150worksheet_set06.type_variants.v1.json",
+      "size_bytes": 88324,
+      "sha256": "47af77710fbf00971b0941c56dafc357325d584b7cca238d80d16e3385928265"
     },
     {
-      "path": "docs/patch245_m3_polynomial_factorization_set10_validation.json",
-      "size_bytes": 1511,
-      "sha256": "2e845bb169230590f008372cd25c5341387ea4f4f7f1342cb838c03b203e2950"
+      "path": "docs/patch251_m3_quadratic_equation_set06_validation.json",
+      "size_bytes": 2788,
+      "sha256": "9b0ea54c2da84e077bfebb4898a2f8106a5f62a5254d72f73c84713b59e0e9e9"
     }
   ]
 }
