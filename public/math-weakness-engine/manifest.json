@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-16-patch232-m3-real-numbers-150-set07-ingestion",
-  "build_date": "2026-07-16",
+  "version": "2026-07-17-patch241-m3-polynomial-factorization-150-set06-ingestion",
+  "build_date": "2026-07-17",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 behavior analysis preserved; M3 real numbers and radical operations worksheet SET07 adds 150 canonical-aligned structural source items.",
+  "description": "PATCH159 behavior analysis preserved; M3 polynomial multiplication and factorization worksheet SET06 adds 150 canonical-aligned structural source items with SET01-SET05 cross-set variant linkage.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch232_m3_real_numbers_150_set07_ingestion_20260716",
+  "last_patch": "math_weakness_engine_patch241_m3_polynomial_factorization_150_set06_ingestion_20260717",
   "unit_count": 39,
   "problem_type_count": 13042,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch232-m3-real-numbers-150-set07-ingestion",
+  "patch": "patch241-m3-polynomial-factorization-150-set06-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -293,7 +293,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중3 실수와 그 계산 SET07 150문항을 기존 canonical 문항유형 89개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중3 다항식의 곱셈과 인수분해 SET06 150문항을 기존 canonical 문항유형 84개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -309,11 +309,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 81,
-  "latest_source_registry": "data/sources/m3_real_numbers_and_operations_150worksheet_set07.registry.v1.json",
-  "problem_ingestion_source_count": 79,
+  "source_alignment_count": 90,
+  "latest_source_registry": "data/sources/m3_polynomial_multiplication_factorization_150worksheet_set06.registry.v1.json",
+  "problem_ingestion_source_count": 88,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 10833,
+  "problem_item_count_total": 12183,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -331,72 +331,72 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH232는 PATCH231 적용 엔진 기준이며 Worker 및 D1 변경 없이 중3 실수와 그 계산 SET07 구조 데이터만 누적한다.",
+  "base_integrity_note": "PATCH241은 PATCH240 적용 엔진 기준이며 Worker 및 D1 변경 없이 중3 다항식의 곱셈과 인수분해 SET06 구조 데이터만 누적한다.",
   "patch_files": [
     {
-      "path": "data/coverage/m3_real_numbers_and_operations_150worksheet_set07.coverage_manifest.v1.csv",
-      "size_bytes": 2146,
-      "sha256": "7ce9c27e52ec8fec3ec9070846f1c0b5a0b19a018e53770e22eb36972a08d4b7"
+      "path": "data/coverage/m3_polynomial_multiplication_factorization_150worksheet_set06.coverage_manifest.v1.csv",
+      "size_bytes": 2006,
+      "sha256": "4cdbb35ff4ca7d42a02ae262a642bf9f51c0dc05e3e0dd9445c2c6c672248124"
     },
     {
-      "path": "data/coverage/m3_real_numbers_and_operations_150worksheet_set07.coverage_manifest.v1.json",
-      "size_bytes": 6785,
-      "sha256": "a57a6a325a3df2955f3ab02bf9f941d7b2b6044d38e0765e85fed1d92aeda6a2"
+      "path": "data/coverage/m3_polynomial_multiplication_factorization_150worksheet_set06.coverage_manifest.v1.json",
+      "size_bytes": 6314,
+      "sha256": "a6a3b624d23c4707bb6234948093a10e2f8cf93e51876433bf6a926af12c87c9"
     },
     {
-      "path": "data/duplicate_map/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.duplicate_map.v1.json",
-      "size_bytes": 90950,
-      "sha256": "7772f32200cba8abefed8b89cb90f8b15df5eed4aa2512aa87714d89c7d793e9"
+      "path": "data/duplicate_map/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set06.duplicate_map.v1.json",
+      "size_bytes": 114893,
+      "sha256": "b17cb845105ac60fd434e79e6dc6e24f1e064c3aeddb06d0e7f0fb76376d5146"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 47321,
-      "sha256": "0b64a010524aec6927842f0906b0452d29d6230fb788bc5e2ed595614a425d86"
+      "size_bytes": 48301,
+      "sha256": "bfd5e0a6fe91634011e40408efed1ed2c8959ba82b65bcf15a6722e007099671"
     },
     {
-      "path": "data/item_bank/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.item_bank_index.v1.json",
-      "size_bytes": 1141,
-      "sha256": "2584f4171a01a4d75503b4ce85841b95c5875056d2d1619806e306a6c239870e"
+      "path": "data/item_bank/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set06.item_bank_index.v1.json",
+      "size_bytes": 1284,
+      "sha256": "d44ce3c002b59ba59b11c72e76b96b7cbc0f4a921a035462ea8ba6eb3dd04471"
     },
     {
-      "path": "data/source_item_bank/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.source_items.v1.csv",
-      "size_bytes": 27952,
-      "sha256": "b56e5e9e2cd973fe2c9d92dceb051ca83e2245d7d04730a6f58ca52fba54b5f1"
+      "path": "data/source_item_bank/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set06.source_items.v1.csv",
+      "size_bytes": 30638,
+      "sha256": "e3b78f6b7f535d28aa9ca31743e44764b27ee4faa6696d37cc0156b320b775dc"
     },
     {
-      "path": "data/source_item_bank/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.source_items.v1.json",
-      "size_bytes": 532435,
-      "sha256": "c86f82a8cd65a67be1bfb8f869a4ab1564edad8c412adc6073f8547c09a87764"
+      "path": "data/source_item_bank/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set06.source_items.v1.json",
+      "size_bytes": 570552,
+      "sha256": "0a5f67e6ccaea5b93d796219eb97d78f7c6de5ce7353461a1ae22dbcb78a5862"
     },
     {
-      "path": "data/source_item_links/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.links.v1.json",
-      "size_bytes": 194080,
-      "sha256": "b28ee8a754df1ad96a194db946ea1ce1c97c5f73ac50a33f913548d8e8ece59f"
+      "path": "data/source_item_links/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set06.links.v1.json",
+      "size_bytes": 211492,
+      "sha256": "c72ee7ae566b4d394efd330ad4b533ff860a0305e2df4a4ba9e6e6f95aaac76b"
     },
     {
-      "path": "data/sources/m3_real_numbers_and_operations.source_manifest.v1.json",
-      "size_bytes": 11464,
-      "sha256": "8911622773cf787f3ae0f9529216b77db67b770ab6639676ea706cd47eedee40"
+      "path": "data/sources/m3_polynomial_multiplication_factorization.source_manifest.v1.json",
+      "size_bytes": 11135,
+      "sha256": "a6b47dadaa08db9342c664098d0ec37d0c31e4818d842905de407847876cfe9f"
     },
     {
-      "path": "data/sources/m3_real_numbers_and_operations_150worksheet_set07.registry.v1.json",
-      "size_bytes": 3144,
-      "sha256": "0dd07160035cd707fe6bbb407786f58b2a2f01374a684faacdd3a1d5784078d8"
+      "path": "data/sources/m3_polynomial_multiplication_factorization_150worksheet_set06.registry.v1.json",
+      "size_bytes": 3274,
+      "sha256": "19ab2883bc51fc579738efa770ffbbc66cded24555f64d4e8d403b2f65256a0a"
     },
     {
-      "path": "data/sources/m3_real_numbers_and_operations_worksheets.index.v1.json",
-      "size_bytes": 4392,
-      "sha256": "690d6df5c7a429c0792ecd786d9aa664769ee2279371d00d1eb7daab1b105d60"
+      "path": "data/sources/m3_polynomial_multiplication_factorization_worksheets.index.v1.json",
+      "size_bytes": 4157,
+      "sha256": "9b633d32bca416319c1bf820f25271aab0e35b4a22cbe00822ec25a6e60f00ea"
     },
     {
-      "path": "data/type_variant_bank/m3_real_numbers_and_operations/m3_real_numbers_and_operations_150worksheet_set07.type_variants.v1.json",
-      "size_bytes": 95132,
-      "sha256": "8d4775fae13c8d21c5a3a9337f58092e1a97da80e7c25798097fc7f2d131a78f"
+      "path": "data/type_variant_bank/m3_polynomial_multiplication_factorization/m3_polynomial_multiplication_factorization_150worksheet_set06.type_variants.v1.json",
+      "size_bytes": 138413,
+      "sha256": "3a6b6fe283cf7fd7a6167f4944489dffb365fa33b95afbe2ad68d9fd7134e1bd"
     },
     {
-      "path": "docs/patch232_m3_real_numbers_set07_validation.json",
-      "size_bytes": 1395,
-      "sha256": "1ab7b63784ca36cdceea300ba6cd94f94380ba814d8a83c4015ee9cfa9805fd8"
+      "path": "docs/patch241_m3_polynomial_factorization_set06_validation.json",
+      "size_bytes": 1497,
+      "sha256": "8bd285f37d6267a2dba8bda8eb8073239fb566895eb499e0ff18a098afd9e265"
     }
   ]
 }
