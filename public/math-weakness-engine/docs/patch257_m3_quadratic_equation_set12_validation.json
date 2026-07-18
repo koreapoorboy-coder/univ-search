@@ -1,0 +1,62 @@
+{
+  "patch": "patch257",
+  "source_id": "SRC_M3_QUADRATIC_EQUATION_150_WORKSHEET_SET12_20260711",
+  "pdf_sha256": "1681db1f1c008c3efaeb6cc3e260c1332ed8fb80fb3afd2ca6c65c396f180f1c",
+  "pdf_size_bytes": 9853359,
+  "pdf_page_count": 64,
+  "problem_pages": "1-39",
+  "quick_answer_pages": "40-41",
+  "solution_pages": "42-64",
+  "item_count": 150,
+  "matched_item_count": 150,
+  "unmatched_item_count": 0,
+  "canonical_unit_id": "M3_QUADRATIC_EQUATION",
+  "canonical_problem_type_count": 144,
+  "matched_problem_type_count": 46,
+  "new_problem_type_count": 0,
+  "coverage_range_count": 7,
+  "variant_group_count": 46,
+  "exact_duplicate_count": 0,
+  "cross_set_near_duplicate_group_count": 45,
+  "low_accuracy_item_count": 14,
+  "visual_problem_count": 30,
+  "answer_verification_note": "150 quick answers transcribed from rendered pages 40-41; solution-page question ranges indexed for all items",
+  "storage_policy": "problem and solution text/images not stored; answer keys and structural quadratic metadata only",
+  "base_engine_check": {
+    "manifest_reported_patch": "patch256",
+    "m3_quadratic_canonical_unit_found": true,
+    "m3_quadratic_canonical_problem_type_count": 144,
+    "prior_quadratic_worksheet_set_count": 11,
+    "prior_quadratic_item_count": 1650,
+    "build_contract": "PATCH256 applied before PATCH257"
+  },
+  "validation_status": "passed",
+  "merged_validation": {
+    "patch_json_files_checked": 12,
+    "json_errors": [],
+    "reference_checks": {
+      "missing_files": [],
+      "status": "passed"
+    },
+    "logical_checks": {
+      "source_items_150": true,
+      "answers_150": true,
+      "headers_150": true,
+      "solution_pages_150": true,
+      "links_150": true,
+      "all_items_mapped": true,
+      "coverage_distribution_150": true,
+      "worksheet_index_12_sets": true,
+      "source_manifest_contains_set12": true,
+      "low_accuracy_consistent": true,
+      "visual_count_consistent": true,
+      "patch256_patch257_overlay_json_parse": true,
+      "patch256_patch257_overlay_worksheet_count_12": true,
+      "patch256_patch257_overlay_quadratic_item_count_1800": true,
+      "patch256_patch257_overlay_engine_item_total_14583": true,
+      "data_index_latest_set12_paths": true
+    },
+    "overlay_base": "PATCH256 patch-only overlay validation",
+    "overlay_status": "passed"
+  }
+}
