@@ -1,16 +1,16 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-19-patch264-m3-quadratic-function-150-set04-ingestion",
+  "version": "2026-07-19-patch270-m3-quadratic-function-150-set10-ingestion",
   "build_date": "2026-07-19",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 behavior analysis preserved; M3 quadratic function worksheet SET04 adds 150 canonical-aligned structural source items with graph/geometry metadata.",
+  "description": "PATCH159 behavior analysis preserved; M3 quadratic function worksheet SET10 adds 150 canonical-aligned structural source items with graph/geometry metadata.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch264_m3_quadratic_function_150_set04_ingestion_20260719",
+  "last_patch": "math_weakness_engine_patch270_m3_quadratic_function_150_set10_ingestion_20260719",
   "unit_count": 39,
-  "problem_type_count": 13042,
+  "problem_type_count": 13192,
   "has_global_diagnosis_logic": true,
   "has_note_evidence_review": true,
   "has_hybrid_ai_bridge": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch264-m3-quadratic-function-150-set04-ingestion",
+  "patch": "patch270-m3-quadratic-function-150-set10-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -331,7 +331,19 @@
     "all_450_m3_quadratic_function_items_canonical_matched",
     "m3_quadratic_function_150_set04_item_ingestion",
     "m3_quadratic_function_set04_variant_links",
-    "all_600_m3_quadratic_function_items_canonical_matched"
+    "all_600_m3_quadratic_function_items_canonical_matched",
+    "m3_quadratic_function_150_set06_item_ingestion",
+    "m3_quadratic_function_six_set_variant_links",
+    "all_900_m3_quadratic_function_items_canonical_matched",
+    "m3_quadratic_function_150_set07_item_ingestion",
+    "m3_quadratic_function_seven_set_variant_links",
+    "all_1050_m3_quadratic_function_items_canonical_matched",
+    "m3_quadratic_function_150_set08_item_ingestion",
+    "m3_quadratic_function_eight_set_variant_links",
+    "all_1200_m3_quadratic_function_items_canonical_matched",
+    "m3_quadratic_function_150_set09_item_ingestion",
+    "m3_quadratic_function_nine_set_variant_links",
+    "all_1350_m3_quadratic_function_items_canonical_matched"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -343,7 +355,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중3 이차함수 SET04 150문항을 기존 canonical 문항유형 46개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중3 이차함수 SET10 150문항을 기존 canonical 문항유형 24개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -359,11 +371,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 113,
-  "latest_source_registry": "data/sources/m3_quadratic_function_150worksheet_set04.registry.v1.json",
-  "problem_ingestion_source_count": 111,
+  "source_alignment_count": 118,
+  "latest_source_registry": "data/sources/m3_quadratic_function_150worksheet_set10.registry.v1.json",
+  "problem_ingestion_source_count": 116,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 15519,
+  "problem_item_count_total": 16269,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -381,72 +393,72 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH264는 PATCH263 적용 엔진 기준이며 Worker 및 D1 변경 없이 중3 이차함수 SET04 구조 데이터만 누적한다.",
+  "base_integrity_note": "PATCH270은 PATCH269 적용 엔진 기준이며 Worker 및 D1 변경 없이 중3 이차함수 SET10 구조 데이터만 누적한다.",
   "patch_files": [
     {
-      "path": "data/coverage/m3_quadratic_function_150worksheet_set04.coverage_manifest.v1.csv",
-      "size_bytes": 1487,
-      "sha256": "50a77e3bd40ba632a2260785ac58acb9d429ea4f32c566e8c58f0b1c59843247"
+      "path": "data/coverage/m3_quadratic_function_150worksheet_set10.coverage_manifest.v1.csv",
+      "size_bytes": 1095,
+      "sha256": "149059e67ca496c87f53c890f3ad5cbdd8938663fc1bdeeef1ab8845105691de"
     },
     {
-      "path": "data/coverage/m3_quadratic_function_150worksheet_set04.coverage_manifest.v1.json",
-      "size_bytes": 4514,
-      "sha256": "a215e018735ea5a3d1c634f2eaea20c4b4d94a6e4e959034d87ae9787bb867c0"
+      "path": "data/coverage/m3_quadratic_function_150worksheet_set10.coverage_manifest.v1.json",
+      "size_bytes": 3275,
+      "sha256": "8c8fe04f4be989252f472fe4b27112be0bb9fb54e8407c5005ee63e80d655b11"
     },
     {
-      "path": "data/duplicate_map/m3_quadratic_function/m3_quadratic_function_150worksheet_set04.duplicate_map.v1.json",
-      "size_bytes": 43760,
-      "sha256": "f3a6f42e516afd32e6275965273567178c0bbcd0f91756c58c997bae3a1371c1"
+      "path": "data/duplicate_map/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.duplicate_map.v1.json",
+      "size_bytes": 52649,
+      "sha256": "805df1ae0d6a2a1a905e11bd9cef04cda7b4e33889c340e87776fe00f9619484"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 49747,
-      "sha256": "353c1e7114c168a29a20d017581478285e1de3e00d1bcaff0d49628747abbfa4"
+      "size_bytes": 49789,
+      "sha256": "121fde49e6abf42eb5bec6de44bfd776d5ad1e4178bd39c6b0ccf72723405085"
     },
     {
-      "path": "data/item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set04.item_bank_index.v1.json",
+      "path": "data/item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.item_bank_index.v1.json",
       "size_bytes": 1100,
-      "sha256": "6b333b118dc3f72f7e7ead22438706452f2c0d5ae9b21764d4cc8d62e74f12a0"
+      "sha256": "18fa8c2eda3f60fd007a8e646c7e3e1119875623db6bd05c58808e3380e486d6"
     },
     {
-      "path": "data/source_item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set04.source_items.v1.csv",
-      "size_bytes": 35803,
-      "sha256": "6b90508658886c0e5fb57155fe7a107a3dc9df6688dbdbda1e72088524502a22"
+      "path": "data/source_item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.source_items.v1.csv",
+      "size_bytes": 37219,
+      "sha256": "3689450fbb2009721f04f4505e17125ea91bab64896633697862531d747f6550"
     },
     {
-      "path": "data/source_item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set04.source_items.v1.json",
-      "size_bytes": 574047,
-      "sha256": "52a085a726ffec51abbdd2d4e747cf94ee8e5b006eb89f6ad4bf1b6311d41a18"
+      "path": "data/source_item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.source_items.v1.json",
+      "size_bytes": 581570,
+      "sha256": "d970614bdacd184461bb4923b9a93aa9f13960312098834ca36fca51c28a3be1"
     },
     {
-      "path": "data/source_item_links/m3_quadratic_function/m3_quadratic_function_150worksheet_set04.links.v1.json",
-      "size_bytes": 225315,
-      "sha256": "29ae7f6f34a363bc47a7b6eebfed9744a7ca9d78211404f0b99a6d9f239f52e1"
+      "path": "data/source_item_links/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.links.v1.json",
+      "size_bytes": 228415,
+      "sha256": "e83f402135ed7c524acaaac42c3db2dc12cce31ff25d38e6558cb63566824740"
     },
     {
       "path": "data/sources/m3_quadratic_function.source_manifest.v1.json",
-      "size_bytes": 9134,
-      "sha256": "b30d0cc20f3c4b1db06b5ede3eca588b4dabe4443e0da11f21821dc7606e8415"
+      "size_bytes": 13430,
+      "sha256": "88785f35ae5b6311b9937e434a7928715b298194f9b9240546c8542ac2fa902f"
     },
     {
-      "path": "data/sources/m3_quadratic_function_150worksheet_set04.registry.v1.json",
-      "size_bytes": 1957,
-      "sha256": "59a542ee4f213169088814bb31b44639b2a378beb037a570e60085c06854c1ee"
+      "path": "data/sources/m3_quadratic_function_150worksheet_set10.registry.v1.json",
+      "size_bytes": 2068,
+      "sha256": "a2e287af4ec93e5a4902dc8ab8df679a929345cec4640f6661958ca09dab1f22"
     },
     {
       "path": "data/sources/m3_quadratic_function_worksheets.index.v1.json",
-      "size_bytes": 2540,
-      "sha256": "78fd9991f524f08162603b79b598a9d35fd85d1c5850903de62f202c940dcf9d"
+      "size_bytes": 6023,
+      "sha256": "49032bd25c276969929bda4d1416cdef6dcbd05a29593fcf776e0ce07a85ca6e"
     },
     {
-      "path": "data/type_variant_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set04.type_variants.v1.json",
-      "size_bytes": 60547,
-      "sha256": "3be0567f20824d95ee7920348dbf23639dc3a12bf53f2ffb7cc7159a408f91ce"
+      "path": "data/type_variant_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.type_variants.v1.json",
+      "size_bytes": 57544,
+      "sha256": "b0763a31888cd7f51a144e77c1e12872bef0f3f1c7f5a3366b535fcf4f1b03a2"
     },
     {
-      "path": "docs/patch264_m3_quadratic_function_set04_validation.json",
-      "size_bytes": 2556,
-      "sha256": "34af7bf0d49d4c2fbdd6359b1d308c7a42902351221320dc4003f437b64e00bf"
+      "path": "docs/patch270_m3_quadratic_function_set10_validation.json",
+      "size_bytes": 2097,
+      "sha256": "9098c8c9b998d00c638911bf01333f027fd36a1871016ba11c2a569e3749c8e4"
     }
   ]
 }
