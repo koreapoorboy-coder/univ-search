@@ -1,0 +1,83 @@
+{
+  "patch": "patch264",
+  "source_id": "SRC_M3_QUADRATIC_FUNCTION_150_WORKSHEET_SET04_20260711",
+  "pdf_sha256": "f0162408245a73c8db633662d50fde5af3373a19dc062d7baa407ef9d28d6a74",
+  "pdf_size_bytes": 11989130,
+  "pdf_page_count": 65,
+  "problem_pages": "1-39",
+  "quick_answer_pages": "40-41",
+  "solution_pages": "42-65",
+  "item_count": 150,
+  "matched_item_count": 150,
+  "unmatched_item_count": 0,
+  "canonical_unit_id": "M3_QUADRATIC_FUNCTION",
+  "canonical_problem_type_count": 176,
+  "matched_problem_type_count": 46,
+  "new_problem_type_count": 0,
+  "coverage_range_count": 6,
+  "variant_group_count": 46,
+  "exact_duplicate_count": 0,
+  "cross_set_near_duplicate_group_count": 46,
+  "low_accuracy_item_count": 23,
+  "visual_problem_count": 44,
+  "answer_verification_note": "150 quick answers transcribed from rendered pages 40-41; solution-page question ranges indexed for all items",
+  "storage_policy": "problem and solution text/images not stored; answer keys and structural quadratic-function metadata only",
+  "base_engine_check": {
+    "manifest_reported_patch": "PATCH263",
+    "m3_quadratic_function_canonical_unit_found": true,
+    "m3_quadratic_function_canonical_problem_type_count": 176,
+    "prior_quadratic_function_worksheet_set_count": 3,
+    "prior_quadratic_function_item_count": 450,
+    "build_contract": "overlay PATCH264 on PATCH263-applied engine; Worker and D1 unchanged"
+  },
+  "validation_status": "passed",
+  "merged_validation": {
+    "patch_json_files_checked": 12,
+    "json_errors": [],
+    "reference_checks": [
+      {
+        "name": "source_item_count",
+        "passed": true
+      },
+      {
+        "name": "link_count",
+        "passed": true
+      },
+      {
+        "name": "all_problem_type_ids_exist",
+        "passed": true
+      },
+      {
+        "name": "all_solution_pages_indexed",
+        "passed": true
+      },
+      {
+        "name": "all_answers_present",
+        "passed": true
+      },
+      {
+        "name": "worksheet_total",
+        "passed": true
+      },
+      {
+        "name": "manifest_problem_total",
+        "passed": true
+      },
+      {
+        "name": "visual_count",
+        "passed": true
+      }
+    ],
+    "logical_checks": {
+      "unique_item_ids": true,
+      "question_sequence_complete": true,
+      "low_accuracy_count": true,
+      "exact_duplicate_count_zero": true,
+      "matched_type_count": true,
+      "source_page_range": true
+    },
+    "overlay_base": "PATCH263-applied engine",
+    "overlay_status": "passed",
+    "merged_json_files_parsed": 673
+  }
+}
