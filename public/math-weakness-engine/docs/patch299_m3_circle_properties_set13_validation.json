@@ -1,0 +1,65 @@
+{
+  "patch": "patch299",
+  "source_id": "SRC_M3_CIRCLE_PROPERTIES_150_WORKSHEET_SET13_20260711",
+  "pdf_sha256": "f72ec176425685ae0180c27097cd82729911516e1a65a35feb98aed4893bbe66",
+  "pdf_size_bytes": 15591393,
+  "pdf_page_count": 71,
+  "problem_pages": "1-40",
+  "quick_answer_pages": "41-42",
+  "solution_pages": "43-71",
+  "item_count": 150,
+  "matched_item_count": 150,
+  "unmatched_item_count": 0,
+  "canonical_unit_id": "M3_CIRCLE_PROPERTIES",
+  "canonical_problem_type_count": 126,
+  "matched_problem_type_count": 16,
+  "new_problem_type_count": 0,
+  "coverage_range_count": 13,
+  "variant_group_count": 16,
+  "exact_duplicate_count": 0,
+  "cross_set_near_duplicate_group_count": 16,
+  "low_accuracy_item_count": 54,
+  "new_trend_item_count": 9,
+  "visual_problem_count": 150,
+  "answer_verification_note": "150 quick answers transcribed from rendered pages 41-42; all solution headings on pages 43-71 indexed by question number",
+  "storage_policy": "problem and solution text/images not stored; answer keys and structural circle-property metadata only",
+  "base_engine_check": {
+    "manifest_reported_patch": "PATCH298",
+    "declared_unit_count": 39,
+    "declared_problem_type_count": 13192,
+    "declared_m3_circle_properties_sets": "SET01-SET12 / 1800 items",
+    "physical_circle_source_item_sets_found": [
+      "SET12"
+    ],
+    "physical_circle_link_sets_found": [
+      "SET12"
+    ],
+    "uploaded_base_integrity_warning": "the locally available base is the PATCH298 overlay and exposes SET12 physical source/link files while cumulative metadata declares SET01-SET12; PATCH299 is a self-contained SET13 overlay and should be applied after PATCH298 to the complete GitHub engine lineage",
+    "m3_circle_properties_canonical_problem_type_count": 126,
+    "m3_circle_properties_canonical_concept_count": 42,
+    "known_unrelated_integrity_warning": "prior full-engine physical-file warnings are unchanged by this patch"
+  },
+  "validation_status": "passed_with_base_warnings",
+  "merged_validation": {
+    "patch_json_files_checked": 13,
+    "json_errors": [],
+    "reference_checks": {
+      "source_item_count": 150,
+      "link_count": 150,
+      "answer_count": 150,
+      "solution_page_index_count": 150,
+      "variant_item_reference_count": 150
+    },
+    "logical_checks": {
+      "all_items_matched": true,
+      "no_new_canonical_types": true,
+      "no_unmatched_items": true,
+      "all_solution_pages_in_range": true,
+      "all_answers_present": true,
+      "latest_index_pointer_is_set13": true
+    },
+    "overlay_base": "PATCH298",
+    "overlay_status": "pass",
+    "base_warning": "local base contains only the prior overlay files; apply this patch after PATCH298 to the complete repository lineage"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "patch": "PATCH299",
+  "version": "2026-07-20-patch299-m3-circle-properties-150-set13-ingestion",
+  "apply_root": "public/math-weakness-engine/",
+  "short_path_layout": true,
+  "file_count": 15,
+  "files": [
+    "data/coverage/m3_circle_properties_150worksheet_set13.coverage_manifest.v1.csv",
+    "data/coverage/m3_circle_properties_150worksheet_set13.coverage_manifest.v1.json",
+    "data/duplicate_map/m3_circle_properties/m3_circle_properties_150worksheet_set13.duplicate_map.v1.json",
+    "data/index.v1.json",
+    "data/item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.item_bank_index.v1.json",
+    "data/source_item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.source_items.v1.csv",
+    "data/source_item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.source_items.v1.json",
+    "data/source_item_links/m3_circle_properties/m3_circle_properties_150worksheet_set13.links.v1.json",
+    "data/sources/m3_circle_properties.source_manifest.v1.json",
+    "data/sources/m3_circle_properties_150worksheet_set13.registry.v1.json",
+    "data/sources/m3_circle_properties_worksheets.index.v1.json",
+    "data/type_variant_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.type_variants.v1.json",
+    "docs/patch299_m3_circle_properties_set13_validation.json",
+    "docs/patch299_package_manifest.json",
+    "manifest.json"
+  ],
+  "excludes": [
+    "original PDF",
+    "problem page images",
+    "solution page images",
+    "full copyrighted problem text",
+    "full copyrighted solution text",
+    "Worker/D1 changes"
+  ],
+  "known_base_warning": "local base is the PATCH298 overlay and does not include every earlier physical circle file; apply after PATCH298 to the complete repository lineage",
+  "index_pointer_fix": "M3_CIRCLE_PROPERTIES latest pointers updated to SET13"
+}
