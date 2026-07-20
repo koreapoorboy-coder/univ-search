@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-20-patch282-m3-trigonometric-ratio-150-set07-ingestion",
+  "version": "2026-07-20-patch286-m3-trigonometric-ratio-72-set11-ingestion",
   "build_date": "2026-07-20",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 behavior analysis preserved; M3 trigonometric ratio worksheet SET07 adds 150 structural items using the restored 36-concept/108-type canonical bundle.",
+  "description": "PATCH159 behavior analysis preserved; M3 trigonometric ratio worksheet SET11 adds 72 structural items using the restored 36-concept/108-type canonical bundle.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch282_m3_trigonometric_ratio_150_set07_ingestion_20260720",
+  "last_patch": "math_weakness_engine_patch286_m3_trigonometric_ratio_72_set11_ingestion_20260720",
   "unit_count": 39,
   "problem_type_count": 13192,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch282-m3-trigonometric-ratio-150-set07-ingestion",
+  "patch": "patch286-m3-trigonometric-ratio-72-set11-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -367,7 +367,10 @@
     "m3_trigonometric_ratio_cross_set_variant_links",
     "all_300_m3_trigonometric_ratio_items_canonical_matched",
     "m3_trigonometric_ratio_150_set03_item_ingestion",
-    "all_450_m3_trigonometric_ratio_items_canonical_matched"
+    "all_450_m3_trigonometric_ratio_items_canonical_matched",
+    "m3_trigonometric_ratio_127worksheet_set10_source_items",
+    "m3_trigonometric_ratio_set10_cross_set_variant_tracking",
+    "m3_trigonometric_ratio_set10_answer_key_index"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -379,7 +382,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중3 삼각비 SET07 150문항을 기존 canonical 유형에 연결하고 SET01~SET06와 교차 세트 variant 그룹을 누적했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중3 삼각비 SET11 72문항을 기존 canonical 유형에 연결하고 SET01~SET10과 교차 세트 variant 그룹을 누적했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -395,11 +398,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 121,
-  "latest_source_registry": "data/sources/m3_trigonometric_ratio_150worksheet_set07.registry.v1.json",
-  "problem_ingestion_source_count": 128,
-  "problem_item_count_added": 150,
-  "problem_item_count_total": 17867,
+  "source_alignment_count": 125,
+  "latest_source_registry": "data/sources/m3_trigonometric_ratio_72worksheet_set11.registry.v1.json",
+  "problem_ingestion_source_count": 132,
+  "problem_item_count_added": 72,
+  "problem_item_count_total": 18366,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -417,77 +420,77 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "Supplied engine declared 39 units / 13,192 types but lacked the M3 trigonometric-ratio canonical files and index entry. PATCH276 restores that previously declared bundle without increasing declared canonical totals.",
+  "base_integrity_note": "PATCH285 base preserved; PATCH286 overlays SET11 source metadata, answer keys, canonical links, coverage, variant and duplicate tracking only.",
   "patch_files": [
     {
-      "path": "data/coverage/m3_trigonometric_ratio_150worksheet_set07.coverage_manifest.v1.csv",
-      "size_bytes": 3216,
-      "sha256": "b4fc561dc8ea984037beb5d9a30288cb15c17c24e649a97bbf2e48c9a376e042"
+      "path": "data/coverage/m3_trigonometric_ratio_72worksheet_set11.coverage_manifest.v1.csv",
+      "size_bytes": 641,
+      "sha256": "9e07e8f59c73fcde45d4f86145eb1bce9affa97e71a01f316d5d86128b0d5532"
     },
     {
-      "path": "data/coverage/m3_trigonometric_ratio_150worksheet_set07.coverage_manifest.v1.json",
-      "size_bytes": 9536,
-      "sha256": "ac911b0dea872565a3749b4a79dcf93b7451ad1a58067404d0f890ce70bd24c2"
+      "path": "data/coverage/m3_trigonometric_ratio_72worksheet_set11.coverage_manifest.v1.json",
+      "size_bytes": 2099,
+      "sha256": "0f3b8748d847f0e389480867357363780b8864af8255d470edfbff6dd18f4587"
     },
     {
-      "path": "data/duplicate_map/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set07.duplicate_map.v1.json",
-      "size_bytes": 101309,
-      "sha256": "51a3812e97cd73c878b4c11f4172b3e76f2ff96ebd0639821cceae5d1cfdb550"
+      "path": "data/duplicate_map/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.duplicate_map.v1.json",
+      "size_bytes": 40345,
+      "sha256": "3c420e8dfbab3d9c961cb6f74c223ee04f36ab26d495173d81f64ada1d245871"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 51351,
-      "sha256": "75ac4b88a1b3bd1498d13b4b46685c0bd66b59314237718b6fc6bdc81434421f"
+      "size_bytes": 51344,
+      "sha256": "7f140375ac09f931457f9485507cea4593a284fcca79ebf855250e7996aa7257"
     },
     {
-      "path": "data/item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set07.item_bank_index.v1.json",
-      "size_bytes": 1114,
-      "sha256": "2f0a71f2d9fdc5319695b44067ff49986b00fe4388e9519756ffd1193bf84402"
+      "path": "data/item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.item_bank_index.v1.json",
+      "size_bytes": 1103,
+      "sha256": "cce1797f3e787cc4f21c2dcff703df229bcf02824e70cd6efb0359c5d97bd876"
     },
     {
-      "path": "data/source_item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set07.source_items.v1.csv",
-      "size_bytes": 36818,
-      "sha256": "a8ba11fa7d0fa027ae0810c448278d9b54db33892a9ac4aa10a45da3dbedd1b1"
+      "path": "data/source_item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.source_items.v1.csv",
+      "size_bytes": 16780,
+      "sha256": "d43356fad0ae95217d481b037e43e8cee80cafdc4ef9130e9e3746c08e9842c6"
     },
     {
-      "path": "data/source_item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set07.source_items.v1.json",
-      "size_bytes": 593183,
-      "sha256": "100aaa50b4d4ab763f3476fb53fd3e660b17f588dbf584bd0fa5c3e035274a4d"
+      "path": "data/source_item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.source_items.v1.json",
+      "size_bytes": 285430,
+      "sha256": "3c6d0d752b86dbca23d28b0c29e2339e93bfad03b0b51e1a97f28bf5f72b3e8c"
     },
     {
-      "path": "data/source_item_links/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set07.links.v1.json",
-      "size_bytes": 212700,
-      "sha256": "760008e804777187bd7363095419ae765130853df2a08c7f395cffbae2563b62"
+      "path": "data/source_item_links/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.links.v1.json",
+      "size_bytes": 102835,
+      "sha256": "e5d3426b6ec08bd290e9cf5946d4d1ec94056d32be4b01cc9f57fea5ea9fcd93"
     },
     {
       "path": "data/sources/m3_trigonometric_ratio.source_manifest.v1.json",
-      "size_bytes": 9803,
-      "sha256": "908b616b8e1df5acc8bb6889e9f436e0b20bc39f391ee890da1ef8d19573e540"
+      "size_bytes": 12649,
+      "sha256": "3bd75b0e6fcee5527fd899bd174150e1f7e08cbc1724cd968061163563e90a7f"
     },
     {
-      "path": "data/sources/m3_trigonometric_ratio_150worksheet_set07.registry.v1.json",
-      "size_bytes": 2870,
-      "sha256": "06685db4acaf5228aa59e924d240b71c6ceeb8c78b9de9211dab78b5fb641f0d"
+      "path": "data/sources/m3_trigonometric_ratio_72worksheet_set11.registry.v1.json",
+      "size_bytes": 2403,
+      "sha256": "eb4ba811d752d79b0fb16c38d486c8ff3c990c52b436c706e312997d355042d9"
     },
     {
       "path": "data/sources/m3_trigonometric_ratio_worksheets.index.v1.json",
-      "size_bytes": 4287,
-      "sha256": "2c166ca98ed5694d5da9a1703583fb7260438555a581aeaaf2a969c620a1b9f0"
+      "size_bytes": 6604,
+      "sha256": "e6b01a0dbc0a063f953409295340e36cfde5c9c24f49474821b77708ebe5f504"
     },
     {
-      "path": "data/type_variant_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set07.type_variants.v1.json",
-      "size_bytes": 67174,
-      "sha256": "77380ab340d02ab6689a4deedd125742451cf1afde93bc79a4285eb810889f6e"
+      "path": "data/type_variant_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.type_variants.v1.json",
+      "size_bytes": 15354,
+      "sha256": "66c5209ed21303d9b86864ac8e5c2c917bf2a493559d0e06f66e6e3c03d857ff"
     },
     {
-      "path": "docs/patch282_m3_trigonometric_ratio_set07_validation.json",
-      "size_bytes": 2665,
-      "sha256": "38f3fa367c2244fd025ff46b48943a3391c24d743615ee96bf555a61798ef41b"
+      "path": "docs/patch286_m3_trigonometric_ratio_set11_validation.json",
+      "size_bytes": 1751,
+      "sha256": "de297d796eb513882476b260122117fe292b3d82ad954e5ae17974df12410009"
     },
     {
-      "path": "docs/patch282_package_manifest.json",
-      "size_bytes": 1629,
-      "sha256": "59c933438bc903f818efb50290a61b4639d237e0b6fa4b19c665d3b122db754e"
+      "path": "docs/patch286_package_manifest.json",
+      "size_bytes": 1612,
+      "sha256": "7055c3ace6db8a29391d9a3af52a345d748c389d583e030d8db69d4252109a5c"
     }
   ]
 }
