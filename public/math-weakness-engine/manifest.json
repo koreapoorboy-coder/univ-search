@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-20-patch299-m3-circle-properties-150-set13-ingestion",
+  "version": "2026-07-20-patch305-m3-statistics-150-set03-ingestion",
   "build_date": "2026-07-20",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 behavior analysis preserved; M3 circle properties worksheet SET13 adds 150 structural items and SET01-SET13 cross-set variant links.",
+  "description": "PATCH159 behavior analysis preserved; M3 statistics worksheet SET03 adds 150 structural items with cumulative SET01-SET03 cross-set variant tracking.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch299_m3_circle_properties_150_set13_ingestion_20260720",
+  "last_patch": "math_weakness_engine_patch305_m3_statistics_150_set03_ingestion_20260720",
   "unit_count": 39,
   "problem_type_count": 13192,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch299-m3-circle-properties-150-set13-ingestion",
+  "patch": "patch305-m3-statistics-150-set03-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -420,7 +420,42 @@
     "m3_circle_properties_cross_set_01_02_03_04_05_06_07_08_09_10_11_12_13_variant_tracking",
     "all_1950_m3_circle_properties_items_canonical_matched",
     "m3_circle_properties_set13_answer_key_index",
-    "m3_circle_properties_latest_pointer_set13"
+    "m3_circle_properties_latest_pointer_set13",
+    "m3_circle_properties_119_set14_item_ingestion",
+    "m3_circle_properties_cross_set_01_02_03_04_05_06_07_08_09_10_11_12_13_14_variant_tracking",
+    "all_2069_m3_circle_properties_items_canonical_matched",
+    "m3_circle_properties_set14_answer_key_index",
+    "m3_circle_properties_latest_pointer_set14",
+    "m3_circle_properties_85_set15_item_ingestion",
+    "m3_circle_properties_cross_set_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_variant_tracking",
+    "all_2154_m3_circle_properties_items_canonical_matched",
+    "m3_circle_properties_set15_answer_key_index",
+    "m3_circle_properties_latest_pointer_set15",
+    "m3_circle_properties_15_set16_item_ingestion",
+    "m3_circle_properties_cross_set_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_variant_tracking",
+    "all_2169_m3_circle_properties_items_canonical_matched",
+    "m3_circle_properties_set16_answer_key_index",
+    "m3_circle_properties_latest_pointer_set16",
+    "m3_statistics_150_set01_item_ingestion",
+    "m3_statistics_set01_variant_tracking",
+    "all_150_m3_statistics_items_canonical_contract_matched",
+    "m3_statistics_set01_answer_key_index",
+    "m3_statistics_latest_pointer_set01",
+    "m3_statistics_index_entry_restored",
+    "m3_statistics_150_set02_item_ingestion",
+    "m3_statistics_set02_variant_tracking",
+    "m3_statistics_cross_set_duplicate_tracking",
+    "all_150_m3_statistics_set02_items_canonical_contract_matched",
+    "m3_statistics_set02_answer_key_index",
+    "m3_statistics_latest_pointer_set02",
+    "m3_statistics_cumulative_300_items",
+    "m3_statistics_150_set03_item_ingestion",
+    "m3_statistics_set03_variant_tracking",
+    "m3_statistics_set01_set02_set03_cross_set_duplicate_tracking",
+    "all_150_m3_statistics_set03_items_canonical_contract_matched",
+    "m3_statistics_set03_answer_key_index",
+    "m3_statistics_latest_pointer_set03",
+    "m3_statistics_cumulative_450_items"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -432,7 +467,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중3 원의 성질 SET13 150문항을 기존 canonical 유형 16개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중3 통계 SET03 150문항을 PATCH150 M3_STATISTICS canonical 계약 유형 23개에 연결하고 SET01·SET02 cross-set variant를 누적했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -448,11 +483,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 16,
-  "latest_source_registry": "data/sources/m3_circle_properties_150worksheet_set13.registry.v1.json",
-  "problem_ingestion_source_count": 145,
+  "source_alignment_count": 23,
+  "latest_source_registry": "data/sources/m3_statistics_150worksheet_set03.registry.v1.json",
+  "problem_ingestion_source_count": 151,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 20316,
+  "problem_item_count_total": 20985,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -470,77 +505,77 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH298 metadata preserved; PATCH299 overlays circle SET13. Local base artifacts expose only the prior overlay file subset; apply after PATCH298 to the complete repository lineage.",
+  "base_integrity_note": "PATCH304 metadata and SET01-SET02 cumulative data preserved; PATCH305 overlays statistics SET03 and advances cumulative pointers. Apply to the complete repository lineage containing PATCH150 M3_STATISTICS canonical files.",
   "patch_files": [
     {
-      "path": "data/coverage/m3_circle_properties_150worksheet_set13.coverage_manifest.v1.csv",
-      "size_bytes": 1544,
-      "sha256": "8fd203ee3ccba00b6bdc38a7697ac5b0f9f3e7630457ac158a3a4fbe83fe92b3"
+      "path": "data/coverage/m3_statistics_150worksheet_set03.coverage_manifest.v1.csv",
+      "size_bytes": 2641,
+      "sha256": "de1830b30ea4352ff9dac511588d2d08b013b05bcdf8e5cfa0ab61d16deae47c"
     },
     {
-      "path": "data/coverage/m3_circle_properties_150worksheet_set13.coverage_manifest.v1.json",
-      "size_bytes": 6856,
-      "sha256": "88c47f66d4c5a88d0c23f3c7c9542849c887c3f35ad7fa4f64a35822447f741b"
+      "path": "data/coverage/m3_statistics_150worksheet_set03.coverage_manifest.v1.json",
+      "size_bytes": 10664,
+      "sha256": "a341fe4aa979365073f47336658be934bf6327a813aff2fb3843df7f82506f0e"
     },
     {
-      "path": "data/duplicate_map/m3_circle_properties/m3_circle_properties_150worksheet_set13.duplicate_map.v1.json",
-      "size_bytes": 96479,
-      "sha256": "e192a8aa93628bd1dc729c4af52b25c6218a005932cb53f830cdd68f35991f13"
+      "path": "data/duplicate_map/m3_statistics/m3_statistics_150worksheet_set03.duplicate_map.v1.json",
+      "size_bytes": 86509,
+      "sha256": "bd93a00682141ef61acddb74903c1787ea679c4f5b2f2bdce89b1a7331a92769"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 52875,
-      "sha256": "dc7f07e17b77c7de15e8495d5d54fab884f16414aab9b151650b75d3ab9287d4"
+      "size_bytes": 54256,
+      "sha256": "f2c3038018e77d514adf2020865e9d81caf33b0bcb7941b33a1741df30cd4e84"
     },
     {
-      "path": "data/item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.item_bank_index.v1.json",
-      "size_bytes": 1086,
-      "sha256": "d007d1e99bf555257202fa499fd6426139eb87a821328cd0a8b6249887bef654"
+      "path": "data/item_bank/m3_statistics/m3_statistics_150worksheet_set03.item_bank_index.v1.json",
+      "size_bytes": 988,
+      "sha256": "d09e28a75a4f0a5ea533924b9c638252bd58e265a70eb1f96a3778a9f41b5e39"
     },
     {
-      "path": "data/source_item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.source_items.v1.csv",
-      "size_bytes": 37752,
-      "sha256": "fea10906735f2b01bea264b10ccfe120ac580f38415655f484eb3c7e9954a4de"
+      "path": "data/source_item_bank/m3_statistics/m3_statistics_150worksheet_set03.source_items.v1.csv",
+      "size_bytes": 34945,
+      "sha256": "e2d534dbc78ef1fe76074f04f00606287d4882129ce7f32563fb4ed5a80ba64f"
     },
     {
-      "path": "data/source_item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.source_items.v1.json",
-      "size_bytes": 604401,
-      "sha256": "ff2bc92bb6949f125e60ba66303f4fe98fa2fb4d33f7fa7be1853857d639855b"
+      "path": "data/source_item_bank/m3_statistics/m3_statistics_150worksheet_set03.source_items.v1.json",
+      "size_bytes": 623725,
+      "sha256": "37b1e69b93ae4f0828c09c212d23ca40615e896dec3950a9ef10e0445f0c2733"
     },
     {
-      "path": "data/source_item_links/m3_circle_properties/m3_circle_properties_150worksheet_set13.links.v1.json",
-      "size_bytes": 215266,
-      "sha256": "e98bcc9e3b5966705e3941e660b96063f6ed56e3622216db76e900730a84fec8"
+      "path": "data/source_item_links/m3_statistics/m3_statistics_150worksheet_set03.links.v1.json",
+      "size_bytes": 219819,
+      "sha256": "e6d41c8edfdd65a950a4c63dd1120458435d13cbd80934b286c66407b939d4d5"
     },
     {
-      "path": "data/sources/m3_circle_properties.source_manifest.v1.json",
-      "size_bytes": 20145,
-      "sha256": "e47fbfd84d2c796e600c12012231153e9db64c5810dd35b6d381e508a9278893"
+      "path": "data/sources/m3_statistics.source_manifest.v1.json",
+      "size_bytes": 8070,
+      "sha256": "a4619d60af894add7b7ac8f0bcfcd91bd6e02d8c7980313df99f5ec5972064bc"
     },
     {
-      "path": "data/sources/m3_circle_properties_150worksheet_set13.registry.v1.json",
-      "size_bytes": 3263,
-      "sha256": "c30fd5eee8fa99c1c4896eb513d5d1bcc591ace6e48eaa8fbd3f423848933faf"
+      "path": "data/sources/m3_statistics_150worksheet_set03.registry.v1.json",
+      "size_bytes": 2645,
+      "sha256": "b9815b80915d6e0a63a5deeddaea46c16c294805d6afc30aaca72110e3938e5a"
     },
     {
-      "path": "data/sources/m3_circle_properties_worksheets.index.v1.json",
-      "size_bytes": 7729,
-      "sha256": "46c358cfc3065aa36e0b14e27b3ce28d04b620fb8dcd296e4ed7760deb106af1"
+      "path": "data/sources/m3_statistics_worksheets.index.v1.json",
+      "size_bytes": 1886,
+      "sha256": "e289a7b7bd3ac9a7a32a55a31e694d2f6f6211eb6a88b78302353b1208560f53"
     },
     {
-      "path": "data/type_variant_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.type_variants.v1.json",
-      "size_bytes": 42927,
-      "sha256": "a030e0a2c5e5eb2e178b64d1c376a8033e69c1ad101c629dae5e7a728ea34ac9"
+      "path": "data/type_variant_bank/m3_statistics/m3_statistics_150worksheet_set03.type_variants.v1.json",
+      "size_bytes": 33143,
+      "sha256": "80488c1db3decdd2443a0c4fcab2750fe0593dd9cdc78f66e4c6cd0d958d0652"
     },
     {
-      "path": "docs/patch299_m3_circle_properties_set13_validation.json",
-      "size_bytes": 2744,
-      "sha256": "faa0856703ebe6faa7a5d19275e07d50e768e71d25c54112e7705319eb8e4b79"
+      "path": "docs/patch305_m3_statistics_set03_validation.json",
+      "size_bytes": 3659,
+      "sha256": "25e7a9a5637ce8456aa1b190442b108d38e1a91bfd1446fde59b513d09cdeb16"
     },
     {
-      "path": "docs/patch299_package_manifest.json",
-      "size_bytes": 1857,
-      "sha256": "7ef1f703aad734206a9cd631efe79d455e24f1dc779b8faa254462444f5c8827"
+      "path": "docs/patch305_package_manifest.json",
+      "size_bytes": 1735,
+      "sha256": "54f9f6c1fadbbe7e88a63a2298813b9baebd5347059e8ce2fb81cc9cdd221f27"
     }
   ]
 }

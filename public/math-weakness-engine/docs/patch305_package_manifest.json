@@ -1,0 +1,34 @@
+{
+  "patch": "PATCH305",
+  "version": "2026-07-20-patch305-m3-statistics-150-set03-ingestion",
+  "apply_root": "public/math-weakness-engine/",
+  "short_path_layout": true,
+  "file_count": 15,
+  "files": [
+    "data/coverage/m3_statistics_150worksheet_set03.coverage_manifest.v1.csv",
+    "data/coverage/m3_statistics_150worksheet_set03.coverage_manifest.v1.json",
+    "data/duplicate_map/m3_statistics/m3_statistics_150worksheet_set03.duplicate_map.v1.json",
+    "data/index.v1.json",
+    "data/item_bank/m3_statistics/m3_statistics_150worksheet_set03.item_bank_index.v1.json",
+    "data/source_item_bank/m3_statistics/m3_statistics_150worksheet_set03.source_items.v1.csv",
+    "data/source_item_bank/m3_statistics/m3_statistics_150worksheet_set03.source_items.v1.json",
+    "data/source_item_links/m3_statistics/m3_statistics_150worksheet_set03.links.v1.json",
+    "data/sources/m3_statistics.source_manifest.v1.json",
+    "data/sources/m3_statistics_150worksheet_set03.registry.v1.json",
+    "data/sources/m3_statistics_worksheets.index.v1.json",
+    "data/type_variant_bank/m3_statistics/m3_statistics_150worksheet_set03.type_variants.v1.json",
+    "docs/patch305_m3_statistics_set03_validation.json",
+    "docs/patch305_package_manifest.json",
+    "manifest.json"
+  ],
+  "excludes": [
+    "original PDF",
+    "problem page images",
+    "solution page images",
+    "full copyrighted problem text",
+    "full copyrighted solution text",
+    "Worker/D1 changes"
+  ],
+  "known_base_warning": "apply after PATCH304 to the complete GitHub lineage retaining PATCH150 M3_STATISTICS canonical files",
+  "index_pointer_update": "M3_STATISTICS latest pointers advanced from SET02 to SET03; cumulative worksheet index is 3 sets / 450 items"
+}
