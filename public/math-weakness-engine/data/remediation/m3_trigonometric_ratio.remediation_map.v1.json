@@ -1,0 +1,548 @@
+{
+  "version": "2026-07-19-patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
+  "unit_id": "M3_TRIGONOMETRIC_RATIO",
+  "unit_name": "삼각비",
+  "remediation_count": 36,
+  "remediation": [
+    {
+      "remediation_id": "M3_TRIG_REM_001",
+      "title": "삼각비의 값 풀이 루틴",
+      "description": "삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C001"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_002",
+      "title": "삼각비가 주어진 경우의 삼각형의 변의 길이 풀이 루틴",
+      "description": "삼각비가 주어진 경우의 삼각형의 변의 길이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C002"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_003",
+      "title": "한 삼각비가 주어진 경우의 다른 삼각비의 값 풀이 루틴",
+      "description": "한 삼각비가 주어진 경우의 다른 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C003"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_004",
+      "title": "직각삼각형의 닮음과 삼각비 풀이 루틴",
+      "description": "직각삼각형의 닮음과 삼각비 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C004"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_005",
+      "title": "직선의 방정식과 삼각비의 값 풀이 루틴",
+      "description": "직선의 방정식과 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C005"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_006",
+      "title": "평면도형에서의 삼각비의 값 풀이 루틴",
+      "description": "평면도형에서의 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C006"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_007",
+      "title": "입체도형에서의 삼각비의 값 풀이 루틴",
+      "description": "입체도형에서의 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C007"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_008",
+      "title": "원에서의 삼각비의 값 풀이 루틴",
+      "description": "원에서의 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C008"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_009",
+      "title": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 풀이 루틴",
+      "description": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C009"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_010",
+      "title": "특수한 각의 삼각비를 이용하여 각의 크기 구하기 풀이 루틴",
+      "description": "특수한 각의 삼각비를 이용하여 각의 크기 구하기 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C010"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_011",
+      "title": "특수한 각의 삼각비를 이용하여 변의 길이 구하기 풀이 루틴",
+      "description": "특수한 각의 삼각비를 이용하여 변의 길이 구하기 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C011"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_012",
+      "title": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 풀이 루틴",
+      "description": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C012"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_013",
+      "title": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 풀이 루틴",
+      "description": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C013"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_014",
+      "title": "직선의 기울기와 삼각비의 값 풀이 루틴",
+      "description": "직선의 기울기와 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C014"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_015",
+      "title": "특수한 각의 삼각비의 도형에의 활용 풀이 루틴",
+      "description": "특수한 각의 삼각비의 도형에의 활용 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C015"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_016",
+      "title": "사분원을 이용한 삼각비의 값 풀이 루틴",
+      "description": "사분원을 이용한 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C016"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_017",
+      "title": "특수한 각(0˚, 90˚)의 삼각비의 값 풀이 루틴",
+      "description": "특수한 각(0˚, 90˚)의 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C017"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_018",
+      "title": "삼각비의 값의 대소 관계 풀이 루틴",
+      "description": "삼각비의 값의 대소 관계 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C018"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_019",
+      "title": "삼각비의 값의 대소 관계를 이용한 식의 계산 풀이 루틴",
+      "description": "삼각비의 값의 대소 관계를 이용한 식의 계산 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C019"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_020",
+      "title": "삼각비의 표(1); 삼각비의 값 풀이 루틴",
+      "description": "삼각비의 표(1); 삼각비의 값 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C020"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_021",
+      "title": "삼각비의 표(2); 각의 크기 풀이 루틴",
+      "description": "삼각비의 표(2); 각의 크기 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C021"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_022",
+      "title": "삼각비의 표(3); 변의 길이 풀이 루틴",
+      "description": "삼각비의 표(3); 변의 길이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C022"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_023",
+      "title": "직각삼각형의 변의 길이 풀이 루틴",
+      "description": "직각삼각형의 변의 길이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C023"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_024",
+      "title": "입체도형에서 직각삼각형의 변의 길이의 활용 풀이 루틴",
+      "description": "입체도형에서 직각삼각형의 변의 길이의 활용 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C024"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_025",
+      "title": "실생활에서 직각삼각형의 변의 길이 풀이 루틴",
+      "description": "실생활에서 직각삼각형의 변의 길이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C025"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_026",
+      "title": "실생활에서 직각삼각형의 변의 길이의 활용 풀이 루틴",
+      "description": "실생활에서 직각삼각형의 변의 길이의 활용 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C026"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_027",
+      "title": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 풀이 루틴",
+      "description": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C027"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_028",
+      "title": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 풀이 루틴",
+      "description": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C028"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_029",
+      "title": "예각삼각형의 높이 풀이 루틴",
+      "description": "예각삼각형의 높이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C029"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_030",
+      "title": "둔각삼각형의 높이 풀이 루틴",
+      "description": "둔각삼각형의 높이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C030"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_031",
+      "title": "예각삼각형의 넓이 풀이 루틴",
+      "description": "예각삼각형의 넓이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C031"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_032",
+      "title": "둔각삼각형의 넓이 풀이 루틴",
+      "description": "둔각삼각형의 넓이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C032"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_033",
+      "title": "다각형의 넓이 풀이 루틴",
+      "description": "다각형의 넓이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C033"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_034",
+      "title": "정다각형의 넓이 풀이 루틴",
+      "description": "정다각형의 넓이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C034"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_035",
+      "title": "평행사변형의 넓이 풀이 루틴",
+      "description": "평행사변형의 넓이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C035"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    },
+    {
+      "remediation_id": "M3_TRIG_REM_036",
+      "title": "사각형의 넓이 풀이 루틴",
+      "description": "사각형의 넓이 문제를 기준각-직각삼각형-비 설정 순서로 해결한다.",
+      "target_concept_ids": [
+        "M3_TRIG_C036"
+      ],
+      "practice_steps": [
+        "기준각과 직각 표시",
+        "대변·인접변·빗변 표기",
+        "sin·cos·tan 중 하나 선택",
+        "식 계산 후 길이·각·넓이 단위 확인"
+      ],
+      "status": "restored_curated_remediation"
+    }
+  ]
+}

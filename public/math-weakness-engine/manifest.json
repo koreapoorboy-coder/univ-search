@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-19-patch270-m3-quadratic-function-150-set10-ingestion",
+  "version": "2026-07-19-patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
   "build_date": "2026-07-19",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 behavior analysis preserved; M3 quadratic function worksheet SET10 adds 150 canonical-aligned structural source items with graph/geometry metadata.",
+  "description": "PATCH159 behavior analysis preserved; M3 trigonometric ratio worksheet SET01 adds 150 structural items and restores the canonical bundle referenced by PATCH150 but absent from the supplied full-engine ZIP.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch270_m3_quadratic_function_150_set10_ingestion_20260719",
+  "last_patch": "math_weakness_engine_patch276_m3_trigonometric_ratio_150_set01_ingestion_20260719",
   "unit_count": 39,
   "problem_type_count": 13192,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch270-m3-quadratic-function-150-set10-ingestion",
+  "patch": "patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -343,7 +343,26 @@
     "all_1200_m3_quadratic_function_items_canonical_matched",
     "m3_quadratic_function_150_set09_item_ingestion",
     "m3_quadratic_function_nine_set_variant_links",
-    "all_1350_m3_quadratic_function_items_canonical_matched"
+    "all_1350_m3_quadratic_function_items_canonical_matched",
+    "m3_quadratic_function_150_set10_item_ingestion",
+    "m3_quadratic_function_ten_set_variant_links",
+    "all_1500_m3_quadratic_function_items_canonical_matched",
+    "m3_quadratic_function_150_set11_item_ingestion",
+    "m3_quadratic_function_eleven_set_variant_links",
+    "all_1650_m3_quadratic_function_items_canonical_matched",
+    "m3_quadratic_function_latest_pointer_validation",
+    "m3_quadratic_function_set12_150_items",
+    "m3_quadratic_function_set12_answer_keys",
+    "m3_quadratic_function_set12_graph_geometry_metadata",
+    "m3_quadratic_function_set13_138_items",
+    "m3_quadratic_function_set13_answer_keys",
+    "m3_quadratic_function_set13_graph_geometry_metadata",
+    "m3_quadratic_function_set14_83_items",
+    "m3_quadratic_function_set14_answer_keys",
+    "m3_quadratic_function_set14_graph_geometry_metadata",
+    "m3_quadratic_function_set15_27_items",
+    "m3_quadratic_function_set15_answer_keys",
+    "m3_quadratic_function_set15_graph_geometry_metadata"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -355,7 +374,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중3 이차함수 SET10 150문항을 기존 canonical 문항유형 24개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중3 삼각비 SET01 150문항을 canonical 유형에 연결하고, 누락된 삼각비 canonical 36개념·108유형 번들을 복구했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -371,11 +390,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 118,
-  "latest_source_registry": "data/sources/m3_quadratic_function_150worksheet_set10.registry.v1.json",
-  "problem_ingestion_source_count": 116,
+  "source_alignment_count": 124,
+  "latest_source_registry": "data/sources/m3_trigonometric_ratio_150worksheet_set01.registry.v1.json",
+  "problem_ingestion_source_count": 122,
   "problem_item_count_added": 150,
-  "problem_item_count_total": 16269,
+  "problem_item_count_total": 16967,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -393,72 +412,72 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH270은 PATCH269 적용 엔진 기준이며 Worker 및 D1 변경 없이 중3 이차함수 SET10 구조 데이터만 누적한다.",
+  "base_integrity_note": "Supplied engine declared 39 units / 13,192 types but lacked the M3 trigonometric-ratio canonical files and index entry. PATCH276 restores that previously declared bundle without increasing declared canonical totals.",
   "patch_files": [
     {
-      "path": "data/coverage/m3_quadratic_function_150worksheet_set10.coverage_manifest.v1.csv",
-      "size_bytes": 1095,
-      "sha256": "149059e67ca496c87f53c890f3ad5cbdd8938663fc1bdeeef1ab8845105691de"
+      "path": "data/coverage/m3_quadratic_function_27worksheet_set15.coverage_manifest.v1.csv",
+      "size_bytes": 210,
+      "sha256": "ecc6585ec0685148bcbac2acc6720048a529d06d3259b946aa734184819e2b19"
     },
     {
-      "path": "data/coverage/m3_quadratic_function_150worksheet_set10.coverage_manifest.v1.json",
-      "size_bytes": 3275,
-      "sha256": "8c8fe04f4be989252f472fe4b27112be0bb9fb54e8407c5005ee63e80d655b11"
+      "path": "data/coverage/m3_quadratic_function_27worksheet_set15.coverage_manifest.v1.json",
+      "size_bytes": 721,
+      "sha256": "485e10506589556e80f451be0fe7125c94b9215859eb2403e423a7f454a0c030"
     },
     {
-      "path": "data/duplicate_map/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.duplicate_map.v1.json",
-      "size_bytes": 52649,
-      "sha256": "805df1ae0d6a2a1a905e11bd9cef04cda7b4e33889c340e87776fe00f9619484"
+      "path": "data/duplicate_map/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.duplicate_map.v1.json",
+      "size_bytes": 11333,
+      "sha256": "b2515775403bac2e341f1a5f53c7af132e9b96b56aa91d1b6ee86b6d0c893ea0"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 49789,
-      "sha256": "121fde49e6abf42eb5bec6de44bfd776d5ad1e4178bd39c6b0ccf72723405085"
+      "size_bytes": 49782,
+      "sha256": "acae5503f10e63ea01eca8d42d6010736eaedf7aca61765583daf9ab8f1d9412"
     },
     {
-      "path": "data/item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.item_bank_index.v1.json",
-      "size_bytes": 1100,
-      "sha256": "18fa8c2eda3f60fd007a8e646c7e3e1119875623db6bd05c58808e3380e486d6"
+      "path": "data/item_bank/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.item_bank_index.v1.json",
+      "size_bytes": 1089,
+      "sha256": "9e1a7f9661dd6d8185ef0b128bb56a4bf3dcd766b828b57f969b171a91907ed6"
     },
     {
-      "path": "data/source_item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.source_items.v1.csv",
-      "size_bytes": 37219,
-      "sha256": "3689450fbb2009721f04f4505e17125ea91bab64896633697862531d747f6550"
+      "path": "data/source_item_bank/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.source_items.v1.csv",
+      "size_bytes": 6550,
+      "sha256": "601bd973004618950da17a2313cc70d540347182f93b641827457088369e61e2"
     },
     {
-      "path": "data/source_item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.source_items.v1.json",
-      "size_bytes": 581570,
-      "sha256": "d970614bdacd184461bb4923b9a93aa9f13960312098834ca36fca51c28a3be1"
+      "path": "data/source_item_bank/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.source_items.v1.json",
+      "size_bytes": 110573,
+      "sha256": "80ebb6b90a3f3c921321cdde2c093e3f6dcf9a35e584d02004864133329e35ad"
     },
     {
-      "path": "data/source_item_links/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.links.v1.json",
-      "size_bytes": 228415,
-      "sha256": "e83f402135ed7c524acaaac42c3db2dc12cce31ff25d38e6558cb63566824740"
+      "path": "data/source_item_links/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.links.v1.json",
+      "size_bytes": 39327,
+      "sha256": "3c0e6d645e45e02315851fe099044a4ae7b23de708fde21b765eb413bc3ccf80"
     },
     {
       "path": "data/sources/m3_quadratic_function.source_manifest.v1.json",
-      "size_bytes": 13430,
-      "sha256": "88785f35ae5b6311b9937e434a7928715b298194f9b9240546c8542ac2fa902f"
+      "size_bytes": 17002,
+      "sha256": "0819b73214912ae8ab3575a3126b44d819d0a82c7ece56e9804ba6b738d71c97"
     },
     {
-      "path": "data/sources/m3_quadratic_function_150worksheet_set10.registry.v1.json",
-      "size_bytes": 2068,
-      "sha256": "a2e287af4ec93e5a4902dc8ab8df679a929345cec4640f6661958ca09dab1f22"
+      "path": "data/sources/m3_quadratic_function_27worksheet_set15.registry.v1.json",
+      "size_bytes": 1674,
+      "sha256": "2689b31eab8278657ce69fb062256f27897765172cc07a046cd30393bee85f1a"
     },
     {
       "path": "data/sources/m3_quadratic_function_worksheets.index.v1.json",
-      "size_bytes": 6023,
-      "sha256": "49032bd25c276969929bda4d1416cdef6dcbd05a29593fcf776e0ce07a85ca6e"
+      "size_bytes": 8916,
+      "sha256": "83275d0ad21d6577f9d8f56feba98e0530ac3c79bb04e8cd60de6ff4bfb0fbd2"
     },
     {
-      "path": "data/type_variant_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set10.type_variants.v1.json",
-      "size_bytes": 57544,
-      "sha256": "b0763a31888cd7f51a144e77c1e12872bef0f3f1c7f5a3366b535fcf4f1b03a2"
+      "path": "data/type_variant_bank/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.type_variants.v1.json",
+      "size_bytes": 10611,
+      "sha256": "74b64fa1121671fc4aaafcf5d566f1f988bf6f5b2358bde15bdba37d31e1a59b"
     },
     {
-      "path": "docs/patch270_m3_quadratic_function_set10_validation.json",
-      "size_bytes": 2097,
-      "sha256": "9098c8c9b998d00c638911bf01333f027fd36a1871016ba11c2a569e3749c8e4"
+      "path": "docs/patch275_m3_quadratic_function_set15_validation.json",
+      "size_bytes": 2265,
+      "sha256": "e13de4502523b5d90060dfad8d24850a88a163e2dab573979ac91e0e023f3ba7"
     }
   ]
 }

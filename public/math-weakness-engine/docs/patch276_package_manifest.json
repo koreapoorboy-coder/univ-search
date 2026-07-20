@@ -1,0 +1,41 @@
+{
+  "patch": "PATCH276",
+  "version": "2026-07-19-patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
+  "apply_root": "public/math-weakness-engine/",
+  "short_path_layout": true,
+  "file_count": 24,
+  "files": [
+    "data/coverage/m3_trigonometric_ratio_150worksheet_set01.coverage_manifest.v1.csv",
+    "data/coverage/m3_trigonometric_ratio_150worksheet_set01.coverage_manifest.v1.json",
+    "data/duplicate_map/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.duplicate_map.v1.json",
+    "data/forms/m3_trigonometric_ratio.solution_templates.v1.json",
+    "data/index.v1.json",
+    "data/item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.item_bank_index.v1.json",
+    "data/math_concepts.v1.json",
+    "data/problem_types/m3_trigonometric_ratio.problem_types.v1.csv",
+    "data/problem_types/m3_trigonometric_ratio.problem_types.v1.json",
+    "data/raw_taxonomy/m3_trigonometric_ratio.raw_taxonomy.v1.csv",
+    "data/raw_taxonomy/m3_trigonometric_ratio.raw_taxonomy.v1.json",
+    "data/relations/m3_trigonometric_ratio.edges.v1.json",
+    "data/remediation/m3_trigonometric_ratio.remediation_map.v1.json",
+    "data/rules/m3_trigonometric_ratio.diagnosis_rules.v1.json",
+    "data/source_item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.source_items.v1.csv",
+    "data/source_item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.source_items.v1.json",
+    "data/source_item_links/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.links.v1.json",
+    "data/sources/m3_trigonometric_ratio.source_manifest.v1.json",
+    "data/sources/m3_trigonometric_ratio_150worksheet_set01.registry.v1.json",
+    "data/sources/m3_trigonometric_ratio_worksheets.index.v1.json",
+    "data/type_variant_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.type_variants.v1.json",
+    "docs/patch276_m3_trigonometric_ratio_set01_validation.json",
+    "docs/patch276_package_manifest.json",
+    "manifest.json"
+  ],
+  "excludes": [
+    "original PDF",
+    "problem page images",
+    "solution page images",
+    "raw problem text",
+    "raw solution text",
+    "Cloudflare Worker and D1 changes"
+  ]
+}

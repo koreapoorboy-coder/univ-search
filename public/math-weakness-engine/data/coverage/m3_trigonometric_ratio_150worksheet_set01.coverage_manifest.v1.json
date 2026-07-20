@@ -1,0 +1,458 @@
+{
+  "version": "2026-07-19-patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
+  "source_id": "SRC_M3_TRIGONOMETRIC_RATIO_150_WORKSHEET_SET01_20260711",
+  "unit_id": "M3_TRIGONOMETRIC_RATIO",
+  "total_item_count": 150,
+  "matched_item_count": 150,
+  "unmatched_count": 0,
+  "new_canonical_type_count": 0,
+  "restored_canonical_type_count": 108,
+  "matched_canonical_type_count": 73,
+  "coverage_ranges": [
+    {
+      "problem_range": "001-004",
+      "item_count": 4,
+      "source_label": "삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT001",
+        "M3_TRIG_PT002"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "005-008",
+      "item_count": 4,
+      "source_label": "삼각비가 주어진 경우의 삼각형의 변의 길이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT004",
+        "M3_TRIG_PT005"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "009-012",
+      "item_count": 4,
+      "source_label": "한 삼각비가 주어진 경우의 다른 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT007",
+        "M3_TRIG_PT008"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "013-017",
+      "item_count": 5,
+      "source_label": "직각삼각형의 닮음과 삼각비(1)",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT010",
+        "M3_TRIG_PT011"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "018-021",
+      "item_count": 4,
+      "source_label": "직각삼각형의 닮음과 삼각비(2)",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT011",
+        "M3_TRIG_PT012"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "022-025",
+      "item_count": 4,
+      "source_label": "직선의 방정식과 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT014",
+        "M3_TRIG_PT015"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "026-030",
+      "item_count": 5,
+      "source_label": "평면도형에서의 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT016",
+        "M3_TRIG_PT017"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "031-035",
+      "item_count": 5,
+      "source_label": "입체도형에서의 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT020",
+        "M3_TRIG_PT021"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "036-038",
+      "item_count": 3,
+      "source_label": "원에서의 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT024"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "039-042",
+      "item_count": 4,
+      "source_label": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT025",
+        "M3_TRIG_PT026"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "043-046",
+      "item_count": 4,
+      "source_label": "특수한 각의 삼각비를 이용하여 각의 크기 구하기",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT028"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "047-050",
+      "item_count": 4,
+      "source_label": "특수한 각의 삼각비를 이용하여 변의 길이 구하기",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT031",
+        "M3_TRIG_PT032"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "051-054",
+      "item_count": 4,
+      "source_label": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT035",
+        "M3_TRIG_PT036"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "055-059",
+      "item_count": 5,
+      "source_label": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT037",
+        "M3_TRIG_PT038"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "060-063",
+      "item_count": 4,
+      "source_label": "직선의 기울기와 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT041",
+        "M3_TRIG_PT042"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "064-067",
+      "item_count": 4,
+      "source_label": "특수한 각의 삼각비의 도형에의 활용",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT043",
+        "M3_TRIG_PT044"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "068-071",
+      "item_count": 4,
+      "source_label": "사분원을 이용한 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT046",
+        "M3_TRIG_PT047"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "072-075",
+      "item_count": 4,
+      "source_label": "특수한 각(0˚, 90˚)의 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT049",
+        "M3_TRIG_PT050"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "076-078",
+      "item_count": 3,
+      "source_label": "삼각비의 값의 대소 관계",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT052",
+        "M3_TRIG_PT053"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "079-083",
+      "item_count": 5,
+      "source_label": "삼각비의 값의 대소 관계를 이용한 식의 계산",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT056"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "084-087",
+      "item_count": 4,
+      "source_label": "삼각비의 표(1); 삼각비의 값",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT059",
+        "M3_TRIG_PT060"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "088-091",
+      "item_count": 4,
+      "source_label": "삼각비의 표(2); 각의 크기",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT061",
+        "M3_TRIG_PT063"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "092-096",
+      "item_count": 5,
+      "source_label": "삼각비의 표(3); 변의 길이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT064",
+        "M3_TRIG_PT065",
+        "M3_TRIG_PT066"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "097-098",
+      "item_count": 2,
+      "source_label": "직각삼각형의 변의 길이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT068",
+        "M3_TRIG_PT069"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "099-102",
+      "item_count": 4,
+      "source_label": "입체도형에서 직각삼각형의 변의 길이의 활용",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT070",
+        "M3_TRIG_PT071",
+        "M3_TRIG_PT072"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "103-106",
+      "item_count": 4,
+      "source_label": "실생활에서 직각삼각형의 변의 길이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT073",
+        "M3_TRIG_PT074",
+        "M3_TRIG_PT075"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "107-111",
+      "item_count": 5,
+      "source_label": "실생활에서 직각삼각형의 변의 길이의 활용",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT076",
+        "M3_TRIG_PT077"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "112-115",
+      "item_count": 4,
+      "source_label": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT079",
+        "M3_TRIG_PT080"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "116-119",
+      "item_count": 4,
+      "source_label": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT082",
+        "M3_TRIG_PT084"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "120-124",
+      "item_count": 5,
+      "source_label": "예각삼각형의 높이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT085",
+        "M3_TRIG_PT086",
+        "M3_TRIG_PT087"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "125-129",
+      "item_count": 5,
+      "source_label": "둔각삼각형의 높이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT089"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "130-132",
+      "item_count": 3,
+      "source_label": "예각삼각형의 넓이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT092",
+        "M3_TRIG_PT093"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "133-135",
+      "item_count": 3,
+      "source_label": "둔각삼각형의 넓이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT095"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "136-138",
+      "item_count": 3,
+      "source_label": "다각형의 넓이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT098",
+        "M3_TRIG_PT099"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "139-142",
+      "item_count": 4,
+      "source_label": "정다각형의 넓이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT100",
+        "M3_TRIG_PT101",
+        "M3_TRIG_PT102"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "143-146",
+      "item_count": 4,
+      "source_label": "평행사변형의 넓이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT104",
+        "M3_TRIG_PT105"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "147-150",
+      "item_count": 4,
+      "source_label": "사각형의 넓이",
+      "canonical_problem_type_ids": [
+        "M3_TRIG_PT106",
+        "M3_TRIG_PT107"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    }
+  ],
+  "problem_type_distribution": {
+    "M3_TRIG_PT001": 3,
+    "M3_TRIG_PT002": 1,
+    "M3_TRIG_PT004": 3,
+    "M3_TRIG_PT005": 1,
+    "M3_TRIG_PT008": 3,
+    "M3_TRIG_PT007": 1,
+    "M3_TRIG_PT011": 6,
+    "M3_TRIG_PT010": 1,
+    "M3_TRIG_PT012": 2,
+    "M3_TRIG_PT014": 3,
+    "M3_TRIG_PT015": 1,
+    "M3_TRIG_PT016": 1,
+    "M3_TRIG_PT017": 4,
+    "M3_TRIG_PT020": 4,
+    "M3_TRIG_PT021": 1,
+    "M3_TRIG_PT024": 3,
+    "M3_TRIG_PT026": 2,
+    "M3_TRIG_PT025": 2,
+    "M3_TRIG_PT028": 4,
+    "M3_TRIG_PT032": 3,
+    "M3_TRIG_PT031": 1,
+    "M3_TRIG_PT035": 3,
+    "M3_TRIG_PT036": 1,
+    "M3_TRIG_PT038": 3,
+    "M3_TRIG_PT037": 2,
+    "M3_TRIG_PT042": 1,
+    "M3_TRIG_PT041": 3,
+    "M3_TRIG_PT044": 2,
+    "M3_TRIG_PT043": 2,
+    "M3_TRIG_PT047": 3,
+    "M3_TRIG_PT046": 1,
+    "M3_TRIG_PT049": 2,
+    "M3_TRIG_PT050": 2,
+    "M3_TRIG_PT052": 1,
+    "M3_TRIG_PT053": 2,
+    "M3_TRIG_PT056": 5,
+    "M3_TRIG_PT060": 1,
+    "M3_TRIG_PT059": 3,
+    "M3_TRIG_PT061": 3,
+    "M3_TRIG_PT063": 1,
+    "M3_TRIG_PT065": 3,
+    "M3_TRIG_PT066": 1,
+    "M3_TRIG_PT064": 1,
+    "M3_TRIG_PT068": 1,
+    "M3_TRIG_PT069": 1,
+    "M3_TRIG_PT070": 1,
+    "M3_TRIG_PT072": 1,
+    "M3_TRIG_PT071": 2,
+    "M3_TRIG_PT073": 1,
+    "M3_TRIG_PT074": 2,
+    "M3_TRIG_PT075": 1,
+    "M3_TRIG_PT076": 1,
+    "M3_TRIG_PT077": 4,
+    "M3_TRIG_PT080": 3,
+    "M3_TRIG_PT079": 1,
+    "M3_TRIG_PT082": 1,
+    "M3_TRIG_PT084": 3,
+    "M3_TRIG_PT086": 2,
+    "M3_TRIG_PT085": 2,
+    "M3_TRIG_PT087": 1,
+    "M3_TRIG_PT089": 5,
+    "M3_TRIG_PT093": 2,
+    "M3_TRIG_PT092": 1,
+    "M3_TRIG_PT095": 3,
+    "M3_TRIG_PT098": 2,
+    "M3_TRIG_PT099": 1,
+    "M3_TRIG_PT101": 2,
+    "M3_TRIG_PT102": 1,
+    "M3_TRIG_PT100": 1,
+    "M3_TRIG_PT105": 2,
+    "M3_TRIG_PT104": 2,
+    "M3_TRIG_PT106": 3,
+    "M3_TRIG_PT107": 1
+  }
+}

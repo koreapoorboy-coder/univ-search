@@ -1,0 +1,136 @@
+{
+  "version": "2026-07-19-patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
+  "unit_id": "M3_TRIGONOMETRIC_RATIO",
+  "unit_name": "삼각비",
+  "template_count": 8,
+  "solution_templates": [
+    {
+      "template_id": "M3_TRIG_SOL_001",
+      "template_name": "삼각비 기본값 풀이",
+      "student_solution_must_include": "기준각과 세 변의 역할을 표시하고 비를 써야 한다.",
+      "teacher_checkpoints": [
+        "기준각",
+        "대변·인접변·빗변",
+        "약분"
+      ],
+      "common_failure_patterns": [
+        "그림만 보고 비를 추측",
+        "기준각 변경 누락",
+        "단위 또는 범위 확인 누락"
+      ],
+      "status": "restored_curated_solution_template"
+    },
+    {
+      "template_id": "M3_TRIG_SOL_002",
+      "template_name": "다른 삼각비 구하기",
+      "student_solution_must_include": "한 삼각비를 변의 비로 바꾸고 피타고라스 정리로 나머지 변을 구해야 한다.",
+      "teacher_checkpoints": [
+        "비례변 설정",
+        "피타고라스",
+        "다른 비 계산"
+      ],
+      "common_failure_patterns": [
+        "그림만 보고 비를 추측",
+        "기준각 변경 누락",
+        "단위 또는 범위 확인 누락"
+      ],
+      "status": "restored_curated_solution_template"
+    },
+    {
+      "template_id": "M3_TRIG_SOL_003",
+      "template_name": "특수각 풀이",
+      "student_solution_must_include": "30°·45°·60° 또는 0°·90° 값을 정확히 대입해야 한다.",
+      "teacher_checkpoints": [
+        "특수각 값",
+        "각 범위",
+        "최종값"
+      ],
+      "common_failure_patterns": [
+        "그림만 보고 비를 추측",
+        "기준각 변경 누락",
+        "단위 또는 범위 확인 누락"
+      ],
+      "status": "restored_curated_solution_template"
+    },
+    {
+      "template_id": "M3_TRIG_SOL_004",
+      "template_name": "표를 이용한 풀이",
+      "student_solution_must_include": "표에서 각 또는 삼각비 값을 선택한 근거를 표시해야 한다.",
+      "teacher_checkpoints": [
+        "행·열 선택",
+        "근삿값",
+        "반올림"
+      ],
+      "common_failure_patterns": [
+        "그림만 보고 비를 추측",
+        "기준각 변경 누락",
+        "단위 또는 범위 확인 누락"
+      ],
+      "status": "restored_curated_solution_template"
+    },
+    {
+      "template_id": "M3_TRIG_SOL_005",
+      "template_name": "길이·높이 활용 풀이",
+      "student_solution_must_include": "상황을 직각삼각형으로 그리고 구할 길이에 맞는 비를 세워야 한다.",
+      "teacher_checkpoints": [
+        "모델링 그림",
+        "비 설정",
+        "단위"
+      ],
+      "common_failure_patterns": [
+        "그림만 보고 비를 추측",
+        "기준각 변경 누락",
+        "단위 또는 범위 확인 누락"
+      ],
+      "status": "restored_curated_solution_template"
+    },
+    {
+      "template_id": "M3_TRIG_SOL_006",
+      "template_name": "일반 삼각형 분해 풀이",
+      "student_solution_must_include": "높이를 내려 두 직각삼각형으로 나누거나 끼인각 조건을 사용해야 한다.",
+      "teacher_checkpoints": [
+        "높이 설정",
+        "두 삼각형 관계",
+        "길이 합·차"
+      ],
+      "common_failure_patterns": [
+        "그림만 보고 비를 추측",
+        "기준각 변경 누락",
+        "단위 또는 범위 확인 누락"
+      ],
+      "status": "restored_curated_solution_template"
+    },
+    {
+      "template_id": "M3_TRIG_SOL_007",
+      "template_name": "넓이 활용 풀이",
+      "student_solution_must_include": "밑변과 높이 또는 두 변과 끼인각에 해당하는 정보를 표시해야 한다.",
+      "teacher_checkpoints": [
+        "높이 계산",
+        "넓이 공식",
+        "도형 분할"
+      ],
+      "common_failure_patterns": [
+        "그림만 보고 비를 추측",
+        "기준각 변경 누락",
+        "단위 또는 범위 확인 누락"
+      ],
+      "status": "restored_curated_solution_template"
+    },
+    {
+      "template_id": "M3_TRIG_SOL_008",
+      "template_name": "입체도형 풀이",
+      "student_solution_must_include": "필요한 단면을 표시하고 평면의 직각삼각형으로 환원해야 한다.",
+      "teacher_checkpoints": [
+        "단면 선택",
+        "공간 대각선",
+        "삼각비 계산"
+      ],
+      "common_failure_patterns": [
+        "그림만 보고 비를 추측",
+        "기준각 변경 누락",
+        "단위 또는 범위 확인 누락"
+      ],
+      "status": "restored_curated_solution_template"
+    }
+  ]
+}

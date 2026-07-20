@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-19-patch270-m3-quadratic-function-150-set10-ingestion",
+  "version": "2026-07-19-patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
   "units": [
     {
       "unit_id": "M1_PRIME_FACTORIZATION",
@@ -299,11 +299,11 @@
       "sources": "data/sources/m3_quadratic_function.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/m3_quadratic_function.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/m3_quadratic_function.solution_templates.v1.json",
-      "latest_item_bank_index": "data/item_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set09.item_bank_index.v1.json",
-      "latest_source_item_links": "data/source_item_links/m3_quadratic_function/m3_quadratic_function_150worksheet_set09.links.v1.json",
-      "latest_type_variant_bank": "data/type_variant_bank/m3_quadratic_function/m3_quadratic_function_150worksheet_set09.type_variants.v1.json",
-      "latest_duplicate_map": "data/duplicate_map/m3_quadratic_function/m3_quadratic_function_150worksheet_set09.duplicate_map.v1.json",
-      "latest_coverage_manifest": "data/coverage/m3_quadratic_function_150worksheet_set09.coverage_manifest.v1.json"
+      "latest_item_bank_index": "data/item_bank/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.item_bank_index.v1.json",
+      "latest_source_item_links": "data/source_item_links/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.links.v1.json",
+      "latest_type_variant_bank": "data/type_variant_bank/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.type_variants.v1.json",
+      "latest_duplicate_map": "data/duplicate_map/m3_quadratic_function/m3_quadratic_function_27worksheet_set15.duplicate_map.v1.json",
+      "latest_coverage_manifest": "data/coverage/m3_quadratic_function_27worksheet_set15.coverage_manifest.v1.json"
     },
     {
       "unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
@@ -548,6 +548,26 @@
       "latest_type_variant_bank": "data/type_variant_bank/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set09.type_variants.v1.json",
       "latest_duplicate_map": "data/duplicate_map/m2_similarity_pythagoras/m2_similarity_pythagoras_150worksheet_set09.duplicate_map.v1.json",
       "latest_coverage_manifest": "data/coverage/m2_similarity_pythagoras_150worksheet_set09.coverage_manifest.v1.json"
+    },
+    {
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "grade": "중3",
+      "course": "중학수학 3",
+      "unit_name": "삼각비",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m3_trigonometric_ratio.problem_types.v1.json",
+      "edges": "data/relations/m3_trigonometric_ratio.edges.v1.json",
+      "diagnosis_rules": "data/rules/m3_trigonometric_ratio.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m3_trigonometric_ratio.remediation_map.v1.json",
+      "sources": "data/sources/m3_trigonometric_ratio.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m3_trigonometric_ratio.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m3_trigonometric_ratio.solution_templates.v1.json",
+      "worksheet_sources_index": "data/sources/m3_trigonometric_ratio_worksheets.index.v1.json",
+      "latest_item_bank_index": "data/item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.item_bank_index.v1.json",
+      "latest_source_item_links": "data/source_item_links/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.links.v1.json",
+      "latest_type_variant_bank": "data/type_variant_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.type_variants.v1.json",
+      "latest_duplicate_map": "data/duplicate_map/m3_trigonometric_ratio/m3_trigonometric_ratio_150worksheet_set01.duplicate_map.v1.json",
+      "latest_coverage_manifest": "data/coverage/m3_trigonometric_ratio_150worksheet_set01.coverage_manifest.v1.json"
     }
   ],
   "cross_grade_targets": [
@@ -861,7 +881,7 @@
       "student_note_feedback_templates": "data/learning_evidence/student_note_feedback_templates.v1.json"
     }
   },
-  "last_patch": "math_weakness_engine_patch270_m3_quadratic_function_150_set10_ingestion_20260719",
+  "last_patch": "math_weakness_engine_patch276_m3_trigonometric_ratio_150_set01_ingestion_20260719",
   "ai_bridge": {
     "version": "2026.07.08-math-hybrid-ai-bridge-v1.0",
     "purpose": "학생 PDF/풀이/필기 업로드를 AI가 구조화하고, 수학 취약유형 엔진이 검수 문항 생성과 답안 재검수를 수행하기 위한 연결 레이어",

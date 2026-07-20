@@ -1,0 +1,2352 @@
+{
+  "version": "2026-07-19-patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
+  "unit_id": "M3_TRIGONOMETRIC_RATIO",
+  "unit_name": "삼각비",
+  "raw_taxonomy": "data/raw_taxonomy/m3_trigonometric_ratio.raw_taxonomy.v1.json",
+  "problem_type_count": 108,
+  "problem_types": [
+    {
+      "problem_type_id": "M3_TRIG_PT001",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값 - 기본 판별",
+      "description": "삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C001"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_TRIG_RAW_001",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT002",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값 - 계산·해석",
+      "description": "삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C001"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_TRIG_RAW_001",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT003",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값 - 복합 적용",
+      "description": "삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C001"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M3_TRIG_RAW_001",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT004",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비가 주어진 경우의 삼각형의 변의 길이 - 기본 판별",
+      "description": "삼각비가 주어진 경우의 삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C002"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "length_calculation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M3_TRIG_RAW_002",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT005",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비가 주어진 경우의 삼각형의 변의 길이 - 계산·해석",
+      "description": "삼각비가 주어진 경우의 삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C002"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "length_calculation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M3_TRIG_RAW_002",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT006",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비가 주어진 경우의 삼각형의 변의 길이 - 복합 적용",
+      "description": "삼각비가 주어진 경우의 삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C002"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "length_calculation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M3_TRIG_RAW_002",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT007",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 기본 판별",
+      "description": "한 삼각비가 주어진 경우의 다른 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C003"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "ratio_conversion"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_TRIG_RAW_003",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT008",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 계산·해석",
+      "description": "한 삼각비가 주어진 경우의 다른 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C003"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "ratio_conversion"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_TRIG_RAW_003",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT009",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 복합 적용",
+      "description": "한 삼각비가 주어진 경우의 다른 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C003"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "ratio_conversion"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M3_TRIG_RAW_003",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT010",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직각삼각형의 닮음과 삼각비 - 기본 판별",
+      "description": "직각삼각형의 닮음과 삼각비 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C004"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "right_triangle",
+        "similarity"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_TRIG_RAW_004",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT011",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직각삼각형의 닮음과 삼각비 - 계산·해석",
+      "description": "직각삼각형의 닮음과 삼각비 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C004"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "right_triangle",
+        "similarity"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_TRIG_RAW_004",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT012",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직각삼각형의 닮음과 삼각비 - 복합 적용",
+      "description": "직각삼각형의 닮음과 삼각비 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C004"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "right_triangle",
+        "similarity"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M3_TRIG_RAW_004",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT013",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직선의 방정식과 삼각비의 값 - 기본 판별",
+      "description": "직선의 방정식과 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "coordinate_geometry",
+        "line_slope"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_TRIG_RAW_005",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT014",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직선의 방정식과 삼각비의 값 - 계산·해석",
+      "description": "직선의 방정식과 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C005"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "coordinate_geometry",
+        "line_slope"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_TRIG_RAW_005",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT015",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직선의 방정식과 삼각비의 값 - 복합 적용",
+      "description": "직선의 방정식과 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C005"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "coordinate_geometry",
+        "line_slope"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M3_TRIG_RAW_005",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT016",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "평면도형에서의 삼각비의 값 - 기본 판별",
+      "description": "평면도형에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "plane_geometry"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_TRIG_RAW_006",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT017",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "평면도형에서의 삼각비의 값 - 계산·해석",
+      "description": "평면도형에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C006"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "plane_geometry"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_TRIG_RAW_006",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT018",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "평면도형에서의 삼각비의 값 - 복합 적용",
+      "description": "평면도형에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C006"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "plane_geometry"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M3_TRIG_RAW_006",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT019",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "입체도형에서의 삼각비의 값 - 기본 판별",
+      "description": "입체도형에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M3_TRIG_RAW_007",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT020",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "입체도형에서의 삼각비의 값 - 계산·해석",
+      "description": "입체도형에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C007"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M3_TRIG_RAW_007",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT021",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "입체도형에서의 삼각비의 값 - 복합 적용",
+      "description": "입체도형에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M3_TRIG_RAW_007",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT022",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "원에서의 삼각비의 값 - 기본 판별",
+      "description": "원에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C008"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "circle_geometry"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M3_TRIG_RAW_008",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT023",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "원에서의 삼각비의 값 - 계산·해석",
+      "description": "원에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C008"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "circle_geometry"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M3_TRIG_RAW_008",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT024",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "원에서의 삼각비의 값 - 복합 적용",
+      "description": "원에서의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "circle_geometry"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M3_TRIG_RAW_008",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT025",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 기본 판별",
+      "description": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C009"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_TRIG_RAW_009",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT026",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
+      "description": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C009"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_TRIG_RAW_009",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT027",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 복합 적용",
+      "description": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C009"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M3_TRIG_RAW_009",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT028",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 기본 판별",
+      "description": "특수한 각의 삼각비를 이용하여 각의 크기 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C010"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "angle_determination"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_TRIG_RAW_010",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT029",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 계산·해석",
+      "description": "특수한 각의 삼각비를 이용하여 각의 크기 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C010"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "angle_determination"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_TRIG_RAW_010",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT030",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 복합 적용",
+      "description": "특수한 각의 삼각비를 이용하여 각의 크기 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "angle_determination"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M3_TRIG_RAW_010",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT031",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 기본 판별",
+      "description": "특수한 각의 삼각비를 이용하여 변의 길이 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C011"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "length_calculation"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M3_TRIG_RAW_011",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT032",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 계산·해석",
+      "description": "특수한 각의 삼각비를 이용하여 변의 길이 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C011"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "length_calculation"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M3_TRIG_RAW_011",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT033",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 복합 적용",
+      "description": "특수한 각의 삼각비를 이용하여 변의 길이 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C011"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "length_calculation"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M3_TRIG_RAW_011",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT034",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 기본 판별",
+      "description": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C012"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry",
+        "special_angles"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M3_TRIG_RAW_012",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT035",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 계산·해석",
+      "description": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C012"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry",
+        "special_angles"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M3_TRIG_RAW_012",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT036",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 복합 적용",
+      "description": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C012"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry",
+        "special_angles"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M3_TRIG_RAW_012",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT037",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 기본 판별",
+      "description": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C013"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "ratio_conversion"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M3_TRIG_RAW_013",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT038",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석",
+      "description": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C013"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "ratio_conversion"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M3_TRIG_RAW_013",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT039",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 복합 적용",
+      "description": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C013"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles",
+        "ratio_conversion"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M3_TRIG_RAW_013",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT040",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직선의 기울기와 삼각비의 값 - 기본 판별",
+      "description": "직선의 기울기와 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C014"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "coordinate_geometry",
+        "line_slope"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M3_TRIG_RAW_014",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT041",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직선의 기울기와 삼각비의 값 - 계산·해석",
+      "description": "직선의 기울기와 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C014"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "coordinate_geometry",
+        "line_slope"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M3_TRIG_RAW_014",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT042",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직선의 기울기와 삼각비의 값 - 복합 적용",
+      "description": "직선의 기울기와 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "coordinate_geometry",
+        "line_slope"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M3_TRIG_RAW_014",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT043",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비의 도형에의 활용 - 기본 판별",
+      "description": "특수한 각의 삼각비의 도형에의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C015"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M3_TRIG_RAW_015",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT044",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비의 도형에의 활용 - 계산·해석",
+      "description": "특수한 각의 삼각비의 도형에의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C015"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M3_TRIG_RAW_015",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT045",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각의 삼각비의 도형에의 활용 - 복합 적용",
+      "description": "특수한 각의 삼각비의 도형에의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C015"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M3_TRIG_RAW_015",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT046",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "사분원을 이용한 삼각비의 값 - 기본 판별",
+      "description": "사분원을 이용한 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C016"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "quarter_circle",
+        "unit_quadrant"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M3_TRIG_RAW_016",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT047",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "사분원을 이용한 삼각비의 값 - 계산·해석",
+      "description": "사분원을 이용한 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C016"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "quarter_circle",
+        "unit_quadrant"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M3_TRIG_RAW_016",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT048",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "사분원을 이용한 삼각비의 값 - 복합 적용",
+      "description": "사분원을 이용한 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C016"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "quarter_circle",
+        "unit_quadrant"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M3_TRIG_RAW_016",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT049",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각(0˚, 90˚)의 삼각비의 값 - 기본 판별",
+      "description": "특수한 각(0˚, 90˚)의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M3_TRIG_RAW_017",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT050",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각(0˚, 90˚)의 삼각비의 값 - 계산·해석",
+      "description": "특수한 각(0˚, 90˚)의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C017"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M3_TRIG_RAW_017",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT051",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "특수한 각(0˚, 90˚)의 삼각비의 값 - 복합 적용",
+      "description": "특수한 각(0˚, 90˚)의 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "special_angles"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M3_TRIG_RAW_017",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT052",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값의 대소 관계 - 기본 판별",
+      "description": "삼각비의 값의 대소 관계 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C018"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_monotonicity"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M3_TRIG_RAW_018",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT053",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값의 대소 관계 - 계산·해석",
+      "description": "삼각비의 값의 대소 관계 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C018"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_monotonicity"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M3_TRIG_RAW_018",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT054",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값의 대소 관계 - 복합 적용",
+      "description": "삼각비의 값의 대소 관계 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C018"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_monotonicity"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M3_TRIG_RAW_018",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT055",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값의 대소 관계를 이용한 식의 계산 - 기본 판별",
+      "description": "삼각비의 값의 대소 관계를 이용한 식의 계산 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C019"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_monotonicity"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M3_TRIG_RAW_019",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT056",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값의 대소 관계를 이용한 식의 계산 - 계산·해석",
+      "description": "삼각비의 값의 대소 관계를 이용한 식의 계산 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C019"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_monotonicity"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M3_TRIG_RAW_019",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT057",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 값의 대소 관계를 이용한 식의 계산 - 복합 적용",
+      "description": "삼각비의 값의 대소 관계를 이용한 식의 계산 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C019"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_monotonicity"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M3_TRIG_RAW_019",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT058",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(1); 삼각비의 값 - 기본 판별",
+      "description": "삼각비의 표(1); 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C020"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M3_TRIG_RAW_020",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT059",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(1); 삼각비의 값 - 계산·해석",
+      "description": "삼각비의 표(1); 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C020"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M3_TRIG_RAW_020",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT060",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(1); 삼각비의 값 - 복합 적용",
+      "description": "삼각비의 표(1); 삼각비의 값 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M3_TRIG_RAW_020",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT061",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(2); 각의 크기 - 기본 판별",
+      "description": "삼각비의 표(2); 각의 크기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C021"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table",
+        "angle_determination"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M3_TRIG_RAW_021",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT062",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(2); 각의 크기 - 계산·해석",
+      "description": "삼각비의 표(2); 각의 크기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C021"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table",
+        "angle_determination"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M3_TRIG_RAW_021",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT063",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(2); 각의 크기 - 복합 적용",
+      "description": "삼각비의 표(2); 각의 크기 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C021"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table",
+        "angle_determination"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M3_TRIG_RAW_021",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT064",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(3); 변의 길이 - 기본 판별",
+      "description": "삼각비의 표(3); 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C022"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table",
+        "length_calculation"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M3_TRIG_RAW_022",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT065",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(3); 변의 길이 - 계산·해석",
+      "description": "삼각비의 표(3); 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C022"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table",
+        "length_calculation"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M3_TRIG_RAW_022",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT066",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "삼각비의 표(3); 변의 길이 - 복합 적용",
+      "description": "삼각비의 표(3); 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C022"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "trig_table",
+        "length_calculation"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M3_TRIG_RAW_022",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT067",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직각삼각형의 변의 길이 - 기본 판별",
+      "description": "직각삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C023"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "length_calculation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M3_TRIG_RAW_023",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT068",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직각삼각형의 변의 길이 - 계산·해석",
+      "description": "직각삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C023"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "length_calculation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M3_TRIG_RAW_023",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT069",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "직각삼각형의 변의 길이 - 복합 적용",
+      "description": "직각삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "length_calculation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M3_TRIG_RAW_023",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT070",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "입체도형에서 직각삼각형의 변의 길이의 활용 - 기본 판별",
+      "description": "입체도형에서 직각삼각형의 변의 길이의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry",
+        "length_calculation"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M3_TRIG_RAW_024",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT071",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "입체도형에서 직각삼각형의 변의 길이의 활용 - 계산·해석",
+      "description": "입체도형에서 직각삼각형의 변의 길이의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C024"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry",
+        "length_calculation"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M3_TRIG_RAW_024",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT072",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "입체도형에서 직각삼각형의 변의 길이의 활용 - 복합 적용",
+      "description": "입체도형에서 직각삼각형의 변의 길이의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C024"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "solid_geometry",
+        "length_calculation"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M3_TRIG_RAW_024",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT073",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "실생활에서 직각삼각형의 변의 길이 - 기본 판별",
+      "description": "실생활에서 직각삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C025"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "real_world_modeling",
+        "length_calculation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M3_TRIG_RAW_025",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT074",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "실생활에서 직각삼각형의 변의 길이 - 계산·해석",
+      "description": "실생활에서 직각삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C025"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "real_world_modeling",
+        "length_calculation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M3_TRIG_RAW_025",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT075",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "실생활에서 직각삼각형의 변의 길이 - 복합 적용",
+      "description": "실생활에서 직각삼각형의 변의 길이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C025"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "real_world_modeling",
+        "length_calculation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M3_TRIG_RAW_025",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT076",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "실생활에서 직각삼각형의 변의 길이의 활용 - 기본 판별",
+      "description": "실생활에서 직각삼각형의 변의 길이의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C026"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "real_world_modeling",
+        "length_calculation"
+      ],
+      "source_orders": [
+        26
+      ],
+      "raw_section_id": "M3_TRIG_RAW_026",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT077",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "실생활에서 직각삼각형의 변의 길이의 활용 - 계산·해석",
+      "description": "실생활에서 직각삼각형의 변의 길이의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C026"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "real_world_modeling",
+        "length_calculation"
+      ],
+      "source_orders": [
+        26
+      ],
+      "raw_section_id": "M3_TRIG_RAW_026",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT078",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "실생활에서 직각삼각형의 변의 길이의 활용 - 복합 적용",
+      "description": "실생활에서 직각삼각형의 변의 길이의 활용 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "real_world_modeling",
+        "length_calculation"
+      ],
+      "source_orders": [
+        26
+      ],
+      "raw_section_id": "M3_TRIG_RAW_026",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT079",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 기본 판별",
+      "description": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C027"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "general_triangle",
+        "length_calculation",
+        "angle_determination"
+      ],
+      "source_orders": [
+        27
+      ],
+      "raw_section_id": "M3_TRIG_RAW_027",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT080",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 계산·해석",
+      "description": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C027"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "general_triangle",
+        "length_calculation",
+        "angle_determination"
+      ],
+      "source_orders": [
+        27
+      ],
+      "raw_section_id": "M3_TRIG_RAW_027",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT081",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 복합 적용",
+      "description": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "general_triangle",
+        "length_calculation",
+        "angle_determination"
+      ],
+      "source_orders": [
+        27
+      ],
+      "raw_section_id": "M3_TRIG_RAW_027",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT082",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 기본 판별",
+      "description": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "general_triangle",
+        "length_calculation",
+        "angle_determination"
+      ],
+      "source_orders": [
+        28
+      ],
+      "raw_section_id": "M3_TRIG_RAW_028",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT083",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 계산·해석",
+      "description": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C028"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "general_triangle",
+        "length_calculation",
+        "angle_determination"
+      ],
+      "source_orders": [
+        28
+      ],
+      "raw_section_id": "M3_TRIG_RAW_028",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT084",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 복합 적용",
+      "description": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C028"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "general_triangle",
+        "length_calculation",
+        "angle_determination"
+      ],
+      "source_orders": [
+        28
+      ],
+      "raw_section_id": "M3_TRIG_RAW_028",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT085",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "예각삼각형의 높이 - 기본 판별",
+      "description": "예각삼각형의 높이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "acute_triangle",
+        "triangle_height"
+      ],
+      "source_orders": [
+        29
+      ],
+      "raw_section_id": "M3_TRIG_RAW_029",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT086",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "예각삼각형의 높이 - 계산·해석",
+      "description": "예각삼각형의 높이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C029"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "acute_triangle",
+        "triangle_height"
+      ],
+      "source_orders": [
+        29
+      ],
+      "raw_section_id": "M3_TRIG_RAW_029",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT087",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "예각삼각형의 높이 - 복합 적용",
+      "description": "예각삼각형의 높이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "acute_triangle",
+        "triangle_height"
+      ],
+      "source_orders": [
+        29
+      ],
+      "raw_section_id": "M3_TRIG_RAW_029",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT088",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "둔각삼각형의 높이 - 기본 판별",
+      "description": "둔각삼각형의 높이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C030"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "obtuse_triangle",
+        "triangle_height"
+      ],
+      "source_orders": [
+        30
+      ],
+      "raw_section_id": "M3_TRIG_RAW_030",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT089",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "둔각삼각형의 높이 - 계산·해석",
+      "description": "둔각삼각형의 높이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C030"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "obtuse_triangle",
+        "triangle_height"
+      ],
+      "source_orders": [
+        30
+      ],
+      "raw_section_id": "M3_TRIG_RAW_030",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT090",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "둔각삼각형의 높이 - 복합 적용",
+      "description": "둔각삼각형의 높이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "obtuse_triangle",
+        "triangle_height"
+      ],
+      "source_orders": [
+        30
+      ],
+      "raw_section_id": "M3_TRIG_RAW_030",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT091",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "예각삼각형의 넓이 - 기본 판별",
+      "description": "예각삼각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C031"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "acute_triangle",
+        "area"
+      ],
+      "source_orders": [
+        31
+      ],
+      "raw_section_id": "M3_TRIG_RAW_031",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT092",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "예각삼각형의 넓이 - 계산·해석",
+      "description": "예각삼각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C031"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "acute_triangle",
+        "area"
+      ],
+      "source_orders": [
+        31
+      ],
+      "raw_section_id": "M3_TRIG_RAW_031",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT093",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "예각삼각형의 넓이 - 복합 적용",
+      "description": "예각삼각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "acute_triangle",
+        "area"
+      ],
+      "source_orders": [
+        31
+      ],
+      "raw_section_id": "M3_TRIG_RAW_031",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT094",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "둔각삼각형의 넓이 - 기본 판별",
+      "description": "둔각삼각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C032"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "obtuse_triangle",
+        "area"
+      ],
+      "source_orders": [
+        32
+      ],
+      "raw_section_id": "M3_TRIG_RAW_032",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT095",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "둔각삼각형의 넓이 - 계산·해석",
+      "description": "둔각삼각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C032"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "obtuse_triangle",
+        "area"
+      ],
+      "source_orders": [
+        32
+      ],
+      "raw_section_id": "M3_TRIG_RAW_032",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT096",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "둔각삼각형의 넓이 - 복합 적용",
+      "description": "둔각삼각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C032"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "obtuse_triangle",
+        "area"
+      ],
+      "source_orders": [
+        32
+      ],
+      "raw_section_id": "M3_TRIG_RAW_032",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT097",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "다각형의 넓이 - 기본 판별",
+      "description": "다각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C033"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "polygon_area",
+        "area"
+      ],
+      "source_orders": [
+        33
+      ],
+      "raw_section_id": "M3_TRIG_RAW_033",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT098",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "다각형의 넓이 - 계산·해석",
+      "description": "다각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C033"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "polygon_area",
+        "area"
+      ],
+      "source_orders": [
+        33
+      ],
+      "raw_section_id": "M3_TRIG_RAW_033",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT099",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "다각형의 넓이 - 복합 적용",
+      "description": "다각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "polygon_area",
+        "area"
+      ],
+      "source_orders": [
+        33
+      ],
+      "raw_section_id": "M3_TRIG_RAW_033",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT100",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "정다각형의 넓이 - 기본 판별",
+      "description": "정다각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C034"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "regular_polygon",
+        "polygon_area",
+        "area"
+      ],
+      "source_orders": [
+        34
+      ],
+      "raw_section_id": "M3_TRIG_RAW_034",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT101",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "정다각형의 넓이 - 계산·해석",
+      "description": "정다각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C034"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "regular_polygon",
+        "polygon_area",
+        "area"
+      ],
+      "source_orders": [
+        34
+      ],
+      "raw_section_id": "M3_TRIG_RAW_034",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT102",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "정다각형의 넓이 - 복합 적용",
+      "description": "정다각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C034"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "regular_polygon",
+        "polygon_area",
+        "area"
+      ],
+      "source_orders": [
+        34
+      ],
+      "raw_section_id": "M3_TRIG_RAW_034",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT103",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "평행사변형의 넓이 - 기본 판별",
+      "description": "평행사변형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C035"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "parallelogram_area",
+        "area"
+      ],
+      "source_orders": [
+        35
+      ],
+      "raw_section_id": "M3_TRIG_RAW_035",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT104",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "평행사변형의 넓이 - 계산·해석",
+      "description": "평행사변형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C035"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "parallelogram_area",
+        "area"
+      ],
+      "source_orders": [
+        35
+      ],
+      "raw_section_id": "M3_TRIG_RAW_035",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT105",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "평행사변형의 넓이 - 복합 적용",
+      "description": "평행사변형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "parallelogram_area",
+        "area"
+      ],
+      "source_orders": [
+        35
+      ],
+      "raw_section_id": "M3_TRIG_RAW_035",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT106",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "사각형의 넓이 - 기본 판별",
+      "description": "사각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "trigonometric_ratio",
+        "quadrilateral_area",
+        "area"
+      ],
+      "source_orders": [
+        36
+      ],
+      "raw_section_id": "M3_TRIG_RAW_036",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT107",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "사각형의 넓이 - 계산·해석",
+      "description": "사각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C036"
+      ],
+      "default_difficulty": "standard",
+      "error_tags": [
+        "trigonometric_ratio",
+        "quadrilateral_area",
+        "area"
+      ],
+      "source_orders": [
+        36
+      ],
+      "raw_section_id": "M3_TRIG_RAW_036",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    },
+    {
+      "problem_type_id": "M3_TRIG_PT108",
+      "grade": "중3",
+      "unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "unit_name": "삼각비",
+      "type_name": "사각형의 넓이 - 복합 적용",
+      "description": "사각형의 넓이 범주에서 조건을 삼각비로 변환하고 필요한 길이·각·넓이를 구하는 능력을 진단한다.",
+      "concept_ids": [
+        "M3_TRIG_C036"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "trigonometric_ratio",
+        "quadrilateral_area",
+        "area"
+      ],
+      "source_orders": [
+        36
+      ],
+      "raw_section_id": "M3_TRIG_RAW_036",
+      "status": "restored_canonical_problem_type_from_patch150_contract"
+    }
+  ]
+}

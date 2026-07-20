@@ -1,0 +1,132 @@
+{
+  "version": "2026-07-19-patch276-m3-trigonometric-ratio-150-set01-ingestion-canonical-restore",
+  "unit_id": "M3_TRIGONOMETRIC_RATIO",
+  "unit_name": "삼각비",
+  "rule_count": 8,
+  "rules": [
+    {
+      "rule_id": "M3_TRIG_RULE_001",
+      "rule_name": "기준각과 변 구분 오류",
+      "trigger_error_tags": [
+        "reference_angle",
+        "opposite_adjacent_hypotenuse"
+      ],
+      "diagnosis_message": "기준각에 따라 대변·인접변이 바뀌는 점을 놓칩니다.",
+      "recommended_action": "기준각 표시 → 직각삼각형 선택 → 변 이름 표시 → 비 설정 → 계산 → 단위 확인 순서로 풀이를 고정합니다.",
+      "primary_concept_ids": [
+        "M3_TRIG_C001",
+        "M3_TRIG_C005"
+      ],
+      "severity": "high",
+      "status": "restored_curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_TRIG_RULE_002",
+      "rule_name": "삼각비 선택 오류",
+      "trigger_error_tags": [
+        "sin_cos_tan_selection"
+      ],
+      "diagnosis_message": "구하려는 변과 주어진 변에 맞는 삼각비를 선택하지 못합니다.",
+      "recommended_action": "기준각 표시 → 직각삼각형 선택 → 변 이름 표시 → 비 설정 → 계산 → 단위 확인 순서로 풀이를 고정합니다.",
+      "primary_concept_ids": [
+        "M3_TRIG_C006",
+        "M3_TRIG_C009"
+      ],
+      "severity": "high",
+      "status": "restored_curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_TRIG_RULE_003",
+      "rule_name": "닮음·직각삼각형 분해 오류",
+      "trigger_error_tags": [
+        "similarity",
+        "right_triangle_decomposition"
+      ],
+      "diagnosis_message": "도형 안의 닮은 직각삼각형을 찾지 못합니다.",
+      "recommended_action": "기준각 표시 → 직각삼각형 선택 → 변 이름 표시 → 비 설정 → 계산 → 단위 확인 순서로 풀이를 고정합니다.",
+      "primary_concept_ids": [
+        "M3_TRIG_C011",
+        "M3_TRIG_C013"
+      ],
+      "severity": "medium",
+      "status": "restored_curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_TRIG_RULE_004",
+      "rule_name": "특수각 값 혼동",
+      "trigger_error_tags": [
+        "special_angles"
+      ],
+      "diagnosis_message": "30°·45°·60°의 삼각비 값을 서로 바꿉니다.",
+      "recommended_action": "기준각 표시 → 직각삼각형 선택 → 변 이름 표시 → 비 설정 → 계산 → 단위 확인 순서로 풀이를 고정합니다.",
+      "primary_concept_ids": [
+        "M3_TRIG_C016",
+        "M3_TRIG_C017"
+      ],
+      "severity": "medium",
+      "status": "restored_curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_TRIG_RULE_005",
+      "rule_name": "표 읽기 오류",
+      "trigger_error_tags": [
+        "trig_table"
+      ],
+      "diagnosis_message": "삼각비 표에서 각과 비의 열·행을 잘못 읽습니다.",
+      "recommended_action": "기준각 표시 → 직각삼각형 선택 → 변 이름 표시 → 비 설정 → 계산 → 단위 확인 순서로 풀이를 고정합니다.",
+      "primary_concept_ids": [
+        "M3_TRIG_C021",
+        "M3_TRIG_C021"
+      ],
+      "severity": "medium",
+      "status": "restored_curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_TRIG_RULE_006",
+      "rule_name": "길이 활용 모델링 오류",
+      "trigger_error_tags": [
+        "length_calculation",
+        "real_world_modeling"
+      ],
+      "diagnosis_message": "높이·거리 조건을 직각삼각형으로 모델링하지 못합니다.",
+      "recommended_action": "기준각 표시 → 직각삼각형 선택 → 변 이름 표시 → 비 설정 → 계산 → 단위 확인 순서로 풀이를 고정합니다.",
+      "primary_concept_ids": [
+        "M3_TRIG_C026",
+        "M3_TRIG_C025"
+      ],
+      "severity": "high",
+      "status": "restored_curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_TRIG_RULE_007",
+      "rule_name": "넓이 공식 연결 오류",
+      "trigger_error_tags": [
+        "area",
+        "triangle_height"
+      ],
+      "diagnosis_message": "높이 또는 끼인각을 이용한 넓이 계산에서 필요한 길이를 찾지 못합니다.",
+      "recommended_action": "기준각 표시 → 직각삼각형 선택 → 변 이름 표시 → 비 설정 → 계산 → 단위 확인 순서로 풀이를 고정합니다.",
+      "primary_concept_ids": [
+        "M3_TRIG_C031",
+        "M3_TRIG_C029"
+      ],
+      "severity": "high",
+      "status": "restored_curated_diagnosis_rule"
+    },
+    {
+      "rule_id": "M3_TRIG_RULE_008",
+      "rule_name": "입체도형 단면 해석 오류",
+      "trigger_error_tags": [
+        "solid_geometry"
+      ],
+      "diagnosis_message": "공간도형에서 필요한 단면과 직각삼각형을 선택하지 못합니다.",
+      "recommended_action": "기준각 표시 → 직각삼각형 선택 → 변 이름 표시 → 비 설정 → 계산 → 단위 확인 순서로 풀이를 고정합니다.",
+      "primary_concept_ids": [
+        "M3_TRIG_C036",
+        "M3_TRIG_C033"
+      ],
+      "severity": "medium",
+      "status": "restored_curated_diagnosis_rule"
+    }
+  ]
+}
