@@ -1,0 +1,34 @@
+{
+  "patch": "PATCH293",
+  "version": "2026-07-20-patch293-m3-circle-properties-150-set07-ingestion",
+  "apply_root": "public/math-weakness-engine/",
+  "short_path_layout": true,
+  "file_count": 15,
+  "files": [
+    "data/coverage/m3_circle_properties_150worksheet_set07.coverage_manifest.v1.csv",
+    "data/coverage/m3_circle_properties_150worksheet_set07.coverage_manifest.v1.json",
+    "data/duplicate_map/m3_circle_properties/m3_circle_properties_150worksheet_set07.duplicate_map.v1.json",
+    "data/index.v1.json",
+    "data/item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set07.item_bank_index.v1.json",
+    "data/source_item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set07.source_items.v1.csv",
+    "data/source_item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set07.source_items.v1.json",
+    "data/source_item_links/m3_circle_properties/m3_circle_properties_150worksheet_set07.links.v1.json",
+    "data/sources/m3_circle_properties.source_manifest.v1.json",
+    "data/sources/m3_circle_properties_150worksheet_set07.registry.v1.json",
+    "data/sources/m3_circle_properties_worksheets.index.v1.json",
+    "data/type_variant_bank/m3_circle_properties/m3_circle_properties_150worksheet_set07.type_variants.v1.json",
+    "docs/patch293_m3_circle_properties_set07_validation.json",
+    "docs/patch293_package_manifest.json",
+    "manifest.json"
+  ],
+  "excludes": [
+    "original PDF",
+    "problem page images",
+    "solution page images",
+    "raw problem text",
+    "raw solution text",
+    "Cloudflare Worker and D1 changes"
+  ],
+  "known_base_warning": "trigonometric-ratio physical SET files are incomplete in the uploaded full-engine lineage; circle SET07 patch is self-contained and validated",
+  "index_pointer_fix": "M3_CIRCLE_PROPERTIES latest pointers updated to SET07"
+}

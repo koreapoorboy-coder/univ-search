@@ -1,0 +1,554 @@
+{
+  "version": "2026-07-20-patch293-m3-circle-properties-150-set07-ingestion",
+  "source_id": "SRC_M3_CIRCLE_PROPERTIES_150_WORKSHEET_SET07_20260711",
+  "unit_id": "M3_CIRCLE_PROPERTIES",
+  "total_item_count": 150,
+  "matched_item_count": 150,
+  "unmatched_count": 0,
+  "new_canonical_type_count": 0,
+  "restored_canonical_type_count": 0,
+  "matched_canonical_type_count": 47,
+  "coverage_ranges": [
+    {
+      "problem_range": "001-004",
+      "item_count": 4,
+      "source_label": "원의 중심과 현의 수직이등분선(1)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT003"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "005-009",
+      "item_count": 5,
+      "source_label": "현의 길이(1); 중심에서 같은 거리의 두 현",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT014",
+        "M3_CIRC_PT013"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "010-014",
+      "item_count": 5,
+      "source_label": "원의 접선과 반지름",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT019"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "015-019",
+      "item_count": 5,
+      "source_label": "원의 접선의 성질(1)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT022",
+        "M3_CIRC_PT023"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "020-024",
+      "item_count": 5,
+      "source_label": "원의 접선의 성질(2); 길이",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT025"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "025-029",
+      "item_count": 5,
+      "source_label": "원의 접선의 성질의 활용",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT032",
+        "M3_CIRC_PT033"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "030-034",
+      "item_count": 5,
+      "source_label": "반원에서의 접선",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT032"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "035-039",
+      "item_count": 5,
+      "source_label": "삼각형의 내접원",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT035"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "040-044",
+      "item_count": 5,
+      "source_label": "직각삼각형의 내접원",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT039",
+        "M3_CIRC_PT038"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "045-049",
+      "item_count": 5,
+      "source_label": "원에 외접하는 사각형의 성질(2); 한 내각이 90˚인 경우",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT045",
+        "M3_CIRC_PT044"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "050-054",
+      "item_count": 5,
+      "source_label": "원에 외접하는 사각형의 성질의 활용(1); 직사각형",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT048"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "055-057",
+      "item_count": 3,
+      "source_label": "원에 외접하는 사각형의 성질의 활용(2); 그 외",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT051",
+        "M3_CIRC_PT050"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "058-061",
+      "item_count": 4,
+      "source_label": "원주각과 중심각의 크기(1)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT053",
+        "M3_CIRC_PT052"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "062-065",
+      "item_count": 4,
+      "source_label": "원주각의 성질(1); 한 호",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT061",
+        "M3_CIRC_PT063"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "066-070",
+      "item_count": 5,
+      "source_label": "원주각의 성질(2); 반원",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT065"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "071-075",
+      "item_count": 5,
+      "source_label": "원주각과 삼각비의 값(1)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT068"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "076-079",
+      "item_count": 4,
+      "source_label": "원주각과 삼각비의 값(2); 선분의 길이, 넓이",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT070",
+        "M3_CIRC_PT071"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "080-083",
+      "item_count": 4,
+      "source_label": "원주각의 크기와 호의 길이(1)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT074",
+        "M3_CIRC_PT075"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "084-088",
+      "item_count": 5,
+      "source_label": "원주각의 크기와 호의 길이(2)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT077"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "089-093",
+      "item_count": 5,
+      "source_label": "원주각의 크기와 호의 길이(3)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT080"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "094-097",
+      "item_count": 4,
+      "source_label": "네 점이 한 원에 있기 위한 조건",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT083",
+        "M3_CIRC_PT082"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "098-102",
+      "item_count": 5,
+      "source_label": "원에 내접하는 사각형의 성질(1)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT085"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "103-107",
+      "item_count": 5,
+      "source_label": "원에 내접하는 사각형의 성질(2)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT089",
+        "M3_CIRC_PT090"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "108-112",
+      "item_count": 5,
+      "source_label": "원에 내접하는 사각형과 외각의 성질",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT091",
+        "M3_CIRC_PT092"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "113-117",
+      "item_count": 5,
+      "source_label": "원에 내접하는 다각형",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT095"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "118-122",
+      "item_count": 5,
+      "source_label": "두 원에서 내접하는 사각형의 성질의 활용",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT097",
+        "M3_CIRC_PT098"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "123-127",
+      "item_count": 5,
+      "source_label": "접선과 현이 이루는 각; 원주각",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT107"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "128-132",
+      "item_count": 5,
+      "source_label": "접선과 현이 이루는 각의 활용(1); 현이 중심을 지나지 않는 경우",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT113"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "133-137",
+      "item_count": 5,
+      "source_label": "접선과 현이 이루는 각의 활용(2); 현이 중심을 지나는 경우",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT115"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "138-142",
+      "item_count": 5,
+      "source_label": "접선과 현이 이루는 각의 활용(3); 한 점에서 원에 그은 두 접선",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT118",
+        "M3_CIRC_PT119"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "143-147",
+      "item_count": 5,
+      "source_label": "두 원에서 접선과 현이 이루는 각(1)",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT122"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    },
+    {
+      "problem_range": "148-150",
+      "item_count": 3,
+      "source_label": "두 원에서 접선과 현이 이루는 각(2); 한 원이 다른 원의 내부에 있는 경우",
+      "canonical_problem_type_ids": [
+        "M3_CIRC_PT125",
+        "M3_CIRC_PT126"
+      ],
+      "mapping_status": "all_existing_canonical_types_matched"
+    }
+  ],
+  "problem_type_distribution": [
+    {
+      "problem_type_id": "M3_CIRC_PT003",
+      "canonical_type_name": "원의 중심과 현의 수직이등분선(1) - 종합 활용",
+      "item_count": 4
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT014",
+      "canonical_type_name": "현의 길이(1); 중심에서 같은 거리의 두 현 - 조건 적용",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT013",
+      "canonical_type_name": "현의 길이(1); 중심에서 같은 거리의 두 현 - 기본 판별",
+      "item_count": 4
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT019",
+      "canonical_type_name": "원의 접선과 반지름 - 기본 판별",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT022",
+      "canonical_type_name": "원의 접선의 성질(1) - 기본 판별",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT023",
+      "canonical_type_name": "원의 접선의 성질(1) - 조건 적용",
+      "item_count": 3
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT025",
+      "canonical_type_name": "원의 접선의 성질(2); 길이 - 기본 판별",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT032",
+      "canonical_type_name": "원의 접선의 성질의 활용 - 조건 적용",
+      "item_count": 7
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT033",
+      "canonical_type_name": "원의 접선의 성질의 활용 - 종합 활용",
+      "item_count": 3
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT035",
+      "canonical_type_name": "삼각형의 내접원 - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT039",
+      "canonical_type_name": "직각삼각형의 내접원 - 종합 활용",
+      "item_count": 3
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT038",
+      "canonical_type_name": "직각삼각형의 내접원 - 조건 적용",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT045",
+      "canonical_type_name": "원에 외접하는 사각형의 성질(2); 한 내각이 90˚인 경우 - 종합 활용",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT044",
+      "canonical_type_name": "원에 외접하는 사각형의 성질(2); 한 내각이 90˚인 경우 - 조건 적용",
+      "item_count": 4
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT048",
+      "canonical_type_name": "원에 외접하는 사각형의 성질의 활용(1); 직사각형 - 종합 활용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT051",
+      "canonical_type_name": "원에 외접하는 사각형의 성질의 활용(2); 그 외 - 종합 활용",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT050",
+      "canonical_type_name": "원에 외접하는 사각형의 성질의 활용(2); 그 외 - 조건 적용",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT053",
+      "canonical_type_name": "원주각과 중심각의 크기(1) - 조건 적용",
+      "item_count": 3
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT052",
+      "canonical_type_name": "원주각과 중심각의 크기(1) - 기본 판별",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT061",
+      "canonical_type_name": "원주각의 성질(1); 한 호 - 기본 판별",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT063",
+      "canonical_type_name": "원주각의 성질(1); 한 호 - 종합 활용",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT065",
+      "canonical_type_name": "원주각의 성질(2); 반원 - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT068",
+      "canonical_type_name": "원주각과 삼각비의 값(1) - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT070",
+      "canonical_type_name": "원주각과 삼각비의 값(2); 선분의 길이, 넓이 - 기본 판별",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT071",
+      "canonical_type_name": "원주각과 삼각비의 값(2); 선분의 길이, 넓이 - 조건 적용",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT074",
+      "canonical_type_name": "원주각의 크기와 호의 길이(1) - 조건 적용",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT075",
+      "canonical_type_name": "원주각의 크기와 호의 길이(1) - 종합 활용",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT077",
+      "canonical_type_name": "원주각의 크기와 호의 길이(2) - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT080",
+      "canonical_type_name": "원주각의 크기와 호의 길이(3) - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT083",
+      "canonical_type_name": "네 점이 한 원에 있기 위한 조건 - 조건 적용",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT082",
+      "canonical_type_name": "네 점이 한 원에 있기 위한 조건 - 기본 판별",
+      "item_count": 3
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT085",
+      "canonical_type_name": "원에 내접하는 사각형의 성질(1) - 기본 판별",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT089",
+      "canonical_type_name": "원에 내접하는 사각형의 성질(2) - 조건 적용",
+      "item_count": 4
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT090",
+      "canonical_type_name": "원에 내접하는 사각형의 성질(2) - 종합 활용",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT091",
+      "canonical_type_name": "원에 내접하는 사각형과 외각의 성질 - 기본 판별",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT092",
+      "canonical_type_name": "원에 내접하는 사각형과 외각의 성질 - 조건 적용",
+      "item_count": 4
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT095",
+      "canonical_type_name": "원에 내접하는 다각형 - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT097",
+      "canonical_type_name": "두 원에서 내접하는 사각형의 성질의 활용 - 기본 판별",
+      "item_count": 2
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT098",
+      "canonical_type_name": "두 원에서 내접하는 사각형의 성질의 활용 - 조건 적용",
+      "item_count": 3
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT107",
+      "canonical_type_name": "접선과 현이 이루는 각; 원주각 - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT113",
+      "canonical_type_name": "접선과 현이 이루는 각의 활용(1); 현이 중심을 지나지 않는 경우 - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT115",
+      "canonical_type_name": "접선과 현이 이루는 각의 활용(2); 현이 중심을 지나는 경우 - 기본 판별",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT118",
+      "canonical_type_name": "접선과 현이 이루는 각의 활용(3); 한 점에서 원에 그은 두 접선 - 기본 판별",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT119",
+      "canonical_type_name": "접선과 현이 이루는 각의 활용(3); 한 점에서 원에 그은 두 접선 - 조건 적용",
+      "item_count": 4
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT122",
+      "canonical_type_name": "두 원에서 접선과 현이 이루는 각(1) - 조건 적용",
+      "item_count": 5
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT125",
+      "canonical_type_name": "두 원에서 접선과 현이 이루는 각(2); 한 원이 다른 원의 내부에 있는 경우 - 조건 적용",
+      "item_count": 1
+    },
+    {
+      "problem_type_id": "M3_CIRC_PT126",
+      "canonical_type_name": "두 원에서 접선과 현이 이루는 각(2); 한 원이 다른 원의 내부에 있는 경우 - 종합 활용",
+      "item_count": 2
+    }
+  ]
+}

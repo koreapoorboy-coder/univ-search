@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-20-patch286-m3-trigonometric-ratio-72-set11-ingestion",
+  "version": "2026-07-20-patch293-m3-circle-properties-150-set07-ingestion",
   "build_date": "2026-07-20",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 behavior analysis preserved; M3 trigonometric ratio worksheet SET11 adds 72 structural items using the restored 36-concept/108-type canonical bundle.",
+  "description": "PATCH159 behavior analysis preserved; M3 circle properties worksheet SET06 adds 150 structural items and SET01-SET06 cross-set variant links.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch286_m3_trigonometric_ratio_72_set11_ingestion_20260720",
+  "last_patch": "math_weakness_engine_patch293_m3_circle_properties_150_set07_ingestion_20260720",
   "unit_count": 39,
   "problem_type_count": 13192,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch286-m3-trigonometric-ratio-72-set11-ingestion",
+  "patch": "patch293-m3-circle-properties-150-set07-ingestion",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -370,7 +370,27 @@
     "all_450_m3_trigonometric_ratio_items_canonical_matched",
     "m3_trigonometric_ratio_127worksheet_set10_source_items",
     "m3_trigonometric_ratio_set10_cross_set_variant_tracking",
-    "m3_trigonometric_ratio_set10_answer_key_index"
+    "m3_trigonometric_ratio_set10_answer_key_index",
+    "m3_circle_properties_150_set01_item_ingestion",
+    "m3_circle_properties_canonical_bundle_restore",
+    "m3_circle_properties_variant_and_duplicate_tracking",
+    "all_150_m3_circle_properties_items_canonical_matched",
+    "m3_circle_properties_150_set02_item_ingestion",
+    "m3_circle_properties_cross_set_01_02_variant_tracking",
+    "all_300_m3_circle_properties_items_canonical_matched",
+    "m3_circle_properties_set02_answer_key_index",
+    "m3_circle_properties_150_set03_item_ingestion",
+    "m3_circle_properties_cross_set_01_02_03_variant_tracking",
+    "all_450_m3_circle_properties_items_canonical_matched",
+    "m3_circle_properties_set03_answer_key_index",
+    "m3_circle_properties_150_set04_item_ingestion",
+    "m3_circle_properties_150_set05_item_ingestion",
+    "m3_circle_properties_150_set06_item_ingestion",
+    "m3_circle_properties_150_set07_item_ingestion",
+    "m3_circle_properties_cross_set_01_02_03_04_05_06_07_variant_tracking",
+    "all_1050_m3_circle_properties_items_canonical_matched",
+    "m3_circle_properties_set07_answer_key_index",
+    "m3_circle_properties_latest_pointer_set07"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -382,7 +402,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중3 삼각비 SET11 72문항을 기존 canonical 유형에 연결하고 SET01~SET10과 교차 세트 variant 그룹을 누적했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "중3 원의 성질 SET07 150문항을 기존 canonical 유형 47개에 연결했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -398,11 +418,11 @@
   "has_optional_question_generation": true,
   "prevents_auto_question_generation_on_analyze": true,
   "requires_post_diagnosis_question_generation": true,
-  "source_alignment_count": 125,
-  "latest_source_registry": "data/sources/m3_trigonometric_ratio_72worksheet_set11.registry.v1.json",
-  "problem_ingestion_source_count": 132,
-  "problem_item_count_added": 72,
-  "problem_item_count_total": 18366,
+  "source_alignment_count": 47,
+  "latest_source_registry": "data/sources/m3_circle_properties_150worksheet_set07.registry.v1.json",
+  "problem_ingestion_source_count": 139,
+  "problem_item_count_added": 150,
+  "problem_item_count_total": 19416,
   "has_student_solution_behavior_analysis": true,
   "has_response_status_aggregation": true,
   "has_fragmented_recall_profile": true,
@@ -420,77 +440,77 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH285 base preserved; PATCH286 overlays SET11 source metadata, answer keys, canonical links, coverage, variant and duplicate tracking only.",
+  "base_integrity_note": "PATCH292 circle SET01-SET06 metadata preserved; PATCH293 overlays SET07 source metadata, SET01-SET07 cross-set variant links, and corrects the M3_CIRCLE_PROPERTIES latest_* pointers from SET03 to SET07. Existing trigonometric-ratio physical-file incompleteness is not changed by this patch.",
   "patch_files": [
     {
-      "path": "data/coverage/m3_trigonometric_ratio_72worksheet_set11.coverage_manifest.v1.csv",
-      "size_bytes": 641,
-      "sha256": "9e07e8f59c73fcde45d4f86145eb1bce9affa97e71a01f316d5d86128b0d5532"
+      "path": "data/coverage/m3_circle_properties_150worksheet_set07.coverage_manifest.v1.csv",
+      "size_bytes": 3810,
+      "sha256": "31c74f34a58e74a5b19e6dcc30de7ba9ba18da863a93fb6744da2b2b4f453811"
     },
     {
-      "path": "data/coverage/m3_trigonometric_ratio_72worksheet_set11.coverage_manifest.v1.json",
-      "size_bytes": 2099,
-      "sha256": "0f3b8748d847f0e389480867357363780b8864af8255d470edfbff6dd18f4587"
+      "path": "data/coverage/m3_circle_properties_150worksheet_set07.coverage_manifest.v1.json",
+      "size_bytes": 17877,
+      "sha256": "15a23044d20ced0438c533a6f927efe9dce9749d16f74294b63a2e86b2eb51b6"
     },
     {
-      "path": "data/duplicate_map/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.duplicate_map.v1.json",
-      "size_bytes": 40345,
-      "sha256": "3c420e8dfbab3d9c961cb6f74c223ee04f36ab26d495173d81f64ada1d245871"
+      "path": "data/duplicate_map/m3_circle_properties/m3_circle_properties_150worksheet_set07.duplicate_map.v1.json",
+      "size_bytes": 102726,
+      "sha256": "2b4c0108c661a89fd593427601079a40aef484cde4e5dabe02d62746d1471135"
     },
     {
       "path": "data/index.v1.json",
-      "size_bytes": 51344,
-      "sha256": "7f140375ac09f931457f9485507cea4593a284fcca79ebf855250e7996aa7257"
+      "size_bytes": 52875,
+      "sha256": "3c20ad0f4939bbb84351c694178ae6b26af7a3e24079fea6e91d8f91f189bcb7"
     },
     {
-      "path": "data/item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.item_bank_index.v1.json",
-      "size_bytes": 1103,
-      "sha256": "cce1797f3e787cc4f21c2dcff703df229bcf02824e70cd6efb0359c5d97bd876"
+      "path": "data/item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set07.item_bank_index.v1.json",
+      "size_bytes": 1086,
+      "sha256": "c6ea04d8c5e3dbcc4191f3c718b4733ca68b62ce469838e47b8c15bec684b825"
     },
     {
-      "path": "data/source_item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.source_items.v1.csv",
-      "size_bytes": 16780,
-      "sha256": "d43356fad0ae95217d481b037e43e8cee80cafdc4ef9130e9e3746c08e9842c6"
+      "path": "data/source_item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set07.source_items.v1.csv",
+      "size_bytes": 38844,
+      "sha256": "3a56e833f255ff50bbe228e61e3353c2f51fef3170db9e16e056a9538184c24b"
     },
     {
-      "path": "data/source_item_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.source_items.v1.json",
-      "size_bytes": 285430,
-      "sha256": "3c6d0d752b86dbca23d28b0c29e2339e93bfad03b0b51e1a97f28bf5f72b3e8c"
+      "path": "data/source_item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set07.source_items.v1.json",
+      "size_bytes": 600711,
+      "sha256": "d2cbbffff441aa35a66253a1da0ecbfd7ca4879bb960bf39d1aeac7a8d3d705f"
     },
     {
-      "path": "data/source_item_links/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.links.v1.json",
-      "size_bytes": 102835,
-      "sha256": "e5d3426b6ec08bd290e9cf5946d4d1ec94056d32be4b01cc9f57fea5ea9fcd93"
+      "path": "data/source_item_links/m3_circle_properties/m3_circle_properties_150worksheet_set07.links.v1.json",
+      "size_bytes": 215002,
+      "sha256": "c5a2cc7876e7f29873ff44ffa55e803e73dfd93a1c5eef544873fe4cc9583d97"
     },
     {
-      "path": "data/sources/m3_trigonometric_ratio.source_manifest.v1.json",
-      "size_bytes": 12649,
-      "sha256": "3bd75b0e6fcee5527fd899bd174150e1f7e08cbc1724cd968061163563e90a7f"
+      "path": "data/sources/m3_circle_properties.source_manifest.v1.json",
+      "size_bytes": 13004,
+      "sha256": "34fa700491ec8d7b1278c26be8fdc5dacea16c8d8d3323bc2339b217a98e1cd4"
     },
     {
-      "path": "data/sources/m3_trigonometric_ratio_72worksheet_set11.registry.v1.json",
-      "size_bytes": 2403,
-      "sha256": "eb4ba811d752d79b0fb16c38d486c8ff3c990c52b436c706e312997d355042d9"
+      "path": "data/sources/m3_circle_properties_150worksheet_set07.registry.v1.json",
+      "size_bytes": 3037,
+      "sha256": "b94788c9326030ac0784b448d7703f32725f47f5a211bff3defb50f6ac33bc59"
     },
     {
-      "path": "data/sources/m3_trigonometric_ratio_worksheets.index.v1.json",
-      "size_bytes": 6604,
-      "sha256": "e6b01a0dbc0a063f953409295340e36cfde5c9c24f49474821b77708ebe5f504"
+      "path": "data/sources/m3_circle_properties_worksheets.index.v1.json",
+      "size_bytes": 4259,
+      "sha256": "563c28505152872c1fc5152ff59bc29ea0c52b781927fc0f709249196b935e95"
     },
     {
-      "path": "data/type_variant_bank/m3_trigonometric_ratio/m3_trigonometric_ratio_72worksheet_set11.type_variants.v1.json",
-      "size_bytes": 15354,
-      "sha256": "66c5209ed21303d9b86864ac8e5c2c917bf2a493559d0e06f66e6e3c03d857ff"
+      "path": "data/type_variant_bank/m3_circle_properties/m3_circle_properties_150worksheet_set07.type_variants.v1.json",
+      "size_bytes": 65757,
+      "sha256": "6ebf6b03fbef60671f3e6c4073a5376ffad1600c8ea131ffb3784cccad5bf8a0"
     },
     {
-      "path": "docs/patch286_m3_trigonometric_ratio_set11_validation.json",
-      "size_bytes": 1751,
-      "sha256": "de297d796eb513882476b260122117fe292b3d82ad954e5ae17974df12410009"
+      "path": "docs/patch293_m3_circle_properties_set07_validation.json",
+      "size_bytes": 2664,
+      "sha256": "c43654b7a7291654f0db94e6bd45654472f2297c1ddcc9b49252771c572aa8b1"
     },
     {
-      "path": "docs/patch286_package_manifest.json",
-      "size_bytes": 1612,
-      "sha256": "7055c3ace6db8a29391d9a3af52a345d748c389d583e030d8db69d4252109a5c"
+      "path": "docs/patch293_package_manifest.json",
+      "size_bytes": 1840,
+      "sha256": "9ce1c4ed31f74fcb60ef9d90d62f83003d222ff6373d1d61232ce9b001e22be1"
     }
   ]
 }
