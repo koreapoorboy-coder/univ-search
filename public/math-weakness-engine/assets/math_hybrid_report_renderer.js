@@ -1,4 +1,4 @@
-/* Math Hybrid Report Renderer v2.1 · Patch 22 diagnosis-first question-generation split */
+﻿/* Math Hybrid Report Renderer v2.1 · Patch 22 diagnosis-first question-generation split */
 class MathHybridReportRenderer {
   static esc(v) { return String(v == null ? '' : v).replace(/[&<>\"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
   static list(items) {
@@ -162,7 +162,12 @@ class MathHybridReportRenderer {
   static buildSolutionPlan(data) {
     const math = data?.math_signal || {};
     const requestCtx = data?._request?.learning_context || data?.learning_context || {};
-    const unit = (math.unit_candidates || [])[0]?.unit_name || requestCtx.unit_name || '현재 풀이 단원';
+    // 엔진이 확정한 단원을 먼저 쓴다. AI 후보와 교사 입력이 모두 없을 때만 일반 표현으로 떨어진다.
+    const engineUnit = (data?._engine_context?.top_units || [])[0];
+    const unit = (engineUnit?.unit_name || engineUnit?.unit_id)
+      || (math.unit_candidates || [])[0]?.unit_name
+      || requestCtx.unit_name
+      || '현재 풀이 단원';
     const concepts = (math.concept_candidates || []).map(x => x.concept_name).filter(Boolean);
     const concept = concepts[0] || unit || '풀이 과정';
     const topic = this.inferMathTopic(data);
@@ -321,14 +326,42 @@ class MathHybridReportRenderer {
     return this.card('교사용 내부 데이터', this.details('엔진·필기 검수·JSON 열기', parts.join(''), false), 'info teacher-only-card');
   }
 
-  static renderProofPlan(plan) {
+  // 연결은 엔진이 future_extension_routes에서 실제로 찾아낸 것만 쓴다.
+  // 이전에는 plan.connections에 박아둔 고정 3줄이 자료와 무관하게 항상 나갔다.
+  // 연결이 없는 단원(수열·행렬·집합 등)은 없는 채로 두는 것이 맞다.
+  static engineConnections(engineDiagnosis) {
+    const conns = (engineDiagnosis && engineDiagnosis.learning_connections) || [];
+    const rows = [];
+    for (const c of conns) {
+      const from = c.unit_name || c.unit_id;
+      for (const f of c.future_routes || []) {
+        if (!f.target_unit_hint) continue;
+        rows.push({ now: from, next: f.target_unit_hint, why: f.used_as || f.future_scene || '' });
+      }
+    }
+    return rows;
+  }
+
+  static renderConnectionTable(rows) {
+    if (!rows || !rows.length) return '';
+    const body = rows.slice(0, 5).map(c => `
+      <tr><td>${this.esc(c.now)}</td><td>${this.esc(c.next)}</td><td>${this.esc(c.why)}</td></tr>`).join('');
+    return `<div class="compact-section-title">이 개념이 연결되는 곳</div>
+      <div class="connection-table-wrap">
+        <table class="connection-table">
+          <thead><tr><th>지금 확인하는 개념</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead>
+          <tbody>${body}</tbody>
+        </table>
+      </div>`;
+  }
+
+  static renderProofPlan(plan, engineConnections = []) {
     const issues = (plan.problems || []).slice(0, 3).map((x, idx) => {
       const title = typeof x === 'object' && x ? x.title : x;
       const body = typeof x === 'object' && x ? x.body : '';
       return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b>${this.esc(title)}</b>${body ? `<br><span>${this.esc(body)}</span>` : ''}</p></div>`;
     }).join('');
-    const rows = (plan.connections || []).slice(0, 3).map(c => `
-      <tr><td>${this.esc(c.now)}</td><td>${this.esc(c.next)}</td><td>${this.esc(c.why)}</td></tr>`).join('');
+    const rows = engineConnections;
     const actions = (plan.actionSteps || []).slice(0, 3).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
     return `
       <section class="compact-diagnosis-box">
@@ -337,22 +370,18 @@ class MathHybridReportRenderer {
         <div class="compact-section-title">지금 문제점</div>
         <div class="compact-issues">${issues}</div>
         ${actions ? `<div class="compact-section-title">학생이 바로 할 일</div><div class="compact-actions">${actions}</div>` : ''}
-        <div class="compact-section-title">이 개념이 연결되는 곳</div>
-        <div class="connection-table-wrap">
-          <table class="connection-table"><thead><tr><th>지금 확인하는 개념</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead><tbody>${rows}</tbody></table>
-        </div>
+        ${this.renderConnectionTable(rows)}
         <div class="ten-question-policy"><b>문제 생성 안내:</b> ${this.esc(plan.questionPolicy)}</div>
       </section>`;
   }
 
-  static renderSolutionPlan(plan) {
+  static renderSolutionPlan(plan, engineConnections = []) {
     const issues = (plan.problems || []).slice(0, 3).map((x, idx) => {
       const title = typeof x === 'object' && x ? x.title : x;
       const body = typeof x === 'object' && x ? x.body : '';
       return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b>${this.esc(title)}</b>${body ? `<br><span>${this.esc(body)}</span>` : ''}</p></div>`;
     }).join('');
-    const rows = (plan.connections || []).slice(0, 3).map(c => `
-      <tr><td>${this.esc(c.now)}</td><td>${this.esc(c.next)}</td><td>${this.esc(c.why)}</td></tr>`).join('');
+    const rows = engineConnections;
     const actions = (plan.actionSteps || []).slice(0, 3).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
     return `
       <section class="compact-diagnosis-box">
@@ -361,10 +390,7 @@ class MathHybridReportRenderer {
         <div class="compact-section-title">지금 문제점</div>
         <div class="compact-issues">${issues}</div>
         ${actions ? `<div class="compact-section-title">학생이 바로 할 일</div><div class="compact-actions">${actions}</div>` : ''}
-        <div class="compact-section-title">이 풀이가 연결되는 곳</div>
-        <div class="connection-table-wrap">
-          <table class="connection-table"><thead><tr><th>현재 오류</th><th>연결되는 단원</th><th>왜 중요한가</th></tr></thead><tbody>${rows}</tbody></table>
-        </div>
+        ${this.renderConnectionTable(rows)}
         <div class="ten-question-policy"><b>문제 생성 안내:</b> ${this.esc(plan.questionPolicy)}</div>
       </section>`;
   }
@@ -454,7 +480,7 @@ class MathHybridReportRenderer {
         <div class="result-title compact-result-title">${this.esc(proofPlan.studentVerdict || outcome.verdict)}</div>
         <div class="result-meta">자료 유형: ${this.esc(outcome.purposeKo)} · 진단 경로: ${this.esc(outcome.routeKo)}</div>
       </div>
-      ${isSolve ? this.renderSolutionPlan(proofPlan) : this.renderProofPlan(proofPlan)}
+      ${isSolve ? this.renderSolutionPlan(proofPlan, this.engineConnections(engineDiagnosis)) : this.renderProofPlan(proofPlan, this.engineConnections(engineDiagnosis))}
       ${this.renderStudentBehaviorAnalysis(engineDiagnosis)}
       ${this.details('교사용 상세 진단 열기', teacherSummary)}
     `, outcome.kind);
