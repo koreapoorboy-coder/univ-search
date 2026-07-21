@@ -2,8 +2,18 @@
   "version": "2026.07.08-global-diagnosis-logic-v1.0",
   "generated_at": "2026-07-08",
   "description": "단원 간 선행 보강(backtrack) 및 상향 확장(future extension)을 위한 전역 cross-unit edge 1차 패치.",
-  "edge_count": 90,
+  "edge_count": 91,
   "edges": [
+    {
+      "edge_id": "GLOBAL_CROSS_E091",
+      "from_unit_id": "H1_COMMON_MATH1_POLYNOMIAL",
+      "to_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_H1_COMMON_MATH1_POLYNOMIAL",
+      "weight": 0.84,
+      "reason": "인수정리와 조립제법은 삼차·사차방정식의 근 찾기에 직접 사용된다.",
+      "status": "global_logic_seed"
+    },
     {
       "edge_id": "GLOBAL_CROSS_E087",
       "from_unit_id": "M2_NUMBER_EXPRESSION",
