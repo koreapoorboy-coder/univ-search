@@ -57,6 +57,32 @@ body{background:var(--mw-bg);color:var(--mw-ink);margin:0;font-size:16px;line-he
 .engine-runtime-summary{margin-top:10px;border-radius:10px;padding:10px 12px;background:var(--mw-soft);border:1px solid #d6e2dd;font-size:13px;color:#41544e}
 .footer-note{max-width:680px;margin:16px auto 0;padding:16px 20px 34px;border-top:1px solid var(--mw-line);color:var(--mw-muted);font-size:12.5px;text-align:center}
 .screen-reader-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* 선행 체인 (결과 화면) — 새 클래스만 쓰므로 렌더러 기존 스타일과 충돌하지 않는다 */
+.chain-block{margin:0 0 22px}
+.chain-block:last-child{margin-bottom:0}
+.chain-stuck{border-left:4px solid #a8442f;background:#fbf0ec;border-radius:0 14px 14px 0;padding:14px 16px}
+.chain-stuck-tag{font-size:11px;font-weight:800;letter-spacing:.1em;color:#a8442f}
+.chain-stuck-txt{font-weight:700;margin-top:5px;font-size:16px}
+.chain-stuck-q{color:var(--mw-muted);font-size:13px;margin-top:4px}
+.chain-lead{display:flex;align-items:center;gap:9px;margin:18px 0 6px}
+.chain-lead span{font-size:13px;font-weight:800;color:var(--mw-brand)}
+.chain-lead i{flex:1;height:1px;background:var(--mw-line)}
+ol.chain{list-style:none;margin:0;padding:0 0 0 30px;position:relative}
+ol.chain::before{content:"";position:absolute;left:9px;top:12px;bottom:22px;width:2px;background:linear-gradient(var(--mw-brand-mid),#cfe0da)}
+.chain-node{position:relative;padding:0 0 18px}
+.chain-node::before{content:"";position:absolute;left:-26px;top:7px;width:12px;height:12px;border-radius:999px;background:#fff;border:2.5px solid var(--mw-brand-mid)}
+.chain-node.is-last{padding-bottom:4px}
+.chain-node.is-last::before{background:var(--mw-brand-mid)}
+.chain-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chain-course{background:var(--mw-soft);color:var(--mw-brand);border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:800}
+.chain-unit{font-size:13px;color:var(--mw-muted);font-weight:700}
+.chain-focus{font-weight:800;font-size:16px;margin-top:6px}
+.chain-act{color:var(--mw-muted);font-size:14px;margin-top:3px}
+.chain-summary{background:var(--mw-soft);border-radius:14px;padding:15px 17px;margin-top:4px}
+.chain-summary b{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--mw-brand)}
+.chain-summary p{margin:6px 0 0;font-weight:700;font-size:15px}
+.chain-depth{display:flex;gap:8px;align-items:baseline;color:var(--mw-muted);font-size:13px;margin-top:16px;padding-top:14px;border-top:1px solid var(--mw-line)}
+.chain-depth b{color:var(--mw-ink);font-size:15px}
 @media(max-width:600px){.site-shell{padding:24px 16px 8px}.hero h1{font-size:25px}.intake{padding:22px 18px}.flow span{font-size:11.5px;padding:8px 5px}}
 </style>
 </head>
@@ -521,6 +547,9 @@ window.addEventListener('DOMContentLoaded', () => {
       : '';
     $('#result').innerHTML = [
       MathHybridReportRenderer.renderExtraction(state.extraction, state.engineDiagnosis),
+      (typeof MathHybridReportRenderer.renderBacktrackChains === 'function')
+        ? MathHybridReportRenderer.renderBacktrackChains(state.engineDiagnosis)
+        : '',
       renderPostDiagnosisActionCard(),
       MathHybridReportRenderer.renderVerificationQuestions(state.verificationSet),
       teacherDiagnostics,

@@ -428,6 +428,54 @@ class MathHybridReportRenderer {
     `, outcome.kind);
   }
 
+  // 오답에서 선행 단원까지 내려가는 경로를 그린다.
+  // 엔진은 backtrack_route.backtrack_steps를 계산해 두고도 화면에 쓰지 않고 있었다.
+  // unit_hint는 "미적분1 적분"처럼 '과정 단원' 형태라 첫 토큰을 과정 칩으로 분리한다.
+  static splitUnitHint(hint) {
+    const text = String(hint || '').trim();
+    if (!text) return { course: '', unit: '' };
+    const i = text.indexOf(' ');
+    return i < 0 ? { course: text, unit: '' } : { course: text.slice(0, i), unit: text.slice(i + 1) };
+  }
+
+  static renderBacktrackChain(item) {
+    const route = item && item.backtrack_route;
+    const steps = (route && route.backtrack_steps) || [];
+    if (!steps.length) return '';
+    const nodes = steps.map((s, i) => {
+      const { course, unit } = this.splitUnitHint(s.unit_hint);
+      const last = i === steps.length - 1 ? ' is-last' : '';
+      return `<li class="chain-node${last}">
+        <div class="chain-head">
+          ${course ? `<span class="chain-course">${this.esc(course)}</span>` : ''}
+          ${unit ? `<span class="chain-unit">${this.esc(unit)}</span>` : ''}
+        </div>
+        <div class="chain-focus">${this.esc(s.concept_focus)}</div>
+        ${s.student_action ? `<div class="chain-act">${this.esc(s.student_action)}</div>` : ''}
+      </li>`;
+    }).join('');
+    const depthFrom = this.splitUnitHint(steps[0].unit_hint).course;
+    const depthTo = this.splitUnitHint(steps[steps.length - 1].unit_hint).course;
+    return `<div class="chain-block">
+      <div class="chain-stuck">
+        <div class="chain-stuck-tag">지금 막힌 지점</div>
+        <div class="chain-stuck-txt">${this.esc(route.current_weakness || item.type_name || '')}</div>
+        ${item.question_no ? `<div class="chain-stuck-q">${this.esc(item.question_no)}번 · ${this.esc(item.type_name || '')}</div>` : ''}
+      </div>
+      <div class="chain-lead"><span>선행 단원 ${steps.length}단계</span><i></i></div>
+      <ol class="chain">${nodes}</ol>
+      ${route.student_summary ? `<div class="chain-summary"><b>진단 요약</b><p>${this.esc(route.student_summary)}</p></div>` : ''}
+      ${depthFrom && depthTo ? `<div class="chain-depth"><span>추적 깊이</span><b>${this.esc(depthFrom)} → ${this.esc(depthTo)} · ${steps.length}단계</b></div>` : ''}
+    </div>`;
+  }
+
+  static renderBacktrackChains(diagnosis) {
+    const wrong = (diagnosis && diagnosis.wrong_answer_diagnoses) || [];
+    const blocks = wrong.map(w => this.renderBacktrackChain(w)).filter(Boolean);
+    if (!blocks.length) return '';
+    return this.card('이 오답이 내려가는 곳', blocks.join(''));
+  }
+
   static renderEngineSummary(diagnosis) {
     if (!diagnosis) return '';
     const s = diagnosis.summary || {};
