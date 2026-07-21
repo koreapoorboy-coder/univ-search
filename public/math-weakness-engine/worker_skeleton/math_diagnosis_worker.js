@@ -232,7 +232,13 @@ ${JSON.stringify(schema)}`;
   }
   if (!text) throw httpError(502, 'Claude response has no text output');
   try { return parseJsonLoose(text); }
-  catch { throw httpError(502, `Claude output was not valid JSON (${schemaName})`); }
+  catch (err) {
+    // 원문을 못 보면 원인(잘림 / 형식 / 앞뒤 군더더기)을 구분할 수 없어 추측 수정만 반복된다.
+    // 앞뒤 일부와 길이, stop_reason을 실어 보내 한 번의 실패로 원인이 드러나게 한다.
+    const head = text.slice(0, 220).replace(/\s+/g, ' ');
+    const tail = text.slice(-120).replace(/\s+/g, ' ');
+    throw httpError(502, `Claude output was not valid JSON (${schemaName}) · len=${text.length} stop=${stopReason || 'none'} · head="${head}" · tail="${tail}"`);
+  }
 }
 
 // SSE를 읽어 text 블록만 이어 붙인다. adaptive thinking이 켜져 있어 thinking_delta가
@@ -273,15 +279,27 @@ async function collectClaudeStream(res) {
 // structured outputs가 없을 때는 코드펜스나 앞뒤 설명이 섞일 수 있다.
 // structured 응답에는 영향이 없다(이미 순수 JSON이라 첫 분기에서 끝난다).
 function parseJsonLoose(text) {
-  let t = String(text || '').trim();
-  if (t.startsWith('{')) { try { return JSON.parse(t); } catch (_) {} }
-  const fenced = t.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-  if (fenced) t = fenced[1].trim();
-  if (!t.startsWith('{')) {
-    const a = t.indexOf('{'), b = t.lastIndexOf('}');
-    if (a >= 0 && b > a) t = t.slice(a, b + 1);
+  const raw = String(text || '').trim();
+  const attempts = [];
+  attempts.push(raw);
+
+  // 닫는 펜스가 있는 경우와, 길이 제한으로 펜스가 닫히지 않은 경우 둘 다 받는다.
+  const closed = raw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+  if (closed) attempts.push(closed[1].trim());
+  const open = raw.match(/```(?:json)?\s*([\s\S]*)$/);
+  if (open) attempts.push(open[1].trim());
+
+  // 앞뒤에 설명이 붙은 경우 가장 바깥 중괄호만 잘라낸다.
+  const a = raw.indexOf('{'), b = raw.lastIndexOf('}');
+  if (a >= 0 && b > a) attempts.push(raw.slice(a, b + 1));
+
+  for (const candidate of attempts) {
+    if (!candidate || candidate[0] !== '{') continue;
+    try { return JSON.parse(candidate); } catch (_) {}
+    // 후행 쉼표는 모델이 자주 남기는 형태라 한 번 더 시도한다.
+    try { return JSON.parse(candidate.replace(/,\s*([}\]])/g, '$1')); } catch (_) {}
   }
-  return JSON.parse(t);
+  throw new SyntaxError('no parsable JSON object found');
 }
 
 // Claude returns an array of content blocks. With adaptive thinking on, thinking
