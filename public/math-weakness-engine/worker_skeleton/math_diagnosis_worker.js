@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.07.21-claude-streaming';
+const VERSION = '2026.07.21-split-analyze';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 const DEFAULT_MAX_TOKENS = 16000;
@@ -70,10 +70,7 @@ export default {
 
       if (url.pathname === '/api/math-diagnose/analyze' && request.method === 'POST') {
         const { payload, files } = await parseHybridRequest(request, env);
-        const prompt = buildAnalyzePrompt(payload, files);
-        // AI_EXTRACTION_SCHEMA는 structured outputs의 문법 컴파일 한도를 넘는다
-        // ("The compiled grammar is too large"). 프롬프트 지시 + 느슨한 파싱으로 처리한다.
-        const result = await runJsonTask({ env, task: 'analyze', prompt, files, schemaName: 'math_ai_extraction', schema: AI_EXTRACTION_SCHEMA, structured: false, fallback: () => buildAnalyzeFallback(payload, 'analyze_fallback') });
+        const result = await runAnalyze({ env, payload, files });
         return json(request, env, attachMeta(result, requestId, 'analyze'), 200, requestId, startedAt);
       }
 
@@ -153,6 +150,53 @@ function validateFiles(files, env) {
     }
   }
   if (total > maxTotalBytes) throw httpError(413, `Total upload size is too large. Max total size is ${maxTotalBytes} bytes.`);
+}
+
+// 1차 분석을 두 호출로 나눠 동시에 돌린다.
+//  A. engine_adapter — 스키마가 작아 structured outputs가 다시 걸린다. problem_type_id와
+//     observed_error_tags가 문법으로 보장되고, 이 둘이 선행 체인을 결정한다.
+//  B. 화면 검토 문구 — 스키마가 커서 프롬프트 방식 유지.
+// 한 호출로 91개 속성을 순차 생성하면 xhigh에서 5분을 넘긴다. 병렬로 돌리면
+// 소요 시간이 둘 중 긴 쪽으로 줄고, B가 실패해도 A의 진단 본체는 남는다.
+async function runAnalyze({ env, payload, files }) {
+  const base = buildAnalyzePrompt(payload, files);
+  const only = (what) => `${base}\n\n[이번 응답 범위]\n${what}`;
+  const [engine, review] = await Promise.all([
+    runJsonTask({
+      env, task: 'analyze_engine', files, structured: true,
+      prompt: only('engine_adapter와 ok만 채운다. 화면용 검토 문구는 이번 응답에서 생성하지 않는다.'),
+      schemaName: 'math_engine_adapter', schema: ENGINE_ADAPTER_SCHEMA,
+      fallback: () => pickKeys(buildAnalyzeFallback(payload, 'analyze_engine_fallback'), ENGINE_ADAPTER_KEYS)
+    }),
+    runJsonTask({
+      env, task: 'analyze_review', files, structured: false,
+      prompt: only('engine_adapter는 이번 응답에서 생성하지 않는다. 나머지 검토 항목만 채운다.'),
+      schemaName: 'math_material_review', schema: REVIEW_SCHEMA,
+      fallback: () => dropKeys(buildAnalyzeFallback(payload, 'analyze_review_fallback'), ENGINE_ADAPTER_KEYS)
+    })
+  ]);
+  const merged = { ...stripRuntime(review), ...stripRuntime(engine) };
+  const notes = [engine?._runtime?.note, review?._runtime?.note].filter(Boolean);
+  if (notes.length) merged._runtime = { note: notes.join(' | '), worker_version: VERSION };
+  return merged;
+}
+
+const ENGINE_ADAPTER_KEYS = ['ok', 'engine_adapter'];
+function pickKeys(obj, keys) {
+  const out = {};
+  for (const k of keys) if (obj && k in obj) out[k] = obj[k];
+  if (obj && obj._runtime) out._runtime = obj._runtime;
+  return out;
+}
+function dropKeys(obj, keys) {
+  const out = { ...(obj || {}) };
+  for (const k of keys) if (k !== 'ok') delete out[k];
+  return out;
+}
+function stripRuntime(obj) {
+  const out = { ...(obj || {}) };
+  delete out._runtime;
+  return out;
 }
 
 async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback, validate, structured = true }) {
@@ -1365,6 +1409,26 @@ const AI_EXTRACTION_SCHEMA = {
     }
   }
 };
+// AI_EXTRACTION_SCHEMA에서 파생시킨다. 원본을 고치면 두 갈래가 함께 따라오도록 하기 위함이다.
+// A는 문법 컴파일 한도 안에 들어와 structured outputs를 쓸 수 있고, B는 나머지 전부라 여전히 프롬프트 방식이다.
+const ENGINE_ADAPTER_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  required: AI_EXTRACTION_SCHEMA.required.filter(k => ENGINE_ADAPTER_KEYS.includes(k)),
+  properties: Object.fromEntries(
+    Object.entries(AI_EXTRACTION_SCHEMA.properties).filter(([k]) => ENGINE_ADAPTER_KEYS.includes(k))
+  )
+};
+
+const REVIEW_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  required: AI_EXTRACTION_SCHEMA.required.filter(k => k === 'ok' || !ENGINE_ADAPTER_KEYS.includes(k)),
+  properties: Object.fromEntries(
+    Object.entries(AI_EXTRACTION_SCHEMA.properties).filter(([k]) => k === 'ok' || !ENGINE_ADAPTER_KEYS.includes(k))
+  )
+};
+
 const VERIFICATION_QUESTION_SCHEMA = { type:'object', additionalProperties:false, required:['set_id','target_concepts','source_diagnosis','questions','teacher_decision_rule','redo_policy'], properties:{ set_id:{type:'string'}, target_concepts:{type:'array',items:{type:'string'}}, source_diagnosis:{type:'string'}, questions:{type:'array',items:{type:'object',additionalProperties:false,required:['question_id','question_type','prompt','student_answer_format','required_elements','answer_key','rubric','minimum_pass_score','teacher_note'],properties:{question_id:{type:'string'},question_type:{type:'string',enum:['definition','classification','process','proof_explanation','error_correction','self_explanation','example_generation','counterexample_generation','non_example_classification']},prompt:{type:'string'},student_answer_format:{type:'string'},required_elements:{type:'array',items:{type:'string'}},answer_key:{type:'string'},rubric:{type:'array',items:{type:'object',additionalProperties:false,required:['score','condition'],properties:{score:{type:'number'},condition:{type:'string'}}}},minimum_pass_score:{type:'number'},teacher_note:{type:'string'}}}}, teacher_decision_rule:{type:'string'}, redo_policy:{type:'string'} } };
 const ANSWER_REVIEW_SCHEMA = { type:'object',additionalProperties:false,required:['review_id','overall_result','question_reviews','final_instruction'],properties:{ review_id:{type:'string'}, overall_result:{type:'object',additionalProperties:false,required:['level','score','decision','summary'],properties:{level:{type:'string',enum:['A','B','C','D']},score:{type:'number'},decision:{type:'string',enum:['understood','partial_understanding','memorized_only','needs_relearning']},summary:{type:'string'}}}, question_reviews:{type:'array',items:{type:'object',additionalProperties:false,required:['question_id','status','score','confirmed_understanding','missing_elements','misconceptions','feedback'],properties:{question_id:{type:'string'},status:{type:'string',enum:['correct','partial','incorrect','unanswered']},score:{type:'number'},confirmed_understanding:{type:'array',items:{type:'string'}},missing_elements:{type:'array',items:{type:'string'}},misconceptions:{type:'array',items:{type:'string'}},feedback:{type:'string'}}}}, final_instruction:{type:'object',additionalProperties:false,required:['student_message','teacher_action','redo_tasks','parent_message'],properties:{student_message:{type:'string'},teacher_action:{type:'string'},redo_tasks:{type:'array',items:{type:'string'}},parent_message:{type:'string'}}} } };
 const FINAL_REPORT_SCHEMA = { type:'object',additionalProperties:false,required:['report_id','report_type','student_summary','teacher_summary','parent_summary','next_plan'],properties:{ report_id:{type:'string'}, report_type:{type:'string',enum:['initial_diagnosis','after_verification_review','full_cycle']}, student_summary:{type:'object',additionalProperties:false,required:['status','what_is_understood','what_is_missing','next_action'],properties:{status:{type:'string'},what_is_understood:{type:'array',items:{type:'string'}},what_is_missing:{type:'array',items:{type:'string'}},next_action:{type:'array',items:{type:'string'}}}}, teacher_summary:{type:'object',additionalProperties:false,required:['diagnosis','evidence','instruction_plan','watch_points'],properties:{diagnosis:{type:'string'},evidence:{type:'array',items:{type:'string'}},instruction_plan:{type:'array',items:{type:'string'}},watch_points:{type:'array',items:{type:'string'}}}}, parent_summary:{type:'object',additionalProperties:false,required:['plain_message','home_support'],properties:{plain_message:{type:'string'},home_support:{type:'array',items:{type:'string'}}}}, next_plan:{type:'object',additionalProperties:false,required:['redo_tasks','verification_required_again','recommended_due_date_hint'],properties:{redo_tasks:{type:'array',items:{type:'string'}},verification_required_again:{type:'boolean'},recommended_due_date_hint:{type:'string'}}} } };
