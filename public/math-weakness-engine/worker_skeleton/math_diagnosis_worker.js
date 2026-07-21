@@ -1203,11 +1203,44 @@ const AI_EXTRACTION_SCHEMA = {
       "properties": {
         "student_attempt": {
           "type": "object",
-          "additionalProperties": true
+          "additionalProperties": false,
+          "required": ["unit_id", "unit_name", "attempts"],
+          "properties": {
+            "unit_id": { "type": "string" },
+            "unit_name": { "type": "string" },
+            "attempts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["question_no", "problem_type_id", "is_correct", "difficulty", "observed_error_tags"],
+                "properties": {
+                  "question_no": { "type": "string" },
+                  "problem_type_id": { "type": "string" },
+                  "is_correct": { "type": "boolean" },
+                  "difficulty": { "type": "string", "enum": ["basic", "core", "advanced", "high"] },
+                  "observed_error_tags": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          }
         },
         "note_review_input": {
           "type": "object",
-          "additionalProperties": true
+          "additionalProperties": false,
+          "required": ["student_note"],
+          "properties": {
+            "student_note": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["unit_id", "lesson_title", "note_text"],
+              "properties": {
+                "unit_id": { "type": "string" },
+                "lesson_title": { "type": "string" },
+                "note_text": { "type": "string" }
+              }
+            }
+          }
         },
         "recommended_engine_actions": {
           "type": "array",
