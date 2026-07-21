@@ -32,13 +32,14 @@ body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:0
 const qs = new URLSearchParams(location.search);
 const sid = qs.get("student_id");
 
-fetch("../students.json?v="+Date.now())
+fetch("./students.json?v="+Date.now())
 .then(r=>r.json())
 .then(data=>{
-  const student = (data.students||[]).find(s=>s.id===sid) || data.students[0];
+  const arr = Array.isArray(data?.students) ? data.students : data;
+  const student = arr.find(s=>(s.id||s.student_id)===sid) || arr[0] || {};
 
-  document.getElementById("name").textContent = student.name || student.student_name;
-  document.getElementById("school").textContent = student.school || "";
+  document.getElementById("name").textContent = student.name || student.student_name || "학생";
+  document.getElementById("school").textContent = student.school || student.school_name || "";
 
   const wrap = document.getElementById("subjects");
 
