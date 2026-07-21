@@ -2,8 +2,28 @@
   "version": "2026.07.08-global-diagnosis-logic-v1.0",
   "generated_at": "2026-07-08",
   "description": "단원 간 선행 보강(backtrack) 및 상향 확장(future extension)을 위한 전역 cross-unit edge 1차 패치.",
-  "edge_count": 79,
+  "edge_count": 81,
   "edges": [
+    {
+      "edge_id": "GLOBAL_CROSS_E080",
+      "from_unit_id": "M3_REAL_NUMBER_CALC",
+      "to_unit_id": "H1_COMMON_MATH1_EQUATION_INEQUALITY",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M3_REAL_NUMBER_CALC",
+      "weight": 0.78,
+      "reason": "중3 제곱근의 뜻과 실수 분류가 고1 음수의 제곱근·복소수 분류의 직접 선행이다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E081",
+      "from_unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "to_unit_id": "H2_ALGEBRA_TRIGONOMETRIC_FUNCTION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M3_TRIGONOMETRIC_RATIO",
+      "weight": 0.8,
+      "reason": "중3 삼각비가 고등 대수의 삼각함수와 단위원 해석으로 확장된다.",
+      "status": "global_logic_seed"
+    },
     {
       "edge_id": "GLOBAL_CROSS_E001",
       "from_unit_id": "H1_COMMON_MATH2_GEOMETRY_EQUATION",
