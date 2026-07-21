@@ -50,7 +50,7 @@
       this.globalLogicError=null;
     }
     async _json(path){
-      const res=await fetch(`${this.basePath}/${path}`);
+      const res=await fetch(`${this.basePath}/${path}`,{cache:'no-cache'});
       if(!res.ok) throw new Error(`load failed: ${path}`);
       return await res.json();
     }
@@ -61,23 +61,42 @@
     async load(){
       this.manifest=await this._json('manifest.json');
       this.index=await this._json(this.manifest.data_index);
-      this.units=this.index.units||[];
+      this.indexedUnits=this.index.units||[];
+      this.units=[];
+      this.skippedUnits=[];
+      this.unitLoadWarnings=[];
       const conceptPack=await this._json('data/math_concepts.v1.json');
       this.concepts=conceptPack;
       this.allProblemTypes=[]; this.allEdges=[]; this.allRules=[]; this.allRemediation=[]; this.unitData={};
-      for(const u of this.units){
-        const [pt,ed,ru,re]=await Promise.all([
-          this._json(u.problem_types),
-          this._json(u.edges),
-          this._json(u.diagnosis_rules),
-          this._json(u.remediation)
-        ]);
+      for(const u of this.indexedUnits){
+        const requests=[
+          ['problem_types',u.problem_types],
+          ['edges',u.edges],
+          ['diagnosis_rules',u.diagnosis_rules],
+          ['remediation',u.remediation]
+        ];
+        const settled=await Promise.allSettled(requests.map(([,path])=>this._json(path)));
+        const failed=[];
+        settled.forEach((result,i)=>{
+          if(result.status==='rejected') failed.push({role:requests[i][0],path:requests[i][1],error:result.reason&&result.reason.message||String(result.reason)});
+        });
+        if(failed.length){
+          const skipped={unit_id:u.unit_id,unit_name:u.unit_name||u.unit_id,failed_files:failed};
+          this.skippedUnits.push(skipped);
+          this.unitLoadWarnings.push(`unit skipped: ${u.unit_id} (${failed.map(x=>x.role).join(', ')})`);
+          console.warn('[MathWeaknessEngine] unit load skipped:',skipped);
+          continue;
+        }
+        const [pt,ed,ru,re]=settled.map(x=>x.value);
+        this.units.push(u);
         this.unitData[u.unit_id]={unit:u,problemTypes:pt,edges:ed,rules:ru,remediation:re};
         this.allProblemTypes.push(...(pt.problem_types||[]));
         this.allEdges.push(...(ed.edges||[]));
         this.allRules.push(...(ru.rules||[]));
         this.allRemediation.push(...(re.remediation||[]));
       }
+      if(!this.units.length) throw new Error('no canonical unit data could be loaded');
+      this.partialLoad=this.skippedUnits.length>0;
       this.unitById=byId(this.units,'unit_id');
       this.conceptById=byId([...(conceptPack.concepts||[]),...(conceptPack.future_target_concepts||[])],'concept_id');
       this.problemTypeById=byId(this.allProblemTypes,'problem_type_id');
@@ -86,6 +105,17 @@
       await this._loadAlgebraMasterMatcher();
       this.loaded=true;
       return this;
+    }
+
+    getLoadStatus(){
+      return {
+        loaded:true,
+        partial:!!this.partialLoad,
+        declared_unit_count:(this.indexedUnits||[]).length,
+        loaded_unit_count:(this.units||[]).length,
+        skipped_unit_count:(this.skippedUnits||[]).length,
+        skipped_units:(this.skippedUnits||[]).map(u=>({unit_id:u.unit_id,unit_name:u.unit_name,failed_files:u.failed_files}))
+      };
     }
 
     async _loadAlgebraMasterMatcher(){
@@ -470,7 +500,8 @@
       const topUnits=Object.keys(unitCounts).sort((a,b)=>unitCounts[b]-unitCounts[a]).slice(0,5).map(uid=>({unit_id:uid,unit_name:(this.unitById[uid]||{}).unit_name||uid,count:unitCounts[uid]}));
       const studentBehaviorAnalysis=this.analyzeStudentBehavior(input,attempts);
       return {
-        summary:{attempt_count:attempts.length,wrong_count:attempts.filter(a=>!a.correct&&a.response_status!=='BLANK_UNKNOWN'&&a.response_status!=='UNKNOWN').length,blank_count:attempts.filter(a=>a.response_status==='BLANK_UNKNOWN').length,partial_stop_count:attempts.filter(a=>a.response_status==='PARTIAL_STOP').length,answer_only_count:attempts.filter(a=>a.response_status==='ANSWER_ONLY').length,missing_type_count:missing.length,loaded_unit_count:this.units.length},
+        summary:{attempt_count:attempts.length,wrong_count:attempts.filter(a=>!a.correct&&a.response_status!=='BLANK_UNKNOWN'&&a.response_status!=='UNKNOWN').length,blank_count:attempts.filter(a=>a.response_status==='BLANK_UNKNOWN').length,partial_stop_count:attempts.filter(a=>a.response_status==='PARTIAL_STOP').length,answer_only_count:attempts.filter(a=>a.response_status==='ANSWER_ONLY').length,missing_type_count:missing.length,loaded_unit_count:this.units.length,declared_unit_count:(this.indexedUnits||[]).length,skipped_unit_count:(this.skippedUnits||[]).length},
+        unit_load_status:this.getLoadStatus(),
         global_logic_status:{loaded:this.globalLogicLoaded,error:this.globalLogicError,instruction_count:Object.keys(this.problemTypeInstructionById||{}).length,split_mode:!!(this.problemTypeInstructionManifest&&this.problemTypeInstructionManifest.split_mode),part_count:(this.problemTypeInstructionManifest&&this.problemTypeInstructionManifest.part_count)||0},
         top_concepts:conceptResults.slice(0,12),
         top_units:topUnits,

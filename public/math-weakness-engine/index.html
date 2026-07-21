@@ -10,19 +10,26 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
 <body>
 <h1>수학 취약유형 진단 엔진 v1.0</h1>
 <p class="muted">문항분류 → 풀이 행동지시 → 선행 backtrack → 상위 future route를 함께 출력합니다.</p>
+<div id="load_status"></div>
 <div class="card"><h2>입력 JSON</h2><p>형식: <code>{"attempts":[{"question_no":1,"problem_type_id":"H2_CALC2_INT_PT330","is_correct":false,"difficulty":"core","observed_error_tags":["area","curve_line"]}]}</code></p><textarea id="input"></textarea><br/><button id="run">진단 실행</button> <button id="sample_global">전역 로직 샘플</button> <button id="sample_calc2_int">미적분2 적분 샘플</button> <button id="sample_m1">중1 누적 샘플</button></div>
 
 <div class="card"><h2>인강 필기 / 개념 이해 검수 JSON</h2><p>형식: <code>{"student_note":{"unit_id":"m1_int_rational","lesson_title":"유리수와 순환소수","note_text":"필기 내용을 텍스트로 옮긴 내용"}}</code></p><textarea id="note_input"></textarea><br/><button id="note_run">필기 검수 실행</button> <button id="note_sample">유리수 필기 샘플</button></div>
 <div id="note_out"></div>
 <div id="out"></div>
 <script src="assets/algebra_master_matcher.js"></script>
-<script src="assets/math_weakness_engine.js"></script>
+<script src="assets/math_weakness_engine.js?v=patch310"></script>
 <script src="assets/math_weakness_evidence_review.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const engine=new MathWeaknessEngine('.');
 async function loadSample(path){ const sample=await fetch(path).then(r=>r.json()); $('#input').value=JSON.stringify(sample,null,2); }
 function esc(v){return String(v==null?'':v).replace(/[&<>"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));}
+function renderLoadStatus(){
+  const s=engine.getLoadStatus?engine.getLoadStatus():null;
+  if(!s){$('#load_status').innerHTML=''; return;}
+  const skipped=(s.skipped_units||[]).map(u=>esc(u.unit_name||u.unit_id)).join(', ');
+  $('#load_status').innerHTML=`<div class="card ${s.partial?'warn':'ok'}"><b>${s.partial?'부분 로드 완료':'엔진 로드 완료'}</b><p>등록 단원 ${s.declared_unit_count}개 중 ${s.loaded_unit_count}개 사용 가능${s.skipped_unit_count?` · 제외 ${s.skipped_unit_count}개`:''}</p>${skipped?`<p class="muted">현재 제외: ${skipped}</p>`:''}</div>`;
+}
 function ol(items){return `<ol class="steps">${(items||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`;}
 function renderGuidance(items){
   if(!items||!items.length) return '<p>오답 문항 행동지시 없음</p>';
@@ -40,9 +47,10 @@ function renderNoteReview(res){
 }
 function render(res){
   const status=res.global_logic_status||{};
+  const unitStatus=res.unit_load_status||{};
   const rows=(res.top_concepts||[]).map(c=>`<tr><td>${esc(c.concept_id)}</td><td><b>${esc(c.concept_name||'')}</b><br><span class="muted">${esc(c.grade||'')} ${esc(c.unit_name||'')} / ${esc(c.strand||'')}</span></td><td>${Number(c.score||0).toFixed(1)}</td><td>${Number(c.direct||0).toFixed(1)}</td><td>${Number(c.prerequisite||0).toFixed(1)}</td><td>${esc(c.remediation?c.remediation.title:'')}</td></tr>`).join('');
   const risks=(res.cross_grade_risks||[]).map(r=>`<tr><td>${esc(r.from_name||r.from)}</td><td>${esc(r.to_name||r.to)}</td><td>${esc(r.scope||'')}</td><td>${esc(r.reason)}</td></tr>`).join('');
-  $('#out').innerHTML=`<div class="card ${status.loaded?'ok':'warn'}"><h2>요약</h2><p>로드 단원 ${res.summary.loaded_unit_count}개 / 문항 ${res.summary.attempt_count}개 / 오답 ${res.summary.wrong_count}개 / 매칭 실패 ${res.summary.missing_type_count}개</p><p>전역 로직: ${status.loaded?'로드 정상':'로드 실패'} / 문항 행동지시 ${status.instruction_count||0}개 / split parts ${status.part_count||0}개</p>${status.error?`<p>${esc(status.error)}</p>`:''}</div><h2>오답 문항 행동지시</h2>${renderGuidance(res.wrong_answer_diagnoses)}<h2>상위 학습 연결</h2>${renderFuture(res.learning_connections)}<h2>취약 개념 점수</h2><table><tr><th>ID</th><th>개념</th><th>총점</th><th>직접</th><th>선행 의심</th><th>보강</th></tr>${rows}</table><h2>후행 연결 위험</h2><table><tr><th>현재/선행 원인</th><th>후행 개념</th><th>범위</th><th>연결 이유</th></tr>${risks}</table><h2>Raw result</h2><pre>${esc(JSON.stringify(res,null,2))}</pre>`;
+  $('#out').innerHTML=`<div class="card ${status.loaded?'ok':'warn'}"><h2>요약</h2><p>로드 단원 ${res.summary.loaded_unit_count}개${res.summary.declared_unit_count?` / 등록 ${res.summary.declared_unit_count}개`:''} / 문항 ${res.summary.attempt_count}개 / 오답 ${res.summary.wrong_count}개 / 매칭 실패 ${res.summary.missing_type_count}개</p>${unitStatus.partial?`<p class="muted">누락 데이터로 제외된 단원 ${unitStatus.skipped_unit_count}개: ${(unitStatus.skipped_units||[]).map(u=>esc(u.unit_name||u.unit_id)).join(', ')}</p>`:''}<p>전역 로직: ${status.loaded?'로드 정상':'로드 실패'} / 문항 행동지시 ${status.instruction_count||0}개 / split parts ${status.part_count||0}개</p>${status.error?`<p>${esc(status.error)}</p>`:''}</div><h2>오답 문항 행동지시</h2>${renderGuidance(res.wrong_answer_diagnoses)}<h2>상위 학습 연결</h2>${renderFuture(res.learning_connections)}<h2>취약 개념 점수</h2><table><tr><th>ID</th><th>개념</th><th>총점</th><th>직접</th><th>선행 의심</th><th>보강</th></tr>${rows}</table><h2>후행 연결 위험</h2><table><tr><th>현재/선행 원인</th><th>후행 개념</th><th>범위</th><th>연결 이유</th></tr>${risks}</table><h2>Raw result</h2><pre>${esc(JSON.stringify(res,null,2))}</pre>`;
 }
 $('#run').onclick=()=>{ const data=JSON.parse($('#input').value); render(engine.diagnoseWithGuidance(data)); };
 
@@ -52,7 +60,7 @@ $('#note_run').onclick=async()=>{ if(engine.loadEvidenceLogic) await engine.load
 $('#sample_global').onclick=()=>loadSample('samples/global_runtime.student_attempt.sample.json');
 $('#sample_calc2_int').onclick=()=>loadSample('samples/h2_calculus2_integration.student_attempt.sample.json');
 $('#sample_m1').onclick=()=>loadSample('samples/m1_all_units.student_attempt.sample.json');
-async function init(){ await engine.load(); if(engine.loadEvidenceLogic) await engine.loadEvidenceLogic(); await loadSample('samples/global_runtime.student_attempt.sample.json'); const ns=await fetch('samples/lecture_note_review.student_note.sample.json').then(r=>r.json()).catch(()=>null); if(ns) $('#note_input').value=JSON.stringify(ns,null,2); }
+async function init(){ await engine.load(); renderLoadStatus(); if(engine.loadEvidenceLogic) await engine.loadEvidenceLogic(); await loadSample('samples/global_runtime.student_attempt.sample.json'); const ns=await fetch('samples/lecture_note_review.student_note.sample.json').then(r=>r.json()).catch(()=>null); if(ns) $('#note_input').value=JSON.stringify(ns,null,2); }
 init().catch(err=>{$('#out').innerHTML=`<div class="card warn"><b>로드 오류</b><pre>${esc(err.stack||err.message)}</pre></div>`;});
 </script>
 </body></html>

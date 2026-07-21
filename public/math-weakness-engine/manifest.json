@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-20-patch305-m3-statistics-150-set03-ingestion",
-  "build_date": "2026-07-20",
+  "version": "2026-07-21-patch310-runtime-loader-recovery",
+  "build_date": "2026-07-21",
   "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
   "description": "PATCH159 behavior analysis preserved; M3 statistics worksheet SET03 adds 150 structural items with cumulative SET01-SET03 cross-set variant tracking.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch305_m3_statistics_150_set03_ingestion_20260720",
+  "last_patch": "math_weakness_engine_patch310_runtime_loader_recovery_20260721",
   "unit_count": 39,
   "problem_type_count": 13192,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch305-m3-statistics-150-set03-ingestion",
+  "patch": "patch310-runtime-loader-recovery",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -467,7 +467,7 @@
   "has_future_learning_connection_section": true,
   "verification_question_count": 10,
   "hides_broad_analysis_from_student_view": true,
-  "patch_summary": "중3 통계 SET03 150문항을 PATCH150 M3_STATISTICS canonical 계약 유형 23개에 연결하고 SET01·SET02 cross-set variant를 누적했습니다. 신규 canonical 유형과 미분류 문항은 0개입니다.",
+  "patch_summary": "GitHub Pages main/(root) 배포 구조를 기준으로 누락 canonical 단원 데이터가 있어도 정상 단원은 계속 로드하도록 런타임을 복구하고, 캐시 버스터와 부분 로드 상태 표시를 추가했습니다.",
   "has_student_pdf_worksheet": true,
   "uses_browser_print_to_pdf": true,
   "hides_engine_matching_from_student_view": true,
@@ -505,7 +505,7 @@
     "expected_process_stages",
     "likely_error_tags"
   ],
-  "base_integrity_note": "PATCH304 metadata and SET01-SET02 cumulative data preserved; PATCH305 overlays statistics SET03 and advances cumulative pointers. Apply to the complete repository lineage containing PATCH150 M3_STATISTICS canonical files.",
+  "base_integrity_note": "Supplied full engine ZIP declares 39 units but is missing all four canonical runtime files for M2_SIMILARITY_PYTHAGORAS, M3_CIRCLE_PROPERTIES, and M3_STATISTICS. PATCH310 restores runtime availability for the remaining 36 units without fabricating taxonomy data.",
   "patch_files": [
     {
       "path": "data/coverage/m3_statistics_150worksheet_set03.coverage_manifest.v1.csv",
@@ -577,5 +577,17 @@
       "size_bytes": 1735,
       "sha256": "54f9f6c1fadbbe7e88a63a2298813b9baebd5347059e8ce2fb81cc9cdd221f27"
     }
-  ]
+  ],
+  "has_resilient_unit_loader": true,
+  "runtime_declared_unit_count": 39,
+  "runtime_available_unit_count": 36,
+  "runtime_skipped_unit_count": 3,
+  "runtime_skipped_units": [
+    "M2_SIMILARITY_PYTHAGORAS",
+    "M3_CIRCLE_PROPERTIES",
+    "M3_STATISTICS"
+  ],
+  "runtime_loaded_problem_type_count": 12631,
+  "github_pages_source": "main/(root)",
+  "github_pages_public_path": "public/math-weakness-engine/"
 }

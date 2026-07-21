@@ -1,0 +1,125 @@
+{
+  "patch": "PATCH310",
+  "purpose": "restore GitHub Pages runtime when indexed canonical unit files are missing",
+  "pages_config": {
+    "source": "Deploy from a branch",
+    "branch": "main",
+    "folder": "/(root)",
+    "public_engine_path": "public/math-weakness-engine/"
+  },
+  "source_engine": {
+    "declared_units": 39,
+    "loadable_units_before_patch": 36,
+    "missing_runtime_files": [
+      {
+        "unit_id": "M2_SIMILARITY_PYTHAGORAS",
+        "role": "problem_types",
+        "path": "data/problem_types/m2_similarity_pythagoras.problem_types.v1.json"
+      },
+      {
+        "unit_id": "M2_SIMILARITY_PYTHAGORAS",
+        "role": "edges",
+        "path": "data/relations/m2_similarity_pythagoras.edges.v1.json"
+      },
+      {
+        "unit_id": "M2_SIMILARITY_PYTHAGORAS",
+        "role": "diagnosis_rules",
+        "path": "data/rules/m2_similarity_pythagoras.diagnosis_rules.v1.json"
+      },
+      {
+        "unit_id": "M2_SIMILARITY_PYTHAGORAS",
+        "role": "remediation",
+        "path": "data/remediation/m2_similarity_pythagoras.remediation_map.v1.json"
+      },
+      {
+        "unit_id": "M3_CIRCLE_PROPERTIES",
+        "role": "problem_types",
+        "path": "data/problem_types/m3_circle_properties.problem_types.v1.json"
+      },
+      {
+        "unit_id": "M3_CIRCLE_PROPERTIES",
+        "role": "edges",
+        "path": "data/relations/m3_circle_properties.edges.v1.json"
+      },
+      {
+        "unit_id": "M3_CIRCLE_PROPERTIES",
+        "role": "diagnosis_rules",
+        "path": "data/rules/m3_circle_properties.diagnosis_rules.v1.json"
+      },
+      {
+        "unit_id": "M3_CIRCLE_PROPERTIES",
+        "role": "remediation",
+        "path": "data/remediation/m3_circle_properties.remediation_map.v1.json"
+      },
+      {
+        "unit_id": "M3_STATISTICS",
+        "role": "problem_types",
+        "path": "data/problem_types/m3_statistics.problem_types.v1.json"
+      },
+      {
+        "unit_id": "M3_STATISTICS",
+        "role": "edges",
+        "path": "data/relations/m3_statistics.edges.v1.json"
+      },
+      {
+        "unit_id": "M3_STATISTICS",
+        "role": "diagnosis_rules",
+        "path": "data/rules/m3_statistics.diagnosis_rules.v1.json"
+      },
+      {
+        "unit_id": "M3_STATISTICS",
+        "role": "remediation",
+        "path": "data/remediation/m3_statistics.remediation_map.v1.json"
+      }
+    ],
+    "loadable_problem_types": 12631
+  },
+  "changes": [
+    "unit bundles load with Promise.allSettled and only incomplete units are skipped",
+    "fatal error remains only when zero canonical units can load",
+    "load status is exposed through getLoadStatus() and diagnosis output",
+    "index UI shows partial load status instead of a fatal load-error card",
+    "engine script uses a patch310 cache-busting query string",
+    "JSON fetches use browser no-cache revalidation"
+  ],
+  "expected_runtime": {
+    "declared_units": 39,
+    "loaded_units": 36,
+    "skipped_units": 3,
+    "fatal_startup_error": false
+  },
+  "skipped_units": [
+    "M2_SIMILARITY_PYTHAGORAS",
+    "M3_CIRCLE_PROPERTIES",
+    "M3_STATISTICS"
+  ],
+  "limitations": "The 12 missing canonical files are not reconstructed or fabricated. Those three units remain unavailable until the authentic PATCH147R/PATCH150 canonical files are restored.",
+  "validation": {
+    "assets/math_weakness_engine.js": {
+      "bytes": 38695,
+      "sha256": "860ca1d73b4dd6621873a37267de222baf95ca07a0b9f9c22bf0d922d51e2bbc"
+    },
+    "index.html": {
+      "bytes": 9591,
+      "sha256": "f7df56190f81a7c33f904adc9d6316605cc25db078eaccd68b1fca04c6848eee"
+    },
+    "manifest.json": {
+      "bytes": 30207,
+      "sha256": "829475edba8956164ad143aa9f7b67ae2a0cc6835aa7a5b84d29a87c6fa0812c"
+    },
+    "javascript_syntax": "PASS",
+    "index_inline_script_syntax": "PASS",
+    "runtime_mock_load": {
+      "status": "PASS",
+      "declared_units": 39,
+      "loaded_units": 36,
+      "skipped_units": 3
+    },
+    "diagnosis_smoke_test": {
+      "status": "PASS",
+      "sample": "samples/global_runtime.student_attempt.sample.json",
+      "missing_type_count": 0
+    },
+    "zip_crc": "PASS"
+  }
+}
