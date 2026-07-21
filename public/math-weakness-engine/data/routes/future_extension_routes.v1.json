@@ -2,8 +2,109 @@
   "version": "2026.07.08-global-diagnosis-logic-v1.0",
   "generated_at": "2026-07-08",
   "description": "현재 단원이 나중에 어디에서 어떻게 쓰이는지 실제 문제 장면과 풀이 행동으로 보여주는 상향 route 1차 패치.",
-  "route_count": 19,
+  "route_count": 22,
   "routes": [
+    {
+      "route_id": "FUTURE_M2_NUMBER_EXPRESSION",
+      "source_unit_id": "M2_NUMBER_EXPRESSION",
+      "source_unit_hint": "중2 수와 식",
+      "current_learning_action": "지수법칙으로 같은 밑의 거듭제곱을 정리하고 단항식·다항식을 계산한다.",
+      "current_must_do": [
+        "밑이 같은지 먼저 확인한다.",
+        "곱셈은 지수 덧셈, 나눗셈은 지수 뺄셈으로 쓴다.",
+        "계수와 문자를 분리해 정리한다.",
+        "지수가 음수나 0이 되는 경우를 따로 확인한다."
+      ],
+      "why_it_matters_now": "지수법칙은 이 단원의 계산 규칙이 아니라, 근호와 다항식을 다루는 모든 이후 단원의 전제다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M3_REAL_NUMBER_CALC",
+          "target_unit_hint": "중3 실수와 그 계산",
+          "future_scene": "근호 안의 수를 소인수분해해 밖으로 꺼내고 근호식을 계산한다.",
+          "used_as": "거듭제곱과 지수 계산 안정성이 제곱근의 뜻과 근호식 계산의 선행 개념이다.",
+          "student_action_later": [
+            "근호 안을 소인수의 거듭제곱으로 쓴다.",
+            "짝수 지수를 밖으로 꺼낸다.",
+            "남은 부분이 더 이상 안 나오는지 확인한다."
+          ],
+          "example_bridge": "중2 지수법칙 혼합계산이 흔들리면 중3에서 근호를 정리하는 단계에서 막힌다.",
+          "teacher_explanation": "제곱근을 못 푸는 학생의 상당수는 근호가 아니라 지수 정리에서 이미 틀린다.",
+          "parent_explanation": "중2 지수 계산이 중3 제곱근 단원의 계산 기반이 됩니다."
+        },
+        {
+          "target_unit_id": "M3_POLYNOMIAL_FACTORING",
+          "target_unit_hint": "중3 다항식의 곱셈과 인수분해",
+          "future_scene": "다항식끼리 항별로 곱하고 공통인수와 곱셈공식으로 인수분해한다.",
+          "used_as": "지수법칙의 같은 밑 정리는 중3 다항식 전개와 인수분해의 문자 지수 처리 기반이다.",
+          "student_action_later": [
+            "항별로 곱해 빠짐없이 전개한다.",
+            "같은 문자끼리 지수를 더해 정리한다.",
+            "공통인수를 먼저 묶는다."
+          ],
+          "example_bridge": "중2 단항식 곱셈이 중3 다항식 곱셈의 항별 곱셈으로 확장된다.",
+          "teacher_explanation": "항별 곱셈 누락은 대개 계수·문자 분리 습관이 없는 데서 나온다.",
+          "parent_explanation": "중2에서 익힌 식 정리 습관이 중3 인수분해로 그대로 이어집니다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M2_LINEAR_INEQUALITY",
+      "source_unit_id": "M2_LINEAR_INEQUALITY",
+      "source_unit_hint": "중2 일차부등식",
+      "current_learning_action": "일차부등식을 풀고 해의 범위를 수직선과 조건으로 나타낸다.",
+      "current_must_do": [
+        "양변에 음수를 곱하거나 나눌 때 부등호를 뒤집는다.",
+        "해를 수직선 위 범위로 표시한다.",
+        "자연수 해, 최대·최소 조건을 따로 확인한다.",
+        "구한 범위를 원래 부등식에 대입해 검산한다."
+      ],
+      "why_it_matters_now": "부등식은 답이 하나가 아니라 범위라는 점에서, 이후 조건 판단 문제의 사고 방식을 정한다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M3_REAL_NUMBER_CALC",
+          "target_unit_hint": "중3 실수와 그 계산",
+          "future_scene": "근호 안이 음수가 되지 않을 조건이나 계산 결과가 유리수가 될 조건을 범위로 구한다.",
+          "used_as": "부등식 해석 경험이 제곱근 조건·범위 판단에 연결된다.",
+          "student_action_later": [
+            "근호 안이 0 이상이어야 한다는 조건을 쓴다.",
+            "그 조건을 부등식으로 풀어 범위를 구한다.",
+            "구한 범위에서 자연수 조건 등을 따로 확인한다."
+          ],
+          "example_bridge": "중2 최대·최소·자연수 해 조건이 중3 제곱근 조건 판단으로 이어진다.",
+          "teacher_explanation": "범위로 답하는 훈련이 안 된 학생은 제곱근 조건 문제를 등식으로 풀려 한다.",
+          "parent_explanation": "중2 부등식에서 익힌 범위 판단이 중3 제곱근 조건 문제의 기초가 됩니다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M2_GEOMETRY_PROPERTIES",
+      "source_unit_id": "M2_GEOMETRY_PROPERTIES",
+      "source_unit_hint": "중2 도형의 성질",
+      "current_learning_action": "합동·닮음 조건과 삼각형·사각형의 성질로 변과 각의 관계를 밝힌다.",
+      "current_must_do": [
+        "합동인지 닮음인지 먼저 구분한다.",
+        "어느 조건(SSS·SAS·ASA)을 쓰는지 근거로 적는다.",
+        "대응하는 변과 각을 짝지어 표시한다.",
+        "구한 값이 도형 조건과 맞는지 확인한다."
+      ],
+      "why_it_matters_now": "합동과 닮음은 도형 성질을 외우는 단원이 아니라, 변의 비를 값으로 다루는 훈련의 시작이다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M3_TRIGONOMETRIC_RATIO",
+          "target_unit_hint": "중3 삼각비",
+          "future_scene": "직각삼각형의 닮음에서 변의 비를 sin·cos·tan 값으로 다룬다.",
+          "used_as": "중2 도형의 성질·닮음·좌표 해석이 중3 삼각비의 선행 개념이다.",
+          "student_action_later": [
+            "직각을 낀 변과 빗변을 표시한다.",
+            "닮은 삼각형에서 대응 변의 비를 쓴다.",
+            "그 비를 삼각비 값으로 바꿔 읽는다."
+          ],
+          "example_bridge": "중2 직각삼각형의 닮음이 중3에서는 삼각비라는 이름의 값으로 바뀐다.",
+          "teacher_explanation": "닮음비를 값으로 다뤄 본 적이 없으면 삼각비를 새 공식으로만 받아들인다.",
+          "parent_explanation": "중2 닮음에서 다룬 변의 비가 중3 삼각비의 정의가 됩니다."
+        }
+      ]
+    },
     {
       "route_id": "FUTURE_M1_INT_RATIONAL",
       "source_unit_id": "M1_INT_RATIONAL",

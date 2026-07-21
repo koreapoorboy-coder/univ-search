@@ -2,8 +2,48 @@
   "version": "2026.07.08-global-diagnosis-logic-v1.0",
   "generated_at": "2026-07-08",
   "description": "단원 간 선행 보강(backtrack) 및 상향 확장(future extension)을 위한 전역 cross-unit edge 1차 패치.",
-  "edge_count": 86,
+  "edge_count": 90,
   "edges": [
+    {
+      "edge_id": "GLOBAL_CROSS_E087",
+      "from_unit_id": "M2_NUMBER_EXPRESSION",
+      "to_unit_id": "M3_REAL_NUMBER_CALC",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M2_NUMBER_EXPRESSION",
+      "weight": 0.86,
+      "reason": "거듭제곱과 지수 계산 안정성이 제곱근의 뜻과 근호식 계산의 선행 개념이다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E088",
+      "from_unit_id": "M2_NUMBER_EXPRESSION",
+      "to_unit_id": "M3_POLYNOMIAL_FACTORING",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M2_NUMBER_EXPRESSION",
+      "weight": 0.8,
+      "reason": "지수법칙의 같은 밑 정리는 중3 다항식 전개와 인수분해의 문자 지수 처리 기반이다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E089",
+      "from_unit_id": "M2_LINEAR_INEQUALITY",
+      "to_unit_id": "M3_REAL_NUMBER_CALC",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M2_LINEAR_INEQUALITY",
+      "weight": 0.72,
+      "reason": "부등식 해석 경험이 제곱근 조건·범위 판단에 연결된다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E090",
+      "from_unit_id": "M2_GEOMETRY_PROPERTIES",
+      "to_unit_id": "M3_TRIGONOMETRIC_RATIO",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M2_GEOMETRY_PROPERTIES",
+      "weight": 0.82,
+      "reason": "중2 도형의 성질·닮음·좌표 해석이 중3 삼각비의 선행 개념이다.",
+      "status": "global_logic_seed"
+    },
     {
       "edge_id": "GLOBAL_CROSS_E082",
       "from_unit_id": "M1_INT_RATIONAL",
