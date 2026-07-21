@@ -1,8 +1,8 @@
-const SERVICE_NAME = 'math-diagnosis-worker';
+﻿const SERVICE_NAME = 'math-diagnosis-worker';
 const VERSION = '2026.07.09-patch23-first-diagnosis-precision';
 const DEFAULT_MODEL = 'claude-opus-4-8';
-const DEFAULT_EFFORT = 'xhigh';
-const DEFAULT_MAX_TOKENS = 25000;
+const DEFAULT_EFFORT = 'high';
+const DEFAULT_MAX_TOKENS = 16000;
 const DEFAULT_MAX_FILE_BYTES = 8 * 1024 * 1024;
 const DEFAULT_MAX_TOTAL_FILE_BYTES = 18 * 1024 * 1024;
 const DEFAULT_MAX_FILES = 6;

@@ -6,7 +6,9 @@ class MathAIBridgeClient {
   constructor(options = {}) {
     this.storageKey = options.storageKey || 'mathDiagnosisWorkerUrl';
     this.legacyStorageKeys = options.legacyStorageKeys || ['mweWorkerUrl', 'mathWeaknessWorkerUrl'];
-    this.timeoutMs = options.timeoutMs || 120000;
+    // 1차 진단은 이미지·PDF 판독 + adaptive thinking이 붙는 비스트리밍 호출이라
+    // 2분으로는 부족하다. Worker 쪽 effort/max_tokens를 낮춰도 여유가 필요하다.
+    this.timeoutMs = options.timeoutMs || 300000;
     this.workerBaseUrl = this._normalizeBaseUrl(options.workerBaseUrl || this._loadSavedWorkerUrl() || '');
   }
 
