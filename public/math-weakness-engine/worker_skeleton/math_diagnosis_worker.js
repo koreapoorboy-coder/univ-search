@@ -200,6 +200,10 @@ ${JSON.stringify(schema)}`;
     max_tokens: numberEnv(env.ANTHROPIC_MAX_TOKENS, DEFAULT_MAX_TOKENS),
     thinking: { type: 'adaptive' },
     output_config: { effort: env.ANTHROPIC_EFFORT || DEFAULT_EFFORT },
+    // 비스트리밍은 응답이 다 만들어질 때까지 아무것도 오지 않아 Anthropic 엣지가
+    // HTTP 524로 연결을 끊는다. 워커<->Claude 구간만 스트리밍해 연결을 살려두고,
+    // 여기서 전부 모아 브라우저에는 기존처럼 JSON 한 번에 돌려준다(클라이언트 무변경).
+    stream: true,
     messages: [{ role: 'user', content }]
   };
   if (structured && schema) body.output_config.format = { type: 'json_schema', schema };
@@ -213,18 +217,56 @@ ${JSON.stringify(schema)}`;
     },
     body: JSON.stringify(body)
   });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw httpError(res.status, data?.error?.message || `Claude HTTP ${res.status}`);
-  if (data.stop_reason === 'refusal') {
-    throw httpError(502, `Claude declined this request (${data?.stop_details?.category || 'refusal'}).`);
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw httpError(res.status, data?.error?.message || `Claude HTTP ${res.status}`);
   }
-  if (data.stop_reason === 'max_tokens') {
+  const { text, stopReason, stopDetails, streamError } = await collectClaudeStream(res);
+  if (streamError) throw httpError(502, `Claude stream error: ${streamError}`);
+  if (stopReason === 'refusal') {
+    throw httpError(502, `Claude declined this request (${stopDetails?.category || 'refusal'}).`);
+  }
+  if (stopReason === 'max_tokens') {
     throw httpError(502, `Claude hit max_tokens before finishing ${schemaName}. Raise ANTHROPIC_MAX_TOKENS or lower ANTHROPIC_EFFORT.`);
   }
-  const text = extractOutputText(data);
   if (!text) throw httpError(502, 'Claude response has no text output');
   try { return parseJsonLoose(text); }
   catch { throw httpError(502, `Claude output was not valid JSON (${schemaName})`); }
+}
+
+// SSE를 읽어 text 블록만 이어 붙인다. adaptive thinking이 켜져 있어 thinking_delta가
+// 먼저 흐르므로, content_block_start에서 type이 text인 index만 골라 담는다.
+async function collectClaudeStream(res) {
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  const textBlocks = new Set();
+  let buf = '', text = '', stopReason = null, stopDetails = null, streamError = null;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += decoder.decode(value, { stream: true });
+    let nl;
+    while ((nl = buf.indexOf('\n')) >= 0) {
+      const line = buf.slice(0, nl).trim();
+      buf = buf.slice(nl + 1);
+      if (!line.startsWith('data:')) continue;
+      const payload = line.slice(5).trim();
+      if (!payload || payload === '[DONE]') continue;
+      let ev;
+      try { ev = JSON.parse(payload); } catch { continue; }
+      if (ev.type === 'content_block_start') {
+        if (ev.content_block && ev.content_block.type === 'text') textBlocks.add(ev.index);
+      } else if (ev.type === 'content_block_delta') {
+        if (ev.delta && ev.delta.type === 'text_delta' && textBlocks.has(ev.index)) text += ev.delta.text || '';
+      } else if (ev.type === 'message_delta') {
+        if (ev.delta && ev.delta.stop_reason) stopReason = ev.delta.stop_reason;
+        if (ev.delta && ev.delta.stop_details) stopDetails = ev.delta.stop_details;
+      } else if (ev.type === 'error') {
+        streamError = (ev.error && ev.error.message) || 'unknown stream error';
+      }
+    }
+  }
+  return { text, stopReason, stopDetails, streamError };
 }
 
 // structured outputs가 없을 때는 코드펜스나 앞뒤 설명이 섞일 수 있다.
