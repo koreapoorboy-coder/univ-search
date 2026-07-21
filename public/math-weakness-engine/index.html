@@ -611,15 +611,14 @@ window.addEventListener('DOMContentLoaded', () => {
     engine = new MathWeaknessEngine('.');
     flow = new MathVerificationFlow({ engine, bridge });
     try {
-      await engine.load();
+      // 화면을 열 때는 전역 로직만 받는다(unitIds: []). 단원 데이터는 1차 진단으로
+      // 단원이 확정된 뒤 runLocalEngineDiagnosis가 필요한 것만 받는다.
+      await engine.load({ unitIds: [] });
       if (engine.loadEvidenceLogic) await engine.loadEvidenceLogic();
       const runtimeBox = $('#engine_runtime_summary');
       if (runtimeBox && engine.getLoadStatus) {
         const status = engine.getLoadStatus();
-        const skipped = (status.skipped_units || []).map((u) => u.unit_name || u.unit_id).join(', ');
-        runtimeBox.innerHTML = status.partial
-          ? `<b>부분 로드:</b> 등록 ${status.declared_unit_count}개 중 ${status.loaded_unit_count}개 사용 가능. 임시 제외 ${status.skipped_unit_count}개${skipped ? ` (${esc(skipped)})` : ''}.`
-          : `<b>정상 로드:</b> 등록 단원 ${status.loaded_unit_count}개를 모두 사용할 수 있습니다.`;
+        runtimeBox.innerHTML = `<b>엔진 준비됨:</b> 등록 단원 ${status.declared_unit_count}개. 단원 데이터는 진단 후 필요한 것만 불러옵니다.`;
       }
     } catch (e) {
       console.warn('Local engine load warning:', e);

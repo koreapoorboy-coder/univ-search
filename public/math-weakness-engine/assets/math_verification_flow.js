@@ -57,10 +57,38 @@ class MathVerificationFlow {
     };
   }
   async runLocalEngineDiagnosis(aiExtraction) {
-    if (!this.engine || !aiExtraction?.engine_adapter?.student_attempt) return null;
+    const attempt = aiExtraction?.engine_adapter?.student_attempt;
+    if (!this.engine || !attempt) return null;
     if (this.engine.load && !this.engine.loaded) await this.engine.load();
-    if (this.engine.diagnoseWithGuidance) return this.engine.diagnoseWithGuidance(aiExtraction.engine_adapter.student_attempt);
+    // 화면을 열 때는 단원 데이터를 받지 않는다. AI가 단원을 판정한 지금에서야
+    // 그 단원과 연결된 단원만 받는다. 전체 39단원은 파일 185개 규모라 학생 기기에 부담이 크다.
+    await this._ensureUnitsForAttempt(attempt);
+    if (this.engine.diagnoseWithGuidance) return this.engine.diagnoseWithGuidance(attempt);
     return null;
+  }
+
+  async _ensureUnitsForAttempt(attempt) {
+    if (!this.engine.ensureUnits) return;
+    const ids = new Set();
+    if (attempt.unit_id) ids.add(attempt.unit_id);
+    // problem_type_id 접두어가 단원을 가리키는 경우가 있어 index의 unit_id와 대조한다.
+    const declared = (this.engine.indexedUnits || []).map(u => u.unit_id);
+    for (const a of attempt.attempts || []) {
+      const pid = String(a.problem_type_id || '');
+      const hit = declared.find(u => pid.startsWith(u) || pid.startsWith(u.replace(/_/g, '')));
+      if (hit) ids.add(hit);
+    }
+    if (!ids.size) {
+      // 단원을 못 좁히면 종전대로 전부 받는다. 진단이 비는 것보다 낫다.
+      await this.engine.ensureUnits((this.engine.indexedUnits || []).map(u => u.unit_id));
+      return;
+    }
+    const withRelated = new Set();
+    for (const id of ids) {
+      withRelated.add(id);
+      if (this.engine.relatedUnitIds) for (const r of this.engine.relatedUnitIds(id)) withRelated.add(r);
+    }
+    await this.engine.ensureUnits([...withRelated]);
   }
 
   _resolveEngineLockedContext(aiExtraction, engineDiagnosis) {

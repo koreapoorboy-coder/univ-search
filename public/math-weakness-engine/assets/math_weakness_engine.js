@@ -58,7 +58,7 @@
       if(!path) return null;
       try{return await this._json(path);}catch(err){console.warn('[MathWeaknessEngine] optional load skipped:',path,err.message); return null;}
     }
-    async load(){
+    async load(options={}){
       this.manifest=await this._json('manifest.json');
       this.index=await this._json(this.manifest.data_index);
       this.indexedUnits=this.index.units||[];
@@ -68,7 +68,43 @@
       const conceptPack=await this._json('data/math_concepts.v1.json');
       this.concepts=conceptPack;
       this.allProblemTypes=[]; this.allEdges=[]; this.allRules=[]; this.allRemediation=[]; this.unitData={};
-      for(const u of this.indexedUnits){
+      this.conceptById=byId([...(conceptPack.concepts||[]),...(conceptPack.future_target_concepts||[])],'concept_id');
+      // unitIds를 주면 그 단원만 받는다. 주지 않으면 종전대로 전부 받는다(기존 호출부 유지).
+      // 39개 단원 전부는 파일 270개·약 20MB라 학생 기기에서 부담이 크고, 문항 데이터가
+      // 늘수록 선형으로 커진다. 실제 진단에 필요한 건 오답이 속한 단원과 그 연결 단원뿐이다.
+      const wanted=Array.isArray(options.unitIds)?options.unitIds:null;
+      const targets=wanted?this.indexedUnits.filter(u=>wanted.includes(u.unit_id)):this.indexedUnits;
+      await this._loadUnits(targets);
+      if(!wanted&&!this.units.length) throw new Error('no canonical unit data could be loaded');
+      await this._loadGlobalLogic();
+      await this._loadAlgebraMasterMatcher();
+      this.loaded=true;
+      return this;
+    }
+
+    // 이미 받은 단원은 건너뛴다. 진단 결과로 단원이 확정된 뒤 추가 호출하는 용도.
+    async ensureUnits(unitIds){
+      const ids=(unitIds||[]).filter(Boolean);
+      const missing=this.indexedUnits.filter(u=>ids.includes(u.unit_id)&&!this.unitData[u.unit_id]);
+      if(!missing.length) return this;
+      await this._loadUnits(missing);
+      return this;
+    }
+
+    // 한 단원과 직접 이어진 단원들. cross_unit_edges는 79개짜리 전역 파일이라 항상 들고 있다.
+    relatedUnitIds(unitId){
+      const edges=(this.crossUnitEdges&&this.crossUnitEdges.edges)||this.crossUnitEdges||[];
+      const out=new Set([unitId]);
+      for(const e of edges){
+        if(e.from_unit_id===unitId&&e.to_unit_id) out.add(e.to_unit_id);
+        if(e.to_unit_id===unitId&&e.from_unit_id) out.add(e.from_unit_id);
+      }
+      return [...out];
+    }
+
+    async _loadUnits(unitList){
+      for(const u of unitList){
+        if(this.unitData[u.unit_id]) continue;
         const requests=[
           ['problem_types',u.problem_types],
           ['edges',u.edges],
@@ -95,16 +131,15 @@
         this.allRules.push(...(ru.rules||[]));
         this.allRemediation.push(...(re.remediation||[]));
       }
-      if(!this.units.length) throw new Error('no canonical unit data could be loaded');
       this.partialLoad=this.skippedUnits.length>0;
+      this._reindex();
+      return this;
+    }
+
+    _reindex(){
       this.unitById=byId(this.units,'unit_id');
-      this.conceptById=byId([...(conceptPack.concepts||[]),...(conceptPack.future_target_concepts||[])],'concept_id');
       this.problemTypeById=byId(this.allProblemTypes,'problem_type_id');
       this.remediationByConcept=byId(this.allRemediation,'concept_id');
-      await this._loadGlobalLogic();
-      await this._loadAlgebraMasterMatcher();
-      this.loaded=true;
-      return this;
     }
 
     getLoadStatus(){
