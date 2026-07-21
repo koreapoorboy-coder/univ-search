@@ -2,8 +2,152 @@
   "version": "2026.07.08-global-diagnosis-logic-v1.0",
   "generated_at": "2026-07-08",
   "description": "현재 단원이 나중에 어디에서 어떻게 쓰이는지 실제 문제 장면과 풀이 행동으로 보여주는 상향 route 1차 패치.",
-  "route_count": 14,
+  "route_count": 19,
   "routes": [
+    {
+      "route_id": "FUTURE_M1_INT_RATIONAL",
+      "source_unit_id": "M1_INT_RATIONAL",
+      "source_unit_hint": "중1 정수와 유리수",
+      "current_learning_action": "수를 정수와 유리수로 분류하고 부호가 있는 수의 사칙연산을 한다.",
+      "current_must_do": [
+        "수직선 위 위치로 크기와 부호를 확인한다.",
+        "덧셈·뺄셈에서 부호 규칙을 먼저 정리한다.",
+        "곱셈·나눗셈에서 음수의 개수로 부호를 판단한다.",
+        "계산 결과를 기약분수 또는 정수로 정리한다."
+      ],
+      "why_it_matters_now": "부호 규칙은 이 단원만의 계산법이 아니라, 이후 모든 문자식 계산에서 그대로 쓰이는 기준이다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M1_EXPRESSION",
+          "target_unit_hint": "중1 문자와 식",
+          "future_scene": "수 대신 문자가 들어간 식에서 곱셈·나눗셈 기호를 생략해 쓴다.",
+          "used_as": "정수의 부호와 곱셈 규칙이 문자와 수의 곱 표기에 영향을 준다.",
+          "student_action_later": [
+            "부호를 문자 앞에 먼저 적는다.",
+            "곱셈 기호를 생략하고 수를 문자 앞에 쓴다.",
+            "나눗셈은 분수 꼴로 바꿔 쓴다."
+          ],
+          "example_bridge": "중1 유리수 나눗셈과 분수 표현이 문자식의 나눗셈 기호 생략으로 연결된다.",
+          "teacher_explanation": "부호 규칙이 흔들리면 문자식 정리에서 계산이 아니라 표기에서 먼저 틀린다.",
+          "parent_explanation": "정수와 유리수의 부호 규칙이 바로 다음 단원인 문자와 식의 표기 규칙으로 이어집니다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M1_BASIC_GEOMETRY",
+      "source_unit_id": "M1_BASIC_GEOMETRY",
+      "source_unit_hint": "중1 기본 도형과 작도",
+      "current_learning_action": "점·선·면의 관계를 정리하고 삼각형의 작도 조건을 확인한다.",
+      "current_must_do": [
+        "주어진 조건이 변인지 각인지 구분한다.",
+        "삼각형이 그려지는 조건인지 세 변 관계로 확인한다.",
+        "작도 순서를 근거와 함께 쓴다."
+      ],
+      "why_it_matters_now": "작도 조건은 그림 그리기가 아니라, 도형이 하나로 정해지는지를 판단하는 규칙이다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M1_PLANE_GEOMETRY",
+          "target_unit_hint": "중1 평면도형의 성질",
+          "future_scene": "SSS·SAS·ASA 조건으로 삼각형이 결정되는지 판단한다.",
+          "used_as": "삼각형의 세 변 관계는 평면도형 단원의 SSS 작도 가능성 판단의 선행이다.",
+          "student_action_later": [
+            "주어진 요소가 변인지 각인지 표시한다.",
+            "어느 결정 조건에 해당하는지 고른다.",
+            "조건을 만족하지 않으면 반례를 든다."
+          ],
+          "example_bridge": "중1 삼각형 작도 조건이 평면도형의 삼각형 결정 조건으로 이어진다.",
+          "teacher_explanation": "작도를 손동작으로만 익히면 결정 조건 판단에서 근거를 대지 못한다.",
+          "parent_explanation": "기본 도형에서 배운 작도 조건이 곧바로 평면도형 단원의 판단 기준이 됩니다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M1_PLANE_GEOMETRY",
+      "source_unit_id": "M1_PLANE_GEOMETRY",
+      "source_unit_hint": "중1 평면도형의 성질",
+      "current_learning_action": "삼각형과 다각형의 내각·외각 관계를 이용해 각의 크기를 구한다.",
+      "current_must_do": [
+        "구하려는 각이 내각인지 외각인지 표시한다.",
+        "내각의 합 공식을 먼저 적는다.",
+        "외각은 이웃한 내각과의 관계로 바꾼다.",
+        "구한 각을 도형 전체 합으로 검산한다."
+      ],
+      "why_it_matters_now": "각을 구하는 과정은 계산이 아니라, 어떤 성질을 근거로 삼았는지 밝히는 연습이다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M2_GEOMETRY_PROPERTIES",
+          "target_unit_hint": "중2 도형의 성질",
+          "future_scene": "평행선의 동위각·엇각과 삼각형의 외심·내심에서 각 관계를 추론한다.",
+          "used_as": "삼각형 내각과 외각 성질은 중2 삼각형의 외심·내심 각 관계의 기초이다.",
+          "student_action_later": [
+            "평행선에서 같은 각을 먼저 표시한다.",
+            "삼각형 내각·외각 성질로 식을 세운다.",
+            "구한 각이 도형 조건에 맞는지 확인한다."
+          ],
+          "example_bridge": "중1 외각 성질이 중2 삼각형 각 추론의 핵심 선행이 된다.",
+          "teacher_explanation": "내각·외각 관계를 공식으로만 외우면 중2 각 추론에서 근거를 연결하지 못한다.",
+          "parent_explanation": "평면도형에서 배운 각의 성질이 중2 도형 증명의 출발점이 됩니다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M1_SOLID_GEOMETRY",
+      "source_unit_id": "M1_SOLID_GEOMETRY",
+      "source_unit_hint": "중1 입체도형의 성질",
+      "current_learning_action": "기둥·뿔·구의 겉넓이와 부피를 구성 요소로 나누어 구한다.",
+      "current_must_do": [
+        "입체를 밑면과 옆면으로 나눈다.",
+        "각 부분의 넓이를 따로 구한다.",
+        "구멍이나 절단이 있으면 빼거나 더할 부분을 표시한다.",
+        "단위가 넓이인지 부피인지 확인한다."
+      ],
+      "why_it_matters_now": "겉넓이와 부피는 공식 암기가 아니라, 입체를 평면 조각으로 분해하는 훈련이다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M2_GEOMETRY_PROPERTIES",
+          "target_unit_hint": "중2 도형의 성질",
+          "future_scene": "닮은 도형에서 길이비로부터 넓이비와 부피비를 구한다.",
+          "used_as": "구멍·절단 입체에서의 길이와 넓이 변화는 닮음과 길이비·넓이비 문제로 확장된다.",
+          "student_action_later": [
+            "닮음비를 먼저 확정한다.",
+            "넓이비는 제곱, 부피비는 세제곱으로 바꾼다.",
+            "구한 비를 실제 값에 적용해 검산한다."
+          ],
+          "example_bridge": "중1에서 분해해 구하던 겉넓이·부피가 중2에서는 비로 한 번에 다뤄진다.",
+          "teacher_explanation": "분해 없이 공식만 외운 학생은 닮음비의 제곱·세제곱 관계를 받아들이지 못한다.",
+          "parent_explanation": "입체도형에서 익힌 분해 습관이 중2 닮음 단원의 비 계산으로 이어집니다."
+        }
+      ]
+    },
+    {
+      "route_id": "FUTURE_M1_DATA_ANALYSIS",
+      "source_unit_id": "M1_DATA_ANALYSIS",
+      "source_unit_hint": "중1 자료 정리와 해석",
+      "current_learning_action": "도수분포표와 상대도수로 자료를 정리하고 그래프로 나타낸다.",
+      "current_must_do": [
+        "도수, 도수총합, 상대도수의 관계를 식으로 쓴다.",
+        "빈칸이 있으면 관계식으로 먼저 채운다.",
+        "그래프의 축이 무엇을 나타내는지 확인한다.",
+        "상대도수의 합이 1인지 검산한다."
+      ],
+      "why_it_matters_now": "표와 그래프를 오가는 연습은 통계만의 기술이 아니라, 이후 함수 단원에서 식과 그래프를 잇는 방식과 같다.",
+      "future_routes": [
+        {
+          "target_unit_id": "M2_LINEAR_FUNCTION",
+          "target_unit_hint": "중2 일차함수",
+          "future_scene": "표·식·그래프를 서로 바꿔가며 함숫값과 미지수를 구한다.",
+          "used_as": "상대도수·도수·총합 관계를 표와 식으로 바꾸는 능력은 일차함수 활용의 표·식·그래프 변환과 연결된다.",
+          "student_action_later": [
+            "표의 값에서 대응 규칙을 찾는다.",
+            "규칙을 식으로 쓴다.",
+            "식과 그래프가 같은 관계를 나타내는지 확인한다."
+          ],
+          "example_bridge": "중1에서 그래프의 축과 변화를 읽던 능력이 일차함수 그래프 해석의 기초가 된다.",
+          "teacher_explanation": "표에서 식을 못 세우는 학생은 함수 단원에서 그래프 해석까지 함께 막힌다.",
+          "parent_explanation": "자료를 표와 그래프로 정리한 경험이 중2 함수 단원의 기초가 됩니다."
+        }
+      ]
+    },
     {
       "route_id": "FUTURE_M3_REAL_NUMBER_CALC",
       "source_unit_id": "M3_REAL_NUMBER_CALC",

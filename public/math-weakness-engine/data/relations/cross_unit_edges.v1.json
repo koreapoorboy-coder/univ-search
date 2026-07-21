@@ -2,8 +2,58 @@
   "version": "2026.07.08-global-diagnosis-logic-v1.0",
   "generated_at": "2026-07-08",
   "description": "단원 간 선행 보강(backtrack) 및 상향 확장(future extension)을 위한 전역 cross-unit edge 1차 패치.",
-  "edge_count": 81,
+  "edge_count": 86,
   "edges": [
+    {
+      "edge_id": "GLOBAL_CROSS_E082",
+      "from_unit_id": "M1_INT_RATIONAL",
+      "to_unit_id": "M1_EXPRESSION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_INT_RATIONAL",
+      "weight": 0.8,
+      "reason": "정수의 부호와 곱셈 규칙이 문자와 수의 곱 표기에 영향을 준다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E083",
+      "from_unit_id": "M1_BASIC_GEOMETRY",
+      "to_unit_id": "M1_PLANE_GEOMETRY",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_BASIC_GEOMETRY",
+      "weight": 0.76,
+      "reason": "삼각형의 세 변 관계와 작도 조건이 평면도형의 삼각형 결정 조건으로 이어진다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E084",
+      "from_unit_id": "M1_PLANE_GEOMETRY",
+      "to_unit_id": "M2_GEOMETRY_PROPERTIES",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_PLANE_GEOMETRY",
+      "weight": 0.82,
+      "reason": "삼각형 내각과 외각 성질은 중2 삼각형의 외심·내심 각 관계의 기초이다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E085",
+      "from_unit_id": "M1_SOLID_GEOMETRY",
+      "to_unit_id": "M2_GEOMETRY_PROPERTIES",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_SOLID_GEOMETRY",
+      "weight": 0.7,
+      "reason": "구멍·절단 입체에서의 길이와 넓이 변화는 닮음과 길이비·넓이비 문제로 확장된다.",
+      "status": "global_logic_seed"
+    },
+    {
+      "edge_id": "GLOBAL_CROSS_E086",
+      "from_unit_id": "M1_DATA_ANALYSIS",
+      "to_unit_id": "M2_LINEAR_FUNCTION",
+      "relation_type": "future_extension",
+      "route_id": "FUTURE_M1_DATA_ANALYSIS",
+      "weight": 0.72,
+      "reason": "상대도수·도수·총합 관계를 표와 식으로 바꾸는 능력은 일차함수 활용의 표·식·그래프 변환과 연결된다.",
+      "status": "global_logic_seed"
+    },
     {
       "edge_id": "GLOBAL_CROSS_E080",
       "from_unit_id": "M3_REAL_NUMBER_CALC",
