@@ -70,7 +70,9 @@ export default {
       if (url.pathname === '/api/math-diagnose/analyze' && request.method === 'POST') {
         const { payload, files } = await parseHybridRequest(request, env);
         const prompt = buildAnalyzePrompt(payload, files);
-        const result = await runJsonTask({ env, task: 'analyze', prompt, files, schemaName: 'math_ai_extraction', schema: AI_EXTRACTION_SCHEMA, fallback: () => buildAnalyzeFallback(payload, 'analyze_fallback') });
+        // AI_EXTRACTION_SCHEMA는 structured outputs의 문법 컴파일 한도를 넘는다
+        // ("The compiled grammar is too large"). 프롬프트 지시 + 느슨한 파싱으로 처리한다.
+        const result = await runJsonTask({ env, task: 'analyze', prompt, files, schemaName: 'math_ai_extraction', schema: AI_EXTRACTION_SCHEMA, structured: false, fallback: () => buildAnalyzeFallback(payload, 'analyze_fallback') });
         return json(request, env, attachMeta(result, requestId, 'analyze'), 200, requestId, startedAt);
       }
 
@@ -152,7 +154,7 @@ function validateFiles(files, env) {
   if (total > maxTotalBytes) throw httpError(413, `Total upload size is too large. Max total size is ${maxTotalBytes} bytes.`);
 }
 
-async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback, validate }) {
+async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback, validate, structured = true }) {
   const stubMode = isStubMode(env);
   const allowFallback = boolEnv(env.ALLOW_STUB, false) || boolEnv(env.FALLBACK_ON_AI_ERROR, true);
   if (stubMode) return withRuntimeNote(fallback(), `stub_mode:${task}`);
@@ -161,7 +163,7 @@ async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallb
     throw httpError(500, 'ANTHROPIC_API_KEY is not configured. Set it as a Cloudflare Worker secret.');
   }
   try {
-    const result = await callClaudeJson({ env, prompt, files, schemaName, schema });
+    const result = await callClaudeJson({ env, prompt, files, schemaName, schema, structured });
     if (validate) validate(result);
     return result;
   } catch (error) {
@@ -171,8 +173,16 @@ async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallb
   }
 }
 
-async function callClaudeJson({ env, prompt, files, schemaName, schema }) {
-  const content = [{ type: 'text', text: prompt }];
+async function callClaudeJson({ env, prompt, files, schemaName, schema, structured = true }) {
+  // structured=false는 스키마가 커서 structured outputs의 문법 컴파일 한도를 넘는 경우다.
+  // 그때는 스키마를 프롬프트로 지시하고 파싱 단계에서 검증한다(실패 시 기존 fallback 경로).
+  const head = (structured || !schema) ? prompt : `${prompt}
+
+[출력 형식]
+아래 JSON Schema를 정확히 만족하는 JSON 객체 하나만 출력한다.
+코드펜스(\`\`\`), 설명 문장, 앞뒤 텍스트를 절대 붙이지 않는다. 첫 글자는 {, 마지막 글자는 } 여야 한다.
+${JSON.stringify(schema)}`;
+  const content = [{ type: 'text', text: head }];
   for (const file of files || []) {
     const mime = file.type || 'application/octet-stream';
     if (mime.startsWith('image/')) {
@@ -189,12 +199,10 @@ async function callClaudeJson({ env, prompt, files, schemaName, schema }) {
     model: env.ANTHROPIC_MODEL || DEFAULT_MODEL,
     max_tokens: numberEnv(env.ANTHROPIC_MAX_TOKENS, DEFAULT_MAX_TOKENS),
     thinking: { type: 'adaptive' },
-    output_config: {
-      effort: env.ANTHROPIC_EFFORT || DEFAULT_EFFORT,
-      format: { type: 'json_schema', schema }
-    },
+    output_config: { effort: env.ANTHROPIC_EFFORT || DEFAULT_EFFORT },
     messages: [{ role: 'user', content }]
   };
+  if (structured && schema) body.output_config.format = { type: 'json_schema', schema };
   const baseUrl = String(env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com/v1').replace(/\/$/, '');
   const res = await fetch(`${baseUrl}${ANTHROPIC_MESSAGES_PATH}`, {
     method: 'POST',
@@ -215,8 +223,22 @@ async function callClaudeJson({ env, prompt, files, schemaName, schema }) {
   }
   const text = extractOutputText(data);
   if (!text) throw httpError(502, 'Claude response has no text output');
-  try { return JSON.parse(text); }
-  catch { throw httpError(502, 'Claude output was not valid JSON'); }
+  try { return parseJsonLoose(text); }
+  catch { throw httpError(502, `Claude output was not valid JSON (${schemaName})`); }
+}
+
+// structured outputs가 없을 때는 코드펜스나 앞뒤 설명이 섞일 수 있다.
+// structured 응답에는 영향이 없다(이미 순수 JSON이라 첫 분기에서 끝난다).
+function parseJsonLoose(text) {
+  let t = String(text || '').trim();
+  if (t.startsWith('{')) { try { return JSON.parse(t); } catch (_) {} }
+  const fenced = t.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+  if (fenced) t = fenced[1].trim();
+  if (!t.startsWith('{')) {
+    const a = t.indexOf('{'), b = t.lastIndexOf('}');
+    if (a >= 0 && b > a) t = t.slice(a, b + 1);
+  }
+  return JSON.parse(t);
 }
 
 // Claude returns an array of content blocks. With adaptive thinking on, thinking
