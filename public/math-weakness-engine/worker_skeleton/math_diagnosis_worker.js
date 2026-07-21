@@ -1,5 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
-const VERSION = '2026.07.09-patch23-first-diagnosis-precision';
+// 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
+const VERSION = '2026.07.21-claude-streaming';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 const DEFAULT_MAX_TOKENS = 16000;
