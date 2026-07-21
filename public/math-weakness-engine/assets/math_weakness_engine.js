@@ -235,17 +235,26 @@
     }
     _difficultyOf(attempt,pt){return attempt.difficulty||pt.default_difficulty||'core';}
     _tagsFor(attempt,pt,instruction){return uniq([...(pt.error_tags||[]),...(attempt.observed_error_tags||[]),...(attempt.error_tags||[]),...(instruction&&instruction.error_tags||[])]);}
+    // 템플릿 id는 정확 매칭, 태그 겹침은 느슨한 폴백이다. 둘을 한 find()의 OR로 묶으면
+    // 배열 앞쪽 route가 태그 하나만 걸쳐도 선점해서, 정확히 대응하는 route를 이겨버린다.
+    // (부분적분 문항이 'area' 태그 때문에 곡선 넓이 경로를 받던 문제) 정확 매칭을 먼저 시도한다.
     _findBacktrackRoute(instruction,tags){
       const templateId=instruction&&instruction.matched_template_id;
-      return this.backtrackRoutes.find(r=>
-        (templateId&&overlap([templateId],r.trigger_template_ids_any||[])) || overlap(tags,r.trigger_error_tags_any||[])
-      )||null;
+      const byTemplate=templateId
+        ? this.backtrackRoutes.find(r=>overlap([templateId],r.trigger_template_ids_any||[]))
+        : null;
+      return byTemplate
+        || this.backtrackRoutes.find(r=>overlap(tags,r.trigger_error_tags_any||[]))
+        || null;
     }
     _findGlobalRemediationRoute(instruction,tags,backtrackRoute){
       const routeId=backtrackRoute&&backtrackRoute.route_id;
-      return this.globalRemediationRoutes.find(r=>
-        (routeId&&r.linked_backtrack_route_id===routeId) || overlap(tags,r.trigger_error_tags_any||[])
-      )||null;
+      const byRouteId=routeId
+        ? this.globalRemediationRoutes.find(r=>r.linked_backtrack_route_id===routeId)
+        : null;
+      return byRouteId
+        || this.globalRemediationRoutes.find(r=>overlap(tags,r.trigger_error_tags_any||[]))
+        || null;
     }
     _severityFor(attempt,pt,route){
       const diff=this._difficultyOf(attempt,pt);
