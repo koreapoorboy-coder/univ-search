@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>수학 취약유형 진단 엔진</title>
+<style>
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:24px;line-height:1.55;color:#111827;background:#f8fafc}h1{font-size:24px}h2{font-size:19px;margin-top:26px}h3{font-size:16px;margin:6px 0}textarea{width:100%;min-height:230px;font-family:ui-monospace,Menlo,Consolas,monospace}button{padding:10px 14px;border:0;border-radius:8px;background:#111827;color:white;cursor:pointer;margin:2px}table{border-collapse:collapse;width:100%;background:white;margin:16px 0}th,td{border:1px solid #e5e7eb;padding:8px;text-align:left;vertical-align:top}th{background:#f1f5f9}.card{background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}.muted{color:#64748b}.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#e2e8f0;margin:2px;font-size:12px}.warn{background:#fff7ed;border-color:#fed7aa}.ok{background:#ecfdf5;border-color:#a7f3d0}pre{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:12px;border-radius:8px;overflow:auto}.steps{margin:6px 0 0 18px}.path{font-weight:700;color:#0f172a}.command{font-weight:700;color:#991b1b}</style>
+</head>
+<body>
+<h1>수학 취약유형 진단 엔진 v1.0</h1>
+<p class="muted">문항분류 → 풀이 행동지시 → 선행 backtrack → 상위 future route를 함께 출력합니다.</p>
+<div id="load_status"></div>
+<div class="card"><h2>입력 JSON</h2><p>형식: <code>{"attempts":[{"question_no":1,"problem_type_id":"H2_CALC2_INT_PT330","is_correct":false,"difficulty":"core","observed_error_tags":["area","curve_line"]}]}</code></p><textarea id="input"></textarea><br/><button id="run">진단 실행</button> <button id="sample_global">전역 로직 샘플</button> <button id="sample_calc2_int">미적분2 적분 샘플</button> <button id="sample_m1">중1 누적 샘플</button></div>
+
+<div class="card"><h2>인강 필기 / 개념 이해 검수 JSON</h2><p>형식: <code>{"student_note":{"unit_id":"m1_int_rational","lesson_title":"유리수와 순환소수","note_text":"필기 내용을 텍스트로 옮긴 내용"}}</code></p><textarea id="note_input"></textarea><br/><button id="note_run">필기 검수 실행</button> <button id="note_sample">유리수 필기 샘플</button></div>
+<div id="note_out"></div>
+<div id="out"></div>
+<script src="assets/algebra_master_matcher.js"></script>
+<script src="assets/math_weakness_engine.js?v=patch310"></script>
+<script src="assets/math_weakness_evidence_review.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const engine=new MathWeaknessEngine('.');
+async function loadSample(path){ const sample=await fetch(path).then(r=>r.json()); $('#input').value=JSON.stringify(sample,null,2); }
+function esc(v){return String(v==null?'':v).replace(/[&<>"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));}
+function renderLoadStatus(){
+  const s=engine.getLoadStatus?engine.getLoadStatus():null;
+  if(!s){$('#load_status').innerHTML=''; return;}
+  const skipped=(s.skipped_units||[]).map(u=>esc(u.unit_name||u.unit_id)).join(', ');
+  $('#load_status').innerHTML=`<div class="card ${s.partial?'warn':'ok'}"><b>${s.partial?'부분 로드 완료':'엔진 로드 완료'}</b><p>등록 단원 ${s.declared_unit_count}개 중 ${s.loaded_unit_count}개 사용 가능${s.skipped_unit_count?` · 제외 ${s.skipped_unit_count}개`:''}</p>${skipped?`<p class="muted">현재 제외: ${skipped}</p>`:''}</div>`;
+}
+function ol(items){return `<ol class="steps">${(items||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`;}
+function renderGuidance(items){
+  if(!items||!items.length) return '<p>오답 문항 행동지시 없음</p>';
+  return items.map(g=>`<div class="card warn"><h3>${esc(g.question_no)}번 · ${esc(g.type_name)}</h3><div class="path">${esc((g.visible_path||[]).join(' > '))}</div><p><b>이 유형의 정체:</b> ${esc(g.problem_nature)}</p><p class="command">${esc(g.student_command)}</p><b>반드시 써야 하는 풀이 순서</b>${ol(g.must_write_steps)}<p><b>자주 틀리는 행동</b></p>${ol(g.common_wrong_actions)}${g.backtrack_route?`<p><b>선행 원인:</b> ${esc(g.backtrack_route.current_weakness)}</p>${ol((g.backtrack_route.backtrack_steps||[]).map(s=>`${s.unit_hint} - ${s.concept_focus}: ${s.student_action}`))}`:''}<p><b>진단 강도:</b> ${esc(g.severity&&g.severity.label)} · ${esc(g.severity&&g.severity.action)}</p></div>`).join('');
+}
+function renderFuture(items){
+  if(!items||!items.length) return '<p>학습 연결 route 없음</p>';
+  return items.map(u=>`<div class="card ok"><h3>${esc(u.grade||'')} ${esc(u.unit_name||u.unit_id)}</h3><p><b>지금 하는 것:</b> ${esc(u.current_learning_action)}</p><p><b>왜 지금 제대로 해야 하는지:</b> ${esc(u.why_it_matters_now)}</p><b>지금 반드시 해야 하는 행동</b>${ol(u.current_must_do)}${(u.future_routes||[]).map(r=>`<div class="card"><b>나중에 쓰이는 장면:</b> ${esc(r.target_unit_hint)} - ${esc(r.future_scene)}<p>${esc(r.used_as)}</p><b>그때 하게 되는 풀이 행동</b>${ol(r.student_action_later)}<p class="muted">${esc(r.example_bridge)}</p></div>`).join('')}</div>`).join('');
+}
+
+function renderNoteReview(res){
+  const sig=(res.evidence_signals||[]).map(s=>`<span class="tag">${esc(s.id)} +${esc(s.score)}</span>`).join('');
+  const risks=(res.risk_flags||[]).map(r=>`<li>${esc(r.message)}</li>`).join('');
+  $('#note_out').innerHTML=`<div class="card ${res.summary.understanding_score>=70?'ok':'warn'}"><h2>필기 검수 결과</h2><p><b>시청 흔적 추정:</b> ${esc(res.summary.watch_confidence_score)}점 / <b>개념 이해:</b> ${esc(res.summary.understanding_score)}점 · ${esc(res.summary.understanding_level)}등급</p><p><b>확인된 증거:</b> ${sig||'없음'}</p><p><b>위험 신호</b></p><ol>${risks||'<li>주요 위험 신호 없음</li>'}</ol><p><b>교사 확인 질문</b></p>${ol(res.teacher_check_questions)}<p><b>다시 시킬 과제</b></p>${ol(res.redo_task)}<p><b>학부모 전달:</b> ${esc(res.parent_feedback)}</p><p class="muted">${esc(res.engine_note)}</p><h3>Raw result</h3><pre>${esc(JSON.stringify(res,null,2))}</pre></div>`;
+}
+function render(res){
+  const status=res.global_logic_status||{};
+  const unitStatus=res.unit_load_status||{};
+  const rows=(res.top_concepts||[]).map(c=>`<tr><td>${esc(c.concept_id)}</td><td><b>${esc(c.concept_name||'')}</b><br><span class="muted">${esc(c.grade||'')} ${esc(c.unit_name||'')} / ${esc(c.strand||'')}</span></td><td>${Number(c.score||0).toFixed(1)}</td><td>${Number(c.direct||0).toFixed(1)}</td><td>${Number(c.prerequisite||0).toFixed(1)}</td><td>${esc(c.remediation?c.remediation.title:'')}</td></tr>`).join('');
+  const risks=(res.cross_grade_risks||[]).map(r=>`<tr><td>${esc(r.from_name||r.from)}</td><td>${esc(r.to_name||r.to)}</td><td>${esc(r.scope||'')}</td><td>${esc(r.reason)}</td></tr>`).join('');
+  $('#out').innerHTML=`<div class="card ${status.loaded?'ok':'warn'}"><h2>요약</h2><p>로드 단원 ${res.summary.loaded_unit_count}개${res.summary.declared_unit_count?` / 등록 ${res.summary.declared_unit_count}개`:''} / 문항 ${res.summary.attempt_count}개 / 오답 ${res.summary.wrong_count}개 / 매칭 실패 ${res.summary.missing_type_count}개</p>${unitStatus.partial?`<p class="muted">누락 데이터로 제외된 단원 ${unitStatus.skipped_unit_count}개: ${(unitStatus.skipped_units||[]).map(u=>esc(u.unit_name||u.unit_id)).join(', ')}</p>`:''}<p>전역 로직: ${status.loaded?'로드 정상':'로드 실패'} / 문항 행동지시 ${status.instruction_count||0}개 / split parts ${status.part_count||0}개</p>${status.error?`<p>${esc(status.error)}</p>`:''}</div><h2>오답 문항 행동지시</h2>${renderGuidance(res.wrong_answer_diagnoses)}<h2>상위 학습 연결</h2>${renderFuture(res.learning_connections)}<h2>취약 개념 점수</h2><table><tr><th>ID</th><th>개념</th><th>총점</th><th>직접</th><th>선행 의심</th><th>보강</th></tr>${rows}</table><h2>후행 연결 위험</h2><table><tr><th>현재/선행 원인</th><th>후행 개념</th><th>범위</th><th>연결 이유</th></tr>${risks}</table><h2>Raw result</h2><pre>${esc(JSON.stringify(res,null,2))}</pre>`;
+}
+$('#run').onclick=()=>{ const data=JSON.parse($('#input').value); render(engine.diagnoseWithGuidance(data)); };
+
+$('#note_sample').onclick=()=>loadSample('samples/lecture_note_review.student_note.sample.json').then(()=>{$('#note_input').value=$('#input').value;});
+$('#note_run').onclick=async()=>{ if(engine.loadEvidenceLogic) await engine.loadEvidenceLogic(); const data=JSON.parse($('#note_input').value); renderNoteReview(engine.reviewStudentNote(data)); };
+
+$('#sample_global').onclick=()=>loadSample('samples/global_runtime.student_attempt.sample.json');
+$('#sample_calc2_int').onclick=()=>loadSample('samples/h2_calculus2_integration.student_attempt.sample.json');
+$('#sample_m1').onclick=()=>loadSample('samples/m1_all_units.student_attempt.sample.json');
+async function init(){ await engine.load(); renderLoadStatus(); if(engine.loadEvidenceLogic) await engine.loadEvidenceLogic(); await loadSample('samples/global_runtime.student_attempt.sample.json'); const ns=await fetch('samples/lecture_note_review.student_note.sample.json').then(r=>r.json()).catch(()=>null); if(ns) $('#note_input').value=JSON.stringify(ns,null,2); }
+init().catch(err=>{$('#out').innerHTML=`<div class="card warn"><b>로드 오류</b><pre>${esc(err.stack||err.message)}</pre></div>`;});
+</script>
+</body></html>

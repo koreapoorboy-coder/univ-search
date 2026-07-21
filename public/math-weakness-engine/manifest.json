@@ -1,14 +1,14 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026-07-21-patch310-runtime-loader-recovery",
+  "version": "2026-07-21-patch311-student-portal-activation",
   "build_date": "2026-07-21",
-  "scope": "진단과 문제 생성을 2단계로 분리해 1차 진단 후 필요할 때만 보강 10문항/PDF를 생성",
-  "description": "PATCH159 behavior analysis preserved; M3 statistics worksheet SET03 adds 150 structural items with cumulative SET01-SET03 cross-set variant tracking.",
+  "scope": "학생용 진단 화면을 기본 엔트리로 활성화하고 개발자 JSON 테스트 화면을 debug.html로 분리",
+  "description": "PATCH310 resilient loader preserved; PATCH311 promotes the existing upload/AI diagnosis/report flow to the default student-facing entry.",
   "entry": "index.html",
   "hybrid_entry": "hybrid.html",
   "data_index": "data/index.v1.json",
-  "last_patch": "math_weakness_engine_patch310_runtime_loader_recovery_20260721",
+  "last_patch": "math_weakness_engine_patch311_student_portal_activation_20260721",
   "unit_count": 39,
   "problem_type_count": 13192,
   "has_global_diagnosis_logic": true,
@@ -33,7 +33,7 @@
   "has_default_worker_url": true,
   "default_worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
   "hides_worker_settings_from_student_view": true,
-  "patch": "patch310-runtime-loader-recovery",
+  "patch": "patch311-student-portal-activation",
   "features": [
     "answer_key_verification_questions",
     "answer_resubmission_review",
@@ -455,7 +455,13 @@
     "all_150_m3_statistics_set03_items_canonical_contract_matched",
     "m3_statistics_set03_answer_key_index",
     "m3_statistics_latest_pointer_set03",
-    "m3_statistics_cumulative_450_items"
+    "m3_statistics_cumulative_450_items",
+    "student_portal_default_entry",
+    "developer_console_debug_entry",
+    "student_upload_and_diagnosis_ui",
+    "worker_backed_pdf_analysis",
+    "serious_academic_visual_design",
+    "runtime_status_in_admin_panel"
   ],
   "has_student_facing_result_cards": true,
   "hides_raw_json_by_default": true,
@@ -589,5 +595,6 @@
   ],
   "runtime_loaded_problem_type_count": 12631,
   "github_pages_source": "main/(root)",
-  "github_pages_public_path": "public/math-weakness-engine/"
+  "github_pages_public_path": "public/math-weakness-engine/",
+  "debug_entry": "debug.html"
 }

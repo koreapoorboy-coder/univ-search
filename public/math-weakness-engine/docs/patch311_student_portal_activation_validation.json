@@ -1,0 +1,30 @@
+{
+  "patch": "PATCH311",
+  "name": "student portal activation",
+  "base": "PATCH310 applied to math-weakness-engine(41).zip",
+  "changes": [
+    "promote functional hybrid upload/diagnosis UI to index.html",
+    "preserve developer JSON console at debug.html",
+    "retain hybrid.html as direct alternate entry",
+    "show partial unit-load status only inside administrator settings",
+    "apply cache-busting query patch311 to runtime assets"
+  ],
+  "runtime_contract": {
+    "default_entry": "index.html",
+    "debug_entry": "debug.html",
+    "worker_url": "https://math-diagnosis-worker.koreapoorboy.workers.dev",
+    "declared_units": 39,
+    "currently_loadable_units": 36,
+    "temporarily_skipped_units": [
+      "M2_SIMILARITY_PYTHAGORAS",
+      "M3_CIRCLE_PROPERTIES",
+      "M3_STATISTICS"
+    ]
+  },
+  "validation": {
+    "html_entry_files_present": true,
+    "runtime_asset_present": true,
+    "manifest_json_parse": "PASS",
+    "no_canonical_data_fabricated": true
+  }
+}
