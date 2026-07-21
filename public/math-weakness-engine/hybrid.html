@@ -546,6 +546,9 @@ window.addEventListener('DOMContentLoaded', () => {
       ? MathHybridReportRenderer.renderTeacherDiagnostics(state.extraction, state.engineDiagnosis, state.noteReview)
       : '';
     $('#result').innerHTML = [
+      (typeof MathHybridReportRenderer.renderRuntimeNotice === 'function')
+        ? MathHybridReportRenderer.renderRuntimeNotice(state.extraction, state.verificationSet, state.answerReview, state.finalReport)
+        : '',
       MathHybridReportRenderer.renderExtraction(state.extraction, state.engineDiagnosis),
       (typeof MathHybridReportRenderer.renderBacktrackChains === 'function')
         ? MathHybridReportRenderer.renderBacktrackChains(state.engineDiagnosis)

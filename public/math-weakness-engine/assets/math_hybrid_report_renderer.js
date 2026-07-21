@@ -386,6 +386,38 @@ class MathHybridReportRenderer {
     </section>`;
   }
 
+  // 워커는 AI 호출이 실패해도 seed fallback을 HTTP 200으로 돌려준다. 그러면 화면은
+  // 정상처럼 그려지지만 업로드한 자료를 읽은 결과가 아니다. 응답에 남는 _runtime.note를
+  // 표면으로 끌어올려 그 상황이 조용히 지나가지 않게 한다.
+  static runtimeNoteKo(note) {
+    const n = String(note || '');
+    if (n.startsWith('ai_error_fallback')) {
+      return { title: 'AI 판독이 실패했습니다', detail: n.slice('ai_error_fallback:'.length).trim() || '원인 미상' };
+    }
+    if (n === 'missing_api_key_stub_fallback') {
+      return { title: 'API 키가 설정되지 않았습니다', detail: 'Cloudflare Worker에 ANTHROPIC_API_KEY Secret을 등록하세요.' };
+    }
+    if (n.startsWith('stub_mode')) {
+      return { title: 'stub 모드로 동작 중입니다', detail: 'Worker 환경변수 ENGINE_MODE와 ALLOW_STUB을 확인하세요.' };
+    }
+    return { title: '예비 결과가 반환되었습니다', detail: n };
+  }
+
+  static renderRuntimeNotice(...results) {
+    const notes = results.filter(Boolean)
+      .map(r => r && r._runtime && r._runtime.note)
+      .filter(Boolean);
+    if (!notes.length) return '';
+    const body = [...new Set(notes)].map(n => {
+      const k = this.runtimeNoteKo(n);
+      return `<p><b>${this.esc(k.title)}</b><br><span class="muted small">${this.esc(k.detail)}</span></p>`;
+    }).join('');
+    return this.card('아래 내용은 업로드한 자료를 읽고 만든 결과가 아닙니다', `
+      ${body}
+      <p class="muted small">예비 문구가 표시되고 있습니다. 학생에게 전달하기 전에 원인을 해결한 뒤 다시 진단하세요.</p>
+    `, 'warn');
+  }
+
   static renderExtraction(data, engineDiagnosis = null) {
     if (!data) return '';
     if (engineDiagnosis) {
