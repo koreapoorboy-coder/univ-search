@@ -1,12 +1,13 @@
 const SERVICE_NAME = 'math-diagnosis-worker';
 const VERSION = '2026.07.09-patch23-first-diagnosis-precision';
-const DEFAULT_MODEL = 'gpt-5.5';
-const DEFAULT_REASONING_EFFORT = 'xhigh';
-const DEFAULT_MAX_OUTPUT_TOKENS = 25000;
+const DEFAULT_MODEL = 'claude-opus-4-8';
+const DEFAULT_EFFORT = 'xhigh';
+const DEFAULT_MAX_TOKENS = 25000;
 const DEFAULT_MAX_FILE_BYTES = 8 * 1024 * 1024;
 const DEFAULT_MAX_TOTAL_FILE_BYTES = 18 * 1024 * 1024;
 const DEFAULT_MAX_FILES = 6;
-const OPENAI_RESPONSES_PATH = '/responses';
+const ANTHROPIC_MESSAGES_PATH = '/messages';
+const ANTHROPIC_VERSION = '2023-06-01';
 
 export default {
   async fetch(request, env, ctx) {
@@ -30,10 +31,11 @@ export default {
           ok: true,
           service: SERVICE_NAME,
           version: VERSION,
-          hasOpenAIKey: Boolean(env.OPENAI_API_KEY),
+          hasApiKey: Boolean(env.ANTHROPIC_API_KEY),
+          provider: 'anthropic',
           mode: env.ENGINE_MODE || 'production',
-          model: env.OPENAI_MODEL || DEFAULT_MODEL,
-          reasoningEffort: env.OPENAI_REASONING_EFFORT || DEFAULT_REASONING_EFFORT,
+          model: env.ANTHROPIC_MODEL || DEFAULT_MODEL,
+          effort: env.ANTHROPIC_EFFORT || DEFAULT_EFFORT,
           stubMode: isStubMode(env),
           cors: corsMode(env),
           maxFiles: numberEnv(env.MAX_FILES, DEFAULT_MAX_FILES),
@@ -47,12 +49,13 @@ export default {
           ok: true,
           service: SERVICE_NAME,
           version: VERSION,
-          model: env.OPENAI_MODEL || DEFAULT_MODEL,
+          provider: 'anthropic',
+          model: env.ANTHROPIC_MODEL || DEFAULT_MODEL,
           mode: env.ENGINE_MODE || 'production',
           stubMode: isStubMode(env),
-          fallbackOnOpenAIError: boolEnv(env.FALLBACK_ON_OPENAI_ERROR, true),
-          maxOutputTokens: numberEnv(env.OPENAI_MAX_OUTPUT_TOKENS, DEFAULT_MAX_OUTPUT_TOKENS),
-          reasoningEffort: env.OPENAI_REASONING_EFFORT || DEFAULT_REASONING_EFFORT,
+          fallbackOnAIError: boolEnv(env.FALLBACK_ON_AI_ERROR, true),
+          maxTokens: numberEnv(env.ANTHROPIC_MAX_TOKENS, DEFAULT_MAX_TOKENS),
+          effort: env.ANTHROPIC_EFFORT || DEFAULT_EFFORT,
           endpoints: [
             'GET /health',
             'GET /config',
@@ -74,7 +77,7 @@ export default {
       if (url.pathname === '/api/math-diagnose/generate-verification' && request.method === 'POST') {
         const payload = await safeJson(request);
         const prompt = buildVerificationPrompt(payload);
-        const result = await runJsonTask({ env, task: 'generate_verification', prompt, files: [], schemaName: 'math_verification_questions', schema: VERIFICATION_QUESTION_SCHEMA, fallback: () => buildVerificationFallback(payload) });
+        const result = await runJsonTask({ env, task: 'generate_verification', prompt, files: [], schemaName: 'math_verification_questions', schema: VERIFICATION_QUESTION_SCHEMA, fallback: () => buildVerificationFallback(payload), validate: assertTenQuestions });
         return json(request, env, attachMeta(result, requestId, 'generate_verification'), 200, requestId, startedAt);
       }
 
@@ -149,69 +152,89 @@ function validateFiles(files, env) {
   if (total > maxTotalBytes) throw httpError(413, `Total upload size is too large. Max total size is ${maxTotalBytes} bytes.`);
 }
 
-async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback }) {
+async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback, validate }) {
   const stubMode = isStubMode(env);
-  const allowFallback = boolEnv(env.ALLOW_STUB, false) || boolEnv(env.FALLBACK_ON_OPENAI_ERROR, true);
+  const allowFallback = boolEnv(env.ALLOW_STUB, false) || boolEnv(env.FALLBACK_ON_AI_ERROR, true);
   if (stubMode) return withRuntimeNote(fallback(), `stub_mode:${task}`);
-  if (!env.OPENAI_API_KEY) {
-    if (boolEnv(env.ALLOW_STUB, false)) return withRuntimeNote(fallback(), 'missing_openai_key_stub_fallback');
-    throw httpError(500, 'OPENAI_API_KEY is not configured. Set it as a Cloudflare Worker secret.');
+  if (!env.ANTHROPIC_API_KEY) {
+    if (boolEnv(env.ALLOW_STUB, false)) return withRuntimeNote(fallback(), 'missing_api_key_stub_fallback');
+    throw httpError(500, 'ANTHROPIC_API_KEY is not configured. Set it as a Cloudflare Worker secret.');
   }
   try {
-    return await callOpenAIJson({ env, prompt, files, schemaName, schema });
+    const result = await callClaudeJson({ env, prompt, files, schemaName, schema });
+    if (validate) validate(result);
+    return result;
   } catch (error) {
-    console.error(`OpenAI JSON task failed (${task}):`, error?.message || error);
-    if (allowFallback) return withRuntimeNote(fallback(), `openai_error_fallback:${error?.message || error}`);
+    console.error(`Claude JSON task failed (${task}):`, error?.message || error);
+    if (allowFallback) return withRuntimeNote(fallback(), `ai_error_fallback:${error?.message || error}`);
     throw error;
   }
 }
 
-async function callOpenAIJson({ env, prompt, files, schemaName, schema }) {
-  const content = [{ type: 'input_text', text: prompt }];
+async function callClaudeJson({ env, prompt, files, schemaName, schema }) {
+  const content = [{ type: 'text', text: prompt }];
   for (const file of files || []) {
     const mime = file.type || 'application/octet-stream';
-    const base64 = await fileToBase64(file);
     if (mime.startsWith('image/')) {
-      content.push({ type: 'input_image', image_url: `data:${mime};base64,${base64}` });
+      content.push({ type: 'image', source: { type: 'base64', media_type: mime, data: await fileToBase64(file) } });
+    } else if (mime === 'application/pdf') {
+      content.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: await fileToBase64(file) } });
+    } else if (mime === 'text/plain') {
+      content.push({ type: 'document', source: { type: 'text', media_type: 'text/plain', data: await file.text() } });
     } else {
-      content.push({ type: 'input_file', filename: file.name || 'upload.pdf', file_data: `data:${mime};base64,${base64}` });
+      throw httpError(415, `${mime} cannot be sent to Claude. Allowed: images, application/pdf, text/plain.`);
     }
   }
   const body = {
-    model: env.OPENAI_MODEL || DEFAULT_MODEL,
-    reasoning: { effort: env.OPENAI_REASONING_EFFORT || DEFAULT_REASONING_EFFORT },
-    input: [{ role: 'user', content }],
-    text: { format: { type: 'json_schema', name: schemaName, schema, strict: true } },
-    max_output_tokens: numberEnv(env.OPENAI_MAX_OUTPUT_TOKENS, DEFAULT_MAX_OUTPUT_TOKENS),
-    store: false,
-    metadata: { service: SERVICE_NAME, schema: schemaName, version: VERSION }
+    model: env.ANTHROPIC_MODEL || DEFAULT_MODEL,
+    max_tokens: numberEnv(env.ANTHROPIC_MAX_TOKENS, DEFAULT_MAX_TOKENS),
+    thinking: { type: 'adaptive' },
+    output_config: {
+      effort: env.ANTHROPIC_EFFORT || DEFAULT_EFFORT,
+      format: { type: 'json_schema', schema }
+    },
+    messages: [{ role: 'user', content }]
   };
-  const baseUrl = String(env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/$/, '');
-  const res = await fetch(`${baseUrl}${OPENAI_RESPONSES_PATH}`, {
+  const baseUrl = String(env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com/v1').replace(/\/$/, '');
+  const res = await fetch(`${baseUrl}${ANTHROPIC_MESSAGES_PATH}`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${env.OPENAI_API_KEY}`,
-      'Content-Type': 'application/json'
+      'x-api-key': env.ANTHROPIC_API_KEY,
+      'anthropic-version': ANTHROPIC_VERSION,
+      'content-type': 'application/json'
     },
     body: JSON.stringify(body)
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw httpError(res.status, data?.error?.message || `OpenAI HTTP ${res.status}`);
-  const text = data.output_text || extractOutputText(data);
-  if (!text) throw httpError(502, 'OpenAI response has no output text');
+  if (!res.ok) throw httpError(res.status, data?.error?.message || `Claude HTTP ${res.status}`);
+  if (data.stop_reason === 'refusal') {
+    throw httpError(502, `Claude declined this request (${data?.stop_details?.category || 'refusal'}).`);
+  }
+  if (data.stop_reason === 'max_tokens') {
+    throw httpError(502, `Claude hit max_tokens before finishing ${schemaName}. Raise ANTHROPIC_MAX_TOKENS or lower ANTHROPIC_EFFORT.`);
+  }
+  const text = extractOutputText(data);
+  if (!text) throw httpError(502, 'Claude response has no text output');
   try { return JSON.parse(text); }
-  catch { throw httpError(502, 'OpenAI output was not valid JSON'); }
+  catch { throw httpError(502, 'Claude output was not valid JSON'); }
 }
 
+// Claude returns an array of content blocks. With adaptive thinking on, thinking
+// blocks come first, so match on type instead of taking content[0].
 function extractOutputText(data) {
-  const out = data?.output || [];
-  for (const item of out) {
-    for (const c of item.content || []) {
-      if (typeof c.text === 'string') return c.text;
-      if (typeof c.output_text === 'string') return c.output_text;
-    }
+  for (const block of data?.content || []) {
+    if (block?.type === 'text' && typeof block.text === 'string') return block.text;
   }
   return '';
+}
+
+// The 10-question count used to be enforced by minItems/maxItems on
+// VERIFICATION_QUESTION_SCHEMA. Claude's structured outputs ignore array-length
+// constraints, so the count is checked here instead. Throwing routes the request
+// into the normal fallback path rather than shipping a short set to the student.
+function assertTenQuestions(result) {
+  const count = Array.isArray(result?.questions) ? result.questions.length : 0;
+  if (count !== 10) throw httpError(502, `Verification set must have exactly 10 questions, got ${count}.`);
 }
 
 async function fileToBase64(file) {
@@ -604,7 +627,7 @@ function buildAnswerReviewFallback(payload) {
 }
 function buildFinalReportFallback(payload) {
   const name = payload?.student_upload?.student_profile?.student_name || '학생';
-  return { report_id:`fallback_report_${Date.now()}`, report_type:'full_cycle', student_summary:{ status:`${name}의 임시 진단 결과입니다.`, what_is_understood:[], what_is_missing:['정밀 AI 분석 또는 교사 확인 필요'], next_action:['검수 문항 답안을 정의-조건-반례-증명 과정-결론 중심으로 다시 작성'] }, teacher_summary:{ diagnosis:'fallback 리포트입니다. Worker/OpenAI 연결 후 정밀 분석하세요.', evidence:['입력 payload 기반'], instruction_plan:['검수 문항 재작성','오답 문항 풀이 과정 확인'], watch_points:['개념어 암기와 증명 가능성 구분','반례/비예시를 만들 수 있는지 확인','비슷한 예시를 조건으로 비교할 수 있는지 확인'] }, parent_summary:{ plain_message:'학생이 학습한 흔적은 자료로 확인해야 하며, 현재는 정밀 분석 전 임시 결과입니다.', home_support:['정답보다 왜 그런지 조건과 근거를 말로 설명하게 해주세요.'] }, next_plan:{ redo_tasks:['검수 문항 답안 재작성','개념정리를 정의-성립 조건-비성립 조건-증명 예시-반례 순서로 재작성'], verification_required_again:true, recommended_due_date_hint:'다음 수업 전' } };
+  return { report_id:`fallback_report_${Date.now()}`, report_type:'full_cycle', student_summary:{ status:`${name}의 임시 진단 결과입니다.`, what_is_understood:[], what_is_missing:['정밀 AI 분석 또는 교사 확인 필요'], next_action:['검수 문항 답안을 정의-조건-반례-증명 과정-결론 중심으로 다시 작성'] }, teacher_summary:{ diagnosis:'fallback 리포트입니다. Worker/Claude 연결 후 정밀 분석하세요.', evidence:['입력 payload 기반'], instruction_plan:['검수 문항 재작성','오답 문항 풀이 과정 확인'], watch_points:['개념어 암기와 증명 가능성 구분','반례/비예시를 만들 수 있는지 확인','비슷한 예시를 조건으로 비교할 수 있는지 확인'] }, parent_summary:{ plain_message:'학생이 학습한 흔적은 자료로 확인해야 하며, 현재는 정밀 분석 전 임시 결과입니다.', home_support:['정답보다 왜 그런지 조건과 근거를 말로 설명하게 해주세요.'] }, next_plan:{ redo_tasks:['검수 문항 답안 재작성','개념정리를 정의-성립 조건-비성립 조건-증명 예시-반례 순서로 재작성'], verification_required_again:true, recommended_due_date_hint:'다음 수업 전' } };
 }
 
 function attachMeta(result, requestId, task) {
@@ -1226,6 +1249,6 @@ const AI_EXTRACTION_SCHEMA = {
     }
   }
 };
-const VERIFICATION_QUESTION_SCHEMA = { type:'object', additionalProperties:false, required:['set_id','target_concepts','source_diagnosis','questions','teacher_decision_rule','redo_policy'], properties:{ set_id:{type:'string'}, target_concepts:{type:'array',items:{type:'string'}}, source_diagnosis:{type:'string'}, questions:{type:'array',minItems:10,maxItems:10,items:{type:'object',additionalProperties:false,required:['question_id','question_type','prompt','student_answer_format','required_elements','answer_key','rubric','minimum_pass_score','teacher_note'],properties:{question_id:{type:'string'},question_type:{type:'string',enum:['definition','classification','process','proof_explanation','error_correction','self_explanation','example_generation','counterexample_generation','non_example_classification']},prompt:{type:'string'},student_answer_format:{type:'string'},required_elements:{type:'array',items:{type:'string'}},answer_key:{type:'string'},rubric:{type:'array',items:{type:'object',additionalProperties:false,required:['score','condition'],properties:{score:{type:'number'},condition:{type:'string'}}}},minimum_pass_score:{type:'number'},teacher_note:{type:'string'}}}}, teacher_decision_rule:{type:'string'}, redo_policy:{type:'string'} } };
+const VERIFICATION_QUESTION_SCHEMA = { type:'object', additionalProperties:false, required:['set_id','target_concepts','source_diagnosis','questions','teacher_decision_rule','redo_policy'], properties:{ set_id:{type:'string'}, target_concepts:{type:'array',items:{type:'string'}}, source_diagnosis:{type:'string'}, questions:{type:'array',items:{type:'object',additionalProperties:false,required:['question_id','question_type','prompt','student_answer_format','required_elements','answer_key','rubric','minimum_pass_score','teacher_note'],properties:{question_id:{type:'string'},question_type:{type:'string',enum:['definition','classification','process','proof_explanation','error_correction','self_explanation','example_generation','counterexample_generation','non_example_classification']},prompt:{type:'string'},student_answer_format:{type:'string'},required_elements:{type:'array',items:{type:'string'}},answer_key:{type:'string'},rubric:{type:'array',items:{type:'object',additionalProperties:false,required:['score','condition'],properties:{score:{type:'number'},condition:{type:'string'}}}},minimum_pass_score:{type:'number'},teacher_note:{type:'string'}}}}, teacher_decision_rule:{type:'string'}, redo_policy:{type:'string'} } };
 const ANSWER_REVIEW_SCHEMA = { type:'object',additionalProperties:false,required:['review_id','overall_result','question_reviews','final_instruction'],properties:{ review_id:{type:'string'}, overall_result:{type:'object',additionalProperties:false,required:['level','score','decision','summary'],properties:{level:{type:'string',enum:['A','B','C','D']},score:{type:'number'},decision:{type:'string',enum:['understood','partial_understanding','memorized_only','needs_relearning']},summary:{type:'string'}}}, question_reviews:{type:'array',items:{type:'object',additionalProperties:false,required:['question_id','status','score','confirmed_understanding','missing_elements','misconceptions','feedback'],properties:{question_id:{type:'string'},status:{type:'string',enum:['correct','partial','incorrect','unanswered']},score:{type:'number'},confirmed_understanding:{type:'array',items:{type:'string'}},missing_elements:{type:'array',items:{type:'string'}},misconceptions:{type:'array',items:{type:'string'}},feedback:{type:'string'}}}}, final_instruction:{type:'object',additionalProperties:false,required:['student_message','teacher_action','redo_tasks','parent_message'],properties:{student_message:{type:'string'},teacher_action:{type:'string'},redo_tasks:{type:'array',items:{type:'string'}},parent_message:{type:'string'}}} } };
 const FINAL_REPORT_SCHEMA = { type:'object',additionalProperties:false,required:['report_id','report_type','student_summary','teacher_summary','parent_summary','next_plan'],properties:{ report_id:{type:'string'}, report_type:{type:'string',enum:['initial_diagnosis','after_verification_review','full_cycle']}, student_summary:{type:'object',additionalProperties:false,required:['status','what_is_understood','what_is_missing','next_action'],properties:{status:{type:'string'},what_is_understood:{type:'array',items:{type:'string'}},what_is_missing:{type:'array',items:{type:'string'}},next_action:{type:'array',items:{type:'string'}}}}, teacher_summary:{type:'object',additionalProperties:false,required:['diagnosis','evidence','instruction_plan','watch_points'],properties:{diagnosis:{type:'string'},evidence:{type:'array',items:{type:'string'}},instruction_plan:{type:'array',items:{type:'string'}},watch_points:{type:'array',items:{type:'string'}}}}, parent_summary:{type:'object',additionalProperties:false,required:['plain_message','home_support'],properties:{plain_message:{type:'string'},home_support:{type:'array',items:{type:'string'}}}}, next_plan:{type:'object',additionalProperties:false,required:['redo_tasks','verification_required_again','recommended_due_date_hint'],properties:{redo_tasks:{type:'array',items:{type:'string'}},verification_required_again:{type:'boolean'},recommended_due_date_hint:{type:'string'}}} } };

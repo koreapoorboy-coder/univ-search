@@ -4,9 +4,10 @@ compatibility_date = "2026-07-08"
 
 [vars]
 ENGINE_MODE = "production"
-OPENAI_MODEL = "gpt-4.1-mini"
+ANTHROPIC_MODEL = "claude-opus-4-8"
+ANTHROPIC_EFFORT = "xhigh"
 ALLOW_STUB = "true"
-FALLBACK_ON_OPENAI_ERROR = "true"
+FALLBACK_ON_AI_ERROR = "true"
 
 # Set secret separately, never commit API keys.
-# wrangler secret put OPENAI_API_KEY
+# wrangler secret put ANTHROPIC_API_KEY

@@ -104,7 +104,7 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
   </div>
   <div class="subcard">
     <b>상태 기준</b>
-    <p class="muted small">health에서 hasOpenAIKey=true, stubMode=false가 나오면 실제 OpenAI 연결 준비가 된 상태입니다. hasOpenAIKey=true만 보여도 API Key Secret 연결은 성공입니다.</p>
+    <p class="muted small">health에서 hasApiKey=true, stubMode=false가 나오면 실제 Claude 연결 준비가 된 상태입니다. hasApiKey=true만 보여도 API Key Secret 연결은 성공입니다.</p>
   </div>
 </details>
 
@@ -272,14 +272,14 @@ body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-seri
     setButtonLoading(true);
     try {
       const data = await fetchJson(url, '/health');
-      const hasKey = data.hasOpenAIKey === true;
+      const hasKey = data.hasApiKey === true;
       const stub = data.stubMode === true;
       if (data.ok && hasKey && !stub) {
-        setStatus('success', 'Worker 연결 성공 · OpenAI Key 연결됨', '이제 1차 AI 분석 실행을 테스트할 수 있습니다.', data);
+        setStatus('success', 'Worker 연결 성공 · Claude API Key 연결됨', '이제 1차 AI 분석 실행을 테스트할 수 있습니다.', data);
       } else if (data.ok && hasKey && stub) {
         setStatus('warning', 'Worker 연결 성공 · 현재 stubMode=true', '테스트용 임시 결과 모드입니다. 실제 AI 결과가 필요하면 Worker 환경변수 ENGINE_MODE를 확인하세요.', data);
       } else if (data.ok && !hasKey) {
-        setStatus('warning', 'Worker는 연결됐지만 OpenAI Key가 없습니다.', 'Cloudflare Settings → Variables and secrets에서 OPENAI_API_KEY Secret을 확인하세요.', data);
+        setStatus('warning', 'Worker는 연결됐지만 Claude API Key가 없습니다.', 'Cloudflare Settings → Variables and secrets에서 ANTHROPIC_API_KEY Secret을 확인하세요.', data);
       } else {
         setStatus('warning', 'Worker 응답을 받았지만 상태 확인이 필요합니다.', '응답 JSON을 확인하세요.', data);
       }
