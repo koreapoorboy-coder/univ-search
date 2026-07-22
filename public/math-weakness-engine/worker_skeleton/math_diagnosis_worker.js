@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.07.22-two-stage-scope';
+const VERSION = '2026.07.22-chunked-enum';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -259,25 +259,100 @@ const UNIT_ASSIGN_SCHEMA = (unitIds) => ({
   }
 });
 
-const TYPE_ASSIGN_SCHEMA = (typeIds) => ({
+// 조각으로 나눠 물을 때, 그 조각에 정답 유형이 없을 수도 있다. 강제로 하나를 고르게 하면
+// 조각마다 엉뚱한 유형이 하나씩 나와 합칠 때 오염된다. "여기엔 없다"를 고를 수 있어야 한다.
+const NO_MATCH = '__NO_MATCH__';
+
+const TYPE_ASSIGN_SCHEMA = (typeIds, allowNoMatch = false) => ({
   type: 'object', additionalProperties: false, required: ['attempts'],
   properties: {
     attempts: {
       type: 'array',
       items: {
         type: 'object', additionalProperties: false,
-        required: ['question_no', 'problem_type_id', 'is_correct', 'difficulty', 'observed_error_tags'],
+        required: allowNoMatch
+          ? ['question_no', 'problem_type_id', 'is_correct', 'difficulty', 'observed_error_tags', 'confidence']
+          : ['question_no', 'problem_type_id', 'is_correct', 'difficulty', 'observed_error_tags'],
         properties: {
           question_no: { type: 'string' },
-          problem_type_id: { type: 'string', enum: typeIds },
+          problem_type_id: { type: 'string', enum: allowNoMatch ? [...typeIds, NO_MATCH] : typeIds },
           is_correct: { type: 'boolean' },
           difficulty: { type: 'string', enum: ['basic', 'core', 'advanced', 'high'] },
-          observed_error_tags: { type: 'array', items: { type: 'string' } }
+          observed_error_tags: { type: 'array', items: { type: 'string' } },
+          // 조각이 여러 개면 둘 이상이 같은 문항을 자기 것이라 할 수 있다. 그때 고르는 기준.
+          ...(allowNoMatch ? { confidence: { type: 'number' } } : {})
         }
       }
     }
   }
 });
+
+function chunkList(arr, size) {
+  const out = [];
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+  return out;
+}
+
+// 한 단원의 유형을 확정한다. 한도 안이면 종전대로 한 번에, 넘으면 조각으로 나눠 병렬로
+// 묻고 합친다. 호출부는 어느 쪽인지 알 필요가 없다.
+async function assignTypesForUnit({ env, files, unitId, rows, types }) {
+  const chunks = chunkList(types, MAX_ENUM_TYPES);
+  const targetList = rows.map(r => `${r.question_no}번 (정답 여부: ${r.is_correct ? '맞음' : '틀림'})`).join('\n');
+  const askChunk = async (part, i) => {
+    const split = chunks.length > 1;
+    const menu = part.map(t => `${t.id} = ${t.name}`).join('\n');
+    const out = await callClaudeJson({
+      env, files, structured: true,
+      schemaName: `type_assignment_${unitId}${split ? `_${i + 1}` : ''}`,
+      schema: TYPE_ASSIGN_SCHEMA(part.map(t => t.id), split),
+      prompt: `아래 문항들은 「${unitId}」 단원으로 확정됐다. 각 문항이 이 단원의 어느 문항유형인지 고르라.
+
+[대상 문항]
+${targetList}
+
+[문항유형 목록${split ? ` — 이 단원 유형 ${types.length}개 중 ${i + 1}/${chunks.length} 조각` : ''} · 이 목록 밖은 고를 수 없다]
+${menu}
+
+규칙:
+- 대상 문항 전부에 대해 한 줄씩 낸다.
+- observed_error_tags는 틀린 문항에서 실제로 관찰된 오류만 쓴다. 맞은 문항은 빈 배열로 둔다.
+- difficulty는 문항 난도다.${split ? `
+- 이 목록은 단원 전체 유형의 일부다. 위 목록에 맞는 유형이 없으면 억지로 고르지 말고
+  problem_type_id를 "${NO_MATCH}"로, confidence를 0으로 둔다.
+- 맞는 유형이 있으면 confidence를 0보다 크게(확신할수록 1에 가깝게) 쓴다.` : ''}`
+    });
+    return (out?.attempts || []).map(x => ({ ...x, _chunk: i + 1 }));
+  };
+
+  if (chunks.length === 1) {
+    const got = await askChunk(chunks[0], 0);
+    // _chunk는 병합용 내부 표식이다. 결과에 남으면 engine_adapter와 교사용 JSON까지 따라간다.
+    return got.map(({ _chunk, ...x }) => ({ ...x, unit_id: unitId }));
+  }
+
+  // 조각 하나가 실패해도 나머지 조각의 판정은 살린다.
+  const settled = await Promise.all(chunks.map((part, i) => askChunk(part, i).catch(err => {
+    console.error(`stage2 chunk failed (${unitId} ${i + 1}/${chunks.length}):`, err?.message || err);
+    return [];
+  })));
+
+  // 문항별로 가장 확신이 높은 조각의 답을 채택한다. 전 조각이 "없다"면 유형은 비우되
+  // 단원과 정오답은 1단계 결과로 남긴다.
+  const best = new Map();
+  for (const a of settled.flat()) {
+    if (!a?.question_no || a.problem_type_id === NO_MATCH || !a.problem_type_id) continue;
+    const prev = best.get(a.question_no);
+    if (!prev || Number(a.confidence || 0) > Number(prev.confidence || 0)) best.set(a.question_no, a);
+  }
+  return rows.map(r => {
+    const hit = best.get(r.question_no);
+    if (hit) {
+      const { _chunk, confidence, ...rest } = hit;
+      return { ...rest, question_no: r.question_no, unit_id: unitId };
+    }
+    return { question_no: r.question_no, problem_type_id: '', is_correct: r.is_correct, difficulty: 'core', observed_error_tags: [], unit_id: unitId };
+  });
+}
 
 async function runStagedEngineAdapter({ env, payload, files, scope }) {
   if (!scope.units.length) throw new Error('후보 단원이 비어 있다(시험 범위 미선택)');
@@ -307,31 +382,16 @@ ${unitMenu}
   const byUnit = {};
   for (const a of assignments) (byUnit[a.unit_id] = byUnit[a.unit_id] || []).push(a);
 
+  const chunkPlan = [];
   const results = await Promise.all(Object.keys(byUnit).map(async unitId => {
     const rows = byUnit[unitId];
     try {
       const types = await fetchUnitProblemTypes(scope, unitId);
       if (!types.length) throw new Error(`${unitId} 유형 목록이 비어 있다`);
-      // enum이 지나치게 크면 문법 컴파일 한도에 걸린다. 그 단원은 유형 없이 넘긴다.
-      if (types.length > MAX_ENUM_TYPES) throw new Error(`${unitId} 유형 ${types.length}개로 enum 한도(${MAX_ENUM_TYPES}) 초과`);
-      const menu = types.map(t => `${t.id} = ${t.name}`).join('\n');
-      const out = await callClaudeJson({
-        env, files, structured: true, schemaName: `type_assignment_${unitId}`,
-        schema: TYPE_ASSIGN_SCHEMA(types.map(t => t.id)),
-        prompt: `아래 문항들은 「${unitId}」 단원으로 확정됐다. 각 문항이 이 단원의 어느 문항유형인지 고르라.
-
-[대상 문항]
-${rows.map(r => `${r.question_no}번 (정답 여부: ${r.is_correct ? '맞음' : '틀림'})`).join('\n')}
-
-[이 단원의 문항유형 — 이 목록 밖은 고를 수 없다]
-${menu}
-
-규칙:
-- 대상 문항 전부에 대해 한 줄씩 낸다.
-- observed_error_tags는 틀린 문항에서 실제로 관찰된 오류만 쓴다. 맞은 문항은 빈 배열로 둔다.
-- difficulty는 문항 난도다.`
-      });
-      return (out?.attempts || []).map(x => ({ ...x, unit_id: unitId }));
+      // 한도를 넘는 단원은 assignTypesForUnit이 알아서 조각내 처리한다. 예전처럼 통째로
+      // 건너뛰지 않는다 — 고등 9개 단원이 그래서 유형 없이 나가고 있었다.
+      chunkPlan.push({ unit_id: unitId, types: types.length, chunks: Math.ceil(types.length / MAX_ENUM_TYPES) });
+      return await assignTypesForUnit({ env, files, unitId, rows, types });
     } catch (err) {
       console.error(`stage2 failed (${unitId}):`, err?.message || err);
       // 유형은 못 정해도 단원·정오답은 살아 있다. 버리지 않고 그대로 넘긴다.
@@ -353,7 +413,12 @@ ${menu}
       note_review_input: { student_note: { unit_id: topUnit, lesson_title: scope.label || '', note_text: payload?.submission?.text_inputs?.lecture_note_text || '' } },
       recommended_engine_actions: ['run_diagnoseWithGuidance', 'generate_verification_questions']
     },
-    _staged: { mode: scope.mode, scope: scope.label, units: Object.keys(byUnit), questions: attempts.length, type_matched: matched }
+    _staged: {
+      mode: scope.mode, scope: scope.label, units: Object.keys(byUnit),
+      questions: attempts.length, type_matched: matched,
+      // 어느 단원이 몇 조각으로 나뉘었는지. 유형이 안 붙었을 때 조각 문제인지 판별하는 값이다.
+      chunked: chunkPlan.filter(c => c.chunks > 1)
+    }
   };
 }
 
