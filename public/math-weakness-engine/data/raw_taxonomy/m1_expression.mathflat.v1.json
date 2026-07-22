@@ -1,0 +1,3764 @@
+{
+  "schema": "mathflat_problem_type.v1",
+  "version": "2026.07.22-mathflat-M1S1-le",
+  "_note": "매쓰플랫 화면 스크린샷을 전사한 엑셀을 그대로 옮긴 원본 분류. 진단 단위는 \"유형 묶음\"(problem_types), 그 아래 topic_types가 엑셀 문항분류표를 세부코드·묶음 내 번호·검토상태까지 그대로 담는다. 한글 이름은 원문 그대로이며 다듬지 않았다. 데이터 저장만 한 상태이고 진단 로직에는 연결하지 않았다 — 기존 raw_taxonomy와 옛 진단 경로는 그대로 둔다.",
+  "_source": {
+    "origin": "문자와식.zip 내 PNG 142장",
+    "workbook": "1-1 문자와 식.xlsx",
+    "extracted_at": "2026-07-22",
+    "principle": "화면에 글자로 보이는 항목만 입력. 보이지 않는 이름은 생성하지 않음."
+  },
+  "_wiring": {
+    "concept_ids": "이름 유사도 0.85 이상인 legacy 섹션에서만 상속했다. 나머지는 null — 사람 확인 전까지 비워 둔다. 순서 대응 상속은 legacy 목록의 구성이 달라 폐기했다.",
+    "error_tags": "미배정 (null). 기존 유형에서 묶음 단위 상속 예정.",
+    "prerequisite_ids": "전부 비움 — 선생님이 직접 지정."
+  },
+  "semester": "M1S1",
+  "semester_name": "중1 1학기",
+  "unit_id": "M1_EXPRESSION",
+  "unit_code": "LE",
+  "unit_name": "문자와 식",
+  "chapter": "1-1 문자와 식",
+  "status": "raw_not_wired",
+  "problem_type_count": 76,
+  "count_check": {
+    "expected": 76,
+    "actual": 76,
+    "match": true
+  },
+  "topic_type_total": 246,
+  "item_check": {
+    "declared_total": 246,
+    "stored_total": 246,
+    "match": true,
+    "mismatched_groups": []
+  },
+  "detail_type_total": 1545,
+  "legacy_audit": {
+    "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
+    "match_confident": 0,
+    "match_candidate": 2,
+    "match_none": 74,
+    "legacy_section_count": 18,
+    "legacy_has_concept_ids": false,
+    "concept_ids_inherited": 0,
+    "legacy_unmatched": [
+      "곱셈 기호를 생략하여 나타내기",
+      "나눗셈 기호를 분수꼴 또는 역수 곱으로 나타내기",
+      "대입하여 식의 값 구하기",
+      "항·계수·상수항 판단 및 단항식 곱셈·나눗셈",
+      "동류항 정리, 분배법칙, 일차식 계산",
+      "등식의 빈칸 또는 미지의 식 구하기",
+      "문장과 수식의 상호 변환",
+      "주어진 식이 항상 참인지 판단하기",
+      "일차방정식인지 판별하기",
+      "소수 계수 방정식을 정수 계수로 바꾸어 풀이",
+      "방정식 세우기와 활용 문제 해결",
+      "도형 조건을 이용한 방정식 활용",
+      "과부족 관계를 방정식으로 나타내기",
+      "시계의 시침·분침 각도와 시간 관계",
+      "거리=속력×시간 관계의 방정식 활용",
+      "여러 조건을 해석하여 방정식 세우기"
+    ]
+  },
+  "problem_types": [
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G001",
+      "source_group_id": "G001",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "곱셈과 나눗셈 기호의 생략",
+      "type_name": "곱셈 기호의 생략",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G001.I01",
+          "source_code": "LE-001",
+          "no_in_group": 1,
+          "name": "곱셈 기호를 생략하여 나타내기: 문자와 숫자의 곱",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G001.I02",
+          "source_code": "LE-002",
+          "no_in_group": 2,
+          "name": "곱셈 기호를 사용하여 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G001.I03",
+          "source_code": "LE-003",
+          "no_in_group": 3,
+          "name": "곱셈 기호를 생략하여 나타내기: 빈칸 채우기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G001.I04",
+          "source_code": "LE-004",
+          "no_in_group": 4,
+          "name": "곱셈 기호를 생략하여 나타내기: 옳은/옳지 않은 것 고르기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png~4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G002",
+      "source_group_id": "G002",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "곱셈과 나눗셈 기호의 생략",
+      "type_name": "나눗셈 기호의 생략",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G002.I01",
+          "source_code": "LE-005",
+          "no_in_group": 1,
+          "name": "나눗셈 기호를 생략하여 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G002.I02",
+          "source_code": "LE-006",
+          "no_in_group": 2,
+          "name": "나눗셈 기호를 사용하여 나타내기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 23,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png~6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G003",
+      "source_group_id": "G003",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "곱셈과 나눗셈 기호의 생략",
+      "type_name": "곱셈과 나눗셈이 혼합된 경우의 기호의 생략",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G003.I01",
+          "source_code": "LE-007",
+          "no_in_group": 1,
+          "name": "곱셈, 나눗셈 기호를 생략하여 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G003.I02",
+          "source_code": "LE-008",
+          "no_in_group": 2,
+          "name": "곱셈, 나눗셈 기호를 생략하여 나타낸 식의 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G003.I03",
+          "source_code": "LE-009",
+          "no_in_group": 3,
+          "name": "곱셈, 나눗셈 기호를 사용하여 나타내기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png~8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G004",
+      "source_group_id": "G004",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "문자를 사용한 식",
+      "type_name": "문자를 사용하여 식으로 나타내기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G004.I01",
+          "source_code": "LE-010",
+          "no_in_group": 1,
+          "name": "문자 1개, 항 1개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G004.I02",
+          "source_code": "LE-010B",
+          "no_in_group": 2,
+          "name": "문자 1개, 항 2개 이상",
+          "review_status": "원문 확인(누락분 보완: 10.png)"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G004.I03",
+          "source_code": "LE-011",
+          "no_in_group": 3,
+          "name": "문자 2개 이상",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png~11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G005",
+      "source_group_id": "G005",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "문자를 사용한 식",
+      "type_name": "문자를 사용한 식(1) 비율, 단위, 수",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G005.I01",
+          "source_code": "LE-012",
+          "no_in_group": 1,
+          "name": "식으로의 표현: 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G005.I02",
+          "source_code": "LE-013",
+          "no_in_group": 2,
+          "name": "식으로의 표현: 비율",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G005.I03",
+          "source_code": "LE-014",
+          "no_in_group": 3,
+          "name": "식으로의 표현: 단위",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G006",
+      "source_group_id": "G006",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "문자를 사용한 식",
+      "type_name": "문자를 사용한 식(2) 도형의 둘레의 길이, 넓이, 부피",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G006.I01",
+          "source_code": "LE-015",
+          "no_in_group": 1,
+          "name": "다각형의 둘레 또는 한 변의 길이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G006.I02",
+          "source_code": "LE-016",
+          "no_in_group": 2,
+          "name": "다각형의 넓이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G006.I03",
+          "source_code": "LE-017",
+          "no_in_group": 3,
+          "name": "입체도형의 겉넓이 또는 부피",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G006.I04",
+          "source_code": "LE-018",
+          "no_in_group": 4,
+          "name": "성냥개비를 이용한 도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G006.I05",
+          "source_code": "LE-019",
+          "no_in_group": 5,
+          "name": "(종합) 주어진 문장을 식으로 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G006.I06",
+          "source_code": "LE-020",
+          "no_in_group": 6,
+          "name": "선분의 길이",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png~14.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G007",
+      "source_group_id": "G007",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "문자를 사용한 식",
+      "type_name": "문자를 사용한 식(3) 가격",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G007.I01",
+          "source_code": "LE-021",
+          "no_in_group": 1,
+          "name": "가격을 식으로 나타내기: 문자 1개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G007.I02",
+          "source_code": "LE-022",
+          "no_in_group": 2,
+          "name": "가격을 식으로 나타내기: 문자 2개 이상",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G007.I03",
+          "source_code": "LE-023",
+          "no_in_group": 3,
+          "name": "거스름돈을 식으로 나타내기: 문자 1개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G007.I04",
+          "source_code": "LE-024",
+          "no_in_group": 4,
+          "name": "거스름돈을 식으로 나타내기: 문자 2개 이상",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G007.I05",
+          "source_code": "LE-025",
+          "no_in_group": 5,
+          "name": "(종합) 가격, 거스름돈의 식으로의 표현",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G007.I06",
+          "source_code": "LE-026",
+          "no_in_group": 6,
+          "name": "두 개의 가격 비교",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 33,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "15.png~17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G008",
+      "source_group_id": "G008",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "문자를 사용한 식",
+      "type_name": "문자를 사용한 식(4) 거리, 속력, 시간",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G008.I01",
+          "source_code": "LE-027",
+          "no_in_group": 1,
+          "name": "(기본) 시간, 속력, 거리의 식으로의 표현",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G008.I02",
+          "source_code": "LE-028",
+          "no_in_group": 2,
+          "name": "시간, 속력, 거리의 식으로의 표현: 휴식을 포함하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G008.I03",
+          "source_code": "LE-029",
+          "no_in_group": 3,
+          "name": "시간, 속력, 거리의 식으로의 표현: 기차가 다리를 통과하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "18.png~19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G009",
+      "source_group_id": "G009",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "문자를 사용한 식",
+      "type_name": "문자를 사용한 식(5) 농도",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G009.I01",
+          "source_code": "LE-030",
+          "no_in_group": 1,
+          "name": "소금물의 식으로의 표현",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G009.I02",
+          "source_code": "LE-031",
+          "no_in_group": 2,
+          "name": "소금물의 농도의 식으로의 표현",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G010",
+      "source_group_id": "G010",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "문자를 사용한 식",
+      "type_name": "문자를 사용한 식(6) 종합",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G010.I01",
+          "source_code": "LE-032",
+          "no_in_group": 1,
+          "name": "(종합) 식으로의 표현",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 2,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G011",
+      "source_group_id": "G011",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "식의 값",
+      "type_name": "식의 값(1)",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G011.I01",
+          "source_code": "LE-033",
+          "no_in_group": 1,
+          "name": "식의 값 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G011.I02",
+          "source_code": "LE-034",
+          "no_in_group": 2,
+          "name": "식의 값의 대소 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G011.I03",
+          "source_code": "LE-035",
+          "no_in_group": 3,
+          "name": "같은/다른 값을 갖는 식 찾기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G011.I04",
+          "source_code": "LE-036",
+          "no_in_group": 4,
+          "name": "식의 값을 구하는 과정의 빈칸 채우기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "22.png~23.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G012",
+      "source_group_id": "G012",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "식의 값",
+      "type_name": "식의 값(2)",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G012.I01",
+          "source_code": "LE-037",
+          "no_in_group": 1,
+          "name": "식의 값 구하기: x,y의 값이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G012.I02",
+          "source_code": "LE-038",
+          "no_in_group": 2,
+          "name": "식의 값의 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G012.I03",
+          "source_code": "LE-039",
+          "no_in_group": 3,
+          "name": "식의 값 구하기: 식에 절댓값을 포함한 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G012.I04",
+          "source_code": "LE-040",
+          "no_in_group": 4,
+          "name": "식의 값 구하기: x,y의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 41,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "24.png~26.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G013",
+      "source_group_id": "G013",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "식의 값",
+      "type_name": "식의 값(3)",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G013.I01",
+          "source_code": "LE-041",
+          "no_in_group": 1,
+          "name": "x의 값이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G013.I02",
+          "source_code": "LE-042",
+          "no_in_group": 2,
+          "name": "x,y의 값이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G013.I03",
+          "source_code": "LE-043",
+          "no_in_group": 3,
+          "name": "식의 값의 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G013.I04",
+          "source_code": "LE-044",
+          "no_in_group": 4,
+          "name": "x,y,z의 값이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "27.png~28.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G014",
+      "source_group_id": "G014",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "식의 값",
+      "type_name": "식의 값의 활용(1) 문자를 사용한 식이 주어질 때",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G014.I01",
+          "source_code": "LE-045",
+          "no_in_group": 1,
+          "name": "x의 값이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G014.I02",
+          "source_code": "LE-046",
+          "no_in_group": 2,
+          "name": "x,y의 값이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "29.png~30.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G015",
+      "source_group_id": "G015",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "식의 값",
+      "type_name": "식의 값의 활용(2) 문자를 사용한 식이 주어지지 않은 때",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G015.I01",
+          "source_code": "LE-047",
+          "no_in_group": 1,
+          "name": "(기본) 식의 값의 활용",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G015.I02",
+          "source_code": "LE-048",
+          "no_in_group": 2,
+          "name": "식의 값의 활용: 평면 도형의 넓이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G015.I03",
+          "source_code": "LE-049",
+          "no_in_group": 3,
+          "name": "식의 값의 활용: 입체 도형의 겉넓이, 부피",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G015.I04",
+          "source_code": "LE-050",
+          "no_in_group": 4,
+          "name": "식의 값의 활용: 도형이 일정한 속도로 이동하고 만든 도형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 24,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "30.png~31.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G016",
+      "source_group_id": "G016",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "다항식과 일차식",
+      "type_name": "다항식",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G016.I01",
+          "source_code": "LE-051",
+          "no_in_group": 1,
+          "name": "다항식의 요소: 항, 항의 개수, 차수, 상수항 등",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G016.I02",
+          "source_code": "LE-052",
+          "no_in_group": 2,
+          "name": "단항식과 다항식의 판단",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G016.I03",
+          "source_code": "LE-053",
+          "no_in_group": 3,
+          "name": "다항식의 요소의 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 35,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "32.png~34.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G017",
+      "source_group_id": "G017",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "다항식과 일차식",
+      "type_name": "일차식",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G017.I01",
+          "source_code": "LE-054",
+          "no_in_group": 1,
+          "name": "일차식 판단",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G017.I02",
+          "source_code": "LE-055",
+          "no_in_group": 2,
+          "name": "다항식의 요소",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "35.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G018",
+      "source_group_id": "G018",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식과 수의 곱셈, 나눗셈",
+      "type_name": "(일차식)×(수), (일차식)÷(수)",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G018.I01",
+          "source_code": "LE-056",
+          "no_in_group": 1,
+          "name": "(단항식)×(수) 계산",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G018.I02",
+          "source_code": "LE-057",
+          "no_in_group": 2,
+          "name": "(다항식)×(수) 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G018.I03",
+          "source_code": "LE-058",
+          "no_in_group": 3,
+          "name": "(단항식)÷(수) 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G018.I04",
+          "source_code": "LE-059",
+          "no_in_group": 4,
+          "name": "(다항식)÷(수) 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G018.I05",
+          "source_code": "LE-060",
+          "no_in_group": 5,
+          "name": "(종합) (다항식)×(수) 또는 (다항식)÷(수)",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 44,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "36.png~40.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G019",
+      "source_group_id": "G019",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식과 수의 곱셈, 나눗셈",
+      "type_name": "(일차식)×(수), (일차식)÷(수)의 활용",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G019.I01",
+          "source_code": "LE-061",
+          "no_in_group": 1,
+          "name": "도형의 넓이 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G019.I02",
+          "source_code": "LE-062",
+          "no_in_group": 2,
+          "name": "도형을 겹쳐 놓은 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "40.png~41.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G020",
+      "source_group_id": "G020",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "동류항",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G020.I01",
+          "source_code": "LE-063",
+          "no_in_group": 1,
+          "name": "동류항 판단",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G020.I02",
+          "source_code": "LE-064",
+          "no_in_group": 2,
+          "name": "동류항의 정의",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G020.I03",
+          "source_code": "LE-065",
+          "no_in_group": 3,
+          "name": "(종합) 다항식의 요소",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "42.png~43.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G021",
+      "source_group_id": "G021",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "일차식의 덧셈과 뺄셈",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G021.I01",
+          "source_code": "LE-066",
+          "no_in_group": 1,
+          "name": "동류항의 덧셈과 뺄셈: 문자 1개, 항 2개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G021.I02",
+          "source_code": "LE-067",
+          "no_in_group": 2,
+          "name": "동류항의 덧셈과 뺄셈: 문자 1개, 항 3개 이상",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G021.I03",
+          "source_code": "LE-068",
+          "no_in_group": 3,
+          "name": "동류항의 덧셈과 뺄셈의 계산 과정",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G021.I04",
+          "source_code": "LE-069",
+          "no_in_group": 4,
+          "name": "괄호가 없는 일차식의 덧셈과 뺄셈",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G021.I05",
+          "source_code": "LE-070",
+          "no_in_group": 5,
+          "name": "괄호를 포함한 일차식의 덧셈과 뺄셈",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G021.I06",
+          "source_code": "LE-071",
+          "no_in_group": 6,
+          "name": "일차식의 덧셈과 뺄셈을 이용한 식의 값",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 33,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "43.png~46.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G022",
+      "source_group_id": "G022",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "분수 꼴인 일차식의 덧셈과 뺄셈",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G022.I01",
+          "source_code": "LE-072",
+          "no_in_group": 1,
+          "name": "분수 꼴인 일차식의 덧셈과 뺄셈: 문자 1개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G022.I02",
+          "source_code": "LE-073",
+          "no_in_group": 2,
+          "name": "분수 꼴인 일차식의 덧셈과 뺄셈: 문자 2개",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "46.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G023",
+      "source_group_id": "G023",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "여러 가지 일차식의 덧셈과 뺄셈",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G023.I01",
+          "source_code": "LE-074",
+          "no_in_group": 1,
+          "name": "일차식의 덧셈과 뺄셈 계산: 문자 1개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G023.I02",
+          "source_code": "LE-075",
+          "no_in_group": 2,
+          "name": "일차식의 덧셈과 뺄셈 계산: 문자 2개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G023.I03",
+          "source_code": "LE-076",
+          "no_in_group": 3,
+          "name": "일차항의 계수가 주어지고 상수항이 주어지지 않은 일차식의 덧셈과 뺄셈",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G023.I04",
+          "source_code": "LE-077",
+          "no_in_group": 4,
+          "name": "(종합) 일차식 계산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "47.png~48.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G024",
+      "source_group_id": "G024",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "일차식 계산과 계수, 상수항",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G024.I01",
+          "source_code": "LE-078",
+          "no_in_group": 1,
+          "name": "일차식의 특정 계수(상수항) 구하기 또는 그 연산",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G024.I02",
+          "source_code": "LE-079",
+          "no_in_group": 2,
+          "name": "식이 2개 이상 주어지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G024.I03",
+          "source_code": "LE-080",
+          "no_in_group": 3,
+          "name": "일차식의 특정 계수(상수항)가 주어지는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 31,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "49.png~50.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G025",
+      "source_group_id": "G025",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "일차식이 되기 위한 조건",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G025.I01",
+          "source_code": "LE-081",
+          "no_in_group": 1,
+          "name": "일차식이 되기 위한 조건: 미지수 1개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G025.I02",
+          "source_code": "LE-082",
+          "no_in_group": 2,
+          "name": "일차식이 되기 위한 조건: 미지수 2개",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "51.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G026",
+      "source_group_id": "G026",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "문자에 일차식을 대입하기",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G026.I01",
+          "source_code": "LE-083",
+          "no_in_group": 1,
+          "name": "문자에 일차식의 대입: 문자 1개에 대한 일차식",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G026.I02",
+          "source_code": "LE-084",
+          "no_in_group": 2,
+          "name": "문자에 일차식의 대입: 문자 2개에 대한 일차식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G026.I03",
+          "source_code": "LE-085",
+          "no_in_group": 3,
+          "name": "문자에 일차식의 대입과 연산: 문자 1개에 대한 일차식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G026.I04",
+          "source_code": "LE-086",
+          "no_in_group": 4,
+          "name": "문자에 일차식의 대입과 연산: 문자 2개에 대한 일차식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G026.I05",
+          "source_code": "LE-087",
+          "no_in_group": 5,
+          "name": "새로운 기호의 이용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "52.png~53.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G027",
+      "source_group_id": "G027",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "어떤 식 구하기",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G027.I01",
+          "source_code": "LE-088",
+          "no_in_group": 1,
+          "name": "어떤 식 구하기: 식이 주어지는 경우, 다항식 1개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G027.I02",
+          "source_code": "LE-089",
+          "no_in_group": 2,
+          "name": "어떤 식 구하기: 풀이가 주어지는 경우, 다항식 1개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G027.I03",
+          "source_code": "LE-090",
+          "no_in_group": 3,
+          "name": "어떤 식 구하기: 식이 주어지는 경우, 다항식 2개 이상",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G027.I04",
+          "source_code": "LE-091",
+          "no_in_group": 4,
+          "name": "어떤 식 구하기: 표 또는 그림이 주어지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G027.I05",
+          "source_code": "LE-092",
+          "no_in_group": 5,
+          "name": "어떤 식 구하기: 잘못 계산한 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G027.I06",
+          "source_code": "LE-093",
+          "no_in_group": 6,
+          "name": "어떤 식 구하기: 풀이가 주어지는 경우, 다항식 2개 이상",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 45,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "54.png~57.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G028",
+      "source_group_id": "G028",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "바르게 계산한 식 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G028.I01",
+          "source_code": "LE-094",
+          "no_in_group": 1,
+          "name": "바르게 계산한 식 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G028.I02",
+          "source_code": "LE-095",
+          "no_in_group": 2,
+          "name": "바르게 계산한 식에서의 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "58.png~59.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G029",
+      "source_group_id": "G029",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "(-1)^n의 꼴이 포함된 일차식의 계산",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G029.I01",
+          "source_code": "LE-096",
+          "no_in_group": 1,
+          "name": "x에 대한 일차식",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G029.I02",
+          "source_code": "LE-097",
+          "no_in_group": 2,
+          "name": "x,y에 대한 일차식",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "59.png~60.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G030",
+      "source_group_id": "G030",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "문자의 사용과 식의 계산",
+      "중영역": "일차식의 덧셈과 뺄셈",
+      "type_name": "일차식의 덧셈과 뺄셈의 활용",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G030.I01",
+          "source_code": "LE-098",
+          "no_in_group": 1,
+          "name": "도형의 넓이, 겉넓이 (도형의 둘레의 길이와 넓이를 함께 구하는 경우 포함)",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G030.I02",
+          "source_code": "LE-099",
+          "no_in_group": 2,
+          "name": "도형의 한 변의 길이, 둘레의 길이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G030.I03",
+          "source_code": "LE-100",
+          "no_in_group": 3,
+          "name": "가격, 점수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G030.I04",
+          "source_code": "LE-101",
+          "no_in_group": 4,
+          "name": "사람의 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G030.I05",
+          "source_code": "LE-102",
+          "no_in_group": 5,
+          "name": "거리, 속력, 시간",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G030.I06",
+          "source_code": "LE-103",
+          "no_in_group": 6,
+          "name": "여러 수 사이의 관계",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 50,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "60.png~63.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G031",
+      "source_group_id": "G031",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "방정식과 항등식",
+      "type_name": "등식",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G031.I01",
+          "source_code": "LE-104",
+          "no_in_group": 1,
+          "name": "등식의 판단",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G031.I02",
+          "source_code": "LE-105",
+          "no_in_group": 2,
+          "name": "등식의 좌변과 우변",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G031.I03",
+          "source_code": "LE-106",
+          "no_in_group": 3,
+          "name": "(종합) 등식에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "64.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G032",
+      "source_group_id": "G032",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "방정식과 항등식",
+      "type_name": "문장을 등식으로 나타내기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G032.I01",
+          "source_code": "LE-107",
+          "no_in_group": 1,
+          "name": "문장을 등식으로 나타내기: 문자 1개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G032.I02",
+          "source_code": "LE-108",
+          "no_in_group": 2,
+          "name": "문장을 등식으로 나타내기: 문자 2개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G032.I03",
+          "source_code": "LE-109",
+          "no_in_group": 3,
+          "name": "(종합) 문장을 등식으로 나타내기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "65.png~66.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_EX_RAW_003",
+      "legacy_task_group": "주어진 문장을 식으로 나타내기",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.692,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G033",
+      "source_group_id": "G033",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "방정식과 항등식",
+      "type_name": "방정식과 방정식의 해",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G033.I01",
+          "source_code": "LE-110",
+          "no_in_group": 1,
+          "name": "방정식의 해 구하기: 해가 숫자로 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G033.I02",
+          "source_code": "LE-111",
+          "no_in_group": 2,
+          "name": "방정식의 해 구하기: 해가 조건으로 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "67.png~68.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G034",
+      "source_group_id": "G034",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "방정식과 항등식",
+      "type_name": "항등식",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G034.I01",
+          "source_code": "LE-112",
+          "no_in_group": 1,
+          "name": "항등식의 판단",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G034.I02",
+          "source_code": "LE-113",
+          "no_in_group": 2,
+          "name": "항등식의 한편의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "69.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G035",
+      "source_group_id": "G035",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "방정식과 항등식",
+      "type_name": "항등식이 되는 조건",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G035.I01",
+          "source_code": "LE-114",
+          "no_in_group": 1,
+          "name": "항등식이 되는 조건: 미지수 1개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G035.I02",
+          "source_code": "LE-115",
+          "no_in_group": 2,
+          "name": "항등식이 되는 조건: 미지수 2개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G035.I03",
+          "source_code": "LE-116",
+          "no_in_group": 3,
+          "name": "항등식이 되는 조건: 식 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "70.png~71.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G036",
+      "source_group_id": "G036",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "등식의 성질",
+      "type_name": "등식의 성질",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G036.I01",
+          "source_code": "LE-117",
+          "no_in_group": 1,
+          "name": "등식의 빈칸 채우기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G036.I02",
+          "source_code": "LE-118",
+          "no_in_group": 2,
+          "name": "등식의 참/거짓 판단",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G036.I03",
+          "source_code": "LE-119",
+          "no_in_group": 3,
+          "name": "등식의 성질을 이용한 값 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G036.I04",
+          "source_code": "LE-120",
+          "no_in_group": 4,
+          "name": "등식의 성질의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "71.png~72.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G037",
+      "source_group_id": "G037",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "등식의 성질",
+      "type_name": "등식의 성질을 이용한 방정식의 풀이",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G037.I01",
+          "source_code": "LE-121",
+          "no_in_group": 1,
+          "name": "방정식의 풀이 과정",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G037.I02",
+          "source_code": "LE-122",
+          "no_in_group": 2,
+          "name": "방정식 풀기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G037.I03",
+          "source_code": "LE-123",
+          "no_in_group": 3,
+          "name": "방정식의 해에서 사용되는 등식의 성질",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G037.I04",
+          "source_code": "LE-124",
+          "no_in_group": 4,
+          "name": "등식의 성질을 이용한 무게 비교",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 47,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "73.png~76.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G038",
+      "source_group_id": "G038",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "등식의 성질",
+      "type_name": "이항",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G038.I01",
+          "source_code": "LE-125",
+          "no_in_group": 1,
+          "name": "이항하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G038.I02",
+          "source_code": "LE-126",
+          "no_in_group": 2,
+          "name": "이항하여 정리하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "77.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G039",
+      "source_group_id": "G039",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "일차방정식",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G039.I01",
+          "source_code": "LE-127",
+          "no_in_group": 1,
+          "name": "일차방정식의 판단",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G039.I02",
+          "source_code": "LE-128",
+          "no_in_group": 2,
+          "name": "일차방정식이 되기 위한 조건: 미지수 1개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G039.I03",
+          "source_code": "LE-129",
+          "no_in_group": 3,
+          "name": "일차방정식이 되기 위한 조건: 미지수 2개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G039.I04",
+          "source_code": "LE-130",
+          "no_in_group": 4,
+          "name": "(종합) 일차방정식에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "78.png~80.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G040",
+      "source_group_id": "G040",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "일차방정식의 풀이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G040.I01",
+          "source_code": "LE-131",
+          "no_in_group": 1,
+          "name": "일차방정식의 풀이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G040.I02",
+          "source_code": "LE-132",
+          "no_in_group": 2,
+          "name": "무게 비교를 통한 일차방정식의 풀이",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "80.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G041",
+      "source_group_id": "G041",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "괄호가 있는 일차방정식의 풀이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G041.I01",
+          "source_code": "LE-133",
+          "no_in_group": 1,
+          "name": "일차방정식의 풀이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G041.I02",
+          "source_code": "LE-134",
+          "no_in_group": 2,
+          "name": "여러 일차방정식의 해의 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G041.I03",
+          "source_code": "LE-135",
+          "no_in_group": 3,
+          "name": "일차방정식의 해의 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 30,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "81.png~82.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G042",
+      "source_group_id": "G042",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "계수가 소수인 일차방정식의 풀이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G042.I01",
+          "source_code": "LE-136",
+          "no_in_group": 1,
+          "name": "일차방정식의 풀이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G042.I02",
+          "source_code": "LE-137",
+          "no_in_group": 2,
+          "name": "일차방정식의 풀이 과정",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G042.I03",
+          "source_code": "LE-138",
+          "no_in_group": 3,
+          "name": "계수가 소수이며 괄호를 포함한 일차방정식",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "83.png~84.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G043",
+      "source_group_id": "G043",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "계수가 분수인 일차방정식의 풀이",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G043.I01",
+          "source_code": "LE-139",
+          "no_in_group": 1,
+          "name": "일차방정식의 풀이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G043.I02",
+          "source_code": "LE-140",
+          "no_in_group": 2,
+          "name": "일차방정식의 풀이 과정",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G043.I03",
+          "source_code": "LE-141",
+          "no_in_group": 3,
+          "name": "식의 해를 이용한 일차방정식의 풀이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G043.I04",
+          "source_code": "LE-142",
+          "no_in_group": 4,
+          "name": "계수가 분수이며 괄호를 포함한 일차방정식",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 37,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "85.png~87.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G044",
+      "source_group_id": "G044",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "여러 가지 일차방정식의 풀이",
+      "topic_type_count": 7,
+      "topic_type_actual": 7,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G044.I01",
+          "source_code": "LE-143",
+          "no_in_group": 1,
+          "name": "계수에 분수와 소수를 포함한 일차방정식: 일차방정식 1개",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G044.I02",
+          "source_code": "LE-144",
+          "no_in_group": 2,
+          "name": "계수에 분수와 소수를 포함한 일차방정식: 일차방정식 2개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G044.I03",
+          "source_code": "LE-145",
+          "no_in_group": 3,
+          "name": "새로운 기호를 이용한 일차방정식의 풀이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G044.I04",
+          "source_code": "LE-146",
+          "no_in_group": 4,
+          "name": "그림 또는 표를 이용한 일차방정식의 풀이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G044.I05",
+          "source_code": "LE-147",
+          "no_in_group": 5,
+          "name": "절댓값을 포함한 일차방정식의 풀이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G044.I06",
+          "source_code": "LE-148",
+          "no_in_group": 6,
+          "name": "일차방정식의 해의 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G044.I07",
+          "source_code": "LE-149",
+          "no_in_group": 7,
+          "name": "(종합) 일차방정식에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 41,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "87.png~90.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G045",
+      "source_group_id": "G045",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "비례식으로 주어진 일차방정식의 풀이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G045.I01",
+          "source_code": "LE-150",
+          "no_in_group": 1,
+          "name": "일차방정식의 풀이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G045.I02",
+          "source_code": "LE-151",
+          "no_in_group": 2,
+          "name": "일차방정식의 풀이와 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "90.png~91.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_EX_RAW_012",
+      "legacy_task_group": "비례식·분수식 형태의 일차방정식 풀이",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.562,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G046",
+      "source_group_id": "G046",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "일차방정식의 해가 주어진 경우",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G046.I01",
+          "source_code": "LE-152",
+          "no_in_group": 1,
+          "name": "해가 주어진 일차방정식의 미지수 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G046.I02",
+          "source_code": "LE-153",
+          "no_in_group": 2,
+          "name": "두 일차방정식의 해가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G046.I03",
+          "source_code": "LE-154",
+          "no_in_group": 3,
+          "name": "일차방정식의 미지수를 이용한 다른 일차방정식의 풀이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G046.I04",
+          "source_code": "LE-155",
+          "no_in_group": 4,
+          "name": "일차방정식을 잘못 보고 푼 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 34,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "91.png~93.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G047",
+      "source_group_id": "G047",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "해가 같은 두 일차방정식",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G047.I01",
+          "source_code": "LE-156",
+          "no_in_group": 1,
+          "name": "(기본) 해가 같은 일차방정식",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G047.I02",
+          "source_code": "LE-157",
+          "no_in_group": 2,
+          "name": "비례식으로 주어진 두 일차방정식의 해가 같은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G047.I03",
+          "source_code": "LE-158",
+          "no_in_group": 3,
+          "name": "해 사이의 관계가 주어진 두 일차방정식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G047.I04",
+          "source_code": "LE-159",
+          "no_in_group": 4,
+          "name": "해의 비가 주어진 두 일차방정식",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 41,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "93.png~95.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G048",
+      "source_group_id": "G048",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "특수한 해를 갖는 방정식",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G048.I01",
+          "source_code": "LE-160",
+          "no_in_group": 1,
+          "name": "해가 존재하지 않는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G048.I02",
+          "source_code": "LE-161",
+          "no_in_group": 2,
+          "name": "해가 무수히 많은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G048.I03",
+          "source_code": "LE-162",
+          "no_in_group": 3,
+          "name": "(종합) 해가 존재하지 않는 경우와 해가 무수히 많은 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "96.png~97.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G049",
+      "source_group_id": "G049",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식",
+      "중영역": "일차방정식의 풀이",
+      "type_name": "해에 대한 조건이 주어진 방정식",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G049.I01",
+          "source_code": "LE-163",
+          "no_in_group": 1,
+          "name": "해의 조건을 만족하는 미지수의 값",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G049.I02",
+          "source_code": "LE-164",
+          "no_in_group": 2,
+          "name": "해의 조건을 만족하는 미지수의 값의 합/개수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G049.I03",
+          "source_code": "LE-165",
+          "no_in_group": 3,
+          "name": "해 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "97.png~98.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G050",
+      "source_group_id": "G050",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "어떤 수에 대한 문제",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G050.I01",
+          "source_code": "LE-166",
+          "no_in_group": 1,
+          "name": "방정식 세우기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G050.I02",
+          "source_code": "LE-167",
+          "no_in_group": 2,
+          "name": "어떤 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G050.I03",
+          "source_code": "LE-168",
+          "no_in_group": 3,
+          "name": "처음 구하려던 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G050.I04",
+          "source_code": "LE-169",
+          "no_in_group": 4,
+          "name": "실생활에의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "99.png~101.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G051",
+      "source_group_id": "G051",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "연속하는 수에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G051.I01",
+          "source_code": "LE-170",
+          "no_in_group": 1,
+          "name": "연속하는 두 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G051.I02",
+          "source_code": "LE-171",
+          "no_in_group": 2,
+          "name": "연속하는 세 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 24,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "102.png~103.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G052",
+      "source_group_id": "G052",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "자리의 숫자에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G052.I01",
+          "source_code": "LE-172",
+          "no_in_group": 1,
+          "name": "두 자리 수: 십의 자리 숫자와 일의 자리 숫자를 바꾸지 않은 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G052.I02",
+          "source_code": "LE-173",
+          "no_in_group": 2,
+          "name": "두 자리 수: 십의 자리 숫자와 일의 자리 숫자를 바꾼 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G052.I03",
+          "source_code": "LE-174",
+          "no_in_group": 3,
+          "name": "세 자리 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "104.png~106.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G053",
+      "source_group_id": "G053",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "합이 일정한 경우",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G053.I01",
+          "source_code": "LE-175",
+          "no_in_group": 1,
+          "name": "개수의 합이 일정한 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "106.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G054",
+      "source_group_id": "G054",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "옮기기와 관련된 문제",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G054.I01",
+          "source_code": "LE-176",
+          "no_in_group": 1,
+          "name": "옮겨야 하는 양 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "107.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G055",
+      "source_group_id": "G055",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "물건을 주고 받는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G055.I01",
+          "source_code": "LE-177",
+          "no_in_group": 1,
+          "name": "두 사람 사이의 이동",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G055.I02",
+          "source_code": "LE-178",
+          "no_in_group": 2,
+          "name": "세 사람 사이의 이동",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "107.png~108.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G056",
+      "source_group_id": "G056",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "나이에 대한 문제",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G056.I01",
+          "source_code": "LE-179",
+          "no_in_group": 1,
+          "name": "두 사람의 나이가 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G056.I02",
+          "source_code": "LE-180",
+          "no_in_group": 2,
+          "name": "현재 기준의 두 사람의 나이의 합차가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G056.I03",
+          "source_code": "LE-181",
+          "no_in_group": 3,
+          "name": "현재 기준의 두 사람의 나이 사이의 배수 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G056.I04",
+          "source_code": "LE-182",
+          "no_in_group": 4,
+          "name": "두 사람의 나이 사이의 관계가 두가지 방법으로 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G056.I05",
+          "source_code": "LE-183",
+          "no_in_group": 5,
+          "name": "세 명 이상의 나이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G056.I06",
+          "source_code": "LE-184",
+          "no_in_group": 6,
+          "name": "과거와 미래의 두 사람의 나이 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "108.png~110.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G057",
+      "source_group_id": "G057",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "도형에 대한 문제",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G057.I01",
+          "source_code": "LE-185",
+          "no_in_group": 1,
+          "name": "평면도형의 변의 길이, 넓이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G057.I02",
+          "source_code": "LE-186",
+          "no_in_group": 2,
+          "name": "입체도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G057.I03",
+          "source_code": "LE-187",
+          "no_in_group": 3,
+          "name": "두 도형의 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G057.I04",
+          "source_code": "LE-188",
+          "no_in_group": 4,
+          "name": "평면도형의 가로, 세로의 길이의 변화",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G057.I05",
+          "source_code": "LE-189",
+          "no_in_group": 5,
+          "name": "도형이 길을 내는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G057.I06",
+          "source_code": "LE-190",
+          "no_in_group": 6,
+          "name": "점이 이동하여 만들어지는 도형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 42,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "110.png~113.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G058",
+      "source_group_id": "G058",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "원가와 정가에 대한 문제",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G058.I01",
+          "source_code": "LE-191",
+          "no_in_group": 1,
+          "name": "원가와 정가: 원가에 이익을 붙인 정가에서 할인하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G058.I02",
+          "source_code": "LE-192",
+          "no_in_group": 2,
+          "name": "원가와 정가: 할인하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G058.I03",
+          "source_code": "LE-193",
+          "no_in_group": 3,
+          "name": "원가와 정가: 기본 요금과 초과요금",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G058.I04",
+          "source_code": "LE-194",
+          "no_in_group": 4,
+          "name": "원가와 정가: 이익 붙이기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 23,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "114.png~115.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G059",
+      "source_group_id": "G059",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "상품 구입과 거스름돈 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G059.I01",
+          "source_code": "LE-195",
+          "no_in_group": 1,
+          "name": "상품 구입과 거스름돈/남은 돈",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G059.I02",
+          "source_code": "LE-196",
+          "no_in_group": 2,
+          "name": "상품 구입",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "116.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G060",
+      "source_group_id": "G060",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "예금에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G060.I01",
+          "source_code": "LE-197",
+          "no_in_group": 1,
+          "name": "예금액이 같아지는 시점 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G060.I02",
+          "source_code": "LE-198",
+          "no_in_group": 2,
+          "name": "두 예금액 사이에 배수 관계가 존재하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "117.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G061",
+      "source_group_id": "G061",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "증가, 감소에 대한 문제",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G061.I01",
+          "source_code": "LE-199",
+          "no_in_group": 1,
+          "name": "상품 1개의 증감",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G061.I02",
+          "source_code": "LE-200",
+          "no_in_group": 2,
+          "name": "상품 2개의 증감",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G061.I03",
+          "source_code": "LE-201",
+          "no_in_group": 3,
+          "name": "학생수의 증감 비교: 식 나타내기, 빈칸 채우기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G061.I04",
+          "source_code": "LE-202",
+          "no_in_group": 4,
+          "name": "학생 수의 증감 비교: 학생 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G061.I05",
+          "source_code": "LE-203",
+          "no_in_group": 5,
+          "name": "학생 수의 증감 비교: 남학생 수, 여학생 수의 비교가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "118.png~119.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G062",
+      "source_group_id": "G062",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "과부족에 대한 문제(1) 긴의자, 줄세우기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G062.I01",
+          "source_code": "LE-204",
+          "no_in_group": 1,
+          "name": "의자 수(줄의 수) 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G062.I02",
+          "source_code": "LE-205",
+          "no_in_group": 2,
+          "name": "사람 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G062.I03",
+          "source_code": "LE-206",
+          "no_in_group": 3,
+          "name": "의자 수(줄의 수)와 사람 수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "119.png~120.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G063",
+      "source_group_id": "G063",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "과부족에 대한 문제(2) 금액, 물건을 나누는 경우",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G063.I01",
+          "source_code": "LE-207",
+          "no_in_group": 1,
+          "name": "과부족: 물건을 나누어주고 남는 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G063.I02",
+          "source_code": "LE-208",
+          "no_in_group": 2,
+          "name": "물건을 나누어주는 2개의 방식: 모두 받는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G063.I03",
+          "source_code": "LE-209",
+          "no_in_group": 3,
+          "name": "물건을 나누어주는 2개의 방식: 마지막 사람은 일부만 받는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "120.png~122.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G064",
+      "source_group_id": "G064",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "비율에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G064.I01",
+          "source_code": "LE-210",
+          "no_in_group": 1,
+          "name": "비율에 대한 문제: 문자로 나타내기, 방정식 세우기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G064.I02",
+          "source_code": "LE-211",
+          "no_in_group": 2,
+          "name": "비율에 대한 문제: 값 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "122.png~123.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G065",
+      "source_group_id": "G065",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "비에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G065.I01",
+          "source_code": "LE-212",
+          "no_in_group": 1,
+          "name": "서로 주고 받거나 섞지 않는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G065.I02",
+          "source_code": "LE-213",
+          "no_in_group": 2,
+          "name": "서로 주고 받거나 섞는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "124.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G066",
+      "source_group_id": "G066",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "일에 대한 문제",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G066.I01",
+          "source_code": "LE-214",
+          "no_in_group": 1,
+          "name": "일에 대한 문제: 방정식 세우기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G066.I02",
+          "source_code": "LE-215",
+          "no_in_group": 2,
+          "name": "일의 완성: 일하는 시간이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G066.I03",
+          "source_code": "LE-216",
+          "no_in_group": 3,
+          "name": "두 사람이 만든 제품의 개수 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G066.I04",
+          "source_code": "LE-217",
+          "no_in_group": 4,
+          "name": "물통을 비우고 채우는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "125.png~126.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G067",
+      "source_group_id": "G067",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "시계에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G067.I01",
+          "source_code": "LE-218",
+          "no_in_group": 1,
+          "name": "방정식 세우기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G067.I02",
+          "source_code": "LE-219",
+          "no_in_group": 2,
+          "name": "시침과 분침이 특정 각도를 이룰 때의 시각 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G067.I03",
+          "source_code": "LE-220",
+          "no_in_group": 3,
+          "name": "주어진 두 시각 사이의 시간 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "127.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G068",
+      "source_group_id": "G068",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "규칙이 있는 수에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G068.I01",
+          "source_code": "LE-221",
+          "no_in_group": 1,
+          "name": "도형이 이루는 규칙",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G068.I02",
+          "source_code": "LE-222",
+          "no_in_group": 2,
+          "name": "달력, 날짜, 데이터, 출력값 등이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "128.png~129.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G069",
+      "source_group_id": "G069",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "거리, 속력, 시간에 대한 문제(1) 총 걸린 시간이 주어진 경우",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G069.I01",
+          "source_code": "LE-223",
+          "no_in_group": 1,
+          "name": "빈칸 채우기, 방정식 세우기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G069.I02",
+          "source_code": "LE-224",
+          "no_in_group": 2,
+          "name": "속력이 바뀌는 경우: 쉬는 시간 미포함",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G069.I03",
+          "source_code": "LE-225",
+          "no_in_group": 3,
+          "name": "속력이 바뀌는 경우: 쉬는 시간 포함",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G069.I04",
+          "source_code": "LE-226",
+          "no_in_group": 4,
+          "name": "강물을 거슬러 오르는 배",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "130.png~132.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G070",
+      "source_group_id": "G070",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "거리, 속력, 시간에 대한 문제(2) 시차를 두고 출발하는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G070.I01",
+          "source_code": "LE-227",
+          "no_in_group": 1,
+          "name": "같은 위치에서 시차를 두고 출발하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G070.I02",
+          "source_code": "LE-228",
+          "no_in_group": 2,
+          "name": "다른 위치에서 시차를 두고 출발하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "133.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G071",
+      "source_group_id": "G071",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "거리, 속력, 시간에 대한 문제(3) 시차가 발생하는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G071.I01",
+          "source_code": "LE-229",
+          "no_in_group": 1,
+          "name": "시차가 발생하는 경우: 쉬는 시간 미포함",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G071.I02",
+          "source_code": "LE-230",
+          "no_in_group": 2,
+          "name": "시차가 발생하는 경우: 쉬는 시간 포함",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "134.png~135.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G072",
+      "source_group_id": "G072",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "거리, 속력, 시간에 대한 문제(4) 마주 보고 걷거나 달려오는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G072.I01",
+          "source_code": "LE-231",
+          "no_in_group": 1,
+          "name": "마주 보고 걷거나 달려오는 경우: 두 사람이 동시에 출발",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G072.I02",
+          "source_code": "LE-232",
+          "no_in_group": 2,
+          "name": "마주 보고 걷거나 달려오는 경우: 두 사람이 서로 다른 시기에 출발",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "135.png~136.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G073",
+      "source_group_id": "G073",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "거리, 속력, 시간에 대한 문제(5) 열차가 다리 또는 터널을 지나는 경우",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G073.I01",
+          "source_code": "LE-233",
+          "no_in_group": 1,
+          "name": "열차가 다리, 터널을 지나는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G073.I02",
+          "source_code": "LE-234",
+          "no_in_group": 2,
+          "name": "열차가 다리 2곳을 통과하는 경우 또는 2개의 열차가 1개의 다리를 통과하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G073.I03",
+          "source_code": "LE-235",
+          "no_in_group": 3,
+          "name": "서로 반대 방향으로 달리는 열차",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "137.png~138.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G074",
+      "source_group_id": "G074",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "소금물의 농도에 대한 문제(1) 물을 넣거나 증발시키는 경우",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G074.I01",
+          "source_code": "LE-236",
+          "no_in_group": 1,
+          "name": "물을 더 넣는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G074.I02",
+          "source_code": "LE-237",
+          "no_in_group": 2,
+          "name": "물을 증발시키는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G074.I03",
+          "source_code": "LE-238",
+          "no_in_group": 3,
+          "name": "물을 증발시키는 경우와 더 넣는 경우 모두 있는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "138.png~139.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G075",
+      "source_group_id": "G075",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "소금물의 농도에 대한 문제(2) 소금을 더 넣는 경우",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G075.I01",
+          "source_code": "LE-239",
+          "no_in_group": 1,
+          "name": "소금을 더 넣는 경우의 풀이 과정 또는 방정식 세우기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G075.I02",
+          "source_code": "LE-240",
+          "no_in_group": 2,
+          "name": "물을 더 넣거나 증발시키지 않고 소금을 더 넣는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G075.I03",
+          "source_code": "LE-241",
+          "no_in_group": 3,
+          "name": "물과 소금을 모두 더 넣는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G075.I04",
+          "source_code": "LE-242",
+          "no_in_group": 4,
+          "name": "물을 증발시키고 소금을 더 넣는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "139.png~140.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S1.LE.G076",
+      "source_group_id": "G076",
+      "semester": "M1S1",
+      "unit_id": "M1_EXPRESSION",
+      "chapter": "1-1 문자와 식",
+      "대영역": "일차방정식의 활용",
+      "중영역": "일차방정식의 활용 문제",
+      "type_name": "소금물의 농도에 대한 문제(3) 농도가 다른 두 소금물을 섞는 경우",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S1.LE.G076.I01",
+          "source_code": "LE-243",
+          "no_in_group": 1,
+          "name": "농도가 다른 소금물의 혼합",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G076.I02",
+          "source_code": "LE-244",
+          "no_in_group": 2,
+          "name": "농도가 다른 소금물의 혼합에 추가 과정이 더해진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S1.LE.G076.I03",
+          "source_code": "LE-245",
+          "no_in_group": 3,
+          "name": "두 그릇의 소금물 바꾸어 섞기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "140.png~142.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    }
+  ]
+}
