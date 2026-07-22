@@ -14,15 +14,42 @@ class MathHybridReportRenderer {
   static mathText(v) {
     let s = this.esc(v);
     if (!s) return s;
+    // 순서가 중요하다. +/- 와 sqrt()를 먼저 처리해야 분수 인식이 그 슬래시·괄호를 건드리지
+    // 않고, 분수를 먼저 쌓아야 그 안의 지수까지 sup으로 올라간다.
+    s = s.replace(/&lt;=/g, '≤').replace(/&gt;=/g, '≥')
+         .replace(/!=/g, '≠').replace(/\+\/-/g, '±')
+         .replace(/\bsqrt\(([^()]{1,24})\)/g, '√$1');
+    s = this.stackFractions(s);
     s = s.replace(/\^\(([^()]{1,24})\)/g, '<sup>$1</sup>')      // x^(n+1)
          .replace(/\^(-?\d+|[A-Za-z])/g, '<sup>$1</sup>')       // x^2, 2^x, x^-1
          .replace(/_\(([^()]{1,24})\)/g, '<sub>$1</sub>')       // a_(n+1)
          .replace(/_(\d+|[A-Za-z])/g, '<sub>$1</sub>');         // log_2, a_n
-    // 부등호·연산 기호도 평문으로 오는 것들이라 같이 바꾼다.
-    s = s.replace(/&lt;=/g, '≤').replace(/&gt;=/g, '≥')
-         .replace(/!=/g, '≠').replace(/\+\/-/g, '±')
-         .replace(/\bsqrt\(([^()]{1,24})\)/g, '√$1');
     return s;
+  }
+
+  // a/b를 위아래로 쌓는다. 슬래시가 전부 분수인 것은 아니라서 조건을 좁게 잡는다.
+  // 자료에 실제로 나온 "9의 개수/0의 개수", "정수/정수 꼴"은 분수가 아니고,
+  // 2026/07/22 같은 날짜도 아니다. 그래서 양쪽이 수식 토큰일 때만 쌓는다.
+  //   허용: 숫자, 문자, 지수 붙은 것(2^x), 괄호식((123-1))
+  //   제외: 한글이 닿은 경우, 슬래시가 연달아 있는 경우(날짜·경로)
+  static stackFractions(s) {
+    // 변수는 한 글자만 받는다. 여러 글자 알파벳을 허용하면 "and/or", "true/false" 같은
+    // 평범한 단어가 분수로 쌓인다. 수식의 변수는 x, a, n처럼 한 글자다.
+    const EXP = '(?:\\^(?:\\([^()]{1,12}\\)|-?[A-Za-z0-9]+))?';
+    const OPERAND = `(?:√?\\([^()]{1,30}\\)|√?\\d+(?:\\.\\d+)?${EXP}|√?[A-Za-z]${EXP})`;
+    // 앞 글자 제외 목록에 √를 넣어야 sqrt(2)/2에서 √가 분자와 떨어지지 않는다.
+    const re = new RegExp(`(^|[^A-Za-z0-9/^_√])(${OPERAND})\\/(${OPERAND})(?![\\/A-Za-z0-9])`, 'g');
+    // 괄호로 감싼 분자·분모는 쌓고 나면 괄호가 군더더기다. (123-1)/99 → 123-1 위 99.
+    const bare = t => (t.length > 2 && t[0] === '(' && t[t.length - 1] === ')') ? t.slice(1, -1) : t;
+    let out = s, prev;
+    // 한 번에 인접한 분수를 다 못 잡는 경우가 있어 변화가 없을 때까지 돌린다.
+    let guard = 0;
+    do {
+      prev = out;
+      out = out.replace(re, (m, lead, num, den) =>
+        `${lead}<span class="mfrac"><span class="mnum">${bare(num)}</span><span class="mden">${bare(den)}</span></span>`);
+    } while (out !== prev && ++guard < 4);
+    return out;
   }
   static card(title, body, kind = '') { return `<section class="card ${kind}"><h2>${this.esc(title)}</h2>${body}</section>`; }
   static tags(items) { return (items || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join(''); }
