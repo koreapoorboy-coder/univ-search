@@ -1,9 +1,14 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.07.22-files-api';
+const VERSION = '2026.07.22-maxtokens-64k';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
-const DEFAULT_MAX_TOKENS = 16000;
+// max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
+// adaptive thinking이 effort high로 시험지 전체를 읽으면 생각만으로 16000을 거의 다
+// 쓰고, structured output이 JSON을 다 못 맺은 채 잘린다(stop_reason: max_tokens).
+// 이 값은 상한일 뿐 실제 생성한 토큰만 과금되므로 넉넉히 잡는 쪽이 안전하다.
+// Opus 4.8의 출력 상한은 128K이고, 아래 호출은 이미 stream:true라 크게 잡아도 된다.
+const DEFAULT_MAX_TOKENS = 64000;
 // 시험지 전체 스캔본을 받으려면 base64 인라인으로는 못 올린다. base64는 33% 부풀고
 // 1차 분석은 같은 파일을 두 호출에 각각 실어 보내므로, Claude의 요청당 32MB 한도에
 // 금방 걸린다. Files API로 한 번만 올리고 file_id로 참조하면 그 한도를 벗어난다.
@@ -292,7 +297,8 @@ async function requestClaudeJson({ env, head, prepared, schemaName, schema, stru
     throw httpError(502, `Claude declined this request (${stopDetails?.category || 'refusal'}).`);
   }
   if (stopReason === 'max_tokens') {
-    throw httpError(502, `Claude hit max_tokens before finishing ${schemaName}. Raise ANTHROPIC_MAX_TOKENS or lower ANTHROPIC_EFFORT.`);
+    // 어느 값에서 잘렸는지 같이 보내야 "올리라"는 말이 실행 가능한 지시가 된다.
+    throw httpError(502, `Claude hit max_tokens (${numberEnv(env.ANTHROPIC_MAX_TOKENS, DEFAULT_MAX_TOKENS)}) before finishing ${schemaName}. thinking+출력 합계가 이 한도를 넘었다. ANTHROPIC_MAX_TOKENS를 올리거나 ANTHROPIC_EFFORT를 낮춰라.`);
   }
   if (!text) throw httpError(502, 'Claude response has no text output');
   try { return parseJsonLoose(text); }
