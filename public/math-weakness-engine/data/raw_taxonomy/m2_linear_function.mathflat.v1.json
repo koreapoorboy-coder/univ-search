@@ -1,0 +1,3981 @@
+{
+  "schema": "mathflat_problem_type.v1",
+  "version": "2026.07.22-mathflat-M2S1-fn",
+  "_note": "매쓰플랫 화면 스크린샷을 전사한 엑셀을 그대로 옮긴 원본 분류. 진단 단위는 \"유형 묶음\"(problem_types), 그 아래 topic_types가 엑셀 문항분류표를 세부코드·묶음 내 번호·검토상태까지 그대로 담는다. 한글 이름은 원문 그대로이며 다듬지 않았다. 데이터 저장만 한 상태이고 진단 로직에는 연결하지 않았다 — 기존 raw_taxonomy와 옛 진단 경로는 그대로 둔다.",
+  "_source": {
+    "origin": "2-1 함수.zip",
+    "workbook": "2-1 함수.xlsx",
+    "extracted_at": "2026-07-22",
+    "principle": "화면에 글자로 보이는 항목만 입력. 보이지 않는 이름은 생성하지 않음."
+  },
+  "_wiring": {
+    "concept_ids": "이름 유사도 0.85 이상인 legacy 섹션에서만 상속했다. 나머지는 null — 사람 확인 전까지 비워 둔다. 순서 대응 상속은 legacy 목록의 구성이 달라 폐기했다.",
+    "error_tags": "미배정 (null). 기존 유형에서 묶음 단위 상속 예정.",
+    "prerequisite_ids": "전부 비움 — 선생님이 직접 지정."
+  },
+  "semester": "M2S1",
+  "semester_name": "중2 1학기",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "unit_code": "FN",
+  "unit_name": "함수",
+  "chapter": "2-1 함수",
+  "status": "raw_not_wired",
+  "problem_type_count": 79,
+  "count_check": {
+    "expected": 79,
+    "actual": 79,
+    "match": true
+  },
+  "topic_type_total": 265,
+  "item_check": {
+    "declared_total": 265,
+    "stored_total": 265,
+    "match": true,
+    "mismatched_groups": []
+  },
+  "detail_type_total": 1349,
+  "legacy_audit": {
+    "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
+    "match_confident": 0,
+    "match_candidate": 11,
+    "match_none": 68,
+    "legacy_section_count": 35,
+    "legacy_has_concept_ids": false,
+    "concept_ids_inherited": 0,
+    "legacy_unmatched": [
+      "함수와 대응 관계",
+      "대응표와 함수 판별",
+      "상황에서 관계식 세우기",
+      "평행이동",
+      "x절편과 y절편 읽기",
+      "변화량과 기울기",
+      "기울기에 따른 그래프 모양",
+      "기울기와 y절편 관계",
+      "기울기의 성질 활용",
+      "a,b 부호와 사분면",
+      "그래프와 계수 관계 종합",
+      "평행한 직선",
+      "일치하는 직선",
+      "기울기와 y절편으로 식 구하기",
+      "기울기와 한 점으로 식 구하기",
+      "두 점으로 직선의 식 구하기",
+      "x절편과 y절편으로 식 구하기",
+      "여러 조건을 만족하는 식",
+      "도형과 거리 활용",
+      "그래프와 방정식 성질",
+      "좌표축에 평행한 직선",
+      "교점과 해",
+      "해의 개수와 위치관계",
+      "세 직선과 교점 활용"
+    ]
+  },
+  "problem_types": [
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G001",
+      "source_group_id": "G001",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "함수와 함숫값",
+      "type_name": "함수의 뜻",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G001.I01",
+          "source_code": "FN-001",
+          "no_in_group": 1,
+          "name": "함수 판별하기",
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G001.I02",
+          "source_code": "FN-002",
+          "no_in_group": 2,
+          "name": "함수의 범위",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 3개 이름 안 보임(접힘)",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G002",
+      "source_group_id": "G002",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "함수와 함숫값",
+      "type_name": "함수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G002.I01",
+          "source_code": "FN-003",
+          "no_in_group": 1,
+          "name": "함수 판별하기",
+          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G002.I02",
+          "source_code": "FN-004",
+          "no_in_group": 2,
+          "name": "관계식 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 16개 이름 안 보임(접힘)",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G003",
+      "source_group_id": "G003",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "함수와 함숫값",
+      "type_name": "함숫값",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G003.I01",
+          "source_code": "FN-005",
+          "no_in_group": 1,
+          "name": "함숫값 구하기",
+          "review_status": "원문 확인 / 31개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G003.I02",
+          "source_code": "FN-006",
+          "no_in_group": 2,
+          "name": "f(a)=b를 만족시키는 함수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G003.I03",
+          "source_code": "FN-007",
+          "no_in_group": 3,
+          "name": "문장을 함수로 나타냈을 때의 함숫값 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G003.I04",
+          "source_code": "FN-008",
+          "no_in_group": 4,
+          "name": "x, y에 관한 함수 f(x), f(y) 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 35,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 31개 이름 안 보임(접힘)",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_004",
+      "legacy_task_group": "함숫값 계산",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.6,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G004",
+      "source_group_id": "G004",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "함수와 함숫값",
+      "type_name": "함숫값을 이용하여 미지수의 값 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G004.I01",
+          "source_code": "FN-009",
+          "no_in_group": 1,
+          "name": "함수가 주어진 경우",
+          "review_status": "원문 확인 / 34개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G004.I02",
+          "source_code": "FN-010",
+          "no_in_group": 2,
+          "name": "미지수가 함수에 포함된 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 36,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 34개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_005",
+      "legacy_task_group": "함숫값을 이용한 미지수",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.562,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G005",
+      "source_group_id": "G005",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "함수와 함숫값",
+      "type_name": "f(x)=(x에 대한 조건)꼴인 함수의 함숫값",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G005.I01",
+          "source_code": "FN-011",
+          "no_in_group": 1,
+          "name": "함숫값 구하기",
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 13개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G006",
+      "source_group_id": "G006",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 뜻",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G006.I01",
+          "source_code": "FN-012",
+          "no_in_group": 1,
+          "name": "일차함수 판별",
+          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 2개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_006",
+      "legacy_task_group": "일차함수 판별",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.667,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G007",
+      "source_group_id": "G007",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G007.I01",
+          "source_code": "FN-013",
+          "no_in_group": 1,
+          "name": "도형과 관련된 일차함수의 판별",
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G007.I02",
+          "source_code": "FN-014",
+          "no_in_group": 2,
+          "name": "실생활과 관련된 일차함수의 판별",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 13개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_026",
+      "legacy_task_group": "일차함수 활용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.667,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G008",
+      "source_group_id": "G008",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수가 될 조건",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G008.I01",
+          "source_code": "FN-015",
+          "no_in_group": 1,
+          "name": "일차함수가 될 조건 구하기",
+          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 5개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G009",
+      "source_group_id": "G009",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 함숫값",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G009.I01",
+          "source_code": "FN-016",
+          "no_in_group": 1,
+          "name": "함수가 주어진 경우",
+          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G009.I02",
+          "source_code": "FN-017",
+          "no_in_group": 2,
+          "name": "미지수가 함수에 포함된 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 20개 이름 안 보임(접힘)",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_007",
+      "legacy_task_group": "일차함수의 함숫값과 점",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.8,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G010",
+      "source_group_id": "G010",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 x의 값, 함숫값의 범위 구하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G010.I01",
+          "source_code": "FN-018",
+          "no_in_group": 1,
+          "name": "함숫값의 범위 구하기",
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G010.I02",
+          "source_code": "FN-019",
+          "no_in_group": 2,
+          "name": "x의 범위 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G010.I03",
+          "source_code": "FN-020",
+          "no_in_group": 3,
+          "name": "함수에 미지수가 포함된 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 이름 안 보임(접힘)",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G011",
+      "source_group_id": "G011",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 그래프 위의 점",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G011.I01",
+          "source_code": "FN-021",
+          "no_in_group": 1,
+          "name": "함수가 주어진 경우",
+          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G011.I02",
+          "source_code": "FN-022",
+          "no_in_group": 2,
+          "name": "함수에 미지수가 포함된 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G011.I03",
+          "source_code": "FN-023",
+          "no_in_group": 3,
+          "name": "두 일차함수가 같은 점을 지나는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G011.I04",
+          "source_code": "FN-024",
+          "no_in_group": 4,
+          "name": "일차함수의 그래프 위의 점의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 24,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 20개 이름 안 보임(접힘)",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G012",
+      "source_group_id": "G012",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 그래프의 평행이동",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G012.I01",
+          "source_code": "FN-025",
+          "no_in_group": 1,
+          "name": "일차함수의 그래프를 평행이동하기",
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G012.I02",
+          "source_code": "FN-026",
+          "no_in_group": 2,
+          "name": "얼마만큼 평행이동했는지 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G012.I03",
+          "source_code": "FN-027",
+          "no_in_group": 3,
+          "name": "함수에 미지수가 포함된 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 18개 이름 안 보임(접힘)",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G013",
+      "source_group_id": "G013",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "평행이동한 그래프 위의 점",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G013.I01",
+          "source_code": "FN-028",
+          "no_in_group": 1,
+          "name": "평행이동한 그래프 위의 점 판별",
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G013.I02",
+          "source_code": "FN-029",
+          "no_in_group": 2,
+          "name": "평행이동한 그래프 위의 점 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G013.I03",
+          "source_code": "FN-030",
+          "no_in_group": 3,
+          "name": "얼마만큼 평행이동했는지 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G013.I04",
+          "source_code": "FN-031",
+          "no_in_group": 4,
+          "name": "함수에 미지수가 포함된 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G013.I05",
+          "source_code": "FN-032",
+          "no_in_group": 5,
+          "name": "평행이동한 그래프 위의 점의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 22개 이름 안 보임(접힘)",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G014",
+      "source_group_id": "G014",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 그래프의 x절편, y절편",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G014.I01",
+          "source_code": "FN-033",
+          "no_in_group": 1,
+          "name": "일차함수가 주어진 경우 그래프의 x절편, y절편 구하기",
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G014.I02",
+          "source_code": "FN-034",
+          "no_in_group": 2,
+          "name": "평행이동한 일차함수의 그래프의 x절편, y절편 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G014.I03",
+          "source_code": "FN-035",
+          "no_in_group": 3,
+          "name": "x절편, y절편 또는 그 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G014.I04",
+          "source_code": "FN-036",
+          "no_in_group": 4,
+          "name": "특정 점을 지나는 일차함수의 x절편, y절편",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G014.I05",
+          "source_code": "FN-037",
+          "no_in_group": 5,
+          "name": "일차함수의 그래프의 x절편, y절편과 도형의 넓이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G014.I06",
+          "source_code": "FN-038",
+          "no_in_group": 6,
+          "name": "두 일차함수 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 13개 이름 안 보임(접힘)",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G015",
+      "source_group_id": "G015",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "x절편과 y절편을 이용하여 미지수의 값 구하기",
+      "topic_type_count": 7,
+      "topic_type_actual": 7,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G015.I01",
+          "source_code": "FN-039",
+          "no_in_group": 1,
+          "name": "한 축의 절편이 주어질 때, 다른 절편 구하기",
+          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G015.I02",
+          "source_code": "FN-040",
+          "no_in_group": 2,
+          "name": "x(y)절편이 주어진 경우 미지수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G015.I03",
+          "source_code": "FN-041",
+          "no_in_group": 3,
+          "name": "평행이동한 일차함수의 그래프에서 미지수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G015.I04",
+          "source_code": "FN-042",
+          "no_in_group": 4,
+          "name": "두 일차함수의 그래프가 한 축 위에서 만나는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G015.I05",
+          "source_code": "FN-043",
+          "no_in_group": 5,
+          "name": "x절편과 y절편 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G015.I06",
+          "source_code": "FN-044",
+          "no_in_group": 6,
+          "name": "도형의 넓이를 이용하여 미지수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G015.I07",
+          "source_code": "FN-045",
+          "no_in_group": 7,
+          "name": "두 일차함수의 그래프가 한 축과 만나는 점들 사이의 거리 또는 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 32,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 25개 이름 안 보임(접힘)",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G016",
+      "source_group_id": "G016",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "변화량 또는 일차함수가 주어진 경우의 기울기 구하기",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G016.I01",
+          "source_code": "FN-046",
+          "no_in_group": 1,
+          "name": "함수 식이 주어진 경우 그래프의 기울기 구하기",
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G016.I02",
+          "source_code": "FN-047",
+          "no_in_group": 2,
+          "name": "두 점을 이용하여 x와 y의 증가량을 알 수 있는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G016.I03",
+          "source_code": "FN-048",
+          "no_in_group": 3,
+          "name": "함수 식과 x 또는 y의 값의 증가량이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G016.I04",
+          "source_code": "FN-049",
+          "no_in_group": 4,
+          "name": "x의 증가량과 y의 값의 증가량이 모두 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G016.I05",
+          "source_code": "FN-050",
+          "no_in_group": 5,
+          "name": "함수 식에 미지수가 포함된 경우 x(y)의 증가량 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G016.I06",
+          "source_code": "FN-051",
+          "no_in_group": 6,
+          "name": "{f(a)-f(b)}/{a-b}",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 21개 이름 안 보임(접힘)",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G017",
+      "source_group_id": "G017",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "변화량에 따른 일차함수의 모양",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G017.I01",
+          "source_code": "FN-052",
+          "no_in_group": 1,
+          "name": "기울기에 따른 그래프",
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G017.I02",
+          "source_code": "FN-053",
+          "no_in_group": 2,
+          "name": "x, y의 값의 증가, 감소에 따른 그래프",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G017.I03",
+          "source_code": "FN-054",
+          "no_in_group": 3,
+          "name": "그래프가 향하는 방향",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 이름 안 보임(접힘)",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G018",
+      "source_group_id": "G018",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "두 점을 지나는 일차함수의 그래프의 기울기",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G018.I01",
+          "source_code": "FN-055",
+          "no_in_group": 1,
+          "name": "두 점을 지나는 일차함수의 그래프의 기울기 구하기",
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G018.I02",
+          "source_code": "FN-056",
+          "no_in_group": 2,
+          "name": "x, y절편이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G018.I03",
+          "source_code": "FN-057",
+          "no_in_group": 3,
+          "name": "그래프의 기울기가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G018.I04",
+          "source_code": "FN-058",
+          "no_in_group": 4,
+          "name": "두 점을 지나는 일차함수의 그래프의 기울기의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 이름 안 보임(접힘)",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_012",
+      "legacy_task_group": "두 점을 지나는 직선의 기울기",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.556,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G019",
+      "source_group_id": "G019",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "세 점이 한 직선 위에 있을 조건",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G019.I01",
+          "source_code": "FN-059",
+          "no_in_group": 1,
+          "name": "세 점이 한 직선 위에 있을 조건",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G019.I02",
+          "source_code": "FN-060",
+          "no_in_group": 2,
+          "name": "두 점을 지나는 직선 위의 점",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G019.I03",
+          "source_code": "FN-061",
+          "no_in_group": 3,
+          "name": "도형이 만들어지지 않을 조건",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G020",
+      "source_group_id": "G020",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 그래프의 기울기와 x절편, y절편",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G020.I01",
+          "source_code": "FN-062",
+          "no_in_group": 1,
+          "name": "함수 식이 주어진 경우",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G020.I02",
+          "source_code": "FN-063",
+          "no_in_group": 2,
+          "name": "주어진 한 점을 지나는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G020.I03",
+          "source_code": "FN-064",
+          "no_in_group": 3,
+          "name": "평행이동한 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G020.I04",
+          "source_code": "FN-065",
+          "no_in_group": 4,
+          "name": "새로운 함수의 그래프의 기울기와 x절편, y절편",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "22.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G021",
+      "source_group_id": "G021",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 그래프 그리기/찾기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G021.I01",
+          "source_code": "FN-066",
+          "no_in_group": 1,
+          "name": "함수 식이 주어진 경우 그래프 그리기",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G021.I02",
+          "source_code": "FN-067",
+          "no_in_group": 2,
+          "name": "기울기와 x(y)절편이 주어진 그래프 그리기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G021.I03",
+          "source_code": "FN-068",
+          "no_in_group": 3,
+          "name": "새로운 함수의 그래프 그리기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "22.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_014",
+      "legacy_task_group": "일차함수 그래프 그리기",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.769,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G022",
+      "source_group_id": "G022",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 그래프와 좌표축으로 둘러싸인 도형의 넓이(1) - 두 축과 만나는 한 직선",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G022.I01",
+          "source_code": "FN-069",
+          "no_in_group": 1,
+          "name": "도형의 넓이 구하기",
+          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G022.I02",
+          "source_code": "FN-070",
+          "no_in_group": 2,
+          "name": "도형의 넓이가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G022.I03",
+          "source_code": "FN-071",
+          "no_in_group": 3,
+          "name": "도형을 회전하여 생기는 입체도형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 5개 이름 안 보임(접힘)",
+      "source_image": "22.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G023",
+      "source_group_id": "G023",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(1)",
+      "중영역": "일차함수와 그 그래프",
+      "type_name": "일차함수의 그래프와 좌표축으로 둘러싸인 도형의 넓이(2) - 두 직선",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G023.I01",
+          "source_code": "FN-072",
+          "no_in_group": 1,
+          "name": "두 직선과 한 축으로 둘러싸인 도형",
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G023.I02",
+          "source_code": "FN-073",
+          "no_in_group": 2,
+          "name": "두 직선과 두 축으로 둘러싸인 도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G023.I03",
+          "source_code": "FN-074",
+          "no_in_group": 3,
+          "name": "도형의 넓이가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G023.I04",
+          "source_code": "FN-075",
+          "no_in_group": 4,
+          "name": "일차함수의 그래프로만 둘러싸인 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 이름 안 보임(접힘)",
+      "source_image": "23.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G024",
+      "source_group_id": "G024",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "y=ax+b의 그래프의 기울기의 성질",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G024.I01",
+          "source_code": "FN-076",
+          "no_in_group": 1,
+          "name": "축에 가장 가까운 그래프",
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G024.I02",
+          "source_code": "FN-077",
+          "no_in_group": 2,
+          "name": "기울기가 가장 큰(급한/완만한) 그래프",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G024.I03",
+          "source_code": "FN-078",
+          "no_in_group": 3,
+          "name": "다른 직선과 축 사이에 있는 직선의 기울기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G024.I04",
+          "source_code": "FN-079",
+          "no_in_group": 4,
+          "name": "기울기의 절댓값",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 13개 이름 안 보임(접힘)",
+      "source_image": "23.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G025",
+      "source_group_id": "G025",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "a, b의 부호와 y=ax+b의 그래프(1) - 부호에 따른 사분면",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G025.I01",
+          "source_code": "FN-080",
+          "no_in_group": 1,
+          "name": "일차함수의 그래프가 지나는 사분면 구하기",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G025.I02",
+          "source_code": "FN-081",
+          "no_in_group": 2,
+          "name": "특정 사분면을 지나는 일차함수의 그래프",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G025.I03",
+          "source_code": "FN-082",
+          "no_in_group": 3,
+          "name": "그래프 고르기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "24.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G026",
+      "source_group_id": "G026",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "a, b의 부호와 y=ax+b의 그래프(2) - 그래프에 따른 부호",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G026.I01",
+          "source_code": "FN-083",
+          "no_in_group": 1,
+          "name": "미지수의 부호 판별",
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G026.I02",
+          "source_code": "FN-084",
+          "no_in_group": 2,
+          "name": "그래프 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G026.I03",
+          "source_code": "FN-085",
+          "no_in_group": 3,
+          "name": "일차함수의 그래프가 지나는/지나지 않는 사분면",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G026.I04",
+          "source_code": "FN-086",
+          "no_in_group": 4,
+          "name": "특정 사분면을 지나는/지나지 않는 일차함수의 그래프",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G026.I05",
+          "source_code": "FN-087",
+          "no_in_group": 5,
+          "name": "부호의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 10개 이름 안 보임(접힘)",
+      "source_image": "24.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G027",
+      "source_group_id": "G027",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "일차함수의 그래프가 지나는 사분면",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G027.I01",
+          "source_code": "FN-088",
+          "no_in_group": 1,
+          "name": "특정 사분면을 지나는 않는 일차함수의 그래프",
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G027.I02",
+          "source_code": "FN-089",
+          "no_in_group": 2,
+          "name": "일차함수의 그래프가 지나는 사분면",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G027.I03",
+          "source_code": "FN-090",
+          "no_in_group": 3,
+          "name": "함수 식에 미지수가 포함된 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G027.I04",
+          "source_code": "FN-091",
+          "no_in_group": 4,
+          "name": "함수 식에 포함된 미지수의 부호 판별",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G027.I05",
+          "source_code": "FN-092",
+          "no_in_group": 5,
+          "name": "함수 식에 포함된 미지수의 값의 범위",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 13개 이름 안 보임(접힘)",
+      "source_image": "25.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G028",
+      "source_group_id": "G028",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "일차함수의 그래프의 기울기와 함숫값의 범위의 관계",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G028.I01",
+          "source_code": "FN-093",
+          "no_in_group": 1,
+          "name": "x, y의 값의 범위가 주어진 경우 미지수 구하기",
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G028.I02",
+          "source_code": "FN-094",
+          "no_in_group": 2,
+          "name": "두 일차함수의 함숫값의 범위가 같은 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 3개 이름 안 보임(접힘)",
+      "source_image": "25.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G029",
+      "source_group_id": "G029",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "일차함수와 삼각형의 넓이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G029.I01",
+          "source_code": "FN-095",
+          "no_in_group": 1,
+          "name": "교점이 주어진 경우",
+          "review_status": "원문 확인 / 접힌 항목 없음"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G029.I02",
+          "source_code": "FN-096",
+          "no_in_group": 2,
+          "name": "넓이가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 2,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "25.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G030",
+      "source_group_id": "G030",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "특수한 함수의 그래프",
+      "topic_type_count": 0,
+      "topic_type_actual": 0,
+      "topic_types": [],
+      "detail_type_count": 0,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "25.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G031",
+      "source_group_id": "G031",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "일차함수의 그래프의 평행(1) - 그래프가 주어지지 않는 경우",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G031.I01",
+          "source_code": "FN-097",
+          "no_in_group": 1,
+          "name": "평행한 것 고르기",
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G031.I02",
+          "source_code": "FN-098",
+          "no_in_group": 2,
+          "name": "두 일차함수의 그래프가 평행할 때 미지수 또는 그래프 위의 점 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G031.I03",
+          "source_code": "FN-099",
+          "no_in_group": 3,
+          "name": "한 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G031.I04",
+          "source_code": "FN-100",
+          "no_in_group": 4,
+          "name": "두 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G031.I05",
+          "source_code": "FN-101",
+          "no_in_group": 5,
+          "name": "x축 위에서 만나는 그래프와 평행한 그래프가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G031.I06",
+          "source_code": "FN-102",
+          "no_in_group": 6,
+          "name": "평행한 두 일차함수의 그래프 사이의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 24,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 18개 이름 안 보임(접힘)",
+      "source_image": "26.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G032",
+      "source_group_id": "G032",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "일차함수의 그래프의 평행(2) - 그래프가 주어진 경우",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G032.I01",
+          "source_code": "FN-103",
+          "no_in_group": 1,
+          "name": "평행한 것 고르기",
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G032.I02",
+          "source_code": "FN-104",
+          "no_in_group": 2,
+          "name": "두 일차함수의 그래프가 평행할 때 미지수 또는 그래프 위의 점 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G032.I03",
+          "source_code": "FN-105",
+          "no_in_group": 3,
+          "name": "한 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G032.I04",
+          "source_code": "FN-106",
+          "no_in_group": 4,
+          "name": "그래프 위의 점과 평행한 그래프가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G032.I05",
+          "source_code": "FN-107",
+          "no_in_group": 5,
+          "name": "도형에서의 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G032.I06",
+          "source_code": "FN-108",
+          "no_in_group": 6,
+          "name": "그래프의 이해",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 이름 안 보임(접힘)",
+      "source_image": "26.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G033",
+      "source_group_id": "G033",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "일차함수의 그래프의 일치",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G033.I01",
+          "source_code": "FN-109",
+          "no_in_group": 1,
+          "name": "두 일차함수의 그래프가 일치할 때 미지수 구하기",
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G033.I02",
+          "source_code": "FN-110",
+          "no_in_group": 2,
+          "name": "일차함수의 그래프가 일치하는 것 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G033.I03",
+          "source_code": "FN-111",
+          "no_in_group": 3,
+          "name": "평행이동하여 일치하는 일차함수의 그래프",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G033.I04",
+          "source_code": "FN-112",
+          "no_in_group": 4,
+          "name": "두 일차함수의 그래프가 평행할 때와 일치할 때",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 이름 안 보임(접힘)",
+      "source_image": "27.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G034",
+      "source_group_id": "G034",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 그래프의 성질",
+      "type_name": "y=ax+b의 그래프의 성질",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G034.I01",
+          "source_code": "FN-113",
+          "no_in_group": 1,
+          "name": "y축과 양(음)의 방향에서 만나는 일차함수의 그래프",
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G034.I02",
+          "source_code": "FN-114",
+          "no_in_group": 2,
+          "name": "일차함수의 그래프의 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G034.I03",
+          "source_code": "FN-115",
+          "no_in_group": 3,
+          "name": "그래프가 주어진 일차함수의 그래프의 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G034.I04",
+          "source_code": "FN-116",
+          "no_in_group": 4,
+          "name": "일차함수의 식을 구한 후 그 그래프에 대한 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G034.I05",
+          "source_code": "FN-117",
+          "no_in_group": 5,
+          "name": "일차함수 y=mx+n의 그래프의 이해",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 15개 이름 안 보임(접힘)",
+      "source_image": "27.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G035",
+      "source_group_id": "G035",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 식 구하기",
+      "type_name": "일차함수의 식 구하기(1) - 기울기와 y절편을 알 때",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G035.I01",
+          "source_code": "FN-118",
+          "no_in_group": 1,
+          "name": "기울기가 주어진 경우",
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G035.I02",
+          "source_code": "FN-119",
+          "no_in_group": 2,
+          "name": "평행한 함수의 그래프의 식이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G035.I03",
+          "source_code": "FN-120",
+          "no_in_group": 3,
+          "name": "평행한 함수의 그래프가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G035.I04",
+          "source_code": "FN-121",
+          "no_in_group": 4,
+          "name": "x의 증가량, y의 증가량이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G035.I05",
+          "source_code": "FN-122",
+          "no_in_group": 5,
+          "name": "{f(a)-f(b)}/{a-b}의 값이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 22개 이름 안 보임(접힘)",
+      "source_image": "28.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G036",
+      "source_group_id": "G036",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 식 구하기",
+      "type_name": "일차함수의 식 구하기(2) - 기울기와 한 점의 좌표를 알 때",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G036.I01",
+          "source_code": "FN-123",
+          "no_in_group": 1,
+          "name": "기울기가 주어진 경우",
+          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G036.I02",
+          "source_code": "FN-124",
+          "no_in_group": 2,
+          "name": "평행한 함수의 그래프의 식이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G036.I03",
+          "source_code": "FN-125",
+          "no_in_group": 3,
+          "name": "평행한 함수의 그래프가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G036.I04",
+          "source_code": "FN-126",
+          "no_in_group": 4,
+          "name": "x의 증가량, y의 증가량이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G036.I05",
+          "source_code": "FN-127",
+          "no_in_group": 5,
+          "name": "{f(a)-f(b)}/{a-b}의 값이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 23개 이름 안 보임(접힘)",
+      "source_image": "28.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G037",
+      "source_group_id": "G037",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 식 구하기",
+      "type_name": "일차함수의 식 구하기(3) - 두 점의 좌표를 알 때",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G037.I01",
+          "source_code": "FN-128",
+          "no_in_group": 1,
+          "name": "두 점이 주어진 경우",
+          "review_status": "원문 확인 / 28개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G037.I02",
+          "source_code": "FN-129",
+          "no_in_group": 2,
+          "name": "두 점이 포함된 그래프가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G037.I03",
+          "source_code": "FN-130",
+          "no_in_group": 3,
+          "name": "평행한 그래프가 지나는 두 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G037.I04",
+          "source_code": "FN-131",
+          "no_in_group": 4,
+          "name": "도형에서의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 32,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 28개 이름 안 보임(접힘)",
+      "source_image": "29.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G038",
+      "source_group_id": "G038",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 식 구하기",
+      "type_name": "일차함수의 식 구하기(4) - x절편과 y절편을 알 때",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G038.I01",
+          "source_code": "FN-132",
+          "no_in_group": 1,
+          "name": "x절편과 y절편이 주어진 경우",
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G038.I02",
+          "source_code": "FN-133",
+          "no_in_group": 2,
+          "name": "x절편과 y절편이 포함된 그래프가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G038.I03",
+          "source_code": "FN-134",
+          "no_in_group": 3,
+          "name": "두 직선과 각각 x축, y축에서 만나는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G038.I04",
+          "source_code": "FN-135",
+          "no_in_group": 4,
+          "name": "x절편과 y절편 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 21개 이름 안 보임(접힘)",
+      "source_image": "29.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G039",
+      "source_group_id": "G039",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 식 구하기",
+      "type_name": "일차함수의 식 구하기(5) - 종합",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G039.I01",
+          "source_code": "FN-136",
+          "no_in_group": 1,
+          "name": "그래프가 주어진 경우",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G039.I02",
+          "source_code": "FN-137",
+          "no_in_group": 2,
+          "name": "y축의 방향으로 평행이동한 그래프",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G039.I03",
+          "source_code": "FN-138",
+          "no_in_group": 3,
+          "name": "세 점을 지나는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G039.I04",
+          "source_code": "FN-139",
+          "no_in_group": 4,
+          "name": "도형의 넓이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G039.I05",
+          "source_code": "FN-140",
+          "no_in_group": 5,
+          "name": "두 일차함수의 그래프가 축과 만나는 점 사이의 거리",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "30.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G040",
+      "source_group_id": "G040",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "온도에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G040.I01",
+          "source_code": "FN-141",
+          "no_in_group": 1,
+          "name": "높이와 기온",
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G040.I02",
+          "source_code": "FN-142",
+          "no_in_group": 2,
+          "name": "액체의 온도",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G040.I03",
+          "source_code": "FN-143",
+          "no_in_group": 3,
+          "name": "온도와 소리의 속력",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 13개 이름 안 보임(접힘)",
+      "source_image": "30.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G041",
+      "source_group_id": "G041",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "길이에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G041.I01",
+          "source_code": "FN-144",
+          "no_in_group": 1,
+          "name": "일정 시간마다 길이가 달라지는 경우",
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G041.I02",
+          "source_code": "FN-145",
+          "no_in_group": 2,
+          "name": "물체를 매다는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 이름 안 보임(접힘)",
+      "source_image": "30.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G042",
+      "source_group_id": "G042",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "물의 양에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G042.I01",
+          "source_code": "FN-146",
+          "no_in_group": 1,
+          "name": "일정 시간마다 변하는 물의 양",
+          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G042.I02",
+          "source_code": "FN-147",
+          "no_in_group": 2,
+          "name": "연료의 양과 주행 거리",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 25개 이름 안 보임(접힘)",
+      "source_image": "31.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G043",
+      "source_group_id": "G043",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "개수에 대한 문제(규칙이 있는 도형 만들기)",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G043.I01",
+          "source_code": "FN-148",
+          "no_in_group": 1,
+          "name": "물건의 구매와 거스름돈",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G043.I02",
+          "source_code": "FN-149",
+          "no_in_group": 2,
+          "name": "이어붙인 도형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "31.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G044",
+      "source_group_id": "G044",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "속력에 대한 문제",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G044.I01",
+          "source_code": "FN-150",
+          "no_in_group": 1,
+          "name": "두 지점 사이의 거리와 이동 속도",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G044.I02",
+          "source_code": "FN-151",
+          "no_in_group": 2,
+          "name": "서로를 향해 출발하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G044.I03",
+          "source_code": "FN-152",
+          "no_in_group": 3,
+          "name": "먼저 출발하거나 출발점이 다른 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G044.I04",
+          "source_code": "FN-153",
+          "no_in_group": 4,
+          "name": "두 지점 사이에 있는 다른 지점",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "31.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G045",
+      "source_group_id": "G045",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "도형에 대한 문제",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G045.I01",
+          "source_code": "FN-154",
+          "no_in_group": 1,
+          "name": "선분의 길이가 주어진 경우",
+          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G045.I02",
+          "source_code": "FN-155",
+          "no_in_group": 2,
+          "name": "한 변을 일정 속력으로 움직이는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G045.I03",
+          "source_code": "FN-156",
+          "no_in_group": 3,
+          "name": "사각형의 둘레를 일정 속력으로 움직이는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G045.I04",
+          "source_code": "FN-157",
+          "no_in_group": 4,
+          "name": "두 점이 동시에 움직이는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 25개 이름 안 보임(접힘)",
+      "source_image": "32.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G046",
+      "source_group_id": "G046",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "최단거리를 구하는 문제(대칭점을 이용하여)",
+      "topic_type_count": 0,
+      "topic_type_actual": 0,
+      "topic_types": [],
+      "detail_type_count": 0,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "32.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G047",
+      "source_group_id": "G047",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "농도에 관한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G047.I01",
+          "source_code": "FN-158",
+          "no_in_group": 1,
+          "name": "두 소금물을 섞은 경우",
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G047.I02",
+          "source_code": "FN-159",
+          "no_in_group": 2,
+          "name": "증발하거나 물을 추가한 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 1개 이름 안 보임(접힘)",
+      "source_image": "32.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G048",
+      "source_group_id": "G048",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "여러 가지 일차함수의 활용",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G048.I01",
+          "source_code": "FN-160",
+          "no_in_group": 1,
+          "name": "일정한 속도로 줄어드는 경우",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G048.I02",
+          "source_code": "FN-161",
+          "no_in_group": 2,
+          "name": "일정한 속도로 증가하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G048.I03",
+          "source_code": "FN-162",
+          "no_in_group": 3,
+          "name": "문제의 개수와 점수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G048.I04",
+          "source_code": "FN-163",
+          "no_in_group": 4,
+          "name": "요금",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G048.I05",
+          "source_code": "FN-164",
+          "no_in_group": 5,
+          "name": "개수와 무게",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G048.I06",
+          "source_code": "FN-165",
+          "no_in_group": 6,
+          "name": "시침과 분침",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "32.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G049",
+      "source_group_id": "G049",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 그래프(2)",
+      "중영역": "일차함수의 활용",
+      "type_name": "그래프를 이용한 일차함수의 활용",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G049.I01",
+          "source_code": "FN-166",
+          "no_in_group": 1,
+          "name": "x절편과 y절편이 주어진 경우",
+          "review_status": "원문 확인 / 27개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G049.I02",
+          "source_code": "FN-167",
+          "no_in_group": 2,
+          "name": "한 절편과 다른 한 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G049.I03",
+          "source_code": "FN-168",
+          "no_in_group": 3,
+          "name": "두 점이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 30,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 27개 이름 안 보임(접힘)",
+      "source_image": "33.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G050",
+      "source_group_id": "G050",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수와 일차방정식",
+      "type_name": "일차함수꼴을 일차방정식의 꼴로 변형",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G050.I01",
+          "source_code": "FN-169",
+          "no_in_group": 1,
+          "name": "일차방정식을 일차함수의 꼴로 고치기",
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G050.I02",
+          "source_code": "FN-170",
+          "no_in_group": 2,
+          "name": "일차함수의 꼴을 일차방정식으로 고치기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 7개 이름 안 보임(접힘)",
+      "source_image": "33.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G051",
+      "source_group_id": "G051",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수와 일차방정식",
+      "type_name": "일차방정식의 그래프 찾기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G051.I01",
+          "source_code": "FN-171",
+          "no_in_group": 1,
+          "name": "x, y의 값의 범위가 수 전체인 경우",
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G051.I02",
+          "source_code": "FN-172",
+          "no_in_group": 2,
+          "name": "x, y의 값의 범위에 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 3개 이름 안 보임(접힘)",
+      "source_image": "33.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_028",
+      "legacy_task_group": "일차방정식의 그래프",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.818,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G052",
+      "source_group_id": "G052",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수와 일차방정식",
+      "type_name": "일차함수와 일차방정식",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G052.I01",
+          "source_code": "FN-173",
+          "no_in_group": 1,
+          "name": "일차방정식의 그래프의 기울기, x절편, y절편",
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G052.I02",
+          "source_code": "FN-174",
+          "no_in_group": 2,
+          "name": "일차방정식의 그래프가 지나는 사분면",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G052.I03",
+          "source_code": "FN-175",
+          "no_in_group": 3,
+          "name": "일차방정식에 미지수가 포함된 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 7개 이름 안 보임(접힘)",
+      "source_image": "33.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G053",
+      "source_group_id": "G053",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수와 일차방정식",
+      "type_name": "일차방정식의 그래프 위의 점",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G053.I01",
+          "source_code": "FN-176",
+          "no_in_group": 1,
+          "name": "일차방정식의 그래프 위의 점의 판별",
+          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G053.I02",
+          "source_code": "FN-177",
+          "no_in_group": 2,
+          "name": "일차방정식의 그래프가 지나는 한 점에서 미지수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G053.I03",
+          "source_code": "FN-178",
+          "no_in_group": 3,
+          "name": "일차방정식의 그래프가 지나는 두 점에서 미지수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G053.I04",
+          "source_code": "FN-179",
+          "no_in_group": 4,
+          "name": "x, y의 값의 범위가 정수/자연수인 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 5개 이름 안 보임(접힘)",
+      "source_image": "34.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_029",
+      "legacy_task_group": "방정식 그래프 위의 점",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.75,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G054",
+      "source_group_id": "G054",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "일차함수의 그래프의 성질",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G054.I01",
+          "source_code": "FN-180",
+          "no_in_group": 1,
+          "name": "조건을 만족하는 두 일차방정식 짝짓기",
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G054.I02",
+          "source_code": "FN-181",
+          "no_in_group": 2,
+          "name": "조건을 만족하는 일차방정식 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G054.I03",
+          "source_code": "FN-182",
+          "no_in_group": 3,
+          "name": "일차방정식의 그래프에 대한 이해",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 8개 이름 안 보임(접힘)",
+      "source_image": "34.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G055",
+      "source_group_id": "G055",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "기울기가 주어진 경우의 일차방정식의 계수",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G055.I01",
+          "source_code": "FN-183",
+          "no_in_group": 1,
+          "name": "기울기가 주어진 경우",
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G055.I02",
+          "source_code": "FN-184",
+          "no_in_group": 2,
+          "name": "평행한 그래프에 대한 정보가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G055.I03",
+          "source_code": "FN-185",
+          "no_in_group": 3,
+          "name": "x의 값의 증가량과 y의 값의 증가량이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 7개 이름 안 보임(접힘)",
+      "source_image": "34.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G056",
+      "source_group_id": "G056",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "기울기와 y절편을 아는 경우의 일차방정식의 계수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G056.I01",
+          "source_code": "FN-186",
+          "no_in_group": 1,
+          "name": "기울기가 주어진 경우",
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G056.I02",
+          "source_code": "FN-187",
+          "no_in_group": 2,
+          "name": "평행한 그래프에 대한 정보가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 3개 이름 안 보임(접힘)",
+      "source_image": "35.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G057",
+      "source_group_id": "G057",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "기울기와 한 점이 주어진 경우의 일차방정식의 계수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G057.I01",
+          "source_code": "FN-188",
+          "no_in_group": 1,
+          "name": "기울기가 주어진 경우",
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G057.I02",
+          "source_code": "FN-189",
+          "no_in_group": 2,
+          "name": "평행한 그래프에 대한 정보가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 1개 이름 안 보임(접힘)",
+      "source_image": "35.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G058",
+      "source_group_id": "G058",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "점이 주어진 경우의 일차방정식의 계수",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G058.I01",
+          "source_code": "FN-190",
+          "no_in_group": 1,
+          "name": "한 점이 주어진 경우",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G058.I02",
+          "source_code": "FN-191",
+          "no_in_group": 2,
+          "name": "두 점 이상 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G058.I03",
+          "source_code": "FN-192",
+          "no_in_group": 3,
+          "name": "x절편 또는 y절편이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "35.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G059",
+      "source_group_id": "G059",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "그래프가 주어진 경우의 일차방정식의 계수",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G059.I01",
+          "source_code": "FN-193",
+          "no_in_group": 1,
+          "name": "한 절편이 주어진 경우",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G059.I02",
+          "source_code": "FN-194",
+          "no_in_group": 2,
+          "name": "한 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G059.I03",
+          "source_code": "FN-195",
+          "no_in_group": 3,
+          "name": "두 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G059.I04",
+          "source_code": "FN-196",
+          "no_in_group": 4,
+          "name": "x절편과 y절편이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "35.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G060",
+      "source_group_id": "G060",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "직선의 방정식 구하기(1) - 기울기와 y절편을 알 때",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G060.I01",
+          "source_code": "FN-197",
+          "no_in_group": 1,
+          "name": "기울기가 주어진 경우",
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G060.I02",
+          "source_code": "FN-198",
+          "no_in_group": 2,
+          "name": "x의 값의 증가량과 y의 값의 증가량이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G060.I03",
+          "source_code": "FN-199",
+          "no_in_group": 3,
+          "name": "평행한 그래프에 대한 정보가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 이름 안 보임(접힘)",
+      "source_image": "36.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G061",
+      "source_group_id": "G061",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "직선의 방정식 구하기(2) - 기울기와 한 점의 좌표를 알 때",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G061.I01",
+          "source_code": "FN-200",
+          "no_in_group": 1,
+          "name": "기울기가 주어진 경우",
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G061.I02",
+          "source_code": "FN-201",
+          "no_in_group": 2,
+          "name": "x의 값의 증가량과 y의 값의 증가량이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G061.I03",
+          "source_code": "FN-202",
+          "no_in_group": 3,
+          "name": "평행한 그래프에 대한 정보가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 15개 이름 안 보임(접힘)",
+      "source_image": "36.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G062",
+      "source_group_id": "G062",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "직선의 방정식 구하기(3) - 두 점의 좌표를 알 때",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G062.I01",
+          "source_code": "FN-203",
+          "no_in_group": 1,
+          "name": "두 점이 주어진 경우",
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G062.I02",
+          "source_code": "FN-204",
+          "no_in_group": 2,
+          "name": "x절편 또는 y절편이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G062.I03",
+          "source_code": "FN-205",
+          "no_in_group": 3,
+          "name": "지나는 두 점을 구할 수 있는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 이름 안 보임(접힘)",
+      "source_image": "36.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G063",
+      "source_group_id": "G063",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "직선의 방정식 구하기(4) - x절편과 y절편을 알 때",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G063.I01",
+          "source_code": "FN-206",
+          "no_in_group": 1,
+          "name": "x절편과 y절편이 주어진 경우",
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G063.I02",
+          "source_code": "FN-207",
+          "no_in_group": 2,
+          "name": "x절편과 y절편이 포함된 그래프가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G063.I03",
+          "source_code": "FN-208",
+          "no_in_group": 3,
+          "name": "두 직선과 각각 x축, y축에서 만나는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 7개 이름 안 보임(접힘)",
+      "source_image": "37.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G064",
+      "source_group_id": "G064",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "직선의 방정식 구하기(5) - 종합",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G064.I01",
+          "source_code": "FN-209",
+          "no_in_group": 1,
+          "name": "y축의 방향으로 평행이동한 경우",
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G064.I02",
+          "source_code": "FN-210",
+          "no_in_group": 2,
+          "name": "세 점을 지나는 직선의 방정식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G064.I03",
+          "source_code": "FN-211",
+          "no_in_group": 3,
+          "name": "직선의 방정식을 잘못 본 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G064.I04",
+          "source_code": "FN-212",
+          "no_in_group": 4,
+          "name": "평행한 직선의 판별",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 10개 이름 안 보임(접힘)",
+      "source_image": "37.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G065",
+      "source_group_id": "G065",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "좌표축에 평행한 직선의 방정식(x=p꼴/y=q꼴)",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G065.I01",
+          "source_code": "FN-213",
+          "no_in_group": 1,
+          "name": "그래프 그리기/고르기",
+          "review_status": "원문 확인 / 58개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G065.I02",
+          "source_code": "FN-214",
+          "no_in_group": 2,
+          "name": "직선의 방정식 구하기/고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G065.I03",
+          "source_code": "FN-215",
+          "no_in_group": 3,
+          "name": "직선 위의 점 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G065.I04",
+          "source_code": "FN-216",
+          "no_in_group": 4,
+          "name": "점의 좌표에 미지수가 포함된 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G065.I05",
+          "source_code": "FN-217",
+          "no_in_group": 5,
+          "name": "직선의 방정식에 미지수가 포함된 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G065.I06",
+          "source_code": "FN-218",
+          "no_in_group": 6,
+          "name": "좌표축에 평행한 직선의 방정식의 이해",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 64,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 58개 이름 안 보임(접힘)",
+      "source_image": "38.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G066",
+      "source_group_id": "G066",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "좌표축에 평행한 직선으로 둘러싸인 도형의 넓이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G066.I01",
+          "source_code": "FN-219",
+          "no_in_group": 1,
+          "name": "도형의 넓이 구하기",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G066.I02",
+          "source_code": "FN-220",
+          "no_in_group": 2,
+          "name": "도형의 넓이가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G066.I03",
+          "source_code": "FN-221",
+          "no_in_group": 3,
+          "name": "정사각형인 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "38.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_015",
+      "legacy_task_group": "좌표축으로 둘러싸인 넓이",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.55,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G067",
+      "source_group_id": "G067",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "일차방정식 ax+by+c=0의 그래프와 a, b, c의 부호",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G067.I01",
+          "source_code": "FN-222",
+          "no_in_group": 1,
+          "name": "계수와 상수항의 부호가 주어진 경우",
+          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G067.I02",
+          "source_code": "FN-223",
+          "no_in_group": 2,
+          "name": "그래프가 지나는 사분면이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G067.I03",
+          "source_code": "FN-224",
+          "no_in_group": 3,
+          "name": "그래프의 개형이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G067.I04",
+          "source_code": "FN-225",
+          "no_in_group": 4,
+          "name": "점이 지나는 사분면이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 23,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 19개 이름 안 보임(접힘)",
+      "source_image": "39.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G068",
+      "source_group_id": "G068",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "직선으로 둘러싸인 도형의 넓이(1)",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G068.I01",
+          "source_code": "FN-226",
+          "no_in_group": 1,
+          "name": "도형의 넓이 구하기",
+          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G068.I02",
+          "source_code": "FN-227",
+          "no_in_group": 2,
+          "name": "도형의 넓이가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G068.I03",
+          "source_code": "FN-228",
+          "no_in_group": 3,
+          "name": "도형의 넓이의 비 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 19개 이름 안 보임(접힘)",
+      "source_image": "39.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G069",
+      "source_group_id": "G069",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 일차방정식",
+      "type_name": "직선이 선분과 만날 조건",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G069.I01",
+          "source_code": "FN-229",
+          "no_in_group": 1,
+          "name": "직선과 선분이 만날 조건",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G069.I02",
+          "source_code": "FN-230",
+          "no_in_group": 2,
+          "name": "사분면을 지나는/사분면에서 만나는 직선",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "39.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G070",
+      "source_group_id": "G070",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "연립일차방정식의 해와 그래프의 교점",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G070.I01",
+          "source_code": "FN-231",
+          "no_in_group": 1,
+          "name": "두 일차방정식의 그래프의 교점이 주어진 연립방정식",
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G070.I02",
+          "source_code": "FN-232",
+          "no_in_group": 2,
+          "name": "교점을 이용하여 연립방정식 풀기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G070.I03",
+          "source_code": "FN-233",
+          "no_in_group": 3,
+          "name": "두 일차방정식의 그래프의 교점 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 이름 안 보임(접힘)",
+      "source_image": "40.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G071",
+      "source_group_id": "G071",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "두 직선의 교점의 좌표를 이용하여 미지수의 값 구하기",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G071.I01",
+          "source_code": "FN-234",
+          "no_in_group": 1,
+          "name": "교점이 주어진 경우",
+          "review_status": "원문 확인 / 38개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G071.I02",
+          "source_code": "FN-235",
+          "no_in_group": 2,
+          "name": "교점의 x좌표(y좌표)가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G071.I03",
+          "source_code": "FN-236",
+          "no_in_group": 3,
+          "name": "교점이 축 위에 있는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G071.I04",
+          "source_code": "FN-237",
+          "no_in_group": 4,
+          "name": "교점이 특정 사분면 위에 있는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 42,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 38개 이름 안 보임(접힘)",
+      "source_image": "40.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G072",
+      "source_group_id": "G072",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "두 일차방정식의 그래프의 교점을 지나는 직선의 방정식",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G072.I01",
+          "source_code": "FN-238",
+          "no_in_group": 1,
+          "name": "축에 대한 조건이 주어진 경우",
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G072.I02",
+          "source_code": "FN-239",
+          "no_in_group": 2,
+          "name": "지나는 한 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G072.I03",
+          "source_code": "FN-240",
+          "no_in_group": 3,
+          "name": "지나는 두 점이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G072.I04",
+          "source_code": "FN-241",
+          "no_in_group": 4,
+          "name": "기울기가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G072.I05",
+          "source_code": "FN-242",
+          "no_in_group": 5,
+          "name": "두 직선의 교점을 지나는 직선의 방정식에서 미지수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 이름 안 보임(접힘)",
+      "source_image": "41.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G073",
+      "source_group_id": "G073",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "삼각형이 생기지 않을 조건",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G073.I01",
+          "source_code": "FN-243",
+          "no_in_group": 1,
+          "name": "삼각형이 생기지 않도록 하는 미지수 구하기",
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+        }
+      ],
+      "detail_type_count": 2,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 1개 이름 안 보임(접힘)",
+      "source_image": "41.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G074",
+      "source_group_id": "G074",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "한 점에서 만나는 세 직선",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G074.I01",
+          "source_code": "FN-244",
+          "no_in_group": 1,
+          "name": "한 미지수 구하기",
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G074.I02",
+          "source_code": "FN-245",
+          "no_in_group": 2,
+          "name": "두 미지수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 이름 안 보임(접힘)",
+      "source_image": "41.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G075",
+      "source_group_id": "G075",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "연립방정식의 해의 개수와 그래프의 위치관계",
+      "topic_type_count": 8,
+      "topic_type_actual": 8,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G075.I01",
+          "source_code": "FN-246",
+          "no_in_group": 1,
+          "name": "연립방정식의 해의 개수 구하기",
+          "review_status": "원문 확인 / 35개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G075.I02",
+          "source_code": "FN-247",
+          "no_in_group": 2,
+          "name": "연립방정식의 해의 개수와 그래프의 위치관계",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G075.I03",
+          "source_code": "FN-248",
+          "no_in_group": 3,
+          "name": "해의 개수가 주어진 경우 연립방정식 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G075.I04",
+          "source_code": "FN-249",
+          "no_in_group": 4,
+          "name": "교점의 개수가 주어진 경우 두 직선 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G075.I05",
+          "source_code": "FN-250",
+          "no_in_group": 5,
+          "name": "연립방정식의 해의 개수가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G075.I06",
+          "source_code": "FN-251",
+          "no_in_group": 6,
+          "name": "두 직선의 교점의 개수가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G075.I07",
+          "source_code": "FN-252",
+          "no_in_group": 7,
+          "name": "연립방정식의 해의 개수와 그래프의 위치관계에 대한 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G075.I08",
+          "source_code": "FN-253",
+          "no_in_group": 8,
+          "name": "연립방정식의 해의 개수와 그래프의 위치관계의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 43,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 35개 이름 안 보임(접힘)",
+      "source_image": "42.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G076",
+      "source_group_id": "G076",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "직선으로 둘러싸인 도형의 넓이(2)",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G076.I01",
+          "source_code": "FN-254",
+          "no_in_group": 1,
+          "name": "도형의 넓이 구하기",
+          "review_status": "원문 확인 / 28개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G076.I02",
+          "source_code": "FN-255",
+          "no_in_group": 2,
+          "name": "도형의 넓이가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G076.I03",
+          "source_code": "FN-256",
+          "no_in_group": 3,
+          "name": "도형의 넓이의 비 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G076.I04",
+          "source_code": "FN-257",
+          "no_in_group": 4,
+          "name": "입체도형의 부피",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 32,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 28개 이름 안 보임(접힘)",
+      "source_image": "43.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LF_RAW_032",
+      "legacy_task_group": "직선으로 둘러싸인 넓이",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.769,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G077",
+      "source_group_id": "G077",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "넓이를 이등분하는 직선의 방정식",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G077.I01",
+          "source_code": "FN-258",
+          "no_in_group": 1,
+          "name": "삼각형을 이등분하는 경우",
+          "review_status": "원문 확인 / 26개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G077.I02",
+          "source_code": "FN-259",
+          "no_in_group": 2,
+          "name": "사각형을 이등분하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G077.I03",
+          "source_code": "FN-260",
+          "no_in_group": 3,
+          "name": "넓이의 비가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 26개 이름 안 보임(접힘)",
+      "source_image": "43.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G078",
+      "source_group_id": "G078",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "교점을 이용한 직선의 방정식의 활용",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G078.I01",
+          "source_code": "FN-261",
+          "no_in_group": 1,
+          "name": "속력과 관련된 경우",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G078.I02",
+          "source_code": "FN-262",
+          "no_in_group": 2,
+          "name": "물의 양과 관련된 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G078.I03",
+          "source_code": "FN-263",
+          "no_in_group": 3,
+          "name": "물건의 판매와 관련된 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "43.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.FN.G079",
+      "source_group_id": "G079",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "chapter": "2-1 함수",
+      "대영역": "일차함수와 일차방정식의 관계",
+      "중영역": "일차함수의 그래프와 연립방정식",
+      "type_name": "직선이 도형과 만날 조건",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.FN.G079.I01",
+          "source_code": "FN-264",
+          "no_in_group": 1,
+          "name": "삼각형과 직선이 만날 조건",
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M2S1.FN.G079.I02",
+          "source_code": "FN-265",
+          "no_in_group": 2,
+          "name": "사각형과 직선이 만날 조건",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 이름 안 보임(접힘)",
+      "source_image": "44.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    }
+  ]
+}

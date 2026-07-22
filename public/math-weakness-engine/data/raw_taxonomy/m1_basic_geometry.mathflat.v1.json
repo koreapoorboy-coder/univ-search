@@ -1,0 +1,3236 @@
+{
+  "schema": "mathflat_problem_type.v1",
+  "version": "2026.07.22-mathflat-M1S2-bg",
+  "_note": "매쓰플랫 화면 스크린샷을 전사한 엑셀을 그대로 옮긴 원본 분류. 진단 단위는 \"유형 묶음\"(problem_types), 그 아래 topic_types가 엑셀 문항분류표를 세부코드·묶음 내 번호·검토상태까지 그대로 담는다. 한글 이름은 원문 그대로이며 다듬지 않았다. 데이터 저장만 한 상태이고 진단 로직에는 연결하지 않았다 — 기존 raw_taxonomy와 옛 진단 경로는 그대로 둔다.",
+  "_source": {
+    "origin": "1-2 기본도형과 작도.zip",
+    "workbook": "1-2 기본도형과 작도.xlsx",
+    "extracted_at": "2026-07-22",
+    "principle": "화면에 글자로 보이는 항목만 입력. 보이지 않는 이름은 생성하지 않음."
+  },
+  "_wiring": {
+    "concept_ids": "이름 유사도 0.85 이상인 legacy 섹션에서만 상속했다. 나머지는 null — 사람 확인 전까지 비워 둔다. 순서 대응 상속은 legacy 목록의 구성이 달라 폐기했다.",
+    "error_tags": "미배정 (null). 기존 유형에서 묶음 단위 상속 예정.",
+    "prerequisite_ids": "전부 비움 — 선생님이 직접 지정."
+  },
+  "semester": "M1S2",
+  "semester_name": "중1 2학기",
+  "unit_id": "M1_BASIC_GEOMETRY",
+  "unit_code": "BG",
+  "unit_name": "기본도형과 작도",
+  "chapter": "1-2 기본도형과 작도",
+  "status": "raw_not_wired",
+  "problem_type_count": 62,
+  "count_check": {
+    "expected": 62,
+    "actual": 62,
+    "match": true
+  },
+  "topic_type_total": 223,
+  "item_check": {
+    "declared_total": 223,
+    "stored_total": 223,
+    "match": true,
+    "mismatched_groups": []
+  },
+  "detail_type_total": 1115,
+  "legacy_audit": {
+    "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
+    "match_confident": 0,
+    "match_candidate": 5,
+    "match_none": 57,
+    "legacy_section_count": 18,
+    "legacy_has_concept_ids": false,
+    "concept_ids_inherited": 0,
+    "legacy_unmatched": [
+      "도형의 기본 요소와 도형 판별",
+      "점이 주어진 경우 직선·반직선·선분의 개수 구하기",
+      "두 점 사이의 거리와 선분의 중점 구하기",
+      "각의 뜻, 표시, 크기 구하기",
+      "맞꼭지각의 성질, 수직과 수선, 점과 직선 사이의 거리",
+      "점·직선·평면의 위치 관계와 평면이 정해질 조건",
+      "잘린 입체도형과 전개도에서 위치 관계 판단",
+      "동위각과 엇각을 구분하고 각의 크기 관계 판단",
+      "두 쌍의 평행선, 삼각형 모양, 꺾인 직선, 종이접기 각도 문제",
+      "자와 컴퍼스를 이용한 작도, 선분·각·평행선의 작도, 삼각형 작도 조건",
+      "삼각형의 세 변 관계, 삼각형이 정해질 조건과 정해지지 않는 경우",
+      "합동인 도형의 성질과 합동인 삼각형 찾기",
+      "SSS·SAS·ASA 합동조건과 정삼각형·직사각형에서의 활용"
+    ]
+  },
+  "problem_types": [
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G001",
+      "source_group_id": "G001",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "도형",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G001.I01",
+          "source_code": "BG-001",
+          "no_in_group": 1,
+          "name": "도형의 기본요소",
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G001.I02",
+          "source_code": "BG-002",
+          "no_in_group": 2,
+          "name": "도형의 종류",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 3개 이름 안 보임(접힘)",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G002",
+      "source_group_id": "G002",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "교점과 교선",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G002.I01",
+          "source_code": "BG-003",
+          "no_in_group": 1,
+          "name": "교점과 교선의 이해",
+          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G002.I02",
+          "source_code": "BG-004",
+          "no_in_group": 2,
+          "name": "교점의 개수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G002.I03",
+          "source_code": "BG-005",
+          "no_in_group": 3,
+          "name": "교선의 개수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G002.I04",
+          "source_code": "BG-006",
+          "no_in_group": 4,
+          "name": "면의 개수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G002.I05",
+          "source_code": "BG-007",
+          "no_in_group": 5,
+          "name": "교점, 교선, 면의 수의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G002.I06",
+          "source_code": "BG-008",
+          "no_in_group": 6,
+          "name": "도형의 기본 요소의 이해",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 23,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 17개 이름 안 보임(접힘)",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_BG_RAW_002",
+      "legacy_task_group": "교점과 교선 판별",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.714,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G003",
+      "source_group_id": "G003",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "직선, 반직선, 선분",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G003.I01",
+          "source_code": "BG-009",
+          "no_in_group": 1,
+          "name": "직선, 반직선, 선분의 기호 표현",
+          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G003.I02",
+          "source_code": "BG-010",
+          "no_in_group": 2,
+          "name": "직선, 반직선, 선분의 그림 표현",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G003.I03",
+          "source_code": "BG-011",
+          "no_in_group": 3,
+          "name": "직선, 반직선, 선분의 공통부분",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G003.I04",
+          "source_code": "BG-012",
+          "no_in_group": 4,
+          "name": "직선, 반직선, 선분의 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G003.I05",
+          "source_code": "BG-013",
+          "no_in_group": 5,
+          "name": "직선, 반직선, 선분만 만드는 도형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 20개 이름 안 보임(접힘)",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G004",
+      "source_group_id": "G004",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "직선, 반직선, 선분의 개수(1)",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G004.I01",
+          "source_code": "BG-014",
+          "no_in_group": 1,
+          "name": "한 직선 위에 있지 않은 점에서의 직선, 반직선, 선분의 개수 및 연산",
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G004.I02",
+          "source_code": "BG-015",
+          "no_in_group": 2,
+          "name": "한 원 위에서의 직선, 반직선, 선분의 개수 및 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G004.I03",
+          "source_code": "BG-016",
+          "no_in_group": 3,
+          "name": "직선, 반직선, 선분의 개수의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 8개 이름 안 보임(접힘)",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_BG_RAW_003",
+      "legacy_task_group": "직선·반직선·선분의 뜻과 구분",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.667,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G005",
+      "source_group_id": "G005",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "직선, 반직선, 선분의 개수(2)",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G005.I01",
+          "source_code": "BG-017",
+          "no_in_group": 1,
+          "name": "한 직선 위에서의 직선, 반직선, 선분의 개수 및 연산",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G005.I02",
+          "source_code": "BG-018",
+          "no_in_group": 2,
+          "name": "직선과 그 밖의 점에서의 직선, 반직선, 선분의 개수 및 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G005.I03",
+          "source_code": "BG-019",
+          "no_in_group": 3,
+          "name": "직선 위에서의 직선, 반직선, 선분의 개수 및 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G005.I04",
+          "source_code": "BG-020",
+          "no_in_group": 4,
+          "name": "곡선과 직선으로 둘러싸인 도형에서의 직선, 반직선, 선분의 개수 및 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G005.I05",
+          "source_code": "BG-021",
+          "no_in_group": 5,
+          "name": "평면도형에서의 직선, 반직선, 선분의 개수 및 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G006",
+      "source_group_id": "G006",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "두 점 A, B 사이의 거리",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G006.I01",
+          "source_code": "BG-022",
+          "no_in_group": 1,
+          "name": "두 점 사이의 거리의 이해",
+          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G006.I02",
+          "source_code": "BG-023",
+          "no_in_group": 2,
+          "name": "직선, 반직선, 선분에 대한 설명: 두 점 A, B사이의 거리에 대한 선택지 포함",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 4,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 2개 이름 안 보임(접힘)",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G007",
+      "source_group_id": "G007",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "선분의 중점",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G007.I01",
+          "source_code": "BG-024",
+          "no_in_group": 1,
+          "name": "선분의 중점의 이해",
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G007.I02",
+          "source_code": "BG-025",
+          "no_in_group": 2,
+          "name": "선분의 중점의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G007.I03",
+          "source_code": "BG-026",
+          "no_in_group": 3,
+          "name": "점, 선, 면에 대한 설명: 선분의 중점에 대한 선택지 포함",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G007.I04",
+          "source_code": "BG-027",
+          "no_in_group": 4,
+          "name": "선분의 중점의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 3개 이름 안 보임(접힘)",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G008",
+      "source_group_id": "G008",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "두 점 사이의 거리(1)",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G008.I01",
+          "source_code": "BG-028",
+          "no_in_group": 1,
+          "name": "선분의 전체 길이가 주어졌을 때 일부분의 길이 구하기",
+          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G008.I02",
+          "source_code": "BG-029",
+          "no_in_group": 2,
+          "name": "선분의 일부분의 길이가 주어졌을 때 전체 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G008.I03",
+          "source_code": "BG-030",
+          "no_in_group": 3,
+          "name": "선분의 일부분의 길이가 주어졌을 때 다른 일부분의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G008.I04",
+          "source_code": "BG-031",
+          "no_in_group": 4,
+          "name": "두 선분의 길이 사이의 관계",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 17개 이름 안 보임(접힘)",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G009",
+      "source_group_id": "G009",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "점, 선, 면",
+      "type_name": "두 점 사이의 거리(2)",
+      "topic_type_count": 7,
+      "topic_type_actual": 7,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G009.I01",
+          "source_code": "BG-032",
+          "no_in_group": 1,
+          "name": "선분의 전체 길이와 일부분의 길이가 주어졌을 때 다른 일부분의 길이 구하기",
+          "review_status": "원문 확인 / 37개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G009.I02",
+          "source_code": "BG-033",
+          "no_in_group": 2,
+          "name": "선분의 전체 길이가 주어졌을 때 일부분의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G009.I03",
+          "source_code": "BG-034",
+          "no_in_group": 3,
+          "name": "선분의 일부분의 길이가 주어졌을 때 전체 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G009.I04",
+          "source_code": "BG-035",
+          "no_in_group": 4,
+          "name": "여러 선분의 길이 사이의 관계가 주어진 경우: 배수 관계",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G009.I05",
+          "source_code": "BG-036",
+          "no_in_group": 5,
+          "name": "여러 선분의 길이 사이의 관계가 주어진 경우: 길이의 비",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G009.I06",
+          "source_code": "BG-037",
+          "no_in_group": 6,
+          "name": "선분의 일부분의 길이가 주어졌을 때 다른 일부분의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G009.I07",
+          "source_code": "BG-038",
+          "no_in_group": 7,
+          "name": "선분의 길이 사이의 관계 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 44,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 37개 이름 안 보임(접힘)",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G010",
+      "source_group_id": "G010",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "각",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G010.I01",
+          "source_code": "BG-039",
+          "no_in_group": 1,
+          "name": "각의 크기에 따른 분류",
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G010.I02",
+          "source_code": "BG-040",
+          "no_in_group": 2,
+          "name": "각의 기호 표현",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G010.I03",
+          "source_code": "BG-041",
+          "no_in_group": 3,
+          "name": "예각, 직각, 둔각, 평각의 관계",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G010.I04",
+          "source_code": "BG-042",
+          "no_in_group": 4,
+          "name": "각의 표현의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 7개 이름 안 보임(접힘)",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G011",
+      "source_group_id": "G011",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "직각을 이용하여 각의 크기 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G011.I01",
+          "source_code": "BG-043",
+          "no_in_group": 1,
+          "name": "직각이 1개인 경우 각의 크기 구하기",
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G011.I02",
+          "source_code": "BG-044",
+          "no_in_group": 2,
+          "name": "직각이 n개인 경우 각의 크기 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 이름 안 보임(접힘)",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_BG_RAW_007",
+      "legacy_task_group": "직각자·평각·비·조건을 이용한 각의 크기 구하기",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.579,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G012",
+      "source_group_id": "G012",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "평각을 이용하여 각의 크기 구하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G012.I01",
+          "source_code": "BG-045",
+          "no_in_group": 1,
+          "name": "평각을 이용하여 ∠x / x의 값 구하기",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G012.I02",
+          "source_code": "BG-046",
+          "no_in_group": 2,
+          "name": "평각을 이용하여 ∠x / x, ∠y / y의 값 구하기 또는 그 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G012.I03",
+          "source_code": "BG-047",
+          "no_in_group": 3,
+          "name": "360°를 이용하여 각의 크기 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G013",
+      "source_group_id": "G013",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "각의 크기의 비가 주어지는 경우",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G013.I01",
+          "source_code": "BG-048",
+          "no_in_group": 1,
+          "name": "각의 크기의 비가 주어지는 경우",
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G013.I02",
+          "source_code": "BG-049",
+          "no_in_group": 2,
+          "name": "일부분의 각의 크기와 각의 크기의 비가 주어지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G013.I03",
+          "source_code": "BG-050",
+          "no_in_group": 3,
+          "name": "각의 크기의 비가 여러개 주어지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G013.I04",
+          "source_code": "BG-051",
+          "no_in_group": 4,
+          "name": "각의 크기의 비가 주어지는 경우의 도형에의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 8개 이름 안 보임(접힘)",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G014",
+      "source_group_id": "G014",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "각의 크기 사이의 조건이 주어지는 경우",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G014.I01",
+          "source_code": "BG-052",
+          "no_in_group": 1,
+          "name": "각의 크기 사이의 관계식이 주어지는 경우",
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G014.I02",
+          "source_code": "BG-053",
+          "no_in_group": 2,
+          "name": "일부분의 각의 크기와 각의 크기 사이의 관계가 주어지는 경우: 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G014.I03",
+          "source_code": "BG-054",
+          "no_in_group": 3,
+          "name": "일부분의 각의 크기와 각의 크기 사이의 관계가 주어지는 경우: 두 각 사이의 관계 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G014.I04",
+          "source_code": "BG-055",
+          "no_in_group": 4,
+          "name": "특정 각을 공통으로 뺄 수 관계가 주어지는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 15개 이름 안 보임(접힘)",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G015",
+      "source_group_id": "G015",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "시침과 분침이 이루는 각의 크기",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G015.I01",
+          "source_code": "BG-056",
+          "no_in_group": 1,
+          "name": "각의 크기 구하기",
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G015.I02",
+          "source_code": "BG-057",
+          "no_in_group": 2,
+          "name": "시각 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G015.I03",
+          "source_code": "BG-058",
+          "no_in_group": 3,
+          "name": "특정 각도를 이루는 횟수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G015.I04",
+          "source_code": "BG-059",
+          "no_in_group": 4,
+          "name": "걸리는 시간 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 이름 안 보임(접힘)",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_BG_RAW_008",
+      "legacy_task_group": "시침과 분침이 이루는 각의 크기 구하기",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.812,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G016",
+      "source_group_id": "G016",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "맞꼭지각의 성질",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G016.I01",
+          "source_code": "BG-060",
+          "no_in_group": 1,
+          "name": "맞꼭지각의 이해",
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G016.I02",
+          "source_code": "BG-061",
+          "no_in_group": 2,
+          "name": "맞꼭지각을 이루는 두 각",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G016.I03",
+          "source_code": "BG-062",
+          "no_in_group": 3,
+          "name": "맞꼭지각을 이루는 두 각 이외의 다른 각 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 18개 이름 안 보임(접힘)",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G017",
+      "source_group_id": "G017",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "수직과 수선",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G017.I01",
+          "source_code": "BG-063",
+          "no_in_group": 1,
+          "name": "직교",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G017.I02",
+          "source_code": "BG-064",
+          "no_in_group": 2,
+          "name": "수선의 발과 수직이등분선",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G017.I03",
+          "source_code": "BG-065",
+          "no_in_group": 3,
+          "name": "수선의 발을 이용한 도형의 넓이",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G018",
+      "source_group_id": "G018",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "점과 직선 사이의 거리",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G018.I01",
+          "source_code": "BG-066",
+          "no_in_group": 1,
+          "name": "점과 직선 사이의 거리 나타내기",
+          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G018.I02",
+          "source_code": "BG-067",
+          "no_in_group": 2,
+          "name": "점과 직선 사이의 거리 구하기: 주어진 선분의 길이 이용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G018.I03",
+          "source_code": "BG-068",
+          "no_in_group": 3,
+          "name": "(종합) 점과 직선 사이의 거리에 대한 설명",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G018.I04",
+          "source_code": "BG-069",
+          "no_in_group": 4,
+          "name": "점과 직선 사이의 거리 구하기: 넓이 이용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 16개 이름 안 보임(접힘)",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G019",
+      "source_group_id": "G019",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "맞꼭지각의 성질의 활용(1)",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G019.I01",
+          "source_code": "BG-070",
+          "no_in_group": 1,
+          "name": "맞꼭지각과 평각 또는 직각을 이용하여 ∠x의 크기 구하기",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G019.I02",
+          "source_code": "BG-071",
+          "no_in_group": 2,
+          "name": "맞꼭지각과 평각 또는 직각을 이용하여 x, y의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G019.I03",
+          "source_code": "BG-072",
+          "no_in_group": 3,
+          "name": "맞꼭지각과 평각 또는 직각을 이용하여 여러 가지 미지수의 크기 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G020",
+      "source_group_id": "G020",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "맞꼭지각의 성질의 활용(2)",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G020.I01",
+          "source_code": "BG-073",
+          "no_in_group": 1,
+          "name": "맞꼭지각을 이용하여 ∠x의 크기 구하기",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G020.I02",
+          "source_code": "BG-074",
+          "no_in_group": 2,
+          "name": "맞꼭지각과 평각 또는 직각을 이용하여 x, y의 크기 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G021",
+      "source_group_id": "G021",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "각",
+      "type_name": "맞꼭지각의 쌍의 개수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G021.I01",
+          "source_code": "BG-075",
+          "no_in_group": 1,
+          "name": "서로 다른 직선이 한 점에서 만나는 경우",
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G021.I02",
+          "source_code": "BG-076",
+          "no_in_group": 2,
+          "name": "한 평면 위의 서로 다른 선분이 각각 다른 점에서 만나는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 이름 안 보임(접힘)",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G022",
+      "source_group_id": "G022",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "점과 직선, 점과 평면의 위치 관계",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G022.I01",
+          "source_code": "BG-077",
+          "no_in_group": 1,
+          "name": "점과 직선의 위치 관계",
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G022.I02",
+          "source_code": "BG-078",
+          "no_in_group": 2,
+          "name": "점과 평면의 위치 관계",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G022.I03",
+          "source_code": "BG-079",
+          "no_in_group": 3,
+          "name": "입체도형에서 점과 직선, 점과 평면의 위치 관계",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G022.I04",
+          "source_code": "BG-080",
+          "no_in_group": 4,
+          "name": "점, 직선, 평면이 주어지는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 10개 이름 안 보임(접힘)",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G023",
+      "source_group_id": "G023",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "평면에서 두 직선의 위치 관계",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G023.I01",
+          "source_code": "BG-081",
+          "no_in_group": 1,
+          "name": "교점 또는 두 직선의 위치 관계 또는 주어진 위치 관계에 해당하는 선분 구하기",
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G023.I02",
+          "source_code": "BG-082",
+          "no_in_group": 2,
+          "name": "평면에서 두 직선의 위치 관계의 빈칸 채우기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G023.I03",
+          "source_code": "BG-083",
+          "no_in_group": 3,
+          "name": "평면에서의 두 직선의 위치 관계에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 18개 이름 안 보임(접힘)",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G024",
+      "source_group_id": "G024",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "평면이 정해질 조건",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G024.I01",
+          "source_code": "BG-084",
+          "no_in_group": 1,
+          "name": "평면이 정해질 조건",
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G024.I02",
+          "source_code": "BG-085",
+          "no_in_group": 2,
+          "name": "결정되는 평면의 개수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 이름 안 보임(접힘)",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G025",
+      "source_group_id": "G025",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "꼬인 위치",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G025.I01",
+          "source_code": "BG-086",
+          "no_in_group": 1,
+          "name": "꼬인 위치의 이해",
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G025.I02",
+          "source_code": "BG-087",
+          "no_in_group": 2,
+          "name": "꼬인 위치에 있는 모서리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G025.I03",
+          "source_code": "BG-088",
+          "no_in_group": 3,
+          "name": "동시에 꼬인 위치에 있는 모서리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G025.I04",
+          "source_code": "BG-089",
+          "no_in_group": 4,
+          "name": "꼬인 위치에 있는 모서리의 개수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 15개 이름 안 보임(접힘)",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G026",
+      "source_group_id": "G026",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "공간에서 두 직선의 위치 관계",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G026.I01",
+          "source_code": "BG-090",
+          "no_in_group": 1,
+          "name": "두 직선의 위치 관계",
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G026.I02",
+          "source_code": "BG-091",
+          "no_in_group": 2,
+          "name": "한 점에서 만나는 모서리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G026.I03",
+          "source_code": "BG-092",
+          "no_in_group": 3,
+          "name": "수직인 모서리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G026.I04",
+          "source_code": "BG-093",
+          "no_in_group": 4,
+          "name": "평행한 모서리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G026.I05",
+          "source_code": "BG-094",
+          "no_in_group": 5,
+          "name": "한 점에서 만나는 모서리, 수직인 모서리, 평행한 모서리에 있는 모서리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G026.I06",
+          "source_code": "BG-095",
+          "no_in_group": 6,
+          "name": "공간에서 위치 관계에 따른 모서리 개수의 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 22개 이름 안 보임(접힘)",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G027",
+      "source_group_id": "G027",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "공간에서 직선과 평면의 위치 관계",
+      "topic_type_count": 8,
+      "topic_type_actual": 8,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G027.I01",
+          "source_code": "BG-096",
+          "no_in_group": 1,
+          "name": "면에 포함되는 모서리, 모서리를 포함하는 면",
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G027.I02",
+          "source_code": "BG-097",
+          "no_in_group": 2,
+          "name": "한 점에서 만나는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G027.I03",
+          "source_code": "BG-098",
+          "no_in_group": 3,
+          "name": "수직인 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G027.I04",
+          "source_code": "BG-099",
+          "no_in_group": 4,
+          "name": "평행한 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G027.I05",
+          "source_code": "BG-100",
+          "no_in_group": 5,
+          "name": "공간에서 직선과 평면의 위치 관계에서의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G027.I06",
+          "source_code": "BG-101",
+          "no_in_group": 6,
+          "name": "공간에서 직선과 평면의 위치 관계에 대한 설명",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G027.I07",
+          "source_code": "BG-102",
+          "no_in_group": 7,
+          "name": "직선과 평면의 위치 관계 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G027.I08",
+          "source_code": "BG-103",
+          "no_in_group": 8,
+          "name": "주어진 위치 관계에 해당하는 면, 모서리: 종합",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 30,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 22개 이름 안 보임(접힘)",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_BG_RAW_011",
+      "legacy_task_group": "공간에서 직선·평면의 위치 관계와 꼬인 위치 판단",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.6,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G028",
+      "source_group_id": "G028",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "점과 평면 사이의 거리",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G028.I01",
+          "source_code": "BG-104",
+          "no_in_group": 1,
+          "name": "점과 평면 사이의 거리",
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G028.I02",
+          "source_code": "BG-105",
+          "no_in_group": 2,
+          "name": "점과 평면 사이의 거리를 나타내는 모서리",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G028.I03",
+          "source_code": "BG-106",
+          "no_in_group": 3,
+          "name": "(종합) 점과 평면 사이의 거리에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 이름 안 보임(접힘)",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G029",
+      "source_group_id": "G029",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "공간에서 두 평면의 위치 관계",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G029.I01",
+          "source_code": "BG-107",
+          "no_in_group": 1,
+          "name": "입체도형에서의 두 평면과 교선",
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G029.I02",
+          "source_code": "BG-108",
+          "no_in_group": 2,
+          "name": "공간에서 주어진 위치 관계를 가지는 평면 또는 그 개수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G029.I03",
+          "source_code": "BG-109",
+          "no_in_group": 3,
+          "name": "공간에서의 두 평면의 위치 관계 또는 특정한 위치 관계를 가지는 경우 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G029.I04",
+          "source_code": "BG-110",
+          "no_in_group": 4,
+          "name": "공간에서 두 평면의 위치 관계에 대한 설명",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G029.I05",
+          "source_code": "BG-111",
+          "no_in_group": 5,
+          "name": "직교하는 두 평면이 주어지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G029.I06",
+          "source_code": "BG-112",
+          "no_in_group": 6,
+          "name": "평면에 의해 나누어지는 공간의 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 21개 이름 안 보임(접힘)",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G030",
+      "source_group_id": "G030",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "일부가 잘린 입체도형에서의 위치 관계",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G030.I01",
+          "source_code": "BG-113",
+          "no_in_group": 1,
+          "name": "특정 위치 관계에 해당하는 면/모서리 구하기",
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G030.I02",
+          "source_code": "BG-114",
+          "no_in_group": 2,
+          "name": "특정 위치 관계에 해당하는 면/모서리의 개수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G030.I03",
+          "source_code": "BG-115",
+          "no_in_group": 3,
+          "name": "특정 위치 관계에 해당하는 면/모서리의 개수의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G030.I04",
+          "source_code": "BG-116",
+          "no_in_group": 4,
+          "name": "일부가 잘린 입체도형에서의 위치 관계에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 21개 이름 안 보임(접힘)",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G031",
+      "source_group_id": "G031",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "전개도가 주어진 입체도형에서의 위치 관계",
+      "topic_type_count": 8,
+      "topic_type_actual": 8,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G031.I01",
+          "source_code": "BG-117",
+          "no_in_group": 1,
+          "name": "주어진 위치 관계에 해당하는 면, 모서리: 평행",
+          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G031.I02",
+          "source_code": "BG-118",
+          "no_in_group": 2,
+          "name": "주어진 위치 관계에 해당하는 면, 모서리: 만나는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G031.I03",
+          "source_code": "BG-119",
+          "no_in_group": 3,
+          "name": "주어진 위치 관계에 해당하는 면, 모서리: 수직",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G031.I04",
+          "source_code": "BG-120",
+          "no_in_group": 4,
+          "name": "주어진 위치 관계에 해당하는 면, 모서리: 꼬인 위치",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G031.I05",
+          "source_code": "BG-121",
+          "no_in_group": 5,
+          "name": "전개도가 주어진 입체도형에서의 위치 관계에 대한 설명",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G031.I06",
+          "source_code": "BG-122",
+          "no_in_group": 6,
+          "name": "전개도가 주어진 입체도형에서의 위치 관계에서의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G031.I07",
+          "source_code": "BG-123",
+          "no_in_group": 7,
+          "name": "전개도가 주어진 입체도형에서의 위치 관계 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G031.I08",
+          "source_code": "BG-124",
+          "no_in_group": 8,
+          "name": "주어진 위치 관계에 해당하는 면, 모서리: 종합",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 32,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 24개 이름 안 보임(접힘)",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G032",
+      "source_group_id": "G032",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "기본 도형",
+      "중영역": "위치 관계",
+      "type_name": "여러 가지 위치 관계",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G032.I01",
+          "source_code": "BG-125",
+          "no_in_group": 1,
+          "name": "여러 가지 위치 관계에 대한 설명",
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G032.I02",
+          "source_code": "BG-126",
+          "no_in_group": 2,
+          "name": "특정 위치 관계를 이용한 다른 위치 관계 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 이름 안 보임(접힘)",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G033",
+      "source_group_id": "G033",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "동위각과 엇각",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G033.I01",
+          "source_code": "BG-127",
+          "no_in_group": 1,
+          "name": "동위각과 엇각 찾기",
+          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G033.I02",
+          "source_code": "BG-128",
+          "no_in_group": 2,
+          "name": "동위각과 엇각의 개수의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G033.I03",
+          "source_code": "BG-129",
+          "no_in_group": 3,
+          "name": "동위각, 엇각의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G033.I04",
+          "source_code": "BG-130",
+          "no_in_group": 4,
+          "name": "동위각, 엇각의 크기에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 23,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 19개 이름 안 보임(접힘)",
+      "source_image": "13.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G034",
+      "source_group_id": "G034",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "평행선의 성질",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G034.I01",
+          "source_code": "BG-131",
+          "no_in_group": 1,
+          "name": "미지수 구하기: 미지수 1개",
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G034.I02",
+          "source_code": "BG-132",
+          "no_in_group": 2,
+          "name": "미지수 구하기: 미지수 2개 이상",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G034.I03",
+          "source_code": "BG-133",
+          "no_in_group": 3,
+          "name": "크기가 같은/다른 각 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G034.I04",
+          "source_code": "BG-134",
+          "no_in_group": 4,
+          "name": "평행선의 성질에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 21개 이름 안 보임(접힘)",
+      "source_image": "13.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G035",
+      "source_group_id": "G035",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "두 직선이 평행할 조건",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G035.I01",
+          "source_code": "BG-135",
+          "no_in_group": 1,
+          "name": "두 직선이 평행할 조건",
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G035.I02",
+          "source_code": "BG-136",
+          "no_in_group": 2,
+          "name": "두 직선의 평행 여부 판단",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G035.I03",
+          "source_code": "BG-137",
+          "no_in_group": 3,
+          "name": "평행한 두 직선 찾기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G035.I04",
+          "source_code": "BG-138",
+          "no_in_group": 4,
+          "name": "평행한 두 직선을 찾아 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G035.I05",
+          "source_code": "BG-139",
+          "no_in_group": 5,
+          "name": "두 직선이 평행할 조건의 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 13개 이름 안 보임(접힘)",
+      "source_image": "14.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G036",
+      "source_group_id": "G036",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "두 쌍의 평행선",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G036.I01",
+          "source_code": "BG-140",
+          "no_in_group": 1,
+          "name": "미지수 구하기: 미지수 1개",
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G036.I02",
+          "source_code": "BG-141",
+          "no_in_group": 2,
+          "name": "미지수 구하기: 미지수 2개 이상",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G036.I03",
+          "source_code": "BG-142",
+          "no_in_group": 3,
+          "name": "크기가 같은 각 찾기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 9개 이름 안 보임(접힘)",
+      "source_image": "14.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G037",
+      "source_group_id": "G037",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "평행선과 삼각형 모양",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G037.I01",
+          "source_code": "BG-143",
+          "no_in_group": 1,
+          "name": "V자로 꺾인 직선이 있는 경우",
+          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G037.I02",
+          "source_code": "BG-144",
+          "no_in_group": 2,
+          "name": "한 점에서 만나는 세 직선과 그중 한 직선과 평행한 다른 직선이 주어지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G037.I03",
+          "source_code": "BG-145",
+          "no_in_group": 3,
+          "name": "두 평행선 사이에 X자로 교차하는 두 직선이 있는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G037.I04",
+          "source_code": "BG-146",
+          "no_in_group": 4,
+          "name": "두 각 사이의 비 또는 배수 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 23개 이름 안 보임(접힘)",
+      "source_image": "14.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G038",
+      "source_group_id": "G038",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "평행선과 꺾인 직선(1)",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G038.I01",
+          "source_code": "BG-147",
+          "no_in_group": 1,
+          "name": "각의 크기 사이의 배수 관계가 주어지지 않은 경우",
+          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G038.I02",
+          "source_code": "BG-148",
+          "no_in_group": 2,
+          "name": "각의 크기 사이의 배수 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 23개 이름 안 보임(접힘)",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G039",
+      "source_group_id": "G039",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "평행선과 꺾인 직선(2)",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G039.I01",
+          "source_code": "BG-149",
+          "no_in_group": 1,
+          "name": "평행선 사이의 꺾인 직선",
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 10개 이름 안 보임(접힘)",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G040",
+      "source_group_id": "G040",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "평행선과 꺾인 직선(3)",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G040.I01",
+          "source_code": "BG-150",
+          "no_in_group": 1,
+          "name": "평행선과 꺾인 직선",
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 이름 안 보임(접힘)",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G041",
+      "source_group_id": "G041",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "평행선에서의 활용(1)",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G041.I01",
+          "source_code": "BG-151",
+          "no_in_group": 1,
+          "name": "평행선 사이의 정삼각형",
+          "review_status": "원문 확인 / 29개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G041.I02",
+          "source_code": "BG-152",
+          "no_in_group": 2,
+          "name": "평행선 사이의 삼각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G041.I03",
+          "source_code": "BG-153",
+          "no_in_group": 3,
+          "name": "평행선과 사각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G041.I04",
+          "source_code": "BG-154",
+          "no_in_group": 4,
+          "name": "평행선과 꺾인 직선",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G041.I05",
+          "source_code": "BG-155",
+          "no_in_group": 5,
+          "name": "꺾인 직선이 평행을 이루는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 34,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 29개 이름 안 보임(접힘)",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G042",
+      "source_group_id": "G042",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "평행선에서의 활용(2)",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G042.I01",
+          "source_code": "BG-156",
+          "no_in_group": 1,
+          "name": "한 각의 크기 구하기",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G042.I02",
+          "source_code": "BG-157",
+          "no_in_group": 2,
+          "name": "여러 각의 크기의 합",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G042.I03",
+          "source_code": "BG-158",
+          "no_in_group": 3,
+          "name": "활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G043",
+      "source_group_id": "G043",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "평행선의 성질",
+      "중영역": "평행선의 성질",
+      "type_name": "종이를 접었을 때 각의 크기 구하기",
+      "topic_type_count": 7,
+      "topic_type_actual": 7,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G043.I01",
+          "source_code": "BG-159",
+          "no_in_group": 1,
+          "name": "직사각형 모양의 띠종이 1번 접기",
+          "review_status": "원문 확인 / 43개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G043.I02",
+          "source_code": "BG-160",
+          "no_in_group": 2,
+          "name": "직사각형 1번 접기: 안쪽으로 접기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G043.I03",
+          "source_code": "BG-161",
+          "no_in_group": 3,
+          "name": "평행사변형 접기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G043.I04",
+          "source_code": "BG-162",
+          "no_in_group": 4,
+          "name": "직사각형 1번 접기: 두 꼭짓점이 만나도록 접기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G043.I05",
+          "source_code": "BG-163",
+          "no_in_group": 5,
+          "name": "직사각형 1번 접기: 대각선을 접는 선으로 하여 접기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G043.I06",
+          "source_code": "BG-164",
+          "no_in_group": 6,
+          "name": "직사각형 2번 접기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G043.I07",
+          "source_code": "BG-165",
+          "no_in_group": 7,
+          "name": "직사각형 3번 접기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 50,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 43개 이름 안 보임(접힘)",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G044",
+      "source_group_id": "G044",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "작도",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G044.I01",
+          "source_code": "BG-166",
+          "no_in_group": 1,
+          "name": "작도의 개념과 작도에 사용되는 도구",
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G044.I02",
+          "source_code": "BG-167",
+          "no_in_group": 2,
+          "name": "작도의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G045",
+      "source_group_id": "G045",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "길이가 같은 선분의 작도",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G045.I01",
+          "source_code": "BG-168",
+          "no_in_group": 1,
+          "name": "길이가 같은 선분의 작도의 순서",
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G045.I02",
+          "source_code": "BG-169",
+          "no_in_group": 2,
+          "name": "길이가 같은 선분 작도에 사용되는 도구",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G045.I03",
+          "source_code": "BG-170",
+          "no_in_group": 3,
+          "name": "길이가 같은 선분 작도에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G046",
+      "source_group_id": "G046",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "크기가 같은 각의 작도",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G046.I01",
+          "source_code": "BG-171",
+          "no_in_group": 1,
+          "name": "크기가 같은 각을 작도하는 과정에 대한 설명",
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G046.I02",
+          "source_code": "BG-172",
+          "no_in_group": 2,
+          "name": "크기가 같은 각 작도의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G047",
+      "source_group_id": "G047",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "평행선의 작도(1) 동위각 이용",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G047.I01",
+          "source_code": "BG-173",
+          "no_in_group": 1,
+          "name": "동위각을 이용한 평행선 작도",
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G047.I02",
+          "source_code": "BG-174",
+          "no_in_group": 2,
+          "name": "평행선의 성질 (1)",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 이름 안 보임(접힘)",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G048",
+      "source_group_id": "G048",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "평행선의 작도(2) 엇각 이용",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G048.I01",
+          "source_code": "BG-175",
+          "no_in_group": 1,
+          "name": "평행선의 성질 (2)",
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 이름 안 보임(접힘)",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G049",
+      "source_group_id": "G049",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "삼각형의 대변과 대각",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G049.I01",
+          "source_code": "BG-176",
+          "no_in_group": 1,
+          "name": "삼각형의 대변",
+          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G049.I02",
+          "source_code": "BG-177",
+          "no_in_group": 2,
+          "name": "삼각형의 대각",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G049.I03",
+          "source_code": "BG-178",
+          "no_in_group": 3,
+          "name": "삼각형의 대변, 대각",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 2개 이름 안 보임(접힘)",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G050",
+      "source_group_id": "G050",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "삼각형의 세 변의 길이 사이의 관계",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G050.I01",
+          "source_code": "BG-179",
+          "no_in_group": 1,
+          "name": "삼각형의 작도 가능 여부",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G050.I02",
+          "source_code": "BG-180",
+          "no_in_group": 2,
+          "name": "삼각형이 될 수 있는 변의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G050.I03",
+          "source_code": "BG-181",
+          "no_in_group": 3,
+          "name": "삼각형의 개수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G050.I04",
+          "source_code": "BG-182",
+          "no_in_group": 4,
+          "name": "삼각형의 세 변의 길이 사이의 관계의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G051",
+      "source_group_id": "G051",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "삼각형의 작도",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G051.I01",
+          "source_code": "BG-183",
+          "no_in_group": 1,
+          "name": "삼각형의 작도 과정",
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G051.I02",
+          "source_code": "BG-184",
+          "no_in_group": 2,
+          "name": "삼각형의 작도 순서",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G051.I03",
+          "source_code": "BG-185",
+          "no_in_group": 3,
+          "name": "삼각형 작도하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 이름 안 보임(접힘)",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G052",
+      "source_group_id": "G052",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "삼각형이 정해질 조건",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G052.I01",
+          "source_code": "BG-186",
+          "no_in_group": 1,
+          "name": "삼각형이 정해지기 위한 추가 조건",
+          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G052.I02",
+          "source_code": "BG-187",
+          "no_in_group": 2,
+          "name": "삼각형이 정해질 조건",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G052.I03",
+          "source_code": "BG-188",
+          "no_in_group": 3,
+          "name": "삼각형의 개수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 17개 이름 안 보임(접힘)",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G053",
+      "source_group_id": "G053",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 작도",
+      "type_name": "삼각형이 하나로 정해지지 않는 경우",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G053.I01",
+          "source_code": "BG-189",
+          "no_in_group": 1,
+          "name": "삼각형이 하나로 정해지지 않는 경우의 이해",
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G053.I02",
+          "source_code": "BG-190",
+          "no_in_group": 2,
+          "name": "삼각형이 하나로 정해지지 않는 조건",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G053.I03",
+          "source_code": "BG-191",
+          "no_in_group": 3,
+          "name": "삼각형이 하나로 정해지기 위해 필요한 추가 조건",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G053.I04",
+          "source_code": "BG-192",
+          "no_in_group": 4,
+          "name": "삼각형이 하나로 정해지지 않는 경우의 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G053.I05",
+          "source_code": "BG-193",
+          "no_in_group": 5,
+          "name": "삼각형의 개수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 이름 안 보임(접힘)",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G054",
+      "source_group_id": "G054",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "도형의 합동",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G054.I01",
+          "source_code": "BG-194",
+          "no_in_group": 1,
+          "name": "항상 합동인 도형",
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G054.I02",
+          "source_code": "BG-195",
+          "no_in_group": 2,
+          "name": "합동인 도형 찾기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 1개 이름 안 보임(접힘)",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G055",
+      "source_group_id": "G055",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "합동인 도형의 성질",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G055.I01",
+          "source_code": "BG-196",
+          "no_in_group": 1,
+          "name": "삼각형의 대응각, 대응변, 대응점",
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G055.I02",
+          "source_code": "BG-197",
+          "no_in_group": 2,
+          "name": "사각형의 대응각, 대응변, 대응점",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G055.I03",
+          "source_code": "BG-198",
+          "no_in_group": 3,
+          "name": "합동인 두 도형에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 22개 이름 안 보임(접힘)",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G056",
+      "source_group_id": "G056",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "합동인 삼각형 찾기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G056.I01",
+          "source_code": "BG-199",
+          "no_in_group": 1,
+          "name": "주어진 삼각형과 합동인 삼각형 고르기",
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G056.I02",
+          "source_code": "BG-200",
+          "no_in_group": 2,
+          "name": "합동인 삼각형 찾기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 10개 이름 안 보임(접힘)",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G057",
+      "source_group_id": "G057",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "삼각형이 합동이 되기 위해 추가될 조건",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G057.I01",
+          "source_code": "BG-201",
+          "no_in_group": 1,
+          "name": "삼각형이 합동이 되기 위해 추가될 조건",
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 8개 이름 안 보임(접힘)",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G058",
+      "source_group_id": "G058",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "삼각형의 합동 조건(1) SSS합동",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G058.I01",
+          "source_code": "BG-202",
+          "no_in_group": 1,
+          "name": "SSS 합동임을 보이는 과정 빈칸 채우기",
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G058.I02",
+          "source_code": "BG-203",
+          "no_in_group": 2,
+          "name": "합동 조건 구하기 : SSS",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G058.I03",
+          "source_code": "BG-204",
+          "no_in_group": 3,
+          "name": "합동인 두 삼각형의 설명 : SSS",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G058.I04",
+          "source_code": "BG-205",
+          "no_in_group": 4,
+          "name": "합동의 활용 : SSS",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 8개 이름 안 보임(접힘)",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G059",
+      "source_group_id": "G059",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "삼각형의 합동 조건(2) SAS합동",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G059.I01",
+          "source_code": "BG-206",
+          "no_in_group": 1,
+          "name": "SAS 합동임을 보이는 과정 빈칸 채우기",
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G059.I02",
+          "source_code": "BG-207",
+          "no_in_group": 2,
+          "name": "합동 조건 구하기 : SAS",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G059.I03",
+          "source_code": "BG-208",
+          "no_in_group": 3,
+          "name": "합동의 증명 : SAS",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G059.I04",
+          "source_code": "BG-209",
+          "no_in_group": 4,
+          "name": "합동인 두 삼각형의 설명 : SAS",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G059.I05",
+          "source_code": "BG-210",
+          "no_in_group": 5,
+          "name": "합동의 활용 : SAS",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 22개 이름 안 보임(접힘)",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G060",
+      "source_group_id": "G060",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "삼각형의 합동 조건(3) ASA합동",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G060.I01",
+          "source_code": "BG-211",
+          "no_in_group": 1,
+          "name": "ASA 합동임을 보이는 과정 빈칸 채우기",
+          "review_status": "원문 확인 / 41개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G060.I02",
+          "source_code": "BG-212",
+          "no_in_group": 2,
+          "name": "합동 조건 구하기 : ASA",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G060.I03",
+          "source_code": "BG-213",
+          "no_in_group": 3,
+          "name": "합동의 증명 : ASA",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G060.I04",
+          "source_code": "BG-214",
+          "no_in_group": 4,
+          "name": "합동인 두 삼각형의 설명 : ASA",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G060.I05",
+          "source_code": "BG-215",
+          "no_in_group": 5,
+          "name": "합동의 활용 : ASA",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 46,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 41개 이름 안 보임(접힘)",
+      "source_image": "22.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G061",
+      "source_group_id": "G061",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "삼각형의 합동의 활용(1) 정삼각형",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G061.I01",
+          "source_code": "BG-216",
+          "no_in_group": 1,
+          "name": "정삼각형에서 합동의 증명 또는 합동 조건 구하기",
+          "review_status": "원문 확인 / 35개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G061.I02",
+          "source_code": "BG-217",
+          "no_in_group": 2,
+          "name": "정삼각형에서 합동의 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G061.I03",
+          "source_code": "BG-218",
+          "no_in_group": 3,
+          "name": "정삼각형에서 합동인 두 삼각형의 설명",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G061.I04",
+          "source_code": "BG-219",
+          "no_in_group": 4,
+          "name": "정삼각형에서 두 삼각형이 합동이 되기 위한 조건",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 39,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 35개 이름 안 보임(접힘)",
+      "source_image": "22.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.BG.G062",
+      "source_group_id": "G062",
+      "semester": "M1S2",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "chapter": "1-2 기본도형과 작도",
+      "대영역": "작도와 합동",
+      "중영역": "삼각형의 합동",
+      "type_name": "삼각형의 합동의 활용(2) 정사각형",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.BG.G062.I01",
+          "source_code": "BG-220",
+          "no_in_group": 1,
+          "name": "정사각형에서 합동의 증명 또는 합동 조건 구하기",
+          "review_status": "원문 확인 / 31개 이름 안 보임(접힘)"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G062.I02",
+          "source_code": "BG-221",
+          "no_in_group": 2,
+          "name": "정사각형에서 합동의 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G062.I03",
+          "source_code": "BG-222",
+          "no_in_group": 3,
+          "name": "같은 길이의 선분 또는 같은 크기의 각 찾기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.BG.G062.I04",
+          "source_code": "BG-223",
+          "no_in_group": 4,
+          "name": "정사각형에서 두 삼각형의 합동에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 35,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 31개 이름 안 보임(접힘)",
+      "source_image": "22.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    }
+  ]
+}

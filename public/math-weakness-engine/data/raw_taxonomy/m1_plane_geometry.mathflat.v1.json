@@ -1,0 +1,2040 @@
+{
+  "schema": "mathflat_problem_type.v1",
+  "version": "2026.07.22-mathflat-M1S2-pg",
+  "_note": "매쓰플랫 화면 스크린샷을 전사한 엑셀을 그대로 옮긴 원본 분류. 진단 단위는 \"유형 묶음\"(problem_types), 그 아래 topic_types가 엑셀 문항분류표를 세부코드·묶음 내 번호·검토상태까지 그대로 담는다. 한글 이름은 원문 그대로이며 다듬지 않았다. 데이터 저장만 한 상태이고 진단 로직에는 연결하지 않았다 — 기존 raw_taxonomy와 옛 진단 경로는 그대로 둔다.",
+  "_source": {
+    "origin": "1-2 평면도형의 성질.zip",
+    "workbook": "1-2 평면도형의 성질.xlsx",
+    "extracted_at": "2026-07-22",
+    "principle": "화면에 글자로 보이는 항목만 입력. 보이지 않는 이름은 생성하지 않음."
+  },
+  "_wiring": {
+    "concept_ids": "이름 유사도 0.85 이상인 legacy 섹션에서만 상속했다. 나머지는 null — 사람 확인 전까지 비워 둔다. 순서 대응 상속은 legacy 목록의 구성이 달라 폐기했다.",
+    "error_tags": "미배정 (null). 기존 유형에서 묶음 단위 상속 예정.",
+    "prerequisite_ids": "전부 비움 — 선생님이 직접 지정."
+  },
+  "semester": "M1S2",
+  "semester_name": "중1 2학기",
+  "unit_id": "M1_PLANE_GEOMETRY",
+  "unit_code": "PG",
+  "unit_name": "평면도형의 성질",
+  "chapter": "1-2 평면도형의 성질",
+  "status": "raw_not_wired",
+  "problem_type_count": 44,
+  "count_check": {
+    "expected": 44,
+    "actual": 44,
+    "match": true
+  },
+  "topic_type_total": 119,
+  "item_check": {
+    "declared_total": 119,
+    "stored_total": 119,
+    "match": true,
+    "mismatched_groups": []
+  },
+  "detail_type_total": 816,
+  "legacy_audit": {
+    "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
+    "match_confident": 0,
+    "match_candidate": 3,
+    "match_none": 41,
+    "legacy_section_count": 16,
+    "legacy_has_concept_ids": false,
+    "concept_ids_inherited": 0,
+    "legacy_unmatched": [
+      "다각형의 뜻과 구성 요소를 판별하기",
+      "다각형의 내각과 외각의 의미 및 크기 구하기",
+      "정다각형의 뜻과 성질 및 활용",
+      "삼각형의 내각의 합과 외각의 성질을 이용해 각 구하기",
+      "n각형의 내각의 합과 조건을 이용해 각 또는 다각형 구하기",
+      "변과 각 조건을 이용하여 삼각형을 작도하거나 작도 가능성을 판단하기",
+      "삼각형이 하나로 결정되는 조건과 결정되지 않는 조건 구분하기",
+      "SSS, SAS, ASA 합동조건을 판별하고 활용하기",
+      "원의 둘레와 넓이의 공식 적용 및 반지름 구하기",
+      "중심각과 반지름을 이용해 부채꼴의 호의 길이 구하기",
+      "중심각과 반지름을 이용해 부채꼴의 넓이 구하기",
+      "원·부채꼴·다각형이 결합된 색칠한 부분의 둘레 구하기",
+      "원·부채꼴·다각형이 결합된 색칠한 부분의 넓이 구하기"
+    ]
+  },
+  "problem_types": [
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G001",
+      "source_group_id": "G001",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형",
+      "type_name": "다각형",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G001.I01",
+          "source_code": "PG-001",
+          "no_in_group": 1,
+          "name": "다각형 찾기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G001.I02",
+          "source_code": "PG-002",
+          "no_in_group": 2,
+          "name": "다각형의 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G002",
+      "source_group_id": "G002",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형",
+      "type_name": "다각형의 내각과 외각",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G002.I01",
+          "source_code": "PG-003",
+          "no_in_group": 1,
+          "name": "다각형의 내각과 외각에 대한 설명",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G002.I02",
+          "source_code": "PG-004",
+          "no_in_group": 2,
+          "name": "다각형의 내각과 외각의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G002.I03",
+          "source_code": "PG-005",
+          "no_in_group": 3,
+          "name": "미지수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G003",
+      "source_group_id": "G003",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형",
+      "type_name": "정다각형",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G003.I01",
+          "source_code": "PG-006",
+          "no_in_group": 1,
+          "name": "알맞은 정다각형 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G003.I02",
+          "source_code": "PG-007",
+          "no_in_group": 2,
+          "name": "정다각형의 설명",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G003.I03",
+          "source_code": "PG-008",
+          "no_in_group": 3,
+          "name": "정다각형의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G004",
+      "source_group_id": "G004",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "삼각형의 내각과 외각",
+      "type_name": "삼각형의 세 내각의 크기의 합",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G004.I01",
+          "source_code": "PG-009",
+          "no_in_group": 1,
+          "name": "한 내각의 크기 또는 두 내각의 크기의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G004.I02",
+          "source_code": "PG-010",
+          "no_in_group": 2,
+          "name": "한 내각의 크기 또는 두 내각의 크기의 연산: 각의 크기 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G004.I03",
+          "source_code": "PG-011",
+          "no_in_group": 3,
+          "name": "세 내각의 크기의 합",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G005",
+      "source_group_id": "G005",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "삼각형의 내각과 외각",
+      "type_name": "삼각형의 내각과 외각의 관계",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G005.I01",
+          "source_code": "PG-012",
+          "no_in_group": 1,
+          "name": "삼각형의 내각과 외각의 관계의 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G005.I02",
+          "source_code": "PG-013",
+          "no_in_group": 2,
+          "name": "한 삼각형에서 삼각형의 내각과 외각의 관계를 이용하여 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G005.I03",
+          "source_code": "PG-014",
+          "no_in_group": 3,
+          "name": "삼각형 2개 이상이 붙어있는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G005.I04",
+          "source_code": "PG-015",
+          "no_in_group": 4,
+          "name": "각의 이등분선이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 48,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G006",
+      "source_group_id": "G006",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "삼각형의 내각과 외각",
+      "type_name": "삼각형의 내각의 크기의 합의 활용",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G006.I01",
+          "source_code": "PG-016",
+          "no_in_group": 1,
+          "name": "삼각형의 내각의 크기의 합의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G007",
+      "source_group_id": "G007",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "삼각형의 내각과 외각",
+      "type_name": "삼각형의 두 내각의 이등분선이 이루는 각",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G007.I01",
+          "source_code": "PG-017",
+          "no_in_group": 1,
+          "name": "한 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G007.I02",
+          "source_code": "PG-018",
+          "no_in_group": 2,
+          "name": "두 각의 크기의 합",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G008",
+      "source_group_id": "G008",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "삼각형의 내각과 외각",
+      "type_name": "삼각형의 두 외각의 이등분선",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G008.I01",
+          "source_code": "PG-019",
+          "no_in_group": 1,
+          "name": "삼각형의 두 외각의 이등분선",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G009",
+      "source_group_id": "G009",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "삼각형의 내각과 외각",
+      "type_name": "삼각형의 내각과 외각의 관계의 활용(1) 한 내각과 한 외각의 이등분선",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G009.I01",
+          "source_code": "PG-020",
+          "no_in_group": 1,
+          "name": "한 내각과 외각의 이등분선",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G009.I02",
+          "source_code": "PG-021",
+          "no_in_group": 2,
+          "name": "각 사이의 배수 관계",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G009.I03",
+          "source_code": "PG-022",
+          "no_in_group": 3,
+          "name": "한 내각과 외각의 삼등분선",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G010",
+      "source_group_id": "G010",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "삼각형의 내각과 외각",
+      "type_name": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G010.I01",
+          "source_code": "PG-023",
+          "no_in_group": 1,
+          "name": "이등변삼각형 1개",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G010.I02",
+          "source_code": "PG-024",
+          "no_in_group": 2,
+          "name": "삼각형 2개를 붙여 놓은 도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G010.I03",
+          "source_code": "PG-025",
+          "no_in_group": 3,
+          "name": "삼각형 3개 이상을 붙여 놓은 도형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G011",
+      "source_group_id": "G011",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "삼각형의 내각과 외각",
+      "type_name": "삼각형의 내각과 외각의 관계의 활용(3) 별 모양",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G011.I01",
+          "source_code": "PG-026",
+          "no_in_group": 1,
+          "name": "각 1개의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G011.I02",
+          "source_code": "PG-027",
+          "no_in_group": 2,
+          "name": "각 2개의 크기 또는 그 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G011.I03",
+          "source_code": "PG-028",
+          "no_in_group": 3,
+          "name": "각 3개 이상의 크기 또는 그 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G012",
+      "source_group_id": "G012",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "한 꼭짓점에서 그을 수 있는 대각선의 개수",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G012.I01",
+          "source_code": "PG-029",
+          "no_in_group": 1,
+          "name": "한 꼭짓점에서 그을 수 있는 대각선과 대각선으로 만들어지는 삼각형의 개수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G012.I02",
+          "source_code": "PG-030",
+          "no_in_group": 2,
+          "name": "대각선과 삼각형의 개수의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G012.I03",
+          "source_code": "PG-031",
+          "no_in_group": 3,
+          "name": "2개 이상의 다각형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_PG_RAW_005",
+      "legacy_task_group": "한 꼭짓점에서 그을 수 있는 대각선 수와 대각선의 총수 구하기",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.64,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G013",
+      "source_group_id": "G013",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "다각형의 대각선의 개수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G013.I01",
+          "source_code": "PG-032",
+          "no_in_group": 1,
+          "name": "다각형의 대각선의 개수의 기본",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G013.I02",
+          "source_code": "PG-033",
+          "no_in_group": 2,
+          "name": "다각형의 대각선의 개수의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G014",
+      "source_group_id": "G014",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "대각선의 개수가 주어질 때, 다각형 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G014.I01",
+          "source_code": "PG-034",
+          "no_in_group": 1,
+          "name": "다각형 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G014.I02",
+          "source_code": "PG-035",
+          "no_in_group": 2,
+          "name": "다각형 구하기의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G015",
+      "source_group_id": "G015",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "다각형의 내각의 크기의 합",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G015.I01",
+          "source_code": "PG-036",
+          "no_in_group": 1,
+          "name": "n각형의 내각의 크기의 합 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G015.I02",
+          "source_code": "PG-037",
+          "no_in_group": 2,
+          "name": "내각의 크기의 합이 주어진 다각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G015.I03",
+          "source_code": "PG-038",
+          "no_in_group": 3,
+          "name": "다각형을 유추할 수 있는 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G016",
+      "source_group_id": "G016",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "다각형의 내각의 크기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G016.I01",
+          "source_code": "PG-039",
+          "no_in_group": 1,
+          "name": "사각형의 내각의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G016.I02",
+          "source_code": "PG-040",
+          "no_in_group": 2,
+          "name": "n각형의 내각의 크기 (n>4)",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G017",
+      "source_group_id": "G017",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "다각형의 외각의 크기의 합",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G017.I01",
+          "source_code": "PG-041",
+          "no_in_group": 1,
+          "name": "모든 외각의 크기의 합",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G017.I02",
+          "source_code": "PG-042",
+          "no_in_group": 2,
+          "name": "일부 외각의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G017.I03",
+          "source_code": "PG-043",
+          "no_in_group": 3,
+          "name": "다각형의 외각의 크기의 합의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G018",
+      "source_group_id": "G018",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "다각형의 내각의 크기의 합의 활용",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G018.I01",
+          "source_code": "PG-044",
+          "no_in_group": 1,
+          "name": "다각형의 내각의 크기의 합을 활용한 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G018.I02",
+          "source_code": "PG-045",
+          "no_in_group": 2,
+          "name": "다각형을 겹쳐 놓은 도형에서 내각의 크기의 합 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G018.I03",
+          "source_code": "PG-046",
+          "no_in_group": 3,
+          "name": "다각형을 뚫고 있는 도형에서 내각의 크기의 합 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G018.I04",
+          "source_code": "PG-047",
+          "no_in_group": 4,
+          "name": "삼각형을 나란히 붙인 도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G018.I05",
+          "source_code": "PG-048",
+          "no_in_group": 5,
+          "name": "응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 38,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G019",
+      "source_group_id": "G019",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "다각형의 외각의 크기의 합의 활용",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G019.I01",
+          "source_code": "PG-049",
+          "no_in_group": 1,
+          "name": "다각형의 외각의 크기의 합의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_PG_RAW_007",
+      "legacy_task_group": "다각형의 외각의 합과 한 외각 크기 활용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.562,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G020",
+      "source_group_id": "G020",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "정다각형의 한 내각과 한 외각의 크기",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G020.I01",
+          "source_code": "PG-050",
+          "no_in_group": 1,
+          "name": "정n각형의 한 내각과 한 외각의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G020.I02",
+          "source_code": "PG-051",
+          "no_in_group": 2,
+          "name": "한 내각 또는 한 외각의 크기가 주어진 정다각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G020.I03",
+          "source_code": "PG-052",
+          "no_in_group": 3,
+          "name": "각의 크기 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G020.I04",
+          "source_code": "PG-053",
+          "no_in_group": 4,
+          "name": "한 내각 또는 한 외각의 크기 이외의 조건이 주어진 정다각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G020.I05",
+          "source_code": "PG-054",
+          "no_in_group": 5,
+          "name": "(종합) 정다각형의 한 내각과 한 외각의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G020.I06",
+          "source_code": "PG-055",
+          "no_in_group": 6,
+          "name": "정다각형의 한 내각과 한 외각의 크기의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 56,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M1_PG_RAW_008",
+      "legacy_task_group": "정다각형의 한 내각과 한 외각의 크기 및 활용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.833,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G021",
+      "source_group_id": "G021",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "정다각형의 한 내각의 크기의 활용(1) 정삼각형, 정사각형",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G021.I01",
+          "source_code": "PG-056",
+          "no_in_group": 1,
+          "name": "정삼각형의 한 내각의 크기의 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G021.I02",
+          "source_code": "PG-057",
+          "no_in_group": 2,
+          "name": "정삼각형과 정사각형의 한 내각의 크기의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G022",
+      "source_group_id": "G022",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G022.I01",
+          "source_code": "PG-058",
+          "no_in_group": 1,
+          "name": "1개의 정다각형에서 대각선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G022.I02",
+          "source_code": "PG-059",
+          "no_in_group": 2,
+          "name": "여러 도형이 붙어 있는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G023",
+      "source_group_id": "G023",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "다각형",
+      "중영역": "다각형의 내각과 외각",
+      "type_name": "정다각형의 한 외각의 크기의 활용",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G023.I01",
+          "source_code": "PG-060",
+          "no_in_group": 1,
+          "name": "정다각형의 한 외각의 크기의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G024",
+      "source_group_id": "G024",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "원과 부채꼴",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G024.I01",
+          "source_code": "PG-061",
+          "no_in_group": 1,
+          "name": "호, 현, 중심각, 부채꼴의 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G024.I02",
+          "source_code": "PG-062",
+          "no_in_group": 2,
+          "name": "호, 현의 길이/중심각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G024.I03",
+          "source_code": "PG-063",
+          "no_in_group": 3,
+          "name": "원과 부채꼴에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G025",
+      "source_group_id": "G025",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "중심각의 크기와 호의 길이(1)",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G025.I01",
+          "source_code": "PG-064",
+          "no_in_group": 1,
+          "name": "호의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G025.I02",
+          "source_code": "PG-065",
+          "no_in_group": 2,
+          "name": "중심각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G025.I03",
+          "source_code": "PG-066",
+          "no_in_group": 3,
+          "name": "활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G026",
+      "source_group_id": "G026",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "중심각의 크기와 호의 길이(2)",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G026.I01",
+          "source_code": "PG-067",
+          "no_in_group": 1,
+          "name": "호의 길이의 비가 주어진 경우 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G026.I02",
+          "source_code": "PG-068",
+          "no_in_group": 2,
+          "name": "중심각의 크기의 비를 구하여 호의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G026.I03",
+          "source_code": "PG-069",
+          "no_in_group": 3,
+          "name": "호의 길이 또는 중심각의 크기의 비의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 24,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G027",
+      "source_group_id": "G027",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "호의 길이 구하기(1) 평행선이 주어진 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G027.I01",
+          "source_code": "PG-070",
+          "no_in_group": 1,
+          "name": "호의 길이 또는 중심각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G027.I02",
+          "source_code": "PG-071",
+          "no_in_group": 2,
+          "name": "호의 길이의 비가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G028",
+      "source_group_id": "G028",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "호의 길이 구하기(2) 부채꼴이 주어지지 않은 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G028.I01",
+          "source_code": "PG-072",
+          "no_in_group": 1,
+          "name": "호의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G028.I02",
+          "source_code": "PG-073",
+          "no_in_group": 2,
+          "name": "호의 길이/각의 크기가 같은/다른 것 고르기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G029",
+      "source_group_id": "G029",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "호의 길이 구하기(3) 지름과 현의 연장선",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G029.I01",
+          "source_code": "PG-074",
+          "no_in_group": 1,
+          "name": "각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G029.I02",
+          "source_code": "PG-075",
+          "no_in_group": 2,
+          "name": "호의 길이 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G030",
+      "source_group_id": "G030",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "중심각의 크기와 부채꼴의 넓이",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G030.I01",
+          "source_code": "PG-076",
+          "no_in_group": 1,
+          "name": "중심각의 크기와 부채꼴의 넓이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G030.I02",
+          "source_code": "PG-077",
+          "no_in_group": 2,
+          "name": "비율 또는 배수 관계가 주어지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G030.I03",
+          "source_code": "PG-078",
+          "no_in_group": 3,
+          "name": "중심각의 크기와 부채꼴의 넓이의 응용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G030.I04",
+          "source_code": "PG-079",
+          "no_in_group": 4,
+          "name": "중심각의 크기와 부채꼴의 넓이의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G031",
+      "source_group_id": "G031",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "중심각의 크기와 현의 길이",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G031.I01",
+          "source_code": "PG-080",
+          "no_in_group": 1,
+          "name": "중심각의 크기와 현의 길이",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G032",
+      "source_group_id": "G032",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "원과 부채꼴",
+      "type_name": "중심각의 크기에 정비례하는 것",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G032.I01",
+          "source_code": "PG-081",
+          "no_in_group": 1,
+          "name": "같은 값을 갖는 도형 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G032.I02",
+          "source_code": "PG-082",
+          "no_in_group": 2,
+          "name": "두 값 사이의 관계",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G032.I03",
+          "source_code": "PG-083",
+          "no_in_group": 3,
+          "name": "중심각의 크기에 정비례하는 것의 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G033",
+      "source_group_id": "G033",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "원의 둘레의 길이와 넓이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G033.I01",
+          "source_code": "PG-084",
+          "no_in_group": 1,
+          "name": "원의 둘레의 길이와 넓이, 반지름의 길이 등 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G033.I02",
+          "source_code": "PG-085",
+          "no_in_group": 2,
+          "name": "원의 둘레의 길이와 넓이의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G034",
+      "source_group_id": "G034",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "부채꼴의 호의 길이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G034.I01",
+          "source_code": "PG-086",
+          "no_in_group": 1,
+          "name": "부채꼴의 호의 길이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G034.I02",
+          "source_code": "PG-087",
+          "no_in_group": 2,
+          "name": "부채꼴의 호의 길이의 응용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G034.I03",
+          "source_code": "PG-088",
+          "no_in_group": 3,
+          "name": "부채꼴의 호의 길이의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G035",
+      "source_group_id": "G035",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "부채꼴의 넓이",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G035.I01",
+          "source_code": "PG-089",
+          "no_in_group": 1,
+          "name": "부채꼴의 넓이 구하는 과정의 빈칸 채우기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G035.I02",
+          "source_code": "PG-090",
+          "no_in_group": 2,
+          "name": "부채꼴의 넓이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G035.I03",
+          "source_code": "PG-091",
+          "no_in_group": 3,
+          "name": "부채꼴의 넓이의 응용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G035.I04",
+          "source_code": "PG-092",
+          "no_in_group": 4,
+          "name": "부채꼴의 넓이의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 36,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G036",
+      "source_group_id": "G036",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "호의 길이를 이용한 부채꼴의 넓이",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G036.I01",
+          "source_code": "PG-093",
+          "no_in_group": 1,
+          "name": "호의 길이를 이용한 부채꼴의 넓이",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G037",
+      "source_group_id": "G037",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "색칠한 부분의 둘레의 길이",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G037.I01",
+          "source_code": "PG-094",
+          "no_in_group": 1,
+          "name": "부채꼴, 삼각형 (큰 형태에서의 분류)",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G037.I02",
+          "source_code": "PG-095",
+          "no_in_group": 2,
+          "name": "원 (큰 형태에서의 분류)",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G037.I03",
+          "source_code": "PG-096",
+          "no_in_group": 3,
+          "name": "사각형 (큰 형태에서의 분류)",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G037.I04",
+          "source_code": "PG-097",
+          "no_in_group": 4,
+          "name": "부채꼴과 원 (큰 형태에서의 분류)",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G038",
+      "source_group_id": "G038",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "색칠한 부분의 넓이 구하기(1)",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G038.I01",
+          "source_code": "PG-098",
+          "no_in_group": 1,
+          "name": "반원, 부채꼴 형태",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G038.I02",
+          "source_code": "PG-099",
+          "no_in_group": 2,
+          "name": "정사각형 또는 직사각형 형태",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G038.I03",
+          "source_code": "PG-100",
+          "no_in_group": 3,
+          "name": "원 형태",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G038.I04",
+          "source_code": "PG-101",
+          "no_in_group": 4,
+          "name": "다각형 형태 (정사각형, 직사각형 제외)",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G038.I05",
+          "source_code": "PG-102",
+          "no_in_group": 5,
+          "name": "직선과 곡선이 함께 있는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 60,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G039",
+      "source_group_id": "G039",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "색칠한 부분의 넓이 구하기(2)",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G039.I01",
+          "source_code": "PG-103",
+          "no_in_group": 1,
+          "name": "색칠한 부분의 넓이 구하기: 두 부분의 넓이가 같은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G039.I02",
+          "source_code": "PG-104",
+          "no_in_group": 2,
+          "name": "색칠한 부분의 넓이 구하기: 기본",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G039.I03",
+          "source_code": "PG-105",
+          "no_in_group": 3,
+          "name": "색칠한 부분의 넓이 구하기: 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G040",
+      "source_group_id": "G040",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "색칠한 부분의 넓이 구하기(3)",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G040.I01",
+          "source_code": "PG-106",
+          "no_in_group": 1,
+          "name": "원, 반원, 부채꼴 형태",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G040.I02",
+          "source_code": "PG-107",
+          "no_in_group": 2,
+          "name": "직사각형 형태",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G040.I03",
+          "source_code": "PG-108",
+          "no_in_group": 3,
+          "name": "소용돌이 포함",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G040.I04",
+          "source_code": "PG-109",
+          "no_in_group": 4,
+          "name": "삼각형을 회전한 도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G040.I05",
+          "source_code": "PG-110",
+          "no_in_group": 5,
+          "name": "활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G041",
+      "source_group_id": "G041",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "색칠한 부분의 넓이가 같은 경우",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G041.I01",
+          "source_code": "PG-111",
+          "no_in_group": 1,
+          "name": "색칠한 부분의 넓이가 같은 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G042",
+      "source_group_id": "G042",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "원을 묶은 끈의 길이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G042.I01",
+          "source_code": "PG-112",
+          "no_in_group": 1,
+          "name": "원을 묶은 끈의 길이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G042.I02",
+          "source_code": "PG-113",
+          "no_in_group": 2,
+          "name": "원을 묶은 끈의 길이의 비교",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G043",
+      "source_group_id": "G043",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "원이 지나간 자리의 넓이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G043.I01",
+          "source_code": "PG-114",
+          "no_in_group": 1,
+          "name": "도형의 외부에서 회전하는 원",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G043.I02",
+          "source_code": "PG-115",
+          "no_in_group": 2,
+          "name": "도형의 변 위를 원의 중심이 도는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G043.I03",
+          "source_code": "PG-116",
+          "no_in_group": 3,
+          "name": "도형의 내부에서 회전하는 원",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M1S2.PG.G044",
+      "source_group_id": "G044",
+      "semester": "M1S2",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "chapter": "1-2 평면도형의 성질",
+      "대영역": "원과 부채꼴",
+      "중영역": "부채꼴의 호의 길이와 넓이",
+      "type_name": "도형을 회전시켰을 때 점이 움직인 거리",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M1S2.PG.G044.I01",
+          "source_code": "PG-117",
+          "no_in_group": 1,
+          "name": "도형의 회전",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G044.I02",
+          "source_code": "PG-118",
+          "no_in_group": 2,
+          "name": "통들을 묶은 끈이 움직이는 거리",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M1S2.PG.G044.I03",
+          "source_code": "PG-119",
+          "no_in_group": 3,
+          "name": "직선 위에서의 도형의 회전",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    }
+  ]
+}

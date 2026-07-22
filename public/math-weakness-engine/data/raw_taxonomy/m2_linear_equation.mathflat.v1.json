@@ -1,0 +1,2604 @@
+{
+  "schema": "mathflat_problem_type.v1",
+  "version": "2026.07.22-mathflat-M2S1-eq",
+  "_note": "매쓰플랫 화면 스크린샷을 전사한 엑셀을 그대로 옮긴 원본 분류. 진단 단위는 \"유형 묶음\"(problem_types), 그 아래 topic_types가 엑셀 문항분류표를 세부코드·묶음 내 번호·검토상태까지 그대로 담는다. 한글 이름은 원문 그대로이며 다듬지 않았다. 데이터 저장만 한 상태이고 진단 로직에는 연결하지 않았다 — 기존 raw_taxonomy와 옛 진단 경로는 그대로 둔다.",
+  "_source": {
+    "origin": "2-1 방정식.zip",
+    "workbook": "2-1 방정식.xlsx",
+    "extracted_at": "2026-07-22",
+    "principle": "화면에 글자로 보이는 항목만 입력. 보이지 않는 이름은 생성하지 않음."
+  },
+  "_wiring": {
+    "concept_ids": "이름 유사도 0.85 이상인 legacy 섹션에서만 상속했다. 나머지는 null — 사람 확인 전까지 비워 둔다. 순서 대응 상속은 legacy 목록의 구성이 달라 폐기했다.",
+    "error_tags": "미배정 (null). 기존 유형에서 묶음 단위 상속 예정.",
+    "prerequisite_ids": "전부 비움 — 선생님이 직접 지정."
+  },
+  "semester": "M2S1",
+  "semester_name": "중2 1학기",
+  "unit_id": "M2_LINEAR_EQUATION",
+  "unit_code": "EQ",
+  "unit_name": "방정식",
+  "chapter": "2-1 방정식",
+  "status": "raw_not_wired",
+  "problem_type_count": 53,
+  "count_check": {
+    "expected": 53,
+    "actual": 53,
+    "match": true
+  },
+  "topic_type_total": 156,
+  "item_check": {
+    "declared_total": 156,
+    "stored_total": 156,
+    "match": true,
+    "mismatched_groups": []
+  },
+  "detail_type_total": 780,
+  "legacy_audit": {
+    "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
+    "match_confident": 34,
+    "match_candidate": 7,
+    "match_none": 12,
+    "legacy_section_count": 53,
+    "legacy_has_concept_ids": true,
+    "concept_ids_inherited": 34,
+    "legacy_unmatched": [
+      "연립방정식의 해 판단과 해 구하기",
+      "대입법 풀이",
+      "가감법 풀이",
+      "해 또는 해에 대한 조건",
+      "문자가 3개인 연립방정식",
+      "해와 조건식: 일차방정식 조건",
+      "해와 조건식: x,y 조건식",
+      "해가 무수히 많은 경우",
+      "해가 없는 경우",
+      "가격과 개수: 개수 구하기",
+      "가격과 개수: 가격 구하기",
+      "소금물의 농도 및 합금·식품 문제"
+    ]
+  },
+  "problem_types": [
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G001",
+      "source_group_id": "G001",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "일차방정식",
+      "type_name": "미지수가 2개인 일차방정식",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G001.I01",
+          "source_code": "EQ-001",
+          "no_in_group": 1,
+          "name": "미지수가 2개인 일차방정식의 판단",
+          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G001.I02",
+          "source_code": "EQ-002",
+          "no_in_group": 2,
+          "name": "미지수가 2개인 일차방정식이 되기 위한 조건",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G001.I03",
+          "source_code": "EQ-003",
+          "no_in_group": 3,
+          "name": "미지수가 2개인 일차방정식의 정리",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 접혀서 안 보임",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_001",
+      "legacy_task_group": "미지수가 2개인 일차방정식의 판단",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.8,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G002",
+      "source_group_id": "G002",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "일차방정식",
+      "type_name": "미지수가 2개인 일차방정식으로 나타내기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G002.I01",
+          "source_code": "EQ-004",
+          "no_in_group": 1,
+          "name": "미지수가 2개인 일차방정식으로의 표현",
+          "review_status": "원문 확인 / 19개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G002.I02",
+          "source_code": "EQ-005",
+          "no_in_group": 2,
+          "name": "응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 19개 접혀서 안 보임",
+      "source_image": "1.png",
+      "concept_ids": [
+        "M2_LE_C001",
+        "M2_LE_C006"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_002",
+      "legacy_task_group": "미지수가 2개인 일차방정식으로 나타내기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G003",
+      "source_group_id": "G003",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "일차방정식",
+      "type_name": "미지수가 2개인 일차방정식의 해",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G003.I01",
+          "source_code": "EQ-006",
+          "no_in_group": 1,
+          "name": "일차방정식의 해의 판단",
+          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G003.I02",
+          "source_code": "EQ-007",
+          "no_in_group": 2,
+          "name": "조건이 주어진 미지수를 포함한 일차방정식의 해",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 접혀서 안 보임",
+      "source_image": "2.png",
+      "concept_ids": [
+        "M2_LE_C003"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_003",
+      "legacy_task_group": "미지수가 2개인 일차방정식의 해",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G004",
+      "source_group_id": "G004",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "일차방정식",
+      "type_name": "미지수가 자연수인 일차방정식의 해 구하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G004.I01",
+          "source_code": "EQ-008",
+          "no_in_group": 1,
+          "name": "미지수가 자연수인 일차방정식의 해 구하기",
+          "review_status": "원문 확인 / 19개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G004.I02",
+          "source_code": "EQ-009",
+          "no_in_group": 2,
+          "name": "미지수의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G004.I03",
+          "source_code": "EQ-010",
+          "no_in_group": 3,
+          "name": "일차방정식의 해의 개수가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 19개 접혀서 안 보임",
+      "source_image": "2.png",
+      "concept_ids": [
+        "M2_LE_C004"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_004",
+      "legacy_task_group": "미지수가 자연수인 일차방정식의 해 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G005",
+      "source_group_id": "G005",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "일차방정식",
+      "type_name": "일차방정식의 해 또는 계수가 문자로 주어질 때",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G005.I01",
+          "source_code": "EQ-011",
+          "no_in_group": 1,
+          "name": "미지수 구하기",
+          "review_status": "원문 확인 / 24개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G005.I02",
+          "source_code": "EQ-012",
+          "no_in_group": 2,
+          "name": "해에 대한 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G005.I03",
+          "source_code": "EQ-013",
+          "no_in_group": 3,
+          "name": "다른 해 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G005.I04",
+          "source_code": "EQ-014",
+          "no_in_group": 4,
+          "name": "두 일차방정식이 주어지는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 24개 접혀서 안 보임",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_005",
+      "legacy_task_group": "해 또는 계수가 문자로 주어질 때",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.684,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G006",
+      "source_group_id": "G006",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "일차방정식",
+      "type_name": "미지수가 2개인 일차방정식의 활용",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G006.I01",
+          "source_code": "EQ-015",
+          "no_in_group": 1,
+          "name": "미지수가 2개인 일차방정식의 활용",
+          "review_status": "원문 확인 / 5개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G006.I02",
+          "source_code": "EQ-016",
+          "no_in_group": 2,
+          "name": "새로운 기호가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 5개 접혀서 안 보임",
+      "source_image": "3.png",
+      "concept_ids": [
+        "M2_LE_C006"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_006",
+      "legacy_task_group": "미지수가 2개인 일차방정식의 활용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G007",
+      "source_group_id": "G007",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "일차방정식",
+      "type_name": "일차방정식의 성질",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G007.I01",
+          "source_code": "EQ-017",
+          "no_in_group": 1,
+          "name": "일차방정식의 성질",
+          "review_status": "원문 확인 / 1개 접혀서 안 보임"
+        }
+      ],
+      "detail_type_count": 2,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 1개 접혀서 안 보임",
+      "source_image": "3.png",
+      "concept_ids": [
+        "M2_LE_C007"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_007",
+      "legacy_task_group": "일차방정식의 성질",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G008",
+      "source_group_id": "G008",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "연립일차방정식",
+      "type_name": "연립방정식 세우기",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G008.I01",
+          "source_code": "EQ-018",
+          "no_in_group": 1,
+          "name": "연립방정식 세우기",
+          "review_status": "원문 확인 / 14개 접혀서 안 보임"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 접혀서 안 보임",
+      "source_image": "3.png",
+      "concept_ids": [
+        "M2_LE_C008"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_008",
+      "legacy_task_group": "연립방정식 세우기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G009",
+      "source_group_id": "G009",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립일차방정식",
+      "중영역": "연립일차방정식",
+      "type_name": "연립방정식의 해",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G009.I01",
+          "source_code": "EQ-019",
+          "no_in_group": 1,
+          "name": "연립방정식의 해 판단",
+          "review_status": "원문 확인 / 5개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G009.I02",
+          "source_code": "EQ-020",
+          "no_in_group": 2,
+          "name": "연립방정식의 해 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 5개 접혀서 안 보임",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G010",
+      "source_group_id": "G010",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "연립방정식의 풀이(1) - 대입법",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G010.I01",
+          "source_code": "EQ-021",
+          "no_in_group": 1,
+          "name": "대입법을 이용한 풀이 과정",
+          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G010.I02",
+          "source_code": "EQ-022",
+          "no_in_group": 2,
+          "name": "연립방정식 풀기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G010.I03",
+          "source_code": "EQ-023",
+          "no_in_group": 3,
+          "name": "연립방정식의 미지수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 접혀서 안 보임",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G011",
+      "source_group_id": "G011",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "연립방정식의 풀이(2) - 가감법",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G011.I01",
+          "source_code": "EQ-024",
+          "no_in_group": 1,
+          "name": "가감법을 이용한 풀이 과정",
+          "review_status": "원문 확인 / 4개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G011.I02",
+          "source_code": "EQ-025",
+          "no_in_group": 2,
+          "name": "가감법의 이용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G011.I03",
+          "source_code": "EQ-026",
+          "no_in_group": 3,
+          "name": "연립방정식 풀기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G011.I04",
+          "source_code": "EQ-027",
+          "no_in_group": 4,
+          "name": "가감법을 이용한 연립방정식의 미지수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 접혀서 안 보임",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G012",
+      "source_group_id": "G012",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "연립방정식의 풀이",
+      "topic_type_count": 7,
+      "topic_type_actual": 7,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G012.I01",
+          "source_code": "EQ-028",
+          "no_in_group": 1,
+          "name": "연립방정식의 해 또는 해의 연산: 대입법 이용",
+          "review_status": "원문 확인 / 28개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G012.I02",
+          "source_code": "EQ-029",
+          "no_in_group": 2,
+          "name": "연립방정식의 해 구하기 또는 해의 연산: 가감법 이용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G012.I03",
+          "source_code": "EQ-030",
+          "no_in_group": 3,
+          "name": "표를 이용한 연립방정식의 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G012.I04",
+          "source_code": "EQ-031",
+          "no_in_group": 4,
+          "name": "지수를 이용한 연립방정식의 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G012.I05",
+          "source_code": "EQ-032",
+          "no_in_group": 5,
+          "name": "한 연립방정식을 이용한 다른 연립방정식의 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G012.I06",
+          "source_code": "EQ-033",
+          "no_in_group": 6,
+          "name": "문자가 3개인 연립방정식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G012.I07",
+          "source_code": "EQ-034",
+          "no_in_group": 7,
+          "name": "연립방정식의 풀이에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 35,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 28개 접혀서 안 보임",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G013",
+      "source_group_id": "G013",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "괄호가 있는 연립방정식의 풀이",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G013.I01",
+          "source_code": "EQ-035",
+          "no_in_group": 1,
+          "name": "괄호가 있는 연립방정식의 풀이",
+          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G013.I02",
+          "source_code": "EQ-036",
+          "no_in_group": 2,
+          "name": "괄호가 1개인 연립방정식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G013.I03",
+          "source_code": "EQ-037",
+          "no_in_group": 3,
+          "name": "괄호가 2개인 연립방정식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G013.I04",
+          "source_code": "EQ-038",
+          "no_in_group": 4,
+          "name": "괄호가 3개 이상인 연립방정식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G013.I05",
+          "source_code": "EQ-039",
+          "no_in_group": 5,
+          "name": "중괄호가 포함된 연립방정식",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 접혀서 안 보임",
+      "source_image": "5.png",
+      "concept_ids": [
+        "M2_LE_C012"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_014",
+      "legacy_task_group": "괄호가 있는 연립방정식의 풀이",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G014",
+      "source_group_id": "G014",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "계수가 분수인 연립방정식의 풀이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G014.I01",
+          "source_code": "EQ-040",
+          "no_in_group": 1,
+          "name": "연립방정식 풀기",
+          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G014.I02",
+          "source_code": "EQ-041",
+          "no_in_group": 2,
+          "name": "응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 접혀서 안 보임",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_015",
+      "legacy_task_group": "계수가 분수인 연립방정식",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.786,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G015",
+      "source_group_id": "G015",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "계수가 소수인 연립방정식의 풀이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G015.I01",
+          "source_code": "EQ-042",
+          "no_in_group": 1,
+          "name": "연립방정식 풀기",
+          "review_status": "원문 확인 / 14개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G015.I02",
+          "source_code": "EQ-043",
+          "no_in_group": 2,
+          "name": "연립방정식의 풀이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G015.I03",
+          "source_code": "EQ-044",
+          "no_in_group": 3,
+          "name": "같은 해를 가진 연립방정식 고르기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 접혀서 안 보임",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_016",
+      "legacy_task_group": "계수가 소수인 연립방정식",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.786,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G016",
+      "source_group_id": "G016",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "계수가 순환소수인 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G016.I01",
+          "source_code": "EQ-045",
+          "no_in_group": 1,
+          "name": "연립방정식의 풀이",
+          "review_status": "원문 확인 / 3개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G016.I02",
+          "source_code": "EQ-046",
+          "no_in_group": 2,
+          "name": "연립방정식의 해의 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 3개 접혀서 안 보임",
+      "source_image": "6.png",
+      "concept_ids": [
+        "M2_LE_C012"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_017",
+      "legacy_task_group": "계수가 순환소수인 경우",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G017",
+      "source_group_id": "G017",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "비례식을 포함한 연립방정식의 풀이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G017.I01",
+          "source_code": "EQ-047",
+          "no_in_group": 1,
+          "name": "연립방정식의 풀이",
+          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G017.I02",
+          "source_code": "EQ-048",
+          "no_in_group": 2,
+          "name": "연립방정식의 해의 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 접혀서 안 보임",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_018",
+      "legacy_task_group": "비례식 포함 연립방정식",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.667,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G018",
+      "source_group_id": "G018",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "분모에 문자가 있는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G018.I01",
+          "source_code": "EQ-049",
+          "no_in_group": 1,
+          "name": "두 문자에 대한 연립방정식",
+          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G018.I02",
+          "source_code": "EQ-050",
+          "no_in_group": 2,
+          "name": "세 문자에 대한 연립방정식",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 접혀서 안 보임",
+      "source_image": "6.png",
+      "concept_ids": [
+        "M2_LE_C013"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_019",
+      "legacy_task_group": "분모에 문자가 있는 경우",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G019",
+      "source_group_id": "G019",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "A=B=C 꼴의 방정식의 풀이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G019.I01",
+          "source_code": "EQ-051",
+          "no_in_group": 1,
+          "name": "C가 상수인 경우",
+          "review_status": "원문 확인 / 15개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G019.I02",
+          "source_code": "EQ-052",
+          "no_in_group": 2,
+          "name": "C가 식인 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 15개 접혀서 안 보임",
+      "source_image": "7.png",
+      "concept_ids": [
+        "M2_LE_C014"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_020",
+      "legacy_task_group": "A=B=C 꼴의 방정식 풀이",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 0.923,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G020",
+      "source_group_id": "G020",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "연립방정식의 해를 알 때, 미지수의 값 구하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G020.I01",
+          "source_code": "EQ-053",
+          "no_in_group": 1,
+          "name": "해의 일부가 주어진 경우",
+          "review_status": "원문 확인 / 23개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G020.I02",
+          "source_code": "EQ-054",
+          "no_in_group": 2,
+          "name": "해가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G020.I03",
+          "source_code": "EQ-055",
+          "no_in_group": 3,
+          "name": "해의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 23개 접혀서 안 보임",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_021",
+      "legacy_task_group": "해를 알 때 미지수 값 구하기",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.611,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G021",
+      "source_group_id": "G021",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "연립방정식의 해와 조건식(1) - 연립방정식의 해를 한 해로 갖는 일차방정식",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G021.I01",
+          "source_code": "EQ-056",
+          "no_in_group": 1,
+          "name": "미지수를 포함한 연립방정식",
+          "review_status": "원문 확인 / 21개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G021.I02",
+          "source_code": "EQ-057",
+          "no_in_group": 2,
+          "name": "미지수를 포함한 일차방정식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G021.I03",
+          "source_code": "EQ-058",
+          "no_in_group": 3,
+          "name": "미지수를 포함한 연립방정식과 일차방정식",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G021.I04",
+          "source_code": "EQ-059",
+          "no_in_group": 4,
+          "name": "연립방정식의 해를 한 해로 갖는 일차방정식",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 21개 접혀서 안 보임",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G022",
+      "source_group_id": "G022",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "연립방정식의 해와 조건식(2) - x, y에 관한 조건식",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G022.I01",
+          "source_code": "EQ-060",
+          "no_in_group": 1,
+          "name": "x, y값의 비 또는 배수 관계가 주어진 경우",
+          "review_status": "원문 확인 / 23개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G022.I02",
+          "source_code": "EQ-061",
+          "no_in_group": 2,
+          "name": "x, y값의 합 또는 차가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G022.I03",
+          "source_code": "EQ-062",
+          "no_in_group": 3,
+          "name": "x값과 y값 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G022.I04",
+          "source_code": "EQ-063",
+          "no_in_group": 4,
+          "name": "x, y의 (절댓)값이 같은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G022.I05",
+          "source_code": "EQ-064",
+          "no_in_group": 5,
+          "name": "새롭게 정의된 기호의 이용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G022.I06",
+          "source_code": "EQ-065",
+          "no_in_group": 6,
+          "name": "(종합) x값과 y값의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 23개 접혀서 안 보임",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G023",
+      "source_group_id": "G023",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "계수 또는 상수항을 잘못 보고 구한 해",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G023.I01",
+          "source_code": "EQ-066",
+          "no_in_group": 1,
+          "name": "x의 계수 또는 y의 계수 또는 상수항을 잘못 본 경우",
+          "review_status": "원문 확인 / 13개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G023.I02",
+          "source_code": "EQ-067",
+          "no_in_group": 2,
+          "name": "미지수를 서로 바꾸어 본 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 13개 접혀서 안 보임",
+      "source_image": "8.png",
+      "concept_ids": [
+        "M2_LE_C018"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_024",
+      "legacy_task_group": "계수 또는 상수항을 잘못 보고 구한 해",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G024",
+      "source_group_id": "G024",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "해가 서로 같은 두 연립방정식에서 미지수의 값 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G024.I01",
+          "source_code": "EQ-068",
+          "no_in_group": 1,
+          "name": "해가 서로 같은 경우",
+          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G024.I02",
+          "source_code": "EQ-069",
+          "no_in_group": 2,
+          "name": "해 사이에 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 접혀서 안 보임",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_025",
+      "legacy_task_group": "해가 같은 두 연립방정식에서 미지수 값",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.727,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G025",
+      "source_group_id": "G025",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "해가 특수한 연립방정식(1) - 해가 무수히 많은 경우",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G025.I01",
+          "source_code": "EQ-070",
+          "no_in_group": 1,
+          "name": "연립방정식의 해 구하기",
+          "review_status": "원문 확인 / 14개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G025.I02",
+          "source_code": "EQ-071",
+          "no_in_group": 2,
+          "name": "연립방정식의 미지수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G025.I03",
+          "source_code": "EQ-072",
+          "no_in_group": 3,
+          "name": "해가 무수히 많은 연립방정식 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G025.I04",
+          "source_code": "EQ-073",
+          "no_in_group": 4,
+          "name": "연립방정식의 미지수를 이용한 일차방정식",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 14개 접혀서 안 보임",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G026",
+      "source_group_id": "G026",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 풀이",
+      "중영역": "여러 가지 연립방정식의 풀이",
+      "type_name": "해가 특수한 연립방정식(2) - 해가 없는 경우",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G026.I01",
+          "source_code": "EQ-074",
+          "no_in_group": 1,
+          "name": "연립방정식의 해 구하기",
+          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G026.I02",
+          "source_code": "EQ-075",
+          "no_in_group": 2,
+          "name": "해가 없는 연립방정식 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G026.I03",
+          "source_code": "EQ-076",
+          "no_in_group": 3,
+          "name": "연립방정식의 미지수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G026.I04",
+          "source_code": "EQ-077",
+          "no_in_group": 4,
+          "name": "해가 없는 연립방정식의 미지수의 조건",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G026.I05",
+          "source_code": "EQ-078",
+          "no_in_group": 5,
+          "name": "연립방정식에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 접혀서 안 보임",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G027",
+      "source_group_id": "G027",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "수의 연산에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G027.I01",
+          "source_code": "EQ-079",
+          "no_in_group": 1,
+          "name": "연립방정식을 이용한 두 수를 구하는 과정",
+          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G027.I02",
+          "source_code": "EQ-080",
+          "no_in_group": 2,
+          "name": "연립방정식을 이용한 두 수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 접혀서 안 보임",
+      "source_image": "10.png",
+      "concept_ids": [
+        "M2_LE_C019"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_028",
+      "legacy_task_group": "수의 연산 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G028",
+      "source_group_id": "G028",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "두 자리 또는 세 자리 자연수에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G028.I01",
+          "source_code": "EQ-081",
+          "no_in_group": 1,
+          "name": "연립방정식을 이용하여 수 구하기",
+          "review_status": "원문 확인 / 16개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G028.I02",
+          "source_code": "EQ-082",
+          "no_in_group": 2,
+          "name": "연립방정식을 이용하여 수 구하기: 실생활에의 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G028.I03",
+          "source_code": "EQ-083",
+          "no_in_group": 3,
+          "name": "연립방정식을 이용하여 수의 특정 자리 숫자 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 16개 접혀서 안 보임",
+      "source_image": "10.png",
+      "concept_ids": [
+        "M2_LE_C020"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_029",
+      "legacy_task_group": "두 자리 또는 세 자리 자연수 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G029",
+      "source_group_id": "G029",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "평균에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G029.I01",
+          "source_code": "EQ-084",
+          "no_in_group": 1,
+          "name": "두 그룹에 대한 평균",
+          "review_status": "원문 확인 / 10개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G029.I02",
+          "source_code": "EQ-085",
+          "no_in_group": 2,
+          "name": "세 그룹에 대한 평균",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G029.I03",
+          "source_code": "EQ-086",
+          "no_in_group": 3,
+          "name": "평균에 대한 문제: 시험 점수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 10개 접혀서 안 보임",
+      "source_image": "10.png",
+      "concept_ids": [
+        "M2_LE_C021"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_030",
+      "legacy_task_group": "평균에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G030",
+      "source_group_id": "G030",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "가격과 개수에 대한 문제(1) - 개수 구하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G030.I01",
+          "source_code": "EQ-087",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 18개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G030.I02",
+          "source_code": "EQ-088",
+          "no_in_group": 2,
+          "name": "문장으로 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G030.I03",
+          "source_code": "EQ-089",
+          "no_in_group": 3,
+          "name": "표 또는 그림이 함께 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 18개 접혀서 안 보임",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G031",
+      "source_group_id": "G031",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "가격과 개수에 대한 문제(2) - 가격 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G031.I01",
+          "source_code": "EQ-090",
+          "no_in_group": 1,
+          "name": "연립방정식을 이용한 물건의 가격 구하기: 문장으로 주어진 경우",
+          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G031.I02",
+          "source_code": "EQ-091",
+          "no_in_group": 2,
+          "name": "연립방정식을 이용한 물건의 가격 구하기: 표 또는 그림이 함께 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 접혀서 안 보임",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G032",
+      "source_group_id": "G032",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "여러 가지 개수에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G032.I01",
+          "source_code": "EQ-092",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 26개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G032.I02",
+          "source_code": "EQ-093",
+          "no_in_group": 2,
+          "name": "연립방정식을 이용한 개수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 26개 접혀서 안 보임",
+      "source_image": "11.png",
+      "concept_ids": [
+        "M2_LE_C023"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_033",
+      "legacy_task_group": "여러 가지 개수 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G033",
+      "source_group_id": "G033",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "나이에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G033.I01",
+          "source_code": "EQ-094",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 18개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G033.I02",
+          "source_code": "EQ-095",
+          "no_in_group": 2,
+          "name": "합 또는 차가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G033.I03",
+          "source_code": "EQ-096",
+          "no_in_group": 3,
+          "name": "배수 관계가 포함된 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 18개 접혀서 안 보임",
+      "source_image": "11.png",
+      "concept_ids": [
+        "M2_LE_C024"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_034",
+      "legacy_task_group": "나이에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G034",
+      "source_group_id": "G034",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "비율에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G034.I01",
+          "source_code": "EQ-097",
+          "no_in_group": 1,
+          "name": "분수로 주어진 경우",
+          "review_status": "원문 확인 / 15개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G034.I02",
+          "source_code": "EQ-098",
+          "no_in_group": 2,
+          "name": "퍼센트로 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G034.I03",
+          "source_code": "EQ-099",
+          "no_in_group": 3,
+          "name": "비가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 15개 접혀서 안 보임",
+      "source_image": "12.png",
+      "concept_ids": [
+        "M2_LE_C025"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_035",
+      "legacy_task_group": "비율에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G035",
+      "source_group_id": "G035",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "끈의 길이에 대한 문제",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G035.I01",
+          "source_code": "EQ-100",
+          "no_in_group": 1,
+          "name": "끈을 나누는 경우",
+          "review_status": "원문 확인 / 1개 접혀서 안 보임"
+        }
+      ],
+      "detail_type_count": 2,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 1개 접혀서 안 보임",
+      "source_image": "12.png",
+      "concept_ids": [
+        "M2_LE_C026"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_036",
+      "legacy_task_group": "끈의 길이에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G036",
+      "source_group_id": "G036",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "도형에 대한 문제",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G036.I01",
+          "source_code": "EQ-101",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 17개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G036.I02",
+          "source_code": "EQ-102",
+          "no_in_group": 2,
+          "name": "변의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G036.I03",
+          "source_code": "EQ-103",
+          "no_in_group": 3,
+          "name": "넓이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G036.I04",
+          "source_code": "EQ-104",
+          "no_in_group": 4,
+          "name": "사각형 여러 개로 만든 직사각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G036.I05",
+          "source_code": "EQ-105",
+          "no_in_group": 5,
+          "name": "각도 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 17개 접혀서 안 보임",
+      "source_image": "12.png",
+      "concept_ids": [
+        "M2_LE_C027"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_037",
+      "legacy_task_group": "도형에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G037",
+      "source_group_id": "G037",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "득점, 감점에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G037.I01",
+          "source_code": "EQ-106",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G037.I02",
+          "source_code": "EQ-107",
+          "no_in_group": 2,
+          "name": "득점과 감점이 있는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G037.I03",
+          "source_code": "EQ-108",
+          "no_in_group": 3,
+          "name": "득점만 있는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 접혀서 안 보임",
+      "source_image": "13.png",
+      "concept_ids": [
+        "M2_LE_C028"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_038",
+      "legacy_task_group": "득점, 감점에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G038",
+      "source_group_id": "G038",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "분배에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G038.I01",
+          "source_code": "EQ-109",
+          "no_in_group": 1,
+          "name": "연립방정식을 이용한 분배: 문자 2개",
+          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G038.I02",
+          "source_code": "EQ-110",
+          "no_in_group": 2,
+          "name": "연립방정식을 이용한 분배: 문자 3개",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 접혀서 안 보임",
+      "source_image": "13.png",
+      "concept_ids": [
+        "M2_LE_C029"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_039",
+      "legacy_task_group": "분배에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G039",
+      "source_group_id": "G039",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "계단에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G039.I01",
+          "source_code": "EQ-111",
+          "no_in_group": 1,
+          "name": "비기는 경우를 제외",
+          "review_status": "원문 확인 / 4개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G039.I02",
+          "source_code": "EQ-112",
+          "no_in_group": 2,
+          "name": "비기는 경우 포함",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 접혀서 안 보임",
+      "source_image": "13.png",
+      "concept_ids": [
+        "M2_LE_C030"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_040",
+      "legacy_task_group": "계단에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G040",
+      "source_group_id": "G040",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "증가, 감소에 대한 문제",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G040.I01",
+          "source_code": "EQ-113",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 18개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G040.I02",
+          "source_code": "EQ-114",
+          "no_in_group": 2,
+          "name": "두 품목간 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G040.I03",
+          "source_code": "EQ-115",
+          "no_in_group": 3,
+          "name": "두 그룹의 사람 수 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G040.I04",
+          "source_code": "EQ-116",
+          "no_in_group": 4,
+          "name": "두 값의 비교",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 18개 접혀서 안 보임",
+      "source_image": "13.png",
+      "concept_ids": [
+        "M2_LE_C031"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_041",
+      "legacy_task_group": "증가, 감소에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G041",
+      "source_group_id": "G041",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "이익, 할인에 대한 문제",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G041.I01",
+          "source_code": "EQ-117",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G041.I02",
+          "source_code": "EQ-118",
+          "no_in_group": 2,
+          "name": "표가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G041.I03",
+          "source_code": "EQ-119",
+          "no_in_group": 3,
+          "name": "이익률이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G041.I04",
+          "source_code": "EQ-120",
+          "no_in_group": 4,
+          "name": "할인을 포함하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 접혀서 안 보임",
+      "source_image": "14.png",
+      "concept_ids": [
+        "M2_LE_C032"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_042",
+      "legacy_task_group": "이익, 할인에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G042",
+      "source_group_id": "G042",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "일에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G042.I01",
+          "source_code": "EQ-121",
+          "no_in_group": 1,
+          "name": "두 사람이 각자 일하는 경우",
+          "review_status": "원문 확인 / 15개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G042.I02",
+          "source_code": "EQ-122",
+          "no_in_group": 2,
+          "name": "동시에 일하는 시간을 포함한 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 15개 접혀서 안 보임",
+      "source_image": "14.png",
+      "concept_ids": [
+        "M2_LE_C033"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_043",
+      "legacy_task_group": "일에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G043",
+      "source_group_id": "G043",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(1)",
+      "type_name": "저울(무게)에 대한 문제",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G043.I01",
+          "source_code": "EQ-123",
+          "no_in_group": 1,
+          "name": "연립방정식을 이용한 무게",
+          "review_status": "원문 확인 / 접힌 항목 없음"
+        }
+      ],
+      "detail_type_count": 1,
+      "detail_types": null,
+      "detail_types_note": "세부유형  매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "14.png",
+      "concept_ids": [
+        "M2_LE_C034"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_044",
+      "legacy_task_group": "저울(무게)에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G044",
+      "source_group_id": "G044",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "도중에 속력이 바뀌는 문제",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G044.I01",
+          "source_code": "EQ-124",
+          "no_in_group": 1,
+          "name": "빈칸 채우기",
+          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G044.I02",
+          "source_code": "EQ-125",
+          "no_in_group": 2,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G044.I03",
+          "source_code": "EQ-126",
+          "no_in_group": 3,
+          "name": "거리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G044.I04",
+          "source_code": "EQ-127",
+          "no_in_group": 4,
+          "name": "속력 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G044.I05",
+          "source_code": "EQ-128",
+          "no_in_group": 5,
+          "name": "쉬는 시간이 있는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 접혀서 안 보임",
+      "source_image": "15.png",
+      "concept_ids": [
+        "M2_LE_C035",
+        "M2_LE_C036"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_045",
+      "legacy_task_group": "도중에 속력이 바뀌는 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G045",
+      "source_group_id": "G045",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "왕복에 대한 문제",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G045.I01",
+          "source_code": "EQ-129",
+          "no_in_group": 1,
+          "name": "연립방정식을 이용한 왕복의 빈칸 채우기",
+          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G045.I02",
+          "source_code": "EQ-130",
+          "no_in_group": 2,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G045.I03",
+          "source_code": "EQ-131",
+          "no_in_group": 3,
+          "name": "거리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G045.I04",
+          "source_code": "EQ-132",
+          "no_in_group": 4,
+          "name": "시간 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G045.I05",
+          "source_code": "EQ-133",
+          "no_in_group": 5,
+          "name": "속력 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 11개 접혀서 안 보임",
+      "source_image": "15.png",
+      "concept_ids": [
+        "M2_LE_C035",
+        "M2_LE_C036"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_046",
+      "legacy_task_group": "왕복에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G046",
+      "source_group_id": "G046",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "마주 보고 동시에 출발하는 문제",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G046.I01",
+          "source_code": "EQ-134",
+          "no_in_group": 1,
+          "name": "거리 구하기",
+          "review_status": "원문 확인 / 5개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G046.I02",
+          "source_code": "EQ-135",
+          "no_in_group": 2,
+          "name": "시간 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G046.I03",
+          "source_code": "EQ-136",
+          "no_in_group": 3,
+          "name": "속력 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G046.I04",
+          "source_code": "EQ-137",
+          "no_in_group": 4,
+          "name": "서로 다른 시각에 출발하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 5개 접혀서 안 보임",
+      "source_image": "16.png",
+      "concept_ids": [
+        "M2_LE_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_047",
+      "legacy_task_group": "마주 보고 동시에 출발하는 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G047",
+      "source_group_id": "G047",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "같은 방향으로 출발하여 만나는 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G047.I01",
+          "source_code": "EQ-138",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 8개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G047.I02",
+          "source_code": "EQ-139",
+          "no_in_group": 2,
+          "name": "소요시간 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G047.I03",
+          "source_code": "EQ-140",
+          "no_in_group": 3,
+          "name": "거리 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 8개 접혀서 안 보임",
+      "source_image": "16.png",
+      "concept_ids": [
+        "M2_LE_C035",
+        "M2_LE_C036"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_048",
+      "legacy_task_group": "같은 방향으로 출발하여 만나는 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G048",
+      "source_group_id": "G048",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "트랙을 도는 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G048.I01",
+          "source_code": "EQ-141",
+          "no_in_group": 1,
+          "name": "같은 방향과 반대 방향으로 도는 경우",
+          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G048.I02",
+          "source_code": "EQ-142",
+          "no_in_group": 2,
+          "name": "서로 반대 방향으로 도는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 12개 접혀서 안 보임",
+      "source_image": "16.png",
+      "concept_ids": [
+        "M2_LE_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_049",
+      "legacy_task_group": "트랙을 도는 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G049",
+      "source_group_id": "G049",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "강물에 대한 문제",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G049.I01",
+          "source_code": "EQ-143",
+          "no_in_group": 1,
+          "name": "속력 구하기",
+          "review_status": "원문 확인 / 4개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G049.I02",
+          "source_code": "EQ-144",
+          "no_in_group": 2,
+          "name": "거리 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G049.I03",
+          "source_code": "EQ-145",
+          "no_in_group": 3,
+          "name": "소요 시간 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 4개 접혀서 안 보임",
+      "source_image": "16.png",
+      "concept_ids": [
+        "M2_LE_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_050",
+      "legacy_task_group": "강물에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G050",
+      "source_group_id": "G050",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "기차에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G050.I01",
+          "source_code": "EQ-146",
+          "no_in_group": 1,
+          "name": "기차의 터널 통과에 대한 문제 (기본)",
+          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G050.I02",
+          "source_code": "EQ-147",
+          "no_in_group": 2,
+          "name": "속력 또는 길이에 대한 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 6개 접혀서 안 보임",
+      "source_image": "17.png",
+      "concept_ids": [
+        "M2_LE_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_051",
+      "legacy_task_group": "기차에 대한 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G051",
+      "source_group_id": "G051",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "소금물 또는 소금의 양을 구하는 문제",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G051.I01",
+          "source_code": "EQ-148",
+          "no_in_group": 1,
+          "name": "연립방정식으로 나타내기",
+          "review_status": "원문 확인 / 15개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G051.I02",
+          "source_code": "EQ-149",
+          "no_in_group": 2,
+          "name": "두 소금물의 혼합",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G051.I03",
+          "source_code": "EQ-150",
+          "no_in_group": 3,
+          "name": "물 또는 소금 추가",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G051.I04",
+          "source_code": "EQ-151",
+          "no_in_group": 4,
+          "name": "소금물의 일부를 덜어낸 후 다른 소금물과 혼합",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G051.I05",
+          "source_code": "EQ-152",
+          "no_in_group": 5,
+          "name": "두 소금물을 혼합한 뒤 물을 증발 또는 추가 투입",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 15개 접혀서 안 보임",
+      "source_image": "17.png",
+      "concept_ids": [
+        "M2_LE_C036"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_LE_RAW_052",
+      "legacy_task_group": "소금물 또는 소금의 양을 구하는 문제",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G052",
+      "source_group_id": "G052",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "소금물의 농도 구하는 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G052.I01",
+          "source_code": "EQ-153",
+          "no_in_group": 1,
+          "name": "두 소금물의 혼합물의 농도",
+          "review_status": "원문 확인 / 7개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G052.I02",
+          "source_code": "EQ-154",
+          "no_in_group": 2,
+          "name": "두 소금물을 서로 바꾸어 혼합하는 경우의 농도",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 7개 접혀서 안 보임",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S1.EQ.G053",
+      "source_group_id": "G053",
+      "semester": "M2S1",
+      "unit_id": "M2_LINEAR_EQUATION",
+      "chapter": "2-1 방정식",
+      "대영역": "연립방정식의 활용",
+      "중영역": "연립방정식의 활용(2)",
+      "type_name": "합금, 식품에 대한 문제",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S1.EQ.G053.I01",
+          "source_code": "EQ-155",
+          "no_in_group": 1,
+          "name": "합금에 대한 문제",
+          "review_status": "원문 확인 / 8개 접혀서 안 보임"
+        },
+        {
+          "item_id": "MPLAT.M2S1.EQ.G053.I02",
+          "source_code": "EQ-156",
+          "no_in_group": 2,
+          "name": "식품에 대한 문제",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "원문 확인 / 8개 접혀서 안 보임",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    }
+  ]
+}
