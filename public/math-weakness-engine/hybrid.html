@@ -84,6 +84,12 @@ ol.chain::before{content:"";position:absolute;left:9px;top:12px;bottom:22px;widt
 .chain-depth{display:flex;gap:8px;align-items:baseline;color:var(--mw-muted);font-size:13px;margin-top:16px;padding-top:14px;border-top:1px solid var(--mw-line)}
 .chain-depth b{color:var(--mw-ink);font-size:15px}
 @media(max-width:600px){.site-shell{padding:24px 16px 8px}.hero h1{font-size:25px}.intake{padding:22px 18px}.flow span{font-size:11.5px;padding:8px 5px}}
+/* 상위 3개만 펼치고 나머지는 접는다. 접힌 것도 있다는 게 보여야 눌러본다. */
+.more-wrap{grid-column:1/-1;margin-top:2px}
+.more-wrap .teacher-raw{margin:0;background:transparent;border:0;padding:0}
+.more-wrap summary{font-weight:700;font-size:13.5px;color:#475569;padding:8px 2px}
+.more-inner{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}
+@media print{.more-wrap details{display:block}.more-wrap details>summary{display:none}.more-inner{display:grid !important}}
 /* 분수는 위아래로 쌓는다. 저학년도 보는 화면이라 1/3 평문보다 눈에 익다. */
 .mfrac{display:inline-flex;flex-direction:column;vertical-align:-0.45em;text-align:center;margin:0 .14em}
 .mnum{display:block;padding:0 .28em;border-bottom:1.4px solid currentColor;line-height:1.2}
@@ -153,8 +159,9 @@ ol.chain::before{content:"";position:absolute;left:9px;top:12px;bottom:22px;widt
   <button type="button" id="analyze_btn" class="primary-action">1차 진단 시작</button>
   <p class="after-note">보강 문항과 PDF는 진단 결과 확인 후 생성합니다.</p>
   <div class="next-actions">
+    <button type="button" id="result_pdf_btn" disabled>진단 결과 PDF 저장</button>
     <button type="button" id="generate_vq_btn" disabled>2차 보강 문제 생성</button>
-    <button type="button" id="student_pdf_top_btn" disabled>학생용 PDF 열기/저장</button>
+    <button type="button" id="student_pdf_top_btn" disabled>보강 문항 PDF</button>
   </div>
 </section>
 
@@ -431,12 +438,12 @@ ol.chain::before{content:"";position:absolute;left:9px;top:12px;bottom:22px;widt
 })();
 </script>
 
-<script src="assets/algebra_master_matcher.js?v=patch319"></script>
-<script src="assets/math_weakness_engine.js?v=patch319"></script>
-<script src="assets/math_weakness_evidence_review.js?v=patch319"></script>
-<script src="assets/math_ai_bridge_client.js?v=patch319"></script>
-<script src="assets/math_verification_flow.js?v=patch319"></script>
-<script src="assets/math_hybrid_report_renderer.js?v=patch319"></script>
+<script src="assets/algebra_master_matcher.js?v=patch320"></script>
+<script src="assets/math_weakness_engine.js?v=patch320"></script>
+<script src="assets/math_weakness_evidence_review.js?v=patch320"></script>
+<script src="assets/math_ai_bridge_client.js?v=patch320"></script>
+<script src="assets/math_verification_flow.js?v=patch320"></script>
+<script src="assets/math_hybrid_report_renderer.js?v=patch320"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
   const $ = (s) => document.querySelector(s);
@@ -605,6 +612,38 @@ window.addEventListener('DOMContentLoaded', () => {
       </body></html>`;
   }
 
+  // 화면에 그려진 결과를 그대로 인쇄창에 옮긴다. 별도 레이아웃을 다시 만들면 화면과
+  // 인쇄본이 갈라져 한쪽만 고치는 일이 생긴다. 접어둔 항목은 인쇄에서 모두 펼친다.
+  function openResultPdf() {
+    if (!state.extraction) { alert('먼저 1차 진단을 실행하세요.'); return; }
+    const w = window.open('', '_blank');
+    if (!w) { alert('팝업이 차단되었습니다. 브라우저에서 팝업 허용 후 다시 눌러주세요.'); return; }
+    const name = compactText($('#student_name')?.value) || '학생';
+    const scopeLabel = compactText(scopeMode() === 'full' ? '수능·모의고사(전체 범위)' : $('#scope_semester')?.value) || '';
+    const today = new Date().toLocaleDateString('ko-KR');
+    const styles = [...document.querySelectorAll('style')].map(s => s.textContent).join('\n');
+    w.document.open();
+    w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>${esc(name)} 수학 진단 결과</title><style>${styles}
+body{margin:22px;background:#fff}
+.pdf-head{border-bottom:2px solid var(--mw-brand,#17493f);padding-bottom:12px;margin-bottom:18px}
+.pdf-head h1{margin:0 0 6px;font-size:22px}
+.pdf-head .meta{color:#64748b;font-size:13.5px}
+details{open:true}details>summary{display:none}
+.teacher-raw{display:none}
+@media print{@page{margin:14mm}.card{break-inside:avoid}}
+</style></head><body>
+<div class="pdf-head"><h1>수학 취약유형 진단 결과</h1>
+<div class="meta">${esc(name)}${scopeLabel ? ' · ' + esc(scopeLabel) : ''} · ${esc(today)}</div></div>
+${resultEl.innerHTML}
+</body></html>`);
+    w.document.close();
+    // 접어둔 항목을 인쇄 전에 모두 펼친다.
+    try { w.document.querySelectorAll('details').forEach(d => d.setAttribute('open', 'open')); } catch (_) {}
+    w.focus();
+    setTimeout(() => { try { w.print(); } catch (_) {} }, 400);
+  }
+
   function openStudentWorksheetPdf() {
     if (!state.verificationSet?.questions?.length) {
       alert('먼저 1차 진단 후 2차 보강 문제 생성을 실행하세요.');
@@ -641,6 +680,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const pdfBtn = $('#student_pdf_top_btn');
     if (genBtn) genBtn.disabled = !state.extraction;
     if (pdfBtn) pdfBtn.disabled = !(state.verificationSet?.questions?.length);
+        { const rp = $("#result_pdf_btn"); if (rp) rp.disabled = !state.extraction; }
   }
 
   function render() {
@@ -734,6 +774,8 @@ window.addEventListener('DOMContentLoaded', () => {
     if (genTop) genTop.onclick = generateVerificationSet;
     const pdfTop = $('#student_pdf_top_btn');
     if (pdfTop) pdfTop.onclick = openStudentWorksheetPdf;
+    const resPdf = $("#result_pdf_btn");
+    if (resPdf) resPdf.onclick = openResultPdf;
     $('#analyze_btn').onclick = async () => {
       const btn = $('#analyze_btn');
       try {
@@ -797,6 +839,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (genBtn) genBtn.disabled = !state.extraction;
         const pdfBtn = $('#student_pdf_top_btn');
         if (pdfBtn) pdfBtn.disabled = !(state.verificationSet?.questions?.length);
+        { const rp = $("#result_pdf_btn"); if (rp) rp.disabled = !state.extraction; }
       }
     };
 

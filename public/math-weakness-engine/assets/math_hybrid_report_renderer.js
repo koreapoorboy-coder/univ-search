@@ -299,14 +299,30 @@ class MathHybridReportRenderer {
       </div>`;
   }
 
+  // 문제점 8개와 할 일 7개가 한꺼번에 펼쳐지면 학생은 어디부터 손댈지 못 고른다.
+  // 앞의 3개만 펼쳐 두고 나머지는 접는다. 정보를 버리지 않으면서 시작점을 하나로 만든다.
+  static topThenRest(items, buildOne, restLabel) {
+    const all = (items || []).map(buildOne);
+    if (!all.length) return '';
+    const rest = all.slice(3);
+    return all.slice(0, 3).join('')
+      + (rest.length ? `<div class="more-wrap">${this.details(`${restLabel} ${rest.length}개 더 보기`, `<div class="more-inner">${rest.join('')}</div>`)}</div>` : '');
+  }
+
+  static issueCard(x, idx) {
+    const title = typeof x === 'object' && x ? x.title : x;
+    const body = typeof x === 'object' && x ? x.body : '';
+    return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b class="issue-title">${this.esc(title)}</b>${body ? `<span class="issue-body">${this.mathText(body)}</span>` : ''}</p></div>`;
+  }
+
+  static actionCard(x, idx) {
+    return `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.mathText(x)}</p></div>`;
+  }
+
   static renderProofPlan(plan, engineConnections = []) {
-    const issues = (plan.problems || []).slice(0, 8).map((x, idx) => {
-      const title = typeof x === 'object' && x ? x.title : x;
-      const body = typeof x === 'object' && x ? x.body : '';
-      return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b class="issue-title">${this.esc(title)}</b>${body ? `<span class="issue-body">${this.mathText(body)}</span>` : ''}</p></div>`;
-    }).join('');
+    const issues = this.topThenRest(plan.problems, (x, i) => this.issueCard(x, i), '문제점');
     const rows = engineConnections;
-    const actions = (plan.actionSteps || []).slice(0, 8).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.mathText(x)}</p></div>`).join('');
+    const actions = this.topThenRest(plan.actionSteps, (x, i) => this.actionCard(x, i), '할 일');
     return `
       <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
@@ -320,13 +336,9 @@ class MathHybridReportRenderer {
   }
 
   static renderSolutionPlan(plan, engineConnections = []) {
-    const issues = (plan.problems || []).slice(0, 8).map((x, idx) => {
-      const title = typeof x === 'object' && x ? x.title : x;
-      const body = typeof x === 'object' && x ? x.body : '';
-      return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b class="issue-title">${this.esc(title)}</b>${body ? `<span class="issue-body">${this.mathText(body)}</span>` : ''}</p></div>`;
-    }).join('');
+    const issues = this.topThenRest(plan.problems, (x, i) => this.issueCard(x, i), '문제점');
     const rows = engineConnections;
-    const actions = (plan.actionSteps || []).slice(0, 8).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.mathText(x)}</p></div>`).join('');
+    const actions = this.topThenRest(plan.actionSteps, (x, i) => this.actionCard(x, i), '할 일');
     return `
       <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
@@ -440,7 +452,37 @@ class MathHybridReportRenderer {
     return i < 0 ? { course: text, unit: '' } : { course: text.slice(0, i), unit: text.slice(i + 1) };
   }
 
+  // 예전에는 선행 단원 이름을 4단계로 늘어놓고 "누수 가능성이 높다"로 끝냈다. 그 판정은
+  // 관측이 아니라 점수 밴드에서 나온 말이고, 학생이 그 단원을 실제로 맞았는지 틀렸는지는
+  // 아무도 확인하지 않았다. 확인된 것만 남긴다.
+  //   확인된 것 : 어느 문항이 틀렸는지, 무슨 오류가 관찰됐는지, 무엇을 다시 풀어야 하는지
+  //   뺀 것     : 심각도 문구, 요약 산문, "N단계" 깊이 표현, 할 일 없는 단원 이름
   static renderBacktrackChain(item) {
+    const route = item && item.backtrack_route;
+    const steps = ((route && route.backtrack_steps) || [])
+      .filter(s => s && String(s.student_action || '').trim());   // 할 일 없는 단계는 이름뿐이라 뺀다
+    if (!steps.length) return '';
+    const tags = (item.observed_error_tags || item.error_tags || []).filter(Boolean);
+    const nodes = steps.map(s => {
+      const { course, unit } = this.splitUnitHint(s.unit_hint);
+      const where = [course, unit].filter(Boolean).join(' ');
+      return `<li class="chain-node is-last">
+        ${where ? `<div class="chain-head"><span class="chain-unit">${this.esc(where)}</span></div>` : ''}
+        <div class="chain-act">${this.mathText(s.student_action)}</div>
+      </li>`;
+    }).join('');
+    return `<div class="chain-block">
+      <div class="chain-stuck">
+        <div class="chain-stuck-tag">확인된 오답</div>
+        <div class="chain-stuck-txt">${this.esc(item.question_no ? `${item.question_no}번` : '')} ${this.esc(item.type_name || '')}</div>
+        ${tags.length ? `<div class="chain-stuck-q">관찰된 오류: ${tags.map(t => this.esc(t)).join(', ')}</div>` : ''}
+      </div>
+      <div class="chain-lead"><span>다시 풀 것</span><i></i></div>
+      <ol class="chain">${nodes}</ol>
+    </div>`;
+  }
+
+  static renderBacktrackChainLegacy(item) {
     const route = item && item.backtrack_route;
     const steps = (route && route.backtrack_steps) || [];
     if (!steps.length) return '';
@@ -475,7 +517,11 @@ class MathHybridReportRenderer {
     const wrong = (diagnosis && diagnosis.wrong_answer_diagnoses) || [];
     const blocks = wrong.map(w => this.renderBacktrackChain(w)).filter(Boolean);
     if (!blocks.length) return '';
-    return this.card('이 오답이 내려가는 곳', blocks.join(''));
+    // 오답이 많으면 이 카드만으로 화면이 길어진다. 3개까지만 펼치고 나머지는 접는다.
+    const head = blocks.slice(0, 3).join('');
+    const rest = blocks.slice(3);
+    return this.card('틀린 문항에서 다시 풀 것',
+      head + (rest.length ? this.details(`나머지 ${rest.length}문항 보기`, rest.join('')) : ''));
   }
 
   static renderEngineSummary(diagnosis) {
