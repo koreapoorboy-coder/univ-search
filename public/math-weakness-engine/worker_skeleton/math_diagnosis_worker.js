@@ -1,14 +1,21 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.07.21-split-analyze';
+const VERSION = '2026.07.22-files-api';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 const DEFAULT_MAX_TOKENS = 16000;
-const DEFAULT_MAX_FILE_BYTES = 8 * 1024 * 1024;
-const DEFAULT_MAX_TOTAL_FILE_BYTES = 18 * 1024 * 1024;
-const DEFAULT_MAX_FILES = 6;
+// 시험지 전체 스캔본을 받으려면 base64 인라인으로는 못 올린다. base64는 33% 부풀고
+// 1차 분석은 같은 파일을 두 호출에 각각 실어 보내므로, Claude의 요청당 32MB 한도에
+// 금방 걸린다. Files API로 한 번만 올리고 file_id로 참조하면 그 한도를 벗어난다.
+const DEFAULT_MAX_FILE_BYTES = 32 * 1024 * 1024;
+const DEFAULT_MAX_TOTAL_FILE_BYTES = 64 * 1024 * 1024;
+const DEFAULT_MAX_FILES = 10;
+// 이 크기를 넘는 파일만 Files API로 올린다. 작은 파일은 업로드 왕복이 더 느리다.
+const DEFAULT_FILES_API_THRESHOLD_BYTES = 4 * 1024 * 1024;
 const ANTHROPIC_MESSAGES_PATH = '/messages';
+const ANTHROPIC_FILES_PATH = '/files';
 const ANTHROPIC_VERSION = '2023-06-01';
+const ANTHROPIC_FILES_BETA = 'files-api-2025-04-14';
 
 export default {
   async fetch(request, env, ctx) {
@@ -41,7 +48,9 @@ export default {
           cors: corsMode(env),
           maxFiles: numberEnv(env.MAX_FILES, DEFAULT_MAX_FILES),
           maxFileBytes: numberEnv(env.MAX_FILE_BYTES, DEFAULT_MAX_FILE_BYTES),
-          maxTotalFileBytes: numberEnv(env.MAX_TOTAL_FILE_BYTES, DEFAULT_MAX_TOTAL_FILE_BYTES)
+          maxTotalFileBytes: numberEnv(env.MAX_TOTAL_FILE_BYTES, DEFAULT_MAX_TOTAL_FILE_BYTES),
+          useFilesApi: boolEnv(env.USE_FILES_API, true),
+          filesApiThresholdBytes: numberEnv(env.FILES_API_THRESHOLD_BYTES, DEFAULT_FILES_API_THRESHOLD_BYTES)
         }, 200, requestId, startedAt);
       }
 
@@ -161,24 +170,31 @@ function validateFiles(files, env) {
 async function runAnalyze({ env, payload, files }) {
   const base = buildAnalyzePrompt(payload, files);
   const only = (what) => `${base}\n\n[이번 응답 범위]\n${what}`;
-  const [engine, review] = await Promise.all([
-    runJsonTask({
-      env, task: 'analyze_engine', files, structured: true,
-      prompt: only('engine_adapter와 ok만 채운다. 화면용 검토 문구는 이번 응답에서 생성하지 않는다.'),
-      schemaName: 'math_engine_adapter', schema: ENGINE_ADAPTER_SCHEMA,
-      fallback: () => pickKeys(buildAnalyzeFallback(payload, 'analyze_engine_fallback'), ENGINE_ADAPTER_KEYS)
-    }),
-    runJsonTask({
-      env, task: 'analyze_review', files, structured: false,
-      prompt: only('engine_adapter는 이번 응답에서 생성하지 않는다. 나머지 검토 항목만 채운다.'),
-      schemaName: 'math_material_review', schema: REVIEW_SCHEMA,
-      fallback: () => dropKeys(buildAnalyzeFallback(payload, 'analyze_review_fallback'), ENGINE_ADAPTER_KEYS)
-    })
-  ]);
-  const merged = { ...stripRuntime(review), ...stripRuntime(engine) };
-  const notes = [engine?._runtime?.note, review?._runtime?.note].filter(Boolean);
-  if (notes.length) merged._runtime = { note: notes.join(' | '), worker_version: VERSION };
-  return merged;
+  // 파일 준비는 두 호출 앞에서 한 번만 한다. 여기서 하지 않으면 같은 스캔본을
+  // 두 번 인코딩해 두 번 올리게 되고, 그게 종전 용량 한계의 실제 원인이었다.
+  const prepared = await prepareFiles(env, files);
+  try {
+    const [engine, review] = await Promise.all([
+      runJsonTask({
+        env, task: 'analyze_engine', files: prepared, structured: true,
+        prompt: only('engine_adapter와 ok만 채운다. 화면용 검토 문구는 이번 응답에서 생성하지 않는다.'),
+        schemaName: 'math_engine_adapter', schema: ENGINE_ADAPTER_SCHEMA,
+        fallback: () => pickKeys(buildAnalyzeFallback(payload, 'analyze_engine_fallback'), ENGINE_ADAPTER_KEYS)
+      }),
+      runJsonTask({
+        env, task: 'analyze_review', files: prepared, structured: false,
+        prompt: only('engine_adapter는 이번 응답에서 생성하지 않는다. 나머지 검토 항목만 채운다.'),
+        schemaName: 'math_material_review', schema: REVIEW_SCHEMA,
+        fallback: () => dropKeys(buildAnalyzeFallback(payload, 'analyze_review_fallback'), ENGINE_ADAPTER_KEYS)
+      })
+    ]);
+    const merged = { ...stripRuntime(review), ...stripRuntime(engine) };
+    const notes = [engine?._runtime?.note, review?._runtime?.note].filter(Boolean);
+    if (notes.length) merged._runtime = { note: notes.join(' | '), worker_version: VERSION };
+    return merged;
+  } finally {
+    await deleteUploadedFiles(env, prepared);
+  }
 }
 
 const ENGINE_ADAPTER_KEYS = ['ok', 'engine_adapter'];
@@ -227,19 +243,21 @@ async function callClaudeJson({ env, prompt, files, schemaName, schema, structur
 아래 JSON Schema를 정확히 만족하는 JSON 객체 하나만 출력한다.
 코드펜스(\`\`\`), 설명 문장, 앞뒤 텍스트를 절대 붙이지 않는다. 첫 글자는 {, 마지막 글자는 } 여야 한다.
 ${JSON.stringify(schema)}`;
-  const content = [{ type: 'text', text: head }];
-  for (const file of files || []) {
-    const mime = file.type || 'application/octet-stream';
-    if (mime.startsWith('image/')) {
-      content.push({ type: 'image', source: { type: 'base64', media_type: mime, data: await fileToBase64(file) } });
-    } else if (mime === 'application/pdf') {
-      content.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: await fileToBase64(file) } });
-    } else if (mime === 'text/plain') {
-      content.push({ type: 'document', source: { type: 'text', media_type: 'text/plain', data: await file.text() } });
-    } else {
-      throw httpError(415, `${mime} cannot be sent to Claude. Allowed: images, application/pdf, text/plain.`);
-    }
+  // files는 보통 prepareFiles()가 만든 배열이다. 원본 File 객체가 들어오는 단일 호출
+  // 경로(답안 검토)에서는 여기서 변환하고, 그 경우에만 뒤처리도 여기서 책임진다.
+  const ownsFiles = Array.isArray(files) && files.some(isFile);
+  const prepared = ownsFiles ? await prepareFiles(env, files) : (files || []);
+  try {
+    return await requestClaudeJson({ env, head, prepared, schemaName, schema, structured });
+  } finally {
+    if (ownsFiles) await deleteUploadedFiles(env, prepared);
   }
+}
+
+async function requestClaudeJson({ env, head, prepared, schemaName, schema, structured }) {
+  const content = [{ type: 'text', text: head }];
+  for (const f of prepared) content.push(fileContentBlock(f.mime, f));
+  const usesFileId = prepared.some(f => f.fileId);
   const body = {
     model: env.ANTHROPIC_MODEL || DEFAULT_MODEL,
     max_tokens: numberEnv(env.ANTHROPIC_MAX_TOKENS, DEFAULT_MAX_TOKENS),
@@ -252,14 +270,16 @@ ${JSON.stringify(schema)}`;
     messages: [{ role: 'user', content }]
   };
   if (structured && schema) body.output_config.format = { type: 'json_schema', schema };
-  const baseUrl = String(env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com/v1').replace(/\/$/, '');
-  const res = await fetch(`${baseUrl}${ANTHROPIC_MESSAGES_PATH}`, {
+  const headers = {
+    'x-api-key': env.ANTHROPIC_API_KEY,
+    'anthropic-version': ANTHROPIC_VERSION,
+    'content-type': 'application/json'
+  };
+  // file_id를 참조할 때는 messages 호출에도 같은 beta 헤더가 있어야 한다.
+  if (usesFileId) headers['anthropic-beta'] = ANTHROPIC_FILES_BETA;
+  const res = await fetch(`${anthropicBase(env)}${ANTHROPIC_MESSAGES_PATH}`, {
     method: 'POST',
-    headers: {
-      'x-api-key': env.ANTHROPIC_API_KEY,
-      'anthropic-version': ANTHROPIC_VERSION,
-      'content-type': 'application/json'
-    },
+    headers,
     body: JSON.stringify(body)
   });
   if (!res.ok) {
@@ -362,6 +382,90 @@ function extractOutputText(data) {
 function assertTenQuestions(result) {
   const count = Array.isArray(result?.questions) ? result.questions.length : 0;
   if (count !== 10) throw httpError(502, `Verification set must have exactly 10 questions, got ${count}.`);
+}
+
+function anthropicBase(env) {
+  return String(env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com/v1').replace(/\/$/, '');
+}
+
+// 파일 하나를 Claude가 읽을 수 있는 content 블록으로 바꾼다.
+// file_id가 있으면 그걸 참조하고, 없으면 종전대로 base64를 싣는다.
+function fileContentBlock(mime, { fileId, base64, text }) {
+  if (fileId) {
+    // 블록 타입은 파일의 MIME과 맞아야 한다. 이미지를 document로 넣으면 거부된다.
+    return mime.startsWith('image/')
+      ? { type: 'image', source: { type: 'file', file_id: fileId } }
+      : { type: 'document', source: { type: 'file', file_id: fileId } };
+  }
+  if (mime.startsWith('image/')) return { type: 'image', source: { type: 'base64', media_type: mime, data: base64 } };
+  if (mime === 'application/pdf') return { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: base64 } };
+  if (mime === 'text/plain') return { type: 'document', source: { type: 'text', media_type: 'text/plain', data: text } };
+  throw httpError(415, `${mime} cannot be sent to Claude. Allowed: images, application/pdf, text/plain.`);
+}
+
+// 큰 파일만 Files API로 올려 file_id를 받아 둔다. 두 번의 병렬 분석 호출이 같은
+// file_id를 참조하므로 인코딩도 전송도 한 번으로 끝난다.
+// 업로드가 실패하면 base64 경로로 되돌린다 — 진단이 통째로 죽는 것보다 낫다.
+async function prepareFiles(env, files) {
+  const threshold = numberEnv(env.FILES_API_THRESHOLD_BYTES, DEFAULT_FILES_API_THRESHOLD_BYTES);
+  const useFilesApi = boolEnv(env.USE_FILES_API, true);
+  const out = [];
+  for (const file of files || []) {
+    const mime = file.type || 'application/octet-stream';
+    const size = file.size || 0;
+    if (useFilesApi && size > threshold && mime !== 'text/plain') {
+      try {
+        out.push({ mime, fileId: await uploadToFilesApi(env, file, mime) });
+        continue;
+      } catch (err) {
+        console.error('Files API upload failed, falling back to base64:', err?.message || err);
+      }
+    }
+    if (mime === 'text/plain') out.push({ mime, text: await file.text() });
+    else out.push({ mime, base64: await fileToBase64(file) });
+  }
+  return out;
+}
+
+async function uploadToFilesApi(env, file, mime) {
+  const form = new FormData();
+  form.append('file', file, file.name || 'upload');
+  const res = await fetch(`${anthropicBase(env)}${ANTHROPIC_FILES_PATH}`, {
+    method: 'POST',
+    headers: {
+      'x-api-key': env.ANTHROPIC_API_KEY,
+      'anthropic-version': ANTHROPIC_VERSION,
+      'anthropic-beta': ANTHROPIC_FILES_BETA
+    },
+    body: form
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data?.error?.message || `Files API HTTP ${res.status} (${mime})`);
+  }
+  const data = await res.json();
+  if (!data?.id) throw new Error('Files API response has no id');
+  return data.id;
+}
+
+// 업로드한 파일은 지우지 않으면 조직 저장소에 계속 쌓인다. 진단이 끝나면 정리한다.
+// 삭제 실패는 진단 결과에 영향을 주지 않으므로 로그만 남긴다.
+async function deleteUploadedFiles(env, prepared) {
+  const ids = (prepared || []).map(p => p.fileId).filter(Boolean);
+  await Promise.all(ids.map(async id => {
+    try {
+      await fetch(`${anthropicBase(env)}${ANTHROPIC_FILES_PATH}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'x-api-key': env.ANTHROPIC_API_KEY,
+          'anthropic-version': ANTHROPIC_VERSION,
+          'anthropic-beta': ANTHROPIC_FILES_BETA
+        }
+      });
+    } catch (err) {
+      console.error('Files API delete failed:', id, err?.message || err);
+    }
+  }));
 }
 
 async function fileToBase64(file) {

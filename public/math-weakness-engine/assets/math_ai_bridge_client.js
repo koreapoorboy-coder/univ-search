@@ -8,7 +8,9 @@ class MathAIBridgeClient {
     this.legacyStorageKeys = options.legacyStorageKeys || ['mweWorkerUrl', 'mathWeaknessWorkerUrl'];
     // 1차 진단은 이미지·PDF 판독 + adaptive thinking이 붙는 비스트리밍 호출이라
     // 2분으로는 부족하다. Worker 쪽 effort/max_tokens를 낮춰도 여유가 필요하다.
-    this.timeoutMs = options.timeoutMs || 300000;
+    // 시험지 전체 스캔본을 받게 되면서 업로드 시간이 분석 시간에 더해진다.
+    // 느린 회선에서 64MB를 올리는 시간까지 감안해 10분으로 잡는다.
+    this.timeoutMs = options.timeoutMs || 600000;
     this.workerBaseUrl = this._normalizeBaseUrl(options.workerBaseUrl || this._loadSavedWorkerUrl() || '');
   }
 
