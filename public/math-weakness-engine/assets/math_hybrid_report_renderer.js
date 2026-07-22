@@ -58,12 +58,6 @@ class MathHybridReportRenderer {
       meta: data?._meta
     });
   }
-  static inferMathTopic(data) {
-    const text = this.signalText(data);
-    if (/거듭제곱근|거듭제곱과\s*거듭제곱근|거듭제곱|n제곱근|세제곱근|네제곱근|제곱근\s*중\s*실수|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|지수법칙|a\^\(1\/n\)|root/i.test(text)) return 'power_root';
-    if (/유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text)) return 'rational_irrational';
-    return 'generic';
-  }
   static buildProofPlan(data) {
     const engineFocus = [
       ...(data?._engine_context?.top_concepts || []).map(x => x.concept_name || x.concept_id || x).filter(Boolean),
@@ -75,56 +69,7 @@ class MathHybridReportRenderer {
       ...(data?.math_signal?.unit_candidates || []).map(x => x.unit_name).filter(Boolean)
     ];
     const focus = (engineFocus.length ? engineFocus : aiFocus).filter(Boolean);
-    const text = engineFocus.length ? JSON.stringify({ engine_locked_context: data?._engine_context }) : this.proofSignalText(data);
     const conceptName = focus[0] || '핵심 개념';
-    const looksPowerRoot = /거듭제곱근|n제곱근|세제곱근|네제곱근|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|지수법칙|a\^\(1\/n\)|1\/n\)|root/i.test(text);
-    const looksIrrational = !looksPowerRoot && /유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text);
-    if (looksPowerRoot) {
-      return {
-        title: '거듭제곱근·유리수 지수 판정 기준 확인',
-        studentVerdict: '거듭제곱근의 존재 조건과 주값/해 구분 확인 필요',
-        oneLine: '거듭제곱근은 “몇 제곱해서 주어진 수가 되는가”와 함께 짝수/홀수 지수, 밑의 부호, 주값 조건을 확인해야 합니다.',
-        problems: [
-          { title: '거듭제곱근의 존재 조건 확인 부족', body: 'n이 짝수일 때 음수의 실수 n제곱근은 존재하지 않습니다. n이 홀수일 때는 음수도 하나의 실수 거듭제곱근을 가집니다.' },
-          { title: '주값과 모든 해를 구분하는 기준 부족', body: '√a는 주값을 뜻하지만, x²=a의 해는 ±√a처럼 두 개가 될 수 있습니다. 기호의 의미와 방정식의 해를 구분해야 합니다.' },
-          { title: '유리수 지수로 바꿀 때 조건 확인 부족', body: 'a^(m/n)은 n제곱근과 연결됩니다. 밑 a가 음수이거나 n이 짝수인 경우 실수 범위에서 정의 여부를 먼저 확인해야 합니다.' }
-        ],
-        connections: [
-          { now: '거듭제곱근', next: '대수: 지수함수와 로그함수', why: '분수 지수 a^(m/n)을 해석하려면 n제곱근의 의미와 조건을 알아야 합니다.' },
-          { now: '짝수/홀수 거듭제곱근 조건', next: '고등: 방정식과 부등식', why: 'x^n=a의 실수해 개수와 부호 조건을 판단해야 합니다.' },
-          { now: '지수법칙 적용 조건', next: '고등: 함수의 정의역과 그래프', why: '밑의 범위와 정의역을 확인하지 않으면 지수함수·로그함수에서 잘못된 변형을 하게 됩니다.' }
-        ],
-        actionSteps: [
-          '문항마다 n의 짝수/홀수 여부와 밑의 부호를 먼저 표시합니다.',
-          '√ 기호가 주값을 묻는지, x^n=a의 모든 실수해를 묻는지 구분합니다.',
-          '답을 구한 뒤 원래 식에 다시 n제곱하여 부호와 개수를 검산합니다.'
-        ],
-        questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 거듭제곱근의 정의, 존재 조건, 주값, 유리수 지수 변환, 반례와 비교 설명을 확인하는 10문항을 만듭니다.'
-      };
-    }
-    if (looksIrrational) {
-      return {
-        title: '유리수·무리수 판정 기준 확인',
-        studentVerdict: '유리수·무리수의 분수 꼴 판정 기준 확인 필요',
-        oneLine: '유리수와 무리수는 소수의 모양이 아니라 “정수 a, b에 대해 a/b 꼴로 나타낼 수 있는가”를 기준으로 판단합니다.',
-        problems: [
-          { title: '유리수 판단 기준이 불명확함', body: '유리수는 정수/정수 꼴로 나타낼 수 있어야 합니다. 소수가 끝나거나 반복된다는 말만으로 끝내면 기준이 약합니다.' },
-          { title: '순환소수가 왜 유리수인지 증명 부족', body: '0.333..., 0.121212...는 끝나지 않지만 반복됩니다. 반복되는 소수는 식을 세워 분수로 바꿀 수 있어야 합니다.' },
-          { title: '루트가 있으면 모두 무리수라고 착각할 가능성', body: '√4=2이므로 유리수이고, √2는 정수/정수 꼴로 나타낼 수 없으므로 무리수입니다.' }
-        ],
-        connections: [
-          { now: '유리수와 순환소수', next: '중2: 유리수와 순환소수', why: '순환소수를 분수 꼴로 바꾸어 유리수임을 증명해야 합니다.' },
-          { now: '무리수와 실수', next: '중3: 제곱근과 실수', why: '√2, √3처럼 분수로 나타낼 수 없는 수를 구분해야 합니다.' },
-          { now: '수의 범위 판단', next: '고등: 방정식·부등식, 함수의 정의역', why: '해가 정수·유리수·실수 중 어디인지에 따라 풀이와 답의 범위가 달라집니다.' }
-        ],
-        actionSteps: [
-          '먼저 정수/정수 꼴로 나타낼 수 있는지 확인합니다.',
-          '끝나지 않는 소수는 반복 여부를 보고 순환소수인지 확인합니다.',
-          '루트가 있더라도 실제 값이 정수 또는 유리수인지 계산해 판정합니다.'
-        ],
-        questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 유리수 판정, 무리수 판정, 반례, 비교 설명을 확인하는 10문항을 만듭니다.'
-      };
-    }
     const boundary = data?.student_material_review?.concept_note_review?.boundary_condition_review || {};
     const missing = [
       ...(data?.student_material_review?.lecture_note_review?.missing_evidence || []),
@@ -170,53 +115,6 @@ class MathHybridReportRenderer {
       || '현재 풀이 단원';
     const concepts = (math.concept_candidates || []).map(x => x.concept_name).filter(Boolean);
     const concept = concepts[0] || unit || '풀이 과정';
-    const topic = this.inferMathTopic(data);
-    if (topic === 'power_root') {
-      return {
-        title: '거듭제곱근 풀이 과정 진단',
-        studentVerdict: '거듭제곱근 조건 판정과 주값/해 구분 확인 필요',
-        oneLine: '이 자료는 대수 「거듭제곱과 거듭제곱근」 풀이입니다. 정답보다 n의 짝수/홀수, 밑의 부호, 주값과 모든 해, 유리수 지수 변환 조건을 풀이 첫 줄에서 분리했는지 확인해야 합니다.',
-        problems: [
-          { title: '짝수/홀수 거듭제곱근 조건 분리 필요', body: 'n이 짝수이면 음수의 실수 n제곱근은 없고, 양수는 보통 ± 두 값을 봅니다. n이 홀수이면 음수도 하나의 실수 거듭제곱근을 가집니다.' },
-          { title: '주값과 방정식의 모든 해 구분 필요', body: '√16은 4를 뜻하지만 x²=16의 해는 ±4입니다. 보기형 문제에서는 “제곱근”, “네제곱근”, “x^n=a의 실수해”라는 문장을 구분해야 합니다.' },
-          { title: '근호식·유리수 지수 변환 후 검산 필요', body: '근호를 지수로 바꾸거나 계산한 뒤에는 원래 식에 다시 제곱·세제곱·n제곱해 부호와 값이 맞는지 확인해야 합니다.' }
-        ],
-        connections: [
-          { now: '거듭제곱근의 실수해 개수 판정', next: '대수: 거듭제곱과 거듭제곱근', why: '양수·0·음수와 n의 짝홀성에 따라 실수해 개수가 달라지므로 풀이 시작 기준이 됩니다.' },
-          { now: '주값과 모든 해 구분', next: '공통수학1: 방정식과 부등식', why: '√ 기호의 값과 x^n=a 방정식의 해를 혼동하면 답의 개수와 부호가 달라집니다.' },
-          { now: '유리수 지수 변환 조건', next: '대수: 지수함수와 로그함수', why: 'a^(m/n)을 다룰 때 밑의 부호와 n의 짝홀성을 확인해야 지수법칙을 안전하게 적용할 수 있습니다.' }
-        ],
-        actionSteps: [
-          '오답 문항마다 n의 짝수/홀수 여부와 밑의 부호를 먼저 표시합니다.',
-          '√ 기호의 주값을 묻는지, x^n=a의 모든 실수해를 묻는지 문제 문장을 표시합니다.',
-          '계산한 값을 원래 식에 다시 대입해 부호·개수·값을 검산합니다.'
-        ],
-        questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 오류 위치 찾기, n의 짝홀성·밑의 부호 판정, 주값/모든 해 구분, 유리수 지수 변환, 원래 식 검산을 확인하는 10문항을 만듭니다.'
-      };
-    }
-    if (topic === 'rational_irrational') {
-      return {
-        title: '유리수·무리수 풀이 과정 진단',
-        studentVerdict: '분수 꼴 판정 기준과 루트/소수 겉모양 구분 확인 필요',
-        oneLine: '이 자료는 수의 판정 풀이입니다. 소수·루트의 겉모양보다 정수 a, b에 대해 a/b 꼴로 나타낼 수 있는지, 순환 여부와 완전제곱수 여부를 확인해야 합니다.',
-        problems: [
-          { title: '분수 꼴 가능 여부 확인 부족', body: '유리수는 정수/정수 꼴로 나타낼 수 있는 수입니다. 소수 모양만 보고 판단하면 안 됩니다.' },
-          { title: '순환소수와 무리수 구분 필요', body: '끝나지 않는 소수라도 반복되면 분수로 바꿀 수 있으므로 유리수입니다.' },
-          { title: '루트 기호와 실제 값 구분 필요', body: '√4는 2라서 유리수이고, √2는 분수 꼴로 정확히 나타낼 수 없어 무리수입니다.' }
-        ],
-        connections: [
-          { now: '유리수 판정', next: '중2: 유리수와 순환소수', why: '순환소수를 분수로 바꿀 수 있어야 유리수 판정 기준이 세워집니다.' },
-          { now: '무리수 판정', next: '중3: 제곱근과 실수', why: '완전제곱수의 제곱근과 그렇지 않은 제곱근을 구분해야 합니다.' },
-          { now: '수의 범위', next: '고등: 방정식·부등식, 함수의 정의역', why: '해가 어느 수 범위에 속하는지에 따라 조건과 답이 달라집니다.' }
-        ],
-        actionSteps: [
-          '판정 전에 정수/정수 꼴 가능 여부를 먼저 씁니다.',
-          '끝나지 않는 소수는 반복되는지 확인하고 필요하면 x로 놓아 분수로 바꿉니다.',
-          '루트가 있으면 실제 값을 계산해 완전제곱수인지 확인합니다.'
-        ],
-        questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 분수 꼴 판정, 순환소수 변환, 루트 값 비교, 반례 설명을 확인하는 10문항을 만듭니다.'
-      };
-    }
     const sol = data?.student_material_review?.solution_review || {};
     const mainErrors = (sol.main_error_candidates || []).filter(Boolean);
     const conceptErrors = (sol.concept_error_candidates || []).filter(Boolean);

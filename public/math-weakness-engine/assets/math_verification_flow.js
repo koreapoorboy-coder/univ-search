@@ -123,8 +123,11 @@ class MathVerificationFlow {
     const concept = focus[0] || '핵심 개념';
     const reason = missing[0] || aiExtraction?.verification_need?.reason || '학생 이해 확인 필요';
     const text = JSON.stringify(engineLock.locked ? { engine_locked_context: engineLock } : { focus, missing, aiExtraction, engineDiagnosis });
-    const isPowerRoot = /거듭제곱근|n제곱근|세제곱근|네제곱근|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|지수법칙|a\^\(1\/n\)|1\/n\)|root/i.test(text);
-    const isIrrational = !isPowerRoot && /유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text);
+    // 단원 전용 세트는 엔진이 단원을 확정했을 때만 쓴다. 확정 전 text에는 aiExtraction
+    // 전체가 들어 있어 키워드 하나에 걸린다. '지수법칙'은 중2와 고2에 다 나오는 말이라
+    // 중2 자료가 고2 거듭제곱근 세트를 부르는 사고가 났다. 그래서 패턴에서도 뺐다.
+    const isPowerRoot = engineLock.locked && /거듭제곱근|n제곱근|세제곱근|네제곱근|짝수\s*제곱근|홀수\s*제곱근|유리수\s*지수|분수\s*지수|a\^\(1\/n\)|1\/n\)|root/i.test(text);
+    const isIrrational = engineLock.locked && !isPowerRoot && /유리수|무리수|순환소수|비순환|분수\s*꼴|유한소수|무한소수|정수\s*\/\s*정수|0\.333|0\.121212|π/.test(text);
     if (isPowerRoot) return this._buildPowerRootProofSet(focus, reason);
     if (isIrrational) return this._buildRationalIrrationalProofSet(focus, reason);
     return this._buildGenericProofSet(concept, focus, reason);
