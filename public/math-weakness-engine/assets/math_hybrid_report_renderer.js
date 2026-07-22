@@ -7,6 +7,23 @@ class MathHybridReportRenderer {
     return `<ol>${arr.map(x => `<li>${this.esc(typeof x === 'string' ? x : JSON.stringify(x))}</li>`).join('')}</ol>`;
   }
   static pre(obj) { return `<pre>${this.esc(JSON.stringify(obj, null, 2))}</pre>`; }
+
+  // AI에게 백슬래시·LaTeX를 금지시켰더니(JSON이 깨져서) x^2, log_2, <= 같은 평문이 화면에
+  // 그대로 나왔다. 학생이 읽는 화면이므로 눈에 익은 형태로 바꿔 준다.
+  // esc()를 먼저 돌린 뒤 우리가 만든 태그만 덧붙이므로, 자료의 HTML은 여전히 무력화된다.
+  static mathText(v) {
+    let s = this.esc(v);
+    if (!s) return s;
+    s = s.replace(/\^\(([^()]{1,24})\)/g, '<sup>$1</sup>')      // x^(n+1)
+         .replace(/\^(-?\d+|[A-Za-z])/g, '<sup>$1</sup>')       // x^2, 2^x, x^-1
+         .replace(/_\(([^()]{1,24})\)/g, '<sub>$1</sub>')       // a_(n+1)
+         .replace(/_(\d+|[A-Za-z])/g, '<sub>$1</sub>');         // log_2, a_n
+    // 부등호·연산 기호도 평문으로 오는 것들이라 같이 바꾼다.
+    s = s.replace(/&lt;=/g, '≤').replace(/&gt;=/g, '≥')
+         .replace(/!=/g, '≠').replace(/\+\/-/g, '±')
+         .replace(/\bsqrt\(([^()]{1,24})\)/g, '√$1');
+    return s;
+  }
   static card(title, body, kind = '') { return `<section class="card ${kind}"><h2>${this.esc(title)}</h2>${body}</section>`; }
   static tags(items) { return (items || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join(''); }
   static details(title, body, open = false) { return `<details class="teacher-raw" ${open ? 'open' : ''}><summary>${this.esc(title)}</summary>${body}</details>`; }
@@ -259,10 +276,10 @@ class MathHybridReportRenderer {
     const issues = (plan.problems || []).slice(0, 8).map((x, idx) => {
       const title = typeof x === 'object' && x ? x.title : x;
       const body = typeof x === 'object' && x ? x.body : '';
-      return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b>${this.esc(title)}</b>${body ? `<br><span>${this.esc(body)}</span>` : ''}</p></div>`;
+      return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b class="issue-title">${this.esc(title)}</b>${body ? `<span class="issue-body">${this.mathText(body)}</span>` : ''}</p></div>`;
     }).join('');
     const rows = engineConnections;
-    const actions = (plan.actionSteps || []).slice(0, 8).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
+    const actions = (plan.actionSteps || []).slice(0, 8).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.mathText(x)}</p></div>`).join('');
     return `
       <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
@@ -279,10 +296,10 @@ class MathHybridReportRenderer {
     const issues = (plan.problems || []).slice(0, 8).map((x, idx) => {
       const title = typeof x === 'object' && x ? x.title : x;
       const body = typeof x === 'object' && x ? x.body : '';
-      return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b>${this.esc(title)}</b>${body ? `<br><span>${this.esc(body)}</span>` : ''}</p></div>`;
+      return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b class="issue-title">${this.esc(title)}</b>${body ? `<span class="issue-body">${this.mathText(body)}</span>` : ''}</p></div>`;
     }).join('');
     const rows = engineConnections;
-    const actions = (plan.actionSteps || []).slice(0, 8).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
+    const actions = (plan.actionSteps || []).slice(0, 8).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.mathText(x)}</p></div>`).join('');
     return `
       <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
