@@ -1,0 +1,65 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>full sample audit</title>
+<body>
+<pre id="log">running...</pre>
+<script src="assets/algebra_master_matcher.js"></script>
+<script src="assets/math_weakness_engine.js"></script>
+<script src="assets/math_weakness_evidence_review.js"></script>
+<script src="assets/math_ai_bridge_client.js"></script>
+<script src="assets/math_verification_flow.js"></script>
+<script src="assets/math_hybrid_report_renderer.js"></script>
+<script>
+const SAMPLES = [
+  'global_runtime','h1_common_math1_counting','h1_common_math1_equation_inequality',
+  'h1_common_math1_matrix','h1_common_math1_polynomial','h1_common_math2_function_graph',
+  'h1_common_math2_geometry_equation','h1_common_math2_set_proposition',
+  'h2_algebra_exp_log_function','h2_algebra_sequence','h2_algebra_trigonometric_function',
+  'h2_calculus1_differentiation','h2_calculus1_integration','h2_calculus1_limit_continuity',
+  'h2_calculus2_differentiation','h2_calculus2_integration','h2_calculus2_sequence_limit',
+  'h2_exp_log','m1_all_units','m1_basic_geometry','m1_combined_int_rational_expression',
+  'm1_coordinate_graph','m1_data_analysis','m1_expression','m1_int_rational',
+  'm1_plane_geometry','m1_prime_factorization','m1_solid_geometry','m2_geometry_properties',
+  'm2_linear_equation','m2_linear_function','m2_linear_inequality','m2_number_expression',
+  'm2_probability','m3_polynomial_multiplication_factorization','m3_quadratic_equation',
+  'm3_quadratic_function','m3_real_numbers_and_operations'
+];
+const lines = [];
+function L(s){ lines.push(s); document.getElementById('log').textContent = lines.join('\n'); }
+
+(async () => {
+  const engine = new MathWeaknessEngine('.');
+  const flow = new MathVerificationFlow({ engine, bridge: null });
+  await engine.load({ unitIds: [] });
+  if (engine.loadEvidenceLogic) await engine.loadEvidenceLogic();
+
+  const rows = [];
+  for (const name of SAMPLES) {
+    const raw = await (await fetch(`samples/${name}.student_attempt.sample.json`)).json();
+    const d = await flow.runLocalEngineDiagnosis({ engine_adapter: { student_attempt: raw } });
+    rows.push({
+      sample: name,
+      attempts: d ? d.summary.attempt_count : 0,
+      missing_type: d ? d.summary.missing_type_count : null,
+      wrong_diags: d ? (d.wrong_answer_diagnoses || []).length : 0,
+      chain: d ? !!MathHybridReportRenderer.renderBacktrackChains(d) : false,
+      conn_rows: d ? MathHybridReportRenderer.engineConnections(d).length : 0,
+      concepts: d ? (d.top_concepts || []).length : 0,
+      tag_stats: d ? (d.tag_stats || []).length : 0,
+      profiles: d ? ((d.student_behavior_analysis && d.student_behavior_analysis.profiles) || []).length : 0
+    });
+    L(name + ' → ' + (rows[rows.length-1].attempts) + '건');
+  }
+  const dead = rows.filter(r => !r.attempts);
+  const noChain = rows.filter(r => r.attempts && !r.chain);
+  const noConn = rows.filter(r => r.attempts && !r.conn_rows);
+  L('\n=== 요약 ===');
+  L('전체 ' + rows.length + ' / 0건 ' + dead.length + ' / 체인없음 ' + noChain.length + ' / 연결없음 ' + noConn.length);
+  L('0건: ' + dead.map(r=>r.sample).join(', '));
+  L('체인없음: ' + noChain.map(r=>r.sample).join(', '));
+  L('연결없음: ' + noConn.map(r=>r.sample).join(', '));
+  L('\n' + JSON.stringify(rows, null, 1));
+  window.__RESULT__ = rows;
+})().catch(e => { L('ERROR: ' + (e && e.stack || e)); });
+</script>
+</body>

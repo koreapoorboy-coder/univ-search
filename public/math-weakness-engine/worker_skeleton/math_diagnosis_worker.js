@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.07.22-honest-fallback';
+const VERSION = '2026.07.22-two-stage-scope';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -179,13 +179,24 @@ async function runAnalyze({ env, payload, files }) {
   // 두 번 인코딩해 두 번 올리게 되고, 그게 종전 용량 한계의 실제 원인이었다.
   const prepared = await prepareFiles(env, files);
   try {
+    const scope = scopeOf(payload);
+    // 범위가 지정돼 있으면 2단계로 간다. 유효한 problem_type_id가 나오는 유일한 경로다.
+    // 범위가 없는 옛 클라이언트 요청은 종전 단일 호출로 처리한다.
+    const engineTask = scope.units.length
+      ? runJsonTask({
+          env, task: `analyze_engine_staged_${scope.mode}`, files: prepared, structured: true,
+          prompt: '', schemaName: 'math_engine_adapter_staged', schema: null,
+          run: () => runStagedEngineAdapter({ env, payload, files: prepared, scope }),
+          fallback: () => pickKeys(buildAnalyzeFallback(payload, 'analyze_engine_staged_fallback'), ENGINE_ADAPTER_KEYS)
+        })
+      : runJsonTask({
+          env, task: 'analyze_engine', files: prepared, structured: true,
+          prompt: only('engine_adapter와 ok만 채운다. 화면용 검토 문구는 이번 응답에서 생성하지 않는다.'),
+          schemaName: 'math_engine_adapter', schema: ENGINE_ADAPTER_SCHEMA,
+          fallback: () => pickKeys(buildAnalyzeFallback(payload, 'analyze_engine_fallback'), ENGINE_ADAPTER_KEYS)
+        });
     const [engine, review] = await Promise.all([
-      runJsonTask({
-        env, task: 'analyze_engine', files: prepared, structured: true,
-        prompt: only('engine_adapter와 ok만 채운다. 화면용 검토 문구는 이번 응답에서 생성하지 않는다.'),
-        schemaName: 'math_engine_adapter', schema: ENGINE_ADAPTER_SCHEMA,
-        fallback: () => pickKeys(buildAnalyzeFallback(payload, 'analyze_engine_fallback'), ENGINE_ADAPTER_KEYS)
-      }),
+      engineTask,
       runJsonTask({
         env, task: 'analyze_review', files: prepared, structured: false,
         prompt: only('engine_adapter는 이번 응답에서 생성하지 않는다. 나머지 검토 항목만 채운다.'),
@@ -200,6 +211,150 @@ async function runAnalyze({ env, payload, files }) {
   } finally {
     await deleteUploadedFiles(env, prepared);
   }
+}
+
+// 문항유형 ID를 자유 문자열로 두면 모델이 지어내고, 엔진의 12,631개 중 하나도 맞지 않아
+// 문항별 진단·선행 체인·연결 표가 통째로 꺼진다. 그래서 두 단계로 나눈다.
+//   1단계 — 문항마다 단원을 고른다. 후보는 학기 범위(3~4개) 또는 전체(39개)뿐이라 enum이 작다.
+//   2단계 — 단원이 정해진 뒤 그 단원의 유형 목록만 enum으로 걸어 확정한다.
+// 문항마다 2회씩 부르지 않는다. 60문항이면 120회가 되어 시간·비용을 감당할 수 없다.
+// 1단계는 전 문항을 한 번에, 2단계는 등장한 단원별로 한 번씩 묶어 병렬로 부른다.
+const MAX_ENUM_TYPES = 600;
+
+function scopeOf(payload) {
+  const s = payload?.learning_context?.scope || {};
+  const units = Array.isArray(s.candidate_units) ? s.candidate_units.filter(u => u && u.unit_id) : [];
+  return {
+    mode: s.mode === 'full' ? 'full' : 'semester',
+    label: s.label || s.semester || '',
+    units,
+    dataBase: String(s.engine_data_base || '').replace(/\/$/, '')
+  };
+}
+
+async function fetchUnitProblemTypes(scope, unitId) {
+  if (!scope.dataBase) throw new Error('engine_data_base가 없어 유형 목록을 받을 수 없다');
+  const idx = await (await fetch(`${scope.dataBase}/data/index.v1.json`, { cf: { cacheTtl: 3600 } })).json();
+  const unit = (idx.units || []).find(u => u.unit_id === unitId);
+  if (!unit?.problem_types) throw new Error(`${unitId}의 problem_types 경로가 없다`);
+  const pack = await (await fetch(`${scope.dataBase}/${unit.problem_types}`, { cf: { cacheTtl: 3600 } })).json();
+  return (pack.problem_types || []).map(p => ({ id: p.problem_type_id, name: p.type_name })).filter(p => p.id);
+}
+
+const UNIT_ASSIGN_SCHEMA = (unitIds) => ({
+  type: 'object', additionalProperties: false, required: ['assignments'],
+  properties: {
+    assignments: {
+      type: 'array',
+      items: {
+        type: 'object', additionalProperties: false,
+        required: ['question_no', 'unit_id', 'is_correct'],
+        properties: {
+          question_no: { type: 'string' },
+          unit_id: { type: 'string', enum: unitIds },
+          is_correct: { type: 'boolean' }
+        }
+      }
+    }
+  }
+});
+
+const TYPE_ASSIGN_SCHEMA = (typeIds) => ({
+  type: 'object', additionalProperties: false, required: ['attempts'],
+  properties: {
+    attempts: {
+      type: 'array',
+      items: {
+        type: 'object', additionalProperties: false,
+        required: ['question_no', 'problem_type_id', 'is_correct', 'difficulty', 'observed_error_tags'],
+        properties: {
+          question_no: { type: 'string' },
+          problem_type_id: { type: 'string', enum: typeIds },
+          is_correct: { type: 'boolean' },
+          difficulty: { type: 'string', enum: ['basic', 'core', 'advanced', 'high'] },
+          observed_error_tags: { type: 'array', items: { type: 'string' } }
+        }
+      }
+    }
+  }
+});
+
+async function runStagedEngineAdapter({ env, payload, files, scope }) {
+  if (!scope.units.length) throw new Error('후보 단원이 비어 있다(시험 범위 미선택)');
+  const unitIds = scope.units.map(u => u.unit_id);
+  const unitMenu = scope.units.map(u => `${u.unit_id} = ${u.unit_name}`).join('\n');
+
+  // 1단계: 문항 → 단원
+  const stage1 = await callClaudeJson({
+    env, files, structured: true, schemaName: 'unit_assignment',
+    schema: UNIT_ASSIGN_SCHEMA(unitIds),
+    prompt: `학생이 제출한 시험지/풀이를 읽고, 채점 대상 문항마다 어느 단원 문제인지 고르라.
+
+[선택 가능한 단원 — 이 목록 밖은 고를 수 없다]
+${unitMenu}
+
+규칙:
+- 문항 번호(question_no)는 자료에 적힌 번호를 그대로 문자열로 쓴다.
+- is_correct는 학생이 그 문항을 맞혔는지다. 채점 표시나 풀이 결과로 판단한다.
+- 자료에서 확인되는 문항만 넣는다. 없는 문항을 만들지 않는다.
+- 범위: ${scope.label || '전체'}`
+  });
+
+  const assignments = (stage1?.assignments || []).filter(a => a.question_no && a.unit_id);
+  if (!assignments.length) throw new Error('1단계에서 배정된 문항이 없다');
+
+  // 2단계: 단원별로 묶어 병렬. 한 단원이 실패해도 나머지 단원 진단은 남는다.
+  const byUnit = {};
+  for (const a of assignments) (byUnit[a.unit_id] = byUnit[a.unit_id] || []).push(a);
+
+  const results = await Promise.all(Object.keys(byUnit).map(async unitId => {
+    const rows = byUnit[unitId];
+    try {
+      const types = await fetchUnitProblemTypes(scope, unitId);
+      if (!types.length) throw new Error(`${unitId} 유형 목록이 비어 있다`);
+      // enum이 지나치게 크면 문법 컴파일 한도에 걸린다. 그 단원은 유형 없이 넘긴다.
+      if (types.length > MAX_ENUM_TYPES) throw new Error(`${unitId} 유형 ${types.length}개로 enum 한도(${MAX_ENUM_TYPES}) 초과`);
+      const menu = types.map(t => `${t.id} = ${t.name}`).join('\n');
+      const out = await callClaudeJson({
+        env, files, structured: true, schemaName: `type_assignment_${unitId}`,
+        schema: TYPE_ASSIGN_SCHEMA(types.map(t => t.id)),
+        prompt: `아래 문항들은 「${unitId}」 단원으로 확정됐다. 각 문항이 이 단원의 어느 문항유형인지 고르라.
+
+[대상 문항]
+${rows.map(r => `${r.question_no}번 (정답 여부: ${r.is_correct ? '맞음' : '틀림'})`).join('\n')}
+
+[이 단원의 문항유형 — 이 목록 밖은 고를 수 없다]
+${menu}
+
+규칙:
+- 대상 문항 전부에 대해 한 줄씩 낸다.
+- observed_error_tags는 틀린 문항에서 실제로 관찰된 오류만 쓴다. 맞은 문항은 빈 배열로 둔다.
+- difficulty는 문항 난도다.`
+      });
+      return (out?.attempts || []).map(x => ({ ...x, unit_id: unitId }));
+    } catch (err) {
+      console.error(`stage2 failed (${unitId}):`, err?.message || err);
+      // 유형은 못 정해도 단원·정오답은 살아 있다. 버리지 않고 그대로 넘긴다.
+      return rows.map(r => ({ question_no: r.question_no, problem_type_id: '', is_correct: r.is_correct, difficulty: 'core', observed_error_tags: [], unit_id: unitId }));
+    }
+  }));
+
+  const attempts = results.flat();
+  const topUnit = Object.keys(byUnit).sort((a, b) => byUnit[b].length - byUnit[a].length)[0] || '';
+  const matched = attempts.filter(a => a.problem_type_id).length;
+  return {
+    ok: true,
+    engine_adapter: {
+      student_attempt: {
+        unit_id: topUnit,
+        unit_name: (scope.units.find(u => u.unit_id === topUnit) || {}).unit_name || '',
+        attempts
+      },
+      note_review_input: { student_note: { unit_id: topUnit, lesson_title: scope.label || '', note_text: payload?.submission?.text_inputs?.lecture_note_text || '' } },
+      recommended_engine_actions: ['run_diagnoseWithGuidance', 'generate_verification_questions']
+    },
+    _staged: { mode: scope.mode, scope: scope.label, units: Object.keys(byUnit), questions: attempts.length, type_matched: matched }
+  };
 }
 
 const ENGINE_ADAPTER_KEYS = ['ok', 'engine_adapter'];
@@ -220,7 +375,7 @@ function stripRuntime(obj) {
   return out;
 }
 
-async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback, validate, structured = true }) {
+async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback, validate, structured = true, run = null }) {
   const stubMode = isStubMode(env);
   const allowFallback = boolEnv(env.ALLOW_STUB, false) || boolEnv(env.FALLBACK_ON_AI_ERROR, true);
   if (stubMode) return withRuntimeNote(fallback(), `stub_mode:${task}`);
@@ -229,7 +384,8 @@ async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallb
     throw httpError(500, 'ANTHROPIC_API_KEY is not configured. Set it as a Cloudflare Worker secret.');
   }
   try {
-    const result = await callClaudeJson({ env, prompt, files, schemaName, schema, structured });
+    // run이 주어지면 그 절차가 호출 전체를 책임진다(2단계 판정처럼 호출이 여러 번인 경우).
+    const result = run ? await run() : await callClaudeJson({ env, prompt, files, schemaName, schema, structured });
     if (validate) validate(result);
     return result;
   } catch (error) {

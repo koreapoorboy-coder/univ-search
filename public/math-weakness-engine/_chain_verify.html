@@ -1,0 +1,84 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>chain verify</title>
+<body>
+<pre id="log">running...</pre>
+<div id="out"></div>
+<script src="assets/algebra_master_matcher.js"></script>
+<script src="assets/math_weakness_engine.js"></script>
+<script src="assets/math_weakness_evidence_review.js"></script>
+<script src="assets/math_ai_bridge_client.js"></script>
+<script src="assets/math_verification_flow.js"></script>
+<script src="assets/math_hybrid_report_renderer.js"></script>
+<script>
+const SAMPLES = [
+  'm3_quadratic_equation',
+  'm1_int_rational',
+  'm2_linear_function',
+  'h1_common_math1_polynomial',
+  'h2_calculus1_integration'
+];
+const lines = [];
+function L(s){ lines.push(s); document.getElementById('log').textContent = lines.join('\n'); }
+
+(async () => {
+  try {
+    const engine = new MathWeaknessEngine('.');
+    const flow = new MathVerificationFlow({ engine, bridge: null });
+    await engine.load({ unitIds: [] });
+    if (engine.loadEvidenceLogic) await engine.loadEvidenceLogic();
+    L('engine loaded. declared units = ' + (engine.indexedUnits || []).length);
+
+    const report = [];
+    for (const name of SAMPLES) {
+      const attempt = await (await fetch(`samples/${name}.student_attempt.sample.json`)).json();
+      const diag = await flow.runLocalEngineDiagnosis({ engine_adapter: { student_attempt: attempt } });
+      const wrong = (diag && diag.wrong_answer_diagnoses) || [];
+      const missing = wrong.filter(w => w.missing).length;
+      const withRoute = wrong.filter(w => w.backtrack_route && (w.backtrack_route.backtrack_steps || []).length);
+      const chainHtml = MathHybridReportRenderer.renderBacktrackChains(diag);
+      const connRows = MathHybridReportRenderer.engineConnections(diag);
+      report.push({
+        sample: name,
+        unit: attempt.unit_id,
+        attempts: (attempt.attempts || []).length,
+        wrong_diags: wrong.length,
+        pt_id_missing: missing,
+        with_backtrack: withRoute.length,
+        chain_card_rendered: !!chainHtml,
+        chain_steps: withRoute.map(w => (w.backtrack_route.backtrack_steps || []).length),
+        connection_rows: connRows.length,
+        connection_sample: connRows.slice(0, 3),
+        learning_connections: (diag && diag.learning_connections || []).map(c => c.unit_id)
+      });
+      L(name + ' → ok');
+    }
+    // 실제 경로 재현: AI가 단원은 맞게 판정했지만 problem_type_id를 지어낸 경우
+    const bogus = {
+      unit_id: 'M3_QUADRATIC_EQUATION',
+      attempts: [
+        { problem_type_id: '이차방정식_근의공식', is_correct: false, error_tags: ['quadratic_formula'] },
+        { problem_type_id: 'M3_QE_003', is_correct: false, error_tags: ['vietas_relation'] },
+        { is_correct: false, error_tags: ['zero_product_factorization'] }
+      ]
+    };
+    const bd = await flow.runLocalEngineDiagnosis({ engine_adapter: { student_attempt: bogus } });
+    report.push({
+      sample: '(BOGUS problem_type_id, unit_id 정상)',
+      wrong_diags: (bd.wrong_answer_diagnoses || []).length,
+      missing_type_count: bd.summary.missing_type_count,
+      chain_card_rendered: !!MathHybridReportRenderer.renderBacktrackChains(bd),
+      connection_rows: MathHybridReportRenderer.engineConnections(bd).length,
+      top_concepts: (bd.top_concepts || []).length,
+      top_units: bd.top_units,
+      learning_connections: (bd.learning_connections || []).map(c => c.unit_id)
+    });
+    L('\n' + JSON.stringify(report, null, 2));
+    window.__RESULT__ = report;
+  } catch (e) {
+    L('ERROR: ' + (e && e.stack || e));
+    window.__RESULT__ = { error: String(e && e.message || e) };
+  }
+})();
+</script>
+</body>
