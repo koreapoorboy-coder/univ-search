@@ -84,18 +84,9 @@ class MathHybridReportRenderer {
         { title: '정의의 적용 기준이 불명확함', body: '정의를 말하는 것과 실제 문제에서 그 조건을 확인하는 것은 다릅니다.' },
         { title: '반례·비예시 확인 부족', body: '그 개념을 쓰면 안 되는 경우를 구분해야 응용 문제에서 흔들리지 않습니다.' },
         { title: '풀이에서 조건 확인 과정 부족', body: '공식이나 개념을 적용하기 전에 왜 적용 가능한지 근거를 써야 합니다.' }
-      ]).slice(0, 3),
-      connections: [
-        { now: `${conceptName}의 적용 조건`, next: '같은 단원의 대표 유형', why: '정의가 맞는 경우와 아닌 경우를 구분해야 풀이를 시작할 수 있습니다.' },
-        { now: '반례·비예시 구분', next: '학교 서술형 조건 판단 문제', why: '문제에서 요구하는 조건을 빠뜨리면 계산이 맞아도 감점될 수 있습니다.' },
-        { now: '증명형 설명', next: '상위 단원 개념 적용', why: '공식을 외워도 언제 쓰는지 설명하지 못하면 응용 문제에서 막힙니다.' }
-      ],
+      ]),
       requiredConditions: boundary.required_conditions || [],
-      actionSteps: [
-        '정의만 쓰지 말고 그 정의가 성립하는 조건을 함께 적습니다.',
-        '그 개념을 쓰면 안 되는 비예시 또는 반례를 1개 이상 확인합니다.',
-        '대표 문제에서 왜 이 개념을 써야 하는지 한 줄 근거를 붙입니다.'
-      ],
+      actionSteps: this.actionStepsFrom(data),
       questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 조건 판정, 반례, 비교 설명을 확인하는 10문항을 만듭니다.'
     };
   }
@@ -116,13 +107,16 @@ class MathHybridReportRenderer {
     const concepts = (math.concept_candidates || []).map(x => x.concept_name).filter(Boolean);
     const concept = concepts[0] || unit || '풀이 과정';
     const sol = data?.student_material_review?.solution_review || {};
-    const mainErrors = (sol.main_error_candidates || []).filter(Boolean);
-    const conceptErrors = (sol.concept_error_candidates || []).filter(Boolean);
-    const calcErrors = (sol.calculation_error_candidates || []).filter(Boolean);
-    const problems = [];
-    if (mainErrors[0]) problems.push({ title: '풀이가 틀어진 위치 확인 필요', body: mainErrors[0] });
-    if (conceptErrors[0]) problems.push({ title: '필요한 개념 연결 부족', body: conceptErrors[0] });
-    if (calcErrors[0]) problems.push({ title: '계산 전개 또는 식 변형 확인 필요', body: calcErrors[0] });
+    // AI는 오류 후보를 배열로 돌려주는데 예전에는 각 배열의 [0]만 꺼내 썼다. 문항 60개를
+    // 읽고 찾아낸 내용이 3줄로 잘려 나가던 이유다. 전부 싣는다.
+    const labelled = [
+      ...(sol.main_error_candidates || []).filter(Boolean).map(x => ({ title: '풀이가 틀어진 위치', body: x })),
+      ...(sol.concept_error_candidates || []).filter(Boolean).map(x => ({ title: '개념 연결 오류', body: x })),
+      ...(sol.calculation_error_candidates || []).filter(Boolean).map(x => ({ title: '계산·식 변형 오류', body: x })),
+      // 학생 풀이를 그대로 인용한 근거. 진단의 출처를 보여주는 가장 강한 자료인데
+      // 화면에서 한 번도 쓰인 적이 없었다.
+      ...(sol.quoted_student_steps || []).filter(Boolean).map(x => ({ title: '학생 풀이에서 확인된 지점', body: typeof x === 'string' ? x : (x.step || x.text || JSON.stringify(x)) }))
+    ];
     const fallback = [
       { title: '문제 조건을 식으로 바꾸는 단계 확인 필요', body: '문장 조건, 범위 조건, 그래프 조건을 풀이 첫 줄에서 정확히 식으로 옮겼는지 봐야 합니다.' },
       { title: '풀이 중간 단계의 근거 부족', body: '계산 결과보다 왜 그 식을 세웠는지, 왜 그 변형이 가능한지 설명이 필요합니다.' },
@@ -132,19 +126,27 @@ class MathHybridReportRenderer {
       title: '풀이 과정 진단',
       studentVerdict: `${concept} 풀이의 조건 해석·식 세우기·검산 확인 필요`,
       oneLine: `이 자료는 정답 여부보다 풀이가 어느 단계에서 틀어졌는지 확인해야 합니다. 핵심은 조건 해석 → 식 세우기 → 계산 전개 → 답 검산입니다.`,
-      problems: (problems.length ? problems : fallback).slice(0, 3),
-      connections: [
-        { now: '조건 해석·식 세우기', next: '고1: 방정식과 부등식', why: '문제 문장을 식으로 바꾸는 단계가 틀리면 뒤 계산이 맞아도 답이 달라집니다.' },
-        { now: '함수·그래프 조건 확인', next: '고1·고2: 함수와 그래프, 함수의 극한', why: '정의역, 치역, 그래프 조건을 확인해야 해가 실제 조건을 만족합니다.' },
-        { now: `${concept} 풀이 근거`, next: unit ? `현재 단원: ${unit}` : '현재 풀이 단원', why: '같은 유형을 다시 풀 때 어떤 개념을 써야 하는지 기준이 됩니다.' }
-      ],
-      actionSteps: [
-        '오류가 의심되는 줄을 표시하고 그 줄에서 확인해야 할 조건을 씁니다.',
-        '문제 문장을 식·범위·그래프 조건으로 다시 바꿔 씁니다.',
-        '구한 답을 원래 조건에 대입해 검산합니다.'
-      ],
+      problems: labelled.length ? labelled : fallback,
+      actionSteps: this.actionStepsFrom(data),
       questionPolicy: '보강 문제가 필요하면 2차 보강 문제 생성에서 오류 위치 찾기, 조건을 식으로 바꾸기, 계산 전개, 답 검산, 유사 유형 재풀이를 확인하는 10문항을 만듭니다.'
     };
+  }
+
+  // "학생이 바로 할 일"은 그동안 자료와 무관한 고정 3줄이었다. AI가 must_check_actions와
+  // next_rewrite_task로 이 학생이 확인해야 할 것을 이미 돌려주는데 아무도 읽지 않았다.
+  // 실제 값이 있으면 그걸 쓰고, 없을 때만 일반 문구로 내려간다.
+  static actionStepsFrom(data) {
+    const fromAi = [
+      ...(data?.verification_need?.must_check_actions || []),
+      data?.student_material_review?.concept_note_review?.next_rewrite_task,
+      data?.student_material_review?.concept_note_review?.concept_rewrite_template?.student_rewrite_prompt
+    ].filter(x => typeof x === 'string' && x.trim());
+    if (fromAi.length) return Array.from(new Set(fromAi));
+    return [
+      '오류가 의심되는 줄을 표시하고 그 줄에서 확인해야 할 조건을 씁니다.',
+      '문제 문장을 식·범위·그래프 조건으로 다시 바꿔 씁니다.',
+      '구한 답을 원래 조건에 대입해 검산합니다.'
+    ];
   }
   static decideOutcome(data) {
     const s = data?.extraction_summary || {};
@@ -254,13 +256,13 @@ class MathHybridReportRenderer {
   }
 
   static renderProofPlan(plan, engineConnections = []) {
-    const issues = (plan.problems || []).slice(0, 3).map((x, idx) => {
+    const issues = (plan.problems || []).slice(0, 8).map((x, idx) => {
       const title = typeof x === 'object' && x ? x.title : x;
       const body = typeof x === 'object' && x ? x.body : '';
       return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b>${this.esc(title)}</b>${body ? `<br><span>${this.esc(body)}</span>` : ''}</p></div>`;
     }).join('');
     const rows = engineConnections;
-    const actions = (plan.actionSteps || []).slice(0, 3).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
+    const actions = (plan.actionSteps || []).slice(0, 8).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
     return `
       <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
@@ -274,13 +276,13 @@ class MathHybridReportRenderer {
   }
 
   static renderSolutionPlan(plan, engineConnections = []) {
-    const issues = (plan.problems || []).slice(0, 3).map((x, idx) => {
+    const issues = (plan.problems || []).slice(0, 8).map((x, idx) => {
       const title = typeof x === 'object' && x ? x.title : x;
       const body = typeof x === 'object' && x ? x.body : '';
       return `<div class="compact-issue"><span class="issue-no">${idx + 1}</span><p><b>${this.esc(title)}</b>${body ? `<br><span>${this.esc(body)}</span>` : ''}</p></div>`;
     }).join('');
     const rows = engineConnections;
-    const actions = (plan.actionSteps || []).slice(0, 3).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
+    const actions = (plan.actionSteps || []).slice(0, 8).map((x, idx) => `<div class="compact-action"><span class="issue-no">${idx + 1}</span><p>${this.esc(x)}</p></div>`).join('');
     return `
       <section class="compact-diagnosis-box">
         <h3>${this.esc(plan.title)}</h3>
