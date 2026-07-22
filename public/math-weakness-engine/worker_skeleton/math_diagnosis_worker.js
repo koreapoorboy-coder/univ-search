@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.07.22-chunked-enum';
+const VERSION = '2026.07.22-json-repair';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -468,6 +468,11 @@ async function callClaudeJson({ env, prompt, files, schemaName, schema, structur
 [출력 형식]
 아래 JSON Schema를 정확히 만족하는 JSON 객체 하나만 출력한다.
 코드펜스(\`\`\`), 설명 문장, 앞뒤 텍스트를 절대 붙이지 않는다. 첫 글자는 {, 마지막 글자는 } 여야 한다.
+
+[수식 표기 — 반드시 지킨다]
+문자열 값 안에 백슬래시(\\)를 절대 쓰지 않는다. LaTeX를 쓰지 않는다.
+\\frac{1}{3}, \\sqrt{2}, \\le, \\times, \\(x\\) 같은 표기는 JSON 문자열을 깨뜨린다.
+수식은 학생이 읽는 평문으로 쓴다: 1/3, √2 또는 루트2, <=, ×, 0.333..., x^2, (123-1)/99.
 ${JSON.stringify(schema)}`;
   // files는 보통 prepareFiles()가 만든 배열이다. 원본 File 객체가 들어오는 단일 호출
   // 경로(답안 검토)에서는 여기서 변환하고, 그 경우에만 뒤처리도 여기서 책임진다.
@@ -528,7 +533,11 @@ async function requestClaudeJson({ env, head, prepared, schemaName, schema, stru
     // 앞뒤 일부와 길이, stop_reason을 실어 보내 한 번의 실패로 원인이 드러나게 한다.
     const head = text.slice(0, 220).replace(/\s+/g, ' ');
     const tail = text.slice(-120).replace(/\s+/g, ' ');
-    throw httpError(502, `Claude output was not valid JSON (${schemaName}) · len=${text.length} stop=${stopReason || 'none'} · head="${head}" · tail="${tail}"`);
+    // 파서가 실패한 지점을 같이 싣는다. head/tail만으로는 "형식이 깨졌다"까지만 알 수 있고
+    // 어느 글자에서 깨졌는지 몰라 추측 수정을 반복하게 된다.
+    const pos = Number(String(err?.message || '').match(/position (\d+)/)?.[1]);
+    const around = Number.isFinite(pos) ? ` · 깨진 위치 …${text.slice(Math.max(0, pos - 60), pos + 60).replace(/\s+/g, ' ')}…` : '';
+    throw httpError(502, `Claude output was not valid JSON (${schemaName}) · len=${text.length} stop=${stopReason || 'none'} · ${err?.message || 'parse failed'}${around} · head="${head}" · tail="${tail}"`);
   }
 }
 
@@ -584,13 +593,53 @@ function parseJsonLoose(text) {
   const a = raw.indexOf('{'), b = raw.lastIndexOf('}');
   if (a >= 0 && b > a) attempts.push(raw.slice(a, b + 1));
 
+  let lastError = null;
   for (const candidate of attempts) {
     if (!candidate || candidate[0] !== '{') continue;
-    try { return JSON.parse(candidate); } catch (_) {}
-    // 후행 쉼표는 모델이 자주 남기는 형태라 한 번 더 시도한다.
-    try { return JSON.parse(candidate.replace(/,\s*([}\]])/g, '$1')); } catch (_) {}
+    for (const variant of [candidate, repairJsonText(candidate)]) {
+      try { return JSON.parse(variant); } catch (err) { lastError = err; }
+      // 후행 쉼표는 모델이 자주 남기는 형태라 한 번 더 시도한다.
+      try { return JSON.parse(variant.replace(/,\s*([}\]])/g, '$1')); } catch (err) { lastError = err; }
+    }
   }
-  throw new SyntaxError('no parsable JSON object found');
+  throw new SyntaxError(`no parsable JSON object found${lastError ? ` · 마지막 오류: ${lastError.message}` : ''}`);
+}
+
+// 프롬프트 방식(structured=false)에서 모델이 정상 종료(end_turn)하고도 JSON이 깨지는
+// 두 가지를 되살린다.
+//   1) 유효하지 않은 이스케이프 — LaTeX의 \(, \), \le, \sqrt 같은 것. JSON은 백슬래시 뒤에
+//      ["\/bfnrtu]만 허용해서 "Bad escaped character"로 통째로 실패한다.
+//   2) 문자열 안의 생 줄바꿈·탭 — JSON 문자열에는 그대로 들어갈 수 없다.
+// \frac, \times처럼 우연히 유효한 이스케이프로 시작하는 LaTeX(\f=폼피드, \t=탭)는 여기서
+// 살릴 수 없다. 파싱은 되고 글자만 조용히 깨지며, 사후에는 의도를 구분할 방법이 없다.
+// 그래서 애초에 백슬래시를 쓰지 말라고 프롬프트에서 막는다.
+function repairJsonText(text) {
+  let out = '';
+  let inString = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (!inString) {
+      if (c === '"') inString = true;
+      out += c;
+      continue;
+    }
+    if (c === '\\') {
+      const next = text[i + 1];
+      const validHex = next === 'u' && /^[0-9a-fA-F]{4}$/.test(text.slice(i + 2, i + 6));
+      if (next === 'u' ? validHex : '"\\/bfnrt'.includes(next)) {
+        out += c + next; i++;            // 정상 이스케이프는 그대로 둔다
+      } else {
+        out += '\\\\';                    // 깨진 이스케이프는 백슬래시 자체로 살린다
+      }
+      continue;
+    }
+    if (c === '"') { inString = false; out += c; continue; }
+    if (c === '\n') { out += '\\n'; continue; }
+    if (c === '\r') { out += '\\r'; continue; }
+    if (c === '\t') { out += '\\t'; continue; }
+    out += c;
+  }
+  return out;
 }
 
 // Claude returns an array of content blocks. With adaptive thinking on, thinking
