@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.07.22-json-repair';
+const VERSION = '2026.07.22-five-states';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -241,6 +241,20 @@ async function fetchUnitProblemTypes(scope, unitId) {
   return (pack.problem_types || []).map(p => ({ id: p.problem_type_id, name: p.type_name })).filter(p => p.id);
 }
 
+// 문항 상태는 맞음/틀림 두 값으로는 부족하다. 풀다 만 것과 빈칸이 "틀림"에 뭉개지면
+// 시도율과 정확도를 나눌 수 없고, 빈칸을 세지 못하면 전체 문항 수도 서지 않는다.
+// 엔진(responseStatusOf)이 이미 아는 다섯 값을 그대로 쓴다.
+const RESPONSE_STATES = ['CORRECT_COMPLETE', 'WRONG_COMPLETE', 'PARTIAL_STOP', 'ANSWER_ONLY', 'BLANK_UNKNOWN'];
+
+const RESPONSE_STATE_RULE = `[문항 상태 — 아래 다섯 중 하나로 정확히 분류한다]
+- CORRECT_COMPLETE : 풀이가 끝까지 있고 답이 맞다.
+- WRONG_COMPLETE   : 풀이가 끝까지 있으나 답이 틀리다.
+- PARTIAL_STOP     : 풀이를 시작했으나 중간에서 멈췄고 최종 답이 없다.
+- ANSWER_ONLY      : 답은 적혀 있으나 풀이 과정이 없다(정답 여부와 무관).
+- BLANK_UNKNOWN    : 문항은 시험지에 있으나 풀이도 답도 없다.
+빈칸 문항도 반드시 목록에 넣는다. 빈칸을 빠뜨리면 전체 문항 수가 틀어진다.
+채점 표시가 없으면 풀이 결과로 정오답을 판단한다.`;
+
 const UNIT_ASSIGN_SCHEMA = (unitIds) => ({
   type: 'object', additionalProperties: false, required: ['assignments'],
   properties: {
@@ -248,11 +262,11 @@ const UNIT_ASSIGN_SCHEMA = (unitIds) => ({
       type: 'array',
       items: {
         type: 'object', additionalProperties: false,
-        required: ['question_no', 'unit_id', 'is_correct'],
+        required: ['question_no', 'unit_id', 'response_status'],
         properties: {
           question_no: { type: 'string' },
           unit_id: { type: 'string', enum: unitIds },
-          is_correct: { type: 'boolean' }
+          response_status: { type: 'string', enum: RESPONSE_STATES }
         }
       }
     }
@@ -271,12 +285,12 @@ const TYPE_ASSIGN_SCHEMA = (typeIds, allowNoMatch = false) => ({
       items: {
         type: 'object', additionalProperties: false,
         required: allowNoMatch
-          ? ['question_no', 'problem_type_id', 'is_correct', 'difficulty', 'observed_error_tags', 'confidence']
-          : ['question_no', 'problem_type_id', 'is_correct', 'difficulty', 'observed_error_tags'],
+          ? ['question_no', 'problem_type_id', 'response_status', 'difficulty', 'observed_error_tags', 'confidence']
+          : ['question_no', 'problem_type_id', 'response_status', 'difficulty', 'observed_error_tags'],
         properties: {
           question_no: { type: 'string' },
           problem_type_id: { type: 'string', enum: allowNoMatch ? [...typeIds, NO_MATCH] : typeIds },
-          is_correct: { type: 'boolean' },
+          response_status: { type: 'string', enum: RESPONSE_STATES },
           difficulty: { type: 'string', enum: ['basic', 'core', 'advanced', 'high'] },
           observed_error_tags: { type: 'array', items: { type: 'string' } },
           // 조각이 여러 개면 둘 이상이 같은 문항을 자기 것이라 할 수 있다. 그때 고르는 기준.
@@ -297,7 +311,7 @@ function chunkList(arr, size) {
 // 묻고 합친다. 호출부는 어느 쪽인지 알 필요가 없다.
 async function assignTypesForUnit({ env, files, unitId, rows, types }) {
   const chunks = chunkList(types, MAX_ENUM_TYPES);
-  const targetList = rows.map(r => `${r.question_no}번 (정답 여부: ${r.is_correct ? '맞음' : '틀림'})`).join('\n');
+  const targetList = rows.map(r => `${r.question_no}번 (상태: ${r.response_status})`).join('\n');
   const askChunk = async (part, i) => {
     const split = chunks.length > 1;
     const menu = part.map(t => `${t.id} = ${t.name}`).join('\n');
@@ -315,7 +329,9 @@ ${menu}
 
 규칙:
 - 대상 문항 전부에 대해 한 줄씩 낸다.
-- observed_error_tags는 틀린 문항에서 실제로 관찰된 오류만 쓴다. 맞은 문항은 빈 배열로 둔다.
+- response_status는 위에 적힌 상태를 그대로 다시 쓴다. 임의로 바꾸지 않는다.
+- observed_error_tags는 WRONG_COMPLETE·PARTIAL_STOP에서 실제로 관찰된 오류만 쓴다.
+  CORRECT_COMPLETE와 BLANK_UNKNOWN은 빈 배열로 둔다.
 - difficulty는 문항 난도다.${split ? `
 - 이 목록은 단원 전체 유형의 일부다. 위 목록에 맞는 유형이 없으면 억지로 고르지 말고
   problem_type_id를 "${NO_MATCH}"로, confidence를 0으로 둔다.
@@ -350,7 +366,7 @@ ${menu}
       const { _chunk, confidence, ...rest } = hit;
       return { ...rest, question_no: r.question_no, unit_id: unitId };
     }
-    return { question_no: r.question_no, problem_type_id: '', is_correct: r.is_correct, difficulty: 'core', observed_error_tags: [], unit_id: unitId };
+    return { question_no: r.question_no, problem_type_id: '', response_status: r.response_status, difficulty: 'core', observed_error_tags: [], unit_id: unitId };
   });
 }
 
@@ -370,9 +386,10 @@ ${unitMenu}
 
 규칙:
 - 문항 번호(question_no)는 자료에 적힌 번호를 그대로 문자열로 쓴다.
-- is_correct는 학생이 그 문항을 맞혔는지다. 채점 표시나 풀이 결과로 판단한다.
-- 자료에서 확인되는 문항만 넣는다. 없는 문항을 만들지 않는다.
-- 범위: ${scope.label || '전체'}`
+- 시험지에 있는 문항은 빠짐없이 넣는다. 빈칸도 넣는다. 없는 문항을 만들지는 않는다.
+- 범위: ${scope.label || '전체'}
+
+${RESPONSE_STATE_RULE}`
   });
 
   const assignments = (stage1?.assignments || []).filter(a => a.question_no && a.unit_id);
@@ -395,13 +412,20 @@ ${unitMenu}
     } catch (err) {
       console.error(`stage2 failed (${unitId}):`, err?.message || err);
       // 유형은 못 정해도 단원·정오답은 살아 있다. 버리지 않고 그대로 넘긴다.
-      return rows.map(r => ({ question_no: r.question_no, problem_type_id: '', is_correct: r.is_correct, difficulty: 'core', observed_error_tags: [], unit_id: unitId }));
+      return rows.map(r => ({ question_no: r.question_no, problem_type_id: '', response_status: r.response_status, difficulty: 'core', observed_error_tags: [], unit_id: unitId }));
     }
   }));
 
-  const attempts = results.flat();
+  // 엔진은 response_status를 우선으로 읽지만, is_correct만 보는 옛 경로(폴백·렌더러)도
+  // 남아 있다. 상태에서 파생해 같이 실어 두 경로가 어긋나지 않게 한다.
+  const attempts = results.flat().map(a => ({
+    ...a,
+    is_correct: a.response_status === 'CORRECT_COMPLETE'
+  }));
   const topUnit = Object.keys(byUnit).sort((a, b) => byUnit[b].length - byUnit[a].length)[0] || '';
   const matched = attempts.filter(a => a.problem_type_id).length;
+  const states = {};
+  for (const a of attempts) states[a.response_status || 'UNKNOWN'] = (states[a.response_status || 'UNKNOWN'] || 0) + 1;
   return {
     ok: true,
     engine_adapter: {
@@ -416,6 +440,8 @@ ${unitMenu}
     _staged: {
       mode: scope.mode, scope: scope.label, units: Object.keys(byUnit),
       questions: attempts.length, type_matched: matched,
+      // 5상태 분포. 빈칸이 0으로만 나오면 판독이 빈칸을 놓치고 있다는 신호다.
+      states,
       // 어느 단원이 몇 조각으로 나뉘었는지. 유형이 안 붙었을 때 조각 문제인지 판별하는 값이다.
       chunked: chunkPlan.filter(c => c.chunks > 1)
     }

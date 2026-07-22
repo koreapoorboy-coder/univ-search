@@ -349,7 +349,7 @@ class MathHybridReportRenderer {
     return `<section class="compact-diagnosis-box behavior-analysis-box">
       <h3>풀이 습관 분석</h3>
       <p class="one-line-diagnosis">${this.esc(view.one_line_diagnosis || '풀이 습관을 확인하고 있습니다.')}</p>
-      <div class="result-meta">정답 완결 ${this.esc(summary.correct_complete_count || 0)} · 오답 완결 ${this.esc(summary.wrong_complete_count || 0)} · 풀이 중단 ${this.esc(summary.partial_stop_count || 0)} · 빈칸 ${this.esc(summary.blank_unknown_count || 0)}</div>
+      <div class="result-meta">전체 ${this.esc(summary.total_question_count || 0)}문항 · 정답 완결 ${this.esc(summary.correct_complete_count || 0)} · 오답 완결 ${this.esc(summary.wrong_complete_count || 0)} · 풀이 중단 ${this.esc(summary.partial_stop_count || 0)} · 답만 씀 ${this.esc(summary.answer_only_count || 0)} · 빈칸 ${this.esc(summary.blank_unknown_count || 0)}</div>
       <div class="compact-section-title">현재 가능한 것</div>${this.list(strengths)}
       <div class="compact-section-title">현재 막히는 지점</div>${this.list(blockers)}
       <div class="compact-section-title">앞으로 사용할 규칙</div>${this.list(rules)}
