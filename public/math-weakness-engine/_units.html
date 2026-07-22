@@ -1,9 +1,0 @@
-<!doctype html>
-<meta charset="utf-8"><title>units</title><body><pre id="log"></pre>
-<script>
-(async () => {
-  const idx = await (await fetch('data/index.v1.json')).json();
-  document.getElementById('log').textContent = (idx.units || [])
-    .map(u => `${u.grade}\t${u.course || '-'}\t${u.unit_id}\t${u.unit_name}`).join('\n');
-})();
-</script></body>
