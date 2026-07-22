@@ -22,6 +22,12 @@
   function ratio(n,d){return d>0?n/d:0;}
   function num(v,fallback=0){const n=Number(v); return Number.isFinite(n)?n:fallback;}
   function boolOrNull(v){if(v===true||v===false)return v; const s=norm(v); if(['true','yes','1','o','ok','있음','완료','성공'].includes(s))return true; if(['false','no','0','x','없음','미완료','실패'].includes(s))return false; return null;}
+  // 자료마다 오답 목록을 담는 키 이름이 다르다. 배열을 못 찾으면 예외도 경고도 없이
+  // 0건으로 떨어져서, 샘플 12개가 진단 없이 통과되고 있었다.
+  const ATTEMPT_LIST_KEYS=['attempts','student_attempts','sample_student_attempts','samples'];
+  // 오류 태그 필드명도 같은 이유로 갈린다. observed_errors만 쓰는 자료는 학생이 실제로
+  // 보인 오류가 통째로 빠지고 문항유형 기본 태그만으로 진단되고 있었다.
+  function observedTagsOf(a){return [...(a&&a.observed_error_tags||[]),...(a&&a.observed_errors||[]),...(a&&a.error_tags||[])];}
   const RESPONSE_STATUS_ALIASES={correct:'CORRECT_COMPLETE',correct_complete:'CORRECT_COMPLETE',wrong:'WRONG_COMPLETE',incorrect:'WRONG_COMPLETE',wrong_complete:'WRONG_COMPLETE',partial:'PARTIAL_STOP',partial_stop:'PARTIAL_STOP',stopped:'PARTIAL_STOP',blank:'BLANK_UNKNOWN',unknown_blank:'BLANK_UNKNOWN',blank_unknown:'BLANK_UNKNOWN',unanswered:'BLANK_UNKNOWN',answer_only:'ANSWER_ONLY',unknown:'UNKNOWN'};
   function responseStatusOf(a){
     const raw=norm(a&& (a.response_status||a.attempt_status||a.solution_status||a.status));
@@ -259,8 +265,18 @@
         console.warn('[MathWeaknessEngine] global logic load failed:',err);
       }
     }
+    collectAttemptList(input){
+      if(Array.isArray(input)) return input;
+      if(!input) return [];
+      for(const key of ATTEMPT_LIST_KEYS){if(Array.isArray(input[key])) return input[key];}
+      // 틀린 유형 번호만 나열한 형태. 교사가 손으로 넣기 가장 쉬운 입력이라 그대로 받는다.
+      if(Array.isArray(input.wrong_problem_type_ids)){
+        return input.wrong_problem_type_ids.map(x=>typeof x==='string'?{problem_type_id:x,is_correct:false}:x);
+      }
+      return [];
+    }
     _normalizeAttempts(input){
-      const attempts=Array.isArray(input)?input:(input&&Array.isArray(input.attempts)?input.attempts:[]);
+      const attempts=this.collectAttemptList(input);
       return attempts.map((a,i)=>{
         const response_status=responseStatusOf(a);
         const hasCorrect=(a.correct!==undefined||a.is_correct!==undefined||a.isCorrect!==undefined||a.result!==undefined);
@@ -269,7 +285,7 @@
       });
     }
     _difficultyOf(attempt,pt){return attempt.difficulty||pt.default_difficulty||'core';}
-    _tagsFor(attempt,pt,instruction){return uniq([...(pt.error_tags||[]),...(attempt.observed_error_tags||[]),...(attempt.error_tags||[]),...(instruction&&instruction.error_tags||[])]);}
+    _tagsFor(attempt,pt,instruction){return uniq([...(pt.error_tags||[]),...observedTagsOf(attempt),...(instruction&&instruction.error_tags||[])]);}
     // 템플릿 id는 정확 매칭, 태그 겹침은 느슨한 폴백이다. 둘을 한 find()의 OR로 묶으면
     // 배열 앞쪽 route가 태그 하나만 걸쳐도 선점해서, 정확히 대응하는 route를 이겨버린다.
     // (부분적분 문항이 'area' 태그 때문에 곡선 넓이 경로를 받던 문제) 정확 매칭을 먼저 시도한다.
@@ -295,7 +311,7 @@
       const diff=this._difficultyOf(attempt,pt);
       const multiplier=(this.weaknessScoringRules&&this.weaknessScoringRules.difficulty_multiplier)||{basic:1.0,core:0.85,advanced:0.7,high:0.6};
       const depth=(route&&route.backtrack_steps||[]).length;
-      const observed=(attempt.observed_error_tags||attempt.error_tags||[]).length;
+      const observed=uniq(observedTagsOf(attempt)).length;
       const raw=0.28+(multiplier[diff]||0.75)*0.25+Math.min(depth,4)*0.08+Math.min(observed,4)*0.03;
       const score=clamp01(raw);
       const bands=(this.weaknessScoringRules&&this.weaknessScoringRules.severity_bands)||DEFAULT_SEVERITY_BANDS;
@@ -370,7 +386,9 @@
     }
     _errorCount(attempts,patterns){
       const ps=(patterns||[]).map(norm);
-      return attempts.reduce((sum,a)=>sum+(a.observed_error_tags||a.error_tags||[]).some(t=>ps.some(p=>norm(t).includes(p)))?1:0,0);
+      // 괄호가 빠져 있어 (sum+bool)?1:0으로 묶이는 바람에 결과가 늘 0/1이었다.
+      // 아래 판정은 >=2를 보므로 이 신호로 켜지는 패턴이 전부 죽어 있었다.
+      return attempts.reduce((sum,a)=>sum+(observedTagsOf(a).some(t=>ps.some(p=>norm(t).includes(p)))?1:0),0);
     }
     _groupAccuracy(attempts,key){
       const groups={};

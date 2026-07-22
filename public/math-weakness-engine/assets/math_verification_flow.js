@@ -73,7 +73,8 @@ class MathVerificationFlow {
     if (attempt.unit_id) ids.add(attempt.unit_id);
     // problem_type_id 접두어가 단원을 가리키는 경우가 있어 index의 unit_id와 대조한다.
     const declared = (this.engine.indexedUnits || []).map(u => u.unit_id);
-    for (const a of attempt.attempts || []) {
+    const list = this.engine.collectAttemptList ? this.engine.collectAttemptList(attempt) : (attempt.attempts || []);
+    for (const a of list) {
       const pid = String(a.problem_type_id || '');
       const hit = declared.find(u => pid.startsWith(u) || pid.startsWith(u.replace(/_/g, '')));
       if (hit) ids.add(hit);
