@@ -31,9 +31,24 @@
     "declared_total": 205,
     "stored_total": 205,
     "match": true,
-    "mismatched_groups": []
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": [],
+    "unreadable_groups": [
+      "G047"
+    ],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 1348,
+  "detail_type_check": {
+    "counted_groups": 70,
+    "unknown_groups": [
+      "G047"
+    ],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": true
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 70,
@@ -60,6 +75,7 @@
       "type_name": "유리수의 분류",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G001.I01",
@@ -93,6 +109,7 @@
       "type_name": "소수의 분류(유한소수/무한소수)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G002.I01",
@@ -133,6 +150,7 @@
       "type_name": "분수를 유한소수로 나타내기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G003.I01",
@@ -173,6 +191,7 @@
       "type_name": "유한소수로 나타낼 수 있는(없는) 분수",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G004.I01",
@@ -213,6 +232,7 @@
       "type_name": "B/A × x가 유한소수가 되도록 하는 x의 값 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G005.I01",
@@ -260,6 +280,7 @@
       "type_name": "B/(A × x)가 유한소수가 되도록 하는 x의 값 구하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G006.I01",
@@ -314,6 +335,7 @@
       "type_name": "유한소수가 되는 x/A를 기약분수로 나타내기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G007.I01",
@@ -354,6 +376,7 @@
       "type_name": "2개 이상의 분수가 동시에 유한소수가 되도록 하는 미지수의 값",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G008.I01",
@@ -394,6 +417,7 @@
       "type_name": "순환마디",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G009.I01",
@@ -441,6 +465,7 @@
       "type_name": "순환소수의 표현",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G010.I01",
@@ -481,6 +506,7 @@
       "type_name": "분수를 순환소수로 나타내기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G011.I01",
@@ -521,6 +547,7 @@
       "type_name": "소수점 아래 n번째 자리의 숫자 구하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G012.I01",
@@ -575,6 +602,7 @@
       "type_name": "순환소수가 되도록 하는 미지수의 값",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G013.I01",
@@ -622,6 +650,7 @@
       "type_name": "순환소수를 분수로 나타내기(1) - 10의 거듭제곱 이용",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G014.I01",
@@ -669,6 +698,7 @@
       "type_name": "순환소수를 분수로 나타내기(2) - 공식 이용",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G015.I01",
@@ -709,6 +739,7 @@
       "type_name": "순환소수를 분수로 나타내기(3) - 조건제한이 없는 경우",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G016.I01",
@@ -763,6 +794,7 @@
       "type_name": "순환소수를 정수/유한소수로 나타내기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G017.I01",
@@ -803,6 +835,7 @@
       "type_name": "순환소수의 대소 관계",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G018.I01",
@@ -843,6 +876,7 @@
       "type_name": "순환소수를 포함한 식의 계산",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G019.I01",
@@ -890,6 +924,7 @@
       "type_name": "순환소수를 포함한 부등식의 계산",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G020.I01",
@@ -930,6 +965,7 @@
       "type_name": "순환소수를 포함한 등식에서 미지수의 값 구하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G021.I01",
@@ -984,6 +1020,7 @@
       "type_name": "분자 또는 분모를 잘못 보고 소수로 나타낸 경우",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G022.I01",
@@ -1024,6 +1061,7 @@
       "type_name": "잘못 계산한 경우 어떤 수/바르게 계산한 값 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G023.I01",
@@ -1064,6 +1102,7 @@
       "type_name": "(순환소수) × x가 유한소수 또는 자연수가 되도록 하는 x의 값 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G024.I01",
@@ -1104,6 +1143,7 @@
       "type_name": "순환소수의 이해",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G025.I01",
@@ -1144,6 +1184,7 @@
       "type_name": "유리수와 순환소수의 관계-소수의 이해",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G026.I01",
@@ -1184,6 +1225,7 @@
       "type_name": "지수법칙(1) - 거듭제곱의 곱셈",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G027.I01",
@@ -1245,6 +1287,7 @@
       "type_name": "지수법칙(2) - 거듭제곱의 거듭제곱",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G028.I01",
@@ -1306,6 +1349,7 @@
       "type_name": "지수법칙(3) - 거듭제곱의 나눗셈",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G029.I01",
@@ -1353,6 +1397,7 @@
       "type_name": "지수법칙(4) - 곱의 거듭제곱",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G030.I01",
@@ -1407,6 +1452,7 @@
       "type_name": "지수법칙(5) - 몫의 거듭제곱",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G031.I01",
@@ -1454,6 +1500,7 @@
       "type_name": "지수법칙(6) - 종합",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G032.I01",
@@ -1501,6 +1548,7 @@
       "type_name": "거듭제곱의 대소비교",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G033.I01",
@@ -1541,6 +1589,7 @@
       "type_name": "지수법칙을 이용한 실생활 문제",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G034.I01",
@@ -1609,6 +1658,7 @@
       "type_name": "지수법칙의 응용(1) - 같은 수의 덧셈식",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G035.I01",
@@ -1663,6 +1713,7 @@
       "type_name": "지수법칙의 응용(2) - 다른 문자를 이용하여 나타내기(1)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G036.I01",
@@ -1710,6 +1761,7 @@
       "type_name": "지수법칙의 응용(3) - 다른 문자를 이용하여 나타내기(2)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G037.I01",
@@ -1750,6 +1802,7 @@
       "type_name": "지수법칙의 응용(4) - 지수법칙과 일의 자리수",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G038.I01",
@@ -1797,6 +1850,7 @@
       "type_name": "지수법칙의 응용(5) - 지수법칙과 자연수의 자릿수",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G039.I01",
@@ -1837,6 +1891,7 @@
       "type_name": "지수에 미지수가 포함된 방정식의 풀이",
       "topic_type_count": 7,
       "topic_type_actual": 7,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G040.I01",
@@ -1912,6 +1967,7 @@
       "type_name": "단항식의 곱셈",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G041.I01",
@@ -1966,6 +2022,7 @@
       "type_name": "단항식의 나눗셈",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G042.I01",
@@ -2020,6 +2077,7 @@
       "type_name": "단항식의 곱셈과 나눗셈의 혼합 계산",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G043.I01",
@@ -2074,6 +2132,7 @@
       "type_name": "단항식의 계산에서 빈 칸에 알맞은 식 구하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G044.I01",
@@ -2128,6 +2187,7 @@
       "type_name": "도형에서의 단항식의 계산(1) - 평면도형",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G045.I01",
@@ -2175,6 +2235,7 @@
       "type_name": "도형에서의 단항식의 계산(2) - 입체도형",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G046.I01",
@@ -2227,12 +2288,13 @@
       "대영역": "식의 계산",
       "중영역": "단항식의 곱셈과 나눗셈",
       "type_name": "단항식의 곱셈과 나눗셈의 활용",
-      "topic_type_count": 0,
+      "topic_type_count": null,
       "topic_type_actual": 0,
+      "source_count_note": null,
       "topic_types": [],
-      "detail_type_count": 0,
+      "detail_type_count": null,
       "detail_types": null,
-      "detail_types_note": "세부유형 0개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "detail_types_note": "매쓰플랫 화면에 세부유형 개수 배지가 보이지 않아 개수도 미확보. 0이 아니라 모름이다.",
       "source_image": "18.png",
       "concept_ids": null,
       "error_tags": null,
@@ -2254,6 +2316,7 @@
       "type_name": "다항식의 덧셈과 뺄셈",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G048.I01",
@@ -2308,6 +2371,7 @@
       "type_name": "이차식 찾기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G049.I01",
@@ -2348,6 +2412,7 @@
       "type_name": "이차식의 덧셈과 뺄셈",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G050.I01",
@@ -2402,6 +2467,7 @@
       "type_name": "여러 가지 괄호가 있는 식의 계산",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G051.I01",
@@ -2456,6 +2522,7 @@
       "type_name": "모르는(어떤) 다항식 구하기(1) - 다항식의 덧셈과 뺄셈 이용",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G052.I01",
@@ -2496,6 +2563,7 @@
       "type_name": "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G053.I01",
@@ -2543,6 +2611,7 @@
       "type_name": "잘못 계산한 식에서 바른 답 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G054.I01",
@@ -2583,6 +2652,7 @@
       "type_name": "단항식과 다항식의 곱셈",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G055.I01",
@@ -2630,6 +2700,7 @@
       "type_name": "단항식과 다항식의 나눗셈",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G056.I01",
@@ -2677,6 +2748,7 @@
       "type_name": "모르는(어떤) 다항식 구하기(2) - 다항식과 단항식의 곱셈과 나눗셈 이용",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G057.I01",
@@ -2717,6 +2789,7 @@
       "type_name": "단항식과 다항식의 곱셈/나눗셈에서 빈 칸에 알맞은 식 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G058.I01",
@@ -2757,6 +2830,7 @@
       "type_name": "사칙연산이 혼합된 계산",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G059.I01",
@@ -2804,6 +2878,7 @@
       "type_name": "도형에서의 다항식의 계산(1) - 평면도형",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G060.I01",
@@ -2851,6 +2926,7 @@
       "type_name": "도형에서의 다항식의 계산(2) - 입체도형",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G061.I01",
@@ -2898,6 +2974,7 @@
       "type_name": "다항식과 단항식의 곱셈과 나눗셈의 활용",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G062.I01",
@@ -2931,6 +3008,7 @@
       "type_name": "식의 값",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G063.I01",
@@ -2992,6 +3070,7 @@
       "type_name": "식의 대입",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G064.I01",
@@ -3039,6 +3118,7 @@
       "type_name": "등식을 변형하여 한 문자에 대하여 풀기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G065.I01",
@@ -3079,6 +3159,7 @@
       "type_name": "등식을 변형하여 다른 식에 대입하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G066.I01",
@@ -3126,6 +3207,7 @@
       "type_name": "등식을 변형하여 식의 값 구하기(1) - x, y에 대한 등식이 주어질 때",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G067.I01",
@@ -3166,6 +3248,7 @@
       "type_name": "등식을 변형하여 식의 값 구하기(2) - 비례식이 주어진 때",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G068.I01",
@@ -3206,6 +3289,7 @@
       "type_name": "등식을 변형하여 식의 값 구하기(3) - 세 문자에 대한 식이 주어진 때",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G069.I01",
@@ -3246,6 +3330,7 @@
       "type_name": "등식의 변형의 실생활 활용",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G070.I01",
@@ -3286,6 +3371,7 @@
       "type_name": "등식의 변형의 도형 활용",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.NE.G071.I01",
