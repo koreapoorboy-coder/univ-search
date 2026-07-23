@@ -1,0 +1,3067 @@
+{
+  "schema": "mathflat_problem_type.v1",
+  "version": "2026.07.22-mathflat-M2S2-gp",
+  "_note": "매쓰플랫 화면 스크린샷을 전사한 엑셀을 그대로 옮긴 원본 분류. 진단 단위는 \"유형 묶음\"(problem_types), 그 아래 topic_types가 엑셀 문항분류표를 세부코드·묶음 내 번호·검토상태까지 그대로 담는다. 한글 이름은 원문 그대로이며 다듬지 않았다. 데이터 저장만 한 상태이고 진단 로직에는 연결하지 않았다 — 기존 raw_taxonomy와 옛 진단 경로는 그대로 둔다.",
+  "_source": {
+    "origin": "2-2 도형의 성질.zip 내 PNG 19장",
+    "workbook": "2-2 도형의 성질.xlsx",
+    "extracted_at": "2026-07-22",
+    "principle": "화면에 글자로 보이는 항목만 입력. 보이지 않는 이름은 생성하지 않음."
+  },
+  "_wiring": {
+    "concept_ids": "이름 유사도 0.85 이상인 legacy 섹션에서만 상속했다. 나머지는 null — 사람 확인 전까지 비워 둔다. 순서 대응 상속은 legacy 목록의 구성이 달라 폐기했다.",
+    "error_tags": "미배정 (null). 기존 유형에서 묶음 단위 상속 예정.",
+    "prerequisite_ids": "전부 비움 — 선생님이 직접 지정."
+  },
+  "semester": "M2S2",
+  "semester_name": "중2 2학기",
+  "unit_id": "M2_GEOMETRY_PROPERTIES",
+  "unit_code": "GP",
+  "unit_name": "도형의 성질",
+  "chapter": "2-2 도형의 성질",
+  "status": "raw_not_wired",
+  "problem_type_count": 60,
+  "count_check": {
+    "expected": 60,
+    "actual": 60,
+    "match": true
+  },
+  "topic_type_total": 175,
+  "item_check": {
+    "declared_total": 175,
+    "stored_total": 178,
+    "match": true,
+    "mismatched_groups": [
+      "G014",
+      "G049"
+    ],
+    "accepted_source_errors": [
+      "G014",
+      "G049"
+    ],
+    "accepted_source_note": "매쓰플랫 화면 배지가 실제 표시 항목보다 적게 적혀 있다. 하위 활용 항목이 배지 숫자에 안 잡힌 경우로, 화면에 보이는 항목을 모두 저장했다. 전사 오류가 아니다.",
+    "unexplained_groups": []
+  },
+  "detail_type_total": 1160,
+  "legacy_audit": {
+    "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
+    "match_confident": 3,
+    "match_candidate": 21,
+    "match_none": 36,
+    "legacy_section_count": 140,
+    "legacy_has_concept_ids": true,
+    "concept_ids_inherited": 3,
+    "legacy_unmatched": [
+      "동위각과 엇각 혼동",
+      "평행선에서 동위각·엇각·맞꼭지각 - 조건 적용",
+      "평행선에서 동위각·엇각·맞꼭지각 - 계산·추론",
+      "평행선에서 동위각·엇각·맞꼭지각 - 증명 서술",
+      "외각=두 내각의 합 누락",
+      "삼각형의 내각과 외각 - 조건 적용",
+      "삼각형의 내각과 외각 - 계산·추론",
+      "삼각형의 내각과 외각 - 증명 서술",
+      "n각형 내각 합 공식 오류",
+      "다각형의 내각과 외각 - 조건 적용",
+      "다각형의 내각과 외각 - 계산·추론",
+      "대응 순서 오류",
+      "합동인 도형의 대응 관계 - 조건 적용",
+      "합동인 도형의 대응 관계 - 계산·추론",
+      "SSA를 합동 조건으로 오인",
+      "삼각형의 합동 조건 SSS·SAS·ASA - 조건 적용",
+      "삼각형의 합동 조건 SSS·SAS·ASA - 계산·추론",
+      "결론을 먼저 쓰고 근거 부족",
+      "합동 증명의 순서 - 조건 적용",
+      "합동 증명의 순서 - 계산·추론",
+      "같은 변과 같은 각 대응 오류",
+      "성질과 조건 구분 실패",
+      "빗변을 일반 변으로 착각",
+      "60° 성질 누락",
+      "정삼각형의 성질 - 조건 적용",
+      "수직 조건만 보고 거리 같음 사용",
+      "선분의 수직이등분선과 거리 - 조건 적용",
+      "선분의 수직이등분선과 거리 - 계산·추론",
+      "외심을 각의 이등분선 교점으로 착각",
+      "반지름 길이 관계 누락",
+      "외심을 이용한 길이와 각 계산 - 조건 적용",
+      "외심을 이용한 길이와 각 계산 - 계산·추론",
+      "직각삼각형 외심을 내부로 판단",
+      "삼각형의 종류와 외심 위치 - 조건 적용",
+      "삼각형의 종류와 외심 위치 - 계산·추론",
+      "두 꼭짓점까지의 거리로 오해",
+      "각의 이등분선과 거리 - 계산·추론",
+      "내심을 수직이등분선 교점으로 착각",
+      "각을 절반으로 나누지 않음",
+      "내심을 이용한 각과 길이 계산 - 조건 적용",
+      "내심을 이용한 각과 길이 계산 - 계산·추론",
+      "외심과 내심 명칭 혼동",
+      "외심·내심의 정의와 성질 비교 - 조건 적용",
+      "외심·내심의 정의와 성질 비교 - 계산·추론",
+      "삼각형 180°를 그대로 적용",
+      "사각형의 내각의 합 - 조건 적용",
+      "사각형의 내각의 합 - 계산·추론",
+      "한 쌍만 평행해도 평행사변형으로 판단",
+      "대각선이 항상 수직이라고 오해",
+      "평행사변형의 변·각·대각선 성질 - 조건 적용",
+      "평행사변형의 변·각·대각선 성질 - 계산·추론",
+      "성질을 조건으로 사용할 때 근거 부족",
+      "이웃각 합 180° 누락",
+      "평행사변형의 각 관계 - 조건 적용",
+      "평행사변형의 각 관계 - 계산·추론",
+      "대각선 전체/절반 길이 혼동",
+      "평행사변형의 길이 관계 - 조건 적용",
+      "평행사변형의 길이 관계 - 계산·추론",
+      "직사각형의 대각선이 수직이라고 오해",
+      "직사각형의 성질과 조건 - 조건 적용",
+      "직사각형의 성질과 조건 - 계산·추론",
+      "마름모의 네 각이 항상 직각이라고 오해",
+      "마름모의 성질과 조건 - 조건 적용",
+      "정사각형 포함 관계를 설명하지 못함",
+      "사다리꼴과 평행사변형 혼동",
+      "등변사다리꼴의 성질 - 계산·추론",
+      "포함 방향 반대로 판단",
+      "여러 사각형의 포함 관계 - 계산·추론",
+      "대각선 성질을 모든 사각형에 일반화",
+      "여러 사각형의 대각선 성질 비교 - 조건 적용",
+      "결론과 무관한 조건 사용",
+      "도형 증명에서 필요한 조건 찾기 - 조건 적용",
+      "도형 증명에서 필요한 조건 찾기 - 계산·추론",
+      "합동 후 대응 요소를 잘못 연결",
+      "삼각형 합동을 이용한 도형 증명 - 조건 적용",
+      "삼각형 합동을 이용한 도형 증명 - 계산·추론",
+      "증명 조건과 성질 혼동",
+      "추가 조건을 빠뜨림",
+      "직사각형·마름모·정사각형 증명 - 조건 적용",
+      "직사각형·마름모·정사각형 증명 - 계산·추론",
+      "보조선을 그어도 어떤 성질을 쓸지 모름",
+      "보조선을 이용한 각·길이 계산 - 조건 적용",
+      "보조선을 이용한 각·길이 계산 - 계산·추론",
+      "같은 길이 표시를 전파하지 못함",
+      "도형 성질을 이용한 길이 구하기 - 조건 적용",
+      "도형 성질을 이용한 길이 구하기 - 계산·추론",
+      "각 관계를 순서대로 연결하지 못함",
+      "도형 성질을 이용한 각 추론 - 조건 적용",
+      "도형 성질을 이용한 각 추론 - 계산·추론",
+      "높이와 변 길이 혼동",
+      "사각형 성질과 넓이 - 조건 적용",
+      "사각형 성질과 넓이 - 계산·추론",
+      "한 가지 성질만 보고 해결 시도",
+      "삼각형 중심과 사각형 성질 종합 - 조건 적용",
+      "삼각형 중심과 사각형 성질 종합 - 계산·추론",
+      "기호와 문장 불일치",
+      "도형 증명 서술형 완성 - 조건 적용",
+      "도형 증명 서술형 완성 - 계산·추론",
+      "동위각·엇각",
+      "평행선 각 관계와 삼각형 합동 조건 연결 - 조건 적용",
+      "평행선 각 관계와 삼각형 합동 조건 연결 - 계산·추론",
+      "이등변삼각형",
+      "삼각형의 특수 성질과 중심 - 조건 적용",
+      "삼각형의 특수 성질과 중심 - 계산·추론",
+      "두 쌍의 대변 평행",
+      "평행사변형의 각·변·대각선 성질 - 조건 적용",
+      "평행사변형의 각·변·대각선 성질 - 계산·추론",
+      "특수 사각형 성질",
+      "직사각형·마름모·정사각형·등변사다리꼴 비교 - 조건 적용",
+      "직사각형·마름모·정사각형·등변사다리꼴 비교 - 계산·추론",
+      "합동 증명",
+      "합동과 사각형 조건을 이용한 증명 - 조건 적용",
+      "합동과 사각형 조건을 이용한 증명 - 계산·추론",
+      "보조선 활용",
+      "도형 성질을 연결한 고난도 활용 - 조건 적용",
+      "도형 성질을 연결한 고난도 활용 - 계산·추론"
+    ],
+    "legacy_source": "m2_geometry_properties.problem_types.v1.json (problem_types / type_name)",
+    "legacy_has_error_tags": true,
+    "legacy_error_tag_vocab": 14,
+    "legacy_error_tag_sample": [
+      "angle_chasing",
+      "angle_relation",
+      "auxiliary_line",
+      "condition_check",
+      "diagonal_property",
+      "inclusion_relation",
+      "length_area",
+      "multi_step_reasoning"
+    ],
+    "alt_legacy_source": "m2_geometry_properties.raw_taxonomy.v1.json (sections)",
+    "alt_legacy_count": 46,
+    "alt_legacy_has_error_tags": false,
+    "alt_legacy_error_tag_vocab": 0,
+    "alt_legacy_error_tag_sample": [],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "problem_types": [
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G001",
+      "source_group_id": "G001",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형의 성질 알기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G001.I01",
+          "source_code": "GP-001",
+          "no_in_group": 1,
+          "name": "이등변삼각형의 성질",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G001.I02",
+          "source_code": "GP-002",
+          "no_in_group": 2,
+          "name": "이등변삼각형의 성질(1)의 증명 과정",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G001.I03",
+          "source_code": "GP-003",
+          "no_in_group": 3,
+          "name": "이등변삼각형의 성질(2)의 증명 과정",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT022",
+      "legacy_task_group": "이등변삼각형의 성질 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.818,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G002",
+      "source_group_id": "G002",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형의 성질(1) 두 밑각의 크기는 같다",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G002.I01",
+          "source_code": "GP-004",
+          "no_in_group": 1,
+          "name": "이등변삼각형에서 내각의 크기가 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G002.I02",
+          "source_code": "GP-005",
+          "no_in_group": 2,
+          "name": "이등변삼각형에서 외각의 크기가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형 18개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G003",
+      "source_group_id": "G003",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형의 성질(2) 꼭지각의 이등분선은 밑변을 수직이등분한다",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G003.I01",
+          "source_code": "GP-006",
+          "no_in_group": 1,
+          "name": "이등변삼각형에서 꼭지각의 이등분선을 그은 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G003.I02",
+          "source_code": "GP-007",
+          "no_in_group": 2,
+          "name": "이등변삼각형에서 꼭지각의 이등분선 위의 한 점을 이어 만든 삼각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G003.I03",
+          "source_code": "GP-008",
+          "no_in_group": 3,
+          "name": "이등변삼각형의 성질(2)의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형 26개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G004",
+      "source_group_id": "G004",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형의 성질의 활용(1) 각의 크기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G004.I01",
+          "source_code": "GP-009",
+          "no_in_group": 1,
+          "name": "이등변삼각형 내부에 삼각형 또는 각이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G004.I02",
+          "source_code": "GP-010",
+          "no_in_group": 2,
+          "name": "이등변삼각형과 평행선의 성질 이용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G004.I03",
+          "source_code": "GP-011",
+          "no_in_group": 3,
+          "name": "이등변삼각형을 포함하는 도형이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 35,
+      "detail_types": null,
+      "detail_types_note": "세부유형 35개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT023",
+      "legacy_task_group": "이등변삼각형의 성질 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.562,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G005",
+      "source_group_id": "G005",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형의 성질의 활용(2) 이웃한 이등변삼각형",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G005.I01",
+          "source_code": "GP-012",
+          "no_in_group": 1,
+          "name": "이웃한 두 이등변삼각형",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G005.I02",
+          "source_code": "GP-013",
+          "no_in_group": 2,
+          "name": "이웃한 세 이등변삼각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G005.I03",
+          "source_code": "GP-014",
+          "no_in_group": 3,
+          "name": "이웃한 이등변삼각형의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형 26개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G006",
+      "source_group_id": "G006",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형의 성질의 활용(3) 각의 이등분선",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G006.I01",
+          "source_code": "GP-015",
+          "no_in_group": 1,
+          "name": "한 내각의 이등분선",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G006.I02",
+          "source_code": "GP-016",
+          "no_in_group": 2,
+          "name": "외각의 이등분선",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G006.I03",
+          "source_code": "GP-017",
+          "no_in_group": 3,
+          "name": "내각과 외각의 이등분선",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G006.I04",
+          "source_code": "GP-018",
+          "no_in_group": 4,
+          "name": "한 각의 이등분선과 비가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형 12개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G007",
+      "source_group_id": "G007",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형의 성질의 활용(4) 다각형에 있는 이등변삼각형",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G007.I01",
+          "source_code": "GP-019",
+          "no_in_group": 1,
+          "name": "사각형",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G007.I02",
+          "source_code": "GP-020",
+          "no_in_group": 2,
+          "name": "정다각형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형 10개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G008",
+      "source_group_id": "G008",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형이 되는 조건",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G008.I01",
+          "source_code": "GP-021",
+          "no_in_group": 1,
+          "name": "양 밑각의 크기가 같은 삼각형",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G008.I02",
+          "source_code": "GP-022",
+          "no_in_group": 2,
+          "name": "이등변삼각형이 되는 조건 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "세부유형 29개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": [
+        "M2_GEOM_C008"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT026",
+      "legacy_task_group": "이등변삼각형이 되는 조건 - 계산·추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G009",
+      "source_group_id": "G009",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "이등변삼각형이 되는 조건의 설명",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G009.I01",
+          "source_code": "GP-023",
+          "no_in_group": 1,
+          "name": "이등변삼각형이 되는 조건",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G009.I02",
+          "source_code": "GP-024",
+          "no_in_group": 2,
+          "name": "이등변삼각형이 되는 조건 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 4,
+      "detail_types": null,
+      "detail_types_note": "세부유형 4개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT025",
+      "legacy_task_group": "이등변삼각형이 되는 조건 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.786,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G010",
+      "source_group_id": "G010",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "폭이 일정한 종이를 접었을 때",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G010.I01",
+          "source_code": "GP-025",
+          "no_in_group": 1,
+          "name": "폭이 일정한 종이를 접은 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G010.I02",
+          "source_code": "GP-026",
+          "no_in_group": 2,
+          "name": "폭이 일정한 종이를 접은 경우 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형 12개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G011",
+      "source_group_id": "G011",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "직각삼각형의 합동 조건에 대한 이해",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G011.I01",
+          "source_code": "GP-027",
+          "no_in_group": 1,
+          "name": "직각삼각형의 합동 조건",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G011.I02",
+          "source_code": "GP-028",
+          "no_in_group": 2,
+          "name": "직각삼각형 합동 조건의 적용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형 10개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G012",
+      "source_group_id": "G012",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "직각삼각형의 합동 조건의 응용(1) RHA 합동",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G012.I01",
+          "source_code": "GP-029",
+          "no_in_group": 1,
+          "name": "각의 이등분선이 포함된 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G012.I02",
+          "source_code": "GP-030",
+          "no_in_group": 2,
+          "name": "내부에 수선의 발을 내린 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G012.I03",
+          "source_code": "GP-031",
+          "no_in_group": 3,
+          "name": "직각이등변삼각형의 한 꼭짓점을 지나는 직선에 수선의 발을 내린 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G012.I04",
+          "source_code": "GP-032",
+          "no_in_group": 4,
+          "name": "여러 가지 도형에서 수선의 발을 내린 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "세부유형 29개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT028",
+      "legacy_task_group": "직각삼각형의 합동 조건 RHS·RHA - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.722,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G013",
+      "source_group_id": "G013",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "직각삼각형의 합동 조건의 응용(2) RHS 합동",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G013.I01",
+          "source_code": "GP-033",
+          "no_in_group": 1,
+          "name": "빗변을 공통으로 하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G013.I02",
+          "source_code": "GP-034",
+          "no_in_group": 2,
+          "name": "삼각형의 한 변의 중점에서 다른 두 변에 각각 수선의 발을 내린 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G013.I03",
+          "source_code": "GP-035",
+          "no_in_group": 3,
+          "name": "RHS 합동의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형 26개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT029",
+      "legacy_task_group": "직각삼각형의 합동 조건 RHS·RHA - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.667,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G014",
+      "source_group_id": "G014",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "이등변삼각형의 성질",
+      "type_name": "각의 이등분선의 성질",
+      "topic_type_count": 2,
+      "topic_type_actual": 4,
+      "source_count_note": "매쓰플랫 화면 배지가 실제 표시 항목보다 적게 적혀 있다. 하위 활용 항목이 배지 숫자에 안 잡힌 경우로, 화면에 보이는 항목을 모두 저장했다. 전사 오류가 아니다.",
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G014.I01",
+          "source_code": "GP-036",
+          "no_in_group": 1,
+          "name": "각의 이등분선의 성질(1)",
+          "review_status": "원문 확인 / 화면 표시 항목 2개 초과(하위 활용 포함)"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G014.I02",
+          "source_code": "GP-037",
+          "no_in_group": 2,
+          "name": "각의 이등분선의 성질(1)의 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G014.I03",
+          "source_code": "GP-038",
+          "no_in_group": 3,
+          "name": "각의 이등분선의 성질(2)",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G014.I04",
+          "source_code": "GP-039",
+          "no_in_group": 4,
+          "name": "각의 이등분선의 성질(2)의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형 17개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT046",
+      "legacy_task_group": "각의 이등분선과 거리 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.667,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G015",
+      "source_group_id": "G015",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 외심",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G015.I01",
+          "source_code": "GP-040",
+          "no_in_group": 1,
+          "name": "삼각형의 외심의 정의와 성질의 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G015.I02",
+          "source_code": "GP-041",
+          "no_in_group": 2,
+          "name": "삼각형의 외심의 성질을 이용한 변의 길이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G015.I03",
+          "source_code": "GP-042",
+          "no_in_group": 3,
+          "name": "삼각형의 외심의 성질을 이용한 각의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G015.I04",
+          "source_code": "GP-043",
+          "no_in_group": 4,
+          "name": "삼각형의 외심의 성질을 이용한 외접원",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G015.I05",
+          "source_code": "GP-044",
+          "no_in_group": 5,
+          "name": "삼각형의 외심의 성질을 이용한 삼각형 넓이",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 32,
+      "detail_types": null,
+      "detail_types_note": "세부유형 32개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT037",
+      "legacy_task_group": "삼각형의 외심과 외접원 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.6,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G016",
+      "source_group_id": "G016",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "둔각삼각형의 외심",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G016.I01",
+          "source_code": "GP-045",
+          "no_in_group": 1,
+          "name": "둔각삼각형의 외심",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G016.I02",
+          "source_code": "GP-046",
+          "no_in_group": 2,
+          "name": "둔각삼각형의 외심 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G017",
+      "source_group_id": "G017",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "직각삼각형의 외심(1) 변의 길이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G017.I01",
+          "source_code": "GP-047",
+          "no_in_group": 1,
+          "name": "직각삼각형의 외심 - 변의 길이에 대한 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G017.I02",
+          "source_code": "GP-048",
+          "no_in_group": 2,
+          "name": "직각삼각형의 외접원",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G017.I03",
+          "source_code": "GP-049",
+          "no_in_group": 3,
+          "name": "직각삼각형의 외심의 성질을 이용한 변의 길이",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "세부유형 22개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G018",
+      "source_group_id": "G018",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "직각삼각형의 외심(2) 각의 크기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G018.I01",
+          "source_code": "GP-050",
+          "no_in_group": 1,
+          "name": "직각삼각형의 외심 - 각의 크기에 대한 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G018.I02",
+          "source_code": "GP-051",
+          "no_in_group": 2,
+          "name": "직각삼각형의 외심의 성질을 이용한 각의 크기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형 14개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G019",
+      "source_group_id": "G019",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 외심의 성질 응용(1) ∠x+∠y+∠z=90°",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G019.I01",
+          "source_code": "GP-052",
+          "no_in_group": 1,
+          "name": "삼각형의 외심의 성질을 이용한 ∠x+∠y+∠z=90°에 대한 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G019.I02",
+          "source_code": "GP-053",
+          "no_in_group": 2,
+          "name": "∠x+∠y+∠z=90°를 이용한 각의 크기 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형 20개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G020",
+      "source_group_id": "G020",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 외심의 성질 응용(2) ∠BOC=2∠A",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G020.I01",
+          "source_code": "GP-054",
+          "no_in_group": 1,
+          "name": "삼각형의 외심의 성질을 이용한 ∠BOC=2∠A에 대한 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G020.I02",
+          "source_code": "GP-055",
+          "no_in_group": 2,
+          "name": "∠BOC=2∠A를 이용한 각의 크기 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "세부유형 29개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G021",
+      "source_group_id": "G021",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 내심",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G021.I01",
+          "source_code": "GP-056",
+          "no_in_group": 1,
+          "name": "삼각형의 내심의 정의와 성질의 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G021.I02",
+          "source_code": "GP-057",
+          "no_in_group": 2,
+          "name": "삼각형의 내심의 성질을 이용한 각의 크기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G021.I03",
+          "source_code": "GP-058",
+          "no_in_group": 3,
+          "name": "삼각형의 내심의 성질을 이용한 외접원",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "세부유형 25개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT032",
+      "legacy_task_group": "정삼각형의 성질 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.571,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G022",
+      "source_group_id": "G022",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 내심의 성질 응용(1) ∠x+∠y+∠z=90°",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G022.I01",
+          "source_code": "GP-059",
+          "no_in_group": 1,
+          "name": "삼각형의 내심의 성질을 이용한 ∠x+∠y+∠z=90°에 대한 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G022.I02",
+          "source_code": "GP-060",
+          "no_in_group": 2,
+          "name": "∠x+∠y+∠z=90°를 이용한 각의 크기 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형 12개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G023",
+      "source_group_id": "G023",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 내심의 성질 응용(2) ∠BIC=90°+1/2∠A",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G023.I01",
+          "source_code": "GP-061",
+          "no_in_group": 1,
+          "name": "∠BIC=90°+1/2∠A의 관계 적용하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G023.I02",
+          "source_code": "GP-062",
+          "no_in_group": 2,
+          "name": "∠BIC=90°+1/2∠A를 이용한 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G023.I03",
+          "source_code": "GP-063",
+          "no_in_group": 3,
+          "name": "두 내심이 포함된 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G023.I04",
+          "source_code": "GP-064",
+          "no_in_group": 4,
+          "name": "이등변삼각형의 내심",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형 20개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G024",
+      "source_group_id": "G024",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 내접원의 반지름",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G024.I01",
+          "source_code": "GP-065",
+          "no_in_group": 1,
+          "name": "내접원의 반지름의 길이 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G024.I02",
+          "source_code": "GP-066",
+          "no_in_group": 2,
+          "name": "내접원의 반지름의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형 26개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G025",
+      "source_group_id": "G025",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 내접원과 선분의 길이의 관계",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G025.I01",
+          "source_code": "GP-067",
+          "no_in_group": 1,
+          "name": "변의 길이가 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G025.I02",
+          "source_code": "GP-068",
+          "no_in_group": 2,
+          "name": "내접원의 반지름이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G025.I03",
+          "source_code": "GP-069",
+          "no_in_group": 3,
+          "name": "삼각형의 둘레의 길이 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형 21개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G026",
+      "source_group_id": "G026",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 내심과 평행선",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G026.I01",
+          "source_code": "GP-070",
+          "no_in_group": 1,
+          "name": "삼각형의 한 변에 평행하고 내심을 지나는 선분이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G026.I02",
+          "source_code": "GP-071",
+          "no_in_group": 2,
+          "name": "삼각형의 내심과 평행선 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형 17개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT049",
+      "legacy_task_group": "삼각형의 내심과 내접원 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.7,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G027",
+      "source_group_id": "G027",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 외심과 내심에 대한 설명",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G027.I01",
+          "source_code": "GP-072",
+          "no_in_group": 1,
+          "name": "외심과 내심의 일치",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G027.I02",
+          "source_code": "GP-073",
+          "no_in_group": 2,
+          "name": "외심과 내심에 대한 설명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT050",
+      "legacy_task_group": "삼각형의 내심과 내접원 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.636,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G028",
+      "source_group_id": "G028",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "삼각형의 외심과 내심이 모두 주어질 때",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G028.I01",
+          "source_code": "GP-074",
+          "no_in_group": 1,
+          "name": "△ABC에서 내심 I와 외심 O가 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G028.I02",
+          "source_code": "GP-075",
+          "no_in_group": 2,
+          "name": "△ABC에서 내심 I와 외심 O의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형 21개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G029",
+      "source_group_id": "G029",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "삼각형의 성질",
+      "중영역": "삼각형의 외심과 내심",
+      "type_name": "직각삼각형의 외접원과 내접원",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G029.I01",
+          "source_code": "GP-076",
+          "no_in_group": 1,
+          "name": "직각삼각형의 외접원과 내접원",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT038",
+      "legacy_task_group": "삼각형의 외심과 외접원 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.615,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G030",
+      "source_group_id": "G030",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형의 뜻",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G030.I01",
+          "source_code": "GP-077",
+          "no_in_group": 1,
+          "name": "평행사변형의 뜻",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G030.I02",
+          "source_code": "GP-078",
+          "no_in_group": 2,
+          "name": "평행사변형의 뜻의 이용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형 12개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": [
+        "M2_GEOM_C020"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT062",
+      "legacy_task_group": "평행사변형의 정의 - 계산·추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 0.857,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G031",
+      "source_group_id": "G031",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형의 성질",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G031.I01",
+          "source_code": "GP-079",
+          "no_in_group": 1,
+          "name": "평행사변형의 성질",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G031.I02",
+          "source_code": "GP-080",
+          "no_in_group": 2,
+          "name": "평행사변형의 성질의 이용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT061",
+      "legacy_task_group": "평행사변형의 정의 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.75,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G032",
+      "source_group_id": "G032",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형의 성질의 증명",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G032.I01",
+          "source_code": "GP-081",
+          "no_in_group": 1,
+          "name": "평행사변형에서 대변의 성질의 증명 과정",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G032.I02",
+          "source_code": "GP-082",
+          "no_in_group": 2,
+          "name": "평행사변형에서 대각의 성질의 증명 과정",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G032.I03",
+          "source_code": "GP-083",
+          "no_in_group": 3,
+          "name": "평행사변형에서 두 대각선의 성질의 증명 과정",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G033",
+      "source_group_id": "G033",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형의 성질의 응용(1) 두 쌍의 대변의 길이가 같다",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G033.I01",
+          "source_code": "GP-084",
+          "no_in_group": 1,
+          "name": "평행사변형에서 대변의 성질의 이용",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G033.I02",
+          "source_code": "GP-085",
+          "no_in_group": 2,
+          "name": "평행사변형에서 대변의 성질의 응용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G033.I03",
+          "source_code": "GP-086",
+          "no_in_group": 3,
+          "name": "평행사변형에서 한 내각의 이등분선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G033.I04",
+          "source_code": "GP-087",
+          "no_in_group": 4,
+          "name": "평행사변형에서 두 내각의 이등분선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G033.I05",
+          "source_code": "GP-088",
+          "no_in_group": 5,
+          "name": "다른 도형 내부의 평행사변형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 33,
+      "detail_types": null,
+      "detail_types_note": "세부유형 33개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G034",
+      "source_group_id": "G034",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형의 성질의 응용(2) 두 쌍의 대각의 크기가 같다",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G034.I01",
+          "source_code": "GP-089",
+          "no_in_group": 1,
+          "name": "평행사변형에서 대각의 성질의 이용",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G034.I02",
+          "source_code": "GP-090",
+          "no_in_group": 2,
+          "name": "평행사변형에서 대각선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G034.I03",
+          "source_code": "GP-091",
+          "no_in_group": 3,
+          "name": "평행사변형에서 대각의 성질의 응용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G034.I04",
+          "source_code": "GP-092",
+          "no_in_group": 4,
+          "name": "평행사변형에서 한 내각의 이등분선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G034.I05",
+          "source_code": "GP-093",
+          "no_in_group": 5,
+          "name": "평행사변형에서 이웃하는 두 내각의 크기에 비 또는 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 47,
+      "detail_types": null,
+      "detail_types_note": "세부유형 47개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G035",
+      "source_group_id": "G035",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형의 성질의 응용(3) 두 대각선은 서로 다른 것을 이등분한다",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G035.I01",
+          "source_code": "GP-094",
+          "no_in_group": 1,
+          "name": "평행사변형에서 대각선의 성질의 이용",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G035.I02",
+          "source_code": "GP-095",
+          "no_in_group": 2,
+          "name": "평행사변형의 성질의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "세부유형 19개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G036",
+      "source_group_id": "G036",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형이 되는 조건의 증명",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G036.I01",
+          "source_code": "GP-096",
+          "no_in_group": 1,
+          "name": "평행사변형인지 판단하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G036.I02",
+          "source_code": "GP-097",
+          "no_in_group": 2,
+          "name": "평행사변형이 되는 조건 증명하는 과정",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": [
+        "M2_GEOM_C033"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT100",
+      "legacy_task_group": "평행사변형이 되는 조건 증명 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 0.923,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G037",
+      "source_group_id": "G037",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형이 되도록 하는 미지수의 값 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G037.I01",
+          "source_code": "GP-098",
+          "no_in_group": 1,
+          "name": "변의 길이 또는 내각에 미지수가 포함된 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G037.I02",
+          "source_code": "GP-099",
+          "no_in_group": 2,
+          "name": "사각형 내부에 대각선 또는 한 선분이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형 13개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G038",
+      "source_group_id": "G038",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형이 되는 조건 구하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G038.I01",
+          "source_code": "GP-100",
+          "no_in_group": 1,
+          "name": "평행사변형이 되기 위한 조건",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G038.I02",
+          "source_code": "GP-101",
+          "no_in_group": 2,
+          "name": "평행사변형 판단",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G038.I03",
+          "source_code": "GP-102",
+          "no_in_group": 3,
+          "name": "평행사변형이 되기 위한 조건 추가하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형 16개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT101",
+      "legacy_task_group": "평행사변형이 되는 조건 증명 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.769,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G039",
+      "source_group_id": "G039",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "새롭게 만든 사각형이 평행사변형이 되는 조건",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G039.I01",
+          "source_code": "GP-103",
+          "no_in_group": 1,
+          "name": "평행사변형 내부의 사각형",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G039.I02",
+          "source_code": "GP-104",
+          "no_in_group": 2,
+          "name": "평행사변형의 대각선",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G039.I03",
+          "source_code": "GP-105",
+          "no_in_group": 3,
+          "name": "평행사변형 외부의 사각형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형 26개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G040",
+      "source_group_id": "G040",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형이 되는 조건의 응용",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G040.I01",
+          "source_code": "GP-106",
+          "no_in_group": 1,
+          "name": "두 내각의 이등분선을 그어 만든 평행사변형",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G040.I02",
+          "source_code": "GP-107",
+          "no_in_group": 2,
+          "name": "한 대각선 위의 두 점을 이어 만든 평행사변형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G040.I03",
+          "source_code": "GP-108",
+          "no_in_group": 3,
+          "name": "평행사변형이 되는 조건의 응용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G040.I04",
+          "source_code": "GP-109",
+          "no_in_group": 4,
+          "name": "삼각형과 평행사변형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G040.I05",
+          "source_code": "GP-110",
+          "no_in_group": 5,
+          "name": "변 위를 이동하는 두 점",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형 18개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT068",
+      "legacy_task_group": "평행사변형이 되는 조건 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.769,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G041",
+      "source_group_id": "G041",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형과 넓이(1) 대각선에 의하여 나뉘는 삼각형",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G041.I01",
+          "source_code": "GP-111",
+          "no_in_group": 1,
+          "name": "대각선을 그은 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G041.I02",
+          "source_code": "GP-112",
+          "no_in_group": 2,
+          "name": "평행하는 직선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G041.I03",
+          "source_code": "GP-113",
+          "no_in_group": 3,
+          "name": "연장선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G041.I04",
+          "source_code": "GP-114",
+          "no_in_group": 4,
+          "name": "대각선에 의하여 나뉘는 삼각형의 넓이의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 24,
+      "detail_types": null,
+      "detail_types_note": "세부유형 24개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G042",
+      "source_group_id": "G042",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형과 넓이(2) 내부의 한 점",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G042.I01",
+          "source_code": "GP-115",
+          "no_in_group": 1,
+          "name": "내부의 한 점과 각 꼭짓점을 연결하여 삼각형을 만드는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G042.I02",
+          "source_code": "GP-116",
+          "no_in_group": 2,
+          "name": "내부의 한 점을 지나면서 각 변에 평행한 선분을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G042.I03",
+          "source_code": "GP-117",
+          "no_in_group": 3,
+          "name": "내부의 한점과 각 꼭짓점을 연결하여 만든 삼각형의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형 16개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G043",
+      "source_group_id": "G043",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "평행사변형",
+      "type_name": "평행사변형 모양의 종이를 접었을 때",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G043.I01",
+          "source_code": "GP-118",
+          "no_in_group": 1,
+          "name": "평행사변형 모양의 종이를 접은 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G043.I02",
+          "source_code": "GP-119",
+          "no_in_group": 2,
+          "name": "대각선을 접는 선으로 하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 4,
+      "detail_types": null,
+      "detail_types_note": "세부유형 4개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G044",
+      "source_group_id": "G044",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "직사각형의 뜻과 성질",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G044.I01",
+          "source_code": "GP-120",
+          "no_in_group": 1,
+          "name": "직사각형의 뜻과 성질",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G044.I02",
+          "source_code": "GP-121",
+          "no_in_group": 2,
+          "name": "직사각형의 뜻과 성질을 이용하여 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G044.I03",
+          "source_code": "GP-122",
+          "no_in_group": 3,
+          "name": "직사각형의 뜻과 성질을 이용하여 변의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G044.I04",
+          "source_code": "GP-123",
+          "no_in_group": 4,
+          "name": "직사각형 성질의 응용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G044.I05",
+          "source_code": "GP-124",
+          "no_in_group": 5,
+          "name": "평행사변형의 네 내각의 이등분선의 교점으로 만든 사각형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 33,
+      "detail_types": null,
+      "detail_types_note": "세부유형 33개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT083",
+      "legacy_task_group": "정사각형의 성질 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.667,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G045",
+      "source_group_id": "G045",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "평행사변형이 직사각형이 되는 조건",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G045.I01",
+          "source_code": "GP-125",
+          "no_in_group": 1,
+          "name": "평행사변형이 직사각형이 되는 조건의 증명",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G045.I02",
+          "source_code": "GP-126",
+          "no_in_group": 2,
+          "name": "평행사변형이 직사각형이 되는 조건 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G045.I03",
+          "source_code": "GP-127",
+          "no_in_group": 3,
+          "name": "평행사변형이 직사각형이 되는 조건의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형 12개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "14.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G046",
+      "source_group_id": "G046",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "마름모의 뜻과 성질",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G046.I01",
+          "source_code": "GP-128",
+          "no_in_group": 1,
+          "name": "마름모의 뜻과 성질",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G046.I02",
+          "source_code": "GP-129",
+          "no_in_group": 2,
+          "name": "마름모의 뜻과 성질을 이용하여 변의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G046.I03",
+          "source_code": "GP-130",
+          "no_in_group": 3,
+          "name": "마름모의 뜻과 성질을 이용하여 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G046.I04",
+          "source_code": "GP-131",
+          "no_in_group": 4,
+          "name": "한 꼭짓점에서 수선의 발을 내린 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G046.I05",
+          "source_code": "GP-132",
+          "no_in_group": 5,
+          "name": "마름모 내부의 한 점",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G046.I06",
+          "source_code": "GP-133",
+          "no_in_group": 6,
+          "name": "마름모의 성질의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 56,
+      "detail_types": null,
+      "detail_types_note": "세부유형 56개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "14.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT080",
+      "legacy_task_group": "마름모의 성질과 조건 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.556,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G047",
+      "source_group_id": "G047",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "평행사변형이 마름모가 되는 조건",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G047.I01",
+          "source_code": "GP-134",
+          "no_in_group": 1,
+          "name": "평행사변형이 마름모가 되는 조건의 증명",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G047.I02",
+          "source_code": "GP-135",
+          "no_in_group": 2,
+          "name": "평행사변형이 마름모가 되는 조건 고르기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G047.I03",
+          "source_code": "GP-136",
+          "no_in_group": 3,
+          "name": "이웃한 두 변의 길이가 같은 평행사변형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G047.I04",
+          "source_code": "GP-137",
+          "no_in_group": 4,
+          "name": "두 대각선이 직교하는 평행사변형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G047.I05",
+          "source_code": "GP-138",
+          "no_in_group": 5,
+          "name": "직사각형 내부의 사각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G047.I06",
+          "source_code": "GP-139",
+          "no_in_group": 6,
+          "name": "연장선을 그은 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형 27개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT067",
+      "legacy_task_group": "평행사변형이 되는 조건 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.714,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G048",
+      "source_group_id": "G048",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "정사각형의 뜻과 성질",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G048.I01",
+          "source_code": "GP-140",
+          "no_in_group": 1,
+          "name": "정사각형의 뜻과 성질",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G048.I02",
+          "source_code": "GP-141",
+          "no_in_group": 2,
+          "name": "정사각형의 뜻과 성질을 이용하여 변의 길이 또는 각의 크기 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G048.I03",
+          "source_code": "GP-142",
+          "no_in_group": 3,
+          "name": "정사각형의 성질 응용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G048.I04",
+          "source_code": "GP-143",
+          "no_in_group": 4,
+          "name": "대각선 위의 한 점을 지나는 선분",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G048.I05",
+          "source_code": "GP-144",
+          "no_in_group": 5,
+          "name": "겹쳐진 두 정사각형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G048.I06",
+          "source_code": "GP-145",
+          "no_in_group": 6,
+          "name": "정사각형 내부의 삼각형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 40,
+      "detail_types": null,
+      "detail_types_note": "세부유형 40개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT082",
+      "legacy_task_group": "정사각형의 성질 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.778,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G049",
+      "source_group_id": "G049",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "정사각형이 되는 조건",
+      "topic_type_count": 2,
+      "topic_type_actual": 3,
+      "source_count_note": "매쓰플랫 화면 배지가 실제 표시 항목보다 적게 적혀 있다. 하위 활용 항목이 배지 숫자에 안 잡힌 경우로, 화면에 보이는 항목을 모두 저장했다. 전사 오류가 아니다.",
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G049.I01",
+          "source_code": "GP-146",
+          "no_in_group": 1,
+          "name": "평행사변형이 정사각형이 되는 조건",
+          "review_status": "원문 확인 / 화면 표시 항목 1개 초과(하위 활용 포함)"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G049.I02",
+          "source_code": "GP-147",
+          "no_in_group": 2,
+          "name": "직사각형이 정사각형이 되는 조건",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G049.I03",
+          "source_code": "GP-148",
+          "no_in_group": 3,
+          "name": "마름모가 정사각형이 되는 조건",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G050",
+      "source_group_id": "G050",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "등변사다리꼴의 뜻과 성질",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G050.I01",
+          "source_code": "GP-149",
+          "no_in_group": 1,
+          "name": "등변사다리꼴의 뜻과 성질",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G050.I02",
+          "source_code": "GP-150",
+          "no_in_group": 2,
+          "name": "등변사다리꼴 성질 적용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G050.I03",
+          "source_code": "GP-151",
+          "no_in_group": 3,
+          "name": "한 대각선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G050.I04",
+          "source_code": "GP-152",
+          "no_in_group": 4,
+          "name": "등변사다리꼴 성질 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 24,
+      "detail_types": null,
+      "detail_types_note": "세부유형 24개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT085",
+      "legacy_task_group": "등변사다리꼴의 성질 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.818,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G051",
+      "source_group_id": "G051",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "등변사다리꼴의 성질의 활용(1) 평행사변형과 이등변삼각형으로 나눌 때",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G051.I01",
+          "source_code": "GP-153",
+          "no_in_group": 1,
+          "name": "평행사변형과 정삼각형으로 나누는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G052",
+      "source_group_id": "G052",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "등변사다리꼴의 성질의 활용(2) 직사각형과 직각삼각형으로 나눌 때",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G052.I01",
+          "source_code": "GP-154",
+          "no_in_group": 1,
+          "name": "변의 길이와 각의크기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G052.I02",
+          "source_code": "GP-155",
+          "no_in_group": 2,
+          "name": "넓이의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G053",
+      "source_group_id": "G053",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "여러 가지 사각형",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G053.I01",
+          "source_code": "GP-156",
+          "no_in_group": 1,
+          "name": "여러 가지 사각형",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G053.I02",
+          "source_code": "GP-157",
+          "no_in_group": 2,
+          "name": "평행사변형에 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G053.I03",
+          "source_code": "GP-158",
+          "no_in_group": 3,
+          "name": "직사각형에 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G053.I04",
+          "source_code": "GP-159",
+          "no_in_group": 4,
+          "name": "정사각형에 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G053.I05",
+          "source_code": "GP-160",
+          "no_in_group": 5,
+          "name": "삼각형에 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형 26개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G054",
+      "source_group_id": "G054",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "여러 가지 사각형 사이의 관계",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G054.I01",
+          "source_code": "GP-161",
+          "no_in_group": 1,
+          "name": "사각형 사이의 관계",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형 6개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT088",
+      "legacy_task_group": "여러 사각형의 포함 관계 - 조건 적용",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.583,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G055",
+      "source_group_id": "G055",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "여러 가지 사각형의 대각선의 성질",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G055.I01",
+          "source_code": "GP-162",
+          "no_in_group": 1,
+          "name": "사각형의 대각선의 성질",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G055.I02",
+          "source_code": "GP-163",
+          "no_in_group": 2,
+          "name": "조건을 만족하는 사각형 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형 10개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_GEOM_PT092",
+      "legacy_task_group": "여러 사각형의 대각선 성질 비교 - 계산·추론",
+      "legacy_match_level": "candidate",
+      "legacy_match_score": 0.643,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G056",
+      "source_group_id": "G056",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "사각형의 각 변의 중점을 연결하여 만든 사각형",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G056.I01",
+          "source_code": "GP-164",
+          "no_in_group": 1,
+          "name": "사각형의 각 변의 중점을 연결하여 만든 사각형 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G056.I02",
+          "source_code": "GP-165",
+          "no_in_group": 2,
+          "name": "사각형의 각 변의 중점을 연결하여 만든 사각형의 성질",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G056.I03",
+          "source_code": "GP-166",
+          "no_in_group": 3,
+          "name": "사각형의 각 변의 중점을 연결하여 만든 사각형의 증명",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형 16개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G057",
+      "source_group_id": "G057",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "평행선과 삼각형의 넓이",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G057.I01",
+          "source_code": "GP-167",
+          "no_in_group": 1,
+          "name": "평행선 사이의 넓이가 같은 삼각형",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G057.I02",
+          "source_code": "GP-168",
+          "no_in_group": 2,
+          "name": "평행선 사이의 넓이가 같은 삼각형을 이용하여 삼각형 넓이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G057.I03",
+          "source_code": "GP-169",
+          "no_in_group": 3,
+          "name": "평행선 사이의 넓이가 같은 삼각형을 이용하여 사각형 넓이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G057.I04",
+          "source_code": "GP-170",
+          "no_in_group": 4,
+          "name": "평행선 사이의 넓이가 같은 삼각형을 이용하여 부채꼴의 넓이 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "세부유형 28개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G058",
+      "source_group_id": "G058",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "높이가 같은 삼각형의 넓이의 비",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G058.I01",
+          "source_code": "GP-171",
+          "no_in_group": 1,
+          "name": "높이가 같은 삼각형의 길이비를 이용한 삼각형의 넓이 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G058.I02",
+          "source_code": "GP-172",
+          "no_in_group": 2,
+          "name": "높이가 같은 삼각형의 길이비를 이용한 사각형의 넓이 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형 13개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G059",
+      "source_group_id": "G059",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "평행사변형에서 높이가 같은 삼각형의 넓이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G059.I01",
+          "source_code": "GP-173",
+          "no_in_group": 1,
+          "name": "변 위의 점",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G059.I02",
+          "source_code": "GP-174",
+          "no_in_group": 2,
+          "name": "대각선을 그은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G059.I03",
+          "source_code": "GP-175",
+          "no_in_group": 3,
+          "name": "평행사변형 밖의 한 점",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 33,
+      "detail_types": null,
+      "detail_types_note": "세부유형 33개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.GP.G060",
+      "source_group_id": "G060",
+      "semester": "M2S2",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "chapter": "2-2 도형의 성질",
+      "대영역": "사각형의 성질",
+      "중영역": "여러 가지 사각형",
+      "type_name": "사다리꼴에서 높이가 같은 삼각형의 넓이",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.GP.G060.I01",
+          "source_code": "GP-176",
+          "no_in_group": 1,
+          "name": "사다리꼴에서 넓이가 같은 삼각형",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G060.I02",
+          "source_code": "GP-177",
+          "no_in_group": 2,
+          "name": "사다리꼴에서 삼각형의 넓이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.GP.G060.I03",
+          "source_code": "GP-178",
+          "no_in_group": 3,
+          "name": "사다리꼴에서 높이가 같은 삼각형의 응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형 18개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    }
+  ]
+}
