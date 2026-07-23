@@ -1,0 +1,3094 @@
+{
+  "schema": "mathflat_problem_type.v1",
+  "version": "2026.07.22-mathflat-M3S1-rc",
+  "_note": "매쓰플랫 화면 스크린샷을 전사한 엑셀을 그대로 옮긴 원본 분류. 진단 단위는 \"유형 묶음\"(problem_types), 그 아래 topic_types가 엑셀 문항분류표를 세부코드·묶음 내 번호·검토상태까지 그대로 담는다. 한글 이름은 원문 그대로이며 다듬지 않았다. 데이터 저장만 한 상태이고 진단 로직에는 연결하지 않았다 — 기존 raw_taxonomy와 옛 진단 경로는 그대로 둔다.",
+  "_source": {
+    "origin": "3-1 실수와 그 계산.zip 내 PNG 22장",
+    "workbook": "3-1 실수와 그 계산.xlsx",
+    "extracted_at": "2026-07-22",
+    "principle": "화면에 글자로 보이는 항목만 입력. 보이지 않는 이름은 생성하지 않음."
+  },
+  "_wiring": {
+    "concept_ids": "이름 유사도 0.85 이상인 legacy 섹션에서만 상속했다. 나머지는 null — 사람 확인 전까지 비워 둔다. 순서 대응 상속은 legacy 목록의 구성이 달라 폐기했다.",
+    "error_tags": "미배정 (null). 기존 유형에서 묶음 단위 상속 예정.",
+    "prerequisite_ids": "전부 비움 — 선생님이 직접 지정."
+  },
+  "semester": "M3S1",
+  "semester_name": "중3 1학기",
+  "unit_id": "M3_REAL_NUMBER_CALC",
+  "unit_code": "RC",
+  "unit_name": "실수와 그 계산",
+  "chapter": "3-1 실수와 그 계산",
+  "status": "raw_not_wired",
+  "problem_type_count": 59,
+  "count_check": {
+    "expected": 59,
+    "actual": 59,
+    "match": true
+  },
+  "topic_type_total": 203,
+  "item_check": {
+    "declared_total": 203,
+    "stored_total": 203,
+    "match": true,
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
+  },
+  "detail_type_total": 1263,
+  "detail_type_check": {
+    "counted_groups": 59,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
+  "legacy_audit": {
+    "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
+    "match_confident": 59,
+    "match_candidate": 0,
+    "match_none": 0,
+    "legacy_section_count": 59,
+    "legacy_has_concept_ids": false,
+    "concept_ids_inherited": 0,
+    "legacy_unmatched": [],
+    "legacy_source": "m3_real_numbers_and_operations.raw_taxonomy.v1.json (sections / task_group)",
+    "legacy_has_error_tags": false,
+    "legacy_error_tag_vocab": 0,
+    "legacy_error_tag_sample": [],
+    "alt_legacy_source": "m3_real_numbers_and_operations.problem_types.v1.json (problem_types)",
+    "alt_legacy_count": 203,
+    "alt_legacy_has_error_tags": true,
+    "alt_legacy_error_tag_vocab": 13,
+    "alt_legacy_error_tag_sample": [
+      "application_or_complexity",
+      "condition_inequality",
+      "geometry_application",
+      "integer_decimal_part",
+      "order_relation",
+      "radical_add_subtract",
+      "radical_multiply_divide",
+      "rationalization"
+    ],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "problem_types": [
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G001",
+      "source_group_id": "G001",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근의 뜻과 표현",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G001.I01",
+          "source_code": "RC-001",
+          "no_in_group": 1,
+          "name": "n의 제곱근",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G001.I02",
+          "source_code": "RC-002",
+          "no_in_group": 2,
+          "name": "근호를 사용하여 n의 제곱근 또는 제곱근 n 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G001.I03",
+          "source_code": "RC-003",
+          "no_in_group": 3,
+          "name": "x²=n을 만족시키는 x의 값",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G001.I04",
+          "source_code": "RC-004",
+          "no_in_group": 4,
+          "name": "제곱근을 구할 수 없는 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G001.I05",
+          "source_code": "RC-005",
+          "no_in_group": 5,
+          "name": "관계식 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 31,
+      "detail_types": null,
+      "detail_types_note": "세부유형 31개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_001",
+      "legacy_task_group": "제곱근의 뜻과 표현",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G002",
+      "source_group_id": "G002",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근의 이해",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G002.I01",
+          "source_code": "RC-006",
+          "no_in_group": 1,
+          "name": "n의 제곱근의 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G002.I02",
+          "source_code": "RC-007",
+          "no_in_group": 2,
+          "name": "미지수의 제곱근의 이해",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형 14개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_002",
+      "legacy_task_group": "제곱근의 이해",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G003",
+      "source_group_id": "G003",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근 구하기",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G003.I01",
+          "source_code": "RC-008",
+          "no_in_group": 1,
+          "name": "n>0일 때, n² 또는 √n의 제곱근 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G003.I02",
+          "source_code": "RC-009",
+          "no_in_group": 2,
+          "name": "n<0일 때, n²의 제곱근 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G003.I03",
+          "source_code": "RC-010",
+          "no_in_group": 3,
+          "name": "두 수의 제곱근의 연산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G003.I04",
+          "source_code": "RC-011",
+          "no_in_group": 4,
+          "name": "제곱근 n과 m의 제곱근의 연산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 37,
+      "detail_types": null,
+      "detail_types_note": "세부유형 37개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_003",
+      "legacy_task_group": "제곱근 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G004",
+      "source_group_id": "G004",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "근호를 사용하지 않고 수 나타내기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G004.I01",
+          "source_code": "RC-012",
+          "no_in_group": 1,
+          "name": "근호를 사용하지 않고 수 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G004.I02",
+          "source_code": "RC-013",
+          "no_in_group": 2,
+          "name": "근호를 사용하지 않고 나타낼 수 있는 수의 판별",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형 10개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_004",
+      "legacy_task_group": "근호를 사용하지 않고 수 나타내기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G005",
+      "source_group_id": "G005",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근을 이용하여 정사각형의 한 변의 길이 구하기",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G005.I01",
+          "source_code": "RC-014",
+          "no_in_group": 1,
+          "name": "넓이가 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G005.I02",
+          "source_code": "RC-015",
+          "no_in_group": 2,
+          "name": "두 도형의 넓이의 합과 넓이가 같은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G005.I03",
+          "source_code": "RC-016",
+          "no_in_group": 3,
+          "name": "넓이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G005.I04",
+          "source_code": "RC-017",
+          "no_in_group": 4,
+          "name": "한 정사각형을 나누거나 자른 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형 14개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_005",
+      "legacy_task_group": "제곱근을 이용하여 정사각형의 한 변의 길이 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G006",
+      "source_group_id": "G006",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근을 이용하여 직각삼각형의 한 변의 길이 구하기",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G006.I01",
+          "source_code": "RC-018",
+          "no_in_group": 1,
+          "name": "직각삼각형의 빗변 길이 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G006.I02",
+          "source_code": "RC-019",
+          "no_in_group": 2,
+          "name": "모눈 위의 직각삼각형의 변의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G006.I03",
+          "source_code": "RC-020",
+          "no_in_group": 3,
+          "name": "직각삼각형의 변의 길이를 이용한 도형의 넓이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G006.I04",
+          "source_code": "RC-021",
+          "no_in_group": 4,
+          "name": "이웃한 직각삼각형의 변의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G006.I05",
+          "source_code": "RC-022",
+          "no_in_group": 5,
+          "name": "직각삼각형의 변의 길이의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형 16개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_006",
+      "legacy_task_group": "제곱근을 이용하여 직각삼각형의 한 변의 길이 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G007",
+      "source_group_id": "G007",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "근호를 사용하지 않고 제곱근 나타내기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G007.I01",
+          "source_code": "RC-023",
+          "no_in_group": 1,
+          "name": "근호를 사용하지 않고 제곱근 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G007.I02",
+          "source_code": "RC-024",
+          "no_in_group": 2,
+          "name": "근호를 사용하지 않고 제곱근을 나타낼 수 있는 수의 판별",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_007",
+      "legacy_task_group": "근호를 사용하지 않고 제곱근 나타내기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G008",
+      "source_group_id": "G008",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근의 성질",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G008.I01",
+          "source_code": "RC-025",
+          "no_in_group": 1,
+          "name": "제곱근의 성질을 이용하여 수 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G008.I02",
+          "source_code": "RC-026",
+          "no_in_group": 2,
+          "name": "제곱근의 성질을 이용하여 구한 수의 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G008.I03",
+          "source_code": "RC-027",
+          "no_in_group": 3,
+          "name": "제곱근의 성질을 이용하여 근호를 사용하지 않고 나타낼 수 있는 수의 판별",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G008.I04",
+          "source_code": "RC-028",
+          "no_in_group": 4,
+          "name": "제곱근의 성질의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형 15개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_008",
+      "legacy_task_group": "제곱근의 성질",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G009",
+      "source_group_id": "G009",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근의 성질을 이용하여 제곱근 구하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G009.I01",
+          "source_code": "RC-029",
+          "no_in_group": 1,
+          "name": "제곱근의 성질을 이용하여 제곱근 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G009.I02",
+          "source_code": "RC-030",
+          "no_in_group": 2,
+          "name": "제곱근의 성질을 이용하여 구한 제곱근에 대한 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G009.I03",
+          "source_code": "RC-031",
+          "no_in_group": 3,
+          "name": "제곱근이 중첩된 식의 계산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형 15개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_009",
+      "legacy_task_group": "제곱근의 성질을 이용하여 제곱근 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G010",
+      "source_group_id": "G010",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근의 성질을 이용한 계산",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G010.I01",
+          "source_code": "RC-032",
+          "no_in_group": 1,
+          "name": "제곱근의 성질을 이용한 덧셈과 뺄셈",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G010.I02",
+          "source_code": "RC-033",
+          "no_in_group": 2,
+          "name": "제곱근의 성질을 이용한 곱셈과 나눗셈",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G010.I03",
+          "source_code": "RC-034",
+          "no_in_group": 3,
+          "name": "제곱근의 성질을 이용한 혼합 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G010.I04",
+          "source_code": "RC-035",
+          "no_in_group": 4,
+          "name": "제곱근의 성질을 이용한 계산(종합)",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G010.I05",
+          "source_code": "RC-036",
+          "no_in_group": 5,
+          "name": "제곱근의 성질을 이용한 계산의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "세부유형 28개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_010",
+      "legacy_task_group": "제곱근의 성질을 이용한 계산",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G011",
+      "source_group_id": "G011",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√a²의 성질",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G011.I01",
+          "source_code": "RC-037",
+          "no_in_group": 1,
+          "name": "±√(양수)²을 근호를 사용하지 않고 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G011.I02",
+          "source_code": "RC-038",
+          "no_in_group": 2,
+          "name": "±√(음수)²을 근호를 사용하지 않고 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G011.I03",
+          "source_code": "RC-039",
+          "no_in_group": 3,
+          "name": "√a²의 성질을 이용하여 ±√(±a)²를 근호를 사용하지 않고 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G011.I04",
+          "source_code": "RC-040",
+          "no_in_group": 4,
+          "name": "√a²의 성질을 이용하여 ±√(±na)²를 근호를 사용하지 않고 나타내기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형 27개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_011",
+      "legacy_task_group": "√a²의 성질",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G012",
+      "source_group_id": "G012",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√a²꼴을 포함한 식 간단히 하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G012.I01",
+          "source_code": "RC-041",
+          "no_in_group": 1,
+          "name": "√a² 꼴을 포함한 식을 간단히 하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G012.I02",
+          "source_code": "RC-042",
+          "no_in_group": 2,
+          "name": "√a², √b² 꼴을 포함한 식을 간단히 하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G012.I03",
+          "source_code": "RC-043",
+          "no_in_group": 3,
+          "name": "√a² 꼴을 포함한 식의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 19,
+      "detail_types": null,
+      "detail_types_note": "세부유형 19개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_012",
+      "legacy_task_group": "√a²꼴을 포함한 식 간단히 하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G013",
+      "source_group_id": "G013",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√(a-b)²꼴을 포함한 식 간단히 하기",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G013.I01",
+          "source_code": "RC-044",
+          "no_in_group": 1,
+          "name": "미지수가 한 개인 경우 식을 간단히 하기 (항 2개 이하)",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G013.I02",
+          "source_code": "RC-045",
+          "no_in_group": 2,
+          "name": "미지수가 한 개인 경우 식을 간단히 하기 (항 3개 이상)",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G013.I03",
+          "source_code": "RC-046",
+          "no_in_group": 3,
+          "name": "미지수가 두 개인 경우 식을 간단히 하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G013.I04",
+          "source_code": "RC-047",
+          "no_in_group": 4,
+          "name": "미지수가 세 개인 경우 식을 간단히 하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G013.I05",
+          "source_code": "RC-048",
+          "no_in_group": 5,
+          "name": "근호를 포함하는 방정식의 해 또는 해의 범위 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G013.I06",
+          "source_code": "RC-049",
+          "no_in_group": 6,
+          "name": "√(a-b)²꼴을 포함한 식의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 38,
+      "detail_types": null,
+      "detail_types_note": "세부유형 38개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_013",
+      "legacy_task_group": "√(a-b)²꼴을 포함한 식 간단히 하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G014",
+      "source_group_id": "G014",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√Ax가 자연수가 되도록 하는 자연수 x의 값 구하기",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G014.I01",
+          "source_code": "RC-050",
+          "no_in_group": 1,
+          "name": "√Ax가 자연수가 되도록 하는 가장 작은 자연수 x",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G014.I02",
+          "source_code": "RC-051",
+          "no_in_group": 2,
+          "name": "√Ax가 자연수가 되도록 하는 자연수 x의 범위가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G014.I03",
+          "source_code": "RC-052",
+          "no_in_group": 3,
+          "name": "√Ax가 자연수가 되도록 하는 n자리 자연수 x",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G014.I04",
+          "source_code": "RC-053",
+          "no_in_group": 4,
+          "name": "√na=b의 꼴로 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G014.I05",
+          "source_code": "RC-054",
+          "no_in_group": 5,
+          "name": "√Ax가 자연수가 되도록 하는 자연수 x의 값의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 34,
+      "detail_types": null,
+      "detail_types_note": "세부유형 34개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_017",
+      "legacy_task_group": "√(A+x)가 자연수가 되도록 하는 자연수 x의 값 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G015",
+      "source_group_id": "G015",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√Axy가 자연수가 되도록 하는 자연수 x, y의 값 구하기",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G015.I01",
+          "source_code": "RC-055",
+          "no_in_group": 1,
+          "name": "√Axy가 자연수가 되도록 하는 자연수 x, y의 값 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 4,
+      "detail_types": null,
+      "detail_types_note": "세부유형 4개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_015",
+      "legacy_task_group": "√Axy가 자연수가 되도록 하는 자연수 x,y의 값 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G016",
+      "source_group_id": "G016",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√(A/x)가 자연수가 되도록 하는 자연수 x의 값 구하기",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G016.I01",
+          "source_code": "RC-056",
+          "no_in_group": 1,
+          "name": "√(A/x)가 자연수가 되도록 하는 가장 작은 자연수 x",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G016.I02",
+          "source_code": "RC-057",
+          "no_in_group": 2,
+          "name": "√(A/x)가 자연수가 되도록 하는 자연수 x",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G016.I03",
+          "source_code": "RC-058",
+          "no_in_group": 3,
+          "name": "√(n/a)=b의 꼴로 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G016.I04",
+          "source_code": "RC-059",
+          "no_in_group": 4,
+          "name": "두 개 이상의 수가 모두 자연수가 되도록 하는 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G016.I05",
+          "source_code": "RC-060",
+          "no_in_group": 5,
+          "name": "√(A/x)가 자연수가 되도록 하는 자연수 x의 값의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형 20개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_014",
+      "legacy_task_group": "√Ax가 자연수가 되도록 하는 자연수 x의 값 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G017",
+      "source_group_id": "G017",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√(A+x)가 자연수가 되도록 하는 자연수 x의 값 구하기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G017.I01",
+          "source_code": "RC-061",
+          "no_in_group": 1,
+          "name": "√(A+x)가 자연수가 되도록 하는 가장 작은 자연수 x",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G017.I02",
+          "source_code": "RC-062",
+          "no_in_group": 2,
+          "name": "√(A+x)가 자연수가 되도록 하는 자연수 x",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G017.I03",
+          "source_code": "RC-063",
+          "no_in_group": 3,
+          "name": "두 개 이상의 수가 모두 자연수가 되도록 하는 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형 17개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_016",
+      "legacy_task_group": "√A/x가 자연수가 되도록 하는 자연수 x의 값 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G018",
+      "source_group_id": "G018",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√(A-x)가 자연수(정수)가 되도록 하는 자연수 x의 값 구하기",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G018.I01",
+          "source_code": "RC-064",
+          "no_in_group": 1,
+          "name": "√(A-x)가 자연수(정수)가 되도록 하는 자연수 x",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G018.I02",
+          "source_code": "RC-065",
+          "no_in_group": 2,
+          "name": "관계식이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G018.I03",
+          "source_code": "RC-066",
+          "no_in_group": 3,
+          "name": "두 수의 연산이 모두 자연수(정수)가 되도록 하는 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G018.I04",
+          "source_code": "RC-067",
+          "no_in_group": 4,
+          "name": "두 개 이상의 수가 모두 자연수가 되도록 하는 수의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형 20개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_018",
+      "legacy_task_group": "√(A-x)가 자연수(정수)가 되도록 하는 자연수 x의 값 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G019",
+      "source_group_id": "G019",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근의 대소 관계",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G019.I01",
+          "source_code": "RC-068",
+          "no_in_group": 1,
+          "name": "두 수의 대소 비교",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G019.I02",
+          "source_code": "RC-069",
+          "no_in_group": 2,
+          "name": "세 개 이상의 수의 대소 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G019.I03",
+          "source_code": "RC-070",
+          "no_in_group": 3,
+          "name": "문자로 표현된 수들의 대소 비교",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 23,
+      "detail_types": null,
+      "detail_types_note": "세부유형 23개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_019",
+      "legacy_task_group": "제곱근의 대소 관계",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G020",
+      "source_group_id": "G020",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근의 성질과 대소 관계",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G020.I01",
+          "source_code": "RC-071",
+          "no_in_group": 1,
+          "name": "제곱근의 성질을 이용하여 식을 간단히 하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G020.I02",
+          "source_code": "RC-072",
+          "no_in_group": 2,
+          "name": "문자를 사용한 수의 대소 비교",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_020",
+      "legacy_task_group": "제곱근의 성질과 대소 관계",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G021",
+      "source_group_id": "G021",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "제곱근을 포함한 부등식",
+      "topic_type_count": 8,
+      "topic_type_actual": 8,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G021.I01",
+          "source_code": "RC-073",
+          "no_in_group": 1,
+          "name": "부등식을 만족시키는 수 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G021.I02",
+          "source_code": "RC-074",
+          "no_in_group": 2,
+          "name": "부등식 n<√ax<m을 만족시키는 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G021.I03",
+          "source_code": "RC-075",
+          "no_in_group": 3,
+          "name": "부등식 n<√(ax+b)<m을 만족시키는 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G021.I04",
+          "source_code": "RC-076",
+          "no_in_group": 4,
+          "name": "부등식 n<√x<√m을 만족시키는 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G021.I05",
+          "source_code": "RC-077",
+          "no_in_group": 5,
+          "name": "부등식 -n<-√ax<-m을 만족시키는 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G021.I06",
+          "source_code": "RC-078",
+          "no_in_group": 6,
+          "name": "부등식을 만족시키는 수의 개수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G021.I07",
+          "source_code": "RC-079",
+          "no_in_group": 7,
+          "name": "두 부등식을 만족시키는 수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G021.I08",
+          "source_code": "RC-080",
+          "no_in_group": 8,
+          "name": "부등식을 만족시키는 수의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 61,
+      "detail_types": null,
+      "detail_types_note": "세부유형 61개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_021",
+      "legacy_task_group": "제곱근을 포함한 부등식",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G022",
+      "source_group_id": "G022",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "제곱근의 뜻과 성질",
+      "type_name": "√x 이하의 자연수 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G022.I01",
+          "source_code": "RC-081",
+          "no_in_group": 1,
+          "name": "√x 이하의 자연수의 개수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G022.I02",
+          "source_code": "RC-082",
+          "no_in_group": 2,
+          "name": "새로운 기호에 의해 정의된 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형 13개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_022",
+      "legacy_task_group": "√x 이하의 자연수 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G023",
+      "source_group_id": "G023",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "무리수와 실수",
+      "type_name": "유리수와 무리수의 구별",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G023.I01",
+          "source_code": "RC-083",
+          "no_in_group": 1,
+          "name": "수에서 유리수와 무리수의 판별",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G023.I02",
+          "source_code": "RC-084",
+          "no_in_group": 2,
+          "name": "도형에서 유리수와 무리수의 판별",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G023.I03",
+          "source_code": "RC-085",
+          "no_in_group": 3,
+          "name": "순환소수가 아닌 무한소수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G023.I04",
+          "source_code": "RC-086",
+          "no_in_group": 4,
+          "name": "무리수가 되도록 하는 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G023.I05",
+          "source_code": "RC-087",
+          "no_in_group": 5,
+          "name": "유리수, 무리수의 연산의 판별",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "세부유형 28개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_023",
+      "legacy_task_group": "유리수와 무리수의 구분",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 0.9,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G024",
+      "source_group_id": "G024",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "무리수와 실수",
+      "type_name": "무리수의 이해",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G024.I01",
+          "source_code": "RC-088",
+          "no_in_group": 1,
+          "name": "유리수와 무리수의 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_024",
+      "legacy_task_group": "무리수의 이해",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G025",
+      "source_group_id": "G025",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "무리수와 실수",
+      "type_name": "실수의 이해",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G025.I01",
+          "source_code": "RC-089",
+          "no_in_group": 1,
+          "name": "실수의 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G025.I02",
+          "source_code": "RC-090",
+          "no_in_group": 2,
+          "name": "실수의 분류",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_025",
+      "legacy_task_group": "실수의 이해",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G026",
+      "source_group_id": "G026",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "무리수와 실수",
+      "type_name": "제곱근표를 이용하여 제곱근의 값 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G026.I01",
+          "source_code": "RC-091",
+          "no_in_group": 1,
+          "name": "제곱근표를 이용하여 제곱근의 값 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G026.I02",
+          "source_code": "RC-092",
+          "no_in_group": 2,
+          "name": "제곱근표를 이용하여 근호 안에 들어갈 수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형 9개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_026",
+      "legacy_task_group": "제곱근표를 이용하여 제곱근의 값 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G027",
+      "source_group_id": "G027",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "실수의 대소 관계",
+      "type_name": "무리수를 수직선 위에 나타내기",
+      "topic_type_count": 7,
+      "topic_type_actual": 7,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G027.I01",
+          "source_code": "RC-093",
+          "no_in_group": 1,
+          "name": "정사각형의 한 변의 길이가 1인 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G027.I02",
+          "source_code": "RC-094",
+          "no_in_group": 2,
+          "name": "한 눈금의 길이가 1인 모눈종이 위에 수직선과 1개의 직각삼각형이 있는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G027.I03",
+          "source_code": "RC-095",
+          "no_in_group": 3,
+          "name": "한 눈금의 길이가 1인 모눈종이 위에 수직선과 2개의 직각삼각형이 있는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G027.I04",
+          "source_code": "RC-096",
+          "no_in_group": 4,
+          "name": "여러 개의 정사각형에서 점에 대응하는 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G027.I05",
+          "source_code": "RC-097",
+          "no_in_group": 5,
+          "name": "정사각형의 넓이가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G027.I06",
+          "source_code": "RC-098",
+          "no_in_group": 6,
+          "name": "한 눈금의 길이가 1인 모눈이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G027.I07",
+          "source_code": "RC-099",
+          "no_in_group": 7,
+          "name": "수직선 위에서 움직이는 도형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 48,
+      "detail_types": null,
+      "detail_types_note": "세부유형 48개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_027",
+      "legacy_task_group": "무리수를 수직선 위에 나타내기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G028",
+      "source_group_id": "G028",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "실수의 대소 관계",
+      "type_name": "실수와 수직선",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G028.I01",
+          "source_code": "RC-100",
+          "no_in_group": 1,
+          "name": "실수와 수직선의 이해",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_028",
+      "legacy_task_group": "실수와 수직선",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G029",
+      "source_group_id": "G029",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "실수의 대소 관계",
+      "type_name": "수직선에서 무리수에 대응하는 점 찾기",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G029.I01",
+          "source_code": "RC-101",
+          "no_in_group": 1,
+          "name": "수직선에서 수에 대응하는 점",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G029.I02",
+          "source_code": "RC-102",
+          "no_in_group": 2,
+          "name": "수직선 위의 점에 대응하는 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G029.I03",
+          "source_code": "RC-103",
+          "no_in_group": 3,
+          "name": "수직선에서 수에 대응하는 점이 포함된 구간",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형 14개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_029",
+      "legacy_task_group": "수직선에서 무리수에 대응하는 점 찾기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G030",
+      "source_group_id": "G030",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "실수의 대소 관계",
+      "type_name": "실수의 대소 관계",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G030.I01",
+          "source_code": "RC-104",
+          "no_in_group": 1,
+          "name": "두 수의 대소 비교",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G030.I02",
+          "source_code": "RC-105",
+          "no_in_group": 2,
+          "name": "세 수 이상의 대소 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G030.I03",
+          "source_code": "RC-106",
+          "no_in_group": 3,
+          "name": "도형에서의 대소 비교",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 17,
+      "detail_types": null,
+      "detail_types_note": "세부유형 17개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_030",
+      "legacy_task_group": "실수의 대소 관계",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G031",
+      "source_group_id": "G031",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "실수의 대소 관계",
+      "type_name": "수직선에서 실수의 대소 관계",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G031.I01",
+          "source_code": "RC-107",
+          "no_in_group": 1,
+          "name": "두 점이 나타내는 수의 대소 비교",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G031.I02",
+          "source_code": "RC-108",
+          "no_in_group": 2,
+          "name": "n개의 점이 나타내는 수의 대소 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G031.I03",
+          "source_code": "RC-109",
+          "no_in_group": 3,
+          "name": "네 개 이상의 점이 나타내는 수의 대소 비교",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형 13개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_031",
+      "legacy_task_group": "수직선에서 실수의 대소 관계",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G032",
+      "source_group_id": "G032",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "제곱근과 실수",
+      "중영역": "실수의 대소 관계",
+      "type_name": "두 실수 사이의 수",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G032.I01",
+          "source_code": "RC-110",
+          "no_in_group": 1,
+          "name": "두 수 사이에 있는 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G032.I02",
+          "source_code": "RC-111",
+          "no_in_group": 2,
+          "name": "두 수 사이에 수에 대한 이해",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G032.I03",
+          "source_code": "RC-112",
+          "no_in_group": 3,
+          "name": "두 수 사이에 있는 수의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형 21개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_032",
+      "legacy_task_group": "두 실수 사이의 수",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G033",
+      "source_group_id": "G033",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "제곱근의 곱셈",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G033.I01",
+          "source_code": "RC-113",
+          "no_in_group": 1,
+          "name": "두 제곱근의 곱",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G033.I02",
+          "source_code": "RC-114",
+          "no_in_group": 2,
+          "name": "세 제곱근의 곱",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형 21개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_033",
+      "legacy_task_group": "제곱근의 곱셈",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G034",
+      "source_group_id": "G034",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "근호가 있는 식의 변형(1) √a²b",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G034.I01",
+          "source_code": "RC-115",
+          "no_in_group": 1,
+          "name": "√a²b를 a√b의 꼴로 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G034.I02",
+          "source_code": "RC-116",
+          "no_in_group": 2,
+          "name": "곱의 결과를 a√b의 꼴로 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G034.I03",
+          "source_code": "RC-117",
+          "no_in_group": 3,
+          "name": "√a²b=a√b의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형 27개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_034",
+      "legacy_task_group": "근호가 있는 식의 변형(1) √a²b",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G035",
+      "source_group_id": "G035",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "근호가 있는 식의 변형(2) a√b",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G035.I01",
+          "source_code": "RC-118",
+          "no_in_group": 1,
+          "name": "a√b를 √a²b의 꼴로 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G035.I02",
+          "source_code": "RC-119",
+          "no_in_group": 2,
+          "name": "곱의 결과를 √a²b의 꼴로 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G035.I03",
+          "source_code": "RC-120",
+          "no_in_group": 3,
+          "name": "수의 대소 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G035.I04",
+          "source_code": "RC-121",
+          "no_in_group": 4,
+          "name": "식을 만족시키는 미지수의 값",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G035.I05",
+          "source_code": "RC-122",
+          "no_in_group": 5,
+          "name": "a√b=√a²b의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형 27개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_035",
+      "legacy_task_group": "근호가 있는 식의 변형(2) a√b",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G036",
+      "source_group_id": "G036",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "제곱근의 나눗셈",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G036.I01",
+          "source_code": "RC-123",
+          "no_in_group": 1,
+          "name": "항이 두 개인 나눗셈 계산하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G036.I02",
+          "source_code": "RC-124",
+          "no_in_group": 2,
+          "name": "항이 세 개인 나눗셈 계산하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G036.I03",
+          "source_code": "RC-125",
+          "no_in_group": 3,
+          "name": "몇 배인지 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G036.I04",
+          "source_code": "RC-126",
+          "no_in_group": 4,
+          "name": "제곱근의 나눗셈의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 37,
+      "detail_types": null,
+      "detail_types_note": "세부유형 37개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "14.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_036",
+      "legacy_task_group": "제곱근의 나눗셈",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G037",
+      "source_group_id": "G037",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "근호가 있는 식의 변형(3) √(b/a²)",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G037.I01",
+          "source_code": "RC-127",
+          "no_in_group": 1,
+          "name": "√a/b를 √(a/b²)의 꼴로 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G037.I02",
+          "source_code": "RC-128",
+          "no_in_group": 2,
+          "name": "√(a/b²)를 √a/b의 꼴로 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G037.I03",
+          "source_code": "RC-129",
+          "no_in_group": 3,
+          "name": "√x.xx(소수 꼴)을 √a/b의 꼴로 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G037.I04",
+          "source_code": "RC-130",
+          "no_in_group": 4,
+          "name": "수의 대소 비교",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G037.I05",
+          "source_code": "RC-131",
+          "no_in_group": 5,
+          "name": "ab=n을 이용한 제곱근 식의 변형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 26,
+      "detail_types": null,
+      "detail_types_note": "세부유형 26개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "14.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_037",
+      "legacy_task_group": "근호가 있는 식의 변형(3) √b/a²",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G038",
+      "source_group_id": "G038",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "제곱근표에 없는 제곱근의 값 구하기",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G038.I01",
+          "source_code": "RC-132",
+          "no_in_group": 1,
+          "name": "주어진 값을 이용하여 자연수의 제곱근의 값 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G038.I02",
+          "source_code": "RC-133",
+          "no_in_group": 2,
+          "name": "주어진 값을 이용하여 소수의 제곱근의 값 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G038.I03",
+          "source_code": "RC-134",
+          "no_in_group": 3,
+          "name": "제곱근표를 이용하여 제곱근의 값 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G038.I04",
+          "source_code": "RC-135",
+          "no_in_group": 4,
+          "name": "제곱근표 또는 주어진 값을 이용하여 구할 수 있는 값의 판별",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G038.I05",
+          "source_code": "RC-136",
+          "no_in_group": 5,
+          "name": "제곱근표에 없는 제곱근의 값의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 29,
+      "detail_types": null,
+      "detail_types_note": "세부유형 29개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_038",
+      "legacy_task_group": "제곱근표에 없는 제곱근의 값 구하기",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G039",
+      "source_group_id": "G039",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "문자를 이용한 제곱근의 표현",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G039.I01",
+          "source_code": "RC-137",
+          "no_in_group": 1,
+          "name": "√a=x, √(10a)=y일 때, 주어진 수를 문자를 이용하여 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G039.I02",
+          "source_code": "RC-138",
+          "no_in_group": 2,
+          "name": "√a=x, √b=y일 때, 주어진 수를 문자를 이용하여 나타내기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형 14개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_039",
+      "legacy_task_group": "문자를 이용한 제곱근의 표현",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G040",
+      "source_group_id": "G040",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "분모의 유리화",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G040.I01",
+          "source_code": "RC-139",
+          "no_in_group": 1,
+          "name": "분모의 유리화하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G040.I02",
+          "source_code": "RC-140",
+          "no_in_group": 2,
+          "name": "식을 만족시키는 미지수의 값 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G040.I03",
+          "source_code": "RC-141",
+          "no_in_group": 3,
+          "name": "분모의 유리화의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 31,
+      "detail_types": null,
+      "detail_types_note": "세부유형 31개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "15.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_040",
+      "legacy_task_group": "분모의 유리화",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G041",
+      "source_group_id": "G041",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "제곱근의 곱셈과 나눗셈의 혼합 계산",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G041.I01",
+          "source_code": "RC-142",
+          "no_in_group": 1,
+          "name": "곱셈과 나눗셈 혼합 계산",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G041.I02",
+          "source_code": "RC-143",
+          "no_in_group": 2,
+          "name": "곱셈과 나눗셈 혼합 계산의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형 21개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_041",
+      "legacy_task_group": "제곱근의 곱셈과 나눗셈의 혼합 계산",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G042",
+      "source_group_id": "G042",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "제곱근의 곱셈과 나눗셈의 도형에의 활용 (1) 넓이/부피",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G042.I01",
+          "source_code": "RC-144",
+          "no_in_group": 1,
+          "name": "평면도형에서 변의 길이/높이/넓이 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G042.I02",
+          "source_code": "RC-145",
+          "no_in_group": 2,
+          "name": "입체도형에서 변의 길이/높이/부피 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G042.I03",
+          "source_code": "RC-146",
+          "no_in_group": 3,
+          "name": "두 평면도형 사이의 넓이 관계 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G042.I04",
+          "source_code": "RC-147",
+          "no_in_group": 4,
+          "name": "도형의 두 변을 한 변으로 하는 도형의 넓이가 각각 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G042.I05",
+          "source_code": "RC-148",
+          "no_in_group": 5,
+          "name": "두 도형의 넓이의 합과 넓이가 같은 도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G042.I06",
+          "source_code": "RC-149",
+          "no_in_group": 6,
+          "name": "좌표평면 위에서 도형의 넓이",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 41,
+      "detail_types": null,
+      "detail_types_note": "세부유형 41개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "16.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_042",
+      "legacy_task_group": "제곱근의 곱셈과 나눗셈의 도형에의 활용(1) 넓이/부피",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G043",
+      "source_group_id": "G043",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "제곱근의 곱셈과 나눗셈의 도형에의 활용 (2) 대각선의 길이",
+      "topic_type_count": 6,
+      "topic_type_actual": 6,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G043.I01",
+          "source_code": "RC-150",
+          "no_in_group": 1,
+          "name": "평면도형의 대각선의 길이 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G043.I02",
+          "source_code": "RC-151",
+          "no_in_group": 2,
+          "name": "평면도형에서 대각선의 길이가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G043.I03",
+          "source_code": "RC-152",
+          "no_in_group": 3,
+          "name": "입체도형의 대각선의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G043.I04",
+          "source_code": "RC-153",
+          "no_in_group": 4,
+          "name": "대각선의 길이가 주어진 입체도형의 변의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G043.I05",
+          "source_code": "RC-154",
+          "no_in_group": 5,
+          "name": "평면도형에서 대각선의 길이의 활용",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G043.I06",
+          "source_code": "RC-155",
+          "no_in_group": 6,
+          "name": "입체도형에서 대각선의 길이의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형 21개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_043",
+      "legacy_task_group": "제곱근의 곱셈과 나눗셈의 도형에의 활용(2) 대각선의 길이",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G044",
+      "source_group_id": "G044",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 곱셈과 나눗셈",
+      "type_name": "제곱근의 곱셈과 나눗셈의 도형에의 활용 (3) 정삼각형에서 높이와 넓이",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G044.I01",
+          "source_code": "RC-156",
+          "no_in_group": 1,
+          "name": "정삼각형의 높이와 넓이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G044.I02",
+          "source_code": "RC-157",
+          "no_in_group": 2,
+          "name": "정삼각형의 변의 길이, 높이와 넓이의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형 20개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_044",
+      "legacy_task_group": "제곱근의 곱셈과 나눗셈의 도형에의 활용(3) 정삼각형에서 높이와 넓이",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G045",
+      "source_group_id": "G045",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 덧셈과 뺄셈",
+      "type_name": "제곱근의 덧셈과 뺄셈",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G045.I01",
+          "source_code": "RC-158",
+          "no_in_group": 1,
+          "name": "근호 안의 수가 모두 같은 경우의 계산",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G045.I02",
+          "source_code": "RC-159",
+          "no_in_group": 2,
+          "name": "근호 안의 수가 다른 경우의 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G045.I03",
+          "source_code": "RC-160",
+          "no_in_group": 3,
+          "name": "√(A²)=|A|를 이용한 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G045.I04",
+          "source_code": "RC-161",
+          "no_in_group": 4,
+          "name": "제곱근의 덧셈과 뺄셈의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 23,
+      "detail_types": null,
+      "detail_types_note": "세부유형 23개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "17.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_045",
+      "legacy_task_group": "제곱근의 덧셈과 뺄셈",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G046",
+      "source_group_id": "G046",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 덧셈과 뺄셈",
+      "type_name": "√a²b=a√b를 이용한 제곱근의 덧셈과 뺄셈",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G046.I01",
+          "source_code": "RC-162",
+          "no_in_group": 1,
+          "name": "근호 안의 수가 모두 같은 경우의 계산",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G046.I02",
+          "source_code": "RC-163",
+          "no_in_group": 2,
+          "name": "근호 안의 수가 다른 경우의 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G046.I03",
+          "source_code": "RC-164",
+          "no_in_group": 3,
+          "name": "식을 만족시키는 미지수의 값 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G046.I04",
+          "source_code": "RC-165",
+          "no_in_group": 4,
+          "name": "√a²b=a√b를 이용한 제곱근의 덧셈과 뺄셈의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "세부유형 28개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_046",
+      "legacy_task_group": "√a²b=a√b를 이용한 제곱근의 덧셈과 뺄셈",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G047",
+      "source_group_id": "G047",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 덧셈과 뺄셈",
+      "type_name": "분모의 유리화를 이용한 덧셈과 뺄셈",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G047.I01",
+          "source_code": "RC-166",
+          "no_in_group": 1,
+          "name": "근호 안의 수가 모두 같은 경우의 계산",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G047.I02",
+          "source_code": "RC-167",
+          "no_in_group": 2,
+          "name": "근호 안의 수가 다른 경우의 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G047.I03",
+          "source_code": "RC-168",
+          "no_in_group": 3,
+          "name": "식의 값 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G047.I04",
+          "source_code": "RC-169",
+          "no_in_group": 4,
+          "name": "제곱근의 값이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형 27개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_047",
+      "legacy_task_group": "분모의 유리화를 이용한 덧셈과 뺄셈",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G048",
+      "source_group_id": "G048",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 덧셈과 뺄셈",
+      "type_name": "분배법칙을 이용한 제곱근의 덧셈과 뺄셈",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G048.I01",
+          "source_code": "RC-170",
+          "no_in_group": 1,
+          "name": "괄호를 풀어 계산하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G048.I02",
+          "source_code": "RC-171",
+          "no_in_group": 2,
+          "name": "분배법칙을 이용하는 부분을 포함한 식의 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G048.I03",
+          "source_code": "RC-172",
+          "no_in_group": 3,
+          "name": "분배법칙을 이용한 제곱근의 덧셈과 뺄셈의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "18.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_048",
+      "legacy_task_group": "분배법칙을 이용한 제곱근의 덧셈과 뺄셈",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G049",
+      "source_group_id": "G049",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "제곱근의 덧셈과 뺄셈",
+      "type_name": "분배법칙을 이용한 분모의 유리화",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G049.I01",
+          "source_code": "RC-173",
+          "no_in_group": 1,
+          "name": "분자가 다항식인 분수식의 분모의 유리화",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형 6개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_049",
+      "legacy_task_group": "분배법칙을 이용한 분모의 유리화",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G050",
+      "source_group_id": "G050",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "근호를 포함한 복잡한 식의 계산",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G050.I01",
+          "source_code": "RC-174",
+          "no_in_group": 1,
+          "name": "제곱근 식의 혼합 계산",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G050.I02",
+          "source_code": "RC-175",
+          "no_in_group": 2,
+          "name": "분모의 유리화를 포함한 제곱근 식의 혼합 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G050.I03",
+          "source_code": "RC-176",
+          "no_in_group": 3,
+          "name": "분수식을 포함한 제곱근 식의 혼합 계산",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G050.I04",
+          "source_code": "RC-177",
+          "no_in_group": 4,
+          "name": "식의 값 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G050.I05",
+          "source_code": "RC-178",
+          "no_in_group": 5,
+          "name": "미지수 사이의 관계가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 34,
+      "detail_types": null,
+      "detail_types_note": "세부유형 34개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_050",
+      "legacy_task_group": "근호를 포함한 복잡한 식의 계산",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G051",
+      "source_group_id": "G051",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "새로운 기호로 정의된 연산에서 근호를 포함한 식의 계산",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G051.I01",
+          "source_code": "RC-179",
+          "no_in_group": 1,
+          "name": "하나의 새로운 기호로 정의된 연산을 이용한 계산",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G051.I02",
+          "source_code": "RC-180",
+          "no_in_group": 2,
+          "name": "두 개 이상의 새로운 기호로 정의된 연산을 이용한 계산",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형 6개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "19.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_051",
+      "legacy_task_group": "새로운 기호로 정의된 연산에서 근호를 포함한 식의 계산",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G052",
+      "source_group_id": "G052",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "제곱근의 계산 결과가 유리수가 될 조건",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G052.I01",
+          "source_code": "RC-181",
+          "no_in_group": 1,
+          "name": "식의 계산 결과가 유리수가 되도록 하는 미지수 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G052.I02",
+          "source_code": "RC-182",
+          "no_in_group": 2,
+          "name": "식의 계산 결과가 유리수가 되도록 하는 미지수와 그 때 식의 값",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G052.I03",
+          "source_code": "RC-183",
+          "no_in_group": 3,
+          "name": "등식/부등식을 만족시킬 조건",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G052.I04",
+          "source_code": "RC-184",
+          "no_in_group": 4,
+          "name": "두 식의 계산 결과가 모두 유리수가 될 조건",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 28,
+      "detail_types": null,
+      "detail_types_note": "세부유형 28개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_052",
+      "legacy_task_group": "제곱근의 계산 결과가 유리수가 될 조건",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G053",
+      "source_group_id": "G053",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "무리수의 정수 부분과 소수 부분",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G053.I01",
+          "source_code": "RC-185",
+          "no_in_group": 1,
+          "name": "정수 부분과 소수 부분 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G053.I02",
+          "source_code": "RC-186",
+          "no_in_group": 2,
+          "name": "정수 부분 또는 소수부분이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G053.I03",
+          "source_code": "RC-187",
+          "no_in_group": 3,
+          "name": "미지수를 사용한 식으로 나타내기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G053.I04",
+          "source_code": "RC-188",
+          "no_in_group": 4,
+          "name": "정수 부분의 자릿수 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G053.I05",
+          "source_code": "RC-189",
+          "no_in_group": 5,
+          "name": "가우스 기호를 이용한 식의 값",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 41,
+      "detail_types": null,
+      "detail_types_note": "세부유형 41개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_053",
+      "legacy_task_group": "무리수의 정수 부분과 소수 부분",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G054",
+      "source_group_id": "G054",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "제곱근의 사칙연산에서 문자를 이용한 제곱근의 표현",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G054.I01",
+          "source_code": "RC-190",
+          "no_in_group": 1,
+          "name": "문자를 이용하여 나타내기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "세부유형 5개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "20.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_054",
+      "legacy_task_group": "제곱근의 사칙연산에서 문자를 이용한 제곱근의 표현",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G055",
+      "source_group_id": "G055",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "문자의 관계식을 이용한 식의 계산",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G055.I01",
+          "source_code": "RC-191",
+          "no_in_group": 1,
+          "name": "두 문자 사이의 관계식이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 4,
+      "detail_types": null,
+      "detail_types_note": "세부유형 4개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_055",
+      "legacy_task_group": "문자의 관계식을 이용한 식의 계산",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G056",
+      "source_group_id": "G056",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "제곱근의 덧셈과 뺄셈의 도형에의 활용",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G056.I01",
+          "source_code": "RC-192",
+          "no_in_group": 1,
+          "name": "평면도형에서 변의 길이/넓이/둘레의 길이",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G056.I02",
+          "source_code": "RC-193",
+          "no_in_group": 2,
+          "name": "입체도형에서 변의 길이/부피/겉넓이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G056.I03",
+          "source_code": "RC-194",
+          "no_in_group": 3,
+          "name": "붙어 있는 도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G056.I04",
+          "source_code": "RC-195",
+          "no_in_group": 4,
+          "name": "한 도형을 여러 개의 도형으로 나눈 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G056.I05",
+          "source_code": "RC-196",
+          "no_in_group": 5,
+          "name": "최단 거리",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 40,
+      "detail_types": null,
+      "detail_types_note": "세부유형 40개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_056",
+      "legacy_task_group": "제곱근의 덧셈과 뺄셈의 도형에의 활용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G057",
+      "source_group_id": "G057",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "제곱근의 덧셈과 뺄셈의 수직선에의 활용",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G057.I01",
+          "source_code": "RC-197",
+          "no_in_group": 1,
+          "name": "점이 나타내는 수 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G057.I02",
+          "source_code": "RC-198",
+          "no_in_group": 2,
+          "name": "선분의 길이 구하기",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G057.I03",
+          "source_code": "RC-199",
+          "no_in_group": 3,
+          "name": "움직이는 도형",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G057.I04",
+          "source_code": "RC-200",
+          "no_in_group": 4,
+          "name": "중점에 대응하는 수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형 27개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "21.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_057",
+      "legacy_task_group": "제곱근의 덧셈과 뺄셈의 수직선에의 활용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G058",
+      "source_group_id": "G058",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "제곱근의 덧셈과 뺄셈을 이용한 두 실수의 대소 관계",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G058.I01",
+          "source_code": "RC-201",
+          "no_in_group": 1,
+          "name": "두 수의 대소 비교하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "22.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_058",
+      "legacy_task_group": "제곱근의 덧셈과 뺄셈을 이용한 두 실수의 대소 관계",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M3S1.RC.G059",
+      "source_group_id": "G059",
+      "semester": "M3S1",
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "chapter": "3-1 실수와 그 계산",
+      "대영역": "근호를 포함한 식의 계산",
+      "중영역": "근호를 포함한 복잡한 식의 계산",
+      "type_name": "제곱근의 덧셈과 뺄셈을 이용한 세 실수의 대소 관계",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M3S1.RC.G059.I01",
+          "source_code": "RC-202",
+          "no_in_group": 1,
+          "name": "세 수의 대소 비교하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M3S1.RC.G059.I02",
+          "source_code": "RC-203",
+          "no_in_group": 2,
+          "name": "3개 이상의 수의 대소 비교하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "22.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M3_REAL_RAW_059",
+      "legacy_task_group": "제곱근의 덧셈과 뺄셈을 이용한 세 실수의 대소 관계",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    }
+  ]
+}
