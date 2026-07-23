@@ -93,11 +93,13 @@
     "source": "m1_data_analysis.problem_types.v1.json (problem_types / type_name)",
     "legacy_count": 84,
     "item_count": 94,
-    "match_confident": 13,
-    "match_candidate": 41,
+    "match_confident": 11,
+    "match_candidate": 39,
     "match_none": 40,
-    "concept_ids_inherited": 13,
-    "error_tags_referenced": 13,
+    "match_ambiguous": 4,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
+    "concept_ids_inherited": 11,
+    "error_tags_referenced": 11,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
@@ -1459,7 +1461,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_DA_PT056",
           "legacy_type_name": "도수분포다각형의 기본 구조 이해하기",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.625,
           "legacy_error_tags_ref": null
         },
@@ -1633,7 +1635,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_DA_PT060",
           "legacy_type_name": "도수분포다각형 넓이의 의미 이해하기",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.625,
           "legacy_error_tags_ref": null
         },
@@ -1938,18 +1940,12 @@
           "name": "상대도수분포그래프가 도수분포다각형 모양으로 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M1_DA_C030",
-            "M1_DA_C031"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M1_DA_PT075",
           "legacy_type_name": "상대도수분포그래프가 도수분포다각형 모양으로 주어진 경우 해석하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.867,
-          "legacy_error_tags_ref": [
-            "relative_frequency_graph",
-            "polygon_shape"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1986,18 +1982,12 @@
           "name": "상대도수분포그래프가 히스토그램 모양으로 주어진 경우",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M1_DA_C030",
-            "M1_DA_C031"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M1_DA_PT074",
           "legacy_type_name": "상대도수분포그래프가 히스토그램 모양으로 주어진 경우 해석하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.857,
-          "legacy_error_tags_ref": [
-            "relative_frequency_graph",
-            "histogram_shape"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G027.I02",

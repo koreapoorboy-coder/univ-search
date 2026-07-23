@@ -119,8 +119,10 @@
     "legacy_count": 144,
     "item_count": 265,
     "match_confident": 1,
-    "match_candidate": 20,
+    "match_candidate": 17,
     "match_none": 244,
+    "match_ambiguous": 3,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
     "concept_ids_inherited": 1,
     "error_tags_referenced": 1,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
@@ -2507,7 +2509,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M2_LF_PT106",
           "legacy_type_name": "도형과 거리 활용 - 이동 거리와 시간 그래프",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.571,
           "legacy_error_tags_ref": null
         },
@@ -2885,7 +2887,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M2_LF_PT037",
           "legacy_type_name": "x의 증가량과 y의 증가량",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.562,
           "legacy_error_tags_ref": null
         },
@@ -2983,7 +2985,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M2_LF_PT107",
           "legacy_type_name": "도형과 거리 활용 - 도형 조건을 식으로 변환",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.571,
           "legacy_error_tags_ref": null
         }

@@ -403,11 +403,13 @@
     "source": "h1_common_math1_counting.problem_types.v1.json (problem_types / type_name)",
     "legacy_count": 324,
     "item_count": 107,
-    "match_confident": 107,
+    "match_confident": 100,
     "match_candidate": 0,
     "match_none": 0,
-    "concept_ids_inherited": 107,
-    "error_tags_referenced": 107,
+    "match_ambiguous": 7,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
+    "concept_ids_inherited": 100,
+    "error_tags_referenced": 100,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
@@ -494,20 +496,12 @@
           "name": "조건을 만족하는 자연수의 개수",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM1_COUNT_C004"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_COUNT_PT010",
           "legacy_type_name": "조건을 만족하는 자연수의 개수 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "addition_rule",
-            "case_classification",
-            "multiplication_rule",
-            "stage_counting",
-            "digit_number_count"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S1.CMC.G001.I05",
@@ -700,20 +694,12 @@
           "name": "조건을 만족하는 자연수의 개수",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM1_COUNT_C004"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_COUNT_PT011",
           "legacy_type_name": "조건을 만족하는 자연수의 개수 - 조건 적용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "addition_rule",
-            "case_classification",
-            "multiplication_rule",
-            "stage_counting",
-            "digit_number_count"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S1.CMC.G003.I05",
@@ -1118,20 +1104,12 @@
           "name": "조건을 만족하는 자연수의 개수",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM1_COUNT_C025"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_COUNT_PT073",
           "legacy_type_name": "조건을 만족하는 자연수의 개수 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "addition_rule",
-            "case_classification",
-            "multiplication_rule",
-            "stage_counting",
-            "tree_diagram"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S1.CMC.G007.I04",
@@ -2842,20 +2820,12 @@
           "name": "평행선 위의 점을 연결할 때",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM1_COUNT_C082"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_COUNT_PT244",
           "legacy_type_name": "평행선 위의 점을 연결할 때 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "permutation",
-            "ordered_arrangement",
-            "combination",
-            "unordered_selection",
-            "geometric_counting"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S1.CMC.G024.I03",
@@ -3008,20 +2978,12 @@
           "name": "평행선 위의 점을 연결할 때",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM1_COUNT_C087"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_COUNT_PT259",
           "legacy_type_name": "평행선 위의 점을 연결할 때 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "permutation",
-            "ordered_arrangement",
-            "combination",
-            "unordered_selection",
-            "geometric_counting"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S1.CMC.G026.I03",
@@ -3074,20 +3036,12 @@
           "name": "좌표평면 위의 점을 연결할 때",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM1_COUNT_C090"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_COUNT_PT268",
           "legacy_type_name": "좌표평면 위의 점을 연결할 때 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "permutation",
-            "ordered_arrangement",
-            "combination",
-            "unordered_selection",
-            "geometric_counting"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S1.CMC.G026.I06",
@@ -3278,20 +3232,12 @@
           "name": "좌표평면 위의 점을 연결할 때",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM1_COUNT_C098"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_COUNT_PT294",
           "legacy_type_name": "좌표평면 위의 점을 연결할 때 - 복합 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "permutation",
-            "ordered_arrangement",
-            "combination",
-            "unordered_selection",
-            "geometric_counting"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,

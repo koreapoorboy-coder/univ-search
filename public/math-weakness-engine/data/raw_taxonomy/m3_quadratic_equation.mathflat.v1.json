@@ -87,11 +87,13 @@
     "source": "m3_quadratic_equation.problem_types.v1.json (problem_types / type_name)",
     "legacy_count": 144,
     "item_count": 144,
-    "match_confident": 143,
+    "match_confident": 117,
     "match_candidate": 1,
     "match_none": 0,
-    "concept_ids_inherited": 143,
-    "error_tags_referenced": 143,
+    "match_ambiguous": 26,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
+    "concept_ids_inherited": 117,
+    "error_tags_referenced": 117,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
@@ -453,16 +455,12 @@
           "name": "이차방정식의 풀이",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C006"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT012",
           "legacy_type_name": "이차방정식의 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "zero_product_factorization"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G006.I02",
@@ -489,16 +487,12 @@
           "name": "이차방정식의 응용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C006"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT014",
           "legacy_type_name": "이차방정식의 응용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "zero_product_factorization"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 52,
@@ -535,16 +529,12 @@
           "name": "한 근이 주어진 경우",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C007"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT015",
           "legacy_type_name": "한 근이 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "root_substitution"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G007.I02",
@@ -553,16 +543,12 @@
           "name": "한 근이 다른 이차방정식의 근인 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C007"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT016",
           "legacy_type_name": "한 근이 다른 이차방정식의 근인 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "root_substitution"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -639,18 +625,12 @@
           "name": "이차방정식의 응용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C007",
-            "M3_QUAD_C006"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT019",
           "legacy_type_name": "이차방정식의 응용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "root_substitution",
-            "zero_product_factorization"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G008.I04",
@@ -659,18 +639,12 @@
           "name": "한 근이 다른 이차방정식의 근인 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C007",
-            "M3_QUAD_C006"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT020",
           "legacy_type_name": "한 근이 다른 이차방정식의 근인 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "root_substitution",
-            "zero_product_factorization"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -707,16 +681,12 @@
           "name": "이차방정식의 풀이",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C014"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT036",
           "legacy_type_name": "이차방정식의 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "complete_square"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G009.I02",
@@ -917,17 +887,12 @@
           "name": "이차방정식의 풀이",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C024"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT091",
           "legacy_type_name": "이차방정식의 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "wrong_equation_reconstruction",
-            "extraneous_root_check"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G012.I02",
@@ -936,16 +901,12 @@
           "name": "근이 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C011"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT029",
           "legacy_type_name": "근이 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "sqrt_solving"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -1146,16 +1107,12 @@
           "name": "이차방정식의 풀이",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C025"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT092",
           "legacy_type_name": "이차방정식의 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "irrational_conjugate"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G015.I02",
@@ -1164,16 +1121,12 @@
           "name": "근이 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C014"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT037",
           "legacy_type_name": "근이 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "complete_square"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G015.I03",
@@ -1333,16 +1286,12 @@
           "name": "근의 응용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C015"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT043",
           "legacy_type_name": "근의 응용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "quadratic_formula"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 41,
@@ -1379,18 +1328,12 @@
           "name": "근이 주어진 경우",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C015",
-            "M3_QUAD_C004"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT044",
           "legacy_type_name": "근이 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "quadratic_formula",
-            "root_substitution"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G018.I02",
@@ -1596,16 +1539,12 @@
           "name": "복잡한 형태의 이차방정식의 풀이",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C017"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT051",
           "legacy_type_name": "복잡한 형태의 이차방정식의 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "complex_equation_structure"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G021.I03",
@@ -1614,16 +1553,12 @@
           "name": "근의 응용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C017"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT055",
           "legacy_type_name": "근의 응용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "complex_equation_structure"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -1678,16 +1613,12 @@
           "name": "복잡한 형태의 이차방정식의 풀이",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C017"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT054",
           "legacy_type_name": "복잡한 형태의 이차방정식의 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "complex_equation_structure"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G022.I03",
@@ -1696,16 +1627,12 @@
           "name": "근의 응용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C017"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT052",
           "legacy_type_name": "근의 응용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "complex_equation_structure"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -2348,17 +2275,12 @@
           "name": "한 근이 주어진 경우",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C021",
-            "M3_QUAD_C022"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT076",
           "legacy_type_name": "한 근이 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "vietas_relation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G031.I02",
@@ -2367,17 +2289,12 @@
           "name": "두 근이 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C021",
-            "M3_QUAD_C022"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT077",
           "legacy_type_name": "두 근이 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "vietas_relation"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -2414,16 +2331,12 @@
           "name": "두 근이 주어진 경우",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C023"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT078",
           "legacy_type_name": "두 근이 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "quadratic_construction"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G032.I02",
@@ -2514,16 +2427,12 @@
           "name": "두 근의 비가 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C023"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT082",
           "legacy_type_name": "두 근의 비가 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "quadratic_construction"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G033.I03",
@@ -2666,18 +2575,12 @@
           "name": "두 근의 비가 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C023",
-            "M3_QUAD_C021"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT087",
           "legacy_type_name": "두 근의 비가 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "quadratic_construction",
-            "vietas_relation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G035.I04",
@@ -2774,16 +2677,12 @@
           "name": "이차방정식의 풀이",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C009"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT021",
           "legacy_type_name": "이차방정식의 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "double_root_condition"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -2820,16 +2719,12 @@
           "name": "이차방정식의 풀이",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C011"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT028",
           "legacy_type_name": "이차방정식의 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "sqrt_solving"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G037.I02",
@@ -3002,16 +2897,12 @@
           "name": "다각형",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C027"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT099",
           "legacy_type_name": "다각형",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "number_word_problem"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.QE.G039.I03",
@@ -3729,16 +3620,12 @@
           "name": "다각형",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_QUAD_C032"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_QUAD_PT130",
           "legacy_type_name": "다각형",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "geometry_model"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 64,

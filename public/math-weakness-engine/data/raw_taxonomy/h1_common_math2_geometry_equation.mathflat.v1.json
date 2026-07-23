@@ -913,11 +913,13 @@
     "source": "h1_common_math2_geometry_equation.problem_types.v1.json (problem_types / type_name)",
     "legacy_count": 843,
     "item_count": 280,
-    "match_confident": 273,
+    "match_confident": 254,
     "match_candidate": 7,
     "match_none": 0,
-    "concept_ids_inherited": 273,
-    "error_tags_referenced": 273,
+    "match_ambiguous": 19,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
+    "concept_ids_inherited": 254,
+    "error_tags_referenced": 254,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
@@ -1089,18 +1091,12 @@
           "name": "도형에의 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C007"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT019",
           "legacy_type_name": "도형에의 활용 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "coordinate_distance",
-            "condition_translation",
-            "geometry_property"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G002.I06",
@@ -1109,18 +1105,12 @@
           "name": "실생활 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT022",
           "legacy_type_name": "실생활 활용 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "coordinate_distance",
-            "condition_translation",
-            "geometry_property"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -1273,18 +1263,12 @@
           "name": "실생활 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C277"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT829",
           "legacy_type_name": "실생활 활용 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1497,18 +1481,12 @@
           "name": "실생활 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C019"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT055",
           "legacy_type_name": "실생활 활용 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "coordinate_distance",
-            "condition_translation",
-            "geometry_property"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2175,18 +2153,12 @@
           "name": "실생활 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C195"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT583",
           "legacy_type_name": "실생활 활용 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "circle_equation",
-            "center_radius",
-            "position_relation"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 43,
@@ -2839,18 +2811,12 @@
           "name": "실생활 활용 문제",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C277"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT831",
           "legacy_type_name": "실생활 활용 - 종합 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G024.I05",
@@ -4371,18 +4337,12 @@
           "name": "도형에의 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C007"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT021",
           "legacy_type_name": "도형에의 활용 - 종합 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "coordinate_distance",
-            "condition_translation",
-            "geometry_property"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G045.I04",
@@ -4391,18 +4351,12 @@
           "name": "실생활 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C042"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT126",
           "legacy_type_name": "실생활 활용 - 종합 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "section_formula",
-            "coordinate_geometry",
-            "point_condition"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -6593,18 +6547,12 @@
           "name": "실생활 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C277"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT830",
           "legacy_type_name": "실생활 활용 - 조건 적용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 76,
@@ -6825,18 +6773,12 @@
           "name": "접선의 방정식 구하기",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C201"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT601",
           "legacy_type_name": "접선의 방정식 구하기 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "circle_tangent",
-            "tangent_length",
-            "line_circle_relation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G069.I02",
@@ -6913,18 +6855,12 @@
           "name": "접선의 방정식 구하기",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C201"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT602",
           "legacy_type_name": "접선의 방정식 구하기 - 조건 적용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "circle_tangent",
-            "tangent_length",
-            "line_circle_relation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G070.I02",
@@ -6981,18 +6917,12 @@
           "name": "접선의 방정식 구하기",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C204"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT611",
           "legacy_type_name": "접선의 방정식 구하기 - 조건 적용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "circle_tangent",
-            "tangent_length",
-            "line_circle_relation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G071.I02",
@@ -8599,18 +8529,12 @@
           "name": "점을 대칭이동하는 경우",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C266"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT796",
           "legacy_type_name": "점을 대칭이동하는 경우 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G087.I02",
@@ -8619,18 +8543,12 @@
           "name": "직선을 대칭이동하는 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C267"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT799",
           "legacy_type_name": "직선을 대칭이동하는 경우 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G087.I03",
@@ -8639,18 +8557,12 @@
           "name": "원을 대칭이동하는 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C268"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT802",
           "legacy_type_name": "원을 대칭이동하는 경우 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G087.I04",
@@ -8707,18 +8619,12 @@
           "name": "점을 대칭이동하는 경우",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C270"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT810",
           "legacy_type_name": "점을 대칭이동하는 경우 - 종합 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G088.I02",
@@ -8727,18 +8633,12 @@
           "name": "직선을 대칭이동하는 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C267"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT800",
           "legacy_type_name": "직선을 대칭이동하는 경우 - 조건 적용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.H1S2.CM2GE.G088.I03",
@@ -8747,18 +8647,12 @@
           "name": "원을 대칭이동하는 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C272"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT814",
           "legacy_type_name": "원을 대칭이동하는 경우 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "reflection",
-            "symmetry_axis",
-            "coordinate_transform"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 28,
@@ -8903,18 +8797,12 @@
           "name": "실생활 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "H1_CM2_GEQ_C012"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "H1_CM2_GEQ_PT034",
           "legacy_type_name": "실생활 활용 - 기본 판별",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "section_formula",
-            "coordinate_geometry",
-            "point_condition"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 50,

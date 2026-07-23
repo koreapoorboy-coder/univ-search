@@ -211,8 +211,10 @@
     "legacy_count": 140,
     "item_count": 178,
     "match_confident": 3,
-    "match_candidate": 29,
+    "match_candidate": 26,
     "match_none": 146,
+    "match_ambiguous": 3,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
     "concept_ids_inherited": 3,
     "error_tags_referenced": 3,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
@@ -803,7 +805,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M2_GEOM_PT026",
           "legacy_type_name": "이등변삼각형이 되는 조건 - 계산·추론",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.846,
           "legacy_error_tags_ref": null
         }
@@ -1111,7 +1113,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M2_GEOM_PT047",
           "legacy_type_name": "각의 이등분선과 거리 - 계산·추론",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.667,
           "legacy_error_tags_ref": null
         },
@@ -1139,7 +1141,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M2_GEOM_PT046",
           "legacy_type_name": "각의 이등분선과 거리 - 조건 적용",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.667,
           "legacy_error_tags_ref": null
         },

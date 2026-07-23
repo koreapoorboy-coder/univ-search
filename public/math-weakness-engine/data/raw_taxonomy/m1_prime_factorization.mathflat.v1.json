@@ -203,8 +203,10 @@
     "legacy_count": 112,
     "item_count": 149,
     "match_confident": 0,
-    "match_candidate": 9,
+    "match_candidate": 3,
     "match_none": 140,
+    "match_ambiguous": 6,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
     "concept_ids_inherited": 0,
     "error_tags_referenced": 0,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
@@ -1171,7 +1173,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PF_RAW_036",
           "legacy_type_name": "약수 구하기: 주어진 수의 약수 모두 구하기",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.588,
           "legacy_error_tags_ref": null
         },
@@ -1241,7 +1243,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PF_RAW_032",
           "legacy_type_name": "약수 구하기: 주어진 수의 약수 모두 구하기",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.588,
           "legacy_error_tags_ref": null
         },
@@ -1969,7 +1971,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PF_RAW_056",
           "legacy_type_name": "최소공배수의 성질: 두 수의 최소공배수",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.562,
           "legacy_error_tags_ref": null
         },
@@ -1997,7 +1999,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PF_RAW_057",
           "legacy_type_name": "최소공배수의 성질: 세 수의 최소공배수",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.562,
           "legacy_error_tags_ref": null
         }
@@ -2053,7 +2055,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PF_RAW_060",
           "legacy_type_name": "최소공배수의 성질: 두 수의 최소공배수",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.562,
           "legacy_error_tags_ref": null
         },
@@ -2081,7 +2083,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PF_RAW_061",
           "legacy_type_name": "최소공배수의 성질: 세 수의 최소공배수",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.562,
           "legacy_error_tags_ref": null
         }

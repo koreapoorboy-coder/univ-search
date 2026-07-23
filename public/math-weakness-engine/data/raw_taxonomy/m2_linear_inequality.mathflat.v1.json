@@ -103,11 +103,13 @@
     "source": "m2_linear_inequality.problem_types.v1.json (problem_types / type_name)",
     "legacy_count": 115,
     "item_count": 115,
-    "match_confident": 69,
-    "match_candidate": 16,
+    "match_confident": 52,
+    "match_candidate": 15,
     "match_none": 30,
-    "concept_ids_inherited": 69,
-    "error_tags_referenced": 69,
+    "match_ambiguous": 18,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
+    "concept_ids_inherited": 52,
+    "error_tags_referenced": 52,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
@@ -863,16 +865,12 @@
           "name": "일차부등식 풀기",
           "review_status": "원문 확인 / 17개 이름 안 보임(접힘)",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C013"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT033",
           "legacy_type_name": "일차부등식 풀기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "linear_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G011.I02",
@@ -881,16 +879,12 @@
           "name": "일차부등식을 만족시키는 조건에 맞는 수",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C013"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT034",
           "legacy_type_name": "일차부등식을 만족시키는 조건에 맞는 수",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "linear_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G011.I03",
@@ -1011,7 +1005,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT030",
           "legacy_type_name": "일차부등식 조건",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.714,
           "legacy_error_tags_ref": null
         },
@@ -1022,16 +1016,12 @@
           "name": "일차부등식을 만족시키는 조건에 맞는 수",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C014"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT039",
           "legacy_type_name": "일차부등식을 만족시키는 조건에 맞는 수",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "linear_inequality"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1236,16 +1226,12 @@
           "name": "문자가 2개 이상인 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C016"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT047",
           "legacy_type_name": "문자가 2개 이상인 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "inequality_direction"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -1284,16 +1270,12 @@
           "name": "부등식의 해가 주어진 경우",
           "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT049",
           "legacy_type_name": "부등식의 해가 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "solution_check"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G016.I02",
@@ -1302,16 +1284,12 @@
           "name": "수직선으로 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT050",
           "legacy_type_name": "수직선으로 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "solution_check"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G016.I03",
@@ -1366,18 +1344,12 @@
           "name": "부등식의 해가 주어진 경우",
           "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C018",
-            "M2_LI_C016"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT052",
           "legacy_type_name": "부등식의 해가 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "inequality_direction",
-            "solution_check"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G017.I02",
@@ -1386,18 +1358,12 @@
           "name": "수직선으로 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C018",
-            "M2_LI_C016"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT053",
           "legacy_type_name": "수직선으로 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "inequality_direction",
-            "solution_check"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G017.I03",
@@ -1406,17 +1372,12 @@
           "name": "문자가 2개 이상인 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C020"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT059",
           "legacy_type_name": "문자가 2개 이상인 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "integer_solution_count",
-            "solution_check"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G017.I04",
@@ -1571,18 +1532,12 @@
           "name": "문자가 2개 이상인 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C018",
-            "M2_LI_C016"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT054",
           "legacy_type_name": "문자가 2개 이상인 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "inequality_direction",
-            "solution_check"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -2039,17 +1994,12 @@
           "name": "부등식 세우기",
           "review_status": "원문 확인 / 5개 이름 안 보임(접힘)",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C025"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT078",
           "legacy_type_name": "부등식 세우기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "inequality_modeling",
-            "money_application"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G026.I02",
@@ -2058,17 +2008,12 @@
           "name": "부등식 풀이",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C025"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT079",
           "legacy_type_name": "부등식 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "inequality_modeling",
-            "money_application"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -2119,17 +2064,12 @@
           "name": "부등식 풀이",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C031"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT103",
           "legacy_type_name": "부등식 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "distance_speed_time",
-            "inequality_modeling"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -2743,17 +2683,12 @@
           "name": "부등식 세우기",
           "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C031"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT102",
           "legacy_type_name": "부등식 세우기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "distance_speed_time",
-            "inequality_modeling"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G035.I02",
@@ -2762,16 +2697,12 @@
           "name": "부등식 풀이",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C025"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT081",
           "legacy_type_name": "부등식 풀이",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "inequality_modeling"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G035.I03",
@@ -2822,17 +2753,12 @@
           "name": "부등식 세우기",
           "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C031"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT104",
           "legacy_type_name": "부등식 세우기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "distance_speed_time",
-            "inequality_modeling"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G036.I02",
@@ -2992,16 +2918,12 @@
           "name": "부등식 세우기",
           "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
           "source_note": null,
-          "concept_ids": [
-            "M2_LI_C025"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M2_LI_PT080",
           "legacy_type_name": "부등식 세우기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "inequality_modeling"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.IN.G038.I02",

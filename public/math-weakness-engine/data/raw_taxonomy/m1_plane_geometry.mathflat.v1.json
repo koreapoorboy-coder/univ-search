@@ -102,8 +102,10 @@
     "legacy_count": 54,
     "item_count": 119,
     "match_confident": 2,
-    "match_candidate": 16,
+    "match_candidate": 13,
     "match_none": 101,
+    "match_ambiguous": 3,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
     "concept_ids_inherited": 2,
     "error_tags_referenced": 2,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
@@ -1173,7 +1175,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PG_PT021",
           "legacy_type_name": "다각형의 외각의 합 활용하기",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.571,
           "legacy_error_tags_ref": null
         }
@@ -1691,7 +1693,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PG_PT038",
           "legacy_type_name": "원의 넓이 구하기",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.714,
           "legacy_error_tags_ref": null
         },
@@ -1957,7 +1959,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M1_PG_PT037",
           "legacy_type_name": "원의 둘레 구하기",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.571,
           "legacy_error_tags_ref": null
         }

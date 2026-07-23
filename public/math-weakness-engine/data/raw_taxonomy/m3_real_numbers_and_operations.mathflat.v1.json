@@ -87,11 +87,13 @@
     "source": "m3_real_numbers_and_operations.problem_types.v1.json (problem_types / type_name)",
     "legacy_count": 203,
     "item_count": 203,
-    "match_confident": 194,
+    "match_confident": 157,
     "match_candidate": 9,
     "match_none": 0,
-    "concept_ids_inherited": 194,
-    "error_tags_referenced": 194,
+    "match_ambiguous": 37,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
+    "concept_ids_inherited": 157,
+    "error_tags_referenced": 157,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
@@ -1353,16 +1355,12 @@
           "name": "√Ax가 자연수가 되도록 하는 가장 작은 자연수 x",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT050",
           "legacy_type_name": "√Ax가 자연수가 되도록 하는 가장 작은 자연수 x",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G014.I02",
@@ -1407,16 +1405,12 @@
           "name": "√na=b의 꼴로 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT058",
           "legacy_type_name": "√(n/a)=b의 꼴로 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G014.I05",
@@ -1425,17 +1419,12 @@
           "name": "√Ax가 자연수가 되도록 하는 자연수 x의 값의 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT054",
           "legacy_type_name": "√Ax가 자연수가 되도록 하는 자연수 x의 값의 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 34,
@@ -1518,16 +1507,12 @@
           "name": "√(A/x)가 자연수가 되도록 하는 가장 작은 자연수 x",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT056",
           "legacy_type_name": "√A/x가 자연수가 되도록 하는 가장 작은 자연수 x",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G016.I02",
@@ -1536,16 +1521,12 @@
           "name": "√(A/x)가 자연수가 되도록 하는 자연수 x",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT057",
           "legacy_type_name": "√A/x가 자연수가 되도록 하는 자연수 x",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G016.I03",
@@ -1554,16 +1535,12 @@
           "name": "√(n/a)=b의 꼴로 주어진 경우",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT053",
           "legacy_type_name": "√(na-b)의 꼴로 주어진 경우",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.917,
-          "legacy_error_tags_ref": [
-            "condition_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G016.I04",
@@ -1572,17 +1549,12 @@
           "name": "두 개 이상의 수가 모두 자연수가 되도록 하는 수",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT059",
           "legacy_type_name": "두 개 이상의 수가 모두 자연수가 되도록 하는 수",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G016.I05",
@@ -1591,17 +1563,12 @@
           "name": "√(A/x)가 자연수가 되도록 하는 자연수 x의 값의 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT060",
           "legacy_type_name": "√A/x가 자연수가 되도록 하는 자연수 x의 값의 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -1638,16 +1605,12 @@
           "name": "√(A+x)가 자연수가 되도록 하는 가장 작은 자연수 x",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT061",
           "legacy_type_name": "√A+x가 자연수가 되도록 하는 가장 작은 자연수 x",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G017.I02",
@@ -1656,16 +1619,12 @@
           "name": "√(A+x)가 자연수가 되도록 하는 자연수 x",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT062",
           "legacy_type_name": "√A+x가 자연수가 되도록 하는 자연수 x",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G017.I03",
@@ -1674,17 +1633,12 @@
           "name": "두 개 이상의 수가 모두 자연수가 되도록 하는 수",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C008"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT063",
           "legacy_type_name": "두 개 이상의 수가 모두 자연수가 되도록 하는 수",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1823,16 +1777,12 @@
           "name": "두 수의 대소 비교",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C009"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT068",
           "legacy_type_name": "두 수의 대소 비교",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "order_relation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G019.I02",
@@ -1988,17 +1938,12 @@
           "name": "부등식 n<√ax<m을 만족시키는 수 구하기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C010"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT074",
           "legacy_type_name": "부등식 n<√ax<m을 만족시키는 수 구하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G021.I03",
@@ -2045,17 +1990,12 @@
           "name": "부등식 -n<-√ax<-m을 만족시키는 수 구하기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C010"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT077",
           "legacy_type_name": "부등식 -n<√ax<m을 만족시키는 수 구하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "condition_inequality",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G021.I06",
@@ -2443,16 +2383,12 @@
           "name": "제곱근표를 이용하여 제곱근의 값 구하기",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C011"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT091",
           "legacy_type_name": "제곱근표를 이용하여 제곱근의 값 구하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "sqrt_table_estimation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G026.I02",
@@ -2796,16 +2732,12 @@
           "name": "두 수의 대소 비교",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C009"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT104",
           "legacy_type_name": "두 수의 대소 비교",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "order_relation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G030.I02",
@@ -3108,16 +3040,12 @@
           "name": "√a²b를 a√b의 꼴로 나타내기",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT115",
           "legacy_type_name": "√a²b를 a√b의 꼴로 나타내기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G034.I02",
@@ -3126,16 +3054,12 @@
           "name": "곱의 결과를 a√b의 꼴로 나타내기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT116",
           "legacy_type_name": "곱의 결과를 a√b의 꼴로 나타내기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G034.I03",
@@ -3144,17 +3068,12 @@
           "name": "√a²b=a√b의 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT117",
           "legacy_type_name": "√a²b=a√b의 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -3191,16 +3110,12 @@
           "name": "a√b를 √a²b의 꼴로 나타내기",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT128",
           "legacy_type_name": "√(a/b²)를 √a/b의 꼴로 나타내기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G035.I02",
@@ -3209,16 +3124,12 @@
           "name": "곱의 결과를 √a²b의 꼴로 나타내기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT119",
           "legacy_type_name": "곱의 결과를 √a²b의 꼴로 나타내기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G035.I03",
@@ -3227,16 +3138,12 @@
           "name": "수의 대소 비교",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT120",
           "legacy_type_name": "수의 대소 비교",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G035.I04",
@@ -3264,17 +3171,12 @@
           "name": "a√b=√a²b의 활용",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT122",
           "legacy_type_name": "a√b=√a²b의 활용",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -3412,16 +3314,12 @@
           "name": "√a/b를 √(a/b²)의 꼴로 나타내기",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT118",
           "legacy_type_name": "a√b를 √a²b의 꼴로 나타내기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G037.I02",
@@ -3430,16 +3328,12 @@
           "name": "√(a/b²)를 √a/b의 꼴로 나타내기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT127",
           "legacy_type_name": "√a/b를 √(a/b²)의 꼴로 나타내기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G037.I03",
@@ -3466,16 +3360,12 @@
           "name": "수의 대소 비교",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C018"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT130",
           "legacy_type_name": "수의 대소 비교",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_multiply_divide"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G037.I05",
@@ -3566,16 +3456,12 @@
           "name": "제곱근표를 이용하여 제곱근의 값 구하기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C011"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT134",
           "legacy_type_name": "제곱근표를 이용하여 제곱근의 값 구하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "sqrt_table_estimation"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G038.I04",
@@ -3723,17 +3609,12 @@
           "name": "식을 만족시키는 미지수의 값 구하기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C019"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT140",
           "legacy_type_name": "식을 만족시키는 미지수의 값 구하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "rationalization",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G040.I03",
@@ -4203,16 +4084,12 @@
           "name": "근호 안의 수가 모두 같은 경우의 계산",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C022"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT158",
           "legacy_type_name": "근호 안의 수가 모두 같은 경우의 계산",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_add_subtract"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G045.I02",
@@ -4221,16 +4098,12 @@
           "name": "근호 안의 수가 다른 경우의 계산",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C022"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT159",
           "legacy_type_name": "근호 안의 수가 다른 경우의 계산",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_add_subtract"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G045.I03",
@@ -4304,16 +4177,12 @@
           "name": "근호 안의 수가 모두 같은 경우의 계산",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C022"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT162",
           "legacy_type_name": "근호 안의 수가 모두 같은 경우의 계산",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_add_subtract"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G046.I02",
@@ -4322,16 +4191,12 @@
           "name": "근호 안의 수가 다른 경우의 계산",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C022"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT163",
           "legacy_type_name": "근호 안의 수가 다른 경우의 계산",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_add_subtract"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G046.I03",
@@ -4340,17 +4205,12 @@
           "name": "식을 만족시키는 미지수의 값 구하기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C022"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT164",
           "legacy_type_name": "식을 만족시키는 미지수의 값 구하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_add_subtract",
-            "application_or_complexity"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G046.I04",
@@ -4401,16 +4261,12 @@
           "name": "근호 안의 수가 모두 같은 경우의 계산",
           "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C019"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT166",
           "legacy_type_name": "근호 안의 수가 모두 같은 경우의 계산",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "rationalization"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G047.I02",
@@ -4419,16 +4275,12 @@
           "name": "근호 안의 수가 다른 경우의 계산",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C019"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT167",
           "legacy_type_name": "근호 안의 수가 다른 경우의 계산",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "rationalization"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G047.I03",
@@ -4437,16 +4289,12 @@
           "name": "식의 값 구하기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C019"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT168",
           "legacy_type_name": "식의 값 구하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "rationalization"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G047.I04",
@@ -4684,16 +4532,12 @@
           "name": "식의 값 구하기",
           "review_status": "원문 확인",
           "source_note": null,
-          "concept_ids": [
-            "M3_REAL_C024"
-          ],
+          "concept_ids": null,
           "legacy_problem_type_id": "M3_REAL_PT177",
           "legacy_type_name": "식의 값 구하기",
-          "legacy_match_level": "confident",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 1,
-          "legacy_error_tags_ref": [
-            "radical_add_subtract"
-          ]
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M3S1.RC.G050.I05",

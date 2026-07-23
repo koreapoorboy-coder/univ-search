@@ -92,8 +92,10 @@
     "legacy_count": 132,
     "item_count": 212,
     "match_confident": 3,
-    "match_candidate": 33,
+    "match_candidate": 31,
     "match_none": 176,
+    "match_ambiguous": 2,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
     "concept_ids_inherited": 3,
     "error_tags_referenced": 3,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
@@ -3810,7 +3812,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_POLY_PT131",
           "legacy_type_name": "인수분해의 활용(4) - 조건 적용",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.571,
           "legacy_error_tags_ref": null
         },
@@ -3998,7 +4000,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "H1_CM1_POLY_PT132",
           "legacy_type_name": "인수분해의 활용(4) - 활용 추론",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.571,
           "legacy_error_tags_ref": null
         },

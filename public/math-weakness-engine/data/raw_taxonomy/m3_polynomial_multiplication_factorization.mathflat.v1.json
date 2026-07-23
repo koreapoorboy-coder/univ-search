@@ -265,8 +265,10 @@
     "legacy_count": 212,
     "item_count": 211,
     "match_confident": 6,
-    "match_candidate": 26,
+    "match_candidate": 21,
     "match_none": 179,
+    "match_ambiguous": 5,
+    "ambiguous_note": "항목명이 단원 안에서 중복되면 이름만으로는 legacy 한 건을 지목할 수 없다. 유사도가 1.0이어도 확정으로 보지 않고 concept_ids와 error_tags를 상속하지 않는다. 구분은 세부코드로 해야 한다.",
     "concept_ids_inherited": 6,
     "error_tags_referenced": 6,
     "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
@@ -479,7 +481,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M3_POLY_PT035",
           "legacy_type_name": "세제곱 공식의 전개 - 조건 적용",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.75,
           "legacy_error_tags_ref": null
         },
@@ -563,7 +565,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M3_POLY_PT033",
           "legacy_type_name": "세제곱 공식의 전개",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.75,
           "legacy_error_tags_ref": null
         },
@@ -3969,7 +3971,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M3_POLY_PT165",
           "legacy_type_name": "( )( )( )+k꼴 인수분해",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.667,
           "legacy_error_tags_ref": null
         }
@@ -4125,7 +4127,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M3_POLY_PT134",
           "legacy_type_name": "a³±b³ 인수분해 - 조건 적용",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.667,
           "legacy_error_tags_ref": null
         },
@@ -4237,7 +4239,7 @@
           "concept_ids": null,
           "legacy_problem_type_id": "M3_POLY_PT166",
           "legacy_type_name": "( )( )( )+k꼴 인수분해 - 계산 수행",
-          "legacy_match_level": "candidate",
+          "legacy_match_level": "ambiguous_duplicate_name",
           "legacy_match_score": 0.667,
           "legacy_error_tags_ref": null
         }
