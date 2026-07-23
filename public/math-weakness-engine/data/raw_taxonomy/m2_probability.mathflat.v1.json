@@ -1,0 +1,2592 @@
+{
+  "schema": "mathflat_problem_type.v1",
+  "version": "2026.07.22-mathflat-M2S2-pb",
+  "_note": "매쓰플랫 화면 스크린샷을 전사한 엑셀을 그대로 옮긴 원본 분류. 진단 단위는 \"유형 묶음\"(problem_types), 그 아래 topic_types가 엑셀 문항분류표를 세부코드·묶음 내 번호·검토상태까지 그대로 담는다. 한글 이름은 원문 그대로이며 다듬지 않았다. 데이터 저장만 한 상태이고 진단 로직에는 연결하지 않았다 — 기존 raw_taxonomy와 옛 진단 경로는 그대로 둔다.",
+  "_source": {
+    "origin": "2-2확률.zip 내 PNG 14장",
+    "workbook": "2-2 확률.xlsx",
+    "extracted_at": "2026-07-22",
+    "principle": "화면에 글자로 보이는 항목만 입력. 보이지 않는 이름은 생성하지 않음."
+  },
+  "_wiring": {
+    "concept_ids": "이름 유사도 0.85 이상인 legacy 섹션에서만 상속했다. 나머지는 null — 사람 확인 전까지 비워 둔다. 순서 대응 상속은 legacy 목록의 구성이 달라 폐기했다.",
+    "error_tags": "미배정 (null). 기존 유형에서 묶음 단위 상속 예정.",
+    "prerequisite_ids": "전부 비움 — 선생님이 직접 지정."
+  },
+  "semester": "M2S2",
+  "semester_name": "중2 2학기",
+  "unit_id": "M2_PROBABILITY",
+  "unit_code": "PB",
+  "unit_name": "확률",
+  "chapter": "2-2 확률",
+  "status": "raw_not_wired",
+  "problem_type_count": 51,
+  "count_check": {
+    "expected": 51,
+    "actual": 51,
+    "match": true
+  },
+  "topic_type_total": 126,
+  "item_check": {
+    "declared_total": 126,
+    "stored_total": 126,
+    "match": true,
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": []
+  },
+  "detail_type_total": 658,
+  "legacy_audit": {
+    "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
+    "match_confident": 50,
+    "match_candidate": 0,
+    "match_none": 1,
+    "legacy_section_count": 153,
+    "legacy_has_concept_ids": true,
+    "concept_ids_inherited": 50,
+    "legacy_unmatched": [
+      "한 가지 사건의 경우의 수 - 기본 판별",
+      "한 가지 사건의 경우의 수 - 조건 적용",
+      "한 가지 사건의 경우의 수 - 활용 추론",
+      "여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우 - 기본 판별",
+      "여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우 - 활용 추론",
+      "여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우 - 기본 판별",
+      "여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우 - 조건 적용",
+      "돈을 지불하는 경우의 수 - 조건 적용",
+      "돈을 지불하는 경우의 수 - 활용 추론",
+      "경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우 - 조건 적용",
+      "경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우 - 활용 추론",
+      "경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우 - 기본 판별",
+      "경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우 - 조건 적용",
+      "경우의 수의 합(3) 물건 또는 사람을 선택하는 경우 - 기본 판별",
+      "경우의 수의 합(3) 물건 또는 사람을 선택하는 경우 - 활용 추론",
+      "경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수 - 기본 판별",
+      "경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수 - 조건 적용",
+      "경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우 - 조건 적용",
+      "경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우 - 활용 추론",
+      "경우의 수의 곱(3) 물건을 선택하는 경우 - 기본 판별",
+      "경우의 수의 곱(3) 물건을 선택하는 경우 - 조건 적용",
+      "경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우 - 기본 판별",
+      "경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우 - 활용 추론",
+      "색칠하는 경우의 수 - 기본 판별",
+      "색칠하는 경우의 수 - 활용 추론",
+      "일렬로 세우는 경우의 수(1) - 기본 판별",
+      "일렬로 세우는 경우의 수(1) - 조건 적용",
+      "일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우 - 조건 적용",
+      "일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우 - 활용 추론",
+      "일렬로 세우는 경우의 수(3) 이웃하는 경우 - 조건 적용",
+      "일렬로 세우는 경우의 수(3) 이웃하는 경우 - 활용 추론",
+      "일렬로 세우는 경우의 수(4) 이웃하지 않는 경우 - 기본 판별",
+      "일렬로 세우는 경우의 수(4) 이웃하지 않는 경우 - 활용 추론",
+      "자연수의 개수(1) 0을 포함하지 않는 경우 - 기본 판별",
+      "자연수의 개수(1) 0을 포함하지 않는 경우 - 조건 적용",
+      "자연수의 개수(2) 0을 포함하는 경우 - 기본 판별",
+      "자연수의 개수(2) 0을 포함하는 경우 - 조건 적용",
+      "사전식으로 나열하는 경우 - 기본 판별",
+      "사전식으로 나열하는 경우 - 조건 적용",
+      "대표를 뽑는 경우의 수(1) 자격이 다른 경우 - 조건 적용",
+      "대표를 뽑는 경우의 수(1) 자격이 다른 경우 - 활용 추론",
+      "대표를 뽑는 경우의 수(2) 자격이 같은 경우 - 기본 판별",
+      "대표를 뽑는 경우의 수(2) 자격이 같은 경우 - 조건 적용",
+      "만들 수 있는 선분의 개수 - 기본 판별",
+      "만들 수 있는 선분의 개수 - 조건 적용",
+      "만들 수 있는 삼각형의 개수 - 기본 판별",
+      "만들 수 있는 삼각형의 개수 - 조건 적용",
+      "만들 수 있는 사각형의 개수 - 조건 적용",
+      "만들 수 있는 사각형의 개수 - 활용 추론",
+      "최단 경로로 가는 경우의 수 - 기본 판별",
+      "최단 경로로 가는 경우의 수 - 조건 적용",
+      "방정식 또는 부등식에서의 경우의 수 - 조건 적용",
+      "방정식 또는 부등식에서의 경우의 수 - 활용 추론",
+      "정해진 규칙에 따라 주어진 결과가 나오는 경우의 수 - 기본 판별",
+      "정해진 규칙에 따라 주어진 결과가 나오는 경우의 수 - 조건 적용",
+      "대진표를 정하는 경우의 수 - 기본 판별",
+      "대진표를 정하는 경우의 수 - 활용 추론",
+      "간단한 확률 구하기 - 기본 판별",
+      "간단한 확률 구하기 - 활용 추론",
+      "확률 구하기(1) 일렬로 세울 때 확률 구하기 - 기본 판별",
+      "확률 구하기(1) 일렬로 세울 때 확률 구하기 - 활용 추론",
+      "확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기 - 기본 판별",
+      "확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기 - 조건 적용",
+      "확률 구하기(3) 방정식을 만족할 확률 - 기본 판별",
+      "확률 구하기(3) 방정식을 만족할 확률 - 조건 적용",
+      "확률 구하기(4) 부등식을 만족할 확률 - 기본 판별",
+      "확률 구하기(4) 부등식을 만족할 확률 - 조건 적용",
+      "확률의 기본 성질 - 조건 적용",
+      "확률의 기본 성질 - 활용 추론",
+      "어떤 사건이 일어나지 않을 확률 - 조건 적용",
+      "어떤 사건이 일어나지 않을 확률 - 활용 추론",
+      "적어도의 조건을 포함하는 확률 - 기본 판별",
+      "적어도의 조건을 포함하는 확률 - 조건 적용",
+      "사건 A 또는 사건 B가 일어날 확률 - 기본 판별",
+      "사건 A 또는 사건 B가 일어날 확률 - 활용 추론",
+      "두 사건 A와 B가 동시에 일어날 확률 - 기본 판별",
+      "두 사건 A와 B가 동시에 일어날 확률 - 활용 추론",
+      "두 사건 A, B 중 적어도 하나가 일어날 확률 - 기본 판별",
+      "두 사건 A, B 중 적어도 하나가 일어날 확률 - 활용 추론",
+      "확률의 덧셈과 곱셈 - 기본 판별",
+      "확률의 덧셈과 곱셈 - 조건 적용",
+      "연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우 - 기본 판별",
+      "연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우 - 조건 적용",
+      "연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우 - 기본 판별",
+      "연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우 - 조건 적용",
+      "연속하여 꺼내는 경우의 확률 - 기본 판별",
+      "연속하여 꺼내는 경우의 확률 - 조건 적용",
+      "게임에서 이길 확률 - 기본 판별",
+      "게임에서 이길 확률 - 조건 적용",
+      "문제를 맞힐 확률 - 기본 판별",
+      "문제를 맞힐 확률 - 조건 적용",
+      "명중률 - 조건 적용",
+      "명중률 - 활용 추론",
+      "가위바위보에서의 확률 - 조건 적용",
+      "가위바위보에서의 확률 - 활용 추론",
+      "수직선에서 위치에 대한 확률 - 조건 적용",
+      "수직선에서 위치에 대한 확률 - 활용 추론",
+      "도형 또는 좌표평면에서의 확률 - 기본 판별",
+      "도형 또는 좌표평면에서의 확률 - 조건 적용",
+      "평면도형에서의 확률(넓이를 이용한 확률) - 기본 판별",
+      "평면도형에서의 확률(넓이를 이용한 확률) - 활용 추론",
+      "대진표에서의 확률 - 기본 판별",
+      "대진표에서의 확률 - 조건 적용"
+    ],
+    "legacy_source": "m2_probability.problem_types.v1.json (problem_types / type_name)",
+    "legacy_has_error_tags": true,
+    "legacy_error_tag_vocab": 16,
+    "legacy_error_tag_sample": [
+      "addition_rule",
+      "application",
+      "arrangement",
+      "case_count",
+      "complement_event",
+      "counting",
+      "event_operation",
+      "game_probability"
+    ],
+    "alt_legacy_source": "m2_probability.raw_taxonomy.v1.json (sections)",
+    "alt_legacy_count": 51,
+    "alt_legacy_has_error_tags": false,
+    "alt_legacy_error_tag_vocab": 0,
+    "alt_legacy_error_tag_sample": [],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "problem_types": [
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G001",
+      "source_group_id": "G001",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "경우의 수",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G001.I01",
+          "source_code": "PB-001",
+          "no_in_group": 1,
+          "name": "모든 경우의 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G001.I02",
+          "source_code": "PB-002",
+          "no_in_group": 2,
+          "name": "숫자가 적힌 물건 중 1개를 뽑을 때, 주어진 사건이 일어난 경우의 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G001.I03",
+          "source_code": "PB-003",
+          "no_in_group": 3,
+          "name": "주사위를 던질 때, 주어진 사건이 일어난 경우의 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G001.I04",
+          "source_code": "PB-004",
+          "no_in_group": 4,
+          "name": "전체에서 하나를 뽑은 후 나머지 중 하나를 뽑는 경우의 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G001.I05",
+          "source_code": "PB-005",
+          "no_in_group": 5,
+          "name": "1가지 사건이 일어나는 경우의 수 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형 27개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": null,
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": null,
+      "legacy_task_group": null,
+      "legacy_match_level": "none",
+      "legacy_match_score": null,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G002",
+      "source_group_id": "G002",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G002.I01",
+          "source_code": "PB-006",
+          "no_in_group": 1,
+          "name": "숫자가 적힌 물건을 뽑는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G002.I02",
+          "source_code": "PB-007",
+          "no_in_group": 2,
+          "name": "주사위를 던지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G002.I03",
+          "source_code": "PB-008",
+          "no_in_group": 3,
+          "name": "같은 종류의 서로 다른 것을 시행한 경우의 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G002.I04",
+          "source_code": "PB-009",
+          "no_in_group": 4,
+          "name": "여러 가지 경우의 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 22,
+      "detail_types": null,
+      "detail_types_note": "세부유형 22개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "1.png",
+      "concept_ids": [
+        "M2_PROB_C003",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT005",
+      "legacy_task_group": "여러 가지 경우의 수(1) 순서쌍을 이용하여 푸는 경우 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G003",
+      "source_group_id": "G003",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G003.I01",
+          "source_code": "PB-010",
+          "no_in_group": 1,
+          "name": "같은 종류의 서로 다른 것을 시행한 경우의 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G003.I02",
+          "source_code": "PB-011",
+          "no_in_group": 2,
+          "name": "여러가지 경우의 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형 6개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": [
+        "M2_PROB_C003",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT009",
+      "legacy_task_group": "여러 가지 경우의 수(2) 나뭇가지 모양 그림을 이용하여 푸는 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G004",
+      "source_group_id": "G004",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "돈을 지불하는 경우의 수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G004.I01",
+          "source_code": "PB-012",
+          "no_in_group": 1,
+          "name": "지불하는 모든 경우의 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G004.I02",
+          "source_code": "PB-013",
+          "no_in_group": 2,
+          "name": "주어진 금액을 지불하는 경우의 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형 6개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": [
+        "M2_PROB_C006",
+        "M2_PROB_C021"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT010",
+      "legacy_task_group": "돈을 지불하는 경우의 수 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G005",
+      "source_group_id": "G005",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G005.I01",
+          "source_code": "PB-014",
+          "no_in_group": 1,
+          "name": "공통인 부분이 없는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G005.I02",
+          "source_code": "PB-015",
+          "no_in_group": 2,
+          "name": "공통인 부분이 있는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형 20개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C024"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT013",
+      "legacy_task_group": "경우의 수의 합(1) 숫자를 선택하거나 주사위를 던지는 경우 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G006",
+      "source_group_id": "G006",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G006.I01",
+          "source_code": "PB-016",
+          "no_in_group": 1,
+          "name": "두 지점의 이동",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "세부유형 3개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C007"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT018",
+      "legacy_task_group": "경우의 수의 합(2) 두 지점을 이동하는 교통수단이나 길을 선택하는 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G007",
+      "source_group_id": "G007",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "경우의 수의 합(3) 물건 또는 사람을 선택하는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G007.I01",
+          "source_code": "PB-017",
+          "no_in_group": 1,
+          "name": "전체에서 하나를 선택하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G007.I02",
+          "source_code": "PB-018",
+          "no_in_group": 2,
+          "name": "조건에 맞는 상황이 나오는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "2.png",
+      "concept_ids": [
+        "M2_PROB_C004",
+        "M2_PROB_C008"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT020",
+      "legacy_task_group": "경우의 수의 합(3) 물건 또는 사람을 선택하는 경우 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G008",
+      "source_group_id": "G008",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G008.I01",
+          "source_code": "PB-019",
+          "no_in_group": 1,
+          "name": "일어날 수 있는 모든 경우의 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G008.I02",
+          "source_code": "PB-020",
+          "no_in_group": 2,
+          "name": "주어진 상황이 일어나는 경우의 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 16,
+      "detail_types": null,
+      "detail_types_note": "세부유형 16개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C003"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT024",
+      "legacy_task_group": "경우의 수의 곱(1) 서로 다른 사건이 동시에 일어나는 경우의 수 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G009",
+      "source_group_id": "G009",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G009.I01",
+          "source_code": "PB-021",
+          "no_in_group": 1,
+          "name": "두 지점을 이동하는 경우의 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G009.I02",
+          "source_code": "PB-022",
+          "no_in_group": 2,
+          "name": "서로 다른 지점으로 이동하는 경우의 수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G009.I03",
+          "source_code": "PB-023",
+          "no_in_group": 3,
+          "name": "두 지점을 왕복하는 경우의 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형 13개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C007"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT025",
+      "legacy_task_group": "경우의 수의 곱(2) 교통수단이나 길을 선택하는 경우 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G010",
+      "source_group_id": "G010",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "경우의 수의 곱(3) 물건을 선택하는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G010.I01",
+          "source_code": "PB-024",
+          "no_in_group": 1,
+          "name": "모든 종류를 하나씩 선택하는 경우의 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G010.I02",
+          "source_code": "PB-025",
+          "no_in_group": 2,
+          "name": "주어진 상황이 일어나는 경우의 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형 9개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C008"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT030",
+      "legacy_task_group": "경우의 수의 곱(3) 물건을 선택하는 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G011",
+      "source_group_id": "G011",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G011.I01",
+          "source_code": "PB-026",
+          "no_in_group": 1,
+          "name": "중복되는 경우를 포함한 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G011.I02",
+          "source_code": "PB-027",
+          "no_in_group": 2,
+          "name": "중복되는 경우를 제외한 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "3.png",
+      "concept_ids": [
+        "M2_PROB_C005",
+        "M2_PROB_C017"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT032",
+      "legacy_task_group": "경우의 수의 곱(4) 선택하는 경우의 수가 같은 경우 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G012",
+      "source_group_id": "G012",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "색칠하는 경우의 수",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G012.I01",
+          "source_code": "PB-028",
+          "no_in_group": 1,
+          "name": "서로 다른 색을 사용하여 색칠하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G012.I02",
+          "source_code": "PB-029",
+          "no_in_group": 2,
+          "name": "색을 중복 사용하여 이웃하는 면을 다른 색으로 색칠하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G012.I03",
+          "source_code": "PB-030",
+          "no_in_group": 3,
+          "name": "색칠하는 경우의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형 13개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": [
+        "M2_PROB_C009",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT035",
+      "legacy_task_group": "색칠하는 경우의 수 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G013",
+      "source_group_id": "G013",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "일렬로 세우는 경우의 수(1)",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G013.I01",
+          "source_code": "PB-031",
+          "no_in_group": 1,
+          "name": "전체를 일렬로 세우는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G013.I02",
+          "source_code": "PB-032",
+          "no_in_group": 2,
+          "name": "일부를 뽑아 일렬로 세우는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형 9개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": [
+        "M2_PROB_C010",
+        "M2_PROB_C017"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT039",
+      "legacy_task_group": "일렬로 세우는 경우의 수(1) - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G014",
+      "source_group_id": "G014",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G014.I01",
+          "source_code": "PB-033",
+          "no_in_group": 1,
+          "name": "전체 중 하나의 위치를 특정하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G014.I02",
+          "source_code": "PB-034",
+          "no_in_group": 2,
+          "name": "전체 중 몇명의 위치를 특정하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G014.I03",
+          "source_code": "PB-035",
+          "no_in_group": 3,
+          "name": "전체에서 일부를 뽑아 일렬로 세우는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": [
+        "M2_PROB_C011",
+        "M2_PROB_C010"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT040",
+      "legacy_task_group": "일렬로 세우는 경우의 수(2) 특정한 사람의 자리를 고정하는 경우 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G015",
+      "source_group_id": "G015",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "일렬로 세우는 경우의 수(3) 이웃하는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G015.I01",
+          "source_code": "PB-036",
+          "no_in_group": 1,
+          "name": "전체 중 일부를 이웃하게 세우는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G015.I02",
+          "source_code": "PB-037",
+          "no_in_group": 2,
+          "name": "전체 중 일부의 순서나 위치를 특정하고 또 다른 일부를 이웃하게 세우는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": [
+        "M2_PROB_C012",
+        "M2_PROB_C010"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT043",
+      "legacy_task_group": "일렬로 세우는 경우의 수(3) 이웃하는 경우 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G016",
+      "source_group_id": "G016",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "일렬로 세우는 경우의 수(4) 이웃하지 않는 경우",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G016.I01",
+          "source_code": "PB-038",
+          "no_in_group": 1,
+          "name": "모두 또는 일부가 이웃하지 않도록 세우는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "4.png",
+      "concept_ids": [
+        "M2_PROB_C013",
+        "M2_PROB_C010"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT047",
+      "legacy_task_group": "일렬로 세우는 경우의 수(4) 이웃하지 않는 경우 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G017",
+      "source_group_id": "G017",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "자연수의 개수(1) 0을 포함하지 않는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G017.I01",
+          "source_code": "PB-039",
+          "no_in_group": 1,
+          "name": "주어진 숫자로 만들 수 있는 두 자리 이상의 자연수의 개수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G017.I02",
+          "source_code": "PB-040",
+          "no_in_group": 2,
+          "name": "주어진 조건을 만족하는 자연수의 개수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형 9개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": [
+        "M2_PROB_C014",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT051",
+      "legacy_task_group": "자연수의 개수(1) 0을 포함하지 않는 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G018",
+      "source_group_id": "G018",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "자연수의 개수(2) 0을 포함하는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G018.I01",
+          "source_code": "PB-041",
+          "no_in_group": 1,
+          "name": "주어진 숫자로 만들 수 있는 두 자리 이상의 자연수의 개수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G018.I02",
+          "source_code": "PB-042",
+          "no_in_group": 2,
+          "name": "주어진 조건을 만족하는 자연수의 개수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": [
+        "M2_PROB_C014",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT054",
+      "legacy_task_group": "자연수의 개수(2) 0을 포함하는 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G019",
+      "source_group_id": "G019",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "사전식으로 나열하는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G019.I01",
+          "source_code": "PB-043",
+          "no_in_group": 1,
+          "name": "조건을 만족하는 자연수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G019.I02",
+          "source_code": "PB-044",
+          "no_in_group": 2,
+          "name": "차례가 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 10,
+      "detail_types": null,
+      "detail_types_note": "세부유형 10개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": [
+        "M2_PROB_C015",
+        "M2_PROB_C010"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT057",
+      "legacy_task_group": "사전식으로 나열하는 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G020",
+      "source_group_id": "G020",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "대표를 뽑는 경우의 수(1) 자격이 다른 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G020.I01",
+          "source_code": "PB-045",
+          "no_in_group": 1,
+          "name": "전체에서 대표를 뽑는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G020.I02",
+          "source_code": "PB-046",
+          "no_in_group": 2,
+          "name": "여러 집단 중 대표를 뽑는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 8,
+      "detail_types": null,
+      "detail_types_note": "세부유형 8개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "5.png",
+      "concept_ids": [
+        "M2_PROB_C016",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT058",
+      "legacy_task_group": "대표를 뽑는 경우의 수(1) 자격이 다른 경우 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G021",
+      "source_group_id": "G021",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "대표를 뽑는 경우의 수(2) 자격이 같은 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G021.I01",
+          "source_code": "PB-047",
+          "no_in_group": 1,
+          "name": "전체에서 대표를 뽑는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G021.I02",
+          "source_code": "PB-048",
+          "no_in_group": 2,
+          "name": "여러 집단 중 대표를 뽑는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 20,
+      "detail_types": null,
+      "detail_types_note": "세부유형 20개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": [
+        "M2_PROB_C016",
+        "M2_PROB_C017"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT063",
+      "legacy_task_group": "대표를 뽑는 경우의 수(2) 자격이 같은 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G022",
+      "source_group_id": "G022",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "만들 수 있는 선분의 개수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G022.I01",
+          "source_code": "PB-049",
+          "no_in_group": 1,
+          "name": "어느 세 점도 한 직선 위에 있지 않을 때, 두 점을 이어 만들 수 있는 선분의 개수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G022.I02",
+          "source_code": "PB-050",
+          "no_in_group": 2,
+          "name": "한 직선 위에 있는 점이 주어졌을 때, 두 점을 이어 만들 수 있는 선분의 개수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 5,
+      "detail_types": null,
+      "detail_types_note": "세부유형 5개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": [
+        "M2_PROB_C018",
+        "M2_PROB_C017"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT066",
+      "legacy_task_group": "만들 수 있는 선분의 개수 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G023",
+      "source_group_id": "G023",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "만들 수 있는 삼각형의 개수",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G023.I01",
+          "source_code": "PB-051",
+          "no_in_group": 1,
+          "name": "주어진 길이로 만들 수 있는 삼각형의 개수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G023.I02",
+          "source_code": "PB-052",
+          "no_in_group": 2,
+          "name": "원 위에 점이 주어진 경우 만들 수 있는 삼각형의 개수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G023.I03",
+          "source_code": "PB-053",
+          "no_in_group": 3,
+          "name": "직선 위에 점이 주어진 경우 만들 수 있는 삼각형의 개수",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G023.I04",
+          "source_code": "PB-054",
+          "no_in_group": 4,
+          "name": "도형 위에 점이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": [
+        "M2_PROB_C019",
+        "M2_PROB_C017"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT069",
+      "legacy_task_group": "만들 수 있는 삼각형의 개수 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G024",
+      "source_group_id": "G024",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "만들 수 있는 사각형의 개수",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G024.I01",
+          "source_code": "PB-055",
+          "no_in_group": 1,
+          "name": "도형 또는 직선이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "세부유형 3개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": [
+        "M2_PROB_C019",
+        "M2_PROB_C017"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT070",
+      "legacy_task_group": "만들 수 있는 사각형의 개수 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G025",
+      "source_group_id": "G025",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "최단 경로로 가는 경우의 수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G025.I01",
+          "source_code": "PB-056",
+          "no_in_group": 1,
+          "name": "최단 경로 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G025.I02",
+          "source_code": "PB-057",
+          "no_in_group": 2,
+          "name": "최단 경로의 활용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형 6개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "6.png",
+      "concept_ids": [
+        "M2_PROB_C020",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT075",
+      "legacy_task_group": "최단 경로로 가는 경우의 수 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G026",
+      "source_group_id": "G026",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "방정식 또는 부등식에서의 경우의 수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G026.I01",
+          "source_code": "PB-058",
+          "no_in_group": 1,
+          "name": "방정식을 만족하는 경우의 수",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G026.I02",
+          "source_code": "PB-059",
+          "no_in_group": 2,
+          "name": "부등식을 만족하는 경우의 수",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": [
+        "M2_PROB_C021",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT076",
+      "legacy_task_group": "방정식 또는 부등식에서의 경우의 수 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G027",
+      "source_group_id": "G027",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "정해진 규칙에 따라 주어진 결과가 나오는 경우의 수",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G027.I01",
+          "source_code": "PB-060",
+          "no_in_group": 1,
+          "name": "문제를 푸는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G027.I02",
+          "source_code": "PB-061",
+          "no_in_group": 2,
+          "name": "규칙이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형 6개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": [
+        "M2_PROB_C022",
+        "M2_PROB_C005"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT081",
+      "legacy_task_group": "정해진 규칙에 따라 주어진 결과가 나오는 경우의 수 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G028",
+      "source_group_id": "G028",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "경우의 수",
+      "type_name": "대진표를 정하는 경우의 수",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G028.I01",
+          "source_code": "PB-062",
+          "no_in_group": 1,
+          "name": "리그전으로 경기하는 경우(모든 사람과 한 번씩 악수하는 경우)",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G028.I02",
+          "source_code": "PB-063",
+          "no_in_group": 2,
+          "name": "토너먼트로 경기하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G028.I03",
+          "source_code": "PB-064",
+          "no_in_group": 3,
+          "name": "리그전과 토너먼트로 경기하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "7.png",
+      "concept_ids": [
+        "M2_PROB_C022",
+        "M2_PROB_C017"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT083",
+      "legacy_task_group": "대진표를 정하는 경우의 수 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G029",
+      "source_group_id": "G029",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 뜻과 성질",
+      "type_name": "간단한 확률 구하기",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G029.I01",
+          "source_code": "PB-065",
+          "no_in_group": 1,
+          "name": "숫자 또는 문자를 선택하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G029.I02",
+          "source_code": "PB-066",
+          "no_in_group": 2,
+          "name": "주사위를 던지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G029.I03",
+          "source_code": "PB-067",
+          "no_in_group": 3,
+          "name": "동전을 던지는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G029.I04",
+          "source_code": "PB-068",
+          "no_in_group": 4,
+          "name": "물건 또는 사람을 선택하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G029.I05",
+          "source_code": "PB-069",
+          "no_in_group": 5,
+          "name": "여러 가지 확률 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 43,
+      "detail_types": null,
+      "detail_types_note": "세부유형 43개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": [
+        "M2_PROB_C023",
+        "M2_PROB_C024",
+        "M2_PROB_C025"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT086",
+      "legacy_task_group": "간단한 확률 구하기 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G030",
+      "source_group_id": "G030",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 뜻과 성질",
+      "type_name": "확률 구하기(1) 일렬로 세울 때 확률 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G030.I01",
+          "source_code": "PB-070",
+          "no_in_group": 1,
+          "name": "특정 위치에 세우는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G030.I02",
+          "source_code": "PB-071",
+          "no_in_group": 2,
+          "name": "이웃하거나 이웃하지 않은 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 18,
+      "detail_types": null,
+      "detail_types_note": "세부유형 18개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": [
+        "M2_PROB_C026",
+        "M2_PROB_C010",
+        "M2_PROB_C012",
+        "M2_PROB_C013"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT089",
+      "legacy_task_group": "확률 구하기(1) 일렬로 세울 때 확률 구하기 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G031",
+      "source_group_id": "G031",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 뜻과 성질",
+      "type_name": "확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G031.I01",
+          "source_code": "PB-072",
+          "no_in_group": 1,
+          "name": "개수가 주어지지 않은 물건의 개수 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G031.I02",
+          "source_code": "PB-073",
+          "no_in_group": 2,
+          "name": "주어진 조건의 확률 구하기",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 7,
+      "detail_types": null,
+      "detail_types_note": "세부유형 7개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "8.png",
+      "concept_ids": [
+        "M2_PROB_C027",
+        "M2_PROB_C023"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT093",
+      "legacy_task_group": "확률 구하기(2) 주어진 확률을 만족하는 미정계수 구하기 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G032",
+      "source_group_id": "G032",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 뜻과 성질",
+      "type_name": "확률 구하기(3) 방정식을 만족할 확률",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G032.I01",
+          "source_code": "PB-074",
+          "no_in_group": 1,
+          "name": "방정식을 만족할 확률",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G032.I02",
+          "source_code": "PB-075",
+          "no_in_group": 2,
+          "name": "해의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G032.I03",
+          "source_code": "PB-076",
+          "no_in_group": 3,
+          "name": "두 직선이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G032.I04",
+          "source_code": "PB-077",
+          "no_in_group": 4,
+          "name": "도형의 넓이",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G032.I05",
+          "source_code": "PB-078",
+          "no_in_group": 5,
+          "name": "그래프의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 21,
+      "detail_types": null,
+      "detail_types_note": "세부유형 21개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": [
+        "M2_PROB_C028",
+        "M2_PROB_C021",
+        "M2_PROB_C042"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT096",
+      "legacy_task_group": "확률 구하기(3) 방정식을 만족할 확률 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G033",
+      "source_group_id": "G033",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 뜻과 성질",
+      "type_name": "확률 구하기(4) 부등식을 만족할 확률",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G033.I01",
+          "source_code": "PB-079",
+          "no_in_group": 1,
+          "name": "부등식을 만족할 확률",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 4,
+      "detail_types": null,
+      "detail_types_note": "세부유형 4개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": [
+        "M2_PROB_C028",
+        "M2_PROB_C021"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT099",
+      "legacy_task_group": "확률 구하기(4) 부등식을 만족할 확률 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G034",
+      "source_group_id": "G034",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 뜻과 성질",
+      "type_name": "확률의 기본 성질",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G034.I01",
+          "source_code": "PB-080",
+          "no_in_group": 1,
+          "name": "확률이 0 또는 1인 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G034.I02",
+          "source_code": "PB-081",
+          "no_in_group": 2,
+          "name": "여러가지 상황의 확률",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G034.I03",
+          "source_code": "PB-082",
+          "no_in_group": 3,
+          "name": "확률의 기본 성질",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형 15개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "9.png",
+      "concept_ids": [
+        "M2_PROB_C029"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT100",
+      "legacy_task_group": "확률의 기본 성질 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G035",
+      "source_group_id": "G035",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "어떤 사건이 일어나지 않을 확률",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G035.I01",
+          "source_code": "PB-083",
+          "no_in_group": 1,
+          "name": "사건이 일어날 확률이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G035.I02",
+          "source_code": "PB-084",
+          "no_in_group": 2,
+          "name": "전체 개수와 사건이 일어나는 경우의 수가 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G035.I03",
+          "source_code": "PB-085",
+          "no_in_group": 3,
+          "name": "자격이 같은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G035.I04",
+          "source_code": "PB-086",
+          "no_in_group": 4,
+          "name": "자격이 다른 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G035.I05",
+          "source_code": "PB-087",
+          "no_in_group": 5,
+          "name": "뽑은 수의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 32,
+      "detail_types": null,
+      "detail_types_note": "세부유형 32개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": [
+        "M2_PROB_C030",
+        "M2_PROB_C023"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT103",
+      "legacy_task_group": "어떤 사건이 일어나지 않을 확률 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G036",
+      "source_group_id": "G036",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "적어도의 조건을 포함하는 확률",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G036.I01",
+          "source_code": "PB-088",
+          "no_in_group": 1,
+          "name": "적어도의 조건을 포함하는 확률",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 9,
+      "detail_types": null,
+      "detail_types_note": "세부유형 9개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": [
+        "M2_PROB_C031",
+        "M2_PROB_C030"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT108",
+      "legacy_task_group": "적어도의 조건을 포함하는 확률 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G037",
+      "source_group_id": "G037",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "사건 A 또는 사건 B가 일어날 확률",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G037.I01",
+          "source_code": "PB-089",
+          "no_in_group": 1,
+          "name": "뽑은 한 숫자가 두 가지 조건 중 하나를 만족하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G037.I02",
+          "source_code": "PB-090",
+          "no_in_group": 2,
+          "name": "여러 숫자를 뽑아 만든 결과가 두 가지 조건 중 하나를 만족하는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G037.I03",
+          "source_code": "PB-091",
+          "no_in_group": 3,
+          "name": "여러 상황 중 하나의 확률",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 25,
+      "detail_types": null,
+      "detail_types_note": "세부유형 25개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "10.png",
+      "concept_ids": [
+        "M2_PROB_C032",
+        "M2_PROB_C033",
+        "M2_PROB_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT110",
+      "legacy_task_group": "사건 A 또는 사건 B가 일어날 확률 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G038",
+      "source_group_id": "G038",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "두 사건 A와 B가 동시에 일어날 확률",
+      "topic_type_count": 5,
+      "topic_type_actual": 5,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G038.I01",
+          "source_code": "PB-092",
+          "no_in_group": 1,
+          "name": "주어진 사건이 모두 일어나는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G038.I02",
+          "source_code": "PB-093",
+          "no_in_group": 2,
+          "name": "주어진 사건 중 일부만 일어나는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G038.I03",
+          "source_code": "PB-094",
+          "no_in_group": 3,
+          "name": "주어진 사건이 모두 일어나지 않는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G038.I04",
+          "source_code": "PB-095",
+          "no_in_group": 4,
+          "name": "주어진 조건의 수를 뽑는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G038.I05",
+          "source_code": "PB-096",
+          "no_in_group": 5,
+          "name": "주어진 상황을 만족하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 27,
+      "detail_types": null,
+      "detail_types_note": "세부유형 27개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": [
+        "M2_PROB_C033",
+        "M2_PROB_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT113",
+      "legacy_task_group": "두 사건 A와 B가 동시에 일어날 확률 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G039",
+      "source_group_id": "G039",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "두 사건 A, B 중 적어도 하나가 일어날 확률",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G039.I01",
+          "source_code": "PB-097",
+          "no_in_group": 1,
+          "name": "한 사건의 확률이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G039.I02",
+          "source_code": "PB-098",
+          "no_in_group": 2,
+          "name": "여러 사건의 확률이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 6,
+      "detail_types": null,
+      "detail_types_note": "세부유형 6개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": [
+        "M2_PROB_C034",
+        "M2_PROB_C030",
+        "M2_PROB_C032"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT116",
+      "legacy_task_group": "두 사건 A, B 중 적어도 하나가 일어날 확률 - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G040",
+      "source_group_id": "G040",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "확률의 덧셈과 곱셈",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G040.I01",
+          "source_code": "PB-099",
+          "no_in_group": 1,
+          "name": "확률이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G040.I02",
+          "source_code": "PB-100",
+          "no_in_group": 2,
+          "name": "확률이 주어지지 않은 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G040.I03",
+          "source_code": "PB-101",
+          "no_in_group": 3,
+          "name": "물건을 선택하는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 30,
+      "detail_types": null,
+      "detail_types_note": "세부유형 30개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "11.png",
+      "concept_ids": [
+        "M2_PROB_C035",
+        "M2_PROB_C032",
+        "M2_PROB_C033"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT120",
+      "legacy_task_group": "확률의 덧셈과 곱셈 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G041",
+      "source_group_id": "G041",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G041.I01",
+          "source_code": "PB-102",
+          "no_in_group": 1,
+          "name": "조건에 순서를 포함하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G041.I02",
+          "source_code": "PB-103",
+          "no_in_group": 2,
+          "name": "조건에 순서를 포함하지 않는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 14,
+      "detail_types": null,
+      "detail_types_note": "세부유형 14개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": [
+        "M2_PROB_C036",
+        "M2_PROB_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT123",
+      "legacy_task_group": "연속하여 꺼내는 경우의 확률(1) 꺼낸 것을 다시 넣는 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G042",
+      "source_group_id": "G042",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G042.I01",
+          "source_code": "PB-104",
+          "no_in_group": 1,
+          "name": "조건에 순서를 포함하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G042.I02",
+          "source_code": "PB-105",
+          "no_in_group": 2,
+          "name": "조건에 순서를 포함하지 않는 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 12,
+      "detail_types": null,
+      "detail_types_note": "세부유형 12개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": [
+        "M2_PROB_C037",
+        "M2_PROB_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT126",
+      "legacy_task_group": "연속하여 꺼내는 경우의 확률(2) 꺼낸 것을 다시 넣지 않는 경우 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G043",
+      "source_group_id": "G043",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "연속하여 꺼내는 경우의 확률",
+      "topic_type_count": 1,
+      "topic_type_actual": 1,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G043.I01",
+          "source_code": "PB-106",
+          "no_in_group": 1,
+          "name": "꺼낸 후 다시 넣는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        }
+      ],
+      "detail_type_count": 4,
+      "detail_types": null,
+      "detail_types_note": "세부유형 4개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": [
+        "M2_PROB_C036",
+        "M2_PROB_C037"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT129",
+      "legacy_task_group": "연속하여 꺼내는 경우의 확률 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G044",
+      "source_group_id": "G044",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "게임에서 이길 확률",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G044.I01",
+          "source_code": "PB-107",
+          "no_in_group": 1,
+          "name": "승부가 결정될 확률",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G044.I02",
+          "source_code": "PB-108",
+          "no_in_group": 2,
+          "name": "한 사람이 이길 확률",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G044.I03",
+          "source_code": "PB-109",
+          "no_in_group": 3,
+          "name": "현재 상황이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형 15개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": [
+        "M2_PROB_C038",
+        "M2_PROB_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT132",
+      "legacy_task_group": "게임에서 이길 확률 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G045",
+      "source_group_id": "G045",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "문제를 맞힐 확률",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G045.I01",
+          "source_code": "PB-110",
+          "no_in_group": 1,
+          "name": "확률이 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G045.I02",
+          "source_code": "PB-111",
+          "no_in_group": 2,
+          "name": "임의로 선택한 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 15,
+      "detail_types": null,
+      "detail_types_note": "세부유형 15개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "12.png",
+      "concept_ids": [
+        "M2_PROB_C039",
+        "M2_PROB_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT135",
+      "legacy_task_group": "문제를 맞힐 확률 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G046",
+      "source_group_id": "G046",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "명중률",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G046.I01",
+          "source_code": "PB-112",
+          "no_in_group": 1,
+          "name": "모두 맞히거나 모두 못 맞히는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G046.I02",
+          "source_code": "PB-113",
+          "no_in_group": 2,
+          "name": "일부만 맞힐 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": [
+        "M2_PROB_C040",
+        "M2_PROB_C035",
+        "M2_PROB_C030"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT136",
+      "legacy_task_group": "명중률 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G047",
+      "source_group_id": "G047",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "가위바위보에서의 확률",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G047.I01",
+          "source_code": "PB-114",
+          "no_in_group": 1,
+          "name": "승부가 날 확률 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G047.I02",
+          "source_code": "PB-115",
+          "no_in_group": 2,
+          "name": "가위바위보에서의 확률",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 13,
+      "detail_types": null,
+      "detail_types_note": "세부유형 13개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": [
+        "M2_PROB_C041",
+        "M2_PROB_C035"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT139",
+      "legacy_task_group": "가위바위보에서의 확률 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G048",
+      "source_group_id": "G048",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "수직선에서 위치에 대한 확률",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G048.I01",
+          "source_code": "PB-116",
+          "no_in_group": 1,
+          "name": "위치가 주어진 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G048.I02",
+          "source_code": "PB-117",
+          "no_in_group": 2,
+          "name": "조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 4,
+      "detail_types": null,
+      "detail_types_note": "세부유형 4개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C001"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT142",
+      "legacy_task_group": "수직선에서 위치에 대한 확률 - 기본 판별",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G049",
+      "source_group_id": "G049",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "도형 또는 좌표평면에서의 확률",
+      "topic_type_count": 3,
+      "topic_type_actual": 3,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G049.I01",
+          "source_code": "PB-118",
+          "no_in_group": 1,
+          "name": "도형의 변을 이동하는 경우",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G049.I02",
+          "source_code": "PB-119",
+          "no_in_group": 2,
+          "name": "도형을 만드는 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G049.I03",
+          "source_code": "PB-120",
+          "no_in_group": 3,
+          "name": "좌표평면에서의 도형",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 11,
+      "detail_types": null,
+      "detail_types_note": "세부유형 11개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "13.png",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C019"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT147",
+      "legacy_task_group": "도형 또는 좌표평면에서의 확률 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G050",
+      "source_group_id": "G050",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "평면도형에서의 확률(넓이를 이용한 확률)",
+      "topic_type_count": 4,
+      "topic_type_actual": 4,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G050.I01",
+          "source_code": "PB-121",
+          "no_in_group": 1,
+          "name": "주어진 수가 나올 확률",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G050.I02",
+          "source_code": "PB-122",
+          "no_in_group": 2,
+          "name": "색칠된 부분을 맞힐 확률",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G050.I03",
+          "source_code": "PB-123",
+          "no_in_group": 3,
+          "name": "나온 수들의 조건이 주어진 경우",
+          "review_status": "원문 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G050.I04",
+          "source_code": "PB-124",
+          "no_in_group": 4,
+          "name": "응용",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 24,
+      "detail_types": null,
+      "detail_types_note": "세부유형 24개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "14.png",
+      "concept_ids": [
+        "M2_PROB_C042",
+        "M2_PROB_C023"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT149",
+      "legacy_task_group": "평면도형에서의 확률(넓이를 이용한 확률) - 조건 적용",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    },
+    {
+      "problem_type_id": "MPLAT.M2S2.PB.G051",
+      "source_group_id": "G051",
+      "semester": "M2S2",
+      "unit_id": "M2_PROBABILITY",
+      "chapter": "2-2 확률",
+      "대영역": "경우의 수와 확률",
+      "중영역": "확률의 계산",
+      "type_name": "대진표에서의 확률",
+      "topic_type_count": 2,
+      "topic_type_actual": 2,
+      "source_count_note": null,
+      "topic_types": [
+        {
+          "item_id": "MPLAT.M2S2.PB.G051.I01",
+          "source_code": "PB-125",
+          "no_in_group": 1,
+          "name": "우승할 확률 구하기",
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+        },
+        {
+          "item_id": "MPLAT.M2S2.PB.G051.I02",
+          "source_code": "PB-126",
+          "no_in_group": 2,
+          "name": "조건이 주어진 경우",
+          "review_status": "원문 확인"
+        }
+      ],
+      "detail_type_count": 3,
+      "detail_types": null,
+      "detail_types_note": "세부유형 3개는 매쓰플랫 화면에서 접혀 있어 이름 미확보",
+      "source_image": "14.png",
+      "concept_ids": [
+        "M2_PROB_C041",
+        "M2_PROB_C022"
+      ],
+      "error_tags": null,
+      "prerequisite_ids": [],
+      "legacy_raw_section_id": "M2_PROB_PT153",
+      "legacy_task_group": "대진표에서의 확률 - 활용 추론",
+      "legacy_match_level": "confident",
+      "legacy_match_score": 1,
+      "status": "mathflat_verbatim_not_wired"
+    }
+  ]
+}
