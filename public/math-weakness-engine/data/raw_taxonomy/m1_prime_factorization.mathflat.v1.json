@@ -31,9 +31,20 @@
     "declared_total": 149,
     "stored_total": 149,
     "match": true,
-    "mismatched_groups": []
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 780,
+  "detail_type_check": {
+    "counted_groups": 50,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 1,
@@ -161,7 +172,36 @@
       "complex_condition",
       "condition_search",
       "coprime_application"
-    ]
+    ],
+    "alt_legacy_source": "m1_prime_factorization.problem_types.v1.json (problem_types)",
+    "alt_legacy_count": 448,
+    "alt_legacy_has_error_tags": true,
+    "alt_legacy_error_tag_vocab": 40,
+    "alt_legacy_error_tag_sample": [
+      "common_divisor",
+      "common_multiple",
+      "coprime_judgement",
+      "cube_factor_condition",
+      "digit_condition",
+      "divisibility_rule",
+      "divisor_count",
+      "divisor_count_formula"
+    ],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m1_prime_factorization.raw_taxonomy.v1.json (sections / section_name)",
+    "legacy_count": 112,
+    "item_count": 149,
+    "match_confident": 0,
+    "match_candidate": 9,
+    "match_none": 140,
+    "concept_ids_inherited": 0,
+    "error_tags_referenced": 0,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
     {
@@ -175,55 +215,98 @@
       "type_name": "자연수의 약수와 배수",
       "topic_type_count": 7,
       "topic_type_actual": 7,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G001.I01",
           "source_code": "PF-001",
           "no_in_group": 1,
           "name": "자연수의 약수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G001.I02",
           "source_code": "PF-002",
           "no_in_group": 2,
           "name": "자연수의 배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G001.I03",
           "source_code": "PF-003",
           "no_in_group": 3,
           "name": "자연수의 약수와 배수에 대한 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_001",
+          "legacy_type_name": "자연수의 약수와 배수: 약수 모두 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G001.I04",
           "source_code": "PF-004",
           "no_in_group": 4,
           "name": "자연수의 약수의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G001.I05",
           "source_code": "PF-005",
           "no_in_group": 5,
           "name": "자연수의 배수의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G001.I06",
           "source_code": "PF-006",
           "no_in_group": 6,
           "name": "약수와 배수의 도형에서의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G001.I07",
           "source_code": "PF-007",
           "no_in_group": 7,
           "name": "약수와 배수의 실생활에서의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -250,20 +333,33 @@
       "type_name": "배수판별법",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G002.I01",
           "source_code": "PF-008",
           "no_in_group": 1,
           "name": "배수판별하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G002.I02",
           "source_code": "PF-009",
           "no_in_group": 2,
           "name": "배수판별법의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -290,48 +386,85 @@
       "type_name": "소수와 합성수",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G003.I01",
           "source_code": "PF-010",
           "no_in_group": 1,
           "name": "소수와 합성수의 구분",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G003.I02",
           "source_code": "PF-011",
           "no_in_group": 2,
           "name": "소수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G003.I03",
           "source_code": "PF-012",
           "no_in_group": 3,
           "name": "합성수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G003.I04",
           "source_code": "PF-013",
           "no_in_group": 4,
           "name": "소수의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G003.I05",
           "source_code": "PF-014",
           "no_in_group": 5,
           "name": "합성수의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G003.I06",
           "source_code": "PF-015",
           "no_in_group": 6,
           "name": "소수와 합성수의 실생활에서의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 44,
@@ -358,20 +491,33 @@
       "type_name": "소수와 합성수의 성질",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G004.I01",
           "source_code": "PF-016",
           "no_in_group": 1,
           "name": "소수와 합성수의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G004.I02",
           "source_code": "PF-017",
           "no_in_group": 2,
           "name": "조건을 만족하는 소수와 합성수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -398,34 +544,59 @@
       "type_name": "곱을 거듭제곱으로 나타내기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G005.I01",
           "source_code": "PF-018",
           "no_in_group": 1,
           "name": "자연수의 곱",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G005.I02",
           "source_code": "PF-019",
           "no_in_group": 2,
           "name": "분수 꼴의 곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G005.I03",
           "source_code": "PF-020",
           "no_in_group": 3,
           "name": "문자의 곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G005.I04",
           "source_code": "PF-021",
           "no_in_group": 4,
           "name": "도형에서의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -452,27 +623,46 @@
       "type_name": "수를 거듭제곱으로 나타내기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G006.I01",
           "source_code": "PF-022",
           "no_in_group": 1,
           "name": "거듭제곱으로 나타내기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G006.I02",
           "source_code": "PF-023",
           "no_in_group": 2,
           "name": "거듭제곱 표현의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G006.I03",
           "source_code": "PF-024",
           "no_in_group": 3,
           "name": "거듭제곱의 표현의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -499,20 +689,33 @@
       "type_name": "거듭제곱의 밑과 지수",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G007.I01",
           "source_code": "PF-025",
           "no_in_group": 1,
           "name": "거듭제곱의 밑과 지수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_015",
+          "legacy_type_name": "거듭제곱: 거듭제곱의 밑과 지수 판별",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G007.I02",
           "source_code": "PF-026",
           "no_in_group": 2,
           "name": "거듭제곱의 밑과 지수의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -539,34 +742,59 @@
       "type_name": "소인수분해 하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G008.I01",
           "source_code": "PF-027",
           "no_in_group": 1,
           "name": "나눗셈을 이용",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G008.I02",
           "source_code": "PF-028",
           "no_in_group": 2,
           "name": "나눗셈의 세로셈을 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G008.I03",
           "source_code": "PF-029",
           "no_in_group": 3,
           "name": "수형도를 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G008.I04",
           "source_code": "PF-030",
           "no_in_group": 4,
           "name": "소인수분해하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -593,27 +821,46 @@
       "type_name": "소인수 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G009.I01",
           "source_code": "PF-031",
           "no_in_group": 1,
           "name": "소인수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G009.I02",
           "source_code": "PF-032",
           "no_in_group": 2,
           "name": "소인수의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G009.I03",
           "source_code": "PF-033",
           "no_in_group": 3,
           "name": "소인수를 이용하여 자연수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -640,20 +887,33 @@
       "type_name": "소인수분해 한 결과에서 밑과 지수 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G010.I01",
           "source_code": "PF-034",
           "no_in_group": 1,
           "name": "자연수의 소인수분해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G010.I02",
           "source_code": "PF-035",
           "no_in_group": 2,
           "name": "수의 곱의 소인수분해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -680,48 +940,85 @@
       "type_name": "제곱인 수 만들기(1) (어떤 수)×a=b²인 경우",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G011.I01",
           "source_code": "PF-036",
           "no_in_group": 1,
           "name": "제곱수의 판단",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G011.I02",
           "source_code": "PF-037",
           "no_in_group": 2,
           "name": "곱하는 자연수(a)에 대한 문제 - 자연수의 곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G011.I03",
           "source_code": "PF-038",
           "no_in_group": 3,
           "name": "곱하는 자연수(a)에 대한 문제 - 소인수분해의 꼴",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G011.I04",
           "source_code": "PF-039",
           "no_in_group": 4,
           "name": "곱하는 자연수(a)에 대한 문제 - 제곱인 수 만들기 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G011.I05",
           "source_code": "PF-040",
           "no_in_group": 5,
           "name": "제곱인 수 (b, b²)에 대한 문제 - 제곱인 수 만들기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G011.I06",
           "source_code": "PF-041",
           "no_in_group": 6,
           "name": "제곱인 수 (b, b²)에 대한 문제 - 제곱인 수 만들기 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -748,20 +1045,33 @@
       "type_name": "제곱인 수 만들기(2) (어떤 수)/x=(자연수)²인 경우",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G012.I01",
           "source_code": "PF-042",
           "no_in_group": 1,
           "name": "제곱인 수 만들기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G012.I02",
           "source_code": "PF-043",
           "no_in_group": 2,
           "name": "제곱인 수 만들기 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -788,27 +1098,46 @@
       "type_name": "소인수분해를 이용하여 약수 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G013.I01",
           "source_code": "PF-044",
           "no_in_group": 1,
           "name": "주어진 수의 약수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_036",
+          "legacy_type_name": "약수 구하기: 주어진 수의 약수 모두 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.588,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G013.I02",
           "source_code": "PF-045",
           "no_in_group": 2,
           "name": "주어진 수의 곱의 약수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G013.I03",
           "source_code": "PF-046",
           "no_in_group": 3,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -835,27 +1164,46 @@
       "type_name": "약수의 개수 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G014.I01",
           "source_code": "PF-047",
           "no_in_group": 1,
           "name": "주어진 수의 약수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_032",
+          "legacy_type_name": "약수 구하기: 주어진 수의 약수 모두 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.588,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G014.I02",
           "source_code": "PF-048",
           "no_in_group": 2,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G014.I03",
           "source_code": "PF-049",
           "no_in_group": 3,
           "name": "활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -882,27 +1230,46 @@
       "type_name": "약수의 개수가 주어질 때(1) 소인수의 지수 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G015.I01",
           "source_code": "PF-050",
           "no_in_group": 1,
           "name": "약수의 개수가 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G015.I02",
           "source_code": "PF-051",
           "no_in_group": 2,
           "name": "주어진 수의 약수의 개수와 같은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G015.I03",
           "source_code": "PF-052",
           "no_in_group": 3,
           "name": "지수 구하기 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -929,27 +1296,46 @@
       "type_name": "약수의 개수가 주어진 자연수 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G016.I01",
           "source_code": "PF-053",
           "no_in_group": 1,
           "name": "약수의 개수가 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G016.I02",
           "source_code": "PF-054",
           "no_in_group": 2,
           "name": "약수의 개수의 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G016.I03",
           "source_code": "PF-055",
           "no_in_group": 3,
           "name": "자연수 구하기 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -976,27 +1362,46 @@
       "type_name": "약수의 개수가 주어질 때(2) □ 안에 들어갈 수 있는 자연수 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G017.I01",
           "source_code": "PF-056",
           "no_in_group": 1,
           "name": "□ 안에 들어갈 수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G017.I02",
           "source_code": "PF-057",
           "no_in_group": 2,
           "name": "□ 안에 들어갈 수의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G017.I03",
           "source_code": "PF-058",
           "no_in_group": 3,
           "name": "처음의 수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1023,20 +1428,33 @@
       "type_name": "최대공약수의 성질",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G018.I01",
           "source_code": "PF-059",
           "no_in_group": 1,
           "name": "두 수의 공약수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G018.I02",
           "source_code": "PF-060",
           "no_in_group": 2,
           "name": "세 수의 공약수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 4,
@@ -1063,20 +1481,33 @@
       "type_name": "서로소",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G019.I01",
           "source_code": "PF-061",
           "no_in_group": 1,
           "name": "서로소의 판단",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G019.I02",
           "source_code": "PF-062",
           "no_in_group": 2,
           "name": "서로소의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -1103,13 +1534,20 @@
       "type_name": "공약수와 최대공약수(1) 최대공약수가 주어진 경우",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G020.I01",
           "source_code": "PF-063",
           "no_in_group": 1,
           "name": "공약수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1136,34 +1574,59 @@
       "type_name": "최대공약수 구하기; 소인수분해를 이용하는 방법",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G021.I01",
           "source_code": "PF-064",
           "no_in_group": 1,
           "name": "두 자연수의 최대공약수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G021.I02",
           "source_code": "PF-065",
           "no_in_group": 2,
           "name": "세 자연수의 최대공약수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G021.I03",
           "source_code": "PF-066",
           "no_in_group": 3,
           "name": "두 소인수분해꼴의 최대공약수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G021.I04",
           "source_code": "PF-067",
           "no_in_group": 4,
           "name": "세 소인수분해꼴의 최대공약수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1190,20 +1653,33 @@
       "type_name": "최대공약수 구하기; 공약수로 나누어 구하는 방법",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G022.I01",
           "source_code": "PF-068",
           "no_in_group": 1,
           "name": "두 자연수의 최대공약수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G022.I02",
           "source_code": "PF-069",
           "no_in_group": 2,
           "name": "세 자연수의 최대공약수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 4,
@@ -1230,34 +1706,59 @@
       "type_name": "공약수와 최대공약수(2)",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G023.I01",
           "source_code": "PF-070",
           "no_in_group": 1,
           "name": "두 자연수의 공약수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G023.I02",
           "source_code": "PF-071",
           "no_in_group": 2,
           "name": "세 자연수의 공약수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G023.I03",
           "source_code": "PF-072",
           "no_in_group": 3,
           "name": "두 소인수분해꼴의 공약수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G023.I04",
           "source_code": "PF-073",
           "no_in_group": 4,
           "name": "세 소인수분해꼴의 공약수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -1284,20 +1785,33 @@
       "type_name": "최소공배수의 성질",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G024.I01",
           "source_code": "PF-074",
           "no_in_group": 1,
           "name": "두 수의 최소공배수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G024.I02",
           "source_code": "PF-075",
           "no_in_group": 2,
           "name": "세 수의 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -1324,34 +1838,59 @@
       "type_name": "공배수와 최소공배수(1) 최소공배수가 주어진 경우",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G025.I01",
           "source_code": "PF-076",
           "no_in_group": 1,
           "name": "두 수의 최소공배수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G025.I02",
           "source_code": "PF-077",
           "no_in_group": 2,
           "name": "소인수분해꼴의 두 수의 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_056",
+          "legacy_type_name": "최소공배수의 성질: 두 수의 최소공배수",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G025.I03",
           "source_code": "PF-078",
           "no_in_group": 3,
           "name": "세 수의 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G025.I04",
           "source_code": "PF-079",
           "no_in_group": 4,
           "name": "소인수분해꼴의 세 수의 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_057",
+          "legacy_type_name": "최소공배수의 성질: 세 수의 최소공배수",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -1378,34 +1917,59 @@
       "type_name": "최소공배수 구하기; 소인수분해를 이용하는 방법",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G026.I01",
           "source_code": "PF-080",
           "no_in_group": 1,
           "name": "두 수의 최소공배수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G026.I02",
           "source_code": "PF-081",
           "no_in_group": 2,
           "name": "소인수분해꼴의 두 수의 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_060",
+          "legacy_type_name": "최소공배수의 성질: 두 수의 최소공배수",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G026.I03",
           "source_code": "PF-082",
           "no_in_group": 3,
           "name": "세 수의 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G026.I04",
           "source_code": "PF-083",
           "no_in_group": 4,
           "name": "소인수분해꼴의 세 수의 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_061",
+          "legacy_type_name": "최소공배수의 성질: 세 수의 최소공배수",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -1432,20 +1996,33 @@
       "type_name": "최소공배수 구하기; 공약수로 나누어 구하는 방법",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G027.I01",
           "source_code": "PF-084",
           "no_in_group": 1,
           "name": "두 수의 최소공배수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G027.I02",
           "source_code": "PF-085",
           "no_in_group": 2,
           "name": "세 수의 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -1472,20 +2049,33 @@
       "type_name": "공배수와 최소공배수(2)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G028.I01",
           "source_code": "PF-086",
           "no_in_group": 1,
           "name": "두 수의 공배수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G028.I02",
           "source_code": "PF-087",
           "no_in_group": 2,
           "name": "세 수의 공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -1512,20 +2102,33 @@
       "type_name": "최대공약수와 최소공배수의 성질",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G029.I01",
           "source_code": "PF-088",
           "no_in_group": 1,
           "name": "주어진 수에 대한 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G029.I02",
           "source_code": "PF-089",
           "no_in_group": 2,
           "name": "최대공약수와 최소공배수의 성질",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PF_RAW_070",
+          "legacy_type_name": "성질과 관계: 최대공약수와 최소공배수 동시 조건",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.55,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 4,
@@ -1552,27 +2155,46 @@
       "type_name": "최대공약수가 주어질 때, 밑과 지수 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G030.I01",
           "source_code": "PF-090",
           "no_in_group": 1,
           "name": "최대공약수가 주어지고 두 수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G030.I02",
           "source_code": "PF-091",
           "no_in_group": 2,
           "name": "최대공약수가 주어지고 세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G030.I03",
           "source_code": "PF-092",
           "no_in_group": 3,
           "name": "최대공약수에도 미지수가 포함되고, 세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1599,34 +2221,59 @@
       "type_name": "최소공배수가 주어질 때, 밑과 지수 구하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G031.I01",
           "source_code": "PF-093",
           "no_in_group": 1,
           "name": "최소공배수가 주어지고 두 수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G031.I02",
           "source_code": "PF-094",
           "no_in_group": 2,
           "name": "최소공배수가 주어지고 세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G031.I03",
           "source_code": "PF-095",
           "no_in_group": 3,
           "name": "최소공배수에도 미지수가 포함되고, 두 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G031.I04",
           "source_code": "PF-096",
           "no_in_group": 4,
           "name": "최소공배수에도 미지수가 포함되고, 세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1653,34 +2300,59 @@
       "type_name": "최대공약수와 최소공배수가 모두 주어질 때, 밑과 지수 구하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G032.I01",
           "source_code": "PF-097",
           "no_in_group": 1,
           "name": "두 수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G032.I02",
           "source_code": "PF-098",
           "no_in_group": 2,
           "name": "세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G032.I03",
           "source_code": "PF-099",
           "no_in_group": 3,
           "name": "최대공약수나 최소공배수에도 미지수가 포함되고, 두 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G032.I04",
           "source_code": "PF-100",
           "no_in_group": 4,
           "name": "최대공약수나 최소공배수에도 미지수가 포함되고, 세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -1707,27 +2379,46 @@
       "type_name": "미지수가 포함된 수들의 최소공배수",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G033.I01",
           "source_code": "PF-101",
           "no_in_group": 1,
           "name": "m×a 꼴로 주어진 두 수에 대한 최소공배수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G033.I02",
           "source_code": "PF-102",
           "no_in_group": 2,
           "name": "m×a 꼴로 주어진 세 개 이상의 수에 대한 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G033.I03",
           "source_code": "PF-103",
           "no_in_group": 3,
           "name": "비가 주어진 수들에 대한 최소공배수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1754,20 +2445,33 @@
       "type_name": "최대공약수가 주어질 때, 어떤 수 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G034.I01",
           "source_code": "PF-104",
           "no_in_group": 1,
           "name": "두 수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G034.I02",
           "source_code": "PF-105",
           "no_in_group": 2,
           "name": "세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -1794,20 +2498,33 @@
       "type_name": "최소공배수가 주어질 때, 어떤 수 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G035.I01",
           "source_code": "PF-106",
           "no_in_group": 1,
           "name": "두 수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G035.I02",
           "source_code": "PF-107",
           "no_in_group": 2,
           "name": "세 개 이상의 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -1834,13 +2551,20 @@
       "type_name": "주어진 범위에서 약수와 배수의 개수",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G036.I01",
           "source_code": "PF-108",
           "no_in_group": 1,
           "name": "주어진 범위에서 배수의 개수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 3,
@@ -1867,20 +2591,33 @@
       "type_name": "어떤 자연수로 나누기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G037.I01",
           "source_code": "PF-109",
           "no_in_group": 1,
           "name": "두 수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G037.I02",
           "source_code": "PF-110",
           "no_in_group": 2,
           "name": "세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1907,41 +2644,72 @@
       "type_name": "어떤 자연수를 나누기",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G038.I01",
           "source_code": "PF-111",
           "no_in_group": 1,
           "name": "두 수에 대하여 나누어떨어지는 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G038.I02",
           "source_code": "PF-112",
           "no_in_group": 2,
           "name": "두 수에 대하여 남거나 모자란 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G038.I03",
           "source_code": "PF-113",
           "no_in_group": 3,
           "name": "세 수에 대하여 나누어떨어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G038.I04",
           "source_code": "PF-114",
           "no_in_group": 4,
           "name": "세 수에 대하여 같은 수가 남거나 모자란 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G038.I05",
           "source_code": "PF-115",
           "no_in_group": 5,
           "name": "세 수에 대하여 남거나 모자란 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -1968,20 +2736,33 @@
       "type_name": "분수를 자연수로 만들기(1) {A/n}, {B/n}의 꼴",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G039.I01",
           "source_code": "PF-116",
           "no_in_group": 1,
           "name": "두 분수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G039.I02",
           "source_code": "PF-117",
           "no_in_group": 2,
           "name": "세 분수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -2008,20 +2789,33 @@
       "type_name": "분수를 자연수로 만들기(2) {n/A}, {n/B}의 꼴",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G040.I01",
           "source_code": "PF-118",
           "no_in_group": 1,
           "name": "두 분수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G040.I02",
           "source_code": "PF-119",
           "no_in_group": 2,
           "name": "세 분수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -2048,20 +2842,33 @@
       "type_name": "분수를 자연수로 만들기(3) {A/B}, {C/D}의 꼴",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G041.I01",
           "source_code": "PF-120",
           "no_in_group": 1,
           "name": "두 분수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G041.I02",
           "source_code": "PF-121",
           "no_in_group": 2,
           "name": "세 분수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -2088,41 +2895,72 @@
       "type_name": "최대공약수의 실생활 문제(1) 일정한 양을 가능한 한 많은 사람에게 나누어 주기",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G042.I01",
           "source_code": "PF-122",
           "no_in_group": 1,
           "name": "두 물건을 나누는 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G042.I02",
           "source_code": "PF-123",
           "no_in_group": 2,
           "name": "세 물건을 나누는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G042.I03",
           "source_code": "PF-124",
           "no_in_group": 3,
           "name": "남, 여학생의 조 편성",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G042.I04",
           "source_code": "PF-125",
           "no_in_group": 4,
           "name": "나눈 물건이 남거나 모자란 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G042.I05",
           "source_code": "PF-126",
           "no_in_group": 5,
           "name": "나눈 세 물건이 남거나 모자란 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 34,
@@ -2149,20 +2987,33 @@
       "type_name": "최대공약수의 실생활 문제(2) 직사각형, 직육면체 채우기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G043.I01",
           "source_code": "PF-127",
           "no_in_group": 1,
           "name": "직사각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G043.I02",
           "source_code": "PF-128",
           "no_in_group": 2,
           "name": "직육면체",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -2189,27 +3040,46 @@
       "type_name": "최대공약수의 실생활 문제(3) 일정한 간격으로 놓기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G044.I01",
           "source_code": "PF-129",
           "no_in_group": 1,
           "name": "삼각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G044.I02",
           "source_code": "PF-130",
           "no_in_group": 2,
           "name": "직사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G044.I03",
           "source_code": "PF-131",
           "no_in_group": 3,
           "name": "직선의 길",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -2236,34 +3106,59 @@
       "type_name": "최소공배수의 실생활 문제(1) 과부족에 대한 문제",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G045.I01",
           "source_code": "PF-132",
           "no_in_group": 1,
           "name": "두 수에 대하여 나누어떨어지는 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G045.I02",
           "source_code": "PF-133",
           "no_in_group": 2,
           "name": "두 수에 대하여 남거나 모자란 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G045.I03",
           "source_code": "PF-134",
           "no_in_group": 3,
           "name": "세 수에 대하여 남거나 모자란 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G045.I04",
           "source_code": "PF-135",
           "no_in_group": 4,
           "name": "세 수에 대하여 같은 수가 남거나 모자란 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -2290,34 +3185,59 @@
       "type_name": "최소공배수의 실생활 문제(2) 동시에 출발하여 다시 만나는 경우",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G046.I01",
           "source_code": "PF-136",
           "no_in_group": 1,
           "name": "두 사람의 바퀴 수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G046.I02",
           "source_code": "PF-137",
           "no_in_group": 2,
           "name": "세 사람의 바퀴 수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G046.I03",
           "source_code": "PF-138",
           "no_in_group": 3,
           "name": "두 시간, 날짜, 간격",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G046.I04",
           "source_code": "PF-139",
           "no_in_group": 4,
           "name": "세 시간, 날짜, 간격",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 30,
@@ -2344,27 +3264,46 @@
       "type_name": "최소공배수의 실생활 문제(3) 맞물려 도는 톱니바퀴",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G047.I01",
           "source_code": "PF-140",
           "no_in_group": 1,
           "name": "톱니의 개수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G047.I02",
           "source_code": "PF-141",
           "no_in_group": 2,
           "name": "회전수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G047.I03",
           "source_code": "PF-142",
           "no_in_group": 3,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -2391,20 +3330,33 @@
       "type_name": "최소공배수의 실생활 문제(4) 정사각형, 정육면체 만들기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G048.I01",
           "source_code": "PF-143",
           "no_in_group": 1,
           "name": "정사각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G048.I02",
           "source_code": "PF-144",
           "no_in_group": 2,
           "name": "정육면체",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -2431,20 +3383,33 @@
       "type_name": "최대공약수와 최소공배수의 관계를 이용하여 수 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G049.I01",
           "source_code": "PF-145",
           "no_in_group": 1,
           "name": "두 수에 대한 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G049.I02",
           "source_code": "PF-146",
           "no_in_group": 2,
           "name": "세 수에 대한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -2471,27 +3436,46 @@
       "type_name": "(두 수의 곱)=(최대공약수)×(최소공배수)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.PF.G050.I01",
           "source_code": "PF-147",
           "no_in_group": 1,
           "name": "두 수의 곱 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G050.I02",
           "source_code": "PF-148",
           "no_in_group": 2,
           "name": "곱과 최대공약수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.PF.G050.I03",
           "source_code": "PF-149",
           "no_in_group": 3,
           "name": "곱과 최소공배수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,

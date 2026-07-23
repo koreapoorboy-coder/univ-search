@@ -31,9 +31,20 @@
     "declared_total": 223,
     "stored_total": 223,
     "match": true,
-    "mismatched_groups": []
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 1115,
+  "detail_type_check": {
+    "counted_groups": 62,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 0,
@@ -60,7 +71,36 @@
     "legacy_source": "m1_basic_geometry.raw_taxonomy.v1.json (sections / task_group)",
     "legacy_has_error_tags": false,
     "legacy_error_tag_vocab": 0,
-    "legacy_error_tag_sample": []
+    "legacy_error_tag_sample": [],
+    "alt_legacy_source": "m1_basic_geometry.problem_types.v1.json (problem_types)",
+    "alt_legacy_count": 55,
+    "alt_legacy_has_error_tags": true,
+    "alt_legacy_error_tag_vocab": 82,
+    "alt_legacy_error_tag_sample": [
+      "additional_condition",
+      "alternate_angles",
+      "angle_180",
+      "angle_calculation",
+      "angle_condition",
+      "angle_equation",
+      "angle_position",
+      "angle_property"
+    ],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m1_basic_geometry.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 55,
+    "item_count": 223,
+    "match_confident": 3,
+    "match_candidate": 29,
+    "match_none": 191,
+    "concept_ids_inherited": 3,
+    "error_tags_referenced": 3,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
     {
@@ -74,20 +114,33 @@
       "type_name": "도형",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G001.I01",
           "source_code": "BG-001",
           "no_in_group": 1,
           "name": "도형의 기본요소",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT001",
+          "legacy_type_name": "도형의 기본 요소 판별하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.636,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G001.I02",
           "source_code": "BG-002",
           "no_in_group": 2,
           "name": "도형의 종류",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -114,48 +167,85 @@
       "type_name": "교점과 교선",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G002.I01",
           "source_code": "BG-003",
           "no_in_group": 1,
           "name": "교점과 교선의 이해",
-          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT002",
+          "legacy_type_name": "교점과 교선 찾기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G002.I02",
           "source_code": "BG-004",
           "no_in_group": 2,
           "name": "교점의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G002.I03",
           "source_code": "BG-005",
           "no_in_group": 3,
           "name": "교선의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G002.I04",
           "source_code": "BG-006",
           "no_in_group": 4,
           "name": "면의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G002.I05",
           "source_code": "BG-007",
           "no_in_group": 5,
           "name": "교점, 교선, 면의 수의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G002.I06",
           "source_code": "BG-008",
           "no_in_group": 6,
           "name": "도형의 기본 요소의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 23,
@@ -182,41 +272,72 @@
       "type_name": "직선, 반직선, 선분",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G003.I01",
           "source_code": "BG-009",
           "no_in_group": 1,
           "name": "직선, 반직선, 선분의 기호 표현",
-          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G003.I02",
           "source_code": "BG-010",
           "no_in_group": 2,
           "name": "직선, 반직선, 선분의 그림 표현",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G003.I03",
           "source_code": "BG-011",
           "no_in_group": 3,
           "name": "직선, 반직선, 선분의 공통부분",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G003.I04",
           "source_code": "BG-012",
           "no_in_group": 4,
           "name": "직선, 반직선, 선분의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT003",
+          "legacy_type_name": "직선·반직선·선분 구분하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.636,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G003.I05",
           "source_code": "BG-013",
           "no_in_group": 5,
           "name": "직선, 반직선, 선분만 만드는 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -243,27 +364,46 @@
       "type_name": "직선, 반직선, 선분의 개수(1)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G004.I01",
           "source_code": "BG-014",
           "no_in_group": 1,
           "name": "한 직선 위에 있지 않은 점에서의 직선, 반직선, 선분의 개수 및 연산",
-          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G004.I02",
           "source_code": "BG-015",
           "no_in_group": 2,
           "name": "한 원 위에서의 직선, 반직선, 선분의 개수 및 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G004.I03",
           "source_code": "BG-016",
           "no_in_group": 3,
           "name": "직선, 반직선, 선분의 개수의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT004",
+          "legacy_type_name": "직선·반직선·선분의 개수 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.769,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -290,41 +430,72 @@
       "type_name": "직선, 반직선, 선분의 개수(2)",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G005.I01",
           "source_code": "BG-017",
           "no_in_group": 1,
           "name": "한 직선 위에서의 직선, 반직선, 선분의 개수 및 연산",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G005.I02",
           "source_code": "BG-018",
           "no_in_group": 2,
           "name": "직선과 그 밖의 점에서의 직선, 반직선, 선분의 개수 및 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G005.I03",
           "source_code": "BG-019",
           "no_in_group": 3,
           "name": "직선 위에서의 직선, 반직선, 선분의 개수 및 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G005.I04",
           "source_code": "BG-020",
           "no_in_group": 4,
           "name": "곡선과 직선으로 둘러싸인 도형에서의 직선, 반직선, 선분의 개수 및 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G005.I05",
           "source_code": "BG-021",
           "no_in_group": 5,
           "name": "평면도형에서의 직선, 반직선, 선분의 개수 및 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -351,20 +522,33 @@
       "type_name": "두 점 A, B 사이의 거리",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G006.I01",
           "source_code": "BG-022",
           "no_in_group": 1,
           "name": "두 점 사이의 거리의 이해",
-          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT005",
+          "legacy_type_name": "두 점 사이의 거리 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.7,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G006.I02",
           "source_code": "BG-023",
           "no_in_group": 2,
           "name": "직선, 반직선, 선분에 대한 설명: 두 점 A, B사이의 거리에 대한 선택지 포함",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 4,
@@ -391,34 +575,59 @@
       "type_name": "선분의 중점",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G007.I01",
           "source_code": "BG-024",
           "no_in_group": 1,
           "name": "선분의 중점의 이해",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G007.I02",
           "source_code": "BG-025",
           "no_in_group": 2,
           "name": "선분의 중점의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT006",
+          "legacy_type_name": "선분의 중점 찾기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G007.I03",
           "source_code": "BG-026",
           "no_in_group": 3,
           "name": "점, 선, 면에 대한 설명: 선분의 중점에 대한 선택지 포함",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G007.I04",
           "source_code": "BG-027",
           "no_in_group": 4,
           "name": "선분의 중점의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -445,34 +654,59 @@
       "type_name": "두 점 사이의 거리(1)",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G008.I01",
           "source_code": "BG-028",
           "no_in_group": 1,
           "name": "선분의 전체 길이가 주어졌을 때 일부분의 길이 구하기",
-          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G008.I02",
           "source_code": "BG-029",
           "no_in_group": 2,
           "name": "선분의 일부분의 길이가 주어졌을 때 전체 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G008.I03",
           "source_code": "BG-030",
           "no_in_group": 3,
           "name": "선분의 일부분의 길이가 주어졌을 때 다른 일부분의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G008.I04",
           "source_code": "BG-031",
           "no_in_group": 4,
           "name": "두 선분의 길이 사이의 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -499,55 +733,98 @@
       "type_name": "두 점 사이의 거리(2)",
       "topic_type_count": 7,
       "topic_type_actual": 7,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G009.I01",
           "source_code": "BG-032",
           "no_in_group": 1,
           "name": "선분의 전체 길이와 일부분의 길이가 주어졌을 때 다른 일부분의 길이 구하기",
-          "review_status": "원문 확인 / 37개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 37개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G009.I02",
           "source_code": "BG-033",
           "no_in_group": 2,
           "name": "선분의 전체 길이가 주어졌을 때 일부분의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G009.I03",
           "source_code": "BG-034",
           "no_in_group": 3,
           "name": "선분의 일부분의 길이가 주어졌을 때 전체 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G009.I04",
           "source_code": "BG-035",
           "no_in_group": 4,
           "name": "여러 선분의 길이 사이의 관계가 주어진 경우: 배수 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G009.I05",
           "source_code": "BG-036",
           "no_in_group": 5,
           "name": "여러 선분의 길이 사이의 관계가 주어진 경우: 길이의 비",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G009.I06",
           "source_code": "BG-037",
           "no_in_group": 6,
           "name": "선분의 일부분의 길이가 주어졌을 때 다른 일부분의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G009.I07",
           "source_code": "BG-038",
           "no_in_group": 7,
           "name": "선분의 길이 사이의 관계 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 44,
@@ -574,34 +851,59 @@
       "type_name": "각",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G010.I01",
           "source_code": "BG-039",
           "no_in_group": 1,
           "name": "각의 크기에 따른 분류",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G010.I02",
           "source_code": "BG-040",
           "no_in_group": 2,
           "name": "각의 기호 표현",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G010.I03",
           "source_code": "BG-041",
           "no_in_group": 3,
           "name": "예각, 직각, 둔각, 평각의 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G010.I04",
           "source_code": "BG-042",
           "no_in_group": 4,
           "name": "각의 표현의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -628,20 +930,33 @@
       "type_name": "직각을 이용하여 각의 크기 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G011.I01",
           "source_code": "BG-043",
           "no_in_group": 1,
           "name": "직각이 1개인 경우 각의 크기 구하기",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G011.I02",
           "source_code": "BG-044",
           "no_in_group": 2,
           "name": "직각이 n개인 경우 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -668,27 +983,46 @@
       "type_name": "평각을 이용하여 각의 크기 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G012.I01",
           "source_code": "BG-045",
           "no_in_group": 1,
           "name": "평각을 이용하여 ∠x / x의 값 구하기",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT041",
+          "legacy_type_name": "엇각을 이용하여 평행선 작도하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G012.I02",
           "source_code": "BG-046",
           "no_in_group": 2,
           "name": "평각을 이용하여 ∠x / x, ∠y / y의 값 구하기 또는 그 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G012.I03",
           "source_code": "BG-047",
           "no_in_group": 3,
           "name": "360°를 이용하여 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT009",
+          "legacy_type_name": "직각자를 이용하여 각의 크기 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.8,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -715,34 +1049,59 @@
       "type_name": "각의 크기의 비가 주어지는 경우",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G013.I01",
           "source_code": "BG-048",
           "no_in_group": 1,
           "name": "각의 크기의 비가 주어지는 경우",
-          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G013.I02",
           "source_code": "BG-049",
           "no_in_group": 2,
           "name": "일부분의 각의 크기와 각의 크기의 비가 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G013.I03",
           "source_code": "BG-050",
           "no_in_group": 3,
           "name": "각의 크기의 비가 여러개 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G013.I04",
           "source_code": "BG-051",
           "no_in_group": 4,
           "name": "각의 크기의 비가 주어지는 경우의 도형에의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT011",
+          "legacy_type_name": "각의 크기 비가 주어진 경우 각도 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.55,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -769,34 +1128,59 @@
       "type_name": "각의 크기 사이의 조건이 주어지는 경우",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G014.I01",
           "source_code": "BG-052",
           "no_in_group": 1,
           "name": "각의 크기 사이의 관계식이 주어지는 경우",
-          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G014.I02",
           "source_code": "BG-053",
           "no_in_group": 2,
           "name": "일부분의 각의 크기와 각의 크기 사이의 관계가 주어지는 경우: 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G014.I03",
           "source_code": "BG-054",
           "no_in_group": 3,
           "name": "일부분의 각의 크기와 각의 크기 사이의 관계가 주어지는 경우: 두 각 사이의 관계 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G014.I04",
           "source_code": "BG-055",
           "no_in_group": 4,
           "name": "특정 각을 공통으로 뺄 수 관계가 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -823,34 +1207,59 @@
       "type_name": "시침과 분침이 이루는 각의 크기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G015.I01",
           "source_code": "BG-056",
           "no_in_group": 1,
           "name": "각의 크기 구하기",
-          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G015.I02",
           "source_code": "BG-057",
           "no_in_group": 2,
           "name": "시각 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G015.I03",
           "source_code": "BG-058",
           "no_in_group": 3,
           "name": "특정 각도를 이루는 횟수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G015.I04",
           "source_code": "BG-059",
           "no_in_group": 4,
           "name": "걸리는 시간 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -877,27 +1286,46 @@
       "type_name": "맞꼭지각의 성질",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G016.I01",
           "source_code": "BG-060",
           "no_in_group": 1,
           "name": "맞꼭지각의 이해",
-          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G016.I02",
           "source_code": "BG-061",
           "no_in_group": 2,
           "name": "맞꼭지각을 이루는 두 각",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G016.I03",
           "source_code": "BG-062",
           "no_in_group": 3,
           "name": "맞꼭지각을 이루는 두 각 이외의 다른 각 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -924,27 +1352,46 @@
       "type_name": "수직과 수선",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G017.I01",
           "source_code": "BG-063",
           "no_in_group": 1,
           "name": "직교",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G017.I02",
           "source_code": "BG-064",
           "no_in_group": 2,
           "name": "수선의 발과 수직이등분선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G017.I03",
           "source_code": "BG-065",
           "no_in_group": 3,
           "name": "수선의 발을 이용한 도형의 넓이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -971,34 +1418,59 @@
       "type_name": "점과 직선 사이의 거리",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G018.I01",
           "source_code": "BG-066",
           "no_in_group": 1,
           "name": "점과 직선 사이의 거리 나타내기",
-          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT017",
+          "legacy_type_name": "점과 직선 사이의 거리 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.769,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G018.I02",
           "source_code": "BG-067",
           "no_in_group": 2,
           "name": "점과 직선 사이의 거리 구하기: 주어진 선분의 길이 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G018.I03",
           "source_code": "BG-068",
           "no_in_group": 3,
           "name": "(종합) 점과 직선 사이의 거리에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G018.I04",
           "source_code": "BG-069",
           "no_in_group": 4,
           "name": "점과 직선 사이의 거리 구하기: 넓이 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -1025,27 +1497,46 @@
       "type_name": "맞꼭지각의 성질의 활용(1)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G019.I01",
           "source_code": "BG-070",
           "no_in_group": 1,
           "name": "맞꼭지각과 평각 또는 직각을 이용하여 ∠x의 크기 구하기",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G019.I02",
           "source_code": "BG-071",
           "no_in_group": 2,
           "name": "맞꼭지각과 평각 또는 직각을 이용하여 x, y의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G019.I03",
           "source_code": "BG-072",
           "no_in_group": 3,
           "name": "맞꼭지각과 평각 또는 직각을 이용하여 여러 가지 미지수의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -1072,20 +1563,33 @@
       "type_name": "맞꼭지각의 성질의 활용(2)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G020.I01",
           "source_code": "BG-073",
           "no_in_group": 1,
           "name": "맞꼭지각을 이용하여 ∠x의 크기 구하기",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT010",
+          "legacy_type_name": "평각을 이용하여 각의 크기 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G020.I02",
           "source_code": "BG-074",
           "no_in_group": 2,
           "name": "맞꼭지각과 평각 또는 직각을 이용하여 x, y의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -1112,20 +1616,33 @@
       "type_name": "맞꼭지각의 쌍의 개수",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G021.I01",
           "source_code": "BG-075",
           "no_in_group": 1,
           "name": "서로 다른 직선이 한 점에서 만나는 경우",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G021.I02",
           "source_code": "BG-076",
           "no_in_group": 2,
           "name": "한 평면 위의 서로 다른 선분이 각각 다른 점에서 만나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -1152,34 +1669,59 @@
       "type_name": "점과 직선, 점과 평면의 위치 관계",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G022.I01",
           "source_code": "BG-077",
           "no_in_group": 1,
           "name": "점과 직선의 위치 관계",
-          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G022.I02",
           "source_code": "BG-078",
           "no_in_group": 2,
           "name": "점과 평면의 위치 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G022.I03",
           "source_code": "BG-079",
           "no_in_group": 3,
           "name": "입체도형에서 점과 직선, 점과 평면의 위치 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G022.I04",
           "source_code": "BG-080",
           "no_in_group": 4,
           "name": "점, 직선, 평면이 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -1206,27 +1748,46 @@
       "type_name": "평면에서 두 직선의 위치 관계",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G023.I01",
           "source_code": "BG-081",
           "no_in_group": 1,
           "name": "교점 또는 두 직선의 위치 관계 또는 주어진 위치 관계에 해당하는 선분 구하기",
-          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G023.I02",
           "source_code": "BG-082",
           "no_in_group": 2,
           "name": "평면에서 두 직선의 위치 관계의 빈칸 채우기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT020",
+          "legacy_type_name": "평면에서 두 직선의 위치 관계 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.722,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G023.I03",
           "source_code": "BG-083",
           "no_in_group": 3,
           "name": "평면에서의 두 직선의 위치 관계에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT023",
+          "legacy_type_name": "공간에서 두 직선의 위치 관계 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -1253,20 +1814,33 @@
       "type_name": "평면이 정해질 조건",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G024.I01",
           "source_code": "BG-084",
           "no_in_group": 1,
           "name": "평면이 정해질 조건",
-          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT021",
+          "legacy_type_name": "평면이 정해질 조건 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G024.I02",
           "source_code": "BG-085",
           "no_in_group": 2,
           "name": "결정되는 평면의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1293,34 +1867,59 @@
       "type_name": "꼬인 위치",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G025.I01",
           "source_code": "BG-086",
           "no_in_group": 1,
           "name": "꼬인 위치의 이해",
-          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G025.I02",
           "source_code": "BG-087",
           "no_in_group": 2,
           "name": "꼬인 위치에 있는 모서리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G025.I03",
           "source_code": "BG-088",
           "no_in_group": 3,
           "name": "동시에 꼬인 위치에 있는 모서리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G025.I04",
           "source_code": "BG-089",
           "no_in_group": 4,
           "name": "꼬인 위치에 있는 모서리의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -1347,48 +1946,85 @@
       "type_name": "공간에서 두 직선의 위치 관계",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G026.I01",
           "source_code": "BG-090",
           "no_in_group": 1,
           "name": "두 직선의 위치 관계",
-          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G026.I02",
           "source_code": "BG-091",
           "no_in_group": 2,
           "name": "한 점에서 만나는 모서리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G026.I03",
           "source_code": "BG-092",
           "no_in_group": 3,
           "name": "수직인 모서리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G026.I04",
           "source_code": "BG-093",
           "no_in_group": 4,
           "name": "평행한 모서리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G026.I05",
           "source_code": "BG-094",
           "no_in_group": 5,
           "name": "한 점에서 만나는 모서리, 수직인 모서리, 평행한 모서리에 있는 모서리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G026.I06",
           "source_code": "BG-095",
           "no_in_group": 6,
           "name": "공간에서 위치 관계에 따른 모서리 개수의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 28,
@@ -1415,62 +2051,111 @@
       "type_name": "공간에서 직선과 평면의 위치 관계",
       "topic_type_count": 8,
       "topic_type_actual": 8,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G027.I01",
           "source_code": "BG-096",
           "no_in_group": 1,
           "name": "면에 포함되는 모서리, 모서리를 포함하는 면",
-          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G027.I02",
           "source_code": "BG-097",
           "no_in_group": 2,
           "name": "한 점에서 만나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G027.I03",
           "source_code": "BG-098",
           "no_in_group": 3,
           "name": "수직인 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G027.I04",
           "source_code": "BG-099",
           "no_in_group": 4,
           "name": "평행한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G027.I05",
           "source_code": "BG-100",
           "no_in_group": 5,
           "name": "공간에서 직선과 평면의 위치 관계에서의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G027.I06",
           "source_code": "BG-101",
           "no_in_group": 6,
           "name": "공간에서 직선과 평면의 위치 관계에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT024",
+          "legacy_type_name": "공간에서 직선과 평면의 위치 관계 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.778,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G027.I07",
           "source_code": "BG-102",
           "no_in_group": 7,
           "name": "직선과 평면의 위치 관계 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT019",
+          "legacy_type_name": "점·직선·평면의 위치 관계 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.714,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G027.I08",
           "source_code": "BG-103",
           "no_in_group": 8,
           "name": "주어진 위치 관계에 해당하는 면, 모서리: 종합",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 30,
@@ -1497,27 +2182,46 @@
       "type_name": "점과 평면 사이의 거리",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G028.I01",
           "source_code": "BG-104",
           "no_in_group": 1,
           "name": "점과 평면 사이의 거리",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT025",
+          "legacy_type_name": "점과 평면 사이의 거리 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G028.I02",
           "source_code": "BG-105",
           "no_in_group": 2,
           "name": "점과 평면 사이의 거리를 나타내는 모서리",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G028.I03",
           "source_code": "BG-106",
           "no_in_group": 3,
           "name": "(종합) 점과 평면 사이의 거리에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1544,48 +2248,85 @@
       "type_name": "공간에서 두 평면의 위치 관계",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G029.I01",
           "source_code": "BG-107",
           "no_in_group": 1,
           "name": "입체도형에서의 두 평면과 교선",
-          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G029.I02",
           "source_code": "BG-108",
           "no_in_group": 2,
           "name": "공간에서 주어진 위치 관계를 가지는 평면 또는 그 개수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G029.I03",
           "source_code": "BG-109",
           "no_in_group": 3,
           "name": "공간에서의 두 평면의 위치 관계 또는 특정한 위치 관계를 가지는 경우 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G029.I04",
           "source_code": "BG-110",
           "no_in_group": 4,
           "name": "공간에서 두 평면의 위치 관계에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT026",
+          "legacy_type_name": "공간에서 두 평면의 위치 관계 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G029.I05",
           "source_code": "BG-111",
           "no_in_group": 5,
           "name": "직교하는 두 평면이 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G029.I06",
           "source_code": "BG-112",
           "no_in_group": 6,
           "name": "평면에 의해 나누어지는 공간의 수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -1612,34 +2353,59 @@
       "type_name": "일부가 잘린 입체도형에서의 위치 관계",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G030.I01",
           "source_code": "BG-113",
           "no_in_group": 1,
           "name": "특정 위치 관계에 해당하는 면/모서리 구하기",
-          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G030.I02",
           "source_code": "BG-114",
           "no_in_group": 2,
           "name": "특정 위치 관계에 해당하는 면/모서리의 개수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G030.I03",
           "source_code": "BG-115",
           "no_in_group": 3,
           "name": "특정 위치 관계에 해당하는 면/모서리의 개수의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G030.I04",
           "source_code": "BG-116",
           "no_in_group": 4,
           "name": "일부가 잘린 입체도형에서의 위치 관계에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT027",
+          "legacy_type_name": "잘린 입체도형에서 위치 관계 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.556,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -1666,62 +2432,111 @@
       "type_name": "전개도가 주어진 입체도형에서의 위치 관계",
       "topic_type_count": 8,
       "topic_type_actual": 8,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G031.I01",
           "source_code": "BG-117",
           "no_in_group": 1,
           "name": "주어진 위치 관계에 해당하는 면, 모서리: 평행",
-          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G031.I02",
           "source_code": "BG-118",
           "no_in_group": 2,
           "name": "주어진 위치 관계에 해당하는 면, 모서리: 만나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G031.I03",
           "source_code": "BG-119",
           "no_in_group": 3,
           "name": "주어진 위치 관계에 해당하는 면, 모서리: 수직",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G031.I04",
           "source_code": "BG-120",
           "no_in_group": 4,
           "name": "주어진 위치 관계에 해당하는 면, 모서리: 꼬인 위치",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G031.I05",
           "source_code": "BG-121",
           "no_in_group": 5,
           "name": "전개도가 주어진 입체도형에서의 위치 관계에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G031.I06",
           "source_code": "BG-122",
           "no_in_group": 6,
           "name": "전개도가 주어진 입체도형에서의 위치 관계에서의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G031.I07",
           "source_code": "BG-123",
           "no_in_group": 7,
           "name": "전개도가 주어진 입체도형에서의 위치 관계 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT028",
+          "legacy_type_name": "전개도에서 입체도형 위치 관계 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G031.I08",
           "source_code": "BG-124",
           "no_in_group": 8,
           "name": "주어진 위치 관계에 해당하는 면, 모서리: 종합",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 32,
@@ -1748,20 +2563,33 @@
       "type_name": "여러 가지 위치 관계",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G032.I01",
           "source_code": "BG-125",
           "no_in_group": 1,
           "name": "여러 가지 위치 관계에 대한 설명",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G032.I02",
           "source_code": "BG-126",
           "no_in_group": 2,
           "name": "특정 위치 관계를 이용한 다른 위치 관계 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -1788,34 +2616,59 @@
       "type_name": "동위각과 엇각",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G033.I01",
           "source_code": "BG-127",
           "no_in_group": 1,
           "name": "동위각과 엇각 찾기",
-          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT029",
+          "legacy_type_name": "동위각과 엇각 판별하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.7,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G033.I02",
           "source_code": "BG-128",
           "no_in_group": 2,
           "name": "동위각과 엇각의 개수의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G033.I03",
           "source_code": "BG-129",
           "no_in_group": 3,
           "name": "동위각, 엇각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G033.I04",
           "source_code": "BG-130",
           "no_in_group": 4,
           "name": "동위각, 엇각의 크기에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 23,
@@ -1842,34 +2695,59 @@
       "type_name": "평행선의 성질",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G034.I01",
           "source_code": "BG-131",
           "no_in_group": 1,
           "name": "미지수 구하기: 미지수 1개",
-          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G034.I02",
           "source_code": "BG-132",
           "no_in_group": 2,
           "name": "미지수 구하기: 미지수 2개 이상",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G034.I03",
           "source_code": "BG-133",
           "no_in_group": 3,
           "name": "크기가 같은/다른 각 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G034.I04",
           "source_code": "BG-134",
           "no_in_group": 4,
           "name": "평행선의 성질에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -1896,41 +2774,72 @@
       "type_name": "두 직선이 평행할 조건",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G035.I01",
           "source_code": "BG-135",
           "no_in_group": 1,
           "name": "두 직선이 평행할 조건",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G035.I02",
           "source_code": "BG-136",
           "no_in_group": 2,
           "name": "두 직선의 평행 여부 판단",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G035.I03",
           "source_code": "BG-137",
           "no_in_group": 3,
           "name": "평행한 두 직선 찾기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G035.I04",
           "source_code": "BG-138",
           "no_in_group": 4,
           "name": "평행한 두 직선을 찾아 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G035.I05",
           "source_code": "BG-139",
           "no_in_group": 5,
           "name": "두 직선이 평행할 조건의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT031",
+          "legacy_type_name": "두 직선이 평행할 조건 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.692,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -1957,27 +2866,46 @@
       "type_name": "두 쌍의 평행선",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G036.I01",
           "source_code": "BG-140",
           "no_in_group": 1,
           "name": "미지수 구하기: 미지수 1개",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G036.I02",
           "source_code": "BG-141",
           "no_in_group": 2,
           "name": "미지수 구하기: 미지수 2개 이상",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G036.I03",
           "source_code": "BG-142",
           "no_in_group": 3,
           "name": "크기가 같은 각 찾기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -2004,34 +2932,59 @@
       "type_name": "평행선과 삼각형 모양",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G037.I01",
           "source_code": "BG-143",
           "no_in_group": 1,
           "name": "V자로 꺾인 직선이 있는 경우",
-          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G037.I02",
           "source_code": "BG-144",
           "no_in_group": 2,
           "name": "한 점에서 만나는 세 직선과 그중 한 직선과 평행한 다른 직선이 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G037.I03",
           "source_code": "BG-145",
           "no_in_group": 3,
           "name": "두 평행선 사이에 X자로 교차하는 두 직선이 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G037.I04",
           "source_code": "BG-146",
           "no_in_group": 4,
           "name": "두 각 사이의 비 또는 배수 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -2058,20 +3011,33 @@
       "type_name": "평행선과 꺾인 직선(1)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G038.I01",
           "source_code": "BG-147",
           "no_in_group": 1,
           "name": "각의 크기 사이의 배수 관계가 주어지지 않은 경우",
-          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G038.I02",
           "source_code": "BG-148",
           "no_in_group": 2,
           "name": "각의 크기 사이의 배수 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -2098,13 +3064,20 @@
       "type_name": "평행선과 꺾인 직선(2)",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G039.I01",
           "source_code": "BG-149",
           "no_in_group": 1,
           "name": "평행선 사이의 꺾인 직선",
-          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -2131,13 +3104,20 @@
       "type_name": "평행선과 꺾인 직선(3)",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G040.I01",
           "source_code": "BG-150",
           "no_in_group": 1,
           "name": "평행선과 꺾인 직선",
-          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -2164,41 +3144,72 @@
       "type_name": "평행선에서의 활용(1)",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G041.I01",
           "source_code": "BG-151",
           "no_in_group": 1,
           "name": "평행선 사이의 정삼각형",
-          "review_status": "원문 확인 / 29개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 29개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G041.I02",
           "source_code": "BG-152",
           "no_in_group": 2,
           "name": "평행선 사이의 삼각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G041.I03",
           "source_code": "BG-153",
           "no_in_group": 3,
           "name": "평행선과 사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G041.I04",
           "source_code": "BG-154",
           "no_in_group": 4,
           "name": "평행선과 꺾인 직선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G041.I05",
           "source_code": "BG-155",
           "no_in_group": 5,
           "name": "꺾인 직선이 평행을 이루는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 34,
@@ -2225,27 +3236,46 @@
       "type_name": "평행선에서의 활용(2)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G042.I01",
           "source_code": "BG-156",
           "no_in_group": 1,
           "name": "한 각의 크기 구하기",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G042.I02",
           "source_code": "BG-157",
           "no_in_group": 2,
           "name": "여러 각의 크기의 합",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G042.I03",
           "source_code": "BG-158",
           "no_in_group": 3,
           "name": "활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -2272,55 +3302,98 @@
       "type_name": "종이를 접었을 때 각의 크기 구하기",
       "topic_type_count": 7,
       "topic_type_actual": 7,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G043.I01",
           "source_code": "BG-159",
           "no_in_group": 1,
           "name": "직사각형 모양의 띠종이 1번 접기",
-          "review_status": "원문 확인 / 43개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 43개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G043.I02",
           "source_code": "BG-160",
           "no_in_group": 2,
           "name": "직사각형 1번 접기: 안쪽으로 접기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G043.I03",
           "source_code": "BG-161",
           "no_in_group": 3,
           "name": "평행사변형 접기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G043.I04",
           "source_code": "BG-162",
           "no_in_group": 4,
           "name": "직사각형 1번 접기: 두 꼭짓점이 만나도록 접기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G043.I05",
           "source_code": "BG-163",
           "no_in_group": 5,
           "name": "직사각형 1번 접기: 대각선을 접는 선으로 하여 접기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G043.I06",
           "source_code": "BG-164",
           "no_in_group": 6,
           "name": "직사각형 2번 접기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G043.I07",
           "source_code": "BG-165",
           "no_in_group": 7,
           "name": "직사각형 3번 접기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 50,
@@ -2347,20 +3420,33 @@
       "type_name": "작도",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G044.I01",
           "source_code": "BG-166",
           "no_in_group": 1,
           "name": "작도의 개념과 작도에 사용되는 도구",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G044.I02",
           "source_code": "BG-167",
           "no_in_group": 2,
           "name": "작도의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -2387,27 +3473,46 @@
       "type_name": "길이가 같은 선분의 작도",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G045.I01",
           "source_code": "BG-168",
           "no_in_group": 1,
           "name": "길이가 같은 선분의 작도의 순서",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G045.I02",
           "source_code": "BG-169",
           "no_in_group": 2,
           "name": "길이가 같은 선분 작도에 사용되는 도구",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G045.I03",
           "source_code": "BG-170",
           "no_in_group": 3,
           "name": "길이가 같은 선분 작도에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT038",
+          "legacy_type_name": "길이가 같은 선분 작도하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.818,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -2434,20 +3539,33 @@
       "type_name": "크기가 같은 각의 작도",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G046.I01",
           "source_code": "BG-171",
           "no_in_group": 1,
           "name": "크기가 같은 각을 작도하는 과정에 대한 설명",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G046.I02",
           "source_code": "BG-172",
           "no_in_group": 2,
           "name": "크기가 같은 각 작도의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT039",
+          "legacy_type_name": "크기가 같은 각 작도하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.727,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2474,20 +3592,33 @@
       "type_name": "평행선의 작도(1) 동위각 이용",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G047.I01",
           "source_code": "BG-173",
           "no_in_group": 1,
           "name": "동위각을 이용한 평행선 작도",
-          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT040",
+          "legacy_type_name": "동위각을 이용하여 평행선 작도하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.733,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G047.I02",
           "source_code": "BG-174",
           "no_in_group": 2,
           "name": "평행선의 성질 (1)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -2514,13 +3645,20 @@
       "type_name": "평행선의 작도(2) 엇각 이용",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G048.I01",
           "source_code": "BG-175",
           "no_in_group": 1,
           "name": "평행선의 성질 (2)",
-          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -2547,27 +3685,46 @@
       "type_name": "삼각형의 대변과 대각",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G049.I01",
           "source_code": "BG-176",
           "no_in_group": 1,
           "name": "삼각형의 대변",
-          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G049.I02",
           "source_code": "BG-177",
           "no_in_group": 2,
           "name": "삼각형의 대각",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G049.I03",
           "source_code": "BG-178",
           "no_in_group": 3,
           "name": "삼각형의 대변, 대각",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -2594,34 +3751,59 @@
       "type_name": "삼각형의 세 변의 길이 사이의 관계",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G050.I01",
           "source_code": "BG-179",
           "no_in_group": 1,
           "name": "삼각형의 작도 가능 여부",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G050.I02",
           "source_code": "BG-180",
           "no_in_group": 2,
           "name": "삼각형이 될 수 있는 변의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G050.I03",
           "source_code": "BG-181",
           "no_in_group": 3,
           "name": "삼각형의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G050.I04",
           "source_code": "BG-182",
           "no_in_group": 4,
           "name": "삼각형의 세 변의 길이 사이의 관계의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT043",
+          "legacy_type_name": "삼각형의 세 변의 길이 관계 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.588,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2648,27 +3830,51 @@
       "type_name": "삼각형의 작도",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G051.I01",
           "source_code": "BG-183",
           "no_in_group": 1,
           "name": "삼각형의 작도 과정",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G051.I02",
           "source_code": "BG-184",
           "no_in_group": 2,
           "name": "삼각형의 작도 순서",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G051.I03",
           "source_code": "BG-185",
           "no_in_group": 3,
           "name": "삼각형 작도하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_BG_C030"
+          ],
+          "legacy_problem_type_id": "M1_BG_PT044",
+          "legacy_type_name": "삼각형 작도하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "triangle_construction",
+            "SSS_SAS_ASA"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -2695,27 +3901,46 @@
       "type_name": "삼각형이 정해질 조건",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G052.I01",
           "source_code": "BG-186",
           "no_in_group": 1,
           "name": "삼각형이 정해지기 위한 추가 조건",
-          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G052.I02",
           "source_code": "BG-187",
           "no_in_group": 2,
           "name": "삼각형이 정해질 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT045",
+          "legacy_type_name": "삼각형이 정해질 조건 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.692,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G052.I03",
           "source_code": "BG-188",
           "no_in_group": 3,
           "name": "삼각형의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -2742,41 +3967,72 @@
       "type_name": "삼각형이 하나로 정해지지 않는 경우",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G053.I01",
           "source_code": "BG-189",
           "no_in_group": 1,
           "name": "삼각형이 하나로 정해지지 않는 경우의 이해",
-          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT046",
+          "legacy_type_name": "삼각형이 하나로 정해지지 않는 경우 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.789,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G053.I02",
           "source_code": "BG-190",
           "no_in_group": 2,
           "name": "삼각형이 하나로 정해지지 않는 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G053.I03",
           "source_code": "BG-191",
           "no_in_group": 3,
           "name": "삼각형이 하나로 정해지기 위해 필요한 추가 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G053.I04",
           "source_code": "BG-192",
           "no_in_group": 4,
           "name": "삼각형이 하나로 정해지지 않는 경우의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G053.I05",
           "source_code": "BG-193",
           "no_in_group": 5,
           "name": "삼각형의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2803,20 +4059,33 @@
       "type_name": "도형의 합동",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G054.I01",
           "source_code": "BG-194",
           "no_in_group": 1,
           "name": "항상 합동인 도형",
-          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G054.I02",
           "source_code": "BG-195",
           "no_in_group": 2,
           "name": "합동인 도형 찾기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 3,
@@ -2843,27 +4112,46 @@
       "type_name": "합동인 도형의 성질",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G055.I01",
           "source_code": "BG-196",
           "no_in_group": 1,
           "name": "삼각형의 대응각, 대응변, 대응점",
-          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G055.I02",
           "source_code": "BG-197",
           "no_in_group": 2,
           "name": "사각형의 대응각, 대응변, 대응점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G055.I03",
           "source_code": "BG-198",
           "no_in_group": 3,
           "name": "합동인 두 도형에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -2890,20 +4178,38 @@
       "type_name": "합동인 삼각형 찾기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G056.I01",
           "source_code": "BG-199",
           "no_in_group": 1,
           "name": "주어진 삼각형과 합동인 삼각형 고르기",
-          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G056.I02",
           "source_code": "BG-200",
           "no_in_group": 2,
           "name": "합동인 삼각형 찾기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_BG_C033"
+          ],
+          "legacy_problem_type_id": "M1_BG_PT049",
+          "legacy_type_name": "합동인 삼각형 찾기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "triangle_congruence",
+            "matching"
+          ]
         }
       ],
       "detail_type_count": 12,
@@ -2930,13 +4236,25 @@
       "type_name": "삼각형이 합동이 되기 위해 추가될 조건",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G057.I01",
           "source_code": "BG-201",
           "no_in_group": 1,
           "name": "삼각형이 합동이 되기 위해 추가될 조건",
-          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M1_BG_C033"
+          ],
+          "legacy_problem_type_id": "M1_BG_PT050",
+          "legacy_type_name": "삼각형이 합동이 되기 위해 추가될 조건 찾기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.889,
+          "legacy_error_tags_ref": [
+            "triangle_congruence",
+            "additional_condition"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -2963,34 +4281,59 @@
       "type_name": "삼각형의 합동 조건(1) SSS합동",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G058.I01",
           "source_code": "BG-202",
           "no_in_group": 1,
           "name": "SSS 합동임을 보이는 과정 빈칸 채우기",
-          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G058.I02",
           "source_code": "BG-203",
           "no_in_group": 2,
           "name": "합동 조건 구하기 : SSS",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G058.I03",
           "source_code": "BG-204",
           "no_in_group": 3,
           "name": "합동인 두 삼각형의 설명 : SSS",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G058.I04",
           "source_code": "BG-205",
           "no_in_group": 4,
           "name": "합동의 활용 : SSS",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -3017,41 +4360,72 @@
       "type_name": "삼각형의 합동 조건(2) SAS합동",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G059.I01",
           "source_code": "BG-206",
           "no_in_group": 1,
           "name": "SAS 합동임을 보이는 과정 빈칸 채우기",
-          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G059.I02",
           "source_code": "BG-207",
           "no_in_group": 2,
           "name": "합동 조건 구하기 : SAS",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G059.I03",
           "source_code": "BG-208",
           "no_in_group": 3,
           "name": "합동의 증명 : SAS",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G059.I04",
           "source_code": "BG-209",
           "no_in_group": 4,
           "name": "합동인 두 삼각형의 설명 : SAS",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G059.I05",
           "source_code": "BG-210",
           "no_in_group": 5,
           "name": "합동의 활용 : SAS",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -3078,41 +4452,72 @@
       "type_name": "삼각형의 합동 조건(3) ASA합동",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G060.I01",
           "source_code": "BG-211",
           "no_in_group": 1,
           "name": "ASA 합동임을 보이는 과정 빈칸 채우기",
-          "review_status": "원문 확인 / 41개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 41개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G060.I02",
           "source_code": "BG-212",
           "no_in_group": 2,
           "name": "합동 조건 구하기 : ASA",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G060.I03",
           "source_code": "BG-213",
           "no_in_group": 3,
           "name": "합동의 증명 : ASA",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G060.I04",
           "source_code": "BG-214",
           "no_in_group": 4,
           "name": "합동인 두 삼각형의 설명 : ASA",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G060.I05",
           "source_code": "BG-215",
           "no_in_group": 5,
           "name": "합동의 활용 : ASA",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 46,
@@ -3139,34 +4544,59 @@
       "type_name": "삼각형의 합동의 활용(1) 정삼각형",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G061.I01",
           "source_code": "BG-216",
           "no_in_group": 1,
           "name": "정삼각형에서 합동의 증명 또는 합동 조건 구하기",
-          "review_status": "원문 확인 / 35개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 35개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G061.I02",
           "source_code": "BG-217",
           "no_in_group": 2,
           "name": "정삼각형에서 합동의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_BG_PT054",
+          "legacy_type_name": "정삼각형에서 삼각형 합동 활용하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G061.I03",
           "source_code": "BG-218",
           "no_in_group": 3,
           "name": "정삼각형에서 합동인 두 삼각형의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G061.I04",
           "source_code": "BG-219",
           "no_in_group": 4,
           "name": "정삼각형에서 두 삼각형이 합동이 되기 위한 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 39,
@@ -3193,34 +4623,59 @@
       "type_name": "삼각형의 합동의 활용(2) 정사각형",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.BG.G062.I01",
           "source_code": "BG-220",
           "no_in_group": 1,
           "name": "정사각형에서 합동의 증명 또는 합동 조건 구하기",
-          "review_status": "원문 확인 / 31개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 31개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G062.I02",
           "source_code": "BG-221",
           "no_in_group": 2,
           "name": "정사각형에서 합동의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G062.I03",
           "source_code": "BG-222",
           "no_in_group": 3,
           "name": "같은 길이의 선분 또는 같은 크기의 각 찾기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.BG.G062.I04",
           "source_code": "BG-223",
           "no_in_group": 4,
           "name": "정사각형에서 두 삼각형의 합동에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 35,

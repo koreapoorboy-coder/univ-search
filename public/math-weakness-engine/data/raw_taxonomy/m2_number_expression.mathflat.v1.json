@@ -61,7 +61,36 @@
     "legacy_source": "m2_number_expression.raw_taxonomy.v1.json (sections / task_group)",
     "legacy_has_error_tags": false,
     "legacy_error_tag_vocab": 0,
-    "legacy_error_tag_sample": []
+    "legacy_error_tag_sample": [],
+    "alt_legacy_source": "m2_number_expression.problem_types.v1.json (problem_types)",
+    "alt_legacy_count": 211,
+    "alt_legacy_has_error_tags": true,
+    "alt_legacy_error_tag_vocab": 126,
+    "alt_legacy_error_tag_sample": [
+      "base_condition",
+      "blank_expression",
+      "brackets",
+      "coefficient_variable_split",
+      "common_condition",
+      "concept_explanation",
+      "concept_judgment",
+      "condition_interpretation"
+    ],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m2_number_expression.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 211,
+    "item_count": 205,
+    "match_confident": 185,
+    "match_candidate": 3,
+    "match_none": 17,
+    "concept_ids_inherited": 185,
+    "error_tags_referenced": 185,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
     {
@@ -82,7 +111,18 @@
           "source_code": "NE-001",
           "no_in_group": 1,
           "name": "유리수의 분류",
-          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C001"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT001",
+          "legacy_type_name": "유리수의 분류",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "rational_classification",
+            "number_set"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -116,14 +156,42 @@
           "source_code": "NE-002",
           "no_in_group": 1,
           "name": "유한소수와 무한소수의 판단",
-          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C001",
+            "M2_NE_C002",
+            "M2_NE_C003"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT004",
+          "legacy_type_name": "유한소수와 무한소수의 판단",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "decimal_classification",
+            "finite_decimal",
+            "infinite_decimal"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G002.I02",
           "source_code": "NE-003",
           "no_in_group": 2,
           "name": "유한소수와 무한소수의 구분",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C001",
+            "M2_NE_C002",
+            "M2_NE_C003"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT005",
+          "legacy_type_name": "유한소수와 무한소수의 구분",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "decimal_classification",
+            "finite_decimal",
+            "infinite_decimal"
+          ]
         }
       ],
       "detail_type_count": 4,
@@ -157,14 +225,42 @@
           "source_code": "NE-004",
           "no_in_group": 1,
           "name": "분수의 소수표현 및 판단",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C004",
+            "M2_NE_C005",
+            "M2_NE_C006"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT007",
+          "legacy_type_name": "분수의 소수표현 및 판단",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "fraction_to_decimal",
+            "denominator_factor",
+            "power_of_10"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G003.I02",
           "source_code": "NE-005",
           "no_in_group": 2,
           "name": "10의 거듭제곱을 이용한 분수의 유한소수 표현",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C004",
+            "M2_NE_C005",
+            "M2_NE_C006"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT008",
+          "legacy_type_name": "10의 거듭제곱을 이용한 분수의 유한소수 표현",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "fraction_to_decimal",
+            "denominator_factor",
+            "power_of_10"
+          ]
         }
       ],
       "detail_type_count": 14,
@@ -198,14 +294,40 @@
           "source_code": "NE-006",
           "no_in_group": 1,
           "name": "분수의 유한소수 표현 가능 여부",
-          "review_status": "원문 확인 / 33개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 33개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT010",
+          "legacy_type_name": "분수의 유한소수 표현 가능 여부",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "finite_decimal_condition",
+            "prime_factor_2_5",
+            "condition_search"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G004.I02",
           "source_code": "NE-007",
           "no_in_group": 2,
           "name": "조건을 만족하는 유한소수 표현 가능한 분수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT011",
+          "legacy_type_name": "조건을 만족하는 유한소수 표현 가능한 분수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "finite_decimal_condition",
+            "prime_factor_2_5",
+            "condition_search"
+          ]
         }
       ],
       "detail_type_count": 35,
@@ -239,21 +361,55 @@
           "source_code": "NE-008",
           "no_in_group": 1,
           "name": "1/A × x가 유한소수가 되도록 하는 x",
-          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C006",
+            "M2_NE_C007"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT012",
+          "legacy_type_name": "1/A×x가 유한소수가 되도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "finite_decimal_condition",
+            "unknown_multiplier",
+            "denominator_factor"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G005.I02",
           "source_code": "NE-009",
           "no_in_group": 2,
           "name": "B/A × x가 유한소수가 되도록 하는 x",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C006",
+            "M2_NE_C007"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT013",
+          "legacy_type_name": "B/A×x가 유한소수가 되도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "finite_decimal_condition",
+            "unknown_multiplier",
+            "denominator_factor"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G005.I03",
           "source_code": "NE-010",
           "no_in_group": 3,
           "name": "일차방정식의 해가 유한소수가 되어야 할 때의 미지수 값",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_NE_PT014",
+          "legacy_type_name": "일차방정식의 해가 유한소수가 되도록 하는 미지수 값",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.783,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -287,28 +443,84 @@
           "source_code": "NE-011",
           "no_in_group": 1,
           "name": "B/x가 유한소수가 되도록 하는 x",
-          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007",
+            "M2_NE_C008"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT015",
+          "legacy_type_name": "B/x가 유한소수가 되도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "finite_decimal_condition",
+            "unknown_denominator",
+            "reverse_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G006.I02",
           "source_code": "NE-012",
           "no_in_group": 2,
           "name": "B/(A × x)가 유한소수가 되도록 하는 x",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007",
+            "M2_NE_C008"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT016",
+          "legacy_type_name": "B/(A×x)가 유한소수가 되도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "finite_decimal_condition",
+            "unknown_denominator",
+            "reverse_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G006.I03",
           "source_code": "NE-013",
           "no_in_group": 3,
           "name": "y/(A × x)가 유한소수가 되지 않도록 하는 두 미지수 x, y",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007",
+            "M2_NE_C008"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT017",
+          "legacy_type_name": "y/(A×x)가 유한소수가 되지 않도록 하는 미지수 x,y",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.955,
+          "legacy_error_tags_ref": [
+            "finite_decimal_condition",
+            "unknown_denominator",
+            "reverse_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G006.I04",
           "source_code": "NE-014",
           "no_in_group": 4,
           "name": "여러가지 경우에서 유한소수가 되도록 하는 미지수 값",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007",
+            "M2_NE_C008"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT018",
+          "legacy_type_name": "여러가지 경우에서 유한소수가 되도록 하는 미지수 값",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "finite_decimal_condition",
+            "unknown_denominator",
+            "reverse_condition"
+          ]
         }
       ],
       "detail_type_count": 19,
@@ -342,14 +554,42 @@
           "source_code": "NE-015",
           "no_in_group": 1,
           "name": "x/A가 유한소수가 될 때 x/A를 기약분수 1/y로 나타내기",
-          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C006",
+            "M2_NE_C007"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT019",
+          "legacy_type_name": "x/A가 유한소수가 될 때 x/A를 기약분수 1/y로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "reduced_fraction",
+            "finite_decimal_condition",
+            "denominator_factor"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G007.I02",
           "source_code": "NE-016",
           "no_in_group": 2,
           "name": "x/A가 유한소수가 될 때 x/A를 기약분수 B/y로 나타내기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C006",
+            "M2_NE_C007"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT020",
+          "legacy_type_name": "x/A가 유한소수가 될 때 x/A를 기약분수 B/y로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "reduced_fraction",
+            "finite_decimal_condition",
+            "denominator_factor"
+          ]
         }
       ],
       "detail_type_count": 8,
@@ -383,14 +623,40 @@
           "source_code": "NE-017",
           "no_in_group": 1,
           "name": "x/A, x/B 모두 유한소수로 나타내어지도록 하는 x",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C008"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT021",
+          "legacy_type_name": "x/A, x/B 모두 유한소수로 나타내어지도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "common_condition",
+            "multiple_fractions",
+            "denominator_factor"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G008.I02",
           "source_code": "NE-018",
           "no_in_group": 2,
           "name": "Bx/A, Dx/C 모두 유한소수로 나타내어지도록 하는 x",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C008"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT022",
+          "legacy_type_name": "Bx/A, Dx/C 모두 유한소수로 나타내어지도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "common_condition",
+            "multiple_fractions",
+            "denominator_factor"
+          ]
         }
       ],
       "detail_type_count": 5,
@@ -424,21 +690,60 @@
           "source_code": "NE-019",
           "no_in_group": 1,
           "name": "소수의 순환마디 구하기",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C009",
+            "M2_NE_C010"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT023",
+          "legacy_type_name": "소수의 순환마디 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repetend",
+            "repeating_decimal"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G009.I02",
           "source_code": "NE-020",
           "no_in_group": 2,
           "name": "분수의 순환마디 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C009",
+            "M2_NE_C010"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT024",
+          "legacy_type_name": "분수의 순환마디 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repetend",
+            "repeating_decimal"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G009.I03",
           "source_code": "NE-021",
           "no_in_group": 3,
           "name": "나눗셈을 이용한 순환마디 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C009",
+            "M2_NE_C010"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT025",
+          "legacy_type_name": "나눗셈을 이용한 순환마디 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repetend",
+            "repeating_decimal"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -472,14 +777,40 @@
           "source_code": "NE-022",
           "no_in_group": 1,
           "name": "순환소수의 표현",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C009",
+            "M2_NE_C020"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT026",
+          "legacy_type_name": "순환소수의 표현",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_notation",
+            "decimal_judgment"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G010.I02",
           "source_code": "NE-023",
           "no_in_group": 2,
           "name": "순환소수의 판별",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C009",
+            "M2_NE_C020"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT027",
+          "legacy_type_name": "순환소수의 판별",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_notation",
+            "decimal_judgment"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -513,14 +844,42 @@
           "source_code": "NE-024",
           "no_in_group": 1,
           "name": "분수의 순환소수 표현",
-          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C004",
+            "M2_NE_C009",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT028",
+          "legacy_type_name": "분수의 순환소수 표현",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "fraction_to_repeating_decimal",
+            "repetend"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G011.I02",
           "source_code": "NE-025",
           "no_in_group": 2,
           "name": "순환소수로만 나타낼 수 있는 분수 판별",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C004",
+            "M2_NE_C009",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT029",
+          "legacy_type_name": "순환소수로만 나타낼 수 있는 분수 판별",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "fraction_to_repeating_decimal",
+            "repetend"
+          ]
         }
       ],
       "detail_type_count": 18,
@@ -554,28 +913,80 @@
           "source_code": "NE-026",
           "no_in_group": 1,
           "name": "순환소수의 소수점 아래 n번째 숫자 구하기",
-          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C010",
+            "M2_NE_C011"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT030",
+          "legacy_type_name": "순환소수의 소수점 아래 n번째 숫자 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "nth_digit",
+            "repetend_cycle",
+            "modular_pattern"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G012.I02",
           "source_code": "NE-027",
           "no_in_group": 2,
           "name": "순환소수의 소수점 아래 여러 개의 숫자 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C010",
+            "M2_NE_C011"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT031",
+          "legacy_type_name": "순환소수의 소수점 아래 여러 개의 숫자 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "nth_digit",
+            "repetend_cycle",
+            "modular_pattern"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G012.I03",
           "source_code": "NE-028",
           "no_in_group": 3,
           "name": "분수를 소수로 나타낼 때 순환소수의 소수점 아래 n번째 숫자 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C010",
+            "M2_NE_C011"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT032",
+          "legacy_type_name": "분수를 소수로 나타낼 때 순환소수의 소수점 아래 n번째 숫자 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "nth_digit",
+            "repetend_cycle",
+            "modular_pattern"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G012.I04",
           "source_code": "NE-029",
           "no_in_group": 4,
           "name": "분수를 소수로 나타낼 때 순환소수의 소수점 아래 여러 개의 숫자 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C010",
+            "M2_NE_C011"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT033",
+          "legacy_type_name": "분수를 소수로 나타낼 때 순환소수의 소수점 아래 여러 개의 숫자 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "nth_digit",
+            "repetend_cycle",
+            "modular_pattern"
+          ]
         }
       ],
       "detail_type_count": 28,
@@ -609,21 +1020,63 @@
           "source_code": "NE-030",
           "no_in_group": 1,
           "name": "{x/A}를 순환소수가 되도록 하는 x",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT034",
+          "legacy_type_name": "x/A를 순환소수가 되도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_condition",
+            "unknown_value",
+            "denominator_factor"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G013.I02",
           "source_code": "NE-031",
           "no_in_group": 2,
           "name": "{A/x}를 순환소수가 되도록 하는 x",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT035",
+          "legacy_type_name": "A/x를 순환소수가 되도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_condition",
+            "unknown_value",
+            "denominator_factor"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G013.I03",
           "source_code": "NE-032",
           "no_in_group": 3,
           "name": "{A/BX}를 순환소수가 되도록 하는 x",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C005",
+            "M2_NE_C007",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT036",
+          "legacy_type_name": "A/BX를 순환소수가 되도록 하는 x",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_condition",
+            "unknown_value",
+            "denominator_factor"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -657,21 +1110,54 @@
           "source_code": "NE-033",
           "no_in_group": 1,
           "name": "순환소수를 분수로 나타낼 때 가장 편리한 식",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C012"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT037",
+          "legacy_type_name": "순환소수를 분수로 나타낼 때 가장 편리한 식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "power_of_10_method"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G014.I02",
           "source_code": "NE-034",
           "no_in_group": 2,
           "name": "순환소수를 분수로 나타내는 과정",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT038",
+          "legacy_type_name": "순환소수를 분수로 나타내는 과정",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "power_of_10_method"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G014.I03",
           "source_code": "NE-035",
           "no_in_group": 3,
           "name": "순환소수를 분수로 나타내기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT039",
+          "legacy_type_name": "순환소수를 분수로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "power_of_10_method"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -705,14 +1191,40 @@
           "source_code": "NE-036",
           "no_in_group": 1,
           "name": "소수점 아래 모두 순환하는 경우",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT040",
+          "legacy_type_name": "소수점 아래 모두 순환하는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "formula_method",
+            "mixed_repetend"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G015.I02",
           "source_code": "NE-037",
           "no_in_group": 2,
           "name": "소수점 아래 일부 순환하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT041",
+          "legacy_type_name": "소수점 아래 일부 순환하는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "formula_method",
+            "mixed_repetend"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -746,28 +1258,84 @@
           "source_code": "NE-038",
           "no_in_group": 1,
           "name": "순환소수의 분수 표현",
-          "review_status": "원문 확인 / 43개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 43개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT042",
+          "legacy_type_name": "순환소수의 분수 표현",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "infinite_sum",
+            "fraction_expression"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G016.I02",
           "source_code": "NE-039",
           "no_in_group": 2,
           "name": "무한한 소수의 합으로 표현한 순환소수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT043",
+          "legacy_type_name": "무한한 소수의 합으로 표현한 순환소수",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "infinite_sum",
+            "fraction_expression"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G016.I03",
           "source_code": "NE-040",
           "no_in_group": 3,
           "name": "분모가 10의 거듭제곱 꼴인 분수의 합으로 표현한 순환소수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT044",
+          "legacy_type_name": "분모가 10의 거듭제곱 꼴인 분수의 합으로 표현한 순환소수",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "infinite_sum",
+            "fraction_expression"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G016.I04",
           "source_code": "NE-041",
           "no_in_group": 4,
           "name": "분수 표현의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C014"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT045",
+          "legacy_type_name": "분수 표현의 활용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_fraction",
+            "infinite_sum",
+            "fraction_expression"
+          ]
         }
       ],
       "detail_type_count": 47,
@@ -801,14 +1369,40 @@
           "source_code": "NE-042",
           "no_in_group": 1,
           "name": "순환소수의 정수 표현",
-          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C017"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT046",
+          "legacy_type_name": "순환소수의 정수 표현",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_integer",
+            "condition_judgment"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G017.I02",
           "source_code": "NE-043",
           "no_in_group": 2,
           "name": "정수 표현 가능한 순환소수 판별",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C017"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT047",
+          "legacy_type_name": "정수 표현 가능한 순환소수 판별",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_to_integer",
+            "condition_judgment"
+          ]
         }
       ],
       "detail_type_count": 4,
@@ -842,14 +1436,36 @@
           "source_code": "NE-044",
           "no_in_group": 1,
           "name": "대소관계 판별",
-          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C015"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT048",
+          "legacy_type_name": "대소관계 판별",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_compare",
+            "decimal_order"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G018.I02",
           "source_code": "NE-045",
           "no_in_group": 2,
           "name": "대소관계 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C015"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT049",
+          "legacy_type_name": "대소관계 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_compare",
+            "decimal_order"
+          ]
         }
       ],
       "detail_type_count": 8,
@@ -883,21 +1499,60 @@
           "source_code": "NE-046",
           "no_in_group": 1,
           "name": "순환소수의 사칙연산",
-          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C016"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT050",
+          "legacy_type_name": "순환소수의 사칙연산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_operation",
+            "fraction_conversion"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G019.I02",
           "source_code": "NE-047",
           "no_in_group": 2,
           "name": "순환소수 연산의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C016"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT051",
+          "legacy_type_name": "순환소수 연산의 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_operation",
+            "fraction_conversion"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G019.I03",
           "source_code": "NE-048",
           "no_in_group": 3,
           "name": "순환소수 활용의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C016"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT052",
+          "legacy_type_name": "순환소수 활용의 연산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_operation",
+            "fraction_conversion"
+          ]
         }
       ],
       "detail_type_count": 24,
@@ -931,14 +1586,38 @@
           "source_code": "NE-049",
           "no_in_group": 1,
           "name": "부등식을 만족하는 정수",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C015",
+            "M2_NE_C017"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT053",
+          "legacy_type_name": "부등식을 만족하는 정수",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "inequality",
+            "repeating_decimal_compare"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G020.I02",
           "source_code": "NE-050",
           "no_in_group": 2,
           "name": "부등식을 만족하는 순환소수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C015",
+            "M2_NE_C017"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT054",
+          "legacy_type_name": "부등식을 만족하는 순환소수",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "inequality",
+            "repeating_decimal_compare"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -972,28 +1651,84 @@
           "source_code": "NE-051",
           "no_in_group": 1,
           "name": "등식이 주어진 경우 하나의 미지수 구하기",
-          "review_status": "원문 확인 / 37개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 37개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C017"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT055",
+          "legacy_type_name": "등식이 주어진 경우 하나의 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_equation",
+            "unknown_value",
+            "condition_interpretation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G021.I02",
           "source_code": "NE-052",
           "no_in_group": 2,
           "name": "등식이 주어지지 않은 경우 하나의 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C017"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT056",
+          "legacy_type_name": "등식이 주어지지 않은 경우 하나의 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_equation",
+            "unknown_value",
+            "condition_interpretation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G021.I03",
           "source_code": "NE-053",
           "no_in_group": 3,
           "name": "등식이 주어진 경우 두 개 이상의 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C017"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT057",
+          "legacy_type_name": "등식이 주어진 경우 두 개 이상의 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_equation",
+            "unknown_value",
+            "condition_interpretation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G021.I04",
           "source_code": "NE-054",
           "no_in_group": 4,
           "name": "등식이 주어지지 않은 경우 두 개 이상의 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C017"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT058",
+          "legacy_type_name": "등식이 주어지지 않은 경우 두 개 이상의 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "repeating_decimal_equation",
+            "unknown_value",
+            "condition_interpretation"
+          ]
         }
       ],
       "detail_type_count": 41,
@@ -1027,14 +1762,36 @@
           "source_code": "NE-055",
           "no_in_group": 1,
           "name": "분자 혹은 분모만 잘못 보고 나타낸 순환소수가 주어진 경우",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C018"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT059",
+          "legacy_type_name": "분자 혹은 분모만 잘못 보고 나타낸 순환소수가 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "wrong_fraction_reading",
+            "error_reconstruction"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G022.I02",
           "source_code": "NE-056",
           "no_in_group": 2,
           "name": "분자와 분모를 잘못 보고 나타낸 순환소수가 모두 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C018"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT060",
+          "legacy_type_name": "분자와 분모를 잘못 보고 나타낸 순환소수가 모두 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "wrong_fraction_reading",
+            "error_reconstruction"
+          ]
         }
       ],
       "detail_type_count": 5,
@@ -1068,14 +1825,40 @@
           "source_code": "NE-057",
           "no_in_group": 1,
           "name": "잘못 계산한 값이 주어진 경우",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C018",
+            "M2_NE_C016"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT061",
+          "legacy_type_name": "잘못 계산한 값이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "wrong_calculation",
+            "correct_value",
+            "reverse_reasoning"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G023.I02",
           "source_code": "NE-058",
           "no_in_group": 2,
           "name": "잘못 계산한 값과의 차이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C018",
+            "M2_NE_C016"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT062",
+          "legacy_type_name": "잘못 계산한 값과의 차이가 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "wrong_calculation",
+            "correct_value",
+            "reverse_reasoning"
+          ]
         }
       ],
       "detail_type_count": 6,
@@ -1109,14 +1892,42 @@
           "source_code": "NE-059",
           "no_in_group": 1,
           "name": "자연수가 되도록 하는 경우",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C019"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT063",
+          "legacy_type_name": "자연수가 되도록 하는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "unknown_multiplier",
+            "finite_decimal_condition",
+            "natural_number_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G024.I02",
           "source_code": "NE-060",
           "no_in_group": 2,
           "name": "유한소수가 되도록 하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C012",
+            "M2_NE_C013",
+            "M2_NE_C019"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT064",
+          "legacy_type_name": "유한소수가 되도록 하는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "unknown_multiplier",
+            "finite_decimal_condition",
+            "natural_number_condition"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -1150,14 +1961,40 @@
           "source_code": "NE-061",
           "no_in_group": 1,
           "name": "순환소수에 대한 설명",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C009",
+            "M2_NE_C020"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT065",
+          "legacy_type_name": "순환소수에 대한 설명",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "concept_explanation",
+            "repeating_decimal"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G025.I02",
           "source_code": "NE-062",
           "no_in_group": 2,
           "name": "주어진 순환소수에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C003",
+            "M2_NE_C009",
+            "M2_NE_C020"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT066",
+          "legacy_type_name": "주어진 순환소수에 대한 설명",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "concept_explanation",
+            "repeating_decimal"
+          ]
         }
       ],
       "detail_type_count": 5,
@@ -1191,14 +2028,40 @@
           "source_code": "NE-063",
           "no_in_group": 1,
           "name": "유리수 판별",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C001",
+            "M2_NE_C014",
+            "M2_NE_C020"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT067",
+          "legacy_type_name": "유리수 판별",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "rational_decimal_relation",
+            "concept_judgment"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G026.I02",
           "source_code": "NE-064",
           "no_in_group": 2,
           "name": "주어진 설명의 옳고 그름 판별",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C001",
+            "M2_NE_C014",
+            "M2_NE_C020"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT068",
+          "legacy_type_name": "주어진 설명의 옳고 그름 판별",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "rational_decimal_relation",
+            "concept_judgment"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -1232,35 +2095,115 @@
           "source_code": "NE-065",
           "no_in_group": 1,
           "name": "한 문자에 대한 거듭제곱의 곱셈",
-          "review_status": "원문 확인 / 31개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 31개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C022",
+            "M2_NE_C028",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT069",
+          "legacy_type_name": "한 문자에 대한 거듭제곱의 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_base_multiplication",
+            "exponent_addition",
+            "base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G027.I02",
           "source_code": "NE-066",
           "no_in_group": 2,
           "name": "두 개 이상의 문자에 대한 거듭제곱의 곱셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C022",
+            "M2_NE_C028",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT070",
+          "legacy_type_name": "두 개 이상의 문자에 대한 거듭제곱의 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_base_multiplication",
+            "exponent_addition",
+            "base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G027.I03",
           "source_code": "NE-067",
           "no_in_group": 3,
           "name": "자연수에 대한 거듭제곱의 곱셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C022",
+            "M2_NE_C028",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT071",
+          "legacy_type_name": "자연수에 대한 거듭제곱의 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_base_multiplication",
+            "exponent_addition",
+            "base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G027.I04",
           "source_code": "NE-068",
           "no_in_group": 4,
           "name": "-1에 대한 거듭제곱의 곱셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C022",
+            "M2_NE_C028",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT072",
+          "legacy_type_name": "-1에 대한 거듭제곱의 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_base_multiplication",
+            "exponent_addition",
+            "base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G027.I05",
           "source_code": "NE-069",
           "no_in_group": 5,
           "name": "거듭제곱의 곱셈 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C022",
+            "M2_NE_C028",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT073",
+          "legacy_type_name": "거듭제곱의 곱셈 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_base_multiplication",
+            "exponent_addition",
+            "base_condition"
+          ]
         }
       ],
       "detail_type_count": 36,
@@ -1294,35 +2237,110 @@
           "source_code": "NE-070",
           "no_in_group": 1,
           "name": "한 문자에 대한 거듭제곱의 거듭제곱",
-          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C023",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT074",
+          "legacy_type_name": "한 문자에 대한 거듭제곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "power_of_power",
+            "exponent_multiplication",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G028.I02",
           "source_code": "NE-071",
           "no_in_group": 2,
           "name": "두 개 이상의 문자에 대한 거듭제곱의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C023",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT075",
+          "legacy_type_name": "두 개 이상의 문자에 대한 거듭제곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "power_of_power",
+            "exponent_multiplication",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G028.I03",
           "source_code": "NE-072",
           "no_in_group": 3,
           "name": "한 자연수에 대한 거듭제곱의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C023",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT076",
+          "legacy_type_name": "한 자연수에 대한 거듭제곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "power_of_power",
+            "exponent_multiplication",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G028.I04",
           "source_code": "NE-073",
           "no_in_group": 4,
           "name": "자연수의 제곱수의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C023",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT077",
+          "legacy_type_name": "자연수의 제곱수의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "power_of_power",
+            "exponent_multiplication",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G028.I05",
           "source_code": "NE-074",
           "no_in_group": 5,
           "name": "두 자연수에 대한 거듭제곱의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C023",
+            "M2_NE_C029",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT078",
+          "legacy_type_name": "두 자연수에 대한 거듭제곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "power_of_power",
+            "exponent_multiplication",
+            "parentheses"
+          ]
         }
       ],
       "detail_type_count": 30,
@@ -1356,21 +2374,63 @@
           "source_code": "NE-075",
           "no_in_group": 1,
           "name": "문자에 대한 거듭제곱의 나눗셈",
-          "review_status": "원문 확인 / 40개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 40개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C024",
+            "M2_NE_C029"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT079",
+          "legacy_type_name": "문자에 대한 거듭제곱의 나눗셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_base_division",
+            "exponent_subtraction",
+            "fraction_power"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G029.I02",
           "source_code": "NE-076",
           "no_in_group": 2,
           "name": "자연수에 대한 거듭제곱의 나눗셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C024",
+            "M2_NE_C029"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT080",
+          "legacy_type_name": "자연수에 대한 거듭제곱의 나눗셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_base_division",
+            "exponent_subtraction",
+            "fraction_power"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G029.I03",
           "source_code": "NE-077",
           "no_in_group": 3,
           "name": "분수꼴의 나눗셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C024",
+            "M2_NE_C029"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT081",
+          "legacy_type_name": "분수꼴의 나눗셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_base_division",
+            "exponent_subtraction",
+            "fraction_power"
+          ]
         }
       ],
       "detail_type_count": 43,
@@ -1404,28 +2464,84 @@
           "source_code": "NE-078",
           "no_in_group": 1,
           "name": "한 문자에 대한 곱의 거듭제곱",
-          "review_status": "원문 확인 / 26개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 26개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C025",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT082",
+          "legacy_type_name": "한 문자에 대한 곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "product_power",
+            "distribute_exponent",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G030.I02",
           "source_code": "NE-079",
           "no_in_group": 2,
           "name": "두 문자에 대한 곱의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C025",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT083",
+          "legacy_type_name": "두 문자에 대한 곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "product_power",
+            "distribute_exponent",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G030.I03",
           "source_code": "NE-080",
           "no_in_group": 3,
           "name": "세 문자에 대한 곱의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C025",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT084",
+          "legacy_type_name": "세 문자에 대한 곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "product_power",
+            "distribute_exponent",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G030.I04",
           "source_code": "NE-081",
           "no_in_group": 4,
           "name": "자연수에 대한 곱의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C025",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT085",
+          "legacy_type_name": "자연수에 대한 곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "product_power",
+            "distribute_exponent",
+            "parentheses"
+          ]
         }
       ],
       "detail_type_count": 30,
@@ -1459,21 +2575,63 @@
           "source_code": "NE-082",
           "no_in_group": 1,
           "name": "한 문자에 대한 몫의 거듭제곱",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C026",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT086",
+          "legacy_type_name": "한 문자에 대한 몫의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "quotient_power",
+            "fraction_power",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G031.I02",
           "source_code": "NE-083",
           "no_in_group": 2,
           "name": "두 개 이상의 문자에 대한 몫의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C026",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT087",
+          "legacy_type_name": "두 개 이상의 문자에 대한 몫의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "quotient_power",
+            "fraction_power",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G031.I03",
           "source_code": "NE-084",
           "no_in_group": 3,
           "name": "분수의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C026",
+            "M2_NE_C036"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT088",
+          "legacy_type_name": "분수의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "quotient_power",
+            "fraction_power",
+            "parentheses"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -1507,21 +2665,72 @@
           "source_code": "NE-085",
           "no_in_group": 1,
           "name": "곱셈과 나눗셈의 혼합계산",
-          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT089",
+          "legacy_type_name": "곱셈과 나눗셈의 혼합계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_mixed",
+            "operation_order",
+            "rule_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G032.I02",
           "source_code": "NE-086",
           "no_in_group": 2,
           "name": "지수법칙이 포함된 여러가지 식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT090",
+          "legacy_type_name": "지수법칙이 포함된 여러가지 식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_mixed",
+            "operation_order",
+            "rule_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G032.I03",
           "source_code": "NE-087",
           "no_in_group": 3,
           "name": "주어진 규칙 적용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT091",
+          "legacy_type_name": "주어진 규칙 적용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_mixed",
+            "operation_order",
+            "rule_application"
+          ]
         }
       ],
       "detail_type_count": 26,
@@ -1555,14 +2764,38 @@
           "source_code": "NE-088",
           "no_in_group": 1,
           "name": "거듭제곱의 대소비교",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C029"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT092",
+          "legacy_type_name": "거듭제곱의 대소비교",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "power_compare",
+            "number_order"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G033.I02",
           "source_code": "NE-089",
           "no_in_group": 2,
           "name": "거듭제곱의 대소비교의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C029"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT093",
+          "legacy_type_name": "거듭제곱의 대소비교의 활용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "power_compare",
+            "number_order"
+          ]
         }
       ],
       "detail_type_count": 5,
@@ -1596,42 +2829,120 @@
           "source_code": "NE-090",
           "no_in_group": 1,
           "name": "저장용량",
-          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C030"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT094",
+          "legacy_type_name": "저장용량",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "real_world_power",
+            "modeling",
+            "unit_context"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G034.I02",
           "source_code": "NE-091",
           "no_in_group": 2,
           "name": "거리와 속력",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C030"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT095",
+          "legacy_type_name": "거리와 속력",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "real_world_power",
+            "modeling",
+            "unit_context"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G034.I03",
           "source_code": "NE-092",
           "no_in_group": 3,
           "name": "시간당 증가",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C030"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT096",
+          "legacy_type_name": "시간 당 증가",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "real_world_power",
+            "modeling",
+            "unit_context"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G034.I04",
           "source_code": "NE-093",
           "no_in_group": 4,
           "name": "일정한 길이로 등분",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C030"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT097",
+          "legacy_type_name": "일정한 길이로 등분",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "real_world_power",
+            "modeling",
+            "unit_context"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G034.I05",
           "source_code": "NE-094",
           "no_in_group": 5,
           "name": "같은 양으로 분배",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C030"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT098",
+          "legacy_type_name": "같은 양으로 분배",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "real_world_power",
+            "modeling",
+            "unit_context"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G034.I06",
           "source_code": "NE-095",
           "no_in_group": 6,
           "name": "접은 종이의 두께",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C030"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT099",
+          "legacy_type_name": "접은 종이의 두께",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "real_world_power",
+            "modeling",
+            "unit_context"
+          ]
         }
       ],
       "detail_type_count": 17,
@@ -1665,28 +2976,80 @@
           "source_code": "NE-096",
           "no_in_group": 1,
           "name": "같은 수의 덧셈식 간단히 하기",
-          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C031",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT100",
+          "legacy_type_name": "같은 수의 덧셈식 간단히 하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_number_addition",
+            "exponent_transformation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G035.I02",
           "source_code": "NE-097",
           "no_in_group": 2,
           "name": "분수 꼴의 형태",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C031",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT101",
+          "legacy_type_name": "분수 꼴의 형태",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_number_addition",
+            "exponent_transformation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G035.I03",
           "source_code": "NE-098",
           "no_in_group": 3,
           "name": "지수법칙이 포함된 여러가지 식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C031",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT102",
+          "legacy_type_name": "지수법칙이 포함된 여러가지 식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_number_addition",
+            "exponent_transformation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G035.I04",
           "source_code": "NE-099",
           "no_in_group": 4,
           "name": "같은 수의 덧셈식 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C021",
+            "M2_NE_C031",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT103",
+          "legacy_type_name": "같은 수의 덧셈식 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "same_number_addition",
+            "exponent_transformation"
+          ]
         }
       ],
       "detail_type_count": 28,
@@ -1720,21 +3083,57 @@
           "source_code": "NE-100",
           "no_in_group": 1,
           "name": "한 자연수에 대하여 나타내기",
-          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C032",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT104",
+          "legacy_type_name": "한 자연수에 대하여 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "express_with_another_base",
+            "exponent_rewrite"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G036.I02",
           "source_code": "NE-101",
           "no_in_group": 2,
           "name": "한 자연수에 대하여 식을 나타내기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C032",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT105",
+          "legacy_type_name": "한 자연수에 대하여 식을 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "express_with_another_base",
+            "exponent_rewrite"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G036.I03",
           "source_code": "NE-102",
           "no_in_group": 3,
           "name": "여러 자연수에 대하여 나타내기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C032",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT106",
+          "legacy_type_name": "여러 자연수에 대하여 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "express_with_another_base",
+            "exponent_rewrite"
+          ]
         }
       ],
       "detail_type_count": 13,
@@ -1768,14 +3167,38 @@
           "source_code": "NE-103",
           "no_in_group": 1,
           "name": "한 자연수에 대하여 나타내기",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C032",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT107",
+          "legacy_type_name": "한 자연수에 대하여 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "express_with_another_base",
+            "exponent_rewrite"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G037.I02",
           "source_code": "NE-104",
           "no_in_group": 2,
           "name": "여러 자연수에 대하여 나타내기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C032",
+            "M2_NE_C027"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT108",
+          "legacy_type_name": "여러 자연수에 대하여 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "express_with_another_base",
+            "exponent_rewrite"
+          ]
         }
       ],
       "detail_type_count": 14,
@@ -1809,21 +3232,60 @@
           "source_code": "NE-105",
           "no_in_group": 1,
           "name": "일의 자리 숫자 구하기",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C033"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT109",
+          "legacy_type_name": "일의 자리 숫자 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "ones_digit_cycle",
+            "cyclic_pattern",
+            "defined_operation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G038.I02",
           "source_code": "NE-106",
           "no_in_group": 2,
           "name": "일의 자리 숫자의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C033"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT110",
+          "legacy_type_name": "일의 자리 숫자의 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "ones_digit_cycle",
+            "cyclic_pattern",
+            "defined_operation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G038.I03",
           "source_code": "NE-107",
           "no_in_group": 3,
           "name": "기호로 정의된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C033"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT111",
+          "legacy_type_name": "기호로 정의된 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "ones_digit_cycle",
+            "cyclic_pattern",
+            "defined_operation"
+          ]
         }
       ],
       "detail_type_count": 16,
@@ -1857,14 +3319,40 @@
           "source_code": "NE-108",
           "no_in_group": 1,
           "name": "자연수의 자릿수 구하기",
-          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C034"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT112",
+          "legacy_type_name": "자연수의 자릿수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "digit_count",
+            "power_of_10",
+            "place_value"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G039.I02",
           "source_code": "NE-109",
           "no_in_group": 2,
           "name": "자연수의 자릿수 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C027",
+            "M2_NE_C034"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT113",
+          "legacy_type_name": "자연수의 자릿수 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "digit_count",
+            "power_of_10",
+            "place_value"
+          ]
         }
       ],
       "detail_type_count": 26,
@@ -1898,49 +3386,175 @@
           "source_code": "NE-110",
           "no_in_group": 1,
           "name": "거듭제곱의 거듭제곱",
-          "review_status": "원문 확인 / 65개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 65개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027",
+            "M2_NE_C035"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT114",
+          "legacy_type_name": "거듭제곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_equation",
+            "unknown_exponent",
+            "same_base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G040.I02",
           "source_code": "NE-111",
           "no_in_group": 2,
           "name": "거듭제곱의 나눗셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027",
+            "M2_NE_C035"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT115",
+          "legacy_type_name": "거듭제곱의 나눗셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_equation",
+            "unknown_exponent",
+            "same_base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G040.I03",
           "source_code": "NE-112",
           "no_in_group": 3,
           "name": "곱의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027",
+            "M2_NE_C035"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT116",
+          "legacy_type_name": "곱의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_equation",
+            "unknown_exponent",
+            "same_base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G040.I04",
           "source_code": "NE-113",
           "no_in_group": 4,
           "name": "몫의 거듭제곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027",
+            "M2_NE_C035"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT117",
+          "legacy_type_name": "몫의 거듭제곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_equation",
+            "unknown_exponent",
+            "same_base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G040.I05",
           "source_code": "NE-114",
           "no_in_group": 5,
           "name": "혼합계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027",
+            "M2_NE_C035"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT118",
+          "legacy_type_name": "혼합계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_equation",
+            "unknown_exponent",
+            "same_base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G040.I06",
           "source_code": "NE-115",
           "no_in_group": 6,
           "name": "나열된 수의 곱",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027",
+            "M2_NE_C035"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT119",
+          "legacy_type_name": "나열된 수의 곱",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_equation",
+            "unknown_exponent",
+            "same_base_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G040.I07",
           "source_code": "NE-116",
           "no_in_group": 7,
           "name": "같은수의 덧셈식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C022",
+            "M2_NE_C023",
+            "M2_NE_C024",
+            "M2_NE_C025",
+            "M2_NE_C026",
+            "M2_NE_C027",
+            "M2_NE_C035"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT120",
+          "legacy_type_name": "같은 수의 덧셈식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "exponent_equation",
+            "unknown_exponent",
+            "same_base_condition"
+          ]
         }
       ],
       "detail_type_count": 72,
@@ -1974,28 +3588,84 @@
           "source_code": "NE-117",
           "no_in_group": 1,
           "name": "한 문자에 대한 곱셈",
-          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C037",
+            "M2_NE_C038",
+            "M2_NE_C022"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT121",
+          "legacy_type_name": "한 문자에 대한 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_multiplication",
+            "coefficient_variable_split",
+            "same_base_multiplication"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G041.I02",
           "source_code": "NE-118",
           "no_in_group": 2,
           "name": "여러 문자에 대한 곱셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C037",
+            "M2_NE_C038",
+            "M2_NE_C022"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT122",
+          "legacy_type_name": "여러 문자에 대한 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_multiplication",
+            "coefficient_variable_split",
+            "same_base_multiplication"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G041.I03",
           "source_code": "NE-119",
           "no_in_group": 3,
           "name": "여러 문자의 곱에 대한 곱셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C037",
+            "M2_NE_C038",
+            "M2_NE_C022"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT123",
+          "legacy_type_name": "여러 문자의 곱에 대한 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_multiplication",
+            "coefficient_variable_split",
+            "same_base_multiplication"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G041.I04",
           "source_code": "NE-120",
           "no_in_group": 4,
           "name": "분수꼴을 포함한 곱셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C037",
+            "M2_NE_C038",
+            "M2_NE_C022"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT124",
+          "legacy_type_name": "분수꼴을 포함한 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_multiplication",
+            "coefficient_variable_split",
+            "same_base_multiplication"
+          ]
         }
       ],
       "detail_type_count": 29,
@@ -2029,28 +3699,84 @@
           "source_code": "NE-121",
           "no_in_group": 1,
           "name": "역수 구하기",
-          "review_status": "원문 확인 / 26개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 26개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C037",
+            "M2_NE_C039",
+            "M2_NE_C024"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT125",
+          "legacy_type_name": "역수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_division",
+            "reciprocal",
+            "exponent_subtraction"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G042.I02",
           "source_code": "NE-122",
           "no_in_group": 2,
           "name": "한 문자에 대한 나눗셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C037",
+            "M2_NE_C039",
+            "M2_NE_C024"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT126",
+          "legacy_type_name": "한 문자에 대한 나눗셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_division",
+            "reciprocal",
+            "exponent_subtraction"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G042.I03",
           "source_code": "NE-123",
           "no_in_group": 3,
           "name": "여러 문자에 대한 나눗셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C037",
+            "M2_NE_C039",
+            "M2_NE_C024"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT127",
+          "legacy_type_name": "여러 문자에 대한 나눗셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_division",
+            "reciprocal",
+            "exponent_subtraction"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G042.I04",
           "source_code": "NE-124",
           "no_in_group": 4,
           "name": "계산식에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C037",
+            "M2_NE_C039",
+            "M2_NE_C024"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT128",
+          "legacy_type_name": "계산식에 미지수가 포함된 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_division",
+            "reciprocal",
+            "exponent_subtraction"
+          ]
         }
       ],
       "detail_type_count": 30,
@@ -2084,28 +3810,88 @@
           "source_code": "NE-125",
           "no_in_group": 1,
           "name": "한 문자에 대한 혼합 계산",
-          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C039",
+            "M2_NE_C040",
+            "M2_NE_C041"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT129",
+          "legacy_type_name": "한 문자에 대한 혼합 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_mixed",
+            "operation_order",
+            "unknown_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G043.I02",
           "source_code": "NE-126",
           "no_in_group": 2,
           "name": "여러 문자에 대한 혼합 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C039",
+            "M2_NE_C040",
+            "M2_NE_C041"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT130",
+          "legacy_type_name": "여러 문자에 대한 혼합 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_mixed",
+            "operation_order",
+            "unknown_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G043.I03",
           "source_code": "NE-127",
           "no_in_group": 3,
           "name": "계산식에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C039",
+            "M2_NE_C040",
+            "M2_NE_C041"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT131",
+          "legacy_type_name": "계산식에 미지수가 포함된 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_mixed",
+            "operation_order",
+            "unknown_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G043.I04",
           "source_code": "NE-128",
           "no_in_group": 4,
           "name": "혼합계산의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C039",
+            "M2_NE_C040",
+            "M2_NE_C041"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT132",
+          "legacy_type_name": "혼합계산의 활용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_mixed",
+            "operation_order",
+            "unknown_condition"
+          ]
         }
       ],
       "detail_type_count": 22,
@@ -2139,28 +3925,73 @@
           "source_code": "NE-129",
           "no_in_group": 1,
           "name": "단항식의 곱셈",
-          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C040",
+            "M2_NE_C042"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT133",
+          "legacy_type_name": "단항식의 곱셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "blank_expression",
+            "reverse_reasoning",
+            "monomial_operation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G044.I02",
           "source_code": "NE-130",
           "no_in_group": 2,
           "name": "단항식의 나눗셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C040",
+            "M2_NE_C042"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT134",
+          "legacy_type_name": "단항식의 나눗셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "blank_expression",
+            "reverse_reasoning",
+            "monomial_operation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G044.I03",
           "source_code": "NE-131",
           "no_in_group": 3,
           "name": "단항식의 혼합 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C040",
+            "M2_NE_C042"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT135",
+          "legacy_type_name": "단항식의 혼합 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "blank_expression",
+            "reverse_reasoning",
+            "monomial_operation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G044.I04",
           "source_code": "NE-132",
           "no_in_group": 4,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -2194,21 +4025,60 @@
           "source_code": "NE-133",
           "no_in_group": 1,
           "name": "삼각형에 대한 계산",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C040",
+            "M2_NE_C043"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT137",
+          "legacy_type_name": "삼각형에 대한 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_area",
+            "monomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G045.I02",
           "source_code": "NE-134",
           "no_in_group": 2,
           "name": "사각형에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C040",
+            "M2_NE_C043"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT138",
+          "legacy_type_name": "사각형에 대한 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_area",
+            "monomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G045.I03",
           "source_code": "NE-135",
           "no_in_group": 3,
           "name": "여러 도형에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C040",
+            "M2_NE_C043"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT139",
+          "legacy_type_name": "여러 도형에 대한 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_area",
+            "monomial_application"
+          ]
         }
       ],
       "detail_type_count": 17,
@@ -2242,28 +4112,84 @@
           "source_code": "NE-136",
           "no_in_group": 1,
           "name": "기둥의 계산",
-          "review_status": "원문 확인 / 28개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 28개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C040",
+            "M2_NE_C044"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT140",
+          "legacy_type_name": "기둥의 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_volume",
+            "solid_geometry",
+            "monomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G046.I02",
           "source_code": "NE-137",
           "no_in_group": 2,
           "name": "뿔의 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C040",
+            "M2_NE_C044"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT141",
+          "legacy_type_name": "뿔의 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_volume",
+            "solid_geometry",
+            "monomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G046.I03",
           "source_code": "NE-138",
           "no_in_group": 3,
           "name": "회전체의 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C040",
+            "M2_NE_C044"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT142",
+          "legacy_type_name": "회전체의 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_volume",
+            "solid_geometry",
+            "monomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G046.I04",
           "source_code": "NE-139",
           "no_in_group": 4,
           "name": "두 개 이상의 입체도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C040",
+            "M2_NE_C044"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT143",
+          "legacy_type_name": "두 개 이상의 입체도형",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_volume",
+            "solid_geometry",
+            "monomial_application"
+          ]
         }
       ],
       "detail_type_count": 32,
@@ -2323,28 +4249,88 @@
           "source_code": "NE-140",
           "no_in_group": 1,
           "name": "다항식의 덧셈과 뺄셈",
-          "review_status": "원문 확인 / 29개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 29개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C046",
+            "M2_NE_C047",
+            "M2_NE_C049",
+            "M2_NE_C055"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT146",
+          "legacy_type_name": "다항식의 덧셈과 뺄셈",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "polynomial_add_subtract",
+            "like_terms",
+            "fraction_polynomial"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G048.I02",
           "source_code": "NE-141",
           "no_in_group": 2,
           "name": "분수꼴의 다항식을 포함한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C046",
+            "M2_NE_C047",
+            "M2_NE_C049",
+            "M2_NE_C055"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT147",
+          "legacy_type_name": "분수꼴의 다항식을 포함한 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "polynomial_add_subtract",
+            "like_terms",
+            "fraction_polynomial"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G048.I03",
           "source_code": "NE-142",
           "no_in_group": 3,
           "name": "다항식의 덧셈과 뺄셈 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C046",
+            "M2_NE_C047",
+            "M2_NE_C049",
+            "M2_NE_C055"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT148",
+          "legacy_type_name": "다항식의 덧셈과 뺄셈 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "polynomial_add_subtract",
+            "like_terms",
+            "fraction_polynomial"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G048.I04",
           "source_code": "NE-143",
           "no_in_group": 4,
           "name": "다항식의 덧셈과 뺄셈 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C046",
+            "M2_NE_C047",
+            "M2_NE_C049",
+            "M2_NE_C055"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT149",
+          "legacy_type_name": "다항식의 덧셈과 뺄셈 활용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "polynomial_add_subtract",
+            "like_terms",
+            "fraction_polynomial"
+          ]
         }
       ],
       "detail_type_count": 33,
@@ -2378,14 +4364,38 @@
           "source_code": "NE-144",
           "no_in_group": 1,
           "name": "한 문자에 대한 식",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C046",
+            "M2_NE_C048"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT150",
+          "legacy_type_name": "한 문자에 대한 식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "quadratic_expression",
+            "degree_judgment"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G049.I02",
           "source_code": "NE-145",
           "no_in_group": 2,
           "name": "두 문자에 대한 식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C046",
+            "M2_NE_C048"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT151",
+          "legacy_type_name": "두 문자에 대한 식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "quadratic_expression",
+            "degree_judgment"
+          ]
         }
       ],
       "detail_type_count": 6,
@@ -2419,28 +4429,76 @@
           "source_code": "NE-146",
           "no_in_group": 1,
           "name": "한 미지수에 대한 계산",
-          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C048"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT152",
+          "legacy_type_name": "한 미지수에 대한 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "quadratic_add_subtract",
+            "like_terms"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G050.I02",
           "source_code": "NE-147",
           "no_in_group": 2,
           "name": "두 미지수에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C048"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT153",
+          "legacy_type_name": "두 미지수에 대한 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "quadratic_add_subtract",
+            "like_terms"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G050.I03",
           "source_code": "NE-148",
           "no_in_group": 3,
           "name": "이항식의 덧셈과 뺄셈 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C048"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT154",
+          "legacy_type_name": "이차식의 덧셈과 뺄셈 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.909,
+          "legacy_error_tags_ref": [
+            "quadratic_add_subtract",
+            "like_terms"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G050.I04",
           "source_code": "NE-149",
           "no_in_group": 4,
           "name": "이항식의 덧셈과 뺄셈 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C048"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT155",
+          "legacy_type_name": "이차식의 덧셈과 뺄셈 활용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.909,
+          "legacy_error_tags_ref": [
+            "quadratic_add_subtract",
+            "like_terms"
+          ]
         }
       ],
       "detail_type_count": 25,
@@ -2474,28 +4532,80 @@
           "source_code": "NE-150",
           "no_in_group": 1,
           "name": "한 미지수에 대한 괄호 포함 계산",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C049"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT156",
+          "legacy_type_name": "한 미지수에 대한 중괄호 포함 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.909,
+          "legacy_error_tags_ref": [
+            "brackets",
+            "operation_order",
+            "sign_distribution"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G051.I02",
           "source_code": "NE-151",
           "no_in_group": 2,
           "name": "두 미지수에 대한 괄호 포함 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C049"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT157",
+          "legacy_type_name": "두 미지수에 대한 중괄호 포함 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.909,
+          "legacy_error_tags_ref": [
+            "brackets",
+            "operation_order",
+            "sign_distribution"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G051.I03",
           "source_code": "NE-152",
           "no_in_group": 3,
           "name": "한 미지수에 대한 대괄호 포함 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C049"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT158",
+          "legacy_type_name": "한 미지수에 대한 대괄호 포함 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "brackets",
+            "operation_order",
+            "sign_distribution"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G051.I04",
           "source_code": "NE-153",
           "no_in_group": 4,
           "name": "두 미지수에 대한 대괄호 포함 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C049"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT159",
+          "legacy_type_name": "두 미지수에 대한 대괄호 포함 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "brackets",
+            "operation_order",
+            "sign_distribution"
+          ]
         }
       ],
       "detail_type_count": 17,
@@ -2529,14 +4639,26 @@
           "source_code": "NE-154",
           "no_in_group": 1,
           "name": "한 문자에 대한 계산",
-          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G052.I02",
           "source_code": "NE-155",
           "no_in_group": 2,
           "name": "두 문자에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -2570,21 +4692,39 @@
           "source_code": "NE-156",
           "no_in_group": 1,
           "name": "한 문자에 대한 계산",
-          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G053.I02",
           "source_code": "NE-157",
           "no_in_group": 2,
           "name": "두 문자에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G053.I03",
           "source_code": "NE-158",
           "no_in_group": 3,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -2618,14 +4758,26 @@
           "source_code": "NE-159",
           "no_in_group": 1,
           "name": "한 문자에 대한 계산",
-          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G054.I02",
           "source_code": "NE-160",
           "no_in_group": 2,
           "name": "두 문자에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -2659,21 +4811,46 @@
           "source_code": "NE-161",
           "no_in_group": 1,
           "name": "한 문자에 대한 계산",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G055.I02",
           "source_code": "NE-162",
           "no_in_group": 2,
           "name": "두 문자에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G055.I03",
           "source_code": "NE-163",
           "no_in_group": 3,
           "name": "단항식과 다항식의 곱셈 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C038",
+            "M2_NE_C046",
+            "M2_NE_C052"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT169",
+          "legacy_type_name": "단항식과 다항식의 곱셈 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "monomial_polynomial_multiplication",
+            "distribution"
+          ]
         }
       ],
       "detail_type_count": 17,
@@ -2707,21 +4884,46 @@
           "source_code": "NE-164",
           "no_in_group": 1,
           "name": "한 문자에 대한 계산",
-          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G056.I02",
           "source_code": "NE-165",
           "no_in_group": 2,
           "name": "두 문자에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G056.I03",
           "source_code": "NE-166",
           "no_in_group": 3,
           "name": "단항식과 다항식의 나눗셈 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C039",
+            "M2_NE_C046",
+            "M2_NE_C053"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT172",
+          "legacy_type_name": "단항식과 다항식의 나눗셈 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "polynomial_division_by_monomial",
+            "division_distribution"
+          ]
         }
       ],
       "detail_type_count": 21,
@@ -2755,14 +4957,33 @@
           "source_code": "NE-167",
           "no_in_group": 1,
           "name": "어떤 수 구하기",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_NE_PT173",
+          "legacy_type_name": "어떤 식 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.833,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G057.I02",
           "source_code": "NE-168",
           "no_in_group": 2,
           "name": "바르게 계산한 식 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C050"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT174",
+          "legacy_type_name": "바르게 계산한 식 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "unknown_polynomial",
+            "monomial_polynomial_operation"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -2796,14 +5017,33 @@
           "source_code": "NE-169",
           "no_in_group": 1,
           "name": "□ 안에 알맞은 식 구하기",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C050"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT175",
+          "legacy_type_name": "□ 안에 알맞은 식 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "blank_expression",
+            "reverse_reasoning"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G058.I02",
           "source_code": "NE-170",
           "no_in_group": 2,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -2837,21 +5077,57 @@
           "source_code": "NE-171",
           "no_in_group": 1,
           "name": "사칙연산이 혼합된 계산",
-          "review_status": "원문 확인 / 35개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 35개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C054",
+            "M2_NE_C055"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT177",
+          "legacy_type_name": "사칙연산이 혼합된 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "polynomial_mixed",
+            "fraction_polynomial",
+            "operation_order"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G059.I02",
           "source_code": "NE-172",
           "no_in_group": 2,
           "name": "분수꼴의 나눗셈",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_NE_PT178",
+          "legacy_type_name": "분수꼴의 다항식",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G059.I03",
           "source_code": "NE-173",
           "no_in_group": 3,
           "name": "혼합계산의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C054",
+            "M2_NE_C055"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT179",
+          "legacy_type_name": "혼합계산의 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "polynomial_mixed",
+            "fraction_polynomial",
+            "operation_order"
+          ]
         }
       ],
       "detail_type_count": 38,
@@ -2885,21 +5161,60 @@
           "source_code": "NE-174",
           "no_in_group": 1,
           "name": "삼각형",
-          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C052",
+            "M2_NE_C056"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT180",
+          "legacy_type_name": "삼각형",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_area",
+            "polynomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G060.I02",
           "source_code": "NE-175",
           "no_in_group": 2,
           "name": "사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C052",
+            "M2_NE_C056"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT181",
+          "legacy_type_name": "사각형",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_area",
+            "polynomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G060.I03",
           "source_code": "NE-176",
           "no_in_group": 3,
           "name": "도형 내부의 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C052",
+            "M2_NE_C056"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT182",
+          "legacy_type_name": "도형 내부의 도형",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_area",
+            "polynomial_application"
+          ]
         }
       ],
       "detail_type_count": 22,
@@ -2933,21 +5248,63 @@
           "source_code": "NE-177",
           "no_in_group": 1,
           "name": "기둥에 대한 계산",
-          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 24개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C057"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT183",
+          "legacy_type_name": "기둥에 대한 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_volume",
+            "solid_geometry",
+            "polynomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G061.I02",
           "source_code": "NE-178",
           "no_in_group": 2,
           "name": "뿔에 대한 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C057"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT184",
+          "legacy_type_name": "뿔에 대한 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_volume",
+            "solid_geometry",
+            "polynomial_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G061.I03",
           "source_code": "NE-179",
           "no_in_group": 3,
           "name": "입체도형의 계산 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C057"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT185",
+          "legacy_type_name": "입체도형의 계산 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_volume",
+            "solid_geometry",
+            "polynomial_application"
+          ]
         }
       ],
       "detail_type_count": 27,
@@ -2981,7 +5338,20 @@
           "source_code": "NE-180",
           "no_in_group": 1,
           "name": "다항식과 단항식의 곱셈과 나눗셈 활용",
-          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C054"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT186",
+          "legacy_type_name": "다항식과 단항식의 곱셈과 나눗셈의 활용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.941,
+          "legacy_error_tags_ref": [
+            "polynomial_application",
+            "quantity_relation"
+          ]
         }
       ],
       "detail_type_count": 2,
@@ -3015,35 +5385,105 @@
           "source_code": "NE-181",
           "no_in_group": 1,
           "name": "식의 형태 또는 변형",
-          "review_status": "원문 확인 / 29개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 29개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G063.I02",
           "source_code": "NE-182",
           "no_in_group": 2,
           "name": "단항식과 다항식의 곱이 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C055",
+            "M2_NE_C058"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT188",
+          "legacy_type_name": "단항식과 다항식의 곱이 포함된 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "value_of_expression",
+            "substitution",
+            "mixed_operation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G063.I03",
           "source_code": "NE-183",
           "no_in_group": 3,
           "name": "단항식과 다항식의 나눗셈이 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C055",
+            "M2_NE_C058"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT189",
+          "legacy_type_name": "단항식과 다항식의 나눗셈이 포함된 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "value_of_expression",
+            "substitution",
+            "mixed_operation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G063.I04",
           "source_code": "NE-184",
           "no_in_group": 4,
           "name": "곱셈, 나눗셈의 혼합계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C055",
+            "M2_NE_C058"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT190",
+          "legacy_type_name": "곱셈, 나눗셈의 혼합계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "value_of_expression",
+            "substitution",
+            "mixed_operation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G063.I05",
           "source_code": "NE-185",
           "no_in_group": 5,
           "name": "분수꼴의 식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C047",
+            "M2_NE_C052",
+            "M2_NE_C053",
+            "M2_NE_C055",
+            "M2_NE_C058"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT191",
+          "legacy_type_name": "분수꼴의 식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "value_of_expression",
+            "substitution",
+            "mixed_operation"
+          ]
         }
       ],
       "detail_type_count": 34,
@@ -3077,21 +5517,60 @@
           "source_code": "NE-186",
           "no_in_group": 1,
           "name": "식으로 주어진 경우",
-          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 17개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C058",
+            "M2_NE_C059"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT192",
+          "legacy_type_name": "식으로 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "substitution",
+            "expression_as_value",
+            "nested_expression"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G064.I02",
           "source_code": "NE-187",
           "no_in_group": 2,
           "name": "식의 계산으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C058",
+            "M2_NE_C059"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT193",
+          "legacy_type_name": "식의 계산으로 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "substitution",
+            "expression_as_value",
+            "nested_expression"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G064.I03",
           "source_code": "NE-188",
           "no_in_group": 3,
           "name": "식의 대입의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C058",
+            "M2_NE_C059"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT194",
+          "legacy_type_name": "식의 대입의 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "substitution",
+            "expression_as_value",
+            "nested_expression"
+          ]
         }
       ],
       "detail_type_count": 20,
@@ -3125,14 +5604,36 @@
           "source_code": "NE-189",
           "no_in_group": 1,
           "name": "등식을 변형하여 풀기",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C060"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT195",
+          "legacy_type_name": "등식을 변형하여 풀기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "equation_transformation",
+            "solve_for_variable"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G065.I02",
           "source_code": "NE-190",
           "no_in_group": 2,
           "name": "등식의 변형 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT196",
+          "legacy_type_name": "등식의 변형 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "equation_transformation",
+            "solve_for_variable"
+          ]
         }
       ],
       "detail_type_count": 11,
@@ -3166,21 +5667,45 @@
           "source_code": "NE-191",
           "no_in_group": 1,
           "name": "간단한 등식",
-          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G066.I02",
           "source_code": "NE-192",
           "no_in_group": 2,
           "name": "복잡한 등식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G066.I03",
           "source_code": "NE-193",
           "no_in_group": 3,
           "name": "식의 대입의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C061"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT199",
+          "legacy_type_name": "식의 대입의 응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "equation_transformation",
+            "substitution_after_transform"
+          ]
         }
       ],
       "detail_type_count": 25,
@@ -3214,14 +5739,33 @@
           "source_code": "NE-194",
           "no_in_group": 1,
           "name": "간단한 등식",
-          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.NE.G067.I02",
           "source_code": "NE-195",
           "no_in_group": 2,
           "name": "분수꼴을 포함한 등식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C061",
+            "M2_NE_C055"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT201",
+          "legacy_type_name": "분수꼴을 포함한 등식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "equation_transformation",
+            "value_of_expression"
+          ]
         }
       ],
       "detail_type_count": 18,
@@ -3255,14 +5799,38 @@
           "source_code": "NE-196",
           "no_in_group": 1,
           "name": "비례식이 주어진 경우",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C062"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT202",
+          "legacy_type_name": "비례식이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "proportion",
+            "equation_transformation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G068.I02",
           "source_code": "NE-197",
           "no_in_group": 2,
           "name": "복잡한 비례식이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C062"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT203",
+          "legacy_type_name": "복잡한 비례식이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "proportion",
+            "equation_transformation"
+          ]
         }
       ],
       "detail_type_count": 5,
@@ -3296,14 +5864,42 @@
           "source_code": "NE-198",
           "no_in_group": 1,
           "name": "세 문자에 대한 등식",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C061",
+            "M2_NE_C062"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT204",
+          "legacy_type_name": "세 문자에 대한 등식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "three_variables",
+            "proportion",
+            "equation_transformation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G069.I02",
           "source_code": "NE-199",
           "no_in_group": 2,
           "name": "비례식이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C061",
+            "M2_NE_C062"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT205",
+          "legacy_type_name": "비례식이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "three_variables",
+            "proportion",
+            "equation_transformation"
+          ]
         }
       ],
       "detail_type_count": 14,
@@ -3337,14 +5933,38 @@
           "source_code": "NE-200",
           "no_in_group": 1,
           "name": "관계식이 주어진 경우",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C063"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT206",
+          "legacy_type_name": "관계식이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "real_world_equation",
+            "relationship_formula"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G070.I02",
           "source_code": "NE-201",
           "no_in_group": 2,
           "name": "비례식이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C063"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT207",
+          "legacy_type_name": "비례식이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "real_world_equation",
+            "relationship_formula"
+          ]
         }
       ],
       "detail_type_count": 6,
@@ -3378,28 +5998,76 @@
           "source_code": "NE-202",
           "no_in_group": 1,
           "name": "삼각형",
-          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C064"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT208",
+          "legacy_type_name": "삼각형",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_formula",
+            "equation_transformation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G071.I02",
           "source_code": "NE-203",
           "no_in_group": 2,
           "name": "사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C064"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT209",
+          "legacy_type_name": "사각형",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_formula",
+            "equation_transformation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G071.I03",
           "source_code": "NE-204",
           "no_in_group": 3,
           "name": "도형 내부의 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C064"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT210",
+          "legacy_type_name": "도형 내부의 도형",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_formula",
+            "equation_transformation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.NE.G071.I04",
           "source_code": "NE-205",
           "no_in_group": 4,
           "name": "입체도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_NE_C060",
+            "M2_NE_C064"
+          ],
+          "legacy_problem_type_id": "M2_NE_PT211",
+          "legacy_type_name": "입체도형",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "geometry_formula",
+            "equation_transformation"
+          ]
         }
       ],
       "detail_type_count": 14,

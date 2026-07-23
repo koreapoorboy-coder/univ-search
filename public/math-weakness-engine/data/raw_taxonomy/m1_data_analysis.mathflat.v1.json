@@ -38,9 +38,17 @@
       "G023"
     ],
     "accepted_source_note": "매쓰플랫 화면 배지는 6개로 표기되지만 실제 주제유형은 5개다. 원본 8.png 대조로 확인한 매쓰플랫 자체 표기 오류이며, 전사 누락이 아니다. 5개 그대로 저장했다.",
-    "unexplained_groups": []
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 633,
+  "detail_type_check": {
+    "counted_groups": 31,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 30,
@@ -73,6 +81,19 @@
     "alt_legacy_has_concept_ids": true,
     "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
   },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m1_data_analysis.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 84,
+    "item_count": 94,
+    "match_confident": 13,
+    "match_candidate": 41,
+    "match_none": 40,
+    "concept_ids_inherited": 13,
+    "error_tags_referenced": 13,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
+  },
   "problem_types": [
     {
       "problem_type_id": "MPLAT.M1S2.DA.G001",
@@ -92,14 +113,39 @@
           "source_code": "DA-001",
           "no_in_group": 1,
           "name": "자료의 평균 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_DA_C001",
+            "M1_DA_C002"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT001",
+          "legacy_type_name": "자료의 평균 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "mean",
+            "data_sum",
+            "representative_value"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G001.I02",
           "source_code": "DA-002",
           "no_in_group": 2,
           "name": "자료의 평균 비교하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_DA_C002",
+            "M1_DA_C003"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT002",
+          "legacy_type_name": "자료의 평균 비교하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "mean_compare",
+            "data_sum"
+          ]
         }
       ],
       "detail_type_count": 5,
@@ -133,28 +179,64 @@
           "source_code": "DA-003",
           "no_in_group": 1,
           "name": "변량의 수가 주어진 경우 평균 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_DA_C002",
+            "M1_DA_C004"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT003",
+          "legacy_type_name": "변량의 수가 주어진 경우 평균 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "mean",
+            "count_given",
+            "reverse_reasoning"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G002.I02",
           "source_code": "DA-004",
           "no_in_group": 2,
           "name": "변량이 문자로 주어진 경우 평균 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_DA_C004"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT004",
+          "legacy_type_name": "변량이 문자로 주어진 경우 평균 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "mean",
+            "unknown_variable"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G002.I03",
           "source_code": "DA-005",
           "no_in_group": 3,
           "name": "변량이 추가 주어진 경우 평균 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT005",
+          "legacy_type_name": "변량이 추가되는 경우 평균 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.8,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G002.I04",
           "source_code": "DA-006",
           "no_in_group": 4,
           "name": "실생활 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -188,14 +270,26 @@
           "source_code": "DA-007",
           "no_in_group": 1,
           "name": "변량이 모두 주어진 자료에서의 중앙값",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT007",
+          "legacy_type_name": "변량이 모두 주어진 자료의 중앙값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.706,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G003.I02",
           "source_code": "DA-008",
           "no_in_group": 2,
           "name": "문자가 포함된 자료에서의 중앙값",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT008",
+          "legacy_type_name": "문자가 포함된 자료의 중앙값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -229,28 +323,52 @@
           "source_code": "DA-009",
           "no_in_group": 1,
           "name": "변량이 모두 주어진 자료에서의 최빈값",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT009",
+          "legacy_type_name": "변량이 모두 주어진 자료의 최빈값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.706,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G004.I02",
           "source_code": "DA-010",
           "no_in_group": 2,
           "name": "문자가 포함된 자료에서의 최빈값",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT010",
+          "legacy_type_name": "문자가 포함된 자료의 최빈값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G004.I03",
           "source_code": "DA-011",
           "no_in_group": 3,
           "name": "실생활 소재 자료에서의 최빈값",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT011",
+          "legacy_type_name": "실생활 소재 자료에서 최빈값 찾기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.786,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G004.I04",
           "source_code": "DA-012",
           "no_in_group": 4,
           "name": "변량을 추가/삭제/변경한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT012",
+          "legacy_type_name": "변량을 추가·삭제·변경한 경우 최빈값 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.632,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 30,
@@ -284,21 +402,44 @@
           "source_code": "DA-013",
           "no_in_group": 1,
           "name": "평균/중앙값/최빈값이 대표값으로 적절한 것 고르기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT013",
+          "legacy_type_name": "평균·중앙값·최빈값 중 적절한 대표값 고르기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G005.I02",
           "source_code": "DA-014",
           "no_in_group": 2,
           "name": "대표값으로 적절한 것 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_DA_C009"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT014",
+          "legacy_type_name": "대표값으로 적절한 것 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "representative_value",
+            "context_interpretation"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G005.I03",
           "source_code": "DA-015",
           "no_in_group": 3,
           "name": "대표값에 대한 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -332,28 +473,52 @@
           "source_code": "DA-016",
           "no_in_group": 1,
           "name": "평균이 주어진 경우; 미지수 1개",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT016",
+          "legacy_type_name": "평균이 주어진 경우 미지수 1개 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.812,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G006.I02",
           "source_code": "DA-017",
           "no_in_group": 2,
           "name": "평균이 주어진 경우; 미지수 2개 이상",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT017",
+          "legacy_type_name": "평균이 주어진 경우 미지수 2개 이상 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.833,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G006.I03",
           "source_code": "DA-018",
           "no_in_group": 3,
           "name": "평균이 주어진 경우; 변량을 잘못 보거나 대체한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G006.I04",
           "source_code": "DA-019",
           "no_in_group": 4,
           "name": "평균이 주어진 경우; 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -387,28 +552,52 @@
           "source_code": "DA-020",
           "no_in_group": 1,
           "name": "중앙값이 주어진 경우; 미지수 1개",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT020",
+          "legacy_type_name": "중앙값이 주어진 경우 미지수 1개 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.824,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G007.I02",
           "source_code": "DA-021",
           "no_in_group": 2,
           "name": "중앙값이 주어진 경우; 미지수 2개 이상",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT021",
+          "legacy_type_name": "중앙값이 주어진 경우 미지수 2개 이상 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.842,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G007.I03",
           "source_code": "DA-022",
           "no_in_group": 3,
           "name": "중앙값이 다른 대표값과 같은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT022",
+          "legacy_type_name": "중앙값이 다른 대표값과 같은 경우 해결하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.778,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G007.I04",
           "source_code": "DA-023",
           "no_in_group": 4,
           "name": "중앙값이 주어진 경우; 변량을 추가, 삭제, 변경한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -442,35 +631,71 @@
           "source_code": "DA-024",
           "no_in_group": 1,
           "name": "최빈값이 주어진 경우; 미지수 1개",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT024",
+          "legacy_type_name": "최빈값이 주어진 경우 미지수 1개 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.824,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G008.I02",
           "source_code": "DA-025",
           "no_in_group": 2,
           "name": "최빈값이 주어진 경우; 미지수 2개 이상",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT025",
+          "legacy_type_name": "최빈값이 주어진 경우 미지수 2개 이상 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.842,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G008.I03",
           "source_code": "DA-026",
           "no_in_group": 3,
           "name": "최빈값이 주어진 경우 가장 큰/작은 변량의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_DA_C008"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT026",
+          "legacy_type_name": "최빈값이 주어진 경우 가장 큰/작은 변량 활용하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.85,
+          "legacy_error_tags_ref": [
+            "mode",
+            "max_min",
+            "condition_interpretation"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G008.I04",
           "source_code": "DA-027",
           "no_in_group": 4,
           "name": "최빈값이 다른 대표값과 같은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT027",
+          "legacy_type_name": "최빈값이 다른 대표값과 같은 경우 해결하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.778,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G008.I05",
           "source_code": "DA-028",
           "no_in_group": 5,
           "name": "최빈값이 주어진 경우; 변량을 추가, 삭제, 변경한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -504,21 +729,39 @@
           "source_code": "DA-029",
           "no_in_group": 1,
           "name": "막대그래프",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G009.I02",
           "source_code": "DA-030",
           "no_in_group": 2,
           "name": "꺾은선그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G009.I03",
           "source_code": "DA-031",
           "no_in_group": 3,
           "name": "과녁/표적을 맞혀 받은 점수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -552,14 +795,26 @@
           "source_code": "DA-032",
           "no_in_group": 1,
           "name": "줄기와 잎 그림을 그리는 방법",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT032",
+          "legacy_type_name": "줄기와 잎 그림 그리는 방법 이해하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G010.I02",
           "source_code": "DA-033",
           "no_in_group": 2,
           "name": "줄기와 잎 그림 그리기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT033",
+          "legacy_type_name": "줄기와 잎 그림 만들기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.778,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 4,
@@ -593,21 +848,58 @@
           "source_code": "DA-034",
           "no_in_group": 1,
           "name": "줄기와 잎 그림을 그려 해석하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_DA_C011",
+            "M1_DA_C012"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT034",
+          "legacy_type_name": "줄기와 잎 그림을 그려 해석하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "stem_leaf",
+            "interpretation"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G011.I02",
           "source_code": "DA-035",
           "no_in_group": 2,
           "name": "줄기와 잎 그림 해석하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_DA_C012"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT035",
+          "legacy_type_name": "줄기와 잎 그림 해석하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "stem_leaf",
+            "interpretation",
+            "range"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G011.I03",
           "source_code": "DA-036",
           "no_in_group": 3,
           "name": "두 집단의 줄기와 잎 그림 해석하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_DA_C012",
+            "M1_DA_C025"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT036",
+          "legacy_type_name": "두 집단의 줄기와 잎 그림 비교·해석하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.875,
+          "legacy_error_tags_ref": [
+            "stem_leaf",
+            "two_groups",
+            "compare"
+          ]
         }
       ],
       "detail_type_count": 39,
@@ -641,7 +933,13 @@
           "source_code": "DA-037",
           "no_in_group": 1,
           "name": "줄기와 잎 그림에서 대표값",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT037",
+          "legacy_type_name": "줄기와 잎 그림에서 대표값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.786,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -675,7 +973,19 @@
           "source_code": "DA-038",
           "no_in_group": 1,
           "name": "도수분포표 만들기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_DA_C014"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT038",
+          "legacy_type_name": "도수분포표 만들기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "frequency_table",
+            "making",
+            "class_interval"
+          ]
         }
       ],
       "detail_type_count": 3,
@@ -709,49 +1019,91 @@
           "source_code": "DA-039",
           "no_in_group": 1,
           "name": "도수분포표의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT043",
+          "legacy_type_name": "도수분포표 해석하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.556,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G014.I02",
           "source_code": "DA-040",
           "no_in_group": 2,
           "name": "도수분포표에서의 계급값",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G014.I03",
           "source_code": "DA-041",
           "no_in_group": 3,
           "name": "도수분포표에서 변량의 범위",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT040",
+          "legacy_type_name": "도수분포표에서 변량의 범위와 계급 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.632,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G014.I04",
           "source_code": "DA-042",
           "no_in_group": 4,
           "name": "변량의 범위에 따른 계급",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT041",
+          "legacy_type_name": "변량의 범위에 따라 계급 정하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.692,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G014.I05",
           "source_code": "DA-043",
           "no_in_group": 5,
           "name": "도수분포표에서의 계급값의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT039",
+          "legacy_type_name": "도수분포표에서 계급과 계급값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G014.I06",
           "source_code": "DA-044",
           "no_in_group": 6,
           "name": "도수분포표의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G014.I07",
           "source_code": "DA-045",
           "no_in_group": 7,
           "name": "도수분포표의 응용/활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 54,
@@ -785,14 +1137,26 @@
           "source_code": "DA-046",
           "no_in_group": 1,
           "name": "도수분포표에서 특정 계급의 백분율",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT046",
+          "legacy_type_name": "도수분포표에서 특정 계급의 백분율 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.833,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G015.I02",
           "source_code": "DA-047",
           "no_in_group": 2,
           "name": "도수분포표에서 특정 계급의 백분율; 두 계급 사이의 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -826,21 +1190,39 @@
           "source_code": "DA-048",
           "no_in_group": 1,
           "name": "히스토그램의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT048",
+          "legacy_type_name": "히스토그램의 기본 구조 이해하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G016.I02",
           "source_code": "DA-049",
           "no_in_group": 2,
           "name": "히스토그램에서의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G016.I03",
           "source_code": "DA-050",
           "no_in_group": 3,
           "name": "히스토그램의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 28,
@@ -874,14 +1256,26 @@
           "source_code": "DA-051",
           "no_in_group": 1,
           "name": "히스토그램의 직사각형의 넓이",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT052",
+          "legacy_type_name": "히스토그램 직사각형 넓이 비교하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G017.I02",
           "source_code": "DA-052",
           "no_in_group": 2,
           "name": "히스토그램의 직사각형의 넓이의 비교",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT051",
+          "legacy_type_name": "히스토그램 직사각형의 넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -915,21 +1309,39 @@
           "source_code": "DA-053",
           "no_in_group": 1,
           "name": "한 부분이 찢어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G018.I02",
           "source_code": "DA-054",
           "no_in_group": 2,
           "name": "두 부분이 찢어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G018.I03",
           "source_code": "DA-055",
           "no_in_group": 3,
           "name": "세로축이 찢어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -963,21 +1375,45 @@
           "source_code": "DA-056",
           "no_in_group": 1,
           "name": "도수분포다각형의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT056",
+          "legacy_type_name": "도수분포다각형의 기본 구조 이해하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G019.I02",
           "source_code": "DA-057",
           "no_in_group": 2,
           "name": "도수분포다각형에서 값 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_DA_C022",
+            "M1_DA_C023"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT057",
+          "legacy_type_name": "도수분포다각형에서 값 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "frequency_polygon",
+            "value_reading"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G019.I03",
           "source_code": "DA-058",
           "no_in_group": 3,
           "name": "도수분포다각형의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 36,
@@ -1011,14 +1447,26 @@
           "source_code": "DA-059",
           "no_in_group": 1,
           "name": "도수분포다각형의 넓이",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G020.I02",
           "source_code": "DA-060",
           "no_in_group": 2,
           "name": "도수분포다각형의 넓이의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT059",
+          "legacy_type_name": "도수분포다각형의 넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.769,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1052,7 +1500,13 @@
           "source_code": "DA-061",
           "no_in_group": 1,
           "name": "찢어진 도수분포다각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT061",
+          "legacy_type_name": "찢어진 도수분포다각형 복원하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.714,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -1086,14 +1540,26 @@
           "source_code": "DA-062",
           "no_in_group": 1,
           "name": "도수분포다각형의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT060",
+          "legacy_type_name": "도수분포다각형 넓이의 의미 이해하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G022.I02",
           "source_code": "DA-063",
           "no_in_group": 2,
           "name": "두 도수분포다각형의 비교",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT062",
+          "legacy_type_name": "두 도수분포다각형 비교하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1127,35 +1593,65 @@
           "source_code": "DA-064",
           "no_in_group": 1,
           "name": "도수분포표가 주어진 경우",
-          "review_status": "원문 확인 / 매쓰플랫 화면 표기 6개이나 실제 5개(8.png 대조 완료)"
+          "review_status": "원문 확인 / 매쓰플랫 화면 표기 6개이나 실제 5개(8.png 대조 완료)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT063",
+          "legacy_type_name": "도수분포표가 주어진 경우 상대도수 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.611,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G023.I02",
           "source_code": "DA-065",
           "no_in_group": 2,
           "name": "히스토그램이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT064",
+          "legacy_type_name": "히스토그램이 주어진 경우 상대도수 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.611,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G023.I03",
           "source_code": "DA-066",
           "no_in_group": 3,
           "name": "도수분포다각형이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT065",
+          "legacy_type_name": "도수분포다각형이 주어진 경우 상대도수 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.65,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G023.I04",
           "source_code": "DA-067",
           "no_in_group": 4,
           "name": "상대도수, 도수, 도수의 총합 사이의 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT066",
+          "legacy_type_name": "상대도수·도수·도수총합 사이의 관계 활용하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.737,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G023.I05",
           "source_code": "DA-068",
           "no_in_group": 5,
           "name": "히스토그램이 찢어진(일부가 보이지 않는) 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 30,
@@ -1189,28 +1685,52 @@
           "source_code": "DA-069",
           "no_in_group": 1,
           "name": "상대도수분포표",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G024.I02",
           "source_code": "DA-070",
           "no_in_group": 2,
           "name": "상대도수분포표의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G024.I03",
           "source_code": "DA-071",
           "no_in_group": 3,
           "name": "상대도수분포표의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G024.I04",
           "source_code": "DA-072",
           "no_in_group": 4,
           "name": "문자를 사용한 상대도수의 표현",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT071",
+          "legacy_type_name": "문자를 사용한 상대도수 표현 해결하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.688,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 32,
@@ -1244,7 +1764,13 @@
           "source_code": "DA-073",
           "no_in_group": 1,
           "name": "찢어진 상대도수분포표",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT072",
+          "legacy_type_name": "찢어진 상대도수분포표 복원하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.714,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -1278,21 +1804,45 @@
           "source_code": "DA-074",
           "no_in_group": 1,
           "name": "도수분포다각형 모양의 그래프로 나타내기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G026.I02",
           "source_code": "DA-075",
           "no_in_group": 2,
           "name": "상대도수분포그래프가 히스토그램 모양으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G026.I03",
           "source_code": "DA-076",
           "no_in_group": 3,
           "name": "상대도수분포그래프가 도수분포다각형 모양으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_DA_C030",
+            "M1_DA_C031"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT075",
+          "legacy_type_name": "상대도수분포그래프가 도수분포다각형 모양으로 주어진 경우 해석하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.867,
+          "legacy_error_tags_ref": [
+            "relative_frequency_graph",
+            "polygon_shape"
+          ]
         }
       ],
       "detail_type_count": 17,
@@ -1326,14 +1876,32 @@
           "source_code": "DA-077",
           "no_in_group": 1,
           "name": "상대도수분포그래프가 히스토그램 모양으로 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_DA_C030",
+            "M1_DA_C031"
+          ],
+          "legacy_problem_type_id": "M1_DA_PT074",
+          "legacy_type_name": "상대도수분포그래프가 히스토그램 모양으로 주어진 경우 해석하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.857,
+          "legacy_error_tags_ref": [
+            "relative_frequency_graph",
+            "histogram_shape"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.DA.G027.I02",
           "source_code": "DA-078",
           "no_in_group": 2,
           "name": "상대도수분포그래프가 도수분포다각형 모양으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 23,
@@ -1367,21 +1935,39 @@
           "source_code": "DA-079",
           "no_in_group": 1,
           "name": "상대도수분포그래프가 히스토그램으로 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G028.I02",
           "source_code": "DA-080",
           "no_in_group": 2,
           "name": "상대도수분포그래프가 도수분포다각형으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G028.I03",
           "source_code": "DA-081",
           "no_in_group": 3,
           "name": "2개의 상대도수분포그래프가 도수분포다각형으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -1415,49 +2001,91 @@
           "source_code": "DA-082",
           "no_in_group": 1,
           "name": "상대도수분포표 완성하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT068",
+          "legacy_type_name": "상대도수분포표 만들기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.727,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G029.I02",
           "source_code": "DA-083",
           "no_in_group": 2,
           "name": "상대도수의 개념과 쓰임새",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G029.I03",
           "source_code": "DA-084",
           "no_in_group": 3,
           "name": "줄기와 잎 그림표에서의 상대도수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT080",
+          "legacy_type_name": "줄기와 잎 그림 또는 그래프에서 상대도수 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.55,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G029.I04",
           "source_code": "DA-085",
           "no_in_group": 4,
           "name": "각 자료의 도수의 총합이 주어지고 도수분포표(또는 그 일부)나 특정 계급의 도수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G029.I05",
           "source_code": "DA-086",
           "no_in_group": 5,
           "name": "각 자료의 도수의 총합 또는 그 관계가 주어지고 상대도수분포표(또는 그 일부)나 특정 계급의 상대도수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G029.I06",
           "source_code": "DA-087",
           "no_in_group": 6,
           "name": "각 자료의 도수의 총합이 주어지지 않고 상대도수분포표(또는 그 일부)나 특정 계급의 상대도수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G029.I07",
           "source_code": "DA-088",
           "no_in_group": 7,
           "name": "한 자료가 다른 자료에 포함되는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 28,
@@ -1491,21 +2119,39 @@
           "source_code": "DA-089",
           "no_in_group": 1,
           "name": "도수의 비 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G030.I02",
           "source_code": "DA-090",
           "no_in_group": 2,
           "name": "상대도수의 비 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G030.I03",
           "source_code": "DA-091",
           "no_in_group": 3,
           "name": "전체 도수 총합의 비 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_DA_PT083",
+          "legacy_type_name": "상대도수의 비와 전체 도수 총합의 비 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.611,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1539,21 +2185,39 @@
           "source_code": "DA-092",
           "no_in_group": 1,
           "name": "상대도수분포표를 그래프로 나타내어 풀기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G031.I02",
           "source_code": "DA-093",
           "no_in_group": 2,
           "name": "각 자료의 도수의 총합이 주어지지 않은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.DA.G031.I03",
           "source_code": "DA-094",
           "no_in_group": 3,
           "name": "각 자료의 도수의 총합 또는 그 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,

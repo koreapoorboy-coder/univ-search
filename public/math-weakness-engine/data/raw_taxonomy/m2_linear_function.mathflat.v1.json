@@ -88,7 +88,36 @@
     "legacy_source": "m2_linear_function.raw_taxonomy.v1.json (sections / task_group)",
     "legacy_has_error_tags": false,
     "legacy_error_tag_vocab": 0,
-    "legacy_error_tag_sample": []
+    "legacy_error_tag_sample": [],
+    "alt_legacy_source": "m2_linear_function.problem_types.v1.json (problem_types)",
+    "alt_legacy_count": 144,
+    "alt_legacy_has_error_tags": true,
+    "alt_legacy_error_tag_vocab": 101,
+    "alt_legacy_error_tag_sample": [
+      "a_not_zero",
+      "absolute_length",
+      "area_between_lines",
+      "axis_triangle_area",
+      "coefficient_graph_relation",
+      "coefficient_ratio",
+      "coefficient_reading",
+      "coefficient_relation"
+    ],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m2_linear_function.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 144,
+    "item_count": 265,
+    "match_confident": 1,
+    "match_candidate": 20,
+    "match_none": 244,
+    "concept_ids_inherited": 1,
+    "error_tags_referenced": 1,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
     {
@@ -109,14 +138,26 @@
           "source_code": "FN-001",
           "no_in_group": 1,
           "name": "함수 판별하기",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G001.I02",
           "source_code": "FN-002",
           "no_in_group": 2,
           "name": "함수의 범위",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -150,14 +191,26 @@
           "source_code": "FN-003",
           "no_in_group": 1,
           "name": "함수 판별하기",
-          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 16개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G002.I02",
           "source_code": "FN-004",
           "no_in_group": 2,
           "name": "관계식 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -191,28 +244,52 @@
           "source_code": "FN-005",
           "no_in_group": 1,
           "name": "함숫값 구하기",
-          "review_status": "원문 확인 / 31개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 31개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G003.I02",
           "source_code": "FN-006",
           "no_in_group": 2,
           "name": "f(a)=b를 만족시키는 함수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G003.I03",
           "source_code": "FN-007",
           "no_in_group": 3,
           "name": "문장을 함수로 나타냈을 때의 함숫값 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G003.I04",
           "source_code": "FN-008",
           "no_in_group": 4,
           "name": "x, y에 관한 함수 f(x), f(y) 사이의 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 35,
@@ -246,14 +323,26 @@
           "source_code": "FN-009",
           "no_in_group": 1,
           "name": "함수가 주어진 경우",
-          "review_status": "원문 확인 / 34개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 34개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G004.I02",
           "source_code": "FN-010",
           "no_in_group": 2,
           "name": "미지수가 함수에 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 36,
@@ -287,7 +376,13 @@
           "source_code": "FN-011",
           "no_in_group": 1,
           "name": "함숫값 구하기",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -321,7 +416,20 @@
           "source_code": "FN-012",
           "no_in_group": 1,
           "name": "일차함수 판별",
-          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 2개 이름 안 보임(접힘)",
+          "concept_ids": [
+            "M2_FUNC_C005",
+            "M2_FUNC_C006"
+          ],
+          "legacy_problem_type_id": "M2_LF_PT022",
+          "legacy_type_name": "일차함수 판별 - 일차항 계수 조건 a≠0 확인",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_function_definition",
+            "a_not_zero",
+            "degree_check"
+          ]
         }
       ],
       "detail_type_count": 3,
@@ -355,14 +463,26 @@
           "source_code": "FN-013",
           "no_in_group": 1,
           "name": "도형과 관련된 일차함수의 판별",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G007.I02",
           "source_code": "FN-014",
           "no_in_group": 2,
           "name": "실생활과 관련된 일차함수의 판별",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -396,7 +516,13 @@
           "source_code": "FN-015",
           "no_in_group": 1,
           "name": "일차함수가 될 조건 구하기",
-          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -430,14 +556,26 @@
           "source_code": "FN-016",
           "no_in_group": 1,
           "name": "함수가 주어진 경우",
-          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G009.I02",
           "source_code": "FN-017",
           "no_in_group": 2,
           "name": "미지수가 함수에 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -471,21 +609,39 @@
           "source_code": "FN-018",
           "no_in_group": 1,
           "name": "함숫값의 범위 구하기",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G010.I02",
           "source_code": "FN-019",
           "no_in_group": 2,
           "name": "x의 범위 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT033",
+          "legacy_type_name": "x절편 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G010.I03",
           "source_code": "FN-020",
           "no_in_group": 3,
           "name": "함수에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -519,28 +675,52 @@
           "source_code": "FN-021",
           "no_in_group": 1,
           "name": "함수가 주어진 경우",
-          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 20개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G011.I02",
           "source_code": "FN-022",
           "no_in_group": 2,
           "name": "함수에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G011.I03",
           "source_code": "FN-023",
           "no_in_group": 3,
           "name": "두 일차함수가 같은 점을 지나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G011.I04",
           "source_code": "FN-024",
           "no_in_group": 4,
           "name": "일차함수의 그래프 위의 점의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -574,21 +754,39 @@
           "source_code": "FN-025",
           "no_in_group": 1,
           "name": "일차함수의 그래프를 평행이동하기",
-          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G012.I02",
           "source_code": "FN-026",
           "no_in_group": 2,
           "name": "얼마만큼 평행이동했는지 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G012.I03",
           "source_code": "FN-027",
           "no_in_group": 3,
           "name": "함수에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -622,35 +820,65 @@
           "source_code": "FN-028",
           "no_in_group": 1,
           "name": "평행이동한 그래프 위의 점 판별",
-          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G013.I02",
           "source_code": "FN-029",
           "no_in_group": 2,
           "name": "평행이동한 그래프 위의 점 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G013.I03",
           "source_code": "FN-030",
           "no_in_group": 3,
           "name": "얼마만큼 평행이동했는지 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G013.I04",
           "source_code": "FN-031",
           "no_in_group": 4,
           "name": "함수에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G013.I05",
           "source_code": "FN-032",
           "no_in_group": 5,
           "name": "평행이동한 그래프 위의 점의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -684,42 +912,78 @@
           "source_code": "FN-033",
           "no_in_group": 1,
           "name": "일차함수가 주어진 경우 그래프의 x절편, y절편 구하기",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G014.I02",
           "source_code": "FN-034",
           "no_in_group": 2,
           "name": "평행이동한 일차함수의 그래프의 x절편, y절편 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G014.I03",
           "source_code": "FN-035",
           "no_in_group": 3,
           "name": "x절편, y절편 또는 그 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G014.I04",
           "source_code": "FN-036",
           "no_in_group": 4,
           "name": "특정 점을 지나는 일차함수의 x절편, y절편",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G014.I05",
           "source_code": "FN-037",
           "no_in_group": 5,
           "name": "일차함수의 그래프의 x절편, y절편과 도형의 넓이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G014.I06",
           "source_code": "FN-038",
           "no_in_group": 6,
           "name": "두 일차함수 사이의 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -753,49 +1017,91 @@
           "source_code": "FN-039",
           "no_in_group": 1,
           "name": "한 축의 절편이 주어질 때, 다른 절편 구하기",
-          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G015.I02",
           "source_code": "FN-040",
           "no_in_group": 2,
           "name": "x(y)절편이 주어진 경우 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G015.I03",
           "source_code": "FN-041",
           "no_in_group": 3,
           "name": "평행이동한 일차함수의 그래프에서 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G015.I04",
           "source_code": "FN-042",
           "no_in_group": 4,
           "name": "두 일차함수의 그래프가 한 축 위에서 만나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G015.I05",
           "source_code": "FN-043",
           "no_in_group": 5,
           "name": "x절편과 y절편 사이의 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G015.I06",
           "source_code": "FN-044",
           "no_in_group": 6,
           "name": "도형의 넓이를 이용하여 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G015.I07",
           "source_code": "FN-045",
           "no_in_group": 7,
           "name": "두 일차함수의 그래프가 한 축과 만나는 점들 사이의 거리 또는 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 32,
@@ -829,42 +1135,78 @@
           "source_code": "FN-046",
           "no_in_group": 1,
           "name": "함수 식이 주어진 경우 그래프의 기울기 구하기",
-          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G016.I02",
           "source_code": "FN-047",
           "no_in_group": 2,
           "name": "두 점을 이용하여 x와 y의 증가량을 알 수 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G016.I03",
           "source_code": "FN-048",
           "no_in_group": 3,
           "name": "함수 식과 x 또는 y의 값의 증가량이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G016.I04",
           "source_code": "FN-049",
           "no_in_group": 4,
           "name": "x의 증가량과 y의 값의 증가량이 모두 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G016.I05",
           "source_code": "FN-050",
           "no_in_group": 5,
           "name": "함수 식에 미지수가 포함된 경우 x(y)의 증가량 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G016.I06",
           "source_code": "FN-051",
           "no_in_group": 6,
           "name": "{f(a)-f(b)}/{a-b}",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -898,21 +1240,39 @@
           "source_code": "FN-052",
           "no_in_group": 1,
           "name": "기울기에 따른 그래프",
-          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT044",
+          "legacy_type_name": "기울기에 따른 그래프 모양 - 기울기에 따른 그래프 모양",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.818,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G017.I02",
           "source_code": "FN-053",
           "no_in_group": 2,
           "name": "x, y의 값의 증가, 감소에 따른 그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G017.I03",
           "source_code": "FN-054",
           "no_in_group": 3,
           "name": "그래프가 향하는 방향",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -946,28 +1306,52 @@
           "source_code": "FN-055",
           "no_in_group": 1,
           "name": "두 점을 지나는 일차함수의 그래프의 기울기 구하기",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G018.I02",
           "source_code": "FN-056",
           "no_in_group": 2,
           "name": "x, y절편이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G018.I03",
           "source_code": "FN-057",
           "no_in_group": 3,
           "name": "그래프의 기울기가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G018.I04",
           "source_code": "FN-058",
           "no_in_group": 4,
           "name": "두 점을 지나는 일차함수의 그래프의 기울기의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -1001,21 +1385,39 @@
           "source_code": "FN-059",
           "no_in_group": 1,
           "name": "세 점이 한 직선 위에 있을 조건",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G019.I02",
           "source_code": "FN-060",
           "no_in_group": 2,
           "name": "두 점을 지나는 직선 위의 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT047",
+          "legacy_type_name": "두 점을 지나는 직선의 기울기 - 수직/수평에 가까운 그래프 해석",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G019.I03",
           "source_code": "FN-061",
           "no_in_group": 3,
           "name": "도형이 만들어지지 않을 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -1049,28 +1451,52 @@
           "source_code": "FN-062",
           "no_in_group": 1,
           "name": "함수 식이 주어진 경우",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G020.I02",
           "source_code": "FN-063",
           "no_in_group": 2,
           "name": "주어진 한 점을 지나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G020.I03",
           "source_code": "FN-064",
           "no_in_group": 3,
           "name": "평행이동한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT030",
+          "legacy_type_name": "평행이동 - y절편 변화 해석",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G020.I04",
           "source_code": "FN-065",
           "no_in_group": 4,
           "name": "새로운 함수의 그래프의 기울기와 x절편, y절편",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1104,21 +1530,39 @@
           "source_code": "FN-066",
           "no_in_group": 1,
           "name": "함수 식이 주어진 경우 그래프 그리기",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G021.I02",
           "source_code": "FN-067",
           "no_in_group": 2,
           "name": "기울기와 x(y)절편이 주어진 그래프 그리기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT081",
+          "legacy_type_name": "기울기와 y절편이 주어진 직선",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.611,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G021.I03",
           "source_code": "FN-068",
           "no_in_group": 3,
           "name": "새로운 함수의 그래프 그리기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT054",
+          "legacy_type_name": "일차함수 그래프 그리기 - 절편을 이용한 그래프",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -1152,21 +1596,39 @@
           "source_code": "FN-069",
           "no_in_group": 1,
           "name": "도형의 넓이 구하기",
-          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G022.I02",
           "source_code": "FN-070",
           "no_in_group": 2,
           "name": "도형의 넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G022.I03",
           "source_code": "FN-071",
           "no_in_group": 3,
           "name": "도형을 회전하여 생기는 입체도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1200,28 +1662,52 @@
           "source_code": "FN-072",
           "no_in_group": 1,
           "name": "두 직선과 한 축으로 둘러싸인 도형",
-          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT128",
+          "legacy_type_name": "직선으로 둘러싸인 넓이 - 직선으로 둘러싸인 넓이",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G023.I02",
           "source_code": "FN-073",
           "no_in_group": 2,
           "name": "두 직선과 두 축으로 둘러싸인 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT126",
+          "legacy_type_name": "직선으로 둘러싸인 넓이 - 교점과 절편 활용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G023.I03",
           "source_code": "FN-074",
           "no_in_group": 3,
           "name": "도형의 넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G023.I04",
           "source_code": "FN-075",
           "no_in_group": 4,
           "name": "일차함수의 그래프로만 둘러싸인 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -1255,28 +1741,52 @@
           "source_code": "FN-076",
           "no_in_group": 1,
           "name": "축에 가장 가까운 그래프",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G024.I02",
           "source_code": "FN-077",
           "no_in_group": 2,
           "name": "기울기가 가장 큰(급한/완만한) 그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G024.I03",
           "source_code": "FN-078",
           "no_in_group": 3,
           "name": "다른 직선과 축 사이에 있는 직선의 기울기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G024.I04",
           "source_code": "FN-079",
           "no_in_group": 4,
           "name": "기울기의 절댓값",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1310,21 +1820,39 @@
           "source_code": "FN-080",
           "no_in_group": 1,
           "name": "일차함수의 그래프가 지나는 사분면 구하기",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G025.I02",
           "source_code": "FN-081",
           "no_in_group": 2,
           "name": "특정 사분면을 지나는 일차함수의 그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G025.I03",
           "source_code": "FN-082",
           "no_in_group": 3,
           "name": "그래프 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1358,35 +1886,65 @@
           "source_code": "FN-083",
           "no_in_group": 1,
           "name": "미지수의 부호 판별",
-          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G026.I02",
           "source_code": "FN-084",
           "no_in_group": 2,
           "name": "그래프 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G026.I03",
           "source_code": "FN-085",
           "no_in_group": 3,
           "name": "일차함수의 그래프가 지나는/지나지 않는 사분면",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G026.I04",
           "source_code": "FN-086",
           "no_in_group": 4,
           "name": "특정 사분면을 지나는/지나지 않는 일차함수의 그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G026.I05",
           "source_code": "FN-087",
           "no_in_group": 5,
           "name": "부호의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -1420,35 +1978,65 @@
           "source_code": "FN-088",
           "no_in_group": 1,
           "name": "특정 사분면을 지나는 않는 일차함수의 그래프",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G027.I02",
           "source_code": "FN-089",
           "no_in_group": 2,
           "name": "일차함수의 그래프가 지나는 사분면",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G027.I03",
           "source_code": "FN-090",
           "no_in_group": 3,
           "name": "함수 식에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G027.I04",
           "source_code": "FN-091",
           "no_in_group": 4,
           "name": "함수 식에 포함된 미지수의 부호 판별",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G027.I05",
           "source_code": "FN-092",
           "no_in_group": 5,
           "name": "함수 식에 포함된 미지수의 값의 범위",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -1482,14 +2070,26 @@
           "source_code": "FN-093",
           "no_in_group": 1,
           "name": "x, y의 값의 범위가 주어진 경우 미지수 구하기",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G028.I02",
           "source_code": "FN-094",
           "no_in_group": 2,
           "name": "두 일차함수의 함숫값의 범위가 같은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -1523,14 +2123,26 @@
           "source_code": "FN-095",
           "no_in_group": 1,
           "name": "교점이 주어진 경우",
-          "review_status": "원문 확인 / 접힌 항목 없음"
+          "review_status": "원문 확인 / 접힌 항목 없음",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G029.I02",
           "source_code": "FN-096",
           "no_in_group": 2,
           "name": "넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 2,
@@ -1590,42 +2202,78 @@
           "source_code": "FN-097",
           "no_in_group": 1,
           "name": "평행한 것 고르기",
-          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 18개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G031.I02",
           "source_code": "FN-098",
           "no_in_group": 2,
           "name": "두 일차함수의 그래프가 평행할 때 미지수 또는 그래프 위의 점 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G031.I03",
           "source_code": "FN-099",
           "no_in_group": 3,
           "name": "한 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G031.I04",
           "source_code": "FN-100",
           "no_in_group": 4,
           "name": "두 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G031.I05",
           "source_code": "FN-101",
           "no_in_group": 5,
           "name": "x축 위에서 만나는 그래프와 평행한 그래프가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G031.I06",
           "source_code": "FN-102",
           "no_in_group": 6,
           "name": "평행한 두 일차함수의 그래프 사이의 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -1659,42 +2307,78 @@
           "source_code": "FN-103",
           "no_in_group": 1,
           "name": "평행한 것 고르기",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G032.I02",
           "source_code": "FN-104",
           "no_in_group": 2,
           "name": "두 일차함수의 그래프가 평행할 때 미지수 또는 그래프 위의 점 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G032.I03",
           "source_code": "FN-105",
           "no_in_group": 3,
           "name": "한 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G032.I04",
           "source_code": "FN-106",
           "no_in_group": 4,
           "name": "그래프 위의 점과 평행한 그래프가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G032.I05",
           "source_code": "FN-107",
           "no_in_group": 5,
           "name": "도형에서의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT106",
+          "legacy_type_name": "도형과 거리 활용 - 이동 거리와 시간 그래프",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G032.I06",
           "source_code": "FN-108",
           "no_in_group": 6,
           "name": "그래프의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -1728,28 +2412,52 @@
           "source_code": "FN-109",
           "no_in_group": 1,
           "name": "두 일차함수의 그래프가 일치할 때 미지수 구하기",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G033.I02",
           "source_code": "FN-110",
           "no_in_group": 2,
           "name": "일차함수의 그래프가 일치하는 것 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G033.I03",
           "source_code": "FN-111",
           "no_in_group": 3,
           "name": "평행이동하여 일치하는 일차함수의 그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G033.I04",
           "source_code": "FN-112",
           "no_in_group": 4,
           "name": "두 일차함수의 그래프가 평행할 때와 일치할 때",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -1783,35 +2491,65 @@
           "source_code": "FN-113",
           "no_in_group": 1,
           "name": "y축과 양(음)의 방향에서 만나는 일차함수의 그래프",
-          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G034.I02",
           "source_code": "FN-114",
           "no_in_group": 2,
           "name": "일차함수의 그래프의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT056",
+          "legacy_type_name": "일차함수 그래프 그리기 - 일차함수 그래프 그리기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.636,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G034.I03",
           "source_code": "FN-115",
           "no_in_group": 3,
           "name": "그래프가 주어진 일차함수의 그래프의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G034.I04",
           "source_code": "FN-116",
           "no_in_group": 4,
           "name": "일차함수의 식을 구한 후 그 그래프에 대한 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G034.I05",
           "source_code": "FN-117",
           "no_in_group": 5,
           "name": "일차함수 y=mx+n의 그래프의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -1845,35 +2583,65 @@
           "source_code": "FN-118",
           "no_in_group": 1,
           "name": "기울기가 주어진 경우",
-          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 22개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G035.I02",
           "source_code": "FN-119",
           "no_in_group": 2,
           "name": "평행한 함수의 그래프의 식이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G035.I03",
           "source_code": "FN-120",
           "no_in_group": 3,
           "name": "평행한 함수의 그래프가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G035.I04",
           "source_code": "FN-121",
           "no_in_group": 4,
           "name": "x의 증가량, y의 증가량이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G035.I05",
           "source_code": "FN-122",
           "no_in_group": 5,
           "name": "{f(a)-f(b)}/{a-b}의 값이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -1907,35 +2675,65 @@
           "source_code": "FN-123",
           "no_in_group": 1,
           "name": "기울기가 주어진 경우",
-          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 23개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G036.I02",
           "source_code": "FN-124",
           "no_in_group": 2,
           "name": "평행한 함수의 그래프의 식이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G036.I03",
           "source_code": "FN-125",
           "no_in_group": 3,
           "name": "평행한 함수의 그래프가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G036.I04",
           "source_code": "FN-126",
           "no_in_group": 4,
           "name": "x의 증가량, y의 증가량이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT037",
+          "legacy_type_name": "x의 증가량과 y의 증가량",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G036.I05",
           "source_code": "FN-127",
           "no_in_group": 5,
           "name": "{f(a)-f(b)}/{a-b}의 값이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 28,
@@ -1969,28 +2767,52 @@
           "source_code": "FN-128",
           "no_in_group": 1,
           "name": "두 점이 주어진 경우",
-          "review_status": "원문 확인 / 28개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 28개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G037.I02",
           "source_code": "FN-129",
           "no_in_group": 2,
           "name": "두 점이 포함된 그래프가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G037.I03",
           "source_code": "FN-130",
           "no_in_group": 3,
           "name": "평행한 그래프가 지나는 두 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G037.I04",
           "source_code": "FN-131",
           "no_in_group": 4,
           "name": "도형에서의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT107",
+          "legacy_type_name": "도형과 거리 활용 - 도형 조건을 식으로 변환",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 32,
@@ -2024,28 +2846,52 @@
           "source_code": "FN-132",
           "no_in_group": 1,
           "name": "x절편과 y절편이 주어진 경우",
-          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 21개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G038.I02",
           "source_code": "FN-133",
           "no_in_group": 2,
           "name": "x절편과 y절편이 포함된 그래프가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G038.I03",
           "source_code": "FN-134",
           "no_in_group": 3,
           "name": "두 직선과 각각 x축, y축에서 만나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G038.I04",
           "source_code": "FN-135",
           "no_in_group": 4,
           "name": "x절편과 y절편 사이의 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -2079,35 +2925,65 @@
           "source_code": "FN-136",
           "no_in_group": 1,
           "name": "그래프가 주어진 경우",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G039.I02",
           "source_code": "FN-137",
           "no_in_group": 2,
           "name": "y축의 방향으로 평행이동한 그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G039.I03",
           "source_code": "FN-138",
           "no_in_group": 3,
           "name": "세 점을 지나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G039.I04",
           "source_code": "FN-139",
           "no_in_group": 4,
           "name": "도형의 넓이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G039.I05",
           "source_code": "FN-140",
           "no_in_group": 5,
           "name": "두 일차함수의 그래프가 축과 만나는 점 사이의 거리",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -2141,21 +3017,39 @@
           "source_code": "FN-141",
           "no_in_group": 1,
           "name": "높이와 기온",
-          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 13개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G040.I02",
           "source_code": "FN-142",
           "no_in_group": 2,
           "name": "액체의 온도",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G040.I03",
           "source_code": "FN-143",
           "no_in_group": 3,
           "name": "온도와 소리의 속력",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2189,14 +3083,26 @@
           "source_code": "FN-144",
           "no_in_group": 1,
           "name": "일정 시간마다 길이가 달라지는 경우",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G041.I02",
           "source_code": "FN-145",
           "no_in_group": 2,
           "name": "물체를 매다는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2230,14 +3136,26 @@
           "source_code": "FN-146",
           "no_in_group": 1,
           "name": "일정 시간마다 변하는 물의 양",
-          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G042.I02",
           "source_code": "FN-147",
           "no_in_group": 2,
           "name": "연료의 양과 주행 거리",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -2271,14 +3189,26 @@
           "source_code": "FN-148",
           "no_in_group": 1,
           "name": "물건의 구매와 거스름돈",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G043.I02",
           "source_code": "FN-149",
           "no_in_group": 2,
           "name": "이어붙인 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -2312,28 +3242,52 @@
           "source_code": "FN-150",
           "no_in_group": 1,
           "name": "두 지점 사이의 거리와 이동 속도",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G044.I02",
           "source_code": "FN-151",
           "no_in_group": 2,
           "name": "서로를 향해 출발하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G044.I03",
           "source_code": "FN-152",
           "no_in_group": 3,
           "name": "먼저 출발하거나 출발점이 다른 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G044.I04",
           "source_code": "FN-153",
           "no_in_group": 4,
           "name": "두 지점 사이에 있는 다른 지점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2367,28 +3321,52 @@
           "source_code": "FN-154",
           "no_in_group": 1,
           "name": "선분의 길이가 주어진 경우",
-          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 25개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G045.I02",
           "source_code": "FN-155",
           "no_in_group": 2,
           "name": "한 변을 일정 속력으로 움직이는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G045.I03",
           "source_code": "FN-156",
           "no_in_group": 3,
           "name": "사각형의 둘레를 일정 속력으로 움직이는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G045.I04",
           "source_code": "FN-157",
           "no_in_group": 4,
           "name": "두 점이 동시에 움직이는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -2448,14 +3426,26 @@
           "source_code": "FN-158",
           "no_in_group": 1,
           "name": "두 소금물을 섞은 경우",
-          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G047.I02",
           "source_code": "FN-159",
           "no_in_group": 2,
           "name": "증발하거나 물을 추가한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 3,
@@ -2489,42 +3479,78 @@
           "source_code": "FN-160",
           "no_in_group": 1,
           "name": "일정한 속도로 줄어드는 경우",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G048.I02",
           "source_code": "FN-161",
           "no_in_group": 2,
           "name": "일정한 속도로 증가하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G048.I03",
           "source_code": "FN-162",
           "no_in_group": 3,
           "name": "문제의 개수와 점수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G048.I04",
           "source_code": "FN-163",
           "no_in_group": 4,
           "name": "요금",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G048.I05",
           "source_code": "FN-164",
           "no_in_group": 5,
           "name": "개수와 무게",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G048.I06",
           "source_code": "FN-165",
           "no_in_group": 6,
           "name": "시침과 분침",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -2558,21 +3584,39 @@
           "source_code": "FN-166",
           "no_in_group": 1,
           "name": "x절편과 y절편이 주어진 경우",
-          "review_status": "원문 확인 / 27개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 27개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G049.I02",
           "source_code": "FN-167",
           "no_in_group": 2,
           "name": "한 절편과 다른 한 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G049.I03",
           "source_code": "FN-168",
           "no_in_group": 3,
           "name": "두 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 30,
@@ -2606,14 +3650,26 @@
           "source_code": "FN-169",
           "no_in_group": 1,
           "name": "일차방정식을 일차함수의 꼴로 고치기",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G050.I02",
           "source_code": "FN-170",
           "no_in_group": 2,
           "name": "일차함수의 꼴을 일차방정식으로 고치기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -2647,14 +3703,26 @@
           "source_code": "FN-171",
           "no_in_group": 1,
           "name": "x, y의 값의 범위가 수 전체인 경우",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G051.I02",
           "source_code": "FN-172",
           "no_in_group": 2,
           "name": "x, y의 값의 범위에 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -2688,21 +3756,39 @@
           "source_code": "FN-173",
           "no_in_group": 1,
           "name": "일차방정식의 그래프의 기울기, x절편, y절편",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT117",
+          "legacy_type_name": "일차방정식 그래프의 기울기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.632,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G052.I02",
           "source_code": "FN-174",
           "no_in_group": 2,
           "name": "일차방정식의 그래프가 지나는 사분면",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT112",
+          "legacy_type_name": "일차방정식의 그래프 - 일차방정식의 그래프",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G052.I03",
           "source_code": "FN-175",
           "no_in_group": 3,
           "name": "일차방정식에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -2736,28 +3822,52 @@
           "source_code": "FN-176",
           "no_in_group": 1,
           "name": "일차방정식의 그래프 위의 점의 판별",
-          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 5개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT114",
+          "legacy_type_name": "방정식 그래프 위의 점 - 그래프 위/밖의 점 판별",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G053.I02",
           "source_code": "FN-177",
           "no_in_group": 2,
           "name": "일차방정식의 그래프가 지나는 한 점에서 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G053.I03",
           "source_code": "FN-178",
           "no_in_group": 3,
           "name": "일차방정식의 그래프가 지나는 두 점에서 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G053.I04",
           "source_code": "FN-179",
           "no_in_group": 4,
           "name": "x, y의 값의 범위가 정수/자연수인 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -2791,21 +3901,39 @@
           "source_code": "FN-180",
           "no_in_group": 1,
           "name": "조건을 만족하는 두 일차방정식 짝짓기",
-          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 8개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G054.I02",
           "source_code": "FN-181",
           "no_in_group": 2,
           "name": "조건을 만족하는 일차방정식 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G054.I03",
           "source_code": "FN-182",
           "no_in_group": 3,
           "name": "일차방정식의 그래프에 대한 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT111",
+          "legacy_type_name": "일차방정식의 그래프 - 방정식과 직선의 대응",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.818,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -2839,21 +3967,39 @@
           "source_code": "FN-183",
           "no_in_group": 1,
           "name": "기울기가 주어진 경우",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G055.I02",
           "source_code": "FN-184",
           "no_in_group": 2,
           "name": "평행한 그래프에 대한 정보가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G055.I03",
           "source_code": "FN-185",
           "no_in_group": 3,
           "name": "x의 값의 증가량과 y의 값의 증가량이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -2887,14 +4033,26 @@
           "source_code": "FN-186",
           "no_in_group": 1,
           "name": "기울기가 주어진 경우",
-          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 3개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G056.I02",
           "source_code": "FN-187",
           "no_in_group": 2,
           "name": "평행한 그래프에 대한 정보가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -2928,14 +4086,26 @@
           "source_code": "FN-188",
           "no_in_group": 1,
           "name": "기울기가 주어진 경우",
-          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G057.I02",
           "source_code": "FN-189",
           "no_in_group": 2,
           "name": "평행한 그래프에 대한 정보가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 3,
@@ -2969,21 +4139,39 @@
           "source_code": "FN-190",
           "no_in_group": 1,
           "name": "한 점이 주어진 경우",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G058.I02",
           "source_code": "FN-191",
           "no_in_group": 2,
           "name": "두 점 이상 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G058.I03",
           "source_code": "FN-192",
           "no_in_group": 3,
           "name": "x절편 또는 y절편이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -3017,28 +4205,52 @@
           "source_code": "FN-193",
           "no_in_group": 1,
           "name": "한 절편이 주어진 경우",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G059.I02",
           "source_code": "FN-194",
           "no_in_group": 2,
           "name": "한 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G059.I03",
           "source_code": "FN-195",
           "no_in_group": 3,
           "name": "두 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G059.I04",
           "source_code": "FN-196",
           "no_in_group": 4,
           "name": "x절편과 y절편이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -3072,21 +4284,39 @@
           "source_code": "FN-197",
           "no_in_group": 1,
           "name": "기울기가 주어진 경우",
-          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 6개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G060.I02",
           "source_code": "FN-198",
           "no_in_group": 2,
           "name": "x의 값의 증가량과 y의 값의 증가량이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G060.I03",
           "source_code": "FN-199",
           "no_in_group": 3,
           "name": "평행한 그래프에 대한 정보가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -3120,21 +4350,39 @@
           "source_code": "FN-200",
           "no_in_group": 1,
           "name": "기울기가 주어진 경우",
-          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 15개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G061.I02",
           "source_code": "FN-201",
           "no_in_group": 2,
           "name": "x의 값의 증가량과 y의 값의 증가량이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G061.I03",
           "source_code": "FN-202",
           "no_in_group": 3,
           "name": "평행한 그래프에 대한 정보가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -3168,21 +4416,39 @@
           "source_code": "FN-203",
           "no_in_group": 1,
           "name": "두 점이 주어진 경우",
-          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G062.I02",
           "source_code": "FN-204",
           "no_in_group": 2,
           "name": "x절편 또는 y절편이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G062.I03",
           "source_code": "FN-205",
           "no_in_group": 3,
           "name": "지나는 두 점을 구할 수 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -3216,21 +4482,39 @@
           "source_code": "FN-206",
           "no_in_group": 1,
           "name": "x절편과 y절편이 주어진 경우",
-          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 7개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G063.I02",
           "source_code": "FN-207",
           "no_in_group": 2,
           "name": "x절편과 y절편이 포함된 그래프가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G063.I03",
           "source_code": "FN-208",
           "no_in_group": 3,
           "name": "두 직선과 각각 x축, y축에서 만나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -3264,28 +4548,52 @@
           "source_code": "FN-209",
           "no_in_group": 1,
           "name": "y축의 방향으로 평행이동한 경우",
-          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 10개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G064.I02",
           "source_code": "FN-210",
           "no_in_group": 2,
           "name": "세 점을 지나는 직선의 방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT046",
+          "legacy_type_name": "두 점을 지나는 직선의 기울기 - 좌표 순서 오류 판별",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G064.I03",
           "source_code": "FN-211",
           "no_in_group": 3,
           "name": "직선의 방정식을 잘못 본 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G064.I04",
           "source_code": "FN-212",
           "no_in_group": 4,
           "name": "평행한 직선의 판별",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT074",
+          "legacy_type_name": "평행한 직선 - 기울기가 같은 직선의 식",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -3319,42 +4627,78 @@
           "source_code": "FN-213",
           "no_in_group": 1,
           "name": "그래프 그리기/고르기",
-          "review_status": "원문 확인 / 58개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 58개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G065.I02",
           "source_code": "FN-214",
           "no_in_group": 2,
           "name": "직선의 방정식 구하기/고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G065.I03",
           "source_code": "FN-215",
           "no_in_group": 3,
           "name": "직선 위의 점 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G065.I04",
           "source_code": "FN-216",
           "no_in_group": 4,
           "name": "점의 좌표에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G065.I05",
           "source_code": "FN-217",
           "no_in_group": 5,
           "name": "직선의 방정식에 미지수가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G065.I06",
           "source_code": "FN-218",
           "no_in_group": 6,
           "name": "좌표축에 평행한 직선의 방정식의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT124",
+          "legacy_type_name": "좌표축에 평행한 직선 - 좌표축에 평행한 직선",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 64,
@@ -3388,21 +4732,39 @@
           "source_code": "FN-219",
           "no_in_group": 1,
           "name": "도형의 넓이 구하기",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G066.I02",
           "source_code": "FN-220",
           "no_in_group": 2,
           "name": "도형의 넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G066.I03",
           "source_code": "FN-221",
           "no_in_group": 3,
           "name": "정사각형인 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -3436,28 +4798,52 @@
           "source_code": "FN-222",
           "no_in_group": 1,
           "name": "계수와 상수항의 부호가 주어진 경우",
-          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G067.I02",
           "source_code": "FN-223",
           "no_in_group": 2,
           "name": "그래프가 지나는 사분면이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G067.I03",
           "source_code": "FN-224",
           "no_in_group": 3,
           "name": "그래프의 개형이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G067.I04",
           "source_code": "FN-225",
           "no_in_group": 4,
           "name": "점이 지나는 사분면이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 23,
@@ -3491,21 +4877,39 @@
           "source_code": "FN-226",
           "no_in_group": 1,
           "name": "도형의 넓이 구하기",
-          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 19개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G068.I02",
           "source_code": "FN-227",
           "no_in_group": 2,
           "name": "도형의 넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G068.I03",
           "source_code": "FN-228",
           "no_in_group": 3,
           "name": "도형의 넓이의 비 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -3539,14 +4943,26 @@
           "source_code": "FN-229",
           "no_in_group": 1,
           "name": "직선과 선분이 만날 조건",
-          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 9개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G069.I02",
           "source_code": "FN-230",
           "no_in_group": 2,
           "name": "사분면을 지나는/사분면에서 만나는 직선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -3580,21 +4996,39 @@
           "source_code": "FN-231",
           "no_in_group": 1,
           "name": "두 일차방정식의 그래프의 교점이 주어진 연립방정식",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G070.I02",
           "source_code": "FN-232",
           "no_in_group": 2,
           "name": "교점을 이용하여 연립방정식 풀기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G070.I03",
           "source_code": "FN-233",
           "no_in_group": 3,
           "name": "두 일차방정식의 그래프의 교점 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LF_PT110",
+          "legacy_type_name": "일차방정식의 그래프 - x,y 절편으로 그래프 그리기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -3628,28 +5062,52 @@
           "source_code": "FN-234",
           "no_in_group": 1,
           "name": "교점이 주어진 경우",
-          "review_status": "원문 확인 / 38개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 38개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G071.I02",
           "source_code": "FN-235",
           "no_in_group": 2,
           "name": "교점의 x좌표(y좌표)가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G071.I03",
           "source_code": "FN-236",
           "no_in_group": 3,
           "name": "교점이 축 위에 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G071.I04",
           "source_code": "FN-237",
           "no_in_group": 4,
           "name": "교점이 특정 사분면 위에 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 42,
@@ -3683,35 +5141,65 @@
           "source_code": "FN-238",
           "no_in_group": 1,
           "name": "축에 대한 조건이 주어진 경우",
-          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 14개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G072.I02",
           "source_code": "FN-239",
           "no_in_group": 2,
           "name": "지나는 한 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G072.I03",
           "source_code": "FN-240",
           "no_in_group": 3,
           "name": "지나는 두 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G072.I04",
           "source_code": "FN-241",
           "no_in_group": 4,
           "name": "기울기가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G072.I05",
           "source_code": "FN-242",
           "no_in_group": 5,
           "name": "두 직선의 교점을 지나는 직선의 방정식에서 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -3745,7 +5233,13 @@
           "source_code": "FN-243",
           "no_in_group": 1,
           "name": "삼각형이 생기지 않도록 하는 미지수 구하기",
-          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 1개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 2,
@@ -3779,14 +5273,26 @@
           "source_code": "FN-244",
           "no_in_group": 1,
           "name": "한 미지수 구하기",
-          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 4개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G074.I02",
           "source_code": "FN-245",
           "no_in_group": 2,
           "name": "두 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -3820,56 +5326,104 @@
           "source_code": "FN-246",
           "no_in_group": 1,
           "name": "연립방정식의 해의 개수 구하기",
-          "review_status": "원문 확인 / 35개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 35개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G075.I02",
           "source_code": "FN-247",
           "no_in_group": 2,
           "name": "연립방정식의 해의 개수와 그래프의 위치관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G075.I03",
           "source_code": "FN-248",
           "no_in_group": 3,
           "name": "해의 개수가 주어진 경우 연립방정식 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G075.I04",
           "source_code": "FN-249",
           "no_in_group": 4,
           "name": "교점의 개수가 주어진 경우 두 직선 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G075.I05",
           "source_code": "FN-250",
           "no_in_group": 5,
           "name": "연립방정식의 해의 개수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G075.I06",
           "source_code": "FN-251",
           "no_in_group": 6,
           "name": "두 직선의 교점의 개수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G075.I07",
           "source_code": "FN-252",
           "no_in_group": 7,
           "name": "연립방정식의 해의 개수와 그래프의 위치관계에 대한 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G075.I08",
           "source_code": "FN-253",
           "no_in_group": 8,
           "name": "연립방정식의 해의 개수와 그래프의 위치관계의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 43,
@@ -3903,28 +5457,52 @@
           "source_code": "FN-254",
           "no_in_group": 1,
           "name": "도형의 넓이 구하기",
-          "review_status": "원문 확인 / 28개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 28개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G076.I02",
           "source_code": "FN-255",
           "no_in_group": 2,
           "name": "도형의 넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G076.I03",
           "source_code": "FN-256",
           "no_in_group": 3,
           "name": "도형의 넓이의 비 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G076.I04",
           "source_code": "FN-257",
           "no_in_group": 4,
           "name": "입체도형의 부피",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 32,
@@ -3958,21 +5536,39 @@
           "source_code": "FN-258",
           "no_in_group": 1,
           "name": "삼각형을 이등분하는 경우",
-          "review_status": "원문 확인 / 26개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 26개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G077.I02",
           "source_code": "FN-259",
           "no_in_group": 2,
           "name": "사각형을 이등분하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G077.I03",
           "source_code": "FN-260",
           "no_in_group": 3,
           "name": "넓이의 비가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -4006,21 +5602,39 @@
           "source_code": "FN-261",
           "no_in_group": 1,
           "name": "속력과 관련된 경우",
-          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 12개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G078.I02",
           "source_code": "FN-262",
           "no_in_group": 2,
           "name": "물의 양과 관련된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G078.I03",
           "source_code": "FN-263",
           "no_in_group": 3,
           "name": "물건의 판매와 관련된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -4054,14 +5668,26 @@
           "source_code": "FN-264",
           "no_in_group": 1,
           "name": "삼각형과 직선이 만날 조건",
-          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)"
+          "review_status": "원문 확인 / 11개 이름 안 보임(접힘)",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.FN.G079.I02",
           "source_code": "FN-265",
           "no_in_group": 2,
           "name": "사각형과 직선이 만날 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,

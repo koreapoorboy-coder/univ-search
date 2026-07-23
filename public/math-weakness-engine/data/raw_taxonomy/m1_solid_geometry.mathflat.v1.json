@@ -31,9 +31,20 @@
     "declared_total": 139,
     "stored_total": 139,
     "match": true,
-    "mismatched_groups": []
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 891,
+  "detail_type_check": {
+    "counted_groups": 52,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 35,
@@ -74,6 +85,19 @@
     "alt_legacy_has_concept_ids": true,
     "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
   },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m1_solid_geometry.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 83,
+    "item_count": 139,
+    "match_confident": 13,
+    "match_candidate": 27,
+    "match_none": 99,
+    "concept_ids_inherited": 13,
+    "error_tags_referenced": 13,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
+  },
   "problem_types": [
     {
       "problem_type_id": "MPLAT.M1S2.SG.G001",
@@ -86,20 +110,33 @@
       "type_name": "다면체",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G001.I01",
           "source_code": "SG-001",
           "no_in_group": 1,
           "name": "다면체에 대한 설명",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G001.I02",
           "source_code": "SG-002",
           "no_in_group": 2,
           "name": "다면체의 구분",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -126,20 +163,33 @@
       "type_name": "다면체의 면의 개수",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G002.I01",
           "source_code": "SG-003",
           "no_in_group": 1,
           "name": "다면체의 면의 개수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT003",
+          "legacy_type_name": "다면체의 면의 개수 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.727,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G002.I02",
           "source_code": "SG-004",
           "no_in_group": 2,
           "name": "다면체의 면의 개수의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT004",
+          "legacy_type_name": "다면체의 면의 개수를 조건에 적용하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -166,13 +216,25 @@
       "type_name": "다면체의 모서리의 개수",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G003.I01",
           "source_code": "SG-005",
           "no_in_group": 1,
           "name": "다면체의 모서리의 개수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C003"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT005",
+          "legacy_type_name": "다면체의 모서리의 개수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "edge_count",
+            "spatial_counting"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -199,13 +261,25 @@
       "type_name": "다면체의 꼭짓점의 개수",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G004.I01",
           "source_code": "SG-006",
           "no_in_group": 1,
           "name": "다면체의 꼭짓점의 개수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C004"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT006",
+          "legacy_type_name": "다면체의 꼭짓점의 개수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "vertex_count",
+            "spatial_counting"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -232,34 +306,64 @@
       "type_name": "다면체의 면, 모서리, 꼭짓점의 개수의 활용",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G005.I01",
           "source_code": "SG-007",
           "no_in_group": 1,
           "name": "다면체의 면, 모서리, 꼭짓점의 개수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C008"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT016",
+          "legacy_type_name": "정다면체의 면·모서리·꼭짓점 개수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.882,
+          "legacy_error_tags_ref": [
+            "regular_polyhedron",
+            "element_count"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G005.I02",
           "source_code": "SG-008",
           "no_in_group": 2,
           "name": "다면체의 면, 모서리, 꼭짓점의 개수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G005.I03",
           "source_code": "SG-009",
           "no_in_group": 3,
           "name": "면, 모서리, 꼭짓점의 개수의 합/차가 주어진 다면체",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT009",
+          "legacy_type_name": "면·모서리·꼭짓점 개수의 합이 주어진 다면체 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.714,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G005.I04",
           "source_code": "SG-010",
           "no_in_group": 4,
           "name": "다면체를 자르는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 42,
@@ -286,13 +390,26 @@
       "type_name": "다면체의 옆면의 모양",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G006.I01",
           "source_code": "SG-011",
           "no_in_group": 1,
           "name": "다면체의 옆면의 모양 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C006",
+            "M1_SG_C002"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT011",
+          "legacy_type_name": "다면체의 옆면 모양 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.917,
+          "legacy_error_tags_ref": [
+            "lateral_face",
+            "solid_net"
+          ]
         }
       ],
       "detail_type_count": 7,
@@ -319,20 +436,33 @@
       "type_name": "다면체의 이해",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G007.I01",
           "source_code": "SG-012",
           "no_in_group": 1,
           "name": "다면체의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G007.I02",
           "source_code": "SG-013",
           "no_in_group": 2,
           "name": "다면체의 이해의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -359,27 +489,51 @@
       "type_name": "조건을 만족시키는 다면체 찾기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G008.I01",
           "source_code": "SG-014",
           "no_in_group": 1,
           "name": "조건을 만족시키는 다면체 찾기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C005"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT012",
+          "legacy_type_name": "조건을 만족시키는 다면체 찾기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "condition_interpretation",
+            "polyhedron_classification"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G008.I02",
           "source_code": "SG-015",
           "no_in_group": 2,
           "name": "조건을 만족시키는 다면체의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G008.I03",
           "source_code": "SG-016",
           "no_in_group": 3,
           "name": "조건을 만족시키는 다면체의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -406,20 +560,33 @@
       "type_name": "다면체의 꼭짓점, 모서리, 면의 개수 사이의 관계",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G009.I01",
           "source_code": "SG-017",
           "no_in_group": 1,
           "name": "다면체의 요소의 개수 사이의 관계",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G009.I02",
           "source_code": "SG-018",
           "no_in_group": 2,
           "name": "다면체의 요소의 개수 사이의 관계의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT013",
+          "legacy_type_name": "다면체 요소 개수 사이의 관계 활용하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.647,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -446,13 +613,20 @@
       "type_name": "정다면체",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G010.I01",
           "source_code": "SG-019",
           "no_in_group": 1,
           "name": "정다면체의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -479,20 +653,33 @@
       "type_name": "정다면체의 이해(한 꼭짓점에 모인 면의 개수, 면의 모양)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G011.I01",
           "source_code": "SG-020",
           "no_in_group": 1,
           "name": "정다면체의 요소의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G011.I02",
           "source_code": "SG-021",
           "no_in_group": 2,
           "name": "활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -519,20 +706,33 @@
       "type_name": "정다면체의 면, 모서리, 꼭짓점의 개수",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G012.I01",
           "source_code": "SG-022",
           "no_in_group": 1,
           "name": "정다면체의 면, 모서리, 꼭짓점의 개수",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G012.I02",
           "source_code": "SG-023",
           "no_in_group": 2,
           "name": "정다면체의 면, 모서리, 꼭짓점의 개수의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -559,27 +759,46 @@
       "type_name": "정다면체의 전개도",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G013.I01",
           "source_code": "SG-024",
           "no_in_group": 1,
           "name": "정다면체의 전개도",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G013.I02",
           "source_code": "SG-025",
           "no_in_group": 2,
           "name": "정다면체의 전개도의 응용: 정사면체, 정육면체",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G013.I03",
           "source_code": "SG-026",
           "no_in_group": 3,
           "name": "정다면체의 전개도의 응용: 정팔면체, 정십이면체, 정이십면체",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -606,13 +825,20 @@
       "type_name": "정다면체의 면, 모서리, 꼭짓점의 개수; 전개도",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G014.I01",
           "source_code": "SG-027",
           "no_in_group": 1,
           "name": "정다면체의 면, 모서리, 꼭짓점의 개수; 전개도",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -639,20 +865,33 @@
       "type_name": "정다면체의 각 면의 한가운데 점을 연결하여 만든 입체도형",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G015.I01",
           "source_code": "SG-028",
           "no_in_group": 1,
           "name": "정다면체의 각 면의 한가운데 점을 연결하여 만든 입체도형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G015.I02",
           "source_code": "SG-029",
           "no_in_group": 2,
           "name": "정다면체의 각 모서리의 중점을 연결하여 만든 입체도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT023",
+          "legacy_type_name": "정다면체 각 모서리의 중점을 연결해 생기는 입체 추론하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -679,20 +918,33 @@
       "type_name": "정다면체의 단면",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G016.I01",
           "source_code": "SG-030",
           "no_in_group": 1,
           "name": "정다면체의 단면",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G016.I02",
           "source_code": "SG-031",
           "no_in_group": 2,
           "name": "정다면체의 단면의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -719,20 +971,33 @@
       "type_name": "회전체",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G017.I01",
           "source_code": "SG-032",
           "no_in_group": 1,
           "name": "회전체의 판단",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G017.I02",
           "source_code": "SG-033",
           "no_in_group": 2,
           "name": "회전체의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -759,34 +1024,59 @@
       "type_name": "평면도형과 회전체",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G018.I01",
           "source_code": "SG-034",
           "no_in_group": 1,
           "name": "평면도형과 회전축 사이의 간격이 없는 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G018.I02",
           "source_code": "SG-035",
           "no_in_group": 2,
           "name": "평면도형과 회전축 사이의 간격이 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G018.I03",
           "source_code": "SG-036",
           "no_in_group": 3,
           "name": "평면도형과 회전체의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G018.I04",
           "source_code": "SG-037",
           "no_in_group": 4,
           "name": "평면도형과 회전체의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -813,20 +1103,33 @@
       "type_name": "회전축",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G019.I01",
           "source_code": "SG-038",
           "no_in_group": 1,
           "name": "회전체 알아보기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT029",
+          "legacy_type_name": "회전체에서 회전축 알아보기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.583,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G019.I02",
           "source_code": "SG-039",
           "no_in_group": 2,
           "name": "회전축 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -853,27 +1156,46 @@
       "type_name": "회전체의 단면의 모양(1)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G020.I01",
           "source_code": "SG-040",
           "no_in_group": 1,
           "name": "회전체의 단면의 모양 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT033",
+          "legacy_type_name": "회전체 단면의 길이와 둘레 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G020.I02",
           "source_code": "SG-041",
           "no_in_group": 2,
           "name": "회전하기 전의 평면도형이 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G020.I03",
           "source_code": "SG-042",
           "no_in_group": 3,
           "name": "회전체의 단면의 모양이 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -900,27 +1222,51 @@
       "type_name": "회전체의 단면의 모양(2)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G021.I01",
           "source_code": "SG-043",
           "no_in_group": 1,
           "name": "회전체의 단면의 모양 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C013"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT031",
+          "legacy_type_name": "회전체의 단면 모양 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.917,
+          "legacy_error_tags_ref": [
+            "cross_section",
+            "solid_of_revolution"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G021.I02",
           "source_code": "SG-044",
           "no_in_group": 2,
           "name": "회전하기 전의 평면도형이 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G021.I03",
           "source_code": "SG-045",
           "no_in_group": 3,
           "name": "회전체의 단면의 모양의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -947,48 +1293,85 @@
       "type_name": "회전체의 단면의 넓이와 둘레의 길이",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G022.I01",
           "source_code": "SG-046",
           "no_in_group": 1,
           "name": "회전체가 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G022.I02",
           "source_code": "SG-047",
           "no_in_group": 2,
           "name": "회전체: 직각삼각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G022.I03",
           "source_code": "SG-048",
           "no_in_group": 3,
           "name": "회전체: 사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G022.I04",
           "source_code": "SG-049",
           "no_in_group": 4,
           "name": "회전체: 여러 가지 단면",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G022.I05",
           "source_code": "SG-050",
           "no_in_group": 5,
           "name": "회전하기 전의 평면도형이 주어지는 경우: 축과의 간격이 있는 평면도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G022.I06",
           "source_code": "SG-051",
           "no_in_group": 6,
           "name": "회전하기 전의 평면도형이 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 42,
@@ -1015,27 +1398,46 @@
       "type_name": "회전체의 전개도",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G023.I01",
           "source_code": "SG-052",
           "no_in_group": 1,
           "name": "회전체의 전개도",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G023.I02",
           "source_code": "SG-053",
           "no_in_group": 2,
           "name": "회전체의 전개도의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT034",
+          "legacy_type_name": "회전체의 전개도 판단하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.636,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G023.I03",
           "source_code": "SG-054",
           "no_in_group": 3,
           "name": "회전체의 전개도의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -1062,20 +1464,33 @@
       "type_name": "원기둥의 전개도의 성질",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G024.I01",
           "source_code": "SG-055",
           "no_in_group": 1,
           "name": "원기둥이 주어지는 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G024.I02",
           "source_code": "SG-056",
           "no_in_group": 2,
           "name": "전개도가 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 3,
@@ -1102,20 +1517,33 @@
       "type_name": "원뿔의 전개도의 성질",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G025.I01",
           "source_code": "SG-057",
           "no_in_group": 1,
           "name": "원뿔의 전개도의 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G025.I02",
           "source_code": "SG-058",
           "no_in_group": 2,
           "name": "원뿔을 지나는 가장 짧은 선의 길이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 23,
@@ -1142,13 +1570,20 @@
       "type_name": "원뿔대의 전개도의 성질",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G026.I01",
           "source_code": "SG-059",
           "no_in_group": 1,
           "name": "원뿔대의 전개도의 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -1175,20 +1610,33 @@
       "type_name": "회전체의 이해",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G027.I01",
           "source_code": "SG-060",
           "no_in_group": 1,
           "name": "특정 회전체의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G027.I02",
           "source_code": "SG-061",
           "no_in_group": 2,
           "name": "회전체의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1215,41 +1663,72 @@
       "type_name": "각기둥의 겉넓이",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G028.I01",
           "source_code": "SG-062",
           "no_in_group": 1,
           "name": "각기둥의 겉넓이 구하는 과정의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G028.I02",
           "source_code": "SG-063",
           "no_in_group": 2,
           "name": "각기둥의 겉넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT059",
+          "legacy_type_name": "뿔대의 겉넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.7,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G028.I03",
           "source_code": "SG-064",
           "no_in_group": 3,
           "name": "각기둥의 겉넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT040",
+          "legacy_type_name": "각기둥의 겉넓이가 주어진 조건에서 길이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.55,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G028.I04",
           "source_code": "SG-065",
           "no_in_group": 4,
           "name": "각기둥의 겉넓이의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G028.I05",
           "source_code": "SG-066",
           "no_in_group": 5,
           "name": "각기둥의 겉넓이의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -1276,34 +1755,64 @@
       "type_name": "원기둥의 겉넓이",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G029.I01",
           "source_code": "SG-067",
           "no_in_group": 1,
           "name": "원기둥의 겉넓이 구하는 과정의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G029.I02",
           "source_code": "SG-068",
           "no_in_group": 2,
           "name": "원기둥의 겉넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_SG_C018"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT041",
+          "legacy_type_name": "원기둥의 겉넓이 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "cylinder_surface_area",
+            "circle_circumference"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G029.I03",
           "source_code": "SG-069",
           "no_in_group": 3,
           "name": "원기둥의 겉넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G029.I04",
           "source_code": "SG-070",
           "no_in_group": 4,
           "name": "원기둥의 겉넓이의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -1330,34 +1839,64 @@
       "type_name": "각기둥의 부피",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G030.I01",
           "source_code": "SG-071",
           "no_in_group": 1,
           "name": "각기둥의 부피 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C019"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT043",
+          "legacy_type_name": "각기둥의 부피 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "prism_volume",
+            "base_area_height"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G030.I02",
           "source_code": "SG-072",
           "no_in_group": 2,
           "name": "전개도가 주어진 각기둥의 부피 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT056",
+          "legacy_type_name": "전개도가 주어진 각뿔의 겉넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.688,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G030.I03",
           "source_code": "SG-073",
           "no_in_group": 3,
           "name": "각기둥의 부피가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT045",
+          "legacy_type_name": "각기둥의 부피가 주어진 조건 활용하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G030.I04",
           "source_code": "SG-074",
           "no_in_group": 4,
           "name": "각기둥의 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 36,
@@ -1384,34 +1923,64 @@
       "type_name": "원기둥의 부피",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G031.I01",
           "source_code": "SG-075",
           "no_in_group": 1,
           "name": "원기둥의 부피 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C020"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT046",
+          "legacy_type_name": "원기둥의 부피 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "cylinder_volume",
+            "circle_area"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G031.I02",
           "source_code": "SG-076",
           "no_in_group": 2,
           "name": "전개도가 주어진 원기둥의 부피 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G031.I03",
           "source_code": "SG-077",
           "no_in_group": 3,
           "name": "원기둥의 부피가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT048",
+          "legacy_type_name": "원기둥의 부피가 주어진 조건 활용하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G031.I04",
           "source_code": "SG-078",
           "no_in_group": 4,
           "name": "원기둥의 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 32,
@@ -1438,20 +2007,33 @@
       "type_name": "밑면이 부채꼴인 기둥의 겉넓이와 부피",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G032.I01",
           "source_code": "SG-079",
           "no_in_group": 1,
           "name": "밑면이 부채꼴인 기둥의 겉넓이와 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G032.I02",
           "source_code": "SG-080",
           "no_in_group": 2,
           "name": "밑면이 부채꼴인 기둥의 겉넓이와 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT049",
+          "legacy_type_name": "밑면이 부채꼴인 기둥의 겉넓이와 부피 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.842,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1478,34 +2060,59 @@
       "type_name": "구멍이 뚫린 기둥의 겉넓이와 부피",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G033.I01",
           "source_code": "SG-081",
           "no_in_group": 1,
           "name": "구멍이 뚫린 각기둥의 겉넓이와 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT050",
+          "legacy_type_name": "구멍이 뚫린 각기둥의 겉넓이와 부피 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.833,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G033.I02",
           "source_code": "SG-082",
           "no_in_group": 2,
           "name": "구멍이 뚫린 원기둥의 겉넓이와 부피",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT051",
+          "legacy_type_name": "구멍이 뚫린 원기둥의 겉넓이와 부피 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.833,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G033.I03",
           "source_code": "SG-083",
           "no_in_group": 3,
           "name": "부채꼴의 일부를 잘라낸 평면도형을 밑면으로 하는 기둥의 겉넓이와 부피",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G033.I04",
           "source_code": "SG-084",
           "no_in_group": 4,
           "name": "구멍이 여러 개 뚫린 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -1532,34 +2139,59 @@
       "type_name": "일부분을 잘라 낸 기둥의 겉넓이와 부피",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G034.I01",
           "source_code": "SG-085",
           "no_in_group": 1,
           "name": "일부분을 잘라낸 기둥의 겉넓이",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT052",
+          "legacy_type_name": "일부분을 잘라낸 기둥의 겉넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.812,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G034.I02",
           "source_code": "SG-086",
           "no_in_group": 2,
           "name": "일부분을 잘라낸 기둥의 부피",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT053",
+          "legacy_type_name": "일부분을 잘라낸 기둥의 부피 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.8,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G034.I03",
           "source_code": "SG-087",
           "no_in_group": 3,
           "name": "일부분을 잘라 낸 기둥의 겉넓이와 부피의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G034.I04",
           "source_code": "SG-088",
           "no_in_group": 4,
           "name": "일부분을 잘라 낸 기둥의 겉넓이와 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -1586,27 +2218,46 @@
       "type_name": "회전체의 겉넓이와 부피; 원기둥",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G035.I01",
           "source_code": "SG-089",
           "no_in_group": 1,
           "name": "회전체의 겉넓이와 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G035.I02",
           "source_code": "SG-090",
           "no_in_group": 2,
           "name": "회전체의 겉넓이와 부피: 중간이 꺾이거나 축과의 간격이 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G035.I03",
           "source_code": "SG-091",
           "no_in_group": 3,
           "name": "회전체의 겉넓이와 부피의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -1633,20 +2284,38 @@
       "type_name": "각뿔의 겉넓이",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G036.I01",
           "source_code": "SG-092",
           "no_in_group": 1,
           "name": "각뿔의 겉넓이 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_SG_C023"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT055",
+          "legacy_type_name": "각뿔의 겉넓이 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "pyramid_surface_area",
+            "lateral_triangle"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G036.I02",
           "source_code": "SG-093",
           "no_in_group": 2,
           "name": "각뿔의 겉넓이 구하기: 전개도가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -1673,27 +2342,51 @@
       "type_name": "원뿔의 겉넓이",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G037.I01",
           "source_code": "SG-094",
           "no_in_group": 1,
           "name": "원뿔의 겉넓이 구하는 과정의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G037.I02",
           "source_code": "SG-095",
           "no_in_group": 2,
           "name": "원뿔의 겉넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_SG_C024"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT057",
+          "legacy_type_name": "원뿔의 겉넓이 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "cone_surface_area",
+            "sector"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G037.I03",
           "source_code": "SG-096",
           "no_in_group": 3,
           "name": "원뿔을 꼭짓점을 중심으로 n바퀴 굴리는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -1720,27 +2413,46 @@
       "type_name": "원뿔의 겉넓이; 전개도",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G038.I01",
           "source_code": "SG-097",
           "no_in_group": 1,
           "name": "원뿔의 겉넓이 구하기: 옆면인 부채꼴의 중심각의 크기 포함",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G038.I02",
           "source_code": "SG-098",
           "no_in_group": 2,
           "name": "원뿔의 겉넓이가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G038.I03",
           "source_code": "SG-099",
           "no_in_group": 3,
           "name": "원뿔의 겉넓이의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -1767,20 +2479,33 @@
       "type_name": "뿔대의 겉넓이",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G039.I01",
           "source_code": "SG-100",
           "no_in_group": 1,
           "name": "뿔대의 겉넓이",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G039.I02",
           "source_code": "SG-101",
           "no_in_group": 2,
           "name": "전개도가 주어진 뿔대의 겉넓이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT060",
+          "legacy_type_name": "전개도가 주어진 뿔대의 겉넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.812,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1807,34 +2532,64 @@
       "type_name": "각뿔의 부피",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G040.I01",
           "source_code": "SG-102",
           "no_in_group": 1,
           "name": "각뿔의 부피 구하는 과정의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G040.I02",
           "source_code": "SG-103",
           "no_in_group": 2,
           "name": "각뿔의 부피 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_SG_C026"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT061",
+          "legacy_type_name": "각뿔의 부피 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "pyramid_volume",
+            "one_third"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G040.I03",
           "source_code": "SG-104",
           "no_in_group": 3,
           "name": "각뿔의 부피가 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G040.I04",
           "source_code": "SG-105",
           "no_in_group": 4,
           "name": "각뿔의 부피의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -1861,13 +2616,20 @@
       "type_name": "직육면체의 내부에 있는 각뿔의 부피",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G041.I01",
           "source_code": "SG-106",
           "no_in_group": 1,
           "name": "직육면체의 내부에 있는 각뿔의 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 3,
@@ -1894,27 +2656,46 @@
       "type_name": "각기둥에서 잘라 낸 각뿔의 부피",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G042.I01",
           "source_code": "SG-107",
           "no_in_group": 1,
           "name": "각기둥에서 잘라 낸 각뿔의 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT064",
+          "legacy_type_name": "각기둥에서 잘라 낸 각뿔의 부피 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.812,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G042.I02",
           "source_code": "SG-108",
           "no_in_group": 2,
           "name": "각기둥에서 잘라 낸 각뿔의 부피의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G042.I03",
           "source_code": "SG-109",
           "no_in_group": 3,
           "name": "각기둥에서 잘라 낸 각뿔의 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1941,20 +2722,33 @@
       "type_name": "그릇에 담긴 물의 부피",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G043.I01",
           "source_code": "SG-110",
           "no_in_group": 1,
           "name": "그릇 1개",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G043.I02",
           "source_code": "SG-111",
           "no_in_group": 2,
           "name": "그릇 2개의 비교",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -1981,34 +2775,64 @@
       "type_name": "원뿔의 부피",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G044.I01",
           "source_code": "SG-112",
           "no_in_group": 1,
           "name": "원뿔의 부피 구하는 과정의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G044.I02",
           "source_code": "SG-113",
           "no_in_group": 2,
           "name": "원뿔의 부피 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_SG_C027"
+          ],
+          "legacy_problem_type_id": "M1_SG_PT066",
+          "legacy_type_name": "원뿔의 부피 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "cone_volume",
+            "one_third"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.SG.G044.I03",
           "source_code": "SG-114",
           "no_in_group": 3,
           "name": "두 입체도형의 부피의 비교 또는 두 입체도형을 붙여놓은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G044.I04",
           "source_code": "SG-115",
           "no_in_group": 4,
           "name": "원뿔의 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -2035,27 +2859,46 @@
       "type_name": "뿔대의 부피",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G045.I01",
           "source_code": "SG-116",
           "no_in_group": 1,
           "name": "뿔대의 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT068",
+          "legacy_type_name": "뿔대의 부피 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G045.I02",
           "source_code": "SG-117",
           "no_in_group": 2,
           "name": "뿔대의 부피: 두 도형이 붙어있는 형태",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G045.I03",
           "source_code": "SG-118",
           "no_in_group": 3,
           "name": "뿔대의 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -2082,27 +2925,46 @@
       "type_name": "회전체의 겉넓이와 부피(1) 원뿔",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G046.I01",
           "source_code": "SG-119",
           "no_in_group": 1,
           "name": "회전체의 겉넓이와 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G046.I02",
           "source_code": "SG-120",
           "no_in_group": 2,
           "name": "회전체의 겉넓이와 부피: 가운데가 비어있는 입체도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G046.I03",
           "source_code": "SG-121",
           "no_in_group": 3,
           "name": "회전체의 겉넓이와 부피의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -2129,27 +2991,46 @@
       "type_name": "회전체의 겉넓이와 부피(2) 원뿔대",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G047.I01",
           "source_code": "SG-122",
           "no_in_group": 1,
           "name": "회전체의 겉넓이와 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G047.I02",
           "source_code": "SG-123",
           "no_in_group": 2,
           "name": "회전체의 겉넓이와 부피: 축과의 거리가 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G047.I03",
           "source_code": "SG-124",
           "no_in_group": 3,
           "name": "회전체의 겉넓이와 부피: 축을 통과하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -2176,27 +3057,46 @@
       "type_name": "구의 겉넓이",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G048.I01",
           "source_code": "SG-125",
           "no_in_group": 1,
           "name": "구의 겉넓이",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT073",
+          "legacy_type_name": "구의 겉넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G048.I02",
           "source_code": "SG-126",
           "no_in_group": 2,
           "name": "구와 다른 도형을 붙여놓은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G048.I03",
           "source_code": "SG-127",
           "no_in_group": 3,
           "name": "구의 겉넓이의 응용/활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 23,
@@ -2223,34 +3123,59 @@
       "type_name": "구의 부피",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G049.I01",
           "source_code": "SG-128",
           "no_in_group": 1,
           "name": "구의 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G049.I02",
           "source_code": "SG-129",
           "no_in_group": 2,
           "name": "구와 다른 도형을 붙여놓은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G049.I03",
           "source_code": "SG-130",
           "no_in_group": 3,
           "name": "구의 부피의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G049.I04",
           "source_code": "SG-131",
           "no_in_group": 4,
           "name": "구의 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT075",
+          "legacy_type_name": "구의 부피 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 49,
@@ -2277,27 +3202,46 @@
       "type_name": "회전체의 겉넓이와 부피; 구",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G050.I01",
           "source_code": "SG-132",
           "no_in_group": 1,
           "name": "회전체의 겉넓이와 부피",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G050.I02",
           "source_code": "SG-133",
           "no_in_group": 2,
           "name": "회전체의 겉넓이와 부피의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G050.I03",
           "source_code": "SG-134",
           "no_in_group": 3,
           "name": "회전체의 겉넓이와 부피의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 31,
@@ -2324,27 +3268,46 @@
       "type_name": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G051.I01",
           "source_code": "SG-135",
           "no_in_group": 1,
           "name": "원기둥에 꼭 맞게 들어가는 구, 원뿔",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT079",
+          "legacy_type_name": "원기둥에 꼭 맞게 들어가는 구의 반지름 조건 찾기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G051.I02",
           "source_code": "SG-136",
           "no_in_group": 2,
           "name": "원기둥에 꼭 맞게 들어가는 구, 원뿔의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT080",
+          "legacy_type_name": "원기둥에 꼭 맞게 들어가는 원뿔 조건 찾기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.706,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G051.I03",
           "source_code": "SG-137",
           "no_in_group": 3,
           "name": "(종합) 원기둥에 꼭 맞게 들어가는 구, 원뿔",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 23,
@@ -2371,20 +3334,33 @@
       "type_name": "입체도형에 꼭 맞게 들어가는 입체도형",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.SG.G052.I01",
           "source_code": "SG-138",
           "no_in_group": 1,
           "name": "구에 꼭 맞게 들어가는 입체도형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT081",
+          "legacy_type_name": "구에 꼭 맞게 들어가는 입체도형 조건 찾기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.765,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.SG.G052.I02",
           "source_code": "SG-139",
           "no_in_group": 2,
           "name": "직육면체에 꼭 맞게 들어가는 입체도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_SG_PT082",
+          "legacy_type_name": "직육면체에 꼭 맞게 들어가는 입체도형 조건 찾기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.8,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,

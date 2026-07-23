@@ -40,9 +40,17 @@
       "G049"
     ],
     "accepted_source_note": "매쓰플랫 화면 배지가 실제 표시 항목보다 적게 적혀 있다. 하위 활용 항목이 배지 숫자에 안 잡힌 경우로, 화면에 보이는 항목을 모두 저장했다. 전사 오류가 아니다.",
-    "unexplained_groups": []
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 1160,
+  "detail_type_check": {
+    "counted_groups": 60,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 3,
@@ -190,6 +198,19 @@
     "alt_legacy_has_concept_ids": true,
     "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
   },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m2_geometry_properties.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 140,
+    "item_count": 178,
+    "match_confident": 3,
+    "match_candidate": 29,
+    "match_none": 146,
+    "concept_ids_inherited": 3,
+    "error_tags_referenced": 3,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
+  },
   "problem_types": [
     {
       "problem_type_id": "MPLAT.M2S2.GP.G001",
@@ -209,21 +230,46 @@
           "source_code": "GP-001",
           "no_in_group": 1,
           "name": "이등변삼각형의 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M2_GEOM_C007"
+          ],
+          "legacy_problem_type_id": "M2_GEOM_PT022",
+          "legacy_type_name": "이등변삼각형의 성질 - 조건 적용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "angle_relation",
+            "parallel_lines",
+            "angle_chasing",
+            "triangle_congruence"
+          ]
         },
         {
           "item_id": "MPLAT.M2S2.GP.G001.I02",
           "source_code": "GP-002",
           "no_in_group": 2,
           "name": "이등변삼각형의 성질(1)의 증명 과정",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G001.I03",
           "source_code": "GP-003",
           "no_in_group": 3,
           "name": "이등변삼각형의 성질(2)의 증명 과정",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -257,14 +303,26 @@
           "source_code": "GP-004",
           "no_in_group": 1,
           "name": "이등변삼각형에서 내각의 크기가 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G002.I02",
           "source_code": "GP-005",
           "no_in_group": 2,
           "name": "이등변삼각형에서 외각의 크기가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -298,21 +356,39 @@
           "source_code": "GP-006",
           "no_in_group": 1,
           "name": "이등변삼각형에서 꼭지각의 이등분선을 그은 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G003.I02",
           "source_code": "GP-007",
           "no_in_group": 2,
           "name": "이등변삼각형에서 꼭지각의 이등분선 위의 한 점을 이어 만든 삼각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G003.I03",
           "source_code": "GP-008",
           "no_in_group": 3,
           "name": "이등변삼각형의 성질(2)의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -346,21 +422,39 @@
           "source_code": "GP-009",
           "no_in_group": 1,
           "name": "이등변삼각형 내부에 삼각형 또는 각이 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G004.I02",
           "source_code": "GP-010",
           "no_in_group": 2,
           "name": "이등변삼각형과 평행선의 성질 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G004.I03",
           "source_code": "GP-011",
           "no_in_group": 3,
           "name": "이등변삼각형을 포함하는 도형이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 35,
@@ -394,21 +488,39 @@
           "source_code": "GP-012",
           "no_in_group": 1,
           "name": "이웃한 두 이등변삼각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G005.I02",
           "source_code": "GP-013",
           "no_in_group": 2,
           "name": "이웃한 세 이등변삼각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT126",
+          "legacy_type_name": "이등변삼각형",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G005.I03",
           "source_code": "GP-014",
           "no_in_group": 3,
           "name": "이웃한 이등변삼각형의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -442,28 +554,52 @@
           "source_code": "GP-015",
           "no_in_group": 1,
           "name": "한 내각의 이등분선",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G006.I02",
           "source_code": "GP-016",
           "no_in_group": 2,
           "name": "외각의 이등분선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G006.I03",
           "source_code": "GP-017",
           "no_in_group": 3,
           "name": "내각과 외각의 이등분선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G006.I04",
           "source_code": "GP-018",
           "no_in_group": 4,
           "name": "한 각의 이등분선과 비가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -497,14 +633,26 @@
           "source_code": "GP-019",
           "no_in_group": 1,
           "name": "사각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G007.I02",
           "source_code": "GP-020",
           "no_in_group": 2,
           "name": "정다각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -538,14 +686,26 @@
           "source_code": "GP-021",
           "no_in_group": 1,
           "name": "양 밑각의 크기가 같은 삼각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G008.I02",
           "source_code": "GP-022",
           "no_in_group": 2,
           "name": "이등변삼각형이 되는 조건 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -581,14 +741,33 @@
           "source_code": "GP-023",
           "no_in_group": 1,
           "name": "이등변삼각형이 되는 조건",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M2_GEOM_C008"
+          ],
+          "legacy_problem_type_id": "M2_GEOM_PT025",
+          "legacy_type_name": "이등변삼각형이 되는 조건 - 조건 적용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "angle_relation",
+            "parallel_lines",
+            "angle_chasing",
+            "triangle_congruence"
+          ]
         },
         {
           "item_id": "MPLAT.M2S2.GP.G009.I02",
           "source_code": "GP-024",
           "no_in_group": 2,
           "name": "이등변삼각형이 되는 조건 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT026",
+          "legacy_type_name": "이등변삼각형이 되는 조건 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.846,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 4,
@@ -622,14 +801,26 @@
           "source_code": "GP-025",
           "no_in_group": 1,
           "name": "폭이 일정한 종이를 접은 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G010.I02",
           "source_code": "GP-026",
           "no_in_group": 2,
           "name": "폭이 일정한 종이를 접은 경우 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -663,14 +854,26 @@
           "source_code": "GP-027",
           "no_in_group": 1,
           "name": "직각삼각형의 합동 조건",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT029",
+          "legacy_type_name": "직각삼각형의 합동 조건 RHS·RHA - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G011.I02",
           "source_code": "GP-028",
           "no_in_group": 2,
           "name": "직각삼각형 합동 조건의 적용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT028",
+          "legacy_type_name": "직각삼각형의 합동 조건 RHS·RHA - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -704,28 +907,52 @@
           "source_code": "GP-029",
           "no_in_group": 1,
           "name": "각의 이등분선이 포함된 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G012.I02",
           "source_code": "GP-030",
           "no_in_group": 2,
           "name": "내부에 수선의 발을 내린 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G012.I03",
           "source_code": "GP-031",
           "no_in_group": 3,
           "name": "직각이등변삼각형의 한 꼭짓점을 지나는 직선에 수선의 발을 내린 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G012.I04",
           "source_code": "GP-032",
           "no_in_group": 4,
           "name": "여러 가지 도형에서 수선의 발을 내린 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -759,21 +986,39 @@
           "source_code": "GP-033",
           "no_in_group": 1,
           "name": "빗변을 공통으로 하는 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G013.I02",
           "source_code": "GP-034",
           "no_in_group": 2,
           "name": "삼각형의 한 변의 중점에서 다른 두 변에 각각 수선의 발을 내린 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G013.I03",
           "source_code": "GP-035",
           "no_in_group": 3,
           "name": "RHS 합동의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -807,28 +1052,52 @@
           "source_code": "GP-036",
           "no_in_group": 1,
           "name": "각의 이등분선의 성질(1)",
-          "review_status": "원문 확인 / 화면 표시 항목 2개 초과(하위 활용 포함)"
+          "review_status": "원문 확인 / 화면 표시 항목 2개 초과(하위 활용 포함)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT047",
+          "legacy_type_name": "각의 이등분선과 거리 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G014.I02",
           "source_code": "GP-037",
           "no_in_group": 2,
           "name": "각의 이등분선의 성질(1)의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G014.I03",
           "source_code": "GP-038",
           "no_in_group": 3,
           "name": "각의 이등분선의 성질(2)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT046",
+          "legacy_type_name": "각의 이등분선과 거리 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G014.I04",
           "source_code": "GP-039",
           "no_in_group": 4,
           "name": "각의 이등분선의 성질(2)의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -862,35 +1131,65 @@
           "source_code": "GP-040",
           "no_in_group": 1,
           "name": "삼각형의 외심의 정의와 성질의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G015.I02",
           "source_code": "GP-041",
           "no_in_group": 2,
           "name": "삼각형의 외심의 성질을 이용한 변의 길이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G015.I03",
           "source_code": "GP-042",
           "no_in_group": 3,
           "name": "삼각형의 외심의 성질을 이용한 각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G015.I04",
           "source_code": "GP-043",
           "no_in_group": 4,
           "name": "삼각형의 외심의 성질을 이용한 외접원",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT037",
+          "legacy_type_name": "삼각형의 외심과 외접원 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G015.I05",
           "source_code": "GP-044",
           "no_in_group": 5,
           "name": "삼각형의 외심의 성질을 이용한 삼각형 넓이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 32,
@@ -924,14 +1223,26 @@
           "source_code": "GP-045",
           "no_in_group": 1,
           "name": "둔각삼각형의 외심",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G016.I02",
           "source_code": "GP-046",
           "no_in_group": 2,
           "name": "둔각삼각형의 외심 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -965,21 +1276,39 @@
           "source_code": "GP-047",
           "no_in_group": 1,
           "name": "직각삼각형의 외심 - 변의 길이에 대한 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G017.I02",
           "source_code": "GP-048",
           "no_in_group": 2,
           "name": "직각삼각형의 외접원",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G017.I03",
           "source_code": "GP-049",
           "no_in_group": 3,
           "name": "직각삼각형의 외심의 성질을 이용한 변의 길이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -1013,14 +1342,26 @@
           "source_code": "GP-050",
           "no_in_group": 1,
           "name": "직각삼각형의 외심 - 각의 크기에 대한 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G018.I02",
           "source_code": "GP-051",
           "no_in_group": 2,
           "name": "직각삼각형의 외심의 성질을 이용한 각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -1054,14 +1395,26 @@
           "source_code": "GP-052",
           "no_in_group": 1,
           "name": "삼각형의 외심의 성질을 이용한 ∠x+∠y+∠z=90°에 대한 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G019.I02",
           "source_code": "GP-053",
           "no_in_group": 2,
           "name": "∠x+∠y+∠z=90°를 이용한 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -1095,14 +1448,26 @@
           "source_code": "GP-054",
           "no_in_group": 1,
           "name": "삼각형의 외심의 성질을 이용한 ∠BOC=2∠A에 대한 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G020.I02",
           "source_code": "GP-055",
           "no_in_group": 2,
           "name": "∠BOC=2∠A를 이용한 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -1136,21 +1501,39 @@
           "source_code": "GP-056",
           "no_in_group": 1,
           "name": "삼각형의 내심의 정의와 성질의 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G021.I02",
           "source_code": "GP-057",
           "no_in_group": 2,
           "name": "삼각형의 내심의 성질을 이용한 각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G021.I03",
           "source_code": "GP-058",
           "no_in_group": 3,
           "name": "삼각형의 내심의 성질을 이용한 외접원",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -1184,14 +1567,26 @@
           "source_code": "GP-059",
           "no_in_group": 1,
           "name": "삼각형의 내심의 성질을 이용한 ∠x+∠y+∠z=90°에 대한 이해",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G022.I02",
           "source_code": "GP-060",
           "no_in_group": 2,
           "name": "∠x+∠y+∠z=90°를 이용한 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1225,28 +1620,52 @@
           "source_code": "GP-061",
           "no_in_group": 1,
           "name": "∠BIC=90°+1/2∠A의 관계 적용하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G023.I02",
           "source_code": "GP-062",
           "no_in_group": 2,
           "name": "∠BIC=90°+1/2∠A를 이용한 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G023.I03",
           "source_code": "GP-063",
           "no_in_group": 3,
           "name": "두 내심이 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G023.I04",
           "source_code": "GP-064",
           "no_in_group": 4,
           "name": "이등변삼각형의 내심",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT023",
+          "legacy_type_name": "이등변삼각형의 성질 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.778,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -1280,14 +1699,26 @@
           "source_code": "GP-065",
           "no_in_group": 1,
           "name": "내접원의 반지름의 길이 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G024.I02",
           "source_code": "GP-066",
           "no_in_group": 2,
           "name": "내접원의 반지름의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -1321,21 +1752,39 @@
           "source_code": "GP-067",
           "no_in_group": 1,
           "name": "변의 길이가 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G025.I02",
           "source_code": "GP-068",
           "no_in_group": 2,
           "name": "내접원의 반지름이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G025.I03",
           "source_code": "GP-069",
           "no_in_group": 3,
           "name": "삼각형의 둘레의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -1369,14 +1818,26 @@
           "source_code": "GP-070",
           "no_in_group": 1,
           "name": "삼각형의 한 변에 평행하고 내심을 지나는 선분이 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G026.I02",
           "source_code": "GP-071",
           "no_in_group": 2,
           "name": "삼각형의 내심과 평행선 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT050",
+          "legacy_type_name": "삼각형의 내심과 내접원 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.583,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1410,14 +1871,26 @@
           "source_code": "GP-072",
           "no_in_group": 1,
           "name": "외심과 내심의 일치",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT054",
+          "legacy_type_name": "외심과 내심 명칭 혼동",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.556,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G027.I02",
           "source_code": "GP-073",
           "no_in_group": 2,
           "name": "외심과 내심에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1451,14 +1924,26 @@
           "source_code": "GP-074",
           "no_in_group": 1,
           "name": "△ABC에서 내심 I와 외심 O가 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G028.I02",
           "source_code": "GP-075",
           "no_in_group": 2,
           "name": "△ABC에서 내심 I와 외심 O의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 21,
@@ -1492,7 +1977,13 @@
           "source_code": "GP-076",
           "no_in_group": 1,
           "name": "직각삼각형의 외접원과 내접원",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT038",
+          "legacy_type_name": "삼각형의 외심과 외접원 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.615,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1526,14 +2017,32 @@
           "source_code": "GP-077",
           "no_in_group": 1,
           "name": "평행사변형의 뜻",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M2_GEOM_C020"
+          ],
+          "legacy_problem_type_id": "M2_GEOM_PT062",
+          "legacy_type_name": "평행사변형의 정의 - 계산·추론",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.857,
+          "legacy_error_tags_ref": [
+            "quadrilateral_property",
+            "diagonal_property",
+            "inclusion_relation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S2.GP.G030.I02",
           "source_code": "GP-078",
           "no_in_group": 2,
           "name": "평행사변형의 뜻의 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT070",
+          "legacy_type_name": "평행사변형의 각 관계 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1569,14 +2078,26 @@
           "source_code": "GP-079",
           "no_in_group": 1,
           "name": "평행사변형의 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT061",
+          "legacy_type_name": "평행사변형의 정의 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G031.I02",
           "source_code": "GP-080",
           "no_in_group": 2,
           "name": "평행사변형의 성질의 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1610,21 +2131,39 @@
           "source_code": "GP-081",
           "no_in_group": 1,
           "name": "평행사변형에서 대변의 성질의 증명 과정",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G032.I02",
           "source_code": "GP-082",
           "no_in_group": 2,
           "name": "평행사변형에서 대각의 성질의 증명 과정",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G032.I03",
           "source_code": "GP-083",
           "no_in_group": 3,
           "name": "평행사변형에서 두 대각선의 성질의 증명 과정",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1658,35 +2197,65 @@
           "source_code": "GP-084",
           "no_in_group": 1,
           "name": "평행사변형에서 대변의 성질의 이용",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G033.I02",
           "source_code": "GP-085",
           "no_in_group": 2,
           "name": "평행사변형에서 대변의 성질의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G033.I03",
           "source_code": "GP-086",
           "no_in_group": 3,
           "name": "평행사변형에서 한 내각의 이등분선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G033.I04",
           "source_code": "GP-087",
           "no_in_group": 4,
           "name": "평행사변형에서 두 내각의 이등분선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G033.I05",
           "source_code": "GP-088",
           "no_in_group": 5,
           "name": "다른 도형 내부의 평행사변형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -1720,35 +2289,65 @@
           "source_code": "GP-089",
           "no_in_group": 1,
           "name": "평행사변형에서 대각의 성질의 이용",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G034.I02",
           "source_code": "GP-090",
           "no_in_group": 2,
           "name": "평행사변형에서 대각선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G034.I03",
           "source_code": "GP-091",
           "no_in_group": 3,
           "name": "평행사변형에서 대각의 성질의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G034.I04",
           "source_code": "GP-092",
           "no_in_group": 4,
           "name": "평행사변형에서 한 내각의 이등분선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G034.I05",
           "source_code": "GP-093",
           "no_in_group": 5,
           "name": "평행사변형에서 이웃하는 두 내각의 크기에 비 또는 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 47,
@@ -1782,14 +2381,26 @@
           "source_code": "GP-094",
           "no_in_group": 1,
           "name": "평행사변형에서 대각선의 성질의 이용",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT064",
+          "legacy_type_name": "평행사변형의 변·각·대각선 성질 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.562,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G035.I02",
           "source_code": "GP-095",
           "no_in_group": 2,
           "name": "평행사변형의 성질의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -1823,14 +2434,26 @@
           "source_code": "GP-096",
           "no_in_group": 1,
           "name": "평행사변형인지 판단하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G036.I02",
           "source_code": "GP-097",
           "no_in_group": 2,
           "name": "평행사변형이 되는 조건 증명하는 과정",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT101",
+          "legacy_type_name": "평행사변형이 되는 조건 증명 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1866,14 +2489,26 @@
           "source_code": "GP-098",
           "no_in_group": 1,
           "name": "변의 길이 또는 내각에 미지수가 포함된 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G037.I02",
           "source_code": "GP-099",
           "no_in_group": 2,
           "name": "사각형 내부에 대각선 또는 한 선분이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1907,21 +2542,39 @@
           "source_code": "GP-100",
           "no_in_group": 1,
           "name": "평행사변형이 되기 위한 조건",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT068",
+          "legacy_type_name": "평행사변형이 되는 조건 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G038.I02",
           "source_code": "GP-101",
           "no_in_group": 2,
           "name": "평행사변형 판단",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G038.I03",
           "source_code": "GP-102",
           "no_in_group": 3,
           "name": "평행사변형이 되기 위한 조건 추가하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -1955,21 +2608,39 @@
           "source_code": "GP-103",
           "no_in_group": 1,
           "name": "평행사변형 내부의 사각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G039.I02",
           "source_code": "GP-104",
           "no_in_group": 2,
           "name": "평행사변형의 대각선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT130",
+          "legacy_type_name": "평행사변형의 각·변·대각선 성질 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.692,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G039.I03",
           "source_code": "GP-105",
           "no_in_group": 3,
           "name": "평행사변형 외부의 사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -2003,35 +2674,65 @@
           "source_code": "GP-106",
           "no_in_group": 1,
           "name": "두 내각의 이등분선을 그어 만든 평행사변형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G040.I02",
           "source_code": "GP-107",
           "no_in_group": 2,
           "name": "한 대각선 위의 두 점을 이어 만든 평행사변형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G040.I03",
           "source_code": "GP-108",
           "no_in_group": 3,
           "name": "평행사변형이 되는 조건의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT100",
+          "legacy_type_name": "평행사변형이 되는 조건 증명 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.769,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G040.I04",
           "source_code": "GP-109",
           "no_in_group": 4,
           "name": "삼각형과 평행사변형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G040.I05",
           "source_code": "GP-110",
           "no_in_group": 5,
           "name": "변 위를 이동하는 두 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -2065,28 +2766,52 @@
           "source_code": "GP-111",
           "no_in_group": 1,
           "name": "대각선을 그은 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G041.I02",
           "source_code": "GP-112",
           "no_in_group": 2,
           "name": "평행하는 직선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G041.I03",
           "source_code": "GP-113",
           "no_in_group": 3,
           "name": "연장선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G041.I04",
           "source_code": "GP-114",
           "no_in_group": 4,
           "name": "대각선에 의하여 나뉘는 삼각형의 넓이의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -2120,21 +2845,39 @@
           "source_code": "GP-115",
           "no_in_group": 1,
           "name": "내부의 한 점과 각 꼭짓점을 연결하여 삼각형을 만드는 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G042.I02",
           "source_code": "GP-116",
           "no_in_group": 2,
           "name": "내부의 한 점을 지나면서 각 변에 평행한 선분을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G042.I03",
           "source_code": "GP-117",
           "no_in_group": 3,
           "name": "내부의 한점과 각 꼭짓점을 연결하여 만든 삼각형의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2168,14 +2911,26 @@
           "source_code": "GP-118",
           "no_in_group": 1,
           "name": "평행사변형 모양의 종이를 접은 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G043.I02",
           "source_code": "GP-119",
           "no_in_group": 2,
           "name": "대각선을 접는 선으로 하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 4,
@@ -2209,35 +2964,65 @@
           "source_code": "GP-120",
           "no_in_group": 1,
           "name": "직사각형의 뜻과 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT076",
+          "legacy_type_name": "직사각형의 성질과 조건 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G044.I02",
           "source_code": "GP-121",
           "no_in_group": 2,
           "name": "직사각형의 뜻과 성질을 이용하여 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G044.I03",
           "source_code": "GP-122",
           "no_in_group": 3,
           "name": "직사각형의 뜻과 성질을 이용하여 변의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G044.I04",
           "source_code": "GP-123",
           "no_in_group": 4,
           "name": "직사각형 성질의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT077",
+          "legacy_type_name": "직사각형의 성질과 조건 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G044.I05",
           "source_code": "GP-124",
           "no_in_group": 5,
           "name": "평행사변형의 네 내각의 이등분선의 교점으로 만든 사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -2271,21 +3056,39 @@
           "source_code": "GP-125",
           "no_in_group": 1,
           "name": "평행사변형이 직사각형이 되는 조건의 증명",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G045.I02",
           "source_code": "GP-126",
           "no_in_group": 2,
           "name": "평행사변형이 직사각형이 되는 조건 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G045.I03",
           "source_code": "GP-127",
           "no_in_group": 3,
           "name": "평행사변형이 직사각형이 되는 조건의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -2319,42 +3122,78 @@
           "source_code": "GP-128",
           "no_in_group": 1,
           "name": "마름모의 뜻과 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT080",
+          "legacy_type_name": "마름모의 성질과 조건 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.556,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G046.I02",
           "source_code": "GP-129",
           "no_in_group": 2,
           "name": "마름모의 뜻과 성질을 이용하여 변의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G046.I03",
           "source_code": "GP-130",
           "no_in_group": 3,
           "name": "마름모의 뜻과 성질을 이용하여 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G046.I04",
           "source_code": "GP-131",
           "no_in_group": 4,
           "name": "한 꼭짓점에서 수선의 발을 내린 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G046.I05",
           "source_code": "GP-132",
           "no_in_group": 5,
           "name": "마름모 내부의 한 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G046.I06",
           "source_code": "GP-133",
           "no_in_group": 6,
           "name": "마름모의 성질의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT079",
+          "legacy_type_name": "마름모의 성질과 조건 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 56,
@@ -2388,42 +3227,78 @@
           "source_code": "GP-134",
           "no_in_group": 1,
           "name": "평행사변형이 마름모가 되는 조건의 증명",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G047.I02",
           "source_code": "GP-135",
           "no_in_group": 2,
           "name": "평행사변형이 마름모가 되는 조건 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G047.I03",
           "source_code": "GP-136",
           "no_in_group": 3,
           "name": "이웃한 두 변의 길이가 같은 평행사변형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G047.I04",
           "source_code": "GP-137",
           "no_in_group": 4,
           "name": "두 대각선이 직교하는 평행사변형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G047.I05",
           "source_code": "GP-138",
           "no_in_group": 5,
           "name": "직사각형 내부의 사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G047.I06",
           "source_code": "GP-139",
           "no_in_group": 6,
           "name": "연장선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -2457,42 +3332,78 @@
           "source_code": "GP-140",
           "no_in_group": 1,
           "name": "정사각형의 뜻과 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT082",
+          "legacy_type_name": "정사각형의 성질 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.778,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G048.I02",
           "source_code": "GP-141",
           "no_in_group": 2,
           "name": "정사각형의 뜻과 성질을 이용하여 변의 길이 또는 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G048.I03",
           "source_code": "GP-142",
           "no_in_group": 3,
           "name": "정사각형의 성질 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT083",
+          "legacy_type_name": "정사각형의 성질 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.778,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G048.I04",
           "source_code": "GP-143",
           "no_in_group": 4,
           "name": "대각선 위의 한 점을 지나는 선분",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G048.I05",
           "source_code": "GP-144",
           "no_in_group": 5,
           "name": "겹쳐진 두 정사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G048.I06",
           "source_code": "GP-145",
           "no_in_group": 6,
           "name": "정사각형 내부의 삼각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 40,
@@ -2526,21 +3437,39 @@
           "source_code": "GP-146",
           "no_in_group": 1,
           "name": "평행사변형이 정사각형이 되는 조건",
-          "review_status": "원문 확인 / 화면 표시 항목 1개 초과(하위 활용 포함)"
+          "review_status": "원문 확인 / 화면 표시 항목 1개 초과(하위 활용 포함)",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT067",
+          "legacy_type_name": "평행사변형이 되는 조건 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G049.I02",
           "source_code": "GP-147",
           "no_in_group": 2,
           "name": "직사각형이 정사각형이 되는 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G049.I03",
           "source_code": "GP-148",
           "no_in_group": 3,
           "name": "마름모가 정사각형이 되는 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -2574,28 +3503,52 @@
           "source_code": "GP-149",
           "no_in_group": 1,
           "name": "등변사다리꼴의 뜻과 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT086",
+          "legacy_type_name": "등변사다리꼴의 성질 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.818,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G050.I02",
           "source_code": "GP-150",
           "no_in_group": 2,
           "name": "등변사다리꼴 성질 적용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G050.I03",
           "source_code": "GP-151",
           "no_in_group": 3,
           "name": "한 대각선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G050.I04",
           "source_code": "GP-152",
           "no_in_group": 4,
           "name": "등변사다리꼴 성질 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT085",
+          "legacy_type_name": "등변사다리꼴의 성질 - 조건 적용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.7,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -2629,7 +3582,13 @@
           "source_code": "GP-153",
           "no_in_group": 1,
           "name": "평행사변형과 정삼각형으로 나누는 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -2663,14 +3622,26 @@
           "source_code": "GP-154",
           "no_in_group": 1,
           "name": "변의 길이와 각의크기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G052.I02",
           "source_code": "GP-155",
           "no_in_group": 2,
           "name": "넓이의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -2704,35 +3675,65 @@
           "source_code": "GP-156",
           "no_in_group": 1,
           "name": "여러 가지 사각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G053.I02",
           "source_code": "GP-157",
           "no_in_group": 2,
           "name": "평행사변형에 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G053.I03",
           "source_code": "GP-158",
           "no_in_group": 3,
           "name": "직사각형에 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G053.I04",
           "source_code": "GP-159",
           "no_in_group": 4,
           "name": "정사각형에 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G053.I05",
           "source_code": "GP-160",
           "no_in_group": 5,
           "name": "삼각형에 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -2766,7 +3767,13 @@
           "source_code": "GP-161",
           "no_in_group": 1,
           "name": "사각형 사이의 관계",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -2800,14 +3807,26 @@
           "source_code": "GP-162",
           "no_in_group": 1,
           "name": "사각형의 대각선의 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT092",
+          "legacy_type_name": "여러 사각형의 대각선 성질 비교 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.615,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G055.I02",
           "source_code": "GP-163",
           "no_in_group": 2,
           "name": "조건을 만족하는 사각형 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -2841,21 +3860,39 @@
           "source_code": "GP-164",
           "no_in_group": 1,
           "name": "사각형의 각 변의 중점을 연결하여 만든 사각형 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G056.I02",
           "source_code": "GP-165",
           "no_in_group": 2,
           "name": "사각형의 각 변의 중점을 연결하여 만든 사각형의 성질",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G056.I03",
           "source_code": "GP-166",
           "no_in_group": 3,
           "name": "사각형의 각 변의 중점을 연결하여 만든 사각형의 증명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2889,28 +3926,52 @@
           "source_code": "GP-167",
           "no_in_group": 1,
           "name": "평행선 사이의 넓이가 같은 삼각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G057.I02",
           "source_code": "GP-168",
           "no_in_group": 2,
           "name": "평행선 사이의 넓이가 같은 삼각형을 이용하여 삼각형 넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G057.I03",
           "source_code": "GP-169",
           "no_in_group": 3,
           "name": "평행선 사이의 넓이가 같은 삼각형을 이용하여 사각형 넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G057.I04",
           "source_code": "GP-170",
           "no_in_group": 4,
           "name": "평행선 사이의 넓이가 같은 삼각형을 이용하여 부채꼴의 넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 28,
@@ -2944,14 +4005,26 @@
           "source_code": "GP-171",
           "no_in_group": 1,
           "name": "높이가 같은 삼각형의 길이비를 이용한 삼각형의 넓이 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G058.I02",
           "source_code": "GP-172",
           "no_in_group": 2,
           "name": "높이가 같은 삼각형의 길이비를 이용한 사각형의 넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -2985,21 +4058,39 @@
           "source_code": "GP-173",
           "no_in_group": 1,
           "name": "변 위의 점",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G059.I02",
           "source_code": "GP-174",
           "no_in_group": 2,
           "name": "대각선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G059.I03",
           "source_code": "GP-175",
           "no_in_group": 3,
           "name": "평행사변형 밖의 한 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_GEOM_PT071",
+          "legacy_type_name": "평행사변형의 각 관계 - 계산·추론",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.556,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -3033,21 +4124,39 @@
           "source_code": "GP-176",
           "no_in_group": 1,
           "name": "사다리꼴에서 넓이가 같은 삼각형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G060.I02",
           "source_code": "GP-177",
           "no_in_group": 2,
           "name": "사다리꼴에서 삼각형의 넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S2.GP.G060.I03",
           "source_code": "GP-178",
           "no_in_group": 3,
           "name": "사다리꼴에서 높이가 같은 삼각형의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,

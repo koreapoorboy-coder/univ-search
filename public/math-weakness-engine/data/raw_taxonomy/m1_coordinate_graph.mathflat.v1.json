@@ -31,9 +31,20 @@
     "declared_total": 127,
     "stored_total": 127,
     "match": true,
-    "mismatched_groups": []
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 764,
+  "detail_type_check": {
+    "counted_groups": 47,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 3,
@@ -103,7 +114,27 @@
       "constant_a",
       "constant_sign",
       "context_graph"
-    ]
+    ],
+    "alt_legacy_source": "m1_coordinate_graph.raw_taxonomy.v1.json (sections)",
+    "alt_legacy_count": 20,
+    "alt_legacy_has_error_tags": false,
+    "alt_legacy_error_tag_vocab": 0,
+    "alt_legacy_error_tag_sample": [],
+    "alt_legacy_has_concept_ids": false,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m1_coordinate_graph.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 61,
+    "item_count": 127,
+    "match_confident": 14,
+    "match_candidate": 28,
+    "match_none": 85,
+    "concept_ids_inherited": 14,
+    "error_tags_referenced": 14,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
     {
@@ -117,27 +148,51 @@
       "type_name": "수직선 위의 점의 좌표",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G001.I01",
           "source_code": "CG-001",
           "no_in_group": 1,
           "name": "점을 수직선 위에 나타내기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT001",
+          "legacy_type_name": "수직선 위에 점 나타내기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.727,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G001.I02",
           "source_code": "CG-002",
           "no_in_group": 2,
           "name": "수직선 위의 점을 기호로 나타내기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_CG_C001"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT002",
+          "legacy_type_name": "수직선 위의 점을 기호로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "number_line",
+            "coordinate_notation"
+          ]
         },
         {
           "item_id": "MPLAT.M1S1.CG.G001.I03",
           "source_code": "CG-003",
           "no_in_group": 3,
           "name": "n만큼 떨어져 있는 점 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -164,20 +219,33 @@
       "type_name": "순서쌍",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G002.I01",
           "source_code": "CG-004",
           "no_in_group": 1,
           "name": "서로 같은 두 순서쌍",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT004",
+          "legacy_type_name": "서로 같은 두 순서쌍 판단",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.8,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G002.I02",
           "source_code": "CG-005",
           "no_in_group": 2,
           "name": "조건을 만족하는 순서쌍",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT005",
+          "legacy_type_name": "조건을 만족하는 순서쌍 찾기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.833,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -204,48 +272,85 @@
       "type_name": "좌표평면 위의 점의 좌표",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G003.I01",
           "source_code": "CG-006",
           "no_in_group": 1,
           "name": "점을 좌표평면 위에 나타내기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT006",
+          "legacy_type_name": "좌표평면 위에 점 나타내기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G003.I02",
           "source_code": "CG-007",
           "no_in_group": 2,
           "name": "좌표평면 위의 점의 좌표",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT007",
+          "legacy_type_name": "좌표평면 위 점의 좌표 읽기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.727,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G003.I03",
           "source_code": "CG-008",
           "no_in_group": 3,
           "name": "x좌표, y좌표가 주어진 점의 기호 표현",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT008",
+          "legacy_type_name": "x좌표와 y좌표의 기호 표현",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G003.I04",
           "source_code": "CG-009",
           "no_in_group": 4,
           "name": "기호로 주어진 점의 x좌표, y좌표",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G003.I05",
           "source_code": "CG-010",
           "no_in_group": 5,
           "name": "조건을 만족시키는 점 찾기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G003.I06",
           "source_code": "CG-011",
           "no_in_group": 6,
           "name": "좌표평면 위의 도형의 꼭짓점의 좌표",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -272,34 +377,59 @@
       "type_name": "x축 또는 y축 위의 점의 좌표",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G004.I01",
           "source_code": "CG-012",
           "no_in_group": 1,
           "name": "축 위의 점의 판단",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G004.I02",
           "source_code": "CG-013",
           "no_in_group": 2,
           "name": "x좌표 또는 y좌표가 주어진 축 위의 점의 좌표",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G004.I03",
           "source_code": "CG-014",
           "no_in_group": 3,
           "name": "x축 위의 점과 y축 위의 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G004.I04",
           "source_code": "CG-015",
           "no_in_group": 4,
           "name": "축 위의 점의 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -326,27 +456,46 @@
       "type_name": "좌표평면 위의 도형의 넓이",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G005.I01",
           "source_code": "CG-016",
           "no_in_group": 1,
           "name": "도형의 넓이 구하기: 꼭짓점의 좌표가 주어졌을 때",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G005.I02",
           "source_code": "CG-017",
           "no_in_group": 2,
           "name": "도형의 넓이 구하기: 꼭짓점의 조건이 주어졌을 때",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G005.I03",
           "source_code": "CG-018",
           "no_in_group": 3,
           "name": "꼭짓점의 좌표 또는 미지수 구하기: 도형의 넓이가 주어졌을 때",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -373,48 +522,85 @@
       "type_name": "사분면",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G006.I01",
           "source_code": "CG-019",
           "no_in_group": 1,
           "name": "점이 위치한 사분면",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT014",
+          "legacy_type_name": "점이 위치한 사분면 판별",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.8,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G006.I02",
           "source_code": "CG-020",
           "no_in_group": 2,
           "name": "사분면에 대한 빈칸 채우기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT015",
+          "legacy_type_name": "사분면 빈칸 또는 조건 채우기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G006.I03",
           "source_code": "CG-021",
           "no_in_group": 3,
           "name": "사분면이 주어진 경우 미지수 구하기 또는 미지수의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT016",
+          "legacy_type_name": "사분면이 주어진 경우 미지수 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.652,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G006.I04",
           "source_code": "CG-022",
           "no_in_group": 4,
           "name": "(종합) 좌표평면 또는 점에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G006.I05",
           "source_code": "CG-023",
           "no_in_group": 5,
           "name": "서로 같은 순서쌍을 이용한 점이 속한 사분면 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G006.I06",
           "source_code": "CG-024",
           "no_in_group": 6,
           "name": "축 위의 점을 이용한 점이 속한 사분면 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -441,20 +627,33 @@
       "type_name": "사분면의 결정(1) 점이 속한 사분면이 주어진 경우",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G007.I01",
           "source_code": "CG-025",
           "no_in_group": 1,
           "name": "위치한 사분면이 주어진 경우: 문자 1개",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G007.I02",
           "source_code": "CG-026",
           "no_in_group": 2,
           "name": "위치한 사분면이 주어진 경우: 문자 2개 이상",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -481,27 +680,46 @@
       "type_name": "사분면의 결정(2) 두 수의 부호를 이용하는 경우",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G008.I01",
           "source_code": "CG-027",
           "no_in_group": 1,
           "name": "두 수의 부호가 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G008.I02",
           "source_code": "CG-028",
           "no_in_group": 2,
           "name": "두 수의 연산의 부호가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G008.I03",
           "source_code": "CG-029",
           "no_in_group": 3,
           "name": "두 수의 절댓값의 대소관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -528,48 +746,90 @@
       "type_name": "대칭인 점의 좌표",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G009.I01",
           "source_code": "CG-030",
           "no_in_group": 1,
           "name": "x축에 대하여 대칭",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G009.I02",
           "source_code": "CG-031",
           "no_in_group": 2,
           "name": "y축에 대하여 대칭",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G009.I03",
           "source_code": "CG-032",
           "no_in_group": 3,
           "name": "원점에 대하여 대칭",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G009.I04",
           "source_code": "CG-033",
           "no_in_group": 4,
           "name": "x축, y축, 원점에 대하여 대칭",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G009.I05",
           "source_code": "CG-034",
           "no_in_group": 5,
           "name": "(종합) 점에 대한 설명: 대칭 포함",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G009.I06",
           "source_code": "CG-035",
           "no_in_group": 6,
           "name": "대칭인 점으로 이루어진 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_CG_C008"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT019",
+          "legacy_type_name": "대칭인 점으로 이루어진 도형 해석",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.857,
+          "legacy_error_tags_ref": [
+            "symmetry",
+            "coordinate_geometry_area"
+          ]
         }
       ],
       "detail_type_count": 35,
@@ -596,13 +856,20 @@
       "type_name": "그래프",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G010.I01",
           "source_code": "CG-036",
           "no_in_group": 1,
           "name": "x, y 사이의 관계의 표, 그래프 표현",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT020",
+          "legacy_type_name": "x,y 사이의 관계를 표와 그래프로 표현",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.812,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -629,13 +896,26 @@
       "type_name": "상황에 맞는 그래프 찾기",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G011.I01",
           "source_code": "CG-037",
           "no_in_group": 1,
           "name": "상황에 맞는 그래프 찾기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_CG_C009",
+            "M1_CG_C010"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT021",
+          "legacy_type_name": "상황에 맞는 그래프 찾기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "graph_interpretation",
+            "context_graph"
+          ]
         }
       ],
       "detail_type_count": 3,
@@ -665,20 +945,33 @@
       "type_name": "그래프의 해석(1) 수치가 주어지지 않은 그래프",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G012.I01",
           "source_code": "CG-038",
           "no_in_group": 1,
           "name": "그래프로 표현된 두 변수 x, y 사이의 관계",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G012.I02",
           "source_code": "CG-039",
           "no_in_group": 2,
           "name": "알맞은 상황 찾기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -705,55 +998,98 @@
       "type_name": "그래프의 해석(2) 수치가 주어진 그래프",
       "topic_type_count": 7,
       "topic_type_actual": 7,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G013.I01",
           "source_code": "CG-040",
           "no_in_group": 1,
           "name": "y값 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G013.I02",
           "source_code": "CG-041",
           "no_in_group": 2,
           "name": "x값 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G013.I03",
           "source_code": "CG-042",
           "no_in_group": 3,
           "name": "특정 구간의 x값 또는 y값의 합, 차",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G013.I04",
           "source_code": "CG-043",
           "no_in_group": 4,
           "name": "x값과 y값 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G013.I05",
           "source_code": "CG-044",
           "no_in_group": 5,
           "name": "빈칸 채우기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G013.I06",
           "source_code": "CG-045",
           "no_in_group": 6,
           "name": "그래프에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G013.I07",
           "source_code": "CG-046",
           "no_in_group": 7,
           "name": "미지수의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 61,
@@ -780,13 +1116,20 @@
       "type_name": "그래프의 해석(3) 운동의 모양과 그래프",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G014.I01",
           "source_code": "CG-047",
           "no_in_group": 1,
           "name": "운동의 모양과 그래프",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT025",
+          "legacy_type_name": "물통의 모양과 그래프 대응",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.636,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -813,27 +1156,46 @@
       "type_name": "그래프의 해석(4) 여러 개의 그래프 비교하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G015.I01",
           "source_code": "CG-048",
           "no_in_group": 1,
           "name": "두 그래프",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G015.I02",
           "source_code": "CG-049",
           "no_in_group": 2,
           "name": "세 그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G015.I03",
           "source_code": "CG-050",
           "no_in_group": 3,
           "name": "여러 개의 그래프에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -860,13 +1222,20 @@
       "type_name": "정비례 관계식 찾기",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G016.I01",
           "source_code": "CG-051",
           "no_in_group": 1,
           "name": "정비례 판단",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -893,13 +1262,26 @@
       "type_name": "정비례 관계식 구하기",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G017.I01",
           "source_code": "CG-052",
           "no_in_group": 1,
           "name": "정비례 관계식 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_CG_C014"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT028",
+          "legacy_type_name": "정비례 관계식 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "direct_proportion",
+            "formula_y_ax",
+            "coefficient_a"
+          ]
         }
       ],
       "detail_type_count": 16,
@@ -928,20 +1310,33 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 그래프",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G018.I01",
           "source_code": "CG-053",
           "no_in_group": 1,
           "name": "y=ax의 그래프가 지나는 사분면",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT029",
+          "legacy_type_name": "y=ax 그래프가 지나는 사분면 판단",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.812,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G018.I02",
           "source_code": "CG-054",
           "no_in_group": 2,
           "name": "y=ax의 그래프에서 a의 부호에 따른 y의 값의 증감",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT030",
+          "legacy_type_name": "y=ax에서 a 부호에 따른 y값 증감 판단",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.609,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -968,13 +1363,26 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 그래프 그리기",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G019.I01",
           "source_code": "CG-055",
           "no_in_group": 1,
           "name": "y=ax의 그래프 그리기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_CG_C016"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT031",
+          "legacy_type_name": "y=ax 그래프 그리기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.909,
+          "legacy_error_tags_ref": [
+            "direct_graph",
+            "plotting_graph",
+            "origin"
+          ]
         }
       ],
       "detail_type_count": 8,
@@ -1001,20 +1409,33 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 그래프와 a의 값 사이의 관계",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G020.I01",
           "source_code": "CG-056",
           "no_in_group": 1,
           "name": "y=ax의 그래프 판단: 여러 그래프를 비교",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G020.I02",
           "source_code": "CG-057",
           "no_in_group": 2,
           "name": "y=ax의 그래프 판단: a의 부호 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -1041,34 +1462,66 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 그래프 위의 점",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G021.I01",
           "source_code": "CG-058",
           "no_in_group": 1,
           "name": "y=ax의 그래프 위의 점",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT047",
+          "legacy_type_name": "y=a/x 그래프 위의 점 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.692,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G021.I02",
           "source_code": "CG-059",
           "no_in_group": 2,
           "name": "y=ax의 그래프 위의 점을 이용한 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_CG_C024",
+            "M1_CG_C025"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT048",
+          "legacy_type_name": "y=a/x 그래프 위 점을 이용한 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.905,
+          "legacy_error_tags_ref": [
+            "inverse_graph",
+            "unknown_value",
+            "substitution"
+          ]
         },
         {
           "item_id": "MPLAT.M1S1.CG.G021.I03",
           "source_code": "CG-060",
           "no_in_group": 3,
           "name": "y=ax의 그래프 위의 점을 이용한 다른 점 또는 선분",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT035",
+          "legacy_type_name": "y=ax 그래프 위 점을 이용한 다른 점 또는 도형 조건 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.64,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G021.I04",
           "source_code": "CG-061",
           "no_in_group": 4,
           "name": "y=ax의 그래프 위의 점을 이용한 정사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -1095,20 +1548,33 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 그래프의 성질",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G022.I01",
           "source_code": "CG-062",
           "no_in_group": 1,
           "name": "y=ax의 그래프에 대한 설명",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT049",
+          "legacy_type_name": "y=a/x 그래프의 성질 설명",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G022.I02",
           "source_code": "CG-063",
           "no_in_group": 2,
           "name": "y=ax의 그래프에 대한 설명: 그래프 위의 점 포함",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -1135,34 +1601,59 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 그래프에서 a의 값 구하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G023.I01",
           "source_code": "CG-064",
           "no_in_group": 1,
           "name": "지나는 한 점을 이용한 미지수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G023.I02",
           "source_code": "CG-065",
           "no_in_group": 2,
           "name": "지나는 한 점을 이용하여 다른 한 점 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT050",
+          "legacy_type_name": "지나는 한 점을 이용하여 y=a/x의 a값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.65,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G023.I03",
           "source_code": "CG-066",
           "no_in_group": 3,
           "name": "y=ax꼴의 그래프가 다른 선분과 만나는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G023.I04",
           "source_code": "CG-067",
           "no_in_group": 4,
           "name": "y=ax꼴의 두 그래프 위의 점을 이용한 선분, 정사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -1189,20 +1680,40 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 식 구하기(1)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G024.I01",
           "source_code": "CG-068",
           "no_in_group": 1,
           "name": "y=ax의 식 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_CG_C014",
+            "M1_CG_C018"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT038",
+          "legacy_type_name": "y=ax의 식 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "direct_proportion",
+            "formula_y_ax",
+            "coefficient_a"
+          ]
         },
         {
           "item_id": "MPLAT.M1S1.CG.G024.I02",
           "source_code": "CG-069",
           "no_in_group": 2,
           "name": "y=ax의 그래프가 지나는 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -1229,20 +1740,33 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 식 구하기(2) 그래프가 주어질 때",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G025.I01",
           "source_code": "CG-070",
           "no_in_group": 1,
           "name": "y=ax의 식 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G025.I02",
           "source_code": "CG-071",
           "no_in_group": 2,
           "name": "y=ax의 그래프가 지나는 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -1269,34 +1793,59 @@
       "type_name": "정비례 관계 y=ax(a≠0)의 그래프와 도형의 넓이",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G026.I01",
           "source_code": "CG-072",
           "no_in_group": 1,
           "name": "그래프 위의 점에서 축에 내린 수선의 발을 꼭짓점으로 하는 도형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G026.I02",
           "source_code": "CG-073",
           "no_in_group": 2,
           "name": "그래프가 축에 평행한 직선과 만나는 두 점을 꼭짓점으로 하는 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G026.I03",
           "source_code": "CG-074",
           "no_in_group": 3,
           "name": "도형의 넓이를 이등분하는 y=ax의 그래프",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G026.I04",
           "source_code": "CG-075",
           "no_in_group": 4,
           "name": "그래프 위의 점을 꼭짓점으로 하는 도형: 점의 좌표에 미지수 포함",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -1323,13 +1872,20 @@
       "type_name": "반비례 관계식 찾기",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G027.I01",
           "source_code": "CG-076",
           "no_in_group": 1,
           "name": "반비례 관계식 찾기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT040",
+          "legacy_type_name": "반비례 관계 판별",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1356,20 +1912,46 @@
       "type_name": "반비례 관계식 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G028.I01",
           "source_code": "CG-077",
           "no_in_group": 1,
           "name": "반비례 관계식 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_CG_C021"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT041",
+          "legacy_type_name": "반비례 관계식 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "inverse_proportion",
+            "formula_y_a_over_x",
+            "constant_a"
+          ]
         },
         {
           "item_id": "MPLAT.M1S1.CG.G028.I02",
           "source_code": "CG-078",
           "no_in_group": 2,
           "name": "정비례, 반비례 관계식 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_CG_C013",
+            "M1_CG_C020"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT042",
+          "legacy_type_name": "정비례와 반비례 관계식 구분하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.857,
+          "legacy_error_tags_ref": [
+            "relationship_classification",
+            "direct_proportion",
+            "inverse_proportion"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -1398,20 +1980,33 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 그래프",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G029.I01",
           "source_code": "CG-079",
           "no_in_group": 1,
           "name": "y=a/x의 그래프가 지나는 사분면",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT043",
+          "legacy_type_name": "y=a/x 그래프가 지나는 사분면 판단",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.812,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G029.I02",
           "source_code": "CG-080",
           "no_in_group": 2,
           "name": "y=a/x의 그래프에서 a의 부호에 따른 y의 값의 증감",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT044",
+          "legacy_type_name": "y=a/x에서 a 부호에 따른 y값 증감 판단",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.609,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1438,13 +2033,26 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 그래프 그리기",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G030.I01",
           "source_code": "CG-081",
           "no_in_group": 1,
           "name": "y=a/x의 그래프 그리기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_CG_C023"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT045",
+          "legacy_type_name": "y=a/x 그래프 그리기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.909,
+          "legacy_error_tags_ref": [
+            "inverse_graph",
+            "plotting_graph",
+            "curve"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -1471,13 +2079,20 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 그래프와 a의 값 사이의 관계",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G031.I01",
           "source_code": "CG-082",
           "no_in_group": 1,
           "name": "y=a/x의 그래프 판단: 여러 그래프를 비교",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -1504,20 +2119,40 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 그래프 위의 점(1)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G032.I01",
           "source_code": "CG-083",
           "no_in_group": 1,
           "name": "y=a/x의 그래프 위의 점",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT033",
+          "legacy_type_name": "y=ax 그래프 위의 점 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.692,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G032.I02",
           "source_code": "CG-084",
           "no_in_group": 2,
           "name": "y=a/x의 그래프 위의 점을 이용한 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_CG_C017",
+            "M1_CG_C018"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT034",
+          "legacy_type_name": "y=ax 그래프 위 점을 이용한 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.905,
+          "legacy_error_tags_ref": [
+            "direct_graph",
+            "unknown_value",
+            "substitution"
+          ]
         }
       ],
       "detail_type_count": 14,
@@ -1544,20 +2179,33 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 그래프의 성질",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G033.I01",
           "source_code": "CG-085",
           "no_in_group": 1,
           "name": "y=a/x의 그래프의 성질",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT036",
+          "legacy_type_name": "y=ax 그래프의 성질 설명",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.75,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G033.I02",
           "source_code": "CG-086",
           "no_in_group": 2,
           "name": "y=a/x의 그래프에 대한 설명: 그래프 위의 점 포함",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1584,34 +2232,59 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 그래프에서 a의 값 구하기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G034.I01",
           "source_code": "CG-087",
           "no_in_group": 1,
           "name": "지나는 한 점을 이용한 미지수 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G034.I02",
           "source_code": "CG-088",
           "no_in_group": 2,
           "name": "지나는 한 점을 이용하여 다른 한 점 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT037",
+          "legacy_type_name": "지나는 한 점을 이용하여 y=ax의 a값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.65,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G034.I03",
           "source_code": "CG-089",
           "no_in_group": 3,
           "name": "다른 그래프 그리기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G034.I04",
           "source_code": "CG-090",
           "no_in_group": 4,
           "name": "y=a/x꼴의 그래프 위의 두 점 사이의 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT032",
+          "legacy_type_name": "y=ax 그래프와 a값 사이의 관계 비교",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.556,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -1638,20 +2311,33 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 식 구하기(1)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G035.I01",
           "source_code": "CG-091",
           "no_in_group": 1,
           "name": "x와 y 사이의 관계식",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G035.I02",
           "source_code": "CG-092",
           "no_in_group": 2,
           "name": "그래프가 지나는 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 2,
@@ -1678,34 +2364,66 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 식 구하기(2) 그래프가 주어질 때",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G036.I01",
           "source_code": "CG-093",
           "no_in_group": 1,
           "name": "y=a/x의 식 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_CG_C021",
+            "M1_CG_C025"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT051",
+          "legacy_type_name": "y=a/x의 식 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "inverse_proportion",
+            "formula_y_a_over_x",
+            "constant_a"
+          ]
         },
         {
           "item_id": "MPLAT.M1S1.CG.G036.I02",
           "source_code": "CG-094",
           "no_in_group": 2,
           "name": "y=a/x의 그래프가 지나는 점",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G036.I03",
           "source_code": "CG-095",
           "no_in_group": 3,
           "name": "그래프에 알맞은 식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G036.I04",
           "source_code": "CG-096",
           "no_in_group": 4,
           "name": "(종합) 그래프의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1732,27 +2450,46 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 그래프 위의 점(2) 좌표가 정수인 경우",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G037.I01",
           "source_code": "CG-097",
           "no_in_group": 1,
           "name": "y=a/x의 그래프 위의 좌표가 정수(자연수)인 점: a의 값이 주어진 경우",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G037.I02",
           "source_code": "CG-098",
           "no_in_group": 2,
           "name": "y=a/x의 그래프 위의 좌표가 정수(자연수)인 점: y=a/x의 그래프가 지나는 한 점이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G037.I03",
           "source_code": "CG-099",
           "no_in_group": 3,
           "name": "반비례 관계의 그래프 위의 좌표가 정수(자연수)인 점: 반비례 관계의 그래프가 지나는 한 점이 주어진 경우(식으로 주어지지 않음)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 12,
@@ -1779,27 +2516,46 @@
       "type_name": "반비례 관계 y=a/x(a≠0)의 그래프와 도형의 넓이",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G038.I01",
           "source_code": "CG-100",
           "no_in_group": 1,
           "name": "그래프 위의 한 점에서 축에 내린 수선의 발을 꼭짓점으로 하는 도형",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G038.I02",
           "source_code": "CG-101",
           "no_in_group": 2,
           "name": "두 사분면 위의 점을 꼭짓점으로 하는 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G038.I03",
           "source_code": "CG-102",
           "no_in_group": 3,
           "name": "한 사분면 위의 두 점을 꼭짓점으로 하는 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -1826,27 +2582,52 @@
       "type_name": "정비례 관계와 반비례 관계의 그래프가 만나는 점",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G039.I01",
           "source_code": "CG-103",
           "no_in_group": 1,
           "name": "교점을 이용한 미지수 또는 관계식 구하기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": [
+            "M1_CG_C026"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT054",
+          "legacy_type_name": "교점을 이용한 미지수 또는 관계식 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "intersection",
+            "unknown_value",
+            "simultaneous_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M1S1.CG.G039.I02",
           "source_code": "CG-104",
           "no_in_group": 2,
           "name": "정비례 관계와 반비례 관계의 그래프가 만나도록 하는 미지수의 범위",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G039.I03",
           "source_code": "CG-105",
           "no_in_group": 3,
           "name": "정비례 관계와 반비례 관계의 그래프를 이용한 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 30,
@@ -1873,13 +2654,20 @@
       "type_name": "정비례 관계의 활용(1) 정비례 관계 찾기",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G040.I01",
           "source_code": "CG-106",
           "no_in_group": 1,
           "name": "정비례 판단",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT027",
+          "legacy_type_name": "정비례 관계 판별",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 5,
@@ -1906,34 +2694,59 @@
       "type_name": "정비례 관계의 활용(2) x와 y 사이의 관계를 식으로 나타내기",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G041.I01",
           "source_code": "CG-107",
           "no_in_group": 1,
           "name": "표 채워 넣기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G041.I02",
           "source_code": "CG-108",
           "no_in_group": 2,
           "name": "x와 y 사이의 관계식 구하기 (표 채워넣기 포함): 문장으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G041.I03",
           "source_code": "CG-109",
           "no_in_group": 3,
           "name": "x와 y 사이의 관계를 그래프로 그리기 (관계식 구하기 포함)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G041.I04",
           "source_code": "CG-110",
           "no_in_group": 4,
           "name": "x와 y 사이의 관계식 구하기: 그래프로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 53,
@@ -1960,27 +2773,46 @@
       "type_name": "정비례 관계의 활용(3)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G042.I01",
           "source_code": "CG-111",
           "no_in_group": 1,
           "name": "정비례 관계의 식 풀기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G042.I02",
           "source_code": "CG-112",
           "no_in_group": 2,
           "name": "정비례 관계의 그래프를 이용한 값 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT056",
+          "legacy_type_name": "정비례 관계 활용: 그래프 그리기와 값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G042.I03",
           "source_code": "CG-113",
           "no_in_group": 3,
           "name": "정비례 관계의 식 풀기: 도형의 한 변 위에서 움직이는 점 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 33,
@@ -2007,27 +2839,52 @@
       "type_name": "정비례 관계의 활용(4) 정비례 관계의 두 그래프 비교하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G043.I01",
           "source_code": "CG-114",
           "no_in_group": 1,
           "name": "그래프의 식으로의 표현",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G043.I02",
           "source_code": "CG-115",
           "no_in_group": 2,
           "name": "정비례 관계의 두 그래프 비교하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_CG_C027",
+            "M1_CG_C012"
+          ],
+          "legacy_problem_type_id": "M1_CG_PT057",
+          "legacy_type_name": "정비례 관계 활용: 두 그래프 비교하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.867,
+          "legacy_error_tags_ref": [
+            "direct_application",
+            "graph_comparison"
+          ]
         },
         {
           "item_id": "MPLAT.M1S1.CG.G043.I03",
           "source_code": "CG-116",
           "no_in_group": 3,
           "name": "(종합) 정비례 관계의 두 그래프에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -2054,20 +2911,33 @@
       "type_name": "반비례 관계의 활용(1) 반비례 관계 찾기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G044.I01",
           "source_code": "CG-117",
           "no_in_group": 1,
           "name": "반비례 판단",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G044.I02",
           "source_code": "CG-118",
           "no_in_group": 2,
           "name": "정비례와 반비례 판단",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -2094,41 +2964,72 @@
       "type_name": "반비례 관계의 활용(2) x와 y 사이의 관계를 식으로 나타내기",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G045.I01",
           "source_code": "CG-119",
           "no_in_group": 1,
           "name": "표 채워 넣기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G045.I02",
           "source_code": "CG-120",
           "no_in_group": 2,
           "name": "x와 y 사이의 관계식 구하기 (표 채워넣기 포함): 문장으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G045.I03",
           "source_code": "CG-121",
           "no_in_group": 3,
           "name": "x와 y 사이의 관계식 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G045.I04",
           "source_code": "CG-122",
           "no_in_group": 4,
           "name": "x와 y 사이의 관계식 또는 관계식 구하기: 그래프로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G045.I05",
           "source_code": "CG-123",
           "no_in_group": 5,
           "name": "x와 y 사이의 관계를 나타내는 그래프 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 50,
@@ -2155,20 +3056,33 @@
       "type_name": "반비례 관계의 활용(3)",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G046.I01",
           "source_code": "CG-124",
           "no_in_group": 1,
           "name": "반비례 관계의 식 풀기",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G046.I02",
           "source_code": "CG-125",
           "no_in_group": 2,
           "name": "반비례 관계의 그래프를 이용한 값 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT059",
+          "legacy_type_name": "반비례 관계 활용: 그래프 그리기와 값 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 35,
@@ -2195,20 +3109,33 @@
       "type_name": "정비례 관계와 반비례 관계의 활용",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S1.CG.G047.I01",
           "source_code": "CG-126",
           "no_in_group": 1,
           "name": "정비례와 반비례 관계의 활용의 풀이법",
-          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인"
+          "review_status": "원문 확인 / 화면 주제유형 이름 모두 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S1.CG.G047.I02",
           "source_code": "CG-127",
           "no_in_group": 2,
           "name": "정비례와 반비례 관계의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_CG_PT061",
+          "legacy_type_name": "정비례·반비례 복합 활용",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,

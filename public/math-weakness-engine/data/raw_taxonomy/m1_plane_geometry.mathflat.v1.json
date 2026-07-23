@@ -31,9 +31,20 @@
     "declared_total": 119,
     "stored_total": 119,
     "match": true,
-    "mismatched_groups": []
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 816,
+  "detail_type_check": {
+    "counted_groups": 44,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 0,
@@ -60,7 +71,36 @@
     "legacy_source": "m1_plane_geometry.raw_taxonomy.v1.json (sections / task_group)",
     "legacy_has_error_tags": false,
     "legacy_error_tag_vocab": 0,
-    "legacy_error_tag_sample": []
+    "legacy_error_tag_sample": [],
+    "alt_legacy_source": "m1_plane_geometry.problem_types.v1.json (problem_types)",
+    "alt_legacy_count": 54,
+    "alt_legacy_has_error_tags": true,
+    "alt_legacy_error_tag_vocab": 69,
+    "alt_legacy_error_tag_sample": [
+      "360",
+      "360_around_point",
+      "angle_180",
+      "angle_calculation",
+      "angle_equation",
+      "angle_property_judgement",
+      "angle_relation",
+      "application"
+    ],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m1_plane_geometry.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 54,
+    "item_count": 119,
+    "match_confident": 2,
+    "match_candidate": 16,
+    "match_none": 101,
+    "concept_ids_inherited": 2,
+    "error_tags_referenced": 2,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
     {
@@ -74,20 +114,38 @@
       "type_name": "다각형",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G001.I01",
           "source_code": "PG-001",
           "no_in_group": 1,
           "name": "다각형 찾기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_PG_C001"
+          ],
+          "legacy_problem_type_id": "M1_PG_PT001",
+          "legacy_type_name": "다각형 찾기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "polygon_identification",
+            "geometry_vocabulary"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.PG.G001.I02",
           "source_code": "PG-002",
           "no_in_group": 2,
           "name": "다각형의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -114,27 +172,46 @@
       "type_name": "다각형의 내각과 외각",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G002.I01",
           "source_code": "PG-003",
           "no_in_group": 1,
           "name": "다각형의 내각과 외각에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT003",
+          "legacy_type_name": "다각형의 내각과 외각 설명 판단",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.846,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G002.I02",
           "source_code": "PG-004",
           "no_in_group": 2,
           "name": "다각형의 내각과 외각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G002.I03",
           "source_code": "PG-005",
           "no_in_group": 3,
           "name": "미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -161,27 +238,46 @@
       "type_name": "정다각형",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G003.I01",
           "source_code": "PG-006",
           "no_in_group": 1,
           "name": "알맞은 정다각형 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G003.I02",
           "source_code": "PG-007",
           "no_in_group": 2,
           "name": "정다각형의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G003.I03",
           "source_code": "PG-008",
           "no_in_group": 3,
           "name": "정다각형의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT007",
+          "legacy_type_name": "정다각형의 성질 판단",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.556,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -208,27 +304,46 @@
       "type_name": "삼각형의 세 내각의 크기의 합",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G004.I01",
           "source_code": "PG-009",
           "no_in_group": 1,
           "name": "한 내각의 크기 또는 두 내각의 크기의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G004.I02",
           "source_code": "PG-010",
           "no_in_group": 2,
           "name": "한 내각의 크기 또는 두 내각의 크기의 연산: 각의 크기 사이의 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G004.I03",
           "source_code": "PG-011",
           "no_in_group": 3,
           "name": "세 내각의 크기의 합",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -255,34 +370,59 @@
       "type_name": "삼각형의 내각과 외각의 관계",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G005.I01",
           "source_code": "PG-012",
           "no_in_group": 1,
           "name": "삼각형의 내각과 외각의 관계의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G005.I02",
           "source_code": "PG-013",
           "no_in_group": 2,
           "name": "한 삼각형에서 삼각형의 내각과 외각의 관계를 이용하여 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G005.I03",
           "source_code": "PG-014",
           "no_in_group": 3,
           "name": "삼각형 2개 이상이 붙어있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G005.I04",
           "source_code": "PG-015",
           "no_in_group": 4,
           "name": "각의 이등분선이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 48,
@@ -309,13 +449,20 @@
       "type_name": "삼각형의 내각의 크기의 합의 활용",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G006.I01",
           "source_code": "PG-016",
           "no_in_group": 1,
           "name": "삼각형의 내각의 크기의 합의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -342,20 +489,33 @@
       "type_name": "삼각형의 두 내각의 이등분선이 이루는 각",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G007.I01",
           "source_code": "PG-017",
           "no_in_group": 1,
           "name": "한 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT004",
+          "legacy_type_name": "한 내각과 외각의 크기 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G007.I02",
           "source_code": "PG-018",
           "no_in_group": 2,
           "name": "두 각의 크기의 합",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -382,13 +542,20 @@
       "type_name": "삼각형의 두 외각의 이등분선",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G008.I01",
           "source_code": "PG-019",
           "no_in_group": 1,
           "name": "삼각형의 두 외각의 이등분선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 3,
@@ -415,27 +582,46 @@
       "type_name": "삼각형의 내각과 외각의 관계의 활용(1) 한 내각과 한 외각의 이등분선",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G009.I01",
           "source_code": "PG-020",
           "no_in_group": 1,
           "name": "한 내각과 외각의 이등분선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G009.I02",
           "source_code": "PG-021",
           "no_in_group": 2,
           "name": "각 사이의 배수 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G009.I03",
           "source_code": "PG-022",
           "no_in_group": 3,
           "name": "한 내각과 외각의 삼등분선",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -462,27 +648,46 @@
       "type_name": "삼각형의 내각과 외각의 관계의 활용(2) 이등변삼각형",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G010.I01",
           "source_code": "PG-023",
           "no_in_group": 1,
           "name": "이등변삼각형 1개",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G010.I02",
           "source_code": "PG-024",
           "no_in_group": 2,
           "name": "삼각형 2개를 붙여 놓은 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G010.I03",
           "source_code": "PG-025",
           "no_in_group": 3,
           "name": "삼각형 3개 이상을 붙여 놓은 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -509,27 +714,46 @@
       "type_name": "삼각형의 내각과 외각의 관계의 활용(3) 별 모양",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G011.I01",
           "source_code": "PG-026",
           "no_in_group": 1,
           "name": "각 1개의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G011.I02",
           "source_code": "PG-027",
           "no_in_group": 2,
           "name": "각 2개의 크기 또는 그 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G011.I03",
           "source_code": "PG-028",
           "no_in_group": 3,
           "name": "각 3개 이상의 크기 또는 그 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -556,27 +780,46 @@
       "type_name": "한 꼭짓점에서 그을 수 있는 대각선의 개수",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G012.I01",
           "source_code": "PG-029",
           "no_in_group": 1,
           "name": "한 꼭짓점에서 그을 수 있는 대각선과 대각선으로 만들어지는 삼각형의 개수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G012.I02",
           "source_code": "PG-030",
           "no_in_group": 2,
           "name": "대각선과 삼각형의 개수의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G012.I03",
           "source_code": "PG-031",
           "no_in_group": 3,
           "name": "2개 이상의 다각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -603,20 +846,33 @@
       "type_name": "다각형의 대각선의 개수",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G013.I01",
           "source_code": "PG-032",
           "no_in_group": 1,
           "name": "다각형의 대각선의 개수의 기본",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT016",
+          "legacy_type_name": "다각형의 대각선 총수 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.615,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G013.I02",
           "source_code": "PG-033",
           "no_in_group": 2,
           "name": "다각형의 대각선의 개수의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 26,
@@ -643,20 +899,33 @@
       "type_name": "대각선의 개수가 주어질 때, 다각형 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G014.I01",
           "source_code": "PG-034",
           "no_in_group": 1,
           "name": "다각형 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT006",
+          "legacy_type_name": "정다각형 판별하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G014.I02",
           "source_code": "PG-035",
           "no_in_group": 2,
           "name": "다각형 구하기의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -683,27 +952,46 @@
       "type_name": "다각형의 내각의 크기의 합",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G015.I01",
           "source_code": "PG-036",
           "no_in_group": 1,
           "name": "n각형의 내각의 크기의 합 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT018",
+          "legacy_type_name": "다각형의 내각의 합 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.714,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G015.I02",
           "source_code": "PG-037",
           "no_in_group": 2,
           "name": "내각의 크기의 합이 주어진 다각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G015.I03",
           "source_code": "PG-038",
           "no_in_group": 3,
           "name": "다각형을 유추할 수 있는 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -730,20 +1018,33 @@
       "type_name": "다각형의 내각의 크기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G016.I01",
           "source_code": "PG-039",
           "no_in_group": 1,
           "name": "사각형의 내각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT009",
+          "legacy_type_name": "삼각형의 한 내각 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.6,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G016.I02",
           "source_code": "PG-040",
           "no_in_group": 2,
           "name": "n각형의 내각의 크기 (n>4)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -770,27 +1071,46 @@
       "type_name": "다각형의 외각의 크기의 합",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G017.I01",
           "source_code": "PG-041",
           "no_in_group": 1,
           "name": "모든 외각의 크기의 합",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G017.I02",
           "source_code": "PG-042",
           "no_in_group": 2,
           "name": "일부 외각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G017.I03",
           "source_code": "PG-043",
           "no_in_group": 3,
           "name": "다각형의 외각의 크기의 합의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT021",
+          "legacy_type_name": "다각형의 외각의 합 활용하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -817,41 +1137,72 @@
       "type_name": "다각형의 내각의 크기의 합의 활용",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G018.I01",
           "source_code": "PG-044",
           "no_in_group": 1,
           "name": "다각형의 내각의 크기의 합을 활용한 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G018.I02",
           "source_code": "PG-045",
           "no_in_group": 2,
           "name": "다각형을 겹쳐 놓은 도형에서 내각의 크기의 합 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G018.I03",
           "source_code": "PG-046",
           "no_in_group": 3,
           "name": "다각형을 뚫고 있는 도형에서 내각의 크기의 합 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G018.I04",
           "source_code": "PG-047",
           "no_in_group": 4,
           "name": "삼각형을 나란히 붙인 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G018.I05",
           "source_code": "PG-048",
           "no_in_group": 5,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 38,
@@ -878,13 +1229,20 @@
       "type_name": "다각형의 외각의 크기의 합의 활용",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G019.I01",
           "source_code": "PG-049",
           "no_in_group": 1,
           "name": "다각형의 외각의 크기의 합의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -911,48 +1269,85 @@
       "type_name": "정다각형의 한 내각과 한 외각의 크기",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G020.I01",
           "source_code": "PG-050",
           "no_in_group": 1,
           "name": "정n각형의 한 내각과 한 외각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G020.I02",
           "source_code": "PG-051",
           "no_in_group": 2,
           "name": "한 내각 또는 한 외각의 크기가 주어진 정다각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G020.I03",
           "source_code": "PG-052",
           "no_in_group": 3,
           "name": "각의 크기 사이의 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G020.I04",
           "source_code": "PG-053",
           "no_in_group": 4,
           "name": "한 내각 또는 한 외각의 크기 이외의 조건이 주어진 정다각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G020.I05",
           "source_code": "PG-054",
           "no_in_group": 5,
           "name": "(종합) 정다각형의 한 내각과 한 외각의 크기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G020.I06",
           "source_code": "PG-055",
           "no_in_group": 6,
           "name": "정다각형의 한 내각과 한 외각의 크기의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 56,
@@ -979,20 +1374,33 @@
       "type_name": "정다각형의 한 내각의 크기의 활용(1) 정삼각형, 정사각형",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G021.I01",
           "source_code": "PG-056",
           "no_in_group": 1,
           "name": "정삼각형의 한 내각의 크기의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT024",
+          "legacy_type_name": "정다각형의 한 내각 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G021.I02",
           "source_code": "PG-057",
           "no_in_group": 2,
           "name": "정삼각형과 정사각형의 한 내각의 크기의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1019,20 +1427,33 @@
       "type_name": "정다각형의 한 내각의 크기의 활용(2) 정오각형, 정육각형, 정팔각형",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G022.I01",
           "source_code": "PG-058",
           "no_in_group": 1,
           "name": "1개의 정다각형에서 대각선을 그은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G022.I02",
           "source_code": "PG-059",
           "no_in_group": 2,
           "name": "여러 도형이 붙어 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 27,
@@ -1059,13 +1480,20 @@
       "type_name": "정다각형의 한 외각의 크기의 활용",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G023.I01",
           "source_code": "PG-060",
           "no_in_group": 1,
           "name": "정다각형의 한 외각의 크기의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT023",
+          "legacy_type_name": "정다각형의 한 외각 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.643,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -1092,27 +1520,46 @@
       "type_name": "원과 부채꼴",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G024.I01",
           "source_code": "PG-061",
           "no_in_group": 1,
           "name": "호, 현, 중심각, 부채꼴의 이해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G024.I02",
           "source_code": "PG-062",
           "no_in_group": 2,
           "name": "호, 현의 길이/중심각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G024.I03",
           "source_code": "PG-063",
           "no_in_group": 3,
           "name": "원과 부채꼴에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -1139,27 +1586,46 @@
       "type_name": "중심각의 크기와 호의 길이(1)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G025.I01",
           "source_code": "PG-064",
           "no_in_group": 1,
           "name": "호의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT038",
+          "legacy_type_name": "원의 넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.714,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G025.I02",
           "source_code": "PG-065",
           "no_in_group": 2,
           "name": "중심각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT040",
+          "legacy_type_name": "중심각 비율 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.667,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G025.I03",
           "source_code": "PG-066",
           "no_in_group": 3,
           "name": "활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -1186,27 +1652,46 @@
       "type_name": "중심각의 크기와 호의 길이(2)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G026.I01",
           "source_code": "PG-067",
           "no_in_group": 1,
           "name": "호의 길이의 비가 주어진 경우 각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G026.I02",
           "source_code": "PG-068",
           "no_in_group": 2,
           "name": "중심각의 크기의 비를 구하여 호의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G026.I03",
           "source_code": "PG-069",
           "no_in_group": 3,
           "name": "호의 길이 또는 중심각의 크기의 비의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 24,
@@ -1233,20 +1718,33 @@
       "type_name": "호의 길이 구하기(1) 평행선이 주어진 경우",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G027.I01",
           "source_code": "PG-070",
           "no_in_group": 1,
           "name": "호의 길이 또는 중심각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G027.I02",
           "source_code": "PG-071",
           "no_in_group": 2,
           "name": "호의 길이의 비가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 15,
@@ -1273,20 +1771,33 @@
       "type_name": "호의 길이 구하기(2) 부채꼴이 주어지지 않은 경우",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G028.I01",
           "source_code": "PG-072",
           "no_in_group": 1,
           "name": "호의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G028.I02",
           "source_code": "PG-073",
           "no_in_group": 2,
           "name": "호의 길이/각의 크기가 같은/다른 것 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 11,
@@ -1313,20 +1824,33 @@
       "type_name": "호의 길이 구하기(3) 지름과 현의 연장선",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G029.I01",
           "source_code": "PG-074",
           "no_in_group": 1,
           "name": "각의 크기 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G029.I02",
           "source_code": "PG-075",
           "no_in_group": 2,
           "name": "호의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT037",
+          "legacy_type_name": "원의 둘레 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -1353,34 +1877,59 @@
       "type_name": "중심각의 크기와 부채꼴의 넓이",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G030.I01",
           "source_code": "PG-076",
           "no_in_group": 1,
           "name": "중심각의 크기와 부채꼴의 넓이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G030.I02",
           "source_code": "PG-077",
           "no_in_group": 2,
           "name": "비율 또는 배수 관계가 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G030.I03",
           "source_code": "PG-078",
           "no_in_group": 3,
           "name": "중심각의 크기와 부채꼴의 넓이의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G030.I04",
           "source_code": "PG-079",
           "no_in_group": 4,
           "name": "중심각의 크기와 부채꼴의 넓이의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 28,
@@ -1407,13 +1956,20 @@
       "type_name": "중심각의 크기와 현의 길이",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G031.I01",
           "source_code": "PG-080",
           "no_in_group": 1,
           "name": "중심각의 크기와 현의 길이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
@@ -1440,27 +1996,46 @@
       "type_name": "중심각의 크기에 정비례하는 것",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G032.I01",
           "source_code": "PG-081",
           "no_in_group": 1,
           "name": "같은 값을 갖는 도형 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G032.I02",
           "source_code": "PG-082",
           "no_in_group": 2,
           "name": "두 값 사이의 관계",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G032.I03",
           "source_code": "PG-083",
           "no_in_group": 3,
           "name": "중심각의 크기에 정비례하는 것의 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1487,20 +2062,33 @@
       "type_name": "원의 둘레의 길이와 넓이",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G033.I01",
           "source_code": "PG-084",
           "no_in_group": 1,
           "name": "원의 둘레의 길이와 넓이, 반지름의 길이 등 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT039",
+          "legacy_type_name": "원의 둘레 또는 넓이로 반지름 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.55,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G033.I02",
           "source_code": "PG-085",
           "no_in_group": 2,
           "name": "원의 둘레의 길이와 넓이의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -1527,27 +2115,46 @@
       "type_name": "부채꼴의 호의 길이",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G034.I01",
           "source_code": "PG-086",
           "no_in_group": 1,
           "name": "부채꼴의 호의 길이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT041",
+          "legacy_type_name": "부채꼴의 호의 길이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.727,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G034.I02",
           "source_code": "PG-087",
           "no_in_group": 2,
           "name": "부채꼴의 호의 길이의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G034.I03",
           "source_code": "PG-088",
           "no_in_group": 3,
           "name": "부채꼴의 호의 길이의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1574,34 +2181,65 @@
       "type_name": "부채꼴의 넓이",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G035.I01",
           "source_code": "PG-089",
           "no_in_group": 1,
           "name": "부채꼴의 넓이 구하는 과정의 빈칸 채우기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G035.I02",
           "source_code": "PG-090",
           "no_in_group": 2,
           "name": "부채꼴의 넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M1_PG_C023",
+            "M1_PG_C025"
+          ],
+          "legacy_problem_type_id": "M1_PG_PT043",
+          "legacy_type_name": "부채꼴의 넓이 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "sector_area",
+            "formula"
+          ]
         },
         {
           "item_id": "MPLAT.M1S2.PG.G035.I03",
           "source_code": "PG-091",
           "no_in_group": 3,
           "name": "부채꼴의 넓이의 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G035.I04",
           "source_code": "PG-092",
           "no_in_group": 4,
           "name": "부채꼴의 넓이의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 36,
@@ -1628,13 +2266,20 @@
       "type_name": "호의 길이를 이용한 부채꼴의 넓이",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G036.I01",
           "source_code": "PG-093",
           "no_in_group": 1,
           "name": "호의 길이를 이용한 부채꼴의 넓이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M1_PG_PT045",
+          "legacy_type_name": "호의 길이를 이용하여 부채꼴의 넓이 구하기",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.722,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -1661,34 +2306,59 @@
       "type_name": "색칠한 부분의 둘레의 길이",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G037.I01",
           "source_code": "PG-094",
           "no_in_group": 1,
           "name": "부채꼴, 삼각형 (큰 형태에서의 분류)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G037.I02",
           "source_code": "PG-095",
           "no_in_group": 2,
           "name": "원 (큰 형태에서의 분류)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G037.I03",
           "source_code": "PG-096",
           "no_in_group": 3,
           "name": "사각형 (큰 형태에서의 분류)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G037.I04",
           "source_code": "PG-097",
           "no_in_group": 4,
           "name": "부채꼴과 원 (큰 형태에서의 분류)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -1715,41 +2385,72 @@
       "type_name": "색칠한 부분의 넓이 구하기(1)",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G038.I01",
           "source_code": "PG-098",
           "no_in_group": 1,
           "name": "반원, 부채꼴 형태",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G038.I02",
           "source_code": "PG-099",
           "no_in_group": 2,
           "name": "정사각형 또는 직사각형 형태",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G038.I03",
           "source_code": "PG-100",
           "no_in_group": 3,
           "name": "원 형태",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G038.I04",
           "source_code": "PG-101",
           "no_in_group": 4,
           "name": "다각형 형태 (정사각형, 직사각형 제외)",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G038.I05",
           "source_code": "PG-102",
           "no_in_group": 5,
           "name": "직선과 곡선이 함께 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 60,
@@ -1776,27 +2477,46 @@
       "type_name": "색칠한 부분의 넓이 구하기(2)",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G039.I01",
           "source_code": "PG-103",
           "no_in_group": 1,
           "name": "색칠한 부분의 넓이 구하기: 두 부분의 넓이가 같은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G039.I02",
           "source_code": "PG-104",
           "no_in_group": 2,
           "name": "색칠한 부분의 넓이 구하기: 기본",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G039.I03",
           "source_code": "PG-105",
           "no_in_group": 3,
           "name": "색칠한 부분의 넓이 구하기: 응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1823,41 +2543,72 @@
       "type_name": "색칠한 부분의 넓이 구하기(3)",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G040.I01",
           "source_code": "PG-106",
           "no_in_group": 1,
           "name": "원, 반원, 부채꼴 형태",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G040.I02",
           "source_code": "PG-107",
           "no_in_group": 2,
           "name": "직사각형 형태",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G040.I03",
           "source_code": "PG-108",
           "no_in_group": 3,
           "name": "소용돌이 포함",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G040.I04",
           "source_code": "PG-109",
           "no_in_group": 4,
           "name": "삼각형을 회전한 도형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G040.I05",
           "source_code": "PG-110",
           "no_in_group": 5,
           "name": "활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -1884,13 +2635,20 @@
       "type_name": "색칠한 부분의 넓이가 같은 경우",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G041.I01",
           "source_code": "PG-111",
           "no_in_group": 1,
           "name": "색칠한 부분의 넓이가 같은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 6,
@@ -1917,20 +2675,33 @@
       "type_name": "원을 묶은 끈의 길이",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G042.I01",
           "source_code": "PG-112",
           "no_in_group": 1,
           "name": "원을 묶은 끈의 길이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G042.I02",
           "source_code": "PG-113",
           "no_in_group": 2,
           "name": "원을 묶은 끈의 길이의 비교",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -1957,27 +2728,46 @@
       "type_name": "원이 지나간 자리의 넓이",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G043.I01",
           "source_code": "PG-114",
           "no_in_group": 1,
           "name": "도형의 외부에서 회전하는 원",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G043.I02",
           "source_code": "PG-115",
           "no_in_group": 2,
           "name": "도형의 변 위를 원의 중심이 도는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G043.I03",
           "source_code": "PG-116",
           "no_in_group": 3,
           "name": "도형의 내부에서 회전하는 원",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2004,27 +2794,46 @@
       "type_name": "도형을 회전시켰을 때 점이 움직인 거리",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M1S2.PG.G044.I01",
           "source_code": "PG-117",
           "no_in_group": 1,
           "name": "도형의 회전",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G044.I02",
           "source_code": "PG-118",
           "no_in_group": 2,
           "name": "통들을 묶은 끈이 움직이는 거리",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M1S2.PG.G044.I03",
           "source_code": "PG-119",
           "no_in_group": 3,
           "name": "직선 위에서의 도형의 회전",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,

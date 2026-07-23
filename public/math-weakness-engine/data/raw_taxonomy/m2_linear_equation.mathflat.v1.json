@@ -31,9 +31,20 @@
     "declared_total": 156,
     "stored_total": 156,
     "match": true,
-    "mismatched_groups": []
+    "mismatched_groups": [],
+    "accepted_source_errors": [],
+    "accepted_source_note": "",
+    "unexplained_groups": [],
+    "unreadable_groups": [],
+    "unreadable_note": "매쓰플랫 화면에 주제유형 개수가 표시되지 않아 하위 항목을 하나도 읽지 못한 묶음이다. topic_type_count는 null이고 topic_types는 비어 있다. 항목이 없다는 뜻이 아니라 모른다는 뜻이다."
   },
   "detail_type_total": 780,
+  "detail_type_check": {
+    "counted_groups": 53,
+    "unknown_groups": [],
+    "unknown_note": "이 묶음들은 detail_type_count가 null이다. 세부유형이 없다는 뜻이 아니라 화면에서 개수를 읽을 수 없었다는 뜻이며, 추정하지 않았다.",
+    "total_is_partial": false
+  },
   "legacy_audit": {
     "_method": "이름 유사도(정규화 후 Levenshtein) 그리디 1:1 매칭. 순서 대응은 legacy 목록이 다른 구성이라 폐기함.",
     "match_confident": 34,
@@ -59,7 +70,36 @@
     "legacy_source": "m2_linear_equation.raw_taxonomy.v1.json (sections / task_group)",
     "legacy_has_error_tags": false,
     "legacy_error_tag_vocab": 0,
-    "legacy_error_tag_sample": []
+    "legacy_error_tag_sample": [],
+    "alt_legacy_source": "m2_linear_equation.problem_types.v1.json (problem_types)",
+    "alt_legacy_count": 156,
+    "alt_legacy_has_error_tags": true,
+    "alt_legacy_error_tag_vocab": 35,
+    "alt_legacy_error_tag_sample": [
+      "age_problem",
+      "average",
+      "concentration",
+      "condition_handling",
+      "count_problem",
+      "decimal_coefficient",
+      "distribution_problem",
+      "elimination_method"
+    ],
+    "alt_legacy_has_concept_ids": true,
+    "alt_legacy_note": "이 파일에서는 아무것도 상속하지 않았다. error_tags 배정 때 참고할 출처로만 기록한다."
+  },
+  "item_legacy_audit": {
+    "_method": "항목명 정규화 완전일치 우선, 남은 것만 Levenshtein 유사도로 1:1 매칭. 0.85 이상만 확정.",
+    "ran": true,
+    "source": "m2_linear_equation.problem_types.v1.json (problem_types / type_name)",
+    "legacy_count": 156,
+    "item_count": 156,
+    "match_confident": 108,
+    "match_candidate": 5,
+    "match_none": 43,
+    "concept_ids_inherited": 108,
+    "error_tags_referenced": 108,
+    "error_tags_note": "legacy_error_tags_ref는 참고용 기록일 뿐이다. 항목의 error_tags는 여전히 배정하지 않았다."
   },
   "problem_types": [
     {
@@ -73,27 +113,68 @@
       "type_name": "미지수가 2개인 일차방정식",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G001.I01",
           "source_code": "EQ-001",
           "no_in_group": 1,
           "name": "미지수가 2개인 일차방정식의 판단",
-          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+          "review_status": "원문 확인 / 6개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C001",
+            "M2_LE_C002"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT001",
+          "legacy_type_name": "미지수가 2개인 일차방정식의 판단",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G001.I02",
           "source_code": "EQ-002",
           "no_in_group": 2,
           "name": "미지수가 2개인 일차방정식이 되기 위한 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C001",
+            "M2_LE_C002"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT002",
+          "legacy_type_name": "미지수가 2개인 일차방정식이 되기 위한 조건",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "condition_handling",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G001.I03",
           "source_code": "EQ-003",
           "no_in_group": 3,
           "name": "미지수가 2개인 일차방정식의 정리",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C001",
+            "M2_LE_C002"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT003",
+          "legacy_type_name": "미지수가 2개인 일차방정식의 정리",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "number_word_problem",
+            "work_rate"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -120,20 +201,44 @@
       "type_name": "미지수가 2개인 일차방정식으로 나타내기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G002.I01",
           "source_code": "EQ-004",
           "no_in_group": 1,
           "name": "미지수가 2개인 일차방정식으로의 표현",
-          "review_status": "원문 확인 / 19개 접혀서 안 보임"
+          "review_status": "원문 확인 / 19개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C001",
+            "M2_LE_C006"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT004",
+          "legacy_type_name": "미지수가 2개인 일차방정식으로의 표현",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G002.I02",
           "source_code": "EQ-005",
           "no_in_group": 2,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C012"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT044",
+          "legacy_type_name": "응용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation"
+          ]
         }
       ],
       "detail_type_count": 21,
@@ -163,20 +268,40 @@
       "type_name": "미지수가 2개인 일차방정식의 해",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G003.I01",
           "source_code": "EQ-006",
           "no_in_group": 1,
           "name": "일차방정식의 해의 판단",
-          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+          "review_status": "원문 확인 / 6개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C003"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT007",
+          "legacy_type_name": "일차방정식의 해의 판단",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "solution_check",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G003.I02",
           "source_code": "EQ-007",
           "no_in_group": 2,
           "name": "조건이 주어진 미지수를 포함한 일차방정식의 해",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -205,27 +330,60 @@
       "type_name": "미지수가 자연수인 일차방정식의 해 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G004.I01",
           "source_code": "EQ-008",
           "no_in_group": 1,
           "name": "미지수가 자연수인 일차방정식의 해 구하기",
-          "review_status": "원문 확인 / 19개 접혀서 안 보임"
+          "review_status": "원문 확인 / 19개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C004"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT010",
+          "legacy_type_name": "미지수가 자연수인 일차방정식의 해 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "solution_check",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G004.I02",
           "source_code": "EQ-009",
           "no_in_group": 2,
           "name": "미지수의 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C004"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT011",
+          "legacy_type_name": "미지수의 조건이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "condition_handling",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G004.I03",
           "source_code": "EQ-010",
           "no_in_group": 3,
           "name": "일차방정식의 해의 개수가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LE_PT012",
+          "legacy_type_name": "해의 개수가 주어진 경우",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -254,34 +412,79 @@
       "type_name": "일차방정식의 해 또는 계수가 문자로 주어질 때",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G005.I01",
           "source_code": "EQ-011",
           "no_in_group": 1,
           "name": "미지수 구하기",
-          "review_status": "원문 확인 / 24개 접혀서 안 보임"
+          "review_status": "원문 확인 / 24개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C005"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT013",
+          "legacy_type_name": "미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G005.I02",
           "source_code": "EQ-012",
           "no_in_group": 2,
           "name": "해에 대한 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C005"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT014",
+          "legacy_type_name": "해에 대한 조건이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "solution_check",
+            "condition_handling",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G005.I03",
           "source_code": "EQ-013",
           "no_in_group": 3,
           "name": "다른 해 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C005"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT015",
+          "legacy_type_name": "다른 해 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "solution_check",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G005.I04",
           "source_code": "EQ-014",
           "no_in_group": 4,
           "name": "두 일차방정식이 주어지는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 28,
@@ -308,20 +511,46 @@
       "type_name": "미지수가 2개인 일차방정식의 활용",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G006.I01",
           "source_code": "EQ-015",
           "no_in_group": 1,
           "name": "미지수가 2개인 일차방정식의 활용",
-          "review_status": "원문 확인 / 5개 접혀서 안 보임"
+          "review_status": "원문 확인 / 5개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C006"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT016",
+          "legacy_type_name": "미지수가 2개인 일차방정식의 활용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "word_problem_modeling",
+            "number_word_problem",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G006.I02",
           "source_code": "EQ-016",
           "no_in_group": 2,
           "name": "새로운 기호가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C006"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT017",
+          "legacy_type_name": "새로운 기호가 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "number_word_problem",
+            "work_rate"
+          ]
         }
       ],
       "detail_type_count": 7,
@@ -350,13 +579,25 @@
       "type_name": "일차방정식의 성질",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G007.I01",
           "source_code": "EQ-017",
           "no_in_group": 1,
           "name": "일차방정식의 성질",
-          "review_status": "원문 확인 / 1개 접혀서 안 보임"
+          "review_status": "원문 확인 / 1개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C007"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT019",
+          "legacy_type_name": "일차방정식의 성질",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "work_rate"
+          ]
         }
       ],
       "detail_type_count": 2,
@@ -385,13 +626,24 @@
       "type_name": "연립방정식 세우기",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G008.I01",
           "source_code": "EQ-018",
           "no_in_group": 1,
           "name": "연립방정식 세우기",
-          "review_status": "원문 확인 / 14개 접혀서 안 보임"
+          "review_status": "원문 확인 / 14개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C008"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT021",
+          "legacy_type_name": "연립방정식 세우기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -420,20 +672,43 @@
       "type_name": "연립방정식의 해",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G009.I01",
           "source_code": "EQ-019",
           "no_in_group": 1,
           "name": "연립방정식의 해 판단",
-          "review_status": "원문 확인 / 5개 접혀서 안 보임"
+          "review_status": "원문 확인 / 5개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C009"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT024",
+          "legacy_type_name": "연립방정식의 해 판단",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G009.I02",
           "source_code": "EQ-020",
           "no_in_group": 2,
           "name": "연립방정식의 해 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C009"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT025",
+          "legacy_type_name": "연립방정식의 해 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check"
+          ]
         }
       ],
       "detail_type_count": 7,
@@ -460,27 +735,60 @@
       "type_name": "연립방정식의 풀이(1) - 대입법",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G010.I01",
           "source_code": "EQ-021",
           "no_in_group": 1,
           "name": "대입법을 이용한 풀이 과정",
-          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+          "review_status": "원문 확인 / 6개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C010"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT027",
+          "legacy_type_name": "대입법을 이용한 풀이 과정",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "substitution_method"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G010.I02",
           "source_code": "EQ-022",
           "no_in_group": 2,
           "name": "연립방정식 풀기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C010"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT028",
+          "legacy_type_name": "연립방정식 풀기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G010.I03",
           "source_code": "EQ-023",
           "no_in_group": 3,
           "name": "연립방정식의 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C010"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT029",
+          "legacy_type_name": "연립방정식의 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "number_word_problem"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -507,34 +815,69 @@
       "type_name": "연립방정식의 풀이(2) - 가감법",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G011.I01",
           "source_code": "EQ-024",
           "no_in_group": 1,
           "name": "가감법을 이용한 풀이 과정",
-          "review_status": "원문 확인 / 4개 접혀서 안 보임"
+          "review_status": "원문 확인 / 4개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C011"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT030",
+          "legacy_type_name": "가감법을 이용한 풀이 과정",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "elimination_method"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G011.I02",
           "source_code": "EQ-025",
           "no_in_group": 2,
           "name": "가감법의 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C011"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT031",
+          "legacy_type_name": "가감법의 이용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "elimination_method"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G011.I03",
           "source_code": "EQ-026",
           "no_in_group": 3,
           "name": "연립방정식 풀기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G011.I04",
           "source_code": "EQ-027",
           "no_in_group": 4,
           "name": "가감법을 이용한 연립방정식의 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -561,55 +904,129 @@
       "type_name": "연립방정식의 풀이",
       "topic_type_count": 7,
       "topic_type_actual": 7,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G012.I01",
           "source_code": "EQ-028",
           "no_in_group": 1,
           "name": "연립방정식의 해 또는 해의 연산: 대입법 이용",
-          "review_status": "원문 확인 / 28개 접혀서 안 보임"
+          "review_status": "원문 확인 / 28개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C010",
+            "M2_LE_C011",
+            "M2_LE_C015",
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT033",
+          "legacy_type_name": "연립방정식의 해 또는 해의 연산: 대입법 이용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "substitution_method",
+            "solution_check"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G012.I02",
           "source_code": "EQ-029",
           "no_in_group": 2,
           "name": "연립방정식의 해 구하기 또는 해의 연산: 가감법 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C010",
+            "M2_LE_C011",
+            "M2_LE_C015",
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT034",
+          "legacy_type_name": "연립방정식의 해 구하기 또는 해의 연산: 가감법 이용",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "elimination_method",
+            "solution_check"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G012.I03",
           "source_code": "EQ-030",
           "no_in_group": 3,
           "name": "표를 이용한 연립방정식의 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C010",
+            "M2_LE_C011",
+            "M2_LE_C015",
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT035",
+          "legacy_type_name": "표를 이용한 연립방정식의 계산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G012.I04",
           "source_code": "EQ-031",
           "no_in_group": 4,
           "name": "지수를 이용한 연립방정식의 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G012.I05",
           "source_code": "EQ-032",
           "no_in_group": 5,
           "name": "한 연립방정식을 이용한 다른 연립방정식의 계산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G012.I06",
           "source_code": "EQ-033",
           "no_in_group": 6,
           "name": "문자가 3개인 연립방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C010",
+            "M2_LE_C011"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT036",
+          "legacy_type_name": "문자가 3개인 연립방정식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "parameter_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G012.I07",
           "source_code": "EQ-034",
           "no_in_group": 7,
           "name": "연립방정식의 풀이에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 35,
@@ -636,41 +1053,87 @@
       "type_name": "괄호가 있는 연립방정식의 풀이",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G013.I01",
           "source_code": "EQ-035",
           "no_in_group": 1,
           "name": "괄호가 있는 연립방정식의 풀이",
-          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+          "review_status": "원문 확인 / 12개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C012"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT039",
+          "legacy_type_name": "괄호가 있는 연립방정식의 풀이",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G013.I02",
           "source_code": "EQ-036",
           "no_in_group": 2,
           "name": "괄호가 1개인 연립방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C012"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT040",
+          "legacy_type_name": "괄호가 1개인 연립방정식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G013.I03",
           "source_code": "EQ-037",
           "no_in_group": 3,
           "name": "괄호가 2개인 연립방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C012"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT041",
+          "legacy_type_name": "괄호가 2개인 연립방정식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "parentheses"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G013.I04",
           "source_code": "EQ-038",
           "no_in_group": 4,
           "name": "괄호가 3개 이상인 연립방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G013.I05",
           "source_code": "EQ-039",
           "no_in_group": 5,
           "name": "중괄호가 포함된 연립방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -699,20 +1162,33 @@
       "type_name": "계수가 분수인 연립방정식의 풀이",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G014.I01",
           "source_code": "EQ-040",
           "no_in_group": 1,
           "name": "연립방정식 풀기",
-          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+          "review_status": "원문 확인 / 12개 접혀서 안 보임",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G014.I02",
           "source_code": "EQ-041",
           "no_in_group": 2,
           "name": "응용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 14,
@@ -739,27 +1215,51 @@
       "type_name": "계수가 소수인 연립방정식의 풀이",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G015.I01",
           "source_code": "EQ-042",
           "no_in_group": 1,
           "name": "연립방정식 풀기",
-          "review_status": "원문 확인 / 14개 접혀서 안 보임"
+          "review_status": "원문 확인 / 14개 접혀서 안 보임",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G015.I02",
           "source_code": "EQ-043",
           "no_in_group": 2,
           "name": "연립방정식의 풀이",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G015.I03",
           "source_code": "EQ-044",
           "no_in_group": 3,
           "name": "같은 해를 가진 연립방정식 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C012"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT046",
+          "legacy_type_name": "같은 해를 가진 연립방정식 고르기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check"
+          ]
         }
       ],
       "detail_type_count": 17,
@@ -786,20 +1286,38 @@
       "type_name": "계수가 순환소수인 경우",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G016.I01",
           "source_code": "EQ-045",
           "no_in_group": 1,
           "name": "연립방정식의 풀이",
-          "review_status": "원문 확인 / 3개 접혀서 안 보임"
+          "review_status": "원문 확인 / 3개 접혀서 안 보임",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G016.I02",
           "source_code": "EQ-046",
           "no_in_group": 2,
           "name": "연립방정식의 해의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C012"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT049",
+          "legacy_type_name": "연립방정식의 해의 연산",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check"
+          ]
         }
       ],
       "detail_type_count": 5,
@@ -828,20 +1346,33 @@
       "type_name": "비례식을 포함한 연립방정식의 풀이",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G017.I01",
           "source_code": "EQ-047",
           "no_in_group": 1,
           "name": "연립방정식의 풀이",
-          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+          "review_status": "원문 확인 / 6개 접혀서 안 보임",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G017.I02",
           "source_code": "EQ-048",
           "no_in_group": 2,
           "name": "연립방정식의 해의 연산",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 8,
@@ -868,20 +1399,43 @@
       "type_name": "분모에 문자가 있는 경우",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G018.I01",
           "source_code": "EQ-049",
           "no_in_group": 1,
           "name": "두 문자에 대한 연립방정식",
-          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+          "review_status": "원문 확인 / 11개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C013"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT054",
+          "legacy_type_name": "두 문자에 대한 연립방정식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "parameter_condition"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G018.I02",
           "source_code": "EQ-050",
           "no_in_group": 2,
           "name": "세 문자에 대한 연립방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C013"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT055",
+          "legacy_type_name": "세 문자에 대한 연립방정식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "parameter_condition"
+          ]
         }
       ],
       "detail_type_count": 13,
@@ -910,20 +1464,42 @@
       "type_name": "A=B=C 꼴의 방정식의 풀이",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G019.I01",
           "source_code": "EQ-051",
           "no_in_group": 1,
           "name": "C가 상수인 경우",
-          "review_status": "원문 확인 / 15개 접혀서 안 보임"
+          "review_status": "원문 확인 / 15개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C014"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT057",
+          "legacy_type_name": "C가 상수인 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G019.I02",
           "source_code": "EQ-052",
           "no_in_group": 2,
           "name": "C가 식인 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C014"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT058",
+          "legacy_type_name": "C가 식인 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation"
+          ]
         }
       ],
       "detail_type_count": 17,
@@ -952,27 +1528,68 @@
       "type_name": "연립방정식의 해를 알 때, 미지수의 값 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G020.I01",
           "source_code": "EQ-053",
           "no_in_group": 1,
           "name": "해의 일부가 주어진 경우",
-          "review_status": "원문 확인 / 23개 접혀서 안 보임"
+          "review_status": "원문 확인 / 23개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C015",
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT060",
+          "legacy_type_name": "해의 일부가 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G020.I02",
           "source_code": "EQ-054",
           "no_in_group": 2,
           "name": "해가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C015",
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT061",
+          "legacy_type_name": "해가 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G020.I03",
           "source_code": "EQ-055",
           "no_in_group": 3,
           "name": "해의 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C015",
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT062",
+          "legacy_type_name": "해의 조건이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling"
+          ]
         }
       ],
       "detail_type_count": 26,
@@ -999,34 +1616,80 @@
       "type_name": "연립방정식의 해와 조건식(1) - 연립방정식의 해를 한 해로 갖는 일차방정식",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G021.I01",
           "source_code": "EQ-056",
           "no_in_group": 1,
           "name": "미지수를 포함한 연립방정식",
-          "review_status": "원문 확인 / 21개 접혀서 안 보임"
+          "review_status": "원문 확인 / 21개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT063",
+          "legacy_type_name": "미지수를 포함한 연립방정식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G021.I02",
           "source_code": "EQ-057",
           "no_in_group": 2,
           "name": "미지수를 포함한 일차방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT064",
+          "legacy_type_name": "미지수를 포함한 일차방정식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G021.I03",
           "source_code": "EQ-058",
           "no_in_group": 3,
           "name": "미지수를 포함한 연립방정식과 일차방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C016"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT065",
+          "legacy_type_name": "미지수를 포함한 연립방정식과 일차방정식",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "linear_equation_two_variables",
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G021.I04",
           "source_code": "EQ-059",
           "no_in_group": 4,
           "name": "연립방정식의 해를 한 해로 갖는 일차방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 25,
@@ -1053,48 +1716,85 @@
       "type_name": "연립방정식의 해와 조건식(2) - x, y에 관한 조건식",
       "topic_type_count": 6,
       "topic_type_actual": 6,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G022.I01",
           "source_code": "EQ-060",
           "no_in_group": 1,
           "name": "x, y값의 비 또는 배수 관계가 주어진 경우",
-          "review_status": "원문 확인 / 23개 접혀서 안 보임"
+          "review_status": "원문 확인 / 23개 접혀서 안 보임",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LE_PT066",
+          "legacy_type_name": "x,y값의 비 또는 배수 관계",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.647,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G022.I02",
           "source_code": "EQ-061",
           "no_in_group": 2,
           "name": "x, y값의 합 또는 차가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LE_PT067",
+          "legacy_type_name": "x,y값의 합 또는 차",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.571,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G022.I03",
           "source_code": "EQ-062",
           "no_in_group": 3,
           "name": "x값과 y값 사이의 관계가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LE_PT068",
+          "legacy_type_name": "x값과 y값 사이의 관계",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.625,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G022.I04",
           "source_code": "EQ-063",
           "no_in_group": 4,
           "name": "x, y의 (절댓)값이 같은 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G022.I05",
           "source_code": "EQ-064",
           "no_in_group": 5,
           "name": "새롭게 정의된 기호의 이용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G022.I06",
           "source_code": "EQ-065",
           "no_in_group": 6,
           "name": "(종합) x값과 y값의 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 29,
@@ -1121,20 +1821,40 @@
       "type_name": "계수 또는 상수항을 잘못 보고 구한 해",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G023.I01",
           "source_code": "EQ-066",
           "no_in_group": 1,
           "name": "x의 계수 또는 y의 계수 또는 상수항을 잘못 본 경우",
-          "review_status": "원문 확인 / 13개 접혀서 안 보임"
+          "review_status": "원문 확인 / 13개 접혀서 안 보임",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G023.I02",
           "source_code": "EQ-067",
           "no_in_group": 2,
           "name": "미지수를 서로 바꾸어 본 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C018"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT070",
+          "legacy_type_name": "미지수를 서로 바꾸어 본 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling",
+            "number_word_problem"
+          ]
         }
       ],
       "detail_type_count": 15,
@@ -1163,20 +1883,49 @@
       "type_name": "해가 서로 같은 두 연립방정식에서 미지수의 값 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G024.I01",
           "source_code": "EQ-068",
           "no_in_group": 1,
           "name": "해가 서로 같은 경우",
-          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+          "review_status": "원문 확인 / 11개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C015",
+            "M2_LE_C016",
+            "M2_LE_C018"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT072",
+          "legacy_type_name": "해가 서로 같은 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G024.I02",
           "source_code": "EQ-069",
           "no_in_group": 2,
           "name": "해 사이에 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C015",
+            "M2_LE_C016",
+            "M2_LE_C018"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT073",
+          "legacy_type_name": "해 사이에 조건이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "condition_handling"
+          ]
         }
       ],
       "detail_type_count": 13,
@@ -1203,34 +1952,78 @@
       "type_name": "해가 특수한 연립방정식(1) - 해가 무수히 많은 경우",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G025.I01",
           "source_code": "EQ-070",
           "no_in_group": 1,
           "name": "연립방정식의 해 구하기",
-          "review_status": "원문 확인 / 14개 접혀서 안 보임"
+          "review_status": "원문 확인 / 14개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C017"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT078",
+          "legacy_type_name": "연립방정식의 해 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G025.I02",
           "source_code": "EQ-071",
           "no_in_group": 2,
           "name": "연립방정식의 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C017"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT076",
+          "legacy_type_name": "연립방정식의 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G025.I03",
           "source_code": "EQ-072",
           "no_in_group": 3,
           "name": "해가 무수히 많은 연립방정식 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C017"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT077",
+          "legacy_type_name": "해가 무수히 많은 연립방정식 고르기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "infinite_solutions",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G025.I04",
           "source_code": "EQ-073",
           "no_in_group": 4,
           "name": "연립방정식의 미지수를 이용한 일차방정식",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 18,
@@ -1257,41 +2050,91 @@
       "type_name": "해가 특수한 연립방정식(2) - 해가 없는 경우",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G026.I01",
           "source_code": "EQ-074",
           "no_in_group": 1,
           "name": "연립방정식의 해 구하기",
-          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+          "review_status": "원문 확인 / 12개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C017"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT075",
+          "legacy_type_name": "연립방정식의 해 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G026.I02",
           "source_code": "EQ-075",
           "no_in_group": 2,
           "name": "해가 없는 연립방정식 고르기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C017"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT079",
+          "legacy_type_name": "해가 없는 연립방정식 고르기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "no_solution",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G026.I03",
           "source_code": "EQ-076",
           "no_in_group": 3,
           "name": "연립방정식의 미지수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C017"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT080",
+          "legacy_type_name": "연립방정식의 미지수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "solution_check",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G026.I04",
           "source_code": "EQ-077",
           "no_in_group": 4,
           "name": "해가 없는 연립방정식의 미지수의 조건",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G026.I05",
           "source_code": "EQ-078",
           "no_in_group": 5,
           "name": "연립방정식에 대한 설명",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 17,
@@ -1318,20 +2161,45 @@
       "type_name": "수의 연산에 대한 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G027.I01",
           "source_code": "EQ-079",
           "no_in_group": 1,
           "name": "연립방정식을 이용한 두 수를 구하는 과정",
-          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+          "review_status": "원문 확인 / 12개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C019"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT081",
+          "legacy_type_name": "연립방정식을 이용한 두 수를 구하는 과정",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G027.I02",
           "source_code": "EQ-080",
           "no_in_group": 2,
           "name": "연립방정식을 이용한 두 수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C019"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT082",
+          "legacy_type_name": "연립방정식을 이용한 두 수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem"
+          ]
         }
       ],
       "detail_type_count": 14,
@@ -1360,27 +2228,52 @@
       "type_name": "두 자리 또는 세 자리 자연수에 대한 문제",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G028.I01",
           "source_code": "EQ-081",
           "no_in_group": 1,
           "name": "연립방정식을 이용하여 수 구하기",
-          "review_status": "원문 확인 / 16개 접혀서 안 보임"
+          "review_status": "원문 확인 / 16개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C020"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT084",
+          "legacy_type_name": "연립방정식을 이용하여 수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G028.I02",
           "source_code": "EQ-082",
           "no_in_group": 2,
           "name": "연립방정식을 이용하여 수 구하기: 실생활에의 활용",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G028.I03",
           "source_code": "EQ-083",
           "no_in_group": 3,
           "name": "연립방정식을 이용하여 수의 특정 자리 숫자 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 19,
@@ -1409,27 +2302,58 @@
       "type_name": "평균에 대한 문제",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G029.I01",
           "source_code": "EQ-084",
           "no_in_group": 1,
           "name": "두 그룹에 대한 평균",
-          "review_status": "원문 확인 / 10개 접혀서 안 보임"
+          "review_status": "원문 확인 / 10개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C021"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT087",
+          "legacy_type_name": "두 그룹에 대한 평균",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "average"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G029.I02",
           "source_code": "EQ-085",
           "no_in_group": 2,
           "name": "세 그룹에 대한 평균",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C021"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT088",
+          "legacy_type_name": "세 그룹에 대한 평균",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "average"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G029.I03",
           "source_code": "EQ-086",
           "no_in_group": 3,
           "name": "평균에 대한 문제: 시험 점수",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1458,27 +2382,67 @@
       "type_name": "가격과 개수에 대한 문제(1) - 개수 구하기",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G030.I01",
           "source_code": "EQ-087",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 18개 접혀서 안 보임"
+          "review_status": "원문 확인 / 18개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C022"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT090",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem",
+            "price_count"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G030.I02",
           "source_code": "EQ-088",
           "no_in_group": 2,
           "name": "문장으로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C022"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT091",
+          "legacy_type_name": "문장으로 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem",
+            "price_count"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G030.I03",
           "source_code": "EQ-089",
           "no_in_group": 3,
           "name": "표 또는 그림이 함께 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C022"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT092",
+          "legacy_type_name": "표 또는 그림이 함께 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem",
+            "price_count"
+          ]
         }
       ],
       "detail_type_count": 21,
@@ -1505,20 +2469,33 @@
       "type_name": "가격과 개수에 대한 문제(2) - 가격 구하기",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G031.I01",
           "source_code": "EQ-090",
           "no_in_group": 1,
           "name": "연립방정식을 이용한 물건의 가격 구하기: 문장으로 주어진 경우",
-          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+          "review_status": "원문 확인 / 11개 접혀서 안 보임",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G031.I02",
           "source_code": "EQ-091",
           "no_in_group": 2,
           "name": "연립방정식을 이용한 물건의 가격 구하기: 표 또는 그림이 함께 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 13,
@@ -1545,20 +2522,46 @@
       "type_name": "여러 가지 개수에 대한 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G032.I01",
           "source_code": "EQ-092",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 26개 접혀서 안 보임"
+          "review_status": "원문 확인 / 26개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C028"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT110",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "score_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G032.I02",
           "source_code": "EQ-093",
           "no_in_group": 2,
           "name": "연립방정식을 이용한 개수 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C023"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT097",
+          "legacy_type_name": "연립방정식을 이용한 개수 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem",
+            "count_problem"
+          ]
         }
       ],
       "detail_type_count": 28,
@@ -1587,27 +2590,65 @@
       "type_name": "나이에 대한 문제",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G033.I01",
           "source_code": "EQ-094",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 18개 접혀서 안 보임"
+          "review_status": "원문 확인 / 18개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C032"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT122",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "profit_discount"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G033.I02",
           "source_code": "EQ-095",
           "no_in_group": 2,
           "name": "합 또는 차가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C024"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT100",
+          "legacy_type_name": "합 또는 차가 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "age_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G033.I03",
           "source_code": "EQ-096",
           "no_in_group": 3,
           "name": "배수 관계가 포함된 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C024"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT101",
+          "legacy_type_name": "배수 관계가 포함된 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem",
+            "age_problem"
+          ]
         }
       ],
       "detail_type_count": 21,
@@ -1636,27 +2677,65 @@
       "type_name": "비율에 대한 문제",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G034.I01",
           "source_code": "EQ-097",
           "no_in_group": 1,
           "name": "분수로 주어진 경우",
-          "review_status": "원문 확인 / 15개 접혀서 안 보임"
+          "review_status": "원문 확인 / 15개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C025"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT102",
+          "legacy_type_name": "분수로 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "fraction_coefficient",
+            "number_word_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G034.I02",
           "source_code": "EQ-098",
           "no_in_group": 2,
           "name": "퍼센트로 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C025"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT103",
+          "legacy_type_name": "퍼센트로 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "ratio_percent"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G034.I03",
           "source_code": "EQ-099",
           "no_in_group": 3,
           "name": "비가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C025"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT104",
+          "legacy_type_name": "비가 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "ratio_percent"
+          ]
         }
       ],
       "detail_type_count": 18,
@@ -1685,13 +2764,25 @@
       "type_name": "끈의 길이에 대한 문제",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G035.I01",
           "source_code": "EQ-100",
           "no_in_group": 1,
           "name": "끈을 나누는 경우",
-          "review_status": "원문 확인 / 1개 접혀서 안 보임"
+          "review_status": "원문 확인 / 1개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C026"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT105",
+          "legacy_type_name": "끈을 나누는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         }
       ],
       "detail_type_count": 2,
@@ -1720,41 +2811,90 @@
       "type_name": "도형에 대한 문제",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G036.I01",
           "source_code": "EQ-101",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 17개 접혀서 안 보임"
+          "review_status": "원문 확인 / 17개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C031"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT119",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "increase_decrease"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G036.I02",
           "source_code": "EQ-102",
           "no_in_group": 2,
           "name": "변의 길이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C027"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT108",
+          "legacy_type_name": "변의 길이 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "geometry_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G036.I03",
           "source_code": "EQ-103",
           "no_in_group": 3,
           "name": "넓이 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C027"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT109",
+          "legacy_type_name": "넓이 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "geometry_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G036.I04",
           "source_code": "EQ-104",
           "no_in_group": 4,
           "name": "사각형 여러 개로 만든 직사각형",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G036.I05",
           "source_code": "EQ-105",
           "no_in_group": 5,
           "name": "각도 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -1783,27 +2923,65 @@
       "type_name": "득점, 감점에 대한 문제",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G037.I01",
           "source_code": "EQ-106",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+          "review_status": "원문 확인 / 11개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT132",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "speed_distance_time"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G037.I02",
           "source_code": "EQ-107",
           "no_in_group": 2,
           "name": "득점과 감점이 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C028"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT111",
+          "legacy_type_name": "득점과 감점이 있는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "score_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G037.I03",
           "source_code": "EQ-108",
           "no_in_group": 3,
           "name": "득점만 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C028"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT112",
+          "legacy_type_name": "득점이 있는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 0.857,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "score_problem"
+          ]
         }
       ],
       "detail_type_count": 14,
@@ -1832,20 +3010,47 @@
       "type_name": "분배에 대한 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G038.I01",
           "source_code": "EQ-109",
           "no_in_group": 1,
           "name": "연립방정식을 이용한 분배: 문자 2개",
-          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+          "review_status": "원문 확인 / 6개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C029"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT113",
+          "legacy_type_name": "연립방정식을 이용한 분배: 문자 2개",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "parameter_condition",
+            "distribution_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G038.I02",
           "source_code": "EQ-110",
           "no_in_group": 2,
           "name": "연립방정식을 이용한 분배: 문자 3개",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C029"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT114",
+          "legacy_type_name": "연립방정식을 이용한 분배: 문자 3개",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "parameter_condition",
+            "distribution_problem"
+          ]
         }
       ],
       "detail_type_count": 8,
@@ -1874,20 +3079,45 @@
       "type_name": "계단에 대한 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G039.I01",
           "source_code": "EQ-111",
           "no_in_group": 1,
           "name": "비기는 경우를 제외",
-          "review_status": "원문 확인 / 4개 접혀서 안 보임"
+          "review_status": "원문 확인 / 4개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C030"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT116",
+          "legacy_type_name": "비기는 경우를 제외",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "stair_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G039.I02",
           "source_code": "EQ-112",
           "no_in_group": 2,
           "name": "비기는 경우 포함",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C030"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT117",
+          "legacy_type_name": "비기는 경우 포함",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "stair_problem"
+          ]
         }
       ],
       "detail_type_count": 6,
@@ -1916,34 +3146,73 @@
       "type_name": "증가, 감소에 대한 문제",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G040.I01",
           "source_code": "EQ-113",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 18개 접혀서 안 보임"
+          "review_status": "원문 확인 / 18개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C023"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT096",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem",
+            "count_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G040.I02",
           "source_code": "EQ-114",
           "no_in_group": 2,
           "name": "두 품목간 비교",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G040.I03",
           "source_code": "EQ-115",
           "no_in_group": 3,
           "name": "두 그룹의 사람 수 비교",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C031"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT121",
+          "legacy_type_name": "두 그룹의 사람 수 비교",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "number_word_problem",
+            "increase_decrease"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G040.I04",
           "source_code": "EQ-116",
           "no_in_group": 4,
           "name": "두 값의 비교",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 22,
@@ -1972,34 +3241,78 @@
       "type_name": "이익, 할인에 대한 문제",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G041.I01",
           "source_code": "EQ-117",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+          "review_status": "원문 확인 / 12개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT135",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "round_trip"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G041.I02",
           "source_code": "EQ-118",
           "no_in_group": 2,
           "name": "표가 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C032"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT123",
+          "legacy_type_name": "표가 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "profit_discount"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G041.I03",
           "source_code": "EQ-119",
           "no_in_group": 3,
           "name": "이익률이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C032"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT124",
+          "legacy_type_name": "이익률이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "profit_discount"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G041.I04",
           "source_code": "EQ-120",
           "no_in_group": 4,
           "name": "할인을 포함하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2028,20 +3341,45 @@
       "type_name": "일에 대한 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G042.I01",
           "source_code": "EQ-121",
           "no_in_group": 1,
           "name": "두 사람이 각자 일하는 경우",
-          "review_status": "원문 확인 / 15개 접혀서 안 보임"
+          "review_status": "원문 확인 / 15개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C033"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT125",
+          "legacy_type_name": "두 사람이 각자 일하는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "work_rate"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G042.I02",
           "source_code": "EQ-122",
           "no_in_group": 2,
           "name": "동시에 일하는 시간을 포함한 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C033"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT126",
+          "legacy_type_name": "동시에 일하는 시간을 포함한 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "work_rate"
+          ]
         }
       ],
       "detail_type_count": 17,
@@ -2070,13 +3408,26 @@
       "type_name": "저울(무게)에 대한 문제",
       "topic_type_count": 1,
       "topic_type_actual": 1,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G043.I01",
           "source_code": "EQ-123",
           "no_in_group": 1,
           "name": "연립방정식을 이용한 무게",
-          "review_status": "원문 확인 / 접힌 항목 없음"
+          "review_status": "원문 확인 / 접힌 항목 없음",
+          "concept_ids": [
+            "M2_LE_C034"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT128",
+          "legacy_type_name": "연립방정식을 이용한 무게",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "weight_balance"
+          ]
         }
       ],
       "detail_type_count": 1,
@@ -2105,41 +3456,98 @@
       "type_name": "도중에 속력이 바뀌는 문제",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G044.I01",
           "source_code": "EQ-124",
           "no_in_group": 1,
           "name": "빈칸 채우기",
-          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+          "review_status": "원문 확인 / 11개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT131",
+          "legacy_type_name": "빈칸 채우기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "speed_distance_time"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G044.I02",
           "source_code": "EQ-125",
           "no_in_group": 2,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C027"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT107",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "geometry_application"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G044.I03",
           "source_code": "EQ-126",
           "no_in_group": 3,
           "name": "거리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT133",
+          "legacy_type_name": "거리 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "speed_distance_time"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G044.I04",
           "source_code": "EQ-127",
           "no_in_group": 4,
           "name": "속력 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT139",
+          "legacy_type_name": "속력 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "speed_distance_time"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G044.I05",
           "source_code": "EQ-128",
           "no_in_group": 5,
           "name": "쉬는 시간이 있는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2169,41 +3577,96 @@
       "type_name": "왕복에 대한 문제",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G045.I01",
           "source_code": "EQ-129",
           "no_in_group": 1,
           "name": "연립방정식을 이용한 왕복의 빈칸 채우기",
-          "review_status": "원문 확인 / 11개 접혀서 안 보임"
+          "review_status": "원문 확인 / 11개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT134",
+          "legacy_type_name": "연립방정식을 이용한 왕복의 빈칸 채우기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "round_trip"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G045.I02",
           "source_code": "EQ-130",
           "no_in_group": 2,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C024"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT099",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "age_problem"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G045.I03",
           "source_code": "EQ-131",
           "no_in_group": 3,
           "name": "거리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT142",
+          "legacy_type_name": "거리 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G045.I04",
           "source_code": "EQ-132",
           "no_in_group": 4,
           "name": "시간 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT138",
+          "legacy_type_name": "시간 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G045.I05",
           "source_code": "EQ-133",
           "no_in_group": 5,
           "name": "속력 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 16,
@@ -2233,34 +3696,64 @@
       "type_name": "마주 보고 동시에 출발하는 문제",
       "topic_type_count": 4,
       "topic_type_actual": 4,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G046.I01",
           "source_code": "EQ-134",
           "no_in_group": 1,
           "name": "거리 구하기",
-          "review_status": "원문 확인 / 5개 접혀서 안 보임"
+          "review_status": "원문 확인 / 5개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C035"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT137",
+          "legacy_type_name": "거리 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G046.I02",
           "source_code": "EQ-135",
           "no_in_group": 2,
           "name": "시간 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G046.I03",
           "source_code": "EQ-136",
           "no_in_group": 3,
           "name": "속력 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G046.I04",
           "source_code": "EQ-137",
           "no_in_group": 4,
           "name": "서로 다른 시각에 출발하는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 9,
@@ -2289,27 +3782,63 @@
       "type_name": "같은 방향으로 출발하여 만나는 문제",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G047.I01",
           "source_code": "EQ-138",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 8개 접혀서 안 보임"
+          "review_status": "원문 확인 / 8개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT140",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G047.I02",
           "source_code": "EQ-139",
           "no_in_group": 2,
           "name": "소요시간 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT141",
+          "legacy_type_name": "소요시간 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G047.I03",
           "source_code": "EQ-140",
           "no_in_group": 3,
           "name": "거리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT147",
+          "legacy_type_name": "거리 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         }
       ],
       "detail_type_count": 11,
@@ -2339,20 +3868,43 @@
       "type_name": "트랙을 도는 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G048.I01",
           "source_code": "EQ-141",
           "no_in_group": 1,
           "name": "같은 방향과 반대 방향으로 도는 경우",
-          "review_status": "원문 확인 / 12개 접혀서 안 보임"
+          "review_status": "원문 확인 / 12개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C035"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT143",
+          "legacy_type_name": "같은 방향과 반대 방향으로 도는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G048.I02",
           "source_code": "EQ-142",
           "no_in_group": 2,
           "name": "서로 반대 방향으로 도는 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT144",
+          "legacy_type_name": "서로 반대 방향으로 도는 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling"
+          ]
         }
       ],
       "detail_type_count": 14,
@@ -2381,27 +3933,59 @@
       "type_name": "강물에 대한 문제",
       "topic_type_count": 3,
       "topic_type_actual": 3,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G049.I01",
           "source_code": "EQ-143",
           "no_in_group": 1,
           "name": "속력 구하기",
-          "review_status": "원문 확인 / 4개 접혀서 안 보임"
+          "review_status": "원문 확인 / 4개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C035"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT146",
+          "legacy_type_name": "속력 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "speed_distance_time"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G049.I02",
           "source_code": "EQ-144",
           "no_in_group": 2,
           "name": "거리 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035",
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT136",
+          "legacy_type_name": "거리 구하기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "round_trip"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G049.I03",
           "source_code": "EQ-145",
           "no_in_group": 3,
           "name": "소요 시간 구하기",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 7,
@@ -2430,20 +4014,40 @@
       "type_name": "기차에 대한 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G050.I01",
           "source_code": "EQ-146",
           "no_in_group": 1,
           "name": "기차의 터널 통과에 대한 문제 (기본)",
-          "review_status": "원문 확인 / 6개 접혀서 안 보임"
+          "review_status": "원문 확인 / 6개 접혀서 안 보임",
+          "concept_ids": null,
+          "legacy_problem_type_id": "M2_LE_PT148",
+          "legacy_type_name": "기차의 터널 통과에 대한 문제",
+          "legacy_match_level": "candidate",
+          "legacy_match_score": 0.636,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G050.I02",
           "source_code": "EQ-147",
           "no_in_group": 2,
           "name": "속력 또는 길이에 대한 조건이 주어진 경우",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C035"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT149",
+          "legacy_type_name": "속력 또는 길이에 대한 조건이 주어진 경우",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "condition_handling",
+            "speed_distance_time"
+          ]
         }
       ],
       "detail_type_count": 8,
@@ -2472,41 +4076,90 @@
       "type_name": "소금물 또는 소금의 양을 구하는 문제",
       "topic_type_count": 5,
       "topic_type_actual": 5,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G051.I01",
           "source_code": "EQ-148",
           "no_in_group": 1,
           "name": "연립방정식으로 나타내기",
-          "review_status": "원문 확인 / 15개 접혀서 안 보임"
+          "review_status": "원문 확인 / 15개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT151",
+          "legacy_type_name": "연립방정식으로 나타내기",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "solution_mixture"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G051.I02",
           "source_code": "EQ-149",
           "no_in_group": 2,
           "name": "두 소금물의 혼합",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT152",
+          "legacy_type_name": "두 소금물의 혼합",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "solution_mixture"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G051.I03",
           "source_code": "EQ-150",
           "no_in_group": 3,
           "name": "물 또는 소금 추가",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C036"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT153",
+          "legacy_type_name": "물 또는 소금 추가",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "solution_mixture"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G051.I04",
           "source_code": "EQ-151",
           "no_in_group": 4,
           "name": "소금물의 일부를 덜어낸 후 다른 소금물과 혼합",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G051.I05",
           "source_code": "EQ-152",
           "no_in_group": 5,
           "name": "두 소금물을 혼합한 뒤 물을 증발 또는 추가 투입",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 20,
@@ -2535,20 +4188,49 @@
       "type_name": "소금물의 농도 구하는 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G052.I01",
           "source_code": "EQ-153",
           "no_in_group": 1,
           "name": "두 소금물의 혼합물의 농도",
-          "review_status": "원문 확인 / 7개 접혀서 안 보임"
+          "review_status": "원문 확인 / 7개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C036",
+            "M2_LE_C037"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT154",
+          "legacy_type_name": "두 소금물의 혼합물의 농도",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "solution_mixture",
+            "concentration"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G052.I02",
           "source_code": "EQ-154",
           "no_in_group": 2,
           "name": "두 소금물을 서로 바꾸어 혼합하는 경우의 농도",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": [
+            "M2_LE_C036",
+            "M2_LE_C037"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT155",
+          "legacy_type_name": "두 소금물을 서로 바꾸어 혼합하는 경우의 농도",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "solution_mixture",
+            "concentration"
+          ]
         }
       ],
       "detail_type_count": 9,
@@ -2575,20 +4257,41 @@
       "type_name": "합금, 식품에 대한 문제",
       "topic_type_count": 2,
       "topic_type_actual": 2,
+      "source_count_note": null,
       "topic_types": [
         {
           "item_id": "MPLAT.M2S1.EQ.G053.I01",
           "source_code": "EQ-155",
           "no_in_group": 1,
           "name": "합금에 대한 문제",
-          "review_status": "원문 확인 / 8개 접혀서 안 보임"
+          "review_status": "원문 확인 / 8개 접혀서 안 보임",
+          "concept_ids": [
+            "M2_LE_C036",
+            "M2_LE_C037"
+          ],
+          "legacy_problem_type_id": "M2_LE_PT156",
+          "legacy_type_name": "합금에 대한 문제",
+          "legacy_match_level": "confident",
+          "legacy_match_score": 1,
+          "legacy_error_tags_ref": [
+            "simultaneous_equation",
+            "word_problem_modeling",
+            "concentration",
+            "mixture_alloy"
+          ]
         },
         {
           "item_id": "MPLAT.M2S1.EQ.G053.I02",
           "source_code": "EQ-156",
           "no_in_group": 2,
           "name": "식품에 대한 문제",
-          "review_status": "원문 확인"
+          "review_status": "원문 확인",
+          "concept_ids": null,
+          "legacy_problem_type_id": null,
+          "legacy_type_name": null,
+          "legacy_match_level": "none",
+          "legacy_match_score": null,
+          "legacy_error_tags_ref": null
         }
       ],
       "detail_type_count": 10,
