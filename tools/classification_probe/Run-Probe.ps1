@@ -11,6 +11,15 @@ param(
   [Parameter(Mandatory=$true)][ValidateSet('A','B')][string]$Condition,
   [Parameter(Mandatory=$true)][ValidateSet('1','2')][string]$Test,
   [string]$Model = 'claude-opus-4-8',
+  # Effort and adaptive thinking are what the Worker sends today (xhigh). Left
+  # unset here, so a run measures classification with no thinking at all — the
+  # cheap end of the range. Set it to price the other end.
+  # Not accepted by Haiku 4.5: effort errors on it, so the script refuses.
+  [ValidateSet('', 'low', 'medium', 'high', 'xhigh', 'max')][string]$Effort = '',
+  # Puts the candidate list in a cached prefix so repeat runs over the same unit
+  # pay ~0.1x for it. Off by default: caching only pays back from the second
+  # read, and a single cold run costs 1.25x.
+  [switch]$Cache,
   [string]$Dir = $PSScriptRoot
 )
 $ErrorActionPreference = 'Stop'
@@ -20,6 +29,10 @@ $idx = Get-Content "$Dir\index.test24.v1.json" -Raw -Encoding UTF8 | ConvertFrom
 $ts  = Get-Content "$Dir\testset.v1.json"      -Raw -Encoding UTF8 | ConvertFrom-Json
 $NO_MATCH = '__NO_MATCH__'
 
+# $system is a list of text blocks so the candidate list can carry cache_control.
+# Render order is tools -> system -> messages, so a breakpoint on the last system
+# block caches the tool schema (the id enum) and the candidate list together;
+# only the questions after it vary.
 function Invoke-Claude($system, $userText, $toolName, $schema) {
   $body = @{
     model = $Model; max_tokens = 8000
@@ -27,7 +40,12 @@ function Invoke-Claude($system, $userText, $toolName, $schema) {
     tools = @(@{ name = $toolName; description = '분류 결과를 반환한다'; input_schema = $schema })
     tool_choice = @{ type = 'tool'; name = $toolName }
     messages = @(@{ role = 'user'; content = $userText })
-  } | ConvertTo-Json -Depth 30
+  }
+  if ($Effort) {
+    $body.output_config = @{ effort = $Effort }
+    $body.thinking = @{ type = 'adaptive' }
+  }
+  $body = $body | ConvertTo-Json -Depth 30
   $bytes = [System.Text.Encoding]::UTF8.GetBytes($body)
   for ($try = 1; $try -le 3; $try++) {
     try {
@@ -63,10 +81,33 @@ $SYS = @'
 후보 목록 밖의 값은 절대 만들지 않는다. 확실하지 않으면 가장 가까운 것을 고르되 confidence를 낮춘다.
 '@
 
+if ($Effort -and $Model -like '*haiku*') {
+  throw "Haiku 4.5는 output_config.effort를 받지 않는다(400). -Effort를 빼고 실행하라."
+}
+
 $results = @()
 $usage   = @()
-# Claude Opus 4.8, per 1M tokens (platform.claude.com/docs/en/pricing)
-$PRICE_IN = 5.00; $PRICE_OUT = 25.00; $PRICE_CACHE_READ = 0.50
+# per 1M tokens. Cache write is 1.25x input (5-minute TTL); cache read is 0.1x.
+$PRICES = @{
+  'claude-opus-4-8'  = @{ in = 5.00; out = 25.00 }
+  'claude-sonnet-5'  = @{ in = 3.00; out = 15.00 }
+  'claude-haiku-4-5' = @{ in = 1.00; out =  5.00 }
+}
+$p = if ($PRICES.ContainsKey($Model)) { $PRICES[$Model] } else { $PRICES['claude-opus-4-8'] }
+$PRICE_IN = $p.in; $PRICE_OUT = $p.out
+$PRICE_CACHE_READ = [Math]::Round($p.in * 0.1, 4)
+$PRICE_CACHE_WRITE = [Math]::Round($p.in * 1.25, 4)
+
+# Build the system blocks: instructions, then the candidate list carrying the
+# cache breakpoint when -Cache is set.
+function New-System($candidatesJson, $unitLabel) {
+  $blocks = @(
+    @{ type = 'text'; text = $SYS },
+    @{ type = 'text'; text = "단원: $unitLabel`n`n[후보 유형]`n$candidatesJson" }
+  )
+  if ($Cache) { $blocks[1].cache_control = @{ type = 'ephemeral' } }
+  return $blocks
+}
 
 if ($Test -eq '1') {
   # unit is given; ask only for the type, one call per unit
@@ -82,10 +123,10 @@ if ($Test -eq '1') {
         properties = @{ id=@{type='string'}; problem_type_id=@{type='string'; enum=@($ids + $NO_MATCH)}; confidence=@{type='number'} } } } }
     }
     $qs = ($grp.Group | ForEach-Object { "[$($_.id)] $($_.stem)" }) -join "`n"
-    $txt = "단원: $($unit.unit_name) ($($unit.semester))`n`n[후보 유형]`n" +
-           ($cands | ConvertTo-Json -Depth 6) + "`n`n[문항]`n$qs`n`n각 문항의 id와 고른 problem_type_id를 답하라."
+    $sys = New-System ($cands | ConvertTo-Json -Depth 6) "$($unit.unit_name) ($($unit.semester))"
+    $txt = "[문항]`n$qs`n`n각 문항의 id와 고른 problem_type_id를 답하라."
     Write-Host "  $($unit.unit_code) ($($grp.Group.Count)문항, 후보 $($ids.Count))"
-    $out = Invoke-Claude $SYS $txt 'classify' $schema
+    $out = Invoke-Claude $sys $txt 'classify' $schema
     foreach ($a in $out.answers) { $results += [pscustomobject]@{ id=$a.id; picked_unit=$unit.unit_id; picked_type=$a.problem_type_id; confidence=$a.confidence } }
   }
 } else {
@@ -99,9 +140,10 @@ if ($Test -eq '1') {
       properties = @{ id=@{type='string'}; unit_id=@{type='string'; enum=$unitIds} } } } }
   }
   $qs = ($ts.items | ForEach-Object { "[$($_.id)] $($_.stem)" }) -join "`n"
-  $txt1 = "[후보 단원]`n" + ($unitList | ConvertTo-Json -Depth 4) + "`n`n[문항]`n$qs`n`n각 문항이 어느 단원인지 답하라."
+  $sys1 = New-System ($unitList | ConvertTo-Json -Depth 4) '전체 24단원'
+  $txt1 = "[문항]`n$qs`n`n각 문항이 어느 단원인지 답하라."
   Write-Host "  1단계: 단원 배정 (문항 $($ts.items.Count), 단원 $($unitIds.Count))"
-  $a1 = Invoke-Claude $SYS $txt1 'assign_unit' $s1
+  $a1 = Invoke-Claude $sys1 $txt1 'assign_unit' $s1
   $pick = @{}; foreach ($a in $a1.assignments) { $pick[$a.id] = $a.unit_id }
 
   # stage 2: within each chosen unit, choose the type
@@ -117,30 +159,43 @@ if ($Test -eq '1') {
         properties = @{ id=@{type='string'}; problem_type_id=@{type='string'; enum=@($ids + $NO_MATCH)}; confidence=@{type='number'} } } } }
     }
     $q2 = ($grp.Group | ForEach-Object { "[$($_.id)] $($_.stem)" }) -join "`n"
-    $txt2 = "단원: $($unit.unit_name) ($($unit.semester))`n`n[후보 유형]`n" +
-            ($cands | ConvertTo-Json -Depth 6) + "`n`n[문항]`n$q2`n`n각 문항의 id와 고른 problem_type_id를 답하라."
+    $sys2 = New-System ($cands | ConvertTo-Json -Depth 6) "$($unit.unit_name) ($($unit.semester))"
+    $txt2 = "[문항]`n$q2`n`n각 문항의 id와 고른 problem_type_id를 답하라."
     Write-Host "  2단계 $($unit.unit_code) ($($grp.Group.Count)문항, 후보 $($ids.Count))"
-    $out = Invoke-Claude $SYS $txt2 'classify' $schema
+    $out = Invoke-Claude $sys2 $txt2 'classify' $schema
     foreach ($a in $out.answers) { $results += [pscustomobject]@{ id=$a.id; picked_unit=$unit.unit_id; picked_type=$a.problem_type_id; confidence=$a.confidence } }
   }
 }
 
-$inTok = 0; $outTok = 0; $cacheTok = 0
-$usage | ForEach-Object { $inTok += [int]$_.input; $outTok += [int]$_.output; $cacheTok += [int]$_.cache_read }
-$cost = ($inTok * $PRICE_IN + $outTok * $PRICE_OUT + $cacheTok * $PRICE_CACHE_READ) / 1000000
+$inTok = 0; $outTok = 0; $cacheRead = 0; $cacheWrite = 0
+$usage | ForEach-Object {
+  $inTok += [int]$_.input; $outTok += [int]$_.output
+  $cacheRead += [int]$_.cache_read; $cacheWrite += [int]$_.cache_creation
+}
+$cost = ($inTok * $PRICE_IN + $outTok * $PRICE_OUT +
+         $cacheRead * $PRICE_CACHE_READ + $cacheWrite * $PRICE_CACHE_WRITE) / 1000000
 $costBlock = [ordered]@{
   model = $Model
+  effort = if ($Effort) { $Effort } else { 'none (thinking off)' }
+  cache_enabled = [bool]$Cache
   calls = $usage.Count
   input_tokens = $inTok
   output_tokens = $outTok
-  cache_read_tokens = $cacheTok
+  cache_read_tokens = $cacheRead
+  cache_creation_tokens = $cacheWrite
   usd = [Math]::Round($cost, 4)
-  price_note = "Opus 4.8: input `$$PRICE_IN / output `$$PRICE_OUT / cache read `$$PRICE_CACHE_READ per 1M tokens"
+  price_note = "$Model per 1M: in `$$PRICE_IN / out `$$PRICE_OUT / cache read `$$PRICE_CACHE_READ / cache write `$$PRICE_CACHE_WRITE"
+  cache_note = '캐시 최소 프리픽스는 4096토큰이다. 후보 목록이 그보다 작은 단원은 표시 없이 캐시되지 않는다 — cache_creation_tokens가 0이면 그 경우다.'
 }
-"tokens: in=$inTok out=$outTok cache_read=$cacheTok  ->  `$$([Math]::Round($cost,4))"
+"tokens: in=$inTok out=$outTok cache_read=$cacheRead cache_write=$cacheWrite  ->  `$$([Math]::Round($cost,4))"
 
-$outPath = "$Dir\result_$Condition$Test.json"
-$json = @{ condition=$Condition; test=$Test; model=$Model; cost=$costBlock; per_call_usage=$usage; results=$results } | ConvertTo-Json -Depth 8
+$suffix = ''
+if ($Model -notlike '*opus-4-8*') { $suffix += '_' + ($Model -replace '[^a-z0-9]','') }
+if ($Effort) { $suffix += "_$Effort" }
+if ($Cache)  { $suffix += '_cached' }
+$outPath = "$Dir\result_$Condition$Test$suffix.json"
+$json = @{ condition=$Condition; test=$Test; model=$Model; effort=$Effort; cache=[bool]$Cache;
+           cost=$costBlock; per_call_usage=$usage; results=$results } | ConvertTo-Json -Depth 8
 $json = [Regex]::Replace($json, '\\u(?<c>[0-9a-fA-F]{4})', { param($m) [char][int]('0x' + $m.Groups['c'].Value) })
 [System.IO.File]::WriteAllText($outPath, $json, (New-Object System.Text.UTF8Encoding($false)))
 "OUT: $outPath  ($($results.Count)건)"
