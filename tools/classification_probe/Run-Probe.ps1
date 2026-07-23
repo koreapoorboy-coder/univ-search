@@ -33,6 +33,14 @@ function Invoke-Claude($system, $userText, $toolName, $schema) {
     try {
       $r = Invoke-RestMethod -Method Post -Uri 'https://api.anthropic.com/v1/messages' -Body $bytes -ContentType 'application/json' `
             -Headers @{ 'x-api-key' = $env:ANTHROPIC_API_KEY; 'anthropic-version' = '2023-06-01' }
+      # Record what the call actually cost. Without this the run leaves no usage
+      # trail and the only way to price it afterwards is to guess from characters.
+      $script:usage += [pscustomobject]@{
+        input          = $r.usage.input_tokens
+        output         = $r.usage.output_tokens
+        cache_read     = $r.usage.cache_read_input_tokens
+        cache_creation = $r.usage.cache_creation_input_tokens
+      }
       return ($r.content | Where-Object { $_.type -eq 'tool_use' } | Select-Object -First 1).input
     } catch {
       if ($try -eq 3) { throw }
@@ -56,6 +64,9 @@ $SYS = @'
 '@
 
 $results = @()
+$usage   = @()
+# Claude Opus 4.8, per 1M tokens (platform.claude.com/docs/en/pricing)
+$PRICE_IN = 5.00; $PRICE_OUT = 25.00; $PRICE_CACHE_READ = 0.50
 
 if ($Test -eq '1') {
   # unit is given; ask only for the type, one call per unit
@@ -114,8 +125,22 @@ if ($Test -eq '1') {
   }
 }
 
+$inTok = 0; $outTok = 0; $cacheTok = 0
+$usage | ForEach-Object { $inTok += [int]$_.input; $outTok += [int]$_.output; $cacheTok += [int]$_.cache_read }
+$cost = ($inTok * $PRICE_IN + $outTok * $PRICE_OUT + $cacheTok * $PRICE_CACHE_READ) / 1000000
+$costBlock = [ordered]@{
+  model = $Model
+  calls = $usage.Count
+  input_tokens = $inTok
+  output_tokens = $outTok
+  cache_read_tokens = $cacheTok
+  usd = [Math]::Round($cost, 4)
+  price_note = "Opus 4.8: input `$$PRICE_IN / output `$$PRICE_OUT / cache read `$$PRICE_CACHE_READ per 1M tokens"
+}
+"tokens: in=$inTok out=$outTok cache_read=$cacheTok  ->  `$$([Math]::Round($cost,4))"
+
 $outPath = "$Dir\result_$Condition$Test.json"
-$json = @{ condition=$Condition; test=$Test; model=$Model; results=$results } | ConvertTo-Json -Depth 8
+$json = @{ condition=$Condition; test=$Test; model=$Model; cost=$costBlock; per_call_usage=$usage; results=$results } | ConvertTo-Json -Depth 8
 $json = [Regex]::Replace($json, '\\u(?<c>[0-9a-fA-F]{4})', { param($m) [char][int]('0x' + $m.Groups['c'].Value) })
 [System.IO.File]::WriteAllText($outPath, $json, (New-Object System.Text.UTF8Encoding($false)))
 "OUT: $outPath  ($($results.Count)건)"
