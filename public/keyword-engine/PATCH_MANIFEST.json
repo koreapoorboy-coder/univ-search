@@ -1,113 +1,109 @@
 {
-  "patchId": "task-interpreter-rules-fallback-non-report-v1",
-  "patchNumber": 3,
+  "patchId": "screen-three-decision-flow-v1",
+  "patchNumber": 4,
   "createdDate": "2026-07-24",
-  "applyAfter": "subject_alias_dropdown_support_patch_v1_20260724.zip",
+  "applyAfter": "task_interpreter_rules_patch_v1_20260724.zip",
   "targetRoot": "univ-search/public/keyword-engine/",
   "scope": [
-    "expand task interpreter from 7 to 13 rules",
-    "select one rule by maximum match_terms count",
-    "subject-default fallback notice and logging",
-    "is_topic_generating and performance-term report blocking",
-    "runtime preservation of non-report flags"
+    "reduce normal student decisions to subject, interpretation confirmation, and career category",
+    "remove school name and grade from the student-facing flow",
+    "show correction controls only after the student rejects the automatic interpretation",
+    "resolve report sections from report_structure_rules structure_id",
+    "show the book step only when a reading or book signal exists",
+    "build MINI payload from automatic interpreter and structure context"
   ],
   "doesNotModify": [
+    "data/ source files",
+    "seed/ source files",
+    "Patch 1 category-weighted seed ranking",
+    "Patch 2 subject option values and aliases",
+    "Patch 3 maximum-term interpreter matching",
     "the fixed report_mode vocabulary",
-    "Patch 1 major category weighting policy",
-    "Patch 2 subject aliases or dropdown values",
-    "assessment source records"
+    "Worker-side API-key storage"
   ],
   "validation": {
-    "eligibleRecords": 6506,
-    "baselineCoveragePct": 71.43,
-    "patchedCoveragePct": 89.36,
-    "reportModeIntersectionPct": 66.1,
-    "methodAxisIntersectionPct": 81.61,
-    "unknownReportModeLabels": 0,
-    "nonReportFalseRecords": 625,
+    "normalDecisionPoints": 3,
+    "visibleSchoolField": false,
+    "visibleGradeField": false,
+    "structureOptions": 17,
+    "bookStepWithoutSignal": false,
+    "bookStepWithSignal": true,
+    "nonReportGenerationBlocked": true,
+    "browserPageErrors": 0,
+    "correctionOverridePreserved": true,
+    "chemistryMedicalSubjectCandidatesRetained": 188,
+    "chemistryMedicalCategoryMatches": 115,
     "majorWeightingRegression": "pass",
-    "subjectAliasRegression": "pass"
+    "subjectAliasRegression": "pass",
+    "taskInterpreterRegression": "pass",
+    "javascriptSyntax": "pass",
+    "frontendApiKeyPattern": "not found"
   },
   "files": [
     {
       "path": "COMMIT_MESSAGE.txt",
-      "size": 63,
-      "sha256": "750fcfd1cb8c1195005288e99f31b1c823aea2a1427afa47c2d37359d6f52cad"
+      "size": 74,
+      "sha256": "f7776ab31521d407f70b3f68fa4847dc616dab5eaa21ed3b5f309b24f43b9390"
     },
     {
-      "path": "TASK_INTERPRETER_PATCH_README.md",
-      "size": 2754,
-      "sha256": "33b75a046e1cd86bc6d4134aa512a48672d4d42212288b7ee758c9e607bde884"
+      "path": "SCREEN_DECISION_FLOW_PATCH_README.md",
+      "size": 3292,
+      "sha256": "51e06ebb42f402621a5a694be3da0ea6f8a8092434c97252ca2386b7329643ef"
     },
     {
       "path": "assets/assessment_keyword_bridge_helper.js",
-      "size": 48762,
-      "sha256": "a34bb617c6bae916d42b1d1854671390b460aa18cab4d5153c8e54472514c31b"
+      "size": 53957,
+      "sha256": "868a541bebaacdea843a9e06db83a6c7bd67336dfd844bf66bf376952212b5d3"
     },
     {
-      "path": "assets/keyword_engine.js",
-      "size": 38871,
-      "sha256": "c7e7fd48950b1380c62559e22dd8c7bb8e333b53c3cef18a75980f60c6cf2d6a"
+      "path": "assets/decision_flow.css",
+      "size": 4366,
+      "sha256": "8078e71abe528c289f5da1a93d30bee120b36f2611cd88e500c96cb41422d21c"
     },
     {
-      "path": "audit/TASK_INTERPRETER_VALIDATION.md",
-      "size": 716,
-      "sha256": "b0f81ba9d203aa17f96137850fd7c8af8a7300183e3839e6d282d07f3d78dd86"
+      "path": "assets/js/decision_flow_payload_adapter.js",
+      "size": 4857,
+      "sha256": "a9a61be048ff067fa980a99b6504fc08ba86860cb4314fbe0d0ee110a8e1bf59"
     },
     {
-      "path": "audit/task_interpreter_validation.v1.json",
-      "size": 13735,
-      "sha256": "af0c6bd7772019613b8662cb7890fab3beff536034d10b5bc10738c6564bd81b"
+      "path": "assets/js/decision_flow_v1.js",
+      "size": 19839,
+      "sha256": "7a7e2928931ce6b9f7c573261254c1db871a79e9c473fcfdb1b5d47147ac4510"
     },
     {
-      "path": "build/build_assessment_seed_cross_axis_runtime.py",
-      "size": 16925,
-      "sha256": "2b616139ae9505b16c158ee8c4306f4329606427c67fbbb819a0fb947c7dda5d"
+      "path": "assets/js/mini_worker_generate_bridge_v32.js",
+      "size": 270108,
+      "sha256": "f863119ba61ea78d19fa42f97b698af6226523680d81c970c0b4e3a4f92b712a"
     },
     {
-      "path": "build/runtime_validate_task_interpreter.js",
-      "size": 4611,
-      "sha256": "f2c9f800a193a3d798997d8cef04910c31b4e0f6d5ae5f6187c49bd63c97bcd1"
+      "path": "audit/SCREEN_FLOW_VALIDATION.md",
+      "size": 1481,
+      "sha256": "5ed92cf26094127f5516757fb7cda61f4ea14654853066d29f3a56acb684625e"
     },
     {
-      "path": "build/validate_task_interpreter_rules.py",
-      "size": 5545,
-      "sha256": "2a59e635daf99d3978aea9ddc7f4911468581085bdea79f1d54a6485647f2914"
+      "path": "audit/browser_validation.json",
+      "size": 4740,
+      "sha256": "f41da8dc7debdf3172ef7f70233055796c7d1f4a936e391a1240f24ffe8c9277"
     },
     {
-      "path": "data/assessment/bridge/assessment_keyword_bridge.v1.json",
-      "size": 2197509,
-      "sha256": "b7aa7f6e0deec2c34d34af05072753c8ae2d6fcff281c7bb5e7e6a8fcf91f273"
+      "path": "audit/correction_override_validation.json",
+      "size": 2282,
+      "sha256": "e31576533bfedd872dcaa11f47c90f2bcd7c44f42d7968d69e581e7dc80267eb"
     },
     {
-      "path": "data/assessment/bridge/assessment_keyword_bridge_manifest.v1.json",
-      "size": 1294,
-      "sha256": "434ceab8b366453ad90ea7f5c478c6f0d0806c4d665cb6e5a7f63198cc8853c6"
+      "path": "audit/final_validation.log",
+      "size": 20281,
+      "sha256": "14935c67b6c025f2d460c16b0b4b7076bab85ed1ba729d50e98e90f66e5ae82c"
     },
     {
-      "path": "data/assessment/bridge/assessment_keyword_connection_audit.v1.json",
-      "size": 4046,
-      "sha256": "fe2f1899ad617fac034c6b4becf30a68c3027966cf32be0d9e9692fdf7d95e83"
-    },
-    {
-      "path": "data/assessment/bridge/assessment_keyword_connection_samples.v1.json",
-      "size": 3739,
-      "sha256": "0a1aba5926604a20c151f1cb650511d7b34eb26a905199310eaaf51027656674"
-    },
-    {
-      "path": "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
-      "size": 11187849,
-      "sha256": "b5442978171d06721c1e69434b9656da503a4cbfbeb1f22af41c120b68962ac1"
-    },
-    {
-      "path": "data/assessment/rules/task_interpreter_rules.v1.json",
-      "size": 10306,
-      "sha256": "a1ca1a0bfe5d3de42a46d3cd1cd902e8a74824e39988546b8f12b42ae9588fe7"
+      "path": "build/validate_decision_flow.py",
+      "size": 4921,
+      "sha256": "38ff4e7d974de1f8e66b57a3ff4e32d5fb91e45e422b57994568137f0dd73d9b"
     },
     {
       "path": "index.html",
-      "size": 12691,
-      "sha256": "5c894d7d7dc7bec648f31f41308cc402fefb8f6c391fe0b7650de5e0958a834a"
+      "size": 12587,
+      "sha256": "04b5a1312a3a43c90f2c219faa97b29393d059a9d77b43c6a9fe1852e2b976c1"
     }
   ]
 }

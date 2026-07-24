@@ -1,0 +1,87 @@
+{
+  "automatic": {
+    "mode": "자료해석형",
+    "structure": "structure_data_interpretation",
+    "sections": [
+      "탐구 질문",
+      "자료 출처와 분석 기준",
+      "핵심 개념 정리",
+      "자료 정리",
+      "패턴 해석",
+      "결론 도출",
+      "한계와 보완"
+    ]
+  },
+  "corrected": {
+    "override": {
+      "methodAxes": [
+        "실험실습형"
+      ],
+      "outputAxes": [
+        "실험보고서"
+      ],
+      "reportModes": [
+        "실험분석형"
+      ],
+      "structureId": "structure_experiment_analysis"
+    },
+    "modeText": "실험분석형",
+    "outputText": "실험보고서",
+    "structure": "structure_experiment_analysis",
+    "sections": [
+      "탐구 질문",
+      "교과 개념 정리",
+      "가설과 변인 설정",
+      "실험 조건 또는 자료 수집",
+      "결과 정리",
+      "자료 해석",
+      "오차·한계 분석",
+      "후속 탐구"
+    ]
+  },
+  "final": {
+    "structure": {
+      "id": "structure_experiment_analysis",
+      "sections": [
+        "탐구 질문",
+        "교과 개념 정리",
+        "가설과 변인 설정",
+        "실험 조건 또는 자료 수집",
+        "결과 정리",
+        "자료 해석",
+        "오차·한계 분석",
+        "후속 탐구"
+      ]
+    },
+    "modes": [
+      "실험분석형"
+    ],
+    "outputs": [
+      "실험보고서"
+    ],
+    "category": "medical",
+    "majorPolicy": {
+      "selectedCareer": "medical",
+      "selectedCategoryId": "medical",
+      "selectedCategoryName": "의약·보건계열",
+      "explicitCareerTask": true,
+      "usedInCoreTopic": true,
+      "candidatePolicy": "과목 일치 시드를 전량 유지하고 학과 정확일치 > 계열 일치 > 기타 순으로 정렬",
+      "subjectCandidateCount": 188,
+      "categoryMatchCount": 115,
+      "selectedSeedTier": "category",
+      "exactMajorMatch": false,
+      "categoryMatch": true,
+      "fallbackActive": false,
+      "thinCategoryThreshold": 10,
+      "fallbackPromptInstruction": "",
+      "tieBreakScore": 3,
+      "maximumWeight": 5,
+      "allowedUses": [
+        "수행평가가 진로 탐구를 직접 요구하므로 본문 반영"
+      ],
+      "forbiddenUses": []
+    },
+    "missing": []
+  }
+}

@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v241-major-category-weighted";
+  const VERSION = "mini-worker-generate-bridge-v242-decision-flow-structure";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -46,7 +46,7 @@
     const loading = $("loadingMessage");
     if(btn){
       btn.disabled = isLoading;
-      btn.textContent = isLoading ? "보고서 생성 중..." : "보고서 초안 생성";
+      btn.textContent = isLoading ? "보고서 생성 중..." : "보고서 만들기";
     }
     if(resetBtn) resetBtn.disabled = isLoading;
     if(loading) loading.style.display = isLoading ? "block" : "none";
@@ -391,24 +391,15 @@
       version: "report-dataset-pattern-v240-cross-axis",
       selectedPattern: pattern,
       referenceReports: refs,
-      fixedSections: [
-        "중요성",
-        "추천 주제",
-        "탐구 동기",
-        "관련 키워드",
-        "실제 적용 및 문제 해결 과정",
-        "심화 탐구 발전 방안",
-        "이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?",
-        "이 개념이 무엇이며 어떤 원리인가?",
-        "어떤 문제를 해결할 수 있고, 왜 중요한가?",
-        "교과목 연계 및 이론적 설명",
-        "느낀점",
-        "세특 문구 예시",
-        "참고문헌 및 자료"
-      ],
+      fixedSections: (
+        mini?.reportGenerationContext?.assessmentSeedCrossAxis?.structure?.sections
+        || mini?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection?.cross_axis?.structure?.sections
+        || mini?.reportGenerationContext?.targetStructure
+        || ["연구 질문","선행 자료 검토","방법 설계","자료 수집","분석 결과","결론","참고문헌과 후속 탐구"]
+      ),
       writingPrinciples: [
         "단순 교과 설명이 아니라 실제 현상·사례·자료를 먼저 제시한다.",
-        "선택한 4번 후속 연계축을 보고서의 해석 기준으로 사용한다.",
+        "후속 연계축은 과목·안내문·선택 계열을 바탕으로 자동 결정하며 학생에게 별도 선택을 요구하지 않는다.",
         "도서를 선택한 경우에만 도서를 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다. 도서를 선택하지 않은 경우 공공자료·통계·기사·실험자료를 사용한다.",
         "실제 수행평가 구조와 내용 시드를 사용해 제출 가능한 완성 보고서 문장으로 작성한다.",
         "중학생도 이해할 수 있을 정도로 짧고 쉬운 문장으로 쓴다. 어려운 전공 용어는 일상어로 풀어서 쓴다."
@@ -457,15 +448,14 @@
       "1순위 수행평가 원문 요구 35% / 2순위 교과 개념 30% / 3순위 선택 키워드·내용 시드 20% / 4순위 방법·산출물 10% / 5순위 학과·진로 보조 5%",
       "",
       "[입력]",
-      `학년: ${form.grade || "미입력"}`,
-      `과목: ${s.subject || form.subject || "미입력"}`,
+            `과목: ${s.subject || form.subject || "미입력"}`,
       `수행평가명: ${form.taskName || task.title || "미입력"}`,
       `수행평가 형태: ${form.taskType || "탐구보고서"}`,
-      `교과 개념: ${s.selectedConcept || ""}`,
-      `선택 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
-      `후속 연계축: ${compactAxis(s.selectedFollowupAxis || s.followupAxis || "")}`,
+      `자동 해석 교과 개념: ${s.selectedConcept || ""}`,
+      `자동 해석 핵심 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
+      `자동 후속 확장축: ${compactAxis(s.selectedFollowupAxis || s.followupAxis || "")}`,
       `도서 활용: ${mini.useBookInReport || mini.bookUsageMode === "useBook" ? ((book.title || "") + (book.author ? " / " + book.author : "")) : "사용하지 않음"}`,
-      careerTask && majorText ? `수행평가가 직접 요구한 진로·학과: ${majorText}` : "진로·학과: 핵심 생성에서 제외하고 후속 탐구에만 선택적으로 사용",
+      careerTask && majorText ? `수행평가가 직접 요구한 계열: ${majorText}` : `선택 계열: ${majorText || "미선택"} — 후보 정렬과 후속 탐구에만 사용`,
       "",
       "[실제 수행평가 방법축]",
       `정확히 일치한 과제명: ${task.title || form.taskName || "없음"}`,
@@ -489,10 +479,8 @@
       "",
       "[반드시 사용할 보고서 구조]",
       ...sections.map((section, index) => `${index + 1}. ${section}`),
-      `${sections.length + 1}. 느낀 점`,
-      `${sections.length + 2}. 참고자료`,
       "",
-      "각 항목을 실제 제출용 문장으로 완성한다. 과제 원문에 문항 수·자료 수·산출물 수 제약이 있으면 본문과 방법에 그대로 반영한다. 보고서 본문만 출력한다."
+      "위 structure_id 섹션만 사용해 각 항목을 실제 제출용 문장으로 완성한다. 확장형·심화형 고정 섹션을 덧붙이지 않는다. 과제 원문에 문항 수·자료 수·산출물 수 제약이 있으면 본문과 방법에 그대로 반영한다. 보고서 본문만 출력한다."
     ].join("\n");
   }
 
@@ -519,19 +507,17 @@
     const reqMajorAllowedInCore = !!reqCrossAxis?.majorPolicy?.explicitCareerTask;
     const reqCoreMajor = reqMajorAllowedInCore ? reqMajor : "";
     const reqLens = deriveMajorLens(reqCoreMajor, reqMajorContext, `${reqKeyword} ${reqAxisRaw} ${reqConcept}`);
-    const reqChoiceBlueprint = buildReportChoiceBlueprint({
-      mode: choice.mode || s.reportMode,
-      view: choice.view || s.reportView,
-      line: choice.line || s.reportLine,
-      keyword: reqKeyword,
-      concept: reqConcept,
-      axis: reqAxis,
-      lens: reqLens,
-      bookTitle: mini.selectedBook?.title || "",
-      subject: reqSubject,
-      subjectGroup: reqSubjectGroup,
-      major: reqCoreMajor
-    });
+    const reqStructure = reqCrossAxis?.structure || {
+      id: mini.reportGenerationContext?.structureId || choice.structureId || choice.line || "structure_research_report",
+      sections: mini.reportGenerationContext?.targetStructure || []
+    };
+    const reqChoiceBlueprint = {
+      modeLabel: choice.modeLabel || choice.mode || s.reportMode || "연구보고서형",
+      viewLabel: choice.viewLabel || choice.view || s.reportView || "자동 해석",
+      lineLabel: reqStructure.id || "structure_research_report",
+      structureId: reqStructure.id || "structure_research_report",
+      targetStructure: reqStructure.sections || []
+    };
     const reqPerformanceFrame = buildDonggukPerformanceFrame({
       subject: reqSubject,
       subjectGroup: reqSubjectGroup,
@@ -552,26 +538,28 @@
       version: "dongguk-performance-assessment-v220-worker-subject-group",
       principle: "수행평가 영역명 = 주제(내용) × 방법",
       content: existingPerformanceAssessment.content || {
-        source: "3번 교과 개념 + 추천 키워드",
+        source: "수행평가 안내문 자동 해석",
         concept: reqConcept,
         keyword: reqKeyword,
         normalizedContent: `${reqConcept || "교과 개념"} / ${reqKeyword || "추천 키워드"}`
       },
       method: existingPerformanceAssessment.method || {
-        source: "4번 후속 연계축 + 6번 수행평가 방식",
+        source: "task_interpreter_rules 자동 방법축",
         followupAxis: reqAxis,
         reportMode: choice.mode || s.reportMode || "",
         reportModeLabel: reqChoiceBlueprint.modeLabel || choice.mode || ""
       },
       evidence: existingPerformanceAssessment.evidence || {
-        source: "7번 평가 관점·과정 증거",
+        source: "task_interpreter_rules 자동 평가 관점",
         reportView: choice.view || s.reportView || "",
         reportViewLabel: reqChoiceBlueprint.viewLabel || choice.view || ""
       },
       outputLevel: existingPerformanceAssessment.outputLevel || {
-        source: "8번 결과물 수준",
-        reportLine: choice.line || s.reportLine || "",
-        reportLineLabel: reqChoiceBlueprint.lineLabel || choice.line || ""
+        source: "report_structure_rules structure_id",
+        reportLine: reqStructure.id || choice.line || s.reportLine || "",
+        reportLineLabel: reqStructure.id || reqChoiceBlueprint.lineLabel || "",
+        structureId: reqStructure.id || "",
+        sections: reqStructure.sections || []
       },
       generatedPerformanceName: reqPerformanceFrame.performanceName,
       generatedFocusQuestion: reqPerformanceFrame.generatedFocusQuestion || reqPerformanceFrame.focusQuestion,
@@ -597,11 +585,11 @@
     });
 
     mini.reportGenerationContext.reportChoiceMiniDirective = [
-      `수행평가 평가 기준: 수행평가 영역명은 주제(내용) × 방법으로 해석한다.`,
-      `6번 수행평가 방식은 ${reqChoiceBlueprint.modeLabel || choice.mode || "선택값"} 기준으로 영역명의 방법과 문단 흐름을 바꾼다.`,
-      `7번 평가 관점·과정 증거는 ${reqChoiceBlueprint.viewLabel || choice.view || "선택 관점"} 기준으로 질문과 자료 표를 바꾼다.`,
-      `8번 결과물 수준은 ${reqChoiceBlueprint.lineLabel || choice.line || "선택 라인"} 기준으로 분량과 깊이를 조정한다.`,
-      `중복 방지: 제목·핵심 질문·결론에서 같은 명사구를 반복하지 않고 주제와 방법을 분리한다.`
+      `수행평가 안내문을 task_interpreter_rules의 최다 용어 매칭으로 해석한다.`,
+      `자동 보고서 유형은 ${reqChoiceBlueprint.modeLabel || choice.mode || "연구보고서형"}으로 사용한다.`,
+      `평가 관점은 ${reqChoiceBlueprint.viewLabel || choice.view || "자동 해석"}으로 사용한다.`,
+      `보고서 섹션은 ${reqStructure.id || "structure_research_report"}에 정의된 순서만 사용한다.`,
+      `학생이 해석 결과를 수정한 경우 수정값을 자동 판정보다 우선한다.`
     ];
 
     const miniInstruction = buildMiniInstruction(form, mini, pattern);
@@ -626,6 +614,10 @@
       selectedBookTitle: (mini.useBookInReport || mini.bookUsageMode === "useBook") ? (mini.selectedBook?.title || "") : "",
       bookUsageMode: mini.bookUsageMode || mini.selectionPayload?.bookUsageMode || ((mini.selectedBook?.title) ? "useBook" : "noBook"),
       useBookInReport: !!(mini.useBookInReport || mini.selectionPayload?.useBookInReport),
+      interpretationConfirmed: !!mini.reportGenerationContext?.decisionFlow?.interpretationConfirmed,
+      selectedCategory: mini.reportGenerationContext?.decisionFlow?.selectedCategory || form.career || "",
+      structureId: reqStructure.id || "structure_research_report",
+      targetStructure: reqStructure.sections || [],
 
       // access-gateway v237 차감 구분 필드
       generationStage: "primary_student_result",
@@ -636,7 +628,7 @@
       },
 
       // 새 MINI 생성용 확장 필드
-      mode: "mini_report_generation_v240_cross_axis",
+      mode: "mini_report_generation_v242_decision_flow",
       generationMode: "assessment_seed_cross_axis_complete_report",
       prompt: miniInstruction,
       miniInstruction,
@@ -653,7 +645,7 @@
 
       // Worker가 messages 형태를 받는 경우 대비
       messages: [
-        { role: "system", content: "너는 고등학생 학교 제출용 수행평가 보고서를 완성한다. 실제 수행평가 원문의 방법·산출물·수량 제약과 실제 내용 시드를 교차하고 structure_id에 따른 보고서 구조를 사용한다. 학과 정보는 진로 탐구 과제가 아니면 제목·핵심 질문·본론·결론에서 제외한다. 확인되지 않은 수치와 출처는 만들지 않으며 빈칸이나 작성 안내를 출력하지 않는다." },
+        { role: "system", content: "너는 고등학생 학교 제출용 수행평가 보고서를 완성한다. 실제 수행평가 원문의 방법·산출물·수량 제약과 실제 내용 시드를 교차하고 확정된 structure_id의 섹션만 사용한다. 학과 정보는 진로 탐구 과제가 아니면 제목·핵심 질문·본론·결론에서 제외한다. 확인되지 않은 수치와 출처는 만들지 않으며 빈칸이나 작성 안내를 출력하지 않는다." },
         { role: "user", content: miniInstruction + "\n\n[원본 MINI PAYLOAD]\n" + JSON.stringify(mini, null, 2) }
       ]
     };
@@ -704,26 +696,13 @@
 
   function validateRequest(req){
     const missing = [];
-    const checks = [
-      ["schoolName", "학교명"],
-      ["grade", "학년"],
-      ["subject", "과목"],
-      ["taskName", "수행평가명"],
-      ["taskType", "수행평가 형태"],
-      ["career", "희망 진로/학과"],
-      ["selectedConcept", "3번 교과 개념"],
-      ["selectedKeyword", "3번 추천 키워드"],
-      ["selectedFollowupAxis", "4번 후속 연계축"]
-    ];
-    checks.forEach(([key, label]) => {
-      if(!String(req[key] || "").trim()) missing.push(label);
-    });
-
-    const choices = req.report_choices || {};
-    if(!String(choices.mode || "").trim()) missing.push("6번 수행평가 방식");
-    if(!String(choices.view || "").trim()) missing.push("7번 평가 관점·과정 증거");
-    if(!String(choices.line || "").trim()) missing.push("8번 결과물 수준");
-
+    if(!String(req.subject || "").trim()) missing.push("과목");
+    if(!String(req.taskDescription || "").trim()) missing.push("수행평가 안내문");
+    if(!req.interpretationConfirmed) missing.push("해석 결과 확인");
+    if(!String(req.selectedCategory || req.career || "").trim()) missing.push("희망 계열");
+    if(!String(req.structureId || "").trim()) missing.push("보고서 구조");
+    if(req.bookUsageMode === "useBook" && !String(req.selectedBookTitle || "").trim()) missing.push("사용할 도서");
+    if(req.assessment_connection?.reportTarget === false || req.assessment_connection?.blocked) missing.push("보고서형 과제 안내문");
     return missing;
   }
 

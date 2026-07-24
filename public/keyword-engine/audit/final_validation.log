@@ -1,0 +1,567 @@
+=== Patch 4 static ===
+Patch 4 validation PASS
+- visible decision points: subject / interpretation confirmation / category
+- school and grade: hidden, not student-facing
+- book step: conditional
+- structure catalog: 14+ structures
+- protected subject values and three-category policy: preserved
+- front-end API-key pattern: not found
+
+=== JavaScript syntax ===
+PASS
+
+=== Patch 1 regression ===
+{
+  "pass": true,
+  "rows": [
+    {
+      "subject": "화학",
+      "category": "engineering",
+      "subject_pool": 188,
+      "category_matches": 175,
+      "fallback": false,
+      "effective_pool": 188
+    },
+    {
+      "subject": "화학",
+      "category": "natural",
+      "subject_pool": 188,
+      "category_matches": 181,
+      "fallback": false,
+      "effective_pool": 188
+    },
+    {
+      "subject": "화학",
+      "category": "medical",
+      "subject_pool": 188,
+      "category_matches": 115,
+      "fallback": false,
+      "effective_pool": 188
+    },
+    {
+      "subject": "생명과학",
+      "category": "medical",
+      "subject_pool": 180,
+      "category_matches": 148,
+      "fallback": false,
+      "effective_pool": 180
+    },
+    {
+      "subject": "지구시스템과학",
+      "category": "medical",
+      "subject_pool": 25,
+      "category_matches": 3,
+      "fallback": true,
+      "effective_pool": 25
+    },
+    {
+      "subject": "기하",
+      "category": "medical",
+      "subject_pool": 34,
+      "category_matches": 10,
+      "fallback": false,
+      "effective_pool": 34
+    }
+  ],
+  "failures": []
+}
+
+=== Patch 2 regression ===
+{
+  "ok": true,
+  "root": "/mnt/data/work_patch4/full",
+  "firstScript": "assets/js/subject_alias.js?v=v1_subject_alias",
+  "newOptions": [
+    "과학과제 연구",
+    "데이터 과학",
+    "생물의 유전",
+    "융합과학 탐구",
+    "인공지능 기초",
+    "화학 반응의 세계"
+  ],
+  "heldSubjects": [
+    "공통국어1",
+    "공통국어2",
+    "공통수학1",
+    "공통수학2",
+    "영어",
+    "지구과학"
+  ],
+  "subjectCounts": [
+    {
+      "subject": "미적분1",
+      "canonical": "미적분Ⅰ",
+      "actual": 169,
+      "expectedMinimum": 169
+    },
+    {
+      "subject": "물리",
+      "canonical": "물리학",
+      "actual": 102,
+      "expectedMinimum": 102
+    },
+    {
+      "subject": "융합과학 탐구",
+      "canonical": "융합과학 탐구",
+      "actual": 278,
+      "expectedMinimum": 278
+    },
+    {
+      "subject": "과학과제 연구",
+      "canonical": "과학과제 연구",
+      "actual": 170,
+      "expectedMinimum": 170
+    },
+    {
+      "subject": "데이터 과학",
+      "canonical": "데이터 과학",
+      "actual": 149,
+      "expectedMinimum": 149
+    },
+    {
+      "subject": "화학 반응의 세계",
+      "canonical": "화학 반응의 세계",
+      "actual": 147,
+      "expectedMinimum": 147
+    },
+    {
+      "subject": "인공지능 기초",
+      "canonical": "인공지능 기초",
+      "actual": 58,
+      "expectedMinimum": 58
+    },
+    {
+      "subject": "생물의 유전",
+      "canonical": "생물의 유전",
+      "actual": 41,
+      "expectedMinimum": 41
+    },
+    {
+      "subject": "확률과 통계",
+      "canonical": "확률과 통계",
+      "actual": 162,
+      "expectedMinimum": 162
+    }
+  ],
+  "spacingPreserved": true
+}
+
+=== Patch 3 regression ===
+{
+  "version": "task-interpreter-validation-v1.0.0",
+  "matching_strategy": "count matched match_terms; choose the first rule in array order on ties",
+  "baseline_7_rules": {
+    "eligible_record_count": 6506,
+    "covered_record_count": 4647,
+    "unmatched_record_count": 1859,
+    "coverage_pct": 71.43,
+    "report_mode_intersection_pct": 66.95,
+    "method_axis_intersection_pct": 78.95,
+    "unmatched_samples": [
+      {
+        "task_id": "assessment_task_66cca9b592",
+        "subject": "공통국어",
+        "title": "국어 활동지 작성하기",
+        "description": "논증의 요소와 방법의 타당성을 평가하고, 자신의 관점에 따라 논증을 효과적으로 재구성"
+      },
+      {
+        "task_id": "assessment_task_7096af1ac7",
+        "subject": "공통국어",
+        "title": "서평 작성하기",
+        "description": "자신의 진로와 관련한 글을 읽고 그 결과를 서평으로 정리"
+      },
+      {
+        "task_id": "assessment_task_be547751b6",
+        "subject": "공통수학",
+        "title": "방정식과 부등식 및 경우의 수와 행렬의 성질 탐구하기",
+        "description": "방정식과 부등식, 경우의 수, 행렬과 관련된 개념, 성질을 이해하고 탐구하며 그 과정에 대해 논술한다."
+      },
+      {
+        "task_id": "assessment_task_ea5977d007",
+        "subject": "공통영어",
+        "title": "피지컬 AI 사용에 관한 근거 기반 논설문 쓰기",
+        "description": "피지컬 AI 사용에 관한 찬반 의견을 모둠별 토론을 통해 나누고, 이에 관한 자신의 의견을 주장하는 논설문 형태의 글로 작성한다."
+      },
+      {
+        "task_id": "assessment_task_c2969a84e5",
+        "subject": "한국사",
+        "title": "역사 사건에 대한 현대인의 평가 논술하기",
+        "description": "수업 시간 중 제시된 논제에 대한 답안을 서술하여 제출한다."
+      },
+      {
+        "task_id": "assessment_task_d7c1ce832b",
+        "subject": "한문",
+        "title": "가치관이 드러나는 자호 짓기",
+        "description": "학습한 한자를 활용하여 건전한 가치관이 드러나는 자호를 짓는다."
+      },
+      {
+        "task_id": "assessment_task_53948a9143",
+        "subject": "음악",
+        "title": "드럼 연주하기",
+        "description": "드럼 연주법을 익혀 악곡의 특징을 살려 연주한다."
+      },
+      {
+        "task_id": "assessment_task_eaf5ffbb01",
+        "subject": "음악",
+        "title": "오타마톤 연주하기",
+        "description": "오타마톤 연주법을 익혀 악곡의 특징을 살려 연주한다."
+      },
+      {
+        "task_id": "assessment_task_6fc4b98dbb",
+        "subject": "음악",
+        "title": "음악회 기획하기",
+        "description": "주제에 적합한 음악회 프로그램을 기획한다."
+      },
+      {
+        "task_id": "assessment_task_050e9b0d65",
+        "subject": "체육",
+        "title": "롤링티볼 타격하기",
+        "description": "티볼 공을 쳐서 보낼 위치를 설정한 후, 공을 정확하고 강하게 타격하여 목표지점으로 보내기"
+      },
+      {
+        "task_id": "assessment_task_4647daba9a",
+        "subject": "체육",
+        "title": "롤링티볼 캐치 및 송구하기",
+        "description": "빠르게 땅볼로 굴러오는 공을 정확히 잡아낸 후, 공을 1루수에게 신속하고 정확하게 송구하기"
+      },
+      {
+        "task_id": "assessment_task_2e39aa0152",
+        "subject": "체육",
+        "title": "롤링티볼 리그전 참여하기",
+        "description": "롤링티볼 리그전에 적극적으로 참여하기"
+      },
+      {
+        "task_id": "assessment_task_94c38fe6a4",
+        "subject": "대수",
+        "title": "진로 속에 녹아든 대수 원리 탐구하기",
+        "description": "진로와 관련된 대수 개념을 정확하게 서술하고 적용된 사례를 탐구한다."
+      },
+      {
+        "task_id": "assessment_task_6d2d9823bd",
+        "subject": "확률과 통계",
+        "title": "인공지능을 활용한 수학적 사고력 검증하기",
+        "description": "경우의 수와 확률의 뜻과 성질을 이해하고 탐구하며 그 과정에 대해 논리적 오류를 발 견하여 논술한다."
+      },
+      {
+        "task_id": "assessment_task_0d2e8d7d75",
+        "subject": "세계시민과 지리",
+        "title": "대륙별 국가 탐색하기",
+        "description": "세계 여러 대륙과 국가의 위치를 파악하고, 해당 대륙 및 국가의 지형, 기후, 문화 등 다양한 지리 정보를 파악한다."
+      },
+      {
+        "task_id": "assessment_task_05ccf5e7dc",
+        "subject": "현대사회와 윤리",
+        "title": "윤리적 탐구 및 성찰 과정 기록하기",
+        "description": "수업 중 제시된 다양한 윤리적 쟁점에 대해 탐구 활동지의 주제에 부합하는 내용을 작성하고, 본인의 비판적 견해를 논리적으로 정리하여 포트폴리오를 완성함."
+      },
+      {
+        "task_id": "assessment_task_cd554c7c6b",
+        "subject": "물리학",
+        "title": "역학적 에너지 보존 논술하기",
+        "description": "제시된 등가속도 운동 상황을 뉴턴 운동 법칙을 적용하여 정량적으로 논술한다."
+      },
+      {
+        "task_id": "assessment_task_29baa1f458",
+        "subject": "융합과학 탐구",
+        "title": "연구 윤리와 공동 연구 중요성 토론하기",
+        "description": "연구 윤리의 구체적 사례와 공동 연구의 가치에 대한 교육을 진행한 후 연구 윤리의 중요성과 공동 연구의 필요성에 대한 토의 및 토론을 진행하고 실천적인 방안을 마련하도록 한다. 전체적인 탐구 과정 중에는 연구 윤리 규칙을 자발적으로 준수하는지 확인하고 역할 분담을 기준으로 각 팀원의 기여도와 협력적 태도를 종합적으로 평가에 반영한다."
+      },
+      {
+        "task_id": "assessment_task_656ed22a87",
+        "subject": "기술·가정",
+        "title": "사랑과 건강한 관계 맺기 의미 추론하기",
+        "description": "사랑의 요소와 유형을 탐구하여 자신만의 사랑의 의미를 찾고, 건강한 관계 맺기의 의미 추론하기"
+      },
+      {
+        "task_id": "assessment_task_467b9ea680",
+        "subject": "중국어",
+        "title": "기초 중국어를 활용한 자기소개하기",
+        "description": "∙간단한 중국어를 사용하여 자기 소개함. ∙어법과 발음을 종합적으로 평가함."
+      }
+    ]
+  },
+  "patched_13_rules": {
+    "eligible_record_count": 6506,
+    "covered_record_count": 5814,
+    "unmatched_record_count": 692,
+    "coverage_pct": 89.36,
+    "report_mode_intersection_pct": 66.1,
+    "method_axis_intersection_pct": 81.61,
+    "unmatched_samples": [
+      {
+        "task_id": "assessment_task_7096af1ac7",
+        "subject": "공통국어",
+        "title": "서평 작성하기",
+        "description": "자신의 진로와 관련한 글을 읽고 그 결과를 서평으로 정리"
+      },
+      {
+        "task_id": "assessment_task_d7c1ce832b",
+        "subject": "한문",
+        "title": "가치관이 드러나는 자호 짓기",
+        "description": "학습한 한자를 활용하여 건전한 가치관이 드러나는 자호를 짓는다."
+      },
+      {
+        "task_id": "assessment_task_53948a9143",
+        "subject": "음악",
+        "title": "드럼 연주하기",
+        "description": "드럼 연주법을 익혀 악곡의 특징을 살려 연주한다."
+      },
+      {
+        "task_id": "assessment_task_eaf5ffbb01",
+        "subject": "음악",
+        "title": "오타마톤 연주하기",
+        "description": "오타마톤 연주법을 익혀 악곡의 특징을 살려 연주한다."
+      },
+      {
+        "task_id": "assessment_task_050e9b0d65",
+        "subject": "체육",
+        "title": "롤링티볼 타격하기",
+        "description": "티볼 공을 쳐서 보낼 위치를 설정한 후, 공을 정확하고 강하게 타격하여 목표지점으로 보내기"
+      },
+      {
+        "task_id": "assessment_task_4647daba9a",
+        "subject": "체육",
+        "title": "롤링티볼 캐치 및 송구하기",
+        "description": "빠르게 땅볼로 굴러오는 공을 정확히 잡아낸 후, 공을 1루수에게 신속하고 정확하게 송구하기"
+      },
+      {
+        "task_id": "assessment_task_2e39aa0152",
+        "subject": "체육",
+        "title": "롤링티볼 리그전 참여하기",
+        "description": "롤링티볼 리그전에 적극적으로 참여하기"
+      },
+      {
+        "task_id": "assessment_task_656ed22a87",
+        "subject": "기술·가정",
+        "title": "사랑과 건강한 관계 맺기 의미 추론하기",
+        "description": "사랑의 요소와 유형을 탐구하여 자신만의 사랑의 의미를 찾고, 건강한 관계 맺기의 의미 추론하기"
+      },
+      {
+        "task_id": "assessment_task_aa4d49a9cd",
+        "subject": "일본어",
+        "title": "상호 문화적 관점에서 한일 문화 비교하기",
+        "description": "수업 시간에 학습한 일본 문화와 관련된 제시문을 읽고 상호 문화적 관점을 바탕으로 한국 문화와의 공통점과 차이점을 비교하고 자신의 견해를 제시한다."
+      },
+      {
+        "task_id": "assessment_task_b093cd7a36",
+        "subject": "스포츠 문화",
+        "title": "셔틀콕 줍기",
+        "description": "배드민턴 라켓을 이용하여 셔틀콕 줍기"
+      },
+      {
+        "task_id": "assessment_task_1f0532921a",
+        "subject": "스포츠 문화",
+        "title": "포핸드 백핸드 스트로크",
+        "description": "배드민턴 라켓을 이용하여 백핸드, 포핸드 그립을 순서대로 바꿔가며 스트로크하기"
+      },
+      {
+        "task_id": "assessment_task_d69b363003",
+        "subject": "스포츠 문화",
+        "title": "배드민턴 2인 스트로크",
+        "description": "배드민턴 라켓을 이용하여 2인 1조 연속 스트로크 진행하기"
+      },
+      {
+        "task_id": "assessment_task_698d3d12f3",
+        "subject": "스포츠 문화",
+        "title": "배드민턴 숏서비스",
+        "description": "배드민턴 라켓을 이용하여 정해진 서비스 구역에 숏서비스 실시하기"
+      },
+      {
+        "task_id": "assessment_task_dc5995f7a4",
+        "subject": "심화 영어 독해 I",
+        "title": "영어 어휘 활용하기",
+        "description": "수업 중 학습한 지문에 등장한 어휘들을 맥락을 통해 적절하게 추론하고 주어진 맥락 속에서 어휘를 적절하게 활용한다. 교육과정"
+      },
+      {
+        "task_id": "assessment_task_8cead2b0c2",
+        "subject": "일본어 I",
+        "title": "상호 문화적 관점에서 한일 문화 비교하기",
+        "description": "수업 시간에 학습한 일본 문화와 관련된 제시문을 읽고 상호 문화적 관점을 바탕으로 한국 문화와의 공통점과 차이점을 비교하고 자신의 견해를 제시한다. 교육과정"
+      },
+      {
+        "task_id": "assessment_task_84d5d0a517",
+        "subject": "운동과 건강",
+        "title": "국민건강체조 수행하기",
+        "description": "국민건강체조 음원에 맞춰 18개 동작 수행함. 교육과정"
+      },
+      {
+        "task_id": "assessment_task_6ccaa3b64d",
+        "subject": "운동과 건강",
+        "title": "2인 줄넘기 수행하기",
+        "description": "줄넘기 5가지 동작이 1세트로 구성된 2인 줄넘기를 수행함. 교육과정"
+      },
+      {
+        "task_id": "assessment_task_054028b5ea",
+        "subject": "운동과 건강",
+        "title": "앉아 윗몸 앞으로 굽히기",
+        "description": "수업 중 스트레칭을 통해 관절의 가동범위를 증가시킴. 관절의 가동범위(유연성)를 평가하기 위해 앉아 윗몸 앞으로 굽히기를 수행함. 교육과정"
+      },
+      {
+        "task_id": "assessment_task_48b703b6b8",
+        "subject": "미술 창작",
+        "title": "나의 백문인 전각하기",
+        "description": "·전통 공예 중 전각의 종류와 특징을 이해하고 자신의 백문인을 새긴다. 교육과정"
+      },
+      {
+        "task_id": "assessment_task_cbe0326b3c",
+        "subject": "논술",
+        "title": "비판적 검토하기",
+        "description": "주어진 글을 비판적으로 검토한다. 교육과정"
+      }
+    ]
+  },
+  "rule_count": 13,
+  "embedded_bridge_rule_count": 13,
+  "report_mode_vocabulary_check": {
+    "actual_vocabulary_count": 57,
+    "rule_vocabulary_count": 19,
+    "unknown_rule_labels": [],
+    "passed": true
+  },
+  "non_report_policy_check": {
+    "source_records_with_flag": 5801,
+    "source_false_count": 625,
+    "runtime_records_with_flag": 5801,
+    "runtime_false_count": 625,
+    "performance_terms": [
+      "연주",
+      "실기",
+      "랠리",
+      "스트로크",
+      "체력",
+      "참여도",
+      "던지기",
+      "경기",
+      "시합"
+    ]
+  },
+  "fallback_policy": {
+    "strategy": "max_match_terms",
+    "tie_break": "rules_array_order_first",
+    "fallback": "subject_default_general",
+    "fallback_student_notice": "입력한 과제 유형과 정확히 맞는 규칙이 없어 과목 기본값을 바탕으로 일반형으로 잡았습니다.",
+    "fallback_log": true
+  }
+}
+
+=== Browser base flow ===
+{
+  "old_flow_present": 0,
+  "school_visible": 0,
+  "grade_visible": 0,
+  "chem_interpret": {
+    "modes": "자료해석형",
+    "outputs": "자료분석지 · 탐구보고서",
+    "sections": [
+      "탐구 질문",
+      "자료 출처와 분석 기준",
+      "핵심 개념 정리",
+      "자료 정리",
+      "패턴 해석",
+      "결론 도출",
+      "한계와 보완"
+    ],
+    "badge": "자동 판정"
+  },
+  "generate_visible": 1,
+  "generate_disabled": false,
+  "book_visible_no_signal": 0,
+  "book_visible_signal": 1,
+  "structure_option_count": 17,
+  "blocked": {
+    "badge": "보고서 비대상",
+    "notice": "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요.",
+    "actions_visible": 0,
+    "category_visible": 0
+  },
+  "page_errors": []
+}
+
+=== Browser correction flow ===
+{
+  "automatic": {
+    "mode": "자료해석형",
+    "structure": "structure_data_interpretation",
+    "sections": [
+      "탐구 질문",
+      "자료 출처와 분석 기준",
+      "핵심 개념 정리",
+      "자료 정리",
+      "패턴 해석",
+      "결론 도출",
+      "한계와 보완"
+    ]
+  },
+  "corrected": {
+    "override": {
+      "methodAxes": [
+        "실험실습형"
+      ],
+      "outputAxes": [
+        "실험보고서"
+      ],
+      "reportModes": [
+        "실험분석형"
+      ],
+      "structureId": "structure_experiment_analysis"
+    },
+    "modeText": "실험분석형",
+    "outputText": "실험보고서",
+    "structure": "structure_experiment_analysis",
+    "sections": [
+      "탐구 질문",
+      "교과 개념 정리",
+      "가설과 변인 설정",
+      "실험 조건 또는 자료 수집",
+      "결과 정리",
+      "자료 해석",
+      "오차·한계 분석",
+      "후속 탐구"
+    ]
+  },
+  "final": {
+    "structure": {
+      "id": "structure_experiment_analysis",
+      "sections": [
+        "탐구 질문",
+        "교과 개념 정리",
+        "가설과 변인 설정",
+        "실험 조건 또는 자료 수집",
+        "결과 정리",
+        "자료 해석",
+        "오차·한계 분석",
+        "후속 탐구"
+      ]
+    },
+    "modes": [
+      "실험분석형"
+    ],
+    "outputs": [
+      "실험보고서"
+    ],
+    "category": "medical",
+    "majorPolicy": {
+      "selectedCareer": "medical",
+      "selectedCategoryId": "medical",
+      "selectedCategoryName": "의약·보건계열",
+      "explicitCareerTask": true,
+      "usedInCoreTopic": true,
+      "candidatePolicy": "과목 일치 시드를 전량 유지하고 학과 정확일치 > 계열 일치 > 기타 순으로 정렬",
+      "subjectCandidateCount": 188,
+      "categoryMatchCount": 115,
+      "selectedSeedTier": "category",
+      "exactMajorMatch": false,
+      "categoryMatch": true,
+      "fallbackActive": false,
+      "thinCategoryThreshold": 10,
+      "fallbackPromptInstruction": "",
+      "tieBreakScore": 3,
+      "maximumWeight": 5,
+      "allowedUses": [
+        "수행평가가 진로 탐구를 직접 요구하므로 본문 반영"
+      ],
+      "forbiddenUses": []
+    },
+    "missing": []
+  }
+}

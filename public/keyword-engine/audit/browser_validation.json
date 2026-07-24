@@ -1,0 +1,108 @@
+{
+  "old_flow_present": 0,
+  "visible_inputs": [
+    "과목",
+    "수행평가 안내문 (그대로 붙여넣기)",
+    "수행평가 방식",
+    "제출물",
+    "평가 관점",
+    "결과물 구조",
+    "사용할 도서"
+  ],
+  "school_visible": 0,
+  "grade_visible": 0,
+  "chem_interpret": {
+    "modes": "자료해석형",
+    "outputs": "자료분석지 · 탐구보고서",
+    "sections": [
+      "탐구 질문",
+      "자료 출처와 분석 기준",
+      "핵심 개념 정리",
+      "자료 정리",
+      "패턴 해석",
+      "결론 도출",
+      "한계와 보완"
+    ],
+    "badge": "자동 판정"
+  },
+  "category_selected": 1,
+  "generate_visible": 1,
+  "generate_disabled": false,
+  "book_visible_no_signal": 0,
+  "state": {
+    "confirmed": true,
+    "category": "engineering",
+    "structure": {
+      "id": "structure_data_interpretation",
+      "sections": [
+        "탐구 질문",
+        "자료 출처와 분석 기준",
+        "핵심 개념 정리",
+        "자료 정리",
+        "패턴 해석",
+        "결론 도출",
+        "한계와 보완"
+      ]
+    },
+    "majorPolicy": {
+      "selectedCareer": "engineering",
+      "selectedCategoryId": "engineering",
+      "selectedCategoryName": "공학계열",
+      "explicitCareerTask": false,
+      "usedInCoreTopic": false,
+      "candidatePolicy": "과목 일치 시드를 전량 유지하고 학과 정확일치 > 계열 일치 > 기타 순으로 정렬",
+      "subjectCandidateCount": 188,
+      "categoryMatchCount": 175,
+      "selectedSeedTier": "category",
+      "exactMajorMatch": false,
+      "categoryMatch": true,
+      "fallbackActive": false,
+      "thinCategoryThreshold": 10,
+      "fallbackPromptInstruction": "",
+      "tieBreakScore": 3,
+      "maximumWeight": 5,
+      "allowedUses": [
+        "시드 후보 정렬",
+        "고찰 마지막 확장 1문장",
+        "후속 탐구 후보"
+      ],
+      "forbiddenUses": [
+        "제목",
+        "핵심 탐구 질문",
+        "본론 비교 기준",
+        "핵심 결론",
+        "키워드 자동 대체"
+      ]
+    },
+    "reqMissing": []
+  },
+  "book_visible_signal": 1,
+  "subject_notice": "현재 과학·수학·정보 과목을 지원합니다.\n국어·영어 수행평가는 준비 중입니다.",
+  "correction_visible": 1,
+  "structure_option_count": 17,
+  "blocked": {
+    "badge": "보고서 비대상",
+    "notice": "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요.",
+    "actions_visible": 0,
+    "category_visible": 0
+  },
+  "console": [
+    {
+      "type": "warning",
+      "text": "subject selection local log failed: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at captureSelection (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:151:5)\n    at sync (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:162:17)\n    at HTMLSelectElement.<anonymous> (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:169:47)\n    at async <anonymous>:316:30"
+    },
+    {
+      "type": "warning",
+      "text": "subject selection local log failed: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at captureSelection (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:151:5)\n    at sync (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:162:17)\n    at HTMLSelectElement.<anonymous> (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:169:47)\n    at async <anonymous>:316:30"
+    },
+    {
+      "type": "warning",
+      "text": "subject selection local log failed: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at captureSelection (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:151:5)\n    at sync (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:162:17)\n    at HTMLSelectElement.<anonymous> (/mnt/data/work_patch4/full/assets/js/subject_support_notice.js:169:47)\n    at async <anonymous>:316:30"
+    },
+    {
+      "type": "warning",
+      "text": "assessment task interpreter local log failed: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at logTaskInterpreterEvent (/mnt/data/work_patch4/full/assets/assessment_keyword_bridge_helper.js:323:5)\n    at buildContext (/mnt/data/work_patch4/full/assets/assessment_keyword_bridge_helper.js:830:5)\n    at Object.resolve (/mnt/data/work_patch4/full/assets/assessment_keyword_bridge_helper.js:1076:12)"
+    }
+  ],
+  "page_errors": []
+}

@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="ko">
 <head>
@@ -7,208 +6,205 @@
   <title>RNY 탐구 보고서 프로그램</title>
   <link rel="stylesheet" href="assets/keyword_engine.css" />
   <link rel="stylesheet" href="assets/topic_generator.css" />
+  <link rel="stylesheet" href="assets/decision_flow.css?v=v1_three_decisions" />
 </head>
 <body>
-  <div class="page">
+  <div class="page decision-flow-page">
     <section class="hero">
-      <div class="hero-badge">RNY 탐구보고서 프로그램 </div>
-      <h1>탐구 보고서 프로그램</h1>
+      <div class="hero-badge">RNY 탐구보고서 프로그램</div>
+      <h1>수행평가 안내문으로 바로 만드는 탐구보고서</h1>
+      <p class="decision-flow-hero-copy">과목을 고르고 선생님 안내문을 붙여넣으면 보고서 유형과 구성을 자동으로 해석합니다.</p>
     </section>
 
-    <section class="panel form-panel">
-      <div class="form-grid single-column-form">
-        <label>
-          <span>학교명</span>
-          <input id="schoolName" type="text" placeholder="예: 알과영고" />
-        </label>
-
-        <label>
-          <span>학년</span>
-          <select id="grade">
-            <option value="">선택</option>
-            <option>고1</option>
-            <option>고2</option>
-            <option>고3</option>
-          </select>
-        </label>
-
-        <label>
-          <span>교과</span>
-          <select id="subjectGroup">
-            <option value="">교과 선택</option>
-            <option value="국어">국어</option>
-            <option value="영어">영어</option>
-            <option value="수학">수학</option>
-            <option value="사회">사회</option>
-            <option value="과학">과학</option>
-            <option value="정보">정보</option>
-          </select>
-        </label>
-
-        <label>
-          <span>세부 과목</span>
-          <select id="subject">
-            <option value="">교과를 먼저 선택하세요</option>
-            <option value="공통국어1" data-subject-group="국어">공통국어1</option>
-            <option value="공통국어2" data-subject-group="국어">공통국어2</option>
-            <option value="영어" data-subject-group="영어">영어</option>
-            <option value="공통수학1" data-subject-group="수학">공통수학1</option>
-            <option value="공통수학2" data-subject-group="수학">공통수학2</option>
-            <option value="대수" data-subject-group="수학">대수</option>
-            <option value="확률과 통계" data-subject-group="수학">확률과 통계</option>
-            <option value="미적분1" data-subject-group="수학">미적분1</option>
-            <option value="기하" data-subject-group="수학">기하</option>
-            <option value="통합사회1" data-subject-group="사회">통합사회1</option>
-            <option value="통합사회2" data-subject-group="사회">통합사회2</option>
-            <option value="통합과학1" data-subject-group="과학">통합과학1</option>
-            <option value="통합과학2" data-subject-group="과학">통합과학2</option>
-            <option value="과학탐구실험1" data-subject-group="과학">과학탐구실험1</option>
-            <option value="과학탐구실험2" data-subject-group="과학">과학탐구실험2</option>
-            <option value="융합과학 탐구" data-subject-group="과학">융합과학 탐구</option>
-            <option value="과학과제 연구" data-subject-group="과학">과학과제 연구</option>
-            <option value="물리" data-subject-group="과학">물리(물리학Ⅰ)</option>
-            <option value="화학" data-subject-group="과학">화학(화학Ⅰ)</option>
-            <option value="화학 반응의 세계" data-subject-group="과학">화학 반응의 세계</option>
-            <option value="생명과학" data-subject-group="과학">생명과학</option>
-            <option value="생물의 유전" data-subject-group="과학">생물의 유전</option>
-            <option value="지구과학" data-subject-group="과학">지구과학</option>
-            <option value="역학과 에너지" data-subject-group="과학">역학과 에너지</option>
-            <option value="전자기와 양자" data-subject-group="과학">전자기와 양자</option>
-            <option value="물질과 에너지" data-subject-group="과학">물질과 에너지</option>
-            <option value="세포와 물질대사" data-subject-group="과학">세포와 물질대사</option>
-            <option value="지구시스템과학" data-subject-group="과학">지구시스템과학</option>
-            <option value="정보" data-subject-group="정보">정보</option>
-            <option value="데이터 과학" data-subject-group="정보">데이터 과학</option>
-            <option value="인공지능 기초" data-subject-group="정보">인공지능 기초</option>
-          </select>
-        </label>
-
-        <input id="taskName" type="hidden" value="탐구보고서" />
-
-        <label>
-          <span>결과물 유형</span>
-          <select id="taskType">
-            <option value="탐구보고서">탐구보고서</option>
-            <option value="실험보고서">실험보고서</option>
-            <option value="자료조사 보고서">자료조사 보고서</option>
-            <option value="발표보고서">발표보고서</option>
-          </select>
-        </label>
-        <select id="usagePurpose" hidden>
-          <option value=""></option>
-        </select>
-
-        <label class="full">
-          <span>선생님 안내문</span>
-          <textarea id="taskDescription" rows="4" placeholder="예: 교과 개념과 연결한 자료조사형 보고서, 실험은 어렵고 발표 포함 / 동아리에서 실제 사례 조사 중심"></textarea>
-        </label>
-
-        <label>
-          <span>학과 검색</span>
-          <input id="career" type="text" placeholder="예: 컴퓨터, 반도체, 간호, 신소재, 환경" />
-        </label>
-        <input id="keyword" type="hidden" value="" />
+    <section class="panel form-panel decision-flow-panel">
+      <div class="decision-progress" aria-label="진행 단계">
+        <span class="is-active" data-progress="subject">1. 과목</span>
+        <span data-progress="interpretation">2. 해석 확인</span>
+        <span data-progress="category">3. 계열</span>
       </div>
 
-      <div class="actions">
-        <button id="generateBtn" class="primary-btn">학생용 결과 생성</button>
-        <button id="resetBtn" class="secondary-btn" type="button">초기화</button>
-        <div id="loadingMessage" class="loading-text" style="display:none;">생성 중...</div>
+      <div class="decision-step-card" id="subjectStep">
+        <div class="decision-step-heading">
+          <span class="decision-step-number">1</span>
+          <div>
+            <h2>과목 선택</h2>
+            <p>과목과 수행평가 안내문만으로 보고서 구조와 탐구 방향을 자동으로 구성합니다.</p>
+          </div>
+        </div>
+        <label class="decision-field full">
+          <span>과목</span>
+          <select id="subject">
+            <option value="">과목을 선택하세요</option>
+            <optgroup label="국어·영어 (준비 중)">
+              <option value="공통국어1" data-subject-group="국어">공통국어1</option>
+              <option value="공통국어2" data-subject-group="국어">공통국어2</option>
+              <option value="영어" data-subject-group="영어">영어</option>
+            </optgroup>
+            <optgroup label="수학">
+              <option value="공통수학1" data-subject-group="수학">공통수학1</option>
+              <option value="공통수학2" data-subject-group="수학">공통수학2</option>
+              <option value="대수" data-subject-group="수학">대수</option>
+              <option value="확률과 통계" data-subject-group="수학">확률과 통계</option>
+              <option value="미적분1" data-subject-group="수학">미적분1</option>
+              <option value="기하" data-subject-group="수학">기하</option>
+            </optgroup>
+            <optgroup label="사회">
+              <option value="통합사회1" data-subject-group="사회">통합사회1</option>
+              <option value="통합사회2" data-subject-group="사회">통합사회2</option>
+              <option value="한국사" data-subject-group="사회">한국사</option>
+            </optgroup>
+            <optgroup label="과학">
+              <option value="통합과학1" data-subject-group="과학">통합과학1</option>
+              <option value="통합과학2" data-subject-group="과학">통합과학2</option>
+              <option value="과학탐구실험1" data-subject-group="과학">과학탐구실험1</option>
+              <option value="과학탐구실험2" data-subject-group="과학">과학탐구실험2</option>
+              <option value="융합과학 탐구" data-subject-group="과학">융합과학 탐구</option>
+              <option value="과학과제 연구" data-subject-group="과학">과학과제 연구</option>
+              <option value="물리" data-subject-group="과학">물리(물리학Ⅰ)</option>
+              <option value="화학" data-subject-group="과학">화학(화학Ⅰ)</option>
+              <option value="화학 반응의 세계" data-subject-group="과학">화학 반응의 세계</option>
+              <option value="생명과학" data-subject-group="과학">생명과학</option>
+              <option value="생물의 유전" data-subject-group="과학">생물의 유전</option>
+              <option value="지구과학" data-subject-group="과학">지구과학</option>
+              <option value="역학과 에너지" data-subject-group="과학">역학과 에너지</option>
+              <option value="전자기와 양자" data-subject-group="과학">전자기와 양자</option>
+              <option value="물질과 에너지" data-subject-group="과학">물질과 에너지</option>
+              <option value="세포와 물질대사" data-subject-group="과학">세포와 물질대사</option>
+              <option value="지구시스템과학" data-subject-group="과학">지구시스템과학</option>
+            </optgroup>
+            <optgroup label="정보">
+              <option value="정보" data-subject-group="정보">정보</option>
+              <option value="데이터 과학" data-subject-group="정보">데이터 과학</option>
+              <option value="인공지능 기초" data-subject-group="정보">인공지능 기초</option>
+            </optgroup>
+          </select>
+        </label>
+      </div>
+
+      <div class="decision-step-card" id="guideStep">
+        <div class="decision-step-heading">
+          <span class="decision-step-number">2</span>
+          <div>
+            <h2>수행평가 안내문 붙여넣기</h2>
+            <p>과제명 한 줄만 입력해도 동작합니다. 안내문 전체를 넣으면 유형과 섹션을 더 정확하게 해석합니다.</p>
+          </div>
+        </div>
+        <label class="decision-field full">
+          <span>수행평가 안내문 (그대로 붙여넣기)</span>
+          <textarea id="taskDescription" rows="6" placeholder="예) 다양한 자료에 드러나는 음운 변동의 원리를 탐구하고 일상생활에 올바르게 적용 / 평가방법: 논술, 교사 관찰 및 기록 / 반영비율 10%"></textarea>
+        </label>
+        <div class="interpret-status-row">
+          <span id="interpretStatus" role="status" aria-live="polite">과목과 안내문을 입력하면 자동으로 해석합니다.</span>
+          <button id="interpretBtn" class="secondary-btn" type="button">지금 해석하기</button>
+        </div>
+      </div>
+
+      <section id="interpretationCard" class="interpretation-card" hidden aria-live="polite">
+        <div class="interpretation-card-head">
+          <div>
+            <div class="mini-label">이렇게 이해했어요</div>
+            <h2 id="interpretationTitle">수행평가 해석 결과</h2>
+          </div>
+          <span id="interpretationBadge" class="interpretation-badge"></span>
+        </div>
+        <dl class="interpretation-grid">
+          <div><dt>보고서 유형</dt><dd id="interpretedModes"></dd></div>
+          <div><dt>제출물</dt><dd id="interpretedOutputs"></dd></div>
+          <div class="full"><dt>섹션 구성</dt><dd id="interpretedSections" class="section-chip-list"></dd></div>
+        </dl>
+        <p id="interpretationNotice" class="interpretation-notice" hidden></p>
+        <div id="interpretationActions" class="interpretation-actions">
+          <button id="confirmInterpretationBtn" class="primary-btn" type="button">맞아요</button>
+          <button id="editInterpretationBtn" class="secondary-btn" type="button">다르게 잡을래요</button>
+        </div>
+
+        <div id="interpretationCorrection" class="interpretation-correction" hidden>
+          <div class="correction-grid">
+            <label><span>수행평가 방식</span><select id="correctionMethod"></select></label>
+            <label><span>제출물</span><select id="correctionOutput"></select></label>
+            <label><span>평가 관점</span><select id="correctionMode"></select></label>
+            <label><span>결과물 구조</span><select id="correctionStructure"></select></label>
+          </div>
+          <div class="interpretation-actions">
+            <button id="applyCorrectionBtn" class="primary-btn" type="button">수정 내용 적용</button>
+            <button id="cancelCorrectionBtn" class="secondary-btn" type="button">자동 해석으로 돌아가기</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="categoryStep" class="decision-step-card" hidden>
+        <div class="decision-step-heading">
+          <span class="decision-step-number">3</span>
+          <div>
+            <h2>희망 계열 선택</h2>
+            <p>계열은 시드를 줄이는 필터가 아니라 적합한 후보를 위로 올리는 정렬 가중치로만 사용합니다.</p>
+          </div>
+        </div>
+        <div class="category-choice-grid" role="group" aria-label="희망 계열">
+          <button type="button" data-category="engineering" data-label="공학계열">공학계열</button>
+          <button type="button" data-category="natural" data-label="자연과학계열">자연과학계열</button>
+          <button type="button" data-category="medical" data-label="의약·보건계열">의약·보건계열</button>
+        </div>
+      </section>
+
+      <section id="bookStep" class="decision-step-card optional-step" hidden>
+        <div class="decision-step-heading">
+          <span class="decision-step-number">선택</span>
+          <div>
+            <h2>도서 활용</h2>
+            <p>안내문에서 도서 신호가 확인되어 이 단계만 열었습니다. 도서를 사용하지 않아도 공공자료·통계·기사·실험자료로 진행할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="book-choice-row">
+          <button type="button" data-book-mode="noBook" class="is-active">도서 없이 진행</button>
+          <button type="button" data-book-mode="useBook">도서 활용</button>
+        </div>
+        <label id="bookTitleField" class="decision-field full" hidden>
+          <span>사용할 도서</span>
+          <input id="bookTitleInput" type="text" placeholder="과제에 지정된 도서명 또는 사용할 도서명을 입력하세요" />
+        </label>
+      </section>
+
+      <input id="schoolName" type="hidden" value="" />
+      <input id="grade" type="hidden" value="" />
+      <input id="subjectGroup" type="hidden" value="" />
+      <input id="taskName" type="hidden" value="" />
+      <input id="taskType" type="hidden" value="탐구보고서" />
+      <input id="usagePurpose" type="hidden" value="학생용 완성 보고서 작성" />
+      <input id="career" type="hidden" value="" />
+      <input id="keyword" type="hidden" value="" />
+      <input id="selectedConcept" type="hidden" value="" />
+      <input id="selectedBookTitle" type="hidden" value="" />
+      <input id="bookUsageMode" type="hidden" value="noBook" />
+      <input id="reportMode" type="hidden" value="" />
+      <input id="reportView" type="hidden" value="" />
+      <input id="reportLine" type="hidden" value="" />
+
+      <div class="actions decision-actions">
+        <button id="generateBtn" class="primary-btn" type="button" hidden disabled>보고서 만들기</button>
+        <button id="resetBtn" class="secondary-btn" type="button">처음부터 다시</button>
+        <div id="loadingMessage" class="loading-text" style="display:none;">보고서 생성 중...</div>
       </div>
       <div id="errorMessage" class="status-message error" style="display:none;"></div>
     </section>
 
     <section id="resultSection" class="result-section" style="display:none;">
       <div class="student-top">
-        <div class="big-card">
-          <div class="mini-label">최종 추천</div>
-          <h2 id="finalMode"></h2>
-          <p id="finalReason"></p>
-        </div>
-        <div class="big-card">
-          <div class="mini-label">추천 주제</div>
-          <h2 id="finalTopic"></h2>
-          <p id="topicSub"></p>
-        </div>
+        <div class="big-card"><div class="mini-label">생성 결과</div><h2 id="finalMode"></h2><p id="finalReason"></p></div>
+        <div class="big-card"><div class="mini-label">추천 주제</div><h2 id="finalTopic"></h2><p id="topicSub"></p></div>
       </div>
-
-      <div class="action-card">
-        <div class="mini-label">지금 바로 할 일 3단계</div>
-        <div id="actionSteps" class="action-steps"></div>
-      </div>
-
-      <div class="student-grid">
-        <div class="quick-card" id="outputCard"></div>
-        <div class="quick-card" id="reportFrameCard"></div>
-        <div class="quick-card" id="doDontCard"></div>
-        <div class="quick-card" id="inputSummaryCard"></div>
-      </div>
-
-      <section class="report-panel">
-        <div class="report-head">
-          <div>
-            <div class="mini-label">학생 제출용 초안</div>
-            <h3>바로 쓸 수 있는 보고서</h3>
-          </div>
-          <div class="report-actions">
-            <button id="copyReportBtn" class="secondary-btn" type="button">보고서 복사</button>
-          </div>
-        </div>
-        <div id="studentReport" class="student-report"></div>
-      </section>
-
-      <details class="details-panel">
-        <summary>운영/분석용 참고 보기</summary>
-        <div class="details-grid">
-          <div class="compact-card" id="reasonCard"></div>
-          <div class="compact-card" id="stepsCard"></div>
-          <div class="compact-card" id="flowCard"></div>
-          <div class="compact-card" id="subjectLinksCard"></div>
-          <div class="compact-card" id="warningsCard"></div>
-          <div class="compact-card" id="assessmentReferenceCard"></div>
-          <div class="compact-card" id="textbookSection"></div>
-          <div class="compact-card" id="extensionLibrarySection"></div>
-        </div>
-      </details>
+      <div id="actionSteps" class="action-steps"></div>
+      <div id="contentOutputSection"></div>
+      <div id="studentReport" class="student-report"></div>
     </section>
   </div>
 
   <script src="assets/js/subject_alias.js?v=v1_subject_alias"></script>
+  <script src="assets/js/decision_flow_v1.js?v=v1_three_decisions"></script>
   <script src="assets/js/subject_support_notice.js?v=v1_subject_support_log"></script>
-  <script src="assets/student_textbook_matcher.js"></script>
-  <script src="assets/assessment_keyword_bridge_helper.js?v=v23_task_interpreter_max_match"></script>
-  <script src="assets/keyword_engine.js?v=v40_task_interpreter_max_match"></script>
-  <script src="assets/report_navigation_helper.js"></script>
-  <script src="assets/student_focus_helper.js"></script>
-  <script src="assets/draft_report_helper.js"></script>
-  <script src="assets/topic_generator.js"></script>
-  <script src="assets/major_engine_helper.js?v=v102_major_confirmed_lock_v84_direct_routing_compare_lock"></script>
-  <script src="assets/textbook_concept_helper.js?v=v236_clean_student_line"></script>
-  <script src="assets/textbook_runtime_bridge_helper.js?v=v220_subject_group_field_watch"></script>
-  <script src="assets/js/book_recommendation_adapter.js?v=v24_axis_diversity_engine"></script>
-  <script src="assets/js/book_210_ui_bridge.js?v=v227_enter_safe_global_search_no_reset"></script>
-  <script src="assets/js/mini_payload_builder.js?v=v241_major_category_weighted"></script>
-  <script src="assets/js/report_6_8_flow_bridge.js?v=v236_clean_student_line"></script>
-  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v241_major_category_weighted"></script>
-  <script>
-    /* v222 inline emergency fallback: external subject filter가 누락되어도 세부 과목을 교과별로 제한 */
-    window.__SUBJECT_GROUP_INLINE_FALLBACK_VERSION__ = "v222-inline-strict-filter";
-    (function(){
-      const C={"국어":[["공통국어1","공통국어1"],["공통국어2","공통국어2"]],"영어":[["영어","영어"]],"수학":[["공통수학1","공통수학1"],["공통수학2","공통수학2"],["대수","대수"],["확률과 통계","확률과 통계"],["미적분1","미적분1"],["기하","기하"]],"사회":[["통합사회1","통합사회1"],["통합사회2","통합사회2"],["한국사","한국사"]],"과학":[["통합과학1","통합과학1"],["통합과학2","통합과학2"],["과학탐구실험1","과학탐구실험1"],["과학탐구실험2","과학탐구실험2"],["융합과학 탐구","융합과학 탐구"],["과학과제 연구","과학과제 연구"],["물리","물리(물리학Ⅰ)"],["화학","화학(화학Ⅰ)"],["화학 반응의 세계","화학 반응의 세계"],["생명과학","생명과학"],["생물의 유전","생물의 유전"],["지구과학","지구과학"],["역학과 에너지","역학과 에너지"],["전자기와 양자","전자기와 양자"],["물질과 에너지","물질과 에너지"],["세포와 물질대사","세포와 물질대사"],["지구시스템과학","지구시스템과학"]],"정보":[["정보","정보"],["데이터 과학","데이터 과학"],["인공지능 기초","인공지능 기초"]]};
-      function $(id){return document.getElementById(id)}
-      function sync(){
-        if(window.__installSubjectGroupStrictFilterV222){ window.__installSubjectGroupStrictFilterV222(); return; }
-        const g=$("subjectGroup"), s=$("subject"), t=$("taskType"), n=$("taskName"); if(!g||!s) return;
-        const group=(g.value||"").trim(), keep=(s.value||"").trim(), list=C[group]||[];
-        s.innerHTML=""; const ph=document.createElement("option"); ph.value=""; ph.textContent=group?group+" 세부 과목 선택":"교과를 먼저 선택하세요"; s.appendChild(ph);
-        list.forEach(([v,txt])=>{const o=document.createElement("option");o.value=v;o.textContent=txt;o.dataset.subjectGroup=group;s.appendChild(o);});
-        if(list.some(([v])=>v===keep)) s.value=keep; else s.value="";
-        if(n){n.type="hidden"; n.value=s.value ? s.value+" "+((t&&t.value)||"탐구보고서") : ((t&&t.value)||"탐구보고서");}
-      }
-      function boot(){ const g=$("subjectGroup"), s=$("subject"); if(!g||!s) return; if(!g.dataset.inlineV222){g.addEventListener("change",sync);g.dataset.inlineV222="1";} ["focus","mousedown","pointerdown","click"].forEach(e=>s.addEventListener(e,sync,true)); sync(); }
-      document.addEventListener("DOMContentLoaded",boot); window.addEventListener("load",boot); setTimeout(boot,150); setTimeout(boot,600);
-    })();
-  </script>
-  <script src="assets/js/ui_subject_group_filter_v222.js?v=v222_subject_alias_dropdown_expansion"></script>
+  <script src="assets/assessment_keyword_bridge_helper.js?v=v24_decision_flow_structure"></script>
+  <script src="assets/keyword_engine.js?v=v41_decision_flow"></script>
+  <script src="assets/js/decision_flow_payload_adapter.js?v=v1_structure_payload"></script>
+  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v242_decision_flow"></script>
 </body>
 </html>

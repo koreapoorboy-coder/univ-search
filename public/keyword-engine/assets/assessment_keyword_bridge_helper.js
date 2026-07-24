@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-max-match";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-structure";
 
 (function(global){
   "use strict";
@@ -20,6 +20,37 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
   const NON_REPORT_NOTICE = "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요.";
   const NON_REPORT_TERMS = ["연주","실기","랠리","스트로크","체력","참여도","던지기","경기","시합"];
   const TASK_LOG_STORAGE_KEY = "ke.assessmentTaskInterpreterLogs.v1";
+  const BOOK_SIGNAL_RE = /독서|도서|책|서평|독후|저자|문헌/;
+  const STRUCTURE_BY_REPORT_MODE = {
+    "연구설계형":"structure_research_design",
+    "실험분석형":"structure_experiment_analysis",
+    "실험보고서형":"structure_experiment_analysis",
+    "변인탐구형":"structure_experiment_analysis",
+    "자료해석형":"structure_data_interpretation",
+    "데이터해석형":"structure_data_interpretation",
+    "모델링형":"structure_modeling_analysis",
+    "문제설계형":"structure_problem_design",
+    "풀이비교형":"structure_solution_comparison",
+    "사회문제분석형":"structure_social_problem_analysis",
+    "사회문제탐구형":"structure_social_problem_analysis",
+    "정책제안형":"structure_policy_proposal",
+    "독서비평형":"structure_reading_criticism",
+    "외국어문화탐구형":"structure_reading_criticism",
+    "논증형":"structure_argumentation",
+    "발표논증형":"structure_argumentation",
+    "글쓰기논술형":"structure_argumentation",
+    "비평분석형":"structure_argumentation",
+    "매체분석형":"structure_media_analysis",
+    "프로그래밍구현형":"structure_programming_implementation",
+    "창작설계형":"structure_creative_design",
+    "산출물제작형":"structure_creative_design",
+    "표현발표형":"structure_creative_design",
+    "연구보고서형":"structure_research_report",
+    "탐구보고서형":"structure_research_report",
+    "원리적용형":"structure_principle_application",
+    "개념해석형":"structure_concept_interpretation",
+    "학습과정관찰형":"structure_practical_reflection"
+  };
 
   function normalize(value){
     return String(value || "")
@@ -165,11 +196,64 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
     ].filter(Boolean).join(" ").toLowerCase();
   }
 
+  function readInterpretationOverride(payload){
+    const raw = payload?.interpretationOverride || payload?.interpreterOverride || null;
+    if(!raw || typeof raw !== "object") return null;
+    const reportModes = uniq(raw.reportModes || raw.report_mode || []);
+    const methodAxes = uniq(raw.methodAxes || raw.method_axis || []);
+    const outputAxes = uniq(raw.outputAxes || raw.output_axis || []);
+    const structureId = String(raw.structureId || raw.structure_id || "").trim();
+    if(!reportModes.length && !methodAxes.length && !outputAxes.length && !structureId) return null;
+    return { reportModes, methodAxes, outputAxes, structureId };
+  }
+
+  function structureCatalog(){
+    return crossAxisData?.structures || {};
+  }
+
+  function chooseStructureId(task, interpretation, payload){
+    const override = readInterpretationOverride(payload);
+    if(override?.structureId && structureCatalog()[override.structureId]) return override.structureId;
+    if(task?.structureId && structureCatalog()[task.structureId]) return task.structureId;
+    const modes = interpretation?.rule?.report_mode || [];
+    for(const mode of modes){
+      const id = STRUCTURE_BY_REPORT_MODE[mode];
+      if(id && structureCatalog()[id]) return id;
+    }
+    return "structure_research_report";
+  }
+
+  function hasBookSignal(payload, outputAxes){
+    const text = rawTaskText(payload);
+    return BOOK_SIGNAL_RE.test(text) || (outputAxes || []).some(value => BOOK_SIGNAL_RE.test(String(value || "")));
+  }
+
   function inferTaskRule(payload){
+    const override = readInterpretationOverride(payload);
+    if(override){
+      const sections = override.structureId ? (structureCatalog()[override.structureId] || []) : [];
+      return {
+        matched:true,
+        rule:{
+          rule_id:"student_correction_override",
+          match_terms:[],
+          report_mode:override.reportModes,
+          method_axis:override.methodAxes,
+          output_axis:override.outputAxes,
+          required_sections:sections
+        },
+        matchCount:0,
+        matchedTerms:[],
+        fallbackActive:false,
+        fallbackNotice:"",
+        overrideActive:true,
+        structureId:override.structureId
+      };
+    }
     const text = rawTaskText(payload);
     const rules = bridgeData?.task_interpreter_rules || [];
     if(!text){
-      return { matched:false, rule:null, matchCount:0, matchedTerms:[], fallbackActive:true, fallbackNotice:TASK_FALLBACK_NOTICE };
+      return { matched:false, rule:null, matchCount:0, matchedTerms:[], fallbackActive:true, fallbackNotice:TASK_FALLBACK_NOTICE, overrideActive:false };
     }
     let best = null;
     rules.forEach((rule, index) => {
@@ -179,7 +263,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
       if(!best || candidate.matchCount > best.matchCount) best = candidate;
     });
     if(!best){
-      return { matched:false, rule:null, matchCount:0, matchedTerms:[], fallbackActive:true, fallbackNotice:TASK_FALLBACK_NOTICE };
+      return { matched:false, rule:null, matchCount:0, matchedTerms:[], fallbackActive:true, fallbackNotice:TASK_FALLBACK_NOTICE, overrideActive:false };
     }
     return {
       matched:true,
@@ -187,7 +271,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
       matchCount:best.matchCount,
       matchedTerms:best.matchedTerms,
       fallbackActive:false,
-      fallbackNotice:""
+      fallbackNotice:"",
+      overrideActive:false
     };
   }
 
@@ -560,15 +645,15 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
     return `${target}을 ${concepts}으로 설명하고 적용 조건과 개선 방향을 분석`;
   }
 
-  function buildCrossAxis(payload, subjectLabel, keywordLabel, concept){
+  function buildCrossAxis(payload, subjectLabel, keywordLabel, concept, taskInterpretation){
     if(!crossAxisData) return null;
     const taskMatch = matchTaskRecord(payload, subjectLabel);
     const task = taskMatch?.task || null;
     const seedMatch = matchContentSeed(payload, subjectLabel, task);
     const seed = seedMatch?.seed || null;
-    const structureId = task?.structureId || "structure_research_report";
-    const structureSections = (crossAxisData.structures || {})[structureId] || [
-      "연구 질문","이론적 배경","탐구 방법","분석 결과","결과 해석과 고찰","결론","한계와 후속 탐구","느낀 점","참고자료"
+    const structureId = chooseStructureId(task, taskInterpretation, payload);
+    const structureSections = (crossAxisData.structures || {})[structureId] || (crossAxisData.structures || {}).structure_research_report || [
+      "연구 질문","선행 자료 검토","방법 설계","자료 수집","분석 결과","결론","참고문헌과 후속 탐구"
     ];
     const concepts = inferSubjectConcepts(subjectLabel, task, concept);
     const generatedTitle = composeCrossAxisTitle(subjectLabel, concepts, keywordLabel, task, seed);
@@ -739,14 +824,14 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
     const canonicalSubjectInput = toCanonicalSubject(subjectInput);
     const subjectLabel = subjectMatch?.key || canonicalSubjectInput || subjectGroup || "선택 과목";
     // Seed lookup must use the selected subject's canonical name, not a broader subject-route key.
-    const crossAxis = buildCrossAxis({ ...payload, career }, canonicalSubjectInput || subjectLabel, keywordLabel, concept);
+    const crossAxis = buildCrossAxis({ ...payload, career }, canonicalSubjectInput || subjectLabel, keywordLabel, concept, taskInterpretation);
     const exactTask = crossAxis?.taskMatch?.record || null;
     const nonReportTask = detectNonReportTask(payload, crossAxis?.taskMatch || null);
     logTaskInterpreterEvent(payload, taskInterpretation, nonReportTask);
 
     if(nonReportTask.blocked){
       const blockedContext = {
-        version:"assessment-keyword-cross-axis-context-v2.3.0",
+        version:"assessment-keyword-cross-axis-context-v2.4.0",
         connected:true,
         generatedAt:new Date().toISOString(),
         reportTarget:false,
@@ -766,7 +851,14 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
           reportTarget:false,
           blockedReason:nonReportTask.reason,
           blockedTerm:nonReportTask.matchedTerm,
-          notice:nonReportTask.notice
+          notice:nonReportTask.notice,
+          reportModes:inferredModes,
+          methodAxes:inferredMethods,
+          outputAxes:inferredOutputs,
+          structureId:crossAxis?.structure?.id || "",
+          structureSections:crossAxis?.structure?.sections || [],
+          bookSignal:hasBookSignal(payload, inferredOutputs),
+          overrideActive:!!taskInterpretation.overrideActive
         },
         cross_axis:crossAxis,
         student_output:{
@@ -790,25 +882,32 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
       return blockedContext;
     }
 
+    const overrideActive = !!taskInterpretation.overrideActive;
     const specificTaskType = ["실험보고서","자료조사 보고서","발표보고서"].includes(taskType);
     const taskPrimaryMethod = firstValue(taskRoute?.dominant_methods, "");
     const taskPrimaryOutput = firstValue(taskRoute?.dominant_outputs, "");
     const subjectPrimaryMethod = firstValue(subjectRoute?.dominant_methods, "");
     const subjectPrimaryOutput = firstValue(subjectRoute?.dominant_outputs, "");
     const subjectPrimaryMode = firstValue(subjectRoute?.dominant_report_modes, "");
-    const recommendedMethod = exactTask?.methodAxis?.[0] || (taskInterpretation.fallbackActive
-      ? (subjectPrimaryMethod || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형")
-      : (specificTaskType
-        ? (taskPrimaryMethod || inferredMethods[0] || keywordRoute.preferred_methods?.[0] || "보고서작성형")
-        : (inferredMethods[0] || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형")));
-    const recommendedOutput = exactTask?.outputAxis?.[0] || (taskInterpretation.fallbackActive
-      ? (subjectPrimaryOutput || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType)
-      : (specificTaskType
-        ? (taskPrimaryOutput || inferredOutputs[0] || keywordRoute.preferred_outputs?.[0] || taskType)
-        : (inferredOutputs[0] || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType)));
-    const recommendedMode = exactTask?.reportModes?.[0] || (taskInterpretation.fallbackActive
-      ? (subjectPrimaryMode || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형")
-      : (inferredModes[0] || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형"));
+    const recommendedMethod = overrideActive
+      ? (inferredMethods[0] || "보고서작성형")
+      : (exactTask?.methodAxis?.[0] || (taskInterpretation.fallbackActive
+        ? (subjectPrimaryMethod || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형")
+        : (specificTaskType
+          ? (taskPrimaryMethod || inferredMethods[0] || keywordRoute.preferred_methods?.[0] || "보고서작성형")
+          : (inferredMethods[0] || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형"))));
+    const recommendedOutput = overrideActive
+      ? (inferredOutputs[0] || taskType)
+      : (exactTask?.outputAxis?.[0] || (taskInterpretation.fallbackActive
+        ? (subjectPrimaryOutput || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType)
+        : (specificTaskType
+          ? (taskPrimaryOutput || inferredOutputs[0] || keywordRoute.preferred_outputs?.[0] || taskType)
+          : (inferredOutputs[0] || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType))));
+    const recommendedMode = overrideActive
+      ? (inferredModes[0] || "연구보고서형")
+      : (exactTask?.reportModes?.[0] || (taskInterpretation.fallbackActive
+        ? (subjectPrimaryMode || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형")
+        : (inferredModes[0] || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형")));
     const rubricFocus = uniq([
       ...(exactTask?.rubricAxis || []),
       ...topValues(subjectRoute?.dominant_rubric_tags, 5),
@@ -820,9 +919,9 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
       ...topValues(subjectRoute?.dominant_outputs, 3),
       ...topValues(taskRoute?.dominant_outputs, 3)
     ]).slice(0,7);
-    const reportSections = crossAxis?.structure?.sections?.length ? crossAxis.structure.sections : (inferredSections.length ? inferredSections : [
-      "탐구 질문","교과 개념과 이론적 배경","비교 기준·변인·자료 수집 방법","핵심 결과와 해석","한계·개선·후속 탐구"
-    ]);
+    const reportSections = crossAxis?.structure?.sections?.length
+      ? crossAxis.structure.sections
+      : ((crossAxisData?.structures || {}).structure_research_report || ["연구 질문","선행 자료 검토","방법 설계","자료 수집","분석 결과","결론","참고문헌과 후속 탐구"]);
 
     const action = taskAction(taskType);
     const topicNoun = keywordRoute.topic_noun || "핵심 개념과 적용";
@@ -842,7 +941,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
     const recordSentence = `${subjectLabel}의 ${concept || "핵심 개념"}을 바탕으로 ${keywordLabel}을 탐구하고, ${recommendedMethod} 과정에서 자료·조건·결과를 비교하여 ${rubricFocus.slice(0,3).join("·") || "근거 제시와 결과 해석"} 역량을 드러냄.`;
 
     const context = {
-      version: "assessment-keyword-cross-axis-context-v2.3.0",
+      version: "assessment-keyword-cross-axis-context-v2.4.0",
       connected: true,
       generatedAt: new Date().toISOString(),
       priorityPolicy: crossAxis?.priorityPolicy || {
@@ -887,7 +986,14 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
         fallbackNotice: taskInterpretation.fallbackNotice,
         reportTarget: true,
         matchingStrategy: "max_match_terms",
-        tieBreak: "rules_array_order_first"
+        tieBreak: "rules_array_order_first",
+        reportModes: inferredModes,
+        methodAxes: inferredMethods,
+        outputAxes: inferredOutputs,
+        structureId: crossAxis?.structure?.id || "",
+        structureSections: reportSections,
+        bookSignal: hasBookSignal(payload, uniq([...(exactTask?.outputAxis || []), ...inferredOutputs])),
+        overrideActive
       },
       assessment_route: {
         keywordCluster: keywordRoute.primary_cluster,
@@ -898,6 +1004,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
         recommendedMethod,
         recommendedOutput,
         recommendedReportMode: recommendedMode,
+        structureId: crossAxis?.structure?.id || "",
         recommendedEvidence: evidenceTypes,
         rubricFocus,
         reportSections,
@@ -975,7 +1082,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.3.0-task-interpreter-max-match",
+    version: "v2.4.0-decision-flow-structure",
     ready: load,
     resolve,
     resolveSync,
@@ -984,6 +1091,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-m
     getCrossAxisData: () => crossAxisData,
     toCanonicalSubject,
     inferTaskRule,
+    getStructureCatalog: () => ({ ...(crossAxisData?.structures || {}) }),
+    getStructureIdForReportMode: mode => STRUCTURE_BY_REPORT_MODE[String(mode || "")] || "structure_research_report",
     readTaskInterpreterLogs(){
       try{ return JSON.parse(localStorage.getItem(TASK_LOG_STORAGE_KEY) || "[]"); }
       catch(error){ return []; }
