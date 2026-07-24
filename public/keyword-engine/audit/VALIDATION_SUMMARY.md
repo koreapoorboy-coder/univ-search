@@ -1,0 +1,22 @@
+# Validation Summary
+
+- JavaScript syntax check: PASS
+  - `assets/assessment_keyword_bridge_helper.js`
+  - `assets/js/mini_payload_builder.js`
+  - `assets/js/mini_worker_generate_bridge_v32.js`
+- Runtime rebuild: PASS
+  - 7,131 assessment tasks
+  - 294 report seeds
+- Exact task match test: PASS
+  - subject: 확률과 통계
+  - task: 확률과 통계의 문제 조건을 변형하여 문제 해결하기
+  - numeric constraints: `10선`, `각 1문항`, `총 2문항`
+- Content seed match test: PASS
+  - selected keyword: 지반 붕괴 경보 시스템
+  - matched seed: `ENG-004`
+- Major isolation test: PASS
+  - changing the selected major did not change the core energy report title
+- Forbidden output test: PASS
+  - no `[수정 필요]`
+  - no `전공 맞춤 추천`
+  - no design-roadmap headings in the completed report

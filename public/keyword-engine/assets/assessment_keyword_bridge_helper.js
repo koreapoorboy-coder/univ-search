@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-balanced";
 
 (function(global){
   "use strict";
@@ -7,8 +7,13 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
     "data/assessment/bridge/assessment_keyword_bridge.v1.json",
     "./data/assessment/bridge/assessment_keyword_bridge.v1.json"
   ];
+  const CROSS_AXIS_URLS = [
+    "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
+    "./data/assessment/bridge/assessment_seed_cross_axis.v2.json"
+  ];
 
   let bridgeData = null;
+  let crossAxisData = null;
   let loadPromise = null;
   let lastContext = null;
 
@@ -19,6 +24,17 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
       .replace(/[Ⅱ]/g,"2")
       .replace(/[Ⅲ]/g,"3")
       .replace(/[^0-9a-z가-힣]+/g,"");
+  }
+
+  function tokenize(value){
+    return Array.from(new Set(String(value || "")
+      .toLowerCase()
+      .replace(/[Ⅰ]/g,"1")
+      .replace(/[Ⅱ]/g,"2")
+      .replace(/[Ⅲ]/g,"3")
+      .split(/[^0-9a-z가-힣]+/)
+      .map(v => v.trim())
+      .filter(v => v.length >= 2 && !/^(선택|탐구|보고서|관련|대한|활용|분석|과목|수행평가)$/.test(v))));
   }
 
   function uniq(values){
@@ -48,30 +64,36 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
         lastError = error;
       }
     }
-    throw lastError || new Error("assessment keyword bridge load failed");
+    throw lastError || new Error("runtime load failed");
   }
 
   function load(){
-    if(bridgeData) return Promise.resolve(bridgeData);
+    if(bridgeData && crossAxisData) return Promise.resolve({ bridgeData, crossAxisData });
     if(loadPromise) return loadPromise;
-    loadPromise = fetchFirst(BRIDGE_URLS).then(data => {
-      bridgeData = data || {};
+    loadPromise = Promise.all([
+      fetchFirst(BRIDGE_URLS),
+      fetchFirst(CROSS_AXIS_URLS)
+    ]).then(([bridge, cross]) => {
+      bridgeData = bridge || {};
+      crossAxisData = cross || {};
       global.__ASSESSMENT_KEYWORD_BRIDGE_DATA_READY__ = true;
-      return bridgeData;
+      global.__ASSESSMENT_SEED_CROSS_AXIS_READY__ = true;
+      return { bridgeData, crossAxisData };
     }).catch(error => {
-      console.warn("assessment keyword bridge load failed:", error);
+      console.warn("assessment/seed cross-axis runtime load failed:", error);
       global.__ASSESSMENT_KEYWORD_BRIDGE_DATA_READY__ = false;
+      global.__ASSESSMENT_SEED_CROSS_AXIS_READY__ = false;
       return null;
     });
     return loadPromise;
   }
 
-  function findKeywordRoute(rawKeyword, rawCareer){
+  // Department/career is intentionally excluded from keyword fallback.
+  function findKeywordRoute(rawKeyword){
     if(!bridgeData) return null;
     const routes = bridgeData.keyword_routes || {};
     const aliases = bridgeData.keyword_aliases || {};
     const raw = String(rawKeyword || "").trim();
-    const career = String(rawCareer || "").trim();
     const aliasTarget = aliases[raw] || aliases[raw.toLowerCase()] || raw;
     if(routes[aliasTarget]) return { key: aliasTarget, route: routes[aliasTarget], match: "exact" };
 
@@ -84,18 +106,6 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
         return nk.length >= 2 && target.length >= 2 && (nk.includes(target) || target.includes(nk));
       });
       if(partialKey) return { key: partialKey, route: routes[partialKey], match: "partial" };
-    }
-
-    const careerTarget = normalize(career);
-    if(careerTarget){
-      const careerKey = Object.keys(routes).find(key => {
-        const route = routes[key] || {};
-        return (route.majors || []).some(major => {
-          const nm = normalize(major);
-          return nm && (careerTarget.includes(nm) || nm.includes(careerTarget));
-        });
-      });
-      if(careerKey) return { key: raw || careerKey, route: routes[careerKey], match: "career-fallback" };
     }
     return null;
   }
@@ -130,21 +140,14 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
     ).slice(0,4);
   }
 
-  function selectCompatible(primary, preferred, fallback){
-    const p = topValues(primary, 10);
-    const pref = Array.isArray(preferred) ? preferred : [];
-    const direct = p.find(value => pref.includes(value));
-    return direct || p[0] || pref[0] || fallback;
-  }
-
   function buildFallbackKeywordRoute(keyword, subjectGroup){
     return {
       keyword: keyword || "선택 키워드",
       major_count: 0,
       majors: [],
-      major_groups: ["기타"],
+      major_groups: [],
       primary_cluster: "other",
-      primary_cluster_label: "기타·직접검토",
+      primary_cluster_label: "교과·수행평가 직접 연결",
       recommended_subject_groups: subjectGroup ? [subjectGroup] : ["과학","수학","사회","정보","국어","영어"],
       preferred_methods: ["자료해석형","보고서작성형","조사탐구형"],
       preferred_outputs: ["탐구보고서","자료분석지","발표자료"],
@@ -160,21 +163,331 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
     if(/실험/.test(taskType)) return "조건을 나누어 측정·비교하고 결과를 해석";
     if(/자료|조사/.test(taskType)) return "자료를 동일한 기준으로 비교하고 차이의 원인을 해석";
     if(/발표/.test(taskType)) return "핵심 근거를 표·그래프·사례로 구조화하여 설명";
+    if(/문제|풀이/.test(taskType)) return "조건을 재구성하고 풀이 과정과 오류 가능성을 비교";
     return "교과 개념으로 원인과 결과를 분석하고 후속 질문으로 확장";
   }
 
-  function scoreConnection(keywordMatch, subjectMatch, taskRoute, keywordRoute, subjectGroup, inferredRules){
-    let score = 20;
-    if(keywordMatch === "exact") score += 25;
-    else if(keywordMatch === "normalized") score += 22;
-    else if(keywordMatch === "partial") score += 16;
-    else if(keywordMatch === "career-fallback") score += 10;
+  function subjectTaskCandidates(subject){
+    if(!crossAxisData) return [];
+    const map = crossAxisData.tasksBySubject || {};
+    const key = normalize(subject);
+    if(map[key]) return map[key];
+    const keys = Object.keys(map).filter(k => k && key && (k.includes(key) || key.includes(k))).slice(0,8);
+    return keys.flatMap(k => map[k] || []);
+  }
+
+  function textOverlapScore(a, b, maxScore){
+    const ta = tokenize(a);
+    const tb = new Set(tokenize(b));
+    if(!ta.length || !tb.size) return 0;
+    const hits = ta.filter(token => tb.has(token) || Array.from(tb).some(other => token.includes(other) || other.includes(token))).length;
+    return Math.min(maxScore, Math.round((hits / Math.max(ta.length, 1)) * maxScore));
+  }
+
+  function matchTaskRecord(payload, subjectInput){
+    const candidates = subjectTaskCandidates(subjectInput);
+    if(!candidates.length) return null;
+    const school = normalize(payload?.schoolName || payload?.school || "");
+    const grade = String(payload?.grade || "").replace(/[^0-9]/g, "");
+    const title = String(payload?.taskName || payload?.assessmentTitle || "").trim();
+    const description = String(payload?.taskDescription || payload?.assessmentDescription || "").trim();
+    const type = String(payload?.taskType || payload?.outputType || "").trim();
+    const titleNorm = normalize(title);
+    let best = null;
+
+    for(const task of candidates){
+      let score = 25; // subject bucket match
+      const reasons = ["과목 일치"];
+      const taskTitleNorm = normalize(task.title);
+      if(school && normalize(task.school) === school){ score += 20; reasons.push("학교 내부 일치"); }
+      if(grade && String(task.grade || "") === grade){ score += 8; reasons.push("학년 일치"); }
+      if(titleNorm && taskTitleNorm === titleNorm){ score += 37; reasons.push("수행평가명 정확 일치"); }
+      else if(titleNorm && (taskTitleNorm.includes(titleNorm) || titleNorm.includes(taskTitleNorm))){ score += 28; reasons.push("수행평가명 부분 일치"); }
+      else if(title){
+        const overlap = textOverlapScore(title, task.title, 24);
+        score += overlap;
+        if(overlap >= 8) reasons.push("수행평가명 핵심어 일치");
+      }
+      if(description){
+        const overlap = textOverlapScore(description, task.description, 10);
+        score += overlap;
+        if(overlap >= 4) reasons.push("안내문 핵심어 일치");
+      }
+      if(type && (task.outputAxis || []).some(v => normalize(v).includes(normalize(type)) || normalize(type).includes(normalize(v)))){
+        score += 5;
+        reasons.push("산출물 형태 일치");
+      }
+      if(!best || score > best.score) best = { task, score: Math.min(100, score), reasons };
+    }
+    return best && best.score >= 35 ? best : null;
+  }
+
+  function seedSubjectScore(seed, subject){
+    const target = normalize(subject);
+    if(!target) return 0;
+    const exact = uniq([...(seed.subjects || []), ...(seed.normalizedSubjects || [])]).some(v => normalize(v) === target);
+    if(exact) return 45;
+    const alias = (seed.subjectAliases || []).some(v => normalize(v) === target);
+    if(alias) return 38;
+    const partial = uniq([...(seed.subjects || []), ...(seed.normalizedSubjects || []), ...(seed.subjectAliases || [])])
+      .some(v => {
+        const n = normalize(v);
+        return n && (n.includes(target) || target.includes(n));
+      });
+    return partial ? 25 : 0;
+  }
+
+  function seedContentScore(seed, payload, task){
+    const selectedKeyword = String(payload?.selectedKeyword || payload?.selectedRecommendedKeyword || payload?.keyword || "");
+    const selectedConcept = String(payload?.selectedConcept || payload?.concept || "");
+    const selectedAxis = String(payload?.selectedFollowupAxis || payload?.followupAxis || "");
+    const seedText = [
+      seed.label,
+      seed.sourceTitle,
+      seed.patternType,
+      ...(seed.axisTriggers || []),
+      ...(seed.writingKeywords || []),
+      seed.topic?.formula,
+      seed.topic?.basic,
+      seed.topic?.expanded,
+      seed.topic?.deep,
+      seed.report?.problem,
+      seed.report?.conceptRole,
+      seed.report?.analysisMethod
+    ].filter(Boolean).join(" ");
+
+    // The selected content keyword is the primary content signal. Generic task wording must not override it.
+    const keywordScore = textOverlapScore(selectedKeyword, seedText, 30);
+    const axisScore = textOverlapScore(selectedAxis, seedText, 8);
+    const conceptScore = textOverlapScore(selectedConcept, seedText, 5);
+    const taskScore = textOverlapScore(`${task?.title || ""} ${task?.description || ""}`, seedText, 4);
+    const keywordTokens = tokenize(selectedKeyword);
+    const seedTokens = new Set(tokenize(seedText));
+    const directHits = keywordTokens.filter(token => seedTokens.has(token) || Array.from(seedTokens).some(other => token.includes(other) || other.includes(token))).length;
+    const directBonus = directHits >= 3 ? 8 : (directHits >= 2 ? 4 : 0);
+    const keywordNorm = normalize(selectedKeyword);
+    const exactBonus = keywordNorm && normalize(seedText).includes(keywordNorm) ? 8 : 0;
+    return Math.min(45, keywordScore + axisScore + conceptScore + taskScore + directBonus + exactBonus);
+  }
+
+  function seedMajorTieBreak(seed, career, coreScore){
+    if(coreScore < 30) return 0;
+    const target = normalize(career);
+    if(!target) return 0;
+    return (seed.majors || []).some(v => {
+      const n = normalize(v);
+      return n && (n.includes(target) || target.includes(n));
+    }) ? 5 : 0;
+  }
+
+  function matchContentSeed(payload, subjectInput, matchedTask){
+    if(!crossAxisData) return null;
+    const seeds = crossAxisData.seeds || [];
+    const career = String(payload?.career || payload?.department || payload?.major || "");
+    let best = null;
+    let second = null;
+    for(const seed of seeds){
+      const subjectScore = seedSubjectScore(seed, subjectInput);
+      if(!subjectScore) continue;
+      const contentScore = seedContentScore(seed, payload, matchedTask);
+      if(contentScore < 5) continue; // never select a seed from department alone
+      const methodScore = matchedTask && (matchedTask.reportModes || []).length ? 5 : 0;
+      const coreScore = subjectScore + contentScore + methodScore;
+      const majorTieBreakScore = seedMajorTieBreak(seed, career, coreScore);
+      const total = Math.min(100, coreScore + majorTieBreakScore);
+      const candidate = { seed, score: total, subjectScore, contentScore, methodScore, majorTieBreakScore };
+      if(!best || candidate.score > best.score){ second = best; best = candidate; }
+      else if(!second || candidate.score > second.score){ second = candidate; }
+    }
+    if(!best) return null;
+    best.secondSeedId = second?.seed?.id || "";
+    best.confidence = best.score >= 75 ? "high" : (best.score >= 55 ? "medium" : "low");
+    return best;
+  }
+
+  function inferSubjectConcepts(subject, task, fallbackConcept){
+    const text = `${subject || ""} ${task?.title || ""} ${task?.description || ""} ${fallbackConcept || ""}`;
+    const dictionaries = [
+      "조건부확률","베이즈 정리","사건의 독립성","사건의 배반성","확률변수","확률분포","기댓값","표준편차",
+      "함수","수열","미분","적분","극한","행렬","벡터","경우의 수",
+      "산화·환원","화학 평형","반응 속도","결정 구조","이온 이동","에너지 전환","항상성","효소","유전",
+      "힘의 평형","운동량","에너지 보존","전자기 유도","파동","기후 변화","지구 시스템",
+      "알고리즘","데이터 처리","조건문","모델링","통계적 추정"
+    ];
+    const found = dictionaries.filter(term => normalize(text).includes(normalize(term)));
+    if(found.length) return found.slice(0,4);
+    return fallbackConcept ? [fallbackConcept] : [subject || "교과 개념"];
+  }
+
+  function chooseSeedTopic(seed, task){
+    if(!seed) return "";
+    const modes = task?.reportModes || [];
+    const topics = seed.studentTopics || [];
+    const deep = topics.find(v => /심화/.test(v?.level || ""))?.title || seed.topic?.deep;
+    const expanded = topics.find(v => /확장/.test(v?.level || ""))?.title || seed.topic?.expanded;
+    const basic = topics.find(v => /기본/.test(v?.level || ""))?.title || seed.topic?.basic;
+    if(modes.some(v => /문제설계|모델링|연구설계/.test(v))) return deep || expanded || basic || seed.label;
+    if(modes.some(v => /자료해석|비교|실험/.test(v))) return expanded || deep || basic || seed.label;
+    return basic || expanded || deep || seed.label;
+  }
+
+  function composeCrossAxisTitle(subjectLabel, conceptList, keywordLabel, task, seed){
+    const concepts = (conceptList || []).filter(Boolean).slice(0,3).join("·") || subjectLabel;
+    const rawKeyword = String(keywordLabel || "").trim();
+    const genericKeyword = /^(발전|에너지|환경|영향|변화|데이터|자료|측정|시스템|기술|과학|사회|문제|구조|성능|탐구)$/;
+    const seedTopic = chooseSeedTopic(seed, task);
+    const selectedTarget = rawKeyword && !genericKeyword.test(rawKeyword) ? rawKeyword : "";
+    const seedTarget = String(seed?.sourceTitle || seedTopic || seed?.label || "")
+      .replace(/\s*탐구\s*$/g, "")
+      .replace(/\s*보고서\s*$/g, "")
+      .replace(/^.*?활용한\s*/g, "")
+      .trim();
+    const target = selectedTarget || seedTarget || rawKeyword || "탐구 대상";
+    if(/화력/.test(target) && /재생에너지|태양광|풍력/.test(target)){
+      return "화력발전과 재생에너지 발전의 환경 영향 및 공급 안정성 비교";
+    }
+    if(/양극재/.test(target) && /이차전지|배터리/.test(target)){
+      return "이차전지 양극재의 구조·성능·안정성·경제성 비교";
+    }
+    const modes = task?.reportModes || [];
+    if(modes.some(v => /문제설계|풀이비교/.test(v))){
+      if(/경보|진단|판정/.test(target)) return `${target}의 오경보·미탐지 조건 재구성: ${concepts}을 중심으로`;
+      return `${target}의 조건 재구성과 풀이 비교: ${concepts}을 중심으로`;
+    }
+    if(modes.some(v => /실험/.test(v))){
+      return `${target}의 조건별 변화를 ${concepts}으로 해석하고 결과의 신뢰도와 한계를 분석`;
+    }
+    if(modes.some(v => /자료해석|비교/.test(v))){
+      return `${target}의 자료·조건 변화를 ${concepts}으로 해석하고 판단 기준을 분석`;
+    }
+    return `${target}을 ${concepts}으로 설명하고 적용 조건과 개선 방향을 분석`;
+  }
+
+  function buildCrossAxis(payload, subjectLabel, keywordLabel, concept){
+    if(!crossAxisData) return null;
+    const taskMatch = matchTaskRecord(payload, subjectLabel);
+    const task = taskMatch?.task || null;
+    const seedMatch = matchContentSeed(payload, subjectLabel, task);
+    const seed = seedMatch?.seed || null;
+    const structureId = task?.structureId || "structure_research_report";
+    const structureSections = (crossAxisData.structures || {})[structureId] || [
+      "연구 질문","이론적 배경","탐구 방법","분석 결과","결과 해석과 고찰","결론","한계와 후속 탐구","느낀 점","참고자료"
+    ];
+    const concepts = inferSubjectConcepts(subjectLabel, task, concept);
+    const generatedTitle = composeCrossAxisTitle(subjectLabel, concepts, keywordLabel, task, seed);
+    const careerTask = /진로|학과|직업|전공/.test(`${task?.title || ""} ${task?.description || ""}`);
+    const avoidModes = uniq([
+      ...(task?.avoidModes || []),
+      ...(seed?.topic?.badPatterns || []),
+      ...(seed?.report?.avoid || []),
+      ...(seed?.quality?.mustNotDo || []),
+      ...(crossAxisData.globalAvoidPatterns || [])
+    ]).slice(0,20);
+    const topicOptions = uniq([
+      generatedTitle,
+      seed?.topic?.basic,
+      seed?.topic?.expanded,
+      seed?.topic?.deep,
+      ...(seed?.studentTopics || []).map(v => v?.title)
+    ]).filter(Boolean).slice(0,6);
+
+    return {
+      version: crossAxisData.version || "assessment-seed-cross-axis-v2.0.0",
+      connected: !!(task || seed),
+      priorityPolicy: crossAxisData.priorityPolicy || {},
+      taskMatch: taskMatch ? {
+        score: taskMatch.score,
+        reasons: taskMatch.reasons,
+        internalSchoolMatched: taskMatch.reasons.includes("학교 내부 일치"),
+        record: {
+          id: task.id,
+          grade: task.grade,
+          subject: task.subject,
+          subjectGroup: task.subjectGroup,
+          title: task.title,
+          description: task.description,
+          weight: task.weight,
+          rawMethods: task.rawMethods || [],
+          contentAxis: task.contentAxis || [],
+          methodAxis: task.methodAxis || [],
+          outputAxis: task.outputAxis || [],
+          rubricAxis: task.rubricAxis || [],
+          reportModes: task.reportModes || [],
+          topicFormula: task.topicFormula,
+          structureId,
+          avoidModes: task.avoidModes || [],
+          numericConstraints: task.numericConstraints || []
+        }
+      } : null,
+      seedMatch: seedMatch ? {
+        seedId: seed.id,
+        score: seedMatch.score,
+        confidence: seedMatch.confidence,
+        subjectScore: seedMatch.subjectScore,
+        contentScore: seedMatch.contentScore,
+        methodScore: seedMatch.methodScore,
+        majorTieBreakScore: seedMatch.majorTieBreakScore,
+        secondSeedId: seedMatch.secondSeedId,
+        seed: {
+          id: seed.id,
+          category: seed.category,
+          label: seed.label,
+          sourceTitle: seed.sourceTitle,
+          patternType: seed.patternType,
+          axisTriggers: seed.axisTriggers || [],
+          topic: seed.topic || {},
+          report: seed.report || {},
+          quality: seed.quality || {},
+          sources: seed.sources || {},
+          studentTopics: seed.studentTopics || []
+        }
+      } : null,
+      topic: {
+        generatedTitle,
+        options: topicOptions,
+        subjectConcepts: concepts,
+        taskFormula: task?.topicFormula || "",
+        seedFormula: seed?.topic?.formula || "",
+        objectSource: seed ? "real_seed" : "selected_keyword",
+        methodSource: task ? "real_assessment_record" : "aggregated_assessment_route"
+      },
+      structure: {
+        id: structureId,
+        sections: structureSections
+      },
+      constraints: {
+        rawTaskDescription: task?.description || "",
+        numericConstraints: task?.numericConstraints || [],
+        requiredOutputs: task?.outputAxis || [],
+        rubricFocus: task?.rubricAxis || [],
+        avoidModes
+      },
+      majorPolicy: {
+        selectedCareer: String(payload?.career || payload?.department || payload?.major || ""),
+        explicitCareerTask: careerTask,
+        usedInCoreTopic: careerTask,
+        tieBreakScore: seedMatch?.majorTieBreakScore || 0,
+        maximumWeight: 5,
+        allowedUses: careerTask ? ["수행평가가 진로 탐구를 직접 요구하므로 본문 반영"] : ["동점 주제 후보 정렬", "고찰 마지막 확장 1문장", "후속 탐구 후보"],
+        forbiddenUses: careerTask ? [] : ["제목", "핵심 탐구 질문", "본론 비교 기준", "핵심 결론", "키워드 자동 대체"]
+      },
+      sourceBaseline: crossAxisData.sourceBaseline || {}
+    };
+  }
+
+  function scoreConnection(keywordMatch, subjectMatch, taskRoute, keywordRoute, subjectGroup, inferredRules, crossAxis){
+    let score = 15;
+    if(keywordMatch === "exact") score += 20;
+    else if(keywordMatch === "normalized") score += 18;
+    else if(keywordMatch === "partial") score += 12;
     if(subjectMatch === "exact") score += 20;
     else if(subjectMatch === "alias") score += 16;
-    if(taskRoute) score += 15;
-    if((keywordRoute.recommended_subject_groups || []).includes(subjectGroup)) score += 12;
+    if(taskRoute) score += 10;
+    if((keywordRoute.recommended_subject_groups || []).includes(subjectGroup)) score += 10;
     if((inferredRules || []).length) score += 5;
-    if(keywordRoute.active_library) score += 3;
+    if(crossAxis?.taskMatch) score += 10;
+    if(crossAxis?.seedMatch) score += 10;
+    // Major never contributes to the core connection score.
     return Math.min(100, score);
   }
 
@@ -187,7 +500,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
     const career = String(payload?.career || payload?.department || payload?.major || "").trim();
     const concept = String(payload?.selectedConcept || payload?.concept || subjectInput || "교과 개념").trim();
 
-    const keywordMatch = findKeywordRoute(rawKeyword, career);
+    const keywordMatch = findKeywordRoute(rawKeyword);
     const subjectMatch = findSubjectRoute(subjectInput);
     const keywordRoute = keywordMatch?.route || buildFallbackKeywordRoute(rawKeyword, subjectGroupInput);
     const subjectRoute = subjectMatch?.route || (bridgeData.subject_group_routes || {})[subjectGroupInput] || null;
@@ -200,59 +513,71 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
     const inferredModes = uniq(inferredRules.flatMap(rule => rule.report_mode || []));
     const inferredSections = uniq(inferredRules.flatMap(rule => rule.required_sections || []));
 
+    const keywordLabel = rawKeyword || keywordMatch?.key || "선택 키워드";
+    const subjectLabel = subjectMatch?.key || subjectInput || subjectGroup || "선택 과목";
+    const crossAxis = buildCrossAxis({ ...payload, career }, subjectLabel, keywordLabel, concept);
+    const exactTask = crossAxis?.taskMatch?.record || null;
+
     const specificTaskType = ["실험보고서","자료조사 보고서","발표보고서"].includes(taskType);
     const taskPrimaryMethod = firstValue(taskRoute?.dominant_methods, "");
     const taskPrimaryOutput = firstValue(taskRoute?.dominant_outputs, "");
-    const recommendedMethod = specificTaskType
+    const recommendedMethod = exactTask?.methodAxis?.[0] || (specificTaskType
       ? (taskPrimaryMethod || inferredMethods[0] || keywordRoute.preferred_methods?.[0] || "보고서작성형")
-      : (inferredMethods[0] || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형");
-    const recommendedOutput = specificTaskType
+      : (inferredMethods[0] || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형"));
+    const recommendedOutput = exactTask?.outputAxis?.[0] || (specificTaskType
       ? (taskPrimaryOutput || inferredOutputs[0] || keywordRoute.preferred_outputs?.[0] || taskType)
-      : (inferredOutputs[0] || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType);
-    const recommendedMode = inferredModes[0] || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형";
+      : (inferredOutputs[0] || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType));
+    const recommendedMode = exactTask?.reportModes?.[0] || inferredModes[0] || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형";
     const rubricFocus = uniq([
+      ...(exactTask?.rubricAxis || []),
       ...topValues(subjectRoute?.dominant_rubric_tags, 5),
       ...topValues(taskRoute?.dominant_rubric_tags, 5)
-    ]).slice(0,6);
+    ]).slice(0,8);
     const evidenceTypes = uniq([
       keywordRoute.recommended_evidence,
+      ...(crossAxis?.seedMatch?.seed?.sources?.requiredEvidence || []),
       ...topValues(subjectRoute?.dominant_outputs, 3),
       ...topValues(taskRoute?.dominant_outputs, 3)
-    ]).slice(0,5);
-    const reportSections = inferredSections.length ? inferredSections : [
-      "탐구 질문",
-      "교과 개념과 이론적 배경",
-      "비교 기준·변인·자료 수집 방법",
-      "핵심 결과와 해석",
-      "한계·개선·후속 탐구"
-    ];
+    ]).slice(0,7);
+    const reportSections = crossAxis?.structure?.sections?.length ? crossAxis.structure.sections : (inferredSections.length ? inferredSections : [
+      "탐구 질문","교과 개념과 이론적 배경","비교 기준·변인·자료 수집 방법","핵심 결과와 해석","한계·개선·후속 탐구"
+    ]);
 
-    const keywordLabel = keywordMatch?.key || rawKeyword || "선택 키워드";
-    const subjectLabel = subjectMatch?.key || subjectInput || subjectGroup || "선택 과목";
     const action = taskAction(taskType);
     const topicNoun = keywordRoute.topic_noun || "핵심 개념과 적용";
-    const focus = keywordRoute.assessment_focus || "교과 개념과 실제 자료를 연결";
-    const score = scoreConnection(keywordMatch?.match, subjectMatch?.match, taskRoute, keywordRoute, subjectGroup, inferredRules);
+    const focus = exactTask
+      ? `${exactTask.contentAxis?.slice(0,3).join("·") || "교과 개념"}을 ${exactTask.methodAxis?.slice(0,2).join("·") || recommendedMethod} 방식으로 수행하고 ${exactTask.outputAxis?.slice(0,2).join("·") || recommendedOutput}에 근거를 남김`
+      : (keywordRoute.assessment_focus || "교과 개념과 실제 자료를 연결");
+    const score = scoreConnection(keywordMatch?.match, subjectMatch?.match, taskRoute, keywordRoute, subjectGroup, inferredRules, crossAxis);
 
+    const crossTopicOptions = crossAxis?.topic?.options || [];
     const topicOptions = uniq([
+      crossAxis?.topic?.generatedTitle,
+      ...crossTopicOptions,
       `${subjectLabel} 개념으로 분석한 ${keywordLabel}의 ${topicNoun}: ${action}`,
-      `${keywordLabel}의 ${topicNoun}가 실제 성능·현상에 미치는 영향과 평가 기준 비교`,
-      `${keywordLabel} 관련 자료에서 나타나는 조건별 차이를 ${concept || subjectLabel} 개념으로 해석`,
-      `${keywordLabel}의 한계와 개선 방향을 ${recommendedMethod}으로 검증하는 ${taskType}`
-    ]).slice(0,4);
+      `${keywordLabel} 관련 자료에서 나타나는 조건별 차이를 ${concept || subjectLabel} 개념으로 해석`
+    ]).filter(Boolean).slice(0,6);
 
-    const recordSentence = `${subjectLabel}의 ${concept || "핵심 개념"}을 바탕으로 ${keywordLabel}의 ${topicNoun}를 탐구하고, ${recommendedMethod}을 통해 자료를 비교·해석하여 ${rubricFocus.slice(0,3).join("·") || "근거 제시와 결과 해석"} 역량을 드러냄.`;
+    const recordSentence = `${subjectLabel}의 ${concept || "핵심 개념"}을 바탕으로 ${keywordLabel}을 탐구하고, ${recommendedMethod} 과정에서 자료·조건·결과를 비교하여 ${rubricFocus.slice(0,3).join("·") || "근거 제시와 결과 해석"} 역량을 드러냄.`;
 
     const context = {
-      version: "assessment-keyword-connection-context-v1.0.0",
+      version: "assessment-keyword-cross-axis-context-v2.0.0",
       connected: true,
       generatedAt: new Date().toISOString(),
+      priorityPolicy: crossAxis?.priorityPolicy || {
+        assessmentRequirement: 35,
+        subjectConcept: 30,
+        selectedKeywordAndContentSeed: 20,
+        methodAndOutput: 10,
+        majorCareerTieBreak: 5
+      },
       input: {
         subjectGroup: subjectGroupInput,
         subject: subjectInput,
         taskType,
         taskName: payload?.taskName || "",
         taskDescription: payload?.taskDescription || "",
+        grade: payload?.grade || "",
         career,
         concept,
         keyword: rawKeyword
@@ -264,13 +589,16 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
         subjectMatchType: subjectMatch?.match || "group-fallback",
         subjectGroup,
         inferredRuleIds: inferredRules.map(rule => rule.rule_id),
-        connectionScore: score
+        exactTaskId: exactTask?.id || "",
+        seedId: crossAxis?.seedMatch?.seedId || "",
+        connectionScore: score,
+        majorScoreIncludedInCore: false
       },
       assessment_route: {
         keywordCluster: keywordRoute.primary_cluster,
         keywordClusterLabel: keywordRoute.primary_cluster_label,
-        majorGroups: keywordRoute.major_groups || [],
-        relatedMajors: keywordRoute.majors || [],
+        majorGroups: [],
+        relatedMajors: [],
         assessmentFocus: focus,
         recommendedMethod,
         recommendedOutput,
@@ -278,11 +606,12 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
         recommendedEvidence: evidenceTypes,
         rubricFocus,
         reportSections,
-        avoidModes: uniq([
+        avoidModes: crossAxis?.constraints?.avoidModes || uniq([
           ...topValues(subjectRoute?.avoid_modes, 4),
           ...topValues(taskRoute?.avoid_modes, 4)
-        ]).slice(0,6)
+        ]).slice(0,8)
       },
+      cross_axis: crossAxis,
       runtime_evidence: {
         baselineSchoolCount: bridgeData.source_baseline?.school_count || 0,
         baselineRecordCount: bridgeData.source_baseline?.record_count || 0,
@@ -292,66 +621,50 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
         subjectEvidenceSchoolCount: subjectRoute?.source_school_count || 0,
         taskEvidenceRecordCount: taskRoute?.evidence_record_count || 0,
         taskEvidenceSchoolCount: taskRoute?.source_school_count || 0,
-        dominantMethods: topValues(subjectRoute?.dominant_methods, 5),
-        dominantOutputs: topValues(subjectRoute?.dominant_outputs, 5),
-        dominantRubrics: topValues(subjectRoute?.dominant_rubric_tags, 6),
+        exactTaskMatched: !!exactTask,
+        seedMatched: !!crossAxis?.seedMatch,
+        seedCount: crossAxis?.sourceBaseline?.seedCount || 0,
+        topicFormulaCount: crossAxis?.sourceBaseline?.topicFormulaCount || 0,
+        structureCount: crossAxis?.sourceBaseline?.structureCount || 0,
         schoolNamesExposed: false
       },
       student_output: {
-        title: `${keywordLabel} × ${subjectLabel} 수행평가 연결 결과`,
+        title: `${subjectLabel} 수행평가 × 보고서 내용 시드 교차 결과`,
         one_line_pick: topicOptions[0],
-        intro: `키워드의 전공·탐구 축과 실제 ${subjectLabel} 수행평가 기록의 방법·산출물·채점요소를 교차해 주제를 구성했습니다.`,
+        intro: `실제 ${subjectLabel} 수행평가의 방법·산출물·제약과 실제 보고서 내용 시드를 교차해 주제를 구성했습니다. 학과 정보는 제목과 핵심 질문을 만들지 않고 동점 후보 정렬과 후속 탐구에만 제한적으로 사용합니다.`,
         position: `${recommendedMode} · ${recommendedMethod} · ${recommendedOutput}`,
-        why_this_works: `${focus}. 수행평가 안내문과 결과물 유형을 함께 해석했기 때문에 단순 진로 조사형이 아니라 평가 가능한 과정과 근거가 남습니다.`,
+        why_this_works: `${focus}. 수행평가 원문 제약과 내용 시드의 교과 적합성을 함께 사용하므로 단순 진로 조사나 개념 나열로 흐르지 않습니다.`,
         admission_points: [
-          `${concept || subjectLabel} 개념을 키워드 설명에 실제로 사용`,
+          `${concept || subjectLabel} 개념을 실제 분석 도구로 사용`,
           `${recommendedMethod}에 맞는 비교 기준·변인·자료를 설정`,
           `${rubricFocus.slice(0,3).join("·") || "근거 제시·자료 분석·결과 해석"}이 보이는 과정 기록`,
-          `결론에서 한계와 후속 탐구를 분리하여 제시`
+          `원문에 수량·문항·산출물 제약이 있으면 그대로 준수`
         ],
-        differentiation: `같은 ${keywordLabel}를 선택해도 ${subjectLabel}, ${taskType}, 안내문에 따라 방법·산출물·채점요소가 달라지므로 주제가 자동으로 분기됩니다.`,
+        differentiation: `같은 키워드라도 실제 수행평가의 structure_id·원문 제약·산출물과 선택 과목에 따라 제목과 본문 구조가 달라집니다.`,
         record_sentence: recordSentence,
         topic_options: topicOptions,
-        subject_cards: [
-          {
-            title: `${subjectLabel}에서 직접 사용할 개념`,
-            concepts: uniq([concept, ...topValues(subjectRoute?.dominant_content_axes, 4)]).slice(0,5),
-            points: [`${keywordLabel}를 설명하는 핵심 원리 정리`, `조건·자료·결과의 관계를 ${subjectLabel} 개념으로 해석`]
-          },
-          {
-            title: `${taskType}에서 남겨야 할 평가 증거`,
-            concepts: rubricFocus.slice(0,5),
-            points: [`${recommendedMethod} 수행 과정 기록`, `${recommendedOutput}에 표·그래프·비교 기준·결론을 포함`]
-          }
-        ],
-        quick_points: [
-          `비교할 대상 또는 조건을 2개 이상 정하기`,
-          `${keywordRoute.recommended_evidence || "자료와 근거"}를 같은 기준으로 정리하기`,
-          `${concept || subjectLabel} 개념으로 차이가 생긴 이유 설명하기`,
-          `${rubricFocus.slice(0,3).join("·") || "근거·분석·해석"}이 결과물에 보이도록 작성하기`
-        ],
         report_flow: reportSections,
         books: [],
-        steps: [
-          `수행평가 안내문에서 요구 동사와 결과물 확인`,
-          `${keywordLabel}를 ${subjectLabel} 개념과 연결할 비교 기준 설정`,
-          `${recommendedOutput}에 자료·해석·한계·후속 탐구 정리`
-        ],
         assessment_basis: {
           connectionScore: score,
-          baseline: `${bridgeData.source_baseline?.school_count || 0}개교 · ${bridgeData.source_baseline?.record_count || 0}개 수행평가 기록`,
-          subjectEvidence: `${subjectLabel} 연결 기록 ${subjectRoute?.evidence_record_count || 0}개 / 출처 학교 ${subjectRoute?.source_school_count || 0}개`,
-          taskEvidence: `${taskType} 연결 기록 ${taskRoute?.evidence_record_count || 0}개 / 출처 학교 ${taskRoute?.source_school_count || 0}개`,
+          taskMatched: !!exactTask,
+          seedMatched: !!crossAxis?.seedMatch,
+          taskFormula: crossAxis?.topic?.taskFormula || "",
+          seedId: crossAxis?.seedMatch?.seedId || "",
+          structureId: crossAxis?.structure?.id || "",
+          numericConstraints: crossAxis?.constraints?.numericConstraints || [],
           method: recommendedMethod,
           output: recommendedOutput,
           rubrics: rubricFocus,
-          privacyRule: "학교명은 추천 기준에 사용하지 않고 출처 검증용으로만 보관"
+          majorPolicy: crossAxis?.majorPolicy || {},
+          privacyRule: "학교명은 내부 일치 확인에만 사용하고 학생 결과에는 노출하지 않음"
         }
       }
     };
 
     lastContext = context;
     global.__ASSESSMENT_KEYWORD_LAST_CONTEXT__ = context;
+    global.__ASSESSMENT_SEED_CROSS_AXIS_LAST_CONTEXT__ = crossAxis;
     return context;
   }
 
@@ -361,17 +674,18 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v1.0.0-runtime-connected"
   }
 
   function resolveSync(payload){
-    if(!bridgeData) return null;
+    if(!bridgeData || !crossAxisData) return null;
     return buildContext(payload);
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v1.0.0-runtime-connected",
+    version: "v2.0.0-cross-axis-major-balanced",
     ready: load,
     resolve,
     resolveSync,
     getLastContext: () => lastContext,
-    getData: () => bridgeData
+    getData: () => bridgeData,
+    getCrossAxisData: () => crossAxisData
   };
 
   load();

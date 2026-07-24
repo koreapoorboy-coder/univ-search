@@ -1,43 +1,60 @@
 {
-  "version": "assessment-keyword-complete-report-patch-v2.0.0",
-  "generated_at": "2026-07-24",
-  "target_path": "univ-search/public/keyword-engine/",
-  "purpose": "Replace generic draft-template output with complete assessment reports using specific titles, results, discussion, conclusion, limitations, reflection, and references.",
+  "patchVersion": "assessment-keyword-cross-axis-major-balance-v3.0.0",
+  "createdAt": "2026-07-24",
+  "targetPath": "univ-search/public/keyword-engine/",
+  "commitMessage": "Connect assessment methods to report seeds and limit major influence",
+  "sourceBaseline": {
+    "assessmentRecords": 7131,
+    "schools": 54,
+    "reportSeeds": 294,
+    "topicFormulas": 19,
+    "structures": 17
+  },
   "files": [
     {
       "path": "COMMIT_MESSAGE.txt",
-      "size": 76,
-      "sha256": "c04309749bdb91c28ca2f37d2f78789640e09374b0595d86d7d0c4e60f2025bf"
+      "size": 69,
+      "sha256": "e206562404765dbe9ac27c7d13ed184bd3e5e82f485c6edc2074f4c42fe2367b"
     },
     {
-      "path": "COMPLETE_REPORT_PATCH_README.md",
-      "size": 1793,
-      "sha256": "0f7375c806ded98ba6512e996f8dd5298ea2bb2629028ff95103da3a62ab7fd0"
+      "path": "CROSS_AXIS_MAJOR_BALANCE_PATCH_README.md",
+      "size": 4124,
+      "sha256": "f71e4f9dd11014b4ffcdd3363abe1acd54de5685852984121a3720092093f183"
+    },
+    {
+      "path": "assets/assessment_keyword_bridge_helper.js",
+      "size": 33378,
+      "sha256": "5f60c948a3d741689e59c9d5ac97d48fb822566475352d66ccd997b7f70bb7c2"
     },
     {
       "path": "assets/js/mini_payload_builder.js",
-      "size": 60455,
-      "sha256": "0dcaa911c761772ae813fad183905fbb3e64c50464a14264db14da4e2ec7dbda"
+      "size": 61909,
+      "sha256": "b0a978e34fcbd3186834f44fd68285068af7f6c5ec5761f3b36710dfb741cf52"
     },
     {
       "path": "assets/js/mini_worker_generate_bridge_v32.js",
-      "size": 278397,
-      "sha256": "3c88ae0282569e5d2f73238d159b46156de808590edd345623d6782deceba811"
+      "size": 269406,
+      "sha256": "ce861e2666269499c4a0383d2d871d0b9fc0a053e24d955ca0917ff20b92204c"
+    },
+    {
+      "path": "audit/VALIDATION_SUMMARY.md",
+      "size": 827,
+      "sha256": "cc5f332684bb2164a79a1043e366c52d0e1e890115b229048765b70b434e9586"
+    },
+    {
+      "path": "build/build_assessment_seed_cross_axis_runtime.py",
+      "size": 9158,
+      "sha256": "82521858aeb8edfd5294df96742c7cdfad8994f3e96048d19bce460ffcfe2c14"
+    },
+    {
+      "path": "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
+      "size": 10834096,
+      "sha256": "add40faecae88ccb9a26a691f8dd4f3408890b7ef82b6690ee2d8304fd94cbaa"
     },
     {
       "path": "index.html",
-      "size": 11605,
-      "sha256": "24d50264d386065c26cda821313f0547eefaf15df78d6778309900012e7d1075"
+      "size": 11633,
+      "sha256": "92841bfc221365e281444e46c5816416bc5b4590fe55b019ef04ff1fa1e8e6e3"
     }
-  ],
-  "validation": {
-    "javascript_syntax_checked": true,
-    "sample_title": "화력발전과 재생에너지 발전의 환경 영향 비교: 공급 안정성과 지속가능성을 중심으로",
-    "forbidden_output_markers": [
-      "[수정 필요]",
-      "[학생 입력 필요]",
-      "선택됨",
-      "수정해야 할 부분"
-    ]
-  }
+  ]
 }

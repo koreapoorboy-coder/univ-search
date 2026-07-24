@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v239-complete-report";
+  const VERSION = "mini-worker-generate-bridge-v240-cross-axis-major-balanced";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -46,7 +46,7 @@
     const loading = $("loadingMessage");
     if(btn){
       btn.disabled = isLoading;
-      btn.textContent = isLoading ? "실행 지도 생성 중..." : "탐구 실행 지도 생성";
+      btn.textContent = isLoading ? "보고서 생성 중..." : "보고서 초안 생성";
     }
     if(resetBtn) resetBtn.disabled = isLoading;
     if(loading) loading.style.display = isLoading ? "block" : "none";
@@ -346,7 +346,7 @@
         selectedKeyword: form.keyword,
         followupAxis: "",
         selectedFollowupAxis: "",
-        reportIntent: "학생 실행형 수행평가 탐구 설계서 생성"
+        reportIntent: "수행평가 방법축과 내용축을 교차한 완성 보고서 생성"
       },
       selectedBook: null,
       reportGenerationContext: {}
@@ -388,7 +388,7 @@
     }
 
     return {
-      version: "report-dataset-pattern-v32-rpt001-010",
+      version: "report-dataset-pattern-v240-cross-axis",
       selectedPattern: pattern,
       referenceReports: refs,
       fixedSections: [
@@ -410,7 +410,7 @@
         "단순 교과 설명이 아니라 실제 현상·사례·자료를 먼저 제시한다.",
         "선택한 4번 후속 연계축을 보고서의 해석 기준으로 사용한다.",
         "도서를 선택한 경우에만 도서를 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다. 도서를 선택하지 않은 경우 공공자료·통계·기사·실험자료를 사용한다.",
-        "완성문을 대신 써주지 말고, 학생이 직접 조사·분석·작성할 수 있는 실행형 설계서로 작성한다.",
+        "실제 수행평가 구조와 내용 시드를 사용해 제출 가능한 완성 보고서 문장으로 작성한다.",
         "중학생도 이해할 수 있을 정도로 짧고 쉬운 문장으로 쓴다. 어려운 전공 용어는 일상어로 풀어서 쓴다."
       ]
     };
@@ -421,98 +421,78 @@
     const book = mini.selectedBook || {};
     const ctx = mini.reportGenerationContext || {};
     const choices = getReportChoices(mini);
+    const connection = ctx.performanceAssessment?.assessmentKeywordConnection || {};
+    const cross = ctx.assessmentSeedCrossAxis || connection.cross_axis || connection.crossAxis || {};
+    const task = cross.taskMatch?.record || {};
+    const seed = cross.seedMatch?.seed || {};
+    const structure = cross.structure || {};
+    const constraints = cross.constraints || {};
+    const majorPolicy = cross.majorPolicy || ctx.majorUsePolicy || {};
+    const sections = Array.isArray(structure.sections) && structure.sections.length
+      ? structure.sections
+      : (connection.assessment_route?.reportSections || ["탐구 질문","이론적 배경","탐구 방법","분석 결과","결과 해석과 고찰","결론","한계와 후속 탐구"]);
+    const title = cross.topic?.generatedTitle || connection.student_output?.one_line_pick || `${s.selectedKeyword || s.selectedConcept || "선택 주제"} 탐구`;
+    const careerTask = !!majorPolicy.explicitCareerTask;
+    const majorText = s.department || form.career || "";
+    const exactTaskDescription = task.description || form.taskDescription || "";
+    const numericConstraints = constraints.numericConstraints || task.numericConstraints || [];
+    const outputs = constraints.requiredOutputs || task.outputAxis || [];
+    const rubrics = constraints.rubricFocus || task.rubricAxis || [];
+    const avoidModes = constraints.avoidModes || task.avoidModes || [];
 
     return [
-      "너는 고등학생이 바로 이해할 수 있는 쉬운 수행평가 탐구 설계서를 만드는 도우미다.",
-      "아래 선택값을 바탕으로 완성 보고서를 대신 쓰지 말고, 학생이 직접 자료를 조사하고 자기 말로 보고서를 완성할 수 있는 실행형 로드맵을 작성하라.",
+      "너는 고등학생이 학교에 제출할 수 있는 완성형 수행평가 탐구보고서를 작성한다.",
+      "설계서, 작성 요령, 빈칸, 체크리스트, [수정 필요], [학생 입력 필요], 선택값 안내를 출력하지 않는다.",
+      "수행평가 원문과 실제 보고서 내용 시드를 교차해 제목·탐구 질문·방법·결과·고찰을 하나의 논리로 연결한다.",
+      "확인되지 않은 수치, 기관명, 논문명, 사고 원인, 실험 결과는 지어내지 않는다. 자료가 없으면 교과 개념으로 확인 가능한 정성 분석을 완성하고 자료 한계를 명시한다.",
+      "학교명과 내부 데이터명, payload, API, Worker, MINI 같은 표현은 최종 보고서에 쓰지 않는다.",
+      "학과·진로 정보는 수행평가가 진로·학과 탐구를 직접 요구하는 경우를 제외하면 제목, 핵심 질문, 본론 기준, 핵심 결론에 사용하지 않는다.",
+      "학과·진로 정보는 동점 주제 후보 정렬, 고찰 마지막의 확장 한 문장, 후속 탐구 제안에만 최대 5%의 보조값으로 사용한다.",
+      "도서는 선택한 경우에만 근거 또는 해석 관점으로 사용하고, 선택하지 않았다면 책 제목을 만들지 않는다.",
+      "결과는 단순 장단점 나열이 아니라 조건·자료·교과 개념을 같은 기준으로 비교한 확인 내용으로 작성한다.",
+      "고찰은 결과의 의미, 원인, 한계, 대안, 일반화 가능 범위를 해석한다.",
+      "문체는 고등학생 수준의 자연스러운 보고서 문체로 작성한다.",
       "",
-      "[절대 조건]",
-      "1. 완성 문단을 길게 대신 써주지 않는다. 학생이 직접 채울 수 있는 질문, 자료 수집 계획, 비교 기준, 빈칸형 문장 틀을 제공한다.",
-      "2. 같은 주제를 선택한 학생도 결과가 달라질 수 있도록 탐구 질문·조사 범위·비교 기준·결론 방향의 선택지를 반드시 제시한다.",
-      "3. 선택한 교과 개념, 추천 키워드, 후속 연계축을 모두 설계서 안에서 역할이 보이게 반영한다.",
-      "4. 도서 활용은 선택이다. 선택 도서가 없는 경우 책 제목, 독후감, 도서 요약을 강제로 넣지 않는다.",
-      "5. 학과명 자체를 제목이나 결론에 억지로 붙이지 말고, 학과에서 배우는 핵심 개념·이론·사고 과정을 탐구 기준으로 변환해 사용한다.",
-      "6. 예: 컴퓨터공학과라면 '컴퓨터공학과에 관심이 있다'가 아니라 입력값, 조건문, 알고리즘, 데이터 처리, 시스템 설계, 오류 검증 같은 개념으로 연결한다.",
-      "7. 도서를 선택한 경우에만 독후감이 아니라 해석 렌즈로 안내하고, 도서 미사용형은 공공자료·통계·기사·실험자료 중심으로 안내한다.",
-      "8. 내부 데이터명, payload, API, Worker, MINI 같은 표현은 학생 화면에 쓰지 않는다.",
+      "[생성 우선순위]",
+      "1순위 수행평가 원문 요구 35% / 2순위 교과 개념 30% / 3순위 선택 키워드·내용 시드 20% / 4순위 방법·산출물 10% / 5순위 학과·진로 보조 5%",
       "",
-      "[학생 기본 정보]",
-      `학교: ${form.schoolName || "미입력"}`,
+      "[입력]",
       `학년: ${form.grade || "미입력"}`,
       `과목: ${s.subject || form.subject || "미입력"}`,
-      `수행평가명: ${form.taskName || "미입력"}`,
-      `수행평가 형태: ${form.taskType || "미입력"}`,
-      `진로 분야: ${s.department || form.career || "미입력"}`,
-      "",
-      "[선택 흐름]",
+      `수행평가명: ${form.taskName || task.title || "미입력"}`,
+      `수행평가 형태: ${form.taskType || "탐구보고서"}`,
       `교과 개념: ${s.selectedConcept || ""}`,
-      `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
+      `선택 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
       `후속 연계축: ${compactAxis(s.selectedFollowupAxis || s.followupAxis || "")}`,
       `도서 활용: ${mini.useBookInReport || mini.bookUsageMode === "useBook" ? ((book.title || "") + (book.author ? " / " + book.author : "")) : "사용하지 않음"}`,
-      ...(ctx.secondaryExpansionContext ? [
-        "",
-        "[2차 확장 방향 선택 구조]",
-        "아래 확장 방향 중 학생이 선택한 값을 기준으로 완성 보고서의 방향을 고정하라.",
-        `확장 방향 후보: ${(ctx.secondaryExpansionContext.paths || []).map(p => p.label).join(" / ")}`,
-        `추천 확장 방향: ${((ctx.secondaryExpansionContext.paths || []).find(p => p.isRecommended) || {}).label || "자료 해석형"}`,
-        "각 확장 방향마다 탐구 질문, 필요한 자료, 문단 구조, 학생 직접 입력칸, 보고서 보완 가이드를 함께 제시하라."
-      ] : []),
-      ...(ctx.donggukPerformanceFrame ? [
-        "",
-        "[수행평가 평가 기준 반영]",
-        "핵심 공식: 수행평가 영역명 = 주제(내용) × 방법",
-        `수행평가 영역명: ${ctx.donggukPerformanceFrame.performanceName || ""}`,
-        `범주: ${ctx.donggukPerformanceFrame.subjectGroup || ""} / ${ctx.donggukPerformanceFrame.contentCategory || ""} × ${ctx.donggukPerformanceFrame.methodCategory || ""}`,
-        `평가 의도: ${ctx.donggukPerformanceFrame.evaluationIntent || ""}`,
-        `성취기준 해석: ${ctx.donggukPerformanceFrame.achievementFocus || ""}`
-      ] : []),
-      ...(ctx.performanceAssessment ? [
-        "",
-        "[6~8번 선택값의 수행평가 의미]",
-        `6번 수행평가 방식: ${ctx.performanceAssessment.method?.reportModeLabel || choices.mode || ""}`,
-        `7번 평가 관점·과정 증거: ${ctx.performanceAssessment.evidence?.reportViewLabel || choices.view || ""}`,
-        `8번 결과물 수준: ${ctx.performanceAssessment.outputLevel?.reportLineLabel || choices.line || ""}`,
-        `중복 방지 규칙: ${(ctx.performanceAssessment.dedupeRules || []).join(" / ")}`
-      ] : []),
-      ...(ctx.performanceAssessment?.assessmentKeywordConnection ? (() => {
-        const connection = ctx.performanceAssessment.assessmentKeywordConnection || {};
-        const route = connection.assessment_route || connection.assessmentRoute || {};
-        const evidence = ctx.performanceAssessment.runtimeEvidence || connection.runtime_evidence || connection.runtimeEvidence || {};
-        const student = connection.student_output || connection.studentOutput || {};
-        return [
-          "",
-          "[실제 수행평가 누적 근거와 키워드 연결]",
-          `추천 탐구 방향: ${student.one_line_pick || (student.topic_options || [])[0] || "선택 키워드와 교과 개념을 수행평가 방식에 맞춰 연결"}`,
-          `평가 초점: ${route.assessmentFocus || route.assessment_focus || "교과 개념·자료·결과 해석의 연결"}`,
-          `권장 방법과 산출물: ${route.recommendedMethod || route.recommended_method || "자료해석형"} / ${route.recommendedOutput || route.recommended_output || form.taskType || "탐구보고서"}`,
-          `중요 채점 요소: ${(route.rubricFocus || route.rubric_focus || []).join(" · ") || "개념 정확성 · 자료 분석 · 근거 제시 · 결과 해석"}`,
-          `근거 규모: 전체 ${evidence.baselineSchoolCount || evidence.baseline_school_count || 0}개교·${evidence.baselineRecordCount || evidence.baseline_record_count || 0}개 기록 / 과목 연결 ${evidence.subjectEvidenceRecordCount || evidence.subject_evidence_record_count || 0}개 / 수행 형태 연결 ${evidence.taskEvidenceRecordCount || evidence.task_evidence_record_count || 0}개`,
-          "위 연결값을 제목·탐구 질문·자료 계획·비교 표·결론에 우선 반영하되 학교명은 노출하지 않는다."
-        ];
-      })() : []),
+      careerTask && majorText ? `수행평가가 직접 요구한 진로·학과: ${majorText}` : "진로·학과: 핵심 생성에서 제외하고 후속 탐구에만 선택적으로 사용",
       "",
-      "[학생이 선택한 설계 방향]",
-      `수행평가 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
-      `평가 관점·과정 증거: ${choices.view || ctx.reportView || "선택값 기준"}`,
-      `결과물 수준: ${choices.line || ctx.reportLine || "선택값 기준"}`,
-      `선택값 해석: ${ctx.reportChoiceBlueprint?.choiceSummary || "선택값을 보고서 전체에 반영"}`,
-      `선택값에 따른 제목 방향: ${ctx.reportChoiceBlueprint?.title || "전개 방식·관점·라인에 따라 제목을 조정"}`,
-      `선택값에 따른 비교 표 기준: ${(ctx.reportChoiceBlueprint?.tableRows?.[0] || []).join(" / ") || "선택 관점에 맞춰 표 항목 조정"}`,
-      `6~8번 수행평가 작성 지시: ${(ctx.reportChoiceMiniDirective || []).join(" / ") || ctx.reportChoiceInstruction?.studentPreview || "전개 방식·관점·라인을 문단 구조에 반영"}`,
+      "[실제 수행평가 방법축]",
+      `정확히 일치한 과제명: ${task.title || form.taskName || "없음"}`,
+      exactTaskDescription ? `과제 원문 요구: ${exactTaskDescription}` : "과제 원문 요구: 입력된 수행평가명·형태와 누적 수행평가 규칙을 적용",
+      `주제 생성 공식: ${task.topicFormula || cross.topic?.taskFormula || "교과 대상과 조건을 교과 개념으로 분석"}`,
+      `구조 ID: ${structure.id || task.structureId || "structure_research_report"}`,
+      `필수 산출물: ${outputs.join(" / ") || form.taskType || "탐구보고서"}`,
+      `채점 요소: ${rubrics.join(" / ") || "개념 정확성 / 자료 분석 / 근거 제시 / 결과 해석"}`,
+      `수량·문항 제약: ${numericConstraints.join(" / ") || "별도 제약 없음"}`,
+      `피해야 할 방식: ${avoidModes.join(" / ") || "단순 조사 / 개념 나열 / 근거 없는 감상"}`,
       "",
-      "[출력 형식]",
-      "다음 구조로 작성하라. 단, 화면에는 학생이 바로 볼 수 있는 실행 지도 형태로 정리한다.",
-      "1. 설계서 제목",
-      "2. 오늘의 핵심 방향",
-      "3. 1단계. 중심 질문 고르기",
-      "4. 2차 확장 방향 선택",
-      "5. 보고서 보완 가이드",
-      "6. 2단계. 자료 3개 찾기",
-      "5. 3단계. 비교 표 만들기",
-      "6. 4단계. 보고서에 쓰기",
-      "7. 내 말로 바꾸는 문장 틀",
-      "8. 도서·진로 연결",
-      "9. 제출 전 5분 점검"
+      "[실제 내용축 시드]",
+      `시드 제목: ${seed.sourceTitle || seed.label || "선택 키워드 기반 내용"}`,
+      `핵심 개념·대상: ${(seed.axisTriggers || []).join(" / ") || s.selectedKeyword || s.selectedConcept || "선택 대상"}`,
+      `이론 역할: ${seed.report?.conceptRole || "선택 교과 개념을 분석 기준으로 사용"}`,
+      `분석 방식: ${seed.report?.analysisMethod || seed.report?.corePattern || "조건과 결과의 관계를 비교·해석"}`,
+      `시드 금지 패턴: ${(seed.topic?.badPatterns || []).concat(seed.report?.avoid || []).join(" / ") || "장식적 키워드 사용과 근거 없는 일반화 금지"}`,
+      "",
+      "[확정 제목 방향]",
+      title,
+      "",
+      "[반드시 사용할 보고서 구조]",
+      ...sections.map((section, index) => `${index + 1}. ${section}`),
+      `${sections.length + 1}. 느낀 점`,
+      `${sections.length + 2}. 참고자료`,
+      "",
+      "각 항목을 실제 제출용 문장으로 완성한다. 과제 원문에 문항 수·자료 수·산출물 수 제약이 있으면 본문과 방법에 그대로 반영한다. 보고서 본문만 출력한다."
     ].join("\n");
   }
 
@@ -532,7 +512,13 @@
     const reqAxisRaw = s.selectedFollowupAxis || s.followupAxis || "";
     const reqAxis = compactAxis(reqAxisRaw);
     const reqMajorContext = mini.major_context || mini.reportGenerationContext?.majorContext || null;
-    const reqLens = deriveMajorLens(reqMajor, reqMajorContext, `${reqKeyword} ${reqAxisRaw} ${reqConcept} ${reqMajor}`);
+    const reqCrossAxis = mini.reportGenerationContext?.assessmentSeedCrossAxis
+      || mini.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection?.cross_axis
+      || mini.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection?.crossAxis
+      || {};
+    const reqMajorAllowedInCore = !!reqCrossAxis?.majorPolicy?.explicitCareerTask;
+    const reqCoreMajor = reqMajorAllowedInCore ? reqMajor : "";
+    const reqLens = deriveMajorLens(reqCoreMajor, reqMajorContext, `${reqKeyword} ${reqAxisRaw} ${reqConcept}`);
     const reqChoiceBlueprint = buildReportChoiceBlueprint({
       mode: choice.mode || s.reportMode,
       view: choice.view || s.reportView,
@@ -544,7 +530,7 @@
       bookTitle: mini.selectedBook?.title || "",
       subject: reqSubject,
       subjectGroup: reqSubjectGroup,
-      major: reqMajor
+      major: reqCoreMajor
     });
     const reqPerformanceFrame = buildDonggukPerformanceFrame({
       subject: reqSubject,
@@ -555,7 +541,7 @@
       mode: choice.mode || s.reportMode,
       view: choice.view || s.reportView,
       line: choice.line || s.reportLine,
-      major: reqMajor,
+      major: reqCoreMajor,
       lens: reqLens
     });
     mini.reportGenerationContext = mini.reportGenerationContext || {};
@@ -595,12 +581,12 @@
       dedupeRules: existingPerformanceAssessment.dedupeRules || [
         "제목에서 같은 명사구를 반복하지 않는다.",
         "주제는 한 번만 제시하고 방법은 동사형으로 붙인다.",
-        "학과명은 반복하지 말고 전공 사고방식으로 바꾼다."
+        "학과명은 진로 탐구 과제가 아니면 제목·핵심 질문·본론 기준·결론에서 제외한다."
       ]
     };
     mini.reportGenerationContext.secondaryExpansionContext = mini.reportGenerationContext.secondaryExpansionContext || buildFallbackSecondaryExpansionContext({
       subject: reqSubject,
-      major: reqMajor,
+      major: reqCoreMajor,
       concept: reqConcept,
       keyword: reqKeyword,
       axis: reqAxis,
@@ -650,8 +636,8 @@
       },
 
       // 새 MINI 생성용 확장 필드
-      mode: "mini_report_generation_v32",
-      generationMode: "real_mini_report",
+      mode: "mini_report_generation_v240_cross_axis",
+      generationMode: "assessment_seed_cross_axis_complete_report",
       prompt: miniInstruction,
       miniInstruction,
       mini_payload: mini,
@@ -667,7 +653,7 @@
 
       // Worker가 messages 형태를 받는 경우 대비
       messages: [
-        { role: "system", content: "너는 고등학생이 바로 이해할 수 있는 쉬운 수행평가 탐구 설계서를 만드는 전문 도우미다. 완성문을 대신 쓰지 말고, 1차 설계값을 2차 확장 방향으로 분기시키고 학생이 직접 고르고 채우는 로드맵을 제공한다." },
+        { role: "system", content: "너는 고등학생 학교 제출용 수행평가 보고서를 완성한다. 실제 수행평가 원문의 방법·산출물·수량 제약과 실제 내용 시드를 교차하고 structure_id에 따른 보고서 구조를 사용한다. 학과 정보는 진로 탐구 과제가 아니면 제목·핵심 질문·본론·결론에서 제외한다. 확인되지 않은 수치와 출처는 만들지 않으며 빈칸이나 작성 안내를 출력하지 않는다." },
         { role: "user", content: miniInstruction + "\n\n[원본 MINI PAYLOAD]\n" + JSON.stringify(mini, null, 2) }
       ]
     };
@@ -827,10 +813,10 @@
       endpointTried: endpoint || error?.url || "",
       errorHandled: reason,
       message: network
-        ? "원격 생성 엔진 연결 실패를 감지해, 현재 화면 선택값과 수행평가 평가 기준 기반 로컬 실행 지도로 대체 렌더링했습니다."
+        ? "원격 생성 엔진 연결 실패를 감지해, 실제 수행평가와 내용 시드 기반 로컬 완성 보고서로 대체했습니다."
         : (asset
-          ? "원격 생성 엔진의 보조 seed/asset 파일 404를 감지해, 현재 화면 선택값과 수행평가 평가 기준 기반 로컬 실행 지도로 대체 렌더링했습니다."
-          : "원격 생성 엔진 오류를 감지해, 현재 화면 선택값과 수행평가 평가 기준 기반 로컬 실행 지도로 대체 렌더링했습니다.")
+          ? "원격 생성 엔진의 보조 파일 오류를 감지해, 실제 수행평가와 내용 시드 기반 로컬 완성 보고서로 대체했습니다."
+          : "원격 생성 엔진 오류를 감지해, 실제 수행평가와 내용 시드 기반 로컬 완성 보고서로 대체했습니다.")
     };
   }
 
@@ -891,11 +877,11 @@
         return makeLocalGenerateFallbackResponse(lastError, lastError?.url || "");
       }
       if(lastError.isHtml && (lastError.status === 404 || lastError.status === 405)){
-        throw new Error("탐구 실행 지도 생성 주소가 연결되지 않았습니다. access-gateway 주소 또는 Worker generate 엔드포인트를 확인해주세요.");
+        throw new Error("보고서 생성 주소가 연결되지 않았습니다. access-gateway 주소 또는 Worker generate 엔드포인트를 확인해주세요.");
       }
       throw lastError;
     }
-    throw new Error("탐구 실행 지도 생성 주소가 설정되지 않았습니다.");
+    throw new Error("보고서 생성 주소가 설정되지 않았습니다.");
   }
 
 
@@ -1019,15 +1005,21 @@
 
   function buildReportTitle(req, rawData){
     const s = req?.mini_payload?.selectionPayload || {};
-    const kw = s.selectedKeyword || req.keyword || getWorkerResolved(rawData).keyword || "선택 키워드";
-    const major = s.department || req.career || getWorkerResolved(rawData).major || "선택 학과";
-    const view = req.report_choices?.view || s.reportView || "자료 해석";
-    if(/판단|자료|데이터|모델|시스템/.test(`${req.selectedFollowupAxis} ${view}`)){
-      return `${kw}를 자료로 해석해 ${major} 관점의 판단 기준 세우기`;
-    }
-    if(/비교/.test(view)) return `${kw}의 원리와 실제 사례를 비교해 ${major} 관점으로 해석하기`;
-    if(/진로|전공/.test(view)) return `${kw}를 ${major} 진로 문제와 연결한 확장 탐구`;
-    return `${kw}의 핵심 개념과 실제 적용을 중심으로 한 탐구보고서`;
+    const connection = req?.assessment_connection
+      || req?.performance_assessment?.assessmentKeywordConnection
+      || req?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
+      || req?.mini_payload?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
+      || {};
+    const cross = connection.cross_axis || connection.crossAxis || req?.reportGenerationContext?.assessmentSeedCrossAxis || {};
+    const exactTitle = cleanReportPhrase(cross?.topic?.generatedTitle || connection?.student_output?.one_line_pick, "");
+    if(exactTitle) return exactTitle;
+    const kw = cleanReportPhrase(s.selectedKeyword || req.keyword || getWorkerResolved(rawData).keyword, "");
+    const concept = cleanReportPhrase(s.selectedConcept || req.selectedConcept || "교과 개념", "교과 개념");
+    const axis = cleanReportPhrase(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis || ""), "");
+    const subject = cleanReportPhrase(s.subject || req.subject || "선택 과목", "선택 과목");
+    const topic = kw || concept || subject;
+    const criterion = axis || concept;
+    return `${topic}의 조건별 변화 분석: ${criterion}을 중심으로`;
   }
 
   function uniqClean(list){
@@ -2026,343 +2018,43 @@
 
   function buildStudentReportFromPayload(req, rawData){
     const s = req?.mini_payload?.selectionPayload || {};
-    const resolved = getWorkerResolved(rawData);
-    const book = req.selectedBook || req?.mini_payload?.selectedBook || {};
     const choices = req.report_choices || getReportChoices(req.mini_payload || {});
-    const majorContext = getMajorContext(req);
-    const assessmentConnection = req.assessment_connection
-      || req?.performance_assessment?.assessmentKeywordConnection
-      || req?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
-      || req?.mini_payload?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
-      || null;
-    const assessmentRoute = assessmentConnection?.assessment_route || assessmentConnection?.assessmentRoute || {};
-    const assessmentStudent = assessmentConnection?.student_output || assessmentConnection?.studentOutput || {};
-    const runtimeEvidence = req.assessment_runtime_evidence
-      || req?.performance_assessment?.runtimeEvidence
-      || assessmentConnection?.runtime_evidence
-      || assessmentConnection?.runtimeEvidence
-      || {};
-    const assessmentConnected = !!(assessmentConnection && (assessmentConnection.connected !== false));
-
-    const subject = firstNonEmpty(s.subject, req.subject, resolved.subject, "선택 과목");
-    const subjectGroup = firstNonEmpty(req.subjectGroup, s.subjectGroup, classifyDonggukSubjectFrame(subject, "").subjectGroup, "");
-    const major = firstNonEmpty(majorContext?.display_name, s.department, req.career, resolved.major, resolved.track, "선택 진로 분야");
+    const subject = firstNonEmpty(s.subject, req.subject, getWorkerResolved(rawData).subject, "선택 과목");
     const concept = firstNonEmpty(s.selectedConcept, req.selectedConcept, "선택 교과 개념");
-    const keyword = firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req.selectedKeyword, req.keyword, resolved.keyword, "선택 키워드");
-    const axisRaw = cleanDisplayText(firstNonEmpty(s.selectedFollowupAxis, s.followupAxis, req.selectedFollowupAxis, "선택 후속 연계축"));
-    const axis = cleanDisplayText(compactAxis(axisRaw));
-    let mode = firstNonEmpty(choices.mode, choices.modeLabel, s.reportMode, "전개 방식 선택값");
-    const view = firstNonEmpty(choices.view, choices.viewLabel, s.reportView, "관점 선택값");
-    const line = firstNonEmpty(choices.line, choices.lineLabel, s.reportLine, "라인 선택값");
-    const requestedBookMode = firstNonEmpty(req.bookUsageMode, s.bookUsageMode, req?.mini_payload?.bookUsageMode, "");
-    const bookTitle = /useBook/i.test(requestedBookMode) ? firstNonEmpty(book.title, req.selectedBookTitle, "") : "";
-
-    const expansion = getSecondaryExpansionContext(req, { subject, major, concept, keyword, axis: axisRaw, mode, view, line, bookTitle });
-    const baseSummaryForAi = [
-      `과목: ${subject}`,
-      `진로/학과: ${major}`,
-      `교과 개념: ${concept}`,
-      `추천 키워드: ${keyword}`,
-      `후속 연계축: ${axisRaw}`,
-      `도서 활용: ${bookTitle || "사용하지 않음"}`,
-      `수행평가 방식: ${mode}`,
-      `평가 관점: ${view}`,
-      `결과물 수준: ${line}`
-    ].join("\n");
-
-    const allText = `${keyword} ${axisRaw} ${concept} ${major}`;
-    const lens = deriveMajorLens(major, majorContext, allText);
-    const useBookInReport = !!bookTitle;
-    if (mode === "book" && !useBookInReport) mode = "compare";
-    const bookGuide = useBookInReport ? deriveBookGuide(bookTitle, keyword, concept, axis, lens) : null;
-    const choiceBlueprint = buildReportChoiceBlueprint({ mode: (mode === "book" && !useBookInReport ? "compare" : mode), view, line, keyword, concept, axis, lens, bookTitle, subject, major });
-    const isWeather = /폭염|기후|재난|주의보|대기|환경|날씨|기상/.test(allText);
-    const isComputer = /컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|프로그래밍|알고리즘|시스템|네트워크/i.test(`${major} ${lens.keywords.join(" ")}`);
-    const isBio = /세포|생명|유전자|효소|대사|약물|면역|질병|의학|보건|간호/.test(allText + " " + major);
-    const isEnergy = /물리|에너지|역학|전자기|파동|열|전기|배터리|전지/.test(allText + " " + major);
-    const subjectLens = deriveSubjectLens(subject, concept, keyword);
-    const scenario = deriveV54Scenario({ subject, major, concept, keyword, axis, axisRaw, allText, lens, subjectLens });
-
-    let title = `${keyword}는 어떤 기준으로 판단할 수 있을까?`;
-    let goal = `${keyword}와 관련된 기준을 찾고, 실제 자료를 비교해 나만의 판단 기준을 만든다.`;
-    let focusQuestion = `${keyword}를 판단하려면 어떤 자료와 기준이 필요할까?`;
-    let q = [
-      focusQuestion,
-      `자료를 한 가지만 볼 때와 여러 자료를 함께 볼 때 결론은 어떻게 달라질까?`,
-      `내가 세운 기준에는 어떤 장점과 한계가 있을까?`
-    ];
-    let dataRows = [
-      [`${keyword}의 기본 기준`, "교과서·공식 기관", "서론"],
-      ["비교 자료 1", "공공데이터·통계·기사", "본론 1"],
-      ["비교 자료 2", "공공데이터·통계·기사", "본론 2"]
-    ];
-    let tableRows = [
-      ["비교 항목", "자료 1", "자료 2", "내 해석"],
-      ["기준", "공식 기준", "내가 세운 기준", "무엇이 다른가"],
-      ["자료", "사례/수치 1", "사례/수치 2", "왜 차이가 나는가"],
-      ["결론", "판단 A", "판단 B", "더 타당한 기준은 무엇인가"]
-    ];
-    let majorConnect = `전공 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 배우는 핵심 개념을 자료 해석 기준으로 사용하는 것이다.`;
-    let conceptConnect = `${concept} 개념은 자료를 해석할 때 쓰는 기본 설명으로 사용한다.`;
-    let conceptUse = subjectLens.conceptUse || `${concept}에서 배운 핵심 말을 먼저 쉬운 말로 바꾸고, 내가 찾은 자료를 어떤 기준으로 해석할지 연결한다.`;
-    let conceptExample = subjectLens.conceptExample || `${concept} 개념을 통해 자료를 단순한 정보가 아니라 판단 근거로 해석할 수 있다.`;
-
-    let conclusionSentence = scenario.conclusionSentence || `그래서 나는 ${keyword}를 판단할 때 한 가지 기준보다 여러 조건을 함께 보는 기준이 더 설득력 있다고 정리했다.`;
-
-    if(scenario && scenario.title){
-      title = scenario.title;
-      goal = scenario.goal || goal;
-      focusQuestion = scenario.focusQuestion || focusQuestion;
-      q = scenario.q || q;
-      dataRows = scenario.dataRows || dataRows;
-      tableRows = scenario.tableRows || tableRows;
-      majorConnect = scenario.majorConnect || majorConnect;
-      conceptUse = scenario.conceptUse || conceptUse;
-      conceptExample = scenario.conceptExample || conceptExample;
-      conclusionSentence = scenario.conclusionSentence || conclusionSentence;
-    }else if(isWeather && isComputer){
-      title = `${keyword}, 기온 하나만 보고 판단해도 될까?`;
-      goal = `기온·습도·체감온도를 입력값으로 보고, 어떤 조건을 기준으로 ${keyword}를 판단할지 직접 설계한다.`;
-      focusQuestion = `${keyword}는 기온 하나만으로 판단해도 충분할까?`;
-      q = [
-        `${keyword}는 기온 하나만으로 판단해도 충분할까?`,
-        `기온·습도·체감온도를 함께 보면 판단 결과가 어떻게 달라질까?`,
-        `주의보를 자동으로 판단하는 시스템을 만든다면 어떤 입력값과 조건문이 필요할까?`
-      ];
-      dataRows = [
-        [`${keyword}의 공식 발령 기준`, "기상청·공공기관 자료", "서론"],
-        ["기온·습도·체감온도 자료", "기상자료개방포털·공공데이터", "본론 1"],
-        ["폭염 피해 또는 주의 안내 사례", "뉴스·지자체·보도자료", "본론 2"]
-      ];
-      tableRows = [
-        ["비교 항목", "기온만 볼 때", "기온+습도/체감온도", "내 해석"],
-        ["입력값", "최고기온", "기온·습도·체감온도", "판단에 필요한 자료가 늘어난다"],
-        ["조건문", "기온이 기준 이상이면 주의", "체감온도와 지속 시간까지 확인", "조건이 세밀해진다"],
-        ["판단 결과", "주의보 여부만 확인", "실제 위험 정도까지 해석", "단순 안내에서 위험 판단으로 확장된다"],
-        ["오류 가능성", "습도·취약계층을 놓칠 수 있음", "자료가 많아 해석 기준이 복잡해짐", "기준의 장점과 한계를 함께 쓴다"]
-      ];
-      majorConnect = "전공 연결은 컴퓨터공학과를 희망한다는 말이 아니라, 입력값을 정하고 조건문으로 판단하며 결과의 오류를 검증하는 구조를 보여주는 것이다.";
-      conceptConnect = `${concept} 개념은 '측정값이 사회적 판단에 어떻게 쓰이는가'를 설명하는 부분에 넣는다.`;
-      conceptUse = "교과에서 배운 '측정값은 사회적 판단에 쓰일 수 있다'는 내용을 먼저 쓰고, 기온·습도·체감온도를 폭염 판단 기준으로 해석한다고 연결한다.";
-      conceptExample = "예: 기온은 숫자 자료이지만, 사회에서는 폭염주의보를 내릴지 판단하는 기준이 된다. 그래서 이 탐구에서는 기온 하나가 아니라 습도·체감온도·지속 시간을 함께 보며 판단 기준을 세운다.";
-      conclusionSentence = `그래서 나는 ${keyword}를 판단할 때 기온 하나보다 여러 입력값과 조건문을 함께 보는 기준이 더 설득력 있다고 정리했다.`;
-    }else if(isBio){
-      title = `${keyword}, 어떤 근거로 설명할 수 있을까?`;
-      goal = `${keyword}와 관련된 원인·조건·영향을 자료로 찾아보고, 어떤 근거가 설명에 필요한지 정리한다.`;
-      focusQuestion = `${keyword}는 몸이나 생명 현상에서 어떤 변화와 연결될까?`;
-      q = [
-        `${keyword}는 몸이나 생명 현상에서 어떤 변화와 연결될까?`,
-        `관련 자료를 비교하면 원인이나 조건을 어떻게 설명할 수 있을까?`,
-        `예방·관리·개선 방향을 제안하려면 어떤 근거가 더 필요할까?`
-      ];
-    }else if(isEnergy){
-      title = `${keyword}, 조건을 바꾸면 결과가 달라질까?`;
-      goal = `${keyword}에 영향을 주는 조건을 찾고, 조건이 달라질 때 결과가 어떻게 바뀌는지 표로 정리한다.`;
-      focusQuestion = `${keyword}의 결과를 바꾸는 조건은 무엇일까?`;
-      q = [
-        `${keyword}의 결과를 바꾸는 조건은 무엇일까?`,
-        `조건을 다르게 하면 효율·안정성·성능은 어떻게 달라질까?`,
-        `더 나은 결과를 얻기 위해 어떤 개선 방향을 생각할 수 있을까?`
-      ];
-    }
-
-    const choiceAdjusted = applyReportChoiceBlueprint({
-      title, goal, focusQuestion, q, dataRows, tableRows, majorConnect, conceptUse, conceptExample, conclusionSentence
-    }, choiceBlueprint);
-    title = choiceAdjusted.title;
-    goal = choiceAdjusted.goal;
-    focusQuestion = choiceAdjusted.focusQuestion;
-    q = choiceAdjusted.q;
-    dataRows = choiceAdjusted.dataRows;
-    tableRows = choiceAdjusted.tableRows;
-    majorConnect = choiceAdjusted.majorConnect;
-    conceptUse = choiceAdjusted.conceptUse;
-    conceptExample = choiceAdjusted.conceptExample;
-    conclusionSentence = choiceAdjusted.conclusionSentence;
-
-    const performanceFrame = buildDonggukPerformanceFrame({ subject, subjectGroup, concept, keyword, axis, mode, view, line, major, lens });
-    const performanceAdjusted = applyDonggukPerformanceFrame({ title, goal, focusQuestion, q, dataRows, tableRows, majorConnect, conceptUse, conceptExample, conclusionSentence }, performanceFrame);
-    title = performanceAdjusted.title;
-    goal = performanceAdjusted.goal;
-    focusQuestion = performanceAdjusted.focusQuestion;
-    q = performanceAdjusted.q;
-    dataRows = performanceAdjusted.dataRows;
-    tableRows = performanceAdjusted.tableRows;
-    conceptUse = performanceAdjusted.conceptUse;
-    conceptExample = performanceAdjusted.conceptExample;
-    conclusionSentence = performanceAdjusted.conclusionSentence;
-
-    if(assessmentConnected){
-      const connectedTitle = firstNonEmpty(assessmentStudent.one_line_pick, (assessmentStudent.topic_options || [])[0], "");
-      const connectedFocus = firstNonEmpty(assessmentRoute.assessmentFocus, assessmentRoute.assessment_focus, "");
-      const connectedMethod = firstNonEmpty(assessmentRoute.recommendedMethod, assessmentRoute.recommended_method, "");
-      const connectedOutput = firstNonEmpty(assessmentRoute.recommendedOutput, assessmentRoute.recommended_output, req.taskType, "");
-      const connectedRubrics = assessmentRoute.rubricFocus || assessmentRoute.rubric_focus || [];
-      const connectedEvidence = assessmentRoute.recommendedEvidence || assessmentRoute.recommended_evidence || [];
-      const connectedSections = assessmentRoute.reportSections || assessmentRoute.report_sections || [];
-
-      if(connectedTitle) title = connectedTitle;
-      if(connectedFocus){
-        goal = `${connectedFocus}. 실제 수행평가 기록에서 확인된 ${connectedMethod || "탐구 방법"}과 ${connectedOutput || "결과물"} 구조를 적용해 평가 가능한 근거를 남긴다.`;
-      }
-      q = uniq([
-        focusQuestion,
-        connectedFocus ? `${connectedFocus}을 확인하려면 어떤 비교 기준과 자료가 필요할까?` : "",
-        connectedMethod ? `${connectedMethod} 과정에서 결과의 신뢰도를 높이려면 무엇을 기록해야 할까?` : "",
-        ...q
-      ].filter(Boolean)).slice(0,3);
-      focusQuestion = q[0] || focusQuestion;
-      if(connectedEvidence.length){
-        dataRows = dataRows.concat([[`${connectedOutput || "수행 결과물"}에 필요한 근거: ${connectedEvidence.join("·")}`, "교과서·공공자료·실험/조사 기록", "본론·결론"]]);
-      }
-      if(connectedRubrics.length){
-        tableRows = tableRows.concat([["평가 요소 확인", connectedRubrics.slice(0,4).join("·"), `${connectedMethod || "선택 방법"} 과정에서 확인`, "표·해석·결론에 각각 근거를 남긴다"]]);
-      }
-      if(connectedSections.length){
-        conclusionSentence = `${conclusionSentence} 또한 ${connectedRubrics.slice(0,3).join("·") || "자료 분석과 결과 해석"}이 드러나도록 한계와 후속 탐구를 분리해 정리했다.`;
-      }
-    }
-
-    const performanceRows = [
-      ["구분", "내용"],
-      ["수행평가 영역명", performanceFrame.performanceName],
-      ["평가 기준 범주", `${performanceFrame.subjectGroup} / ${performanceFrame.contentCategory} × ${performanceFrame.methodCategory}`],
-      ["평가 의도", performanceFrame.evaluationIntent],
-      ["성취기준 해석", performanceFrame.achievementFocus],
-      ["보고서 핵심 질문", performanceFrame.focusQuestion]
-    ];
-
-    const assessmentBasisRows = assessmentConnected ? [
-      ["연결 항목", "실제 적용 값"],
-      ["키워드-수행평가 연결 점수", `${assessmentConnection?.match?.connectionScore || assessmentStudent?.assessment_basis?.connectionScore || 0}점`],
-      ["누적 수행평가 기준", `${runtimeEvidence.baselineSchoolCount || runtimeEvidence.baseline_school_count || 0}개교 · ${runtimeEvidence.baselineRecordCount || runtimeEvidence.baseline_record_count || 0}개 기록 · 출처 ${runtimeEvidence.baselineSourceCount || runtimeEvidence.baseline_source_count || 0}개`],
-      ["과목 연결 근거", `${subject} 관련 기록 ${runtimeEvidence.subjectEvidenceRecordCount || runtimeEvidence.subject_evidence_record_count || 0}개 · 출처 학교 ${runtimeEvidence.subjectEvidenceSchoolCount || runtimeEvidence.subject_evidence_school_count || 0}개`],
-      ["수행 형태 연결 근거", `${req.taskType || "탐구보고서"} 관련 기록 ${runtimeEvidence.taskEvidenceRecordCount || runtimeEvidence.task_evidence_record_count || 0}개 · 출처 학교 ${runtimeEvidence.taskEvidenceSchoolCount || runtimeEvidence.task_evidence_school_count || 0}개`],
-      ["추천 탐구 방법", firstNonEmpty(assessmentRoute.recommendedMethod, assessmentRoute.recommended_method, "자료해석형")],
-      ["추천 산출물", firstNonEmpty(assessmentRoute.recommendedOutput, assessmentRoute.recommended_output, req.taskType, "탐구보고서")],
-      ["핵심 채점 요소", (assessmentRoute.rubricFocus || assessmentRoute.rubric_focus || []).slice(0,6).join(" · ") || "개념 정확성 · 자료 분석 · 근거 제시 · 결과 해석"],
-      ["학교명 처리", "학교명은 추천 문장에 노출하지 않고 출처 검증용으로만 사용"]
-    ] : [];
-
-    const assemblyRows = [
-      ["보고서 요소", "학생이 채울 내용", "보고서 위치"],
-      ["내 질문", performanceFrame.focusQuestion || "수행평가 영역명에 맞춰 바꾼 질문", "서론 마지막"],
-      ["전개 방향", choiceBlueprint.routeSummary || choiceBlueprint.choiceSummary, "보고서 전체 방향"],
-      ["판단 기준", choiceBlueprint.judgmentBasis || (isComputer ? "입력값·조건문·오류 가능성으로 판단 기준을 세운다" : "자료 차이를 근거로 판단 기준을 세운다"), "본론 도입"],
-      ["자료 3개", performanceFrame.dataGuide || choiceBlueprint.dataDepthText || (choiceBlueprint.lineKey === "advanced" ? "공식 기준 + 실제 자료 + 한계 보완 자료" : (choiceBlueprint.lineKey === "basic" ? "공식 기준 + 대표 사례 자료" : "공식 기준 + 실제 자료 + 비교 검증 자료")), "본론 1~2"],
-      ["비교 표", "자료 차이와 내가 해석한 이유", "본론 핵심"],
-      ["결론", "내 기준의 장점·한계·보완 자료", "결론"]
-    ];
-
-    const questionRows = [
-      ["질문 원형", "그대로 쓰지 말고 이렇게 바꾸기"],
-      [q[0], performanceFrame.questionGuide || "대상·비교 기준·자료 종류 중 하나를 넣는다"],
-      [q[1], "비교할 자료를 구체적으로 정한다"],
-      [q[2], "판단 기준이나 조건을 직접 넣는다"]
-    ];
-    if(isWeather && isComputer){
-      questionRows.push(["예시", "서울의 7월 폭염주의보는 기온과 체감온도를 함께 볼 때 판단이 달라질까?"]);
-    }else{
-      questionRows.push(["예시", `${keyword}를 ${axis || "선택한 기준"}으로 볼 때 어떤 조건에서 결과가 달라질까?`]);
-    }
-
-    const dataPlanRows = [
-      ["자료", "보고서에서 하는 역할", "찾는 곳", "넣을 문단"],
-      ...dataRows.map((r, i) => {
-        const role = i === 0 ? "기준을 설명하는 근거" : (i === 1 ? "내 비교의 중심 자료" : "판단을 보완하는 사례");
-        return [r[0], role, r[1], r[2]];
-      })
-    ];
-
-    const paragraphRows = [
-      ["문단", "역할", "학생이 실제로 채울 내용"],
-      ["1. 문제 제기", "왜 이 질문을 선택했는지 밝히기", "내가 바꾼 질문 + 이 질문이 궁금해진 이유 + 왜 한 가지 기준으로는 부족하다고 느꼈는지"],
-      ["2. 자료 해석 기준", "자료를 어떤 기준으로 읽을지 설명하기", conceptUse],
-      ["3. 자료 분석", "표와 근거 비교하기", `${choiceBlueprint.tableRows[0].join(" / ")} 구조로 표를 만들고, ${choiceBlueprint.tableGuide || "자료 차이와 내가 해석한 이유를 한 줄씩 적는다."}`],
-      ["4. 전공 개념 활용", "전공 개념으로 판단 과정 보여주기", choiceBlueprint.majorGuide || (isComputer ? "자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `${lens.process} 흐름으로 자료를 나누고 비교한다.`)],
-      ["5. 결론", "내 판단 정리하기", "표에서 확인한 결과를 한 문장으로 정리하고, 내가 세운 기준이 어떤 점에서 설득력 있었는지와 부족한 점을 쓴다."]
-    ];
-
-    const expansionRows = buildExpansionRows(expansion);
-    const aiReusePromptRows = buildAiReusePromptRows(expansion, baseSummaryForAi);
-    const aiReusePromptBody = aiReusePromptRows
-      .map(row => row.map(cell => String(cell || "").replace(/\n+/g, " / ")).join(" | "))
-      .join("\n");
-
-    const sections = [
-      ...(assessmentConnected ? [{title:"키워드 × 수행평가 실제 데이터 연결", body:assessmentBasisRows.map(r=>r.join(" | ")).join("\n")}] : []),
-      {title:"수행평가 평가 기준", body:performanceRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"보고서 완성 그림", body:assemblyRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"2차 확장 방향 선택", body:expansionRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"보고서 보완 가이드", body:aiReusePromptBody},
-      {title:"1단계. 질문을 내 사례로 바꾸기", body:questionRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"2단계. 자료를 어디에 넣을지 정하기", body:dataPlanRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"3단계. 비교 표로 증명하기", body:tableRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"4단계. 문단별로 조립하기", body:paragraphRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"보고서 문장 구조", body:[
-        "문단 1. 문제 제기 | 시작 문장: 내가 바꾼 질문을 먼저 쓰고, 왜 이 질문이 궁금해졌는지 밝힌다.",
-        "문단 1. 문제 제기 | 꼭 넣을 내용: 한 가지 기준만으로는 부족하다고 느낀 이유를 짧게 쓴다.",
-        `문단 2. 자료 해석 기준 | 시작 문장: 이번 보고서는 자료를 단순 정보로 나열하지 않고, 판단 근거가 되는 조건과 차이를 중심으로 읽는다.`,
-        `문단 2. 자료 해석 기준 | 활용 예시: ${conceptExample}`,
-        `문단 2. 자료 선택 기준 | ${choiceBlueprint.paragraphGuide || "공식 기준과 실제 자료, 보완 자료가 각각 어떤 근거가 되는지 먼저 정한다."}`,
-        "문단 3. 자료 분석 | 쓰는 방법: [자료 1]·[자료 2]·[자료 3]을 표로 정리하고, 각 행마다 내가 본 차이를 한 줄씩 적는다.",
-        "문단 3. 자료 분석 | 해석 포인트: 표에 보이는 차이를 근거로 ‘어떤 조건에서 판단이 달라지는지’를 설명한다.",
-        isComputer ? "문단 4. 전공 개념 활용 | 쓰는 방법: 자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `문단 4. 전공 개념 활용 | 쓰는 방법: ${lens.shortLabel} 관점으로 자료를 나누고 비교한 방식을 설명한다.`,
-        "문단 5. 결론 | 꼭 넣을 내용: 표에서 확인한 결과 + 내가 선택한 기준이 설득력 있었던 이유 + 부족했던 점을 순서대로 쓴다.",
-        `문단 5. 결론 | 마무리 문장: ${conclusionSentence}`
-      ].join("\n")},
-      {title: useBookInReport ? "도서·전공 개념 연결" : "자료·전공 개념 연결", body: useBookInReport ? [
-        `1) 이 카드의 기준: 책 내용을 많이 쓰는 것이 아니라, 내 판단 기준을 왜 넓혀야 하는지 설명하는 데만 사용한다.`,
-        `2) 책에서 가져올 핵심 한 줄: ${bookGuide.content}`,
-        `3) 내 탐구에 적용하는 구조: ${bookGuide.topicLink}`,
-        `4) 보고서에 넣는 위치: ${bookGuide.position}`,
-        `5) 이렇게 활용하면 된다: ${bookGuide.sentence}`,
-        `6) 전공 개념 활용: ${majorConnect}`,
-        `7) 주의할 점: ${bookGuide.caution}`
-      ].join("\n") : [
-        `1) 이 카드의 기준: 도서 없이 공공자료·통계·기사·실험자료를 근거로 사용한다.`,
-        `2) 가져올 핵심 자료: 공식 기준, 실제 수치, 비교 사례, 한계 자료 중 2~3개`,
-        `3) 내 탐구에 적용하는 구조: 자료를 기준-비교-해석-한계 순서로 배치한다.`,
-        `4) 보고서에 넣는 위치: 서론에는 기준 자료, 본론에는 비교 자료, 결론에는 한계 자료를 넣는다.`,
-        `5) 이렇게 활용하면 된다: 책 요약 대신 자료 출처와 비교 기준을 분명히 쓰고, 표와 해석 문장으로 연결한다.`,
-        `6) 전공 개념 활용: ${majorConnect}`,
-        `7) 주의할 점: 참고문헌에 책 제목을 억지로 넣지 않는다.`
-      ].join("\n")},
-      {title:"제출 전 5분 점검", body:[
-        "□ 질문 원형을 그대로 쓰지 않고 내 사례로 바꿨는가?",
-        "□ 수행평가 평가 기준처럼 ‘무엇을’과 ‘어떻게’가 모두 드러나는가?",
-        "□ 자료가 어느 문단에 들어갈지 정했는가?",
-        "□ 표에 실제 자료와 내 해석이 함께 들어갔는가?",
-        "□ 자료를 단순 정보가 아니라 판단 기준으로 해석했는가?",
-        "□ 학과 이름만 붙이지 않고 전공 개념을 사용했는가?",
-        useBookInReport ? "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?" : "□ 도서 대신 자료 출처와 비교 기준을 명확히 제시했는가?",
-        "□ 결론에 표에서 확인한 결과, 내 기준의 장점, 부족한 점을 적었는가?"
-      ].join("\n")}
-    ];
-
-    const text = [`설계서 제목\n${title}`, ...sections.map((sec, idx) => `${idx + 1}. ${sec.title}\n${sec.body}`)].join("\n\n");
+    const keyword = firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req.selectedKeyword, req.keyword, getWorkerResolved(rawData).keyword, "선택 키워드");
+    const axisRaw = firstNonEmpty(s.selectedFollowupAxis, s.followupAxis, req.selectedFollowupAxis, "");
+    const major = firstNonEmpty(s.department, req.career, "");
+    const expansion = getSecondaryExpansionContext(req, {
+      subject,
+      major,
+      concept,
+      keyword,
+      axis: axisRaw,
+      mode: firstNonEmpty(choices.mode, s.reportMode, ""),
+      view: firstNonEmpty(choices.view, s.reportView, ""),
+      line: firstNonEmpty(choices.line, s.reportLine, ""),
+      bookTitle: req.selectedBookTitle || ""
+    });
+    const path = (expansion?.paths || []).find(item => item.isRecommended) || (expansion?.paths || [])[0] || {
+      id: "data-interpretation",
+      label: "자료 해석형",
+      question: `${keyword}은 어떤 조건에서 결과가 달라지는가?`,
+      paragraphStructure: ["탐구 질문","자료 출처와 분석 기준","핵심 개념 정리","자료 정리","패턴 해석","결론 도출","한계와 보완"]
+    };
+    const text = buildSecondaryDraftText(path, req, {});
+    const sections = dedupeSections(splitSections(text));
     return {
       text,
-      sections: [{title:"설계서 제목", body:title}, ...sections],
-      title,
-      source: assessmentConnected ? "assessment-keyword-runtime-connected-v1" : "secondary-expansion-blueprint-v234-student-facing-assessment",
-      note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
+      sections,
+      source: "assessment-seed-cross-axis-local-complete-report-v240",
+      fallback: true,
+      note: "실제 수행평가 방법축과 실제 보고서 내용축을 교차한 완성 보고서입니다. 학과 정보는 핵심 생성에서 제외했습니다.",
+      title: buildReportTitle(req, rawData),
       diagnostics: {
-        mode,
-        view,
-        line,
-        productMode: assessmentConnected ? "assessment_keyword_runtime_connected_v1" : "secondary_expansion_ai_reuse_blueprint_v229",
+        productMode: "assessment_seed_cross_axis_major_balanced_v240",
         secondaryExpansionContext: expansion,
-        reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
-        donggukPerformanceFrame: performanceFrame,
-        assessmentKeywordConnection: assessmentConnected ? {
-          match: assessmentConnection?.match || {},
-          assessmentRoute,
-          runtimeEvidence
-        } : null,
-        focusQuestion,
-        majorLens: isComputer ? "입력값·조건문·오류 검증" : lens.shortLabel,
-        majorKeywords: isComputer ? ["입력값", "조건문", "알고리즘", "오류 검증"] : lens.keywords.slice(0,4)
+        assessmentKeywordConnection: req.assessment_connection || null,
+        majorUsedInCore: false
       }
     };
   }
@@ -2376,8 +2068,32 @@
   }
 
   function extractGeneratedText(data, req){
-    // v47부터는 중심 질문을 그대로 제공하지 않고 학생이 지역·기간·대상·비교 기준으로 변형하도록 안내하며, 보고서 데이터형 문장 구조가 보이는
-    // 학생용 완성 보고서를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
+    const candidate = cleanReportText(normalizeGeneratedCandidate(data));
+    const s = req?.mini_payload?.selectionPayload || {};
+    const expansion = getSecondaryExpansionContext(req, {
+      subject: s.subject || req.subject || "",
+      major: s.department || req.career || "",
+      concept: s.selectedConcept || req.selectedConcept || "",
+      keyword: s.selectedKeyword || s.selectedRecommendedKeyword || req.keyword || "",
+      axis: s.selectedFollowupAxis || req.selectedFollowupAxis || "",
+      mode: req?.report_choices?.mode || s.reportMode || "",
+      view: req?.report_choices?.view || s.reportView || "",
+      line: req?.report_choices?.line || s.reportLine || "",
+      bookTitle: req.selectedBookTitle || ""
+    });
+    const path = (expansion?.paths || []).find(item => item.isRecommended) || (expansion?.paths || [])[0] || null;
+    if(candidate && !looksLikeUnfixedSecondaryDraft(candidate, path)){
+      const sections = dedupeSections(splitSections(candidate));
+      return {
+        text: candidate,
+        sections,
+        source: "worker-complete-report-v240",
+        fallback: false,
+        note: "Worker가 실제 수행평가 방법축과 내용축을 반영해 생성한 완성 보고서입니다.",
+        diagnostics: { majorUsedInCore: false, secondaryExpansionContext: expansion },
+        title: buildReportTitle(req, data)
+      };
+    }
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, sections: composed.sections, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
   }
@@ -2414,7 +2130,25 @@
     "느낀점",
     "느낀 점",
     "세특 문구 예시",
-    "참고문헌 및 자료"
+    "참고문헌 및 자료",
+    "탐구 질문", "연구 질문", "선행연구 검토", "연구 가설/목표", "변인과 방법 설계", "수행 가능성 검토", "연구 윤리와 안전", "예상 결과와 한계",
+    "교과 개념 정리", "가설과 변인 설정", "실험 조건 또는 자료 수집", "결과 정리", "자료 해석", "오차·한계 분석", "후속 탐구",
+    "자료 출처와 분석 기준", "핵심 개념 정리", "자료 정리", "패턴 해석", "결론 도출", "한계와 보완",
+    "현상 설정", "모델 변수 정의", "교과 개념 연결", "모델 적용 과정", "예측/해석", "한계", "확장 모델",
+    "문제 상황 설정", "개념 선정", "조건 설계", "문항 제작", "풀이 과정", "오류 검토", "확장 문제",
+    "문제 조건 분석", "풀이 1", "풀이 2", "풀이 비교", "오류 가능성", "일반화",
+    "문제 제기", "개념·이론 정리", "자료 조사", "원인 분석", "영향 분석", "해결 방향",
+    "자료 근거", "이해관계 분석", "대안 비교", "정책·실천 방안", "기대 효과",
+    "텍스트 이해", "핵심 질문", "근거 장면/문장", "관점 설정", "해석과 비평", "확장 쟁점", "자기 성찰",
+    "쟁점 정리", "찬반 근거 비교", "자기 주장", "반론 검토", "재반박",
+    "매체 자료 선정", "정보 구성 방식 분석", "표현 전략 분석", "수용자/맥락 해석", "개선안",
+    "문제 정의", "요구 사항", "알고리즘 설계", "구현 과정", "테스트 결과", "오류 수정", "개선 방향",
+    "주제 의도", "설계 기준", "창작 과정", "결과물 설명", "표현 효과 분석", "개선점",
+    "선행 자료 검토", "방법 설계", "자료 수집", "분석 결과", "참고문헌과 후속 탐구",
+    "현상/대상 설정", "교과 원리 정리", "적용 사례 분석", "조건 비교", "결과 해석", "확장 질문",
+    "대상/사례 설명", "개념 적용 해석", "의미 분석", "후속 질문",
+    "수행 목표", "기본 원리", "수행 과정 기록", "피드백 기준", "개선 과정", "결과 평가", "후속 연습 계획",
+    "참고자료"
   ];
 
   function escapeRegex(value){
@@ -2592,7 +2326,7 @@
 
   function getSecondaryPathContext(path, req){
     const s = req?.mini_payload?.selectionPayload || {};
-    const ctx = req?.mini_payload?.reportGenerationContext || {};
+    const ctx = req?.mini_payload?.reportGenerationContext || req?.reportGenerationContext || {};
     const connection = req?.assessment_connection
       || req?.performance_assessment?.assessmentKeywordConnection
       || req?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
@@ -2600,25 +2334,50 @@
       || null;
     const route = connection?.assessment_route || connection?.assessmentRoute || {};
     const student = connection?.student_output || connection?.studentOutput || {};
+    const cross = connection?.cross_axis || connection?.crossAxis || ctx.assessmentSeedCrossAxis || {};
+    const taskRecord = cross?.taskMatch?.record || {};
+    const seed = cross?.seedMatch?.seed || {};
+    const structureInfo = cross?.structure || {};
+    const constraints = cross?.constraints || {};
+    const majorPolicy = cross?.majorPolicy || ctx.majorUsePolicy || { maximumWeight: 5, explicitCareerTask: false };
+    const dynamicSections = Array.isArray(structureInfo.sections) && structureInfo.sections.length
+      ? structureInfo.sections
+      : (Array.isArray(route.reportSections || route.report_sections) ? (route.reportSections || route.report_sections) : []);
     return {
-      subject: cleanReportPhrase(firstNonEmpty(s.subject, req?.subject, "선택 과목"), "선택 과목"),
-      major: cleanReportPhrase(firstNonEmpty(s.department, s.major, req?.major, req?.career, "선택 진로 분야"), "선택 진로 분야"),
-      concept: cleanReportPhrase(firstNonEmpty(s.selectedConcept, req?.selectedConcept, "선택 교과 개념"), "선택 교과 개념"),
-      keyword: cleanReportPhrase(firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req?.keyword, "선택 키워드"), "선택 키워드"),
-      axis: cleanReportPhrase(compactAxis(firstNonEmpty(s.selectedFollowupAxis, req?.selectedFollowupAxis, "후속 연계축")), "후속 연계축"),
-      mode: cleanReportPhrase(firstNonEmpty(ctx.reportMode, req?.reportMode, route.recommendedMethod, "수행평가 방식"), "수행평가 방식"),
-      view: cleanReportPhrase(firstNonEmpty(ctx.reportView, req?.reportView, (route.rubricFocus || [])[0], "평가 관점"), "평가 관점"),
-      line: cleanReportPhrase(firstNonEmpty(ctx.reportLine, req?.reportLine, route.recommendedOutput, "결과물 수준"), "결과물 수준"),
+      subject: cleanReportPhrase(firstNonEmpty(s.subject, req?.subject, taskRecord.subject, "선택 과목"), "선택 과목"),
+      major: cleanReportPhrase(firstNonEmpty(s.department, s.major, req?.major, req?.career, ""), ""),
+      careerForFollowupOnly: !majorPolicy.explicitCareerTask,
+      concept: cleanReportPhrase(firstNonEmpty(s.selectedConcept, req?.selectedConcept, (cross?.topic?.subjectConcepts || [])[0], "선택 교과 개념"), "선택 교과 개념"),
+      keyword: cleanReportPhrase(firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req?.keyword, seed.sourceTitle, "선택 키워드"), "선택 키워드"),
+      axis: cleanReportPhrase(compactAxis(firstNonEmpty(s.selectedFollowupAxis, req?.selectedFollowupAxis, "")), ""),
+      mode: cleanReportPhrase(firstNonEmpty(ctx.reportMode, req?.reportMode, route.recommendedMethod, taskRecord.methodAxis?.[0], "수행평가 방식"), "수행평가 방식"),
+      view: cleanReportPhrase(firstNonEmpty(ctx.reportView, req?.reportView, (route.rubricFocus || [])[0], taskRecord.rubricAxis?.[0], "평가 관점"), "평가 관점"),
+      line: cleanReportPhrase(firstNonEmpty(ctx.reportLine, req?.reportLine, route.recommendedOutput, taskRecord.outputAxis?.[0], "결과물 수준"), "결과물 수준"),
       pathLabel: cleanReportPhrase(path?.label || "자료 해석형", "자료 해석형"),
-      question: cleanReportPhrase(path?.question || `${firstNonEmpty(s.selectedKeyword, req?.keyword, "선택 키워드")}는 어떤 기준으로 분석할 수 있을까?`, "탐구 대상은 어떤 조건에서 차이가 나타나는가?"),
-      structure: Array.isArray(path?.paragraphStructure) ? path.paragraphStructure : ["기준", "자료", "해석", "한계"],
-      evidenceTypes: Array.isArray(path?.evidenceTypes) ? path.evidenceTypes : ["자료 직접 선택"],
-      assessmentTopic: cleanReportPhrase(firstNonEmpty(student.one_line_pick, connection?.recommendedTopic, ""), ""),
-      assessmentFocus: cleanReportPhrase(firstNonEmpty(route.assessmentFocus, route.assessment_focus, ""), ""),
-      assessmentMethod: cleanReportPhrase(firstNonEmpty(route.recommendedMethod, route.recommended_method, ""), ""),
-      assessmentOutput: cleanReportPhrase(firstNonEmpty(route.recommendedOutput, route.recommended_output, ""), ""),
-      rubricFocus: Array.isArray(route.rubricFocus || route.rubric_focus) ? (route.rubricFocus || route.rubric_focus).map(v => cleanReportPhrase(v, "")).filter(Boolean) : [],
-      assessmentSections: Array.isArray(route.reportSections || route.report_sections) ? (route.reportSections || route.report_sections).map(v => cleanReportPhrase(v, "")).filter(Boolean) : []
+      question: cleanReportPhrase(path?.question || `${firstNonEmpty(cross?.topic?.generatedTitle, s.selectedKeyword, req?.keyword, "탐구 대상")}에서 어떤 조건이 결과 차이를 만드는가?`, "탐구 대상은 어떤 조건에서 차이가 나타나는가?"),
+      structure: dynamicSections.length ? dynamicSections : (Array.isArray(path?.paragraphStructure) ? path.paragraphStructure : ["탐구 질문","이론적 배경","탐구 방법","분석 결과","결과 해석과 고찰","결론","한계와 후속 탐구"]),
+      structureId: structureInfo.id || taskRecord.structureId || "structure_research_report",
+      evidenceTypes: Array.isArray(path?.evidenceTypes) ? path.evidenceTypes : (seed?.sources?.requiredEvidence || ["자료 직접 선택"]),
+      assessmentTopic: cleanReportPhrase(firstNonEmpty(cross?.topic?.generatedTitle, student.one_line_pick, connection?.recommendedTopic, ""), ""),
+      assessmentFocus: cleanReportPhrase(firstNonEmpty(route.assessmentFocus, route.assessment_focus, taskRecord.contentAxis?.join("·"), ""), ""),
+      assessmentMethod: cleanReportPhrase(firstNonEmpty(route.recommendedMethod, route.recommended_method, taskRecord.methodAxis?.join("·"), ""), ""),
+      assessmentOutput: cleanReportPhrase(firstNonEmpty(route.recommendedOutput, route.recommended_output, taskRecord.outputAxis?.join("·"), ""), ""),
+      rubricFocus: Array.isArray(constraints.rubricFocus || taskRecord.rubricAxis || route.rubricFocus || route.rubric_focus)
+        ? (constraints.rubricFocus || taskRecord.rubricAxis || route.rubricFocus || route.rubric_focus).map(v => cleanReportPhrase(v, "")).filter(Boolean) : [],
+      assessmentSections: dynamicSections.map(v => cleanReportPhrase(v, "")).filter(Boolean),
+      taskRecord,
+      seed,
+      crossAxis: cross,
+      constraints: {
+        rawTaskDescription: constraints.rawTaskDescription || taskRecord.description || "",
+        numericConstraints: constraints.numericConstraints || taskRecord.numericConstraints || [],
+        requiredOutputs: constraints.requiredOutputs || taskRecord.outputAxis || [],
+        rubricFocus: constraints.rubricFocus || taskRecord.rubricAxis || [],
+        avoidModes: constraints.avoidModes || taskRecord.avoidModes || []
+      },
+      majorPolicy,
+      topicTitle: cleanReportPhrase(cross?.topic?.generatedTitle || student.one_line_pick, ""),
+      priorityPolicy: cross?.priorityPolicy || connection?.priorityPolicy || { assessmentRequirement: 35, subjectConcept: 30, selectedKeywordAndContentSeed: 20, methodAndOutput: 10, majorCareerTieBreak: 5 }
     };
   }
 
@@ -2919,14 +2678,14 @@
     const focus = extra?.focusChoice || null;
     const search = extra?.evidenceSearchChoice || null;
     return [
-      `세부 초점: ${focus?.label || "선택 안 함"}`,
-      focus?.question ? `초점 질문: ${focus.question}` : "",
-      focus?.structure ? `초점 구조: ${focus.structure}` : "",
-      `자료 보완 선택: ${search?.label || "선택 안 함"}`,
+      `세부 초점: ${focus?.label || c.pathLabel}`,
+      focus?.question ? `초점 질문: ${focus.question}` : `초점 질문: ${c.question}`,
+      focus?.structure ? `초점 구조: ${focus.structure}` : `보고서 구조: ${(c.assessmentSections || c.structure || []).join(" → ")}`,
+      `자료 보완 선택: ${search?.label || "교과 개념과 확인 가능한 공개자료 중심"}`,
       search?.sourceType ? `자료 위치: ${search.sourceType}` : "",
       search?.searchQuery ? `검색어: ${search.searchQuery}` : "",
       search?.copyTarget ? `가져올 내용: ${search.copyTarget}` : "",
-      `자료 보완 기준: 실제 첨부 자료나 확인 가능한 자료가 있으면 그 자료를 우선 사용하고, 확인되지 않은 출처·수치는 [수정 필요]로 남긴다.`
+      `자료 보완 기준: 실제 첨부 자료나 확인 가능한 자료를 우선 사용하고, 자료가 없으면 수치를 만들지 않은 채 검증 범위와 한계로 명시한다.`
     ].filter(Boolean).join("\n");
   }
 
@@ -2942,18 +2701,13 @@
   function looksLikeUnfixedSecondaryDraft(text, path){
     const t = String(text || "").trim();
     if(!t) return true;
-    const forbidden = /\[수정 필요|\[학생 입력 필요|수정해야 할 부분|선택됨|전공 맞춤 추천|자료 제목 입력|출처 입력|검색어 후보|초안 생성 대기|보고서의 세부 초점은 '사례 A\/B 조건 비교'/;
-    const required = [
-      /탐구 동기(?: 및 목적)?/,
-      /탐구 문제|탐구 질문/,
-      /이론적 배경|교과 개념/,
-      /탐구 방법/,
-      /탐구 내용 및 결과|분석 결과/,
-      /결과 해석 및 고찰|고찰/,
-      /결론/,
-      /느낀 점/
-    ];
-    return forbidden.test(t) || required.some(re => !re.test(t));
+    const forbidden = /\[수정 필요|\[학생 입력 필요|수정해야 할 부분|선택됨|전공 맞춤 추천|자료 제목 입력|출처 입력|검색어 후보|초안 생성 대기|빈칸을 채우|실행 지도|설계서 제목|오늘의 핵심 방향/;
+    if(forbidden.test(t)) return true;
+    const headingMatches = t.match(/(?:^|\n)\s*(?:\d{1,2}[.)]\s*)?[^\n]{1,35}(?:\n|$)/g) || [];
+    const hasQuestion = /탐구 질문|연구 질문|탐구 문제|문제 제기|현상 설정/.test(t);
+    const hasAnalysis = /자료 해석|분석 결과|패턴 해석|결과 정리|풀이 비교|적용 사례 분석|해석과 비평|테스트 결과/.test(t);
+    const hasConclusion = /결론|결론 도출|해결 방향|개선 방향|정책·실천 방안|후속 탐구|한계와 보완/.test(t);
+    return t.length < 600 || headingMatches.length < 5 || !hasQuestion || !hasAnalysis || !hasConclusion;
   }
 
 
@@ -3008,6 +2762,57 @@
       reflection: `처음에는 ${topicLabel}을 장점과 단점으로만 구분하려 했지만, 탐구 과정에서 같은 대상도 조건과 평가 기준에 따라 결론이 달라질 수 있음을 알게 되었다. 앞으로는 자료의 출처와 비교 기준을 먼저 확인한 뒤 판단하는 태도가 필요하다고 느꼈다.`,
       references: [`고등학교 ${c.subject} 교과서의 ${concept} 관련 단원`, `${topicLabel} 관련 정부·공공기관 공개자료`, `${topicLabel}의 실제 적용 사례를 다룬 기술·사회 자료`]
     };
+
+    const seed = c.seed || {};
+    if(seed && (seed.sourceTitle || seed.label || seed.report)){
+      const seedReport = seed.report || {};
+      const seedSources = seed.sources || {};
+      const seedQuality = seed.quality || {};
+      const seedTopic = seed.topic || {};
+      const task = c.taskRecord || {};
+      const seedLabel = cleanReportPhrase(seed.sourceTitle || seed.label || c.keyword, topicLabel);
+      const isProbabilityAlert = /확률|조건부확률|베이즈/.test(`${c.subject} ${concept} ${task.title || ""}`) && /경보|붕괴|진단|위험/.test(`${c.keyword} ${seedLabel}`);
+      const taskCriteria = Array.from(new Set([
+        ...(seed.axisTriggers || []),
+        ...(task.contentAxis || []),
+        ...(task.rubricAxis || [])
+      ])).filter(Boolean).slice(0,5);
+      const requiredEvidence = (seedSources.requiredEvidence || []).slice(0,4);
+      const referenceTypes = (seedSources.referenceTypes || []).slice(0,5);
+      const cautions = (seedSources.cautions || []).slice(0,3);
+      const mustInclude = (seedQuality.mustInclude || []).slice(0,4);
+      const corePattern = cleanReportText(seedReport.corePattern || seedReport.analysisMethod || "조건 설정 → 자료 정리 → 교과 개념 적용 → 결과 해석");
+      if(isProbabilityAlert){
+        return {
+          ...base,
+          topicLabel: cleanReportPhrase(c.keyword, "지반 붕괴 경보 시스템"),
+          cases: "센서 임계값과 사전확률이 서로 다른 경보 조건",
+          criteria: ["사전확률(기저율)", "민감도와 특이도", "오경보율과 미탐지율", "사건의 독립성", "경보 임계값"],
+          theory: `경보/무경보와 붕괴 위험/정상 상태를 각각 사건으로 두면 조건부확률을 이용해 경보의 신뢰도를 계산할 수 있다. 베이즈 정리는 붕괴의 사전확률, 붕괴 상태에서 경보가 울릴 확률, 정상 상태에서 오경보가 발생할 확률을 결합하여 ‘경보가 울렸을 때 실제 위험 상태일 확률’을 구하게 한다. ${cleanReportText(seedReport.conceptRole || "센서 데이터와 지반 조건은 사전확률과 경보 판단 기준을 설정하는 근거가 된다.")}`,
+          result: `민감도와 특이도가 같더라도 실제 붕괴 위험의 기저율이 낮으면 경보가 울린 뒤의 실제 위험 확률은 낮아질 수 있다. 이 경우 오경보가 많이 섞여 현장 경보의 신뢰도가 떨어질 수 있다. 반대로 강우, 지하수위 상승, 지반 변위처럼 위험 조건이 누적되어 사전확률이 높아지면 같은 센서 성능에서도 경보의 사후확률이 높아진다. 따라서 고정 임계값보다 현장 조건에 따라 임계값을 조정하는 방식이 확률적으로 더 타당하다.`,
+          discussion: `오경보를 줄이기 위해 임계값을 지나치게 높이면 실제 위험을 놓치는 미탐지가 증가할 수 있다. 반대로 민감도를 높이면 위험을 조기에 포착할 가능성은 커지지만 오경보가 늘어난다. 이 상충 관계는 단순히 센서의 정확도만 비교해서 해결할 수 없으며, 붕괴 위험의 기저율과 오경보·미탐지의 비용을 함께 고려해야 한다. 지하수위와 강우량처럼 서로 영향을 주는 변수는 독립으로 가정해 단순 곱셈하면 위험을 잘못 추정할 수 있다는 점도 중요하다.`,
+          conclusion: `지반 붕괴 경보의 신뢰도는 센서 성능 하나가 아니라 현장별 사전확률, 민감도, 특이도, 변수 간 의존성에 의해 결정된다. 따라서 위험 조건을 먼저 분류하고, 조건별 목표 사후확률에 맞춰 경보 임계값을 조정하며, 상황 변화에 따라 기준을 갱신하는 체계가 필요하다.`,
+          limitation: `${cautions.join(" ") || "실제 붕괴 자료는 표본이 적어 민감도와 특이도를 안정적으로 추정하기 어렵다."} 실제 수치가 없는 상태에서는 확률 구조의 방향만 해석할 수 있으므로, 후속 탐구에서는 공개 계측 자료나 가정값임을 명확히 표시한 모의 자료로 사후확률을 계산해야 한다.`,
+          reflection: `처음에는 경보가 울리면 위험 가능성이 높다고 단순하게 생각했지만, 조건부확률을 적용하면 기저율과 오경보율에 따라 경보의 의미가 크게 달라질 수 있음을 알게 되었다. 또한 수학적 조건을 실제 센서 상황으로 바꾸어 보면서 사건의 독립성, 배반성, 확률변수의 범위를 정확히 설정하는 일이 풀이보다 먼저 필요하다는 점을 느꼈다.`,
+          references: referenceTypes.length ? referenceTypes : base.references,
+          avoidPatterns: Array.from(new Set([...(c.constraints?.avoidModes || []), ...(seedTopic.badPatterns || []), ...(seedReport.avoid || []), ...(seedQuality.mustNotDo || [])])).slice(0,12)
+        };
+      }
+      return {
+        ...base,
+        topicLabel: seedLabel,
+        cases: `${seedLabel}에서 조건이 다른 두 사례 또는 자료`,
+        criteria: taskCriteria.length ? taskCriteria : base.criteria,
+        theory: `${cleanReportText(seedReport.conceptRole || `${seedLabel}의 작동 조건과 결과 관계를 설명한다.`)} 본 탐구에서는 ${concept} 개념을 사용해 자료와 조건의 변화를 같은 기준으로 해석하였다.`,
+        result: `${corePattern}의 순서로 자료를 정리하면 ${concept} 개념은 단순한 배경 설명이 아니라 조건 변화와 결과 차이를 연결하는 분석 기준이 된다. 실제 수치가 제공되지 않은 부분은 임의로 채우지 않고, 어떤 자료와 계산이 있어야 판단을 검증할 수 있는지를 구분하였다.`,
+        discussion: `${cleanReportText(seedReport.importance || seedReport.problem || `${seedLabel}은 여러 조건이 겹쳐 결과가 달라지는 문제이다.`)} ${mustInclude.length ? `고찰에서는 ${mustInclude.join(", ")}을 함께 확인해야 한다.` : "자료의 범위와 적용 조건에 따라 결론이 달라질 수 있으므로 일반화 범위를 구분해야 한다."}`,
+        conclusion: `${cleanReportText(seedReport.corePattern || `${seedLabel}의 핵심 조건을 교과 개념으로 분석하고 판단 기준을 세웠다.`)} 이를 통해 장식적 키워드나 진로명보다 실제 변수, 조건, 산출물, 검증 절차를 연결하는 것이 더 타당하다는 결론을 얻었다.`,
+        limitation: `${cautions.join(" ") || "실제 수치와 사례를 사용할 때에는 출처와 적용 범위를 다시 확인해야 한다."} 후속 탐구에서는 동일한 기준의 자료를 확보해 정성 분석을 정량 검증으로 확장할 필요가 있다.`,
+        reflection: `처음에는 ${seedLabel}을 관련 용어의 조합으로 이해했지만, 탐구 과정에서 ${concept} 개념을 실제 판단 기준으로 사용해야 주제가 보고서로 성립한다는 점을 알게 되었다. 수행평가의 방법과 산출물 제약을 함께 반영하니 무엇을 조사하고 어떤 근거를 남겨야 하는지도 더 분명해졌다.`,
+        references: referenceTypes.length ? referenceTypes : base.references,
+        avoidPatterns: Array.from(new Set([...(c.constraints?.avoidModes || []), ...(seedTopic.badPatterns || []), ...(seedReport.avoid || []), ...(seedQuality.mustNotDo || [])])).slice(0,12)
+      };
+    }
 
     if(/발전|에너지원|전력|화력|원자력|재생에너지|태양광|풍력/.test(hay)){
       return {
@@ -3083,14 +2888,16 @@
   }
 
   function buildSpecificReportTitle(c, blueprint, extra, profile){
+    const exact = cleanReportPhrase(c.topicTitle || c.crossAxis?.topic?.generatedTitle, "");
+    if(exact) return exact;
     const topic = cleanReportPhrase(profile?.topicLabel, cleanReportPhrase(c.keyword, cleanReportPhrase(c.concept, "탐구 대상")));
     const criterion = deriveReportCriterion(c, extra);
     if(/에너지원별 발전 방식/.test(topic)) return "화력발전과 재생에너지 발전의 환경 영향 비교: 공급 안정성과 지속가능성을 중심으로";
     if(/이차전지 양극재/.test(topic)) return "이차전지 양극재의 구조·성능 비교: 에너지 밀도, 열 안정성, 경제성을 중심으로";
     if(blueprint.code === "principle-analysis") return `${topic}의 작동 원리와 결과 차이: ${criterion}을 중심으로`;
-    if(blueprint.code === "case-comparison") return `${topic}의 사례 비교: ${criterion}을 중심으로`;
+    if(blueprint.code === "case-comparison") return `${topic}의 조건별 비교: ${criterion}을 중심으로`;
     if(blueprint.code === "social-meaning") return `${topic}의 사회적 영향과 개선 방향: ${criterion}을 중심으로`;
-    if(blueprint.code === "followup-inquiry") return `${topic} 탐구의 한계와 후속 검증 방안`;
+    if(blueprint.code === "followup-inquiry") return `${topic}의 한계와 후속 검증 방안`;
     return `${topic}의 변화 양상 분석: ${criterion}을 중심으로`;
   }
 
@@ -3108,49 +2915,51 @@
     const focusLabel = cleanReportPhrase(extra?.focusChoice?.label, deriveReportCriterion(c, extra));
     const focusQuestion = cleanReportPhrase(extra?.focusChoice?.question, c.question);
     const rubric = (c.rubricFocus || []).join("·") || "개념 정확성·자료 분석·결과 해석·근거 제시";
+    const sections = (c.assessmentSections?.length ? c.assessmentSections : c.structure).filter(Boolean);
+    const task = c.taskRecord || {};
+    const seed = c.seed || {};
+    const constraints = c.constraints || {};
+    const careerAllowed = !!c.majorPolicy?.explicitCareerTask;
     return [
       "너는 고등학생이 학교에 제출할 수 있는 완성형 수행평가 탐구보고서를 작성한다.",
-      "작성 안내문, 설계서, 빈칸, 체크리스트, [수정 필요], [학생 입력 필요] 같은 메타 문구는 절대 출력하지 않는다.",
-      "'선택됨', '전공 맞춤 추천', 선택값 설명 등 화면 UI 문구를 보고서에 넣지 않는다.",
-      "서론·본론·결론 세 덩어리로만 뭉뚱그리지 말고 실제 보고서 항목을 세분화한다.",
-      "구체적 수치나 특정 연구 결과가 입력되지 않았다면 수치를 꾸며내지 말고, 교과서 수준에서 확실한 원리와 정성 비교를 사용해 문장을 완성한다.",
-      "자료가 입력된 경우에는 그 자료를 우선 사용하되, 입력되지 않은 기관명·논문명·통계값을 만들어내지 않는다.",
-      "제목은 '○○의 사례 비교형 탐구'처럼 유형명으로 끝내지 말고, 비교 대상·핵심 변인·판단 기준이 드러나는 한 문장으로 작성한다.",
-      "결과와 고찰을 분리한다. 결과에서는 비교·분석으로 확인한 내용을 쓰고, 고찰에서는 그 의미·원인·한계·대안을 해석한다.",
-      "느낀 점은 단순 소감이 아니라 탐구 전후의 생각 변화와 교과 개념의 활용을 중심으로 작성한다.",
-      "문체는 고등학생 수준의 자연스러운 보고서 문체로 하고, 같은 표현을 반복하지 않는다.",
+      "보고서 본문만 출력한다. 작성 안내문, 설계서, 빈칸, 체크리스트, [수정 필요], [학생 입력 필요], UI 선택 문구를 출력하지 않는다.",
+      "제목은 유형명이 아니라 탐구 대상·조건 또는 변인·교과 개념·판단 방향이 드러나는 구체적 문장으로 작성한다.",
+      "실제 수행평가 과제의 structure_id에 해당하는 섹션 순서를 그대로 따른다. 고정된 서론·본론·결론 틀로 바꾸지 않는다.",
+      "과제 원문의 문항 수, 자료 수, 산출물 수, 비교 조건을 빠뜨리지 않는다.",
+      "avoid_modes와 내용 시드의 badPatterns를 모두 회피한다.",
+      "확인되지 않은 수치·출처·사례 결과는 만들지 않는다. 자료가 없으면 정성적 분석을 완성하고 검증 한계를 한계 항목에 명시한다.",
+      "학과·진로 정보는 수행평가가 진로 탐구를 직접 요구하지 않는 한 제목, 핵심 질문, 본론 기준, 핵심 결론에 사용하지 않는다.",
+      "결과는 무엇이 확인되었는지, 고찰은 왜 그런 결과가 나타났는지와 의미·한계·대안을 다룬다.",
       "",
       `[확정 보고서 제목] ${reportTitle}`,
       `[과목] ${c.subject}`,
       `[교과 개념] ${c.concept}`,
-      `[탐구 대상] ${profile.topicLabel}`,
+      `[수행평가 과제명] ${task.title || req.taskName || ""}`,
+      `[수행평가 원문] ${constraints.rawTaskDescription || req.taskDescription || ""}`,
+      `[주제 생성 공식] ${task.topicFormula || c.crossAxis?.topic?.taskFormula || ""}`,
+      `[내용 시드] ${seed.sourceTitle || seed.label || profile.topicLabel}`,
+      `[내용 시드 분석 역할] ${seed.report?.conceptRole || profile.theory}`,
       `[핵심 비교·분석 기준] ${profile.criteria.join(" / ")}`,
-      `[수행평가 데이터 기반 방법] ${c.assessmentMethod || c.mode}`,
-      `[예상 결과물] ${c.assessmentOutput || c.line}`,
-      `[평가 요소] ${rubric}`,
-      `[선택한 세부 초점] ${focusLabel}`,
+      `[수행평가 방법] ${c.assessmentMethod || c.mode}`,
+      `[필수 산출물] ${(constraints.requiredOutputs || []).join(" / ") || c.assessmentOutput || c.line}`,
+      `[채점 요소] ${rubric}`,
+      `[수량·문항 제약] ${(constraints.numericConstraints || []).join(" / ") || "없음"}`,
+      `[피해야 할 방식] ${(constraints.avoidModes || []).join(" / ") || "단순 조사·개념 나열·근거 없는 감상"}`,
       `[탐구 질문] ${focusQuestion}`,
       `[자료 유형] ${evidenceType}`,
-      evidenceTitle ? `[학생이 입력한 자료 제목] ${evidenceTitle}` : "",
-      evidenceSource ? `[학생이 입력한 출처] ${evidenceSource}` : "",
-      evidencePoint ? `[학생이 입력한 자료 핵심 내용] ${evidencePoint}` : "",
+      evidenceTitle ? `[확인된 자료 제목] ${evidenceTitle}` : "",
+      evidenceSource ? `[확인된 자료 출처] ${evidenceSource}` : "",
+      evidencePoint ? `[확인된 자료 핵심 내용] ${evidencePoint}` : "",
       studentView ? `[학생의 해석] ${studentView}` : "",
       book?.title ? `[선택 도서] ${book.title}` : "",
+      careerAllowed && c.major ? `[과제가 직접 요구한 진로·학과] ${c.major}` : "[학과 사용 정책] 핵심 본문에서 제외, 후속 탐구에만 선택적으로 사용",
       "",
-      "반드시 다음 순서로 완성한다.",
-      "보고서 제목",
-      "1. 탐구 동기 및 목적",
-      "2. 탐구 문제",
-      "3. 이론적 배경",
-      "4. 탐구 방법",
-      "5. 탐구 내용 및 결과",
-      "6. 결과 해석 및 고찰",
-      "7. 결론",
-      "8. 한계와 후속 탐구",
-      "9. 느낀 점",
-      "10. 참고자료",
+      "[반드시 사용할 섹션 순서]",
+      ...sections.map((section, idx) => `${idx + 1}. ${section}`),
+      `${sections.length + 1}. 느낀 점`,
+      `${sections.length + 2}. 참고자료`,
       "",
-      "각 항목은 실제 제출용 문장으로 완성한다. 5번과 6번은 다른 항목보다 자세히 작성한다."
+      "각 항목은 실제 제출용 문장으로 완성한다. 분석 결과와 해석·고찰에 가장 충분한 분량을 배정한다."
     ].filter(Boolean).join("\n");
   }
 
@@ -3159,21 +2968,22 @@
     const c = getSecondaryPathContext(path, req);
     const blueprint = getSecondaryPathBlueprint(path);
     const primaryDesign = {
-      department: c.major,
       subject: c.subject,
       concept: c.concept,
       keyword: c.keyword,
       followupAxis: c.axis,
       performanceAssessment: c.mode,
       reportView: c.view,
-      reportLine: c.line
+      reportLine: c.line,
+      careerForFollowupOnly: c.majorPolicy?.explicitCareerTask ? "" : c.major,
+      careerExplicitlyRequiredByTask: !!c.majorPolicy?.explicitCareerTask
     };
     const secondaryExpansion = {
       selectedPathId: path?.id || blueprint.code,
       selectedPathLabel: c.pathLabel,
       selectedPathQuestion: c.question,
       selectedPathEvidenceType: String(extra?.evidenceType || blueprint.evidenceType || (c.evidenceTypes || [])[0] || "자료 직접 선택"),
-      selectedPathStructure: blueprint.paragraphs.slice()
+      selectedPathStructure: (c.assessmentSections?.length ? c.assessmentSections : c.structure).slice()
     };
     const studentEvidence = {
       evidenceType: String(extra?.evidenceType || secondaryExpansion.selectedPathEvidenceType || "").trim(),
@@ -3183,7 +2993,7 @@
       interpretation: String(extra?.studentView || "").trim()
     };
     const evidenceSupport = {
-      version: "v233-selectable-evidence-search-or-attachment-assisted-report-draft",
+      version: "v240-cross-axis-evidence-policy",
       focusChoice: extra?.focusChoice || null,
       evidenceSearchChoice: extra?.evidenceSearchChoice || null,
       allowMiniEvidenceSearch: Boolean(extra?.allowEvidenceSearch),
@@ -3193,15 +3003,16 @@
       selectionSummary: buildV232SelectionSummary(path, req, extra || {})
     };
     const generationRules = {
-      useSelectedPathAsMainFrame: true,
-      doNotRewritePrimaryDesignOnly: true,
+      useActualAssessmentTaskRecord: true,
+      useActualContentSeed: true,
+      followExactStructureId: true,
+      obeyNumericAndOutputConstraints: true,
+      avoidModesAndBadPatterns: true,
       doNotInventEvidence: true,
-      produceDraftParagraphs: true,
-      markMissingEvidenceAsStudentInputNeeded: false,
-      outputMustContainFiveParagraphs: false,
       produceCompleteSubmissionReport: true,
       forbidPlaceholdersAndChecklists: true,
-      primaryDesignIsBackgroundOnly: true
+      majorWeightMaximum: 5,
+      majorForbiddenInCoreUnlessExplicitCareerTask: true
     };
     return {
       ...req,
@@ -3209,11 +3020,11 @@
       billing: {
         stage: "secondary_report_draft",
         countUsage: false,
-        billingVersion: "v237-stage-aware-flow-token",
+        billingVersion: "v240-stage-aware-cross-axis",
         generationToken: getGatewayGenerationToken()
       },
-      mode: "secondary_expansion_complete_report_generation_v239",
-      generationMode: "secondary_expansion_complete_student_report_v239",
+      mode: "secondary_expansion_complete_report_generation_v240",
+      generationMode: "assessment_seed_cross_axis_complete_report_v240",
       prompt,
       miniInstruction: prompt,
       taskDescription: prompt,
@@ -3223,7 +3034,7 @@
       evidenceSupport,
       generationRules,
       secondaryDraftRequest: {
-        version: "secondary-expansion-complete-report-v239",
+        version: "assessment-seed-cross-axis-complete-report-v240",
         primaryDesign,
         selectedExpansionPath: path || null,
         secondaryExpansion,
@@ -3233,7 +3044,7 @@
         context: c
       },
       messages: [
-        { role: "system", content: "너는 고등학생 학교 제출용 수행평가 보고서를 완성하는 작성 도우미다. 유형명 중심의 제목, 설계 안내, 빈칸, 체크리스트, [수정 필요] 문구를 출력하지 않는다. 수행평가 데이터의 방법·결과물·채점요소와 학생의 교과 개념·키워드·세부 초점을 결합해 구체적인 제목과 탐구 동기, 탐구 문제, 이론적 배경, 탐구 방법, 결과, 고찰, 결론, 한계, 느낀 점, 참고자료를 완성한다. 확인되지 않은 수치나 특정 출처는 지어내지 말고 정성적·교과 개념 중심으로 서술한다." },
+        { role: "system", content: "너는 고등학생 학교 제출용 수행평가 보고서를 완성한다. 실제 수행평가 원문의 방법·산출물·수량 제약과 실제 내용 시드를 교차하고 structure_id의 섹션 순서를 따른다. 학과 정보는 진로 탐구 과제가 아니면 핵심 제목과 본문에서 제외한다. 확인되지 않은 수치·출처는 만들지 않으며 설계 안내나 빈칸은 출력하지 않는다." },
         { role: "user", content: prompt }
       ]
     };
@@ -3252,69 +3063,70 @@
     const book = req?.selectedBook || {};
     const rubric = (c.rubricFocus || []).join("·") || "개념 정확성·자료 분석·결과 해석·근거 제시";
     const methodLabel = c.assessmentMethod || c.mode || "문헌·자료 비교 분석";
-    const cases = profile.cases || `${profile.topicLabel}의 두 조건 또는 사례`;
-    const criteriaText = profile.criteria.join(", ");
+    const cases = profile.cases || `${profile.topicLabel}의 조건이 다른 두 사례`;
+    const criteriaText = (profile.criteria || []).join(", ") || deriveReportCriterion(c, extra);
+    const constraints = c.constraints || {};
+    const numericText = (constraints.numericConstraints || []).join(", ");
+    const outputsText = (constraints.requiredOutputs || []).join(", ");
+    const taskDesc = cleanReportText(constraints.rawTaskDescription || c.taskRecord?.description || "");
+    const sections = (c.assessmentSections?.length ? c.assessmentSections : c.structure).filter(Boolean);
 
     const evidenceSentence = rawTitle
-      ? `${rawSource ? `${rawSource}의 ` : ""}「${rawTitle}」에서 제시된 내용을 참고했으며, ${rawPoint || "핵심 조건과 결과의 관계를 중심으로 정리하였다"}.`
-      : `특정 수치의 단순 나열보다 교과서 개념과 공개 자료에서 공통적으로 확인할 수 있는 구조적 특성을 중심으로 정성 비교하였다.`;
-    const viewSentence = rawView ? `자료를 해석한 나의 판단은 다음과 같다. ${rawView}` : "자료의 장점과 한계를 같은 기준으로 비교한 뒤, 조건에 따라 적합한 선택이 달라진다는 관점에서 해석하였다.";
+      ? `${rawSource ? `${rawSource}의 ` : ""}「${rawTitle}」에서 확인한 내용을 근거로 사용하였다. ${rawPoint || "자료의 조건과 결과 관계를 중심으로 정리하였다."}`
+      : `확인되지 않은 수치나 특정 사례 결과는 임의로 만들지 않고, 교과 개념과 공개 자료에서 검증 가능한 조건·변수·관계 중심으로 분석하였다.`;
+    const constraintSentence = taskDesc
+      ? `수행평가 원문이 요구한 “${taskDesc}”를 분석 기준으로 삼았다.${numericText ? ` 특히 ${numericText}의 수량 제약을 지키도록 구성하였다.` : ""}${outputsText ? ` 결과물은 ${outputsText}의 형태가 드러나도록 정리하였다.` : ""}`
+      : `${methodLabel}의 절차에 따라 자료와 조건을 정리하고 ${rubric}이 드러나도록 분석하였다.`;
+    const inquiryMethod = `${methodLabel}을 적용하여 ${cases}을 ${criteriaText}의 기준으로 비교하였다. 먼저 ${c.concept}의 핵심 원리를 정리하고, 조건이 달라질 때 결과가 어떻게 변하는지 확인하였다. ${constraintSentence} ${evidenceSentence}`;
+    const motivation = `${c.subject}에서 배운 ${c.concept}을 실제 문제에 적용할 때에는 관련 용어를 나열하는 것보다 어떤 조건과 자료가 결과를 바꾸는지 설명해야 한다. 이에 ${profile.topicLabel}을 수행평가의 방법과 산출물 조건에 맞춰 분석하고, 교과 개념으로 판단 가능한 기준을 세우는 것을 탐구 목적으로 정하였다.`;
+    const result = `${profile.result}\n\n정성 분석 결과, 다음 기준을 동시에 적용해야 사례의 차이를 설명할 수 있었다: ${criteriaText}. 하나의 지표만으로는 조건별 장점과 한계를 구분하기 어려웠으며, ${c.concept} 개념을 기준으로 원인과 결과 사이의 연결 과정을 정리했을 때 판단 근거가 더 분명해졌다.${rawView ? ` 학생의 해석은 다음과 같다. ${rawView}` : ""}`;
+    const discussion = `${profile.discussion}\n\n이 결과는 특정 사례가 항상 우수하다는 뜻이 아니라 적용 조건에 따라 타당한 선택이 달라진다는 의미이다. ${rubric}을 충족하려면 자료의 출처와 비교 기준을 분명히 하고, 결과가 나타난 원인과 일반화할 수 없는 범위를 함께 제시해야 한다.`;
+    const followupCareer = c.major && !c.majorPolicy?.explicitCareerTask
+      ? `후속 탐구에서는 본문의 결론을 바꾸지 않는 범위에서 ${c.major} 분야의 실제 활용 사례와 연결해 검증 범위를 넓힐 수 있다.`
+      : "";
+    const references = Array.from(new Set([
+      ...(rawTitle ? [`${rawSource ? `${rawSource}, ` : ""}「${rawTitle}」`] : []),
+      ...(profile.references || []),
+      ...(book?.title ? [`『${book.title}』`] : [])
+    ].filter(Boolean)));
 
-    let inquiryMethod = "";
-    if(blueprint.code === "case-comparison"){
-      inquiryMethod = `${methodLabel}을 적용하여 ${cases}을 비교 대상으로 정하였다. 비교 기준은 ${criteriaText}로 설정하였다. 먼저 각 사례의 작동 조건과 특징을 정리하고, 같은 기준에서 결과 차이가 나타나는 이유를 교과 개념으로 해석하였다. ${evidenceSentence}`;
-    }else if(blueprint.code === "principle-analysis"){
-      inquiryMethod = `${methodLabel}을 적용하여 ${profile.topicLabel}의 원리와 작동 조건을 정리한 뒤 실제 적용 상황에 대입하였다. 분석 기준은 ${criteriaText}로 설정했으며, 원리가 성립하는 조건과 예외가 나타나는 조건을 구분하였다. ${evidenceSentence}`;
-    }else if(blueprint.code === "social-meaning"){
-      inquiryMethod = `${methodLabel}을 적용하여 ${profile.topicLabel}이 개인과 사회에 미치는 영향을 분석하였다. 문제 상황, 영향을 받는 대상, 편익과 부담, 개선 가능성을 ${criteriaText}의 기준으로 정리하였다. ${evidenceSentence}`;
-    }else if(blueprint.code === "followup-inquiry"){
-      inquiryMethod = `${methodLabel}을 적용하여 현재 탐구에서 확인한 내용과 남아 있는 한계를 구분하였다. 이후 추가로 검증할 변수와 자료를 ${criteriaText}의 기준으로 설계하였다. ${evidenceSentence}`;
-    }else{
-      inquiryMethod = `${methodLabel}을 적용하여 ${profile.topicLabel}과 관련된 자료의 변화와 조건별 차이를 분석하였다. 자료를 읽을 때에는 ${criteriaText}를 기준으로 삼고, 수치 자체보다 변화가 나타난 조건과 원인을 교과 개념으로 해석하였다. ${evidenceSentence}`;
+    function bodyFor(section){
+      const name = String(section || "");
+      if(/탐구 질문|연구 질문|핵심 질문/.test(name)) return `본 탐구의 핵심 질문은 “${focusQuestion.replace(/[.。]$/, "")}”이다. 이를 구체화하기 위해 ${profile.topicLabel}의 기본 조건은 무엇인지, ${cases}에서 어떤 차이가 나타나는지, 그 차이를 ${c.concept} 개념으로 어떻게 설명할 수 있는지를 함께 살펴보았다.`;
+      if(/문제 상황 설정|문제 제기|현상 설정|현상\/대상 설정|텍스트 이해|매체 자료 선정|쟁점 정리|수행 목표|주제 의도|문제 정의/.test(name)) return motivation;
+      if(/선행연구|선행 자료|자료 출처|자료 조사|자료 근거|근거 장면|정보 구성 방식|요구 사항/.test(name)) return `${evidenceSentence} 분석 자료는 ${profile.references?.join(", ") || "교과서와 확인 가능한 공공·전문 자료"}의 범위에서 선정하며, 실제 서지사항과 발행 정보는 제출 전에 원문에서 확인한다. ${constraintSentence}`;
+      if(/이론|핵심 개념|교과 개념|교과 원리|기본 원리|개념 선정|개념·이론|관점 설정/.test(name)) return `${profile.theory}\n\n본 탐구에서 ${c.concept} 개념은 배경 지식이 아니라 조건과 결과를 연결하는 분석 도구로 사용하였다.`;
+      if(/가설|목표/.test(name)) return `${profile.topicLabel}의 결과는 ${criteriaText}의 조건에 따라 달라질 것이라고 예상하였다. 특히 ${c.concept}을 적용하면 단순한 장단점 나열보다 차이가 나타나는 원인과 범위를 구분할 수 있다는 목표를 세웠다.`;
+      if(/변인|방법 설계|자료 수집|실험 조건|알고리즘 설계|조건 설계|수행 가능성|수행 과정|창작 과정|구현 과정/.test(name)) return inquiryMethod;
+      if(/문항 제작/.test(name)) return `${constraintSentence} 문항은 단순 수치 변경이 아니라 ${c.concept}의 조건이 달라지도록 재구성하고, 원문과 변형 문항의 논리적 차이가 드러나도록 설계하였다. 각 문항에는 조건 분석, 해결 전략, 서술형 풀이, 원문과의 비교를 포함하였다.`;
+      if(/풀이 1/.test(name)) return `첫 번째 풀이에서는 문제의 조건을 직접 분류하고 ${c.concept}의 정의와 성질을 순서대로 적용하였다. 각 단계에서 사용한 조건을 명시하여 계산이나 판단이 성립하는 이유를 확인하였다.`;
+      if(/풀이 2/.test(name)) return `두 번째 풀이에서는 같은 문제를 다른 표현이나 보조 조건으로 바꾸어 해결하였다. 첫 번째 풀이와 비교해 필요한 가정, 계산 과정, 오류 가능성이 어떻게 달라지는지 정리하였다.`;
+      if(/자료 정리|결과 정리|분석 결과|예측\/해석|테스트 결과|결과물 설명|적용 사례 분석|문항 제작|풀이 과정/.test(name)) return `${constraintSentence}
+
+${result}`;
+      if(/패턴 해석|자료 해석|원인 분석|영향 분석|풀이 비교|표현 전략|수용자\/맥락|해석과 비평|조건 비교|개념 적용 해석|의미 분석|결과 평가|정보 구성 방식 분석/.test(name)) return discussion;
+      if(/결론|결론 도출|자기 주장|해결 방향|정책·실천 방안|개선안|개선 방향|일반화/.test(name)) return profile.conclusion;
+      if(/반론|재반박|오류 검토|오류 가능성|오류 수정/.test(name)) return `분석 과정에서 가장 큰 오류 가능성은 서로 다른 조건의 자료를 같은 기준으로 단정하거나, 상관관계를 원인으로 해석하는 것이다. 이를 줄이기 위해 조건과 가정을 먼저 명시하고, 반대 사례와 자료의 한계를 함께 검토하였다.`;
+      if(/연구 윤리|안전/.test(name)) return `자료와 사례는 확인 가능한 범위에서만 사용하고 출처를 표시한다. 실제 사람·기관·사고의 책임을 공개 자료보다 넓게 추정하지 않으며, 실험이나 현장 자료를 활용할 때에는 안전과 개인정보 보호 원칙을 우선한다.`;
+      if(/한계|오차|보완/.test(name)) return `${profile.limitation}${followupCareer ? ` ${followupCareer}` : ""}`;
+      if(/후속|확장 모델|확장 문제|확장 쟁점|후속 질문|후속 연습/.test(name)) return `${profile.limitation} 후속 탐구에서는 같은 단위와 기간의 자료를 확보하고, 핵심 변인을 하나씩 통제하여 현재의 정성 결론을 정량적으로 검증한다.${followupCareer ? ` ${followupCareer}` : ""}`;
+      if(/기대 효과/.test(name)) return `이 분석 구조를 적용하면 ${profile.topicLabel}을 단순한 정보 조사로 다루지 않고, 교과 개념·자료·조건·판단을 연결한 근거 중심 보고서로 완성할 수 있다.`;
+      if(/자기 성찰|개선 과정|피드백 기준/.test(name)) return profile.reflection;
+      return `${profile.topicLabel}을 ${criteriaText}의 기준으로 정리하였다. ${c.concept}을 적용해 조건과 결과의 관계를 설명하고, 자료의 한계와 적용 범위를 함께 확인하였다.`;
     }
 
-    const resultText = `${profile.result}\n\n분석 과정에서 가장 중요하게 확인한 점은 결과가 하나의 기준으로만 결정되지 않는다는 사실이다. ${criteriaText}를 함께 적용했을 때 각 사례의 장점이 나타나는 조건과 한계가 나타나는 조건을 구분할 수 있었다. ${viewSentence}`;
-    const discussionText = `${profile.discussion}\n\n이번 탐구에서 수행평가의 핵심 평가 요소(${rubric})를 드러내기 위해 개념 설명과 자료 해석을 분리하지 않고 연결하였다. 단순히 사례를 소개하는 데 그치지 않고, 왜 차이가 발생했는지와 그 차이가 어떤 판단으로 이어지는지를 설명하였다. 이 과정에서 자료의 범위와 조건이 달라지면 결론도 달라질 수 있으므로, 결론을 모든 상황에 일반화하지 않는 것이 중요하다고 판단하였다.`;
-
-    const references = [];
-    if(rawTitle) references.push(`${rawSource ? `${rawSource}, ` : ""}「${rawTitle}」`);
-    references.push(...(profile.references || []));
-    if(book?.title) references.push(`『${book.title}』`);
-
-    return [
-      `보고서 제목`,
-      reportTitle,
-      "",
-      "1. 탐구 동기 및 목적",
-      `${c.subject}에서 배운 ${c.concept}은 교과서 속 개념에 머무르지 않고 실제 기술과 사회의 선택을 설명하는 기준이 될 수 있다. 특히 ${profile.topicLabel}은 성능, 환경, 안전, 경제성처럼 여러 조건이 동시에 작용하기 때문에 단순한 장단점 나열만으로 판단하기 어렵다. 이에 본 탐구에서는 ${profile.topicLabel}을 ${deriveReportCriterion(c, extra)}의 관점에서 분석하고, 조건에 따라 결과가 달라지는 이유를 교과 개념으로 설명하는 것을 목적으로 하였다.`,
-      "",
-      "2. 탐구 문제",
-      `핵심 탐구 문제는 “${focusQuestion.replace(/[.。]$/, "") }”이다. 이를 해결하기 위해 첫째, ${profile.topicLabel}의 기본 원리와 작동 조건은 무엇인지, 둘째, ${cases}은 ${criteriaText}에서 어떤 차이를 보이는지, 셋째, 이러한 차이를 바탕으로 어떤 판단 기준을 세울 수 있는지를 살펴보았다.`,
-      "",
-      "3. 이론적 배경",
-      `${profile.theory}\n\n본 탐구에서 ${c.concept}은 단순히 용어를 설명하는 역할이 아니라 사례와 자료를 같은 기준으로 비교하는 분석 도구로 사용하였다. 원인과 결과 사이에 어떤 과정이 존재하는지, 조건이 바뀌었을 때 결과가 왜 달라지는지를 확인하는 것이 이론적 배경의 핵심이다.`,
-      "",
-      "4. 탐구 방법",
-      inquiryMethod,
-      "",
-      "5. 탐구 내용 및 결과",
-      resultText,
-      "",
-      "6. 결과 해석 및 고찰",
-      discussionText,
-      "",
-      "7. 결론",
-      profile.conclusion,
-      "",
-      "8. 한계와 후속 탐구",
-      profile.limitation,
-      "",
-      "9. 느낀 점",
-      profile.reflection,
-      "",
-      "10. 참고자료",
-      ...Array.from(new Set(references.filter(Boolean))).map((item, idx) => `${idx + 1}) ${item}`)
-    ].join("\n");
+    const out = ["보고서 제목", reportTitle, ""];
+    sections.forEach((section, idx) => {
+      out.push(`${idx + 1}. ${section}`, bodyFor(section), "");
+    });
+    out.push(`${sections.length + 1}. 느낀 점`, profile.reflection, "");
+    out.push(`${sections.length + 2}. 참고자료`);
+    if(references.length){
+      references.forEach((item, idx) => out.push(`${idx + 1}) ${item}`));
+    }else{
+      out.push("1) 교과서 해당 단원", "2) 주제 관련 정부·공공기관 또는 전문기관 공개자료");
+    }
+    return out.join("\n").replace(/\n{3,}/g, "\n\n").trim();
   }
 
   function renderSecondaryDraftPanel(expansion, req){
@@ -3601,24 +3413,11 @@
     const reportTitle = firstNonEmpty(
       titleSection?.body?.split(/\n/)[0],
       extraction?.title,
-      `${s.selectedKeyword || req.keyword || "선택 키워드"} 기반 탐구 설계`
+      `${s.selectedKeyword || req.keyword || "선택 키워드"} 수행평가 보고서`
     );
 
     const diag = extraction?.diagnostics || {};
     const focusQuestion = diag.focusQuestion || "";
-    const majorKeywordTag = Array.isArray(diag.majorKeywords) && diag.majorKeywords.length ? diag.majorKeywords.slice(0,4).join(" · ") : "";
-    const majorLensTag = diag.majorLens || "";
-    const expansionForDraft = getSecondaryExpansionContext(req, {
-      subject: s.subject || req.subject,
-      major: s.department || s.major || req.major,
-      concept: s.selectedConcept || req.selectedConcept,
-      keyword: s.selectedKeyword || req.keyword,
-      axis: s.selectedFollowupAxis || req.selectedFollowupAxis,
-      mode: req.reportMode,
-      view: req.reportView,
-      line: req.reportLine,
-      bookTitle: book.title || ""
-    });
 
     const displaySections = sections
       .filter(sec => !/^(보고서|설계서)\s*제목$/.test(normalizeSectionTitle(sec.title)))
@@ -3729,32 +3528,20 @@
           </div>
         </div>
 
-        <div class="mini-v43-quick">
-          <div><b>STEP 1</b><span>1차 설계값 확인하기</span></div>
-          <div><b>STEP 2</b><span>2차 확장 방향 선택하기</span></div>
-          <div><b>STEP 3</b><span>선택 방향으로 초안 구조화하기</span></div>
-        </div>
-
         <div class="mini-v43-tags">
           <span>${escapeHtml(s.subject || req.subject)}</span>
-          ${majorLensTag ? `<span>전공 개념: ${escapeHtml(majorLensTag)}</span>` : ""}
-          ${majorKeywordTag ? `<span>핵심 키워드: ${escapeHtml(majorKeywordTag)}</span>` : ""}
           <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
           <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
-          <span>${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}</span>
-          ${diag.donggukPerformanceFrame?.performanceName ? `<span>수행평가 영역명: ${escapeHtml(diag.donggukPerformanceFrame.performanceName)}</span>` : ""}
           ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
         </div>
 
         <div class="mini-v43-grid">
           ${sectionHtml}
-          ${renderSecondaryDraftPanel(expansionForDraft, req)}
         </div>
       </section>
     `;
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(sanitizedText));
-    bindSecondaryDraftPanel(expansionForDraft, req);
 
     const builtInStudentReport = $("studentReport");
     if(builtInStudentReport) builtInStudentReport.innerHTML = "";
@@ -3765,7 +3552,7 @@
     const finalTopic = $("finalTopic");
     if(finalTopic) finalTopic.textContent = reportTitle;
     const topicSub = $("topicSub");
-    if(topicSub) topicSub.textContent = "질문·자료·표·문단·결론의 흐름으로 정리한 탐구 조립 지도입니다.";
+    if(topicSub) topicSub.textContent = "수행평가 원문과 교과 개념, 내용 시드를 연결한 완성 보고서입니다.";
     const finalMode = $("finalMode");
     if(finalMode) finalMode.style.display = "none";
     const actionSteps = $("actionSteps");
@@ -3808,7 +3595,7 @@
       return true;
     }catch(e){
       console.error("v32 generate failed:", e);
-      showError("탐구 실행 지도 생성 중 오류가 발생했습니다.", e.message || String(e));
+      showError("보고서 생성 중 오류가 발생했습니다.", e.message || String(e));
       return false;
     }finally{
       setLoading(false);

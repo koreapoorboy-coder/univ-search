@@ -6,16 +6,16 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v239-complete-report";
+  const BUILDER_VERSION = "mini-payload-builder-v240-cross-axis-major-balanced";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
-    version: "report-generation-context-v2",
+    version: "report-generation-context-v240-cross-axis-major-balanced",
     createdAt: "2026-04-30T09:10:00",
-    principle: "학생이 선택한 과목·학과·개념·키워드·후속축·도서와 6~8번 보고서 선택값을 바탕으로 수행평가 보고서의 문단 구조와 작성 방향을 MINI에 전달한다.",
+    principle: "학생이 선택한 과목·교과 개념·키워드와 실제 수행평가 원문·내용 시드를 우선 연결하고, 학과 정보는 후속 탐구에만 제한적으로 전달한다.",
     defaultOutputType: "수행평가 탐구보고서",
     defaultDepthLevel: "고등학생 심화 탐구형",
-    defaultWritingStyle: "교과 개념 → 실제 문제 → 자료/사례/원리 해석 → 전공 확장 → 심화 탐구",
+    defaultWritingStyle: "수행평가 요구 → 교과 개념 → 실제 자료·사례·원리 해석 → 결과·고찰 → 후속 탐구",
     canonicalSections: [
       "중요성",
       "추천 주제",
@@ -34,7 +34,7 @@
     miniWritingRules: [
       "도서 활용은 선택 사항이다. 도서를 선택하지 않은 수행평가는 공공자료·통계·기사·실험자료 중심으로 구성한다.",
       "선택 도서를 사용하는 경우에만 도서를 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다.",
-      "학과와 직접 맞지 않는 확장 참고 도서는 본문 핵심 이론이 아니라 결론 확장 또는 비교 관점으로 제한한다.",
+      "학과 정보는 수행평가가 진로 탐구를 직접 요구하지 않는 한 제목·핵심 질문·본론 기준·핵심 결론에 사용하지 않는다.",
       "학생 수준을 넘는 대학원급 수식·전문 알고리즘은 설명 중심으로 낮추어 작성한다.",
       "교과 개념 → 실제 문제 → 해결 과정 → 교과 연계 → 심화 방안의 흐름을 유지한다.",
       "6번 수행평가 방식, 7번 평가 관점·과정 증거, 8번 결과물 수준 선택값에 따라 같은 주제라도 수행평가 영역명·평가 의도·자료 역할·문단 구조가 달라지도록 한다.",
@@ -203,15 +203,15 @@
   ];
 
   const SECTION_TEMPLATES = {
-    "중요성": { prompt: "{keyword}는 {department}와 연결될 때 단순한 교과 개념이 아니라 실제 기술·사회 문제를 해결하는 핵심 주제로 확장된다." },
-    "추천 주제": { prompt: "{keyword}를 {axis} 관점에서 해석하여 {department}와 연결되는 탐구 주제를 제안한다.", titlePattern: "{keyword}와 {department}의 연결: {axis} 기반 탐구" },
+    "중요성": { prompt: "{keyword}를 실제 수행평가의 조건과 자료로 분석할 때 {concept}이 어떤 판단 기준으로 작동하는지 설명한다." },
+    "추천 주제": { prompt: "{keyword}를 {concept}과 {axis} 관점에서 해석하여 대상·변인·조건·판단 기준이 드러나는 탐구 주제를 제안한다.", titlePattern: "{keyword}의 조건별 변화 분석: {concept}과 {axis}을 중심으로" },
     "관련 키워드": { prompt: "선택 개념, 키워드, 후속 연계축에서 보고서에 실제 사용할 개념어·자료어·전공어를 구분해 제시한다." },
-    "탐구 동기": { prompt: "수업에서 배운 {concept}이 실제 {keyword} 문제와 어떻게 이어지는지 질문을 만들고, 이를 {department} 관점에서 탐구하게 된 이유를 서술한다." },
-    "느낀점": { prompt: "탐구를 통해 교과 개념이 실제 문제 해결과 연결된다는 점, 그리고 진로 분야에서 어떤 역량이 필요한지 깨달은 점을 쓴다." },
-    "세특 문구 예시": { prompt: "{concept}을 바탕으로 {keyword}를 분석하고, {axis} 관점에서 자료 해석과 전공 연계를 수행한 점을 드러낸다." },
-    "이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?": { prompt: "선택 개념이 학생의 과목 선택, 후속 탐구, 진로 적합성과 어떻게 연결되는지 설명한다." },
+    "탐구 동기": { prompt: "수업에서 배운 {concept}이 실제 {keyword} 문제의 조건과 결과를 어떻게 설명하는지 질문을 만들고 탐구 목적을 서술한다." },
+    "느낀점": { prompt: "탐구 전후의 생각 변화, 교과 개념을 실제 분석 기준으로 사용한 과정, 자료와 결론의 한계를 깨달은 점을 쓴다." },
+    "세특 문구 예시": { prompt: "{concept}을 바탕으로 {keyword}의 조건과 자료를 분석하고, {axis} 관점에서 근거 제시와 결과 해석을 수행한 점을 드러낸다." },
+    "이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?": { prompt: "선택 개념이 수행평가의 탐구 질문, 자료 분석, 후속 탐구와 어떻게 연결되는지 설명한다." },
     "이 개념이 무엇이며 어떤 원리인가?": { prompt: "{concept}의 핵심 원리를 고등학생이 이해할 수 있는 수준으로 설명하고, {keyword}와 연결되는 과학적·수학적 원리를 제시한다." },
-    "어떤 문제를 해결할 수 있고, 왜 중요한가?": { prompt: "{keyword}가 실제로 어떤 문제를 만들고, {department} 관점에서 왜 해결해야 하는지 설명한다." },
+    "어떤 문제를 해결할 수 있고, 왜 중요한가?": { prompt: "{keyword}가 실제로 어떤 문제를 만들고, {concept}과 확인 가능한 자료를 통해 왜 분석해야 하는지 설명한다." },
     "실제 적용 및 문제 해결 과정": { prompt: "문제 상황을 단계별로 나누고, {axis}에 맞춰 자료 수집·해석·모델링·검증·해결 방안을 제시한다." },
     "교과목 연계 및 이론적 설명": { prompt: "{subject}를 중심으로 수학, 과학, 정보, 사회 교과가 어떻게 연결되는지 설명한다." },
     "심화 탐구 발전 방안": { prompt: "현재 보고서를 바탕으로 더 깊게 확장할 수 있는 실험, 자료 분석, 비교 연구, 전공 심화 주제를 제안한다." },
@@ -268,19 +268,19 @@
   };
 
   const EXAMPLE_PATTERNS = {
-    version: "report-example-pattern-rules-v27",
+    version: "report-example-pattern-rules-v240-major-balanced",
     patternGroups: {
       system_data_prevention: {
         label: "시스템·데이터 예방형",
         fitSignals: ["AI","IoT","데이터","모델링","스마트","센서","위험","붕괴","예측","컴퓨터","공학"],
-        modePriority: ["data","application","major"],
+        modePriority: ["data","application","principle"],
         exampleReportIds: ["RPT-001","RPT-005"],
         studentUse: "문제 상황을 데이터로 관찰하고, 변수·기준·모델을 세워 예방 또는 최적화 방안을 제시하는 구조"
       },
       sustainability_material_design: {
         label: "지속가능·소재/공정 설계형",
         fitSignals: ["지속가능","환경","소재","공정","촉매","재활용","업사이클링","화학","에너지","신소재"],
-        modePriority: ["application","compare","major"],
+        modePriority: ["application","compare","principle"],
         exampleReportIds: ["RPT-002","RPT-006"],
         studentUse: "물질·소재·자원 문제를 원리와 공정 관점에서 분석하고 개선안을 설계하는 구조"
       },
@@ -294,7 +294,7 @@
       bio_mechanism: {
         label: "생명·분자 기전 해석형",
         fitSignals: ["생명","신경","분자","단백질","유전자","의생명","약학","세포","시냅스","기전"],
-        modePriority: ["principle","major","application"],
+        modePriority: ["principle","application","compare"],
         exampleReportIds: ["RPT-007"],
         studentUse: "생명 현상을 분자·세포·시스템 수준으로 나누어 원리와 질환/응용 가능성을 설명하는 구조"
       },
@@ -308,7 +308,7 @@
       social_policy_issue: {
         label: "사회·정책 쟁점 분석형",
         fitSignals: ["정책","사회","행정","복지","정치","법","윤리","공공","거버넌스","갈등"],
-        modePriority: ["compare","application","major"],
+        modePriority: ["compare","application","data"],
         exampleReportIds: ["RPT-004","RPT-009","RPT-010"],
         studentUse: "현실 쟁점을 원인·이해관계·제도·대안으로 나누어 분석하는 구조"
       }
@@ -570,7 +570,6 @@
   function inferExamplePattern(payload, axisRule, reportChoices){
     const hay = normalize([
       payload.subject,
-      payload.department,
       payload.selectedConcept,
       payload.selectedRecommendedKeyword,
       payload.followupAxis,
@@ -625,7 +624,6 @@
     if (/데이터|data|모델|그래프|시각화|예측|통계|자료/.test(hay)) return "data";
     if (/비교|쟁점|차이|정책|사회|윤리|한계/.test(hay)) return "compare";
     if (/사례|적용|해결|공정|센서|측정|실험/.test(hay)) return "application";
-    if (/전공|공학|의학|약학|간호|컴퓨터|반도체/.test(hay)) return "major";
     return "principle";
   }
 
@@ -633,19 +631,20 @@
     if (mode === "data") return "자료 해석";
     if (mode === "compare") return "비교";
     if (mode === "application") return "사회적 의미";
-    if (mode === "major") return "진로 확장";
+    if (mode === "major") return "원리";
     if (mode === "book") return "한계";
     return "원리";
   }
 
   function fallbackLineFromMode(mode){
     if (["data","compare","application"].includes(mode)) return "standard";
-    if (mode === "major") return "advanced";
+    if (mode === "major") return "standard";
     return "standard";
   }
 
   function completeReportChoices(reportChoices, payload, axisRule){
-    const mode = reportChoices.mode || fallbackModeFromAxis(payload, axisRule);
+    const requestedMode = reportChoices.mode || fallbackModeFromAxis(payload, axisRule);
+    const mode = requestedMode === "major" ? fallbackModeFromAxis(payload, axisRule) : requestedMode;
     const view = reportChoices.view || fallbackViewFromMode(mode);
     const line = reportChoices.line || fallbackLineFromMode(mode);
     return {
@@ -681,7 +680,7 @@
   function fillTemplate(text, payload){
     return val(text)
       .replaceAll("{subject}", payload.subject || "선택 과목")
-      .replaceAll("{department}", payload.department || "선택 학과")
+      .replaceAll("{department}", "후속 탐구")
       .replaceAll("{concept}", payload.selectedConcept || "선택 개념")
       .replaceAll("{keyword}", payload.selectedRecommendedKeyword || "선택 키워드")
       .replaceAll("{axis}", payload.followupAxis || "후속 연계축");
@@ -790,16 +789,16 @@
         aiPromptGuide: [
           `아래 1차 탐구 설계값을 바탕으로 '${path.label}' 방향의 학교 제출용 수행평가 보고서를 완성해줘.`,
           "문단별 안내문이나 빈칸을 만들지 말고, 선택값을 반영한 완성형 수행평가 보고서를 작성해줘.",
-          `반드시 ${concept}, ${keyword}, ${axis}의 연결 이유가 보이게 해줘.`
+          `반드시 ${concept}, ${keyword}, ${axis}의 연결 이유가 보이게 하고, 학과명은 제목·핵심 질문·핵심 결론에 넣지 마.`
         ].join(" ")
       };
     });
 
     return {
       version: "secondary-expansion-context-v228",
-      purpose: "1차 선택값을 그대로 보고서로 만들지 않고, 2차 확장 방향을 학생이 다시 선택하게 하여 중복성을 낮추는 구조",
+      purpose: "실제 수행평가 방법축과 보고서 내용축을 교차한 뒤, 학생이 선택한 확장 방향으로 완성 보고서를 분기하는 구조",
       principle: "1차 데이터 = 공통 뼈대 / 2차 확장 방향 = 분기점 / 학생 자료 = 개인화 근거 / 3차 초안 = 최종 문단화",
-      sourceSelection: { subject, department, concept, keyword, followupAxis: axis, reportMode: modeLabel, reportView: viewLabel, reportLine: lineLabel, selectedBookTitle: bookTitle },
+      sourceSelection: { subject, concept, keyword, followupAxis: axis, reportMode: modeLabel, reportView: viewLabel, reportLine: lineLabel, selectedBookTitle: bookTitle, careerForTieBreakOnly: department },
       recommendedPathId,
       paths,
       studentRequiredInputs: [
@@ -828,6 +827,7 @@
     const axis = basePayload.followupAxis || basePayload.selectedFollowupAxis || "후속 연계축";
     const runtimeAssessment = typeof global.AssessmentKeywordBridge?.resolveSync === "function"
       ? global.AssessmentKeywordBridge.resolveSync({
+          schoolName: readDomValue("schoolName"),
           subjectGroup: readDomValue("subjectGroup"),
           subject: basePayload.subject || readDomValue("subject"),
           taskName: readDomValue("taskName"),
@@ -880,19 +880,22 @@
         runtimeEvidence: runtimeAssessment.runtime_evidence,
         recommendedTopic: runtimeAssessment.student_output?.one_line_pick || "",
         topicOptions: runtimeAssessment.student_output?.topic_options || [],
-        reportFlow: runtimeAssessment.student_output?.report_flow || []
+        reportFlow: runtimeAssessment.student_output?.report_flow || [],
+        crossAxis: runtimeAssessment.cross_axis || null,
+        priorityPolicy: runtimeAssessment.priorityPolicy || null,
+        majorPolicy: runtimeAssessment.cross_axis?.majorPolicy || null
       } : null,
       runtimeEvidence: runtimeAssessment?.runtime_evidence || null,
       matchedAssessmentRoute: runtimeAssessment?.assessment_route || null,
       dedupeRules: [
         "제목에서 같은 명사구를 반복하지 않는다.",
         "주제(내용)는 한 번만 제시하고, 방법은 동사형으로 붙인다.",
-        "학과명은 반복하지 말고 전공 사고방식으로 바꾼다.",
+        "학과 정보는 제목·핵심 질문·본론 기준·핵심 결론에 사용하지 않는다. 단, 수행평가 자체가 진로 탐구를 요구할 때만 예외로 한다.",
         "수행평가 방식과 평가 관점을 분리해 MINI에 전달한다."
       ],
       miniInstruction: runtimeAssessment?.student_output?.one_line_pick
-        ? `실제 수행평가 누적 데이터 연결 결과 '${runtimeAssessment.student_output.one_line_pick}'를 1차 주제로 사용하고, 방법은 ${reportChoices.modeLabel}, 과정 증거는 ${reportChoices.viewLabel}으로 구성한다.`
-        : `주제는 ${concept}·${keyword}에서 가져오고, 방법은 ${reportChoices.modeLabel}으로, 과정 증거는 ${reportChoices.viewLabel}으로 구성한다.`
+        ? `실제 수행평가 원문 제약과 실제 보고서 내용 시드를 교차한 '${runtimeAssessment.student_output.one_line_pick}'를 핵심 주제로 사용한다. structure_id별 섹션, 원문 수량 제약, 산출물, 채점 요소를 모두 지키고 학과 정보는 후속 탐구에만 제한한다.`
+        : `주제는 ${concept}·${keyword}에서 가져오고, 방법은 ${reportChoices.modeLabel}으로, 과정 증거는 ${reportChoices.viewLabel}으로 구성한다. 학과 정보는 제목과 핵심 질문을 만들지 않는다.`
     };
   }
 
@@ -941,8 +944,11 @@
       } : null,
       reportChoices,
       performanceAssessment,
+      assessmentSeedCrossAxis: performanceAssessment?.assessmentKeywordConnection?.crossAxis || null,
+      generationPriorityPolicy: { assessmentRequirement: 35, subjectConcept: 30, selectedKeywordAndContentSeed: 20, methodAndOutput: 10, majorCareerTieBreak: 5 },
+      majorUsePolicy: performanceAssessment?.assessmentKeywordConnection?.majorPolicy || { maximumWeight: 5, allowedUses: ["동점 후보 정렬", "고찰 마지막 확장 1문장", "후속 탐구"], forbiddenUses: ["제목", "핵심 탐구 질문", "본론 비교 기준", "핵심 결론", "키워드 자동 대체"] },
       secondaryExpansionContext,
-      secondaryExpansionMode: "path-selection-before-draft",
+      secondaryExpansionMode: "structure-id-complete-report",
       reportChoiceInstruction: choiceInstruction,
       reportChoiceMiniDirective: choiceInstruction.miniDirective,
       reportModeProfile: modeProfile,
@@ -957,13 +963,14 @@
         `평가 관점·과정 증거는 '${reportChoices.viewLabel}'을 중심으로 유지한다.`,
         `결과물 수준은 '${reportChoices.lineLabel}' 구조를 따른다.`,
         `참고 패턴은 '${examplePattern.label}' 유형을 따르되, 원문을 복사하지 않고 선택 개념·키워드에 맞게 재구성한다.`,
-        "1차 설계값을 바로 완성 보고서로 만들지 말고, 2차 확장 방향 후보를 제시한 뒤 학생이 선택한 방향에 맞춰 초안을 구조화한다.",
-        "2차 확장 방향은 원리 분석형, 사례 비교형, 자료 해석형, 사회적 의미형, 후속 탐구형 중에서 선택하게 한다."
+        "학생이 선택한 2차 확장 방향을 반영하되, 최종 출력은 안내문·빈칸·수정 지시가 없는 완성 보고서로 작성한다.",
+        "실제 수행평가 레코드의 structure_id, raw_task_desc 수량 제약, output_axis, rubric_axis를 우선 적용한다.",
+        "보고서 내용은 실제 시드의 교과 적합성·핵심 원리·금지 패턴을 사용하고, 학과 정보는 동점 후보 정렬과 마지막 후속 탐구에만 최대 5%로 사용한다."
       
       ]),
       operatorOnly: {
         payloadUse: "이 객체는 학생 화면 출력이 아니라 MINI 보고서 생성을 위한 내부 구조 데이터이다.",
-        sourceExampleData: "report_dataset_stage2_RPT001_010.xlsx 기반 패턴"
+        sourceExampleData: "실제 수행평가 레코드 × 실제 seed-bank-v2 내용축 교차 패턴"
       }
     };
   }
@@ -979,7 +986,7 @@
       selectedConcept: val(rawPayload.selectedConcept) || state.concept || state.selectedConcept || "",
       selectedRecommendedKeyword: val(rawPayload.selectedRecommendedKeyword) || state.keyword || state.selectedKeyword || "",
       followupAxis: val(rawPayload.followupAxis) || state.axisLabel || state.linkTrack || state.followupAxisId || "",
-      reportIntent: val(rawPayload.reportIntent) || "수행평가 탐구 설계"
+      reportIntent: val(rawPayload.reportIntent) || "수행평가 완성 보고서"
     };
 
     const strong = getActiveSelectionSnapshot();
