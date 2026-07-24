@@ -1,117 +1,43 @@
 {
-  "version": "assessment-keyword-connection-patch-v1.0.0",
-  "created_at": "2026-07-24T19:45:00+09:00",
-  "apply_to": "keyword-engine repository root",
-  "baseline": {
-    "school_count": 54,
-    "record_count": 7131,
-    "source_count": 859,
-    "latest_school": "숙명여고",
-    "runtime_manifest_version": "2.4.0-runtime-v2-sookmyung",
-    "note": "업로드된 실제 엔진 기준. 인계문상의 59개교 예상치가 아니라 숙명여고까지 54개교 baseline이다."
-  },
-  "validation": {
-    "records_jsonl_total_lines": 7131,
-    "school_count": 54,
-    "source_count": 859,
-    "duplicate_task_id_count": 0,
-    "missing_source_reference_count": 0,
-    "keyword_route_count": 2780,
-    "active_keyword_library_count": 4,
-    "active_keyword_route_covered_count": 4,
-    "ui_subject_route_count": 26,
-    "ui_subject_route_with_evidence_count": 26,
-    "task_output_route_count": 4
-  },
-  "connection_flow": [
-    "student input",
-    "task interpreter",
-    "subject evidence route",
-    "keyword major/cluster route",
-    "task/output route",
-    "topic/method/output/rubric/report flow"
-  ],
+  "version": "assessment-keyword-complete-report-patch-v2.0.0",
+  "generated_at": "2026-07-24",
+  "target_path": "univ-search/public/keyword-engine/",
+  "purpose": "Replace generic draft-template output with complete assessment reports using specific titles, results, discussion, conclusion, limitations, reflection, and references.",
   "files": [
     {
-      "path": "ASSESSMENT_KEYWORD_CONNECTION_PATCH.md",
-      "size_bytes": 2032,
-      "sha256": "73e0e31e39fa433290369ee526fab5df899c3157dd5d201bd283e68dac0c05d7"
-    },
-    {
       "path": "COMMIT_MESSAGE.txt",
-      "size_bytes": 62,
-      "sha256": "8f0d55b9d11fa94fb6f065e5e0c8db42e0ab795a83dde267806b246bc8d7e1cf"
+      "size": 76,
+      "sha256": "c04309749bdb91c28ca2f37d2f78789640e09374b0595d86d7d0c4e60f2025bf"
     },
     {
-      "path": "assets/assessment_keyword_bridge_helper.js",
-      "size_bytes": 17868,
-      "sha256": "d63a5295a16d6f98aa14e2564cdc6c2d42b4c1179158b854faa506e14d30c809"
+      "path": "COMPLETE_REPORT_PATCH_README.md",
+      "size": 1793,
+      "sha256": "0f7375c806ded98ba6512e996f8dd5298ea2bb2629028ff95103da3a62ab7fd0"
     },
     {
       "path": "assets/js/mini_payload_builder.js",
-      "size_bytes": 60298,
-      "sha256": "066d6a379981ad291e2fc9c49ac819e88e93f90f85c2fc3caf9d63f45984b5db"
+      "size": 60455,
+      "sha256": "0dcaa911c761772ae813fad183905fbb3e64c50464a14264db14da4e2ec7dbda"
     },
     {
       "path": "assets/js/mini_worker_generate_bridge_v32.js",
-      "size_bytes": 270298,
-      "sha256": "70b7f2f6be621e0e469ca0bed3810cc39f3aa42d1540e285998fca7bb7747b7e"
-    },
-    {
-      "path": "assets/keyword_engine.css",
-      "size_bytes": 26571,
-      "sha256": "361f849d0312ae0e9db38b6f40eee837f026d9087533cc8182e1136feb78a8e7"
-    },
-    {
-      "path": "assets/keyword_engine.js",
-      "size_bytes": 36834,
-      "sha256": "dc7ac12651d601fa31cb5564424fec80c1bf8c90d5e2059031ba2d80da4408ba"
-    },
-    {
-      "path": "build/build_assessment_keyword_bridge.py",
-      "size_bytes": 27599,
-      "sha256": "e81c5e7316f22f6061688984a476844e94c591062aca9bb2211d3299a7e97273"
-    },
-    {
-      "path": "data/assessment/bridge/assessment_keyword_bridge.v1.json",
-      "size_bytes": 2195093,
-      "sha256": "6e1e3690dcba253a84be34288308a847331373ac5e424751382c352cddd92273"
-    },
-    {
-      "path": "data/assessment/bridge/assessment_keyword_bridge_manifest.v1.json",
-      "size_bytes": 1294,
-      "sha256": "2273f9f92da7a705e11ccc6c6c836aba08b014915eeb88c1254175c5f7c214a5"
-    },
-    {
-      "path": "data/assessment/bridge/assessment_keyword_connection_audit.v1.json",
-      "size_bytes": 4046,
-      "sha256": "6989e653b189e76dd9abbba6d86206ba8c47d590e386c8b1b37372f420369729"
-    },
-    {
-      "path": "data/assessment/bridge/assessment_keyword_connection_samples.v1.json",
-      "size_bytes": 3739,
-      "sha256": "83d826d51f55500ac410981cc97dc197bc8721a5a137510802b97001a601be57"
-    },
-    {
-      "path": "data/assessment/bridge/export/keyword_assessment_routes.v1.csv",
-      "size_bytes": 1160153,
-      "sha256": "367d94417bb6cd3062ce09271bd732e3842fcaf50f473fe71c01cd074bdc6837"
-    },
-    {
-      "path": "data/assessment/bridge/export/subject_assessment_evidence.v1.csv",
-      "size_bytes": 21305,
-      "sha256": "c2f7a1858a34fdc081ccb69945c0ce01f4d14326eeaf47cf7992034430a5f2f3"
-    },
-    {
-      "path": "data/assessment/bridge/export/task_output_evidence.v1.csv",
-      "size_bytes": 3593,
-      "sha256": "f3e2907918126ed2903e9947b19fe56646cfdb1be6d4b6728715100793a71a2d"
+      "size": 278397,
+      "sha256": "3c88ae0282569e5d2f73238d159b46156de808590edd345623d6782deceba811"
     },
     {
       "path": "index.html",
-      "size_bytes": 11631,
-      "sha256": "87c25764a07360e8c3b206e4bc4f25e6e706ae73dfdecd99d4d2a9dbfbce7f39"
+      "size": 11605,
+      "sha256": "24d50264d386065c26cda821313f0547eefaf15df78d6778309900012e7d1075"
     }
   ],
-  "commit_message": "Add assessment-keyword runtime connection and evidence routes"
+  "validation": {
+    "javascript_syntax_checked": true,
+    "sample_title": "화력발전과 재생에너지 발전의 환경 영향 비교: 공급 안정성과 지속가능성을 중심으로",
+    "forbidden_output_markers": [
+      "[수정 필요]",
+      "[학생 입력 필요]",
+      "선택됨",
+      "수정해야 할 부분"
+    ]
+  }
 }

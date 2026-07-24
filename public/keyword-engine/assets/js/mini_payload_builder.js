@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v237-assessment-keyword-connected";
+  const BUILDER_VERSION = "mini-payload-builder-v239-complete-report";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -350,8 +350,10 @@
 
   function cleanUiText(value){
     return val(value)
+      .replace(/선택됨/g, " ")
       .replace(/\s+/g, " ")
       .replace(/^(선택 개념|추천 키워드|후속 연계축|직접 일치 도서|확장 참고 도서)\s*[:：]?\s*/g, "")
+      .replace(/\s*(전공\s*맞춤\s*추천|추천\s*키워드|후속\s*연계축|도서\s*추천).*$/g, "")
       .replace(/\s*활동 예시:.*$/g, "")
       .trim();
   }
@@ -786,8 +788,8 @@
         studentInput: path.studentInput,
         reportDifferentiation: `${path.label}을 선택하면 같은 1차 설계값이라도 질문, 자료, 본론 구조, 결론 방향이 달라진다.`,
         aiPromptGuide: [
-          `아래 1차 탐구 설계값을 바탕으로 '${path.label}' 방향의 수행평가 보고서 초안 구조를 만들어줘.`,
-          "보고서를 바로 완성하지 말고, 문단별 작성 방향과 내가 직접 채워야 할 자료·해석 칸을 제시해줘.",
+          `아래 1차 탐구 설계값을 바탕으로 '${path.label}' 방향의 학교 제출용 수행평가 보고서를 완성해줘.`,
+          "문단별 안내문이나 빈칸을 만들지 말고, 선택값을 반영한 완성형 수행평가 보고서를 작성해줘.",
           `반드시 ${concept}, ${keyword}, ${axis}의 연결 이유가 보이게 해줘.`
         ].join(" ")
       };
@@ -811,8 +813,8 @@
         "1단계: 1차 설계값의 연결성 점검",
         "2단계: 2차 확장 방향 1개 선택",
         "3단계: 선택 방향에 맞는 자료 찾기",
-        "4단계: ChatGPT에는 보고서 대필이 아니라 선택 방향 기반 초안 구조화를 요청",
-        "5단계: 학생 초안 작성 후 첨삭 요청"
+        "4단계: 선택 방향과 수행평가 근거를 반영해 완성형 보고서를 생성",
+        "5단계: 생성된 보고서의 자료·수치·참고문헌을 학생이 최종 확인"
       ]
     };
   }
