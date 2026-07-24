@@ -1,102 +1,83 @@
 {
-  "patchVersion": "major-category-weighted-seed-ranking-v1.0.0",
-  "createdAt": "2026-07-24",
-  "targetPath": "univ-search/public/keyword-engine/",
-  "commitMessage": "Replace major filters with category-weighted seed ranking",
-  "policy": {
-    "candidatePool": "literal bestForSubjects match only; never filtered by major",
-    "sortOrder": [
-      "exact major match",
-      "same engineering/natural/medical category",
-      "other"
-    ],
-    "thinCategoryThreshold": 10,
-    "fallbackCondition": "categoryMatchCount < 10",
-    "medicalSplit": false
-  },
+  "patchId": "subject-alias-dropdown-support-log-v1",
+  "patchNumber": 2,
+  "createdDate": "2026-07-24",
+  "applyAfter": "major_category_weighted_seed_ranking_patch_v1_20260724.zip",
+  "targetRoot": "univ-search/public/keyword-engine/",
+  "scope": [
+    "lookup-time aliases for 미적분1 and 물리",
+    "six subject dropdown additions",
+    "held/thin subject notice",
+    "subject selection logging",
+    "canonical subject fields in collect payload"
+  ],
+  "doesNotModify": [
+    "existing option values for 미적분1 and 물리",
+    "subject_normalization_rules_2026_05_15.json",
+    "seed data files",
+    "major category weighting from Patch 1"
+  ],
   "validation": {
-    "chemistryEngineering": {
-      "subjectPool": 188,
-      "categoryMatches": 175,
-      "fallback": false
-    },
-    "chemistryNatural": {
-      "subjectPool": 188,
-      "categoryMatches": 181,
-      "fallback": false
-    },
-    "chemistryMedical": {
-      "subjectPool": 188,
-      "categoryMatches": 115,
-      "fallback": false
-    },
-    "biologyMedical": {
-      "subjectPool": 180,
-      "categoryMatches": 148,
-      "fallback": false
-    },
-    "earthSystemMedical": {
-      "subjectPool": 25,
-      "categoryMatches": 3,
-      "fallback": true,
-      "effectivePool": 25
-    },
-    "geometryMedical": {
-      "subjectPool": 34,
-      "categoryMatches": 10,
-      "fallback": false
-    }
+    "미적분1": 169,
+    "물리": 102,
+    "융합과학 탐구": 278,
+    "과학과제 연구": 170,
+    "데이터 과학": 149,
+    "화학 반응의 세계": 147,
+    "인공지능 기초": 58,
+    "생물의 유전": 41,
+    "확률과 통계": 162
   },
   "files": [
     {
       "path": "COMMIT_MESSAGE.txt",
-      "size": 58,
-      "sha256": "a1adc9b9e9abc787eb2911e4553bb6517e90556f245636e0a6dfd682efb6f2b8"
+      "size": 61,
+      "sha256": "403b6785a9d11a127281f2b2e66dfdb0730d6b6057a1e6ab6503f9ae96844e3c"
     },
     {
-      "path": "CROSS_AXIS_MAJOR_BALANCE_PATCH_README.md",
-      "size": 2575,
-      "sha256": "86526769cb009bccefaec19a15975eaa9e8ba3f4ec2e8db0642a12837c15f8d1"
-    },
-    {
-      "path": "index.html",
-      "size": 11628,
-      "sha256": "2b83bef650aa2f29dc063167dc6dad79cc151ca0bc2c692b9cdf8eab86ed290c"
+      "path": "SUBJECT_ALIAS_DROPDOWN_PATCH_README.md",
+      "size": 1928,
+      "sha256": "66d60b64e6f584b46613e3ea77e7fc787ad5d1be6bfa06705b6c0dbb09730a97"
     },
     {
       "path": "assets/assessment_keyword_bridge_helper.js",
-      "size": 39119,
-      "sha256": "96b8024d40a13adc49f2c5a2c7cbcaf8586c7034fd61a30242a93e187ea5d1cb"
+      "size": 40038,
+      "sha256": "b57deccf6ef2d72a5787a6dd8dd2299ecacbbe3933bfdaf0272c0e20dbee2239"
     },
     {
-      "path": "assets/js/mini_payload_builder.js",
-      "size": 62309,
-      "sha256": "9873237e4415ea3143b7a4631391495799ec600142623ebf44f914db15368453"
+      "path": "assets/js/subject_alias.js",
+      "size": 422,
+      "sha256": "d1c85f9531870e037b99d4118be387656b44ac92acc1a00159337247d9464186"
     },
     {
-      "path": "assets/js/mini_worker_generate_bridge_v32.js",
-      "size": 269813,
-      "sha256": "53c0762f20adbfd0523c907bd7d820b97da446246bcd1cb2010c928b4366e8d9"
+      "path": "assets/js/subject_support_notice.js",
+      "size": 6876,
+      "sha256": "93a4d7e337c5e457f87e0cf954a57b95af46e35454b4e8aae0c3bd006765d660"
     },
     {
-      "path": "build/build_assessment_seed_cross_axis_runtime.py",
-      "size": 16856,
-      "sha256": "c5ca8757da9453f654237cb401a409887cfa96318b6b34e1733e5c434781fd90"
+      "path": "assets/js/ui_subject_group_filter_v222.js",
+      "size": 9736,
+      "sha256": "15e4df10fb321bc3936d0f52149823719912f0ab188d9189856bbb7b8af20571"
     },
     {
-      "path": "build/validate_major_category_weighting.py",
-      "size": 3607,
-      "sha256": "dffbba99c9db101e82e48966d96c7c2844b4d3ae849a607ac5a43612ed3e3c02"
+      "path": "assets/keyword_engine.js",
+      "size": 37501,
+      "sha256": "0ddef163ad417541c5bda03d3df79655d180b53d36386c2d4a633818297c9a24"
     },
     {
-      "path": "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
-      "size": 11008949,
-      "sha256": "6a68153988eefc71516b0605f19343044a61133d1539a08a9e749350f26b95ec"
+      "path": "audit/SUBJECT_ALIAS_DROPDOWN_VALIDATION.md",
+      "size": 1422,
+      "sha256": "f8c09008a132770151ad60ce1237806380f0119767db207990282bc695fa32aa"
     },
     {
-      "path": "audit/MAJOR_CATEGORY_WEIGHT_VALIDATION.md",
-      "size": 723,
-      "sha256": "ca8c6448de90b5258fde7558ba4a903f0fd14f8509015ee2bcf2a249ea5d0e82"
+      "path": "build/validate_subject_alias_dropdown.py",
+      "size": 4753,
+      "sha256": "e9f85facd9a4919dde40315ee4c02c04957173466f90ebaa8273aabbd2bf903e"
+    },
+    {
+      "path": "index.html",
+      "size": 12701,
+      "sha256": "5cfa679387d28d10d71d629e7f37c510213659251132b47fbda1e20a90dedd3a"
     }
   ]
 }

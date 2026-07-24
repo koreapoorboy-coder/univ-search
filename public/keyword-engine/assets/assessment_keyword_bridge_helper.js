@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-weighted";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-major-category-weighted";
 
 (function(global){
   "use strict";
@@ -24,6 +24,12 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
       .replace(/[Ⅱ]/g,"2")
       .replace(/[Ⅲ]/g,"3")
       .replace(/[^0-9a-z가-힣]+/g,"");
+  }
+
+  function toCanonicalSubject(value){
+    const raw = String(value == null ? "" : value).trim();
+    const converter = global.__SUBJECT_ALIAS__?.toCanonicalSubject;
+    return raw && typeof converter === "function" ? converter(raw) : raw;
   }
 
   function normalizeMajor(value){
@@ -126,8 +132,9 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
   function findSubjectRoute(rawSubject){
     if(!bridgeData) return null;
     const routes = bridgeData.subject_routes || {};
-    const raw = String(rawSubject || "").trim();
-    if(routes[raw]) return { key: raw, route: routes[raw], match: "exact" };
+    const uiRaw = String(rawSubject || "").trim();
+    const raw = toCanonicalSubject(uiRaw);
+    if(routes[raw]) return { key: raw, route: routes[raw], match: raw === uiRaw ? "exact" : "ui-alias" };
     const target = normalize(raw);
     const aliases = bridgeData.subject_aliases || {};
     const key = Object.keys(routes).find(subject => {
@@ -183,7 +190,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
   function subjectTaskCandidates(subject){
     if(!crossAxisData) return [];
     const map = crossAxisData.tasksBySubject || {};
-    const key = normalize(subject);
+    const key = normalize(toCanonicalSubject(subject));
     if(map[key]) return map[key];
     const keys = Object.keys(map).filter(k => k && key && (k.includes(key) || key.includes(k))).slice(0,8);
     return keys.flatMap(k => map[k] || []);
@@ -236,7 +243,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
   }
 
   function seedSubjectScore(seed, subject){
-    const target = normalize(subject);
+    const target = normalize(toCanonicalSubject(subject));
     if(!target) return 0;
     const exactBestForSubject = (seed.subjects || []).some(v => normalize(v) === target);
     if(exactBestForSubject) return 45;
@@ -253,11 +260,12 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
   }
 
   function collectSubjectSeedCandidates(seeds, subject){
-    const raw = String(subject || "").trim();
-    const target = normalize(subject);
+    const uiRaw = String(subject || "").trim();
+    const raw = toCanonicalSubject(uiRaw);
+    const target = normalize(raw);
     if(!target) return { candidates: [], mode: "none" };
     const exact = (seeds || []).filter(seed => (seed.subjects || []).some(v => String(v || "").trim() === raw));
-    if(exact.length) return { candidates: exact, mode: "bestForSubjects-literal-exact" };
+    if(exact.length) return { candidates: exact, mode: raw === uiRaw ? "bestForSubjects-literal-exact" : "bestForSubjects-ui-alias-exact" };
     const bestForNormalized = (seeds || []).filter(seed => (seed.subjects || []).some(v => normalize(v) === target));
     if(bestForNormalized.length) return { candidates: bestForNormalized, mode: "bestForSubjects-normalized-fallback" };
     const normalized = (seeds || []).filter(seed => (seed.normalizedSubjects || []).some(v => normalize(v) === target));
@@ -589,6 +597,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
     else if(keywordMatch === "normalized") score += 18;
     else if(keywordMatch === "partial") score += 12;
     if(subjectMatch === "exact") score += 20;
+    else if(subjectMatch === "ui-alias") score += 20;
     else if(subjectMatch === "alias") score += 16;
     if(taskRoute) score += 10;
     if((keywordRoute.recommended_subject_groups || []).includes(subjectGroup)) score += 10;
@@ -622,8 +631,10 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
     const inferredSections = uniq(inferredRules.flatMap(rule => rule.required_sections || []));
 
     const keywordLabel = rawKeyword || keywordMatch?.key || "선택 키워드";
-    const subjectLabel = subjectMatch?.key || subjectInput || subjectGroup || "선택 과목";
-    const crossAxis = buildCrossAxis({ ...payload, career }, subjectLabel, keywordLabel, concept);
+    const canonicalSubjectInput = toCanonicalSubject(subjectInput);
+    const subjectLabel = subjectMatch?.key || canonicalSubjectInput || subjectGroup || "선택 과목";
+    // Seed lookup must use the selected subject's canonical name, not a broader subject-route key.
+    const crossAxis = buildCrossAxis({ ...payload, career }, canonicalSubjectInput || subjectLabel, keywordLabel, concept);
     const exactTask = crossAxis?.taskMatch?.record || null;
 
     const specificTaskType = ["실험보고서","자료조사 보고서","발표보고서"].includes(taskType);
@@ -669,7 +680,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
     const recordSentence = `${subjectLabel}의 ${concept || "핵심 개념"}을 바탕으로 ${keywordLabel}을 탐구하고, ${recommendedMethod} 과정에서 자료·조건·결과를 비교하여 ${rubricFocus.slice(0,3).join("·") || "근거 제시와 결과 해석"} 역량을 드러냄.`;
 
     const context = {
-      version: "assessment-keyword-cross-axis-context-v2.1.0",
+      version: "assessment-keyword-cross-axis-context-v2.2.0",
       connected: true,
       generatedAt: new Date().toISOString(),
       priorityPolicy: crossAxis?.priorityPolicy || {
@@ -682,6 +693,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
       input: {
         subjectGroup: subjectGroupInput,
         subject: subjectInput,
+        canonicalSubject: toCanonicalSubject(subjectInput),
         taskType,
         taskName: payload?.taskName || "",
         taskDescription: payload?.taskDescription || "",
@@ -694,6 +706,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
         keyword: keywordLabel,
         keywordMatchType: keywordMatch?.match || "fallback",
         subject: subjectLabel,
+        uiSubject: subjectInput,
+        canonicalSubject: toCanonicalSubject(subjectInput),
         subjectMatchType: subjectMatch?.match || "group-fallback",
         subjectGroup,
         inferredRuleIds: inferredRules.map(rule => rule.rule_id),
@@ -787,13 +801,14 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-wei
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.1.0-major-category-weighted",
+    version: "v2.2.0-subject-alias-and-major-category-weighted",
     ready: load,
     resolve,
     resolveSync,
     getLastContext: () => lastContext,
     getData: () => bridgeData,
-    getCrossAxisData: () => crossAxisData
+    getCrossAxisData: () => crossAxisData,
+    toCanonicalSubject
   };
 
   load();

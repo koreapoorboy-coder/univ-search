@@ -1,0 +1,231 @@
+/* ui_subject_group_filter_v222.js
+ * v222: 교과 선택값에 따라 세부 과목 드롭다운을 강제 필터링
+ * - v220에서 별도 스크립트가 로드되지 않거나, select가 열리는 시점에 원본 옵션이 노출되는 문제 보정
+ * - 교과(국어/영어/수학/사회/과학/정보) 선택 후 해당 교과 세부 과목만 표시
+ * - 활동 과제명은 hidden으로 유지하고, 세부 과목 + 결과물 유형으로 자동 생성
+ */
+(function(){
+  "use strict";
+
+  const VERSION = "ui-subject-group-filter-v222-subject-alias-dropdown-expansion";
+  window.__UI_SUBJECT_GROUP_FILTER_VERSION__ = VERSION;
+
+  const SUBJECT_CATALOG = [
+    { value:"공통국어1", text:"공통국어1", group:"국어" },
+    { value:"공통국어2", text:"공통국어2", group:"국어" },
+    { value:"영어", text:"영어", group:"영어" },
+    { value:"공통수학1", text:"공통수학1", group:"수학" },
+    { value:"공통수학2", text:"공통수학2", group:"수학" },
+    { value:"대수", text:"대수", group:"수학" },
+    { value:"확률과 통계", text:"확률과 통계", group:"수학" },
+    { value:"미적분1", text:"미적분1", group:"수학" },
+    { value:"기하", text:"기하", group:"수학" },
+    { value:"통합사회1", text:"통합사회1", group:"사회" },
+    { value:"통합사회2", text:"통합사회2", group:"사회" },
+    { value:"한국사", text:"한국사", group:"사회" },
+    { value:"통합과학1", text:"통합과학1", group:"과학" },
+    { value:"통합과학2", text:"통합과학2", group:"과학" },
+    { value:"과학탐구실험1", text:"과학탐구실험1", group:"과학" },
+    { value:"과학탐구실험2", text:"과학탐구실험2", group:"과학" },
+    { value:"융합과학 탐구", text:"융합과학 탐구", group:"과학" },
+    { value:"과학과제 연구", text:"과학과제 연구", group:"과학" },
+    { value:"물리", text:"물리(물리학Ⅰ)", group:"과학" },
+    { value:"화학", text:"화학(화학Ⅰ)", group:"과학" },
+    { value:"화학 반응의 세계", text:"화학 반응의 세계", group:"과학" },
+    { value:"생명과학", text:"생명과학", group:"과학" },
+    { value:"생물의 유전", text:"생물의 유전", group:"과학" },
+    { value:"지구과학", text:"지구과학", group:"과학" },
+    { value:"역학과 에너지", text:"역학과 에너지", group:"과학" },
+    { value:"전자기와 양자", text:"전자기와 양자", group:"과학" },
+    { value:"물질과 에너지", text:"물질과 에너지", group:"과학" },
+    { value:"세포와 물질대사", text:"세포와 물질대사", group:"과학" },
+    { value:"지구시스템과학", text:"지구시스템과학", group:"과학" },
+    { value:"정보", text:"정보", group:"정보" },
+    { value:"데이터 과학", text:"데이터 과학", group:"정보" },
+    { value:"인공지능 기초", text:"인공지능 기초", group:"정보" }
+  ];
+
+  function $(id){ return document.getElementById(id); }
+  function norm(value){ return String(value || "").trim(); }
+
+  function inferGroup(subject){
+    const s = norm(subject);
+    if(!s) return "";
+    if(/국어|문학|독서|화법|작문|언어|매체/.test(s)) return "국어";
+    if(/영어|English|공통영어/.test(s)) return "영어";
+    if(/수학|대수|미적분|기하|확률|통계/.test(s)) return "수학";
+    if(/사회|한국사|역사|지리|윤리|정치|경제|법|문화/.test(s)) return "사회";
+    if(/과학|물리|화학|생명|지구|역학|전자기|양자|물질|세포/.test(s)) return "과학";
+    if(/정보|프로그래밍|알고리즘|데이터/.test(s)) return "정보";
+    return "";
+  }
+
+  function optionOf(item){
+    const option = document.createElement("option");
+    option.value = item.value;
+    option.textContent = item.text || item.value;
+    option.dataset.subjectGroup = item.group || inferGroup(item.value || item.text);
+    return option;
+  }
+
+  function collectDomOptions(subjectSelect){
+    const items = [];
+    Array.from(subjectSelect?.options || []).forEach(opt => {
+      const value = norm(opt.value);
+      if(!value) return;
+      const text = norm(opt.textContent) || value;
+      const group = norm(opt.dataset.subjectGroup) || inferGroup(value || text);
+      if(group) items.push({ value, text, group });
+    });
+    return items;
+  }
+
+  function mergeCatalog(domItems){
+    const byValue = new Map();
+    SUBJECT_CATALOG.forEach(item => byValue.set(item.value, item));
+    domItems.forEach(item => {
+      const group = item.group || inferGroup(item.value || item.text);
+      if(!group) return;
+      byValue.set(item.value, { value:item.value, text:item.text || item.value, group });
+    });
+    return Array.from(byValue.values());
+  }
+
+  function setLabel(el, text){
+    const span = el?.closest("label")?.querySelector("span");
+    if(span) span.textContent = text;
+  }
+
+  function ensureTaskName(){
+    const taskName = $("taskName");
+    const subject = norm($("subject")?.value);
+    const taskType = norm($("taskType")?.value) || "탐구보고서";
+    if(taskName){
+      taskName.type = "hidden";
+      taskName.value = subject ? `${subject} ${taskType}` : taskType;
+      taskName.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  function install(){
+    const groupSelect = $("subjectGroup");
+    const subjectSelect = $("subject");
+    const taskName = $("taskName");
+    const taskType = $("taskType");
+    if(!groupSelect || !subjectSelect) return false;
+
+    setLabel(groupSelect, "교과");
+    setLabel(subjectSelect, "세부 과목");
+    setLabel(taskType, "결과물 유형");
+    if(taskName){
+      taskName.type = "hidden";
+      taskName.setAttribute("aria-hidden", "true");
+    }
+
+    if(!window.__SUBJECT_GROUP_FILTER_V222_CATALOG__){
+      window.__SUBJECT_GROUP_FILTER_V222_CATALOG__ = mergeCatalog(collectDomOptions(subjectSelect));
+    }
+    const catalog = window.__SUBJECT_GROUP_FILTER_V222_CATALOG__;
+
+    function rebuild(targetGroup, keepValue){
+      const group = norm(targetGroup || groupSelect.value);
+      const current = norm(keepValue || subjectSelect.value);
+      const filtered = catalog.filter(item => !group || item.group === group);
+
+      subjectSelect.innerHTML = "";
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = group ? `${group} 세부 과목 선택` : "교과를 먼저 선택하세요";
+      subjectSelect.appendChild(placeholder);
+      filtered.forEach(item => subjectSelect.appendChild(optionOf(item)));
+
+      const canKeep = !!current && filtered.some(item => item.value === current);
+      subjectSelect.value = canKeep ? current : "";
+      subjectSelect.dataset.filteredGroup = group;
+      subjectSelect.dataset.filterVersion = VERSION;
+      ensureTaskName();
+      return true;
+    }
+
+    function enforce(){
+      const group = norm(groupSelect.value);
+      if(!group){
+        rebuild("", "");
+        return;
+      }
+      const bad = Array.from(subjectSelect.options || []).some(opt => {
+        const value = norm(opt.value);
+        if(!value) return false;
+        const g = norm(opt.dataset.subjectGroup) || inferGroup(value || opt.textContent);
+        return g !== group;
+      });
+      if(bad || subjectSelect.dataset.filteredGroup !== group){
+        rebuild(group, subjectSelect.value);
+      }
+    }
+
+    if(groupSelect.dataset.v222Installed !== "1"){
+      groupSelect.addEventListener("change", () => {
+        rebuild(groupSelect.value, "");
+        subjectSelect.dispatchEvent(new Event("change", { bubbles:true }));
+      });
+      groupSelect.dataset.v222Installed = "1";
+    }
+
+    if(subjectSelect.dataset.v222Installed !== "1"){
+      subjectSelect.addEventListener("change", () => {
+        const subject = norm(subjectSelect.value);
+        const inferred = inferGroup(subject);
+        if(inferred && groupSelect.value !== inferred){
+          groupSelect.value = inferred;
+          rebuild(inferred, subject);
+        }
+        ensureTaskName();
+      });
+      ["focus", "pointerdown", "mousedown", "click", "keydown"].forEach(evt => {
+        subjectSelect.addEventListener(evt, enforce, true);
+      });
+      subjectSelect.dataset.v222Installed = "1";
+    }
+
+    if(taskType && taskType.dataset.v222Installed !== "1"){
+      taskType.addEventListener("change", ensureTaskName);
+      taskType.dataset.v222Installed = "1";
+    }
+
+    const initialSubject = norm(subjectSelect.value);
+    const initialGroup = norm(groupSelect.value) || inferGroup(initialSubject);
+    if(initialGroup && groupSelect.value !== initialGroup) groupSelect.value = initialGroup;
+    rebuild(groupSelect.value, initialSubject);
+
+    if(!window.__SUBJECT_GROUP_FILTER_V222_OBSERVER__){
+      const observer = new MutationObserver(() => enforce());
+      observer.observe(subjectSelect, { childList:true, subtree:false, attributes:true });
+      window.__SUBJECT_GROUP_FILTER_V222_OBSERVER__ = observer;
+    }
+
+    if(!window.__SUBJECT_GROUP_FILTER_V222_INTERVAL__){
+      let count = 0;
+      window.__SUBJECT_GROUP_FILTER_V222_INTERVAL__ = setInterval(() => {
+        enforce();
+        count += 1;
+        if(count > 20){
+          clearInterval(window.__SUBJECT_GROUP_FILTER_V222_INTERVAL__);
+          window.__SUBJECT_GROUP_FILTER_V222_INTERVAL__ = null;
+        }
+      }, 250);
+    }
+
+    return true;
+  }
+
+  window.__installSubjectGroupStrictFilterV222 = install;
+
+  function boot(){ install(); }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+  window.addEventListener("load", boot);
+  setTimeout(boot, 100);
+  setTimeout(boot, 400);
+  setTimeout(boot, 900);
+})();

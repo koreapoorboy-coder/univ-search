@@ -64,9 +64,13 @@
             <option value="통합과학2" data-subject-group="과학">통합과학2</option>
             <option value="과학탐구실험1" data-subject-group="과학">과학탐구실험1</option>
             <option value="과학탐구실험2" data-subject-group="과학">과학탐구실험2</option>
+            <option value="융합과학 탐구" data-subject-group="과학">융합과학 탐구</option>
+            <option value="과학과제 연구" data-subject-group="과학">과학과제 연구</option>
             <option value="물리" data-subject-group="과학">물리(물리학Ⅰ)</option>
             <option value="화학" data-subject-group="과학">화학(화학Ⅰ)</option>
+            <option value="화학 반응의 세계" data-subject-group="과학">화학 반응의 세계</option>
             <option value="생명과학" data-subject-group="과학">생명과학</option>
+            <option value="생물의 유전" data-subject-group="과학">생물의 유전</option>
             <option value="지구과학" data-subject-group="과학">지구과학</option>
             <option value="역학과 에너지" data-subject-group="과학">역학과 에너지</option>
             <option value="전자기와 양자" data-subject-group="과학">전자기와 양자</option>
@@ -74,6 +78,8 @@
             <option value="세포와 물질대사" data-subject-group="과학">세포와 물질대사</option>
             <option value="지구시스템과학" data-subject-group="과학">지구시스템과학</option>
             <option value="정보" data-subject-group="정보">정보</option>
+            <option value="데이터 과학" data-subject-group="정보">데이터 과학</option>
+            <option value="인공지능 기초" data-subject-group="정보">인공지능 기초</option>
           </select>
         </label>
 
@@ -167,9 +173,11 @@
     </section>
   </div>
 
+  <script src="assets/js/subject_alias.js?v=v1_subject_alias"></script>
+  <script src="assets/js/subject_support_notice.js?v=v1_subject_support_log"></script>
   <script src="assets/student_textbook_matcher.js"></script>
-  <script src="assets/assessment_keyword_bridge_helper.js?v=v21_major_category_weighted"></script>
-  <script src="assets/keyword_engine.js?v=v38_assessment_keyword_connected"></script>
+  <script src="assets/assessment_keyword_bridge_helper.js?v=v22_subject_alias_major_weighted"></script>
+  <script src="assets/keyword_engine.js?v=v39_subject_alias_dropdown_support_log"></script>
   <script src="assets/report_navigation_helper.js"></script>
   <script src="assets/student_focus_helper.js"></script>
   <script src="assets/draft_report_helper.js"></script>
@@ -183,13 +191,13 @@
   <script src="assets/js/report_6_8_flow_bridge.js?v=v236_clean_student_line"></script>
   <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v241_major_category_weighted"></script>
   <script>
-    /* v221 inline emergency fallback: external subject filter가 누락되어도 세부 과목을 교과별로 제한 */
-    window.__SUBJECT_GROUP_INLINE_FALLBACK_VERSION__ = "v221-inline-strict-filter";
+    /* v222 inline emergency fallback: external subject filter가 누락되어도 세부 과목을 교과별로 제한 */
+    window.__SUBJECT_GROUP_INLINE_FALLBACK_VERSION__ = "v222-inline-strict-filter";
     (function(){
-      const C={"국어":[["공통국어1","공통국어1"],["공통국어2","공통국어2"]],"영어":[["영어","영어"]],"수학":[["공통수학1","공통수학1"],["공통수학2","공통수학2"],["대수","대수"],["확률과 통계","확률과 통계"],["미적분1","미적분1"],["기하","기하"]],"사회":[["통합사회1","통합사회1"],["통합사회2","통합사회2"],["한국사","한국사"]],"과학":[["통합과학1","통합과학1"],["통합과학2","통합과학2"],["과학탐구실험1","과학탐구실험1"],["과학탐구실험2","과학탐구실험2"],["물리","물리(물리학Ⅰ)"],["화학","화학(화학Ⅰ)"],["생명과학","생명과학"],["지구과학","지구과학"],["역학과 에너지","역학과 에너지"],["전자기와 양자","전자기와 양자"],["물질과 에너지","물질과 에너지"],["세포와 물질대사","세포와 물질대사"],["지구시스템과학","지구시스템과학"]],"정보":[["정보","정보"]]};
+      const C={"국어":[["공통국어1","공통국어1"],["공통국어2","공통국어2"]],"영어":[["영어","영어"]],"수학":[["공통수학1","공통수학1"],["공통수학2","공통수학2"],["대수","대수"],["확률과 통계","확률과 통계"],["미적분1","미적분1"],["기하","기하"]],"사회":[["통합사회1","통합사회1"],["통합사회2","통합사회2"],["한국사","한국사"]],"과학":[["통합과학1","통합과학1"],["통합과학2","통합과학2"],["과학탐구실험1","과학탐구실험1"],["과학탐구실험2","과학탐구실험2"],["융합과학 탐구","융합과학 탐구"],["과학과제 연구","과학과제 연구"],["물리","물리(물리학Ⅰ)"],["화학","화학(화학Ⅰ)"],["화학 반응의 세계","화학 반응의 세계"],["생명과학","생명과학"],["생물의 유전","생물의 유전"],["지구과학","지구과학"],["역학과 에너지","역학과 에너지"],["전자기와 양자","전자기와 양자"],["물질과 에너지","물질과 에너지"],["세포와 물질대사","세포와 물질대사"],["지구시스템과학","지구시스템과학"]],"정보":[["정보","정보"],["데이터 과학","데이터 과학"],["인공지능 기초","인공지능 기초"]]};
       function $(id){return document.getElementById(id)}
       function sync(){
-        if(window.__installSubjectGroupStrictFilterV221){ window.__installSubjectGroupStrictFilterV221(); return; }
+        if(window.__installSubjectGroupStrictFilterV222){ window.__installSubjectGroupStrictFilterV222(); return; }
         const g=$("subjectGroup"), s=$("subject"), t=$("taskType"), n=$("taskName"); if(!g||!s) return;
         const group=(g.value||"").trim(), keep=(s.value||"").trim(), list=C[group]||[];
         s.innerHTML=""; const ph=document.createElement("option"); ph.value=""; ph.textContent=group?group+" 세부 과목 선택":"교과를 먼저 선택하세요"; s.appendChild(ph);
@@ -197,10 +205,10 @@
         if(list.some(([v])=>v===keep)) s.value=keep; else s.value="";
         if(n){n.type="hidden"; n.value=s.value ? s.value+" "+((t&&t.value)||"탐구보고서") : ((t&&t.value)||"탐구보고서");}
       }
-      function boot(){ const g=$("subjectGroup"), s=$("subject"); if(!g||!s) return; if(!g.dataset.inlineV221){g.addEventListener("change",sync);g.dataset.inlineV221="1";} ["focus","mousedown","pointerdown","click"].forEach(e=>s.addEventListener(e,sync,true)); sync(); }
+      function boot(){ const g=$("subjectGroup"), s=$("subject"); if(!g||!s) return; if(!g.dataset.inlineV222){g.addEventListener("change",sync);g.dataset.inlineV222="1";} ["focus","mousedown","pointerdown","click"].forEach(e=>s.addEventListener(e,sync,true)); sync(); }
       document.addEventListener("DOMContentLoaded",boot); window.addEventListener("load",boot); setTimeout(boot,150); setTimeout(boot,600);
     })();
   </script>
-  <script src="assets/js/ui_subject_group_filter_v221.js?v=v221_subject_group_filter_strict"></script>
+  <script src="assets/js/ui_subject_group_filter_v222.js?v=v222_subject_alias_dropdown_expansion"></script>
 </body>
 </html>

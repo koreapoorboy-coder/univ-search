@@ -1,6 +1,7 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v38-assessment-keyword-connected-v1";
-const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v39-subject-alias-dropdown-support-log";
+const WORKER_BASE_URL = window.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
+window.__KEYWORD_ENGINE_WORKER_BASE_URL = WORKER_BASE_URL;
 const GENERATE_ENDPOINT = window.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
 
 function $(id){ return document.getElementById(id); }
@@ -63,13 +64,21 @@ function uniq(arr){
   return [...new Set((arr || []).filter(Boolean))];
 }
 
+function toCanonicalSubject(value){
+  const raw = String(value == null ? "" : value).trim();
+  const fn = window.__SUBJECT_ALIAS__?.toCanonicalSubject;
+  return raw && typeof fn === "function" ? fn(raw) : raw;
+}
+
 function getFormValues(){
+  const uiSubject = $("subject")?.value?.trim()||"";
   return {
     sessionId:createSessionId(),
     schoolName:$("schoolName")?.value?.trim()||"",
     grade:$("grade")?.value?.trim()||"",
     subjectGroup:$("subjectGroup")?.value?.trim()||"",
-    subject:$("subject")?.value?.trim()||"",
+    subject:uiSubject,
+    canonicalSubject:toCanonicalSubject(uiSubject),
     taskName:$("taskName")?.value?.trim()||(($("subject")?.value?.trim()||"") + " " + ($("taskType")?.value?.trim()||"탐구보고서")).trim(),
     taskType:$("taskType")?.value?.trim()||"탐구보고서",
     usagePurpose:$("usagePurpose")?.value?.trim()||"학생용 MINI 보고서 작성",
@@ -257,6 +266,7 @@ function buildCollectPayload(formValues){
     school_name: formValues.schoolName || "",
     grade: formValues.grade || "",
     subject: formValues.subject || "",
+    canonical_subject: formValues.canonicalSubject || toCanonicalSubject(formValues.subject),
     task_name: formValues.taskName || "",
     task_type: formValues.taskType || "",
     usage_purpose: formValues.usagePurpose || "학생용 MINI 보고서 작성",
@@ -291,6 +301,8 @@ function buildCollectPayload(formValues){
     school_name: formValues.schoolName || "",
     grade: formValues.grade || "",
     subject: formValues.subject || "",
+    canonical_subject: formValues.canonicalSubject || toCanonicalSubject(formValues.subject),
+    subject_selection_event: window.__LAST_SUBJECT_SELECTION_EVENT__ || null,
     task_name: formValues.taskName || "",
     task_type: formValues.taskType || "",
     usage_purpose: formValues.usagePurpose || "학생용 MINI 보고서 작성",
