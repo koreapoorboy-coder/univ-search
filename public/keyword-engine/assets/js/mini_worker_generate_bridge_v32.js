@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v242-decision-flow-structure";
+  const VERSION = "mini-worker-generate-bridge-v244-required-input-hotfix";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -103,10 +103,13 @@
   }
 
   function getFormValues(){
+    const rawGrade = readValue("grade");
     return {
       sessionId: createSessionId(),
       schoolName: readValue("schoolName"),
-      grade: readValue("grade"),
+      // 패치4에서 학년 선택을 제거했으므로 구형 Worker의 필수값 검사에만 쓰는 내부 호환값이다.
+      // 학생 화면·주제 선정 기준·school_name에는 노출하거나 활용하지 않는다.
+      grade: rawGrade || "고등학생",
       subjectGroup: readValue("subjectGroup"),
       subject: readValue("subject"),
       taskName: readValue("taskName") || [readValue("subject"), readValue("taskType") || "탐구보고서"].filter(Boolean).join(" "),
@@ -501,7 +504,7 @@
     const reqSubjectGroup = form.subjectGroup || s.subjectGroup || "";
     const reqMajor = s.department || form.career || "";
     const reqConcept = s.selectedConcept || "";
-    const reqKeyword = s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword || "";
+    const reqKeyword = s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword || s.selectedConcept || form.subject || "";
     const reqAxisRaw = s.selectedFollowupAxis || s.followupAxis || "";
     const reqAxis = compactAxis(reqAxisRaw);
     const reqMajorContext = mini.major_context || mini.reportGenerationContext?.majorContext || null;
@@ -621,6 +624,11 @@
       useBookInReport: !!(mini.useBookInReport || mini.selectionPayload?.useBookInReport),
       interpretationConfirmed: !!mini.reportGenerationContext?.decisionFlow?.interpretationConfirmed,
       selectedCategory: mini.reportGenerationContext?.decisionFlow?.selectedCategory || form.career || "",
+      legacyWorkerCompatibility: {
+        gradeDefaulted: !readValue("grade"),
+        gradeValue: form.grade || "고등학생",
+        requiredInputPolicy: "subject_taskDescription_career"
+      },
       structureId: reqStructure.id || "structure_research_report",
       targetStructure: reqStructure.sections || [],
 

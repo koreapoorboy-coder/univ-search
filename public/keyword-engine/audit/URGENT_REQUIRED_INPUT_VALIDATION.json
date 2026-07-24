@@ -1,0 +1,33 @@
+{
+  "version": "urgent-required-input-hotfix-v1.0.0",
+  "date": "2026-07-24",
+  "frontend": {
+    "requiredFields": ["subject", "taskDescription", "career"],
+    "removedRequiredFields": ["schoolName", "grade", "subjectGroup", "taskType", "keyword"],
+    "missingRequiredInputLiteralInKeywordEngine": false,
+    "resetTargetsUpdated": true,
+    "cacheBustUpdated": true
+  },
+  "legacyWorkerCompatibility": {
+    "gradeValue": "고등학생",
+    "studentVisible": false,
+    "usedForSubjectOrSchoolMatching": false,
+    "keywordFallback": "interpreted keyword -> selected concept -> subject"
+  },
+  "browserValidation": {
+    "flow": ["생명과학 선택", "효소 안내문 입력", "자동 해석 확인", "의약·보건계열 선택", "보고서 생성"],
+    "reportRendered": true,
+    "requestGrade": "고등학생",
+    "requestSubject": "생명과학",
+    "requestCareer": "medical",
+    "requestKeyword": "반응 속도 효소 반응 효소 활성 효소",
+    "diagnosticMissing": [],
+    "consoleErrors": [],
+    "failedRequests": []
+  },
+  "syntax": {
+    "assets/keyword_engine.js": "passed",
+    "assets/js/mini_worker_generate_bridge_v32.js": "passed"
+  },
+  "liveRemoteWorkerTest": "not run; external network access unavailable in validation environment"
+}

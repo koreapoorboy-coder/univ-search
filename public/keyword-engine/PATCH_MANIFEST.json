@@ -1,98 +1,14 @@
 {
-  "patch_id": "seed-schema-guide-keyword-patch-v1",
-  "date": "2026-07-24",
-  "apply_root": "univ-search/public/keyword-engine/",
-  "base_requirement": "Patches 1-4 already applied",
-  "summary": [
-    "adapt all observed topic/report/quality seed context schemas",
-    "exclude four no-seedId index files and generate 290 real runtime seeds",
-    "derive seed-selection keywords from pasted assessment guides",
-    "preserve direct keyword behavior and existing major-weighted candidate policy",
-    "surface normalized seed context and duplicate guards to report generation",
-    "retain 한국사 as pending and 지구과학 as thin-seed logged subjects"
-  ],
-  "protected_invariants": [
-    "major category never filters subject candidates",
-    "medical remains combined",
-    "report_mode vocabulary and task rule order unchanged",
-    "확률과 통계 spacing unchanged",
-    "schoolName hidden and unused for topic generation",
-    "seed source files not modified",
-    "no frontend API key"
-  ],
-  "validation": {
-    "runtime_seed_count": 290,
-    "topic_missing": 0,
-    "report_missing": 0,
-    "quality_missing": 0,
-    "enzyme_guide_selected_seed": "NAT-030",
-    "task_interpreter_coverage_pct": 89.36
-  },
+  "patchId": "urgent-required-input-hotfix-v1-20260724",
+  "base": "patches 1-5 applied",
+  "applyTo": "univ-search/public/keyword-engine/",
   "files": [
-    {
-      "path": "COMMIT_MESSAGE.txt",
-      "size": 66,
-      "sha256": "f9f6c25b4ea157ff656ad96c8480893aa04fdecbdd3397790703109f5055fa3b"
-    },
-    {
-      "path": "SEED_SCHEMA_GUIDE_KEYWORD_PATCH_README.md",
-      "size": 2237,
-      "sha256": "17c0a51dd8f3d0e88b952b387a146865f99a06b8416bf88a7d245d1a77c4791e"
-    },
-    {
-      "path": "assets/assessment_keyword_bridge_helper.js",
-      "size": 58121,
-      "sha256": "97882e4aefb0b34a30b352651f838093147d61decef869ca8a19f7bce45398fa"
-    },
-    {
-      "path": "assets/js/decision_flow_v1.js",
-      "size": 19968,
-      "sha256": "5feb1a31a13d1806a9db3cad734861265dcf9458e29ba70b00e9e8c94da37cad"
-    },
-    {
-      "path": "assets/js/mini_worker_generate_bridge_v32.js",
-      "size": 271244,
-      "sha256": "7944784324b24c882545be1e016a2cfed80a46b55472c81bddc47d9e5da81f52"
-    },
-    {
-      "path": "assets/js/subject_support_notice.js",
-      "size": 7216,
-      "sha256": "937c279c51f56bb1a4aae941d22c173621bc89ccd087b9a834239180eb9dc2d9"
-    },
-    {
-      "path": "audit/SEED_SCHEMA_GUIDE_KEYWORD_VALIDATION.md",
-      "size": 1811,
-      "sha256": "6c145b04d888520b85898e5e46b5c29bc1fa5d3f37fd69c13f6256bf6b50a2ea"
-    },
-    {
-      "path": "audit/seed_schema_guide_keyword_validation.json",
-      "size": 1781,
-      "sha256": "a609db9f7ff31819ea717a43c38ca90b59cee6b2ddbe03a83e4ec4d3177e04d4"
-    },
-    {
-      "path": "build/build_assessment_seed_cross_axis_runtime.py",
-      "size": 26968,
-      "sha256": "da35aa8908398265d84bc20e6681ddc9e58f824a968156c87f7b8d5983032ce4"
-    },
-    {
-      "path": "build/runtime_validate_guide_keyword_selection.js",
-      "size": 4519,
-      "sha256": "e26b871e4559a938b0762d58186505b79ec7deed8af33a2f5f7571020b12160e"
-    },
-    {
-      "path": "build/validate_seed_schema_guide_keyword_patch.py",
-      "size": 5206,
-      "sha256": "2967a3579ec3a6105ce82211b6a613d8fda0fd88e36ae8401d33e68c9aa41ddf"
-    },
-    {
-      "path": "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
-      "size": 12332594,
-      "sha256": "036481d493ef47b41cdb603e19a02cd578a252edd560161868f061cc05475cd6"
-    },
-    {
-      "path": "index.html",
-      "size": 12577,
-      "sha256": "8c1875b736df0f2963926481d2263bbe162423c59f713c8c4ffa82dfe6a344a9"
-    }
-  ]
+    "index.html",
+    "assets/keyword_engine.js",
+    "assets/js/mini_worker_generate_bridge_v32.js",
+    "URGENT_REQUIRED_INPUT_PATCH_README.md",
+    "COMMIT_MESSAGE.txt",
+    "audit/URGENT_REQUIRED_INPUT_VALIDATION.json"
+  ],
+  "workerPatchSeparate": "urgent_required_input_worker_patch_v1_20260724.zip"
 }

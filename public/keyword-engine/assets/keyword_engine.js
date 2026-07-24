@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v40-task-interpreter-max-match";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v41-decision-flow-required-input-hotfix";
 const WORKER_BASE_URL = window.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
 window.__KEYWORD_ENGINE_WORKER_BASE_URL = WORKER_BASE_URL;
 const GENERATE_ENDPOINT = window.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
@@ -91,7 +91,7 @@ function getFormValues(){
 }
 
 function validateInput(data){
-  const required=[["schoolName","학교명"],["grade","학년"],["subjectGroup","교과"],["subject","세부 과목"],["taskType","결과물 유형"],["career","희망 진로"],["keyword","키워드"]];
+  const required=[["subject","과목"],["taskDescription","수행평가 안내문"],["career","희망 계열"]];
   for(const [key,label] of required){
     if(!data[key]) throw new Error(`${label}을(를) 입력해 주세요.`);
   }
@@ -845,7 +845,7 @@ async function handleGenerate(){
 }
 
 function handleReset(){
-  ["schoolName","grade","subjectGroup","subject","taskName","taskType","usagePurpose","taskDescription","career","keyword"].forEach(id=>{
+  ["subject","taskDescription","career","keyword","subjectGroup","taskName","selectedConcept","selectedBookTitle","reportMode","reportView","reportLine"].forEach(id=>{
     const el=$(id); if(el) el.value="";
   });
   clearError();
