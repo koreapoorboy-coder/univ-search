@@ -141,6 +141,8 @@
     return "원리";
   }
   function deriveKeyword(context, guide, subject){
+    const derived = text(context?.input?.keyword || context?.match?.keyword || "");
+    if(derived) return derived.slice(0,160);
     const seed = context?.cross_axis?.seedMatch?.seed || {};
     const concepts = context?.cross_axis?.topic?.subjectConcepts || [];
     const candidate = text(seed.sourceTitle || seed.label || first(concepts,""));

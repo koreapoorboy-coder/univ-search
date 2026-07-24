@@ -35,10 +35,11 @@
           <span>과목</span>
           <select id="subject">
             <option value="">과목을 선택하세요</option>
-            <optgroup label="국어·영어 (준비 중)">
+            <optgroup label="준비 중">
               <option value="공통국어1" data-subject-group="국어">공통국어1</option>
               <option value="공통국어2" data-subject-group="국어">공통국어2</option>
               <option value="영어" data-subject-group="영어">영어</option>
+              <option value="한국사" data-subject-group="사회">한국사</option>
             </optgroup>
             <optgroup label="수학">
               <option value="공통수학1" data-subject-group="수학">공통수학1</option>
@@ -51,7 +52,6 @@
             <optgroup label="사회">
               <option value="통합사회1" data-subject-group="사회">통합사회1</option>
               <option value="통합사회2" data-subject-group="사회">통합사회2</option>
-              <option value="한국사" data-subject-group="사회">한국사</option>
             </optgroup>
             <optgroup label="과학">
               <option value="통합과학1" data-subject-group="과학">통합과학1</option>
@@ -200,11 +200,11 @@
   </div>
 
   <script src="assets/js/subject_alias.js?v=v1_subject_alias"></script>
-  <script src="assets/js/decision_flow_v1.js?v=v1_three_decisions"></script>
-  <script src="assets/js/subject_support_notice.js?v=v1_subject_support_log"></script>
-  <script src="assets/assessment_keyword_bridge_helper.js?v=v24_decision_flow_structure"></script>
+  <script src="assets/js/decision_flow_v1.js?v=v2_guide_keyword_bridge"></script>
+  <script src="assets/js/subject_support_notice.js?v=v11_pending_history"></script>
+  <script src="assets/assessment_keyword_bridge_helper.js?v=v25_schema_guide_keywords"></script>
   <script src="assets/keyword_engine.js?v=v41_decision_flow"></script>
   <script src="assets/js/decision_flow_payload_adapter.js?v=v1_structure_payload"></script>
-  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v242_decision_flow"></script>
+  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v243_seed_context_adapter"></script>
 </body>
 </html>

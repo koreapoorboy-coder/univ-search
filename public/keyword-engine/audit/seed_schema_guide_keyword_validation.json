@@ -1,0 +1,41 @@
+{
+  "pass": true,
+  "seedCount": 290,
+  "nullSeedIds": 0,
+  "topicMissing": 0,
+  "reportMissing": 0,
+  "qualityMissing": 0,
+  "bio005": {
+    "baseTopic": "시냅스 균형이 무너질 때 뇌는 어떻게 달라지는가 — MDGA1과 자폐의 분자 기전",
+    "coreQuestion": "MDGA1 미스센스 돌연변이는 어떻게 시냅스 접착과 신경전달물질 분비를 변화시켜 자폐 유사 행동으로 이어지며, 에스트로겐 신호와 바제독시펜은 이 과정을 어떻게 보상할 수 있는가?"
+  },
+  "nat030DuplicateGuard": "일반적인 효소 개념 설명과 중복되지 않도록 활성 부위, 기질 특이성, 활성화 에너지, Michaelis-Menten, 락타아제 사례, 효소 억제제 또는 산업 응용 중 최소 3개 이상을 결합한다.",
+  "runtime": {
+    "pass": true,
+    "enzymeGuide": {
+      "keyword": "반응 속도 효소 반응 효소 활성 효소",
+      "keywordSource": "derived_from_guide",
+      "derivedKeywords": [
+        "반응 속도",
+        "효소 반응",
+        "효소 활성",
+        "효소"
+      ],
+      "seedId": "NAT-030",
+      "seedLabel": "효소를 단순한 생명과학 개념 소개가 아니라 활성 부위와 기질 특이성, 활성화 에너지 감소, 효소 동역학과 Michaelis-Menten 방정식, 락타아제·유당불내증 사례, 효소 억제제·치환 요법·산업용 효소까지 연결하는 생명과학·화학·의학 융합 탐구",
+      "contentScore": 45,
+      "candidateCount": 180,
+      "categoryMatchCount": 148
+    },
+    "directKeyword": {
+      "keywordSource": "student_selected",
+      "seedId": "NAT-036"
+    },
+    "noVocabularyFallback": {
+      "keywordSource": "",
+      "seedId": "BIO-063"
+    },
+    "failures": []
+  },
+  "errors": []
+}

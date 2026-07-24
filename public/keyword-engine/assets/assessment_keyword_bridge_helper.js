@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-structure";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-keywords";
 
 (function(global){
   "use strict";
@@ -16,11 +16,13 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
   let crossAxisData = null;
   let loadPromise = null;
   let lastContext = null;
+  let seedVocabularyCache = null;
   const TASK_FALLBACK_NOTICE = "입력한 과제 유형과 정확히 맞는 규칙이 없어 과목 기본값을 바탕으로 일반형으로 잡았습니다.";
   const NON_REPORT_NOTICE = "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요.";
   const NON_REPORT_TERMS = ["연주","실기","랠리","스트로크","체력","참여도","던지기","경기","시합"];
   const TASK_LOG_STORAGE_KEY = "ke.assessmentTaskInterpreterLogs.v1";
   const BOOK_SIGNAL_RE = /독서|도서|책|서평|독후|저자|문헌/;
+  const GUIDE_KEYWORD_STOP_TERMS = new Set(["탐구보고서","보고서","수행평가","과제","탐구","분석","자료"]);
   const STRUCTURE_BY_REPORT_MODE = {
     "연구설계형":"structure_research_design",
     "실험분석형":"structure_experiment_analysis",
@@ -194,6 +196,43 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
       payload?.taskDescription,
       payload?.assessmentDescription
     ].filter(Boolean).join(" ").toLowerCase();
+  }
+
+  function buildSeedVocabulary(seeds){
+    const vocab = new Set();
+    (seeds || []).forEach(seed => {
+      [ ...(seed.axisTriggers || []), ...(seed.writingKeywords || []) ].forEach(term => {
+        const text = String(term || "").trim();
+        if(text.length >= 2 && !GUIDE_KEYWORD_STOP_TERMS.has(text)) vocab.add(text);
+      });
+    });
+    return Array.from(vocab);
+  }
+
+  function containsGuideTerm(text, term){
+    if(term.length > 2) return text.includes(term);
+    let from = 0;
+    while(from < text.length){
+      const index = text.indexOf(term, from);
+      if(index < 0) return false;
+      const before = index > 0 ? text[index - 1] : "";
+      if(!before || !/[0-9A-Za-z가-힣]/.test(before)) return true;
+      from = index + 1;
+    }
+    return false;
+  }
+
+  function getSeedVocabulary(){
+    if(!seedVocabularyCache) seedVocabularyCache = buildSeedVocabulary(crossAxisData?.seeds || []);
+    return seedVocabularyCache;
+  }
+
+  function extractGuideKeywords(guideText, vocab, limit){
+    const text = String(guideText || "");
+    if(!text) return [];
+    const hits = (vocab || []).filter(term => containsGuideTerm(text, term));
+    hits.sort((a, b) => (b.length - a.length) || a.localeCompare(b));
+    return uniq(hits).slice(0, limit || 8);
   }
 
   function readInterpretationOverride(payload){
@@ -469,6 +508,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
 
   function seedContentScore(seed, payload, task){
     const selectedKeyword = String(payload?.selectedKeyword || payload?.selectedRecommendedKeyword || payload?.keyword || "");
+    const keywordSource = String(payload?.keywordSource || "");
     const selectedConcept = String(payload?.selectedConcept || payload?.concept || "");
     const selectedAxis = String(payload?.selectedFollowupAxis || payload?.followupAxis || "");
     const seedText = [
@@ -481,22 +521,54 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
       seed.topic?.basic,
       seed.topic?.expanded,
       seed.topic?.deep,
+      seed.topic?.baseTopic,
+      seed.topic?.coreQuestion,
+      seed.topic?.summary,
+      ...(seed.topic?.recommendedTopics || []),
+      ...(seed.topic?.inquiryQuestions || []),
+      ...(seed.topic?.inquiryFlow || []),
+      ...(seed.topic?.keywords || []),
+      seed.topic?.choiceGuide,
+      seed.topic?.levels?.basic,
+      seed.topic?.levels?.intermediate,
+      seed.topic?.levels?.advanced,
+      seed.report?.importance,
       seed.report?.problem,
       seed.report?.conceptRole,
-      seed.report?.analysisMethod
+      seed.report?.corePattern,
+      seed.report?.analysisMethod,
+      ...(seed.report?.paragraphBlueprint || []),
+      ...(seed.report?.titleOptions || []),
+      ...(seed.report?.outputGuidance || []),
+      ...(seed.report?.quantitativeGuidance || []),
+      ...(seed.quality?.mustInclude || []),
+      ...(seed.quality?.mustNotDo || []),
+      seed.quality?.connectionCheck,
+      seed.quality?.evaluatorView,
+      seed.quality?.levelGuide,
+      seed.quality?.duplicateGuard,
+      seed.quality?.qualityTarget,
+      ...(seed.quality?.safetyGuards || []),
+      ...(seed.quality?.rubricGuidance || [])
     ].filter(Boolean).join(" ");
 
-    const keywordScore = textOverlapScore(selectedKeyword, seedText, 30);
+    const keywordWeight = keywordSource === "derived_from_guide" ? 22 : 30;
+    const keywordScore = textOverlapScore(selectedKeyword, seedText, keywordWeight);
     const axisScore = textOverlapScore(selectedAxis, seedText, 8);
     const conceptScore = textOverlapScore(selectedConcept, seedText, 5);
-    const taskScore = textOverlapScore(`${task?.title || ""} ${task?.description || ""}`, seedText, 4);
+    const taskScore = textOverlapScore(rawTaskText(payload), seedText, 10);
     const keywordTokens = tokenize(selectedKeyword);
     const seedTokens = new Set(tokenize(seedText));
     const directHits = keywordTokens.filter(token => seedTokens.has(token) || Array.from(seedTokens).some(other => token.includes(other) || other.includes(token))).length;
     const directBonus = directHits >= 3 ? 8 : (directHits >= 2 ? 4 : 0);
     const keywordNorm = normalize(selectedKeyword);
     const exactBonus = keywordNorm && normalize(seedText).includes(keywordNorm) ? 8 : 0;
-    return Math.min(45, keywordScore + axisScore + conceptScore + taskScore + directBonus + exactBonus);
+    const seedVocabulary = new Set([ ...(seed.axisTriggers || []), ...(seed.writingKeywords || []) ]);
+    const guideVocabularyHits = keywordSource === "derived_from_guide"
+      ? uniq(payload?.derivedKeywords || []).filter(term => seedVocabulary.has(term)).length
+      : 0;
+    const guideVocabularyBonus = Math.min(16, guideVocabularyHits * 4);
+    return Math.min(45, keywordScore + axisScore + conceptScore + taskScore + directBonus + exactBonus + guideVocabularyBonus);
   }
 
   function resolveMajorProfile(career){
@@ -584,6 +656,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
     best.thinCategoryThreshold = threshold;
     best.fallbackActive = fallbackActive;
     best.fallbackPromptInstruction = fallbackPromptInstruction;
+    best.keywordSource = String(payload?.keywordSource || "");
+    best.selectedKeyword = String(payload?.selectedKeyword || payload?.selectedRecommendedKeyword || payload?.keyword || "");
     return best;
   }
 
@@ -617,11 +691,11 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
     const concepts = (conceptList || []).filter(Boolean).slice(0,3).join("·") || subjectLabel;
     const rawKeyword = String(keywordLabel || "").trim();
     const genericKeyword = /^(발전|에너지|환경|영향|변화|데이터|자료|측정|시스템|기술|과학|사회|문제|구조|성능|탐구)$/;
-    const seedTopic = chooseSeedTopic(seed, task);
+    const seedTopic = (seed?.topic?.recommendedTopics || [])[0] || chooseSeedTopic(seed, task);
     const selectedTarget = rawKeyword && !genericKeyword.test(rawKeyword) ? rawKeyword : "";
     const seedTarget = String(seed?.sourceTitle || seedTopic || seed?.label || "")
+      .replace(/\s*(?:탐구\s*)?보고서\s*$/g, "")
       .replace(/\s*탐구\s*$/g, "")
-      .replace(/\s*보고서\s*$/g, "")
       .replace(/^.*?활용한\s*/g, "")
       .trim();
     const target = selectedTarget || seedTarget || rawKeyword || "탐구 대상";
@@ -656,7 +730,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
       "연구 질문","선행 자료 검토","방법 설계","자료 수집","분석 결과","결론","참고문헌과 후속 탐구"
     ];
     const concepts = inferSubjectConcepts(subjectLabel, task, concept);
-    const generatedTitle = composeCrossAxisTitle(subjectLabel, concepts, keywordLabel, task, seed);
+    const titleKeyword = payload?.keywordSource === "derived_from_guide" ? "" : keywordLabel;
+    const generatedTitle = composeCrossAxisTitle(subjectLabel, concepts, titleKeyword, task, seed);
     const careerTask = /진로|학과|직업|전공/.test(`${task?.title || ""} ${task?.description || ""}`);
     const avoidModes = uniq([
       ...(task?.avoidModes || []),
@@ -667,9 +742,13 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
     ]).slice(0,20);
     const topicOptions = uniq([
       generatedTitle,
+      seed?.topic?.baseTopic,
+      seed?.topic?.coreQuestion,
       seed?.topic?.basic,
       seed?.topic?.expanded,
       seed?.topic?.deep,
+      ...(seed?.topic?.recommendedTopics || []),
+      ...(seed?.topic?.inquiryQuestions || []),
       ...(seed?.studentTopics || []).map(v => v?.title)
     ]).filter(Boolean).slice(0,6);
 
@@ -721,6 +800,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
         thinCategoryThreshold: seedMatch.thinCategoryThreshold,
         fallbackActive: seedMatch.fallbackActive,
         fallbackPromptInstruction: seedMatch.fallbackPromptInstruction,
+        keywordSource: seedMatch.keywordSource || "",
+        selectedKeyword: seedMatch.selectedKeyword || "",
         secondSeedId: seedMatch.secondSeedId,
         seed: {
           id: seed.id,
@@ -803,7 +884,17 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
     const subjectInput = String(payload?.subject || payload?.selectedSubject || "").trim();
     const subjectGroupInput = String(payload?.subjectGroup || payload?.selectedSubjectGroup || "").trim();
     const taskType = String(payload?.taskType || payload?.outputType || "탐구보고서").trim() || "탐구보고서";
-    const rawKeyword = String(payload?.selectedKeyword || payload?.selectedRecommendedKeyword || payload?.keyword || "").trim();
+    let rawKeyword = String(payload?.selectedKeyword || payload?.selectedRecommendedKeyword || payload?.keyword || "").trim();
+    let keywordSource = rawKeyword ? "student_selected" : "";
+    let derivedKeywords = [];
+    if(!rawKeyword){
+      derivedKeywords = extractGuideKeywords(rawTaskText(payload), getSeedVocabulary(), 8);
+      if(derivedKeywords.length){
+        rawKeyword = derivedKeywords.join(" ");
+        keywordSource = "derived_from_guide";
+      }
+    }
+    const scoringPayload = { ...payload, selectedKeyword: rawKeyword, keywordSource, derivedKeywords };
     const career = String(payload?.career || payload?.department || payload?.major || "").trim();
     const concept = String(payload?.selectedConcept || payload?.concept || subjectInput || "교과 개념").trim();
 
@@ -824,14 +915,14 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
     const canonicalSubjectInput = toCanonicalSubject(subjectInput);
     const subjectLabel = subjectMatch?.key || canonicalSubjectInput || subjectGroup || "선택 과목";
     // Seed lookup must use the selected subject's canonical name, not a broader subject-route key.
-    const crossAxis = buildCrossAxis({ ...payload, career }, canonicalSubjectInput || subjectLabel, keywordLabel, concept, taskInterpretation);
+    const crossAxis = buildCrossAxis({ ...scoringPayload, career }, canonicalSubjectInput || subjectLabel, keywordLabel, concept, taskInterpretation);
     const exactTask = crossAxis?.taskMatch?.record || null;
     const nonReportTask = detectNonReportTask(payload, crossAxis?.taskMatch || null);
     logTaskInterpreterEvent(payload, taskInterpretation, nonReportTask);
 
     if(nonReportTask.blocked){
       const blockedContext = {
-        version:"assessment-keyword-cross-axis-context-v2.4.0",
+        version:"assessment-keyword-cross-axis-context-v2.5.0",
         connected:true,
         generatedAt:new Date().toISOString(),
         reportTarget:false,
@@ -941,7 +1032,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
     const recordSentence = `${subjectLabel}의 ${concept || "핵심 개념"}을 바탕으로 ${keywordLabel}을 탐구하고, ${recommendedMethod} 과정에서 자료·조건·결과를 비교하여 ${rubricFocus.slice(0,3).join("·") || "근거 제시와 결과 해석"} 역량을 드러냄.`;
 
     const context = {
-      version: "assessment-keyword-cross-axis-context-v2.4.0",
+      version: "assessment-keyword-cross-axis-context-v2.5.0",
       connected: true,
       generatedAt: new Date().toISOString(),
       priorityPolicy: crossAxis?.priorityPolicy || {
@@ -961,10 +1052,14 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
         grade: payload?.grade || "",
         career,
         concept,
-        keyword: rawKeyword
+        keyword: rawKeyword,
+        keywordSource,
+        derivedKeywords
       },
       match: {
         keyword: keywordLabel,
+        keywordSource,
+        derivedKeywords,
         keywordMatchType: keywordMatch?.match || "fallback",
         subject: subjectLabel,
         uiSubject: subjectInput,
@@ -1082,10 +1177,12 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.4.0-decision-flow-stru
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.4.0-decision-flow-structure",
+    version: "v2.5.0-seed-schema-guide-keywords",
     ready: load,
     resolve,
     resolveSync,
+    buildSeedVocabulary,
+    extractGuideKeywords,
     getLastContext: () => lastContext,
     getData: () => bridgeData,
     getCrossAxisData: () => crossAxisData,

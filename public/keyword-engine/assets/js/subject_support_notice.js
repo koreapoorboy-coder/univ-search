@@ -1,16 +1,18 @@
 (function(global){
   "use strict";
 
-  const VERSION = "subject-support-notice-v1.0.0";
+  const VERSION = "subject-support-notice-v1.1.0";
   const STORAGE_KEY = "ke.subjectSelectionLogs.v1";
   const NOTICE_TEXT = "현재 과학·수학·정보 과목을 지원합니다.\n국어·영어 수행평가는 준비 중입니다.";
   const PENDING_LANGUAGE = new Set(["공통국어1", "공통국어2", "영어"]);
+  const PENDING_NO_SEED = new Set(["한국사"]);
   const THIN_SEED = new Set(["공통수학1", "공통수학2", "지구과학"]);
-  const HELD = new Set([...PENDING_LANGUAGE, ...THIN_SEED]);
+  const HELD = new Set([...PENDING_LANGUAGE, ...PENDING_NO_SEED, ...THIN_SEED]);
   const EXPECTED_COUNTS = {
     "공통국어1": 0,
     "공통국어2": 0,
     "영어": 0,
+    "한국사": 0,
     "공통수학1": 1,
     "공통수학2": 1,
     "지구과학": 14
@@ -39,6 +41,7 @@
   }
   function statusOf(subject){
     if(PENDING_LANGUAGE.has(subject)) return "pending_language_seed";
+    if(PENDING_NO_SEED.has(subject)) return "pending_no_seed";
     if(THIN_SEED.has(subject)) return "thin_seed_pool";
     return "supported";
   }
@@ -72,10 +75,13 @@
       notice.style.display = "none";
       return;
     }
+    const baseNotice = PENDING_NO_SEED.has(subject)
+      ? "현재 과학·수학·정보 과목을 지원합니다.\n한국사 수행평가는 준비 중입니다."
+      : NOTICE_TEXT;
     const detail = THIN_SEED.has(subject)
       ? "\n선택한 세부 과목의 전용 시드는 현재 확충 중이며, 보유 시드 범위에서 결과를 제공합니다."
       : "";
-    notice.textContent = NOTICE_TEXT + detail;
+    notice.textContent = baseNotice + detail;
     notice.style.display = "block";
   }
   function appendLocalLog(event){
