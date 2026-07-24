@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-balanced";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.1.0-major-category-weighted";
 
 (function(global){
   "use strict";
@@ -24,6 +24,19 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
       .replace(/[Ⅱ]/g,"2")
       .replace(/[Ⅲ]/g,"3")
       .replace(/[^0-9a-z가-힣]+/g,"");
+  }
+
+  function normalizeMajor(value){
+    return String(value || "")
+      .replace(/#U([0-9a-fA-F]{4})/g, (_, code) => String.fromCharCode(parseInt(code, 16)))
+      .toLowerCase()
+      .replace(/[\s()\-_/·.,]+/g, "")
+      .replace(/(?:관련)?계열$/g, "");
+  }
+
+  function intersectAny(a, b){
+    const right = new Set(b || []);
+    return (a || []).some(value => right.has(value));
   }
 
   function tokenize(value){
@@ -225,16 +238,36 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
   function seedSubjectScore(seed, subject){
     const target = normalize(subject);
     if(!target) return 0;
-    const exact = uniq([...(seed.subjects || []), ...(seed.normalizedSubjects || [])]).some(v => normalize(v) === target);
-    if(exact) return 45;
+    const exactBestForSubject = (seed.subjects || []).some(v => normalize(v) === target);
+    if(exactBestForSubject) return 45;
+    const normalizedExact = (seed.normalizedSubjects || []).some(v => normalize(v) === target);
+    if(normalizedExact) return 38;
     const alias = (seed.subjectAliases || []).some(v => normalize(v) === target);
-    if(alias) return 38;
+    if(alias) return 34;
     const partial = uniq([...(seed.subjects || []), ...(seed.normalizedSubjects || []), ...(seed.subjectAliases || [])])
       .some(v => {
         const n = normalize(v);
         return n && (n.includes(target) || target.includes(n));
       });
     return partial ? 25 : 0;
+  }
+
+  function collectSubjectSeedCandidates(seeds, subject){
+    const raw = String(subject || "").trim();
+    const target = normalize(subject);
+    if(!target) return { candidates: [], mode: "none" };
+    const exact = (seeds || []).filter(seed => (seed.subjects || []).some(v => String(v || "").trim() === raw));
+    if(exact.length) return { candidates: exact, mode: "bestForSubjects-literal-exact" };
+    const bestForNormalized = (seeds || []).filter(seed => (seed.subjects || []).some(v => normalize(v) === target));
+    if(bestForNormalized.length) return { candidates: bestForNormalized, mode: "bestForSubjects-normalized-fallback" };
+    const normalized = (seeds || []).filter(seed => (seed.normalizedSubjects || []).some(v => normalize(v) === target));
+    if(normalized.length) return { candidates: normalized, mode: "normalizedSubjects-exact" };
+    const aliases = (seeds || []).filter(seed => (seed.subjectAliases || []).some(v => normalize(v) === target));
+    if(aliases.length) return { candidates: aliases, mode: "subjectAliases-exact" };
+    return {
+      candidates: (seeds || []).filter(seed => seedSubjectScore(seed, subject) > 0),
+      mode: "subject-partial-fallback"
+    };
   }
 
   function seedContentScore(seed, payload, task){
@@ -256,7 +289,6 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
       seed.report?.analysisMethod
     ].filter(Boolean).join(" ");
 
-    // The selected content keyword is the primary content signal. Generic task wording must not override it.
     const keywordScore = textOverlapScore(selectedKeyword, seedText, 30);
     const axisScore = textOverlapScore(selectedAxis, seedText, 8);
     const conceptScore = textOverlapScore(selectedConcept, seedText, 5);
@@ -270,38 +302,91 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
     return Math.min(45, keywordScore + axisScore + conceptScore + taskScore + directBonus + exactBonus);
   }
 
-  function seedMajorTieBreak(seed, career, coreScore){
-    if(coreScore < 30) return 0;
-    const target = normalize(career);
-    if(!target) return 0;
-    return (seed.majors || []).some(v => {
-      const n = normalize(v);
-      return n && (n.includes(target) || target.includes(n));
-    }) ? 5 : 0;
+  function resolveMajorProfile(career){
+    const matching = crossAxisData?.majorMatching || {};
+    const key = normalizeMajor(career);
+    const aliasRow = matching.aliases?.[key] || null;
+    let categoryId = (aliasRow?.categoryIds || [])[0] || "";
+    if(!categoryId) categoryId = matching.categoryAliases?.[key] || "";
+    return {
+      raw: String(career || ""),
+      key,
+      canonicalIds: aliasRow?.canonicalIds || [],
+      categoryIds: aliasRow?.categoryIds || (categoryId ? [categoryId] : []),
+      categoryId,
+      categoryName: matching.categories?.[categoryId]?.name || ""
+    };
+  }
+
+  function seedMajorMatchInfo(seed, majorProfile, fallbackActive){
+    const normalizedMajors = seed.majorNormalizedKeys || (seed.majors || []).map(normalizeMajor).filter(Boolean);
+    const exactByRawKey = !!majorProfile.key && normalizedMajors.includes(majorProfile.key);
+    const exactByCanonical = intersectAny(seed.majorCanonicalIds || [], majorProfile.canonicalIds || []);
+    const exactMatch = exactByRawKey || exactByCanonical;
+    const categoryMatch = !!majorProfile.categoryId && (seed.majorCategories || []).includes(majorProfile.categoryId);
+    const tier = exactMatch ? "exact" : ((!fallbackActive && categoryMatch) ? "category" : "other");
+    const rank = tier === "exact" ? 2 : (tier === "category" ? 1 : 0);
+    const score = tier === "exact" ? 5 : (tier === "category" ? 3 : 0);
+    return { exactMatch, categoryMatch, tier, rank, score };
   }
 
   function matchContentSeed(payload, subjectInput, matchedTask){
     if(!crossAxisData) return null;
-    const seeds = crossAxisData.seeds || [];
+    const allSeeds = crossAxisData.seeds || [];
+    const subjectPool = collectSubjectSeedCandidates(allSeeds, subjectInput);
+    const candidates = subjectPool.candidates;
+    if(!candidates.length) return null;
+
     const career = String(payload?.career || payload?.department || payload?.major || "");
-    let best = null;
-    let second = null;
-    for(const seed of seeds){
+    const majorProfile = resolveMajorProfile(career);
+    const threshold = Number(crossAxisData?.majorMatching?.thinCategoryThreshold || 10);
+    const categoryMatchCount = majorProfile.categoryId
+      ? candidates.filter(seed => (seed.majorCategories || []).includes(majorProfile.categoryId)).length
+      : 0;
+    const fallbackActive = !!majorProfile.categoryId && categoryMatchCount < threshold;
+    const fallbackPromptInstruction = fallbackActive
+      ? String(crossAxisData?.majorMatching?.fallbackPromptInstruction || "")
+      : "";
+
+    const ranked = candidates.map(seed => {
       const subjectScore = seedSubjectScore(seed, subjectInput);
-      if(!subjectScore) continue;
       const contentScore = seedContentScore(seed, payload, matchedTask);
-      if(contentScore < 5) continue; // never select a seed from department alone
       const methodScore = matchedTask && (matchedTask.reportModes || []).length ? 5 : 0;
       const coreScore = subjectScore + contentScore + methodScore;
-      const majorTieBreakScore = seedMajorTieBreak(seed, career, coreScore);
-      const total = Math.min(100, coreScore + majorTieBreakScore);
-      const candidate = { seed, score: total, subjectScore, contentScore, methodScore, majorTieBreakScore };
-      if(!best || candidate.score > best.score){ second = best; best = candidate; }
-      else if(!second || candidate.score > second.score){ second = candidate; }
-    }
-    if(!best) return null;
+      const major = seedMajorMatchInfo(seed, majorProfile, fallbackActive);
+      return {
+        seed,
+        score: Math.min(100, coreScore + major.score),
+        coreScore,
+        subjectScore,
+        contentScore,
+        methodScore,
+        majorTieBreakScore: major.score,
+        majorTier: major.tier,
+        majorRank: major.rank,
+        majorExactMatch: major.exactMatch,
+        majorCategoryMatch: major.categoryMatch
+      };
+    }).sort((a, b) => {
+      if(b.majorRank !== a.majorRank) return b.majorRank - a.majorRank;
+      if(b.coreScore !== a.coreScore) return b.coreScore - a.coreScore;
+      if(b.contentScore !== a.contentScore) return b.contentScore - a.contentScore;
+      return String(a.seed?.id || "").localeCompare(String(b.seed?.id || ""));
+    });
+
+    const best = ranked[0];
+    const second = ranked[1];
     best.secondSeedId = second?.seed?.id || "";
     best.confidence = best.score >= 75 ? "high" : (best.score >= 55 ? "medium" : "low");
+    best.subjectCandidateCount = candidates.length;
+    best.subjectCandidateMode = subjectPool.mode;
+    best.requestedMajor = majorProfile.raw;
+    best.requestedMajorCategory = majorProfile.categoryId;
+    best.requestedMajorCategoryName = majorProfile.categoryName;
+    best.categoryMatchCount = categoryMatchCount;
+    best.thinCategoryThreshold = threshold;
+    best.fallbackActive = fallbackActive;
+    best.fallbackPromptInstruction = fallbackPromptInstruction;
     return best;
   }
 
@@ -427,6 +512,17 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
         contentScore: seedMatch.contentScore,
         methodScore: seedMatch.methodScore,
         majorTieBreakScore: seedMatch.majorTieBreakScore,
+        majorTier: seedMatch.majorTier,
+        majorExactMatch: seedMatch.majorExactMatch,
+        majorCategoryMatch: seedMatch.majorCategoryMatch,
+        subjectCandidateCount: seedMatch.subjectCandidateCount,
+        subjectCandidateMode: seedMatch.subjectCandidateMode,
+        requestedMajorCategory: seedMatch.requestedMajorCategory,
+        requestedMajorCategoryName: seedMatch.requestedMajorCategoryName,
+        categoryMatchCount: seedMatch.categoryMatchCount,
+        thinCategoryThreshold: seedMatch.thinCategoryThreshold,
+        fallbackActive: seedMatch.fallbackActive,
+        fallbackPromptInstruction: seedMatch.fallbackPromptInstruction,
         secondSeedId: seedMatch.secondSeedId,
         seed: {
           id: seed.id,
@@ -434,6 +530,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
           label: seed.label,
           sourceTitle: seed.sourceTitle,
           patternType: seed.patternType,
+          majorCategories: seed.majorCategories || [],
           axisTriggers: seed.axisTriggers || [],
           topic: seed.topic || {},
           report: seed.report || {},
@@ -464,11 +561,22 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
       },
       majorPolicy: {
         selectedCareer: String(payload?.career || payload?.department || payload?.major || ""),
+        selectedCategoryId: seedMatch?.requestedMajorCategory || "",
+        selectedCategoryName: seedMatch?.requestedMajorCategoryName || "",
         explicitCareerTask: careerTask,
         usedInCoreTopic: careerTask,
+        candidatePolicy: "과목 일치 시드를 전량 유지하고 학과 정확일치 > 계열 일치 > 기타 순으로 정렬",
+        subjectCandidateCount: seedMatch?.subjectCandidateCount || 0,
+        categoryMatchCount: seedMatch?.categoryMatchCount || 0,
+        selectedSeedTier: seedMatch?.majorTier || "other",
+        exactMajorMatch: !!seedMatch?.majorExactMatch,
+        categoryMatch: !!seedMatch?.majorCategoryMatch,
+        fallbackActive: !!seedMatch?.fallbackActive,
+        thinCategoryThreshold: seedMatch?.thinCategoryThreshold || 10,
+        fallbackPromptInstruction: seedMatch?.fallbackPromptInstruction || "",
         tieBreakScore: seedMatch?.majorTieBreakScore || 0,
         maximumWeight: 5,
-        allowedUses: careerTask ? ["수행평가가 진로 탐구를 직접 요구하므로 본문 반영"] : ["동점 주제 후보 정렬", "고찰 마지막 확장 1문장", "후속 탐구 후보"],
+        allowedUses: careerTask ? ["수행평가가 진로 탐구를 직접 요구하므로 본문 반영"] : ["시드 후보 정렬", "고찰 마지막 확장 1문장", "후속 탐구 후보"],
         forbiddenUses: careerTask ? [] : ["제목", "핵심 탐구 질문", "본론 비교 기준", "핵심 결론", "키워드 자동 대체"]
       },
       sourceBaseline: crossAxisData.sourceBaseline || {}
@@ -561,7 +669,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
     const recordSentence = `${subjectLabel}의 ${concept || "핵심 개념"}을 바탕으로 ${keywordLabel}을 탐구하고, ${recommendedMethod} 과정에서 자료·조건·결과를 비교하여 ${rubricFocus.slice(0,3).join("·") || "근거 제시와 결과 해석"} 역량을 드러냄.`;
 
     const context = {
-      version: "assessment-keyword-cross-axis-context-v2.0.0",
+      version: "assessment-keyword-cross-axis-context-v2.1.0",
       connected: true,
       generatedAt: new Date().toISOString(),
       priorityPolicy: crossAxis?.priorityPolicy || {
@@ -631,7 +739,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
       student_output: {
         title: `${subjectLabel} 수행평가 × 보고서 내용 시드 교차 결과`,
         one_line_pick: topicOptions[0],
-        intro: `실제 ${subjectLabel} 수행평가의 방법·산출물·제약과 실제 보고서 내용 시드를 교차해 주제를 구성했습니다. 학과 정보는 제목과 핵심 질문을 만들지 않고 동점 후보 정렬과 후속 탐구에만 제한적으로 사용합니다.`,
+        intro: `실제 ${subjectLabel} 수행평가의 방법·산출물·제약과 실제 보고서 내용 시드를 교차해 주제를 구성했습니다. 학과 정보는 제목과 핵심 질문을 만들지 않고 과목 후보를 유지한 상태에서 정확일치·계열일치 순 정렬과 후속 탐구에만 제한적으로 사용합니다.`,
         position: `${recommendedMode} · ${recommendedMethod} · ${recommendedOutput}`,
         why_this_works: `${focus}. 수행평가 원문 제약과 내용 시드의 교과 적합성을 함께 사용하므로 단순 진로 조사나 개념 나열로 흐르지 않습니다.`,
         admission_points: [
@@ -679,7 +787,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.0.0-cross-axis-major-b
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.0.0-cross-axis-major-balanced",
+    version: "v2.1.0-major-category-weighted",
     ready: load,
     resolve,
     resolveSync,

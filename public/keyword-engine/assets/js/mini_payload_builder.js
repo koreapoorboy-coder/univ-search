@@ -6,11 +6,11 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v240-cross-axis-major-balanced";
+  const BUILDER_VERSION = "mini-payload-builder-v241-major-category-weighted";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
-    version: "report-generation-context-v240-cross-axis-major-balanced",
+    version: "report-generation-context-v241-major-category-weighted",
     createdAt: "2026-04-30T09:10:00",
     principle: "학생이 선택한 과목·교과 개념·키워드와 실제 수행평가 원문·내용 시드를 우선 연결하고, 학과 정보는 후속 탐구에만 제한적으로 전달한다.",
     defaultOutputType: "수행평가 탐구보고서",
@@ -268,7 +268,7 @@
   };
 
   const EXAMPLE_PATTERNS = {
-    version: "report-example-pattern-rules-v240-major-balanced",
+    version: "report-example-pattern-rules-v241-major-category-weighted",
     patternGroups: {
       system_data_prevention: {
         label: "시스템·데이터 예방형",
@@ -894,7 +894,7 @@
         "수행평가 방식과 평가 관점을 분리해 MINI에 전달한다."
       ],
       miniInstruction: runtimeAssessment?.student_output?.one_line_pick
-        ? `실제 수행평가 원문 제약과 실제 보고서 내용 시드를 교차한 '${runtimeAssessment.student_output.one_line_pick}'를 핵심 주제로 사용한다. structure_id별 섹션, 원문 수량 제약, 산출물, 채점 요소를 모두 지키고 학과 정보는 후속 탐구에만 제한한다.`
+        ? `실제 수행평가 원문 제약과 실제 보고서 내용 시드를 교차한 '${runtimeAssessment.student_output.one_line_pick}'를 핵심 주제로 사용한다. structure_id별 섹션, 원문 수량 제약, 산출물, 채점 요소를 모두 지키고 학과 정보는 후속 탐구에만 제한한다.${runtimeAssessment?.cross_axis?.majorPolicy?.fallbackActive ? ` ${runtimeAssessment.cross_axis.majorPolicy.fallbackPromptInstruction}` : ""}`
         : `주제는 ${concept}·${keyword}에서 가져오고, 방법은 ${reportChoices.modeLabel}으로, 과정 증거는 ${reportChoices.viewLabel}으로 구성한다. 학과 정보는 제목과 핵심 질문을 만들지 않는다.`
     };
   }
@@ -965,9 +965,11 @@
         `참고 패턴은 '${examplePattern.label}' 유형을 따르되, 원문을 복사하지 않고 선택 개념·키워드에 맞게 재구성한다.`,
         "학생이 선택한 2차 확장 방향을 반영하되, 최종 출력은 안내문·빈칸·수정 지시가 없는 완성 보고서로 작성한다.",
         "실제 수행평가 레코드의 structure_id, raw_task_desc 수량 제약, output_axis, rubric_axis를 우선 적용한다.",
-        "보고서 내용은 실제 시드의 교과 적합성·핵심 원리·금지 패턴을 사용하고, 학과 정보는 동점 후보 정렬과 마지막 후속 탐구에만 최대 5%로 사용한다."
-      
-      ]),
+        "보고서 내용은 실제 시드의 교과 적합성·핵심 원리·금지 패턴을 사용하고, 학과 정보는 과목 후보를 제거하지 않고 정확일치·계열일치 순 정렬과 마지막 후속 탐구에만 사용한다.",
+        performanceAssessment?.assessmentKeywordConnection?.majorPolicy?.fallbackActive
+          ? performanceAssessment.assessmentKeywordConnection.majorPolicy.fallbackPromptInstruction
+          : ""
+      ]).filter(Boolean),
       operatorOnly: {
         payloadUse: "이 객체는 학생 화면 출력이 아니라 MINI 보고서 생성을 위한 내부 구조 데이터이다.",
         sourceExampleData: "실제 수행평가 레코드 × 실제 seed-bank-v2 내용축 교차 패턴"

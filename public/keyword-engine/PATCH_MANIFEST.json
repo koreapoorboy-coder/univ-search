@@ -1,60 +1,102 @@
 {
-  "patchVersion": "assessment-keyword-cross-axis-major-balance-v3.0.0",
+  "patchVersion": "major-category-weighted-seed-ranking-v1.0.0",
   "createdAt": "2026-07-24",
   "targetPath": "univ-search/public/keyword-engine/",
-  "commitMessage": "Connect assessment methods to report seeds and limit major influence",
-  "sourceBaseline": {
-    "assessmentRecords": 7131,
-    "schools": 54,
-    "reportSeeds": 294,
-    "topicFormulas": 19,
-    "structures": 17
+  "commitMessage": "Replace major filters with category-weighted seed ranking",
+  "policy": {
+    "candidatePool": "literal bestForSubjects match only; never filtered by major",
+    "sortOrder": [
+      "exact major match",
+      "same engineering/natural/medical category",
+      "other"
+    ],
+    "thinCategoryThreshold": 10,
+    "fallbackCondition": "categoryMatchCount < 10",
+    "medicalSplit": false
+  },
+  "validation": {
+    "chemistryEngineering": {
+      "subjectPool": 188,
+      "categoryMatches": 175,
+      "fallback": false
+    },
+    "chemistryNatural": {
+      "subjectPool": 188,
+      "categoryMatches": 181,
+      "fallback": false
+    },
+    "chemistryMedical": {
+      "subjectPool": 188,
+      "categoryMatches": 115,
+      "fallback": false
+    },
+    "biologyMedical": {
+      "subjectPool": 180,
+      "categoryMatches": 148,
+      "fallback": false
+    },
+    "earthSystemMedical": {
+      "subjectPool": 25,
+      "categoryMatches": 3,
+      "fallback": true,
+      "effectivePool": 25
+    },
+    "geometryMedical": {
+      "subjectPool": 34,
+      "categoryMatches": 10,
+      "fallback": false
+    }
   },
   "files": [
     {
       "path": "COMMIT_MESSAGE.txt",
-      "size": 69,
-      "sha256": "e206562404765dbe9ac27c7d13ed184bd3e5e82f485c6edc2074f4c42fe2367b"
+      "size": 58,
+      "sha256": "a1adc9b9e9abc787eb2911e4553bb6517e90556f245636e0a6dfd682efb6f2b8"
     },
     {
       "path": "CROSS_AXIS_MAJOR_BALANCE_PATCH_README.md",
-      "size": 4124,
-      "sha256": "f71e4f9dd11014b4ffcdd3363abe1acd54de5685852984121a3720092093f183"
-    },
-    {
-      "path": "assets/assessment_keyword_bridge_helper.js",
-      "size": 33378,
-      "sha256": "5f60c948a3d741689e59c9d5ac97d48fb822566475352d66ccd997b7f70bb7c2"
-    },
-    {
-      "path": "assets/js/mini_payload_builder.js",
-      "size": 61909,
-      "sha256": "b0a978e34fcbd3186834f44fd68285068af7f6c5ec5761f3b36710dfb741cf52"
-    },
-    {
-      "path": "assets/js/mini_worker_generate_bridge_v32.js",
-      "size": 269406,
-      "sha256": "ce861e2666269499c4a0383d2d871d0b9fc0a053e24d955ca0917ff20b92204c"
-    },
-    {
-      "path": "audit/VALIDATION_SUMMARY.md",
-      "size": 827,
-      "sha256": "cc5f332684bb2164a79a1043e366c52d0e1e890115b229048765b70b434e9586"
-    },
-    {
-      "path": "build/build_assessment_seed_cross_axis_runtime.py",
-      "size": 9158,
-      "sha256": "82521858aeb8edfd5294df96742c7cdfad8994f3e96048d19bce460ffcfe2c14"
-    },
-    {
-      "path": "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
-      "size": 10834096,
-      "sha256": "add40faecae88ccb9a26a691f8dd4f3408890b7ef82b6690ee2d8304fd94cbaa"
+      "size": 2575,
+      "sha256": "86526769cb009bccefaec19a15975eaa9e8ba3f4ec2e8db0642a12837c15f8d1"
     },
     {
       "path": "index.html",
-      "size": 11633,
-      "sha256": "92841bfc221365e281444e46c5816416bc5b4590fe55b019ef04ff1fa1e8e6e3"
+      "size": 11628,
+      "sha256": "2b83bef650aa2f29dc063167dc6dad79cc151ca0bc2c692b9cdf8eab86ed290c"
+    },
+    {
+      "path": "assets/assessment_keyword_bridge_helper.js",
+      "size": 39119,
+      "sha256": "96b8024d40a13adc49f2c5a2c7cbcaf8586c7034fd61a30242a93e187ea5d1cb"
+    },
+    {
+      "path": "assets/js/mini_payload_builder.js",
+      "size": 62309,
+      "sha256": "9873237e4415ea3143b7a4631391495799ec600142623ebf44f914db15368453"
+    },
+    {
+      "path": "assets/js/mini_worker_generate_bridge_v32.js",
+      "size": 269813,
+      "sha256": "53c0762f20adbfd0523c907bd7d820b97da446246bcd1cb2010c928b4366e8d9"
+    },
+    {
+      "path": "build/build_assessment_seed_cross_axis_runtime.py",
+      "size": 16856,
+      "sha256": "c5ca8757da9453f654237cb401a409887cfa96318b6b34e1733e5c434781fd90"
+    },
+    {
+      "path": "build/validate_major_category_weighting.py",
+      "size": 3607,
+      "sha256": "dffbba99c9db101e82e48966d96c7c2844b4d3ae849a607ac5a43612ed3e3c02"
+    },
+    {
+      "path": "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
+      "size": 11008949,
+      "sha256": "6a68153988eefc71516b0605f19343044a61133d1539a08a9e749350f26b95ec"
+    },
+    {
+      "path": "audit/MAJOR_CATEGORY_WEIGHT_VALIDATION.md",
+      "size": 723,
+      "sha256": "ca8c6448de90b5258fde7558ba4a903f0fd14f8509015ee2bcf2a249ea5d0e82"
     }
   ]
 }

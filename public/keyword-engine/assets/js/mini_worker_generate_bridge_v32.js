@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v240-cross-axis-major-balanced";
+  const VERSION = "mini-worker-generate-bridge-v241-major-category-weighted";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -2953,6 +2953,7 @@
       studentView ? `[학생의 해석] ${studentView}` : "",
       book?.title ? `[선택 도서] ${book.title}` : "",
       careerAllowed && c.major ? `[과제가 직접 요구한 진로·학과] ${c.major}` : "[학과 사용 정책] 핵심 본문에서 제외, 후속 탐구에만 선택적으로 사용",
+      c.majorPolicy?.fallbackActive ? c.majorPolicy.fallbackPromptInstruction : "",
       "",
       "[반드시 사용할 섹션 순서]",
       ...sections.map((section, idx) => `${idx + 1}. ${section}`),
@@ -3012,7 +3013,11 @@
       produceCompleteSubmissionReport: true,
       forbidPlaceholdersAndChecklists: true,
       majorWeightMaximum: 5,
-      majorForbiddenInCoreUnlessExplicitCareerTask: true
+      majorForbiddenInCoreUnlessExplicitCareerTask: true,
+      majorCandidatePolicy: "subject pool retained; exact major > same category > other",
+      majorCategoryFallbackActive: !!c.majorPolicy?.fallbackActive,
+      majorCategoryMatchCount: Number(c.majorPolicy?.categoryMatchCount || 0),
+      majorCategoryFallbackInstruction: c.majorPolicy?.fallbackPromptInstruction || ""
     };
     return {
       ...req,
