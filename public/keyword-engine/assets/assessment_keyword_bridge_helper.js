@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-major-category-weighted";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.3.0-task-interpreter-max-match";
 
 (function(global){
   "use strict";
@@ -16,6 +16,10 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
   let crossAxisData = null;
   let loadPromise = null;
   let lastContext = null;
+  const TASK_FALLBACK_NOTICE = "입력한 과제 유형과 정확히 맞는 규칙이 없어 과목 기본값을 바탕으로 일반형으로 잡았습니다.";
+  const NON_REPORT_NOTICE = "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요.";
+  const NON_REPORT_TERMS = ["연주","실기","랠리","스트로크","체력","참여도","던지기","경기","시합"];
+  const TASK_LOG_STORAGE_KEY = "ke.assessmentTaskInterpreterLogs.v1";
 
   function normalize(value){
     return String(value || "")
@@ -145,19 +149,119 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
     return null;
   }
 
-  function inferTaskRules(payload){
-    if(!bridgeData) return [];
-    const text = normalize([
-      payload?.taskName,
-      payload?.taskType,
+  function effectiveTaskName(payload){
+    const raw = String(payload?.taskName || payload?.assessmentTitle || "").trim();
+    const subject = String(payload?.subject || payload?.selectedSubject || "").trim();
+    const taskType = String(payload?.taskType || payload?.outputType || "").trim();
+    const synthetic = [subject, taskType].filter(Boolean).join(" ").trim();
+    return raw && synthetic && normalize(raw) === normalize(synthetic) ? "" : raw;
+  }
+
+  function rawTaskText(payload){
+    return [
+      effectiveTaskName(payload),
       payload?.taskDescription,
-      payload?.assessmentTitle,
       payload?.assessmentDescription
-    ].filter(Boolean).join(" "));
-    if(!text) return [];
-    return (bridgeData.task_interpreter_rules || []).filter(rule =>
-      (rule.match_terms || []).some(term => text.includes(normalize(term)))
-    ).slice(0,4);
+    ].filter(Boolean).join(" ").toLowerCase();
+  }
+
+  function inferTaskRule(payload){
+    const text = rawTaskText(payload);
+    const rules = bridgeData?.task_interpreter_rules || [];
+    if(!text){
+      return { matched:false, rule:null, matchCount:0, matchedTerms:[], fallbackActive:true, fallbackNotice:TASK_FALLBACK_NOTICE };
+    }
+    let best = null;
+    rules.forEach((rule, index) => {
+      const matchedTerms = (rule.match_terms || []).filter(term => text.includes(String(term || "").toLowerCase()));
+      if(!matchedTerms.length) return;
+      const candidate = { rule, index, matchCount:matchedTerms.length, matchedTerms };
+      if(!best || candidate.matchCount > best.matchCount) best = candidate;
+    });
+    if(!best){
+      return { matched:false, rule:null, matchCount:0, matchedTerms:[], fallbackActive:true, fallbackNotice:TASK_FALLBACK_NOTICE };
+    }
+    return {
+      matched:true,
+      rule:best.rule,
+      matchCount:best.matchCount,
+      matchedTerms:best.matchedTerms,
+      fallbackActive:false,
+      fallbackNotice:""
+    };
+  }
+
+  function detectNonReportTask(payload, taskMatch){
+    const text = rawTaskText(payload);
+    const matchedTerm = NON_REPORT_TERMS.find(term => text.includes(term)) || "";
+    const reasons = taskMatch?.reasons || [];
+    const strongRecordMatch = Number(taskMatch?.score || 0) >= 50
+      && reasons.some(reason => /수행평가명|안내문/.test(String(reason || "")));
+    const recordBlocked = taskMatch?.record?.isTopicGenerating === false && strongRecordMatch;
+    return {
+      blocked: recordBlocked || !!matchedTerm,
+      reason: recordBlocked ? "record_flag_false" : (matchedTerm ? "performance_term" : ""),
+      matchedTerm,
+      notice: NON_REPORT_NOTICE
+    };
+  }
+
+  function appendTaskInterpreterLocalLog(event){
+    try{
+      const current = JSON.parse(localStorage.getItem(TASK_LOG_STORAGE_KEY) || "[]");
+      const list = Array.isArray(current) ? current : [];
+      list.push(event);
+      localStorage.setItem(TASK_LOG_STORAGE_KEY, JSON.stringify(list.slice(-500)));
+    }catch(error){
+      console.warn("assessment task interpreter local log failed:", error);
+    }
+  }
+
+  function logTaskInterpreterEvent(payload, interpretation, nonReport){
+    if(!interpretation?.fallbackActive && !nonReport?.blocked) return;
+    const event = {
+      version:"assessment-task-interpreter-log-v1",
+      eventType:nonReport?.blocked ? "assessment_non_report_task" : "assessment_task_interpreter_fallback",
+      collectedAt:new Date().toISOString(),
+      subject:String(payload?.subject || payload?.selectedSubject || ""),
+      taskName:String(payload?.taskName || payload?.assessmentTitle || ""),
+      taskDescription:String(payload?.taskDescription || payload?.assessmentDescription || ""),
+      fallbackActive:!!interpretation?.fallbackActive,
+      fallbackNotice:interpretation?.fallbackNotice || "",
+      nonReportBlocked:!!nonReport?.blocked,
+      nonReportReason:nonReport?.reason || "",
+      nonReportMatchedTerm:nonReport?.matchedTerm || ""
+    };
+    const signature = JSON.stringify([event.eventType,event.subject,event.taskName,event.taskDescription]);
+    if(global.__LAST_TASK_INTERPRETER_LOG_SIGNATURE__ === signature) return;
+    global.__LAST_TASK_INTERPRETER_LOG_SIGNATURE__ = signature;
+    appendTaskInterpreterLocalLog(event);
+    const endpoint = global.__TASK_INTERPRETER_LOG_ENDPOINT__
+      || `${global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev"}/collect`;
+    const body = {
+      event_type:event.eventType,
+      collected_at:event.collectedAt,
+      subject:event.subject,
+      task_name:event.taskName,
+      task_description:event.taskDescription,
+      interpreter_fallback:event.fallbackActive,
+      interpreter_notice:event.fallbackNotice,
+      non_report_task:event.nonReportBlocked,
+      non_report_reason:event.nonReportReason,
+      non_report_matched_term:event.nonReportMatchedTerm,
+      student_input:{
+        subject:event.subject,
+        task_name:event.taskName,
+        task_description:event.taskDescription,
+        event_type:event.eventType
+      }
+    };
+    try{
+      fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true})
+        .catch(error => console.warn("assessment task interpreter remote log failed:", error));
+    }catch(error){
+      console.warn("assessment task interpreter remote log failed:", error);
+    }
   }
 
   function buildFallbackKeywordRoute(keyword, subjectGroup){
@@ -209,7 +313,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
     if(!candidates.length) return null;
     const school = normalize(payload?.schoolName || payload?.school || "");
     const grade = String(payload?.grade || "").replace(/[^0-9]/g, "");
-    const title = String(payload?.taskName || payload?.assessmentTitle || "").trim();
+    const title = effectiveTaskName(payload);
     const description = String(payload?.taskDescription || payload?.assessmentDescription || "").trim();
     const type = String(payload?.taskType || payload?.outputType || "").trim();
     const titleNorm = normalize(title);
@@ -509,6 +613,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
           topicFormula: task.topicFormula,
           structureId,
           avoidModes: task.avoidModes || [],
+          isTopicGenerating: task.isTopicGenerating,
           numericConstraints: task.numericConstraints || []
         }
       } : null,
@@ -623,12 +728,12 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
     const subjectRoute = subjectMatch?.route || (bridgeData.subject_group_routes || {})[subjectGroupInput] || null;
     const subjectGroup = subjectRoute?.canonical_subject_group || subjectGroupInput || (keywordRoute.recommended_subject_groups || [])[0] || "";
     const taskRoute = (bridgeData.task_output_routes || {})[taskType] || (bridgeData.task_output_routes || {})["탐구보고서"] || null;
-    const inferredRules = inferTaskRules(payload);
-
-    const inferredMethods = uniq(inferredRules.flatMap(rule => rule.method_axis || []));
-    const inferredOutputs = uniq(inferredRules.flatMap(rule => rule.output_axis || []));
-    const inferredModes = uniq(inferredRules.flatMap(rule => rule.report_mode || []));
-    const inferredSections = uniq(inferredRules.flatMap(rule => rule.required_sections || []));
+    const taskInterpretation = inferTaskRule(payload);
+    const inferredRule = taskInterpretation.rule;
+    const inferredMethods = uniq(inferredRule?.method_axis || []);
+    const inferredOutputs = uniq(inferredRule?.output_axis || []);
+    const inferredModes = uniq(inferredRule?.report_mode || []);
+    const inferredSections = uniq(inferredRule?.required_sections || []);
 
     const keywordLabel = rawKeyword || keywordMatch?.key || "선택 키워드";
     const canonicalSubjectInput = toCanonicalSubject(subjectInput);
@@ -636,17 +741,74 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
     // Seed lookup must use the selected subject's canonical name, not a broader subject-route key.
     const crossAxis = buildCrossAxis({ ...payload, career }, canonicalSubjectInput || subjectLabel, keywordLabel, concept);
     const exactTask = crossAxis?.taskMatch?.record || null;
+    const nonReportTask = detectNonReportTask(payload, crossAxis?.taskMatch || null);
+    logTaskInterpreterEvent(payload, taskInterpretation, nonReportTask);
+
+    if(nonReportTask.blocked){
+      const blockedContext = {
+        version:"assessment-keyword-cross-axis-context-v2.3.0",
+        connected:true,
+        generatedAt:new Date().toISOString(),
+        reportTarget:false,
+        blocked:true,
+        input:{
+          subject:subjectInput,
+          taskName:payload?.taskName || "",
+          taskDescription:payload?.taskDescription || ""
+        },
+        interpreter:{
+          matched:taskInterpretation.matched,
+          ruleId:taskInterpretation.rule?.rule_id || "",
+          matchCount:taskInterpretation.matchCount,
+          matchedTerms:taskInterpretation.matchedTerms,
+          fallbackActive:taskInterpretation.fallbackActive,
+          fallbackNotice:taskInterpretation.fallbackNotice,
+          reportTarget:false,
+          blockedReason:nonReportTask.reason,
+          blockedTerm:nonReportTask.matchedTerm,
+          notice:nonReportTask.notice
+        },
+        cross_axis:crossAxis,
+        student_output:{
+          title:"탐구보고서 생성 대상 확인",
+          one_line_pick:nonReportTask.notice,
+          intro:"실기·참여·경기 수행 자체를 평가하는 과제는 보고서 주제를 억지로 만들지 않습니다.",
+          position:"보고서 생성 보류",
+          why_this_works:"학교가 요구한 과제 형태를 왜곡하지 않고, 보고서형 안내문이 들어왔을 때만 탐구 구조를 생성합니다.",
+          interpreter_notice:nonReportTask.notice,
+          admission_points:[],
+          differentiation:"",
+          record_sentence:"",
+          topic_options:[],
+          report_flow:[],
+          books:[]
+        }
+      };
+      lastContext = blockedContext;
+      global.__ASSESSMENT_KEYWORD_LAST_CONTEXT__ = blockedContext;
+      global.__ASSESSMENT_SEED_CROSS_AXIS_LAST_CONTEXT__ = crossAxis;
+      return blockedContext;
+    }
 
     const specificTaskType = ["실험보고서","자료조사 보고서","발표보고서"].includes(taskType);
     const taskPrimaryMethod = firstValue(taskRoute?.dominant_methods, "");
     const taskPrimaryOutput = firstValue(taskRoute?.dominant_outputs, "");
-    const recommendedMethod = exactTask?.methodAxis?.[0] || (specificTaskType
-      ? (taskPrimaryMethod || inferredMethods[0] || keywordRoute.preferred_methods?.[0] || "보고서작성형")
-      : (inferredMethods[0] || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형"));
-    const recommendedOutput = exactTask?.outputAxis?.[0] || (specificTaskType
-      ? (taskPrimaryOutput || inferredOutputs[0] || keywordRoute.preferred_outputs?.[0] || taskType)
-      : (inferredOutputs[0] || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType));
-    const recommendedMode = exactTask?.reportModes?.[0] || inferredModes[0] || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형";
+    const subjectPrimaryMethod = firstValue(subjectRoute?.dominant_methods, "");
+    const subjectPrimaryOutput = firstValue(subjectRoute?.dominant_outputs, "");
+    const subjectPrimaryMode = firstValue(subjectRoute?.dominant_report_modes, "");
+    const recommendedMethod = exactTask?.methodAxis?.[0] || (taskInterpretation.fallbackActive
+      ? (subjectPrimaryMethod || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형")
+      : (specificTaskType
+        ? (taskPrimaryMethod || inferredMethods[0] || keywordRoute.preferred_methods?.[0] || "보고서작성형")
+        : (inferredMethods[0] || taskPrimaryMethod || keywordRoute.preferred_methods?.[0] || "보고서작성형")));
+    const recommendedOutput = exactTask?.outputAxis?.[0] || (taskInterpretation.fallbackActive
+      ? (subjectPrimaryOutput || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType)
+      : (specificTaskType
+        ? (taskPrimaryOutput || inferredOutputs[0] || keywordRoute.preferred_outputs?.[0] || taskType)
+        : (inferredOutputs[0] || taskPrimaryOutput || keywordRoute.preferred_outputs?.[0] || taskType)));
+    const recommendedMode = exactTask?.reportModes?.[0] || (taskInterpretation.fallbackActive
+      ? (subjectPrimaryMode || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형")
+      : (inferredModes[0] || firstValue(taskRoute?.dominant_report_modes, "") || keywordRoute.preferred_report_modes?.[0] || "자료해석형"));
     const rubricFocus = uniq([
       ...(exactTask?.rubricAxis || []),
       ...topValues(subjectRoute?.dominant_rubric_tags, 5),
@@ -667,7 +829,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
     const focus = exactTask
       ? `${exactTask.contentAxis?.slice(0,3).join("·") || "교과 개념"}을 ${exactTask.methodAxis?.slice(0,2).join("·") || recommendedMethod} 방식으로 수행하고 ${exactTask.outputAxis?.slice(0,2).join("·") || recommendedOutput}에 근거를 남김`
       : (keywordRoute.assessment_focus || "교과 개념과 실제 자료를 연결");
-    const score = scoreConnection(keywordMatch?.match, subjectMatch?.match, taskRoute, keywordRoute, subjectGroup, inferredRules, crossAxis);
+    const score = scoreConnection(keywordMatch?.match, subjectMatch?.match, taskRoute, keywordRoute, subjectGroup, inferredRule ? [inferredRule] : [], crossAxis);
 
     const crossTopicOptions = crossAxis?.topic?.options || [];
     const topicOptions = uniq([
@@ -680,7 +842,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
     const recordSentence = `${subjectLabel}의 ${concept || "핵심 개념"}을 바탕으로 ${keywordLabel}을 탐구하고, ${recommendedMethod} 과정에서 자료·조건·결과를 비교하여 ${rubricFocus.slice(0,3).join("·") || "근거 제시와 결과 해석"} 역량을 드러냄.`;
 
     const context = {
-      version: "assessment-keyword-cross-axis-context-v2.2.0",
+      version: "assessment-keyword-cross-axis-context-v2.3.0",
       connected: true,
       generatedAt: new Date().toISOString(),
       priorityPolicy: crossAxis?.priorityPolicy || {
@@ -710,11 +872,22 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
         canonicalSubject: toCanonicalSubject(subjectInput),
         subjectMatchType: subjectMatch?.match || "group-fallback",
         subjectGroup,
-        inferredRuleIds: inferredRules.map(rule => rule.rule_id),
+        inferredRuleIds: inferredRule ? [inferredRule.rule_id] : [],
         exactTaskId: exactTask?.id || "",
         seedId: crossAxis?.seedMatch?.seedId || "",
         connectionScore: score,
         majorScoreIncludedInCore: false
+      },
+      interpreter: {
+        matched: taskInterpretation.matched,
+        ruleId: inferredRule?.rule_id || "",
+        matchCount: taskInterpretation.matchCount,
+        matchedTerms: taskInterpretation.matchedTerms,
+        fallbackActive: taskInterpretation.fallbackActive,
+        fallbackNotice: taskInterpretation.fallbackNotice,
+        reportTarget: true,
+        matchingStrategy: "max_match_terms",
+        tieBreak: "rules_array_order_first"
       },
       assessment_route: {
         keywordCluster: keywordRoute.primary_cluster,
@@ -753,7 +926,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
       student_output: {
         title: `${subjectLabel} 수행평가 × 보고서 내용 시드 교차 결과`,
         one_line_pick: topicOptions[0],
-        intro: `실제 ${subjectLabel} 수행평가의 방법·산출물·제약과 실제 보고서 내용 시드를 교차해 주제를 구성했습니다. 학과 정보는 제목과 핵심 질문을 만들지 않고 과목 후보를 유지한 상태에서 정확일치·계열일치 순 정렬과 후속 탐구에만 제한적으로 사용합니다.`,
+        intro: `${taskInterpretation.fallbackActive ? taskInterpretation.fallbackNotice + " " : ""}실제 ${subjectLabel} 수행평가의 방법·산출물·제약과 실제 보고서 내용 시드를 교차해 주제를 구성했습니다. 학과 정보는 제목과 핵심 질문을 만들지 않고 과목 후보를 유지한 상태에서 정확일치·계열일치 순 정렬과 후속 탐구에만 제한적으로 사용합니다.`,
+        interpreter_notice: taskInterpretation.fallbackActive ? taskInterpretation.fallbackNotice : "",
         position: `${recommendedMode} · ${recommendedMethod} · ${recommendedOutput}`,
         why_this_works: `${focus}. 수행평가 원문 제약과 내용 시드의 교과 적합성을 함께 사용하므로 단순 진로 조사나 개념 나열로 흐르지 않습니다.`,
         admission_points: [
@@ -801,14 +975,19 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.2.0-subject-alias-and-
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.2.0-subject-alias-and-major-category-weighted",
+    version: "v2.3.0-task-interpreter-max-match",
     ready: load,
     resolve,
     resolveSync,
     getLastContext: () => lastContext,
     getData: () => bridgeData,
     getCrossAxisData: () => crossAxisData,
-    toCanonicalSubject
+    toCanonicalSubject,
+    inferTaskRule,
+    readTaskInterpreterLogs(){
+      try{ return JSON.parse(localStorage.getItem(TASK_LOG_STORAGE_KEY) || "[]"); }
+      catch(error){ return []; }
+    }
   };
 
   load();

@@ -1,83 +1,113 @@
 {
-  "patchId": "subject-alias-dropdown-support-log-v1",
-  "patchNumber": 2,
+  "patchId": "task-interpreter-rules-fallback-non-report-v1",
+  "patchNumber": 3,
   "createdDate": "2026-07-24",
-  "applyAfter": "major_category_weighted_seed_ranking_patch_v1_20260724.zip",
+  "applyAfter": "subject_alias_dropdown_support_patch_v1_20260724.zip",
   "targetRoot": "univ-search/public/keyword-engine/",
   "scope": [
-    "lookup-time aliases for 미적분1 and 물리",
-    "six subject dropdown additions",
-    "held/thin subject notice",
-    "subject selection logging",
-    "canonical subject fields in collect payload"
+    "expand task interpreter from 7 to 13 rules",
+    "select one rule by maximum match_terms count",
+    "subject-default fallback notice and logging",
+    "is_topic_generating and performance-term report blocking",
+    "runtime preservation of non-report flags"
   ],
   "doesNotModify": [
-    "existing option values for 미적분1 and 물리",
-    "subject_normalization_rules_2026_05_15.json",
-    "seed data files",
-    "major category weighting from Patch 1"
+    "the fixed report_mode vocabulary",
+    "Patch 1 major category weighting policy",
+    "Patch 2 subject aliases or dropdown values",
+    "assessment source records"
   ],
   "validation": {
-    "미적분1": 169,
-    "물리": 102,
-    "융합과학 탐구": 278,
-    "과학과제 연구": 170,
-    "데이터 과학": 149,
-    "화학 반응의 세계": 147,
-    "인공지능 기초": 58,
-    "생물의 유전": 41,
-    "확률과 통계": 162
+    "eligibleRecords": 6506,
+    "baselineCoveragePct": 71.43,
+    "patchedCoveragePct": 89.36,
+    "reportModeIntersectionPct": 66.1,
+    "methodAxisIntersectionPct": 81.61,
+    "unknownReportModeLabels": 0,
+    "nonReportFalseRecords": 625,
+    "majorWeightingRegression": "pass",
+    "subjectAliasRegression": "pass"
   },
   "files": [
     {
       "path": "COMMIT_MESSAGE.txt",
-      "size": 61,
-      "sha256": "403b6785a9d11a127281f2b2e66dfdb0730d6b6057a1e6ab6503f9ae96844e3c"
+      "size": 63,
+      "sha256": "750fcfd1cb8c1195005288e99f31b1c823aea2a1427afa47c2d37359d6f52cad"
     },
     {
-      "path": "SUBJECT_ALIAS_DROPDOWN_PATCH_README.md",
-      "size": 1928,
-      "sha256": "66d60b64e6f584b46613e3ea77e7fc787ad5d1be6bfa06705b6c0dbb09730a97"
+      "path": "TASK_INTERPRETER_PATCH_README.md",
+      "size": 2754,
+      "sha256": "33b75a046e1cd86bc6d4134aa512a48672d4d42212288b7ee758c9e607bde884"
     },
     {
       "path": "assets/assessment_keyword_bridge_helper.js",
-      "size": 40038,
-      "sha256": "b57deccf6ef2d72a5787a6dd8dd2299ecacbbe3933bfdaf0272c0e20dbee2239"
-    },
-    {
-      "path": "assets/js/subject_alias.js",
-      "size": 422,
-      "sha256": "d1c85f9531870e037b99d4118be387656b44ac92acc1a00159337247d9464186"
-    },
-    {
-      "path": "assets/js/subject_support_notice.js",
-      "size": 6876,
-      "sha256": "93a4d7e337c5e457f87e0cf954a57b95af46e35454b4e8aae0c3bd006765d660"
-    },
-    {
-      "path": "assets/js/ui_subject_group_filter_v222.js",
-      "size": 9736,
-      "sha256": "15e4df10fb321bc3936d0f52149823719912f0ab188d9189856bbb7b8af20571"
+      "size": 48762,
+      "sha256": "a34bb617c6bae916d42b1d1854671390b460aa18cab4d5153c8e54472514c31b"
     },
     {
       "path": "assets/keyword_engine.js",
-      "size": 37501,
-      "sha256": "0ddef163ad417541c5bda03d3df79655d180b53d36386c2d4a633818297c9a24"
+      "size": 38871,
+      "sha256": "c7e7fd48950b1380c62559e22dd8c7bb8e333b53c3cef18a75980f60c6cf2d6a"
     },
     {
-      "path": "audit/SUBJECT_ALIAS_DROPDOWN_VALIDATION.md",
-      "size": 1422,
-      "sha256": "f8c09008a132770151ad60ce1237806380f0119767db207990282bc695fa32aa"
+      "path": "audit/TASK_INTERPRETER_VALIDATION.md",
+      "size": 716,
+      "sha256": "b0f81ba9d203aa17f96137850fd7c8af8a7300183e3839e6d282d07f3d78dd86"
     },
     {
-      "path": "build/validate_subject_alias_dropdown.py",
-      "size": 4753,
-      "sha256": "e9f85facd9a4919dde40315ee4c02c04957173466f90ebaa8273aabbd2bf903e"
+      "path": "audit/task_interpreter_validation.v1.json",
+      "size": 13735,
+      "sha256": "af0c6bd7772019613b8662cb7890fab3beff536034d10b5bc10738c6564bd81b"
+    },
+    {
+      "path": "build/build_assessment_seed_cross_axis_runtime.py",
+      "size": 16925,
+      "sha256": "2b616139ae9505b16c158ee8c4306f4329606427c67fbbb819a0fb947c7dda5d"
+    },
+    {
+      "path": "build/runtime_validate_task_interpreter.js",
+      "size": 4611,
+      "sha256": "f2c9f800a193a3d798997d8cef04910c31b4e0f6d5ae5f6187c49bd63c97bcd1"
+    },
+    {
+      "path": "build/validate_task_interpreter_rules.py",
+      "size": 5545,
+      "sha256": "2a59e635daf99d3978aea9ddc7f4911468581085bdea79f1d54a6485647f2914"
+    },
+    {
+      "path": "data/assessment/bridge/assessment_keyword_bridge.v1.json",
+      "size": 2197509,
+      "sha256": "b7aa7f6e0deec2c34d34af05072753c8ae2d6fcff281c7bb5e7e6a8fcf91f273"
+    },
+    {
+      "path": "data/assessment/bridge/assessment_keyword_bridge_manifest.v1.json",
+      "size": 1294,
+      "sha256": "434ceab8b366453ad90ea7f5c478c6f0d0806c4d665cb6e5a7f63198cc8853c6"
+    },
+    {
+      "path": "data/assessment/bridge/assessment_keyword_connection_audit.v1.json",
+      "size": 4046,
+      "sha256": "fe2f1899ad617fac034c6b4becf30a68c3027966cf32be0d9e9692fdf7d95e83"
+    },
+    {
+      "path": "data/assessment/bridge/assessment_keyword_connection_samples.v1.json",
+      "size": 3739,
+      "sha256": "0a1aba5926604a20c151f1cb650511d7b34eb26a905199310eaaf51027656674"
+    },
+    {
+      "path": "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
+      "size": 11187849,
+      "sha256": "b5442978171d06721c1e69434b9656da503a4cbfbeb1f22af41c120b68962ac1"
+    },
+    {
+      "path": "data/assessment/rules/task_interpreter_rules.v1.json",
+      "size": 10306,
+      "sha256": "a1ca1a0bfe5d3de42a46d3cd1cd902e8a74824e39988546b8f12b42ae9588fe7"
     },
     {
       "path": "index.html",
-      "size": 12701,
-      "sha256": "5cfa679387d28d10d71d629e7f37c510213659251132b47fbda1e20a90dedd3a"
+      "size": 12691,
+      "sha256": "5c894d7d7dc7bec648f31f41308cc402fefb8f6c391fe0b7650de5e0958a834a"
     }
   ]
 }

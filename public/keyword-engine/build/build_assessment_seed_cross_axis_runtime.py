@@ -112,6 +112,7 @@ def build_tasks() -> tuple[dict[str, list[dict]], int]:
                 "topicFormula": row.get("topic_formula"),
                 "structureId": row.get("structure_id"),
                 "avoidModes": compact(row.get("avoid_modes")),
+                "isTopicGenerating": row.get("is_topic_generating"),
                 "numericConstraints": extract_numeric_constraints(row.get("raw_task_desc") or ""),
             }
             tasks_by_subject.setdefault(key, []).append(record)

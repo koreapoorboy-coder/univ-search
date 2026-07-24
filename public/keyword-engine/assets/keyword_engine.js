@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v39-subject-alias-dropdown-support-log";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v40-task-interpreter-max-match";
 const WORKER_BASE_URL = window.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
 window.__KEYWORD_ENGINE_WORKER_BASE_URL = WORKER_BASE_URL;
 const GENERATE_ENDPOINT = window.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
@@ -693,6 +693,8 @@ function renderContentOutput(content){
       <div class="content-headline-badge">이렇게 잡으면 더 직관적입니다</div>
       <h2>${escapeHtml(content.title)}</h2>
 
+      ${content.interpreter_notice ? `<div class="content-why-box"><b>과제 해석 안내</b><div>${escapeHtml(content.interpreter_notice)}</div></div>` : ""}
+
       <div class="content-one-pick">
         <div class="content-one-pick-label">추천 1순위 주제</div>
         <div class="content-one-pick-text">${escapeHtml(content.one_line_pick)}</div>
@@ -782,6 +784,23 @@ function renderStudentView(payload){
   showBlock("resultSection", "grid");
 }
 
+function renderNonReportTaskNotice(payload){
+  const connection = payload?.assessmentConnection || {};
+  const notice = connection?.interpreter?.notice || "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요.";
+  setText("finalMode", "보고서 생성 보류");
+  showBlock("finalMode", "block");
+  setText("finalReason", "선택한 과제가 탐구보고서형인지 먼저 확인했습니다.");
+  setText("finalTopic", notice);
+  setText("topicSub", "보고서형 과제명이나 안내문을 입력하면 다시 해석합니다.");
+  setHTML("actionSteps", "");
+  const root = ensureContentOutputSection();
+  if(root){
+    root.innerHTML = `<div class="result-card content-output-card"><div class="content-headline-badge">보고서 대상 확인</div><h2>탐구보고서 생성 대상이 아닙니다</h2><p class="content-intro" style="white-space:pre-line">${escapeHtml(notice)}</p></div>`;
+  }
+  hideLegacySections();
+  showBlock("resultSection", "grid");
+}
+
 async function handleGenerate(){
   clearError();
   clearResults();
@@ -806,6 +825,11 @@ async function handleGenerate(){
     } catch (e) {
       console.error("collect api error:", e);
       throw e;
+    }
+
+    if(payload.assessmentConnection?.reportTarget === false || payload.assessmentConnection?.blocked){
+      renderNonReportTaskNotice(payload);
+      return true;
     }
 
     try { await callGenerateAPI(payload); } catch (e) { console.warn("generate api fallback:", e); }

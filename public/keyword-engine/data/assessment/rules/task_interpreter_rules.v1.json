@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "runtime_role": "assessment_input_interpreter",
   "input_fields": [
     "subject",
@@ -256,6 +256,224 @@
         "결과물 설명",
         "개선점"
       ]
+    },
+    {
+      "rule_id": "argumentation_002",
+      "match_terms": [
+        "논술",
+        "논설",
+        "논증",
+        "주장",
+        "반론",
+        "토론",
+        "쟁점",
+        "찬반",
+        "비평"
+      ],
+      "report_mode": [
+        "논증형",
+        "발표논증형",
+        "글쓰기논술형",
+        "사회문제분석형",
+        "비평분석형"
+      ],
+      "method_axis": [
+        "논술형",
+        "논증형",
+        "토의토론형"
+      ],
+      "output_axis": [
+        "논술문",
+        "논설문",
+        "비평문"
+      ],
+      "required_sections": [
+        "쟁점 정리",
+        "근거 비교",
+        "자료 근거",
+        "자기 주장",
+        "반론 검토",
+        "결론"
+      ]
+    },
+    {
+      "rule_id": "presentation_002",
+      "match_terms": [
+        "발표",
+        "구술",
+        "말하기",
+        "프레젠테이션",
+        "소개하기"
+      ],
+      "report_mode": [
+        "발표논증형",
+        "표현발표형",
+        "원리적용형"
+      ],
+      "method_axis": [
+        "구술발표형",
+        "보고서작성형"
+      ],
+      "output_axis": [
+        "발표자료",
+        "탐구보고서"
+      ],
+      "required_sections": [
+        "발표 목적",
+        "핵심 메시지",
+        "근거 자료",
+        "전달 구조",
+        "예상 질문"
+      ]
+    },
+    {
+      "rule_id": "portfolio_002",
+      "match_terms": [
+        "포트폴리오",
+        "활동지",
+        "학습지",
+        "일지",
+        "성찰",
+        "과정 기록"
+      ],
+      "report_mode": [
+        "학습과정관찰형",
+        "연구보고서형",
+        "개념해석형"
+      ],
+      "method_axis": [
+        "포트폴리오형",
+        "보고서작성형"
+      ],
+      "output_axis": [
+        "포트폴리오",
+        "활동지"
+      ],
+      "required_sections": [
+        "활동 개요",
+        "과정 기록",
+        "근거 자료",
+        "성찰",
+        "개선점"
+      ]
+    },
+    {
+      "rule_id": "project_002",
+      "match_terms": [
+        "프로젝트",
+        "제작",
+        "만들기",
+        "설계하기",
+        "기획",
+        "캠페인"
+      ],
+      "report_mode": [
+        "산출물제작형",
+        "창작설계형",
+        "연구설계형"
+      ],
+      "method_axis": [
+        "프로젝트형",
+        "실험실습형"
+      ],
+      "output_axis": [
+        "산출물",
+        "기획서",
+        "설계도"
+      ],
+      "required_sections": [
+        "기획 의도",
+        "설계 기준",
+        "제작 과정",
+        "결과물 설명",
+        "개선점"
+      ]
+    },
+    {
+      "rule_id": "writing_002",
+      "match_terms": [
+        "글쓰기",
+        "에세이",
+        "작문",
+        "수필",
+        "감상문",
+        "쓰기"
+      ],
+      "report_mode": [
+        "글쓰기논술형",
+        "개념해석형",
+        "논증형"
+      ],
+      "method_axis": [
+        "논술형",
+        "보고서작성형"
+      ],
+      "output_axis": [
+        "논술문",
+        "에세이"
+      ],
+      "required_sections": [
+        "주제 설정",
+        "전개 구조",
+        "근거",
+        "표현 전략",
+        "마무리"
+      ]
+    },
+    {
+      "rule_id": "concept_inquiry_002",
+      "match_terms": [
+        "탐구하기",
+        "개념",
+        "원리",
+        "성질",
+        "탐색",
+        "조사하기",
+        "알아보기"
+      ],
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "탐구보고서형",
+        "연구보고서형"
+      ],
+      "method_axis": [
+        "자료해석형",
+        "보고서작성형"
+      ],
+      "output_axis": [
+        "탐구보고서",
+        "자료분석지"
+      ],
+      "required_sections": [
+        "핵심 개념",
+        "원리 설명",
+        "사례 적용",
+        "교과 연계",
+        "한계"
+      ]
     }
-  ]
+  ],
+  "matching_policy": {
+    "strategy": "max_match_terms",
+    "tie_break": "rules_array_order_first",
+    "fallback": "subject_default_general",
+    "fallback_student_notice": "입력한 과제 유형과 정확히 맞는 규칙이 없어 과목 기본값을 바탕으로 일반형으로 잡았습니다.",
+    "fallback_log": true
+  },
+  "non_report_task_policy": {
+    "record_flag": "is_topic_generating=false",
+    "match_terms": [
+      "연주",
+      "실기",
+      "랠리",
+      "스트로크",
+      "체력",
+      "참여도",
+      "던지기",
+      "경기",
+      "시합"
+    ],
+    "student_notice": "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요."
+  }
 }
