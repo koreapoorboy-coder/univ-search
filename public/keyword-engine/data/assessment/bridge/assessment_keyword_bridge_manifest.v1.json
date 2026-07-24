@@ -1,0 +1,35 @@
+{
+  "version": "assessment-keyword-bridge-manifest-v1.0.0",
+  "generated_at": "2026-07-24T19:39:48+09:00",
+  "files": [
+    "assessment_keyword_bridge.v1.json",
+    "assessment_keyword_connection_audit.v1.json",
+    "assessment_keyword_connection_samples.v1.json",
+    "export/keyword_assessment_routes.v1.csv",
+    "export/subject_assessment_evidence.v1.csv",
+    "export/task_output_evidence.v1.csv"
+  ],
+  "source_baseline": {
+    "school_count": 54,
+    "record_count": 7131,
+    "source_count": 859,
+    "latest_school": "숙명여고",
+    "runtime_manifest_version": "2.4.0-runtime-v2-sookmyung",
+    "note": "업로드된 실제 엔진 기준. 인계문상의 59개교 예상치가 아니라 숙명여고까지 54개교 baseline이다."
+  },
+  "counts": {
+    "records_jsonl_total_lines": 7131,
+    "school_count": 54,
+    "source_count": 859,
+    "duplicate_task_id_count": 0,
+    "missing_source_reference_count": 0,
+    "keyword_route_count": 2780,
+    "active_keyword_library_count": 4,
+    "active_keyword_route_covered_count": 4,
+    "ui_subject_route_count": 26,
+    "ui_subject_route_with_evidence_count": 26,
+    "task_output_route_count": 4
+  },
+  "runtime_helper": "assets/assessment_keyword_bridge_helper.js",
+  "rebuild_script": "build/build_assessment_keyword_bridge.py"
+}

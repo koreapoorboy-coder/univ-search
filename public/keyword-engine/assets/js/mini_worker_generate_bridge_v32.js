@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v237-stage-aware-flow-token";
+  const VERSION = "mini-worker-generate-bridge-v238-assessment-keyword-connected";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -472,6 +472,22 @@
         `8번 결과물 수준: ${ctx.performanceAssessment.outputLevel?.reportLineLabel || choices.line || ""}`,
         `중복 방지 규칙: ${(ctx.performanceAssessment.dedupeRules || []).join(" / ")}`
       ] : []),
+      ...(ctx.performanceAssessment?.assessmentKeywordConnection ? (() => {
+        const connection = ctx.performanceAssessment.assessmentKeywordConnection || {};
+        const route = connection.assessment_route || connection.assessmentRoute || {};
+        const evidence = ctx.performanceAssessment.runtimeEvidence || connection.runtime_evidence || connection.runtimeEvidence || {};
+        const student = connection.student_output || connection.studentOutput || {};
+        return [
+          "",
+          "[실제 수행평가 누적 근거와 키워드 연결]",
+          `추천 탐구 방향: ${student.one_line_pick || (student.topic_options || [])[0] || "선택 키워드와 교과 개념을 수행평가 방식에 맞춰 연결"}`,
+          `평가 초점: ${route.assessmentFocus || route.assessment_focus || "교과 개념·자료·결과 해석의 연결"}`,
+          `권장 방법과 산출물: ${route.recommendedMethod || route.recommended_method || "자료해석형"} / ${route.recommendedOutput || route.recommended_output || form.taskType || "탐구보고서"}`,
+          `중요 채점 요소: ${(route.rubricFocus || route.rubric_focus || []).join(" · ") || "개념 정확성 · 자료 분석 · 근거 제시 · 결과 해석"}`,
+          `근거 규모: 전체 ${evidence.baselineSchoolCount || evidence.baseline_school_count || 0}개교·${evidence.baselineRecordCount || evidence.baseline_record_count || 0}개 기록 / 과목 연결 ${evidence.subjectEvidenceRecordCount || evidence.subject_evidence_record_count || 0}개 / 수행 형태 연결 ${evidence.taskEvidenceRecordCount || evidence.task_evidence_record_count || 0}개`,
+          "위 연결값을 제목·탐구 질문·자료 계획·비교 표·결론에 우선 반영하되 학교명은 노출하지 않는다."
+        ];
+      })() : []),
       "",
       "[학생이 선택한 설계 방향]",
       `수행평가 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
@@ -570,7 +586,10 @@
         reportLineLabel: reqChoiceBlueprint.lineLabel || choice.line || ""
       },
       generatedPerformanceName: reqPerformanceFrame.performanceName,
-      generatedFocusQuestion: reqPerformanceFrame.focusQuestion,
+      generatedFocusQuestion: reqPerformanceFrame.generatedFocusQuestion || reqPerformanceFrame.focusQuestion,
+      assessmentKeywordConnection: existingPerformanceAssessment.assessmentKeywordConnection || null,
+      runtimeEvidence: existingPerformanceAssessment.runtimeEvidence || null,
+      matchedAssessmentRoute: existingPerformanceAssessment.matchedAssessmentRoute || null,
       dedupeRules: existingPerformanceAssessment.dedupeRules || [
         "제목에서 같은 명사구를 반복하지 않는다.",
         "주제는 한 번만 제시하고 방법은 동사형으로 붙인다.",
@@ -637,6 +656,8 @@
       report_dataset_pattern: pattern,
       report_choices: choice,
       performance_assessment: mini.reportGenerationContext?.performanceAssessment || null,
+      assessment_connection: mini.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection || null,
+      assessment_runtime_evidence: mini.reportGenerationContext?.performanceAssessment?.runtimeEvidence || null,
       dongguk_performance_frame: mini.reportGenerationContext?.donggukPerformanceFrame || null,
       secondary_expansion_context: mini.reportGenerationContext?.secondaryExpansionContext || null,
       reportGenerationContext: mini.reportGenerationContext || {},
@@ -671,6 +692,8 @@
       mini_payload: workerRequest.mini_payload,
       report_dataset_pattern: workerRequest.report_dataset_pattern,
       secondary_expansion_context: workerRequest.secondary_expansion_context,
+      assessment_connection: workerRequest.assessment_connection || null,
+      assessment_runtime_evidence: workerRequest.assessment_runtime_evidence || null,
       student_input: {
         session_id: workerRequest.sessionId,
         school_name: workerRequest.schoolName || "",
@@ -685,7 +708,8 @@
         selected_book_title: workerRequest.selectedBookTitle || "",
         report_mode: workerRequest.report_choices?.mode || "",
         report_view: workerRequest.report_choices?.view || "",
-        report_line: workerRequest.report_choices?.line || ""
+        report_line: workerRequest.report_choices?.line || "",
+        assessment_connection: workerRequest.assessment_connection || null
       }
     };
   }
@@ -2004,6 +2028,19 @@
     const book = req.selectedBook || req?.mini_payload?.selectedBook || {};
     const choices = req.report_choices || getReportChoices(req.mini_payload || {});
     const majorContext = getMajorContext(req);
+    const assessmentConnection = req.assessment_connection
+      || req?.performance_assessment?.assessmentKeywordConnection
+      || req?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
+      || req?.mini_payload?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
+      || null;
+    const assessmentRoute = assessmentConnection?.assessment_route || assessmentConnection?.assessmentRoute || {};
+    const assessmentStudent = assessmentConnection?.student_output || assessmentConnection?.studentOutput || {};
+    const runtimeEvidence = req.assessment_runtime_evidence
+      || req?.performance_assessment?.runtimeEvidence
+      || assessmentConnection?.runtime_evidence
+      || assessmentConnection?.runtimeEvidence
+      || {};
+    const assessmentConnected = !!(assessmentConnection && (assessmentConnection.connected !== false));
 
     const subject = firstNonEmpty(s.subject, req.subject, resolved.subject, "선택 과목");
     const subjectGroup = firstNonEmpty(req.subjectGroup, s.subjectGroup, classifyDonggukSubjectFrame(subject, "").subjectGroup, "");
@@ -2153,6 +2190,37 @@
     conceptExample = performanceAdjusted.conceptExample;
     conclusionSentence = performanceAdjusted.conclusionSentence;
 
+    if(assessmentConnected){
+      const connectedTitle = firstNonEmpty(assessmentStudent.one_line_pick, (assessmentStudent.topic_options || [])[0], "");
+      const connectedFocus = firstNonEmpty(assessmentRoute.assessmentFocus, assessmentRoute.assessment_focus, "");
+      const connectedMethod = firstNonEmpty(assessmentRoute.recommendedMethod, assessmentRoute.recommended_method, "");
+      const connectedOutput = firstNonEmpty(assessmentRoute.recommendedOutput, assessmentRoute.recommended_output, req.taskType, "");
+      const connectedRubrics = assessmentRoute.rubricFocus || assessmentRoute.rubric_focus || [];
+      const connectedEvidence = assessmentRoute.recommendedEvidence || assessmentRoute.recommended_evidence || [];
+      const connectedSections = assessmentRoute.reportSections || assessmentRoute.report_sections || [];
+
+      if(connectedTitle) title = connectedTitle;
+      if(connectedFocus){
+        goal = `${connectedFocus}. 실제 수행평가 기록에서 확인된 ${connectedMethod || "탐구 방법"}과 ${connectedOutput || "결과물"} 구조를 적용해 평가 가능한 근거를 남긴다.`;
+      }
+      q = uniq([
+        focusQuestion,
+        connectedFocus ? `${connectedFocus}을 확인하려면 어떤 비교 기준과 자료가 필요할까?` : "",
+        connectedMethod ? `${connectedMethod} 과정에서 결과의 신뢰도를 높이려면 무엇을 기록해야 할까?` : "",
+        ...q
+      ].filter(Boolean)).slice(0,3);
+      focusQuestion = q[0] || focusQuestion;
+      if(connectedEvidence.length){
+        dataRows = dataRows.concat([[`${connectedOutput || "수행 결과물"}에 필요한 근거: ${connectedEvidence.join("·")}`, "교과서·공공자료·실험/조사 기록", "본론·결론"]]);
+      }
+      if(connectedRubrics.length){
+        tableRows = tableRows.concat([["평가 요소 확인", connectedRubrics.slice(0,4).join("·"), `${connectedMethod || "선택 방법"} 과정에서 확인`, "표·해석·결론에 각각 근거를 남긴다"]]);
+      }
+      if(connectedSections.length){
+        conclusionSentence = `${conclusionSentence} 또한 ${connectedRubrics.slice(0,3).join("·") || "자료 분석과 결과 해석"}이 드러나도록 한계와 후속 탐구를 분리해 정리했다.`;
+      }
+    }
+
     const performanceRows = [
       ["구분", "내용"],
       ["수행평가 영역명", performanceFrame.performanceName],
@@ -2161,6 +2229,18 @@
       ["성취기준 해석", performanceFrame.achievementFocus],
       ["보고서 핵심 질문", performanceFrame.focusQuestion]
     ];
+
+    const assessmentBasisRows = assessmentConnected ? [
+      ["연결 항목", "실제 적용 값"],
+      ["키워드-수행평가 연결 점수", `${assessmentConnection?.match?.connectionScore || assessmentStudent?.assessment_basis?.connectionScore || 0}점`],
+      ["누적 수행평가 기준", `${runtimeEvidence.baselineSchoolCount || runtimeEvidence.baseline_school_count || 0}개교 · ${runtimeEvidence.baselineRecordCount || runtimeEvidence.baseline_record_count || 0}개 기록 · 출처 ${runtimeEvidence.baselineSourceCount || runtimeEvidence.baseline_source_count || 0}개`],
+      ["과목 연결 근거", `${subject} 관련 기록 ${runtimeEvidence.subjectEvidenceRecordCount || runtimeEvidence.subject_evidence_record_count || 0}개 · 출처 학교 ${runtimeEvidence.subjectEvidenceSchoolCount || runtimeEvidence.subject_evidence_school_count || 0}개`],
+      ["수행 형태 연결 근거", `${req.taskType || "탐구보고서"} 관련 기록 ${runtimeEvidence.taskEvidenceRecordCount || runtimeEvidence.task_evidence_record_count || 0}개 · 출처 학교 ${runtimeEvidence.taskEvidenceSchoolCount || runtimeEvidence.task_evidence_school_count || 0}개`],
+      ["추천 탐구 방법", firstNonEmpty(assessmentRoute.recommendedMethod, assessmentRoute.recommended_method, "자료해석형")],
+      ["추천 산출물", firstNonEmpty(assessmentRoute.recommendedOutput, assessmentRoute.recommended_output, req.taskType, "탐구보고서")],
+      ["핵심 채점 요소", (assessmentRoute.rubricFocus || assessmentRoute.rubric_focus || []).slice(0,6).join(" · ") || "개념 정확성 · 자료 분석 · 근거 제시 · 결과 해석"],
+      ["학교명 처리", "학교명은 추천 문장에 노출하지 않고 출처 검증용으로만 사용"]
+    ] : [];
 
     const assemblyRows = [
       ["보고서 요소", "학생이 채울 내용", "보고서 위치"],
@@ -2208,6 +2288,7 @@
       .join("\n");
 
     const sections = [
+      ...(assessmentConnected ? [{title:"키워드 × 수행평가 실제 데이터 연결", body:assessmentBasisRows.map(r=>r.join(" | ")).join("\n")}] : []),
       {title:"수행평가 평가 기준", body:performanceRows.map(r=>r.join(" | ")).join("\n")},
       {title:"보고서 완성 그림", body:assemblyRows.map(r=>r.join(" | ")).join("\n")},
       {title:"2차 확장 방향 선택", body:expansionRows.map(r=>r.join(" | ")).join("\n")},
@@ -2262,16 +2343,21 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "secondary-expansion-blueprint-v234-student-facing-assessment",
+      source: assessmentConnected ? "assessment-keyword-runtime-connected-v1" : "secondary-expansion-blueprint-v234-student-facing-assessment",
       note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
         view,
         line,
-        productMode: "secondary_expansion_ai_reuse_blueprint_v229",
+        productMode: assessmentConnected ? "assessment_keyword_runtime_connected_v1" : "secondary_expansion_ai_reuse_blueprint_v229",
         secondaryExpansionContext: expansion,
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         donggukPerformanceFrame: performanceFrame,
+        assessmentKeywordConnection: assessmentConnected ? {
+          match: assessmentConnection?.match || {},
+          assessmentRoute,
+          runtimeEvidence
+        } : null,
         focusQuestion,
         majorLens: isComputer ? "입력값·조건문·오류 검증" : lens.shortLabel,
         majorKeywords: isComputer ? ["입력값", "조건문", "알고리즘", "오류 검증"] : lens.keywords.slice(0,4)

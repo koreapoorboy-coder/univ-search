@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v37-subject-group-ui-v220";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v38-assessment-keyword-connected-v1";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const GENERATE_ENDPOINT = window.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
 
@@ -281,7 +281,8 @@ function buildCollectPayload(formValues){
     report_view: reportContext.view_label || reportContext.view || "",
     report_line: reportContext.line_label || reportContext.line || "",
     student_seed: readValue("studentExtraNotes") || readValue("studentSeed") || readValue("extraNotes"),
-    teacher_focus: readValue("teacherNotes") || readValue("teacherFocus")
+    teacher_focus: readValue("teacherNotes") || readValue("teacherFocus"),
+    assessment_connection: formValues.assessmentConnection || null
   };
 
   return {
@@ -315,6 +316,7 @@ function buildCollectPayload(formValues){
       comparison_required: readChecked("flagComparison")
     },
     student_input,
+    assessment_connection: formValues.assessmentConnection || null,
     source_materials: {
       files: [
         ...Array.from(pastReportInput?.files || []).map(file => ({
@@ -352,6 +354,9 @@ function inferTheme(subject, career, keywords){
 }
 
 function buildLocalContent(payload){
+  if(payload?.assessmentConnection?.connected && payload.assessmentConnection.student_output){
+    return payload.assessmentConnection.student_output;
+  }
   const keywords = splitKeywords(payload.keyword);
   const joined = keywords.join(" + ") || payload.keyword;
   const theme = inferTheme(payload.subject, payload.career, keywords);
@@ -693,6 +698,18 @@ function renderContentOutput(content){
         <div>${escapeHtml(content.why_this_works)}</div>
       </div>
 
+      ${content.assessment_basis ? `
+      <div class="assessment-data-basis-card">
+        <div class="record-card-label">수행평가 데이터 연결 근거</div>
+        <div><b>연결 점수</b> : ${escapeHtml(content.assessment_basis.connectionScore)} / 100</div>
+        <div><b>누적 기준</b> : ${escapeHtml(content.assessment_basis.baseline)}</div>
+        <div><b>과목 근거</b> : ${escapeHtml(content.assessment_basis.subjectEvidence)}</div>
+        <div><b>결과물 근거</b> : ${escapeHtml(content.assessment_basis.taskEvidence)}</div>
+        <div><b>추천 방법·산출물</b> : ${escapeHtml(content.assessment_basis.method)} · ${escapeHtml(content.assessment_basis.output)}</div>
+        <div><b>주요 채점요소</b> : ${(content.assessment_basis.rubrics || []).map(escapeHtml).join(" · ")}</div>
+        <div class="content-intro">${escapeHtml(content.assessment_basis.privacyRule)}</div>
+      </div>` : ""}
+
       <div class="admission-grid">
         <div class="admission-card">
           <h3>합격 포인트</h3>
@@ -737,11 +754,13 @@ function renderContentOutput(content){
 
 function renderStudentView(payload){
   const content = buildLocalContent(payload);
+  const isConnected = Boolean(payload?.assessmentConnection?.connected);
 
-  hideBlock("finalMode");
-  setText("finalReason", "");
+  setText("finalMode", isConnected ? "수행평가 데이터 연결형" : "교과·진로 연결형");
+  showBlock("finalMode", "block");
+  setText("finalReason", isConnected ? `${payload.subject} 수행평가 기록과 ${payload.keyword} 키워드 경로를 교차 분석했습니다.` : "");
   setText("finalTopic", content.one_line_pick);
-  setText("topicSub", `${payload.subject} · ${payload.career} 기준으로 가장 읽기 쉬운 방향으로 다시 정리한 결과입니다.`);
+  setText("topicSub", isConnected ? `${payload.taskType}의 방법·산출물·채점요소까지 반영한 결과입니다.` : `${payload.subject} · ${payload.career} 기준으로 가장 읽기 쉬운 방향으로 다시 정리한 결과입니다.`);
   setHTML("actionSteps", renderStepList(content.steps));
 
   const root = ensureContentOutputSection();
@@ -759,6 +778,15 @@ async function handleGenerate(){
     validateInput(payload);
 
     setLoading(true);
+
+    if(window.AssessmentKeywordBridge){
+      try{
+        payload.assessmentConnection = await window.AssessmentKeywordBridge.resolve(payload);
+      }catch(error){
+        console.warn("assessment keyword connection fallback:", error);
+        payload.assessmentConnection = null;
+      }
+    }
 
     const collectPayload = buildCollectPayload(payload);
     try {

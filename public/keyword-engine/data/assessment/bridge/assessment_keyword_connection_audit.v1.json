@@ -1,0 +1,191 @@
+{
+  "version": "assessment-keyword-connection-audit-v1.0.0",
+  "generated_at": "2026-07-24T19:39:48+09:00",
+  "baseline": {
+    "school_count": 54,
+    "record_count": 7131,
+    "source_count": 859,
+    "latest_school": "숙명여고",
+    "runtime_manifest_version": "2.4.0-runtime-v2-sookmyung",
+    "note": "업로드된 실제 엔진 기준. 인계문상의 59개교 예상치가 아니라 숙명여고까지 54개교 baseline이다."
+  },
+  "validation": {
+    "records_jsonl_total_lines": 7131,
+    "school_count": 54,
+    "source_count": 859,
+    "duplicate_task_id_count": 0,
+    "missing_source_reference_count": 0,
+    "keyword_route_count": 2780,
+    "active_keyword_library_count": 4,
+    "active_keyword_route_covered_count": 4,
+    "ui_subject_route_count": 26,
+    "ui_subject_route_with_evidence_count": 26,
+    "task_output_route_count": 4
+  },
+  "largest_subject_routes": [
+    {
+      "subject": "물리",
+      "records": 315,
+      "schools": 47
+    },
+    {
+      "subject": "화학",
+      "records": 288,
+      "schools": 48
+    },
+    {
+      "subject": "생명과학",
+      "records": 282,
+      "schools": 49
+    },
+    {
+      "subject": "영어",
+      "records": 203,
+      "schools": 51
+    },
+    {
+      "subject": "정보",
+      "records": 199,
+      "schools": 46
+    },
+    {
+      "subject": "지구과학",
+      "records": 191,
+      "schools": 47
+    },
+    {
+      "subject": "공통수학1",
+      "records": 160,
+      "schools": 53
+    },
+    {
+      "subject": "공통국어1",
+      "records": 143,
+      "schools": 53
+    },
+    {
+      "subject": "공통수학2",
+      "records": 142,
+      "schools": 46
+    },
+    {
+      "subject": "한국사",
+      "records": 131,
+      "schools": 53
+    },
+    {
+      "subject": "통합과학1",
+      "records": 131,
+      "schools": 46
+    },
+    {
+      "subject": "과학탐구실험1",
+      "records": 121,
+      "schools": 39
+    },
+    {
+      "subject": "공통국어2",
+      "records": 120,
+      "schools": 44
+    },
+    {
+      "subject": "통합사회1",
+      "records": 118,
+      "schools": 49
+    },
+    {
+      "subject": "통합과학2",
+      "records": 118,
+      "schools": 40
+    },
+    {
+      "subject": "과학탐구실험2",
+      "records": 110,
+      "schools": 34
+    },
+    {
+      "subject": "통합사회2",
+      "records": 103,
+      "schools": 43
+    },
+    {
+      "subject": "대수",
+      "records": 85,
+      "schools": 36
+    },
+    {
+      "subject": "미적분1",
+      "records": 70,
+      "schools": 30
+    },
+    {
+      "subject": "확률과 통계",
+      "records": 62,
+      "schools": 28
+    },
+    {
+      "subject": "기하",
+      "records": 42,
+      "schools": 19
+    },
+    {
+      "subject": "세포와 물질대사",
+      "records": 11,
+      "schools": 4
+    },
+    {
+      "subject": "역학과 에너지",
+      "records": 8,
+      "schools": 3
+    },
+    {
+      "subject": "물질과 에너지",
+      "records": 3,
+      "schools": 1
+    },
+    {
+      "subject": "지구시스템과학",
+      "records": 3,
+      "schools": 1
+    },
+    {
+      "subject": "전자기와 양자",
+      "records": 2,
+      "schools": 1
+    }
+  ],
+  "task_route_evidence": [
+    {
+      "task_type": "탐구보고서",
+      "records": 3986,
+      "schools": 54
+    },
+    {
+      "task_type": "실험보고서",
+      "records": 2638,
+      "schools": 53
+    },
+    {
+      "task_type": "자료조사 보고서",
+      "records": 4059,
+      "schools": 49
+    },
+    {
+      "task_type": "발표보고서",
+      "records": 2749,
+      "schools": 54
+    }
+  ],
+  "known_baseline_gap": {
+    "handoff_expected_school_count": 59,
+    "uploaded_engine_school_count": 54,
+    "missing_from_uploaded_engine": [
+      "영동고",
+      "영동일고",
+      "영파여고",
+      "오금고",
+      "위례한빛고"
+    ],
+    "connection_patch_behavior": "추가 학교 패치를 적용한 뒤 build/build_assessment_keyword_bridge.py를 다시 실행하면 동일 구조로 자동 재집계된다."
+  }
+}

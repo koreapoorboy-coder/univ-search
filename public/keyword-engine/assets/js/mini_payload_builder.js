@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v236-two-depth-no-basic-visible";
+  const BUILDER_VERSION = "mini-payload-builder-v237-assessment-keyword-connected";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -824,6 +824,19 @@
     const concept = basePayload.selectedConcept || "선택 교과 개념";
     const keyword = basePayload.selectedRecommendedKeyword || basePayload.selectedKeyword || "선택 키워드";
     const axis = basePayload.followupAxis || basePayload.selectedFollowupAxis || "후속 연계축";
+    const runtimeAssessment = typeof global.AssessmentKeywordBridge?.resolveSync === "function"
+      ? global.AssessmentKeywordBridge.resolveSync({
+          subjectGroup: readDomValue("subjectGroup"),
+          subject: basePayload.subject || readDomValue("subject"),
+          taskName: readDomValue("taskName"),
+          taskType: readDomValue("taskType") || "탐구보고서",
+          taskDescription: readDomValue("taskDescription"),
+          grade: readDomValue("grade"),
+          career: basePayload.department || readDomValue("career"),
+          selectedConcept: concept,
+          selectedKeyword: keyword
+        })
+      : null;
     return {
       version: "dongguk-performance-assessment-v222-book-optional",
       principle: "수행평가 영역명 = 주제(내용) × 방법",
@@ -858,13 +871,26 @@
         keywordProblemContext: keywordFrame?.problemContext || "선택 키워드를 실제 문제로 확장한다.",
         bookPolicy: basePayload.useBookInReport ? "선택 도서를 참고자료의 근거·관점으로 사용한다." : "도서를 강제로 넣지 않고 공공자료·통계·기사·실험자료를 근거로 사용한다."
       },
+      assessmentKeywordConnection: runtimeAssessment ? {
+        version: runtimeAssessment.version,
+        match: runtimeAssessment.match,
+        assessmentRoute: runtimeAssessment.assessment_route,
+        runtimeEvidence: runtimeAssessment.runtime_evidence,
+        recommendedTopic: runtimeAssessment.student_output?.one_line_pick || "",
+        topicOptions: runtimeAssessment.student_output?.topic_options || [],
+        reportFlow: runtimeAssessment.student_output?.report_flow || []
+      } : null,
+      runtimeEvidence: runtimeAssessment?.runtime_evidence || null,
+      matchedAssessmentRoute: runtimeAssessment?.assessment_route || null,
       dedupeRules: [
         "제목에서 같은 명사구를 반복하지 않는다.",
         "주제(내용)는 한 번만 제시하고, 방법은 동사형으로 붙인다.",
         "학과명은 반복하지 말고 전공 사고방식으로 바꾼다.",
         "수행평가 방식과 평가 관점을 분리해 MINI에 전달한다."
       ],
-      miniInstruction: `주제는 ${concept}·${keyword}에서 가져오고, 방법은 ${reportChoices.modeLabel}으로, 과정 증거는 ${reportChoices.viewLabel}으로 구성한다.`
+      miniInstruction: runtimeAssessment?.student_output?.one_line_pick
+        ? `실제 수행평가 누적 데이터 연결 결과 '${runtimeAssessment.student_output.one_line_pick}'를 1차 주제로 사용하고, 방법은 ${reportChoices.modeLabel}, 과정 증거는 ${reportChoices.viewLabel}으로 구성한다.`
+        : `주제는 ${concept}·${keyword}에서 가져오고, 방법은 ${reportChoices.modeLabel}으로, 과정 증거는 ${reportChoices.viewLabel}으로 구성한다.`
     };
   }
 
