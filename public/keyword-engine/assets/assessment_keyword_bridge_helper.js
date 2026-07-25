@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wiring";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-defect-fix";
 
 (function(global){
   "use strict";
@@ -47,6 +47,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wi
     "확인","제시","선택","실험","관찰","측정","계산","표현","정리","평가","토론","보고서","그래프","표",
     "전개","전략","근거","설계"
   ]);
+  const CONCEPT_FALLBACK_ENABLED = true;
   const CONCEPT_FALLBACK = {
     "융합과학 탐구":["통합과학1","통합과학2","화학","생명과학","물리"],
     "과학과제 연구":["과학탐구실험1","과학탐구실험2"],
@@ -732,10 +733,155 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wi
     return best;
   }
 
-  function keepConceptTerm(term){
+  const KOREAN_PARTICLE_CHARS = "을를이가은는의로와과에서도만나수";
+  const SINGLE_CHAR_CONTEXT_PATTERNS = {
+    "항": /(?:다항식|계수|상수항|일차항|이차항|항의|항을|항끼리)/,
+    "힘": /(?:힘의\s*평형|힘과\s*운동|힘이\s*작용|힘을\s*받|알짜힘|마찰력|중력|탄성력)/,
+    "산": /(?:산과\s*염기|산·염기|산의\s*세기|산성|산을\s*넣|산이\s*해리)/,
+    "밑": /(?:로그의\s*밑|밑이|밑을|밑의|공통로그)/,
+    "합": /(?:수열의\s*합|합의\s*공식|합을\s*구|부분합|시그마)/,
+    "각": /(?:각의\s*크기|각도|끼인각|두\s*벡터가\s*이루는\s*각|방향각)/,
+    "일": /(?:일과\s*에너지|일의\s*양|일을\s*한|일률|역학적\s*일|힘.{0,12}거리)/,
+    "몰": /(?:몰\s*농도|몰수비|몰\s*질량|몰의\s*수|몰을|몰이|몰당|한계\s*반응물)/,
+    "족": /(?:원소의\s*족|같은\s*족|족의\s*성질|주기율표.{0,12}족)/
+  };
+
+  function normalizeTextParts(parts){
+    return (parts || [])
+      .map(value => normalize(value))
+      .filter(Boolean)
+      .join("|");
+  }
+
+  function countSingleCharHits(rawText, term){
+    const ch = String(term || "").trim();
+    if(ch.length !== 1) return 0;
+    const text = String(rawText || "");
+    const escaped = ch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(
+      `(^|[^가-힣])${escaped}(?=$|[^가-힣]|[${KOREAN_PARTICLE_CHARS}])`,
+      "g"
+    );
+    const matched = text.match(re);
+    if(!matched) return 0;
+    const contextPattern = SINGLE_CHAR_CONTEXT_PATTERNS[ch];
+    if(!contextPattern) return matched.length;
+    return contextPattern.test(text) ? matched.length : 0;
+  }
+
+  function subjectNameForms(subjectLabel){
+    const raw = String(subjectLabel || "").trim();
+    const forms = new Set();
+    const push = value => {
+      const n = normalize(value);
+      if(n.length >= 2) forms.add(n);
+    };
+    push(raw);
+    push(toCanonicalSubject(raw));
+    push(raw.replace(/[0-9Ⅰ-Ⅲ]+$/g, ""));
+    push(toCanonicalSubject(raw).replace(/[0-9Ⅰ-Ⅲ]+$/g, ""));
+    return [...forms].sort((a, b) => b.length - a.length);
+  }
+
+  function escapeRegex(value){
+    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function rawTermPattern(value){
+    const tokens = String(value || "").trim().split(/[^0-9A-Za-z가-힣]+/).filter(Boolean);
+    if(!tokens.length) return "";
+    return tokens.map(escapeRegex).join("[\\s·,._\\-/()]*");
+  }
+
+  function findRawRanges(rawText, value){
+    const pattern = rawTermPattern(value);
+    if(!pattern) return [];
+    const re = new RegExp(pattern, "gi");
+    const ranges = [];
+    let match;
+    while((match = re.exec(String(rawText || ""))) !== null){
+      ranges.push([match.index, match.index + match[0].length]);
+      if(!match[0].length) re.lastIndex += 1;
+    }
+    return ranges;
+  }
+
+  function subjectNameSurfaceForms(subjectLabel){
+    const raw = String(subjectLabel || "").trim();
+    const canonical = toCanonicalSubject(raw);
+    return uniq([
+      raw,
+      canonical,
+      raw.replace(/[0-9Ⅰ-Ⅲ]+$/g, ""),
+      canonical.replace(/[0-9Ⅰ-Ⅲ]+$/g, "")
+    ]).filter(value => normalize(value).length >= 2);
+  }
+
+  function blockedRawNameRanges(rawText, forms){
+    return (forms || []).flatMap(form => findRawRanges(rawText, form));
+  }
+
+  function countRawConceptHits(rawText, rawTerm, ranges){
+    const term = String(rawTerm || "").trim();
+    if(normalize(term).length < 2) return 0;
+    let hits = 0;
+    for(const [start, end] of findRawRanges(rawText, term)){
+      const insideName = ranges.some(([nameStart, nameEnd]) => start >= nameStart && end <= nameEnd);
+      if(!insideName) hits += 1;
+    }
+    return hits;
+  }
+
+
+  function blockedNameRanges(normText, forms){
+    const ranges = [];
+    for(const form of forms){
+      let from = 0;
+      while(from <= normText.length){
+        const at = normText.indexOf(form, from);
+        if(at < 0) break;
+        ranges.push([at, at + form.length]);
+        from = at + 1;
+      }
+    }
+    return ranges;
+  }
+
+  function countConceptHits(normText, normTerm, ranges){
+    if(!normTerm || normTerm.length < 2) return 0;
+    let from = 0;
+    let hits = 0;
+    while(from <= normText.length){
+      const at = normText.indexOf(normTerm, from);
+      if(at < 0) break;
+      const end = at + normTerm.length;
+      const insideName = ranges.some(([start, stop]) => at >= start && end <= stop);
+      if(!insideName) hits += 1;
+      from = at + 1;
+    }
+    return hits;
+  }
+
+  function conceptOverlaps(list, candidate){
+    const n = normalize(candidate);
+    if(!n) return true;
+    return list.some(current => {
+      const c = normalize(current);
+      return c === n || c.includes(n) || n.includes(c);
+    });
+  }
+
+  function conceptDisplayLabel(value){
+    const text = String(value || "").trim();
+    if(!text.includes(",")) return text;
+    return text.split(",")[0].trim() || text;
+  }
+
+  function keepConceptTerm(term, source){
     const raw = String(term || "").trim();
     const n = normalize(raw);
-    if(n.length < 2) return false;
+    if(!n) return false;
+    if(n.length < 2 && !(raw.length === 1 && (source === "concept_name" || source === "core_concept"))) return false;
     if(CONCEPT_STOP_TERMS.has(raw)) return false;
     for(const stop of CONCEPT_STOP_TERMS){
       if(normalize(stop) === n) return false;
@@ -755,20 +901,45 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wi
     const sub = String(subject || "").trim();
     const raw = String(term || "").trim();
     const n = normalize(raw);
-    if(!sub || !keepConceptTerm(raw) || !n) return;
+    if(!sub || !keepConceptTerm(raw, source) || !n) return;
     const row = map[sub] || (map[sub] = createConceptRow());
     const current = row.terms.get(n);
     // Prefer the longer, more descriptive surface form for equivalent normalized terms.
     if(!current || raw.length > current.term.length){
-      row.terms.set(n, { term:raw, normalized:n, source:source || "textbook_dictionary" });
+      row.terms.set(n, {
+        term:raw,
+        normalized:n,
+        source:source || "textbook_dictionary",
+        single:n.length === 1,
+        direct:true,
+        fallbackSources:[]
+      });
     }
     if(parent && !row.parents.has(n)) row.parents.set(n, String(parent).trim());
   }
 
-  function mergeConceptRows(target, source){
+  function mergeConceptRows(target, source, sourceSubject){
     if(!target || !source) return;
     source.terms.forEach((entry, n) => {
-      if(!target.terms.has(n)) target.terms.set(n, { ...entry });
+      const current = target.terms.get(n);
+      const fallbackSources = uniq([
+        ...(current?.fallbackSources || []),
+        ...(entry?.fallbackSources || []),
+        sourceSubject
+      ]);
+      if(!current){
+        target.terms.set(n, {
+          ...entry,
+          direct:false,
+          fallbackSources
+        });
+      }else{
+        target.terms.set(n, {
+          ...current,
+          direct:current.direct !== false,
+          fallbackSources
+        });
+      }
     });
     source.parents.forEach((parent, n) => {
       if(!target.parents.has(n)) target.parents.set(n, parent);
@@ -807,10 +978,12 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wi
       });
     });
 
-    Object.keys(CONCEPT_FALLBACK).forEach(subject => {
-      const row = map[subject] || (map[subject] = createConceptRow());
-      CONCEPT_FALLBACK[subject].forEach(sourceSubject => mergeConceptRows(row, map[sourceSubject]));
-    });
+    if(CONCEPT_FALLBACK_ENABLED){
+      Object.keys(CONCEPT_FALLBACK).forEach(subject => {
+        const row = map[subject] || (map[subject] = createConceptRow());
+        CONCEPT_FALLBACK[subject].forEach(sourceSubject => mergeConceptRows(row, map[sourceSubject], sourceSubject));
+      });
+    }
 
     Object.keys(map).forEach(subject => finalizeConceptRow(map[subject]));
     return map;
@@ -823,26 +996,53 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wi
   }
 
   function inferSubjectConcepts(subject, task, fallbackConcept, payload){
-    const matchText = normalize([
+    const guideRawParts = [
       effectiveTaskName(payload),
       payload?.taskDescription,
       payload?.assessmentDescription,
-      task?.title,
-      task?.description,
-      ...(task?.rubricAxis || []),
       payload?.selectedConcept,
       ...(payload?.derivedKeywords || [])
-    ].filter(Boolean).join(" "));
+    ].filter(Boolean);
+    const recordRawParts = [
+      task?.title,
+      task?.description,
+      ...(task?.rubricAxis || [])
+    ].filter(Boolean);
+    const rawGuideText = guideRawParts.join("␞");
+    const rawRecordText = recordRawParts.join("␞");
+    const rawMatchText = [...guideRawParts, ...recordRawParts].join("␞");
     const dict = getConceptDictionary(subject);
+    const nameForms = subjectNameSurfaceForms(subject);
+    const nameRanges = blockedRawNameRanges(rawMatchText, nameForms);
+    const guideNameRanges = blockedRawNameRanges(rawGuideText, nameForms);
+    const recordNameRanges = blockedRawNameRanges(rawRecordText, nameForms);
 
-    const legacyMatches = LEGACY_CONCEPT_TERMS.filter(term => matchText.includes(normalize(term)));
+    const legacyEvidence = new Map();
+    const legacyMatches = LEGACY_CONCEPT_TERMS.filter(term => {
+      const n = normalize(term);
+      const totalHits = countRawConceptHits(rawMatchText, term, nameRanges);
+      if(totalHits <= 0) return false;
+      legacyEvidence.set(n, {
+        guideHits:countRawConceptHits(rawGuideText, term, guideNameRanges),
+        recordHits:countRawConceptHits(rawRecordText, term, recordNameRanges)
+      });
+      return true;
+    });
 
-    if(dict && matchText){
+    if(dict && rawMatchText){
       const hits = [];
       for(const entry of dict.entries || []){
-        if(entry.normalized.length >= 2 && matchText.includes(entry.normalized)){
-          hits.push(entry);
-        }
+        const totalHits = entry.single
+          ? countSingleCharHits(rawMatchText, entry.term)
+          : countRawConceptHits(rawMatchText, entry.term, nameRanges);
+        if(totalHits <= 0) continue;
+        const guideHits = entry.single
+          ? countSingleCharHits(rawGuideText, entry.term)
+          : countRawConceptHits(rawGuideText, entry.term, guideNameRanges);
+        const recordHits = entry.single
+          ? countSingleCharHits(rawRecordText, entry.term)
+          : countRawConceptHits(rawRecordText, entry.term, recordNameRanges);
+        hits.push({ ...entry, guideHits, recordHits });
       }
       if(hits.length){
         const uniqueHits = [];
@@ -875,52 +1075,65 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wi
           if(displayTerms.length >= 2) return;
           const parent = dict.parents.get(entry.normalized) || "";
           if(primaryParent && parent && parent !== primaryParent) return;
-          const normalizedTerm = entry.normalized;
-          if(displayTerms.some(term => {
-            const existing = normalize(term);
-            return existing.includes(normalizedTerm) || normalizedTerm.includes(existing);
-          })) return;
-          if(primaryParent && normalize(primaryParent).includes(normalizedTerm)) return;
-          displayTerms.push(entry.term);
+          if(conceptOverlaps(displayTerms, entry.term)) return;
+          if(primaryParent && normalize(primaryParent).includes(entry.normalized)) return;
+          displayTerms.push(conceptDisplayLabel(entry.term));
         });
         legacyMatches.forEach(term => {
           if(displayTerms.length >= 3) return;
-          const n = normalize(term);
-          if(displayTerms.some(current => {
-            const c = normalize(current);
-            return c === n || c.includes(n) || n.includes(c);
-          })) return;
-          displayTerms.push(term);
+          if(conceptOverlaps(displayTerms, term)) return;
+          displayTerms.push(conceptDisplayLabel(term));
         });
-        const displayList = uniq([
-          ...displayTerms,
-          primaryParent || matchedTerms[0]
-        ]).slice(0,4);
+        const parentLabel = conceptDisplayLabel(primaryParent || matchedTerms[0] || "");
+        const displayList = [...displayTerms];
+        if(parentLabel && !conceptOverlaps(displayList, parentLabel)){
+          displayList.push(parentLabel);
+        }
+        const finalList = displayList.slice(0, 4);
         const allMatchedTerms = uniq([...matchedTerms, ...legacyMatches]);
+        const guideEvidence = uniqueHits.some(entry => entry.guideHits > 0) || legacyMatches.some(term => (legacyEvidence.get(normalize(term))?.guideHits || 0) > 0);
+        const recordEvidence = uniqueHits.some(entry => entry.recordHits > 0) || legacyMatches.some(term => (legacyEvidence.get(normalize(term))?.recordHits || 0) > 0);
+        const fallbackSourceSubjects = uniq(uniqueHits.flatMap(entry => entry.fallbackSources || []));
+        const fallbackHitCount = uniqueHits.filter(entry => (entry.fallbackSources || []).length > 0 && entry.direct === false).length;
+        const fallbackOnlyVerdict = uniqueHits.length > 0 && fallbackHitCount === uniqueHits.length && legacyMatches.length === 0;
         return {
-          list:displayList,
+          list:finalList,
           detail:{
             conceptName:primaryParent,
+            conceptDisplayName:parentLabel,
             matchedTerms:allMatchedTerms.slice(0,8),
             parentConcepts:parentConcepts.slice(0,3),
             termCount:allMatchedTerms.length,
             source:legacyMatches.length ? "textbook_plus_legacy" : "textbook_concept_dictionary",
-            confidence:allMatchedTerms.length >= 3 ? "high" : "medium"
+            confidence:allMatchedTerms.length >= 3 ? "high" : "medium",
+            evidenceScope:guideEvidence && recordEvidence ? "both" : (guideEvidence ? "guide" : (recordEvidence ? "record" : "none")),
+            fallbackMergeEnabled:CONCEPT_FALLBACK_ENABLED,
+            fallbackDerived:fallbackOnlyVerdict,
+            fallbackHitCount,
+            fallbackSourceSubjects
           }
         };
       }
     }
 
     if(legacyMatches.length){
+      const guideEvidence = legacyMatches.some(term => (legacyEvidence.get(normalize(term))?.guideHits || 0) > 0);
+      const recordEvidence = legacyMatches.some(term => (legacyEvidence.get(normalize(term))?.recordHits || 0) > 0);
       return {
-        list:legacyMatches.slice(0,4),
+        list:legacyMatches.slice(0,4).map(conceptDisplayLabel),
         detail:{
           conceptName:"",
+          conceptDisplayName:"",
           matchedTerms:legacyMatches.slice(0,8),
           parentConcepts:[],
           termCount:legacyMatches.length,
           source:"legacy_dictionary",
-          confidence:"medium"
+          confidence:"medium",
+          evidenceScope:guideEvidence && recordEvidence ? "both" : (guideEvidence ? "guide" : (recordEvidence ? "record" : "none")),
+          fallbackMergeEnabled:CONCEPT_FALLBACK_ENABLED,
+          fallbackDerived:false,
+          fallbackHitCount:0,
+          fallbackSourceSubjects:[]
         }
       };
     }
@@ -929,11 +1142,17 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wi
       list:fallbackConcept ? [fallbackConcept] : [subject || "교과 개념"],
       detail:{
         conceptName:"",
+        conceptDisplayName:"",
         matchedTerms:[],
         parentConcepts:[],
         termCount:0,
         source:"subject_fallback",
-        confidence:"low"
+        confidence:"low",
+        evidenceScope:"none",
+        fallbackMergeEnabled:CONCEPT_FALLBACK_ENABLED,
+        fallbackDerived:false,
+        fallbackHitCount:0,
+        fallbackSourceSubjects:[]
       }
     };
   }
@@ -1454,7 +1673,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wi
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.6.0-subject-concept-wiring",
+    version: "v2.6.1-concept-wiring-defect-fix",
     ready: load,
     resolve,
     resolveSync,
