@@ -4,9 +4,14 @@
   const VERSION = "subject-support-notice-v1.1.0";
   const STORAGE_KEY = "ke.subjectSelectionLogs.v1";
   const NOTICE_TEXT = "현재 과학·수학·정보 과목을 지원합니다.\n국어·영어 수행평가는 준비 중입니다.";
+  const THIN_SEED_NOTICE = "이 과목의 전용 참고 사례는 현재 확충 중입니다.\n보유 범위에서 결과를 제공하지만, 다른 과목보다 주제 다양성이 낮을 수 있습니다.";
   const PENDING_LANGUAGE = new Set(["공통국어1", "공통국어2", "영어"]);
   const PENDING_NO_SEED = new Set(["한국사"]);
-  const THIN_SEED = new Set(["공통수학1", "공통수학2", "지구과학"]);
+  // 런타임 후보 30건 미만 과목. 기능은 정상 동작하며 안내만 표시한다.
+  const THIN_SEED = new Set([
+    "공통수학1", "공통수학2", "지구과학",
+    "통합사회1", "통합사회2", "지구시스템과학"
+  ]);
   const HELD = new Set([...PENDING_LANGUAGE, ...PENDING_NO_SEED, ...THIN_SEED]);
   const EXPECTED_COUNTS = {
     "공통국어1": 0,
@@ -15,7 +20,10 @@
     "한국사": 0,
     "공통수학1": 1,
     "공통수학2": 1,
-    "지구과학": 14
+    "지구과학": 14,
+    "통합사회2": 20,
+    "통합사회1": 21,
+    "지구시스템과학": 25
   };
 
   global.__SUBJECT_SUPPORT_NOTICE_VERSION__ = VERSION;
@@ -75,13 +83,15 @@
       notice.style.display = "none";
       return;
     }
-    const baseNotice = PENDING_NO_SEED.has(subject)
-      ? "현재 과학·수학·정보 과목을 지원합니다.\n한국사 수행평가는 준비 중입니다."
-      : NOTICE_TEXT;
-    const detail = THIN_SEED.has(subject)
-      ? "\n선택한 세부 과목의 전용 시드는 현재 확충 중이며, 보유 시드 범위에서 결과를 제공합니다."
-      : "";
-    notice.textContent = baseNotice + detail;
+    let noticeText;
+    if(THIN_SEED.has(subject)){
+      noticeText = THIN_SEED_NOTICE;
+    }else if(PENDING_NO_SEED.has(subject)){
+      noticeText = "현재 과학·수학·정보 과목을 지원합니다.\n한국사 수행평가는 준비 중입니다.";
+    }else{
+      noticeText = NOTICE_TEXT;
+    }
+    notice.textContent = noticeText;
     notice.style.display = "block";
   }
   function appendLocalLog(event){

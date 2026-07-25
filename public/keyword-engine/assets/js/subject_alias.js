@@ -1,6 +1,11 @@
 (function(global){
   "use strict";
-  const MAP = { "미적분1":"미적분Ⅰ", "물리":"물리학" };
+  const MAP = {
+    "미적분1":"미적분Ⅰ",
+    "물리":"물리학",
+    "물리(물리학Ⅰ)":"물리학",
+    "화학(화학Ⅰ)":"화학"
+  };
   const key = s => String(s==null?"":s).replace(/\s+/g,"").trim();
   const N = {};
   Object.keys(MAP).forEach(k => { N[key(k)] = MAP[k]; });
