@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-keywords";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.0-subject-concept-wiring";
 
 (function(global){
   "use strict";
@@ -11,9 +11,20 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
     "data/assessment/bridge/assessment_seed_cross_axis.v2.json",
     "./data/assessment/bridge/assessment_seed_cross_axis.v2.json"
   ];
+  const CONCEPT_MAP_URLS = [
+    "seed/textbook-v1/subject_concept_engine_map.json",
+    "./seed/textbook-v1/subject_concept_engine_map.json"
+  ];
+  const CONCEPT_SEGMENT_URLS = [
+    "seed/textbook-data/textbook_flattened_segments_v1.json",
+    "./seed/textbook-data/textbook_flattened_segments_v1.json"
+  ];
 
   let bridgeData = null;
   let crossAxisData = null;
+  let conceptMapData = null;
+  let conceptSegmentData = null;
+  let conceptDictCache = null;
   let loadPromise = null;
   let lastContext = null;
   let seedVocabularyCache = null;
@@ -23,6 +34,27 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
   const TASK_LOG_STORAGE_KEY = "ke.assessmentTaskInterpreterLogs.v1";
   const BOOK_SIGNAL_RE = /독서|도서|책|서평|독후|저자|문헌/;
   const GUIDE_KEYWORD_STOP_TERMS = new Set(["탐구보고서","보고서","수행평가","과제","탐구","분석","자료"]);
+  const LEGACY_CONCEPT_TERMS = [
+    "조건부확률","베이즈 정리","사건의 독립성","사건의 배반성","확률변수","확률분포","기댓값","표준편차",
+    "함수","수열","미분","적분","극한","행렬","벡터","경우의 수",
+    "산화·환원","화학 평형","반응 속도","결정 구조","이온 이동","에너지 전환","항상성","효소","유전",
+    "힘의 평형","운동량","에너지 보존","전자기 유도","파동","기후 변화","지구 시스템",
+    "알고리즘","데이터 처리","조건문","모델링","통계적 추정"
+  ];
+  const CONCEPT_STOP_TERMS = new Set([
+    "분석","탐구","자료","변화","관계","조건","결과","문제","적용","비교","설명","이해","활용",
+    "조사","발표","작성","과정","방법","원리","특성","구조","기준","사례","영향","대상","내용",
+    "확인","제시","선택","실험","관찰","측정","계산","표현","정리","평가","토론","보고서","그래프","표",
+    "전개","전략","근거","설계"
+  ]);
+  const CONCEPT_FALLBACK = {
+    "융합과학 탐구":["통합과학1","통합과학2","화학","생명과학","물리"],
+    "과학과제 연구":["과학탐구실험1","과학탐구실험2"],
+    "화학 반응의 세계":["화학"],
+    "생물의 유전":["생명과학","세포와 물질대사"],
+    "데이터 과학":["정보","확률과 통계"],
+    "인공지능 기초":["정보"]
+  };
   const STRUCTURE_BY_REPORT_MODE = {
     "연구설계형":"structure_research_design",
     "실험분석형":"structure_experiment_analysis",
@@ -124,21 +156,60 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
   }
 
   function load(){
-    if(bridgeData && crossAxisData) return Promise.resolve({ bridgeData, crossAxisData });
+    if(bridgeData && crossAxisData && global.__SUBJECT_CONCEPT_LOAD_SETTLED__) {
+      return Promise.resolve({ bridgeData, crossAxisData, conceptMapData, conceptSegmentData });
+    }
     if(loadPromise) return loadPromise;
+
+    global.__SUBJECT_CONCEPT_MAP_READY__ = false;
+    global.__SUBJECT_CONCEPT_SEGMENTS_READY__ = false;
+    global.__SUBJECT_CONCEPT_LOAD_SETTLED__ = false;
+
+    // Concept assets are optional. Their failure must never disable the core bridge/cross-axis runtime.
+    const conceptLoad = Promise.all([
+      fetchFirst(CONCEPT_MAP_URLS).catch(error => {
+        console.warn("subject concept map load failed:", error);
+        return null;
+      }),
+      fetchFirst(CONCEPT_SEGMENT_URLS).catch(error => {
+        console.warn("subject concept segments load failed:", error);
+        return null;
+      })
+    ]).then(([map, segments]) => {
+      conceptMapData = map && typeof map === "object" ? map : null;
+      conceptSegmentData = segments && typeof segments === "object" ? segments : null;
+      conceptDictCache = null;
+      global.__SUBJECT_CONCEPT_MAP_READY__ = !!conceptMapData;
+      global.__SUBJECT_CONCEPT_SEGMENTS_READY__ = !!conceptSegmentData;
+      global.__SUBJECT_CONCEPT_LOAD_SETTLED__ = true;
+      return { conceptMapData, conceptSegmentData };
+    }).catch(error => {
+      // Each fetch is already fail-open; this is a final defensive guard.
+      console.warn("subject concept auxiliary load failed:", error);
+      conceptMapData = null;
+      conceptSegmentData = null;
+      conceptDictCache = null;
+      global.__SUBJECT_CONCEPT_MAP_READY__ = false;
+      global.__SUBJECT_CONCEPT_SEGMENTS_READY__ = false;
+      global.__SUBJECT_CONCEPT_LOAD_SETTLED__ = true;
+      return { conceptMapData: null, conceptSegmentData: null };
+    });
+
     loadPromise = Promise.all([
       fetchFirst(BRIDGE_URLS),
       fetchFirst(CROSS_AXIS_URLS)
-    ]).then(([bridge, cross]) => {
+    ]).then(async ([bridge, cross]) => {
       bridgeData = bridge || {};
       crossAxisData = cross || {};
       global.__ASSESSMENT_KEYWORD_BRIDGE_DATA_READY__ = true;
       global.__ASSESSMENT_SEED_CROSS_AXIS_READY__ = true;
-      return { bridgeData, crossAxisData };
-    }).catch(error => {
+      await conceptLoad;
+      return { bridgeData, crossAxisData, conceptMapData, conceptSegmentData };
+    }).catch(async error => {
       console.warn("assessment/seed cross-axis runtime load failed:", error);
       global.__ASSESSMENT_KEYWORD_BRIDGE_DATA_READY__ = false;
       global.__ASSESSMENT_SEED_CROSS_AXIS_READY__ = false;
+      await conceptLoad;
       return null;
     });
     return loadPromise;
@@ -661,18 +732,210 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
     return best;
   }
 
-  function inferSubjectConcepts(subject, task, fallbackConcept){
-    const text = `${subject || ""} ${task?.title || ""} ${task?.description || ""} ${fallbackConcept || ""}`;
-    const dictionaries = [
-      "조건부확률","베이즈 정리","사건의 독립성","사건의 배반성","확률변수","확률분포","기댓값","표준편차",
-      "함수","수열","미분","적분","극한","행렬","벡터","경우의 수",
-      "산화·환원","화학 평형","반응 속도","결정 구조","이온 이동","에너지 전환","항상성","효소","유전",
-      "힘의 평형","운동량","에너지 보존","전자기 유도","파동","기후 변화","지구 시스템",
-      "알고리즘","데이터 처리","조건문","모델링","통계적 추정"
-    ];
-    const found = dictionaries.filter(term => normalize(text).includes(normalize(term)));
-    if(found.length) return found.slice(0,4);
-    return fallbackConcept ? [fallbackConcept] : [subject || "교과 개념"];
+  function keepConceptTerm(term){
+    const raw = String(term || "").trim();
+    const n = normalize(raw);
+    if(n.length < 2) return false;
+    if(CONCEPT_STOP_TERMS.has(raw)) return false;
+    for(const stop of CONCEPT_STOP_TERMS){
+      if(normalize(stop) === n) return false;
+    }
+    return true;
+  }
+
+  function createConceptRow(){
+    return {
+      parents:new Map(),
+      terms:new Map(),
+      entries:[]
+    };
+  }
+
+  function addConceptTerm(map, subject, term, parent, source){
+    const sub = String(subject || "").trim();
+    const raw = String(term || "").trim();
+    const n = normalize(raw);
+    if(!sub || !keepConceptTerm(raw) || !n) return;
+    const row = map[sub] || (map[sub] = createConceptRow());
+    const current = row.terms.get(n);
+    // Prefer the longer, more descriptive surface form for equivalent normalized terms.
+    if(!current || raw.length > current.term.length){
+      row.terms.set(n, { term:raw, normalized:n, source:source || "textbook_dictionary" });
+    }
+    if(parent && !row.parents.has(n)) row.parents.set(n, String(parent).trim());
+  }
+
+  function mergeConceptRows(target, source){
+    if(!target || !source) return;
+    source.terms.forEach((entry, n) => {
+      if(!target.terms.has(n)) target.terms.set(n, { ...entry });
+    });
+    source.parents.forEach((parent, n) => {
+      if(!target.parents.has(n)) target.parents.set(n, parent);
+    });
+  }
+
+  function finalizeConceptRow(row){
+    if(!row) return row;
+    row.entries = Array.from(row.terms.values())
+      .filter(entry => entry && entry.normalized)
+      .sort((a, b) => (b.normalized.length - a.normalized.length) || a.term.localeCompare(b.term));
+    return row;
+  }
+
+  function buildConceptDictionary(){
+    const map = {};
+
+    Object.keys(conceptMapData || {}).forEach(subject => {
+      const concepts = conceptMapData?.[subject]?.concepts || {};
+      Object.keys(concepts).forEach(conceptName => {
+        const concept = concepts[conceptName] || {};
+        addConceptTerm(map, subject, conceptName, conceptName, "concept_name");
+        (concept.core_concepts || []).forEach(term => addConceptTerm(map, subject, term, conceptName, "core_concept"));
+        (concept.micro_keywords || []).forEach(term => addConceptTerm(map, subject, term, conceptName, "micro_keyword"));
+      });
+    });
+
+    ((conceptSegmentData || {}).segments || []).forEach(segment => {
+      const subject = String(segment?.subject_name || "").trim();
+      const parent = segment?.chapter_title || segment?.segment_title || segment?.unit_title || "";
+      ["concept_tags","problem_tags"].forEach(key => {
+        (segment?.[key] || []).forEach(term => addConceptTerm(map, subject, term, parent, key));
+      });
+      ((segment?.mini_subject_context || {}).report_seed_keywords || []).forEach(term => {
+        addConceptTerm(map, subject, term, parent, "report_seed_keyword");
+      });
+    });
+
+    Object.keys(CONCEPT_FALLBACK).forEach(subject => {
+      const row = map[subject] || (map[subject] = createConceptRow());
+      CONCEPT_FALLBACK[subject].forEach(sourceSubject => mergeConceptRows(row, map[sourceSubject]));
+    });
+
+    Object.keys(map).forEach(subject => finalizeConceptRow(map[subject]));
+    return map;
+  }
+
+  function getConceptDictionary(rawSubject){
+    if(!conceptDictCache) conceptDictCache = buildConceptDictionary();
+    const subject = String(rawSubject || "").trim();
+    return conceptDictCache[subject] || null;
+  }
+
+  function inferSubjectConcepts(subject, task, fallbackConcept, payload){
+    const matchText = normalize([
+      effectiveTaskName(payload),
+      payload?.taskDescription,
+      payload?.assessmentDescription,
+      task?.title,
+      task?.description,
+      ...(task?.rubricAxis || []),
+      payload?.selectedConcept,
+      ...(payload?.derivedKeywords || [])
+    ].filter(Boolean).join(" "));
+    const dict = getConceptDictionary(subject);
+
+    const legacyMatches = LEGACY_CONCEPT_TERMS.filter(term => matchText.includes(normalize(term)));
+
+    if(dict && matchText){
+      const hits = [];
+      for(const entry of dict.entries || []){
+        if(entry.normalized.length >= 2 && matchText.includes(entry.normalized)){
+          hits.push(entry);
+        }
+      }
+      if(hits.length){
+        const uniqueHits = [];
+        const seen = new Set();
+        hits.forEach(entry => {
+          if(seen.has(entry.normalized)) return;
+          seen.add(entry.normalized);
+          uniqueHits.push(entry);
+        });
+        const matchedTerms = uniqueHits.map(entry => entry.term);
+        const parentStats = new Map();
+        uniqueHits.forEach(entry => {
+          const parent = dict.parents.get(entry.normalized);
+          if(!parent) return;
+          const stat = parentStats.get(parent) || { count:0, specificity:0, strong:false };
+          stat.count += 1;
+          stat.specificity += entry.normalized.length;
+          if(entry.source === "concept_name" || entry.source === "core_concept") stat.strong = true;
+          parentStats.set(parent, stat);
+        });
+        const parentConcepts = Array.from(parentStats.entries())
+          .sort((a, b) => (b[1].count - a[1].count) || (Number(b[1].strong) - Number(a[1].strong)) || (b[1].specificity - a[1].specificity) || a[0].localeCompare(b[0]))
+          .map(([parent]) => parent);
+        const firstParent = parentConcepts[0] || "";
+        const firstParentStat = firstParent ? parentStats.get(firstParent) : null;
+        // A single broad micro/skill tag must not drag an unrelated chapter title into the student-facing topic.
+        const primaryParent = firstParentStat && (firstParentStat.count >= 2 || firstParentStat.strong) ? firstParent : "";
+        const displayTerms = [];
+        uniqueHits.forEach(entry => {
+          if(displayTerms.length >= 2) return;
+          const parent = dict.parents.get(entry.normalized) || "";
+          if(primaryParent && parent && parent !== primaryParent) return;
+          const normalizedTerm = entry.normalized;
+          if(displayTerms.some(term => {
+            const existing = normalize(term);
+            return existing.includes(normalizedTerm) || normalizedTerm.includes(existing);
+          })) return;
+          if(primaryParent && normalize(primaryParent).includes(normalizedTerm)) return;
+          displayTerms.push(entry.term);
+        });
+        legacyMatches.forEach(term => {
+          if(displayTerms.length >= 3) return;
+          const n = normalize(term);
+          if(displayTerms.some(current => {
+            const c = normalize(current);
+            return c === n || c.includes(n) || n.includes(c);
+          })) return;
+          displayTerms.push(term);
+        });
+        const displayList = uniq([
+          ...displayTerms,
+          primaryParent || matchedTerms[0]
+        ]).slice(0,4);
+        const allMatchedTerms = uniq([...matchedTerms, ...legacyMatches]);
+        return {
+          list:displayList,
+          detail:{
+            conceptName:primaryParent,
+            matchedTerms:allMatchedTerms.slice(0,8),
+            parentConcepts:parentConcepts.slice(0,3),
+            termCount:allMatchedTerms.length,
+            source:legacyMatches.length ? "textbook_plus_legacy" : "textbook_concept_dictionary",
+            confidence:allMatchedTerms.length >= 3 ? "high" : "medium"
+          }
+        };
+      }
+    }
+
+    if(legacyMatches.length){
+      return {
+        list:legacyMatches.slice(0,4),
+        detail:{
+          conceptName:"",
+          matchedTerms:legacyMatches.slice(0,8),
+          parentConcepts:[],
+          termCount:legacyMatches.length,
+          source:"legacy_dictionary",
+          confidence:"medium"
+        }
+      };
+    }
+
+    return {
+      list:fallbackConcept ? [fallbackConcept] : [subject || "교과 개념"],
+      detail:{
+        conceptName:"",
+        matchedTerms:[],
+        parentConcepts:[],
+        termCount:0,
+        source:"subject_fallback",
+        confidence:"low"
+      }
+    };
   }
 
   function chooseSeedTopic(seed, task){
@@ -687,8 +950,20 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
     return basic || expanded || deep || seed.label;
   }
 
+  function directionalParticle(value){
+    const text = String(value || "").trim();
+    const last = text.charAt(text.length - 1);
+    const code = last.charCodeAt(0);
+    if(code >= 0xAC00 && code <= 0xD7A3){
+      const jong = (code - 0xAC00) % 28;
+      return jong === 0 || jong === 8 ? "로" : "으로";
+    }
+    return "으로";
+  }
+
   function composeCrossAxisTitle(subjectLabel, conceptList, keywordLabel, task, seed){
     const concepts = (conceptList || []).filter(Boolean).slice(0,3).join("·") || subjectLabel;
+    const conceptsWithParticle = `${concepts}${directionalParticle(concepts)}`;
     const rawKeyword = String(keywordLabel || "").trim();
     const genericKeyword = /^(발전|에너지|환경|영향|변화|데이터|자료|측정|시스템|기술|과학|사회|문제|구조|성능|탐구)$/;
     const seedTopic = (seed?.topic?.recommendedTopics || [])[0] || chooseSeedTopic(seed, task);
@@ -711,12 +986,12 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
       return `${target}의 조건 재구성과 풀이 비교: ${concepts}을 중심으로`;
     }
     if(modes.some(v => /실험/.test(v))){
-      return `${target}의 조건별 변화를 ${concepts}으로 해석하고 결과의 신뢰도와 한계를 분석`;
+      return `${target}의 조건별 변화를 ${conceptsWithParticle} 해석하고 결과의 신뢰도와 한계를 분석`;
     }
     if(modes.some(v => /자료해석|비교/.test(v))){
-      return `${target}의 자료·조건 변화를 ${concepts}으로 해석하고 판단 기준을 분석`;
+      return `${target}의 자료·조건 변화를 ${conceptsWithParticle} 해석하고 판단 기준을 분석`;
     }
-    return `${target}을 ${concepts}으로 설명하고 적용 조건과 개선 방향을 분석`;
+    return `${target}을 ${conceptsWithParticle} 설명하고 적용 조건과 개선 방향을 분석`;
   }
 
   function buildCrossAxis(payload, subjectLabel, keywordLabel, concept, taskInterpretation){
@@ -729,7 +1004,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
     const structureSections = (crossAxisData.structures || {})[structureId] || (crossAxisData.structures || {}).structure_research_report || [
       "연구 질문","선행 자료 검토","방법 설계","자료 수집","분석 결과","결론","참고문헌과 후속 탐구"
     ];
-    const concepts = inferSubjectConcepts(subjectLabel, task, concept);
+    const conceptResult = inferSubjectConcepts(payload?.subject || subjectLabel, task, concept, payload);
+    const concepts = conceptResult.list;
     const titleKeyword = payload?.keywordSource === "derived_from_guide" ? "" : keywordLabel;
     const generatedTitle = composeCrossAxisTitle(subjectLabel, concepts, titleKeyword, task, seed);
     const careerTask = /진로|학과|직업|전공/.test(`${task?.title || ""} ${task?.description || ""}`);
@@ -822,6 +1098,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
         generatedTitle,
         options: topicOptions,
         subjectConcepts: concepts,
+        conceptDetail: conceptResult.detail,
         taskFormula: task?.topicFormula || "",
         seedFormula: seed?.topic?.formula || "",
         objectSource: seed ? "real_seed" : "selected_keyword",
@@ -1177,7 +1454,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.5.0-seed-schema-guide-keywords",
+    version: "v2.6.0-subject-concept-wiring",
     ready: load,
     resolve,
     resolveSync,
@@ -1186,6 +1463,10 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.5.0-seed-schema-guide-
     getLastContext: () => lastContext,
     getData: () => bridgeData,
     getCrossAxisData: () => crossAxisData,
+    getConceptMapData: () => conceptMapData,
+    getConceptSegmentData: () => conceptSegmentData,
+    getConceptDictionary,
+    inferSubjectConcepts,
     toCanonicalSubject,
     inferTaskRule,
     getStructureCatalog: () => ({ ...(crossAxisData?.structures || {}) }),
