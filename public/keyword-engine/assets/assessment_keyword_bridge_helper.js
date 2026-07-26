@@ -1,4 +1,4 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-defect-fix";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.7.0-score-diagnostics";
 
 (function(global){
   "use strict";
@@ -28,6 +28,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
   let loadPromise = null;
   let lastContext = null;
   let seedVocabularyCache = null;
+  const DIAGNOSTIC_TOP_N = 10;
+  const DIAGNOSTIC_FULL_ARRAY = false;
   const TASK_FALLBACK_NOTICE = "입력한 과제 유형과 정확히 맞는 규칙이 없어 과목 기본값을 바탕으로 일반형으로 잡았습니다.";
   const NON_REPORT_NOTICE = "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요.";
   const NON_REPORT_TERMS = ["연주","실기","랠리","스트로크","체력","참여도","던지기","경기","시합"];
@@ -578,7 +580,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
     };
   }
 
-  function seedContentScore(seed, payload, task){
+  function seedContentScoreDetail(seed, payload, task){
     const selectedKeyword = String(payload?.selectedKeyword || payload?.selectedRecommendedKeyword || payload?.keyword || "");
     const keywordSource = String(payload?.keywordSource || "");
     const selectedConcept = String(payload?.selectedConcept || payload?.concept || "");
@@ -640,7 +642,73 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
       ? uniq(payload?.derivedKeywords || []).filter(term => seedVocabulary.has(term)).length
       : 0;
     const guideVocabularyBonus = Math.min(16, guideVocabularyHits * 4);
-    return Math.min(45, keywordScore + axisScore + conceptScore + taskScore + directBonus + exactBonus + guideVocabularyBonus);
+    const raw = keywordScore + axisScore + conceptScore + taskScore + directBonus + exactBonus + guideVocabularyBonus;
+    return {
+      total: Math.min(45, raw),
+      raw,
+      capped: raw > 45,
+      parts: {
+        keywordScore,
+        axisScore,
+        conceptScore,
+        taskScore,
+        directBonus,
+        exactBonus,
+        guideVocabularyBonus
+      },
+      keywordWeight
+    };
+  }
+
+  function seedContentScore(seed, payload, task){
+    return seedContentScoreDetail(seed, payload, task).total;
+  }
+
+  function methodScoreDetail(matchedTask){
+    if(!matchedTask) return { score: 0, reason: "no_task_match", modeCount: 0 };
+    const modes = matchedTask.reportModes || [];
+    if(!modes.length) return { score: 0, reason: "task_without_report_modes", modeCount: 0 };
+    return { score: 5, reason: "matched", modeCount: modes.length };
+  }
+
+  function resolveDecisionStage(a, b){
+    if(!b) return "single_candidate";
+    if(a.majorRank !== b.majorRank) return "majorRank";
+    if(a.coreScore !== b.coreScore) return "coreScore";
+    if(a.contentScore !== b.contentScore) return "contentScore";
+    return "seedId_alphabetical";
+  }
+
+  function countTiedWithTop(ranked){
+    const a = ranked[0];
+    if(!a) return 0;
+    return ranked.filter(v =>
+      v.majorRank === a.majorRank &&
+      v.coreScore === a.coreScore &&
+      v.contentScore === a.contentScore
+    ).length;
+  }
+
+  function diagnosticCandidate(row, index){
+    return {
+      rank: index + 1,
+      seedId: row.seed?.id || "",
+      label: row.seed?.label || "",
+      score: row.score,
+      coreScore: row.coreScore,
+      subjectScore: row.subjectScore,
+      contentScore: row.contentScore,
+      contentRaw: row.contentDetail.raw,
+      contentCapped: row.contentDetail.capped,
+      contentParts: { ...row.contentDetail.parts },
+      methodScore: row.methodScore,
+      methodReason: row.methodDetail.reason,
+      majorTieBreakScore: row.majorTieBreakScore,
+      majorTier: row.majorTier,
+      majorRank: row.majorRank,
+      majorExactMatch: row.majorExactMatch,
+      majorCategoryMatch: row.majorCategoryMatch
+    };
   }
 
   function resolveMajorProfile(career){
@@ -691,8 +759,10 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
 
     const ranked = candidates.map(seed => {
       const subjectScore = seedSubjectScore(seed, subjectInput);
-      const contentScore = seedContentScore(seed, payload, matchedTask);
-      const methodScore = matchedTask && (matchedTask.reportModes || []).length ? 5 : 0;
+      const contentDetail = seedContentScoreDetail(seed, payload, matchedTask);
+      const contentScore = contentDetail.total;
+      const methodDetail = methodScoreDetail(matchedTask);
+      const methodScore = methodDetail.score;
       const coreScore = subjectScore + contentScore + methodScore;
       const major = seedMajorMatchInfo(seed, majorProfile, fallbackActive);
       return {
@@ -701,7 +771,9 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
         coreScore,
         subjectScore,
         contentScore,
+        contentDetail,
         methodScore,
+        methodDetail,
         majorTieBreakScore: major.score,
         majorTier: major.tier,
         majorRank: major.rank,
@@ -717,6 +789,33 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
 
     const best = ranked[0];
     const second = ranked[1];
+    const fullArrayEnabled = DIAGNOSTIC_FULL_ARRAY || global.__SCORE_DIAGNOSTIC_FULL__ === true;
+    const diagnosticRows = fullArrayEnabled ? ranked : ranked.slice(0, DIAGNOSTIC_TOP_N);
+    const topScore = best?.score ?? 0;
+    const secondScore = second?.score ?? null;
+    const signedScoreGap = second ? topScore - secondScore : null;
+    best.scoreDiagnostics = {
+      version: "patch2-score-diagnostics-v1",
+      candidateCount: candidates.length,
+      candidateMode: subjectPool.mode,
+      decisionStage: resolveDecisionStage(best, second),
+      tiedWithTopCount: countTiedWithTop(ranked),
+      topScore,
+      secondScore,
+      scoreGap: second ? Math.abs(signedScoreGap) : null,
+      signedScoreGap,
+      subjectScoreConstant: new Set(ranked.map(v => v.subjectScore)).size <= 1,
+      methodScoreConstant: new Set(ranked.map(v => v.methodScore)).size <= 1,
+      contentCapHitCount: ranked.filter(v => v.contentScore >= 45).length,
+      contentTruncationCount: ranked.filter(v => v.contentDetail.capped).length,
+      keywordWeight: best?.contentDetail?.keywordWeight || 0,
+      methodScoreReason: best?.methodDetail?.reason || "no_task_match",
+      methodScoreModeCount: best?.methodDetail?.modeCount || 0,
+      majorFallbackActive: fallbackActive,
+      fullArrayEnabled,
+      returnedCandidateCount: diagnosticRows.length,
+      topCandidates: diagnosticRows.map(diagnosticCandidate)
+    };
     best.secondSeedId = second?.seed?.id || "";
     best.confidence = best.score >= 75 ? "high" : (best.score >= 55 ? "medium" : "low");
     best.subjectCandidateCount = candidates.length;
@@ -1247,7 +1346,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
       ...(seed?.studentTopics || []).map(v => v?.title)
     ]).filter(Boolean).slice(0,6);
 
-    return {
+    const crossAxisResult = {
       version: crossAxisData.version || "assessment-seed-cross-axis-v2.0.0",
       connected: !!(task || seed),
       priorityPolicy: crossAxisData.priorityPolicy || {},
@@ -1356,6 +1455,13 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
       },
       sourceBaseline: crossAxisData.sourceBaseline || {}
     };
+    Object.defineProperty(crossAxisResult, "__scoreDiagnostics", {
+      value: seedMatch?.scoreDiagnostics || null,
+      enumerable: false,
+      configurable: false,
+      writable: false
+    });
+    return crossAxisResult;
   }
 
   function scoreConnection(keywordMatch, subjectMatch, taskRoute, keywordRoute, subjectGroup, inferredRules, crossAxis){
@@ -1412,6 +1518,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
     const subjectLabel = subjectMatch?.key || canonicalSubjectInput || subjectGroup || "선택 과목";
     // Seed lookup must use the selected subject's canonical name, not a broader subject-route key.
     const crossAxis = buildCrossAxis({ ...scoringPayload, career }, canonicalSubjectInput || subjectLabel, keywordLabel, concept, taskInterpretation);
+    const scoreDiagnostics = crossAxis?.__scoreDiagnostics || null;
     const exactTask = crossAxis?.taskMatch?.record || null;
     const nonReportTask = detectNonReportTask(payload, crossAxis?.taskMatch || null);
     logTaskInterpreterEvent(payload, taskInterpretation, nonReportTask);
@@ -1447,6 +1554,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
           bookSignal:hasBookSignal(payload, inferredOutputs),
           overrideActive:!!taskInterpretation.overrideActive
         },
+        score_diagnostics:scoreDiagnostics,
         cross_axis:crossAxis,
         student_output:{
           title:"탐구보고서 생성 대상 확인",
@@ -1604,6 +1712,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
           ...topValues(taskRoute?.avoid_modes, 4)
         ]).slice(0,8)
       },
+      score_diagnostics: scoreDiagnostics,
       cross_axis: crossAxis,
       runtime_evidence: {
         baselineSchoolCount: bridgeData.source_baseline?.school_count || 0,
@@ -1673,7 +1782,7 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.6.1-concept-wiring-def
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.6.1-concept-wiring-defect-fix",
+    version: "v2.7.0-score-diagnostics",
     ready: load,
     resolve,
     resolveSync,

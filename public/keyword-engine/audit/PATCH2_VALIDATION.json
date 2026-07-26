@@ -1,0 +1,227 @@
+{
+  "version": "patch2-validation-v1",
+  "patch_version": "v2.7.0-score-diagnostics",
+  "syntax": {
+    "assessment_keyword_bridge_helper.js": "PASS",
+    "audit_score_diagnostics.js": "PASS"
+  },
+  "population": {
+    "task_id_count": 2144,
+    "joined_count": 2144,
+    "same_population": true
+  },
+  "no_behavior_change": {
+    "version": "patch2-no-behavior-change-v1",
+    "population_count": 2144,
+    "baseline_helper": "../assessment_keyword_bridge_helper_patch11.js",
+    "current_helper": "assets/assessment_keyword_bridge_helper.js",
+    "checked_fields": [
+      "match.seedId",
+      "interpreter.ruleId",
+      "cross_axis.topic.subjectConcepts",
+      "match.connectionScore"
+    ],
+    "behavior_mismatch_count": 0,
+    "behavior_mismatches": [],
+    "output_without_diagnostics_mismatch_count": 0,
+    "output_without_diagnostics_mismatches": [],
+    "pass": true
+  },
+  "rules": {
+    "ruleCount": 13,
+    "status": "PASS"
+  },
+  "e2e": {
+    "version": "v2.7.0-score-diagnostics",
+    "ruleId": "experiment_science_001",
+    "sectionCount": 8,
+    "structureId": "structure_experiment_analysis",
+    "seedId": "NAT-030",
+    "diagnosticsTopLevel": true,
+    "diagnosticsInCrossAxis": false,
+    "diagnosticsInStudentOutput": false,
+    "candidateCount": 180,
+    "returnedCandidateCount": 10,
+    "fullArrayEnabled": false,
+    "topCandidatesLength": 10,
+    "methodScoreConstant": true,
+    "subjectScoreConstant": true,
+    "decisionStage": "coreScore",
+    "pass": true
+  },
+  "concept_regression": {
+    "label": "patch2-concept-regression",
+    "helper": "assets/assessment_keyword_bridge_helper.js",
+    "population": "audit/concept_wiring_after.v1.json",
+    "record_count": 2144,
+    "joined_count": 2144,
+    "covered_count": 1202,
+    "coverage_pct": 56.06,
+    "clean_count": 1107,
+    "clean_pct": 51.63,
+    "clean_pct_of_covered": 92.1,
+    "name_only_count": 0,
+    "record_only_count": 95,
+    "legacy_clean_count": 1107,
+    "legacy_clean_pct": 51.63,
+    "legacy_name_only_count": 3,
+    "legacy_record_only_count": 92,
+    "title_overlap_count": 0,
+    "comma_display_count": 0,
+    "fallback_derived_count": 93,
+    "level_II_count": 353,
+    "level_I_or_other_count": 1791,
+    "source_distribution": {
+      "legacy_dictionary": 46,
+      "subject_fallback": 942,
+      "textbook_concept_dictionary": 796,
+      "textbook_plus_legacy": 360
+    },
+    "evidence_scope_distribution": {
+      "both": 1108,
+      "none": 942,
+      "record": 94
+    }
+  },
+  "score_diagnostics_summary": {
+    "candidate_pool": {
+      "count": 2144,
+      "average": 122.74,
+      "median": 144,
+      "min": 1,
+      "max": 278
+    },
+    "candidate_modes": {
+      "bestForSubjects-literal-exact": 2144,
+      "bestForSubjects-ui-alias-exact": 0,
+      "bestForSubjects-normalized-fallback": 0,
+      "normalizedSubjects-exact": 0,
+      "subjectAliases-exact": 0,
+      "subject-partial-fallback": 0,
+      "none": 0
+    },
+    "top_score": {
+      "count": 2144,
+      "average": 72.34,
+      "median": 79,
+      "min": 46,
+      "max": 95
+    },
+    "decision_stages": {
+      "single_candidate": {
+        "count": 112,
+        "pct": 5.22
+      },
+      "majorRank": {
+        "count": 0,
+        "pct": 0
+      },
+      "coreScore": {
+        "count": 1175,
+        "pct": 54.8
+      },
+      "contentScore": {
+        "count": 0,
+        "pct": 0
+      },
+      "seedId_alphabetical": {
+        "count": 857,
+        "pct": 39.97
+      }
+    },
+    "score_gap_distribution": {
+      "0": 857,
+      "single_candidate": 112,
+      "1-3": 807,
+      "4-10": 292,
+      "11+": 76
+    },
+    "subject_score_constant": {
+      "count": 2144,
+      "pct": 100
+    },
+    "method_score_constant": {
+      "count": 2144,
+      "pct": 100
+    },
+    "method_score_reasons": {
+      "no_task_match": {
+        "count": 1377,
+        "pct": 64.23
+      },
+      "task_without_report_modes": {
+        "count": 0,
+        "pct": 0
+      },
+      "matched": {
+        "count": 767,
+        "pct": 35.77
+      }
+    },
+    "content_cap": {
+      "top_record_count": 2144,
+      "top_cap_hit_count": 54,
+      "top_cap_hit_pct": 2.52,
+      "top_truncation_count": 36,
+      "top_truncation_pct": 1.68,
+      "top_excess_average": 2.61,
+      "top_excess_max": 8,
+      "candidate_count": 263149,
+      "cap_hit_count": 73,
+      "cap_hit_pct": 0.03,
+      "truncation_count": 44,
+      "truncation_pct": 0.02,
+      "excess_average": 2.64,
+      "excess_max": 8
+    },
+    "output_size": {
+      "diagnostics_bytes": {
+        "count": 2144,
+        "average": 7466.99,
+        "median": 7700.0,
+        "min": 1181,
+        "max": 9988
+      },
+      "audit_full_diagnostics_bytes": {
+        "count": 2144,
+        "average": 88914.0,
+        "median": 101401.5,
+        "min": 1180,
+        "max": 198806
+      },
+      "average_under_8kb": true,
+      "runtime_default_full_array": false,
+      "audit_full_array_received": true
+    }
+  },
+  "audit_payload": {
+    "subject": "population subject",
+    "taskDescription": "raw_task_title + raw_task_desc",
+    "career": "",
+    "omitted": [
+      "schoolName",
+      "grade",
+      "taskName",
+      "taskType"
+    ],
+    "reason": "student minimum-input flow: subject + assessment guide + career"
+  },
+  "data_seed_diff": "PASS (no differences)",
+  "worker_change": "none",
+  "checks": {
+    "record_count": true,
+    "top_candidates_max_10": true,
+    "runtime_full_array_false": true,
+    "returned_count_consistent": true,
+    "subject_score_constant_all": true,
+    "method_score_constant_all": true,
+    "required_files_exist": true,
+    "seed_diff_empty": true,
+    "data_diff_empty": true,
+    "no_behavior_change": true,
+    "e2e": true,
+    "concept_regression": true,
+    "average_under_8kb": true
+  },
+  "pass": true
+}
