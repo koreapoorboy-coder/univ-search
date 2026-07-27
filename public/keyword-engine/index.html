@@ -147,6 +147,18 @@
         </div>
       </section>
 
+      <section id="tagOverlayStep" class="decision-step-card optional-step" hidden aria-live="polite">
+        <div class="decision-step-heading">
+          <span class="decision-step-number">참고</span>
+          <div>
+            <h2>계열·전공 탐구 연결</h2>
+            <p>아래 정보는 탐구 방향을 설명하는 참고 오버레이이며 후보 풀, 점수, 최종 선택에는 영향을 주지 않습니다.</p>
+          </div>
+        </div>
+        <div id="majorEngineSummary" hidden></div>
+        <div id="patch51TagOverlay"></div>
+      </section>
+
       <section id="bookStep" class="decision-step-card optional-step" hidden>
         <div class="decision-step-heading">
           <span class="decision-step-number">선택</span>
@@ -175,6 +187,7 @@
       <input id="keyword" type="hidden" value="" />
       <input id="selectedConcept" type="hidden" value="" />
       <input id="selectedBookTitle" type="hidden" value="" />
+      <input id="patch51SelectedBookState" type="hidden" value="" />
       <input id="bookUsageMode" type="hidden" value="noBook" />
       <input id="reportMode" type="hidden" value="" />
       <input id="reportView" type="hidden" value="" />
@@ -202,6 +215,136 @@
   <script src="assets/js/subject_alias.js?v=v1_subject_alias"></script>
   <script src="assets/js/decision_flow_v1.js?v=v2_guide_keyword_bridge"></script>
   <script src="assets/js/subject_support_notice.js?v=v11_pending_history"></script>
+  <script src="assets/textbook_concept_helper.js?v=v1_patch51_overlay"></script>
+  <script src="assets/major_engine_helper.js?v=v1_patch51_overlay"></script>
+  <script src="assets/topic_generator.js?v=v1_patch51_overlay"></script>
+  <script>
+  (() => {
+    const FIELD_BY_CATEGORY = {
+      engineering: "공학계열",
+      natural: "자연계열",
+      medical: "의약계열"
+    };
+    const FIELD_LABEL_BY_CATEGORY = {
+      engineering: "공학계열",
+      natural: "자연과학계열",
+      medical: "의약·보건계열"
+    };
+    const esc = value => String(value || "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[char]));
+    const uniq = values => [...new Set(values.flat(Infinity).filter(Boolean))];
+    let bridgeRows = [];
+
+    async function loadBridge() {
+      if (bridgeRows.length) return bridgeRows;
+      const response = await fetch("seed/major-engine/major_to_book_bridge.json");
+      if (!response.ok) throw new Error(`major book bridge ${response.status}`);
+      bridgeRows = await response.json();
+      return bridgeRows;
+    }
+
+    function getProfileRows(category) {
+      const field = FIELD_BY_CATEGORY[category] || "";
+      return bridgeRows.filter(row => (row.field || "") === field);
+    }
+
+    function buildBookCards(rows) {
+      const seen = new Set();
+      const candidates = [];
+      rows.forEach(row => (row.book_candidates || []).forEach(book => {
+        if (!book?.book_id || seen.has(book.book_id)) return;
+        seen.add(book.book_id);
+        candidates.push(book);
+      }));
+      return candidates.slice(0, 6).map(book => `
+        <button type="button" class="engine-book-card book-chip"
+          data-kind="book" data-value="${esc(book.book_id)}" data-title="${esc(book.title)}"
+          data-keywords="${esc(JSON.stringify(book.keywords || []))}"
+          data-reason="${esc(book.reason || "")}">
+          <strong>${esc(book.title || book.book_id)}</strong>
+          <span>${esc((book.keywords || []).slice(0, 4).join(" · "))}</span>
+        </button>
+      `).join("");
+    }
+
+    function selectBookCard(bookCard) {
+      document.querySelectorAll("#patch51TagOverlay .engine-book-card").forEach(card => card.classList.remove("is-active"));
+      bookCard.classList.add("is-active");
+      const selectedBook = {
+        id: bookCard.dataset.value || "",
+        title: bookCard.dataset.title || "",
+        keywords: JSON.parse(bookCard.dataset.keywords || "[]"),
+        reason: bookCard.dataset.reason || ""
+      };
+      window.__PATCH51_SELECTED_BOOK__ = selectedBook;
+      const titleField = document.getElementById("selectedBookTitle");
+      const usageField = document.getElementById("bookUsageMode");
+      if (titleField) titleField.value = selectedBook.title;
+      if (usageField) usageField.value = "useBook";
+      const stateField = document.getElementById("patch51SelectedBookState");
+      if (stateField) stateField.value = JSON.stringify(selectedBook);
+      document.dispatchEvent(new CustomEvent("patch51-book-selected", { detail: selectedBook }));
+    }
+
+    async function renderOverlay() {
+      const career = document.getElementById("career")?.value || "";
+      const step = document.getElementById("tagOverlayStep");
+      const target = document.getElementById("patch51TagOverlay");
+      if (!step || !target) return;
+      if (!FIELD_BY_CATEGORY[career]) {
+        step.hidden = true;
+        target.innerHTML = "";
+        return;
+      }
+      try {
+        await loadBridge();
+        const rows = getProfileRows(career);
+        const keywords = uniq(rows.flatMap(row => row.matchKeywords || [])).slice(0, 10);
+        const names = rows.map(row => row.majorName || row.display_name).filter(Boolean);
+        const subjects = uniq(rows.flatMap(row => (row.book_candidates || []).flatMap(book => book.keywords || [])))
+          .filter(value => /(수학|과학|물리|화학|생명|지구|정보|사회|국어|영어)/.test(value)).slice(0, 8);
+        const inquiry = rows.slice(0, 3).map(row => row.matchReason).filter(Boolean);
+        step.hidden = false;
+        target.innerHTML = `
+          <dl class="interpretation-grid">
+            <div><dt>정규화 입력</dt><dd>${esc(career)}</dd></div>
+            <div><dt>계열</dt><dd>${esc(FIELD_LABEL_BY_CATEGORY[career])}</dd></div>
+            <div class="full"><dt>전공 매칭</dt><dd>${esc(names.slice(0, 8).join(" · "))} 외 ${Math.max(0, names.length - 8)}개</dd></div>
+            <div class="full"><dt>핵심 키워드</dt><dd>${esc(keywords.join(" · ") || "연결 정보 준비 중")}</dd></div>
+            <div class="full"><dt>연계 교과</dt><dd>${esc(subjects.join(" · ") || "선택 과목 중심")}</dd></div>
+            <div class="full"><dt>탐구 방향</dt><dd>${esc(inquiry.join(" / ") || "계열 공통 탐구 방향")}</dd></div>
+          </dl>
+          <div class="engine-subtitle" style="margin-top:16px;">연결 도서</div>
+          <p class="engine-help">도서는 선택 사항입니다. 선택하지 않아도 보고서를 만들 수 있습니다.</p>
+          <div class="engine-book-list">${buildBookCards(rows)}</div>
+        `;
+        target.querySelectorAll(".engine-book-card[data-kind='book']").forEach(card => {
+          card.addEventListener("click", () => selectBookCard(card));
+        });
+      } catch (error) {
+        step.hidden = false;
+        target.innerHTML = `<p class="interpretation-notice">전공·도서 연결 정보를 불러오지 못했습니다. 도서 없이 계속 진행할 수 있습니다.</p>`;
+      }
+    }
+
+    document.addEventListener("click", event => {
+      const categoryButton = event.target.closest("[data-category]");
+      if (categoryButton) setTimeout(renderOverlay, 0);
+    }, true);
+
+    document.getElementById("resetBtn")?.addEventListener("click", () => {
+      window.__PATCH51_SELECTED_BOOK__ = null;
+      const stateField = document.getElementById("patch51SelectedBookState");
+      if (stateField) stateField.value = "";
+      const target = document.getElementById("patch51TagOverlay");
+      const step = document.getElementById("tagOverlayStep");
+      if (target) target.innerHTML = "";
+      if (step) step.hidden = true;
+    });
+    window.addEventListener("major-engine-selection-changed", renderOverlay);
+  })();
+  </script>
   <script src="assets/assessment_keyword_bridge_helper.js?v=v30_model_h_runtime"></script>
   <script src="assets/keyword_engine.js?v=v42_required_input_hotfix"></script>
   <script src="assets/js/decision_flow_payload_adapter.js?v=v1_structure_payload"></script>
