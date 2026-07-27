@@ -1623,6 +1623,35 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
     return `${target}을 ${conceptsWithParticle} 설명하고 적용 조건과 개선 방향을 분석`;
   }
 
+  function titleQualityFlags(title, subjectLabel, composerFlags){
+    const value = String(title || "").trim();
+    const flags = [];
+    if(!value) flags.push("EMPTY");
+    if([...value].length > 70) flags.push("OVER_70");
+    if(/선택 키워드|탐구 대상|교과 개념|미입력|undefined|null/i.test(value)) flags.push("PLACEHOLDER");
+    if(/\b(?:major|seed)_[0-9A-Za-z가-힣_-]+\b/i.test(value)) flags.push("INTERNAL_ID");
+    const subject = String(subjectLabel || "").trim();
+    if(subject && new RegExp(`${subject.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:으?로)\\s*(?:설명|분석|해석)`).test(value)){
+      flags.push("SUBJECT_PSEUDO_CONCEPT");
+    }
+    const titleTokens = value.normalize("NFKC").match(/[A-Za-z0-9가-힣]+/g) || [];
+    if(titleTokens.some((token, index) => index > 0 && token === titleTokens[index - 1])) flags.push("ADJACENT_REPEAT");
+    const criticalComposerFlags = new Set(["EMPTY","OVER_70","PLACEHOLDER","SUBJECT_PSEUDO_CONCEPT","ADJACENT_REPEAT","CAREER_TERM","INTERNAL_ID","PARTICLE_DUPLICATION","SEED_BAD_PATTERN"]);
+    for(const flag of (composerFlags || [])){
+      if(criticalComposerFlags.has(flag)) flags.push(flag);
+    }
+    return uniq(flags);
+  }
+
+  function safeGeneralTitle(taskDescription, subjectLabel){
+    const subjectNorm = normalize(subjectLabel);
+    const words = uniq(String(taskDescription || "").normalize("NFKC").match(/[A-Za-z0-9가-힣]+/g) || [])
+      .filter(word => word.length >= 2 && normalize(word) !== subjectNorm)
+      .slice(0,4);
+    const object = words.join(" ") || `${subjectLabel || "수행평가"} 핵심 내용`;
+    return `${object}: 주요 특징과 적용 조건 분석`;
+  }
+
   function buildCrossAxis(payload, subjectLabel, keywordLabel, concept, taskInterpretation){
     if(!crossAxisData) return null;
     const taskMatch = matchTaskRecord(payload, subjectLabel);
@@ -1636,7 +1665,61 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
     const conceptResult = inferSubjectConcepts(payload?.subject || subjectLabel, task, concept, payload);
     const concepts = conceptResult.list;
     const titleKeyword = payload?.keywordSource === "derived_from_guide" ? "" : keywordLabel;
-    const generatedTitle = composeCrossAxisTitle(subjectLabel, concepts, titleKeyword, task, seed);
+    const legacyGeneratedTitle = composeCrossAxisTitle(subjectLabel, concepts, titleKeyword, task, seed);
+    const selectionKeywordBasis = String(
+      (titleKeyword && !/선택 키워드|미입력|undefined|null/i.test(titleKeyword) ? titleKeyword : "")
+      || seed?.sourceTitle
+      || legacyGeneratedTitle
+      || concept
+      || ""
+    ).trim();
+    let generatedTitle = "";
+    let titleComposerVersion = "PATCH6_TITLE_COMPOSER_V2";
+    let titleTemplateId = "";
+    let titleType = "";
+    let titleConfidence = "LOW";
+    let titleEvidence = {};
+    let titleFallbackUsed = false;
+    let titleFallbackReason = "";
+    let titleValidationFlags = [];
+    try{
+      const composer = global.MiniTitleComposerV2;
+      if(!composer || typeof composer.compose !== "function") throw new Error("TITLE_COMPOSER_UNAVAILABLE");
+      const composed = composer.compose({
+        subject: String(payload?.subject || subjectLabel),
+        taskDescription: String(payload?.taskDescription || payload?.assessmentDescription || task?.description || ""),
+        task_interpreter: taskInterpretation || {},
+        subjectConcepts: concepts,
+        conceptDetail: conceptResult.detail || {},
+        selectedSeedId: seed?.id || "",
+        seed: {topic: seed?.topic || {}, report: seed?.report || {}},
+        keywordLabel: titleKeyword,
+        legacyGeneratedTitle
+      }) || {};
+      titleTemplateId = String(composed.templateId || "");
+      titleType = String(composed.titleType || "");
+      titleConfidence = String(composed.confidence || "LOW");
+      titleEvidence = composed.evidence || {};
+      titleFallbackUsed = !!composed.fallbackUsed;
+      titleFallbackReason = String(composed.fallbackReason || "");
+      titleValidationFlags = titleQualityFlags(composed.title, String(payload?.subject || subjectLabel), composed.validationFlags);
+      if(titleValidationFlags.length) throw new Error("TITLE_COMPOSER_INVALID_RESULT");
+      generatedTitle = String(composed.title || "").trim();
+    }catch(error){
+      titleFallbackUsed = true;
+      titleFallbackReason = titleFallbackReason || String(error?.message || "TITLE_COMPOSER_ERROR");
+      const legacyFlags = titleQualityFlags(legacyGeneratedTitle, String(payload?.subject || subjectLabel), []);
+      if(!legacyFlags.length){
+        generatedTitle = legacyGeneratedTitle;
+        titleTemplateId = "LEGACY_QUALITY_CUT";
+        titleValidationFlags = [];
+      }else{
+        generatedTitle = safeGeneralTitle(String(payload?.taskDescription || payload?.assessmentDescription || task?.description || ""), subjectLabel);
+        titleTemplateId = "GENERAL_SAFE_RUNTIME";
+        titleFallbackReason = `${titleFallbackReason}:SAFE_GENERAL`;
+        titleValidationFlags = titleQualityFlags(generatedTitle, String(payload?.subject || subjectLabel), []);
+      }
+    }
     const careerTask = /진로|학과|직업|전공/.test(`${task?.title || ""} ${task?.description || ""}`);
     const avoidModes = uniq([
       ...(task?.avoidModes || []),
@@ -1724,7 +1807,17 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
         }
       } : null,
       topic: {
+        legacyGeneratedTitle,
         generatedTitle,
+        titleComposerVersion,
+        titleTemplateId,
+        titleType,
+        titleConfidence,
+        titleEvidence,
+        titleFallbackUsed,
+        titleFallbackReason,
+        titleValidationFlags,
+        selectionKeywordBasis,
         options: topicOptions,
         subjectConcepts: concepts,
         conceptDetail: conceptResult.detail,

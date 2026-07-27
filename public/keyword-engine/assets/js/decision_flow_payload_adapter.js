@@ -19,7 +19,7 @@
     const method = first(connection?.interpreter?.methodAxes, connection?.assessment_route?.recommendedMethod || "보고서작성형");
     const output = first(connection?.interpreter?.outputAxes, connection?.assessment_route?.recommendedOutput || "탐구보고서");
     const selectedConcept = read("selectedConcept") || first(cross?.topic?.subjectConcepts, read("subject"));
-    const selectedKeyword = read("keyword") || cross?.seedMatch?.seed?.sourceTitle || cross?.topic?.generatedTitle || selectedConcept;
+    const selectedKeyword = read("keyword") || cross?.topic?.selectionKeywordBasis || cross?.seedMatch?.seed?.sourceTitle || cross?.topic?.legacyGeneratedTitle || selectedConcept;
     const category = read("career");
     const bookTitle = state.bookMode === "useBook" ? text(state.bookTitle || read("selectedBookTitle")) : "";
     const autoAxis = `${categoryLabel(category)} 교과 확장 축`;
