@@ -6,7 +6,10 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v244-required-input-hotfix";
+  const VERSION = "mini-worker-generate-bridge-v245-model-h-runtime";
+  const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
+  const RUNTIME_SELECTION_MODEL = "H";
+  const FALLBACK_SELECTION_MODEL = "LEGACY";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -264,6 +267,11 @@
     const payload = JSON.parse(JSON.stringify(mini || {}));
     payload.selectionPayload = payload.selectionPayload || {};
     payload.reportGenerationContext = payload.reportGenerationContext || {};
+    payload.reportGenerationContext.selectionRuntime = {
+      policy: RUNTIME_SELECTION_POLICY,
+      model: RUNTIME_SELECTION_MODEL,
+      fallbackModel: FALLBACK_SELECTION_MODEL
+    };
 
     const s = payload.selectionPayload;
     const snap = getVisibleSelectionSnapshot();

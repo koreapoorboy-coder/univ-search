@@ -1,7 +1,21 @@
-window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.7.0-score-diagnostics";
+window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
 
 (function(global){
   "use strict";
+
+  const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
+  const DEFAULT_SELECTION_MODEL = "H";
+  const LEGACY_SELECTION_MODEL = "LEGACY";
+
+  function normalizeSelectionModel(value){
+    return String(value || "").trim().toUpperCase() === LEGACY_SELECTION_MODEL
+      ? LEGACY_SELECTION_MODEL
+      : DEFAULT_SELECTION_MODEL;
+  }
+
+  function runtimeSelectionModel(){
+    return normalizeSelectionModel(global.__ASSESSMENT_SELECTION_MODEL__);
+  }
 
   const BRIDGE_URLS = [
     "data/assessment/bridge/assessment_keyword_bridge.v1.json",
@@ -664,6 +678,165 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.7.0-score-diagnostics"
     return seedContentScoreDetail(seed, payload, task).total;
   }
 
+  function evidenceValues(values){
+    return (values || []).flat(Infinity).filter(value => value !== null && value !== undefined && String(value).trim());
+  }
+
+  function seedEvidenceFields(seed){
+    return {
+      core: evidenceValues([
+        seed.label,
+        seed.sourceTitle,
+        seed.axisTriggers,
+        seed.writingKeywords,
+        seed.topic?.keywords,
+        seed.topic?.coreQuestion,
+        seed.topic?.baseTopic,
+        seed.topic?.summary,
+        seed.topic?.recommendedTopics,
+        seed.topic?.inquiryQuestions
+      ]),
+      method: evidenceValues([
+        seed.topic?.inquiryFlow,
+        seed.topic?.choiceGuide,
+        seed.report?.problem,
+        seed.report?.conceptRole,
+        seed.report?.analysisMethod,
+        seed.report?.titleOptions,
+        seed.report?.outputGuidance,
+        seed.report?.quantitativeGuidance
+      ]),
+      student: evidenceValues((seed.studentTopics || []).map(row => row?.title || row?.topic || ""))
+    };
+  }
+
+  function evidenceTokens(value, allowSelectedSingleChar){
+    const tokens = uniq(tokenize(value).flatMap(token => {
+      const stripped = token.replace(/(?:으로|에서|에게|까지|부터|처럼|보다|로|과|와|을|를|은|는|이|가|의|에|도|만)$/u, "");
+      return stripped.length >= 2 && stripped !== token ? [token, stripped] : [token];
+    }));
+    if(!allowSelectedSingleChar) return tokens;
+    const selectedSingles = String(value || "")
+      .toLowerCase()
+      .split(/[^0-9a-z가-힣]+/)
+      .filter(token => /^(몰|힘|열|일)$/.test(token));
+    return uniq([...tokens, ...selectedSingles]);
+  }
+
+  function createEvidenceDocument(seed){
+    const fields = seedEvidenceFields(seed);
+    const fieldRows = [];
+    const groups = {};
+    Object.entries(fields).forEach(([group, values]) => {
+      const rows = values.map(value => ({
+        value: String(value),
+        tokens: evidenceTokens(value, false)
+      }));
+      fieldRows.push(...rows.map(row => ({ ...row, group })));
+      groups[group] = {
+        text: values.join(" "),
+        tokens: new Set(rows.flatMap(row => row.tokens))
+      };
+    });
+    return {
+      seed,
+      fields: fieldRows,
+      groups,
+      tokens: new Set(fieldRows.flatMap(row => row.tokens))
+    };
+  }
+
+  function createEvidenceContext(candidates){
+    const documents = (candidates || []).map(createEvidenceDocument);
+    const documentFrequency = new Map();
+    documents.forEach(document => {
+      document.tokens.forEach(token => documentFrequency.set(token, (documentFrequency.get(token) || 0) + 1));
+    });
+    const candidateCount = documents.length;
+    const idf = token => {
+      if(candidateCount <= 1) return 1;
+      const value = 1 + Math.log((candidateCount + 1) / ((documentFrequency.get(token) || 0) + 1));
+      return Math.min(4, Math.max(1, value));
+    };
+    return { documents, documentFrequency, candidateCount, idf };
+  }
+
+  function sequenceHitCount(input, documentText){
+    const tokens = evidenceTokens(input, false);
+    if(tokens.length < 2) return 0;
+    const docTokens = evidenceTokens(documentText, false);
+    const docPairs = new Set(docTokens.slice(0, -1).map((token, index) => `${token}\u0000${docTokens[index + 1]}`));
+    const inputPairs = uniq(tokens.slice(0, -1).map((token, index) => `${token}\u0000${tokens[index + 1]}`));
+    return inputPairs.filter(pair => docPairs.has(pair)).length;
+  }
+
+  function seedContentScoreV3Detail(document, payload, context){
+    const selectedKeyword = String(payload?.selectedKeyword || payload?.selectedRecommendedKeyword || payload?.keyword || "");
+    const keywordSource = String(payload?.keywordSource || "");
+    const derivedKeywords = uniq(payload?.derivedKeywords || []);
+    const guide = rawTaskText(payload);
+    const selectedConcept = String(payload?.selectedConcept || payload?.concept || "");
+    const selectedAxis = String(payload?.selectedFollowupAxis || payload?.followupAxis || "");
+    const directKeywordTokens = evidenceTokens(selectedKeyword, false);
+    const derivedTokens = evidenceTokens(derivedKeywords.join(" "), false);
+    const keywordTokens = keywordSource === "derived_from_guide"
+      ? uniq([...directKeywordTokens, ...derivedTokens])
+      : directKeywordTokens;
+    const guideTokens = evidenceTokens(guide, false);
+    const conceptTokens = evidenceTokens(selectedConcept, true);
+    const axisTokens = evidenceTokens(selectedAxis, true);
+    const allInputTokens = uniq([...keywordTokens, ...guideTokens, ...conceptTokens, ...axisTokens]);
+    const matchedTokens = allInputTokens.filter(token => document.tokens.has(token));
+    const keywordHits = keywordTokens.filter(token => document.tokens.has(token));
+    const guideHits = guideTokens.filter(token => document.tokens.has(token));
+    const conceptAxisHits = uniq([...conceptTokens, ...axisTokens]).filter(token => document.tokens.has(token));
+    const keywordMultiplier = keywordSource === "derived_from_guide" ? 1.8 : 5;
+    const keywordEvidenceScore = Math.min(20, keywordHits.reduce((sum, token) => sum + context.idf(token) * keywordMultiplier, 0));
+    const guideContributions = guideHits.map(token => {
+      const core = document.groups.core.tokens.has(token) ? 1 : 0;
+      const method = document.groups.method.tokens.has(token) ? 0.6 : 0;
+      const student = document.groups.student.tokens.has(token) ? 0.9 : 0;
+      return context.idf(token) * Math.max(core, method, student);
+    }).sort((a, b) => b - a).slice(0, 8);
+    const guideEvidenceScore = Math.min(13, guideContributions.reduce((sum, value) => sum + value * 1.2, 0));
+    const conceptAxisEvidenceScore = Math.min(6, conceptAxisHits.reduce((sum, token) => sum + context.idf(token) * 1.5, 0));
+    const phraseInputs = uniq([selectedKeyword, ...derivedKeywords, guide, selectedConcept, selectedAxis].filter(Boolean));
+    const phraseHitCount = Math.min(4, phraseInputs.reduce((sum, input) => {
+      const bestGroupHit = Math.max(...Object.values(document.groups).map(group => sequenceHitCount(input, group.text)), 0);
+      return sum + Math.min(2, bestGroupHit);
+    }, 0));
+    const phraseEvidenceScore = Math.min(4, phraseHitCount);
+    const matchedGroups = Object.entries(document.groups)
+      .filter(([, group]) => matchedTokens.some(token => group.tokens.has(token)))
+      .map(([group]) => group);
+    const evidenceDiversityBonus = matchedGroups.length >= 3 ? 2 : (matchedGroups.length >= 2 ? 1 : 0);
+    const raw = keywordEvidenceScore + guideEvidenceScore + conceptAxisEvidenceScore + phraseEvidenceScore + evidenceDiversityBonus;
+    const matchedFields = document.fields.filter(field => matchedTokens.some(token => field.tokens.includes(token)));
+    const rareEvidenceScore = matchedTokens.reduce((sum, token) => sum + Math.max(0, context.idf(token) - 1), 0);
+    return {
+      total: Math.min(45, Math.round(raw * 100) / 100),
+      raw: Math.round(raw * 100) / 100,
+      capped: raw > 45,
+      evidenceHitCount: matchedTokens.length,
+      evidenceFieldCount: matchedFields.length,
+      rareEvidenceScore: Math.round(rareEvidenceScore * 100) / 100,
+      phraseEvidenceScore,
+      guideEvidenceScore: Math.round(guideEvidenceScore * 100) / 100,
+      keywordEvidenceScore: Math.round(keywordEvidenceScore * 100) / 100,
+      conceptAxisEvidenceScore: Math.round(conceptAxisEvidenceScore * 100) / 100,
+      evidenceDiversityBonus,
+      matchedTokens: matchedTokens.slice(0, 12),
+      matchedGroups,
+      parts: {
+        keywordEvidenceScore: Math.round(keywordEvidenceScore * 100) / 100,
+        guideEvidenceScore: Math.round(guideEvidenceScore * 100) / 100,
+        conceptAxisEvidenceScore: Math.round(conceptAxisEvidenceScore * 100) / 100,
+        phraseEvidenceScore,
+        evidenceDiversityBonus
+      }
+    };
+  }
+
   function methodScoreDetail(matchedTask){
     if(!matchedTask) return { score: 0, reason: "no_task_match", modeCount: 0 };
     const modes = matchedTask.reportModes || [];
@@ -676,6 +849,18 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.7.0-score-diagnostics"
     if(a.majorRank !== b.majorRank) return "majorRank";
     if(a.coreScore !== b.coreScore) return "coreScore";
     if(a.contentScore !== b.contentScore) return "contentScore";
+    return "seedId_alphabetical";
+  }
+
+  function resolveDecisionStageV3(a, b){
+    if(!b) return "single_candidate";
+    if(a.rankingScore !== b.rankingScore) return "rankingScore";
+    if(a.contentScoreV3 !== b.contentScoreV3) return "contentScoreV3";
+    if(a.evidenceHitCount !== b.evidenceHitCount) return "evidenceHitCount";
+    if(a.rareEvidenceScore !== b.rareEvidenceScore) return "rareEvidenceScore";
+    if(a.phraseEvidenceScore !== b.phraseEvidenceScore) return "phraseEvidenceScore";
+    if(a.guideEvidenceScore !== b.guideEvidenceScore) return "guideEvidenceScore";
+    if(a.evidenceFieldCount !== b.evidenceFieldCount) return "evidenceFieldCount";
     return "seedId_alphabetical";
   }
 
@@ -698,6 +883,19 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.7.0-score-diagnostics"
       coreScore: row.coreScore,
       subjectScore: row.subjectScore,
       contentScore: row.contentScore,
+      rankingScore: row.rankingScore,
+      contentScoreV3: row.contentScoreV3,
+      legacyContentScore: row.legacyContentScore,
+      effectiveMajorBonus: row.effectiveMajorBonus,
+      evidenceHitCount: row.evidenceHitCount,
+      evidenceFieldCount: row.evidenceFieldCount,
+      rareEvidenceScore: row.rareEvidenceScore,
+      phraseEvidenceScore: row.phraseEvidenceScore,
+      guideEvidenceScore: row.guideEvidenceScore,
+      keywordEvidenceScore: row.keywordEvidenceScore,
+      conceptAxisEvidenceScore: row.conceptAxisEvidenceScore,
+      matchedEvidenceTokens: row.contentDetailV3.matchedTokens,
+      matchedEvidenceGroups: row.contentDetailV3.matchedGroups,
       contentRaw: row.contentDetail.raw,
       contentCapped: row.contentDetail.capped,
       contentParts: { ...row.contentDetail.parts },
@@ -739,6 +937,46 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.7.0-score-diagnostics"
     return { exactMatch, categoryMatch, tier, rank, score };
   }
 
+  function createModelHMajorContext(candidates, majorProfile){
+    const rows = (candidates || []).map(seed => {
+      const normalizedMajors = seed.majorNormalizedKeys || (seed.majors || []).map(normalizeMajor).filter(Boolean);
+      const exactByRawKey = !!majorProfile.key && normalizedMajors.includes(majorProfile.key);
+      const exactByCanonical = intersectAny(seed.majorCanonicalIds || [], majorProfile.canonicalIds || []);
+      const exactMatch = exactByRawKey || exactByCanonical;
+      const categoryMatch = !!majorProfile.categoryId && (seed.majorCategories || []).includes(majorProfile.categoryId);
+      return { seed, exactMatch, categoryMatch };
+    });
+    const total = rows.length;
+    const categoryHolders = rows.filter(row => row.categoryMatch).length;
+    const exactHolders = rows.filter(row => row.exactMatch).length;
+    const exactWithinCategory = rows.filter(row => row.exactMatch && row.categoryMatch).length;
+    const categoryCoverage = total ? categoryHolders / total : 0;
+    const exactCoverage = total ? exactHolders / total : 0;
+    const exactWithinCategoryCoverage = categoryHolders
+      ? exactWithinCategory / categoryHolders
+      : (total ? exactHolders / total : 0);
+    return {
+      rows: new Map(rows.map(row => [row.seed, row])),
+      categoryCoverage,
+      exactCoverage,
+      exactWithinCategoryCoverage
+    };
+  }
+
+  function modelHMajorBonus(seed, context){
+    const row = context.rows.get(seed) || { exactMatch:false, categoryMatch:false };
+    const categoryComponent = row.categoryMatch ? 3 * (1 - context.categoryCoverage) : 0;
+    const exactComponent = row.exactMatch ? 2 * (1 - context.exactWithinCategoryCoverage) : 0;
+    return {
+      score: Math.min(5, categoryComponent + exactComponent),
+      categoryComponent,
+      exactComponent,
+      categoryCoverage: context.categoryCoverage,
+      exactCoverage: context.exactCoverage,
+      exactWithinCategoryCoverage: context.exactWithinCategoryCoverage
+    };
+  }
+
   function matchContentSeed(payload, subjectInput, matchedTask){
     if(!crossAxisData) return null;
     const allSeeds = crossAxisData.seeds || [];
@@ -756,49 +994,122 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.7.0-score-diagnostics"
     const fallbackPromptInstruction = fallbackActive
       ? String(crossAxisData?.majorMatching?.fallbackPromptInstruction || "")
       : "";
+    const evidenceContext = createEvidenceContext(candidates);
+    const evidenceDocumentBySeed = new Map(evidenceContext.documents.map(document => [document.seed, document]));
+    const modelHMajorContext = createModelHMajorContext(candidates, majorProfile);
+    const selectionModel = runtimeSelectionModel();
 
-    const ranked = candidates.map(seed => {
+    const scored = candidates.map(seed => {
       const subjectScore = seedSubjectScore(seed, subjectInput);
-      const contentDetail = seedContentScoreDetail(seed, payload, matchedTask);
-      const contentScore = contentDetail.total;
+      const legacyContentDetail = seedContentScoreDetail(seed, payload, matchedTask);
+      const contentDetailV3 = seedContentScoreV3Detail(evidenceDocumentBySeed.get(seed), payload, evidenceContext);
+      const contentScoreV3 = contentDetailV3.total;
+      const contentScore = contentScoreV3;
       const methodDetail = methodScoreDetail(matchedTask);
       const methodScore = methodDetail.score;
       const coreScore = subjectScore + contentScore + methodScore;
       const major = seedMajorMatchInfo(seed, majorProfile, fallbackActive);
+      const modelHMajor = modelHMajorBonus(seed, modelHMajorContext);
+      const legacyMajorBonus = major.exactMatch ? 5 : (major.categoryMatch ? 3 : 0);
+      const effectiveMajorBonus = selectionModel === LEGACY_SELECTION_MODEL
+        ? legacyMajorBonus
+        : modelHMajor.score;
       return {
         seed,
-        score: Math.min(100, coreScore + major.score),
+        score: Math.min(100, coreScore + effectiveMajorBonus),
         coreScore,
         subjectScore,
         contentScore,
-        contentDetail,
+        contentScoreV3,
+        legacyContentScore: legacyContentDetail.total,
+        contentDetail: contentDetailV3,
+        contentDetailV3,
+        legacyContentDetail,
         methodScore,
         methodDetail,
-        majorTieBreakScore: major.score,
+        rankingScore: contentScoreV3 + effectiveMajorBonus,
+        effectiveMajorBonus,
+        legacyMajorBonus,
+        modelHMajorBonus: modelHMajor.score,
+        modelHCategoryComponent: modelHMajor.categoryComponent,
+        modelHExactComponent: modelHMajor.exactComponent,
+        categoryCoverage: modelHMajor.categoryCoverage,
+        exactCoverage: modelHMajor.exactCoverage,
+        exactWithinCategoryCoverage: modelHMajor.exactWithinCategoryCoverage,
+        evidenceHitCount: contentDetailV3.evidenceHitCount,
+        evidenceFieldCount: contentDetailV3.evidenceFieldCount,
+        rareEvidenceScore: contentDetailV3.rareEvidenceScore,
+        phraseEvidenceScore: contentDetailV3.phraseEvidenceScore,
+        guideEvidenceScore: contentDetailV3.guideEvidenceScore,
+        keywordEvidenceScore: contentDetailV3.keywordEvidenceScore,
+        conceptAxisEvidenceScore: contentDetailV3.conceptAxisEvidenceScore,
+        majorTieBreakScore: effectiveMajorBonus,
         majorTier: major.tier,
         majorRank: major.rank,
         majorExactMatch: major.exactMatch,
         majorCategoryMatch: major.categoryMatch
       };
-    }).sort((a, b) => {
-      if(b.majorRank !== a.majorRank) return b.majorRank - a.majorRank;
-      if(b.coreScore !== a.coreScore) return b.coreScore - a.coreScore;
-      if(b.contentScore !== a.contentScore) return b.contentScore - a.contentScore;
+    });
+    const modelHRanked = [...scored].sort((a, b) => {
+      const aRankingScore = a.contentScoreV3 + a.modelHMajorBonus;
+      const bRankingScore = b.contentScoreV3 + b.modelHMajorBonus;
+      if(bRankingScore !== aRankingScore) return bRankingScore - aRankingScore;
+      if(b.contentScoreV3 !== a.contentScoreV3) return b.contentScoreV3 - a.contentScoreV3;
+      if(b.evidenceHitCount !== a.evidenceHitCount) return b.evidenceHitCount - a.evidenceHitCount;
+      if(b.rareEvidenceScore !== a.rareEvidenceScore) return b.rareEvidenceScore - a.rareEvidenceScore;
+      if(b.phraseEvidenceScore !== a.phraseEvidenceScore) return b.phraseEvidenceScore - a.phraseEvidenceScore;
+      if(b.guideEvidenceScore !== a.guideEvidenceScore) return b.guideEvidenceScore - a.guideEvidenceScore;
+      if(b.evidenceFieldCount !== a.evidenceFieldCount) return b.evidenceFieldCount - a.evidenceFieldCount;
       return String(a.seed?.id || "").localeCompare(String(b.seed?.id || ""));
     });
+    const legacyRanked = [...scored].sort((a, b) => {
+      const aRankingScore = a.contentScoreV3 + a.legacyMajorBonus;
+      const bRankingScore = b.contentScoreV3 + b.legacyMajorBonus;
+      if(bRankingScore !== aRankingScore) return bRankingScore - aRankingScore;
+      if(b.contentScoreV3 !== a.contentScoreV3) return b.contentScoreV3 - a.contentScoreV3;
+      if(b.evidenceHitCount !== a.evidenceHitCount) return b.evidenceHitCount - a.evidenceHitCount;
+      if(b.rareEvidenceScore !== a.rareEvidenceScore) return b.rareEvidenceScore - a.rareEvidenceScore;
+      if(b.phraseEvidenceScore !== a.phraseEvidenceScore) return b.phraseEvidenceScore - a.phraseEvidenceScore;
+      if(b.guideEvidenceScore !== a.guideEvidenceScore) return b.guideEvidenceScore - a.guideEvidenceScore;
+      if(b.evidenceFieldCount !== a.evidenceFieldCount) return b.evidenceFieldCount - a.evidenceFieldCount;
+      return String(a.seed?.id || "").localeCompare(String(b.seed?.id || ""));
+    });
+    const ranked = selectionModel === LEGACY_SELECTION_MODEL ? legacyRanked : modelHRanked;
+    ranked.forEach(row => {
+      row.effectiveMajorBonus = selectionModel === LEGACY_SELECTION_MODEL
+        ? row.legacyMajorBonus : row.modelHMajorBonus;
+      row.rankingScore = row.contentScoreV3 + row.effectiveMajorBonus;
+      row.majorTieBreakScore = row.effectiveMajorBonus;
+      row.score = Math.min(100, row.coreScore + row.effectiveMajorBonus);
+    });
+    /*
+     * Model H and Legacy intentionally share the same fixed Policy A candidate
+     * pool and content evidence. Only the major bonus and resulting order differ.
+     */
+    const selectedRanked = ranked;
 
-    const best = ranked[0];
-    const second = ranked[1];
+    const best = selectedRanked[0];
+    const second = selectedRanked[1];
+    const legacyBest = legacyRanked[0];
+    const modelHBest = modelHRanked[0];
     const fullArrayEnabled = DIAGNOSTIC_FULL_ARRAY || global.__SCORE_DIAGNOSTIC_FULL__ === true;
     const diagnosticRows = fullArrayEnabled ? ranked : ranked.slice(0, DIAGNOSTIC_TOP_N);
     const topScore = best?.score ?? 0;
     const secondScore = second?.score ?? null;
     const signedScoreGap = second ? topScore - secondScore : null;
     best.scoreDiagnostics = {
-      version: "patch2-score-diagnostics-v1",
+      version: "patch3-score-rework-v1",
+      runtimeSelectionPolicy: RUNTIME_SELECTION_POLICY,
+      runtimeSelectionModel: selectionModel,
+      fallbackSelectionModel: LEGACY_SELECTION_MODEL,
+      modelHSeedId: modelHBest?.seed?.id || "",
       candidateCount: candidates.length,
       candidateMode: subjectPool.mode,
       decisionStage: resolveDecisionStage(best, second),
+      decisionStageV3: resolveDecisionStageV3(best, second),
+      legacySeedId: legacyBest?.seed?.id || "",
+      seedChangedFromPatch2: (legacyBest?.seed?.id || "") !== (best?.seed?.id || ""),
+      irreducibleTie: resolveDecisionStageV3(best, second) === "seedId_alphabetical",
       tiedWithTopCount: countTiedWithTop(ranked),
       topScore,
       secondScore,
@@ -1782,10 +2093,16 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.7.0-score-diagnostics"
   }
 
   global.AssessmentKeywordBridge = {
-    version: "v2.7.0-score-diagnostics",
+    version: "v2.9.0-model-h-runtime",
     ready: load,
     resolve,
     resolveSync,
+    getSelectionPolicy: () => RUNTIME_SELECTION_POLICY,
+    getSelectionModel: runtimeSelectionModel,
+    setSelectionModel(value){
+      global.__ASSESSMENT_SELECTION_MODEL__ = normalizeSelectionModel(value);
+      return runtimeSelectionModel();
+    },
     buildSeedVocabulary,
     extractGuideKeywords,
     getLastContext: () => lastContext,
