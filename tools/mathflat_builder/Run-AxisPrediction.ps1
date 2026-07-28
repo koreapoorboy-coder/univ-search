@@ -1,55 +1,134 @@
-﻿# v3-matching port: per-ROW name-source fallback (세부유형 → 주제유형 → 유형묶음),
-# records the source layer per row and aggregates the 이름 출처 분포 per prefix.
-$ErrorActionPreference='Stop'
-$sp="C:\Users\user\AppData\Local\Temp\claude\C--Users-user-Desktop-scshstudy\1e4dd428-3474-4df8-834a-1b9ae26765ca\scratchpad"
-$dir="C:\Users\user\Desktop\scshstudy\public\math-weakness-engine\data\raw_taxonomy"
-$R = Get-Content "$sp\axispred\axis_rules.v1.json" -Raw -Encoding UTF8 | ConvertFrom-Json
-$OPEN='([{（〔'; $CLOSE=')]}）〕'
-function Get-Rules([string]$prefix){ $rules=@($R.common); $packs=@(); foreach($p in $R.domain.PSObject.Properties){ if($p.Value.applies_to -contains $prefix){ $rules+=@($p.Value.rules); $packs+=$p.Name } }; ,@($rules,$packs) }
-function Split-Names([string]$raw){
-  $parts=@(); $buf=New-Object System.Text.StringBuilder; $depth=0
-  foreach($ch in $raw.ToCharArray()){
-    if($OPEN.IndexOf($ch) -ge 0){$depth++} elseif($CLOSE.IndexOf($ch) -ge 0){ if($depth -gt 0){$depth--} }
-    if($ch -eq '|' -and $depth -eq 0){ $parts+=$buf.ToString(); $buf=New-Object System.Text.StringBuilder; continue }
+﻿# v4-matching port of build_axis_prediction.py — BULK 45-unit runner (분업: Code 탭).
+#
+# 정본은 검수 채팅의 Python(build_axis_prediction.py, xlsx 입력). 이 포팅은 저장 JSON
+# (*.mathflat.v1.json)을 입력으로 같은 규칙을 45단원 전량에 돌린다. xlsx 를 매번 검수
+# 채팅에 올리는 것이 비현실적이라, 대량 실행은 여기서 하고 검수 채팅은 표본으로 교차검증한다.
+# (AELF 에서 두 구현이 어긋난 덕에 v2 detect_layout 버그를 잡았다 — 교차검증 가치 확인됨.)
+#
+# v4 로 맞춘 것:
+#   - 규칙 = axis_rules.v2.json (공통 15 C-* + 단원팩 D-*: EL_AELF·PS·GE·CA2_M2D)
+#   - 행별 이름 폴백: 세부유형 → 주제유형 → 유형묶음  (v3)
+#   - 배지없음 묶음(topic_types=[])은 묶음 이름으로 1행 방출 = Python 의 read_summary_only.
+#     (저장 JSON 은 그 묶음을 problem_type 로 이미 갖고 있어 유형요약 시트를 따로 읽을 필요가 없다.)
+#   - pack_gap: 걸렸으나 D-(단원팩) 규칙을 하나도 못 짚고 C-(공통)만 걸린 항목. 팩 필요성의 실제 지표.
+#   - rule_freq 과다(>60%) 자동 표시. pack_hit / pack_gap / unmatched 3분할.
+#
+# 출력: 콘솔 요약표 + CSV(name_source_dist / unmatched_all / pack_gap_all / rule_over60).
+# 스크린 데이터를 지어내지 않는다 — 규칙에 걸린 것만 축을 채우고, 안 걸리면 unmatched.
+param(
+  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v2.json'),
+  [string]$OutDir    = (Join-Path ([IO.Path]::GetTempPath()) 'axispred'),
+  [string]$Only      = ''    # 단원 prefix 하나만 (예: -Only M2D)
+)
+$ErrorActionPreference = 'Stop'
+if (-not (Test-Path $OutDir)) { New-Item -ItemType Directory -Force -Path $OutDir | Out-Null }
+$dir = 'C:\Users\user\Desktop\scshstudy\public\math-weakness-engine\data\raw_taxonomy'
+$R = Get-Content $RulesPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$OPEN = '([{（〔'; $CLOSE = ')]}）〕'
+
+function Get-Rules([string]$prefix) {
+  $rules = @($R.common); $packs = @()
+  foreach ($p in $R.domain.PSObject.Properties) {
+    if ($p.Value.applies_to -contains $prefix) { $rules += @($p.Value.rules); $packs += $p.Name }
+  }
+  , @($rules, $packs)
+}
+function Split-Names([string]$raw) {
+  $parts = @(); $buf = New-Object System.Text.StringBuilder; $depth = 0
+  foreach ($ch in $raw.ToCharArray()) {
+    if ($OPEN.IndexOf($ch) -ge 0) { $depth++ } elseif ($CLOSE.IndexOf($ch) -ge 0) { if ($depth -gt 0) { $depth-- } }
+    if ($ch -eq '|' -and $depth -eq 0) { $parts += $buf.ToString(); $buf = New-Object System.Text.StringBuilder; continue }
     [void]$buf.Append($ch)
   }
-  $parts+=$buf.ToString(); ,@($parts|ForEach-Object{$_.Trim()}|Where-Object{$_})
+  $parts += $buf.ToString(); , @($parts | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 }
 
-$dist=@(); $predAll=@()
-foreach($f in (Get-ChildItem $dir -Filter *.mathflat.v1.json | Where-Object { $_.Name -notlike '_pilot*' } | Sort-Object Name)){
-  $j = Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
-  $prefix=$j.unit_code; $sem=$j.semester; $gr=Get-Rules $prefix; $rules=$gr[0]
-  $c=@{ '세부유형'=0; '주제유형'=0; '유형묶음'=0 }; $rows=0; $hit=0; $nameOnly=0
-  foreach($t in $j.problem_types){
-    $mid=$t.중영역; $group=$t.type_name
-    $emit=@()  # list of @{name; src}
-    if(-not $t.topic_types -or @($t.topic_types).Count -eq 0){
-      $emit += @{ name=$group; src='유형묶음' }
+$dist = @(); $unmatchedAll = @(); $packGapAll = @(); $over60All = @()
+$files = Get-ChildItem $dir -Filter *.mathflat.v1.json | Where-Object { $_.Name -notlike '_pilot*' } | Sort-Object Name
+foreach ($file in $files) {
+  $j = Get-Content $file.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+  $prefix = $j.unit_code
+  if ($Only -and $prefix -ne $Only) { continue }
+  $sem = $j.semester
+  $gr = Get-Rules $prefix; $rules = $gr[0]; $packs = $gr[1]
+  $c = @{ '세부유형' = 0; '주제유형' = 0; '유형묶음' = 0 }
+  $rows = 0; $hit = 0; $nameOnly = 0; $packHit = 0; $gap = 0; $summaryOnly = 0
+  $freq = @{}
+  foreach ($t in $j.problem_types) {
+    $mid = $t.중영역; $group = $t.type_name; $gid = $t.source_group_id
+    $emit = @()   # @{name; src; code}
+    if (-not $t.topic_types -or @($t.topic_types).Count -eq 0) {
+      $emit += @{ name = $group; src = '유형묶음'; code = $gid }   # 배지없음 묶음 = read_summary_only
+      $summaryOnly++
     } else {
-      foreach($it in $t.topic_types){
-        $detail = if($it.PSObject.Properties.Name -contains 'detail_type_names_raw'){ $it.detail_type_names_raw } else { $null }
+      foreach ($it in $t.topic_types) {
+        $code = $it.source_code
+        $detail = if ($it.PSObject.Properties.Name -contains 'detail_type_names_raw') { $it.detail_type_names_raw } else { $null }
         $topic = $it.name
-        if($detail){ foreach($n in (Split-Names ([string]$detail))){ $emit += @{ name=$n; src='세부유형' } } }
-        elseif($topic -and $topic -ne $group){ $emit += @{ name=$topic; src='주제유형' } }
-        elseif($topic){ $emit += @{ name=$topic; src='유형묶음' } }
-        else { $emit += @{ name=$group; src='유형묶음' } }
+        if ($detail) { foreach ($n in (Split-Names ([string]$detail))) { $emit += @{ name = $n; src = '세부유형'; code = $code } } }
+        elseif ($topic -and $topic -ne $group) { $emit += @{ name = $topic; src = '주제유형'; code = $code } }
+        elseif ($topic) { $emit += @{ name = $topic; src = '유형묶음'; code = $code } }
+        else { $emit += @{ name = $group; src = '유형묶음'; code = $code } }
       }
     }
-    foreach($e in $emit){
-      $nm=$e.name; $c[$e.src]++; $rows++
-      $ctx="$mid $group $nm"; $axes=@()
-      foreach($rule in $rules){ if($ctx -match $rule.pattern){ foreach($a in $rule.axes){ if($axes -notcontains $a){$axes+=$a} } } }
-      if($axes.Count -gt 0){ $hit++ }
-      $nH=$false; if($nm){ foreach($rule in $rules){ if($nm -match $rule.pattern){ $nH=$true; break } } }; if($nH){$nameOnly++}
+    foreach ($e in $emit) {
+      $nm = $e.name; $c[$e.src]++; $rows++
+      $ctx = "$mid $group $nm"; $axes = @(); $hits = @()
+      foreach ($rule in $rules) {
+        if ($ctx -match $rule.pattern) {
+          $hits += $rule.id
+          foreach ($a in $rule.axes) { if ($axes -notcontains $a) { $axes += $a } }
+        }
+      }
+      foreach ($h in $hits) { if ($freq.ContainsKey($h)) { $freq[$h]++ } else { $freq[$h] = 1 } }
+      $nH = $false; if ($nm) { foreach ($rule in $rules) { if ($nm -match $rule.pattern) { $nH = $true; break } } }
+      if ($nH) { $nameOnly++ }
+      if ($axes.Count -eq 0) {
+        $hit = $hit   # no-op; unmatched
+        $unmatchedAll += [pscustomobject]@{ prefix = $prefix; 그룹ID = $e.code; 중영역 = $mid; 유형묶음 = $group; 이름 = $nm }
+      } else {
+        $hit++
+        $hasPack = @($hits | Where-Object { $_ -like 'D-*' }).Count -gt 0
+        if ($hasPack) { $packHit++ }
+        else {
+          $gap++
+          $packGapAll += [pscustomobject]@{ prefix = $prefix; 그룹ID = $e.code; 중영역 = $mid; 유형묶음 = $group; 이름 = $nm; 걸린공통규칙 = ($hits -join ', ') }
+        }
+      }
     }
   }
-  $rate=if($rows){[Math]::Round(100*$hit/$rows)}else{0}; $nr=if($rows){[Math]::Round(100*$nameOnly/$rows)}else{0}
-  $dist += [pscustomobject]@{ prefix=$prefix; 학기=$sem; 이름=$j.unit_name; 세부유형=$c['세부유형']; 주제유형=$c['주제유형']; 유형묶음=$c['유형묶음']; 총항목=$rows; 적중률=$rate; 이름단독=$nr }
+  $rate = if ($rows) { [Math]::Round(100 * $hit / $rows) } else { 0 }
+  $nr   = if ($rows) { [Math]::Round(100 * $nameOnly / $rows) } else { 0 }
+  $pr   = if ($rows) { [Math]::Round(100 * $packHit / $rows) } else { 0 }
+  $gr2  = if ($rows) { [Math]::Round(100 * $gap / $rows) } else { 0 }
+  # 과다(>60%) 규칙
+  $over = @()
+  foreach ($k in $freq.Keys) { if ($rows -and ($freq[$k] / $rows) -gt 0.6) { $over += ("{0} {1}%" -f $k, [Math]::Round(100 * $freq[$k] / $rows)) } }
+  foreach ($k in ($freq.Keys | Sort-Object { -$freq[$_] })) {
+    if ($rows -and ($freq[$k] / $rows) -gt 0.6) {
+      $over60All += [pscustomobject]@{ prefix = $prefix; 규칙 = $k; 걸린항목 = $freq[$k]; 비율 = ([Math]::Round(100 * $freq[$k] / $rows)) }
+    }
+  }
+  $packLabel = if ($packs.Count) { $packs -join '+' } else { '—' }
+  $dist += [pscustomobject]@{
+    prefix = $prefix; 학기 = $sem; 이름 = $j.unit_name; 팩 = $packLabel
+    총항목 = $rows; 적중률 = $rate; '팩%' = $pr; 'gap%' = $gr2; 이름단독 = $nr
+    요약전용 = $summaryOnly; 과다 = ($over -join ' ')
+  }
 }
-$dist | Sort-Object prefix | Format-Table prefix,학기,이름,세부유형,주제유형,유형묶음,총항목,적중률,이름단독 -AutoSize
-$dist | Export-Csv "$sp\axispred\name_source_dist.csv" -NoTypeInformation -Encoding UTF8
-"AELF 확인 (기대 세부79/주제273/묶음0):"
-$dist | Where-Object { $_.prefix -eq 'AELF' } | ForEach-Object { "  세부 $($_.세부유형) / 주제 $($_.주제유형) / 묶음 $($_.유형묶음) / 총 $($_.총항목)" }
-$ts=($dist|Measure-Object 세부유형 -Sum).Sum; $tt=($dist|Measure-Object 주제유형 -Sum).Sum; $tg=($dist|Measure-Object 유형묶음 -Sum).Sum
-"전체 이름출처: 세부유형 $ts · 주제유형 $tt · 유형묶음 $tg · 합 $($ts+$tt+$tg)"
+
+$dist | Sort-Object { -[int]$_.'gap%' } | Format-Table prefix, 학기, 팩, 총항목, 적중률, '팩%', 'gap%', 이름단독, 요약전용, 과다 -AutoSize
+$dist         | Sort-Object prefix | Export-Csv "$OutDir\name_source_dist.csv" -NoTypeInformation -Encoding UTF8
+$unmatchedAll | Export-Csv "$OutDir\unmatched_all.csv" -NoTypeInformation -Encoding UTF8
+$packGapAll   | Export-Csv "$OutDir\pack_gap_all.csv"  -NoTypeInformation -Encoding UTF8
+$over60All    | Export-Csv "$OutDir\rule_over60.csv"   -NoTypeInformation -Encoding UTF8
+
+$tot = ($dist | Measure-Object 총항목 -Sum).Sum
+"---"
+"총 항목 $tot · 미매칭 $($unmatchedAll.Count) · pack_gap $($packGapAll.Count) · 과다규칙(>60%) $($over60All.Count)행"
+"CSV → $OutDir"
+$aelf = $dist | Where-Object { $_.prefix -eq 'AELF' }
+if ($aelf) {
+  "AELF 교차검증 (Python v4 기대: 총353 적중96% 팩76% gap20% 이름단독92% 요약전용1):"
+  "  총 $($aelf.총항목) · 적중 $($aelf.적중률)% · 팩 $($aelf.'팩%')% · gap $($aelf.'gap%')% · 이름단독 $($aelf.이름단독)% · 요약전용 $($aelf.요약전용)"
+}
