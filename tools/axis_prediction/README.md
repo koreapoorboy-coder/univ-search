@@ -8,8 +8,8 @@
 
 | 파일 | 내용 |
 |---|---|
-| `axis_rules.v3.json` | 규칙 83개 (공통 15 C-* + 단원팩 68 D-*: EL_AELF 9·PS 10·GE 11·CA2_M2D 23·MM_CMM 15) |
-| `axis_rules.v2.json`·`v1.json` | 이전 버전. 기록용 보관 — 스크립트는 **v3** 을 읽는다 |
+| `axis_rules.v4.json` | 규칙 99개 (공통 15 C-* + 단원팩 84 D-*: EL_AELF 9·PS 10·GE 11·CA2_M2D 23·MM_CMM 15·PF_M1S1 16) |
+| `axis_rules.v3~v1.json` | 이전 버전. 기록용 보관 — 스크립트는 **v4** 를 읽는다 |
 | `build_axis_prediction.py` | 생성 스크립트 **v5** — 행별 폴백(v3) + 유형요약 방출·pack_gap(v4) + 중영역 제거(v5) |
 
 **규칙과 스크립트는 항상 같이 커밋한다.** 스크립트만으로는 재생성이 불가하다.
@@ -21,6 +21,12 @@
   비용 373행이 미매칭으로 내려가나 표본 대부분 오탐. **AELF 는 353·96%·팩76%·gap20% 불변.**
   중영역은 unmatched·pack_gap 시트엔 계속 실어 규칙 설계 재료로 쓴다.
 - 규칙 v3: `MM_CMM` 팩 15개(CMM 0%→93%) + C-09 오탐 수정(bare `최대|최소`가 최대공약수·최소공배수를 잡던 것 제거, PF 91건→0).
+- 규칙 v4: `PF_M1S1` 팩 16개(소인수분해, D-PF-*). PF_M1S1 149건 100% 회수·팩89%·gap11%·과다없음.
+
+### PF 코드 충돌 처리 (v4 호출 규약)
+`PF` 는 소인수분해(M1S1)·다항식곱셈(M3S1) 두 단원에 붙는다. 팩은 prefix 로 선택되므로
+호출 키를 **`PF_M1S1` / `PF_M3S1`** 로 갈라야 팩이 안 섞인다(Python 은 CLI 인자, 포팅은
+`unit_code=PF → PF_$학기` 매핑). 규칙 `applies_to` 도 `["PF_M1S1"]`. 나머지 44단원은 prefix 유일.
 
 ### v4 변경 (누적)
 - `유형요약` 시트 → 배지없음 묶음을 묶음 이름으로 1행 방출(45단원 156건).
@@ -32,8 +38,9 @@
 python build_axis_prediction.py <분류표.xlsx> <PREFIX> [출력.xlsx]
 ```
 
-`axis_rules.v3.json` 은 스크립트와 같은 폴더에 둔다. 출력 시트: `predicted_axes`
+`axis_rules.v4.json` 은 스크립트와 같은 폴더에 둔다. 출력 시트: `predicted_axes`
 · `unmatched` · `pack_gap` · `warnings` · `rule_freq` · `meta`.
+PF 두 단원은 prefix 를 `PF_M1S1` / `PF_M3S1` 로 넘긴다(위 「PF 코드 충돌 처리」).
 
 ## 정본 / 역할 (안 A + 분업)
 
@@ -63,7 +70,7 @@ GEC 처럼 전 행이 유형묶음일 때뿐이다).
 
 ## 미결
 
-- **다음 팩(규칙 v4)**: pack_gap 상위 CMEI 499 · ASQ 350 · ATF 326 순. 한 단원씩 이름 목록으로 짬.
+- **다음 팩(규칙 v5)**: pack_gap 최다 CMEI 499(중영역 12개 — 이차부등식111·복소수82·연립일차부등식61…). 중영역 단위로 짬. 그다음 ASQ 350·ATF 326.
 - **공통 60% 상한**: 중영역 제거 후 QE C-11 90%·EQ C-11 63% 등 8행 남음(묶음 이름이 주제어).
   AELF·CMM 에서 억제되는 규칙이 없어 미구현 — 상한 도입 시 QE/EQ 부터.
 - **PSS/PSC 세분화**: D-PS-05 64%·D-PS-09 61%는 삭제 아니라 이산/정규/이항으로 쪼갬(규칙 v4).

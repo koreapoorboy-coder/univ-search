@@ -6,9 +6,10 @@
 # (AELF 에서 두 구현이 어긋난 덕에 v2 detect_layout 버그를 잡았다 — 교차검증 가치 확인됨.)
 #
 # v5 로 맞춘 것:
-#   - 규칙 = axis_rules.v3.json (공통 15 C-* + 단원팩 D-*: EL_AELF·PS·GE·CA2_M2D·MM_CMM)
+#   - 규칙 = axis_rules.v4.json (공통 15 C-* + 단원팩 D-*: EL_AELF·PS·GE·CA2_M2D·MM_CMM·PF_M1S1)
 #   - 매칭 컨텍스트 = 유형 묶음 + 유형 이름 (v5: 중영역 제거 — 단원 주제어라 변별력 없음)
 #   - 행별 이름 폴백: 세부유형 → 주제유형 → 유형묶음  (v3)
+#   - PF 코드충돌: unit_code=PF 인 두 단원을 학기로 갈라 PF_M1S1 / PF_M3S1 로 팩 선택(§17-7)
 #   - 배지없음 묶음(topic_types=[])은 묶음 이름으로 1행 방출 = Python 의 read_summary_only.
 #     (저장 JSON 은 그 묶음을 problem_type 로 이미 갖고 있어 유형요약 시트를 따로 읽을 필요가 없다.)
 #   - pack_gap: 걸렸으나 D-(단원팩) 규칙을 하나도 못 짚고 C-(공통)만 걸린 항목. 팩 필요성의 실제 지표.
@@ -17,7 +18,7 @@
 # 출력: 콘솔 요약표 + CSV(name_source_dist / unmatched_all / pack_gap_all / rule_over60).
 # 스크린 데이터를 지어내지 않는다 — 규칙에 걸린 것만 축을 채우고, 안 걸리면 unmatched.
 param(
-  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v3.json'),
+  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v4.json'),
   [string]$OutDir    = (Join-Path ([IO.Path]::GetTempPath()) 'axispred'),
   [string]$Only      = ''    # 단원 prefix 하나만 (예: -Only M2D)
 )
@@ -48,9 +49,12 @@ $dist = @(); $unmatchedAll = @(); $packGapAll = @(); $over60All = @()
 $files = Get-ChildItem $dir -Filter *.mathflat.v1.json | Where-Object { $_.Name -notlike '_pilot*' } | Sort-Object Name
 foreach ($file in $files) {
   $j = Get-Content $file.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
-  $prefix = $j.unit_code
-  if ($Only -and $prefix -ne $Only) { continue }
   $sem = $j.semester
+  # PF 코드 충돌(§17-7): 소인수분해 M1S1 · 다항식곱셈 M3S1 둘 다 unit_code=PF.
+  # 팩은 prefix 로 선택되므로 학기를 붙여 PF_M1S1 / PF_M3S1 로 갈라 팩이 안 섞이게 한다.
+  $prefix = $j.unit_code
+  if ($prefix -eq 'PF') { $prefix = "PF_$sem" }
+  if ($Only -and $prefix -ne $Only) { continue }
   $gr = Get-Rules $prefix; $rules = $gr[0]; $packs = $gr[1]
   $c = @{ '세부유형' = 0; '주제유형' = 0; '유형묶음' = 0 }
   $rows = 0; $hit = 0; $nameOnly = 0; $packHit = 0; $gap = 0; $summaryOnly = 0
