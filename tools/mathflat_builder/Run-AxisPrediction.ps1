@@ -6,7 +6,7 @@
 # (AELF 에서 두 구현이 어긋난 덕에 v2 detect_layout 버그를 잡았다 — 교차검증 가치 확인됨.)
 #
 # v5 로 맞춘 것:
-#   - 규칙 = axis_rules.v17.json (공통 15 C-* + 단원팩 D-*: EL_AELF·PS·GE·CA2_M2D·MM_CMM·PF_M1S1·EI_CMEI·SQ_ASQ·TF_ATF·GE2_CM2GE·CA1_M1D·SP_CM2SP·LF_FN·BF_BG·IN1_M1I·IN2_M2I·FG_CM2FG)
+#   - 규칙 = axis_rules.v18.json (공통 15 C-* + 단원팩 D-*: EL_AELF·PS·GE·CA2_M2D·MM_CMM·PF_M1S1·EI_CMEI·SQ_ASQ·TF_ATF·GE2_CM2GE·CA1_M1D·SP_CM2SP·LF_FN·BF_BG·IN1_M1I·IN2_M2I·FG_CM2FG·CR_CP)
 #   - 매칭 컨텍스트 = 유형 묶음 + 유형 이름 (v5: 중영역 제거 — 단원 주제어라 변별력 없음)
 #   - 행별 이름 폴백: 세부유형 → 주제유형 → 유형묶음  (v3)
 #   - PF 코드충돌: unit_code=PF 인 두 단원을 학기로 갈라 PF_M1S1 / PF_M3S1 로 팩 선택(§17-7)
@@ -18,7 +18,7 @@
 # 출력: 콘솔 요약표 + CSV(name_source_dist / unmatched_all / pack_gap_all / rule_over60).
 # 스크린 데이터를 지어내지 않는다 — 규칙에 걸린 것만 축을 채우고, 안 걸리면 unmatched.
 param(
-  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v17.json'),
+  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v18.json'),
   [string]$OutDir    = (Join-Path ([IO.Path]::GetTempPath()) 'axispred'),
   [string]$Only      = ''    # 단원 prefix 하나만 (예: -Only M2D)
 )
