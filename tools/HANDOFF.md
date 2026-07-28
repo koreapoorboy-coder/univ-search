@@ -148,13 +148,13 @@ MathFlat 화면 스크린샷을 전사한 검수완료 엑셀을 **단원별로*
 각 유형에 "여기서 잘 틀리는 진단축"을 규칙으로 예측(predicted_axes). 분류표와 별개, **predicted_ 전용**
 (학생 실측 observed_와 절대 같은 필드 금지).
 
-- `axis_rules.v2.json`: 규칙 68개(공통 15 C-* + 단원팩 53 D-*: EL_AELF 9·PS 10·GE 11·CA2_M2D 23).
-  v1(45개)은 기록용 보관. **커밋됨(HEAD 33c07c78).**
-- `build_axis_prediction.py`: 생성기 **v4**(행별 폴백 + 유형요약 방출 + `pack_gap` 시트). **Python 필요.**
+- `axis_rules.v3.json`: 규칙 83개(공통 15 C-* + 단원팩 68 D-*: EL_AELF 9·PS 10·GE 11·CA2_M2D 23·MM_CMM 15).
+  v1·v2 는 기록용 보관. 스크립트는 v3 을 읽음. **커밋됨.**
+- `build_axis_prediction.py`: 생성기 **v5**(행별 폴백 + 유형요약 방출·pack_gap + **중영역 제거**). **Python 필요.**
 - 정본 = **안 A + 분업**: 공식 생성은 검수 채팅(Python/xlsx), **45단원 대량 실행 + git·저장은 Code 탭.**
-  `Run-AxisPrediction.ps1` 이 **v4 를 저장JSON 에 포팅한 대량 실행기**(이제 커밋됨). AELF 에서 Python v4 와
+  `Run-AxisPrediction.ps1` 이 **v5 를 저장JSON 에 포팅한 대량 실행기**. AELF 에서 Python v5 와
   완전 일치(총353·적중96%·팩76%·gap20%·이름단독92%·요약전용1) — 교차검증이 v1/v2 `detect_layout` 버그도 잡음.
-  실행: `tools\mathflat_builder\Run-AxisPrediction.ps1 [-Only <CODE>]` → CSV(임시\axispred): name_source_dist·unmatched_all·pack_gap_all·rule_over60.
+  실행: `tools\mathflat_builder\Run-AxisPrediction.ps1 [-Only <CODE>]` → CSV(임시\axispred): name_source_dist·unmatched_all(학기열)·pack_gap_all(학기열)·rule_over60.
 
 ### 검수 채팅과의 현재 루프 상태 (진행 중)
 - v1 규칙 45단원 실행 결과: 적중률 81%(9,028행). 미매칭 1,680건이 규칙 v2 재료.
@@ -168,7 +168,11 @@ MathFlat 화면 스크린샷을 전사한 검수완료 엑셀을 **단원별로*
 - **pack_gap = 팩 필요성 진짜 지표**(신규): 미매칭은 과다매칭을 못 봄. CMM 미매칭 2건인데 pack_gap 59건(46건이 C-10-only).
   팩 우선순위는 적중률 아니라 **이름단독 낮은 순**: CMM 33·IR 35·PB 36·NE 38·CMP 41(전부 팩 없음).
   팩 넓은규칙 점검: PSS D-PS-05 64%·PSC D-PS-09 61%(단원팩이 60%초과 — 변별력 재검토).
-- **대기**: 검수 채팅이 CMM 61항목으로 행렬 팩 초안 → 규칙 v3. CA2_M2D 확장(M1D·M1LC·M2SL·M2I)은 해당 단원 이름 확인 후(규칙 `note`).
+- **완료(v3/v5)**: 행렬 팩 MM_CMM 15개(CMM 0%→93%, 미매칭2 회수) + C-09 오탐 수정(최대공약수·최소공배수 91건→0) + **중영역 제거**.
+  45단원 재실행: 미매칭 1545→1919(+374, 설계대로)·pack_gap 6410→6088·과다규칙 15→8행. **적중률 하락 = 중영역 제거 반영 확인.**
+  AELF 353·96%·팩76%·gap20% 불변(중영역 영향 0). 회신 5건(rule_over60·pack_gap상위10·CMM100/93/7·미매칭prefix별·PF학기분리) 전달.
+- **대기**: 검수 채팅이 pack_gap 상위(CMEI 499·ASQ 350·ATF 326) 순으로 팩 초안 → 규칙 v4. PSS/PSC 세분화, 공통 60% 상한 판단.
+  PF M1S1 미매칭 55건(C-09 수정으로 최대공약수·최소공배수 내려옴) = 소인수분해 팩 재료.
 - depth는 **행 속성**(단원 아님) — AELF 한 단원에 세부79·주제273 섞임. index 교체 때 group_only를 단원필드로 굳히지 말 것.
 
 ---
@@ -184,8 +188,8 @@ MathFlat 화면 스크린샷을 전사한 검수완료 엑셀을 **단원별로*
 ### 8-B. 정리(진단 로직 교체 전) — 명세서 §3
 - **PF 코드 충돌**: 소인수분해(M1S1)와 다항식곱셈(M3S1)이 둘 다 PF. id는 학기로 구분되나 코드만으로 찾으면 섞임.
   **학생 데이터 투입 전** 한쪽 변경.
-- **`_pilot_h2_calculus1_differentiation.mathflat.v1.json`**: 유형 0개 유령 파일(미커밋). 정본 미분(M1D) 들어왔으니
-  `_archive/`로 이동/삭제. (사용자 확인 대기 중이었음)
+- **`_pilot_h2_calculus1_differentiation...`**: ✅ **완료** — `raw_taxonomy/_archive/`로 이동(사유는 그 폴더 README).
+  정본 M1D(79유형)로 대체된 시범추출본. 빌더 글롭(비재귀)이 하위폴더를 안 훑어 집계에서 빠짐.
 - **index.v1.json 45단원 등록 + 진단 로직 새 체계 전환** — 핵심. depth는 행 속성 반영(§7).
   `observed_accuracy_percent`→`estimated_accuracy_percent`(GPT 시뮬값). 교체 직후 30문항 시험 재실행.
 - **데이터 형태 3종**(index 설계 시 수용): ① 유형+주제유형 이름/세부는 배지만(기하·미적분) ② 세부이름 있고 배지없음

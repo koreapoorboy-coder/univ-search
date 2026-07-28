@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-유형 예측표 생성기 — 45단원 분류표 → predicted_axes   [스크립트 v4]
+유형 예측표 생성기 — 45단원 분류표 → predicted_axes   [스크립트 v5]
 
 사용:  python build_axis_prediction.py <분류표.xlsx> <PREFIX> [출력.xlsx]
 예:    python build_axis_prediction.py 벡터_수정본_v2.xlsx GEV
@@ -12,6 +12,15 @@
   - 출력은 predicted_ 전용. 학생 실측(observed_)과 절대 섞지 않는다.
   - 규칙이 바뀌면 전량 재생성한다. 수동 편집 금지.
   - 원본(1층)은 읽기만 한다. 스크립트가 분류표를 고치는 일은 없다.
+
+v5 변경:
+  0. 매칭 컨텍스트에서 중영역을 제거한다. 이제 「유형 묶음 + 유형 이름」만 본다.
+     45단원 실측: 공통규칙 발화 12,820건 중 이름에서 걸린 것은 7,497건(58%)뿐이고
+     1,813건은 중영역만으로 걸렸다. 중영역은 단원의 주제어라서 EQ「일차방정식」·
+     IN「일차부등식」·CMM「행렬의 연산」처럼 전 항목에 같은 축을 붙여 적중률만
+     부풀린다. 제거 비용은 pack_gap 6,410행 중 373행(6%)이 미매칭으로 내려가는
+     것이고, 표본 점검 결과 대부분 축이 틀린 오탐이었다.
+     중영역은 unmatched·pack_gap 시트에 계속 실어 규칙 설계 재료로만 쓴다.
 
 v4 변경:
   0. 유형요약 시트도 읽는다. 그룹ID 가 문항분류표에 없는 묶음(§16 배지없음)을
@@ -53,10 +62,10 @@ import sys, re, json, os
 from openpyxl import load_workbook, Workbook
 
 RULES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                          'axis_rules.v2.json')
+                          'axis_rules.v3.json')
 SHEET_NAME = '문항분류표'
 SUMMARY_SHEET = '유형요약'
-SCRIPT_VERSION = 'v4'
+SCRIPT_VERSION = 'v5'
 
 OPEN_PARENS = '([{（〔'
 CLOSE_PARENS = ')]}）〕'
@@ -224,7 +233,8 @@ def main():
                 warns.append([gid, code, '유형 이름 없음',
                               '중영역·유형 묶음만으로 매칭됨 — 변별력 없음', ''])
             layer_count[layer] = layer_count.get(layer, 0) + 1
-            ctx = f'{mid or ""} {grp or ""} {nm or ""}'
+            # 중영역은 매칭에 쓰지 않는다(v5). 단원 주제어라 변별력이 없다.
+            ctx = f'{grp or ""} {nm or ""}'
             axes, hits, whys = [], [], []
             for rule in rules:
                 if re.search(rule['pattern'], ctx):
@@ -333,7 +343,9 @@ def main():
              ('주의', '이름은 행별로 세부유형 → 주제유형 → 유형 묶음 순 폴백. '
                       '「단원의 예측 단위」는 더 이상 하나로 정해지지 않음'),
              ('주의', '코드 접미사(.01)는 그 행이 파이프로 분할된 경우에만 붙음. '
-                      '조인 키는 주제코드')]
+                      '조인 키는 주제코드'),
+             ('주의', '매칭 컨텍스트는 유형 묶음 + 유형 이름. 중영역은 매칭에 '
+                      '쓰지 않음(v5) — 단원 주제어라 전 항목에 같은 축을 붙임')]
     m = wb.create_sheet('meta')
     for k, v in meta:
         m.append([k, v])

@@ -1,12 +1,13 @@
-﻿# v4-matching port of build_axis_prediction.py — BULK 45-unit runner (분업: Code 탭).
+﻿# v5-matching port of build_axis_prediction.py — BULK 45-unit runner (분업: Code 탭).
 #
 # 정본은 검수 채팅의 Python(build_axis_prediction.py, xlsx 입력). 이 포팅은 저장 JSON
 # (*.mathflat.v1.json)을 입력으로 같은 규칙을 45단원 전량에 돌린다. xlsx 를 매번 검수
 # 채팅에 올리는 것이 비현실적이라, 대량 실행은 여기서 하고 검수 채팅은 표본으로 교차검증한다.
 # (AELF 에서 두 구현이 어긋난 덕에 v2 detect_layout 버그를 잡았다 — 교차검증 가치 확인됨.)
 #
-# v4 로 맞춘 것:
-#   - 규칙 = axis_rules.v2.json (공통 15 C-* + 단원팩 D-*: EL_AELF·PS·GE·CA2_M2D)
+# v5 로 맞춘 것:
+#   - 규칙 = axis_rules.v3.json (공통 15 C-* + 단원팩 D-*: EL_AELF·PS·GE·CA2_M2D·MM_CMM)
+#   - 매칭 컨텍스트 = 유형 묶음 + 유형 이름 (v5: 중영역 제거 — 단원 주제어라 변별력 없음)
 #   - 행별 이름 폴백: 세부유형 → 주제유형 → 유형묶음  (v3)
 #   - 배지없음 묶음(topic_types=[])은 묶음 이름으로 1행 방출 = Python 의 read_summary_only.
 #     (저장 JSON 은 그 묶음을 problem_type 로 이미 갖고 있어 유형요약 시트를 따로 읽을 필요가 없다.)
@@ -16,7 +17,7 @@
 # 출력: 콘솔 요약표 + CSV(name_source_dist / unmatched_all / pack_gap_all / rule_over60).
 # 스크린 데이터를 지어내지 않는다 — 규칙에 걸린 것만 축을 채우고, 안 걸리면 unmatched.
 param(
-  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v2.json'),
+  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v3.json'),
   [string]$OutDir    = (Join-Path ([IO.Path]::GetTempPath()) 'axispred'),
   [string]$Only      = ''    # 단원 prefix 하나만 (예: -Only M2D)
 )
@@ -73,7 +74,7 @@ foreach ($file in $files) {
     }
     foreach ($e in $emit) {
       $nm = $e.name; $c[$e.src]++; $rows++
-      $ctx = "$mid $group $nm"; $axes = @(); $hits = @()
+      $ctx = "$group $nm"; $axes = @(); $hits = @()   # v5: 중영역 제거 — 단원 주제어라 전 항목에 같은 축을 붙임
       foreach ($rule in $rules) {
         if ($ctx -match $rule.pattern) {
           $hits += $rule.id
@@ -85,14 +86,14 @@ foreach ($file in $files) {
       if ($nH) { $nameOnly++ }
       if ($axes.Count -eq 0) {
         $hit = $hit   # no-op; unmatched
-        $unmatchedAll += [pscustomobject]@{ prefix = $prefix; 그룹ID = $e.code; 중영역 = $mid; 유형묶음 = $group; 이름 = $nm }
+        $unmatchedAll += [pscustomobject]@{ prefix = $prefix; 학기 = $sem; 그룹ID = $e.code; 중영역 = $mid; 유형묶음 = $group; 이름 = $nm }
       } else {
         $hit++
         $hasPack = @($hits | Where-Object { $_ -like 'D-*' }).Count -gt 0
         if ($hasPack) { $packHit++ }
         else {
           $gap++
-          $packGapAll += [pscustomobject]@{ prefix = $prefix; 그룹ID = $e.code; 중영역 = $mid; 유형묶음 = $group; 이름 = $nm; 걸린공통규칙 = ($hits -join ', ') }
+          $packGapAll += [pscustomobject]@{ prefix = $prefix; 학기 = $sem; 그룹ID = $e.code; 중영역 = $mid; 유형묶음 = $group; 이름 = $nm; 걸린공통규칙 = ($hits -join ', ') }
         }
       }
     }
@@ -113,7 +114,7 @@ foreach ($file in $files) {
   $dist += [pscustomobject]@{
     prefix = $prefix; 학기 = $sem; 이름 = $j.unit_name; 팩 = $packLabel
     총항목 = $rows; 적중률 = $rate; '팩%' = $pr; 'gap%' = $gr2; 이름단독 = $nr
-    요약전용 = $summaryOnly; 과다 = ($over -join ' ')
+    미매칭 = ($rows - $hit); gap건수 = $gap; 요약전용 = $summaryOnly; 과다 = ($over -join ' ')
   }
 }
 
