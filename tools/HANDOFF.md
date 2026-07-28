@@ -148,10 +148,13 @@ MathFlat 화면 스크린샷을 전사한 검수완료 엑셀을 **단원별로*
 각 유형에 "여기서 잘 틀리는 진단축"을 규칙으로 예측(predicted_axes). 분류표와 별개, **predicted_ 전용**
 (학생 실측 observed_와 절대 같은 필드 금지).
 
-- `axis_rules.v1.json`: 규칙 45개(공통 15 + 단원팩 EL_AELF·PS·GE 30).
-- `build_axis_prediction.py`: 생성기 **v3**(행별 세부유형→주제유형→유형묶음 폴백). **Python 필요 → Code 탭에선 못 돌림.**
-- 정본 = **안 A**: 공식 생성은 검수 채팅(Python/xlsx), Code 탭은 git·저장·결과관리. PowerShell 포팅은 교차검증용
-  로컬 보관(커밋 안 함) — 이 포팅이 v1/v2 `detect_layout` 버그(단원단위 층선택)를 잡았다.
+- `axis_rules.v2.json`: 규칙 68개(공통 15 C-* + 단원팩 53 D-*: EL_AELF 9·PS 10·GE 11·CA2_M2D 23).
+  v1(45개)은 기록용 보관. **커밋됨(HEAD 33c07c78).**
+- `build_axis_prediction.py`: 생성기 **v4**(행별 폴백 + 유형요약 방출 + `pack_gap` 시트). **Python 필요.**
+- 정본 = **안 A + 분업**: 공식 생성은 검수 채팅(Python/xlsx), **45단원 대량 실행 + git·저장은 Code 탭.**
+  `Run-AxisPrediction.ps1` 이 **v4 를 저장JSON 에 포팅한 대량 실행기**(이제 커밋됨). AELF 에서 Python v4 와
+  완전 일치(총353·적중96%·팩76%·gap20%·이름단독92%·요약전용1) — 교차검증이 v1/v2 `detect_layout` 버그도 잡음.
+  실행: `tools\mathflat_builder\Run-AxisPrediction.ps1 [-Only <CODE>]` → CSV(임시\axispred): name_source_dist·unmatched_all·pack_gap_all·rule_over60.
 
 ### 검수 채팅과의 현재 루프 상태 (진행 중)
 - v1 규칙 45단원 실행 결과: 적중률 81%(9,028행). 미매칭 1,680건이 규칙 v2 재료.
@@ -160,8 +163,12 @@ MathFlat 화면 스크린샷을 전사한 검수완료 엑셀을 **단원별로*
   EL은 **쉼표 구분자 실재**(§17-13 유효), AELF는 쉼표=문장부호(§17-13 무관).
 - **name-only 적중률** 발견: 중영역이 컨텍스트에 들어가 EQ·IN 등 100%가 부풀음. 팩 우선순위는 적중률이 아니라
   이름단독 낮은 순(CMM 33·IR 35·PB 36·NE 38·CMP 41).
-- **대기**: 검수 채팅이 CMM(2건)·M2D(139건) 미매칭으로 팩 두 개 초안 → 규칙 v2. Python **v4** 예고
-  (유형요약-only 묶음 156건을 유형묶음 출처로 방출해 엔진과 커버리지 일치). v2/v4 오면 `tools/axis_prediction/` 반영·커밋.
+- **완료**: 규칙 v2 + 스크립트 v4 수령·반영·커밋(33c07c78). 45단원 대량 실행함(총9,028행·미매칭1,545·pack_gap6,410).
+  M2D 검증: 406항목·적중100%·팩92%·gap7%·**과다규칙 0**(우려한 연속·미분가능·접선 넓은패턴 60% 안 넘김). CMM 61항목 이름 전량 추출 전달.
+- **pack_gap = 팩 필요성 진짜 지표**(신규): 미매칭은 과다매칭을 못 봄. CMM 미매칭 2건인데 pack_gap 59건(46건이 C-10-only).
+  팩 우선순위는 적중률 아니라 **이름단독 낮은 순**: CMM 33·IR 35·PB 36·NE 38·CMP 41(전부 팩 없음).
+  팩 넓은규칙 점검: PSS D-PS-05 64%·PSC D-PS-09 61%(단원팩이 60%초과 — 변별력 재검토).
+- **대기**: 검수 채팅이 CMM 61항목으로 행렬 팩 초안 → 규칙 v3. CA2_M2D 확장(M1D·M1LC·M2SL·M2I)은 해당 단원 이름 확인 후(규칙 `note`).
 - depth는 **행 속성**(단원 아님) — AELF 한 단원에 세부79·주제273 섞임. index 교체 때 group_only를 단원필드로 굳히지 말 것.
 
 ---
