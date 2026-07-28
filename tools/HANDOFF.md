@@ -145,6 +145,9 @@ MathFlat 화면 스크린샷을 전사한 검수완료 엑셀을 **단원별로*
 
 ## 7. 유형 예측표 서브시스템 (`tools/axis_prediction/`)
 
+> **팩 생산 라인이 활발히 도는 중 — 새 세션은 `tools/axis_prediction/PACK_HANDOFF.md` 부터 읽는다.**
+> 매 라운드 절차·삽입 스니펫·팩 로스터·열린 항목이 그 문서에 전부 있다. 아래는 요약.
+
 각 유형에 "여기서 잘 틀리는 진단축"을 규칙으로 예측(predicted_axes). 분류표와 별개, **predicted_ 전용**
 (학생 실측 observed_와 절대 같은 필드 금지).
 
