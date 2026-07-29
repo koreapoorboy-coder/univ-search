@@ -5,9 +5,10 @@
 #   - 코드 열(그룹ID=source_group_id, 코드=source_code) 을 항상 실어 §10-2 문항 ID 지목이 가능.
 #   - 출력 = pack_gap(걸렸으나 C-공통만) + 미매칭(무발화). pack_hit(D- 발화)은 재료 아님이라 제외.
 #
-# 형식(고정): 탭 구분, 헤더 1행, 값 무인용. 열 순서:
-#   구분 · 중영역 · 유형묶음 · 그룹ID · 코드 · 이름 · 적용규칙(C-규칙 ', ' 결합)
-# 정렬: 중영역 → 유형묶음 → 구분 → 이름.
+# 형식(고정, 검수 채팅 마스터 명세 §17-9): TSV(탭) · UTF-8 · BOM 없음 · 헤더 1행 · 값 무인용.
+#   열 순서: 그룹ID · 코드 · 중영역 · 묶음 · 이름 · 적용규칙 · 분류
+#   적용규칙 = 걸린 C-규칙을 '공백 없는 쉼표'로 결합 (C-01,C-08). 분류 = pack_gap / 미매칭.
+# 정렬: 중영역 → 묶음 → 분류 → 이름.
 #
 # 사용: Export-PackGapMaterial.ps1 -Only EQ [-OutPath <경로>]
 # ⚠ 파라미터명은 반드시 $Only — 루프변수 $prefix 와 겹치면 PowerShell 대소문자무시로 덮인다(§4 문서화된 버그).
@@ -69,17 +70,26 @@ foreach ($file in $files) {
         if ($ctx -match $rule.pattern) { $hits += $rule.id; if ($rule.id -like 'D-*') { $hasPack = $true } }
       }
       if ($hasPack) { continue }   # pack_hit = 재료 아님
-      $gubun = if ($hits.Count -eq 0) { '미매칭' } else { 'pack_gap' }
+      $bunryu = if ($hits.Count -eq 0) { '미매칭' } else { 'pack_gap' }
       $rows += [pscustomobject]@{
-        구분 = $gubun; 중영역 = $mid; 유형묶음 = $group; 그룹ID = $gid; 코드 = $e.code
-        이름 = $nm; 적용규칙 = ($hits -join ', ')
+        그룹ID = $gid; 코드 = $e.code; 중영역 = $mid; 묶음 = $group
+        이름 = $nm; 적용규칙 = ($hits -join ','); 분류 = $bunryu
       }
     }
   }
 }
-$sorted = $rows | Sort-Object 중영역, 유형묶음, 구분, 이름
-if (-not $OutPath) { $OutPath = Join-Path (Join-Path $HOME 'Downloads') ("{0}_packgap_material.tsv" -f $Only) }
-$sorted | Export-Csv -Path $OutPath -Delimiter "`t" -NoTypeInformation -Encoding UTF8
-$g = @($sorted | Where-Object { $_.구분 -eq 'pack_gap' }).Count
-$u = @($sorted | Where-Object { $_.구분 -eq '미매칭' }).Count
+$sorted = $rows | Sort-Object 중영역, 묶음, 분류, 이름
+if (-not $OutPath) { $OutPath = Join-Path (Join-Path $HOME 'Downloads') ("{0}_pack_gap.tsv" -f $Only) }
+# 명세 §17-9: 탭 구분 · 무인용 · BOM 없음 · 헤더 1행. Export-Csv 는 인용·BOM 을 붙여 부적합 → 직접 조립.
+$hdr = '그룹ID','코드','중영역','묶음','이름','적용규칙','분류'
+$sb = New-Object System.Text.StringBuilder
+[void]$sb.AppendLine($hdr -join "`t")
+foreach ($r in $sorted) {
+  $vals = @($r.그룹ID, $r.코드, $r.중영역, $r.묶음, $r.이름, $r.적용규칙, $r.분류) |
+    ForEach-Object { ([string]$_).Replace("`t",' ').Replace("`r",'').Replace("`n",' ') }
+  [void]$sb.AppendLine($vals -join "`t")
+}
+[IO.File]::WriteAllText($OutPath, $sb.ToString(), (New-Object Text.UTF8Encoding($false)))
+$g = @($sorted | Where-Object { $_.분류 -eq 'pack_gap' }).Count
+$u = @($sorted | Where-Object { $_.분류 -eq '미매칭' }).Count
 Write-Host ("{0}: pack_gap {1} + 미매칭 {2} = {3}행 → {4}" -f $Only, $g, $u, $sorted.Count, $OutPath)
