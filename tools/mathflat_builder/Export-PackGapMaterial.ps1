@@ -14,8 +14,9 @@
 # ⚠ 파라미터명은 반드시 $Only — 루프변수 $prefix 와 겹치면 PowerShell 대소문자무시로 덮인다(§4 문서화된 버그).
 param(
   [Parameter(Mandatory=$true)][string]$Only,
-  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v23.json'),
-  [string]$OutPath   = ''
+  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v26.json'),
+  [string]$OutPath   = '',
+  [switch]$All        # 전 항목 방출(pack_hit 포함). 기본은 pack_gap+미매칭만(재료용).
 )
 $ErrorActionPreference = 'Stop'
 $dir = 'C:\Users\user\Desktop\scshstudy\public\math-weakness-engine\data\raw_taxonomy'
@@ -69,8 +70,8 @@ foreach ($file in $files) {
       foreach ($rule in $rules) {
         if ($ctx -match $rule.pattern) { $hits += $rule.id; if ($rule.id -like 'D-*') { $hasPack = $true } }
       }
-      if ($hasPack) { continue }   # pack_hit = 재료 아님
-      $bunryu = if ($hits.Count -eq 0) { '미매칭' } else { 'pack_gap' }
+      if ($hasPack -and -not $All) { continue }   # pack_hit = 재료 아님(기본). -All 이면 포함.
+      $bunryu = if ($hits.Count -eq 0) { '미매칭' } elseif ($hasPack) { 'pack_hit' } else { 'pack_gap' }
       $rows += [pscustomobject]@{
         그룹ID = $gid; 코드 = $e.code; 중영역 = $mid; 묶음 = $group
         이름 = $nm; 적용규칙 = ($hits -join ','); 분류 = $bunryu
@@ -79,7 +80,7 @@ foreach ($file in $files) {
   }
 }
 $sorted = $rows | Sort-Object 중영역, 묶음, 분류, 이름
-if (-not $OutPath) { $OutPath = Join-Path (Join-Path $HOME 'Downloads') ("{0}_pack_gap.tsv" -f $Only) }
+if (-not $OutPath) { $suffix = if ($All) { 'all' } else { 'pack_gap' }; $OutPath = Join-Path (Join-Path $HOME 'Downloads') ("{0}_{1}.tsv" -f $Only, $suffix) }
 # 명세 §17-9: 탭 구분 · 무인용 · BOM 없음 · 헤더 1행. Export-Csv 는 인용·BOM 을 붙여 부적합 → 직접 조립.
 $hdr = '그룹ID','코드','중영역','묶음','이름','적용규칙','분류'
 $sb = New-Object System.Text.StringBuilder
@@ -92,4 +93,6 @@ foreach ($r in $sorted) {
 [IO.File]::WriteAllText($OutPath, $sb.ToString(), (New-Object Text.UTF8Encoding($false)))
 $g = @($sorted | Where-Object { $_.분류 -eq 'pack_gap' }).Count
 $u = @($sorted | Where-Object { $_.분류 -eq '미매칭' }).Count
-Write-Host ("{0}: pack_gap {1} + 미매칭 {2} = {3}행 → {4}" -f $Only, $g, $u, $sorted.Count, $OutPath)
+$h = @($sorted | Where-Object { $_.분류 -eq 'pack_hit' }).Count
+if ($All) { Write-Host ("{0}: 전항목 {1}행 (pack_hit {2} + pack_gap {3} + 미매칭 {4}) → {5}" -f $Only, $sorted.Count, $h, $g, $u, $OutPath) }
+else      { Write-Host ("{0}: pack_gap {1} + 미매칭 {2} = {3}행 → {4}" -f $Only, $g, $u, $sorted.Count, $OutPath) }
