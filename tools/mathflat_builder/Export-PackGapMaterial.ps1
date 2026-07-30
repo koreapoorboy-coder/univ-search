@@ -81,14 +81,15 @@ foreach ($file in $files) {
 }
 $sorted = $rows | Sort-Object 중영역, 묶음, 분류, 이름
 if (-not $OutPath) { $suffix = if ($All) { 'all' } else { 'pack_gap' }; $OutPath = Join-Path (Join-Path $HOME 'Downloads') ("{0}_{1}.tsv" -f $Only, $suffix) }
-# 명세 §17-9: 탭 구분 · 무인용 · BOM 없음 · 헤더 1행. Export-Csv 는 인용·BOM 을 붙여 부적합 → 직접 조립.
+# 명세 §17-9: 탭 구분 · 무인용 · BOM 없음 · 헤더 1행 · 줄바꿈 LF. Export-Csv 는 인용·BOM 을 붙여 부적합 → 직접 조립.
+# ⚠ AppendLine 은 CRLF 를 붙여 마지막 열(분류)에 \r 이 새므로 금지. Append + "`n"(LF) 로 조립한다.
 $hdr = '그룹ID','코드','중영역','묶음','이름','적용규칙','분류'
 $sb = New-Object System.Text.StringBuilder
-[void]$sb.AppendLine($hdr -join "`t")
+[void]$sb.Append(($hdr -join "`t")).Append("`n")
 foreach ($r in $sorted) {
   $vals = @($r.그룹ID, $r.코드, $r.중영역, $r.묶음, $r.이름, $r.적용규칙, $r.분류) |
     ForEach-Object { ([string]$_).Replace("`t",' ').Replace("`r",'').Replace("`n",' ') }
-  [void]$sb.AppendLine($vals -join "`t")
+  [void]$sb.Append(($vals -join "`t")).Append("`n")
 }
 [IO.File]::WriteAllText($OutPath, $sb.ToString(), (New-Object Text.UTF8Encoding($false)))
 $g = @($sorted | Where-Object { $_.분류 -eq 'pack_gap' }).Count
