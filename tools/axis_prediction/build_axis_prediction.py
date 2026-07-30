@@ -245,7 +245,10 @@ def main():
                             axes.append(a)
             for h in hits:
                 freq[h] = freq.get(h, 0) + 1
-            if nm and any(re.search(rule['pattern'], str(nm))
+            # 이름단독 = 이름이 '팩(D-) 규칙'에 걸리는가. 공통(C-)규칙은 팩 설계와 무관하고
+            # 주제어 포화 단원을 부풀려 측정 대상과 정반대를 잰다(§16-E). 러너와 동일 알고리즘.
+            if nm and any(rule['id'].startswith('D-')
+                          and re.search(rule['pattern'], str(nm))
                           for rule in rules):
                 name_only_hit += 1
             key = code if len(names) == 1 else f'{code}.{i + 1:02d}'
