@@ -180,10 +180,13 @@ Code 탭이 리포로 대조해 확인한 **선행 데이터 의존성 4건**(�
 
 ```powershell
 cd C:\Users\user\Desktop\scshstudy
-git log --oneline -1                                  # 0f8d45ff 이상
-tools\mathflat_builder\Run-AxisPrediction.ps1 -Only AELF   # 353·96·76·20·이름단독60·요약1 (앵커, 이름단독 팩D-만 v26)
-tools\mathflat_builder\Run-AxisPrediction.ps1 -Only IN     # 115·100%·100%·gap0·이름단독84·과다 C-12 69%(유령아님) (v26 최신팩)
-tools\mathflat_builder\Run-AxisPrediction.ps1 -Only M1I    # 187·100%·100%·gap0 (접두충돌 검사: IN1_M1I 불변)
+git log --oneline -1                                  # bb25e891 이상 (v30)
+tools\mathflat_builder\Run-AxisPrediction.ps1 -Only AELF   # 353·96·76·20·이름단독60·요약1 (앵커 — 틀리면 뭔가 깨진 것)
+tools\mathflat_builder\Run-AxisPrediction.ps1 -Only NE     # 206·100%·87%·gap13·미매칭0·이름단독26 (v30 최신팩 NS_NE)
+tools\mathflat_builder\Run-AxisPrediction.ps1 -Only RC     # 203·100%·86%·gap14·미매칭0 (v29 SR_RC)
 ```
-남은 **팩 없는 15단원** 중 다음 재료가 오면 §1 절차로 v27 반영(델타: 블록만 받아 작업본 v26에 합침). **AP_USE는 상황목록 닫힘·(A) 완료 후 신설**(§4). 새 팩마다 **접두 3층 확인**(§3)·**유령축 팩분해 판정**(§6-2) 잊지 말 것.
-**정리/규칙 질문**은 이 문서 + README(라운드 이력) + HANDOFF 참조.
+**지금 상태**: 규칙 v30(포팅 v30) · 팩 32/45 · HEAD `bb25e891`. **진행 중 = GP(도형의 성질 중2) 팩** — 재료 `GP_pack_gap.tsv` 검수 채팅에 발송 완료(178행). 팩키 `TQ_GP`·id `D-GP-` 확정, 전치쌍 `PG`(평면도형 중1)는 `PC_PG`·`D-PG-` 예약. **검수 채팅이 GP 블록 주면** §1 절차(블록 파일 직접 삽입·재직렬화 금지·매치검증·3층 재확인)로 **v31 반영** → RC/NE 때와 동일 흐름(체크섬·바이트동일·AELF 불변·출하 예측치 대조).
+- 남은 팩 없는 13단원. **검증가능(중2·중3, §13 실문항) 우선**: GP(진행)→PB→ST→PF_M3S1(과제11 뒤). 중1 5·고 4는 실문항 0이라 (B)/과제4 후.
+- 새 팩마다: **접두 3층**(§3)·**유령축 팩분해 판정=팩주도율>50%**(§6-2)·**A2 겨냥**(§6-9, 암기형 §7-7 좌열)·**C-08/C-15 겹침 C1 회피**(§7-4)·**활용은 AP_USE 이관 규칙 미작성**(§4)·**`^묶음이름 ` 앵커, `$` 금지**(§7-3).
+- 규칙 전달 = **델타(블록만)**. 팩 블록 스키마 = `"KEY": {applies_to, note, rules[{id,pattern,axes,why}]}` compressed(§15). 재료 생성 = `Export-PackGapMaterial.ps1 -Only <unit_code>`(§17-9, RulesPath v30).
+**정리/규칙 질문**은 이 문서 + README(라운드 이력 v3~v30) 참조.
