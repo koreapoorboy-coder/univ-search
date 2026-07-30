@@ -86,7 +86,9 @@ foreach ($file in $files) {
         }
       }
       foreach ($h in $hits) { if ($freq.ContainsKey($h)) { $freq[$h]++ } else { $freq[$h] = 1 } }
-      $nH = $false; if ($nm) { foreach ($rule in $rules) { if ($nm -match $rule.pattern) { $nH = $true; break } } }
+      # 이름단독 = 이름이 '팩(D-) 규칙'에 걸리는가 (§16-E 판정: 공통규칙은 팩 설계와 무관하므로 제외).
+      #   공통 포함 시 주제어 포화 단원이 부풀려져 측정 대상과 정반대를 잰다(EQ 78%↔42% 발산으로 표면화).
+      $nH = $false; if ($nm) { foreach ($rule in $rules) { if ($rule.id -like 'D-*' -and $nm -match $rule.pattern) { $nH = $true; break } } }
       if ($nH) { $nameOnly++ }
       if ($axes.Count -eq 0) {
         $hit = $hit   # no-op; unmatched
@@ -134,6 +136,6 @@ $tot = ($dist | Measure-Object 총항목 -Sum).Sum
 "CSV → $OutDir"
 $aelf = $dist | Where-Object { $_.prefix -eq 'AELF' }
 if ($aelf) {
-  "AELF 교차검증 (Python v4 기대: 총353 적중96% 팩76% gap20% 이름단독92% 요약전용1):"
+  "AELF 교차검증 (Python v4 기대: 총353 적중96% 팩76% gap20% 이름단독60% 요약전용1):"   # 이름단독: v24부터 팩D-만(공통+팩 92→팩D- 60). 정본 Python 도 동일 정의여야 일치.
   "  총 $($aelf.총항목) · 적중 $($aelf.적중률)% · 팩 $($aelf.'팩%')% · gap $($aelf.'gap%')% · 이름단독 $($aelf.이름단독)% · 요약전용 $($aelf.요약전용)"
 }
