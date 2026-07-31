@@ -16,8 +16,8 @@
   "semester": "M3S1",
   "semester_name": "중3 1학기",
   "unit_id": "M3_POLYNOMIAL_FACTORING",
-  "unit_code": "PF",
-  "unit_code_note": "단원코드 PF가 1-1 소인수분해와 겹친다. 엑셀 세부코드 열을 그대로 승계한 결과이며, problem_type_id는 학기 구간이 달라(MPLAT.M1S1.PF vs MPLAT.M3S1.PF) 여전히 고유하다. unit_code만으로 단원을 찾는 코드를 쓰면 두 단원이 섞인다.",
+  "unit_code": "PM",
+  "unit_code_note": "과제 11 해소(2026-07): 이 단원(3-1 다항식의 곱셈과 인수분해)의 unit_code를 PF→PM으로 변경. 이전에는 1-1 소인수분해와 둘 다 PF라 unit_code만으로 단원을 찾으면 섞였고, 축예측 러너가 PF→PF_$학기로 우회 분리했다. 이제 소인수분해만 PF, 이 단원은 PM으로 고유하다. 팩 신설 시 팩키 PM 계열·규칙 id D-PM- 사용(D-PF-는 PF_M1S1 팩이 01~16 점유). problem_type_id는 MPLAT.M3S1.PM.",
   "source_exclusions": {
     "count": 1,
     "items": [
