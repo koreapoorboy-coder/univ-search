@@ -14,7 +14,7 @@
 # ⚠ 파라미터명은 반드시 $Only — 루프변수 $prefix 와 겹치면 PowerShell 대소문자무시로 덮인다(§4 문서화된 버그).
 param(
   [Parameter(Mandatory=$true)][string]$Only,
-  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v38.json'),
+  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v39.json'),
   [string]$OutPath   = '',
   [switch]$All        # 전 항목 방출(pack_hit 포함). 기본은 pack_gap+미매칭만(재료용).
 )
