@@ -6,7 +6,7 @@
 # (AELF 에서 두 구현이 어긋난 덕에 v2 detect_layout 버그를 잡았다 — 교차검증 가치 확인됨.)
 #
 # v5 로 맞춘 것:
-#   - 규칙 = axis_rules.v40.json (공통 15 C-* + 단원팩 D-*: …·PN_M1LC·PN_SG)  v37: PN_IR 33(정수와 유리수 중1) · v38: PN_M2SL 30(수열의 극한 고3 미적분2 H3CA2, 균등 최평탄) · v39: PN_M1LC 29(함수의 극한과 연속 고2 미적분1 H2CA1, 팩 단독 B1 50.7% 역대 최초 진짜 지배축, 평균축 2.30) · v40: PN_SG 29(입체도형 중1, 지배축 없음·C1 봉쇄 70.5%, 팩 단독 A2 42.4%, 평균축 2.06 B안)
+#   - 규칙 = axis_rules.v41.json (공통 15 C-* + 단원팩 D-*: …·PN_SG·PN_CG)  v38: PN_M2SL 30(수열의 극한 고3) · v39: PN_M1LC 29(함수의 극한과 연속 고2, B1 50.7% 역대 최초 진짜 지배축) · v40: PN_SG 29(입체도형 중1, 지배축 없음·C1 봉쇄 70.5%, 평균축 2.06) · v41: PN_CG 29(좌표와 그래프 중1, 지배축 C2 51.2%·팩주도율 90.8%, C-07 규율 신설, 평균축 2.00 B안)
 #   - 매칭 컨텍스트 = 유형 묶음 + 유형 이름 (v5: 중영역 제거 — 단원 주제어라 변별력 없음)
 #   - 행별 이름 폴백: 세부유형 → 주제유형 → 유형묶음  (v3)
 #   - PF 코드충돌: unit_code=PF 인 두 단원을 학기로 갈라 PF_M1S1 / PF_M3S1 로 팩 선택(§17-7)
@@ -18,7 +18,7 @@
 # 출력: 콘솔 요약표 + CSV(name_source_dist / unmatched_all / pack_gap_all / rule_over60).
 # 스크린 데이터를 지어내지 않는다 — 규칙에 걸린 것만 축을 채우고, 안 걸리면 unmatched.
 param(
-  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v40.json'),
+  [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v41.json'),
   [string]$OutDir    = (Join-Path ([IO.Path]::GetTempPath()) 'axispred'),
   [string]$Only      = ''    # 단원 prefix 하나만 (예: -Only M2D)
 )
