@@ -2,7 +2,7 @@
 
 근거: ① 팩 axis_rules.v44.json 4팩(EX_LE·LI_IN·SD_ST·NS_NE) why 용례로 축 의미 복원
       ② source_item_links 각 문항 first_action_hint·expected_process_stages·동시태그 (문제text 미저장 policy)
-주의: 17축 정의 원문(§10~11)은 리포에 없음(검수측 보유) → 경계축(B1/C1·C3/C4·E1/E3·A2/D2)은 잠정.
+주의: 17축 정의 원문이 이후 입수됨 → `axis_definitions_v10_orig.md`. **이 v1 배치는 원문 대조 결과 A3·B3·C3·C4·D3에서 어긋남(재검 필요).** 원문 재배치 방향은 그 파일 §대조 참조. 이 파일은 복원본 기록으로 보존.
 
 ## 축 조작적 정의(팩 why에서 복원)
 - A1 뜻/경향 안 읽고 직관·계산부터 (상관·표준편차 직관비교)
