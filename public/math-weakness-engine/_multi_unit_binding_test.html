@@ -1,0 +1,214 @@
+<!doctype html>
+<meta charset="utf-8"><title>P0-01 multi-unit runtime binding test</title>
+<body><pre id="log"></pre>
+<!-- 실제 소스만 로드한다. 엔진은 결정/회계 로직만 검증하도록 mock 을 쓴다(데이터 fetch 불요·결정적). -->
+<script src="assets/math_verification_flow.js"></script>
+<script>
+const log = s => document.getElementById('log').textContent += s + '\n';
+let pass = 0, fail = 0;
+function check(name, cond, detail) {
+  if (cond) { pass++; log('PASS  ' + name); }
+  else { fail++; log('FAIL  ' + name + (detail ? '  ::  ' + detail : '')); }
+}
+const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+// [추가 1/2] 문항 수 보존 불변식 — 모든 케이스에서 검사한다.
+function assertConserved(name, b) {
+  const a = b.attempt_accounting;
+  check(name + '.보존 N==diag+unres', !!a && a.conserved && a.total === (a.diagnosable_count + a.unresolved_count), JSON.stringify(a));
+}
+
+const DECLARED = [
+  'M2_LINEAR_EQUATION', 'M2_LINEAR_FUNCTION', 'M3_TRIGONOMETRIC_RATIO',
+  'M2_LINEAR_INEQUALITY', 'M3_CIRCLE_PROPERTIES', 'M2_LE' // M2_LE = 접두어 미끼
+];
+function makeMockEngine(opts = {}) {
+  const dataMissing = new Set(opts.dataMissing || []);      // 선언됐지만 파일 부재(CASE F)
+  const unitData = {};
+  DECLARED.forEach(id => { if (!dataMissing.has(id)) unitData[id] = { unit_id: id }; });
+  const requested = [];
+  return {
+    indexedUnits: DECLARED.map(id => ({ unit_id: id })),
+    problemTypeById: opts.problemTypeById,                  // 기본 undefined → ptKnown 통과(결정 로직만 테스트)
+    unitData,
+    collectAttemptList(input) { return Array.isArray(input && input.attempts) ? input.attempts : []; },
+    relatedUnitIds(id) { return [id]; },                    // mock: edge 없음 → identity(결정적)
+    async ensureUnits(ids) { (ids || []).forEach(x => requested.push(x)); return this; },
+    _requested: requested
+  };
+}
+const run = async (attempt, opts) => {
+  const engine = makeMockEngine(opts);
+  const flow = new MathVerificationFlow({ engine, bridge: null });
+  const binding = await flow._ensureUnitsForAttempt(attempt);
+  return { binding, requested: engine._requested, engine };
+};
+const statusesFor = b => (b.unresolved_units || []).reduce((m, u) => (m[u.unit_id] = u.status, m), {});
+const attStatus = (b, qno) => ((b.attempt_accounting.unresolved_attempts || []).find(x => String(x.question_no) === String(qno)) || {}).status;
+
+(async () => {
+  log('=== P0-01 MULTI-UNIT RUNTIME BINDING — mock engine fixtures ===\n');
+
+  // CASE A — explicit unit_id 와 problem_type prefix 가 다른 정상 케이스.
+  {
+    const attempt = { attempts: [{ question_no: '1', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT001' }] };
+    const { binding, requested } = await run(attempt);
+    check('A.resolved == [M2_LINEAR_EQUATION]', eq(binding.resolved_unit_ids, ['M2_LINEAR_EQUATION']), JSON.stringify(binding.resolved_unit_ids));
+    check('A.explicit beats prefix inference (M2_LE 미끼 미포함)', !binding.resolved_unit_ids.includes('M2_LE') && !requested.includes('M2_LE'));
+    check('A.requested 에 정확한 단원 로드', requested.includes('M2_LINEAR_EQUATION'));
+    check('A.unresolved 없음', eq(binding.unresolved_units, []) && binding.attempt_accounting.unresolved_count === 0);
+    assertConserved('A', binding);
+  }
+
+  // CASE B — 여러 단원 혼합. 세 unit 모두 로딩 · 세 문항 모두 진단 가능.
+  {
+    const attempt = { unit_id: 'M2_LINEAR_EQUATION', attempts: [
+      { question_no: '1', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT001' },
+      { question_no: '2', unit_id: 'M2_LINEAR_FUNCTION', problem_type_id: 'M2_LF_PT003' },
+      { question_no: '3', unit_id: 'M3_TRIGONOMETRIC_RATIO', problem_type_id: 'M3_TRIG_PT002' }
+    ]};
+    const { binding, requested } = await run(attempt);
+    const need = ['M2_LINEAR_EQUATION', 'M2_LINEAR_FUNCTION', 'M3_TRIGONOMETRIC_RATIO'];
+    check('B.세 unit 모두 resolved', need.every(u => binding.resolved_unit_ids.includes(u)), JSON.stringify(binding.resolved_unit_ids));
+    check('B.세 unit 모두 requested', need.every(u => requested.includes(u)));
+    check('B.미끼/무관 단원 미포함', !binding.resolved_unit_ids.includes('M2_LE'));
+    check('B.세 문항 모두 진단 가능', binding.attempt_accounting.diagnosable_count === 3);
+    assertConserved('B', binding);
+  }
+
+  // CASE C — 동일 unit 반복 → 중복 로딩 없음(stable dedup) · 문항 4개는 모두 보존.
+  {
+    const attempt = { attempts: [
+      { question_no: '1', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT001' },
+      { question_no: '2', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT002' },
+      { question_no: '3', unit_id: 'M2_LINEAR_FUNCTION', problem_type_id: 'M2_LF_PT003' },
+      { question_no: '4', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT004' }
+    ]};
+    const { binding, requested } = await run(attempt);
+    check('C.resolved 순서유지+dedup == [LE, LF]', eq(binding.resolved_unit_ids, ['M2_LINEAR_EQUATION', 'M2_LINEAR_FUNCTION']), JSON.stringify(binding.resolved_unit_ids));
+    check('C.M2_LINEAR_EQUATION 한 번만 로드', requested.filter(x => x === 'M2_LINEAR_EQUATION').length === 1);
+    check('C.문항 4개 모두 진단 가능(중복은 단원만)', binding.attempt_accounting.total === 4 && binding.attempt_accounting.diagnosable_count === 4);
+    assertConserved('C', binding);
+  }
+
+  // CASE D1 — explicit 없음 · legacy 접두어 추정 동작(regression 없음).
+  {
+    const attempt = { attempts: [{ question_no: '1', problem_type_id: 'M2_LINEAR_INEQUALITY_PT001' }] };
+    const { binding } = await run(attempt);
+    check('D1.접두어 추정 → M2_LINEAR_INEQUALITY', eq(binding.resolved_unit_ids, ['M2_LINEAR_INEQUALITY']), JSON.stringify(binding.resolved_unit_ids));
+    check('D1.load_all_fallback=false', binding.load_all_fallback === false);
+    assertConserved('D1', binding);
+    log('  D1.raw acc: ' + JSON.stringify(binding.attempt_accounting));
+  }
+  // CASE D2 — explicit 없음 · 추정도 실패 → 종전대로 전부 로드(legacy fallback 유지).
+  {
+    const attempt = { attempts: [{ question_no: '1', problem_type_id: 'ZZZ_NOPREFIX_PT001' }] };
+    const { binding, requested } = await run(attempt);
+    check('D2.load_all_fallback=true', binding.load_all_fallback === true);
+    check('D2.전 단원 로드', DECLARED.every(u => requested.includes(u)));
+    assertConserved('D2', binding);
+    log('  D2.raw acc: ' + JSON.stringify(binding.attempt_accounting));
+  }
+  // CASE D3 — canonical lookup(P2) 이 접두어보다 먼저 정확히 잡는다.
+  {
+    const attempt = { attempts: [{ question_no: '1', problem_type_id: 'M2_LE_PT001' }] };
+    const opts = { problemTypeById: { 'M2_LE_PT001': { unit_id: 'M2_LINEAR_EQUATION' } } };
+    const { binding } = await run(attempt, opts);
+    check('D3.canonical → M2_LINEAR_EQUATION(미끼 M2_LE 아님)', eq(binding.resolved_unit_ids, ['M2_LINEAR_EQUATION']), JSON.stringify(binding.resolved_unit_ids));
+    assertConserved('D3', binding);
+  }
+
+  // CASE E — 존재하지 않는 explicit unit_id → fail-closed, 추측 금지 · 문항은 사라지지 않고 UNKNOWN_UNIT.
+  {
+    const attempt = { attempts: [{ question_no: '1', unit_id: 'INVALID_TEST_UNIT', problem_type_id: 'M2_LE_PT001' }] };
+    const { binding, requested } = await run(attempt);
+    check('E.resolved 비어있음(추측 안 함)', eq(binding.resolved_unit_ids, []), JSON.stringify(binding.resolved_unit_ids));
+    check('E.단원 UNKNOWN_UNIT', statusesFor(binding)['INVALID_TEST_UNIT'] === 'UNKNOWN_UNIT');
+    check('E.접두어 미끼 M2_LE 로 대체 안 함', !requested.includes('M2_LE') && !binding.resolved_unit_ids.includes('M2_LE'));
+    check('E.문항이 조용히 사라지지 않음(UNKNOWN_UNIT 로 집계)', attStatus(binding, '1') === 'UNKNOWN_UNIT' && binding.attempt_accounting.total === 1);
+    assertConserved('E', binding);
+    log('  E.raw acc: ' + JSON.stringify(binding.attempt_accounting));
+    log('  E.raw unresolved_units: ' + JSON.stringify(binding.unresolved_units));
+  }
+
+  // CASE F — canonical data 부재 단원(선언됐지만 파일 없음).
+  {
+    const attempt = { attempts: [{ question_no: '1', unit_id: 'M3_CIRCLE_PROPERTIES', problem_type_id: 'M3_CIRC_PT001' }] };
+    const { binding, requested } = await run(attempt, { dataMissing: ['M3_CIRCLE_PROPERTIES'] });
+    check('F.정확한 단원을 요청(대체 아님)', requested.includes('M3_CIRCLE_PROPERTIES'));
+    check('F.다른 M3 단원으로 추측 안 함', !requested.some(x => x.startsWith('M3_') && x !== 'M3_CIRCLE_PROPERTIES'));
+    check('F.단원 UNIT_DATA_NOT_AVAILABLE', statusesFor(binding)['M3_CIRCLE_PROPERTIES'] === 'UNIT_DATA_NOT_AVAILABLE');
+    check('F.문항 UNIT_DATA_NOT_AVAILABLE 로 집계', attStatus(binding, '1') === 'UNIT_DATA_NOT_AVAILABLE');
+    assertConserved('F', binding);
+    log('  F.raw acc: ' + JSON.stringify(binding.attempt_accounting));
+  }
+
+  // CASE H [추가 3] — 공백만 있는 unit_id 는 '부재'로 보고 P2/P3 로 내려간다.
+  {
+    const attempt = { attempts: [{ question_no: '1', unit_id: '   ', problem_type_id: 'M2_LINEAR_INEQUALITY_PT001' }] };
+    const { binding } = await run(attempt);
+    check('H.공백 unit_id → 추정으로 해석(UNKNOWN_UNIT 아님)', eq(binding.resolved_unit_ids, ['M2_LINEAR_INEQUALITY']) && eq(binding.unresolved_units, []), JSON.stringify(binding));
+    check('H.문항 진단 가능', binding.attempt_accounting.diagnosable_count === 1);
+    assertConserved('H', binding);
+  }
+  // 빈 문자열/undefined 도 동일하게 부재 처리.
+  {
+    const a1 = await run({ attempts: [{ question_no: '1', unit_id: '', problem_type_id: 'M2_LINEAR_INEQUALITY_PT001' }] });
+    check('H2.빈 문자열 unit_id → 추정', eq(a1.binding.resolved_unit_ids, ['M2_LINEAR_INEQUALITY']));
+  }
+
+  // CASE I [추가 4] — unit_id 와 canonical lookup 불일치 → authority=unit_id, mismatch 기록.
+  {
+    const attempt = { attempts: [{ question_no: '7', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT001' }] };
+    const opts = { problemTypeById: { 'M2_LE_PT001': { unit_id: 'M2_LINEAR_FUNCTION' } } }; // canonical=LF, explicit=LE
+    const { binding } = await run(attempt, opts);
+    check('I.authority=unit_id 유지(LE)', eq(binding.resolved_unit_ids, ['M2_LINEAR_EQUATION']), JSON.stringify(binding.resolved_unit_ids));
+    const mm = binding.unit_id_canonical_mismatches;
+    check('I.mismatch 1건 기록', mm.length === 1 && mm[0].unit_id === 'M2_LINEAR_EQUATION' && mm[0].canonical_unit_id === 'M2_LINEAR_FUNCTION', JSON.stringify(mm));
+    check('I.mismatch 여도 문항은 진단 가능', binding.attempt_accounting.diagnosable_count === 1);
+    assertConserved('I', binding);
+    log('  I.raw mismatches: ' + JSON.stringify(binding.unit_id_canonical_mismatches));
+    log('  I.raw acc: ' + JSON.stringify(binding.attempt_accounting));
+  }
+
+  // CASE J [추가 5] — 단원은 로드됐으나 그 problem_type_id 가 없음 → PROBLEM_TYPE_NOT_FOUND(fail-closed).
+  {
+    const attempt = { attempts: [{ question_no: '9', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT_MISSING' }] };
+    const opts = { problemTypeById: { 'M2_LE_PT001': { unit_id: 'M2_LINEAR_EQUATION' } } }; // PT_MISSING 은 맵에 없음
+    const { binding, requested } = await run(attempt, opts);
+    check('J.단원 자체는 로드 요청됨', requested.includes('M2_LINEAR_EQUATION'));
+    check('J.문항 PROBLEM_TYPE_NOT_FOUND', attStatus(binding, '9') === 'PROBLEM_TYPE_NOT_FOUND');
+    check('J.진단 가능 0 · 불가 1', binding.attempt_accounting.diagnosable_count === 0 && binding.attempt_accounting.unresolved_count === 1);
+    assertConserved('J', binding);
+    log('  J.raw acc: ' + JSON.stringify(binding.attempt_accounting));
+  }
+
+  // CASE G [추가 6] — unit_id 가 weakness engine 입력까지 보존되는가(Acceptance #7).
+  {
+    const captured = {};
+    const engine = makeMockEngine();
+    engine.diagnoseWithGuidance = (att) => { captured.att = att; return { ok: true }; };
+    const flow = new MathVerificationFlow({ engine, bridge: null });
+    const attempt = { attempts: [
+      { question_no: '1', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT001' },
+      { question_no: '2', unit_id: 'M3_TRIGONOMETRIC_RATIO', problem_type_id: 'M3_TRIG_PT001' }
+    ]};
+    await flow.runLocalEngineDiagnosis({ engine_adapter: { student_attempt: attempt } });
+    check('G.engine.diagnose 입력 캡처됨', !!captured.att && Array.isArray(captured.att.attempts));
+    check('G.문항별 unit_id 보존', captured.att.attempts.every(a => a.unit_id));
+    check('G.q1 unit_id 정확', captured.att.attempts[0].unit_id === 'M2_LINEAR_EQUATION');
+    check('G.q2 unit_id 정확', captured.att.attempts[1].unit_id === 'M3_TRIGONOMETRIC_RATIO');
+  }
+
+  // 핵심 보증(Acceptance #1) 재확인 — explicit 는 항상 prefix inference 를 이긴다.
+  {
+    const attempt = { attempts: [{ question_no: '1', unit_id: 'M2_LINEAR_FUNCTION', problem_type_id: 'M2_LE_PT001' }] };
+    const { binding } = await run(attempt);
+    check('CORE.explicit(LF) > prefix(LE 미끼)', eq(binding.resolved_unit_ids, ['M2_LINEAR_FUNCTION']), JSON.stringify(binding.resolved_unit_ids));
+  }
+
+  log('\n=== RESULT ===');
+  log('PASS=' + pass + ' FAIL=' + fail);
+  log(fail === 0 ? 'VERDICT: PASS — MULTI_UNIT_RUNTIME_BINDING_FIXED'
+                 : 'VERDICT: FAIL — MULTI_UNIT_RUNTIME_BINDING_NOT_SAFE');
+})().catch(e => { log('ERROR: ' + (e && e.stack || e)); log('VERDICT: FAIL — MULTI_UNIT_RUNTIME_BINDING_NOT_SAFE'); });
+</script></body>

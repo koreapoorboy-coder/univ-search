@@ -1,0 +1,57 @@
+<!doctype html>
+<meta charset="utf-8"><title>P0-01 multi-unit real-data test</title>
+<body><pre id="log"></pre>
+<script src="assets/algebra_master_matcher.js"></script>
+<script src="assets/math_weakness_engine.js"></script>
+<script src="assets/math_weakness_evidence_review.js"></script>
+<script src="assets/math_ai_bridge_client.js"></script>
+<script src="assets/math_verification_flow.js"></script>
+<script>
+const log = s => document.getElementById('log').textContent += s + '\n';
+let pass = 0, fail = 0;
+const check = (n, c, d) => { if (c) { pass++; log('PASS  ' + n); } else { fail++; log('FAIL  ' + n + (d ? '  ::  ' + d : '')); } };
+(async () => {
+  const engine = new MathWeaknessEngine('.');
+  const flow = new MathVerificationFlow({ engine, bridge: null });
+  await engine.load({ unitIds: [] });          // 실제 초기 상태: 단원 데이터 0개 로드.
+
+  // 실데이터 확인: problem_type_id 접두어(M2_LE)가 unit_id(M2_LINEAR_EQUATION)와 다름 → 옛 접두어 추정은 실패한다.
+  log('=== 실데이터 multi-unit: 문항별 unit_id 로 정확히 로딩되는가 ===');
+  const attempt = { unit_id: 'M2_LINEAR_EQUATION', unit_name: '일차방정식', attempts: [
+    { question_no: '1', unit_id: 'M2_LINEAR_EQUATION',      problem_type_id: 'M2_LE_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: ['부호오류'] },
+    { question_no: '2', unit_id: 'M2_LINEAR_FUNCTION',      problem_type_id: 'M2_LF_PT002', response_status: 'WRONG_COMPLETE', observed_error_tags: ['개념오류'] },
+    { question_no: '3', unit_id: 'M3_TRIGONOMETRIC_RATIO',  problem_type_id: 'M3_TRIG_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: ['정의혼동'] }
+  ]};
+  const d = await flow.runLocalEngineDiagnosis({ engine_adapter: { student_attempt: attempt } });
+  const loaded = Object.keys(engine.unitData || {});
+  const need = ['M2_LINEAR_EQUATION', 'M2_LINEAR_FUNCTION', 'M3_TRIGONOMETRIC_RATIO'];
+  check('세 단원 모두 canonical 로드', need.every(u => loaded.includes(u)), 'loaded=' + JSON.stringify(loaded));
+  check('binding.resolved_unit_ids 에 세 단원', need.every(u => (attempt._unit_binding.resolved_unit_ids || []).includes(u)), JSON.stringify(attempt._unit_binding.resolved_unit_ids));
+  check('missing_type_count == 0 (문항 누락 없음)', d.summary.missing_type_count === 0, 'missing=' + d.summary.missing_type_count);
+  const diagNos = (d.wrong_answer_diagnoses || []).map(w => w.question_no);
+  check('세 오답 문항 모두 진단됨', ['1','2','3'].every(n => diagNos.includes(n) || diagNos.includes(Number(n))), JSON.stringify(diagNos));
+  check('binding.unresolved 없음', (attempt._unit_binding.unresolved_units || []).length === 0);
+  const accM = attempt._unit_binding.attempt_accounting;
+  check('문항 수 보존: total 3 == diag 3 + unres 0', accM.total === 3 && accM.diagnosable_count === 3 && accM.unresolved_count === 0 && accM.conserved, JSON.stringify(accM));
+
+  // CASE F 실데이터 — 선언됐지만 canonical 파일 부재 단원. 다른 단원으로 추측 금지.
+  log('\n=== 실데이터 CASE F: canonical 데이터 없는 단원(M3_CIRCLE_PROPERTIES) ===');
+  const attF = { unit_id: 'M3_CIRCLE_PROPERTIES', unit_name: '원의 성질', attempts: [
+    { question_no: '1', unit_id: 'M3_CIRCLE_PROPERTIES', problem_type_id: 'M3_CIRC_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: [] }
+  ]};
+  await flow.runLocalEngineDiagnosis({ engine_adapter: { student_attempt: attF } });
+  const bF = attF._unit_binding;
+  const statusF = (bF.unresolved_units || []).find(u => u.unit_id === 'M3_CIRCLE_PROPERTIES');
+  check('F.M3_CIRCLE_PROPERTIES 를 요청은 함(대체 아님)', (bF.resolved_unit_ids || []).includes('M3_CIRCLE_PROPERTIES'));
+  check('F.데이터 없음 → UNIT_DATA_NOT_AVAILABLE', statusF && statusF.status === 'UNIT_DATA_NOT_AVAILABLE', JSON.stringify(bF.unresolved_units));
+  check('F.canonical 에 실제 로드 안 됨', !engine.unitData['M3_CIRCLE_PROPERTIES']);
+  const skipped = (engine.getLoadStatus().skipped_units || []).map(u => u.unit_id);
+  check('F.engine skipped_units 에 기록(기존 스키마)', skipped.includes('M3_CIRCLE_PROPERTIES'), JSON.stringify(skipped));
+  const accF = bF.attempt_accounting;
+  check('F.문항 수 보존: total 1 == diag 0 + unres 1(UNIT_DATA_NOT_AVAILABLE)', accF.total === 1 && accF.diagnosable_count === 0 && accF.unresolved_count === 1 && accF.conserved, JSON.stringify(accF));
+
+  log('\n=== RESULT ===');
+  log('PASS=' + pass + ' FAIL=' + fail);
+  log(fail === 0 ? 'VERDICT: PASS — REALDATA_MULTI_UNIT_OK' : 'VERDICT: FAIL — REALDATA_MULTI_UNIT_NOT_SAFE');
+})().catch(e => { log('ERROR: ' + (e && e.stack || e)); log('VERDICT: FAIL — REALDATA_MULTI_UNIT_NOT_SAFE'); });
+</script></body>

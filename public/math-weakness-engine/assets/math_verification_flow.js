@@ -1,4 +1,5 @@
 /* Math Verification Flow v1.7 · Patch 22 diagnosis-first question-generation split
+ * · Patch 23 P0-01 multi-unit runtime binding (attempt.unit_id authority · fail-closed)
  * Local orchestration helpers for hybrid math diagnosis.
  */
 class MathVerificationFlow {
@@ -67,29 +68,131 @@ class MathVerificationFlow {
     return null;
   }
 
+  // [존재 정의] unit_id 는 문자열이고 공백 제거 후 비어있지 않아야 '존재'로 본다.
+  // null·undefined·빈 문자열·공백만 있는 문자열 = 부재 → Priority 2 로 내려간다.
+  _hasUnitId(v) { return typeof v === 'string' && v.trim() !== ''; }
+
+  // 단원 로딩 authority 우선순위(P0-01 multi-unit runtime binding fix):
+  //   P1) attempt 에 명시된 unit_id — top-level(worker 의 topUnit) + 문항별 attempts[].unit_id.
+  //   P2) 이미 로드된 canonical 데이터의 problem_type → unit lookup(problemTypeById).
+  //   P3) legacy problem_type_id 접두어 추정(마지막 fallback).
+  // 문항에 명시 unit_id 가 있으면 그 문항엔 P2·P3 추정을 적용하지 않는다.
+  // [불일치] 명시 unit_id 와 canonical lookup 이 다르면 authority 는 unit_id 로 두되 mismatch 를 기록(warn+telemetry).
+  // [fail-closed] 다른 단원으로 추측하지 않는다. 상태:
+  //   UNKNOWN_UNIT(인덱스에 없는 단원) · UNIT_DATA_NOT_AVAILABLE(선언됐으나 데이터 파일 부재)
+  //   PROBLEM_TYPE_NOT_FOUND(단원은 로드됐으나 그 problem_type_id 부재) · UNRESOLVED_UNIT(단원 자체 미정).
+  // [문항 수 보존] 진단 대상 N == 진단 가능 + 진단 불가(fail-closed). fail-closed 문항이 조용히 사라지지 않는다.
+  // 반환값(감사/테스트용) = { resolved_unit_ids, unresolved_units, load_all_fallback,
+  //   unit_id_canonical_mismatches, attempt_accounting{ total, diagnosable*, unresolved*, conserved } }.
   async _ensureUnitsForAttempt(attempt) {
-    if (!this.engine.ensureUnits) return;
-    const ids = new Set();
-    if (attempt.unit_id) ids.add(attempt.unit_id);
-    // problem_type_id 접두어가 단원을 가리키는 경우가 있어 index의 unit_id와 대조한다.
-    const declared = (this.engine.indexedUnits || []).map(u => u.unit_id);
+    if (!this.engine.ensureUnits) return null;
+    const declared = new Set((this.engine.indexedUnits || []).map(u => u.unit_id));
+    const attemptUnitIds = [];   // 이 시험에 필요한 단원(입력 순서 유지·stable dedup)
+    const seenUnit = new Set();
+    const unresolvedUnits = [];  // 명시/추정된 단원 중 canonical 에 없는 것(추측 금지)
+    const seenUnresolved = new Set();
+    const mismatches = [];       // [추가 4] unit_id ≠ canonical lookup 기록
+    let hadExplicit = false;
+
+    const addResolvedUnit = (id) => { if (id && !seenUnit.has(id)) { seenUnit.add(id); attemptUnitIds.push(id); } };
+    const addUnresolvedUnit = (id, status) => {
+      const key = (id || '(null)') + '|' + status;
+      if (!seenUnresolved.has(key)) { seenUnresolved.add(key); unresolvedUnits.push({ unit_id: id || null, status }); }
+    };
+    const canonicalUnitOf = (pid) => {
+      const s = String(pid || '');
+      const canon = s && this.engine.problemTypeById && this.engine.problemTypeById[s];
+      return (canon && canon.unit_id) || null;
+    };
+    // 문항 하나의 effective unit 을 우선순위대로 정한다. { unit_id, source, status }.
+    const resolveQuestionUnit = (a) => {
+      if (this._hasUnitId(a && a.unit_id)) {            // P1: 명시 unit_id 우선(공백/빈문자열은 [존재 정의]로 제외).
+        hadExplicit = true;
+        const id = a.unit_id.trim();
+        const canon = canonicalUnitOf(a.problem_type_id);          // [추가 4] 불일치 기록(authority 는 unit_id 유지).
+        if (canon && canon !== id) mismatches.push({ question_no: (a.question_no || a.no || a.number || null), unit_id: id, canonical_unit_id: canon, problem_type_id: String(a.problem_type_id || '') });
+        if (declared.has(id)) { addResolvedUnit(id); return { unit_id: id, source: 'explicit', status: null }; }
+        addUnresolvedUnit(id, 'UNKNOWN_UNIT');           // fail-closed: 추측 금지.
+        return { unit_id: id, source: 'explicit', status: 'UNKNOWN_UNIT' };
+      }
+      const canon = canonicalUnitOf(a && a.problem_type_id);       // P2: canonical lookup.
+      if (canon && declared.has(canon)) { addResolvedUnit(canon); return { unit_id: canon, source: 'canonical', status: null }; }
+      const s = String((a && a.problem_type_id) || '');            // P3: 접두어 추정.
+      const hit = s && [...declared].find(u => s.startsWith(u) || s.startsWith(u.replace(/_/g, '')));
+      if (hit) { addResolvedUnit(hit); return { unit_id: hit, source: 'prefix', status: null }; }
+      return { unit_id: null, source: 'none', status: null };
+    };
+
+    // top-level 단원(worker topUnit)도 명시 authority — 로드 대상에만 반영(문항 아님).
+    if (this._hasUnitId(attempt.unit_id)) {
+      hadExplicit = true;
+      const tid = attempt.unit_id.trim();
+      if (declared.has(tid)) addResolvedUnit(tid); else addUnresolvedUnit(tid, 'UNKNOWN_UNIT');
+    }
+
     const list = this.engine.collectAttemptList ? this.engine.collectAttemptList(attempt) : (attempt.attempts || []);
-    for (const a of list) {
-      const pid = String(a.problem_type_id || '');
-      const hit = declared.find(u => pid.startsWith(u) || pid.startsWith(u.replace(/_/g, '')));
-      if (hit) ids.add(hit);
-    }
-    if (!ids.size) {
-      // 단원을 못 좁히면 종전대로 전부 받는다. 진단이 비는 것보다 낫다.
+    const perQuestion = list.map((a, i) => {
+      const r = resolveQuestionUnit(a || {});
+      return { question_no: ((a && (a.question_no || a.no || a.number)) || (i + 1)), problem_type_id: String((a && a.problem_type_id) || ''), unit_id: r.unit_id, source: r.source, mapStatus: r.status };
+    });
+
+    // 아무 단원 신호도 없을 때만(순수 legacy attempt) 종전대로 전부 받는다. 진단이 비는 것보다 낫다.
+    // 명시 unit_id 가 하나라도 있었으면(설령 unresolved 라도) load-all 로 추측하지 않는다.
+    const loadAllFallback = !hadExplicit && attemptUnitIds.length === 0;
+    if (loadAllFallback) {
       await this.engine.ensureUnits((this.engine.indexedUnits || []).map(u => u.unit_id));
-      return;
+    } else {
+      const withRelated = new Set();
+      for (const id of attemptUnitIds) {
+        withRelated.add(id);
+        if (this.engine.relatedUnitIds) for (const r of this.engine.relatedUnitIds(id)) withRelated.add(r);
+      }
+      await this.engine.ensureUnits([...withRelated]);
+      const loaded0 = this.engine.unitData || null;   // 선언됐으나 데이터 파일 부재.
+      if (loaded0) for (const id of attemptUnitIds) if (!loaded0[id]) addUnresolvedUnit(id, 'UNIT_DATA_NOT_AVAILABLE');
     }
-    const withRelated = new Set();
-    for (const id of ids) {
-      withRelated.add(id);
-      if (this.engine.relatedUnitIds) for (const r of this.engine.relatedUnitIds(id)) withRelated.add(r);
+
+    // ── [문항 수 보존] 각 문항을 진단 가능 / fail-closed 로 정확히 1회 분류한다. ──
+    const loaded = this.engine.unitData || null;
+    // [fail-open 전제] engine 이 unitData 를 노출하지 않는 구현에서는 로드 여부를 확인할 수 없어
+    // 통과(true)로 본다 → 그런 엔진에서는 UNIT_DATA_NOT_AVAILABLE 가 발동하지 않는다.
+    // 현재 MathWeaknessEngine 은 unitData 를 항상 제공하므로 실동작에는 영향 없음(§9 기록).
+    const isLoaded = (u) => (loaded ? !!loaded[u] : true);
+    // [fail-open 전제] problemTypeById 가 없는(로드 전이거나 비제공) 엔진에서는 유형 존재를 확인할 수
+    // 없어 통과(true)로 본다 → 그런 엔진에서는 PROBLEM_TYPE_NOT_FOUND 가 발동하지 않는다.
+    // 현재 엔진은 로드 후 problemTypeById 를 재색인하므로 실동작에는 영향 없음(§9 기록).
+    const ptKnown = (pid) => (!this.engine.problemTypeById ? true : !!this.engine.problemTypeById[pid]);
+    const diagnosable = [];
+    const unresolvedAttempts = [];
+    for (const q of perQuestion) {
+      let status = null;
+      if (q.mapStatus === 'UNKNOWN_UNIT') status = 'UNKNOWN_UNIT';
+      else if (!q.unit_id && !loadAllFallback) status = 'UNRESOLVED_UNIT';                 // 단원 자체 미정.
+      else if (q.unit_id && declared.has(q.unit_id) && !isLoaded(q.unit_id)) status = 'UNIT_DATA_NOT_AVAILABLE';
+      else if (!ptKnown(q.problem_type_id)) status = 'PROBLEM_TYPE_NOT_FOUND';             // [추가 5] 단원 있으나 유형 부재.
+      if (status) unresolvedAttempts.push({ question_no: q.question_no, unit_id: (q.unit_id || null), problem_type_id: q.problem_type_id, status });
+      else diagnosable.push(q.question_no);
     }
-    await this.engine.ensureUnits([...withRelated]);
+    if (mismatches.length && typeof console !== 'undefined' && console.warn) {
+      console.warn('[MathVerificationFlow] unit_id ≠ canonical lookup (authority=unit_id):', mismatches);
+    }
+
+    const binding = {
+      resolved_unit_ids: attemptUnitIds,
+      unresolved_units: unresolvedUnits,
+      load_all_fallback: loadAllFallback,
+      unit_id_canonical_mismatches: mismatches,          // [추가 4] telemetry
+      attempt_accounting: {                               // [추가 1] 문항 수 보존
+        total: perQuestion.length,
+        diagnosable_count: diagnosable.length,
+        unresolved_count: unresolvedAttempts.length,
+        diagnosable_question_nos: diagnosable,
+        unresolved_attempts: unresolvedAttempts,
+        conserved: (perQuestion.length === (diagnosable.length + unresolvedAttempts.length))
+      }
+    };
+    try { attempt._unit_binding = binding; } catch (e) { /* frozen input — 무시 */ }
+    return binding;
   }
 
   _resolveEngineLockedContext(aiExtraction, engineDiagnosis) {

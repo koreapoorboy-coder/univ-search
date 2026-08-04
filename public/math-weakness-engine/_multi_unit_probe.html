@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8"><title>P0-01 multi-unit before/after probe</title>
+<body><pre id="log"></pre>
+<script src="assets/algebra_master_matcher.js"></script>
+<script src="assets/math_weakness_engine.js"></script>
+<script src="assets/math_weakness_evidence_review.js"></script>
+<script src="assets/math_ai_bridge_client.js"></script>
+<script src="assets/math_verification_flow.js"></script>
+<script>
+// 버전 무관 프로브: 엔진의 관측 가능한 효과(로드된 단원 · missing_type_count)만 본다.
+// baseline(접두어 추정만)에서는 문항별 unit_id 가 무시되어 mixed-unit 문항이 누락된다.
+const log = s => document.getElementById('log').textContent += s + '\n';
+(async () => {
+  const engine = new MathWeaknessEngine('.');
+  const flow = new MathVerificationFlow({ engine, bridge: null });
+  await engine.load({ unitIds: [] });
+  // top-level unit_id 는 M2_LINEAR_EQUATION 하나. 문항 2·3 은 다른 단원이고 problem_type_id 접두어가 unit_id 와 다르다.
+  const attempt = { unit_id: 'M2_LINEAR_EQUATION', unit_name: '일차방정식', attempts: [
+    { question_no: '1', unit_id: 'M2_LINEAR_EQUATION',     problem_type_id: 'M2_LE_PT001',  response_status: 'WRONG_COMPLETE', observed_error_tags: ['부호오류'] },
+    { question_no: '2', unit_id: 'M2_LINEAR_FUNCTION',     problem_type_id: 'M2_LF_PT002',  response_status: 'WRONG_COMPLETE', observed_error_tags: ['개념오류'] },
+    { question_no: '3', unit_id: 'M3_TRIGONOMETRIC_RATIO', problem_type_id: 'M3_TRIG_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: ['정의혼동'] }
+  ]};
+  const d = await flow.runLocalEngineDiagnosis({ engine_adapter: { student_attempt: attempt } });
+  const loaded = Object.keys(engine.unitData || {}).filter(u => ['M2_LINEAR_EQUATION','M2_LINEAR_FUNCTION','M3_TRIGONOMETRIC_RATIO'].includes(u)).sort();
+  const need = ['M2_LINEAR_EQUATION','M2_LINEAR_FUNCTION','M3_TRIGONOMETRIC_RATIO'];
+  const allLoaded = need.every(u => loaded.includes(u));
+  const miss = d.summary.missing_type_count;
+  const diagNos = (d.wrong_answer_diagnoses || []).map(w => String(w.question_no)).sort();
+  log('필요 단원(3): ' + JSON.stringify(need));
+  log('실제 로드된 대상 단원: ' + JSON.stringify(loaded));
+  log('missing_type_count: ' + miss);
+  log('진단된 오답 문항: ' + JSON.stringify(diagNos));
+  const acc = attempt._unit_binding && attempt._unit_binding.attempt_accounting;
+  log('attempt_accounting: ' + (acc ? JSON.stringify(acc) : '(없음 — baseline)'));
+  const ok = allLoaded && miss === 0 && diagNos.length === 3;
+  log('\nPROBE: ' + (ok ? 'OK — 3단원 전부 로드·문항 누락 0' : 'BUG — 단원/문항 누락 발생'));
+})().catch(e => log('ERROR: ' + (e && e.stack || e)));
+</script></body>
