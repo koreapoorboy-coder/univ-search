@@ -1,0 +1,89 @@
+<!doctype html>
+<meta charset="utf-8"><title>P0-02 fail-closed coverage UI test</title>
+<body><pre id="log"></pre>
+<script src="assets/algebra_master_matcher.js"></script>
+<script src="assets/math_weakness_engine.js"></script>
+<script src="assets/math_weakness_evidence_review.js"></script>
+<script src="assets/math_ai_bridge_client.js"></script>
+<script src="assets/math_verification_flow.js"></script>
+<script src="assets/math_hybrid_report_renderer.js"></script>
+<script>
+const log = s => document.getElementById('log').textContent += s + '\n';
+let pass = 0, fail = 0;
+const check = (n, c, d) => { if (c) { pass++; log('PASS  ' + n); } else { fail++; log('FAIL  ' + n + (d ? '  ::  ' + d : '')); } };
+const R = MathHybridReportRenderer;
+const has = (html, s) => String(html).indexOf(s) >= 0;
+
+(async () => {
+  log('=== P0-02 fail-closed 문항 커버리지 렌더 ===\n');
+
+  // ── 단위 테스트: renderAttemptCoverage ──
+  check('U1.accounting 없음 → 빈 문자열', R.renderAttemptCoverage(null) === '' && R.renderAttemptCoverage(undefined) === '');
+
+  const acc2 = { total: 5, diagnosable_count: 3, unresolved_count: 2, unresolved_attempts: [
+    { question_no: '4', unit_id: 'INVALID', problem_type_id: 'X', status: 'UNKNOWN_UNIT' },
+    { question_no: '5', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'Y', status: 'PROBLEM_TYPE_NOT_FOUND' }
+  ]};
+  const h2 = R.renderAttemptCoverage(acc2);
+  check('U2.닫힘 표시 "전체 5문항 = 진단 완료 3 + 진단 불가 2"', has(h2, '전체 5문항 = 진단 완료 3 + 진단 불가 2'), h2);
+  check('U2.4번 문항 사유(UNKNOWN_UNIT→단원 미확인)', has(h2, '4번 문항 — 진단 불가 (단원 미확인'));
+  check('U2.5번 문항 사유(PROBLEM_TYPE_NOT_FOUND→문항 유형 미등록)', has(h2, '5번 문항 — 진단 불가 (문항 유형 미등록'));
+  check('U2.정상 합계는 불일치 경고 없음', !has(h2, '합계 불일치'));
+
+  const h3 = R.renderAttemptCoverage({ total: 3, diagnosable_count: 3, unresolved_count: 0, unresolved_attempts: [] });
+  check('U3.진단 불가 0 → 닫힘 + "모든 문항 포함"', has(h3, '전체 3문항 = 진단 완료 3 + 진단 불가 0') && has(h3, '모든 문항이 진단에 포함'));
+
+  const h4 = R.renderAttemptCoverage({ total: 2, diagnosable_count: 0, unresolved_count: 2, unresolved_attempts: [
+    { question_no: '1', status: 'UNIT_DATA_NOT_AVAILABLE' }, { question_no: '2', status: 'UNRESOLVED_UNIT' } ]});
+  check('U4.UNIT_DATA_NOT_AVAILABLE→단원 자료 없음', has(h4, '단원 자료 없음'));
+  check('U4.UNRESOLVED_UNIT→단원 판별 불가', has(h4, '단원 판별 불가'));
+
+  const h5 = R.renderAttemptCoverage({ total: 3, diagnosable_count: 1, unresolved_count: 1, unresolved_attempts: [ { question_no: '9', status: 'UNKNOWN_UNIT' } ]});
+  check('U5.합계 불일치(1+1≠3) 경고 표면화', has(h5, '합계 불일치'));
+
+  const h6 = R.renderAttemptCoverage({ total: 1, diagnosable_count: 0, unresolved_count: 1, unresolved_attempts: [ { question_no: '<b>7</b>', status: 'UNKNOWN_UNIT' } ]});
+  check('U6.question_no XSS 이스케이프', has(h6, '&lt;b&gt;7&lt;/b&gt;') && !has(h6, '<b>7</b>'));
+
+  // ── 통합: 실 진단 → 학생 보고서 경로에 커버리지 노출 ──
+  log('\n=== 통합(실데이터): mixed 시험(정상1 + invalid1 + data-missing1) ===');
+  const engine = new MathWeaknessEngine('.');
+  const flow = new MathVerificationFlow({ engine, bridge: null });
+  await engine.load({ unitIds: [] });
+  const extraction = {
+    file_purpose_review: { detected_materials: [] },
+    student_material_review: {},
+    engine_adapter: { student_attempt: { unit_id: 'M2_LINEAR_EQUATION', unit_name: '일차방정식', attempts: [
+      { question_no: '1', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: ['부호오류'] },
+      { question_no: '2', unit_id: 'INVALID_TEST_UNIT',  problem_type_id: 'M2_LE_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: [] },
+      { question_no: '3', unit_id: 'M3_CIRCLE_PROPERTIES', problem_type_id: 'M3_CIRC_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: [] }
+    ]}}
+  };
+  const diagnosis = await flow.runLocalEngineDiagnosis(extraction);
+  const acc = extraction.engine_adapter.student_attempt._unit_binding.attempt_accounting;
+  log('acc: ' + JSON.stringify(acc));
+  check('I1.total 3 · diag 1 · unres 2 · conserved', acc.total === 3 && acc.diagnosable_count === 1 && acc.unresolved_count === 2 && acc.conserved);
+  const cov = R.renderAttemptCoverage(acc);
+  check('I1.커버리지 닫힘 "전체 3문항 = 진단 완료 1 + 진단 불가 2"', has(cov, '전체 3문항 = 진단 완료 1 + 진단 불가 2'), cov);
+  check('I1.2번 문항(INVALID)→단원 미확인', has(cov, '2번 문항 — 진단 불가 (단원 미확인'));
+  check('I1.3번 문항(M3_CIRCLE_PROPERTIES)→단원 자료 없음', has(cov, '3번 문항 — 진단 불가 (단원 자료 없음'));
+
+  // 전체 학생 보고서 렌더에 커버리지가 실제로 포함되는가(배선 확인)
+  let full = '';
+  try { full = R.renderExtraction(extraction, diagnosis); }
+  catch (e) { log('renderExtraction ERROR: ' + (e && e.message)); }
+  check('I2.학생 보고서(renderExtraction)에 "문항 커버리지" 포함', has(full, '문항 커버리지'));
+  check('I2.학생 보고서에 진단 불가 문항 노출', has(full, '2번 문항 — 진단 불가') && has(full, '3번 문항 — 진단 불가'));
+  check('I2.학생 보고서에 닫힘식 노출', has(full, '전체 3문항 = 진단 완료 1 + 진단 불가 2'));
+  // 배선 가시화: 헬퍼 단독이 아니라 renderExtraction 전체 산출 HTML 안에 실제로 박혀 있음을 보인다.
+  const mI = full.indexOf('attempt-coverage-box');
+  if (mI >= 0) {
+    const s = full.lastIndexOf('<section', mI), e = full.indexOf('</section>', mI);
+    log('  [배선 확인] renderExtraction 산출 HTML(전체 ' + full.length + '자) 중 커버리지 섹션:');
+    log(full.slice(s, e + 10).replace(/></g, '>\n    <'));
+  } else { log('  [배선 확인] 실패 — full HTML 에 커버리지 섹션 없음'); }
+
+  log('\n=== RESULT ===');
+  log('PASS=' + pass + ' FAIL=' + fail);
+  log(fail === 0 ? 'VERDICT: PASS — FAILCLOSED_COVERAGE_RENDERED' : 'VERDICT: FAIL — COVERAGE_UI_NOT_SAFE');
+})().catch(e => { log('ERROR: ' + (e && e.stack || e)); log('VERDICT: FAIL — COVERAGE_UI_NOT_SAFE'); });
+</script></body>

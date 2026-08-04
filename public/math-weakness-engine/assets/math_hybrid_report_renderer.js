@@ -400,6 +400,37 @@ class MathHybridReportRenderer {
     `, 'warn');
   }
 
+  // P0-02: fail-closed(진단 불가) 문항의 사유 코드를 학생용 한국어로 옮긴다.
+  static unresolvedReasonKo(status) {
+    switch (status) {
+      case 'UNKNOWN_UNIT': return '단원 미확인(등록되지 않은 단원)';
+      case 'UNIT_DATA_NOT_AVAILABLE': return '단원 자료 없음';
+      case 'PROBLEM_TYPE_NOT_FOUND': return '문항 유형 미등록';
+      case 'UNRESOLVED_UNIT': return '단원 판별 불가';
+      default: return status ? String(status) : '사유 미상';
+    }
+  }
+
+  // P0-02: 문항 커버리지. 진단 대상 N == 진단 완료 + 진단 불가 가 화면에서 닫히는 것을 보이고,
+  // 진단 불가 문항을 "N번 문항 — 진단 불가(사유)" 로 노출한다(엔진 attempt_accounting 소비만, 계산 없음).
+  static renderAttemptCoverage(accounting) {
+    if (!accounting || typeof accounting.total !== 'number') return '';
+    const total = accounting.total;
+    const diag = accounting.diagnosable_count || 0;
+    const un = accounting.unresolved_count || 0;
+    const mismatch = (total !== diag + un);   // 엔진 불변식이 깨졌을 때만 표면화(정상은 항상 닫힘).
+    // list() 가 항목마다 esc() 하므로 여기서는 raw 로 만든다(이중 이스케이프 방지).
+    const items = (accounting.unresolved_attempts || []).map(u =>
+      `${u.question_no}번 문항 — 진단 불가 (${this.unresolvedReasonKo(u.status)})`);
+    return `<section class="result-box attempt-coverage-box">
+      <h3>문항 커버리지</h3>
+      <p class="coverage-line">전체 ${this.esc(total)}문항 = 진단 완료 ${this.esc(diag)} + 진단 불가 ${this.esc(un)}${mismatch ? ' <b class="warn">⚠ 합계 불일치</b>' : ''}</p>
+      ${un > 0
+        ? `<p class="muted small">아래 문항은 진단에 포함되지 못했습니다(누락 아님·사유 명시). 단원·유형을 확인하세요.</p>${this.list(items)}`
+        : '<p class="muted small">모든 문항이 진단에 포함되었습니다.</p>'}
+    </section>`;
+  }
+
   static renderExtraction(data, engineDiagnosis = null) {
     if (!data) return '';
     if (engineDiagnosis) {
@@ -438,6 +469,7 @@ class MathHybridReportRenderer {
       </div>
       ${isSolve ? this.renderSolutionPlan(proofPlan, this.engineConnections(engineDiagnosis)) : this.renderProofPlan(proofPlan, this.engineConnections(engineDiagnosis))}
       ${this.renderStudentBehaviorAnalysis(engineDiagnosis)}
+      ${this.renderAttemptCoverage(data.engine_adapter?.student_attempt?._unit_binding?.attempt_accounting)}
       ${this.details('교사용 상세 진단 열기', teacherSummary)}
     `, outcome.kind);
   }
