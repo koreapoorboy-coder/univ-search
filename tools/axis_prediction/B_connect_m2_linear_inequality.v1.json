@@ -1,11 +1,18 @@
 ﻿{
-    "version":  "B-connect-pt-v1",
+    "version":  "B-connect-pt-v2",
     "meta":  {
                  "unit":  "m2_linear_inequality",
                  "unit_code":  "IN",
                  "pack":  "LI_IN",
                  "link_method":  "pt_id",
+                 "rule_set":  "common(C-)+pack(D-)",
+                 "falsepos_note":  "C-01/06/09/10=오탐대장 등재. 각 item falsepos_rules에 발화 표시. C-01→E1·C-10→E3 과잉공급 주의",
                  "coverage":  "114/150",
+                 "falsepos_fired":  {
+                                        "C-10":  12,
+                                        "C-09":  3,
+                                        "C-01":  24
+                                    },
                  "axis_distribution":  {
                                            "E1":  27,
                                            "B1":  29,
@@ -29,7 +36,10 @@
                                              "B4",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q002",
@@ -37,7 +47,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q003",
@@ -45,7 +58,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q004",
@@ -55,7 +71,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q005",
@@ -65,7 +84,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q006",
@@ -75,7 +97,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q007",
@@ -83,7 +108,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q008",
@@ -91,7 +119,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q009",
@@ -99,7 +130,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q010",
@@ -110,7 +144,11 @@
                                              "E1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01",
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q011",
@@ -121,7 +159,11 @@
                                              "E1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01",
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q012",
@@ -132,7 +174,11 @@
                                              "E1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01",
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q013",
@@ -143,7 +189,11 @@
                                              "E1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01",
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q014",
@@ -154,7 +204,10 @@
                                              "B4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q015",
@@ -165,7 +218,10 @@
                                              "B4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q016",
@@ -177,7 +233,10 @@
                                              "D1",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q017",
@@ -187,7 +246,10 @@
                                              "B4",
                                              "D1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q018",
@@ -197,7 +259,10 @@
                                              "B4",
                                              "D1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q019",
@@ -207,7 +272,10 @@
                                              "B4",
                                              "D1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q020",
@@ -215,7 +283,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q021",
@@ -223,7 +294,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q022",
@@ -231,7 +305,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q023",
@@ -243,7 +320,10 @@
                                              "D1",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q024",
@@ -255,7 +335,10 @@
                                              "D1",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q025",
@@ -267,7 +350,10 @@
                                              "D1",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q026",
@@ -279,7 +365,10 @@
                                              "C1",
                                              "D1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q027",
@@ -291,7 +380,10 @@
                                              "C1",
                                              "D1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q028",
@@ -303,7 +395,10 @@
                                              "D1",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q029",
@@ -314,7 +409,10 @@
                                              "C3",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q030",
@@ -327,7 +425,10 @@
                                              "C4",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q031",
@@ -340,7 +441,10 @@
                                              "C4",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q032",
@@ -351,7 +455,10 @@
                                              "C3",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q033",
@@ -362,7 +469,10 @@
                                              "C3",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q034",
@@ -375,7 +485,10 @@
                                              "C4",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q035",
@@ -386,7 +499,10 @@
                                              "C3",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q036",
@@ -399,7 +515,10 @@
                                              "C4",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q037",
@@ -410,7 +529,10 @@
                                              "C3",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q038",
@@ -422,7 +544,10 @@
                                              "B4",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-09"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q039",
@@ -434,7 +559,10 @@
                                              "B4",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-09"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q040",
@@ -446,7 +574,10 @@
                                              "B4",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-09"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q041",
@@ -456,7 +587,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q042",
@@ -466,7 +600,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q043",
@@ -476,7 +613,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q044",
@@ -486,7 +626,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q045",
@@ -496,7 +639,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q046",
@@ -506,7 +652,10 @@
                                              "B4",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q047",
@@ -514,7 +663,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q048",
@@ -522,7 +674,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q049",
@@ -530,7 +685,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q050",
@@ -538,7 +696,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q051",
@@ -546,7 +707,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q052",
@@ -554,7 +718,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q053",
@@ -562,7 +729,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q054",
@@ -570,7 +740,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q055",
@@ -578,7 +751,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q056",
@@ -586,7 +762,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q057",
@@ -594,7 +773,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q058",
@@ -602,7 +784,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q059",
@@ -611,7 +796,10 @@
                                              "C1",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q060",
@@ -620,7 +808,10 @@
                                              "C1",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q061",
@@ -628,7 +819,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q062",
@@ -636,7 +830,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q063",
@@ -644,7 +841,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q064",
@@ -653,7 +853,10 @@
                                              "C1",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q065",
@@ -662,7 +865,10 @@
                                              "C1",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q066",
@@ -672,7 +878,10 @@
                                              "D2",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q067",
@@ -682,7 +891,10 @@
                                              "D2",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q068",
@@ -692,7 +904,10 @@
                                              "D2",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q069",
@@ -702,7 +917,10 @@
                                              "D2",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q070",
@@ -712,7 +930,10 @@
                                              "D2",
                                              "E1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-01"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q071",
@@ -720,7 +941,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q072",
@@ -728,7 +952,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q073",
@@ -736,7 +963,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q074",
@@ -744,7 +974,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q075",
@@ -752,7 +985,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q076",
@@ -760,7 +996,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q077",
@@ -768,7 +1007,10 @@
                       "predicted_axes":  [
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q078",
@@ -776,7 +1018,10 @@
                       "predicted_axes":  [
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q079",
@@ -784,7 +1029,10 @@
                       "predicted_axes":  [
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q080",
@@ -792,7 +1040,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q081",
@@ -800,7 +1051,10 @@
                       "predicted_axes":  [
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q082",
@@ -808,7 +1062,10 @@
                       "predicted_axes":  [
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q083",
@@ -817,7 +1074,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q084",
@@ -826,7 +1086,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q085",
@@ -835,7 +1098,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q086",
@@ -844,7 +1110,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q087",
@@ -853,7 +1122,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q088",
@@ -862,7 +1134,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q089",
@@ -870,7 +1145,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q090",
@@ -878,7 +1156,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q091",
@@ -886,7 +1167,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q092",
@@ -894,7 +1178,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q093",
@@ -902,7 +1189,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q094",
@@ -910,7 +1200,10 @@
                       "predicted_axes":  [
 
                                          ],
-                      "link_method":  "none"
+                      "link_method":  "none",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q095",
@@ -920,7 +1213,10 @@
                                              "C1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q096",
@@ -930,7 +1226,10 @@
                                              "C1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q097",
@@ -941,7 +1240,10 @@
                                              "C3",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q098",
@@ -951,7 +1253,10 @@
                                              "C1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q099",
@@ -962,7 +1267,10 @@
                                              "C3",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q100",
@@ -973,7 +1281,10 @@
                                              "C3",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q101",
@@ -984,7 +1295,10 @@
                                              "C4",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q102",
@@ -995,7 +1309,10 @@
                                              "C4",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q103",
@@ -1005,7 +1322,10 @@
                                              "C4",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q104",
@@ -1016,7 +1336,10 @@
                                              "C4",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q105",
@@ -1027,7 +1350,10 @@
                                              "C4",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q106",
@@ -1038,7 +1364,10 @@
                                              "C4",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q107",
@@ -1048,7 +1377,10 @@
                                              "C4",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q108",
@@ -1059,7 +1391,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q109",
@@ -1070,7 +1405,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q110",
@@ -1081,7 +1419,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q111",
@@ -1091,7 +1432,10 @@
                                              "C1",
                                              "D2"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q112",
@@ -1102,7 +1446,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q113",
@@ -1113,7 +1460,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q114",
@@ -1123,7 +1473,10 @@
                                              "C1",
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q115",
@@ -1134,7 +1487,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q116",
@@ -1144,7 +1500,10 @@
                                              "C1",
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q117",
@@ -1155,7 +1514,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q118",
@@ -1166,7 +1528,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q119",
@@ -1177,7 +1542,10 @@
                                              "C4",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q120",
@@ -1186,7 +1554,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q121",
@@ -1195,7 +1566,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q122",
@@ -1204,7 +1578,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q123",
@@ -1213,7 +1590,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q124",
@@ -1222,7 +1602,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q125",
@@ -1231,7 +1614,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q126",
@@ -1240,7 +1626,10 @@
                                              "B2",
                                              "C1"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q127",
@@ -1251,7 +1640,10 @@
                                              "C1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q128",
@@ -1262,7 +1654,10 @@
                                              "C1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q129",
@@ -1273,7 +1668,10 @@
                                              "C1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q130",
@@ -1284,7 +1682,10 @@
                                              "C1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q131",
@@ -1295,7 +1696,10 @@
                                              "C1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q132",
@@ -1306,7 +1710,10 @@
                                              "C1",
                                              "E3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+                                             "C-10"
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q133",
@@ -1315,7 +1722,10 @@
                                              "B1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q134",
@@ -1324,7 +1734,10 @@
                                              "B1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q135",
@@ -1333,7 +1746,10 @@
                                              "B1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q136",
@@ -1342,7 +1758,10 @@
                                              "B1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q137",
@@ -1351,7 +1770,10 @@
                                              "B1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q138",
@@ -1360,7 +1782,10 @@
                                              "B1",
                                              "C3"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q139",
@@ -1370,7 +1795,10 @@
                                              "C3",
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q140",
@@ -1380,7 +1808,10 @@
                                              "C3",
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q141",
@@ -1390,7 +1821,10 @@
                                              "C3",
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q142",
@@ -1400,7 +1834,10 @@
                                              "C3",
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q143",
@@ -1410,7 +1847,10 @@
                                              "C3",
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q144",
@@ -1420,7 +1860,10 @@
                                              "C3",
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q145",
@@ -1428,7 +1871,10 @@
                       "predicted_axes":  [
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q146",
@@ -1436,7 +1882,10 @@
                       "predicted_axes":  [
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q147",
@@ -1444,7 +1893,10 @@
                       "predicted_axes":  [
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q148",
@@ -1452,7 +1904,10 @@
                       "predicted_axes":  [
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q149",
@@ -1460,7 +1915,10 @@
                       "predicted_axes":  [
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   },
                   {
                       "item_id":  "M2_LI_150_S06_Q150",
@@ -1468,7 +1926,10 @@
                       "predicted_axes":  [
                                              "C4"
                                          ],
-                      "link_method":  "pt_id"
+                      "link_method":  "pt_id",
+                      "falsepos_rules":  [
+
+                                         ]
                   }
               ]
 }

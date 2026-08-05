@@ -30,26 +30,28 @@ $rt = Get-Content $rtFile.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
 $prefix = $rt.unit_code
 $gr = Get-Rules $prefix; $rules=$gr[0]; $packs=$gr[1]
 
-# topic_type(legacy_problem_type_id) → 축  (러너 emit 로직 그대로)
-$ptMap=@{}
+# topic_type(legacy_problem_type_id) → 축  (러너 emit 로직 그대로) + 오탐 provenance
+$FP=@('C-01','C-06','C-09','C-10')   # 오탐 대장 등재 공통규칙
+$ptMap=@{}; $fpMap=@{}
 foreach($t in $rt.problem_types){ $group=$t.type_name
   if(-not $t.topic_types -or @($t.topic_types).Count -eq 0){ continue }  # 배지없음 묶음=요약전용, PT-id 없음
   foreach($it in $t.topic_types){ $ptid=$it.legacy_problem_type_id; if(-not $ptid){continue}
     $detail = if($it.PSObject.Properties.Name -contains 'detail_type_names_raw'){$it.detail_type_names_raw}else{$null}
     $names=@(); if($detail){ $names=Split-Names ([string]$detail) } elseif($it.name -and $it.name -ne $group){ $names=@($it.name) } elseif($it.name){ $names=@($it.name) } else { $names=@($group) }
-    $ax=[System.Collections.Generic.HashSet[string]]::new()
-    foreach($nm in $names){ $ctx="$group $nm"; foreach($rule in $rules){ if($ctx -match $rule.pattern){ foreach($a in $rule.axes){[void]$ax.Add($a)} } } }
-    $ptMap[$ptid]=@($ax|Sort-Object) } }
+    $ax=[System.Collections.Generic.HashSet[string]]::new(); $fpset=[System.Collections.Generic.HashSet[string]]::new()
+    foreach($nm in $names){ $ctx="$group $nm"; foreach($rule in $rules){ if($ctx -match $rule.pattern){ foreach($a in $rule.axes){[void]$ax.Add($a)}; if($rule.id -in $FP){[void]$fpset.Add($rule.id)} } } }
+    $ptMap[$ptid]=@($ax|Sort-Object); $fpMap[$ptid]=@($fpset|Sort-Object) } }
 
 # 문항 조인
-$items=New-Object System.Collections.Generic.List[object]; $cov=0; $noKey=0; $keyNoAx=0; $axSum=0; $axd=@{}
+$items=New-Object System.Collections.Generic.List[object]; $cov=0; $noKey=0; $keyNoAx=0; $axSum=0; $axd=@{}; $fpTotal=@{}
 foreach($f in (Get-ChildItem "$dataRoot\source_item_bank\$Unit\*.json")){ $c=Get-Content $f.FullName -Raw -Encoding UTF8
   $ids=[regex]::Matches($c,'"item_id":\s*"([^"]*)"'); $pts=[regex]::Matches($c,'"primary_problem_type_id":\s*"([^"]*)"')
   for($i=0;$i -lt $ids.Count;$i++){ $iid=$ids[$i].Groups[1].Value; $k=$pts[$i].Groups[1].Value
     if(-not $ptMap.ContainsKey($k)){ $noKey++; $ax=@(); $lm='none' }
     elseif($ptMap[$k].Count -eq 0){ $keyNoAx++; $ax=@(); $lm='pt_id_noaxis' }
     else { $cov++; $ax=$ptMap[$k]; $axSum+=$ax.Count; $lm='pt_id'; foreach($a in $ax){if(-not $axd.ContainsKey($a)){$axd[$a]=0};$axd[$a]++} }
-    $items.Add([ordered]@{item_id=$iid; primary_problem_type_id=$k; predicted_axes=$ax; link_method=$lm}) } }
+    $fpr=@(); if($ptMap.ContainsKey($k)){ $fpr=$fpMap[$k]; foreach($rid in $fpr){ if(-not $fpTotal.ContainsKey($rid)){$fpTotal[$rid]=0};$fpTotal[$rid]++ } }
+    $items.Add([ordered]@{item_id=$iid; primary_problem_type_id=$k; predicted_axes=$ax; link_method=$lm; falsepos_rules=$fpr}) } }
 $tot=$items.Count
 $uidFlag = if($itemUid -eq $rawUid){'일치'}else{"불일치(문항:$itemUid vs raw:$rawUid)"}
 "unit=$Unit  unit_code=$prefix  팩=$($packs -join ',')  raw=$($rtFile.Name)  unit_id=$uidFlag"
@@ -59,4 +61,5 @@ $covPct = [math]::Round(100*$cov/$tot)
 if($covPct -eq 0){ "⚠️⚠️ 경고: PT-다리 커버 0% — unit_id/PT-id 식별자 불일치 의심(조용한 0). 대조표 확인 필요." }
 elseif($covPct -lt 40){ "⚠️ 주의: 커버 낮음($covPct%) — 키없음 $noKey 확인(유형 부재 or 식별자 불일치)." }
 "축분포: " + (($axd.GetEnumerator()|Sort-Object Value -Descending|ForEach-Object{"$($_.Key):$($_.Value)"}) -join ' ')
-if($OutFile){ ([ordered]@{version='B-connect-pt-v1'; meta=[ordered]@{unit=$Unit;unit_code=$prefix;pack=($packs -join ',');link_method='pt_id';coverage="$cov/$tot";axis_distribution=$axd}; items=$items}|ConvertTo-Json -Depth 6)|Set-Content $OutFile -Encoding UTF8; "저장: $OutFile" }
+"⚠ 오탐(C-01/06/09/10) 발화 문항: " + $(if($fpTotal.Count){($fpTotal.GetEnumerator()|Sort-Object Value -Descending|ForEach-Object{"$($_.Key):$($_.Value)"}) -join ' '}else{'없음'})
+if($OutFile){ ([ordered]@{version='B-connect-pt-v2'; meta=[ordered]@{unit=$Unit;unit_code=$prefix;pack=($packs -join ',');link_method='pt_id';rule_set='common(C-)+pack(D-)';falsepos_note='C-01/06/09/10=오탐대장 등재. 각 item falsepos_rules에 발화 표시. C-01→E1·C-10→E3 과잉공급 주의';coverage="$cov/$tot";falsepos_fired=$fpTotal;axis_distribution=$axd}; items=$items}|ConvertTo-Json -Depth 6)|Set-Content $OutFile -Encoding UTF8; "저장: $OutFile" }
