@@ -49,7 +49,7 @@
 ## 5. 축·팩 층 (A라인 — 우리가 작업해온 것)
 - `tools/axis_prediction/axis_rules.v44.json` — **45단원 예측축 규칙 팩**(45/45 종결). 17진단축.
 - **predicted_axes는 아직 문항 데이터에 미배선**(grep=0). 팩 출력↔유형 데이터 굽기가 (B) 배선 작업.
-- 17축 정의 원문 = `axis_definitions_v10_orig.md`(§11 확보, §10·v11 미확보).
+- 17축 정의 원문 = `axis_definitions_v10_orig.md`(내용 확보 · 출처 "§11" 미확인 · §10·v11 존재 확인 불가, 원본 리포 밖).
 
 ## 6. 진단·런타임 층 (하류)
 - **diagnosis/** — `weakness_scoring_rules · student_solution_behavior_patterns · diagnosis_output_schema`(★`wrong_answer_diagnosis`·`student_solution_behavior_analysis` 블록 실재).
