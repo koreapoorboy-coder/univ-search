@@ -3,6 +3,7 @@
 # 사용: Connect-ItemsViaPT.ps1 -Unit m2_linear_equation
 param(
   [Parameter(Mandatory)][string]$Unit,
+  [string]$UnitCode  = '',
   [string]$RulesPath = (Join-Path $PSScriptRoot '..\axis_prediction\axis_rules.v44.json'),
   [string]$OutFile   = ''
 )
@@ -18,9 +19,13 @@ function Split-Names([string]$raw){ $parts=@(); $buf=New-Object System.Text.Stri
     if($ch -eq '|' -and $depth -eq 0){ $parts+=$buf.ToString(); $buf=New-Object System.Text.StringBuilder; continue }; [void]$buf.Append($ch) }
   $parts+=$buf.ToString(); ,@($parts|ForEach-Object{$_.Trim()}|Where-Object{$_}) }
 
-# 문항 unit_id → raw_taxonomy 파일
-$uid = (Get-Content (Get-ChildItem "$dataRoot\source_item_links\$Unit\*.json"|Select-Object -First 1).FullName -Raw -Encoding UTF8 | ConvertFrom-Json).links[0].unit_id
-$rtFile = Get-ChildItem "$dataRoot\raw_taxonomy\*.mathflat.v1.json" | Where-Object { (Get-Content $_.FullName -Raw -Encoding UTF8) -match "`"unit_id`":\s*`"$uid`"" } | Select-Object -First 1
+# 문항 unit_id
+$itemUid = (Get-Content (Get-ChildItem "$dataRoot\source_item_links\$Unit\*.json"|Select-Object -First 1).FullName -Raw -Encoding UTF8 | ConvertFrom-Json).links[0].unit_id
+# raw_taxonomy 파일: unit_code 우선(견고), 없으면 unit_id 폴백
+if($UnitCode){ $rtFile = Get-ChildItem "$dataRoot\raw_taxonomy\*.mathflat.v1.json" | Where-Object { (Get-Content $_.FullName -Raw -Encoding UTF8) -match "`"unit_code`":\s*`"$UnitCode`"" } | Select-Object -First 1 }
+else { $rtFile = Get-ChildItem "$dataRoot\raw_taxonomy\*.mathflat.v1.json" | Where-Object { (Get-Content $_.FullName -Raw -Encoding UTF8) -match "`"unit_id`":\s*`"$itemUid`"" } | Select-Object -First 1 }
+if(-not $rtFile){ throw "raw_taxonomy 못 찾음 (Unit=$Unit UnitCode=$UnitCode itemUid=$itemUid)" }
+$rawUid = ([regex]::Match((Get-Content $rtFile.FullName -Raw -Encoding UTF8),'"unit_id":\s*"([^"]*)"')).Groups[1].Value
 $rt = Get-Content $rtFile.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
 $prefix = $rt.unit_code
 $gr = Get-Rules $prefix; $rules=$gr[0]; $packs=$gr[1]
@@ -46,7 +51,8 @@ foreach($f in (Get-ChildItem "$dataRoot\source_item_bank\$Unit\*.json")){ $c=Get
     else { $cov++; $ax=$ptMap[$k]; $axSum+=$ax.Count; $lm='pt_id'; foreach($a in $ax){if(-not $axd.ContainsKey($a)){$axd[$a]=0};$axd[$a]++} }
     $items.Add([ordered]@{item_id=$iid; primary_problem_type_id=$k; predicted_axes=$ax; link_method=$lm}) } }
 $tot=$items.Count
-"unit=$Unit  unit_code=$prefix  팩=$($packs -join ',')  raw=$($rtFile.Name)"
+$uidFlag = if($itemUid -eq $rawUid){'일치'}else{"불일치(문항:$itemUid vs raw:$rawUid)"}
+"unit=$Unit  unit_code=$prefix  팩=$($packs -join ',')  raw=$($rtFile.Name)  unit_id=$uidFlag"
 "PT-id 맵: $($ptMap.Count) (축>0: $((@($ptMap.Values|Where-Object{$_.Count -gt 0})).Count))"
 "문항 $tot → PT-다리 커버 $cov ($([math]::Round(100*$cov/$tot))%) · 키있으나축0 $keyNoAx · 키없음 $noKey · 평균축 $(if($cov){[math]::Round($axSum/$cov,1)}else{0})"
 "축분포: " + (($axd.GetEnumerator()|Sort-Object Value -Descending|ForEach-Object{"$($_.Key):$($_.Value)"}) -join ' ')
