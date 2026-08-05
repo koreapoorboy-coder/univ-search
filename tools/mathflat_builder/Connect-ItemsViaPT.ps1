@@ -54,6 +54,9 @@ $tot=$items.Count
 $uidFlag = if($itemUid -eq $rawUid){'일치'}else{"불일치(문항:$itemUid vs raw:$rawUid)"}
 "unit=$Unit  unit_code=$prefix  팩=$($packs -join ',')  raw=$($rtFile.Name)  unit_id=$uidFlag"
 "PT-id 맵: $($ptMap.Count) (축>0: $((@($ptMap.Values|Where-Object{$_.Count -gt 0})).Count))"
-"문항 $tot → PT-다리 커버 $cov ($([math]::Round(100*$cov/$tot))%) · 키있으나축0 $keyNoAx · 키없음 $noKey · 평균축 $(if($cov){[math]::Round($axSum/$cov,1)}else{0})"
+$covPct = [math]::Round(100*$cov/$tot)
+"문항 $tot → PT-다리 커버 $cov ($covPct%) · 키있으나축0 $keyNoAx · 키없음 $noKey · 평균축 $(if($cov){[math]::Round($axSum/$cov,1)}else{0})"
+if($covPct -eq 0){ "⚠️⚠️ 경고: PT-다리 커버 0% — unit_id/PT-id 식별자 불일치 의심(조용한 0). 대조표 확인 필요." }
+elseif($covPct -lt 40){ "⚠️ 주의: 커버 낮음($covPct%) — 키없음 $noKey 확인(유형 부재 or 식별자 불일치)." }
 "축분포: " + (($axd.GetEnumerator()|Sort-Object Value -Descending|ForEach-Object{"$($_.Key):$($_.Value)"}) -join ' ')
 if($OutFile){ ([ordered]@{version='B-connect-pt-v1'; meta=[ordered]@{unit=$Unit;unit_code=$prefix;pack=($packs -join ',');link_method='pt_id';coverage="$cov/$tot";axis_distribution=$axd}; items=$items}|ConvertTo-Json -Depth 6)|Set-Content $OutFile -Encoding UTF8; "저장: $OutFile" }

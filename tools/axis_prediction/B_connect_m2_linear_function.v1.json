@@ -1,0 +1,882 @@
+﻿{
+    "version":  "B-connect-v2",
+    "meta":  {
+                 "unit":  "m2_linear_function",
+                 "pack":  "LF_FN",
+                 "connect_method":  "name_match",
+                 "caveat":  "이름매칭 = 세부이름 한 줄(canonical_target_type_name)에만 규칙 적용. PT-다리 대비 축 누락 가능. PT 비교 대상 없어 검증 불가(PT 0~32%).",
+                 "coverage":  "82/100",
+                 "avg_axes":  1.7,
+                 "axis_distribution":  {
+                                           "E1":  15,
+                                           "B1":  9,
+                                           "E3":  2,
+                                           "B3":  12,
+                                           "C2":  25,
+                                           "C4":  13,
+                                           "C1":  21,
+                                           "D2":  14,
+                                           "B4":  20,
+                                           "C3":  8
+                                       }
+             },
+    "items":  [
+                  {
+                      "item_id":  "M2_LF_50_S06_Q001",
+                      "type_name":  "함수와 대응 관계 - 함수와 대응 관계",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q002",
+                      "type_name":  "함수의 뜻 판별",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q003",
+                      "type_name":  "함숫값 계산 - 함숫값 계산",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q004",
+                      "type_name":  "f(a) 계산",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q005",
+                      "type_name":  "일차함수 판별 - 일차함수 판별",
+                      "predicted_axes":  [
+                                             "B1",
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q006",
+                      "type_name":  "일차함수 판별 - 일차항 계수 조건 a≠0 확인",
+                      "predicted_axes":  [
+                                             "B1",
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q007",
+                      "type_name":  "함숫값을 이용한 미지수 - 함숫값을 이용한 미지수",
+                      "predicted_axes":  [
+                                             "B4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q008",
+                      "type_name":  "평행이동 - 그래프 이동 후 식 구하기",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C2",
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q009",
+                      "type_name":  "조건 여러 개로 일차함수 결정",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q010",
+                      "type_name":  "변화량과 기울기 - 변화율 해석",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q011",
+                      "type_name":  "기울기에 따른 그래프 모양 - 감소·증가 그래프 구분",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q012",
+                      "type_name":  "두 점의 좌표로 기울기 구하기",
+                      "predicted_axes":  [
+                                             "C4",
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q013",
+                      "type_name":  "기울기와 y절편 관계 - 기울기와 y절편 관계",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q014",
+                      "type_name":  "일차함수 그래프 그리기 - 주어진 그래프와 식 매칭",
+                      "predicted_axes":  [
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q015",
+                      "type_name":  "절편으로 삼각형 넓이 구하기",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1",
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q016",
+                      "type_name":  "두 직선과 좌표축의 넓이",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1",
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q017",
+                      "type_name":  "기울기에 따른 그래프 모양 - 기울기 크기와 그래프 기울어진 정도",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q018",
+                      "type_name":  "a,b 부호와 사분면 - 그래프가 지나는 사분면",
+                      "predicted_axes":  [
+                                             "B3",
+                                             "B4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q019",
+                      "type_name":  "그래프와 계수 관계 종합 - 그래프 비교",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q020",
+                      "type_name":  "a,b 부호와 사분면 - 그래프가 지나는 사분면",
+                      "predicted_axes":  [
+                                             "B3",
+                                             "B4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q021",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 삼각형/사각형 넓이 계산",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q022",
+                      "type_name":  "평행 조건 판단",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q023",
+                      "type_name":  "평행 조건 판단",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q024",
+                      "type_name":  "일치하는 직선 - 일치하는 직선",
+                      "predicted_axes":  [
+                                             "B1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q025",
+                      "type_name":  "그래프와 계수 관계 종합 - 그래프와 계수 관계 종합",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q026",
+                      "type_name":  "기울기와 한 점으로 식 구하기 - 한 점을 지나는 직선의 식",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q027",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - x절편과 y절편으로 식 구하기",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q028",
+                      "type_name":  "여러 조건을 만족하는 식 - 여러 조건을 만족하는 식",
+                      "predicted_axes":  [
+                                             "B1",
+                                             "B3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q029",
+                      "type_name":  "일차함수 활용 - 일차함수 활용",
+                      "predicted_axes":  [
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q030",
+                      "type_name":  "일차함수 활용 - 일차함수 활용",
+                      "predicted_axes":  [
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q031",
+                      "type_name":  "거리·시간·요금 관계식",
+                      "predicted_axes":  [
+                                             "C1",
+                                             "E3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q032",
+                      "type_name":  "도형과 거리 활용 - 도형 조건을 식으로 변환",
+                      "predicted_axes":  [
+                                             "C1",
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q033",
+                      "type_name":  "일차함수 활용 - 일차함수 활용",
+                      "predicted_axes":  [
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q034",
+                      "type_name":  "일차방정식의 그래프 - 일차방정식의 그래프",
+                      "predicted_axes":  [
+                                             "C3",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q035",
+                      "type_name":  "그래프와 방정식 성질 - 계수와 절편 관계",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q036",
+                      "type_name":  "일차방정식 그래프의 기울기",
+                      "predicted_axes":  [
+                                             "D2",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q037",
+                      "type_name":  "그래프와 방정식 성질 - 표준형과 함수식 변환",
+                      "predicted_axes":  [
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q038",
+                      "type_name":  "그래프와 방정식 성질 - 그래프와 방정식 성질",
+                      "predicted_axes":  [
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q039",
+                      "type_name":  "기울기와 y절편으로 식 구하기 - 기울기와 y절편으로 식 구하기",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q040",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - x절편과 y절편으로 식 구하기",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q041",
+                      "type_name":  "여러 조건을 만족하는 식 - 여러 조건을 만족하는 식",
+                      "predicted_axes":  [
+                                             "B1",
+                                             "B3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q042",
+                      "type_name":  "그래프와 방정식 성질 - 계수와 절편 관계",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q043",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 삼각형/사각형 넓이 계산",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q044",
+                      "type_name":  "조건 여러 개로 일차함수 결정",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q045",
+                      "type_name":  "세 직선과 교점 활용 - 교점으로 미지수 구하기",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1",
+                                             "C3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q046",
+                      "type_name":  "세 직선의 위치 관계",
+                      "predicted_axes":  [
+                                             "B3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q047",
+                      "type_name":  "해의 개수와 위치관계 - 해의 개수와 위치관계",
+                      "predicted_axes":  [
+                                             "B3",
+                                             "C3",
+                                             "E3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q048",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 삼각형/사각형 넓이 계산",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q049",
+                      "type_name":  "조건 여러 개로 일차함수 결정",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S06_Q050",
+                      "type_name":  "조건 여러 개로 일차함수 결정",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q001",
+                      "type_name":  "함수와 대응 관계 - 함수와 대응 관계",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q002",
+                      "type_name":  "함수의 뜻 판별",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q003",
+                      "type_name":  "f(a) 계산",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q004",
+                      "type_name":  "함숫값을 이용한 미지수 - 함숫값을 이용한 미지수",
+                      "predicted_axes":  [
+                                             "B4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q005",
+                      "type_name":  "f(a) 계산",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q006",
+                      "type_name":  "일차함수 판별 - 일차함수 판별",
+                      "predicted_axes":  [
+                                             "B1",
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q007",
+                      "type_name":  "일차함수 판별 - 일차항 계수 조건 a≠0 확인",
+                      "predicted_axes":  [
+                                             "B1",
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q008",
+                      "type_name":  "변화량과 기울기 - 변화율 해석",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q009",
+                      "type_name":  "기울기에 따른 그래프 모양 - 감소·증가 그래프 구분",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q010",
+                      "type_name":  "두 점을 지나는 직선의 기울기 - 두 점을 지나는 직선의 기울기",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q011",
+                      "type_name":  "두 점을 지나는 직선의 기울기 - 두 점을 지나는 직선의 기울기",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q012",
+                      "type_name":  "기울기와 y절편 관계 - 기울기와 y절편 관계",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q013",
+                      "type_name":  "일차함수 그래프 그리기 - 주어진 그래프와 식 매칭",
+                      "predicted_axes":  [
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q014",
+                      "type_name":  "좌표축으로 둘러싸인 넓이 - 좌표축으로 둘러싸인 넓이",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1",
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q015",
+                      "type_name":  "두 직선과 좌표축의 넓이",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1",
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q016",
+                      "type_name":  "a,b 부호와 사분면 - 그래프가 지나는 사분면",
+                      "predicted_axes":  [
+                                             "B3",
+                                             "B4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q017",
+                      "type_name":  "그래프와 계수 관계 종합 - 그래프 비교",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q018",
+                      "type_name":  "a,b 부호와 사분면 - 그래프가 지나는 사분면",
+                      "predicted_axes":  [
+                                             "B3",
+                                             "B4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q019",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 삼각형/사각형 넓이 계산",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q020",
+                      "type_name":  "평행 조건 판단",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q021",
+                      "type_name":  "평행 조건 판단",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q022",
+                      "type_name":  "기울기와 한 점으로 식 구하기 - 한 점을 지나는 직선의 식",
+                      "predicted_axes":  [
+                                             "D2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q023",
+                      "type_name":  "두 점으로 직선의 식 구하기 - 두 점으로 직선의 식 구하기",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q024",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - x절편과 y절편으로 식 구하기",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q025",
+                      "type_name":  "여러 조건을 만족하는 식 - 여러 조건을 만족하는 식",
+                      "predicted_axes":  [
+                                             "B1",
+                                             "B3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q026",
+                      "type_name":  "일차함수 활용 - 일차함수 활용",
+                      "predicted_axes":  [
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q027",
+                      "type_name":  "일차함수 활용 - 일차함수 활용",
+                      "predicted_axes":  [
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q028",
+                      "type_name":  "일차함수 활용 - 일차함수 활용",
+                      "predicted_axes":  [
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q029",
+                      "type_name":  "일차방정식의 그래프 - 일차방정식의 그래프",
+                      "predicted_axes":  [
+                                             "C3",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q030",
+                      "type_name":  "일차방정식의 그래프 - 방정식과 직선의 대응",
+                      "predicted_axes":  [
+                                             "C3",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q031",
+                      "type_name":  "좌표를 방정식에 대입",
+                      "predicted_axes":  [
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q032",
+                      "type_name":  "그래프와 방정식 성질 - 그래프와 방정식 성질",
+                      "predicted_axes":  [
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q033",
+                      "type_name":  "그래프와 방정식 성질 - 표준형과 함수식 변환",
+                      "predicted_axes":  [
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q034",
+                      "type_name":  "그래프와 방정식 성질 - 그래프와 방정식 성질",
+                      "predicted_axes":  [
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q035",
+                      "type_name":  "그래프와 방정식 성질 - 계수와 절편 관계",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q036",
+                      "type_name":  "두 점으로 직선의 식 구하기 - 두 점으로 직선의 식 구하기",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q037",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - x절편과 y절편으로 식 구하기",
+                      "predicted_axes":  [
+                                             "C2"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q038",
+                      "type_name":  "여러 조건을 만족하는 식 - 여러 조건을 만족하는 식",
+                      "predicted_axes":  [
+                                             "B1",
+                                             "B3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q039",
+                      "type_name":  "좌표축에 평행한 직선 - 좌표축에 평행한 직선",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q040",
+                      "type_name":  "좌표축에 평행한 직선 - 좌표축에 평행한 직선",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "C4"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q041",
+                      "type_name":  "그래프와 방정식 성질 - 계수와 절편 관계",
+                      "predicted_axes":  [
+                                             "C2",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q042",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 삼각형/사각형 넓이 계산",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q043",
+                      "type_name":  "조건 여러 개로 일차함수 결정",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q044",
+                      "type_name":  "교점과 해 - 연립방정식의 해와 교점 연결",
+                      "predicted_axes":  [
+                                             "B3",
+                                             "C3",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q045",
+                      "type_name":  "세 직선과 교점 활용 - 교점으로 미지수 구하기",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1",
+                                             "C3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q046",
+                      "type_name":  "세 직선과 교점 활용 - 교점으로 미지수 구하기",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1",
+                                             "C3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q047",
+                      "type_name":  "세 직선의 위치 관계",
+                      "predicted_axes":  [
+                                             "B3"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q048",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 삼각형/사각형 넓이 계산",
+                      "predicted_axes":  [
+                                             "B4",
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q049",
+                      "type_name":  "조건 여러 개로 일차함수 결정",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  },
+                  {
+                      "item_id":  "M2_LF_50_S09_Q050",
+                      "type_name":  "조건 여러 개로 일차함수 결정",
+                      "predicted_axes":  [
+
+                                         ],
+                      "link_method":  "none"
+                  }
+              ]
+}

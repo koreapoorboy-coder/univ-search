@@ -1,28 +1,25 @@
 ﻿{
-    "version":  "B-connect-v1",
+    "version":  "B-connect-v2",
     "meta":  {
-                 "purpose":  "(B) 팩 예측축 배선 — 🟢 통과 단원",
                  "unit":  "m3_trigonometric_ratio",
                  "pack":  "TB_TR",
-                 "item_count":  372,
-                 "coverage":  "334/372",
+                 "connect_method":  "name_match",
+                 "caveat":  "이름매칭 = 세부이름 한 줄(canonical_target_type_name)에만 규칙 적용. PT-다리 대비 축 누락 가능. PT 비교 대상 없어 검증 불가(PT 0~32%).",
+                 "coverage":  "354/372",
+                 "avg_axes":  2.24,
                  "axis_distribution":  {
                                            "E2":  4,
-                                           "B2":  21,
+                                           "E1":  25,
                                            "B1":  61,
                                            "C3":  41,
                                            "B3":  45,
+                                           "B2":  21,
                                            "C2":  130,
                                            "C4":  74,
-                                           "C1":  85,
+                                           "C1":  237,
                                            "D2":  142,
                                            "E3":  14
-                                       },
-                 "caveats":  [
-                                 "팩 예측축만(태그·공통C- 미포함)",
-                                 "엔진 미연결",
-                                 "눈확인 5유형 통과"
-                             ]
+                                       }
              },
     "items":  [
                   {
@@ -30,84 +27,104 @@
                       "type_name":  "삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q002",
                       "type_name":  "삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q003",
                       "type_name":  "삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q004",
                       "type_name":  "삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q005",
                       "type_name":  "삼각비가 주어진 경우의 삼각형의 변의 길이 - 기본 판별",
                       "predicted_axes":  [
-                                             "C1"
-                                         ]
+                                             "C1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q006",
                       "type_name":  "삼각비가 주어진 경우의 삼각형의 변의 길이 - 기본 판별",
                       "predicted_axes":  [
-                                             "C1"
-                                         ]
+                                             "C1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q007",
                       "type_name":  "삼각비가 주어진 경우의 삼각형의 변의 길이 - 계산·해석",
                       "predicted_axes":  [
-                                             "C1"
-                                         ]
+                                             "C1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q008",
                       "type_name":  "삼각비가 주어진 경우의 삼각형의 변의 길이 - 기본 판별",
                       "predicted_axes":  [
-                                             "C1"
-                                         ]
+                                             "C1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q009",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q010",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q011",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q012",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q013",
@@ -115,7 +132,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q014",
@@ -123,7 +141,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q015",
@@ -131,7 +150,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q016",
@@ -139,7 +159,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q017",
@@ -147,7 +168,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q018",
@@ -155,7 +177,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q019",
@@ -163,7 +186,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q020",
@@ -171,7 +195,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q021",
@@ -179,337 +204,405 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q022",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q023",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q024",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q025",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q026",
                       "type_name":  "평면도형에서의 삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q027",
                       "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q028",
                       "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q029",
                       "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q030",
                       "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q031",
                       "type_name":  "입체도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q032",
                       "type_name":  "입체도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q033",
                       "type_name":  "입체도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q034",
                       "type_name":  "입체도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q035",
                       "type_name":  "입체도형에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q036",
                       "type_name":  "원에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q037",
                       "type_name":  "원에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q038",
                       "type_name":  "원에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q039",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q040",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q041",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q042",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q043",
                       "type_name":  "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 기본 판별",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "E2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q044",
                       "type_name":  "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 기본 판별",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "E2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q045",
                       "type_name":  "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 기본 판별",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "E2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q046",
                       "type_name":  "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 기본 판별",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "E2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q047",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q048",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q049",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q050",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q051",
                       "type_name":  "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q052",
                       "type_name":  "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q053",
                       "type_name":  "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q054",
                       "type_name":  "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q055",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q056",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 기본 판별",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q057",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q058",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 기본 판별",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q059",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q060",
                       "type_name":  "직선의 기울기와 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q061",
                       "type_name":  "직선의 기울기와 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q062",
                       "type_name":  "직선의 기울기와 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q063",
                       "type_name":  "직선의 기울기와 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q064",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q065",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q066",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q067",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q068",
@@ -517,7 +610,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q069",
@@ -525,7 +619,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q070",
@@ -533,7 +628,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q071",
@@ -541,35 +637,40 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q072",
                       "type_name":  "특수한 각(0˚, 90˚)의 삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q073",
                       "type_name":  "특수한 각(0˚, 90˚)의 삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q074",
                       "type_name":  "특수한 각(0˚, 90˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q075",
                       "type_name":  "특수한 각(0˚, 90˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q076",
@@ -577,7 +678,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q077",
@@ -585,7 +687,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q078",
@@ -593,7 +696,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q079",
@@ -601,7 +705,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q080",
@@ -609,7 +714,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q081",
@@ -617,7 +723,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q082",
@@ -625,7 +732,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q083",
@@ -633,7 +741,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q084",
@@ -641,7 +750,8 @@
                       "predicted_axes":  [
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q085",
@@ -649,7 +759,8 @@
                       "predicted_axes":  [
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q086",
@@ -657,7 +768,8 @@
                       "predicted_axes":  [
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q087",
@@ -665,131 +777,162 @@
                       "predicted_axes":  [
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q088",
                       "type_name":  "삼각비의 표(2); 각의 크기 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q089",
                       "type_name":  "삼각비의 표(2); 각의 크기 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q090",
                       "type_name":  "삼각비의 표(2); 각의 크기 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q091",
                       "type_name":  "삼각비의 표(2); 각의 크기 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q092",
                       "type_name":  "삼각비의 표(3); 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q093",
                       "type_name":  "삼각비의 표(3); 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q094",
                       "type_name":  "삼각비의 표(3); 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q095",
                       "type_name":  "삼각비의 표(3); 변의 길이 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q096",
                       "type_name":  "삼각비의 표(3); 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q097",
                       "type_name":  "직각삼각형의 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q098",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q099",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q100",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q101",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q102",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q103",
@@ -798,7 +941,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q104",
@@ -807,7 +951,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q105",
@@ -816,7 +961,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q106",
@@ -825,7 +971,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q107",
@@ -834,7 +981,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q108",
@@ -843,7 +991,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q109",
@@ -852,7 +1001,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q110",
@@ -861,7 +1011,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q111",
@@ -870,102 +1021,120 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q112",
                       "type_name":  "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q113",
                       "type_name":  "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q114",
                       "type_name":  "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 기본 판별",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q115",
                       "type_name":  "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q116",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q117",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q118",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q119",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q120",
                       "type_name":  "예각삼각형의 높이 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q121",
                       "type_name":  "예각삼각형의 높이 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q122",
                       "type_name":  "예각삼각형의 높이 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q123",
                       "type_name":  "예각삼각형의 높이 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q124",
                       "type_name":  "예각삼각형의 높이 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q125",
@@ -973,7 +1142,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q126",
@@ -981,7 +1151,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q127",
@@ -989,7 +1160,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q128",
@@ -997,7 +1169,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q129",
@@ -1005,210 +1178,258 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q130",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q131",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q132",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q133",
                       "type_name":  "둔각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q134",
                       "type_name":  "둔각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q135",
                       "type_name":  "둔각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q136",
                       "type_name":  "다각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q137",
                       "type_name":  "다각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q138",
                       "type_name":  "다각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q139",
                       "type_name":  "정다각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C3",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q140",
                       "type_name":  "정다각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C3",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q141",
                       "type_name":  "정다각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C3",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q142",
                       "type_name":  "정다각형의 넓이 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C3",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q143",
                       "type_name":  "평행사변형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q144",
                       "type_name":  "평행사변형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q145",
                       "type_name":  "평행사변형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q146",
                       "type_name":  "평행사변형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q147",
                       "type_name":  "사각형의 넓이 - 기본 판별",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q148",
                       "type_name":  "사각형의 넓이 - 기본 판별",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q149",
                       "type_name":  "사각형의 넓이 - 기본 판별",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S01_Q150",
                       "type_name":  "사각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q001",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q002",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q003",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q004",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q005",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q006",
                       "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "B1"
-                                         ]
+                                             "B1",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q007",
@@ -1216,7 +1437,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q008",
@@ -1224,7 +1446,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q009",
@@ -1232,7 +1455,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q010",
@@ -1240,7 +1464,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q011",
@@ -1248,7 +1473,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q012",
@@ -1256,7 +1482,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q013",
@@ -1264,7 +1491,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q014",
@@ -1272,7 +1500,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q015",
@@ -1280,7 +1509,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q016",
@@ -1288,7 +1518,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q017",
@@ -1296,7 +1527,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q018",
@@ -1304,7 +1536,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q019",
@@ -1312,315 +1545,378 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q020",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q021",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q022",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q023",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q024",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q025",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q026",
                       "type_name":  "평면도형에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q027",
                       "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q028",
                       "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q029",
                       "type_name":  "평면도형에서의 삼각비의 값 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q030",
                       "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q031",
                       "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q032",
                       "type_name":  "입체도형에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q033",
                       "type_name":  "입체도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q034",
                       "type_name":  "입체도형에서의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q035",
                       "type_name":  "입체도형에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q036",
                       "type_name":  "입체도형에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q037",
                       "type_name":  "입체도형에서의 삼각비의 값 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q038",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q039",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q040",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q041",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q042",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q043",
                       "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
 
-                                         ]
+                                         ],
+                      "link_method":  "none"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q044",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q045",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q046",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q047",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q048",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q049",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q050",
                       "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q051",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 복합 적용",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q052",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q053",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 기본 판별",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q054",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q055",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q056",
                       "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석",
                       "predicted_axes":  [
                                              "C3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q057",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q058",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q059",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q060",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 복합 적용",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q061",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q062",
                       "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q063",
@@ -1628,7 +1924,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q064",
@@ -1636,7 +1933,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q065",
@@ -1644,7 +1942,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q066",
@@ -1652,7 +1951,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q067",
@@ -1660,7 +1960,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q068",
@@ -1668,7 +1969,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q069",
@@ -1676,7 +1978,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q070",
@@ -1684,7 +1987,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q071",
@@ -1692,7 +1996,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q072",
@@ -1700,7 +2005,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q073",
@@ -1708,7 +2014,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q074",
@@ -1716,7 +2023,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q075",
@@ -1724,7 +2032,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q076",
@@ -1732,7 +2041,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q077",
@@ -1740,7 +2050,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q078",
@@ -1748,7 +2059,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q079",
@@ -1756,7 +2068,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q080",
@@ -1764,7 +2077,8 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q081",
@@ -1772,117 +2086,144 @@
                       "predicted_axes":  [
                                              "B2",
                                              "B3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q082",
                       "type_name":  "삼각비의 표(3); 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C4",
                                              "E3"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q083",
                       "type_name":  "직각삼각형의 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q084",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q085",
                       "type_name":  "직각삼각형의 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q086",
                       "type_name":  "직각삼각형의 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q087",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q088",
                       "type_name":  "직각삼각형의 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q089",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q090",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q091",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q092",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q093",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q094",
                       "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 기본 판별",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "C4",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q095",
@@ -1891,7 +2232,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q096",
@@ -1900,7 +2242,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q097",
@@ -1909,7 +2252,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q098",
@@ -1918,7 +2262,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q099",
@@ -1927,7 +2272,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q100",
@@ -1936,91 +2282,104 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q101",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q102",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q103",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q104",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q105",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q106",
                       "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q107",
                       "type_name":  "예각삼각형의 높이 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q108",
                       "type_name":  "예각삼각형의 높이 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q109",
                       "type_name":  "예각삼각형의 높이 - 기본 판별",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q110",
                       "type_name":  "예각삼각형의 높이 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q111",
                       "type_name":  "예각삼각형의 높이 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q112",
                       "type_name":  "예각삼각형의 높이 - 계산·해석",
                       "predicted_axes":  [
                                              "C1"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q113",
@@ -2028,7 +2387,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q114",
@@ -2036,7 +2396,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q115",
@@ -2044,7 +2405,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q116",
@@ -2052,7 +2414,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q117",
@@ -2060,7 +2423,8 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q118",
@@ -2068,257 +2432,311 @@
                       "predicted_axes":  [
                                              "B3",
                                              "C2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q119",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q120",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q121",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q122",
                       "type_name":  "예각삼각형의 넓이 - 기본 판별",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q123",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q124",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q125",
                       "type_name":  "둔각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q126",
                       "type_name":  "둔각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q127",
                       "type_name":  "둔각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q128",
                       "type_name":  "둔각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q129",
                       "type_name":  "둔각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q130",
                       "type_name":  "둔각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B3",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q131",
                       "type_name":  "다각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q132",
                       "type_name":  "다각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q133",
                       "type_name":  "다각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q134",
                       "type_name":  "다각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q135",
                       "type_name":  "다각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q136",
                       "type_name":  "다각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q137",
                       "type_name":  "정다각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C3",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q138",
                       "type_name":  "평행사변형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q139",
                       "type_name":  "평행사변형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q140",
                       "type_name":  "평행사변형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q141",
                       "type_name":  "평행사변형의 넓이 - 기본 판별",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q142",
                       "type_name":  "평행사변형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q143",
                       "type_name":  "평행사변형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q144",
                       "type_name":  "사각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q145",
                       "type_name":  "사각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q146",
                       "type_name":  "사각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q147",
                       "type_name":  "사각형의 넓이 - 기본 판별",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q148",
                       "type_name":  "사각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q149",
                       "type_name":  "사각형의 넓이 - 기본 판별",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_150_S07_Q150",
                       "type_name":  "사각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
-
-                                         ]
+                                             "C1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q001",
                       "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석",
                       "predicted_axes":  [
-                                             "C4"
-                                         ]
+                                             "C4",
+                                             "E1"
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q002",
@@ -2326,7 +2744,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q003",
@@ -2334,7 +2753,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q004",
@@ -2342,7 +2762,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q005",
@@ -2350,7 +2771,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q006",
@@ -2358,7 +2780,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q007",
@@ -2366,7 +2789,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q008",
@@ -2374,7 +2798,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q009",
@@ -2382,7 +2807,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q010",
@@ -2390,7 +2816,8 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q011",
@@ -2398,79 +2825,98 @@
                       "predicted_axes":  [
                                              "C2",
                                              "C4"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q012",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q013",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q014",
                       "type_name":  "직각삼각형의 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q015",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q016",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q017",
                       "type_name":  "직각삼각형의 변의 길이 - 계산·해석",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q018",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q019",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q020",
                       "type_name":  "직각삼각형의 변의 길이 - 복합 적용",
                       "predicted_axes":  [
+                                             "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q021",
@@ -2479,7 +2925,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q022",
@@ -2488,7 +2935,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q023",
@@ -2497,7 +2945,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q024",
@@ -2506,7 +2955,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q025",
@@ -2515,7 +2965,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q026",
@@ -2524,7 +2975,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q027",
@@ -2533,7 +2985,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q028",
@@ -2542,7 +2995,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q029",
@@ -2551,7 +3005,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q030",
@@ -2560,7 +3015,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q031",
@@ -2569,7 +3025,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q032",
@@ -2578,7 +3035,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q033",
@@ -2587,7 +3045,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q034",
@@ -2596,7 +3055,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q035",
@@ -2605,7 +3065,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q036",
@@ -2614,7 +3075,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q037",
@@ -2623,7 +3085,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q038",
@@ -2632,7 +3095,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q039",
@@ -2641,7 +3105,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q040",
@@ -2650,7 +3115,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q041",
@@ -2659,7 +3125,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q042",
@@ -2668,7 +3135,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q043",
@@ -2677,7 +3145,8 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q044",
@@ -2686,231 +3155,288 @@
                                              "C1",
                                              "C2",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q045",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q046",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q047",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q048",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q049",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q050",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q051",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q052",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q053",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q054",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q055",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q056",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q057",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q058",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q059",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q060",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q061",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q062",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q063",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q064",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q065",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q066",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q067",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q068",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q069",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q070",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q071",
                       "type_name":  "예각삼각형의 넓이 - 복합 적용",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   },
                   {
                       "item_id":  "M3_TRIG_72_S11_Q072",
                       "type_name":  "예각삼각형의 넓이 - 계산·해석",
                       "predicted_axes":  [
                                              "B1",
+                                             "C1",
                                              "D2"
-                                         ]
+                                         ],
+                      "link_method":  "name_match"
                   }
               ]
 }
