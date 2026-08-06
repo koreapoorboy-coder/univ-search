@@ -3,7 +3,7 @@
     "unit_id":  "M2_SIMILARITY",
     "unit_name":  "도형의 닮음",
     "source_format":  "mathflat_problem_type_taxonomy (m2_similarity.mathflat.v1.json)",
-    "note":  "mathflat 81 platform taxonomy (M2_SIMILARITY, similarity-only) as raw sections. CORRECTION 2026-08-06: NOT the diagnostic unit canonical. Live canonical = M2_SIMPY (problem_types/m2_similarity_pythagoras.problem_types.v1.json, 87 types, similarity+pythagoras) via source_item_links/type_variant_bank. Keep this as mathflat PLATFORM view only.",
+    "note":  "mathflat 81 (M2_SIMILARITY) as raw sections. LAYER ROLE (검수확정 2026-08-06): mathflat = PREDICTED-layer input (Run-AxisPrediction consumes *.mathflat type names for axis prediction). OBSERVED-join canonical is separate = M2_SIMPY (m2_similarity_pythagoras, 87) via source_item_links/type_variant_bank. Different layers, both valid. PRESERVE because prediction pipeline uses it.",
     "section_count":  81,
     "sections":  [
                      {

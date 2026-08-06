@@ -4,8 +4,8 @@
     "unit_name":  "도형의 닮음",
     "raw_taxonomy":  "data/raw_taxonomy/m2_similarity.raw_taxonomy.v1.json",
     "wiring_status":  "platform_view_not_unit_canonical",
-    "superseded_note":  "CORRECTION 2026-08-06: this mathflat taxonomy (M2_SIMILARITY, 2-2 도형의 닮음, similarity-only, 81 types) is NOT the diagnostic unit canonical. The engine's live canonical for the worksheets is M2_SIMPY (M2_SIMILARITY_PYTHAGORAS, similarity+pythagoras, 87 types) in problem_types/m2_similarity_pythagoras.problem_types.v1.json, referenced by source_item_links/type_variant_bank/coverage. Keep this file as the mathflat PLATFORM view only. Do not wire error_tags/predicted axes here.",
-    "wiring_note":  "mathflat 81 platform taxonomy skeleton. NOT unit canonical (see superseded_note).",
+    "layer_role_note":  "LAYER ROLE (검수확정 2026-08-06): this mathflat taxonomy (M2_SIMILARITY, 2-2 도형의 닮음, 81 types) is the PREDICTED-layer input — Run-AxisPrediction.ps1 consumes *.mathflat.v1.json type-name text and regex-matches axis_rules to produce PREDICTED axes. It is NOT the OBSERVED-join canonical; that is M2_SIMPY (m2_similarity_pythagoras.problem_types.v1.json, 87 types) referenced by source_item_links/type_variant_bank. NOT competing — different layers, both valid. PRESERVE this file because the prediction pipeline actually uses it (not merely for audit-trail).",
+    "wiring_note":  "mathflat 81 = PREDICTED-layer taxonomy input for Run-AxisPrediction. OBSERVED canonical is separate (M2_SIMPY). See layer_role_note.",
     "pending":  [
                     "predicted error_tags attach",
                     "concept_ids inheritance",

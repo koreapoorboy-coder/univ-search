@@ -43,7 +43,9 @@
     - **② 45단원 스타일 분포**: BROAD(≤30)~16 / mid~11 / FINE(≥70)~11 스펙트럼. **geometry·삼각비·이차·다항식 클러스터 전부 BROAD**(geometry_properties14·trigonometric_ratio26·quadratic19·geometry_equation25). 닮음(geometry)은 BROAD 계열.
     - **③ 의도 vs 편차**: problem_types 전부 2026-07-06~08 동일배치 저작(광범위 geometry·세분 linear가 같은날 07-07), error_tags 설계문서 부재 → **통제어휘 없는 유닛별 저작편차**에 가까움(의도된 통일설계 아님).
     - ⇒ **결론(검수 판정 대기)**: 예측축엔 error_tags 불요(mathflat+텍스트규칙으로 이미 산출가능). 닮음 예측축은 `Run-AxisPrediction`을 `m2_similarity.mathflat`에 돌리면 나옴. error_tags를 굳이 붙인다면 BROAD(geometry)스타일이나, **목적(무슨 소비처?)부터 재확인 필요** — 안 붙여도 예측축 지장 없음.
-    - ⚠ mathflat 경정정 뉘앙스: mathflat은 "비-canonical"이 아니라 **PREDICTED-팩 입력**(Run-AxisPrediction이 *.mathflat 소비). M2_SIMPY는 OBSERVED-조인 canonical. 서로 다른 층 역할.
+    - ⚠ mathflat 뉘앙스(검수확정): mathflat="비-canonical" 아님 = **PREDICTED-층 입력**(Run-AxisPrediction이 *.mathflat 소비). M2_SIMPY=OBSERVED-조인 canonical. 경쟁 아닌 서로 다른 층·둘 다 유효. **보존 이유=예측 파이프라인 실사용**(되짚기용 아님). superseded_note→layer_role_note로 문구 확정.
+  - **✅ error_tags 소비처 확인(검수①)**: 0 아님 = **3개(전부 null-safe `pt.error_tags||[]`)**. `algebra_master_matcher`(학생↔유형 매칭 토큰 보조), `math_weakness_engine._tagsFor`(교정루트 trigger 병합), `report_renderer`(표시 fallback). worker의 `observed_error_tags`는 학생 실측필드로 별개. ⇒ **M2_SIMPY null=안전(크래시無)하나 두 소프트신호(매칭보조·error_tag트리거 교정) 포기.** 검수 판정: null 유지로 확정하되 소비처 이 3개 기록. 매칭은 type_name/description 토큰 fallback, 교정은 observed 태그 경로로 동작유지.
+  - **✅ 닮음 예측축 실행 전 사전보고(검수 4항목)**: ⓐ하드코딩=`Run-AxisPrediction.ps1` **27행** `$dir='...Desktop\scshstudy...'`→projects 경로(또는 $PSScriptRoot 유도). RulesPath는 이미 $PSScriptRoot 상대. ⓑ산출물=**temp `%TEMP%\axispred`에 분석 CSV만**(name_source_dist·unmatched_all·pack_gap_all·rule_over60)+콘솔. **엔진 데이터 덮어쓰기 0**(read-only audit, 예측축을 소비파일에 안 씀). ⓒ다른 44단원=이미 **45/45 산출됨**, 닮음(GS)도 포함(mathflat 45개+axis_rules에 **GS 팩 실재** applies_to:["GS"]). 재산출 아닌 재검증. ⓓ`-Only GS` 단독실행 가능→**45 재검증 불수반**(§7 관건 해소). unmatched 수치는 실행시 산출(approval시 -Only GS 단독run으로 보고).
   - default_difficulty·전체유형 완성(워크시트 미커버 PT177까지)도 후속.
 
 ## ⏱ 첫 5분
