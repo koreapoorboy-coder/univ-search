@@ -30,7 +30,8 @@
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
   - 🔴 **경정정**: 내 mathflat 등재(`m2_similarity`, M2_SIMILARITY, 닮음만 81)는 **유닛 canonical 아님** = 플랫폼 뷰. `superseded_note` 표시. 완료 유닛(수와식)은 links의 primary_problem_type_id가 problem_types 파일로 해소되나 닮음은 정의파일만 부재였음.
   - **✅ M2_SIMPY problem_types 뼈대 등재**(검수결정): `data/problem_types/m2_similarity_pythagoras.problem_types.v1.json`(87유형, type_variant_bank+links id조인, concept_ids 87/87, `error_tags=null`, `status:raw_registered_not_wired`).
-  - **유일 pending = 예측 error_tags 상속원**(완료 유닛 vocab: core·조건류. 상속 vs 신규는 후속판정, 검수결정=지금은 보류). default_difficulty·전체유형 완성(워크시트 미커버 PT177까지)도 후속.
+  - **유일 pending = 예측 error_tags 상속원**(검수결정=지금은 보류). **✅상속 패턴 조사(완료 5유닛)**: ①error_tags 100% 채움(null 0) ②**vocab 유닛별 bespoke**(교차겹침 0~15%, 대부분 0%) — 공유 통제어휘 없음 ③스타일 2갈래: **다수(geometry·probability·quadratic·polynomial)=소수(12~20) 광범위 개념슬러그 고반복** / NE·linear만 대규모 세분(100+). "core"는 error_tag 아님(앞 grep 오탐 정정). ④**닮음 템플릿 = `m2_geometry_properties`**(14종: parallel_lines·angle_chasing·triangle_congruence·triangle_center·length_area·diagonal_property·proof_structure·auxiliary_line…) — 도메인 정합. 권고: geometry 스타일로 소수 광개념 vocab 신규(닮음/피타고라스 특화: similarity_ratio·area_volume_ratio·pythagorean·midpoint_connector·right_triangle_altitude 등), M2_SIMPY concept_ids(53종) 정렬. **wholesale 상속 불가(bespoke), 알고리즘=geometry모델+concept파생.**
+  - default_difficulty·전체유형 완성(워크시트 미커버 PT177까지)도 후속.
 
 ## ⏱ 첫 5분
 - **목표**: 각 단원 150문항을 재태깅(오류형)→17진단축(관측층)에 매핑→문항단위 반영. PREDICTED(팩)와 별개층.
