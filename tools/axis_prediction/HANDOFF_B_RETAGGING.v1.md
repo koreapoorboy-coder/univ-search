@@ -19,7 +19,13 @@
   - **원 전용 태그 정당 사용**(피타고라스+원 혼합 후반): tangent_radius_perpendicularity_omitted·central_angle_to_arc_ratio_failure·area_inradius_relation_setup_failure·right_triangle_tangent_partition_failure·spatial_cross_section_identification_failure. 사전서 꺼내 씀(신규 아님).
   - **856 등재**: set04와 동일 유닛 → mathflat 81 raw_taxonomy/problem_types **공유, 재생성 불필요**.
   - 맵 파일 없음(신규0).
-- **다음 할 일** = 다음 트랜치(856 나머지: 다항식·이차함수·도형성질 등) 또는 crosswalk 후속. **crosswalk(set04+set09 관측 67+51 → mathflat 81)은 닮음 300문항 다 모인 지금 착수 적기**(검수지시). 예측 error_tags 부착도 후속. 기준명시·converse 선례 규칙 준수.
+- **✅ 삼각비(무번호) 7단원째 완결** (set01=`260711_삼각비.pdf`, 삼각비(6)=set07과 다른 학습지). 삼각비는 기존 유닛(856 아님)→반영만. item_id `M3_TRIG_150_S01_Q###`.
+  - 37유형·150문항·관측53종, new_tags **0**, 전량 축매핑 풀 존재→승계(신규0). 전 유형 3태그(avg 3.0). 사전 v2 재사용 100%.
+  - **파일**: `B_tagging_m3_trigonometric_ratio_set01.v1.json` + `B_reflection_m3_trigonometric_ratio_set01.v1.json`(미해결0). Code탭 독립검증 PASS.
+  - **축분포 광폭**(삼각비 특성): A2·29(특수각 암기)·B2·15·C1·73·D3·26 등 A1·A3·E1·E2 뺀 전축 등장. 닮음(C편중)과 대조적 변별폭.
+  - ⚠ **삼각비 set 구분**: set01=무번호 / set07=(6) / set11=(10, 72문항). 정본명에 set번호 명시.
+- **다음 할 일** (검수 큐): ① 삼각비(10)=set11(72) · 함수(5) · 함수(8)=48×2 순차 반영 — 로컬 확보분. ② **crosswalk + 예측 error_tags** = 아래 후속조사 2건 회신 후(§금지된 이름매칭 회피). ③ 856 나머지(다항식·이차함수·도형성질)=PDF 로컬 부재, 사용자 확보 대기.
+- **🔎 후속조사 2건(crosswalk 선결, 미회신)**: ⓐ 다른 4단원 `problem_types`의 error_tags 실태·상속원. ⓑ `source_item_bank`(set04 등)에 `problem_type_id` 필드 존재 여부. 둘 없으면 crosswalk가 type_name 이름매칭이 되어 §5 감사 금지(최대 69pp 유실). 반영 중 여유 시 병행.
 
 ## ⏱ 첫 5분
 - **목표**: 각 단원 150문항을 재태깅(오류형)→17진단축(관측층)에 매핑→문항단위 반영. PREDICTED(팩)와 별개층.
