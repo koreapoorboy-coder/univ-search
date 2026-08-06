@@ -46,7 +46,16 @@
   - 검수확정 대기(맵 CODE_DRAFT).
 - **✅ 이차함수(9)=set10 12단원째 완결** (같은 단원 2번째, `260711_이차함수(9).pdf`). item_id `M3_QFUNC_150_S10_Q###`. 유닛 완비(type_variant set10 존재)→856 불요. 19유형·150문항·27종, **new_tags 0**(이차함수3 신규16 중 12재등장, 두 학습지 겹침 26/27=사실상 전량 재사용), 전량 풀 승계. 독립검증 PASS(3=17·2=2). 축분포 **C3·124 지배**/C1·68/C4·26/B3·23 — 이차함수 C3 프로파일 재확인. 미해결0. 굵은 편성(19유형·평균7.9문항).
   - **패턴 4번째 확인**: 같은 단원 2번째 학습지 재사용률 100% (닮음3→8·함수5→8·삼각비무→10·이차함수3→9). 사전+직전산출 참조(authority_sources 명시) 안정 작동.
-- **다음 할 일**: ① 확보 PDF 순차 반영 — 다항식(5)·도형성질(6)(856) + 이차방정식(5)·실수(6)·확률(5)(주제형). 각 유닛 type_variant 선확인(규율). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
+- **✅ 남은 5유닛 인프라 사전조사 완료(검수 요청) — 전부 완비, 856 등재 불요**(닮음이 유일 예외였음). links의 primary_problem_type_id가 problem_types에 전부 해소:
+  | 단원 | code | PT스킴 | set / item_id | source_file(원본) |
+  |---|---|---|---|---|
+  | 다항식 | m3_polynomial_multiplication_factorization | M3_POLY_PT | set06→`M3_POLY_150_S06` / set10 | `260711_다항식의 곱셈과 인수분해(5).pdf` / `(13).pdf` |
+  | 도형의성질 | m2_geometry_properties | M2_GEOM_PT | set07→`M2_GEOM_150_S07` | `260710_도형의 성질(6).pdf` |
+  | 이차방정식 | m3_quadratic_equation | M3_QUAD_PT | set06→`M3_QUAD_150_S06` / set12 | `260711_이차방정식(5).pdf` / `(11).pdf` |
+  | 실수 | m3_real_numbers_and_operations | M3_REAL_PT | set07→`M3_REAL_150_S07` | `260711_실수와 그 계산(6).pdf` |
+  | 확률 | m2_probability | M2_PROB_PT | set06→`M2_PROB_150_S06` / set11 | `260711_경우의 수와 확률(5).pdf` / `(10).pdf` |
+  ⚠ 도형성질만 260710(나머지 260711). 확률 unit=경우의수+확률. 전부 type_variant_bank·links·problem_types 존재→반영만(등재 무).
+- **다음 할 일**: ① 확보 PDF 순차 반영(전부 등재 불요·반영만): 다항식(5)·도형성질(6)·이차방정식(5)·실수(6)·확률(5). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
 - **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
   - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
