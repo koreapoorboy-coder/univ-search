@@ -1,0 +1,32 @@
+{
+  "version": "B-tag-axis-map-M2LF-new-v1",
+  "unit": "m2_linear_function / 함수(5)=set06 (일차함수). 첫 대수 계열 단원",
+  "source": "_inbox/tagging_function5_v4_v2.json (50유형·50문항·44종, 재사용26·신규18, 검수 PASS)",
+  "scope": "신규 18종만 매핑. 재사용 26종은 기존 축 승계(축매핑풀 전수대조 gap 0). 기존 유닛(problem_types/source_item_links 존재)이라 856 등재 불필요.",
+  "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지.",
+  "review_status": "CODE_DRAFT_PENDING_REVIEW",
+  "그래프_식_변환_판례": "검수 질의(그래프↔식을 C4냐 C3냐)에 대한 Code탭 판례 = 단일답 아닌 3분: ①순수 형태변환(식형↔식형, 이동→계수갱신)=C4(표현변환) ②해석적 역추론·연결(그래프거동↔매개변수의미, 부호 역추론, 다진술 판정)=C3(개념 분리·연결) ③원자적 개념혼동(기울기부호=증감방향, 절댓값=가파름)=C2(개념 혼동). 기준: 대상이 같고 표기만 바뀌면 C4 / 서로 다른 개념을 이어 추론하면 C3 / 한 개념의 오이해면 C2.",
+  "map": {
+    "slope_change_ratio_setup_failure":                {"axis":"C1","tier":"confident","note":"두 점·변화량에서 기울기 Δy/Δx 식 세우기. ratio_setup_from_geometry(C1) 선례. 방향오류는 별도 difference_direction(B4)"},
+    "linear_equation_reconstruction_failure":          {"axis":"C1","tier":"confident","note":"기울기·점·절편 정보를 y=ax+b로 재구성 = 식 세우기. 함수 최다빈출(9회)"},
+    "line_intersection_coordinate_failure":            {"axis":"C1","tier":"boundary","alt":"C3","note":"두 직선 교점을 연립식 세워 구하고 후속 사용 = 식 세우기(C1) vs 두 직선 연결(C3). 고빈출"},
+    "area_bisecting_line_condition_failure":           {"axis":"C1","tier":"boundary","alt":"C3","note":"넓이 이등분 조건을 교점·부분넓이 식으로 변환 세우기 = 식 세우기(C1) vs 조건 연결(C3)"},
+    "linear_equation_form_conversion_failure":         {"axis":"C4","tier":"confident","note":"★판례: Ax+By+C=0 ↔ y=mx+n 부호까지 순수 형태변환 = 표현변환(C4). 대상 동일·표기만 변경"},
+    "graph_translation_intercept_update_failure":      {"axis":"C4","tier":"boundary","alt":"C1","note":"평행이동을 식/절편·상수항에 반영 갱신 = 표현변환 결과 갱신(C4) vs 식 재구성(C1)"},
+    "linear_rate_slope_conversion_failure":            {"axis":"C4","tier":"boundary","alt":"C1","note":"상황 단위변화량→기울기(단위당 변화율) 변환 = 표현변환(C4) vs 모델 식세우기(C1). 단위변환·산술과 구별(검수 why)"},
+    "parameter_sign_to_graph_mapping_failure":         {"axis":"C3","tier":"boundary","alt":"C4","note":"★판례: 매개변수 부호↔그래프 사분면 연결·역추론 = 개념 연결(C3, 해석적). 순수 형태변환 아니라 alt만 C4"},
+    "graph_property_statement_evaluation_failure":     {"axis":"C3","tier":"boundary","alt":"C2","note":"한 그래프의 여러 진술을 기울기·절편·통과점 기준 일관 판정 = 개념 연결·일관적용(C3) vs 개념(C2)"},
+    "parallel_slope_condition_omitted":                {"axis":"C3","tier":"boundary","alt":"C2","note":"평행↔기울기 동일 조건 연결 = 개념 연결(C3) vs 개념(C2). '_omitted'지만 성질 적용 성격(isosceles 선례 B1→C2 취지)"},
+    "coincident_line_parameter_matching_failure":      {"axis":"C3","tier":"boundary","alt":"C1","note":"일치↔기울기·절편/계수비 전부 매칭 연결 = 개념 연결(C3) vs 조건식 세우기(C1). 부분충족 방지"},
+    "function_mapping_uniqueness_failure":             {"axis":"C2","tier":"confident","note":"함수 정의(각 x에 y 하나) 개념 판정·유지 = 개념(C2). 함수 핵심개념"},
+    "slope_sign_graph_direction_confusion":            {"axis":"C2","tier":"boundary","alt":"C3","note":"★판례: 기울기 부호=그래프 증감방향, 원자적 개념혼동(C2) vs 연결(C3). trig_monotonic_direction_confusion(C2) 선례"},
+    "slope_magnitude_graph_comparison_error":          {"axis":"C2","tier":"boundary","alt":"C3","note":"기울기 절댓값=가파른 정도, 원자적 개념혼동(C2) vs 연결(C3)"},
+    "discrete_solution_graph_continuity_error":        {"axis":"B2","tier":"boundary","alt":"C2","note":"정수(이산) 정의역 조건 무시하고 연속직선으로 = 정의역·범위 무시(B2) vs 이산↔연속 개념(C2)"},
+    "line_intersection_parameter_range_failure":       {"axis":"B2","tier":"boundary","alt":"C1","note":"직선-도형 교차 조건을 경계직선에서 매개변수 범위(열린/닫힌구간)로 = 범위 처리(B2) vs 조건식(C1)"},
+    "line_configuration_case_split_failure":           {"axis":"B3","tier":"confident","note":"세 직선 삼각형 미형성(평행2+교점통과1) 경우 빠짐없이 분리 = 경우분류(B3). multi_constraint_intersection(B3) 계열"},
+    "linear_function_region_area_case_split_failure":  {"axis":"B3","tier":"confident","note":"두 함수 상대위치가 매개변수 구간따라 달라 넓이식 경우분리 = 경우분류(B3)"}
+  },
+  "axis_distribution": {"C1":4, "C4":3, "C3":4, "C2":3, "B2":2, "B3":2},
+  "domain_note": "함수(첫 대수)=C편중(11/18: 식세우기·변환·개념·연결) + B(범위·경우 4)=매개변수/정의역 처리. A·D·E 신규0(그 오류모드는 재사용 태그로: sign_propagation·operation_order·inequality_bound 등). 닮음(C4·C1·C2·C3편중, B거의無)과 대조: 함수는 매개변수 범위·경우가 실측 등장.",
+  "inherited_reused_26_note": "재사용 26종은 기존 축 승계(전수 풀 존재, gap 0): area_formula_setup(C1,7회)·axis_intercept_triangle_setup(C1)·multi_expression_dependency(D1)·multi_constraint_intersection(B3)·difference_direction(B4)·inequality_bound_conversion·sign_propagation_error·operation_order_violation·substitution_parenthesis_omission·pattern_extraction(C3)·unit_conversion_omitted·multi_stage_motion_distance_setup·contextual_offset_omission·multiple_answer_omission·inverse_operation_setup_error·answer_stage_confusion 등. 재배정 금지."
+}

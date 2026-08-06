@@ -1,0 +1,996 @@
+{
+  "source_pdf": "260710_함수(5)(1).pdf",
+  "unit": "중2 함수",
+  "n_types": 50,
+  "n_items": 50,
+  "n_unique_tags": 44,
+  "n_reused_tags": 26,
+  "n_new_tags": 18,
+  "tag_language": "en_snake_case",
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "함수의 뜻",
+      "item_start": 1,
+      "item_end": 1,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 47
+        }
+      ],
+      "tags": [
+        "function_mapping_uniqueness_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "rationale": "Q1은 x=1,2,3,4 각각에 대해 y가 하나만 대응해야 한다는 함수의 정의를 유지하면서 a+f(a)가 홀수라는 조건까지 만족하는 대응을 세야 한다. 정답률 47%로 낮아 함수의 일의성 조건과 조건을 동시에 세는 단계가 핵심 오류 지점이다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "함수",
+      "item_start": 2,
+      "item_end": 2,
+      "items": [
+        {
+          "item_no": 2,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "function_mapping_uniqueness_failure",
+        "negation_condition_misread"
+      ],
+      "rationale": "Q2는 다섯 상황 중 '함수가 아닌 것'을 골라야 한다. x=3일 때 나머지가 2 또는 5가 되어 y가 하나로 정해지지 않는 상황을 함수의 일의성 위반으로 판정하고, 부정형 질문을 반대로 읽지 않아야 한다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "함숫값",
+      "item_start": 3,
+      "item_end": 3,
+      "items": [
+        {
+          "item_no": 3,
+          "accuracy": 89
+        }
+      ],
+      "tags": [
+        "substitution_parenthesis_omission",
+        "operation_order_violation"
+      ],
+      "rationale": "Q3은 f(2)=-4/2와 g(8)=3/4·8+1을 각각 정확히 대입한 뒤 3f(2)+g(8)을 계산한다. 분수·음수 대입 시 괄호와 연산 순서를 놓치면 단순 계산형에서도 오답이 난다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "f(x)=(x에 대한 조건)꼴인 함수의 함숫값",
+      "item_start": 4,
+      "item_end": 4,
+      "items": [
+        {
+          "item_no": 4,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "pattern_extraction_failure",
+        "cycle_length_miscount"
+      ],
+      "rationale": "Q4는 3^n의 일의 자리 3,9,7,1이 4개 주기로 반복됨을 먼저 찾아야 한다. 30개 항의 합에서는 주기 길이와 마지막 두 항의 위치를 정확히 추적해야 한다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "일차함수",
+      "item_start": 5,
+      "item_end": 5,
+      "items": [
+        {
+          "item_no": 5,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "linear_rate_slope_conversion_failure",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q5는 고도 2 km 증가마다 15℃ 감소를 기울기 -15/2로 바꾸고, 지면의 20℃를 절편으로 둔다. 증가량과 감소량의 부호를 반대로 잡거나 2 km당 변화량을 1 km당 기울기로 바꾸지 못하면 틀린다."
+    },
+    {
+      "type_no": 6,
+      "type_name": "일차함수가 될 조건",
+      "item_start": 6,
+      "item_end": 6,
+      "items": [
+        {
+          "item_no": 6,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "degree_term_confusion",
+        "excluded_case_omission"
+      ],
+      "rationale": "Q6은 전개 후 2ax²+(2+b)x-3이 일차함수여야 하므로 x²항 계수 a=0이고 x항 계수 2+b는 0이 아니어야 한다. 이차항 제거만 하고 b=-2 제외 조건을 빠뜨리기 쉽다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "일차함수의 함숫값",
+      "item_start": 7,
+      "item_end": 7,
+      "items": [
+        {
+          "item_no": 7,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "multi_expression_dependency_error",
+        "inverse_operation_setup_error"
+      ],
+      "rationale": "Q7은 f(-3), g(4) 조건에서 a,b를 각각 정한 다음 새 함수식으로 f(k)=g(k)를 풀어야 한다. 앞 단계에서 얻은 값들이 뒤 식에 연쇄적으로 의존하므로 중간 변수 연결과 역연산 설정이 핵심이다."
+    },
+    {
+      "type_no": 8,
+      "type_name": "일차함수의 그래프의 x절편, y절편",
+      "item_start": 8,
+      "item_end": 8,
+      "items": [
+        {
+          "item_no": 8,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "graph_translation_intercept_update_failure",
+        "linear_equation_reconstruction_failure"
+      ],
+      "rationale": "Q8은 y=-1/5x를 y축 방향으로 1만큼 평행이동해 y=-1/5x+1로 바꾼 뒤 x절편을 구한다. 평행이동이 절편에 어떻게 반영되는지 놓치거나 이동된 식을 다시 구성하지 못하면 오답이 된다."
+    },
+    {
+      "type_no": 9,
+      "type_name": "x절편과 y절편을 이용하여 미지수의 값 구하기",
+      "item_start": 9,
+      "item_end": 9,
+      "items": [
+        {
+          "item_no": 9,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "linear_equation_reconstruction_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q9는 두 직선의 x·y절편을 a,b로 표현한 뒤 AB, BO, CD 길이 조건으로 두 식을 세워야 한다. 절편을 좌표와 선분 길이로 변환해 매개변수 식을 구성하는 단계가 핵심이며 정답률은 52%다."
+    },
+    {
+      "type_no": 10,
+      "type_name": "변화량 또는 일차함수가 주어진 경우의 기울기 구하기",
+      "item_start": 10,
+      "item_end": 10,
+      "items": [
+        {
+          "item_no": 10,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "slope_change_ratio_setup_failure",
+        "difference_direction_error"
+      ],
+      "rationale": "Q10은 x가 3 증가할 때 y가 -5에서 7로 변하므로 기울기 4를 먼저 구하고, x가 2 감소할 때 y 변화량은 -8임을 판단한다. Δy/Δx의 방향을 동시에 뒤집지 않으면 부호가 틀어진다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "변화량에 따른 일차함수의 모양",
+      "item_start": 11,
+      "item_end": 11,
+      "items": [
+        {
+          "item_no": 11,
+          "accuracy": 85
+        }
+      ],
+      "tags": [
+        "slope_sign_graph_direction_confusion",
+        "graph_property_statement_evaluation_failure"
+      ],
+      "rationale": "Q11은 x가 증가할 때 y가 감소하는 직선, 즉 기울기가 음수인 식만 골라야 한다. 식의 기울기 부호를 그래프의 증가·감소 방향으로 연결하지 못하거나 여러 설명을 함께 판정할 때 오류가 난다."
+    },
+    {
+      "type_no": 12,
+      "type_name": "두 점을 지나는 일차함수의 그래프의 기울기",
+      "item_start": 12,
+      "item_end": 12,
+      "items": [
+        {
+          "item_no": 12,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "slope_change_ratio_setup_failure",
+        "difference_direction_error"
+      ],
+      "rationale": "Q12는 두 점 (2k,1), (-2,2k-3)의 기울기를 같은 순서의 Δy/Δx로 세워 1과 같게 한다. 좌표 차의 순서를 분자와 분모에서 다르게 잡는 것이 대표 오류다."
+    },
+    {
+      "type_no": 13,
+      "type_name": "일차함수의 그래프의 기울기와 x절편, y절편",
+      "item_start": 13,
+      "item_end": 13,
+      "items": [
+        {
+          "item_no": 13,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "linear_equation_reconstruction_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q13은 첫 직선의 y절편에서 a=1, 둘째 직선의 기울기에서 b=2를 읽고 y=ax+b=x+2를 구성한 뒤 x절편을 구한다. 서로 다른 그래프의 정보를 한 식의 계수로 정확히 옮기는 연쇄가 필요하다."
+    },
+    {
+      "type_no": 14,
+      "type_name": "일차함수의 그래프 그리기/찾기",
+      "item_start": 14,
+      "item_end": 14,
+      "items": [
+        {
+          "item_no": 14,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "linear_equation_reconstruction_failure",
+        "slope_sign_graph_direction_confusion"
+      ],
+      "rationale": "Q14는 원래 직선의 x절편 3, y절편 -1로 a,b를 결정한 후 새 식 y=2bx+3a의 기울기와 절편을 다시 읽어 그래프를 고른다. 절편에서 식을 재구성하는 과정과 음의 기울기 방향 판정이 함께 필요하다."
+    },
+    {
+      "type_no": 15,
+      "type_name": "일차함수의 그래프와 좌표축으로 둘러싸인 도형의 넓이(1) - 두 축과 만나는 한 직선",
+      "item_start": 15,
+      "item_end": 15,
+      "items": [
+        {
+          "item_no": 15,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "axis_intercept_triangle_setup_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q15는 y=2x+6을 아래로 2만큼 이동해 y=2x+4로 만든 뒤 두 축과 이루는 삼각형의 두 절편을 밑변·높이로 써야 한다. 축절편 삼각형 구성과 1/2·밑변·높이 공식 설정이 핵심이다."
+    },
+    {
+      "type_no": 16,
+      "type_name": "일차함수의 그래프와 좌표축으로 둘러싸인 도형의 넓이(2) - 두 직선",
+      "item_start": 16,
+      "item_end": 16,
+      "items": [
+        {
+          "item_no": 16,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "line_intersection_coordinate_failure",
+        "axis_intercept_triangle_setup_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q16은 두 직선의 y절편 A,B와 교점 C를 구해 y축과 두 직선이 만드는 삼각형의 밑변과 높이를 정해야 한다. 교점 좌표를 못 구하거나 좌표축과 둘러싸인 영역을 잘못 잡으면 넓이식이 무너진다."
+    },
+    {
+      "type_no": 17,
+      "type_name": "y=ax+b의 그래프의 기울기의 성질",
+      "item_start": 17,
+      "item_end": 17,
+      "items": [
+        {
+          "item_no": 17,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "slope_magnitude_graph_comparison_error",
+        "range_constraint_dropped"
+      ],
+      "rationale": "Q17은 세 직선이 같은 y절편을 지날 때 기울기 절댓값이 그래프의 가파른 정도를 뜻함을 이용해 -5<a<-1/5를 정한다. 부호뿐 아니라 기울기의 절댓값 크기를 비교하고 열린구간을 유지해야 한다."
+    },
+    {
+      "type_no": 18,
+      "type_name": "a, b의 부호와 y=ax+b의 그래프(1) - 부호에 따른 사분면",
+      "item_start": 18,
+      "item_end": 18,
+      "items": [
+        {
+          "item_no": 18,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "parameter_sign_to_graph_mapping_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "rationale": "Q18은 ab>0와 a+b>0에서 a,b가 모두 양수임을 결론내고 y=-ax+b의 기울기·절편 부호로 그래프를 골라야 한다. 여러 부호 조건의 교집합과 계수 부호를 그래프 방향으로 옮기는 단계가 핵심이다."
+    },
+    {
+      "type_no": 19,
+      "type_name": "a, b의 부호와 y=ax+b의 그래프(2) - 그래프에 따른 부호",
+      "item_start": 19,
+      "item_end": 19,
+      "items": [
+        {
+          "item_no": 19,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "parameter_sign_to_graph_mapping_failure",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q19는 주어진 y=abx+b 그래프에서 ab<0, b>0을 읽어 a<0을 얻고, y=ax+a-b의 기울기와 절편 부호를 다시 계산한다. 곱의 부호에서 a를 역추론한 뒤 새 식으로 부호를 전달하는 과정에서 흔들릴 수 있다."
+    },
+    {
+      "type_no": 20,
+      "type_name": "일차함수의 그래프가 지나는 사분면",
+      "item_start": 20,
+      "item_end": 20,
+      "items": [
+        {
+          "item_no": 20,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "parameter_sign_to_graph_mapping_failure",
+        "condition_negation_error"
+      ],
+      "rationale": "Q20은 그래프가 제1·2·3사분면을 지나므로 a>0, b>0임을 읽고 보기의 부호식을 판정한다. '옳지 않은 것'을 묻는 부정형과 그래프에서 매개변수 부호를 추론하는 두 단계가 필요하다."
+    },
+    {
+      "type_no": 21,
+      "type_name": "일차함수와 삼각형의 넓이",
+      "item_start": 21,
+      "item_end": 21,
+      "items": [
+        {
+          "item_no": 21,
+          "accuracy": 50
+        }
+      ],
+      "tags": [
+        "linear_function_region_area_case_split_failure",
+        "area_formula_setup_error",
+        "multiple_answer_omission"
+      ],
+      "rationale": "Q21은 y=2/5x+1과 y=ax의 상대적 위치가 a>2/5와 0<a<2/5에서 달라져 넓이 5 조건을 두 경우로 나눠 풀어야 한다. 두 경우의 a를 모두 찾고 합해야 하므로 경우 분기 누락이나 한 해만 남기는 오류가 치명적이다."
+    },
+    {
+      "type_no": 22,
+      "type_name": "일차함수의 그래프의 평행(1) - 그래프가 주어지지 않는 경우",
+      "item_start": 22,
+      "item_end": 22,
+      "items": [
+        {
+          "item_no": 22,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "parallel_slope_condition_omitted",
+        "slope_change_ratio_setup_failure"
+      ],
+      "rationale": "Q22는 두 점 (-2,a-1), (2,2a+5)을 지나는 직선의 기울기를 구해 y=2x-7의 기울기 2와 같게 둔다. 평행 조건을 '기울기 같음'으로 바꾸고 Δy/Δx 식을 정확히 세워야 한다."
+    },
+    {
+      "type_no": 23,
+      "type_name": "일차함수의 그래프의 평행(2) - 그래프가 주어진 경우",
+      "item_start": 23,
+      "item_end": 23,
+      "items": [
+        {
+          "item_no": 23,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "parallel_slope_condition_omitted",
+        "linear_equation_reconstruction_failure"
+      ],
+      "rationale": "Q23은 그래프 m의 두 절편 (4,0),(0,12)에서 기울기 -3을 얻고, 평행한 l도 기울기 -3임을 사용한다. l의 y절편 -6과 기울기로 식을 재구성해 x절편 P를 찾아야 한다."
+    },
+    {
+      "type_no": 24,
+      "type_name": "일차함수의 그래프의 일치",
+      "item_start": 24,
+      "item_end": 24,
+      "items": [
+        {
+          "item_no": 24,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "coincident_line_parameter_matching_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "rationale": "Q24는 두 일차함수의 그래프가 일치하므로 기울기와 y절편이 각각 같아야 한다. 3a=9와 2a+b=-(2b-3a)를 동시에 만족시키는 매개변수 결합을 놓치면 오답이 된다."
+    },
+    {
+      "type_no": 25,
+      "type_name": "y=ax+b의 그래프의 성질",
+      "item_start": 25,
+      "item_end": 25,
+      "items": [
+        {
+          "item_no": 25,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "graph_translation_intercept_update_failure",
+        "graph_property_statement_evaluation_failure"
+      ],
+      "rationale": "Q25는 y=2x를 아래로 3만큼 이동한 y=2x-3에 대해 증가량 비, 제2사분면 통과 여부, 점 통과, 다른 그래프와의 일치 여부를 각각 판단한다. 이동 뒤의 그래프 성질을 여러 진술에 일관되게 적용해야 한다."
+    },
+    {
+      "type_no": 26,
+      "type_name": "일차함수의 식 구하기(2) - 기울기와 한 점의 좌표를 알 때",
+      "item_start": 26,
+      "item_end": 26,
+      "items": [
+        {
+          "item_no": 26,
+          "accuracy": 53
+        }
+      ],
+      "tags": [
+        "slope_change_ratio_setup_failure",
+        "difference_direction_error",
+        "linear_equation_reconstruction_failure"
+      ],
+      "rationale": "Q26은 (f(b)-f(a))/(a-b)=2가 통상 기울기와 분모 방향이 반대라 실제 기울기 -2가 됨을 읽어야 한다. 그 뒤 점 (-1,8)을 이용해 식을 재구성하므로 차의 방향과 직선식 구성 모두가 필요하다."
+    },
+    {
+      "type_no": 27,
+      "type_name": "일차함수의 식 구하기(4) - x절편과 y절편을 알 때",
+      "item_start": 27,
+      "item_end": 27,
+      "items": [
+        {
+          "item_no": 27,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "linear_equation_reconstruction_failure",
+        "substitution_direction_error"
+      ],
+      "rationale": "Q27은 x절편 3, y절편 6에서 원래 y=ax+b의 식을 먼저 정하고, 그 a,b를 새 식 y=bx-a에 올바른 방향으로 대입해야 한다. 원식의 매개변수와 새 식의 자리 역할을 뒤바꾸는 오류가 생기기 쉽다."
+    },
+    {
+      "type_no": 28,
+      "type_name": "일차함수의 식 구하기(5) - 종합",
+      "item_start": 28,
+      "item_end": 28,
+      "items": [
+        {
+          "item_no": 28,
+          "accuracy": 61
+        }
+      ],
+      "tags": [
+        "slope_change_ratio_setup_failure",
+        "graph_translation_intercept_update_failure"
+      ],
+      "rationale": "Q28은 두 점 (-5,4),(15,12)에서 기울기 2/5와 절편 6을 구하고 그래프를 아래로 4만큼 이동해 새 식을 만든다. 기울기 계산과 평행이동 후 절편 갱신을 연속해서 해야 한다."
+    },
+    {
+      "type_no": 29,
+      "type_name": "온도에 대한 문제",
+      "item_start": 29,
+      "item_end": 29,
+      "items": [
+        {
+          "item_no": 29,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "linear_rate_slope_conversion_failure",
+        "inverse_operation_setup_error"
+      ],
+      "rationale": "Q29는 10 m 높아질 때 0.06℃ 하강을 1 m당 -0.006℃의 기울기로 바꾸고 y=25-0.006x에서 y=22를 풀어야 한다. 변화율을 거리 단위에 맞게 환산하고 역으로 높이를 구하는 과정이 핵심이다."
+    },
+    {
+      "type_no": 30,
+      "type_name": "개수에 대한 문제(규칙이 있는 도형 만들기)",
+      "item_start": 30,
+      "item_end": 30,
+      "items": [
+        {
+          "item_no": 30,
+          "accuracy": 57
+        }
+      ],
+      "tags": [
+        "pattern_extraction_failure",
+        "stage_indexing_error"
+      ],
+      "rationale": "Q30은 정육각형을 한 단계 늘릴 때 둘레가 12씩 증가한다는 규칙을 찾아 y=12x+6을 만든다. 그림의 겹친 변을 제외한 증가량과 단계 번호를 정확히 대응하지 못하면 8단계 값이 어긋난다."
+    },
+    {
+      "type_no": 31,
+      "type_name": "속력에 대한 문제",
+      "item_start": 31,
+      "item_end": 31,
+      "items": [
+        {
+          "item_no": 31,
+          "accuracy": 66
+        }
+      ],
+      "tags": [
+        "unit_conversion_omitted",
+        "multi_stage_motion_distance_setup_failure"
+      ],
+      "rationale": "Q31은 15분과 45분 사이 30분 동안 60 km 이동한 사실로 속력 120 km/h를 얻고, 분을 시간으로 바꿔 C의 위치를 역산한다. 시간 단위 변환과 여러 시점의 이동 거리식을 한 기준점에 맞추는 것이 핵심이다."
+    },
+    {
+      "type_no": 32,
+      "type_name": "도형에 대한 문제",
+      "item_start": 32,
+      "item_end": 32,
+      "items": [
+        {
+          "item_no": 32,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "variable_length_assignment_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q32는 P가 초속 3 cm로 움직이므로 x초 후 BP=3x로 두고 높이 AB=10과 함께 삼각형 넓이 y=15x를 만든다. 움직이는 길이를 문자식으로 놓는 단계와 넓이 공식 설정이 직접적인 오류 지점이다."
+    },
+    {
+      "type_no": 33,
+      "type_name": "여러 가지 일차함수의 활용",
+      "item_start": 33,
+      "item_end": 33,
+      "items": [
+        {
+          "item_no": 33,
+          "accuracy": 85
+        }
+      ],
+      "tags": [
+        "linear_rate_slope_conversion_failure",
+        "contextual_offset_omission"
+      ],
+      "rationale": "Q33은 수심 8 m마다 0.8기압 증가를 1 m당 0.1기압으로 바꾸고 수면의 1기압을 초기값으로 더해야 한다. 변화율만 적용하고 기준 압력 1을 빠뜨리는 오프셋 누락이 대표 오류다."
+    },
+    {
+      "type_no": 34,
+      "type_name": "일차방정식의 그래프 찾기",
+      "item_start": 34,
+      "item_end": 34,
+      "items": [
+        {
+          "item_no": 34,
+          "accuracy": 63
+        }
+      ],
+      "tags": [
+        "discrete_solution_graph_continuity_error",
+        "range_constraint_dropped"
+      ],
+      "rationale": "Q34는 x,y가 음이 아닌 정수이므로 x+y=4의 그래프는 연속 직선이 아니라 (0,4),(1,3),…,(4,0)의 이산 점들이다. 정수 조건을 버리고 연속 그래프로 그리는 오류를 구분해야 한다."
+    },
+    {
+      "type_no": 35,
+      "type_name": "일차함수와 일차방정식",
+      "item_start": 35,
+      "item_end": 35,
+      "items": [
+        {
+          "item_no": 35,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "linear_equation_form_conversion_failure",
+        "parameter_sign_to_graph_mapping_failure"
+      ],
+      "rationale": "Q35는 주어진 y=ax+b 그래프에서 a<0,b<0을 읽고 x+ay+b=0을 y=-(1/a)x-b/a로 바꿔 새 그래프의 기울기·절편 부호를 판정한다. 방정식을 함수 꼴로 변환하고 매개변수 부호를 다시 그래프에 연결해야 한다."
+    },
+    {
+      "type_no": 36,
+      "type_name": "기울기가 주어진 경우의 일차방정식의 계수",
+      "item_start": 36,
+      "item_end": 36,
+      "items": [
+        {
+          "item_no": 36,
+          "accuracy": 65
+        }
+      ],
+      "tags": [
+        "parallel_slope_condition_omitted",
+        "inequality_bound_conversion_error"
+      ],
+      "rationale": "Q36은 주어진 그래프의 기울기 1/3으로 a를 정하고, 평행한 ax-y+a-3b=0의 y절편이 제2사분면을 지나지 않도록 경계 부등식을 세운다. 평행 조건과 포함되는 경계값을 정확히 처리해야 한다."
+    },
+    {
+      "type_no": 37,
+      "type_name": "기울기와 y절편을 아는 경우의 일차방정식의 계수",
+      "item_start": 37,
+      "item_end": 37,
+      "items": [
+        {
+          "item_no": 37,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "linear_equation_form_conversion_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q37은 ax-by+4=0을 y=(a/b)x+4/b로 바꿔 기울기 1/2와 y절편 2를 각각 비교한다. 표준형 계수를 함수 꼴의 기울기·절편과 연결하고 두 조건을 함께 풀어야 한다."
+    },
+    {
+      "type_no": 38,
+      "type_name": "기울기와 한 점이 주어진 경우의 일차방정식의 계수",
+      "item_start": 38,
+      "item_end": 38,
+      "items": [
+        {
+          "item_no": 38,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "parallel_slope_condition_omitted",
+        "linear_equation_form_conversion_failure"
+      ],
+      "rationale": "Q38은 그래프 m의 절편에서 기울기 -1/2를 구하고, 평행한 l의 y절편 4를 ax-y+b=0의 함수 꼴과 비교한다. 평행 기울기와 방정식 형태 변환을 동시에 유지해야 한다."
+    },
+    {
+      "type_no": 39,
+      "type_name": "직선의 방정식 구하기(1) - 기울기와 y절편을 알 때",
+      "item_start": 39,
+      "item_end": 39,
+      "items": [
+        {
+          "item_no": 39,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "slope_change_ratio_setup_failure",
+        "linear_equation_form_conversion_failure"
+      ],
+      "rationale": "Q39는 두 점 (-2,13),(2,-3)에서 기울기 -4를 구한 뒤 평행하고 (0,3)을 지나는 직선을 y=-4x+3으로 만든 후 표준형으로 바꾼다. 기울기 계산과 방정식 형태 변환에서 부호가 바뀌기 쉽다."
+    },
+    {
+      "type_no": 40,
+      "type_name": "직선의 방정식 구하기(4) - x절편과 y절편을 알 때",
+      "item_start": 40,
+      "item_end": 40,
+      "items": [
+        {
+          "item_no": 40,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "linear_equation_reconstruction_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q40은 한 직선의 x절편 -4와 다른 직선의 y절편 -12를 구해 그 두 점을 지나는 새 직선을 만든다. 여러 식에서 얻은 절편 정보를 하나의 직선식으로 합친 뒤 x=-2를 대입해야 한다."
+    },
+    {
+      "type_no": 41,
+      "type_name": "직선의 방정식 구하기(5) - 종합",
+      "item_start": 41,
+      "item_end": 41,
+      "items": [
+        {
+          "item_no": 41,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "intended_vs_actual_value_swap",
+        "linear_equation_form_conversion_failure",
+        "answer_stage_confusion"
+      ],
+      "rationale": "Q41은 두 학생이 각각 기울기와 y절편을 잘못 읽어 만든 방정식에서 '맞게 읽힌 다른 정보'를 회수해야 한다. 잘못 본 값과 실제 값을 뒤바꾸지 않고 최종적으로 올바른 기울기 4와 y절편 -5를 한 식으로 합쳐야 한다."
+    },
+    {
+      "type_no": 42,
+      "type_name": "일차방정식 ax+by+c=0의 그래프와 a, b, c의 부호",
+      "item_start": 42,
+      "item_end": 42,
+      "items": [
+        {
+          "item_no": 42,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "linear_equation_form_conversion_failure",
+        "parameter_sign_to_graph_mapping_failure"
+      ],
+      "rationale": "Q42는 ax-by+c=0을 y=(a/b)x+c/b로 바꾸고 제1·3·4사분면 통과 조건에서 a/b>0, c/b<0을 얻는다. 이어 y=-(a/b)x+c/b의 사분면을 판정하므로 형태 변환과 부호-그래프 연결이 핵심이다."
+    },
+    {
+      "type_no": 43,
+      "type_name": "직선으로 둘러싸인 도형의 넓이(1)",
+      "item_start": 43,
+      "item_end": 43,
+      "items": [
+        {
+          "item_no": 43,
+          "accuracy": 66
+        }
+      ],
+      "tags": [
+        "line_intersection_coordinate_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q43은 네 직선과 y=±1의 교점을 각각 구해 평행한 두 수평선 사이 사다리꼴의 두 밑변 길이를 계산한다. 교점 좌표를 잘못 구하면 넓이 전체가 연쇄적으로 틀린다."
+    },
+    {
+      "type_no": 44,
+      "type_name": "직선이 선분과 만날 조건",
+      "item_start": 44,
+      "item_end": 44,
+      "items": [
+        {
+          "item_no": 44,
+          "accuracy": 66
+        }
+      ],
+      "tags": [
+        "line_intersection_parameter_range_failure",
+        "inequality_bound_conversion_error"
+      ],
+      "rationale": "Q44는 l과 x+2y-a=0의 교점이 제4사분면의 선분 구간 안에 있어야 한다. 경계선이 l의 x절편 (3,0), y절편 (0,-2)을 지날 때 a=3,-4가 되며 실제 제4사분면 조건은 -4<a<3의 열린구간이다."
+    },
+    {
+      "type_no": 45,
+      "type_name": "두 일차방정식의 그래프의 교점을 지나는 직선의 방정식",
+      "item_start": 45,
+      "item_end": 45,
+      "items": [
+        {
+          "item_no": 45,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "line_intersection_coordinate_failure",
+        "linear_equation_reconstruction_failure"
+      ],
+      "rationale": "Q45는 두 일차방정식의 교점 (2,2)을 먼저 구하고, 그 점과 x절편 (3,0)을 지나는 직선의 식을 재구성한다. 연립방정식 교점 계산과 새 직선식 구성의 두 단계가 연속된다."
+    },
+    {
+      "type_no": 46,
+      "type_name": "삼각형이 생기지 않을 조건",
+      "item_start": 46,
+      "item_end": 46,
+      "items": [
+        {
+          "item_no": 46,
+          "accuracy": 56
+        }
+      ],
+      "tags": [
+        "line_configuration_case_split_failure",
+        "multiple_answer_omission",
+        "line_intersection_coordinate_failure"
+      ],
+      "rationale": "Q46은 세 직선이 삼각형을 만들지 않는 경우가 제3직선이 앞의 두 직선 중 하나와 평행한 경우 2개와 두 직선의 교점을 지나는 경우 1개로 갈린다. 세 경우를 모두 찾지 못하거나 교점 경우를 빠뜨리면 '모든 a의 곱'이 틀린다."
+    },
+    {
+      "type_no": 47,
+      "type_name": "연립방정식의 해의 개수와 그래프의 위치관계",
+      "item_start": 47,
+      "item_end": 47,
+      "items": [
+        {
+          "item_no": 47,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "coincident_line_parameter_matching_failure",
+        "linear_equation_form_conversion_failure"
+      ],
+      "rationale": "Q47은 교점이 무수히 많으려면 두 일차방정식이 같은 직선을 나타내야 한다. 계수비를 맞춰 a,b를 동시에 정해야 하므로 일치 조건을 부분적으로만 맞추면 안 된다."
+    },
+    {
+      "type_no": 48,
+      "type_name": "직선으로 둘러싸인 도형의 넓이(2)",
+      "item_start": 48,
+      "item_end": 48,
+      "items": [
+        {
+          "item_no": 48,
+          "accuracy": 54
+        }
+      ],
+      "tags": [
+        "line_intersection_coordinate_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q48은 두 직선의 y절편 4,-4로 높이 8을 잡고 교점의 x좌표를 밑변으로 써 넓이 12를 만든다. 교점 위치를 넓이 조건으로 역산한 뒤 그 점을 ax-y-4=0에 대입하는 연쇄가 필요하다."
+    },
+    {
+      "type_no": 49,
+      "type_name": "넓이를 이등분하는 직선의 방정식",
+      "item_start": 49,
+      "item_end": 49,
+      "items": [
+        {
+          "item_no": 49,
+          "accuracy": 63
+        }
+      ],
+      "tags": [
+        "area_bisecting_line_condition_failure",
+        "area_formula_setup_error",
+        "line_intersection_coordinate_failure"
+      ],
+      "rationale": "Q49는 원래 직선과 두 축이 만드는 삼각형의 넓이가 54이므로 이등분선 y=ax와 만나는 점 C가 절반 넓이 27을 만들도록 y좌표 9가 되어야 한다. 넓이 이등분 조건을 좌표 조건으로 바꾸고 교점을 다시 직선식에 연결해야 한다."
+    },
+    {
+      "type_no": 50,
+      "type_name": "직선이 도형과 만날 조건",
+      "item_start": 50,
+      "item_end": 50,
+      "items": [
+        {
+          "item_no": 50,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "line_intersection_parameter_range_failure",
+        "inequality_bound_conversion_error"
+      ],
+      "rationale": "Q50은 원점을 지나는 y=ax가 삼각형 ABC와 만나려면 기울기가 OB=3과 OC=1/3 사이여야 하고 경계선도 포함된다. 도형과의 교차 조건을 기울기 범위로 바꾸고 포함 경계값을 유지해야 한다."
+    }
+  ],
+  "unique_tags": [
+    "answer_stage_confusion",
+    "area_bisecting_line_condition_failure",
+    "area_formula_setup_error",
+    "axis_intercept_triangle_setup_failure",
+    "coincident_line_parameter_matching_failure",
+    "condition_negation_error",
+    "contextual_offset_omission",
+    "cycle_length_miscount",
+    "degree_term_confusion",
+    "difference_direction_error",
+    "discrete_solution_graph_continuity_error",
+    "excluded_case_omission",
+    "function_mapping_uniqueness_failure",
+    "graph_property_statement_evaluation_failure",
+    "graph_translation_intercept_update_failure",
+    "inequality_bound_conversion_error",
+    "intended_vs_actual_value_swap",
+    "inverse_operation_setup_error",
+    "line_configuration_case_split_failure",
+    "line_intersection_coordinate_failure",
+    "line_intersection_parameter_range_failure",
+    "linear_equation_form_conversion_failure",
+    "linear_equation_reconstruction_failure",
+    "linear_function_region_area_case_split_failure",
+    "linear_rate_slope_conversion_failure",
+    "multi_constraint_intersection_failure",
+    "multi_expression_dependency_error",
+    "multi_stage_motion_distance_setup_failure",
+    "multiple_answer_omission",
+    "negation_condition_misread",
+    "operation_order_violation",
+    "parallel_slope_condition_omitted",
+    "parameter_sign_to_graph_mapping_failure",
+    "pattern_extraction_failure",
+    "range_constraint_dropped",
+    "sign_propagation_error",
+    "slope_change_ratio_setup_failure",
+    "slope_magnitude_graph_comparison_error",
+    "slope_sign_graph_direction_confusion",
+    "stage_indexing_error",
+    "substitution_direction_error",
+    "substitution_parenthesis_omission",
+    "unit_conversion_omitted",
+    "variable_length_assignment_failure"
+  ],
+  "new_tags": [
+    {
+      "tag": "area_bisecting_line_condition_failure",
+      "why": "직선이 도형 넓이를 이등분한다는 조건을 교점 좌표·부분넓이 조건으로 변환하지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "coincident_line_parameter_matching_failure",
+      "why": "두 직선이 일치할 때 기울기·절편 또는 계수비를 모두 맞춰야 하는 조건 설정 오류가 사전에 없음."
+    },
+    {
+      "tag": "discrete_solution_graph_continuity_error",
+      "why": "정수해처럼 이산적인 해집합을 연속 직선으로 그리는 오류가 사전에 없음."
+    },
+    {
+      "tag": "function_mapping_uniqueness_failure",
+      "why": "함수 정의의 핵심인 '각 x에 y가 오직 하나' 대응을 판정·유지하지 못하는 오류로 기존 사전에 동등 태그가 없음."
+    },
+    {
+      "tag": "graph_property_statement_evaluation_failure",
+      "why": "하나의 일차함수 그래프에 대한 여러 진술을 기울기·절편·통과점 기준으로 일관되게 판정하지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "graph_translation_intercept_update_failure",
+      "why": "직선을 평행이동한 뒤 절편 또는 식의 상수항이 어떻게 바뀌는지 갱신하지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "line_configuration_case_split_failure",
+      "why": "여러 직선이 삼각형을 만들지 않는 평행·일치·한점교차 등의 구성을 빠짐없이 경우 분리하지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "line_intersection_coordinate_failure",
+      "why": "두 직선의 교점 좌표를 연립해 구하고 후속 계산에 쓰는 단계의 오류가 기존 대수/도형 태그에 없음."
+    },
+    {
+      "tag": "line_intersection_parameter_range_failure",
+      "why": "매개변수 직선이 선분·도형과 만나는 조건을 경계 직선에서 범위로 바꾸지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "linear_equation_form_conversion_failure",
+      "why": "Ax+By+C=0과 y=mx+n 사이를 부호까지 정확히 변환하지 못하는 오류가 기존 사전에 없음."
+    },
+    {
+      "tag": "linear_equation_reconstruction_failure",
+      "why": "기울기·점·절편 등 주어진 정보를 y=ax+b 형태의 직선식으로 재구성하지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "linear_function_region_area_case_split_failure",
+      "why": "두 일차함수의 상대 위치가 매개변수 구간에 따라 달라져 넓이식을 경우별로 나눠야 하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "linear_rate_slope_conversion_failure",
+      "why": "상황의 단위 변화량을 일차함수의 기울기(단위당 변화율)로 바꾸는 오류로 기존 산술·단위변환 태그와 구별됨."
+    },
+    {
+      "tag": "parallel_slope_condition_omitted",
+      "why": "두 직선의 평행을 기울기 동일 조건으로 변환하지 못하는 일차함수 전용 오류가 사전에 없음."
+    },
+    {
+      "tag": "parameter_sign_to_graph_mapping_failure",
+      "why": "식의 매개변수 부호를 기울기·절편 부호와 사분면 위치로 연결하거나 역으로 추론하지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "slope_change_ratio_setup_failure",
+      "why": "두 점 또는 변화량에서 기울기 Δy/Δx 자체를 일관된 순서로 세우지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "slope_magnitude_graph_comparison_error",
+      "why": "기울기 절댓값과 직선의 가파른 정도를 비교하지 못하는 오류가 사전에 없음."
+    },
+    {
+      "tag": "slope_sign_graph_direction_confusion",
+      "why": "기울기의 양·음과 그래프의 증가·감소 방향을 연결하지 못하는 오류가 사전에 없음."
+    }
+  ],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [],
+    "types_with_answer_format_error": [
+      31
+    ],
+    "note": "50문항의 문제·빠른정답·해설을 모두 대조했다. 답을 구한 뒤 원래 식으로 되돌아가 별도 검산을 해야만 성립하는 유형은 없었다. Q31은 분 단위를 시간 단위로 바꾸는 환산을 놓치면 최종 거리 단위까지 틀어질 수 있어 단위 마무리 관점에 포함했다."
+  }
+}
