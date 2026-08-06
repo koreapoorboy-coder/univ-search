@@ -13,7 +13,13 @@
   - **반영**: `B_reflection_m2_similarity_set04.v1.json`(150문항, tag_scope 배분, item_id=set04 조인, 미해결태그 0).
   - **rationale 충실도**(1문항유형 7개: 2·19·26·30·55·56·57): 전부 문제특정·태그근거 충실. under-doc 2건(유형2 seg_ratio·유형55 pythagorean)=베이스태그 유효하나 rationale 미명시, **축매핑 무관 각주**.
   - **856 등재(뼈대만)**: 검수결정=mathflat 81 canonical, error_tags 보류. 생성: `data/raw_taxonomy/m2_similarity.raw_taxonomy.v1.json`(81섹션) + `data/problem_types/m2_similarity.problem_types.v1.json`(81, `status:raw_registered_not_wired`). **pending**: 예측 error_tags 부착·concept_ids 상속·set04 source_type_label(관측67)↔mathflat81 crosswalk. OBSERVED층과 별개(§9).
-- **다음 할 일** = 닮음(8)=set09(다음 856) 또는 다음 트랜치. 856 등재는 이제 이 형식(mathflat canonical 뼈대) 확정 — 반복 적용. converse 선례·기준명시 규칙 준수.
+- **✅ 닮음(8) 6단원째 완결** (set09, 동일 유닛 M2_SIMILARITY_PYTHAGORAS). item_id `M2_SIMPY_150_S09_Q###`.
+  - **★사전 v2 100% 작동**: new_tags **0**. 51유형·150문항·관측48종 전량 축매핑 풀 존재 → **신규매핑 0, 전부 승계**(닮음3 midpoint 갭이 similarity3_new로 메워져 이번엔 갭 없음). 재사용률 삼각비6 3%→닮음3 75%→닮음8 100%.
+  - **파일**: `B_tagging_m2_similarity_set09.v1.json`(검수 PASS) + `B_reflection_m2_similarity_set09.v1.json`(150문항, tag_scope 58배분, item_id 조인, 미해결0). Code탭 독립검증 PASS(3태그44·2태그7·avg2.86). 반영축분포 C1·99/C3·64/C4·44/C2·41.
+  - **원 전용 태그 정당 사용**(피타고라스+원 혼합 후반): tangent_radius_perpendicularity_omitted·central_angle_to_arc_ratio_failure·area_inradius_relation_setup_failure·right_triangle_tangent_partition_failure·spatial_cross_section_identification_failure. 사전서 꺼내 씀(신규 아님).
+  - **856 등재**: set04와 동일 유닛 → mathflat 81 raw_taxonomy/problem_types **공유, 재생성 불필요**.
+  - 맵 파일 없음(신규0).
+- **다음 할 일** = 다음 트랜치(856 나머지: 다항식·이차함수·도형성질 등) 또는 crosswalk 후속. **crosswalk(set04+set09 관측 67+51 → mathflat 81)은 닮음 300문항 다 모인 지금 착수 적기**(검수지시). 예측 error_tags 부착도 후속. 기준명시·converse 선례 규칙 준수.
 
 ## ⏱ 첫 5분
 - **목표**: 각 단원 150문항을 재태깅(오류형)→17진단축(관측층)에 매핑→문항단위 반영. PREDICTED(팩)와 별개층.
