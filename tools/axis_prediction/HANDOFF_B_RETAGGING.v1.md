@@ -6,10 +6,14 @@
 ## ▶ 세션 인계 (2026-08-06, 새 로컬 세션 진입점)
 - 🔴 **리포 위치 이전**: 정본 = **`C:\Users\user\projects\scshstudy`** (로컬, OneDrive 아님). OneDrive `바탕 화면\scshstudy` 사본은 **은퇴 대상 — 건드리지 말 것**. 이유·검증: 메모리 `repo-location-local-projects`. (OneDrive 폴더백업이 바탕화면을 삼켜 .git dehydrate→꼬임. GitHub `d2a85b3a` push 확인 후 로컬 사본 ff-pull로 최신화 완료, tracked 2359 일치.)
 - ⚠ 이 문서·`HANDOFF_B_MASTER.md`·스크립트의 `OneDrive\바탕 화면` 경로 하드코딩은 **미갱신**. projects 경로로 고칠 것(to-do).
-- **닮음(3) 진행 중** — 파일 `_inbox/tagging_similarity3_v4.json`(+QA리포트) 착. 검수 판정 PASS.
-  - **✅ Code탭 독립검증 완료**(scratchpad `verify_sim3.ps1`, ASCII전용·PS ConvertFrom-Json; py/node/jq 없음): 67유형/150문항/1~150연속/52종/한글0/tag_scope 26태그·48배정·범위내·유형내중복0 — **구조 전부 검수와 일치**.
-  - 🔴 **재사용 split 1건 불일치**: 검수 39재사용/13신규 vs 재현 **38/14**. flip = **`midpoint_length_relation_error`**. 삼각비(6)에서 고려됐다 Q137서 제거(§5)돼 **어떤 맵에도 축매핑 없음**(전 맵 grep 무매치). 닮음(3)선 유형6·12·25·26·29·33…+Q28 scope에 실사용 → **승계 두면 축 구멍**. **매핑 대상 = 13 아니라 14**(신규13 + 미매핑 midpoint_length_relation_error). ⚠ 검수에 이 갭 회신 필요.
-- **다음 할 일** = Task #2(1문항유형 7개 rationale 충실도)→#3(신규14 축매핑, 재사용37 승계·재배정금지)→#4(반영+856 raw_taxonomy 등재+커밋). 검수 지시: converse류(pythagorean_converse_condition_failure·parallelism_converse_ratio_test_failure)는 원 `cyclicity_converse_angle_condition_failure`(C3) 선례 참조. tag_scope 48건 그대로 반영.
+- **✅ 닮음(3) 5단원째 완결** (커밋 `1bc4e002` + 등재 후속). set04=닮음(3), item_id `M2_SIMPY_150_S04_Q###`.
+  - **태깅**: `B_tagging_m2_similarity_set04.v1.json`(67유형·150문항·관측52종, 검수 PASS) + `_QA.v1.md`.
+  - **기준화해(중요)**: 검수 39재사용/13신규(**관측 union 209 기준**) vs Code 38재사용/14매핑필요(**축매핑풀 197 기준**). 차 1건=`midpoint_length_relation_error`(관측풀엔 있고 축매핑풀 미등재). **오산 아님·기준차**. 검수 승인. 규칙 메모리 `observed-vs-axismap-pool-basis`. → 축매핑 대상 **14**(신규13+midpoint).
+  - **맵**: `B_tag_axis_map_similarity3_new.v1.json`(14종, 검수확정). 분포 C1·2/C2·5/C3·2/C4·5. isosceles_altitude_bisection_overlooked **C2**(검수 B1→C2). converse 2종(pythagorean/parallelism)=**C3, alt=C2**(cyclicity의 alt B3 미승계·개별판단, 경우분류 성분 없음).
+  - **반영**: `B_reflection_m2_similarity_set04.v1.json`(150문항, tag_scope 배분, item_id=set04 조인, 미해결태그 0).
+  - **rationale 충실도**(1문항유형 7개: 2·19·26·30·55·56·57): 전부 문제특정·태그근거 충실. under-doc 2건(유형2 seg_ratio·유형55 pythagorean)=베이스태그 유효하나 rationale 미명시, **축매핑 무관 각주**.
+  - **856 등재(뼈대만)**: 검수결정=mathflat 81 canonical, error_tags 보류. 생성: `data/raw_taxonomy/m2_similarity.raw_taxonomy.v1.json`(81섹션) + `data/problem_types/m2_similarity.problem_types.v1.json`(81, `status:raw_registered_not_wired`). **pending**: 예측 error_tags 부착·concept_ids 상속·set04 source_type_label(관측67)↔mathflat81 crosswalk. OBSERVED층과 별개(§9).
+- **다음 할 일** = 닮음(8)=set09(다음 856) 또는 다음 트랜치. 856 등재는 이제 이 형식(mathflat canonical 뼈대) 확정 — 반복 적용. converse 선례·기준명시 규칙 준수.
 
 ## ⏱ 첫 5분
 - **목표**: 각 단원 150문항을 재태깅(오류형)→17진단축(관측층)에 매핑→문항단위 반영. PREDICTED(팩)와 별개층.

@@ -1,0 +1,2120 @@
+{
+    "version":  "2026.08.06-m2-similarity-pt-v0.1",
+    "unit_id":  "M2_SIMILARITY",
+    "unit_name":  "도형의 닮음",
+    "raw_taxonomy":  "data/raw_taxonomy/m2_similarity.raw_taxonomy.v1.json",
+    "wiring_status":  "skeleton",
+    "wiring_note":  "Review decision 2026-08-06: mathflat 81 canonical, error_tags deferred. status=raw_registered_not_wired. No predicted error_tags for axis_rules yet. OBSERVED layer (B_reflection_m2_similarity_set04) kept separate per discipline 9.",
+    "pending":  [
+                    "predicted error_tags attach",
+                    "concept_ids inheritance",
+                    "set04 source_type_label (observed 67) -> mathflat 81 crosswalk",
+                    "default_difficulty",
+                    "description template"
+                ],
+    "problem_type_count":  81,
+    "problem_types":  [
+                          {
+                              "problem_type_id":  "M2_SIM_PT001",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮은 도형에서 서로 대응하는 것",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "닮은 도형",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_001",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G001",
+                                                      "source_group_id":  "G001",
+                                                      "source_code_range":  [
+                                                                                "GS-001",
+                                                                                "GS-002"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "1.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT002",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "항상 닮은 도형",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "닮은 도형",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_002",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G002",
+                                                      "source_group_id":  "G002",
+                                                      "source_code_range":  [
+                                                                                "GS-003",
+                                                                                "GS-004"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "1.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT003",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "평면도형에서 닮음의 성질",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "닮은 도형",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_003",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G003",
+                                                      "source_group_id":  "G003",
+                                                      "source_code_range":  [
+                                                                                "GS-005",
+                                                                                "GS-006",
+                                                                                "GS-007"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "1.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT004",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "평면도형에서 닮음비의 응용",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "닮은 도형",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_004",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G004",
+                                                      "source_group_id":  "G004",
+                                                      "source_code_range":  [
+                                                                                "GS-008",
+                                                                                "GS-009",
+                                                                                "GS-010"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "2.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT005",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "입체도형에서 닮음의 성질",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "닮은 도형",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_005",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G005",
+                                                      "source_group_id":  "G005",
+                                                      "source_code_range":  [
+                                                                                "GS-011",
+                                                                                "GS-012",
+                                                                                "GS-013"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "2.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT006",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "다면체에서 닮음비의 응용",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "닮은 도형",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_006",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G006",
+                                                      "source_group_id":  "G006",
+                                                      "source_code_range":  [
+                                                                                "GS-014",
+                                                                                "GS-015"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "2.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT007",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "회전체에서 닮음비의 응용",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "닮은 도형",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_007",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G007",
+                                                      "source_group_id":  "G007",
+                                                      "source_code_range":  [
+                                                                                "GS-016",
+                                                                                "GS-017",
+                                                                                "GS-018",
+                                                                                "GS-019"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "3.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT008",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 닮음 조건",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_008",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G008",
+                                                      "source_group_id":  "G008",
+                                                      "source_code_range":  [
+                                                                                "GS-020",
+                                                                                "GS-021",
+                                                                                "GS-022",
+                                                                                "GS-023"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "3.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT009",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "두 삼각형이 닮음이기 위하여 필요한 조건",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_009",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G009",
+                                                      "source_group_id":  "G009",
+                                                      "source_code_range":  [
+                                                                                "GS-024"
+                                                                            ],
+                                                      "topic_type_count":  1,
+                                                      "source_image":  "4.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT010",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 닮음 조건의 응용(1) SAS 닮음",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_010",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G010",
+                                                      "source_group_id":  "G010",
+                                                      "source_code_range":  [
+                                                                                "GS-025",
+                                                                                "GS-026"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "4.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT011",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 닮음 조건의 응용(2) AA 닮음",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_011",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G011",
+                                                      "source_group_id":  "G011",
+                                                      "source_code_range":  [
+                                                                                "GS-027",
+                                                                                "GS-028",
+                                                                                "GS-029",
+                                                                                "GS-030",
+                                                                                "GS-031",
+                                                                                "GS-032"
+                                                                            ],
+                                                      "topic_type_count":  6,
+                                                      "source_image":  "4.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT012",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "평행선에서 삼각형의 닮음 조건의 응용",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_012",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G012",
+                                                      "source_group_id":  "G012",
+                                                      "source_code_range":  [
+                                                                                "GS-033",
+                                                                                "GS-034",
+                                                                                "GS-035",
+                                                                                "GS-036"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "5.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT013",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "직각삼각형의 닮음(1) 공통인 각이 있는 경우",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_013",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G013",
+                                                      "source_group_id":  "G013",
+                                                      "source_code_range":  [
+                                                                                "GS-037",
+                                                                                "GS-038",
+                                                                                "GS-039",
+                                                                                "GS-040"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "5.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT014",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "직각삼각형의 닮음(2) 한 예각의 크기가 같은 경우",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_014",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G014",
+                                                      "source_group_id":  "G014",
+                                                      "source_code_range":  [
+                                                                                "GS-041",
+                                                                                "GS-042"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "6.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT015",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "직각삼각형의 닮음의 응용",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_015",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G015",
+                                                      "source_group_id":  "G015",
+                                                      "source_code_range":  [
+                                                                                "GS-043",
+                                                                                "GS-044",
+                                                                                "GS-045",
+                                                                                "GS-046",
+                                                                                "GS-047",
+                                                                                "GS-048"
+                                                                            ],
+                                                      "topic_type_count":  6,
+                                                      "source_image":  "6.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT016",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "종이접기와 삼각형의 닮음",
+                              "domain":  "도형의 닮음",
+                              "subdomain":  "삼각형의 닮음 조건",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_016",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G016",
+                                                      "source_group_id":  "G016",
+                                                      "source_code_range":  [
+                                                                                "GS-049",
+                                                                                "GS-050",
+                                                                                "GS-051"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "7.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT017",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_017",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G017",
+                                                      "source_group_id":  "G017",
+                                                      "source_code_range":  [
+                                                                                "GS-052",
+                                                                                "GS-053",
+                                                                                "GS-054"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "7.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT018",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 엇꼭지각인 두 삼각형",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_018",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G018",
+                                                      "source_group_id":  "G018",
+                                                      "source_code_range":  [
+                                                                                "GS-055",
+                                                                                "GS-056",
+                                                                                "GS-057",
+                                                                                "GS-058"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "8.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT019",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형에서 평행선 사이의 선분의 길이의 비의 응용",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_019",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G019",
+                                                      "source_group_id":  "G019",
+                                                      "source_code_range":  [
+                                                                                "GS-059",
+                                                                                "GS-060",
+                                                                                "GS-061"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "8.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT020",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "평행선 찾기",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_020",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G020",
+                                                      "source_group_id":  "G020",
+                                                      "source_code_range":  [
+                                                                                "GS-062",
+                                                                                "GS-063"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "8.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT021",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 내각의 이등분선과 변의 길이",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_021",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G021",
+                                                      "source_group_id":  "G021",
+                                                      "source_code_range":  [
+                                                                                "GS-064",
+                                                                                "GS-065",
+                                                                                "GS-066",
+                                                                                "GS-067",
+                                                                                "GS-068"
+                                                                            ],
+                                                      "topic_type_count":  5,
+                                                      "source_image":  "9.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT022",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 내각의 이등분선과 삼각형의 넓이",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_022",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G022",
+                                                      "source_group_id":  "G022",
+                                                      "source_code_range":  [
+                                                                                "GS-069",
+                                                                                "GS-070"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "9.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT023",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 외각의 이등분선과 변의 길이",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_023",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G023",
+                                                      "source_group_id":  "G023",
+                                                      "source_code_range":  [
+                                                                                "GS-071",
+                                                                                "GS-072",
+                                                                                "GS-073"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "9.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT024",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 외각의 이등분선과 삼각형의 넓이",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_024",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G024",
+                                                      "source_group_id":  "G024",
+                                                      "source_code_range":  [
+                                                                                "GS-074",
+                                                                                "GS-075"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "10.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT025",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "평행선 사이의 길이의 비",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_025",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G025",
+                                                      "source_group_id":  "G025",
+                                                      "source_code_range":  [
+                                                                                "GS-076",
+                                                                                "GS-077",
+                                                                                "GS-078",
+                                                                                "GS-079"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "10.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT026",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "사다리꼴에서 평행선 사이의 선분의 길이의 비",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_026",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G026",
+                                                      "source_group_id":  "G026",
+                                                      "source_code_range":  [
+                                                                                "GS-080",
+                                                                                "GS-081"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "10.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT027",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "사다리꼴에서 평행선과 한 대각선의 길이",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_027",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G027",
+                                                      "source_group_id":  "G027",
+                                                      "source_code_range":  [
+                                                                                "GS-082"
+                                                                            ],
+                                                      "topic_type_count":  1,
+                                                      "source_image":  "10.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT028",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "사다리꼴에서 평행선과 두 대각선의 길이(1) 평행선이 대각선의 교점을 지나지 않을 때",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_028",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G028",
+                                                      "source_group_id":  "G028",
+                                                      "source_code_range":  [
+                                                                                "GS-083",
+                                                                                "GS-084"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "11.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT029",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "사다리꼴에서 평행선과 두 대각선의 길이(2) 평행선이 대각선의 교점을 지날 때",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_029",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G029",
+                                                      "source_group_id":  "G029",
+                                                      "source_code_range":  [
+                                                                                "GS-085",
+                                                                                "GS-086"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "11.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT030",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "평행선 사이의 길이의 비의 응용",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "평행선과 선분의 길이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_030",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G030",
+                                                      "source_group_id":  "G030",
+                                                      "source_code_range":  [
+                                                                                "GS-087",
+                                                                                "GS-088",
+                                                                                "GS-089"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "11.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT031",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 두 변의 중점을 연결한 선분의 성질(1)",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_031",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G031",
+                                                      "source_group_id":  "G031",
+                                                      "source_code_range":  [
+                                                                                "GS-090",
+                                                                                "GS-091",
+                                                                                "GS-092",
+                                                                                "GS-093"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "12.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT032",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 두 변의 중점을 연결한 선분의 성질(2)",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_032",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G032",
+                                                      "source_group_id":  "G032",
+                                                      "source_code_range":  [
+                                                                                "GS-094",
+                                                                                "GS-095"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "12.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT033",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 중점을 연결한 선분 응용(1) 중점",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_033",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G033",
+                                                      "source_group_id":  "G033",
+                                                      "source_code_range":  [
+                                                                                "GS-096",
+                                                                                "GS-097"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "12.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT034",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 중점을 연결한 선분 응용(2) 삼등분선",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_034",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G034",
+                                                      "source_group_id":  "G034",
+                                                      "source_code_range":  [
+                                                                                "GS-098",
+                                                                                "GS-099"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "13.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT035",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 세 변의 중점을 연결한 삼각형",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_035",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G035",
+                                                      "source_group_id":  "G035",
+                                                      "source_code_range":  [
+                                                                                "GS-100",
+                                                                                "GS-101",
+                                                                                "GS-102"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "13.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT036",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "사각형의 각 변의 중점을 연결하여 만든 사각형",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_036",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G036",
+                                                      "source_group_id":  "G036",
+                                                      "source_code_range":  [
+                                                                                "GS-103",
+                                                                                "GS-104"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "13.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT037",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "사다리꼴의 두 변의 중점을 연결한 선분의 성질",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_037",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G037",
+                                                      "source_group_id":  "G037",
+                                                      "source_code_range":  [
+                                                                                "GS-105",
+                                                                                "GS-106"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "13.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT038",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 중선의 성질",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_038",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G038",
+                                                      "source_group_id":  "G038",
+                                                      "source_code_range":  [
+                                                                                "GS-107",
+                                                                                "GS-108",
+                                                                                "GS-109"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "14.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT039",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 무게중심(1) △ABC의 무게중심",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_039",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G039",
+                                                      "source_group_id":  "G039",
+                                                      "source_code_range":  [
+                                                                                "GS-110",
+                                                                                "GS-111",
+                                                                                "GS-112"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "14.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT040",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 무게중심(2) △ABC, △GBC의 무게중심",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_040",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G040",
+                                                      "source_group_id":  "G040",
+                                                      "source_code_range":  [
+                                                                                "GS-113",
+                                                                                "GS-114"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "14.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT041",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 무게중심의 응용(1)",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_041",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G041",
+                                                      "source_group_id":  "G041",
+                                                      "source_code_range":  [
+                                                                                "GS-115"
+                                                                            ],
+                                                      "topic_type_count":  1,
+                                                      "source_image":  "14.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT042",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 무게중심의 응용(2)",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_042",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G042",
+                                                      "source_group_id":  "G042",
+                                                      "source_code_range":  [
+                                                                                "GS-116",
+                                                                                "GS-117",
+                                                                                "GS-118"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "15.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT043",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 무게중심의 응용(3)",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_043",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G043",
+                                                      "source_group_id":  "G043",
+                                                      "source_code_range":  [
+                                                                                "GS-119",
+                                                                                "GS-120",
+                                                                                "GS-121"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "15.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT044",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 무게중심과 넓이의 관계(1) △ABC의 무게중심",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_044",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G044",
+                                                      "source_group_id":  "G044",
+                                                      "source_code_range":  [
+                                                                                "GS-122",
+                                                                                "GS-123",
+                                                                                "GS-124",
+                                                                                "GS-125",
+                                                                                "GS-126",
+                                                                                "GS-127"
+                                                                            ],
+                                                      "topic_type_count":  6,
+                                                      "source_image":  "15.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT045",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 무게중심과 넓이의 관계(2) △ABC, △GBC의 무게중심",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_045",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G045",
+                                                      "source_group_id":  "G045",
+                                                      "source_code_range":  [
+                                                                                "GS-128",
+                                                                                "GS-129",
+                                                                                "GS-130",
+                                                                                "GS-131",
+                                                                                "GS-132"
+                                                                            ],
+                                                      "topic_type_count":  5,
+                                                      "source_image":  "16.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT046",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "평행사변형에서 삼각형의 무게중심의 응용(1) 길이",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_046",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G046",
+                                                      "source_group_id":  "G046",
+                                                      "source_code_range":  [
+                                                                                "GS-133",
+                                                                                "GS-134"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "16.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT047",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "평행사변형에서 삼각형의 무게중심의 응용(2) 넓이",
+                              "domain":  "닮은 도형의 성질",
+                              "subdomain":  "삼각형의 무게중심",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_047",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G047",
+                                                      "source_group_id":  "G047",
+                                                      "source_code_range":  [
+                                                                                "GS-135",
+                                                                                "GS-136",
+                                                                                "GS-137",
+                                                                                "GS-138"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "16.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT048",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮은 두 평면도형의 넓이의 비",
+                              "domain":  "닮은 도형의 넓이와 부피",
+                              "subdomain":  "넓이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_048",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G048",
+                                                      "source_group_id":  "G048",
+                                                      "source_code_range":  [
+                                                                                "GS-139",
+                                                                                "GS-140",
+                                                                                "GS-141",
+                                                                                "GS-142",
+                                                                                "GS-143"
+                                                                            ],
+                                                      "topic_type_count":  5,
+                                                      "source_image":  "17.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT049",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮은 두 평면도형의 넓이의 비의 활용",
+                              "domain":  "닮은 도형의 넓이와 부피",
+                              "subdomain":  "넓이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_049",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G049",
+                                                      "source_group_id":  "G049",
+                                                      "source_code_range":  [
+                                                                                "GS-144",
+                                                                                "GS-145"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "17.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT050",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮은 두 입체도형의 겉넓이의 비",
+                              "domain":  "닮은 도형의 넓이와 부피",
+                              "subdomain":  "겉넓이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_050",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G050",
+                                                      "source_group_id":  "G050",
+                                                      "source_code_range":  [
+                                                                                "GS-146",
+                                                                                "GS-147",
+                                                                                "GS-148",
+                                                                                "GS-149",
+                                                                                "GS-150",
+                                                                                "GS-151"
+                                                                            ],
+                                                      "topic_type_count":  6,
+                                                      "source_image":  "18.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT051",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮은 두 입체도형의 겉넓이의 비의 활용",
+                              "domain":  "닮은 도형의 넓이와 부피",
+                              "subdomain":  "겉넓이의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_051",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G051",
+                                                      "source_group_id":  "G051",
+                                                      "source_code_range":  [
+                                                                                "GS-152",
+                                                                                "GS-153",
+                                                                                "GS-154"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "18.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT052",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮은 두 입체도형의 부피의 비",
+                              "domain":  "닮은 도형의 넓이와 부피",
+                              "subdomain":  "부피의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_052",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G052",
+                                                      "source_group_id":  "G052",
+                                                      "source_code_range":  [
+                                                                                "GS-155",
+                                                                                "GS-156",
+                                                                                "GS-157",
+                                                                                "GS-158",
+                                                                                "GS-159"
+                                                                            ],
+                                                      "topic_type_count":  5,
+                                                      "source_image":  "19.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT053",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮은 두 입체도형의 부피의 비의 활용",
+                              "domain":  "닮은 도형의 넓이와 부피",
+                              "subdomain":  "부피의 비",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_053",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G053",
+                                                      "source_group_id":  "G053",
+                                                      "source_code_range":  [
+                                                                                "GS-160",
+                                                                                "GS-161",
+                                                                                "GS-162",
+                                                                                "GS-163",
+                                                                                "GS-164"
+                                                                            ],
+                                                      "topic_type_count":  5,
+                                                      "source_image":  "19.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT054",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮음의 활용(1) 높이의 측정",
+                              "domain":  "닮은 도형의 넓이와 부피",
+                              "subdomain":  "닮음의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_054",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G054",
+                                                      "source_group_id":  "G054",
+                                                      "source_code_range":  [
+                                                                                "GS-165",
+                                                                                "GS-166",
+                                                                                "GS-167"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "20.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT055",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "닮음의 활용(2) 축도와 축척",
+                              "domain":  "닮은 도형의 넓이와 부피",
+                              "subdomain":  "닮음의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_055",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G055",
+                                                      "source_group_id":  "G055",
+                                                      "source_code_range":  [
+                                                                                "GS-168",
+                                                                                "GS-169",
+                                                                                "GS-170",
+                                                                                "GS-171"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "20.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT056",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 변의 길이 구하기(1)",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_056",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G056",
+                                                      "source_group_id":  "G056",
+                                                      "source_code_range":  [
+                                                                                "GS-172",
+                                                                                "GS-173",
+                                                                                "GS-174",
+                                                                                "GS-175",
+                                                                                "GS-176",
+                                                                                "GS-177"
+                                                                            ],
+                                                      "topic_type_count":  6,
+                                                      "source_image":  "21.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT057",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 변의 길이 구하기(2)",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_057",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G057",
+                                                      "source_group_id":  "G057",
+                                                      "source_code_range":  [
+                                                                                "GS-178",
+                                                                                "GS-179",
+                                                                                "GS-180",
+                                                                                "GS-181",
+                                                                                "GS-182"
+                                                                            ],
+                                                      "topic_type_count":  5,
+                                                      "source_image":  "22.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT058",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "삼각형의 변의 길이 구하기(3)",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_058",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G058",
+                                                      "source_group_id":  "G058",
+                                                      "source_code_range":  [
+                                                                                "GS-183",
+                                                                                "GS-184"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "22.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT059",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "직각삼각형의 닮음과 피타고라스 정리",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_059",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G059",
+                                                      "source_group_id":  "G059",
+                                                      "source_code_range":  [
+                                                                                "GS-185",
+                                                                                "GS-186"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "22.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT060",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "사각형에서 피타고라스 정리의 이용(1) 대각선을 그어 푸는 경우",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_060",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G060",
+                                                      "source_group_id":  "G060",
+                                                      "source_code_range":  [
+                                                                                "GS-187",
+                                                                                "GS-188"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "23.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT061",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_061",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G061",
+                                                      "source_group_id":  "G061",
+                                                      "source_code_range":  [
+                                                                                "GS-189",
+                                                                                "GS-190"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "23.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT062",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "직사각형의 대각선의 길이",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_062",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G062",
+                                                      "source_group_id":  "G062",
+                                                      "source_code_range":  [
+                                                                                "GS-191",
+                                                                                "GS-192",
+                                                                                "GS-193",
+                                                                                "GS-194"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "23.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT063",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "이등변삼각형의 높이와 넓이",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_063",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G063",
+                                                      "source_group_id":  "G063",
+                                                      "source_code_range":  [
+                                                                                "GS-195",
+                                                                                "GS-196",
+                                                                                "GS-197"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "24.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT064",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 설명(1) 유클리드의 방법",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_064",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G064",
+                                                      "source_group_id":  "G064",
+                                                      "source_code_range":  [
+                                                                                "GS-198",
+                                                                                "GS-199",
+                                                                                "GS-200",
+                                                                                "GS-201"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "24.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT065",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 설명(2) 피타고라스의 방법",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_065",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G065",
+                                                      "source_group_id":  "G065",
+                                                      "source_code_range":  [
+                                                                                "GS-202",
+                                                                                "GS-203"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "24.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT066",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 설명(3) 가필드의 방법",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_066",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G066",
+                                                      "source_group_id":  "G066",
+                                                      "source_code_range":  [
+                                                                                "GS-204",
+                                                                                "GS-205"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "25.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT067",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 설명(4) 바스카라의 방법",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_067",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G067",
+                                                      "source_group_id":  "G067",
+                                                      "source_code_range":  [
+                                                                                "GS-206",
+                                                                                "GS-207"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "25.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT068",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "직각삼각형이 되기 위한 조건",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_068",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G068",
+                                                      "source_group_id":  "G068",
+                                                      "source_code_range":  [
+                                                                                "GS-208",
+                                                                                "GS-209"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "25.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT069",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "변의 길이에 따른 삼각형의 종류",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_069",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G069",
+                                                      "source_group_id":  "G069",
+                                                      "source_code_range":  [
+                                                                                "GS-210",
+                                                                                "GS-211"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "25.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT070",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "각의 크기에 따른 삼각형의 변의 길이",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_070",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G070",
+                                                      "source_group_id":  "G070",
+                                                      "source_code_range":  [
+                                                                                "GS-212",
+                                                                                "GS-213"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "26.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT071",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 활용(1) 직각삼각형",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_071",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G071",
+                                                      "source_group_id":  "G071",
+                                                      "source_code_range":  [
+                                                                                "GS-214",
+                                                                                "GS-215",
+                                                                                "GS-216"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "26.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT072",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 활용(2) 사각형",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_072",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G072",
+                                                      "source_group_id":  "G072",
+                                                      "source_code_range":  [
+                                                                                "GS-217",
+                                                                                "GS-218"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "26.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT073",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 활용(3) 직사각형 내부의 점",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_073",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G073",
+                                                      "source_group_id":  "G073",
+                                                      "source_code_range":  [
+                                                                                "GS-219",
+                                                                                "GS-220",
+                                                                                "GS-221"
+                                                                            ],
+                                                      "topic_type_count":  3,
+                                                      "source_image":  "27.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT074",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 활용(4) 직각삼각형의 세 반원 사이의 관계",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_074",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G074",
+                                                      "source_group_id":  "G074",
+                                                      "source_code_range":  [
+                                                                                "GS-222",
+                                                                                "GS-223",
+                                                                                "GS-224"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "27.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT075",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 정리의 활용(5) 히포크라테스의 원의 넓이",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_075",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G075",
+                                                      "source_group_id":  "G075",
+                                                      "source_code_range":  [
+                                                                                "GS-225",
+                                                                                "GS-226"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "27.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT076",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "피타고라스 나무 문제",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_076",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G076",
+                                                      "source_group_id":  "G076",
+                                                      "source_code_range":  [
+                                                                                "GS-227"
+                                                                            ],
+                                                      "topic_type_count":  1,
+                                                      "source_image":  "27.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT077",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "종이접기와 피타고라스 정리",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_077",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G077",
+                                                      "source_group_id":  "G077",
+                                                      "source_code_range":  [
+                                                                                "GS-228",
+                                                                                "GS-229",
+                                                                                "GS-230",
+                                                                                "GS-231"
+                                                                            ],
+                                                      "topic_type_count":  4,
+                                                      "source_image":  "28.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT078",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "입체도형에서의 피타고라스 정리",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_078",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G078",
+                                                      "source_group_id":  "G078",
+                                                      "source_code_range":  [
+                                                                                "GS-232",
+                                                                                "GS-233"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "28.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT079",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "좌표평면에서의 최단 거리",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_079",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G079",
+                                                      "source_group_id":  "G079",
+                                                      "source_code_range":  [
+                                                                                "GS-234",
+                                                                                "GS-235"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "28.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT080",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "각기둥에서의 최단 거리",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_080",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G080",
+                                                      "source_group_id":  "G080",
+                                                      "source_code_range":  [
+                                                                                "GS-236",
+                                                                                "GS-237"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "28.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIM_PT081",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY",
+                              "unit_name":  "도형의 닮음",
+                              "type_name":  "원기둥에서의 최단 거리",
+                              "domain":  "피타고라스 정리",
+                              "subdomain":  "피타고라스 정리의 활용",
+                              "description":  null,
+                              "concept_ids":  null,
+                              "default_difficulty":  null,
+                              "error_tags":  null,
+                              "raw_section_id":  "M2_SIM_RAW_081",
+                              "mathflat_source":  {
+                                                      "problem_type_id":  "MPLAT.M2S2.GS.G081",
+                                                      "source_group_id":  "G081",
+                                                      "source_code_range":  [
+                                                                                "GS-238",
+                                                                                "GS-239"
+                                                                            ],
+                                                      "topic_type_count":  2,
+                                                      "source_image":  "29.png"
+                                                  },
+                              "status":  "raw_registered_not_wired"
+                          }
+                      ]
+}
