@@ -38,6 +38,12 @@
   - 🔴 **경정정**: 내 mathflat 등재(`m2_similarity`, M2_SIMILARITY, 닮음만 81)는 **유닛 canonical 아님** = 플랫폼 뷰. `superseded_note` 표시. 완료 유닛(수와식)은 links의 primary_problem_type_id가 problem_types 파일로 해소되나 닮음은 정의파일만 부재였음.
   - **✅ M2_SIMPY problem_types 뼈대 등재**(검수결정): `data/problem_types/m2_similarity_pythagoras.problem_types.v1.json`(87유형, type_variant_bank+links id조인, concept_ids 87/87, `error_tags=null`, `status:raw_registered_not_wired`).
   - **유일 pending = 예측 error_tags 상속원**(검수결정=지금은 보류). **✅상속 패턴 조사(완료 5유닛)**: ①error_tags 100% 채움(null 0) ②**vocab 유닛별 bespoke**(교차겹침 0~15%, 대부분 0%) — 공유 통제어휘 없음 ③스타일 2갈래: **다수(geometry·probability·quadratic·polynomial)=소수(12~20) 광범위 개념슬러그 고반복** / NE·linear만 대규모 세분(100+). "core"는 error_tag 아님(앞 grep 오탐 정정). ④**닮음 템플릿 = `m2_geometry_properties`**(14종: parallel_lines·angle_chasing·triangle_congruence·triangle_center·length_area·diagonal_property·proof_structure·auxiliary_line…) — 도메인 정합. 권고: geometry 스타일로 소수 광개념 vocab 신규(닮음/피타고라스 특화: similarity_ratio·area_volume_ratio·pythagorean·midpoint_connector·right_triangle_altitude 등), M2_SIMPY concept_ids(53종) 정렬. **wholesale 상속 불가(bespoke), 알고리즘=geometry모델+concept파생.**
+  - 🔴 **추가조사 3건 완료(검수 요청, 2026-08-06)** — 판정 재료가 예상을 뒤집음:
+    - **①(최우선) axis_rules.v44는 error_tags를 0번 참조.** 예측축 = `Run-AxisPrediction.ps1`이 규칙 regex를 **mathflat 유형명 텍스트(`$ctx="$group $nm"`)에 매칭**(83행)해 채움. error_tags·concept_ids 예측 경로에 **전혀 없음**. → **error_tags 입도는 예측축과 무관.** 검수 전제("error_tags=axis_rules 입력") 불성립. ⇒ M2_SIMPY error_tags는 예측축을 위해선 불필요(다른 진단용도 있으면 별개).
+    - **② 45단원 스타일 분포**: BROAD(≤30)~16 / mid~11 / FINE(≥70)~11 스펙트럼. **geometry·삼각비·이차·다항식 클러스터 전부 BROAD**(geometry_properties14·trigonometric_ratio26·quadratic19·geometry_equation25). 닮음(geometry)은 BROAD 계열.
+    - **③ 의도 vs 편차**: problem_types 전부 2026-07-06~08 동일배치 저작(광범위 geometry·세분 linear가 같은날 07-07), error_tags 설계문서 부재 → **통제어휘 없는 유닛별 저작편차**에 가까움(의도된 통일설계 아님).
+    - ⇒ **결론(검수 판정 대기)**: 예측축엔 error_tags 불요(mathflat+텍스트규칙으로 이미 산출가능). 닮음 예측축은 `Run-AxisPrediction`을 `m2_similarity.mathflat`에 돌리면 나옴. error_tags를 굳이 붙인다면 BROAD(geometry)스타일이나, **목적(무슨 소비처?)부터 재확인 필요** — 안 붙여도 예측축 지장 없음.
+    - ⚠ mathflat 경정정 뉘앙스: mathflat은 "비-canonical"이 아니라 **PREDICTED-팩 입력**(Run-AxisPrediction이 *.mathflat 소비). M2_SIMPY는 OBSERVED-조인 canonical. 서로 다른 층 역할.
   - default_difficulty·전체유형 완성(워크시트 미커버 PT177까지)도 후속.
 
 ## ⏱ 첫 5분

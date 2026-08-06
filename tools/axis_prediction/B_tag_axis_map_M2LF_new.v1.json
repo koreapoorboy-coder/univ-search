@@ -4,7 +4,7 @@
   "source": "_inbox/tagging_function5_v4_v2.json (50유형·50문항·44종, 재사용26·신규18, 검수 PASS)",
   "scope": "신규 18종만 매핑. 재사용 26종은 기존 축 승계(축매핑풀 전수대조 gap 0). 기존 유닛(problem_types/source_item_links 존재)이라 856 등재 불필요.",
   "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지.",
-  "review_status": "CODE_DRAFT_PENDING_REVIEW",
+  "review_status": "REVIEWED_APPROVED (검수확정: 18종 배정 승인, 그래프↔식 3분 판례 승인·이차함수 적용, parallel_slope_condition_omitted tier boundary/alt B1 조정 1건)",
   "그래프_식_변환_판례": "검수 질의(그래프↔식을 C4냐 C3냐)에 대한 Code탭 판례 = 단일답 아닌 3분: ①순수 형태변환(식형↔식형, 이동→계수갱신)=C4(표현변환) ②해석적 역추론·연결(그래프거동↔매개변수의미, 부호 역추론, 다진술 판정)=C3(개념 분리·연결) ③원자적 개념혼동(기울기부호=증감방향, 절댓값=가파름)=C2(개념 혼동). 기준: 대상이 같고 표기만 바뀌면 C4 / 서로 다른 개념을 이어 추론하면 C3 / 한 개념의 오이해면 C2.",
   "map": {
     "slope_change_ratio_setup_failure":                {"axis":"C1","tier":"confident","note":"두 점·변화량에서 기울기 Δy/Δx 식 세우기. ratio_setup_from_geometry(C1) 선례. 방향오류는 별도 difference_direction(B4)"},
@@ -16,7 +16,7 @@
     "linear_rate_slope_conversion_failure":            {"axis":"C4","tier":"boundary","alt":"C1","note":"상황 단위변화량→기울기(단위당 변화율) 변환 = 표현변환(C4) vs 모델 식세우기(C1). 단위변환·산술과 구별(검수 why)"},
     "parameter_sign_to_graph_mapping_failure":         {"axis":"C3","tier":"boundary","alt":"C4","note":"★판례: 매개변수 부호↔그래프 사분면 연결·역추론 = 개념 연결(C3, 해석적). 순수 형태변환 아니라 alt만 C4"},
     "graph_property_statement_evaluation_failure":     {"axis":"C3","tier":"boundary","alt":"C2","note":"한 그래프의 여러 진술을 기울기·절편·통과점 기준 일관 판정 = 개념 연결·일관적용(C3) vs 개념(C2)"},
-    "parallel_slope_condition_omitted":                {"axis":"C3","tier":"boundary","alt":"C2","note":"평행↔기울기 동일 조건 연결 = 개념 연결(C3) vs 개념(C2). '_omitted'지만 성질 적용 성격(isosceles 선례 B1→C2 취지)"},
+    "parallel_slope_condition_omitted":                {"axis":"C3","tier":"boundary","alt":"B1","note":"평행→기울기 동일 두 개념 잇기 = 개념 연결(C3, 검수확정). ⚠이름 _omitted가 B1(조건누락)처럼 보여 이름-축 어긋남 = 재검토 여지 표시(alt B1). 내용은 C3가 맞음"},
     "coincident_line_parameter_matching_failure":      {"axis":"C3","tier":"boundary","alt":"C1","note":"일치↔기울기·절편/계수비 전부 매칭 연결 = 개념 연결(C3) vs 조건식 세우기(C1). 부분충족 방지"},
     "function_mapping_uniqueness_failure":             {"axis":"C2","tier":"confident","note":"함수 정의(각 x에 y 하나) 개념 판정·유지 = 개념(C2). 함수 핵심개념"},
     "slope_sign_graph_direction_confusion":            {"axis":"C2","tier":"boundary","alt":"C3","note":"★판례: 기울기 부호=그래프 증감방향, 원자적 개념혼동(C2) vs 연결(C3). trig_monotonic_direction_confusion(C2) 선례"},
