@@ -1,5 +1,6 @@
 {
-  "version": "B-tag-axis-map-M2NE-v2",
+  "version": "B-tag-axis-map-M2NE-v3",
+  "검수반영_v3": "ratio_direction_inversion B4→E3 통합(circle6와 통일). ★부수효과: 수와식 E3 0→1(Q77). 앞선 'E3 사각지대 아님' 판정 부분 정정 — unit_conversion_omitted를 C4단일화하며 E3 비웠으나 실제 E3는 ratio_direction_inversion에 있었음. Q77 스코프 추가.",
   "검수반영": "v2(검수 판정 반영): ①E1 사각지대 2건 answer_stage_confusion·cancellation_breaks_condition_overlooked → E1 ②C3공통축 기각 multi_constraint_intersection_failure→B3·multi_step_composite_error→D1 ③unit_conversion_omitted 'C4,E3'스키마오류→C4 ④B1/C1경계(denominator_multiple_condition_error·subtraction_of_regions_omitted) 보류유지. A1/A2 0건=정상(암기재생형 없음).",
   "unit": "m2_number_expression (중2 수와 식)",
   "source": "tagging_sooiksik5.json (260710_수와 식(5).pdf, 41유형·150문항·91태그)",
@@ -54,7 +55,7 @@
     "abstract_notation_application_failure":          {"axis":"C4","tier":"boundary","alt":"D1","note":"E[5ⁿ]=n 추상기호 재진술 = 표현변환(C4) vs 식조작(D1)"},
     "unit_conversion_omitted":                        {"axis":"C4","tier":"confident","note":"검수: 'C4,E3' 이중축 문자열 스키마오류(조인 미매칭) → C4 단일 수정"},
     "stage_indexing_error":                           {"axis":"C3","tier":"boundary","alt":"D3","note":"단계별 개수·길이 추적 = 연결(C3) vs 계산(D3)"},
-    "ratio_direction_inversion":                      {"axis":"B4","tier":"boundary","alt":"C4","note":"'몇 배' 방향 = 방향(B4) vs 변환(C4)"},
+    "ratio_direction_inversion":                      {"axis":"E3","tier":"confident","note":"검수확정 통합(B4→E3): 값은 구하고 마지막에 '몇 배' 방향 뒤집음 = 답 마무리 오류. circle6 Q149와 통일. ★수와식 E3 0→1(Q77)"},
     "repeated_addition_as_multiplication_failure":    {"axis":"C4","tier":"confident","note":"2²+2²+2²+2²=4×2² 반복덧셈→곱셈 표현변환"},
     "multi_step_composite_error":                     {"axis":"D1","tier":"confident","note":"검수확정(C3→D1): alt D1 채택"},
     "substitution_direction_error":                   {"axis":"D1","tier":"boundary","alt":"A3","note":"2ⁿ=A 역방향 대입 = 식조작(D1) vs 정리(A3)"},

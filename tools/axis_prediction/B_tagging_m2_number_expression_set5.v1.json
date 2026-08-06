@@ -52,7 +52,8 @@
   ],
   "item_specific_overrides": [
     {"item_no": 41, "tag": "digit_index_offset_error", "note": "유형11 근거: 41만 자릿수 위치 특정 선행"},
-    {"item_no": 54, "tag": "multiple_answer_omission", "note": "유형15 근거: 54는 정답 2개인데 하나만 고름"}
+    {"item_no": 54, "tag": "multiple_answer_omission", "note": "유형15 근거: 54는 정답 2개인데 하나만 고름"},
+    {"item_no": 77, "tag": "ratio_direction_inversion", "note": "검수확정(v3): Q77만(7번접기=2번접기 몇배 방향). 유형21 rationale 근거, 원 태깅 override 누락분 보정. E3"}
   ],
   "correction_log": [
     {"item_no": 137, "from": 70, "to": 54, "reason": "137/138 순서 뒤바뀜"},
