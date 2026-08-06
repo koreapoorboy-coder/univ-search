@@ -1,0 +1,1446 @@
+{
+  "source_pdf": "260711_이차함수(3)(1).pdf",
+  "unit": "중3 이차함수",
+  "n_types": 42,
+  "n_items": 150,
+  "n_unique_tags": 42,
+  "n_reused_tags": 26,
+  "n_new_tags": 16,
+  "tag_language": "en_snake_case",
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "이차함수의 뜻",
+      "item_start": 1,
+      "item_end": 2,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 91
+        },
+        {
+          "item_no": 2,
+          "accuracy": 88
+        }
+      ],
+      "tags": [
+        "quadratic_function_identification_failure",
+        "degree_term_confusion"
+      ],
+      "rationale": "Q1~Q2는 상황을 식으로 바꾼 뒤 y가 x에 대한 2차식인지 판정한다. 반지름·정사각형 넓이처럼 x²이 생기는 경우와 일차식이 되는 경우를 구분하지 못하면 이차함수 여부를 잘못 고른다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "이차함수가 되도록 하는 조건",
+      "item_start": 3,
+      "item_end": 6,
+      "items": [
+        {
+          "item_no": 3,
+          "accuracy": 73
+        },
+        {
+          "item_no": 4,
+          "accuracy": 84
+        },
+        {
+          "item_no": 5,
+          "accuracy": 72
+        },
+        {
+          "item_no": 6,
+          "accuracy": 48
+        }
+      ],
+      "tags": [
+        "degree_term_confusion",
+        "excluded_case_omission",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          3,
+          4
+        ]
+      },
+      "rationale": "Q3~Q6은 전개한 식에서 최고차항이 정확히 x²로 남도록 계수 조건을 세워야 한다. Q6은 48%로 크게 낮고 x³항을 없애면서 x²항은 0이 되지 않게 해야 해 차수 조건과 제외조건이 겹친다. Q3·Q4는 정답이 2개라 하나만 고르는 오류도 별도로 본다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "이차함수의 함숫값",
+      "item_start": 7,
+      "item_end": 10,
+      "items": [
+        {
+          "item_no": 7,
+          "accuracy": 82
+        },
+        {
+          "item_no": 8,
+          "accuracy": 79
+        },
+        {
+          "item_no": 9,
+          "accuracy": 78
+        },
+        {
+          "item_no": 10,
+          "accuracy": 66
+        }
+      ],
+      "tags": [
+        "substitution_parenthesis_omission",
+        "multi_expression_dependency_error",
+        "like_term_misgrouping"
+      ],
+      "tag_scope": {
+        "like_term_misgrouping": [
+          10
+        ]
+      },
+      "rationale": "Q7~Q10은 함숫값을 대입해 계수를 정하거나 여러 함숫값 관계를 연쇄 계산한다. Q10은 66%로 가장 낮고 f(x+1)-f(x-1)를 전개해 동류항을 정리해야 하므로 괄호 대입과 항 정리가 동시에 흔들리기 쉽다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "이차함수 y=ax²의 그래프",
+      "item_start": 11,
+      "item_end": 14,
+      "items": [
+        {
+          "item_no": 11,
+          "accuracy": 80
+        },
+        {
+          "item_no": 12,
+          "accuracy": 88
+        },
+        {
+          "item_no": 13,
+          "accuracy": 87
+        },
+        {
+          "item_no": 14,
+          "accuracy": 87
+        }
+      ],
+      "tags": [
+        "parabola_coefficient_width_direction_confusion",
+        "graph_property_statement_evaluation_failure"
+      ],
+      "rationale": "Q11~Q14는 y=ax²에서 a의 부호로 위·아래 방향을, |a|의 크기로 그래프의 폭을 비교한다. 좌표평면의 여러 포물선을 계수 크기와 연결하지 못하면 그래프 선택과 개수 판정이 어긋난다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "이차함수 y=ax², y=-ax²의 그래프의 관계",
+      "item_start": 15,
+      "item_end": 18,
+      "items": [
+        {
+          "item_no": 15,
+          "accuracy": 75
+        },
+        {
+          "item_no": 16,
+          "accuracy": 80
+        },
+        {
+          "item_no": 17,
+          "accuracy": 81
+        },
+        {
+          "item_no": 18,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "parabola_axis_reflection_mapping_failure",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q15~Q18은 y=ax²와 y=-ax²가 x축에 대하여 대칭이라는 관계를 이용해 식과 점의 좌표를 옮긴다. 반사할 때 y값의 부호만 바뀐다는 사실과 대입 과정의 부호 처리를 놓치면 대응 그래프·점이 잘못된다."
+    },
+    {
+      "type_no": 6,
+      "type_name": "이차함수 y=ax²의 그래프의 성질",
+      "item_start": 19,
+      "item_end": 22,
+      "items": [
+        {
+          "item_no": 19,
+          "accuracy": 88
+        },
+        {
+          "item_no": 20,
+          "accuracy": 68
+        },
+        {
+          "item_no": 21,
+          "accuracy": 86
+        },
+        {
+          "item_no": 22,
+          "accuracy": 85
+        }
+      ],
+      "tags": [
+        "graph_property_statement_evaluation_failure",
+        "vertex_axis_reading_failure"
+      ],
+      "rationale": "Q19~Q22는 원점 꼭짓점, 대칭축 x=0, 열린 방향, 값의 범위와 증가·감소 성질을 판정한다. 그래프 성질을 개별 진술에 일관되게 적용하고 꼭짓점·축을 혼동하지 않는 것이 핵심이다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "이차함수 y=ax²의 그래프가 지나는 점",
+      "item_start": 23,
+      "item_end": 26,
+      "items": [
+        {
+          "item_no": 23,
+          "accuracy": 80
+        },
+        {
+          "item_no": 24,
+          "accuracy": 76
+        },
+        {
+          "item_no": 25,
+          "accuracy": 89
+        },
+        {
+          "item_no": 26,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "substitution_parenthesis_omission",
+        "multi_expression_dependency_error",
+        "segment_partition_tracking_failure"
+      ],
+      "tag_scope": {
+        "segment_partition_tracking_failure": [
+          26
+        ]
+      },
+      "rationale": "Q23~Q26은 주어진 점을 y=ax²에 대입해 a를 정하고 다른 점이나 길이를 계산한다. Q26은 포물선 위 점들과 평행사변형의 선분 관계를 함께 추적해야 해 단순 대입보다 구조가 복합적이다."
+    },
+    {
+      "type_no": 8,
+      "type_name": "이차함수 y=ax²의 식 구하기",
+      "item_start": 27,
+      "item_end": 29,
+      "items": [
+        {
+          "item_no": 27,
+          "accuracy": 68
+        },
+        {
+          "item_no": 28,
+          "accuracy": 60
+        },
+        {
+          "item_no": 29,
+          "accuracy": 62
+        }
+      ],
+      "tags": [
+        "difference_direction_error",
+        "inverse_operation_setup_error",
+        "multi_constraint_intersection_failure"
+      ],
+      "tag_scope": {
+        "multi_constraint_intersection_failure": [
+          29
+        ]
+      },
+      "rationale": "Q27~Q29는 x값 변화에 따른 y값 변화로 a를 역산하거나 구한 식에 여러 점을 대입해 판정한다. Q29는 후보 점들을 모두 확인해 '그래프 위의 점이 아닌 것'의 개수를 세므로 여러 조건을 빠짐없이 대조해야 한다."
+    },
+    {
+      "type_no": 9,
+      "type_name": "이차함수 y=ax²+q의 그래프가 지나는 점",
+      "item_start": 30,
+      "item_end": 33,
+      "items": [
+        {
+          "item_no": 30,
+          "accuracy": 55
+        },
+        {
+          "item_no": 31,
+          "accuracy": 74
+        },
+        {
+          "item_no": 32,
+          "accuracy": 77
+        },
+        {
+          "item_no": 33,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "quadratic_translation_parameter_sign_confusion",
+        "multi_expression_dependency_error",
+        "area_formula_setup_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          30
+        ]
+      },
+      "rationale": "Q30~Q33은 y=ax²+q에서 꼭짓점의 y좌표 q와 주어진 점을 이용해 a를 정한다. Q30은 55%로 가장 낮고 포물선 위 점으로 만든 사각형의 넓이까지 연결하므로 넓이식 설정을 Q30에만 추가한다."
+    },
+    {
+      "type_no": 10,
+      "type_name": "이차함수 y=ax²+q의 그래프의 성질",
+      "item_start": 34,
+      "item_end": 37,
+      "items": [
+        {
+          "item_no": 34,
+          "accuracy": 84
+        },
+        {
+          "item_no": 35,
+          "accuracy": 77
+        },
+        {
+          "item_no": 36,
+          "accuracy": 78
+        },
+        {
+          "item_no": 37,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "graph_property_statement_evaluation_failure",
+        "vertex_axis_reading_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          36
+        ]
+      },
+      "rationale": "Q34~Q37은 y=ax²+q의 꼭짓점 (0,q), 대칭축, 폭, 사분면과 증가·감소를 판정한다. Q36은 옳지 않은 설명 2개를 모두 고르는 문항이라 그래프 성질 판정과 복수정답 누락을 함께 확인한다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "이차함수 y=a(x-p)²의 그래프가 지나는 점",
+      "item_start": 38,
+      "item_end": 41,
+      "items": [
+        {
+          "item_no": 38,
+          "accuracy": 83
+        },
+        {
+          "item_no": 39,
+          "accuracy": 83
+        },
+        {
+          "item_no": 40,
+          "accuracy": 78
+        },
+        {
+          "item_no": 41,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "quadratic_translation_parameter_sign_confusion",
+        "substitution_parenthesis_omission",
+        "inverse_operation_setup_error"
+      ],
+      "rationale": "Q38~Q41은 y=a(x-p)²에서 축 x=p를 읽고 평행이동된 그래프가 지나는 점을 대입해 a·p를 구한다. (x-p)의 부호를 이동 방향과 반대로 읽거나 음수 좌표를 괄호 없이 대입하면 오답이 난다."
+    },
+    {
+      "type_no": 12,
+      "type_name": "이차함수 y=a(x-p)²의 그래프의 성질",
+      "item_start": 42,
+      "item_end": 45,
+      "items": [
+        {
+          "item_no": 42,
+          "accuracy": 75
+        },
+        {
+          "item_no": 43,
+          "accuracy": 71
+        },
+        {
+          "item_no": 44,
+          "accuracy": 76
+        },
+        {
+          "item_no": 45,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "parabola_coefficient_width_direction_confusion",
+        "vertex_axis_reading_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          42,
+          43
+        ]
+      },
+      "rationale": "Q42~Q45는 y=a(x-p)²의 꼭짓점·축·열린 방향·폭을 비교한다. Q42·Q43은 맞는 설명이 2개이므로 그래프의 폭과 축을 정확히 읽은 뒤 복수정답을 모두 남겨야 한다."
+    },
+    {
+      "type_no": 13,
+      "type_name": "이차함수 y=a(x-p)²+q의 그래프",
+      "item_start": 46,
+      "item_end": 47,
+      "items": [
+        {
+          "item_no": 46,
+          "accuracy": 82
+        },
+        {
+          "item_no": 47,
+          "accuracy": 79
+        }
+      ],
+      "tags": [
+        "quadratic_translation_parameter_sign_confusion",
+        "graph_property_statement_evaluation_failure",
+        "area_formula_setup_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          47
+        ]
+      },
+      "rationale": "Q46~Q47은 기본 포물선을 x·y축 방향으로 평행이동해 y=a(x-p)²+q 꼴을 해석한다. Q47은 같은 폭의 두 포물선 사이 도형 넓이까지 계산하므로 넓이식 설정을 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 14,
+      "type_name": "이차함수 y=a(x-p)²+q의 그래프의 꼭짓점과 축의 방정식",
+      "item_start": 48,
+      "item_end": 51,
+      "items": [
+        {
+          "item_no": 48,
+          "accuracy": 73
+        },
+        {
+          "item_no": 49,
+          "accuracy": 75
+        },
+        {
+          "item_no": 50,
+          "accuracy": 72
+        },
+        {
+          "item_no": 51,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "vertex_axis_reading_failure",
+        "quadratic_translation_parameter_sign_confusion",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q48~Q51은 y=a(x-p)²+q에서 꼭짓점 (p,q)와 축 x=p를 직접 읽거나 이동량과 연결한다. 이동 전후 꼭짓점 좌표를 연쇄적으로 비교해 p,q를 구하는 과정에서 방향과 부호를 유지해야 한다."
+    },
+    {
+      "type_no": 15,
+      "type_name": "이차함수 y=a(x-p)²+q의 그래프가 지나는 사분면",
+      "item_start": 52,
+      "item_end": 54,
+      "items": [
+        {
+          "item_no": 52,
+          "accuracy": 74
+        },
+        {
+          "item_no": 53,
+          "accuracy": 69
+        },
+        {
+          "item_no": 54,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "parabola_quadrant_coverage_failure",
+        "range_constraint_dropped",
+        "graph_property_statement_evaluation_failure"
+      ],
+      "rationale": "Q52~Q54는 포물선의 꼭짓점 위치, 열린 방향과 y축 교점을 이용해 지나지 않는 사분면을 판정한다. 특히 Q52는 모든 사분면을 지나게 하는 k의 범위를 세우므로 사분면 조건과 범위 조건을 함께 유지해야 한다."
+    },
+    {
+      "type_no": 16,
+      "type_name": "이차함수 y=a(x-p)²+q의 그래프가 지나는 점",
+      "item_start": 55,
+      "item_end": 58,
+      "items": [
+        {
+          "item_no": 55,
+          "accuracy": 69
+        },
+        {
+          "item_no": 56,
+          "accuracy": 80
+        },
+        {
+          "item_no": 57,
+          "accuracy": 78
+        },
+        {
+          "item_no": 58,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "quadratic_translation_parameter_sign_confusion",
+        "multi_expression_dependency_error",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          58
+        ]
+      },
+      "rationale": "Q55~Q58은 평행이동된 포물선의 축·꼭짓점과 주어진 점을 이용해 미지수를 구한다. Q58은 52%로 크게 낮고 직사각형 둘레와 만나는 서로 다른 두 점의 조건을 만족시키는 정수 a를 모두 세어야 하므로 정수 후보 누락을 별도로 본다."
+    },
+    {
+      "type_no": 17,
+      "type_name": "이차함수 y=a(x-p)²+q의 그래프에서 증가·감소하는 범위",
+      "item_start": 59,
+      "item_end": 61,
+      "items": [
+        {
+          "item_no": 59,
+          "accuracy": 73
+        },
+        {
+          "item_no": 60,
+          "accuracy": 73
+        },
+        {
+          "item_no": 61,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "quadratic_monotonic_interval_from_vertex_failure",
+        "inequality_bound_conversion_error"
+      ],
+      "rationale": "Q59~Q61은 포물선의 축을 기준으로 x 증가 시 y가 증가·감소하는 구간을 정한다. 열린 방향과 꼭짓점 x좌표를 연결한 뒤 문제의 부등식 범위로 정확히 바꾸는 것이 핵심이다."
+    },
+    {
+      "type_no": 18,
+      "type_name": "이차함수 y=a(x-p)²+q의 그래프의 성질",
+      "item_start": 62,
+      "item_end": 65,
+      "items": [
+        {
+          "item_no": 62,
+          "accuracy": 84
+        },
+        {
+          "item_no": 63,
+          "accuracy": 87
+        },
+        {
+          "item_no": 64,
+          "accuracy": 78
+        },
+        {
+          "item_no": 65,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "graph_property_statement_evaluation_failure",
+        "vertex_axis_reading_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          63
+        ]
+      },
+      "rationale": "Q62~Q65는 평행이동된 포물선의 꼭짓점·축·열린 방향·교점 등 여러 성질을 판정한다. Q63은 정답이 2개이므로 성질 판정 후 하나만 선택하는 오류를 별도로 둔다."
+    },
+    {
+      "type_no": 19,
+      "type_name": "이차함수 y=a(x-p)²+q의 그래프에서 a, p, q의 부호",
+      "item_start": 66,
+      "item_end": 69,
+      "items": [
+        {
+          "item_no": 66,
+          "accuracy": 73
+        },
+        {
+          "item_no": 67,
+          "accuracy": 78
+        },
+        {
+          "item_no": 68,
+          "accuracy": 56
+        },
+        {
+          "item_no": 69,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "parameter_sign_to_graph_mapping_failure",
+        "quadratic_translation_parameter_sign_confusion",
+        "parabola_quadrant_coverage_failure"
+      ],
+      "tag_scope": {
+        "parabola_quadrant_coverage_failure": [
+          68,
+          69
+        ]
+      },
+      "rationale": "Q66~Q69는 그래프나 일차식에서 a,p,q의 부호를 읽어 포물선의 꼭짓점·열린 방향·사분면으로 옮긴다. Q68·Q69는 사분면 통과 여부까지 결합되므로 부호에서 사분면을 추론하는 오류를 해당 문항에만 추가한다."
+    },
+    {
+      "type_no": 20,
+      "type_name": "이차함수 y=a(x-p)²+q의 그래프의 식 구하기",
+      "item_start": 70,
+      "item_end": 72,
+      "items": [
+        {
+          "item_no": 70,
+          "accuracy": 76
+        },
+        {
+          "item_no": 71,
+          "accuracy": 74
+        },
+        {
+          "item_no": 72,
+          "accuracy": 62
+        }
+      ],
+      "tags": [
+        "quadratic_vertex_form_reconstruction_failure",
+        "substitution_parenthesis_omission",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q70~Q72는 그래프의 꼭짓점과 한 점을 읽어 y=a(x-p)²+q 꼴을 복원한다. 꼭짓점으로 p,q를 먼저 고정한 뒤 다른 점을 대입해 a를 구하고 최종 요구값까지 연결해야 한다."
+    },
+    {
+      "type_no": 21,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프의 꼭짓점과 축의 방정식",
+      "item_start": 73,
+      "item_end": 75,
+      "items": [
+        {
+          "item_no": 73,
+          "accuracy": 53
+        },
+        {
+          "item_no": 74,
+          "accuracy": 72
+        },
+        {
+          "item_no": 75,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "completing_square_vertex_axis_failure",
+        "sign_propagation_error",
+        "fraction_coefficient_lcd_error"
+      ],
+      "tag_scope": {
+        "fraction_coefficient_lcd_error": [
+          73
+        ]
+      },
+      "rationale": "Q73~Q75는 y=ax²+bx+c를 완전제곱식으로 바꾸어 꼭짓점과 축을 찾는다. Q73은 53%로 낮고 분수 계수까지 포함해 완전제곱을 해야 하므로 분수 계수 정리를 해당 문항에만 추가한다."
+    },
+    {
+      "type_no": 22,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프가 축과 만나는 점",
+      "item_start": 76,
+      "item_end": 79,
+      "items": [
+        {
+          "item_no": 76,
+          "accuracy": 83
+        },
+        {
+          "item_no": 77,
+          "accuracy": 74
+        },
+        {
+          "item_no": 78,
+          "accuracy": 71
+        },
+        {
+          "item_no": 79,
+          "accuracy": 49
+        }
+      ],
+      "tags": [
+        "quadratic_root_intercept_relation_failure",
+        "axis_intercept_triangle_setup_failure",
+        "multi_expression_dependency_error"
+      ],
+      "tag_scope": {
+        "axis_intercept_triangle_setup_failure": [
+          79
+        ]
+      },
+      "rationale": "Q76~Q79는 x축·y축과의 교점을 구해 근의 위치, 두 근 사이 거리 또는 도형의 좌표로 연결한다. Q79는 49%로 가장 낮고 두 x절편과 y절편이 만드는 삼각형의 외심 조건까지 사용하므로 축절편 삼각형 구성을 해당 문항에만 추가한다."
+    },
+    {
+      "type_no": 23,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프가 지나는 사분면",
+      "item_start": 80,
+      "item_end": 83,
+      "items": [
+        {
+          "item_no": 80,
+          "accuracy": 85
+        },
+        {
+          "item_no": 81,
+          "accuracy": 62
+        },
+        {
+          "item_no": 82,
+          "accuracy": 57
+        },
+        {
+          "item_no": 83,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "parabola_quadrant_coverage_failure",
+        "parameter_sign_to_graph_mapping_failure",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          81,
+          82
+        ]
+      },
+      "rationale": "Q80~Q83은 꼭짓점·열린 방향·계수 조건으로 포물선이 지나지 않는 사분면을 판정한다. Q81·Q82는 -2,-1,0,1,2에서 중복 없이 a,b,c를 뽑는 경우를 모두 세어야 해 정수 후보 열거 누락이 추가 위험이다."
+    },
+    {
+      "type_no": 24,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프가 지나는 점",
+      "item_start": 84,
+      "item_end": 87,
+      "items": [
+        {
+          "item_no": 84,
+          "accuracy": 79
+        },
+        {
+          "item_no": 85,
+          "accuracy": 83
+        },
+        {
+          "item_no": 86,
+          "accuracy": 53
+        },
+        {
+          "item_no": 87,
+          "accuracy": 49
+        }
+      ],
+      "tags": [
+        "multi_expression_dependency_error",
+        "substitution_parenthesis_omission",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          87
+        ]
+      },
+      "rationale": "Q84~Q87은 주어진 점 조건으로 계수를 정한 뒤 꼭짓점 좌표나 두 포물선 사이의 관계를 계산한다. Q87은 주사위로 정한 a,b,c가 조건을 만족하는 경우를 세어 확률을 구하므로 후보 경우 누락을 Q87에만 둔다."
+    },
+    {
+      "type_no": 25,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프의 평행이동",
+      "item_start": 88,
+      "item_end": 91,
+      "items": [
+        {
+          "item_no": 88,
+          "accuracy": 58
+        },
+        {
+          "item_no": 89,
+          "accuracy": 70
+        },
+        {
+          "item_no": 90,
+          "accuracy": 61
+        },
+        {
+          "item_no": 91,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "quadratic_graph_translation_formula_failure",
+        "sign_propagation_error",
+        "area_formula_setup_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          91
+        ]
+      },
+      "rationale": "Q88~Q91은 y=ax²+bx+c의 그래프를 x·y축 방향으로 옮겼을 때 새 식과 꼭짓점을 추적한다. 이동식에서 x의 치환 방향과 상수항 부호가 자주 뒤집히며, Q91은 두 포물선 꼭짓점으로 사분원 넓이까지 계산한다."
+    },
+    {
+      "type_no": 26,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프에서 증가·감소하는 범위",
+      "item_start": 92,
+      "item_end": 94,
+      "items": [
+        {
+          "item_no": 92,
+          "accuracy": 65
+        },
+        {
+          "item_no": 93,
+          "accuracy": 82
+        },
+        {
+          "item_no": 94,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "completing_square_vertex_axis_failure",
+        "quadratic_monotonic_interval_from_vertex_failure",
+        "quadratic_translation_parameter_sign_confusion"
+      ],
+      "tag_scope": {
+        "quadratic_translation_parameter_sign_confusion": [
+          93,
+          94
+        ]
+      },
+      "rationale": "Q92~Q94는 일반형을 꼭짓점 형태로 해석해 증가·감소 구간을 찾고 평행이동 후 구간 변화를 추적한다. Q93·Q94는 이동량이 축 위치를 어떻게 바꾸는지까지 포함해 평행이동 부호를 해당 문항에만 추가한다."
+    },
+    {
+      "type_no": 27,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프의 성질",
+      "item_start": 95,
+      "item_end": 98,
+      "items": [
+        {
+          "item_no": 95,
+          "accuracy": 79
+        },
+        {
+          "item_no": 96,
+          "accuracy": 76
+        },
+        {
+          "item_no": 97,
+          "accuracy": 78
+        },
+        {
+          "item_no": 98,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "graph_property_statement_evaluation_failure",
+        "completing_square_vertex_axis_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          95
+        ]
+      },
+      "rationale": "Q95~Q98은 일반형 포물선의 꼭짓점·축·교점·폭·사분면을 종합 판정한다. Q95는 맞는 설명 2개를 모두 골라야 하므로 완전제곱식 해석 뒤 복수정답 누락을 별도로 확인한다."
+    },
+    {
+      "type_no": 28,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프와 a, b, c의 부호",
+      "item_start": 99,
+      "item_end": 101,
+      "items": [
+        {
+          "item_no": 99,
+          "accuracy": 73
+        },
+        {
+          "item_no": 100,
+          "accuracy": 71
+        },
+        {
+          "item_no": 101,
+          "accuracy": 65
+        }
+      ],
+      "tags": [
+        "parameter_sign_to_graph_mapping_failure",
+        "multi_expression_dependency_error",
+        "parabola_quadrant_coverage_failure"
+      ],
+      "rationale": "Q99~Q101은 그래프 모양에서 a,b,c의 부호를 추론하고 그 부호를 다른 이차식이나 일차식으로 전달한다. 계수 부호와 꼭짓점 위치·축 방향·사분면 정보를 연쇄적으로 연결해야 한다."
+    },
+    {
+      "type_no": 29,
+      "type_name": "이차함수 y=ax²+bx+c의 그래프와 삼각형의 넓이",
+      "item_start": 102,
+      "item_end": 105,
+      "items": [
+        {
+          "item_no": 102,
+          "accuracy": 69
+        },
+        {
+          "item_no": 103,
+          "accuracy": 62
+        },
+        {
+          "item_no": 104,
+          "accuracy": 47
+        },
+        {
+          "item_no": 105,
+          "accuracy": 49
+        }
+      ],
+      "tags": [
+        "line_intersection_coordinate_failure",
+        "area_formula_setup_error",
+        "area_decomposition_equation_setup_failure"
+      ],
+      "tag_scope": {
+        "area_decomposition_equation_setup_failure": [
+          104,
+          105
+        ]
+      },
+      "rationale": "Q102~Q105는 포물선과 직선·좌표축의 교점을 구해 삼각형 또는 사각형 넓이를 계산한다. Q104·Q105는 47~49%로 낮고 색칠된 영역을 여러 부분으로 나누거나 이등분 조건을 식으로 세워야 하므로 넓이 분해 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 30,
+      "type_name": "이차함수의 식 구하기(1) 미지수가 2개일 때",
+      "item_start": 106,
+      "item_end": 109,
+      "items": [
+        {
+          "item_no": 106,
+          "accuracy": 64
+        },
+        {
+          "item_no": 107,
+          "accuracy": 74
+        },
+        {
+          "item_no": 108,
+          "accuracy": 83
+        },
+        {
+          "item_no": 109,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "quadratic_function_reconstruction_from_constraints_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q106~Q109는 축·교점·지나는 점 등 두 개 이상의 조건으로 이차함수의 미지 계수를 복원한다. 각 조건을 별도 방정식으로 만든 뒤 연립해 같은 함수식으로 묶는 과정이 핵심이다."
+    },
+    {
+      "type_no": 31,
+      "type_name": "이차함수의 식 구하기(2) 꼭짓점과 다른 한 점을 알 때",
+      "item_start": 110,
+      "item_end": 113,
+      "items": [
+        {
+          "item_no": 110,
+          "accuracy": 59
+        },
+        {
+          "item_no": 111,
+          "accuracy": 64
+        },
+        {
+          "item_no": 112,
+          "accuracy": 76
+        },
+        {
+          "item_no": 113,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "quadratic_vertex_form_reconstruction_failure",
+        "substitution_parenthesis_omission",
+        "quadratic_translation_parameter_sign_confusion"
+      ],
+      "tag_scope": {
+        "quadratic_translation_parameter_sign_confusion": [
+          110
+        ]
+      },
+      "rationale": "Q110~Q113은 꼭짓점과 다른 한 점을 이용해 y=a(x-p)²+q를 만든다. Q110은 59%로 낮고 주어진 그래프를 다시 평행이동한 뒤 y축 교점을 구하므로 이동 부호를 Q110에만 추가한다."
+    },
+    {
+      "type_no": 32,
+      "type_name": "이차함수의 식 구하기(3) 축의 방정식과 두 점을 알 때",
+      "item_start": 114,
+      "item_end": 117,
+      "items": [
+        {
+          "item_no": 114,
+          "accuracy": 75
+        },
+        {
+          "item_no": 115,
+          "accuracy": 74
+        },
+        {
+          "item_no": 116,
+          "accuracy": 80
+        },
+        {
+          "item_no": 117,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "quadratic_function_reconstruction_from_constraints_failure",
+        "parabola_axis_symmetry_point_mapping_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q114~Q117은 축의 방정식과 두 점을 이용해 이차함수를 복원한다. 축을 기준으로 대칭인 좌표 관계를 이용하거나 여러 점 조건을 한 식에 동시에 반영해야 한다."
+    },
+    {
+      "type_no": 33,
+      "type_name": "이차함수의 식 구하기(4) y축과의 교점과 두 점을 알 때",
+      "item_start": 118,
+      "item_end": 120,
+      "items": [
+        {
+          "item_no": 118,
+          "accuracy": 65
+        },
+        {
+          "item_no": 119,
+          "accuracy": 71
+        },
+        {
+          "item_no": 120,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "quadratic_function_reconstruction_from_constraints_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q118~Q120은 y축과의 교점으로 상수항을 먼저 정하고 나머지 두 점 조건으로 a,b를 구한다. 세 좌표 조건을 순서대로 연결해 계수들을 하나의 식으로 복원해야 한다."
+    },
+    {
+      "type_no": 34,
+      "type_name": "이차함수의 식 구하기(5) x축과의 두 교점과 다른 한 점을 알 때",
+      "item_start": 121,
+      "item_end": 123,
+      "items": [
+        {
+          "item_no": 121,
+          "accuracy": 56
+        },
+        {
+          "item_no": 122,
+          "accuracy": 63
+        },
+        {
+          "item_no": 123,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "quadratic_factor_form_reconstruction_failure",
+        "quadratic_root_intercept_relation_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q121~Q123은 두 x절편을 이용해 y=a(x-r1)(x-r2) 꼴을 만들고 다른 한 점 또는 꼭짓점 조건으로 a를 정한다. 근과 x절편을 인수로 옮기는 방향과 이후 계수 결정을 혼동하면 식 전체가 틀어진다."
+    },
+    {
+      "type_no": 35,
+      "type_name": "이차함수의 식 구하기(6) 그 외",
+      "item_start": 124,
+      "item_end": 127,
+      "items": [
+        {
+          "item_no": 124,
+          "accuracy": 77
+        },
+        {
+          "item_no": 125,
+          "accuracy": 79
+        },
+        {
+          "item_no": 126,
+          "accuracy": 55
+        },
+        {
+          "item_no": 127,
+          "accuracy": 55
+        }
+      ],
+      "tags": [
+        "quadratic_function_reconstruction_from_constraints_failure",
+        "multi_constraint_intersection_failure",
+        "segment_ratio_to_length_conversion_failure"
+      ],
+      "tag_scope": {
+        "multi_constraint_intersection_failure": [
+          126
+        ],
+        "segment_ratio_to_length_conversion_failure": [
+          127
+        ]
+      },
+      "rationale": "Q124~Q127은 평행이동, 같은 모양, 교점, 여러 그래프 조건을 결합해 이차함수를 복원한다. Q126은 네 조건의 교집합을 동시에 만족시켜야 하고, Q127은 두 포물선과 수평선이 만드는 선분비를 길이 조건으로 바꿔야 해 각각 문항 한정 오류를 둔다."
+    },
+    {
+      "type_no": 36,
+      "type_name": "이차함수의 최댓값과 최솟값 (2)",
+      "item_start": 128,
+      "item_end": 130,
+      "items": [
+        {
+          "item_no": 128,
+          "accuracy": 77
+        },
+        {
+          "item_no": 129,
+          "accuracy": 74
+        },
+        {
+          "item_no": 130,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "extremum_selection_error",
+        "vertex_axis_reading_failure",
+        "quadratic_translation_parameter_sign_confusion"
+      ],
+      "rationale": "Q128~Q130은 포물선의 꼭짓점과 평행이동을 이용해 최댓값·최솟값을 읽는다. 열린 방향에 따라 최대·최소를 바르게 선택하고 이동된 꼭짓점의 y좌표를 극값으로 연결해야 한다."
+    },
+    {
+      "type_no": 37,
+      "type_name": "최댓값 또는 최솟값이 주어질 때 미지수의 값 구하기 (1)",
+      "item_start": 131,
+      "item_end": 133,
+      "items": [
+        {
+          "item_no": 131,
+          "accuracy": 67
+        },
+        {
+          "item_no": 132,
+          "accuracy": 72
+        },
+        {
+          "item_no": 133,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "vertex_extremum_parameter_recovery_failure",
+        "multi_expression_dependency_error",
+        "substitution_parenthesis_omission"
+      ],
+      "rationale": "Q131~Q133은 최댓값 또는 최솟값과 그때의 x값으로 꼭짓점을 복원해 미지 계수를 구한다. 극값 조건에서 축과 꼭짓점을 먼저 정한 뒤 추가 점 조건을 대입하는 순서를 유지해야 한다."
+    },
+    {
+      "type_no": 38,
+      "type_name": "최댓값 또는 최솟값이 주어질 때 미지수의 값 구하기 (2)",
+      "item_start": 134,
+      "item_end": 136,
+      "items": [
+        {
+          "item_no": 134,
+          "accuracy": 68
+        },
+        {
+          "item_no": 135,
+          "accuracy": 69
+        },
+        {
+          "item_no": 136,
+          "accuracy": 55
+        }
+      ],
+      "tags": [
+        "vertex_extremum_parameter_recovery_failure",
+        "quadratic_translation_parameter_sign_confusion",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q134~Q136은 평행이동된 그래프의 축과 최솟값 정보를 이용해 원래 식의 미지수를 역으로 찾는다. 이동 전후 꼭짓점과 추가 점 조건이 연쇄되므로 부호와 중간값 연결을 놓치기 쉽다."
+    },
+    {
+      "type_no": 39,
+      "type_name": "최댓값 또는 최솟값이 주어질 때 이차함수의 식 구하기",
+      "item_start": 137,
+      "item_end": 139,
+      "items": [
+        {
+          "item_no": 137,
+          "accuracy": 58
+        },
+        {
+          "item_no": 138,
+          "accuracy": 61
+        },
+        {
+          "item_no": 139,
+          "accuracy": 61
+        }
+      ],
+      "tags": [
+        "quadratic_function_reconstruction_from_constraints_failure",
+        "vertex_extremum_parameter_recovery_failure",
+        "parabola_quadrant_coverage_failure"
+      ],
+      "tag_scope": {
+        "parabola_quadrant_coverage_failure": [
+          138
+        ]
+      },
+      "rationale": "Q137~Q139는 근, 최소값, 꼭짓점 등 주어진 극값 조건으로 이차함수 식 자체를 복원한다. Q138은 복원된 그래프가 모든 사분면을 지나도록 하는 a의 값을 다시 판정하므로 사분면 조건을 해당 문항에만 추가한다."
+    },
+    {
+      "type_no": 40,
+      "type_name": "이차함수의 활용(2) 도형의 넓이의 최댓값과 최솟값",
+      "item_start": 140,
+      "item_end": 143,
+      "items": [
+        {
+          "item_no": 140,
+          "accuracy": 66
+        },
+        {
+          "item_no": 141,
+          "accuracy": 74
+        },
+        {
+          "item_no": 142,
+          "accuracy": 71
+        },
+        {
+          "item_no": 143,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "variable_length_assignment_failure",
+        "area_formula_setup_error",
+        "extremum_selection_error"
+      ],
+      "rationale": "Q140~Q143은 도형의 길이를 문자로 놓고 넓이를 이차식으로 만든 뒤 최대·최소 조건을 적용한다. 원의 반지름 합, 화단 둘레, 직사각형 겹침 등에서 길이식을 정확히 세우고 넓이의 극값을 선택하는 것이 핵심이다."
+    },
+    {
+      "type_no": 41,
+      "type_name": "이차함수의 활용(4) 이차함수의 식 또는 그래프가 주어진 경우",
+      "item_start": 144,
+      "item_end": 146,
+      "items": [
+        {
+          "item_no": 144,
+          "accuracy": 69
+        },
+        {
+          "item_no": 145,
+          "accuracy": 60
+        },
+        {
+          "item_no": 146,
+          "accuracy": 55
+        }
+      ],
+      "tags": [
+        "real_world_quadratic_model_translation_failure",
+        "substitution_parenthesis_omission",
+        "extremum_selection_error"
+      ],
+      "tag_scope": {
+        "extremum_selection_error": [
+          146
+        ]
+      },
+      "rationale": "Q144~Q146은 호수 단면·용암 높이·공의 궤적 같은 실상황을 포물선 식과 연결한다. 상황의 좌표와 조건을 이차식으로 번역해 값을 대입해야 하며, Q146은 가장 높은 지점을 묻기 때문에 극값 선택을 추가로 확인한다."
+    },
+    {
+      "type_no": 42,
+      "type_name": "이차함수의 활용(5) 실생활",
+      "item_start": 147,
+      "item_end": 150,
+      "items": [
+        {
+          "item_no": 147,
+          "accuracy": 76
+        },
+        {
+          "item_no": 148,
+          "accuracy": 50
+        },
+        {
+          "item_no": 149,
+          "accuracy": 55
+        },
+        {
+          "item_no": 150,
+          "accuracy": 67
+        }
+      ],
+      "tags": [
+        "real_world_quadratic_model_translation_failure",
+        "pattern_extraction_failure",
+        "unit_conversion_omitted"
+      ],
+      "tag_scope": {
+        "unit_conversion_omitted": [
+          148,
+          149
+        ]
+      },
+      "rationale": "Q147~Q150은 입장료-관객수, 제동거리 표, 벌집 단계처럼 실생활 자료에서 이차 관계를 추출한다. Q148·Q149는 km/h를 m/s로 바꾸어 제동거리 식에 넣어야 하므로 단위 변환을 해당 문항에만 두고, Q150은 단계별 개수 규칙을 정확히 추출해야 한다."
+    }
+  ],
+  "unique_tags": [
+    "area_decomposition_equation_setup_failure",
+    "area_formula_setup_error",
+    "axis_intercept_triangle_setup_failure",
+    "completing_square_vertex_axis_failure",
+    "degree_term_confusion",
+    "difference_direction_error",
+    "excluded_case_omission",
+    "extremum_selection_error",
+    "fraction_coefficient_lcd_error",
+    "graph_property_statement_evaluation_failure",
+    "inequality_bound_conversion_error",
+    "integer_candidate_enumeration_gap",
+    "inverse_operation_setup_error",
+    "like_term_misgrouping",
+    "line_intersection_coordinate_failure",
+    "multi_constraint_intersection_failure",
+    "multi_expression_dependency_error",
+    "multiple_answer_omission",
+    "parabola_axis_reflection_mapping_failure",
+    "parabola_axis_symmetry_point_mapping_failure",
+    "parabola_coefficient_width_direction_confusion",
+    "parabola_quadrant_coverage_failure",
+    "parameter_sign_to_graph_mapping_failure",
+    "pattern_extraction_failure",
+    "quadratic_factor_form_reconstruction_failure",
+    "quadratic_function_identification_failure",
+    "quadratic_function_reconstruction_from_constraints_failure",
+    "quadratic_graph_translation_formula_failure",
+    "quadratic_monotonic_interval_from_vertex_failure",
+    "quadratic_root_intercept_relation_failure",
+    "quadratic_translation_parameter_sign_confusion",
+    "quadratic_vertex_form_reconstruction_failure",
+    "range_constraint_dropped",
+    "real_world_quadratic_model_translation_failure",
+    "segment_partition_tracking_failure",
+    "segment_ratio_to_length_conversion_failure",
+    "sign_propagation_error",
+    "substitution_parenthesis_omission",
+    "unit_conversion_omitted",
+    "variable_length_assignment_failure",
+    "vertex_axis_reading_failure",
+    "vertex_extremum_parameter_recovery_failure"
+  ],
+  "new_tags": [
+    {
+      "tag": "completing_square_vertex_axis_failure",
+      "why": "y=ax²+bx+c를 완전제곱식으로 변형해 꼭짓점과 축을 얻는 과정의 오류다."
+    },
+    {
+      "tag": "parabola_axis_reflection_mapping_failure",
+      "why": "y=ax²와 y=-ax²의 x축 대칭에서 식·점의 좌표를 반사해 대응시키지 못하는 오류다."
+    },
+    {
+      "tag": "parabola_axis_symmetry_point_mapping_failure",
+      "why": "대칭축을 기준으로 한 포물선 위 두 점의 x좌표 대칭 관계를 이용하지 못하는 오류다."
+    },
+    {
+      "tag": "parabola_coefficient_width_direction_confusion",
+      "why": "y=ax² 계열에서 a의 부호는 열린 방향, |a|는 폭을 결정한다는 그래프 속성을 연결하지 못하는 오류다."
+    },
+    {
+      "tag": "parabola_quadrant_coverage_failure",
+      "why": "꼭짓점·열린 방향·교점을 종합해 포물선이 지나거나 지나지 않는 사분면을 판정하지 못하는 오류다."
+    },
+    {
+      "tag": "quadratic_factor_form_reconstruction_failure",
+      "why": "두 x절편을 y=a(x-r1)(x-r2) 꼴의 인수형으로 변환해 식을 구성하지 못하는 오류다."
+    },
+    {
+      "tag": "quadratic_function_identification_failure",
+      "why": "상황이나 식을 정리한 뒤 y가 x에 대한 2차식인지 판정하는 오류로, 기존 차수 계산 오류와 구별되는 함수 분류 실패다."
+    },
+    {
+      "tag": "quadratic_function_reconstruction_from_constraints_failure",
+      "why": "축·교점·지나는 점 등 여러 조건으로 이차함수의 계수를 복원하지 못하는 오류다."
+    },
+    {
+      "tag": "quadratic_graph_translation_formula_failure",
+      "why": "일반형 이차함수를 x·y축 방향으로 평행이동할 때 x 치환과 상수항 변화를 식으로 옮기지 못하는 오류다."
+    },
+    {
+      "tag": "quadratic_monotonic_interval_from_vertex_failure",
+      "why": "포물선의 축/꼭짓점을 기준으로 증가·감소 구간을 정하지 못하는 오류다."
+    },
+    {
+      "tag": "quadratic_root_intercept_relation_failure",
+      "why": "이차함수의 근을 x절편 좌표, 두 근 사이 거리, 대칭축과 연결하지 못하는 오류다."
+    },
+    {
+      "tag": "quadratic_translation_parameter_sign_confusion",
+      "why": "y=a(x-p)²+q의 p,q와 좌우·상하 평행이동 방향의 부호를 대응하지 못하는 오류다."
+    },
+    {
+      "tag": "quadratic_vertex_form_reconstruction_failure",
+      "why": "꼭짓점과 한 점/그래프 조건에서 y=a(x-p)²+q 꼴을 직접 구성하지 못하는 오류다."
+    },
+    {
+      "tag": "real_world_quadratic_model_translation_failure",
+      "why": "실생활 문장·그림·표의 변화 관계를 이차함수 식 또는 포물선 조건으로 번역하지 못하는 오류다."
+    },
+    {
+      "tag": "vertex_axis_reading_failure",
+      "why": "포물선의 그래프나 꼭짓점형에서 꼭짓점과 대칭축을 정확히 읽지 못하는 오류다."
+    },
+    {
+      "tag": "vertex_extremum_parameter_recovery_failure",
+      "why": "최댓값·최솟값과 그때의 x값을 꼭짓점 정보로 바꾸어 미지 계수를 역산하지 못하는 오류다."
+    }
+  ],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [],
+    "types_with_answer_format_error": [
+      2,
+      10,
+      12,
+      18,
+      27,
+      42
+    ],
+    "note": "150문항의 문제·빠른정답·해설을 대조했다. 답을 구한 뒤 원래 조건에 되돌려 넣는 검산이 독립 오답 원인이 되는 유형은 확인되지 않았다. 답 마무리에서는 Q3·Q4, Q36, Q42·Q43, Q63, Q95의 복수정답 누락과 Q148·Q149의 km/h→m/s 단위 환산을 별도 반영했다."
+  }
+}
