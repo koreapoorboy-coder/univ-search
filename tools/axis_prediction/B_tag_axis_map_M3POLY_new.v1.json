@@ -1,0 +1,25 @@
+{
+  "version": "B-tag-axis-map-M3POLY-new-v1",
+  "unit": "m3_polynomial_multiplication_factorization / 다항식의 곱셈과 인수분해(5)=set06. 856 트랜치(856:133+주제형:17). 식조작 계열 새 도메인",
+  "source": "_inbox/tagging_polynomial_factorization5_v4_v2.json (51유형·150문항·42종, 재사용33·신규9, 검수 PASS). ★선행 잘못된PDF(고등 260712_다항식(5)) 반려 후 올바른 중3 재작업본, 고등태그 혼입 0.",
+  "scope": "신규 9종 매핑 + verification_missing(재사용이나 curated풀 첫등장) E1 승계. 유닛 완비(M3_POLY_PT, type_variant/links 존재)→856 등재 불필요.",
+  "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지.",
+  "review_status": "CODE_DRAFT_PENDING_REVIEW",
+  "도메인_calibration": "다항식=식조작 도메인. 재사용 실행오류 대거 D1(common_factor_extraction·operation_order·parenthesis_sign·nested_fraction·exponent_factoring=D1), 공식선택=D2(law_selection), 계산=D3, 개념=C2(like_term), 패턴=C3, 정리전처리=A3(simplify_before_substitute). 신규는 인수분해 조건세우기 C1편중 + 치환/유리화 변환 C4.",
+  "map": {
+    "square_formula_middle_term_error":                     {"axis":"D3","tier":"boundary","alt":"C2","note":"★검수판단: 합·차 제곱 중항 ±2ab 계수·부호 오류. triangle_area_sine_factor_omitted(D3/alt C2, ½누락) 선례 그대로 = 공식 계산실수(D3) vs 공식기억(C2)"},
+    "factor_pair_sum_product_matching_failure":             {"axis":"C1","tier":"boundary","alt":"D2","note":"x²+px+q에서 합=p·곱=q 인수쌍 조건 세워 탐색 = 식 세우기(C1) vs 공식 적용(D2)"},
+    "cross_product_factorization_coefficient_matching_failure":{"axis":"C1","tier":"boundary","alt":"D2","note":"acx²+... 교차곱 합으로 x계수 맞추는 조건 세우기 = 식 세우기(C1) vs 공식 적용(D2)"},
+    "perfect_square_trinomial_condition_failure":           {"axis":"C1","tier":"boundary","alt":"B1","note":"ax²+bx+c 완전제곱 조건(b²=4ac류) 조건식 세우기 = 식 세우기(C1) vs 조건 누락(B1). 검수 why: 단순 공식암기와 구별"},
+    "grouping_for_factorization_failure":                   {"axis":"C1","tier":"boundary","alt":"D1","note":"여러 항 묶어 공통인수 나오게 묶음 전략 구성 = 전략 세우기(C1) vs 식 조작(D1)"},
+    "irrational_integer_fractional_part_split_failure":     {"axis":"C1","tier":"boundary","alt":"B2","note":"무리수 정수부분·소수부분 분리 식 세우기 = 식 세우기(C1) vs 범위 판단(B2, √k 어느 두 정수 사이)"},
+    "common_subexpression_substitution_failure":            {"axis":"C4","tier":"boundary","alt":"C1","note":"반복 복합식→한 문자 치환해 저차식 변환 = 표현변환(C4, 치환) vs 전략 설정(C1). completing_square(C4) 계열"},
+    "conjugate_rationalization_setup_failure":              {"axis":"C4","tier":"boundary","alt":"C1","note":"분모 켤레 곱해 무리→유리 형태변환 = 표현변환(C4, 유리화) vs 설정(C1)"},
+    "polynomial_reordering_for_factorization_failure":      {"axis":"A3","tier":"boundary","alt":"C1","note":"한 문자 기준 내림차순 재배열 전처리 = 식 정리 전처리(A3, simplify_before_substitute 선례) vs 구조 세우기(C1)"},
+    "verification_missing":                                 {"axis":"E1","tier":"confident","note":"★재사용(신규 아님). 89종 선례 맵 B_tag_axis_map.v1.json의 E1 정본 승계. 사전 §1 범용·명세 §5-1 역방향 검산 누락. 12학습지 중 첫 사용(Q21 오계산 역추적). 축매핑 풀 첫 등장이라 여기 캐리(E1)."}
+  },
+  "axis_distribution_new9": {"C1":5, "C4":2, "D3":1, "A3":1},
+  "carried_reused": {"verification_missing":"E1 (89종 선례 승계, 신규 아님)"},
+  "domain_note": "신규 9종: 인수분해 조건세우기 C1·5(합곱·교차곱·완전제곱조건·묶음·무리수분리) + 치환/유리화 표현변환 C4·2 + 중항 계산 D3·1 + 내림차순 정리 A3·1. ⚠판례 고려: 인수분해=전개형↔인수형이라 C4(변환)로 볼 여지 있으나, 이 태그들은 '인수쌍/계수 매칭·조건 세우기'(설정)라 C1 우선. 치환·유리화는 순수 표현변환이라 C4. 재사용 실행오류(D1)와 합쳐 다항식=C1+D 혼합 도메인.",
+  "inherited_reused_33_note": "재사용 33종 기존 축 승계(풀 gap 0, verification_missing만 E1 캐리): law_selection D2·common_factor_extraction D1·operation_order D1·parenthesis_sign_distribution D1·nested_fraction D1·exponent_factoring D1·like_term_misgrouping C2·pattern_extraction C3·simplify_before_substitute A3·sign_propagation·multi_expression_dependency·multi_step_composite·area_formula_setup·composite_area_subtraction·integer_candidate_enumeration_gap·extremum_selection·multiple_answer_omission·condition_negation·excluded_case_omission·range_constraint_dropped·absolute_value_from_square_root·answer_format_mismatch·difference_direction·inverse_operation_setup·intended_vs_actual_value_swap·substitution_parenthesis_omission·final_form_reduction_omitted·variable_length_assignment·pythagorean_setup·solid_measure_formula_selection·segment_partition_tracking·area_decomposition_equation_setup. 재배정 금지."
+}

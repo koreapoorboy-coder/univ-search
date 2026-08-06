@@ -55,7 +55,13 @@
   | 실수 | m3_real_numbers_and_operations | M3_REAL_PT | set07→`M3_REAL_150_S07` | `260711_실수와 그 계산(6).pdf` |
   | 확률 | m2_probability | M2_PROB_PT | set06→`M2_PROB_150_S06` / set11 | `260711_경우의 수와 확률(5).pdf` / `(10).pdf` |
   ⚠ 도형성질만 260710(나머지 260711). 확률 unit=경우의수+확률. 전부 type_variant_bank·links·problem_types 존재→반영만(등재 무).
-- **다음 할 일**: ① 확보 PDF 순차 반영(전부 등재 불요·반영만): 다항식(5)·도형성질(6)·이차방정식(5)·실수(6)·확률(5). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
+- **✅ 다항식(곱셈·인수분해)(5)=set06 13단원째 완결** (식조작 새 도메인, `260711_다항식의 곱셈과 인수분해(5).pdf`). item_id `M3_POLY_150_S06_Q###`. 유닛 완비→856 불요. 51유형·150문항·42종, 재사용33·**신규9**. 독립검증 PASS(3=49·2=2).
+  - **맵 `B_tag_axis_map_M3POLY_new.v1.json`(신규9)**: C1·5(인수분해 조건세우기: 합곱·교차곱·완전제곱조건·묶음·무리수분리)/C4·2(치환·유리화 변환)/D3·1/A3·1(내림차순 정리).
+  - **★verification_missing = E1 첫 실측**(Q21 오계산 역추적, 명세 §5-1). curated풀 부재→**89종 선례맵(B_tag_axis_map.v1) E1 승계**, M3POLY맵에 캐리. E1 사각지대 태그 관측 첫 등장.
+  - **square_formula_middle_term_error = D3/alt C2**(검수판단, triangle_area_sine_factor(½누락) 선례 그대로: 중항 ±2ab 계산실수 D3).
+  - **반영 축분포 광폭+D편중**: C3·60/D1·50/C1·47/D2·46/D3·39/C4·24/A3·20/C2·14/B2·14/B3·11 + E1·1. 식조작=D(조작·공식·계산) 강세. 수와식 D편중 계열 확장.
+  - ⚠선행: 잘못된 고등PDF(260712_다항식(5)) 반려 후 중3 재작업본, 고등태그 혼입0. 맵 CODE_DRAFT.
+- **다음 할 일**: ① 순차 반영: 다항식(13)·도형성질(6)·이차방정식(5)·실수(6)·확률(5)(전부 완비·등재 불요). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
 - **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
   - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
