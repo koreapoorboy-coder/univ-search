@@ -30,8 +30,12 @@
   - **맵 `B_tag_axis_map_M2LF_new.v1.json`(18종)**. 분포 C1·4/C4·3/C3·4/C2·3/B2·2/B3·2.
   - **★그래프↔식 변환 판례**(검수 질의, 후속 함수단원 기준): 3분 — ①순수 형태변환(식형↔식형·이동→계수갱신)=**C4** ②해석적 역추론·연결(그래프거동↔매개변수, 부호역추론, 다진술판정)=**C3** ③원자적 개념혼동(기울기부호=증감·절댓값=가파름)=**C2**. 기준=대상동일·표기만변경→C4 / 개념 이어 추론→C3 / 한개념 오이해→C2.
   - **함수 첫 축 실측**(반영 항목레벨): C1·23/C3·20/C4·17/B3·6/C2·6/B2·4/D1·4/A3·3/B4·3/D3·3/B1·1/E1·1. **닮음(C4·C1·C2·C3·B거의無)과 대조: 함수는 매개변수 범위(B2)·경우(B3) 실측 등장.**
-  - 검수확정 대기(맵 review_status=CODE_DRAFT).
-- **다음 할 일** (검수 큐): ① **함수(8)=48** 반영 — 로컬 마지막(태깅 미시작). ② **예측 error_tags 부착** = M2_SIMPY 87에 적용. 조사완료: vocab 유닛별 bespoke, 닮음 템플릿=`m2_geometry_properties`(소수 광개념), geometry 스타일+concept 파생 권고. 검수 판정 대기. ③ crosswalk는 이미 id조인 완료(source_item_links)=신규작업 없음. ④ 856 나머지(다항식·이차함수·도형성질)=PDF 로컬 부재, 사용자 확보 대기.
+  - 맵 검수확정(REVIEWED_APPROVED): 18종 승인, 그래프↔식 3분 판례 승인(이차함수 적용), parallel_slope tier boundary/alt B1 조정.
+- **✅ 함수(8)=set09 10단원째 완결 — 로컬 확보분 종료** (`260710_함수(8).pdf`, m2_linear_function 기존유닛). item_id `M2_LF_50_S09_Q###`.
+  - 50유형·50문항(각1)·37종, new_tags **0**, 전량 풀 존재→승계(신규0). 독립검증 PASS(3=11·2=39). 축분포 C1·24/C3·22/C4·16/B3·9/B2·5.
+  - **★함수(5) 신규18 실증**: 18종 중 **16(88.9%) 재등장** → 의미분석뿐이던 정당성이 타 학습지 재등장으로 실오류모드 확인. 미등장2(coincident_line_parameter_matching·slope_magnitude_graph_comparison)=특수문항용. 함수(8) 고유3(abstract_notation_application·extremum_selection·integer_candidate_enumeration_gap)도 사전 조달(신규0).
+  - 방법론기록: GPT가 사전갱신 없이 직전산출(tagging_function5)을 "function-family previous authority"로 참조해 new_tags 0 달성 — 사전갱신 주기 지연 가능, 후속 적용.
+- **다음 할 일**: ① **닮음 예측축 실행**(검수 승인, -Only GS 단독, 함수(8) 완료로 착수조건 충족). 27행 $PSScriptRoot 이식 완료. 실행 후 보고: unmatched율+유형명·rule_over60·GS팩 78회 발화위치. ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도 과제, 소비처 3개). ③ 856 나머지(다항식·이차함수·도형성질)=PDF 사용자 확보 대기.
 - **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
   - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
