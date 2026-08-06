@@ -24,7 +24,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 if (-not (Test-Path $OutDir)) { New-Item -ItemType Directory -Force -Path $OutDir | Out-Null }
-$dir = 'C:\Users\user\Desktop\scshstudy\public\math-weakness-engine\data\raw_taxonomy'
+$dir = (Resolve-Path (Join-Path $PSScriptRoot '..\..\public\math-weakness-engine\data\raw_taxonomy')).Path
 $R = Get-Content $RulesPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $OPEN = '([{（〔'; $CLOSE = ')]}）〕'
 
