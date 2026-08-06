@@ -1,0 +1,28 @@
+{
+  "version": "B-tag-axis-map-similarity3-new-v1",
+  "unit": "도형의 닮음(3) / tagging_similarity3_v4.json (관측 52종)",
+  "source": "_inbox/tagging_similarity3_v4.json",
+  "scope": "축매핑 미보유 14종만 매핑. = JSON new_tags 13 + midpoint_length_relation_error 1(관측풀 재사용이나 축매핑풀 미등재 = 209/197 기준차, 검수 승인). 축매핑-재사용 38종은 기존 축 승계(재배정 금지).",
+  "basis_note": "대조기준=축매핑풀(197). 관측 union(209)과 1건차(midpoint_length_relation_error). 향후 검수 태그축소로 관측풀에만 남는 태그는 그때마다 매핑대상 편입(세션승인).",
+  "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지.",
+  "review_status": "REVIEWED_APPROVED (검수확정: 14종 중 isosceles_altitude_bisection_overlooked B1->C2 1건 변경, 13건 승인, converse 2건 alt=C2 차별화 승인)",
+  "map": {
+    "angle_bisector_side_ratio_setup_failure":            {"axis":"C1","tier":"confident","note":"각이등분선 정리로 대변 분할비 세우기 = 식 세우기. ratio_setup_from_geometry_failure(C1) 선례"},
+    "midpoint_length_relation_error":                     {"axis":"C2","tier":"confident","note":"닮음 맥락 중점연결정리(MN=½·제3변) 길이관계 오적용. midpoint_area_fraction_relation_misapplied(C2) 병렬. 검수지정: 삼각비 맥락 아닌 닮음 맥락 배정"},
+    "trapezoid_midsegment_average_error":                 {"axis":"C2","tier":"boundary","alt":"D2","note":"사다리꼴 중점연결=(윗변+아랫변)/2 개념 오적용(삼각형 ½공식과 혼동). 개념(C2) vs 공식대입(D2)"},
+    "trapezoid_linear_interpolation_failure":             {"axis":"C1","tier":"boundary","alt":"C2","note":"사다리꼴 평행단면 길이의 위치별 선형변화 관계 식세우기. 식세우기(C1) vs 관계개념(C2)"},
+    "centroid_two_to_one_ratio_confusion":                {"axis":"C2","tier":"confident","note":"무게중심 중선 2:1 분할비 자체 혼동(_confusion). trig_ratio_side_role_confusion(C2) 선례"},
+    "centroid_area_partition_failure":                    {"axis":"C2","tier":"boundary","alt":"C1","note":"무게중심 넓이분할 성질(중선 넓이이등분/6등분) 오적용. 개념(C2) vs 넓이분할식(C1). midpoint_area_fraction_relation_misapplied(C2) 병렬"},
+    "isosceles_altitude_bisection_overlooked":            {"axis":"C2","tier":"boundary","alt":"A3","note":"이등변삼각형 꼭지높이=밑변이등분 성질(문제 미명시, 학생이 알고 꺼내써야 함) 미적용 = 개념(C2). 검수확정 B1→C2: contextual_offset_omission(B1)은 문제에 명시된 조건 미독해라 다름. alt=A3(성질 정리 안 함) 제안"},
+    "same_altitude_area_ratio_transfer_failure":          {"axis":"C4","tier":"boundary","alt":"C3","note":"동일높이 삼각형 밑변비→넓이비 이전(선형, 제곱 아님). area_ratio_from_similarity_failure(C4) 병렬 vs 개념연결 이전(C3). 검수 신규유지 확정(닮음 넓이비와 구분)"},
+    "percentage_scale_factor_conversion_error":           {"axis":"C4","tier":"confident","note":"125%→1.25배 선형배율 변환. 변환태그 C4 선례. 기존 넓이비 태그와 구분(검수 why)"},
+    "cylinder_unfolding_wrap_count_failure":              {"axis":"C4","tier":"boundary","alt":"C1","note":"원기둥 감은횟수를 전개도 가로(=n×밑면둘레)에 반영. 전개 표현변환(C4) vs 가로길이 식세우기(C1)"},
+    "developed_surface_base_circumference_mapping_failure":{"axis":"C4","tier":"confident","note":"회전체 전개도 옆면 대응길이(호/전개가로)↔밑면 원둘레 변환. three_dimensional_length_reduction_failure·spatial_cross_section(C4) 계열"},
+    "paper_fold_reflection_distance_mapping_failure":     {"axis":"C4","tier":"boundary","alt":"C3","note":"종이접기 반사 등거리를 원도형 길이로 되돌림 변환. 접기↔전개 표현변환(C4) vs 접힌점 대응연결(C3)"},
+    "parallelism_converse_ratio_test_failure":            {"axis":"C3","tier":"boundary","alt":"C2","note":"선분비 일치로 평행 역판정(삼각형 비례정리 역). cyclicity_converse_angle_condition_failure(C3) 선례 참조하되 개별판단: 경우분류 없어 alt=B3 아닌 C2(정/역 개념). 개념연결·역조건 적용(C3) vs 개념 혼동(C2)"},
+    "pythagorean_converse_condition_failure":             {"axis":"C3","tier":"boundary","alt":"C2","note":"세 변 길이로 직각 판정(피타고라스 역정리). cyclicity_converse(C3) 선례 참조하되 개별판단: 조건판정 단일이라 alt=C2. 개념연결·역조건 적용(C3) vs 개념 혼동(C2)"}
+  },
+  "axis_distribution": {"C1":2, "C2":5, "C3":2, "C4":5},
+  "converse_family_note": "parallelism_converse·pythagorean_converse 둘 다 C3(역조건 적용=개념연결)로 배정. cyclicity_converse(원, alt B3=경우) 대비 alt를 C2로 차별화 — 두 닮음 역판정엔 경우분류 성분 없음(검수지시 '기계적 승계 말고 개별판단' 반영).",
+  "inherited_reused_38_note": "축매핑-재사용 38종(similar_triangle_correspondence C3, area_ratio_from_similarity C4, segment_ratio_to_length_conversion C4, ratio_setup_from_geometry C1, area_formula_setup C1, segment_partition_tracking C1, composite_area_subtraction C1, pythagorean_setup C1, parallel_line_angle_transfer C3, multi_triangle_length_chain C3, law_selection D2, difference_direction B4, midpoint_area_fraction_relation_misapplied C2, multi_constraint_intersection B3, pattern_extraction C3, volume_from_ratio C4, auxiliary_line_construction C3, ...)은 기존 맵 축 그대로. 재배정 금지."
+}
