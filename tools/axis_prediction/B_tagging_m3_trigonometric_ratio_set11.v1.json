@@ -1,0 +1,447 @@
+{
+  "source_pdf": "260711_삼각비(10)(1).pdf",
+  "unit": "중3 삼각비",
+  "n_types": 5,
+  "n_items": 72,
+  "n_unique_tags": 13,
+  "n_reused_tags": 13,
+  "n_new_tags": 0,
+  "tag_language": "en_snake_case",
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "직선의 방정식과 삼각비의 값",
+      "item_start": 1,
+      "item_end": 1,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 79
+        }
+      ],
+      "tags": [
+        "line_slope_to_trig_ratio_conversion_failure",
+        "trig_ratio_side_role_confusion"
+      ],
+      "rationale": "Q1은 경사도의 수직거리/수평거리 비를 직각삼각형의 tan 값으로 번역해야 한다. 경사도와 삼각비의 대응 자체를 놓치거나 기준각에 대한 대변·인접변 역할을 바꾸면 바로 오답이 된다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "사분원을 이용한 삼각비의 값",
+      "item_start": 2,
+      "item_end": 11,
+      "items": [
+        {
+          "item_no": 2,
+          "accuracy": 31
+        },
+        {
+          "item_no": 3,
+          "accuracy": 80
+        },
+        {
+          "item_no": 4,
+          "accuracy": 63
+        },
+        {
+          "item_no": 5,
+          "accuracy": 76
+        },
+        {
+          "item_no": 6,
+          "accuracy": 76
+        },
+        {
+          "item_no": 7,
+          "accuracy": 60
+        },
+        {
+          "item_no": 8,
+          "accuracy": 77
+        },
+        {
+          "item_no": 9,
+          "accuracy": 80
+        },
+        {
+          "item_no": 10,
+          "accuracy": 87
+        },
+        {
+          "item_no": 11,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "coordinate_projection_axis_confusion",
+        "trig_ratio_side_role_confusion",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          2,
+          7
+        ]
+      },
+      "rationale": "Q2~Q11은 사분원 위 점을 x·y축 방향으로 투영해 cos·sin과 선분 길이를 연결하는 유형이다. Q2는 정답률 31%로 가장 낮고 반지름 a,b에 따른 좌표 배율까지 동시에 읽어야 한다. Q2와 Q7은 정답을 모두 고르는 복수정답 문항이므로 한 개만 선택하는 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "직각삼각형의 변의 길이",
+      "item_start": 12,
+      "item_end": 20,
+      "items": [
+        {
+          "item_no": 12,
+          "accuracy": 55
+        },
+        {
+          "item_no": 13,
+          "accuracy": 49
+        },
+        {
+          "item_no": 14,
+          "accuracy": 61
+        },
+        {
+          "item_no": 15,
+          "accuracy": 51
+        },
+        {
+          "item_no": 16,
+          "accuracy": 66
+        },
+        {
+          "item_no": 17,
+          "accuracy": 85
+        },
+        {
+          "item_no": 18,
+          "accuracy": 62
+        },
+        {
+          "item_no": 19,
+          "accuracy": 40
+        },
+        {
+          "item_no": 20,
+          "accuracy": 55
+        }
+      ],
+      "tags": [
+        "right_triangle_trig_setup_failure",
+        "complementary_angle_conversion_error",
+        "extremum_selection_error"
+      ],
+      "tag_scope": {
+        "complementary_angle_conversion_error": [
+          13
+        ],
+        "extremum_selection_error": [
+          19
+        ]
+      },
+      "rationale": "Q12~Q20은 수선·직각 조건에서 필요한 직각삼각형을 잡고 sin·cos·tan으로 길이를 표현한다. Q13은 tan(90°-x)=1/tanx를 이용해 10° 간격의 값을 짝지어야 하므로 여각 변환 오류를 별도로 둔다. Q19는 정답률 40%로 가장 낮고 AP²+BP²를 완전제곱식으로 정리한 뒤 최소값을 골라야 하므로 극값 선택 오류를 Q19에만 둔다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "실생활에서 직각삼각형의 변의 길이",
+      "item_start": 21,
+      "item_end": 44,
+      "items": [
+        {
+          "item_no": 21,
+          "accuracy": 49
+        },
+        {
+          "item_no": 22,
+          "accuracy": 75
+        },
+        {
+          "item_no": 23,
+          "accuracy": 77
+        },
+        {
+          "item_no": 24,
+          "accuracy": 72
+        },
+        {
+          "item_no": 25,
+          "accuracy": 31
+        },
+        {
+          "item_no": 26,
+          "accuracy": 32
+        },
+        {
+          "item_no": 27,
+          "accuracy": 55
+        },
+        {
+          "item_no": 28,
+          "accuracy": 51
+        },
+        {
+          "item_no": 29,
+          "accuracy": 52
+        },
+        {
+          "item_no": 30,
+          "accuracy": 47
+        },
+        {
+          "item_no": 31,
+          "accuracy": 62
+        },
+        {
+          "item_no": 32,
+          "accuracy": 73
+        },
+        {
+          "item_no": 33,
+          "accuracy": 65
+        },
+        {
+          "item_no": 34,
+          "accuracy": 55
+        },
+        {
+          "item_no": 35,
+          "accuracy": 83
+        },
+        {
+          "item_no": 36,
+          "accuracy": 49
+        },
+        {
+          "item_no": 37,
+          "accuracy": 42
+        },
+        {
+          "item_no": 38,
+          "accuracy": 71
+        },
+        {
+          "item_no": 39,
+          "accuracy": 47
+        },
+        {
+          "item_no": 40,
+          "accuracy": 77
+        },
+        {
+          "item_no": 41,
+          "accuracy": 79
+        },
+        {
+          "item_no": 42,
+          "accuracy": 54
+        },
+        {
+          "item_no": 43,
+          "accuracy": 66
+        },
+        {
+          "item_no": 44,
+          "accuracy": 51
+        }
+      ],
+      "tags": [
+        "real_world_diagram_translation_failure",
+        "contextual_offset_omission",
+        "unit_conversion_omitted"
+      ],
+      "tag_scope": {
+        "contextual_offset_omission": [
+          21,
+          23,
+          25,
+          26,
+          29,
+          30,
+          32,
+          43
+        ],
+        "unit_conversion_omitted": [
+          21,
+          31,
+          43
+        ]
+      },
+      "rationale": "Q21~Q44는 비행기·건물·도로·그림자·관람차·시계·연 등 실상황을 직각삼각형으로 번역해야 한다. 특히 Q25·Q26은 31~32%로 낮고 건물 높이, 나무 높이, 지면 거리의 기준 높이를 분리해 합산해야 한다. Q21의 1.5 km, Q31의 1080 km/h와 초 단위, Q43의 160 cm와 m 단위를 맞추는 환산은 해당 문항에서 별도 오류가 될 수 있다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "예각삼각형의 넓이",
+      "item_start": 45,
+      "item_end": 72,
+      "items": [
+        {
+          "item_no": 45,
+          "accuracy": 47
+        },
+        {
+          "item_no": 46,
+          "accuracy": 60
+        },
+        {
+          "item_no": 47,
+          "accuracy": 79
+        },
+        {
+          "item_no": 48,
+          "accuracy": 76
+        },
+        {
+          "item_no": 49,
+          "accuracy": 55
+        },
+        {
+          "item_no": 50,
+          "accuracy": 50
+        },
+        {
+          "item_no": 51,
+          "accuracy": 54
+        },
+        {
+          "item_no": 52,
+          "accuracy": 55
+        },
+        {
+          "item_no": 53,
+          "accuracy": 53
+        },
+        {
+          "item_no": 54,
+          "accuracy": 73
+        },
+        {
+          "item_no": 55,
+          "accuracy": 74
+        },
+        {
+          "item_no": 56,
+          "accuracy": 80
+        },
+        {
+          "item_no": 57,
+          "accuracy": 72
+        },
+        {
+          "item_no": 58,
+          "accuracy": 48
+        },
+        {
+          "item_no": 59,
+          "accuracy": 85
+        },
+        {
+          "item_no": 60,
+          "accuracy": 56
+        },
+        {
+          "item_no": 61,
+          "accuracy": 44
+        },
+        {
+          "item_no": 62,
+          "accuracy": 63
+        },
+        {
+          "item_no": 63,
+          "accuracy": 50
+        },
+        {
+          "item_no": 64,
+          "accuracy": 87
+        },
+        {
+          "item_no": 65,
+          "accuracy": 45
+        },
+        {
+          "item_no": 66,
+          "accuracy": 51
+        },
+        {
+          "item_no": 67,
+          "accuracy": 51
+        },
+        {
+          "item_no": 68,
+          "accuracy": 50
+        },
+        {
+          "item_no": 69,
+          "accuracy": 48
+        },
+        {
+          "item_no": 70,
+          "accuracy": 42
+        },
+        {
+          "item_no": 71,
+          "accuracy": 48
+        },
+        {
+          "item_no": 72,
+          "accuracy": 59
+        }
+      ],
+      "tags": [
+        "triangle_area_sine_factor_omitted",
+        "area_decomposition_equation_setup_failure",
+        "percentage_scale_factor_conversion_error"
+      ],
+      "tag_scope": {
+        "area_decomposition_equation_setup_failure": [
+          45,
+          49,
+          53,
+          54,
+          55,
+          58,
+          59,
+          63,
+          65,
+          67,
+          70,
+          71
+        ],
+        "percentage_scale_factor_conversion_error": [
+          46,
+          52,
+          68,
+          69
+        ]
+      },
+      "rationale": "Q45~Q72는 기본적으로 1/2·ab·sinC로 넓이를 만들고, 여러 부분 넓이의 합·차 또는 넓이비로 미지량을 역산한다. Q61(44%), Q65(45%), Q70(42%)처럼 구조가 복합해질수록 넓이 분해식 설정 부담이 커진다. Q46·Q52·Q68·Q69는 변의 20% 증가·10% 감소·25% 증가 같은 퍼센트 배율을 길이 배율로 바꾸어 넓이에 반영해야 한다."
+    }
+  ],
+  "unique_tags": [
+    "area_decomposition_equation_setup_failure",
+    "complementary_angle_conversion_error",
+    "contextual_offset_omission",
+    "coordinate_projection_axis_confusion",
+    "extremum_selection_error",
+    "line_slope_to_trig_ratio_conversion_failure",
+    "multiple_answer_omission",
+    "percentage_scale_factor_conversion_error",
+    "real_world_diagram_translation_failure",
+    "right_triangle_trig_setup_failure",
+    "triangle_area_sine_factor_omitted",
+    "trig_ratio_side_role_confusion",
+    "unit_conversion_omitted"
+  ],
+  "new_tags": [],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [],
+    "types_with_answer_format_error": [
+      2,
+      4
+    ],
+    "note": "전체 72문항의 문제·빠른정답·해설을 별도로 대조했다. 답을 구한 뒤 원래 조건에 역대입하는 검산이 독립 오답 원인이 되는 유형은 없었다. 답 마무리 관점에서는 Q2·Q7의 복수정답 누락 가능성과 Q21·Q31·Q43의 단위 환산 누락을 반영했다."
+  }
+}
