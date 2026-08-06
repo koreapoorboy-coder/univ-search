@@ -35,7 +35,8 @@
   - 50유형·50문항(각1)·37종, new_tags **0**, 전량 풀 존재→승계(신규0). 독립검증 PASS(3=11·2=39). 축분포 C1·24/C3·22/C4·16/B3·9/B2·5.
   - **★함수(5) 신규18 실증**: 18종 중 **16(88.9%) 재등장** → 의미분석뿐이던 정당성이 타 학습지 재등장으로 실오류모드 확인. 미등장2(coincident_line_parameter_matching·slope_magnitude_graph_comparison)=특수문항용. 함수(8) 고유3(abstract_notation_application·extremum_selection·integer_candidate_enumeration_gap)도 사전 조달(신규0).
   - 방법론기록: GPT가 사전갱신 없이 직전산출(tagging_function5)을 "function-family previous authority"로 참조해 new_tags 0 달성 — 사전갱신 주기 지연 가능, 후속 적용.
-- **다음 할 일**: ① **닮음 예측축 실행**(검수 승인, -Only GS 단독, 함수(8) 완료로 착수조건 충족). 27행 $PSScriptRoot 이식 완료. 실행 후 보고: unmatched율+유형명·rule_over60·GS팩 78회 발화위치. ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도 과제, 소비처 3개). ③ 856 나머지(다항식·이차함수·도형성질)=PDF 사용자 확보 대기.
+- **✅ 닮음 예측축 실행 완료**(2026-08-06, `Run-AxisPrediction -Only GS` 단독, 27행 $PSScriptRoot 이식, temp CSV·엔진데이터 무변경): **239항목 100% 적중·미매칭 0·과다규칙(>60%) 0.** 팩=SM_GS **74규칙(D-GS-01~74) 전부 발화**(정정: 앞 "78"은 문자열 grep). 최다 공통 C-15×122·C-08×69(둘다 C1), 팩 D-GS-39(무게중심)×31·D-GS-20(평행선분)×20·D-GS-09(닮음조건)×16. **예측축 분포** C1·71.5%/D2·53.6%/C3·50.2%/C2·37.7%/C4·19.7%/B1·17.2%/E1·14.6%/B2·11.7%/B3·11.3%/E3·5.9%/E2·2.9%/B4·2.1%(항목당 다축). 최고 발화율 51%(<60)라 규율 신설 불요. 45재검증 불수반. ⇒ **닮음 예측층 건강, 이미 완비.**
+- **다음 할 일**: ① 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도 과제, 소비처 3개). ② 856 나머지(다항식·이차함수·도형성질)=PDF 사용자 확보 대기. ③ 관측층 프로덕션 병합(§미결) 검토 시점 — 로컬 10단원 반영 완료, 새 사각지대 관찰.
 - **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
   - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
