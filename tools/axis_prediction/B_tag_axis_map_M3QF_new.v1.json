@@ -4,7 +4,7 @@
   "source": "_inbox/tagging_quadratic3_v4_v2.json (42유형·150문항·42종, 재사용26·신규16, 검수 PASS)",
   "scope": "신규 16종만. 재사용 26종은 기존 축 승계(풀 전수대조 gap 0). ★유닛 완비 확인: type_variant_bank·source_item_links·problem_types(M3_QFUNC_PT) 전부 존재, links가 problem_types에 해소 -> 856 등재 불필요(닮음과 달리).",
   "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지.",
-  "review_status": "CODE_DRAFT_PENDING_REVIEW",
+  "review_status": "REVIEWED_APPROVED (검수확정: 16종 전량 승인·수정 없음. 그래프↔식 3분 판례가 검수 이름기반 후보와 완전 일치 = 실작동 기준 확인, 임시방편 아님)",
   "그래프_식_판례_적용": "함수(5) 확정 3분 판례 첫 적용(검수 지시). ①순수 형태변환(완전제곱식 변형·평행이동 식변환·x축 반사)=C4 ②해석적 역추론·연결(부호↔이동방향·사분면 판정·대칭점 대응·증감구간·근↔절편)=C3 ③원자적 개념혼동(계수부호=개형·폭·꼭짓점축 식별·이차판별)=C2. 재구성/복원(꼭짓점형·인수형·조건복원·극값역산·실모델)=C1(식세우기).",
   "map": {
     "completing_square_vertex_axis_failure":                {"axis":"C4","tier":"boundary","alt":"D1","note":"★판례C4: ax²+bx+c→a(x-p)²+q 완전제곱 형태변환 = 표현변환(C4) vs 식조작(D1)"},
