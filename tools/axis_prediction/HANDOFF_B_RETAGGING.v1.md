@@ -3,6 +3,14 @@
 > 이 문서 하나로 **재태깅 스트림**을 이어받는다. 큰 그림은 `HANDOFF_B_MASTER.md`. 관측 태그 정본은 `TAG_DICTIONARY_v1.md`.
 > HEAD 시점: `daee3d42` (== origin, 동기화됨). 미커밋 8은 세션 밖 무관 파일(zip·_P0_·.claude).
 
+## ▶ 세션 인계 (2026-08-06, 새 로컬 세션 진입점)
+- 🔴 **리포 위치 이전**: 정본 = **`C:\Users\user\projects\scshstudy`** (로컬, OneDrive 아님). OneDrive `바탕 화면\scshstudy` 사본은 **은퇴 대상 — 건드리지 말 것**. 이유·검증: 메모리 `repo-location-local-projects`. (OneDrive 폴더백업이 바탕화면을 삼켜 .git dehydrate→꼬임. GitHub `d2a85b3a` push 확인 후 로컬 사본 ff-pull로 최신화 완료, tracked 2359 일치.)
+- ⚠ 이 문서·`HANDOFF_B_MASTER.md`·스크립트의 `OneDrive\바탕 화면` 경로 하드코딩은 **미갱신**. projects 경로로 고칠 것(to-do).
+- **닮음(3) 진행 중** — 파일 `_inbox/tagging_similarity3_v4.json`(+QA리포트) 착. 검수 판정 PASS.
+  - **✅ Code탭 독립검증 완료**(scratchpad `verify_sim3.ps1`, ASCII전용·PS ConvertFrom-Json; py/node/jq 없음): 67유형/150문항/1~150연속/52종/한글0/tag_scope 26태그·48배정·범위내·유형내중복0 — **구조 전부 검수와 일치**.
+  - 🔴 **재사용 split 1건 불일치**: 검수 39재사용/13신규 vs 재현 **38/14**. flip = **`midpoint_length_relation_error`**. 삼각비(6)에서 고려됐다 Q137서 제거(§5)돼 **어떤 맵에도 축매핑 없음**(전 맵 grep 무매치). 닮음(3)선 유형6·12·25·26·29·33…+Q28 scope에 실사용 → **승계 두면 축 구멍**. **매핑 대상 = 13 아니라 14**(신규13 + 미매핑 midpoint_length_relation_error). ⚠ 검수에 이 갭 회신 필요.
+- **다음 할 일** = Task #2(1문항유형 7개 rationale 충실도)→#3(신규14 축매핑, 재사용37 승계·재배정금지)→#4(반영+856 raw_taxonomy 등재+커밋). 검수 지시: converse류(pythagorean_converse_condition_failure·parallelism_converse_ratio_test_failure)는 원 `cyclicity_converse_angle_condition_failure`(C3) 선례 참조. tag_scope 48건 그대로 반영.
+
 ## ⏱ 첫 5분
 - **목표**: 각 단원 150문항을 재태깅(오류형)→17진단축(관측층)에 매핑→문항단위 반영. PREDICTED(팩)와 별개층.
 - **완료 4단원**: 수와식(5)·원의성질(12)·원의성질(6)·삼각비(6). 전부 커밋·push.
