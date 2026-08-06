@@ -1,0 +1,826 @@
+{
+  "source_pdf": "260711_원의 성질(12).pdf",
+  "unit": "중3 원의 성질",
+  "n_types": 13,
+  "n_items": 150,
+  "n_unique_tags": 27,
+  "tag_language": "en_snake_case",
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "반원에서의 접선",
+      "item_start": 1,
+      "item_end": 12,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 56
+        },
+        {
+          "item_no": 2,
+          "accuracy": 56
+        },
+        {
+          "item_no": 3,
+          "accuracy": 55
+        },
+        {
+          "item_no": 4,
+          "accuracy": 70
+        },
+        {
+          "item_no": 5,
+          "accuracy": 55
+        },
+        {
+          "item_no": 6,
+          "accuracy": 59
+        },
+        {
+          "item_no": 7,
+          "accuracy": 82
+        },
+        {
+          "item_no": 8,
+          "accuracy": 65
+        },
+        {
+          "item_no": 9,
+          "accuracy": 82
+        },
+        {
+          "item_no": 10,
+          "accuracy": 57
+        },
+        {
+          "item_no": 11,
+          "accuracy": 86
+        },
+        {
+          "item_no": 12,
+          "accuracy": 67
+        }
+      ],
+      "tags": [
+        "right_triangle_trig_setup_failure",
+        "equal_tangent_segment_relation_misapplied",
+        "radius_offset_equation_setup_error"
+      ],
+      "rationale": "01~03은 정답률이 55~56%로 낮고, 해설은 30° 직각삼각형에서 삼각비로 접선 길이를 구한 뒤 한 점에서 그은 두 접선의 길이가 같다는 관계를 반지름 식으로 연결한다. 07·09·11은 82~86%로 직접적인 접선 성질 확인은 높으므로, 낮은 문항의 병목은 삼각비 설정과 접선 길이·반지름을 하나의 식으로 묶는 과정이다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "원에 외접하는 사각형의 성질의 활용(1); 직사각형",
+      "item_start": 13,
+      "item_end": 16,
+      "items": [
+        {
+          "item_no": 13,
+          "accuracy": 73
+        },
+        {
+          "item_no": 14,
+          "accuracy": 87
+        },
+        {
+          "item_no": 15,
+          "accuracy": 75
+        },
+        {
+          "item_no": 16,
+          "accuracy": 59
+        }
+      ],
+      "tags": [
+        "equal_tangent_segment_relation_misapplied",
+        "rectangle_side_partition_setup_failure",
+        "derived_right_triangle_equation_error"
+      ],
+      "rationale": "13 해설은 둘레 28에서 AB=x, BC=14-x로 놓고 접선 길이의 같음을 이용해 대각선 길이를 만든 뒤 피타고라스 식을 세운다. 16만 59%로 떨어지며, 접점으로 분할된 여러 변을 x식으로 추적한 뒤 직각삼각형 방정식까지 연결하는 단계가 추가된다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "원주각과 중심각의 크기(1)",
+      "item_start": 17,
+      "item_end": 30,
+      "items": [
+        {
+          "item_no": 17,
+          "accuracy": 60
+        },
+        {
+          "item_no": 18,
+          "accuracy": 50
+        },
+        {
+          "item_no": 19,
+          "accuracy": 50
+        },
+        {
+          "item_no": 20,
+          "accuracy": 50
+        },
+        {
+          "item_no": 21,
+          "accuracy": 30
+        },
+        {
+          "item_no": 22,
+          "accuracy": 77
+        },
+        {
+          "item_no": 23,
+          "accuracy": 80
+        },
+        {
+          "item_no": 24,
+          "accuracy": 79
+        },
+        {
+          "item_no": 25,
+          "accuracy": 78
+        },
+        {
+          "item_no": 26,
+          "accuracy": 90
+        },
+        {
+          "item_no": 27,
+          "accuracy": 73
+        },
+        {
+          "item_no": 28,
+          "accuracy": 79
+        },
+        {
+          "item_no": 29,
+          "accuracy": 49
+        },
+        {
+          "item_no": 30,
+          "accuracy": 59
+        }
+      ],
+      "tags": [
+        "central_inscribed_angle_factor_confusion",
+        "overlapping_circle_angle_transfer_failure",
+        "central_angle_to_arc_ratio_failure"
+      ],
+      "rationale": "18~20이 모두 50%, 21이 30%로 낮다. 18~20은 두 원의 교점에서 중심각·원주각 관계로 각을 옮겨야 하고, 21은 ∠DOC=5∠ODC에서 중심각을 구한 뒤 중심각의 비를 호의 길이 비로 바꾸는 단계까지 필요해 추가 이탈이 나타난다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "원주각의 성질(1); 한 호",
+      "item_start": 31,
+      "item_end": 42,
+      "items": [
+        {
+          "item_no": 31,
+          "accuracy": 78
+        },
+        {
+          "item_no": 32,
+          "accuracy": 50
+        },
+        {
+          "item_no": 33,
+          "accuracy": 50
+        },
+        {
+          "item_no": 34,
+          "accuracy": 50
+        },
+        {
+          "item_no": 35,
+          "accuracy": 57
+        },
+        {
+          "item_no": 36,
+          "accuracy": 30
+        },
+        {
+          "item_no": 37,
+          "accuracy": 30
+        },
+        {
+          "item_no": 38,
+          "accuracy": 30
+        },
+        {
+          "item_no": 39,
+          "accuracy": 48
+        },
+        {
+          "item_no": 40,
+          "accuracy": 41
+        },
+        {
+          "item_no": 41,
+          "accuracy": 50
+        },
+        {
+          "item_no": 42,
+          "accuracy": 51
+        }
+      ],
+      "tags": [
+        "same_arc_inscribed_angle_matching_failure",
+        "diameter_right_angle_condition_omitted",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "36~38은 모두 30%로 유형 내 최저군이다. 해설은 지름에서 생기는 90°, 같은 호에 대한 원주각의 일치, 연속적인 각 추적으로 두 삼각형의 닮음을 만든 뒤 대응변 비를 세워 SQ를 구하므로, 각 대응과 닮음 대응을 끝까지 유지하지 못하는 오류가 핵심이다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "원주각의 성질(2); 반원",
+      "item_start": 43,
+      "item_end": 56,
+      "items": [
+        {
+          "item_no": 43,
+          "accuracy": 69
+        },
+        {
+          "item_no": 44,
+          "accuracy": 76
+        },
+        {
+          "item_no": 45,
+          "accuracy": 30
+        },
+        {
+          "item_no": 46,
+          "accuracy": 78
+        },
+        {
+          "item_no": 47,
+          "accuracy": 82
+        },
+        {
+          "item_no": 48,
+          "accuracy": 76
+        },
+        {
+          "item_no": 49,
+          "accuracy": 80
+        },
+        {
+          "item_no": 50,
+          "accuracy": 89
+        },
+        {
+          "item_no": 51,
+          "accuracy": 56
+        },
+        {
+          "item_no": 52,
+          "accuracy": 56
+        },
+        {
+          "item_no": 53,
+          "accuracy": 86
+        },
+        {
+          "item_no": 54,
+          "accuracy": 75
+        },
+        {
+          "item_no": 55,
+          "accuracy": 72
+        },
+        {
+          "item_no": 56,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "diameter_right_angle_condition_omitted",
+        "auxiliary_line_construction_failure",
+        "diameter_pair_counting_error"
+      ],
+      "rationale": "45가 30%로 가장 낮고 지름에서 생기는 직각을 시작점으로 여러 합동·원주각 관계를 이어 간다. 51·56은 각각 56%, 52%로 필요한 보조선을 스스로 추가하지 못하면 각·길이 관계가 끊기고, 52(56%)는 10등분점에서 지름이 되는 점쌍을 정확히 세어 직각삼각형 수를 계산하는 데서 별도로 갈린다."
+    },
+    {
+      "type_no": 6,
+      "type_name": "원주각의 크기와 호의 길이(2)",
+      "item_start": 57,
+      "item_end": 68,
+      "items": [
+        {
+          "item_no": 57,
+          "accuracy": 50
+        },
+        {
+          "item_no": 58,
+          "accuracy": 87
+        },
+        {
+          "item_no": 59,
+          "accuracy": 50
+        },
+        {
+          "item_no": 60,
+          "accuracy": 79
+        },
+        {
+          "item_no": 61,
+          "accuracy": 61
+        },
+        {
+          "item_no": 62,
+          "accuracy": 86
+        },
+        {
+          "item_no": 63,
+          "accuracy": 76
+        },
+        {
+          "item_no": 64,
+          "accuracy": 92
+        },
+        {
+          "item_no": 65,
+          "accuracy": 75
+        },
+        {
+          "item_no": 66,
+          "accuracy": 58
+        },
+        {
+          "item_no": 67,
+          "accuracy": 50
+        },
+        {
+          "item_no": 68,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "central_angle_to_arc_ratio_failure",
+        "same_arc_inscribed_angle_matching_failure",
+        "auxiliary_line_construction_failure"
+      ],
+      "rationale": "57·59가 50%, 66이 58%, 67이 50%로 낮다. 이 문항들은 호의 길이↔중심각 비례와 같은 호의 원주각 관계를 연결하고, 필요한 보조선을 추가해 각 또는 길이 관계를 만든 뒤 비례식을 세우는 과정에서 오류가 집중된다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "원주각의 크기와 호의 길이(3)",
+      "item_start": 69,
+      "item_end": 80,
+      "items": [
+        {
+          "item_no": 69,
+          "accuracy": 69
+        },
+        {
+          "item_no": 70,
+          "accuracy": 74
+        },
+        {
+          "item_no": 71,
+          "accuracy": 51
+        },
+        {
+          "item_no": 72,
+          "accuracy": 81
+        },
+        {
+          "item_no": 73,
+          "accuracy": 54
+        },
+        {
+          "item_no": 74,
+          "accuracy": 80
+        },
+        {
+          "item_no": 75,
+          "accuracy": 62
+        },
+        {
+          "item_no": 76,
+          "accuracy": 69
+        },
+        {
+          "item_no": 77,
+          "accuracy": 79
+        },
+        {
+          "item_no": 78,
+          "accuracy": 86
+        },
+        {
+          "item_no": 79,
+          "accuracy": 72
+        },
+        {
+          "item_no": 80,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "central_angle_to_arc_ratio_failure",
+        "intersecting_secant_arc_relation_error",
+        "diameter_pairing_failure"
+      ],
+      "rationale": "69~80에서는 71(51%), 73(54%), 75(62%)가 이탈한다. 71·75는 호의 비/길이를 중심각·원주각 또는 두 할선이 만드는 각 관계로 변환해야 하고, 73은 32등분 원에서 서로 지름을 이루는 현의 끝점을 올바르게 짝짓는 단계가 핵심이다."
+    },
+    {
+      "type_no": 8,
+      "type_name": "네 점이 한 원에 있기 위한 조건",
+      "item_start": 81,
+      "item_end": 88,
+      "items": [
+        {
+          "item_no": 81,
+          "accuracy": 76
+        },
+        {
+          "item_no": 82,
+          "accuracy": 49
+        },
+        {
+          "item_no": 83,
+          "accuracy": 50
+        },
+        {
+          "item_no": 84,
+          "accuracy": 53
+        },
+        {
+          "item_no": 85,
+          "accuracy": 61
+        },
+        {
+          "item_no": 86,
+          "accuracy": 53
+        },
+        {
+          "item_no": 87,
+          "accuracy": 74
+        },
+        {
+          "item_no": 88,
+          "accuracy": 59
+        }
+      ],
+      "tags": [
+        "cyclicity_converse_angle_condition_failure",
+        "supplementary_angle_cyclicity_check_error",
+        "auxiliary_cyclic_quadrilateral_detection_failure"
+      ],
+      "rationale": "82·83이 49·50%, 84가 53%로 낮다. 이 문항들은 이미 원 위의 네 점을 쓰는 데서 끝나지 않고, 같은 각을 보는 조건이나 대각의 합 180°를 역으로 사용해 숨어 있는 다른 네 점의 공원성을 새로 판정해야 하므로 보조 내접사각형 탐지가 병목이다."
+    },
+    {
+      "type_no": 9,
+      "type_name": "원에 내접하는 사각형의 성질(1)",
+      "item_start": 89,
+      "item_end": 107,
+      "items": [
+        {
+          "item_no": 89,
+          "accuracy": 83
+        },
+        {
+          "item_no": 90,
+          "accuracy": 75
+        },
+        {
+          "item_no": 91,
+          "accuracy": 79
+        },
+        {
+          "item_no": 92,
+          "accuracy": 77
+        },
+        {
+          "item_no": 93,
+          "accuracy": 83
+        },
+        {
+          "item_no": 94,
+          "accuracy": 76
+        },
+        {
+          "item_no": 95,
+          "accuracy": 50
+        },
+        {
+          "item_no": 96,
+          "accuracy": 67
+        },
+        {
+          "item_no": 97,
+          "accuracy": 84
+        },
+        {
+          "item_no": 98,
+          "accuracy": 83
+        },
+        {
+          "item_no": 99,
+          "accuracy": 86
+        },
+        {
+          "item_no": 100,
+          "accuracy": 73
+        },
+        {
+          "item_no": 101,
+          "accuracy": 88
+        },
+        {
+          "item_no": 102,
+          "accuracy": 80
+        },
+        {
+          "item_no": 103,
+          "accuracy": 81
+        },
+        {
+          "item_no": 104,
+          "accuracy": 82
+        },
+        {
+          "item_no": 105,
+          "accuracy": 84
+        },
+        {
+          "item_no": 106,
+          "accuracy": 91
+        },
+        {
+          "item_no": 107,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "cyclic_opposite_angle_supplement_error",
+        "cyclic_exterior_angle_equivalence_failure",
+        "angle_bisector_chain_integration_failure"
+      ],
+      "rationale": "89~107은 대체로 73~91%지만 95만 50%로 크게 이탈한다. 기본은 내접사각형의 대각 합 180°와 외각=맞은편 내각을 연결하는 것이고, 95는 여기에 BE가 지름인 직각과 ∠ABE=∠DBE의 이등분 조건을 연쇄 적용해야 해 각 이등분 추적 오류가 추가된다."
+    },
+    {
+      "type_no": 10,
+      "type_name": "원에 내접하는 사각형의 성질(2)",
+      "item_start": 108,
+      "item_end": 119,
+      "items": [
+        {
+          "item_no": 108,
+          "accuracy": 82
+        },
+        {
+          "item_no": 109,
+          "accuracy": 87
+        },
+        {
+          "item_no": 110,
+          "accuracy": 65
+        },
+        {
+          "item_no": 111,
+          "accuracy": 81
+        },
+        {
+          "item_no": 112,
+          "accuracy": 87
+        },
+        {
+          "item_no": 113,
+          "accuracy": 85
+        },
+        {
+          "item_no": 114,
+          "accuracy": 41
+        },
+        {
+          "item_no": 115,
+          "accuracy": 74
+        },
+        {
+          "item_no": 116,
+          "accuracy": 74
+        },
+        {
+          "item_no": 117,
+          "accuracy": 79
+        },
+        {
+          "item_no": 118,
+          "accuracy": 80
+        },
+        {
+          "item_no": 119,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "cyclic_opposite_angle_supplement_error",
+        "shared_chord_angle_transfer_between_circles_failure",
+        "area_ratio_from_similarity_failure"
+      ],
+      "rationale": "기본 문항은 내접사각형의 대각 합 180°를 반복 사용한다. 110·115는 두 원의 공통점 P,Q에서 같은 현을 보는 각을 원마다 옮겨 평행을 판정해야 하고, 114는 41%로 가장 낮으며 닮음에서 얻은 길이비를 넓이비로 바꾸는 단계에서 크게 갈린다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "접선과 현이 이루는 각; 원주각",
+      "item_start": 120,
+      "item_end": 133,
+      "items": [
+        {
+          "item_no": 120,
+          "accuracy": 50
+        },
+        {
+          "item_no": 121,
+          "accuracy": 50
+        },
+        {
+          "item_no": 122,
+          "accuracy": 75
+        },
+        {
+          "item_no": 123,
+          "accuracy": 69
+        },
+        {
+          "item_no": 124,
+          "accuracy": 63
+        },
+        {
+          "item_no": 125,
+          "accuracy": 52
+        },
+        {
+          "item_no": 126,
+          "accuracy": 83
+        },
+        {
+          "item_no": 127,
+          "accuracy": 50
+        },
+        {
+          "item_no": 128,
+          "accuracy": 89
+        },
+        {
+          "item_no": 129,
+          "accuracy": 86
+        },
+        {
+          "item_no": 130,
+          "accuracy": 87
+        },
+        {
+          "item_no": 131,
+          "accuracy": 90
+        },
+        {
+          "item_no": 132,
+          "accuracy": 88
+        },
+        {
+          "item_no": 133,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "tangent_chord_angle_transfer_failure",
+        "collinear_supplementary_angle_chain_error",
+        "isosceles_triangle_angle_chain_failure"
+      ],
+      "rationale": "120·121이 50%, 127이 50%, 125가 52%로 낮다. 120·121 해설은 접선과 현이 이루는 각을 원주각으로 옮긴 뒤 직선 위의 보각과 이등변삼각형의 밑각을 연쇄적으로 계산하고, 127도 접선-현 각을 시작으로 여러 삼각형의 각을 합쳐야 한다."
+    },
+    {
+      "type_no": 12,
+      "type_name": "접선과 현이 이루는 각의 활용(1); 현이 중심을 지나지 않는 경우",
+      "item_start": 134,
+      "item_end": 138,
+      "items": [
+        {
+          "item_no": 134,
+          "accuracy": 73
+        },
+        {
+          "item_no": 135,
+          "accuracy": 47
+        },
+        {
+          "item_no": 136,
+          "accuracy": 50
+        },
+        {
+          "item_no": 137,
+          "accuracy": 50
+        },
+        {
+          "item_no": 138,
+          "accuracy": 50
+        }
+      ],
+      "tags": [
+        "tangent_chord_angle_transfer_failure",
+        "equal_arc_angle_transfer_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "135가 47%, 136~138이 모두 50%로 낮다. 136~138 해설은 보조선 AC를 그어 같은 길이의 호에서 각을 만들고 접선-현 각을 대응시킨 뒤 △ABC∽△CDP를 세워 길이비를 계산하므로, 접선각·등호 관계·닮음 대응 중 하나가 끊기면 전체가 무너진다."
+    },
+    {
+      "type_no": 13,
+      "type_name": "접선과 현이 이루는 각의 활용(2); 현이 중심을 지나는 경우",
+      "item_start": 139,
+      "item_end": 150,
+      "items": [
+        {
+          "item_no": 139,
+          "accuracy": 30
+        },
+        {
+          "item_no": 140,
+          "accuracy": 30
+        },
+        {
+          "item_no": 141,
+          "accuracy": 31
+        },
+        {
+          "item_no": 142,
+          "accuracy": 77
+        },
+        {
+          "item_no": 143,
+          "accuracy": 83
+        },
+        {
+          "item_no": 144,
+          "accuracy": 64
+        },
+        {
+          "item_no": 145,
+          "accuracy": 89
+        },
+        {
+          "item_no": 146,
+          "accuracy": 55
+        },
+        {
+          "item_no": 147,
+          "accuracy": 73
+        },
+        {
+          "item_no": 148,
+          "accuracy": 79
+        },
+        {
+          "item_no": 149,
+          "accuracy": 77
+        },
+        {
+          "item_no": 150,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "overlapping_circle_angle_transfer_failure",
+        "tangent_chord_angle_transfer_failure",
+        "diameter_right_angle_condition_omitted"
+      ],
+      "rationale": "139~141이 30·30·31%로 압도적으로 낮다. 해설은 두 원의 중심과 공통점을 이용한 SSS 합동으로 각을 옮기고 중심각의 절반인 원주각을 구한 뒤 두 접선-현 각을 바깥 삼각형으로 다시 전달해야 하며, 후반 143~150은 지름에서 생기는 90°를 놓치면 연쇄 각 계산이 깨지는 구조가 반복된다."
+    }
+  ],
+  "unique_tags": [
+    "angle_bisector_chain_integration_failure",
+    "area_ratio_from_similarity_failure",
+    "auxiliary_cyclic_quadrilateral_detection_failure",
+    "auxiliary_line_construction_failure",
+    "central_angle_to_arc_ratio_failure",
+    "central_inscribed_angle_factor_confusion",
+    "collinear_supplementary_angle_chain_error",
+    "cyclic_exterior_angle_equivalence_failure",
+    "cyclic_opposite_angle_supplement_error",
+    "cyclicity_converse_angle_condition_failure",
+    "derived_right_triangle_equation_error",
+    "diameter_pair_counting_error",
+    "diameter_pairing_failure",
+    "diameter_right_angle_condition_omitted",
+    "equal_arc_angle_transfer_failure",
+    "equal_tangent_segment_relation_misapplied",
+    "intersecting_secant_arc_relation_error",
+    "isosceles_triangle_angle_chain_failure",
+    "overlapping_circle_angle_transfer_failure",
+    "radius_offset_equation_setup_error",
+    "rectangle_side_partition_setup_failure",
+    "right_triangle_trig_setup_failure",
+    "same_arc_inscribed_angle_matching_failure",
+    "shared_chord_angle_transfer_between_circles_failure",
+    "similar_triangle_correspondence_setup_failure",
+    "supplementary_angle_cyclicity_check_error",
+    "tangent_chord_angle_transfer_failure"
+  ],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [],
+    "note": "13유형 150문항을 검산 관점으로 별도 재검토했다. Q01~03·Q10·Q40·Q52·Q75·Q96·Q108~119·Q150처럼 중간값 뒤 최종식을 계산하는 신호는 확인했지만, 이는 원래 식·조건에 되돌려 확인하는 검산이 아니라 전진 풀이의 최종 단계였다. Q40의 두 근 중 x>0을 적용해 하나를 고르는 과정도 명세 §4의 '추가 조건으로 걸러내기'에 해당하므로 검산 태그에서 제외했다. 따라서 이 PDF에서는 근거가 충분한 verification 오류 유형을 확정하지 않았다."
+  }
+}
