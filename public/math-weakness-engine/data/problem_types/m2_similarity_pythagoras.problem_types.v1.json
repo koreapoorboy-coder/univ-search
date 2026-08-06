@@ -1,0 +1,2897 @@
+{
+    "version":  "2026.08.06-m2-similarity-pythagoras-pt-v0.1",
+    "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+    "unit_name":  "도형의 닮음과 피타고라스 정리",
+    "source":  "type_variant_bank (patch209) canonical M2_SIMPY problem types + source_item_links concept_ids (id-join)",
+    "wiring_status":  "skeleton",
+    "wiring_note":  "Review decision 2026-08-06: canonical = M2_SIMPY (engine live scheme in links/type_variant_bank/coverage), NOT mathflat m2_similarity(81). error_tags deferred (source pending). crosswalk observed->predicted is ALREADY done by id via source_item_links (item_id->primary_problem_type_id, verified confidence, no name matching). OBSERVED layer (B_reflection_*) joins here by item_id.",
+    "coverage_note":  "87 types attested by set04(87)+set09(66) worksheets. Full unit taxonomy may include more (ids up to PT177); only worksheet-attested types registered.",
+    "pending":  [
+                    "predicted error_tags attach (source: legacy inheritance vs fresh curation)",
+                    "default_difficulty",
+                    "full-unit type completion beyond worksheet coverage"
+                ],
+    "problem_type_count":  87,
+    "problem_types":  [
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT004",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평면도형의 닮음비 계산과 활용 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C002",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT004",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q002",
+                                                        "M2_SIMPY_150_S09_Q003"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT005",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평면도형의 닮음비 계산과 활용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C002",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT005",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q001",
+                                                        "M2_SIMPY_150_S09_Q001",
+                                                        "M2_SIMPY_150_S09_Q002"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT011",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "회전체의 닮음비와 대응 길이 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C004",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "fraction"
+                                                   ],
+                              "representation_types":  [
+                                                           "solid_similarity_or_spatial_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT011",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q003"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT013",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형의 닮음 조건 판별 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C005",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "similarity_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT013",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q004",
+                                                        "M2_SIMPY_150_S04_Q005"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT015",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형의 닮음 조건 판별 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C005",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "similarity_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT015",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q006"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT019",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "SAS 닮음의 조건 적용 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C007",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "similarity_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT019",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q007",
+                                                        "M2_SIMPY_150_S04_Q008"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT021",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "SAS 닮음의 조건 적용 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C007",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "similarity_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT021",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q009"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT022",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "AA 닮음의 조건 적용 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C008",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT022",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q010",
+                                                        "M2_SIMPY_150_S09_Q004"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT023",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "AA 닮음의 조건 적용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C008",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT023",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q011",
+                                                        "M2_SIMPY_150_S04_Q012",
+                                                        "M2_SIMPY_150_S09_Q005",
+                                                        "M2_SIMPY_150_S09_Q006"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT026",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행선에서 삼각형의 닮음 찾기 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C009",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT026",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q013",
+                                                        "M2_SIMPY_150_S04_Q014",
+                                                        "M2_SIMPY_150_S04_Q015",
+                                                        "M2_SIMPY_150_S09_Q007",
+                                                        "M2_SIMPY_150_S09_Q008",
+                                                        "M2_SIMPY_150_S09_Q009"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT028",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "직각삼각형의 닮음 - 공통각 구조 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C010",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "similarity_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT028",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q017"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT029",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "직각삼각형의 닮음 - 공통각 구조 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C010",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT029",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q016",
+                                                        "M2_SIMPY_150_S04_Q018",
+                                                        "M2_SIMPY_150_S09_Q010",
+                                                        "M2_SIMPY_150_S09_Q011",
+                                                        "M2_SIMPY_150_S09_Q012"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT031",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "직각삼각형의 닮음 - 같은 예각 구조 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C011",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT031",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q019",
+                                                        "M2_SIMPY_150_S09_Q015"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT033",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "직각삼각형의 닮음 - 같은 예각 구조 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C011",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT033",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q020",
+                                                        "M2_SIMPY_150_S09_Q013",
+                                                        "M2_SIMPY_150_S09_Q014"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT035",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "직각삼각형 닮음의 길이·넓이 응용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C012",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT035",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q022",
+                                                        "M2_SIMPY_150_S04_Q023",
+                                                        "M2_SIMPY_150_S09_Q017"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT036",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "직각삼각형 닮음의 길이·넓이 응용 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C012",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "fraction",
+                                                       "integer"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT036",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q021",
+                                                        "M2_SIMPY_150_S09_Q016",
+                                                        "M2_SIMPY_150_S09_Q018"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT038",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "종이접기에서 닮은 삼각형 찾기 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C013",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_geometry_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT038",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q024",
+                                                        "M2_SIMPY_150_S04_Q025",
+                                                        "M2_SIMPY_150_S09_Q019",
+                                                        "M2_SIMPY_150_S09_Q020",
+                                                        "M2_SIMPY_150_S09_Q021"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT040",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행선과 선분비 - 공통각 구조 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C014",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "parallel_line_ratio_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT040",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q026"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT042",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행선과 선분비 - 공통각 구조 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C014",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT042",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q027",
+                                                        "M2_SIMPY_150_S09_Q022",
+                                                        "M2_SIMPY_150_S09_Q023",
+                                                        "M2_SIMPY_150_S09_Q024"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT044",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행선과 선분비 - 맞꼭지각 구조 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C015",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT044",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q028",
+                                                        "M2_SIMPY_150_S04_Q029",
+                                                        "M2_SIMPY_150_S09_Q025",
+                                                        "M2_SIMPY_150_S09_Q026",
+                                                        "M2_SIMPY_150_S09_Q027"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT047",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형에서 평행선 선분비 응용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C016",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "fraction",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT047",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q030",
+                                                        "M2_SIMPY_150_S04_Q031",
+                                                        "M2_SIMPY_150_S09_Q028",
+                                                        "M2_SIMPY_150_S09_Q029",
+                                                        "M2_SIMPY_150_S09_Q030"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT049",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "역으로 평행선 판정하기 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C017",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "parallel_line_ratio_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT049",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q032"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT051",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "역으로 평행선 판정하기 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C017",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "fraction"
+                                                   ],
+                              "representation_types":  [
+                                                           "parallel_line_ratio_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT051",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q033"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT053",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형 내각의 이등분선과 변의 비 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C018",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT053",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q034",
+                                                        "M2_SIMPY_150_S04_Q035",
+                                                        "M2_SIMPY_150_S09_Q032"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT054",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형 내각의 이등분선과 변의 비 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C018",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT054",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q036",
+                                                        "M2_SIMPY_150_S09_Q031",
+                                                        "M2_SIMPY_150_S09_Q033"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT056",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형 내각의 이등분선과 넓이비 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C019",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT056",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q037",
+                                                        "M2_SIMPY_150_S09_Q034",
+                                                        "M2_SIMPY_150_S09_Q035"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT057",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형 내각의 이등분선과 넓이비 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C019",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "integer"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT057",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q038",
+                                                        "M2_SIMPY_150_S09_Q036"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT058",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형 외각의 이등분선과 변의 비 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C020",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT058",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q040",
+                                                        "M2_SIMPY_150_S09_Q039"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT059",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형 외각의 이등분선과 변의 비 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C020",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT059",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q039",
+                                                        "M2_SIMPY_150_S09_Q037",
+                                                        "M2_SIMPY_150_S09_Q038"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT061",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형 외각의 이등분선과 넓이비 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C021",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "parallel_line_ratio_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT061",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q041",
+                                                        "M2_SIMPY_150_S04_Q042"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT065",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "여러 평행선 사이의 길이비 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C022",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT065",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q043",
+                                                        "M2_SIMPY_150_S09_Q040",
+                                                        "M2_SIMPY_150_S09_Q041",
+                                                        "M2_SIMPY_150_S09_Q042"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT067",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사다리꼴에서 평행선 선분비 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C023",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT067",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q044",
+                                                        "M2_SIMPY_150_S04_Q045",
+                                                        "M2_SIMPY_150_S09_Q043",
+                                                        "M2_SIMPY_150_S09_Q044",
+                                                        "M2_SIMPY_150_S09_Q045"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT070",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사다리꼴과 한 대각선의 길이비 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C024",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "fraction",
+                                                       "integer",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT070",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q046",
+                                                        "M2_SIMPY_150_S04_Q047",
+                                                        "M2_SIMPY_150_S09_Q046",
+                                                        "M2_SIMPY_150_S09_Q047",
+                                                        "M2_SIMPY_150_S09_Q048"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT074",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사다리꼴과 두 대각선 - 교점 비통과 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C025",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT074",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q048",
+                                                        "M2_SIMPY_150_S04_Q049",
+                                                        "M2_SIMPY_150_S04_Q050",
+                                                        "M2_SIMPY_150_S09_Q049",
+                                                        "M2_SIMPY_150_S09_Q050",
+                                                        "M2_SIMPY_150_S09_Q051"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT077",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사다리꼴과 두 대각선 - 교점 통과 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C026",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT077",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q051",
+                                                        "M2_SIMPY_150_S04_Q052",
+                                                        "M2_SIMPY_150_S09_Q052"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT080",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행선 사이 길이비의 종합 응용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C027",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "parallel_line_ratio_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT080",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q053",
+                                                        "M2_SIMPY_150_S04_Q054",
+                                                        "M2_SIMPY_150_S09_Q053",
+                                                        "M2_SIMPY_150_S09_Q054",
+                                                        "M2_SIMPY_150_S09_Q055"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT083",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형의 중점연결정리 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C028",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "fraction",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "midpoint_median_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT083",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q055",
+                                                        "M2_SIMPY_150_S04_Q056",
+                                                        "M2_SIMPY_150_S04_Q057",
+                                                        "M2_SIMPY_150_S09_Q056",
+                                                        "M2_SIMPY_150_S09_Q057",
+                                                        "M2_SIMPY_150_S09_Q058",
+                                                        "M2_SIMPY_150_S09_Q059",
+                                                        "M2_SIMPY_150_S09_Q060",
+                                                        "M2_SIMPY_150_S09_Q061"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT086",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "중점연결정리의 중점 응용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C029",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "midpoint_median_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT086",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q058",
+                                                        "M2_SIMPY_150_S04_Q059",
+                                                        "M2_SIMPY_150_S09_Q062",
+                                                        "M2_SIMPY_150_S09_Q063",
+                                                        "M2_SIMPY_150_S09_Q064"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT089",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "중점연결정리의 삼등분선 응용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C030",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "midpoint_median_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT089",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q061",
+                                                        "M2_SIMPY_150_S04_Q062",
+                                                        "M2_SIMPY_150_S09_Q065",
+                                                        "M2_SIMPY_150_S09_Q066"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT090",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "중점연결정리의 삼등분선 응용 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C030",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "midpoint_median_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT090",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q060",
+                                                        "M2_SIMPY_150_S09_Q067"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT096",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사각형 각 변의 중점을 이은 사각형 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C032",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "midpoint_median_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT096",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q063",
+                                                        "M2_SIMPY_150_S04_Q064",
+                                                        "M2_SIMPY_150_S04_Q065",
+                                                        "M2_SIMPY_150_S09_Q068",
+                                                        "M2_SIMPY_150_S09_Q069",
+                                                        "M2_SIMPY_150_S09_Q070"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT098",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사다리꼴의 중점연결정리 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C033",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "midpoint_median_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT098",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q066",
+                                                        "M2_SIMPY_150_S09_Q071",
+                                                        "M2_SIMPY_150_S09_Q072",
+                                                        "M2_SIMPY_150_S09_Q073",
+                                                        "M2_SIMPY_150_S09_Q074"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT100",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형의 중선과 넓이 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C034",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "midpoint_median_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT100",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q067",
+                                                        "M2_SIMPY_150_S09_Q075"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT101",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형의 중선과 넓이 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C034",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "midpoint_median_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT101",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q068",
+                                                        "M2_SIMPY_150_S04_Q069",
+                                                        "M2_SIMPY_150_S09_Q076",
+                                                        "M2_SIMPY_150_S09_Q077"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT104",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형의 무게중심 기본 성질 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C035",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT104",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q070",
+                                                        "M2_SIMPY_150_S09_Q078"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT105",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "삼각형의 무게중심 기본 성질 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C035",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "multiple_select"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT105",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q071",
+                                                        "M2_SIMPY_150_S09_Q079"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT110",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "무게중심 응용 - 선분 길이 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C037",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT110",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q072",
+                                                        "M2_SIMPY_150_S04_Q074"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT111",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "무게중심 응용 - 선분 길이 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C037",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT111",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q073"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT112",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "무게중심 응용 - 비례식 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C038",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT112",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q076",
+                                                        "M2_SIMPY_150_S09_Q080"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT113",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "무게중심 응용 - 비례식 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C038",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT113",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q075",
+                                                        "M2_SIMPY_150_S04_Q077",
+                                                        "M2_SIMPY_150_S09_Q081",
+                                                        "M2_SIMPY_150_S09_Q082"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT115",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "무게중심 응용 - 복합도형 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C039",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT115",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q079"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT116",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "무게중심 응용 - 복합도형 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C039",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT116",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q078",
+                                                        "M2_SIMPY_150_S09_Q083",
+                                                        "M2_SIMPY_150_S09_Q084",
+                                                        "M2_SIMPY_150_S09_Q085"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT120",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "무게중심과 삼각형 넓이비 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C040",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT120",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q080",
+                                                        "M2_SIMPY_150_S04_Q081",
+                                                        "M2_SIMPY_150_S04_Q082",
+                                                        "M2_SIMPY_150_S09_Q086",
+                                                        "M2_SIMPY_150_S09_Q087",
+                                                        "M2_SIMPY_150_S09_Q088"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT121",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "두 무게중심과 넓이 관계 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C041",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT121",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q083"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT122",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "두 무게중심과 넓이 관계 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C041",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT122",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q084"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT125",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행사변형에서 무게중심과 길이 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C042",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT125",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q085",
+                                                        "M2_SIMPY_150_S09_Q089"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT126",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행사변형에서 무게중심과 길이 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C042",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT126",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q086",
+                                                        "M2_SIMPY_150_S09_Q090",
+                                                        "M2_SIMPY_150_S09_Q091"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT127",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행사변형에서 무게중심과 넓이 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C043",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT127",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q089",
+                                                        "M2_SIMPY_150_S09_Q094"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT128",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평행사변형에서 무게중심과 넓이 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C043",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area"
+                                                   ],
+                              "representation_types":  [
+                                                           "centroid_geometry_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT128",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q087",
+                                                        "M2_SIMPY_150_S04_Q088",
+                                                        "M2_SIMPY_150_S09_Q092",
+                                                        "M2_SIMPY_150_S09_Q093"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT131",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮은 평면도형의 넓이비 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C044",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_ratio_application_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT131",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q090",
+                                                        "M2_SIMPY_150_S04_Q091",
+                                                        "M2_SIMPY_150_S09_Q095",
+                                                        "M2_SIMPY_150_S09_Q096",
+                                                        "M2_SIMPY_150_S09_Q097"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT133",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮은 평면도형 넓이비의 활용 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C045",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_ratio_application_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT133",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q092",
+                                                        "M2_SIMPY_150_S09_Q101"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT135",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮은 평면도형 넓이비의 활용 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C045",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_ratio_application_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT135",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q093",
+                                                        "M2_SIMPY_150_S09_Q098",
+                                                        "M2_SIMPY_150_S09_Q099",
+                                                        "M2_SIMPY_150_S09_Q100"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT140",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮은 입체도형 겉넓이비의 활용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C047",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "solid_similarity_or_spatial_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT140",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q094",
+                                                        "M2_SIMPY_150_S04_Q095"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT143",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮은 입체도형의 부피비 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C048",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "volume"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "solid_similarity_or_spatial_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT143",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q096",
+                                                        "M2_SIMPY_150_S04_Q098",
+                                                        "M2_SIMPY_150_S09_Q102",
+                                                        "M2_SIMPY_150_S09_Q104"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT144",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮은 입체도형의 부피비 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C048",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "time",
+                                                       "volume"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "solid_similarity_or_spatial_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT144",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q097",
+                                                        "M2_SIMPY_150_S09_Q103"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT146",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮은 입체도형 부피비의 활용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C049",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "count",
+                                                       "measurement_or_labeled_number",
+                                                       "single_choice",
+                                                       "volume"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "solid_similarity_or_spatial_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT146",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q099",
+                                                        "M2_SIMPY_150_S04_Q100",
+                                                        "M2_SIMPY_150_S09_Q105",
+                                                        "M2_SIMPY_150_S09_Q106",
+                                                        "M2_SIMPY_150_S09_Q107"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT148",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮음의 실생활 활용 - 높이·축척 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C050",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_ratio_application_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT148",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q102",
+                                                        "M2_SIMPY_150_S04_Q104",
+                                                        "M2_SIMPY_150_S09_Q110",
+                                                        "M2_SIMPY_150_S09_Q111",
+                                                        "M2_SIMPY_150_S09_Q113"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT149",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "닮음의 실생활 활용 - 높이·축척 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C050",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice",
+                                                       "time"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "similarity_ratio_application_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT149",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q101",
+                                                        "M2_SIMPY_150_S04_Q103",
+                                                        "M2_SIMPY_150_S09_Q108",
+                                                        "M2_SIMPY_150_S09_Q109",
+                                                        "M2_SIMPY_150_S09_Q112"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT151",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "피타고라스 정리로 삼각형의 변 구하기 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C051",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "pythagorean_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT151",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q107"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT152",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "피타고라스 정리로 삼각형의 변 구하기 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C051",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT152",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q105",
+                                                        "M2_SIMPY_150_S04_Q106",
+                                                        "M2_SIMPY_150_S04_Q109",
+                                                        "M2_SIMPY_150_S09_Q114",
+                                                        "M2_SIMPY_150_S09_Q115",
+                                                        "M2_SIMPY_150_S09_Q116"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT153",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "피타고라스 정리로 삼각형의 변 구하기 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C051",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "decimal",
+                                                       "integer"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT153",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q108",
+                                                        "M2_SIMPY_150_S04_Q110",
+                                                        "M2_SIMPY_150_S09_Q117",
+                                                        "M2_SIMPY_150_S09_Q118",
+                                                        "M2_SIMPY_150_S09_Q119"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT155",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "직각삼각형의 닮음과 피타고라스 정리 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C052",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "fraction",
+                                                       "integer"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT155",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q112",
+                                                        "M2_SIMPY_150_S09_Q120"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT156",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "직각삼각형의 닮음과 피타고라스 정리 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C052",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "fraction",
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT156",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q111",
+                                                        "M2_SIMPY_150_S04_Q113",
+                                                        "M2_SIMPY_150_S09_Q121",
+                                                        "M2_SIMPY_150_S09_Q122"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT157",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사각형·직사각형에서 피타고라스 정리 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C053",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "pythagorean_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT157",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q114",
+                                                        "M2_SIMPY_150_S04_Q117"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT158",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사각형·직사각형에서 피타고라스 정리 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C053",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT158",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q115",
+                                                        "M2_SIMPY_150_S04_Q116",
+                                                        "M2_SIMPY_150_S04_Q118",
+                                                        "M2_SIMPY_150_S04_Q119",
+                                                        "M2_SIMPY_150_S04_Q120",
+                                                        "M2_SIMPY_150_S09_Q123",
+                                                        "M2_SIMPY_150_S09_Q125",
+                                                        "M2_SIMPY_150_S09_Q126"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT159",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "사각형·직사각형에서 피타고라스 정리 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C053",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "integer",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT159",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q121",
+                                                        "M2_SIMPY_150_S09_Q124",
+                                                        "M2_SIMPY_150_S09_Q127",
+                                                        "M2_SIMPY_150_S09_Q128"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT161",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "이등변삼각형의 높이와 넓이 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C054",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT161",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q122",
+                                                        "M2_SIMPY_150_S09_Q130",
+                                                        "M2_SIMPY_150_S09_Q131"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT162",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "이등변삼각형의 높이와 넓이 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C054",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer",
+                                                       "length"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT162",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q123",
+                                                        "M2_SIMPY_150_S09_Q129"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT165",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "피타고라스 정리의 여러 증명 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C055",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "integer",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "area_dissection_proof_diagram",
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT165",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q124",
+                                                        "M2_SIMPY_150_S04_Q125",
+                                                        "M2_SIMPY_150_S04_Q126",
+                                                        "M2_SIMPY_150_S04_Q127",
+                                                        "M2_SIMPY_150_S04_Q128",
+                                                        "M2_SIMPY_150_S09_Q132",
+                                                        "M2_SIMPY_150_S09_Q133",
+                                                        "M2_SIMPY_150_S09_Q134",
+                                                        "M2_SIMPY_150_S09_Q135",
+                                                        "M2_SIMPY_150_S09_Q136",
+                                                        "M2_SIMPY_150_S09_Q137"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT166",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "피타고라스 정리의 역과 삼각형 분류 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C056",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT166",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q130",
+                                                        "M2_SIMPY_150_S04_Q131",
+                                                        "M2_SIMPY_150_S04_Q132",
+                                                        "M2_SIMPY_150_S09_Q139"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT167",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "피타고라스 정리의 역과 삼각형 분류 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C056",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "integer"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT167",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q129",
+                                                        "M2_SIMPY_150_S09_Q138",
+                                                        "M2_SIMPY_150_S09_Q140",
+                                                        "M2_SIMPY_150_S09_Q141"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT169",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평면도형에서 피타고라스 정리의 활용 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C057",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "pythagorean_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT169",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q140"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT170",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평면도형에서 피타고라스 정리의 활용 - 비례식·정리 적용",
+                              "concept_ids":  "M2_SIMPY_C057",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer"
+                                                   ],
+                              "representation_types":  [
+                                                           "pythagorean_geometry_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT170",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q137"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT171",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "평면도형에서 피타고라스 정리의 활용 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C057",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "fraction",
+                                                       "integer",
+                                                       "length",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT171",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q133",
+                                                        "M2_SIMPY_150_S04_Q134",
+                                                        "M2_SIMPY_150_S04_Q135",
+                                                        "M2_SIMPY_150_S04_Q136",
+                                                        "M2_SIMPY_150_S04_Q138",
+                                                        "M2_SIMPY_150_S04_Q139",
+                                                        "M2_SIMPY_150_S09_Q142",
+                                                        "M2_SIMPY_150_S09_Q143",
+                                                        "M2_SIMPY_150_S09_Q144"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT174",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "히포크라테스·피타고라스 나무·종이접기 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C058",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "area",
+                                                       "integer",
+                                                       "length",
+                                                       "multiple_select",
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "pythagorean_geometry_diagram",
+                                                           "Rank",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT174",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q141",
+                                                        "M2_SIMPY_150_S04_Q142",
+                                                        "M2_SIMPY_150_S04_Q143",
+                                                        "M2_SIMPY_150_S04_Q144",
+                                                        "M2_SIMPY_150_S04_Q145",
+                                                        "M2_SIMPY_150_S09_Q145",
+                                                        "M2_SIMPY_150_S09_Q146",
+                                                        "M2_SIMPY_150_S09_Q147"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT175",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "입체도형과 원기둥 최단거리 - 개념·조건 판별",
+                              "concept_ids":  "M2_SIMPY_C059",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "single_choice"
+                                                   ],
+                              "representation_types":  [
+                                                           "solid_similarity_or_spatial_diagram"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT175",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q147",
+                                                        "M2_SIMPY_150_S04_Q149",
+                                                        "M2_SIMPY_150_S04_Q150"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          },
+                          {
+                              "problem_type_id":  "M2_SIMPY_PT177",
+                              "grade":  "중2",
+                              "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+                              "unit_name":  "도형의 닮음과 피타고라스 정리",
+                              "type_name":  "입체도형과 원기둥 최단거리 - 복합 계산·증명",
+                              "concept_ids":  "M2_SIMPY_C059",
+                              "error_tags":  null,
+                              "response_formats":  [
+                                                       "integer"
+                                                   ],
+                              "representation_types":  [
+                                                           "Count",
+                                                           "IsFixedSize",
+                                                           "IsReadOnly",
+                                                           "IsSynchronized",
+                                                           "Length",
+                                                           "LongLength",
+                                                           "Rank",
+                                                           "solid_similarity_or_spatial_diagram",
+                                                           "SyncRoot"
+                                                       ],
+                              "problem_family_id":  "M2_SIMPY_FAM_M2_SIMPY_PT177",
+                              "attested_item_ids":  [
+                                                        "M2_SIMPY_150_S04_Q146",
+                                                        "M2_SIMPY_150_S04_Q148",
+                                                        "M2_SIMPY_150_S09_Q148",
+                                                        "M2_SIMPY_150_S09_Q149",
+                                                        "M2_SIMPY_150_S09_Q150"
+                                                    ],
+                              "attested_in_sets":  [
+                                                       "set04",
+                                                       "set09"
+                                                   ],
+                              "status":  "raw_registered_not_wired"
+                          }
+                      ]
+}

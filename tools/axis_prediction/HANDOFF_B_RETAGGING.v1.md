@@ -25,7 +25,12 @@
   - **축분포 광폭**(삼각비 특성): A2·29(특수각 암기)·B2·15·C1·73·D3·26 등 A1·A3·E1·E2 뺀 전축 등장. 닮음(C편중)과 대조적 변별폭.
   - ⚠ **삼각비 set 구분**: set01=무번호 / set07=(6) / set11=(10, 72문항). 정본명에 set번호 명시.
 - **다음 할 일** (검수 큐): ① 삼각비(10)=set11(72) · 함수(5) · 함수(8)=48×2 순차 반영 — 로컬 확보분. ② **crosswalk + 예측 error_tags** = 아래 후속조사 2건 회신 후(§금지된 이름매칭 회피). ③ 856 나머지(다항식·이차함수·도형성질)=PDF 로컬 부재, 사용자 확보 대기.
-- **🔎 후속조사 2건(crosswalk 선결, 미회신)**: ⓐ 다른 4단원 `problem_types`의 error_tags 실태·상속원. ⓑ `source_item_bank`(set04 등)에 `problem_type_id` 필드 존재 여부. 둘 없으면 crosswalk가 type_name 이름매칭이 되어 §5 감사 금지(최대 69pp 유실). 반영 중 여유 시 병행.
+- **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
+  - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
+  - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
+  - 🔴 **경정정**: 내 mathflat 등재(`m2_similarity`, M2_SIMILARITY, 닮음만 81)는 **유닛 canonical 아님** = 플랫폼 뷰. `superseded_note` 표시. 완료 유닛(수와식)은 links의 primary_problem_type_id가 problem_types 파일로 해소되나 닮음은 정의파일만 부재였음.
+  - **✅ M2_SIMPY problem_types 뼈대 등재**(검수결정): `data/problem_types/m2_similarity_pythagoras.problem_types.v1.json`(87유형, type_variant_bank+links id조인, concept_ids 87/87, `error_tags=null`, `status:raw_registered_not_wired`).
+  - **유일 pending = 예측 error_tags 상속원**(완료 유닛 vocab: core·조건류. 상속 vs 신규는 후속판정, 검수결정=지금은 보류). default_difficulty·전체유형 완성(워크시트 미커버 PT177까지)도 후속.
 
 ## ⏱ 첫 5분
 - **목표**: 각 단원 150문항을 재태깅(오류형)→17진단축(관측층)에 매핑→문항단위 반영. PREDICTED(팩)와 별개층.
