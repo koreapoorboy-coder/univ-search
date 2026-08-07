@@ -4,7 +4,7 @@
   "source": "_inbox/tagging_real_numbers6_v4_v2.json (36유형·150문항·49종, 재사용36·신규13, 검수 조건부PASS -> Code탭 유형34 4태그->3태그 수정 후 독립검증 PASS)",
   "scope": "신규 13종만 17축 매핑. 재사용 36종은 기존 축 승계(풀 전수대조 gap 0, 재사용률 73.5%).",
   "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지(§9).",
-  "review_status": "CODE_DRAFT (Code탭 매핑, 검수 리뷰 대기. 검수 배정 주목 10종 + 미언급 3종은 풀 인접축 선례로 확정)",
+  "review_status": "REVIEWED_APPROVED (2026-08-07 검수 전량 승인: 13종 축배정·유형34 수정·미언급 3종 풀 선례 확정·C1 2종 B1으로 안 밈(B1/C2 판례) 모두 승인)",
   "판례_적용": "①근호 형태변환(계수 안팎 이동·완전제곱 인수추출·곱 정리·유리화)=C4(순수 표현변환) ②실수 원자개념(제곱근 개수·주값 부호·밀도·연산 닫힘)=C2 ③조건 세우기(N=완전제곱·무리수항 계수 q=0)=C1(B1로 밀지 말 것: 문제에 주어진 조건 누락이 아니라 학생이 조건을 스스로 세워야 함. B1/C2 판례) ④√x 구간대응=C3(해석적 연결) ⑤근호 대소비교=C2(magnitude 선례). 도형 길이->수직선 좌표=C4(coordinate_projection_from_similarity 선례).",
   "map": {
     "square_root_existence_count_confusion":                 {"axis":"C2","tier":"confident","note":"양수·0·음수의 제곱근 개수 2·1·0 혼동 = 제곱근 정의 원자개념. 실수 단원 대표 개념오류"},

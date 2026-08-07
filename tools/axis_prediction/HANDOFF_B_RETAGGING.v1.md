@@ -14,9 +14,10 @@
   |---|---|---|---|
   | 확률(5) | m2_probability | set06→`M2_PROB_150_S06` | `260711_경우의 수와 확률(5).pdf` |
   | 확률(10) | m2_probability | set11→`M2_PROB_150_S11` | `260711_경우의 수와 확률(10).pdf` |
+  - ⚠ **확률 특수성(검수 사전고지)**: 지금까지 어느 단원과도 계열 다름(경우의 수·조합·확률 계산). **신규 20~30종 예상**, **재사용률 40~55%가 정상 범위** — 낮게 나와도 신규 태그 정당성만 확인되면 PASS(닮음 광폭 선례처럼 억지 승계 금지).
 - **단원 반영 절차**(반복): ①파일 `_inbox/`에 확보(cp 실체화 or 검수 원본 재전달; Downloads 미실체 시 재수록 폴백). ②독립검증(유형수·문항수·1~150연속·종수·tag_scope 범위·유형당2~3태그). ③**축매핑 풀 전수대조**(NOT-IN-POOL=신규, verification_missing류 재사용 갭 주의). ④신규만 17축 매핑(맵파일 `B_tag_axis_map_<CODE>_new.v1.json`, 판례 적용, review_status=CODE_DRAFT). ⑤반영(tag_scope 배분·item_id 조인)→`B_reflection_*`. ⑥커밋 태깅+맵+반영. 검수 확정 후 맵 REVIEWED_APPROVED.
 - **재현 스크립트**(scratchpad, 매 세션 재작성): PS5.1 **ASCII 전용**(한글은 데이터 통과 or `[char]0x…` 코드포인트, ConvertFrom-Json은 `[IO.File]::ReadAllText(...,UTF8)`; `$ErrorActionPreference` Stop 금지-ConvertFrom-Json이 경고에 죽음). 반영 맵 풀 = 유닛맵(similarity3_new·M2LF_new·M3QF_new·M3POLY_new·M2GEOM_new·M3QUAD_new·M3TR_new·M3CP.v2·M3CP_circle6new·M2NE·**M3REAL_new**) + verification_missing은 M3POLY맵에 E1 캐리. 풀 유니크키 271종.
-- **확정 판례/규칙**(§확정규율·§7 참조): 그래프↔식 3분(순수형태변환=C4/해석적연결=C3/원자개념=C2)·**D2 vs D3**(대입자리=D2/계수계산=D3)·**B1 vs C2**(문제에주어짐안씀=B1/알고꺼내야하는데못꺼냄=C2)·D3/C2(공식알되계수틀림)·converse류=C3(cyclicity B3 미승계)·**E1=문항구조 기준**(역방향 문항 유무, 단원 아님)·**기준명시**(관측 union vs 축매핑풀). 축 변별력 3사례(수와식D/원C/일차B/이차C3/다항광폭).
+- **확정 판례/규칙**(§확정규율·§7 참조): 그래프↔식 3분(순수형태변환=C4/해석적연결=C3/원자개념=C2)·**D2 vs D3**(대입자리=D2/계수계산=D3)·**B1 vs C2**(문제에주어짐안씀=B1/알고꺼내야하는데못꺼냄=C2)·D3/C2(공식알되계수틀림)·converse류=C3(cyclicity B3 미승계)·**E1=문항구조 기준**(역방향 문항 유무, 단원 아님)·**기준명시**(관측 union vs 축매핑풀). 축 변별력 사례(수와식D/원C/일차B/이차C3/다항광폭/**실수=C2·62+C4·57 지배+D1·D3·B2 혼재 12축광폭**: 개념(제곱근정의·밀도·연산닫힘)+형태변환(근호정리)이 계산태그와 섞인 계산단원 특성).
 - **예측층·후속(별도 과제, 지금 아님)**: M2_SIMPY error_tags **null 유지**(예측축과 무관·소비처 3개 null-safe, 예측층 정비 시 재검토). 닮음 예측축 실행완료(`Run-AxisPrediction -Only GS` 100%커버·과발화0). **D2 대조 발견 1호**(예측53.6%vs관측5.7%=정의불일치, [[predicted-observed-d2-gap]]). crosswalk=`source_item_links` id조인(이름매칭 불필요). **타단원 예측축 대조**(D2격차 닮음특유vs전반)는 남은 PDF 반영 후.
 - **메모리 5**: repo-location-local-projects·file-transfer-workflow·retagging-observed-axis-pipeline·observed-vs-axismap-pool-basis·predicted-layer-join-source-item-links·predicted-observed-d2-gap.
 
