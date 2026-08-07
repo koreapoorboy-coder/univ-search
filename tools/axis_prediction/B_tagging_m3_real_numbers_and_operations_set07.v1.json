@@ -1,0 +1,864 @@
+{
+  "source_pdf": "260711_실수와 그 계산(6)(1).pdf",
+  "unit": "중3 실수와 그 계산",
+  "n_types": 36,
+  "n_items": 150,
+  "n_unique_tags": 49,
+  "n_reused_tags": 36,
+  "n_new_tags": 13,
+  "tag_language": "en_snake_case",
+  "authority_sources": [
+    "SPEC_tagging_v4.md",
+    "TAG_DICTIONARY_v2.md",
+    "tagging_sooiksik5.json",
+    "tagging_similarity8_v4_v2.json",
+    "tagging_polynomial_factorization5_v4_v2.json",
+    "tagging_polynomial_factorization13_v4_v2.json"
+  ],
+  "source_metadata": {
+    "sha256": "9146c16b8c925d339309d7dc8832b3b05675bb42103a7116069f649753d75133",
+    "problem_pages": "1-39",
+    "quick_answer_pages": "40-41",
+    "solution_pages": "42-63",
+    "type_headers_present": true,
+    "accuracy_headers_present": true,
+    "handoff_version": "math_tagging_handoff_v5_20260807"
+  },
+  "code_review_note": {
+    "type_34_tag_count_fix": "Removed 'multi_step_composite_error' from type_no 34 (was 4 tags, spec §3 limit is 2-3). Redundant: its tag_scope [140,143,144] was identical to pythagorean_setup_failure; the other three are concept-specific (pythagorean/area_formula/centroid). Item coverage preserved after removal (140->pyth, 141/142->area, 143/144->pyth+centroid). Decision by Code tab, confident.",
+    "reviewer_verdict": "conditional PASS (tagging_real_numbers6_v4_v2.json)"
+  },
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "제곱근의 이해",
+      "item_start": 1,
+      "item_end": 5,
+      "items": [
+        { "item_no": 1, "accuracy": 67 },
+        { "item_no": 2, "accuracy": 73 },
+        { "item_no": 3, "accuracy": 59 },
+        { "item_no": 4, "accuracy": 69 },
+        { "item_no": 5, "accuracy": 85 }
+      ],
+      "tags": [
+        "square_root_existence_count_confusion",
+        "principal_square_root_notation_confusion",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [1, 2]
+      },
+      "rationale": "Q1~Q5는 양수·0·음수의 제곱근 개수와 “a의 제곱근”과 √a(주값)의 부호를 구분하는 유형이다. Q3이 59%로 가장 낮고, Q1·Q2는 정답을 둘 이상 선택해야 하므로 복수정답 누락을 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "제곱근 구하기",
+      "item_start": 6,
+      "item_end": 9,
+      "items": [
+        { "item_no": 6, "accuracy": 62 },
+        { "item_no": 7, "accuracy": 87 },
+        { "item_no": 8, "accuracy": 89 },
+        { "item_no": 9, "accuracy": 78 }
+      ],
+      "tags": [
+        "square_root_existence_count_confusion",
+        "principal_square_root_notation_confusion",
+        "mixed_recurring_conversion_error"
+      ],
+      "tag_scope": {
+        "mixed_recurring_conversion_error": [8, 9]
+      },
+      "rationale": "Q6·Q9는 √625·√81을 먼저 값으로 만든 뒤 그 수의 양·음 제곱근을 다시 구해야 해 제곱근의 층과 부호를 혼동하기 쉽다. Q8·Q9에는 순환소수를 분수로 바꾸는 조작이 추가되므로 해당 오류를 문항 한정으로 둔다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "제곱근의 성질을 이용하여 제곱근 구하기",
+      "item_start": 10,
+      "item_end": 14,
+      "items": [
+        { "item_no": 10, "accuracy": 79 },
+        { "item_no": 11, "accuracy": 62 },
+        { "item_no": 12, "accuracy": 60 },
+        { "item_no": 13, "accuracy": 75 },
+        { "item_no": 14, "accuracy": 70 }
+      ],
+      "tags": [
+        "absolute_value_from_square_root_omitted",
+        "principal_square_root_notation_confusion",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [13, 14]
+      },
+      "rationale": "Q10~Q12는 √(u²)=|u|와 제곱근 기호의 주값을 정확히 적용하는 것이 핵심이며 Q12가 60%로 가장 낮다. Q13·Q14는 중첩된 근호를 여러 단계 연속으로 줄여야 하므로 다단계 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "제곱근의 성질을 이용한 계산",
+      "item_start": 15,
+      "item_end": 18,
+      "items": [
+        { "item_no": 15, "accuracy": 85 },
+        { "item_no": 16, "accuracy": 84 },
+        { "item_no": 17, "accuracy": 87 },
+        { "item_no": 18, "accuracy": 74 }
+      ],
+      "tags": [
+        "absolute_value_from_square_root_omitted",
+        "sign_propagation_error",
+        "operation_order_violation"
+      ],
+      "rationale": "Q15~Q18은 음수의 짝수제곱과 √(u²)을 함께 처리한 뒤 여러 항을 순서대로 계산한다. 특히 Q18은 74%로 다른 문항보다 낮아 제곱·근호·앞의 음수 부호가 겹칠 때 부호 전달과 계산 순서가 흔들리는 오류를 본다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "√a²의 성질",
+      "item_start": 19,
+      "item_end": 22,
+      "items": [
+        { "item_no": 19, "accuracy": 81 },
+        { "item_no": 20, "accuracy": 83 },
+        { "item_no": 21, "accuracy": 72 },
+        { "item_no": 22, "accuracy": 68 }
+      ],
+      "tags": [
+        "absolute_value_from_square_root_omitted",
+        "range_constraint_dropped",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q19~Q22는 √(ka)²=|ka|로 바꾼 뒤 a<0 또는 a>0 조건으로 절댓값의 부호를 결정해야 한다. 범위 조건을 버리거나 근호를 바로 ka로 없애면 Q21·Q22처럼 음수 조건에서 부호가 반대로 된다."
+    },
+    {
+      "type_no": 6,
+      "type_name": "√a²꼴을 포함한 식 간단히 하기",
+      "item_start": 23,
+      "item_end": 23,
+      "items": [
+        { "item_no": 23, "accuracy": 60 }
+      ],
+      "tags": [
+        "absolute_value_from_square_root_omitted",
+        "range_constraint_dropped",
+        "extremum_selection_error"
+      ],
+      "rationale": "Q23은 a<0 조건 아래 여러 √(ka)² 식을 각각 절댓값으로 정리하고, 그 결과 중 가장 작은 값을 골라야 한다. 절댓값 부호 결정과 최솟값 선택이 독립적인 오답 지점이다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "√(a-b)²꼴을 포함한 식 간단히 하기",
+      "item_start": 24,
+      "item_end": 27,
+      "items": [
+        { "item_no": 24, "accuracy": 81 },
+        { "item_no": 25, "accuracy": 83 },
+        { "item_no": 26, "accuracy": 62 },
+        { "item_no": 27, "accuracy": 73 }
+      ],
+      "tags": [
+        "absolute_value_from_square_root_omitted",
+        "range_constraint_dropped",
+        "multi_constraint_intersection_failure"
+      ],
+      "tag_scope": {
+        "multi_constraint_intersection_failure": [26, 27]
+      },
+      "rationale": "Q24~Q27은 √(a-b)²=|a-b|를 적용하고 주어진 대소·부호 조건으로 각 절댓값의 부호를 정한다. Q26·Q27은 ab의 부호, a+b 또는 a-b 조건을 동시에 결합해야 하므로 여러 조건의 교집합 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 8,
+      "type_name": "√Ax가 자연수가 되도록 하는 자연수 x의 값 구하기",
+      "item_start": 28,
+      "item_end": 30,
+      "items": [
+        { "item_no": 28, "accuracy": 68 },
+        { "item_no": 29, "accuracy": 85 },
+        { "item_no": 30, "accuracy": 71 }
+      ],
+      "tags": [
+        "perfect_square_radicand_condition_failure",
+        "extremum_selection_error",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "extremum_selection_error": [28, 29],
+        "integer_candidate_enumeration_gap": [30]
+      },
+      "rationale": "Q28~Q30은 √(An)이 자연수가 되려면 근호 안이 완전제곱수가 되어야 한다는 조건을 소인수 지수의 짝맞춤으로 구현한다. Q28·Q29는 범위 안에서 최대·최소를 골라야 하고, Q30은 두 자리 자연수 후보의 개수를 빠짐없이 세어야 한다."
+    },
+    {
+      "type_no": 9,
+      "type_name": "√A/x가 자연수가 되도록 하는 자연수 x의 값 구하기",
+      "item_start": 31,
+      "item_end": 33,
+      "items": [
+        { "item_no": 31, "accuracy": 89 },
+        { "item_no": 32, "accuracy": 64 },
+        { "item_no": 33, "accuracy": 52 }
+      ],
+      "tags": [
+        "perfect_square_radicand_condition_failure",
+        "denominator_multiple_condition_error",
+        "multi_constraint_intersection_failure"
+      ],
+      "tag_scope": {
+        "multi_constraint_intersection_failure": [31, 33]
+      },
+      "rationale": "Q31~Q33은 √(A/x)가 자연수가 되려면 먼저 x가 분모를 없애는 약수여야 하고 A/x가 완전제곱수가 되어야 한다. Q31과 Q33은 두 근호 조건을 동시에 만족시켜야 하며 Q33이 52%로 가장 낮아 조건 교집합 누락을 별도로 둔다."
+    },
+    {
+      "type_no": 10,
+      "type_name": "√(A-x)가 자연수(정수)가 되도록 하는 자연수 x의 값 구하기",
+      "item_start": 34,
+      "item_end": 38,
+      "items": [
+        { "item_no": 34, "accuracy": 51 },
+        { "item_no": 35, "accuracy": 75 },
+        { "item_no": 36, "accuracy": 58 },
+        { "item_no": 37, "accuracy": 78 },
+        { "item_no": 38, "accuracy": 80 }
+      ],
+      "tags": [
+        "perfect_square_radicand_condition_failure",
+        "integer_candidate_enumeration_gap",
+        "extremum_selection_error"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [34, 36, 37, 38],
+        "extremum_selection_error": [35, 38]
+      },
+      "rationale": "Q34~Q38은 √(A-bx)가 자연수·정수가 되도록 근호 안을 k²로 놓고 가능한 제곱수를 범위 안에서 조사한다. Q34가 51%, Q36이 58%로 낮고, Q35·Q38은 가능한 제곱수 중 최대·최소 조건까지 반영해야 한다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "제곱근의 대소 관계",
+      "item_start": 39,
+      "item_end": 42,
+      "items": [
+        { "item_no": 39, "accuracy": 61 },
+        { "item_no": 40, "accuracy": 75 },
+        { "item_no": 41, "accuracy": 68 },
+        { "item_no": 42, "accuracy": 75 }
+      ],
+      "tags": [
+        "radical_magnitude_comparison_failure",
+        "range_constraint_dropped",
+        "absolute_value_from_square_root_omitted"
+      ],
+      "tag_scope": {
+        "absolute_value_from_square_root_omitted": [41, 42]
+      },
+      "rationale": "Q39~Q42는 0<a<1 또는 -1<x<0 같은 범위에서 a, √a, 역수, 제곱의 크기와 부호를 비교한다. Q41·Q42에는 √(u²)=|u|가 추가되어 음수 자체를 그대로 꺼내면 순서가 뒤집힌다."
+    },
+    {
+      "type_no": 12,
+      "type_name": "제곱근을 포함한 부등식",
+      "item_start": 43,
+      "item_end": 45,
+      "items": [
+        { "item_no": 43, "accuracy": 81 },
+        { "item_no": 44, "accuracy": 41 },
+        { "item_no": 45, "accuracy": 62 }
+      ],
+      "tags": [
+        "inequality_bound_conversion_error",
+        "integer_candidate_enumeration_gap",
+        "absolute_value_from_square_root_omitted"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [44, 45],
+        "absolute_value_from_square_root_omitted": [43]
+      },
+      "rationale": "Q43~Q45는 근호 부등식을 제곱 가능한 범위로 바꾸고 정수·자연수 후보를 골라야 한다. Q44는 41%로 가장 낮아 √3, √6의 정수 경계를 정확히 잡아 세 정수를 배치해야 하며, Q43은 √(10x²)=√10|x| 처리가 필요하다."
+    },
+    {
+      "type_no": 13,
+      "type_name": "√x 이하의 자연수 구하기",
+      "item_start": 46,
+      "item_end": 50,
+      "items": [
+        { "item_no": 46, "accuracy": 66 },
+        { "item_no": 47, "accuracy": 67 },
+        { "item_no": 48, "accuracy": 48 },
+        { "item_no": 49, "accuracy": 70 },
+        { "item_no": 50, "accuracy": 76 }
+      ],
+      "tags": [
+        "square_root_floor_interval_mapping_failure",
+        "integer_candidate_enumeration_gap",
+        "pattern_extraction_failure"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [46, 47],
+        "pattern_extraction_failure": [48, 49, 50]
+      },
+      "rationale": "Q46~Q50은 “√x 이하의 자연수 개수”를 n≤√x<n+1, 즉 n²≤x<(n+1)² 구간으로 바꾸는 것이 출발점이다. Q48은 48%로 반정수 경계의 구간별 개수를 읽어야 하고 Q49·Q50은 같은 계단형 개수를 누적합 패턴으로 연결한다."
+    },
+    {
+      "type_no": 14,
+      "type_name": "유리수와 무리수의 구별",
+      "item_start": 51,
+      "item_end": 55,
+      "items": [
+        { "item_no": 51, "accuracy": 37 },
+        { "item_no": 52, "accuracy": 67 },
+        { "item_no": 53, "accuracy": 60 },
+        { "item_no": 54, "accuracy": 53 },
+        { "item_no": 55, "accuracy": 60 }
+      ],
+      "tags": [
+        "rational_irrational_operation_closure_error",
+        "perfect_square_radicand_condition_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "tag_scope": {
+        "perfect_square_radicand_condition_failure": [51, 52, 53],
+        "multi_constraint_intersection_failure": [52, 53]
+      },
+      "rationale": "Q51~Q55는 근호가 유리수가 되는 완전제곱 조건과 유리수·무리수의 사칙연산 결과를 구분한다. Q51은 37%로 가장 낮고, Q52·Q53은 여러 √(kx)가 모두 무리수가 되도록 각 완전제곱 제외 조건을 동시에 합쳐야 한다."
+    },
+    {
+      "type_no": 15,
+      "type_name": "무리수를 수직선 위에 나타내기",
+      "item_start": 56,
+      "item_end": 59,
+      "items": [
+        { "item_no": 56, "accuracy": 81 },
+        { "item_no": 57, "accuracy": 67 },
+        { "item_no": 58, "accuracy": 81 },
+        { "item_no": 59, "accuracy": 72 }
+      ],
+      "tags": [
+        "radical_length_to_number_line_mapping_failure",
+        "pythagorean_setup_failure",
+        "irrational_inclusion_error"
+      ],
+      "tag_scope": {
+        "pythagorean_setup_failure": [56, 57, 59],
+        "irrational_inclusion_error": [57]
+      },
+      "rationale": "Q56~Q59는 정사각형·격자에서 피타고라스로 √2, √5 같은 길이를 만든 뒤 그 길이를 수직선의 좌표와 방향으로 옮긴다. Q57은 구성된 점의 좌표가 유리수인지 무리수인지까지 판별해야 하므로 무리수 포함 관계 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 16,
+      "type_name": "실수와 수직선",
+      "item_start": 60,
+      "item_end": 63,
+      "items": [
+        { "item_no": 60, "accuracy": 80 },
+        { "item_no": 61, "accuracy": 80 },
+        { "item_no": 62, "accuracy": 82 },
+        { "item_no": 63, "accuracy": 76 }
+      ],
+      "tags": [
+        "real_number_set_density_confusion",
+        "irrational_inclusion_error"
+      ],
+      "rationale": "Q60~Q63은 서로 다른 두 실수 사이에 유리수와 무리수가 무한히 많다는 밀도 성질과 정수·자연수의 유한성을 구분한다. “무한소수=무리수” 또는 “두 무리수 사이에는 유리수가 없다” 같은 포함·밀도 혼동이 공통 오류다."
+    },
+    {
+      "type_no": 17,
+      "type_name": "두 실수 사이의 수",
+      "item_start": 64,
+      "item_end": 68,
+      "items": [
+        { "item_no": 64, "accuracy": 66 },
+        { "item_no": 65, "accuracy": 72 },
+        { "item_no": 66, "accuracy": 81 },
+        { "item_no": 67, "accuracy": 83 },
+        { "item_no": 68, "accuracy": 64 }
+      ],
+      "tags": [
+        "radical_magnitude_comparison_failure",
+        "integer_candidate_enumeration_gap",
+        "real_number_set_density_confusion"
+      ],
+      "tag_scope": {
+        "real_number_set_density_confusion": [66, 67]
+      },
+      "rationale": "Q64~Q68은 √n을 인접한 정수 사이에 끼워 넣어 두 실수 사이 정수의 개수나 경계를 결정한다. Q66·Q67은 그 구간 안의 유리수·무리수의 무한성을 추가로 묻고, Q68은 네 정수가 들어가도록 양쪽 경계를 동시에 맞춰야 한다."
+    },
+    {
+      "type_no": 18,
+      "type_name": "근호가 있는 식의 변형(1) √a²b",
+      "item_start": 69,
+      "item_end": 72,
+      "items": [
+        { "item_no": 69, "accuracy": 85 },
+        { "item_no": 70, "accuracy": 90 },
+        { "item_no": 71, "accuracy": 82 },
+        { "item_no": 72, "accuracy": 76 }
+      ],
+      "tags": [
+        "radical_product_simplification_error",
+        "perfect_square_factor_extraction_failure",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [72]
+      },
+      "rationale": "Q69~Q72는 √a·√b=√(ab)로 근호를 합친 뒤 완전제곱 인수를 밖으로 꺼내 계수를 맞춘다. Q72는 여섯 개의 근호 곱을 한꺼번에 소인수 지수로 정리해야 하므로 연쇄 계산 오류를 문항 한정으로 둔다."
+    },
+    {
+      "type_no": 19,
+      "type_name": "근호가 있는 식의 변형(2) a√b",
+      "item_start": 73,
+      "item_end": 77,
+      "items": [
+        { "item_no": 73, "accuracy": 83 },
+        { "item_no": 74, "accuracy": 86 },
+        { "item_no": 75, "accuracy": 70 },
+        { "item_no": 76, "accuracy": 78 },
+        { "item_no": 77, "accuracy": 77 }
+      ],
+      "tags": [
+        "coefficient_inside_radical_conversion_failure",
+        "radical_product_simplification_error",
+        "multi_expression_dependency_error"
+      ],
+      "tag_scope": {
+        "multi_expression_dependency_error": [75, 76, 77]
+      },
+      "rationale": "Q73~Q77은 a√b↔√(a²b) 변형으로 계수를 근호 안팎으로 이동시키고 같은 근호 계수를 비교한다. Q75~Q77은 a,b 두 미지수나 ab 조건을 함께 유지해야 해 한 식에서 구한 관계를 다른 식에 연결하지 못하는 오류를 별도로 둔다."
+    },
+    {
+      "type_no": 20,
+      "type_name": "제곱근의 나눗셈",
+      "item_start": 78,
+      "item_end": 81,
+      "items": [
+        { "item_no": 78, "accuracy": 77 },
+        { "item_no": 79, "accuracy": 77 },
+        { "item_no": 80, "accuracy": 71 },
+        { "item_no": 81, "accuracy": 86 }
+      ],
+      "tags": [
+        "radical_ratio_simplification_error",
+        "ratio_direction_inversion",
+        "difference_direction_error"
+      ],
+      "tag_scope": {
+        "difference_direction_error": [78]
+      },
+      "rationale": "Q78~Q81은 √a÷√b=√(a/b)를 사용해 두 근호식의 배율을 구한다. “A는 B의 몇 배” 방향을 뒤집기 쉽고, Q78은 마지막에 a-b를 요구하므로 차의 방향 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 21,
+      "type_name": "근호가 있는 식의 변형(3) √b/a²",
+      "item_start": 82,
+      "item_end": 86,
+      "items": [
+        { "item_no": 82, "accuracy": 78 },
+        { "item_no": 83, "accuracy": 83 },
+        { "item_no": 84, "accuracy": 80 },
+        { "item_no": 85, "accuracy": 66 },
+        { "item_no": 86, "accuracy": 52 }
+      ],
+      "tags": [
+        "radical_ratio_simplification_error",
+        "radical_magnitude_comparison_failure",
+        "perfect_square_radicand_condition_failure"
+      ],
+      "tag_scope": {
+        "radical_magnitude_comparison_failure": [82, 83],
+        "perfect_square_radicand_condition_failure": [86]
+      },
+      "rationale": "Q82~Q86은 근호가 있는 분수를 하나의 √(분수) 꼴로 바꾸거나 분모의 제곱을 밖으로 빼서 정리한다. Q82·Q83은 정리한 값을 비교해야 하고, Q86은 얻어진 비에서 다시 근호가 자연수가 되도록 완전제곱 조건을 적용하며 52%로 가장 낮다."
+    },
+    {
+      "type_no": 22,
+      "type_name": "제곱근표에 없는 제곱근의 값 구하기",
+      "item_start": 87,
+      "item_end": 90,
+      "items": [
+        { "item_no": 87, "accuracy": 71 },
+        { "item_no": 88, "accuracy": 72 },
+        { "item_no": 89, "accuracy": 57 },
+        { "item_no": 90, "accuracy": 60 }
+      ],
+      "tags": [
+        "power_of_ten_extraction_failure",
+        "table_rule_direction_misread",
+        "rounding_instruction_overlooked"
+      ],
+      "tag_scope": {
+        "rounding_instruction_overlooked": [87]
+      },
+      "rationale": "Q87~Q90은 제곱근표에 있는 2~4자리 기준값을 10² 배율로 옮겨 √350, √0.0529, √433 같은 값을 만든다. 표의 행·열을 잘못 읽거나 10의 거듭제곱을 근호 밖에서 한 자리씩 잘못 이동하기 쉽고, Q87은 가장 가까운 정수로 마무리해야 한다."
+    },
+    {
+      "type_no": 23,
+      "type_name": "문자를 이용한 제곱근의 표현",
+      "item_start": 91,
+      "item_end": 94,
+      "items": [
+        { "item_no": 91, "accuracy": 73 },
+        { "item_no": 92, "accuracy": 79 },
+        { "item_no": 93, "accuracy": 69 },
+        { "item_no": 94, "accuracy": 80 }
+      ],
+      "tags": [
+        "simplify_before_substitute_omitted",
+        "power_of_ten_extraction_failure",
+        "substitution_direction_error"
+      ],
+      "rationale": "Q91~Q94는 √3=a, √5=b 또는 a=10k, b=100k 같은 정의를 바로 대입하기 전에 근호 안의 10의 거듭제곱과 완전제곱 인수를 먼저 정리해야 한다. 정리 방향을 거꾸로 하거나 정의된 문자와 실제 근호값의 대응을 뒤집으면 계수가 크게 어긋난다."
+    },
+    {
+      "type_no": 24,
+      "type_name": "분모의 유리화",
+      "item_start": 95,
+      "item_end": 98,
+      "items": [
+        { "item_no": 95, "accuracy": 77 },
+        { "item_no": 96, "accuracy": 80 },
+        { "item_no": 97, "accuracy": 68 },
+        { "item_no": 98, "accuracy": 81 }
+      ],
+      "tags": [
+        "radical_denominator_rationalization_failure",
+        "radical_ratio_simplification_error",
+        "final_form_reduction_omitted"
+      ],
+      "tag_scope": {
+        "final_form_reduction_omitted": [97]
+      },
+      "rationale": "Q95~Q98은 단일 근호가 분모에 있을 때 같은 근호 인수를 곱해 분모를 유리화하고 근호 비를 가장 간단한 꼴로 정리한다. Q97은 p,q가 서로소인 자연수 조건이 있으므로 마지막 분수 약분을 놓치면 p+q가 달라진다."
+    },
+    {
+      "type_no": 25,
+      "type_name": "제곱근의 곱셈과 나눗셈의 혼합 계산",
+      "item_start": 99,
+      "item_end": 102,
+      "items": [
+        { "item_no": 99, "accuracy": 81 },
+        { "item_no": 100, "accuracy": 75 },
+        { "item_no": 101, "accuracy": 81 },
+        { "item_no": 102, "accuracy": 78 }
+      ],
+      "tags": [
+        "radical_product_simplification_error",
+        "radical_ratio_simplification_error",
+        "left_to_right_order_violation"
+      ],
+      "rationale": "Q99~Q102는 근호의 곱셈과 나눗셈이 한 식에 섞여 있어 곱·나눗셈을 같은 우선순위로 왼쪽부터 처리하면서 근호를 합쳐야 한다. Q99의 옳고 그름 판별에서도 나눗셈 뒤 곱셈 순서를 바꾸면 다른 보기가 참처럼 보인다."
+    },
+    {
+      "type_no": 26,
+      "type_name": "제곱근의 곱셈과 나눗셈의 도형에의 활용 (1) 넓이/부피",
+      "item_start": 103,
+      "item_end": 106,
+      "items": [
+        { "item_no": 103, "accuracy": 85 },
+        { "item_no": 104, "accuracy": 89 },
+        { "item_no": 105, "accuracy": 77 },
+        { "item_no": 106, "accuracy": 77 }
+      ],
+      "tags": [
+        "area_ratio_to_side_ratio_conversion_failure",
+        "area_formula_setup_error",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [103, 104],
+        "multi_step_composite_error": [106]
+      },
+      "rationale": "Q103~Q106은 직사각형·원·정사각형의 넓이에서 길이를 역으로 구하므로 넓이비를 길이비로 바꿀 때 제곱근을 취해야 한다. Q103·Q104는 넓이 공식을 먼저 세워야 하고, Q106은 넓이를 연속해서 절반씩 전달하는 단계가 반복된다."
+    },
+    {
+      "type_no": 27,
+      "type_name": "제곱근의 곱셈과 나눗셈의 도형에의 활용 (3) 정삼각형에서 높이와 넓이",
+      "item_start": 107,
+      "item_end": 111,
+      "items": [
+        { "item_no": 107, "accuracy": 68 },
+        { "item_no": 108, "accuracy": 68 },
+        { "item_no": 109, "accuracy": 33 },
+        { "item_no": 110, "accuracy": 31 },
+        { "item_no": 111, "accuracy": 50 }
+      ],
+      "tags": [
+        "centroid_two_to_one_ratio_confusion",
+        "equilateral_area_relation_transfer_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "tag_scope": {
+        "centroid_two_to_one_ratio_confusion": [107, 110, 111],
+        "equilateral_area_relation_transfer_failure": [108, 109],
+        "similar_triangle_correspondence_setup_failure": [110]
+      },
+      "rationale": "Q107~Q111은 정삼각형의 높이·넓이와 무게중심 2:1 관계를 결합한다. Q109(33%)는 정육각형을 정삼각형 6개로 보아 넓이를 맞추고, Q110(31%)은 무게중심으로 얻은 길이 뒤에 닮음 대응까지 세워 원의 반지름을 구해야 해 유형 내 절벽이 크다."
+    },
+    {
+      "type_no": 28,
+      "type_name": "제곱근의 덧셈과 뺄셈",
+      "item_start": 112,
+      "item_end": 115,
+      "items": [
+        { "item_no": 112, "accuracy": 86 },
+        { "item_no": 113, "accuracy": 77 },
+        { "item_no": 114, "accuracy": 55 },
+        { "item_no": 115, "accuracy": 79 }
+      ],
+      "tags": [
+        "like_term_misgrouping",
+        "absolute_value_from_square_root_omitted",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "absolute_value_from_square_root_omitted": [113],
+        "integer_candidate_enumeration_gap": [114]
+      },
+      "rationale": "Q112~Q115는 같은 근호끼리 항을 모아 합·차를 정리한다. Q113은 √(식²)을 절댓값으로 바꾼 뒤 두 식의 실제 부호를 판단해야 하고, Q114는 주사위 36가지에서 부등식을 만족하는 (a,b)를 빠짐없이 세어 확률을 구해야 한다."
+    },
+    {
+      "type_no": 29,
+      "type_name": "√a²b=a√b를 이용한 제곱근의 덧셈과 뺄셈",
+      "item_start": 116,
+      "item_end": 120,
+      "items": [
+        { "item_no": 116, "accuracy": 60 },
+        { "item_no": 117, "accuracy": 71 },
+        { "item_no": 118, "accuracy": 85 },
+        { "item_no": 119, "accuracy": 58 },
+        { "item_no": 120, "accuracy": 55 }
+      ],
+      "tags": [
+        "perfect_square_factor_extraction_failure",
+        "like_term_misgrouping",
+        "ratio_setup_from_geometry_failure"
+      ],
+      "tag_scope": {
+        "ratio_setup_from_geometry_failure": [116, 119, 120]
+      },
+      "rationale": "Q116~Q120은 √12, √27처럼 완전제곱 인수를 꺼내 같은 근호항으로 만든 뒤 덧셈·뺄셈한다. Q116·Q119·Q120은 두 자의 눈금이 겹치는 조건을 길이비 식으로 옮겨야 하며 Q120이 55%로 낮아 비례식 설정 오류를 문항 한정으로 둔다."
+    },
+    {
+      "type_no": 30,
+      "type_name": "분모의 유리화를 이용한 덧셈과 뺄셈",
+      "item_start": 121,
+      "item_end": 125,
+      "items": [
+        { "item_no": 121, "accuracy": 80 },
+        { "item_no": 122, "accuracy": 89 },
+        { "item_no": 123, "accuracy": 77 },
+        { "item_no": 124, "accuracy": 84 },
+        { "item_no": 125, "accuracy": 71 }
+      ],
+      "tags": [
+        "radical_denominator_rationalization_failure",
+        "like_term_misgrouping",
+        "irrational_inclusion_error"
+      ],
+      "tag_scope": {
+        "irrational_inclusion_error": [122]
+      },
+      "rationale": "Q121~Q125는 분모를 유리화한 뒤 같은 근호항을 모아 값을 정리한다. Q122는 x=√3을 여러 식에 넣은 뒤 최종값이 유리수인지 무리수인지 판정하는 문항이라 무리수 포함·소거 판단 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 31,
+      "type_name": "근호를 포함한 복잡한 식의 계산",
+      "item_start": 126,
+      "item_end": 130,
+      "items": [
+        { "item_no": 126, "accuracy": 84 },
+        { "item_no": 127, "accuracy": 75 },
+        { "item_no": 128, "accuracy": 61 },
+        { "item_no": 129, "accuracy": 58 },
+        { "item_no": 130, "accuracy": 84 }
+      ],
+      "tags": [
+        "radical_denominator_rationalization_failure",
+        "multi_step_composite_error",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [127]
+      },
+      "rationale": "Q126~Q130은 유리화, 완전제곱 인수 추출, 같은 근호항 정리를 여러 단계 연속으로 수행한다. Q128·Q129가 61%, 58%로 낮고, Q127은 틀린 식을 2개 골라야 하므로 복수정답 누락을 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 32,
+      "type_name": "제곱근의 계산 결과가 유리수가 될 조건",
+      "item_start": 131,
+      "item_end": 134,
+      "items": [
+        { "item_no": 131, "accuracy": 60 },
+        { "item_no": 132, "accuracy": 67 },
+        { "item_no": 133, "accuracy": 68 },
+        { "item_no": 134, "accuracy": 72 }
+      ],
+      "tags": [
+        "irrational_coefficient_cancellation_condition_failure",
+        "like_term_misgrouping",
+        "inequality_bound_conversion_error"
+      ],
+      "tag_scope": {
+        "inequality_bound_conversion_error": [132]
+      },
+      "rationale": "Q131~Q134는 식을 p+q√n 꼴로 모은 뒤 결과가 유리수가 되려면 무리수항의 계수 q가 0이어야 함을 이용한다. Q132는 k를 결정한 뒤 다시 일차부등식으로 넘어가 가장 큰 정수를 골라야 하므로 부등식 경계 변환을 문항 한정으로 둔다."
+    },
+    {
+      "type_no": 33,
+      "type_name": "무리수의 정수 부분과 소수 부분",
+      "item_start": 135,
+      "item_end": 139,
+      "items": [
+        { "item_no": 135, "accuracy": 79 },
+        { "item_no": 136, "accuracy": 76 },
+        { "item_no": 137, "accuracy": 75 },
+        { "item_no": 138, "accuracy": 57 },
+        { "item_no": 139, "accuracy": 56 }
+      ],
+      "tags": [
+        "irrational_integer_fractional_part_split_failure",
+        "digit_count_off_by_one",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "digit_count_off_by_one": [138],
+        "integer_candidate_enumeration_gap": [139]
+      },
+      "rationale": "Q135~Q139는 √n을 인접한 두 정수 사이에 끼워 정수 부분과 소수 부분을 분리한다. Q138은 80√(1·2·…·11)의 정수 부분 자릿수를 경계값으로 판단해야 하고, Q139는 정수 부분·소수 부분 범위를 동시에 만족하는 자연수 n을 모두 세어야 한다."
+    },
+    {
+      "type_no": 34,
+      "type_name": "제곱근의 덧셈과 뺄셈의 도형에의 활용",
+      "item_start": 140,
+      "item_end": 144,
+      "items": [
+        { "item_no": 140, "accuracy": 53 },
+        { "item_no": 141, "accuracy": 74 },
+        { "item_no": 142, "accuracy": 75 },
+        { "item_no": 143, "accuracy": 45 },
+        { "item_no": 144, "accuracy": 45 }
+      ],
+      "tags": [
+        "pythagorean_setup_failure",
+        "area_formula_setup_error",
+        "centroid_two_to_one_ratio_confusion"
+      ],
+      "tag_scope": {
+        "pythagorean_setup_failure": [140, 143, 144],
+        "area_formula_setup_error": [141, 142],
+        "centroid_two_to_one_ratio_confusion": [143, 144]
+      },
+      "rationale": "Q140~Q144는 접기·넓이·입체 전개도·겹친 정삼각형에서 근호 길이를 만든 뒤 덧셈·뺄셈한다. Q143·Q144가 모두 45%로 가장 낮고 피타고라스, 무게중심 2:1, 여러 선분 길이의 연쇄를 함께 써야 한다. [Code탭 수정] 명세 §3(유형당 2~3태그) 준수 위해 범용 태그 multi_step_composite_error 제거(scope가 pythagorean_setup_failure와 동일해 중복). 개념특정 3태그로 전 문항 커버 유지."
+    },
+    {
+      "type_no": 35,
+      "type_name": "제곱근의 덧셈과 뺄셈의 수직선에의 활용",
+      "item_start": 145,
+      "item_end": 147,
+      "items": [
+        { "item_no": 145, "accuracy": 72 },
+        { "item_no": 146, "accuracy": 81 },
+        { "item_no": 147, "accuracy": 74 }
+      ],
+      "tags": [
+        "radical_length_to_number_line_mapping_failure",
+        "pythagorean_setup_failure",
+        "midpoint_length_relation_error"
+      ],
+      "tag_scope": {
+        "pythagorean_setup_failure": [145, 146],
+        "midpoint_length_relation_error": [147]
+      },
+      "rationale": "Q145~Q147은 도형에서 얻은 √n 길이를 수직선의 좌표로 옮긴다. Q145·Q146은 직사각형·정사각형의 변 길이를 피타고라스로 먼저 구하고, Q147은 √5와 √6 사이의 중점을 두 번 취한 좌표를 정확히 추적해야 한다."
+    },
+    {
+      "type_no": 36,
+      "type_name": "제곱근의 덧셈과 뺄셈을 이용한 세 실수의 대소 관계",
+      "item_start": 148,
+      "item_end": 150,
+      "items": [
+        { "item_no": 148, "accuracy": 79 },
+        { "item_no": 149, "accuracy": 74 },
+        { "item_no": 150, "accuracy": 65 }
+      ],
+      "tags": [
+        "radical_magnitude_comparison_failure",
+        "sign_propagation_error",
+        "extremum_selection_error"
+      ],
+      "tag_scope": {
+        "sign_propagation_error": [149, 150],
+        "extremum_selection_error": [150]
+      },
+      "rationale": "Q148~Q150은 두 수의 차의 부호를 이용해 근호가 섞인 실수의 순서를 정한다. Q149는 음수 상수와 음의 근호계수가 섞여 부호 전달이 중요하고, Q150은 여섯 수를 모두 정렬한 뒤 가장 왼쪽과 오른쪽에서 두 번째 값을 다시 골라야 한다."
+    }
+  ],
+  "unique_tags": [
+    "absolute_value_from_square_root_omitted",
+    "area_formula_setup_error",
+    "area_ratio_to_side_ratio_conversion_failure",
+    "centroid_two_to_one_ratio_confusion",
+    "coefficient_inside_radical_conversion_failure",
+    "denominator_multiple_condition_error",
+    "difference_direction_error",
+    "digit_count_off_by_one",
+    "equilateral_area_relation_transfer_failure",
+    "extremum_selection_error",
+    "final_form_reduction_omitted",
+    "inequality_bound_conversion_error",
+    "integer_candidate_enumeration_gap",
+    "irrational_coefficient_cancellation_condition_failure",
+    "irrational_inclusion_error",
+    "irrational_integer_fractional_part_split_failure",
+    "left_to_right_order_violation",
+    "like_term_misgrouping",
+    "midpoint_length_relation_error",
+    "mixed_recurring_conversion_error",
+    "multi_constraint_intersection_failure",
+    "multi_expression_dependency_error",
+    "multi_step_composite_error",
+    "multiple_answer_omission",
+    "operation_order_violation",
+    "pattern_extraction_failure",
+    "perfect_square_factor_extraction_failure",
+    "perfect_square_radicand_condition_failure",
+    "power_of_ten_extraction_failure",
+    "principal_square_root_notation_confusion",
+    "pythagorean_setup_failure",
+    "radical_denominator_rationalization_failure",
+    "radical_length_to_number_line_mapping_failure",
+    "radical_magnitude_comparison_failure",
+    "radical_product_simplification_error",
+    "radical_ratio_simplification_error",
+    "range_constraint_dropped",
+    "ratio_direction_inversion",
+    "ratio_setup_from_geometry_failure",
+    "rational_irrational_operation_closure_error",
+    "real_number_set_density_confusion",
+    "rounding_instruction_overlooked",
+    "sign_propagation_error",
+    "similar_triangle_correspondence_setup_failure",
+    "simplify_before_substitute_omitted",
+    "square_root_existence_count_confusion",
+    "square_root_floor_interval_mapping_failure",
+    "substitution_direction_error",
+    "table_rule_direction_misread"
+  ],
+  "new_tags": [
+    { "tag": "coefficient_inside_radical_conversion_failure", "why": "a√b를 √(a²b)로 넣거나 그 역변형을 할 때 계수를 제곱하지 않는 오류가 사전에 없다." },
+    { "tag": "irrational_coefficient_cancellation_condition_failure", "why": "p+q√n이 유리수가 되려면 무리수항 계수 q=0이어야 한다는 조건 설정 오류가 사전에 별도 항목으로 없다." },
+    { "tag": "perfect_square_factor_extraction_failure", "why": "√(m²n)에서 완전제곱 인수 m²을 찾아 m√n으로 꺼내지 못하는 오류가 기존 absolute_value 태그와 다른 계산 단계다." },
+    { "tag": "perfect_square_radicand_condition_failure", "why": "√N이 자연수·정수가 되기 위한 조건을 N이 완전제곱수라는 조건으로 바꾸지 못하는 오류가 기존 완전제곱식·인수분해 태그와 다르다." },
+    { "tag": "principal_square_root_notation_confusion", "why": "수 a의 두 제곱근 ±√a와 근호 기호 √a가 나타내는 음이 아닌 주값을 혼동하는 오류가 사전에 없다." },
+    { "tag": "radical_denominator_rationalization_failure", "why": "분모가 단일 근호일 때 같은 근호 인수를 곱해 분모를 유리화하는 오류로, 기존 conjugate_rationalization_setup_failure의 켤레식 유리화와 별개다." },
+    { "tag": "radical_length_to_number_line_mapping_failure", "why": "도형에서 만든 √n 길이를 수직선의 기준점·좌우 방향에 맞춰 좌표로 옮기는 오류가 기존 선분비·좌표 투영 태그와 다르다." },
+    { "tag": "radical_magnitude_comparison_failure", "why": "근호가 포함된 양의 수를 제곱값·인접 제곱수 경계로 비교해 대소를 정하는 오류가 사전에 별도 항목으로 없다." },
+    { "tag": "radical_product_simplification_error", "why": "√a·√b=√(ab)와 곱 안의 제곱인수 정리를 적용하지 못하는 오류로, 기존 radical_ratio_simplification_error는 나눗셈 비에 한정된다." },
+    { "tag": "rational_irrational_operation_closure_error", "why": "유리수·무리수의 합·차·곱·나눗셈이 항상 같은 분류를 유지한다고 오인하거나 상쇄 가능성을 놓치는 오류가 사전에 없다." },
+    { "tag": "real_number_set_density_confusion", "why": "서로 다른 실수 사이에 유리수와 무리수가 각각 무한히 존재한다는 밀도 성질을 놓치는 오류가 기존 포함 오류와 구분된다." },
+    { "tag": "square_root_existence_count_confusion", "why": "양수·0·음수에 따라 실수 범위의 제곱근 개수가 2개·1개·0개로 달라지는 개념 오류는 사전에 별도 태그가 없다." },
+    { "tag": "square_root_floor_interval_mapping_failure", "why": "√x 이하 자연수의 개수를 n²≤x<(n+1)² 구간으로 대응시키는 계단형 변환 오류가 기존 정수 후보 열거와 구분된다." }
+  ],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [],
+    "types_with_answer_format_error": [1, 22, 24, 31],
+    "note": "전체 150문항을 검산·답 마무리 관점으로 재검토했다. 답을 구한 뒤 원조건으로 되돌아가 대입하는 독립 검산이 핵심인 문항은 없었다. 답 마무리 관련은 Q1·Q2의 복수정답, Q87의 가장 가까운 정수 지시, Q97의 서로소 p,q를 위한 최종 약분, Q127의 복수정답 2개 선택이다. 단위 환산이 별도 계산 단계인 문항은 없었다."
+  }
+}

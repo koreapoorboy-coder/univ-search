@@ -4,15 +4,18 @@
 
 ## ⭐ 현재 상태 (2026-08-07, 새 세션 진입점 — 여기부터)
 - **HEAD `925f5674`, origin 동기화·전부 push됨.** 정본 리포 = **`C:\Users\user\projects\scshstudy`**(로컬, OneDrive 아님·은퇴대상). `_inbox/*.json` 미커밋=교환 입력본(정본 `B_tagging_*`는 커밋됨, 정상).
-- **관측 반영 17단원 완료**: 수와식5·원12+6·삼각비6·닮음3+8·삼각비무번호(set01)+10(set11)·함수5+8·이차함수3+9·다항식5+13·도형성질6·이차방정식5+9... = 실제로 닮음2·삼각비3·함수2·이차함수2·다항식2·도형성질1·이차방정식2 등. **856 트랜치 종료**(닮음300+이차함수300+다항식293+도형성질150).
-- **🔴 남은 것 = 주제형 3 (전부 완비 유닛, 856/등재 불요, 반영만)**:
+- **관측 반영 18단원 완료**: 수와식5·원12+6·삼각비6·닮음3+8·삼각비무번호(set01)+10(set11)·함수5+8·이차함수3+9·다항식5+13·도형성질6·이차방정식5+9·**실수(6)set07**... **856 트랜치 종료**(닮음300+이차함수300+다항식293+도형성질150).
+- **✅ 실수(6)=set07 18단원째 완결** (2026-08-07, 주제형·유닛완비·856불요, `260711_실수와 그 계산(6).pdf`). item_id `M3_REAL_150_S07_Q###`.
+  - 36유형·150문항·49종, 재사용36·**신규13**(재사용률 73.5%). 검수 **조건부PASS** → Code탭 수정 1건: 유형34가 태그4개(명세§3=2~3위반) → 범용 `multi_step_composite_error` 제거(scope가 `pythagorean_setup_failure`와 동일·중복, 개념3태그로 전문항 커버 유지). 독립검증 재PASS(4태그 0·scope오류 0·new13 전량 풀부재·reused36 전량 풀존재 gap0).
+  - **맵 `B_tag_axis_map_M3REAL_new.v1.json`(13종, CODE_DRAFT)**: **C2·5**(제곱근개수·주값부호·밀도·연산닫힘·대소비교=실수 원자개념) / **C4·5**(계수 안팎이동·완전제곱 인수추출·곱정리·유리화·길이→수직선=근호 형태변환) / **C1·2**(N=완전제곱·q=0 조건세우기, B1 아님-판례) / **C3·1**(√x 구간대응). 미언급 3종은 풀 선례로 확정(rationalization=conjugate C4·length_to_number_line=coordinate_projection_from_similarity C4·magnitude=proximity_vs_magnitude C2).
+  - **반영**(`B_reflection_m3_real_numbers_and_operations_set07.v1.json`, 150문항, 미해결0). 축분포 C2·62/C4·57/C1·39/D1·37/B2·33/D3·28/C3·15/B3·9/E3·6/A3·4/B1·3/B4·1(12축, A1·A2·E2 미등장). 신규 C편중이 재사용(D1·D3 계산·B2 범위)과 섞여 광폭. `ratio_direction_inversion`=E3 판례 유지.
+- **🔴 남은 것 = 주제형 2 (전부 완비 유닛, 856/등재 불요, 반영만)**:
   | 단원 | code | set→item_id | source_file |
   |---|---|---|---|
-  | 실수(6) | m3_real_numbers_and_operations | set07→`M3_REAL_150_S07` | `260711_실수와 그 계산(6).pdf` |
   | 확률(5) | m2_probability | set06→`M2_PROB_150_S06` | `260711_경우의 수와 확률(5).pdf` |
   | 확률(10) | m2_probability | set11→`M2_PROB_150_S11` | `260711_경우의 수와 확률(10).pdf` |
 - **단원 반영 절차**(반복): ①파일 `_inbox/`에 확보(cp 실체화 or 검수 원본 재전달; Downloads 미실체 시 재수록 폴백). ②독립검증(유형수·문항수·1~150연속·종수·tag_scope 범위·유형당2~3태그). ③**축매핑 풀 전수대조**(NOT-IN-POOL=신규, verification_missing류 재사용 갭 주의). ④신규만 17축 매핑(맵파일 `B_tag_axis_map_<CODE>_new.v1.json`, 판례 적용, review_status=CODE_DRAFT). ⑤반영(tag_scope 배분·item_id 조인)→`B_reflection_*`. ⑥커밋 태깅+맵+반영. 검수 확정 후 맵 REVIEWED_APPROVED.
-- **재현 스크립트**(scratchpad, 매 세션 재작성): PS5.1 **ASCII 전용**(한글은 데이터 통과 or `[char]0x…` 코드포인트, ConvertFrom-Json은 `[IO.File]::ReadAllText(...,UTF8)`; `$ErrorActionPreference` Stop 금지-ConvertFrom-Json이 경고에 죽음). 반영 맵 풀 = 9개 유닛맵(similarity3_new·M2LF_new·M3QF_new·M3POLY_new·M2GEOM_new·M3QUAD_new·M3TR_new·M3CP.v2·M3CP_circle6new·M2NE) + verification_missing은 M3POLY맵에 E1 캐리.
+- **재현 스크립트**(scratchpad, 매 세션 재작성): PS5.1 **ASCII 전용**(한글은 데이터 통과 or `[char]0x…` 코드포인트, ConvertFrom-Json은 `[IO.File]::ReadAllText(...,UTF8)`; `$ErrorActionPreference` Stop 금지-ConvertFrom-Json이 경고에 죽음). 반영 맵 풀 = 유닛맵(similarity3_new·M2LF_new·M3QF_new·M3POLY_new·M2GEOM_new·M3QUAD_new·M3TR_new·M3CP.v2·M3CP_circle6new·M2NE·**M3REAL_new**) + verification_missing은 M3POLY맵에 E1 캐리. 풀 유니크키 271종.
 - **확정 판례/규칙**(§확정규율·§7 참조): 그래프↔식 3분(순수형태변환=C4/해석적연결=C3/원자개념=C2)·**D2 vs D3**(대입자리=D2/계수계산=D3)·**B1 vs C2**(문제에주어짐안씀=B1/알고꺼내야하는데못꺼냄=C2)·D3/C2(공식알되계수틀림)·converse류=C3(cyclicity B3 미승계)·**E1=문항구조 기준**(역방향 문항 유무, 단원 아님)·**기준명시**(관측 union vs 축매핑풀). 축 변별력 3사례(수와식D/원C/일차B/이차C3/다항광폭).
 - **예측층·후속(별도 과제, 지금 아님)**: M2_SIMPY error_tags **null 유지**(예측축과 무관·소비처 3개 null-safe, 예측층 정비 시 재검토). 닮음 예측축 실행완료(`Run-AxisPrediction -Only GS` 100%커버·과발화0). **D2 대조 발견 1호**(예측53.6%vs관측5.7%=정의불일치, [[predicted-observed-d2-gap]]). crosswalk=`source_item_links` id조인(이름매칭 불필요). **타단원 예측축 대조**(D2격차 닮음특유vs전반)는 남은 PDF 반영 후.
 - **메모리 5**: repo-location-local-projects·file-transfer-workflow·retagging-observed-axis-pipeline·observed-vs-axismap-pool-basis·predicted-layer-join-source-item-links·predicted-observed-d2-gap.
