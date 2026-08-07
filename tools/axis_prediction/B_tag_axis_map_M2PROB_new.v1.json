@@ -43,7 +43,7 @@
     "intersection_probability_product_failure":       {"axis":"C3","tier":"confident","alt":"C2","note":"동시=순차/독립 곱 연결 = 사건 연산 연결(C3) vs '동시를 또는으로' 개념혼동(C2)"},
     "lexicographic_rank_tracking_failure":            {"axis":"C3","tier":"confident","alt":"C1","note":"사전식 앞자리 묶음크기·누적순위로 목표 추적 = 단계 연결·추적(C3). stage_indexing_error(C3) 계열"},
     "coloring_adjacency_constraint_failure":          {"axis":"C3","tier":"confident","alt":"C1","note":"인접 색 제약을 앞 색칠 결과에 따라 갱신하며 곱 = 상태 갱신 추적(C3) vs 구성(C1)"},
-    "arrangement_factorial_count_error":              {"axis":"D3","tier":"boundary","alt":"C2","note":"n!·nPr 단계적 세기 계산 실행 오류 = 계산(D3). 배열 '구성'(fixed/adjacent 등 C1)과 구분한 순수 계산단계"}
+    "arrangement_factorial_count_error":              {"axis":"D3","tier":"confident","alt":"C2","note":"n!·nPr 단계적 세기 계산 실행 오류 = 계산(D3). 배열 '구성'(fixed/adjacent 등 C1)과 구분한 순수 계산단계"}
   },
   "axis_distribution": {"C1":12, "C3":11, "B3":8, "C2":5, "D3":1},
   "domain_note": "확률(경우의 수+확률) 신규 37종 = 4대 축. (1)확률식·사건번역·여사건·배열구성 '설정' C1·12 (2)연속시행 상태갱신·경로집계·사건연산 '연결·추적' C3·11 (3)경우 열거·분류·중복·제외 관리 B3·8(검수 주력축) (4)법칙 개념·순서/조합 개념 C2·5 (5)순열 계산 실행 D3·1. A·B1·B2·D1·D2·E 신규0 = 재사용 승계(law_selection=D2·integer_candidate/range=B2·excluded/multi_constraint=B3·negation=A3·fraction=D3·multi_step=D1·pattern/stage=C3). ★단원 계열 최초=재사용률 21.3%(정상 40~55%보다 낮으나 신규 정당성 확인됨, 억지 승계 회피). ★오염방지: Q144~150 도형 그림에도 도형태그 미사용, geometric_probability_area_ratio로 확률 처리(검수 확인).",
