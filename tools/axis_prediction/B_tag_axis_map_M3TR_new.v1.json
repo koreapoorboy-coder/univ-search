@@ -12,7 +12,7 @@
     "coordinate_projection_axis_confusion":             {"axis":"C2","tier":"confident","note":"x좌표=cos·y좌표=sin 축 혼동 = 개념 혼동"},
     "special_angle_identification_from_tangent_failure":{"axis":"C2","tier":"boundary","alt":"C4","note":"tan값으로 특수각 판정 = 개념(C2) vs 변환(C4)"},
     "midpoint_area_fraction_relation_misapplied":       {"axis":"C2","tier":"confident","note":"중점 넓이 분수 관계 오적용(_misapplied)"},
-    "endpoint_angle_projection_component_confusion":    {"axis":"C2","tier":"boundary","alt":"C3","note":"양끝각 sin/cos 성분 혼동 = 개념(C2) vs 연결(C3)"},
+    "endpoint_angle_projection_component_confusion":    {"axis":"C2","tier":"confident","alt":"C3","note":"양끝각 sin/cos 성분 혼동 = 개념(C2) vs 연결(C3)"},
     "mixed_function_ordering_failure":                  {"axis":"C2","tier":"boundary","alt":"B2","note":"서로 다른 함수값 대소 정렬 = 개념비교(C2) vs 범위(B2)"},
     "line_slope_to_trig_ratio_conversion_failure":      {"axis":"C4","tier":"confident","note":"기울기→tan 변환"},
     "complementary_angle_conversion_error":             {"axis":"C4","tier":"boundary","alt":"C2","note":"여각 90-θ 변환 = 변환(C4) vs 개념(C2)"},

@@ -7,11 +7,11 @@
   "review_status": "REVIEWED_APPROVED (검수확정: 6종 전량 승인. 외심내심위계 C2·converse C3·congruence_selection C3/alt D2. B1 vs C2 경계 판례 등록. ⚠triangle_congruence_condition_selection 11회 최다사용→경계 재검토 여지 유지)",
   "도메인_calibration": "도형 재사용: 각연쇄=C3(isosceles/angle_correspondence/angle_bisector_chain), 개념=C2(central_inscribed_angle), 식=C1(area_inradius·semiperimeter_tangent), ★조건누락=B1(diameter_right_angle·tangent_radius). B1(특정 조건 누락) vs C2(정의 미소환) 구분 = 검수 핵심.",
   "map": {
-    "circumcenter_equidistance_relation_failure":          {"axis":"C2","tier":"boundary","alt":"C3","note":"★검수지침: 외심 OA=OB=OC 정의를 못 꺼냄 = 개념(C2), B1 아님(isosceles_altitude_bisection B1→C2 선례). vs 등거리→이등변→각 연쇄(C3)"},
-    "circumcenter_perpendicular_bisector_relation_failure":{"axis":"C2","tier":"boundary","alt":"C3","note":"외심=세 변 수직이등분선 교점 정의 미소환 = 개념(C2). diameter_right_angle(B1)와 달리 정의라 C2. vs 연결(C3)"},
-    "incenter_angle_bisector_relation_failure":            {"axis":"C2","tier":"boundary","alt":"C3","note":"내심=세 내각 이등분선 교점 정의 미소환 = 개념(C2). 검수 구분: angle_bisector_chain_integration(C3, 후속연쇄)과 다른 '정의'. vs 연결(C3)"},
-    "quadrilateral_hierarchy_classification_failure":      {"axis":"C2","tier":"boundary","alt":"C3","note":"정사각형·직사각형·마름모·평행사변형 포함관계·필요충분 방향 오분류 = 도형 위계 개념(C2). vs 관계 연결(C3)"},
-    "parallelogram_condition_converse_failure":            {"axis":"C3","tier":"boundary","alt":"C2","note":"조건→평행사변형 역판정 = 개념 연결·역조건 적용(C3). cyclicity_converse(C3) 선례 참조·개별판단. parallelism/pythagorean_converse(similarity, C3/alt C2)와 동일 converse family. vs 정/역 개념(C2)"},
+    "circumcenter_equidistance_relation_failure":          {"axis":"C2","tier":"confident","alt":"C3","note":"★검수지침: 외심 OA=OB=OC 정의를 못 꺼냄 = 개념(C2), B1 아님(isosceles_altitude_bisection B1→C2 선례). vs 등거리→이등변→각 연쇄(C3)"},
+    "circumcenter_perpendicular_bisector_relation_failure":{"axis":"C2","tier":"confident","alt":"C3","note":"외심=세 변 수직이등분선 교점 정의 미소환 = 개념(C2). diameter_right_angle(B1)와 달리 정의라 C2. vs 연결(C3)"},
+    "incenter_angle_bisector_relation_failure":            {"axis":"C2","tier":"confident","alt":"C3","note":"내심=세 내각 이등분선 교점 정의 미소환 = 개념(C2). 검수 구분: angle_bisector_chain_integration(C3, 후속연쇄)과 다른 '정의'. vs 연결(C3)"},
+    "quadrilateral_hierarchy_classification_failure":      {"axis":"C2","tier":"confident","alt":"C3","note":"정사각형·직사각형·마름모·평행사변형 포함관계·필요충분 방향 오분류 = 도형 위계 개념(C2). vs 관계 연결(C3)"},
+    "parallelogram_condition_converse_failure":            {"axis":"C3","tier":"confident","alt":"C2","note":"조건→평행사변형 역판정 = 개념 연결·역조건 적용(C3). cyclicity_converse(C3) 선례 참조·개별판단. parallelism/pythagorean_converse(similarity, C3/alt C2)와 동일 converse family. vs 정/역 개념(C2)"},
     "triangle_congruence_condition_selection_failure":     {"axis":"C3","tier":"boundary","alt":"D2","note":"★검수 갈림점: SSS/SAS/ASA/RHA/RHS 합동조건 구성·선택. 대응 부분 연결해 합동 확립=개념연결(C3, similar_triangle_correspondence C3 계열) vs 법칙 선택(D2, law_selection D2). 최다11회. C3우선(구성이 본질)·alt D2 명시"}
   },
   "axis_distribution": {"C2":4, "C3":2},

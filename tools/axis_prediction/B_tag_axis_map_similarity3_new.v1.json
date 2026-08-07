@@ -19,8 +19,8 @@
     "cylinder_unfolding_wrap_count_failure":              {"axis":"C4","tier":"boundary","alt":"C1","note":"원기둥 감은횟수를 전개도 가로(=n×밑면둘레)에 반영. 전개 표현변환(C4) vs 가로길이 식세우기(C1)"},
     "developed_surface_base_circumference_mapping_failure":{"axis":"C4","tier":"confident","note":"회전체 전개도 옆면 대응길이(호/전개가로)↔밑면 원둘레 변환. three_dimensional_length_reduction_failure·spatial_cross_section(C4) 계열"},
     "paper_fold_reflection_distance_mapping_failure":     {"axis":"C4","tier":"boundary","alt":"C3","note":"종이접기 반사 등거리를 원도형 길이로 되돌림 변환. 접기↔전개 표현변환(C4) vs 접힌점 대응연결(C3)"},
-    "parallelism_converse_ratio_test_failure":            {"axis":"C3","tier":"boundary","alt":"C2","note":"선분비 일치로 평행 역판정(삼각형 비례정리 역). cyclicity_converse_angle_condition_failure(C3) 선례 참조하되 개별판단: 경우분류 없어 alt=B3 아닌 C2(정/역 개념). 개념연결·역조건 적용(C3) vs 개념 혼동(C2)"},
-    "pythagorean_converse_condition_failure":             {"axis":"C3","tier":"boundary","alt":"C2","note":"세 변 길이로 직각 판정(피타고라스 역정리). cyclicity_converse(C3) 선례 참조하되 개별판단: 조건판정 단일이라 alt=C2. 개념연결·역조건 적용(C3) vs 개념 혼동(C2)"}
+    "parallelism_converse_ratio_test_failure":            {"axis":"C3","tier":"confident","alt":"C2","note":"선분비 일치로 평행 역판정(삼각형 비례정리 역). cyclicity_converse_angle_condition_failure(C3) 선례 참조하되 개별판단: 경우분류 없어 alt=B3 아닌 C2(정/역 개념). 개념연결·역조건 적용(C3) vs 개념 혼동(C2)"},
+    "pythagorean_converse_condition_failure":             {"axis":"C3","tier":"confident","alt":"C2","note":"세 변 길이로 직각 판정(피타고라스 역정리). cyclicity_converse(C3) 선례 참조하되 개별판단: 조건판정 단일이라 alt=C2. 개념연결·역조건 적용(C3) vs 개념 혼동(C2)"}
   },
   "axis_distribution": {"C1":2, "C2":5, "C3":2, "C4":5},
   "converse_family_note": "parallelism_converse·pythagorean_converse 둘 다 C3(역조건 적용=개념연결)로 배정. cyclicity_converse(원, alt B3=경우) 대비 alt를 C2로 차별화 — 두 닮음 역판정엔 경우분류 성분 없음(검수지시 '기계적 승계 말고 개별판단' 반영).",
