@@ -7,10 +7,10 @@
   "review_status": "REVIEWED_APPROVED (2026-08-07 검수 전량 승인·수정없음: 37종 축배정·D2/C2 판례 등록·오염방지 모두 승인. Q112 D2+C3 공존이 층위 구분 실증)",
   "판례_적용": "①법칙 '개념' 선택(합/곱 세는 방식)=C2 (★law_selection_error=D2와 구분: law_selection은 '공식 선택'(D2 선례), principle_selection은 '세는 방식 개념 이해'(C2). 검수 지시 'C2 쪽') ②순서/조합 개념=C2 ③확률식·사건번역·여사건 '설정'=C1(식/조건 세우기) ④연속시행 상태갱신·경로집계·사건연산 연결=C3(해석적 연결·상태 추적. without_replacement 등 검수 C3 지시) ⑤경우 열거·분류·중복·제외관리=B3(검수 주력축) ⑥순열 실행 계산=D3. B2(범위)·A3(부정)·D1(다단계)·D2(law)·D3(분수)는 재사용 승계.",
   "map": {
-    "addition_principle_selection_error":            {"axis":"C2","tier":"boundary","alt":"D2","note":"★합의 법칙(더할지)을 곱으로 처리 = 세는 방식 개념혼동(C2). law_selection_error(D2·공식선택)와 구분(검수 지시). alt D2"},
-    "multiplication_principle_selection_error":       {"axis":"C2","tier":"boundary","alt":"D2","note":"★곱의 법칙(곱할지)을 합으로 처리 = 세는 방식 개념혼동(C2). 최다빈출 신규(8회). law_selection D2와 구분"},
+    "addition_principle_selection_error":            {"axis":"C2","tier":"confident","alt":"D2","note":"★합의 법칙(더할지)을 곱으로 처리 = 세는 방식 개념혼동(C2). law_selection_error(D2·공식선택)와 구분(검수 지시). alt D2"},
+    "multiplication_principle_selection_error":       {"axis":"C2","tier":"confident","alt":"D2","note":"★곱의 법칙(곱할지)을 합으로 처리 = 세는 방식 개념혼동(C2). 최다빈출 신규(8회). law_selection D2와 구분"},
     "order_relevance_confusion":                      {"axis":"C2","tier":"confident","note":"순서·역할이 결과 구분하는 선택 vs 무시 선택 혼동 = 순열-조합 경계 개념(C2). 검수 C2"},
-    "combination_selection_count_error":              {"axis":"C2","tier":"boundary","alt":"D3","note":"nCr(순서무시)을 배열수와 혼동 = 조합 개념(C2) vs 계산(D3)"},
+    "combination_selection_count_error":              {"axis":"C2","tier":"confident","alt":"D3","note":"nCr(순서무시)을 배열수와 혼동 = 조합 개념(C2) vs 계산(D3)"},
     "leading_zero_case_handling_failure":             {"axis":"C2","tier":"confident","alt":"B3","note":"최고자리 0 불가 제약을 놓침 = 자연수 만들기 원자개념(C2, B1아님-내재제약 못꺼냄=C2 판례) vs 경우 나눔(B3)"},
     "case_partition_omission":                        {"axis":"B3","tier":"confident","note":"서로 겹치지 않게 경우 나눠 합산, 분기 누락 = 경우분류(B3). 검수 주력축. multi_constraint_intersection(B3) 계열"},
     "overlap_double_count_error":                     {"axis":"B3","tier":"confident","alt":"C1","note":"두 분기에 같은 결과 중복 계수 = 세는 과정 오류(B3). 검수확정: 중복계수는 세기 오류·답마무리 무관, alt E3->C1 정정"},

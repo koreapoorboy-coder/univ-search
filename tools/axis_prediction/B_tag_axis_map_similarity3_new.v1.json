@@ -9,11 +9,11 @@
   "map": {
     "angle_bisector_side_ratio_setup_failure":            {"axis":"C1","tier":"confident","note":"각이등분선 정리로 대변 분할비 세우기 = 식 세우기. ratio_setup_from_geometry_failure(C1) 선례"},
     "midpoint_length_relation_error":                     {"axis":"C2","tier":"confident","note":"닮음 맥락 중점연결정리(MN=½·제3변) 길이관계 오적용. midpoint_area_fraction_relation_misapplied(C2) 병렬. 검수지정: 삼각비 맥락 아닌 닮음 맥락 배정"},
-    "trapezoid_midsegment_average_error":                 {"axis":"C2","tier":"boundary","alt":"D2","note":"사다리꼴 중점연결=(윗변+아랫변)/2 개념 오적용(삼각형 ½공식과 혼동). 개념(C2) vs 공식대입(D2)"},
+    "trapezoid_midsegment_average_error":                 {"axis":"C2","tier":"confident","alt":"D2","note":"사다리꼴 중점연결=(윗변+아랫변)/2 개념 오적용(삼각형 ½공식과 혼동). 개념(C2) vs 공식대입(D2)"},
     "trapezoid_linear_interpolation_failure":             {"axis":"C1","tier":"confident","alt":"C2","note":"사다리꼴 평행단면 길이의 위치별 선형변화 관계 식세우기. 식세우기(C1) vs 관계개념(C2)"},
     "centroid_two_to_one_ratio_confusion":                {"axis":"C2","tier":"confident","note":"무게중심 중선 2:1 분할비 자체 혼동(_confusion). trig_ratio_side_role_confusion(C2) 선례"},
     "centroid_area_partition_failure":                    {"axis":"C2","tier":"confident","alt":"C1","note":"무게중심 넓이분할 성질(중선 넓이이등분/6등분) 오적용. 개념(C2) vs 넓이분할식(C1). midpoint_area_fraction_relation_misapplied(C2) 병렬"},
-    "isosceles_altitude_bisection_overlooked":            {"axis":"C2","tier":"boundary","alt":"A3","note":"이등변삼각형 꼭지높이=밑변이등분 성질(문제 미명시, 학생이 알고 꺼내써야 함) 미적용 = 개념(C2). 검수확정 B1→C2: contextual_offset_omission(B1)은 문제에 명시된 조건 미독해라 다름. alt=A3(성질 정리 안 함) 제안"},
+    "isosceles_altitude_bisection_overlooked":            {"axis":"C2","tier":"confident","alt":"A3","note":"이등변삼각형 꼭지높이=밑변이등분 성질(문제 미명시, 학생이 알고 꺼내써야 함) 미적용 = 개념(C2). 검수확정 B1→C2: contextual_offset_omission(B1)은 문제에 명시된 조건 미독해라 다름. alt=A3(성질 정리 안 함) 제안"},
     "same_altitude_area_ratio_transfer_failure":          {"axis":"C4","tier":"confident","alt":"C3","note":"동일높이 삼각형 밑변비→넓이비 이전(선형, 제곱 아님). area_ratio_from_similarity_failure(C4) 병렬 vs 개념연결 이전(C3). 검수 신규유지 확정(닮음 넓이비와 구분)"},
     "percentage_scale_factor_conversion_error":           {"axis":"C4","tier":"confident","note":"125%→1.25배 선형배율 변환. 변환태그 C4 선례. 기존 넓이비 태그와 구분(검수 why)"},
     "cylinder_unfolding_wrap_count_failure":              {"axis":"C4","tier":"confident","alt":"C1","note":"원기둥 감은횟수를 전개도 가로(=n×밑면둘레)에 반영. 전개 표현변환(C4) vs 가로길이 식세우기(C1)"},
