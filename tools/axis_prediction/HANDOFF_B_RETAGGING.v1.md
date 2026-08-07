@@ -71,7 +71,7 @@
   - **반영 축분포 C3·89 지배**/C1·53/C2·48/D2·37/C4·24/B1·13 — 도형=C편중(각연쇄·합동구성·연결), 원 계열 정합. 미해결0. 맵 CODE_DRAFT.
   - **★856 트랜치 완료**: 닮음300+이차함수300+다항식293(150+143)+도형성질150 = 검수측 재태깅 대상 종료.
 - **✅ 이차방정식(5)=set06 16단원째 완결** (주제형 트랜치 시작, `260711_이차방정식(5).pdf`). item_id `M3_QUAD_150_S06_Q###`. 유닛 완비→등재 불요. 37유형·150문항·47종(전유형 3태그), 재사용39·**신규8**. 재사용률 **83.0%**(80%대 2번째). 검증 PASS.
-  - ⚠**재수록 폴백**: Downloads 첨부 디스크 미실체(cp 불가) → Read 내용 재수록(types·items·accuracy·tags·tag_scope·new_tags 완전, rationale/verification_scan은 검수 원본). `_transcription_note` 표시. 🔴**rationale 결손 = 검수측 백필 대기**(37건): 15단원 중 이 단원만 태그근거 리포 부재→경계재검토·D2대조 시 되짚기 불가. 검수 원본서 rationale 뽑아 전달 요청함. 받으면 `B_tagging_m3_quadratic_equation_set06.v1.json`에 병합.
+  - ✅**재수록 폴백→정본 복원 완료**: Downloads 첨부 미실체로 1차 재수록(진단데이터 완전)했으나, 검수가 전체 원본 전달 → **정본을 전체 원본으로 교체**(rationale 37·verification_scan 복원). 재실행 결과 반영 byte 동일=재수록 진단데이터가 원본과 일치 확증. 리포 정합 복원. (교훈: Downloads 첨부 미실체 시 검수가 repo `_inbox`에 직접 저장 또는 원본 재전달이 확실.)
   - **맵 `B_tag_axis_map_M3QUAD_new.v1.json`(신규8)**: C1·3(근조건대입·활용모델링·근→방정식)/D2·1(공식대입)/C4·1(차수환원)/C3·1(판별식연결)/B3·1(영인수경우)/C2·1(켤레근). **검수 4갈림점 전부 후보 일치**: root_count_discriminant→**C3**(alt B3)·zero_product→**B3**(alt C2)·quadratic_formula_coefficient→**D2**(alt D3, calibration custom_operator·volume=D2 확증)·quadratic_application→**C1**.
   - **verification_missing 4번째**(Q98~101·107, E1 세 단원 연속: 다항식5·13·이차방정식5 = **대수 계열 역방향 문항 구조적**). 반영 E1=10.
   - **반영 C1·81 지배**/C3·58/B2·35/D1·33/C2·22/D2·21/C4·20/B3·19 — **14/17축 등장 광폭**(인수분해+근+판별식+활용 종합). 미해결0. 맵 CODE_DRAFT.

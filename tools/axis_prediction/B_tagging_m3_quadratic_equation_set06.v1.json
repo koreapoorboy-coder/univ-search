@@ -7,155 +7,1408 @@
   "n_reused_tags": 39,
   "n_new_tags": 8,
   "tag_language": "en_snake_case",
-  "_transcription_note": "Code탭 재수록본(file-transfer 폴백): Downloads 첨부가 디스크 미실체라 cp 불가 → 반영 필수구조(types·items·accuracy·tags·tag_scope·new_tags) 재수록. rationale·verification_scan은 검수 원본 참조. 진단 데이터는 완전.",
   "types": [
-    { "type_no": 1, "type_name": "이차방정식의 한 근이 주어졌을 때, 미지수의 값 구하기", "item_start": 1, "item_end": 4,
-      "items": [ {"item_no":1,"accuracy":84},{"item_no":2,"accuracy":74},{"item_no":3,"accuracy":74},{"item_no":4,"accuracy":68} ],
-      "tags": ["root_condition_substitution_failure","multi_expression_dependency_error","substitution_parenthesis_omission"],
-      "tag_scope": {"substitution_parenthesis_omission":[2,3,4]} },
-    { "type_no": 2, "type_name": "이차방정식의 한 근이 문자로 주어졌을 때, 식의 값 구하기", "item_start": 5, "item_end": 8,
-      "items": [ {"item_no":5,"accuracy":77},{"item_no":6,"accuracy":70},{"item_no":7,"accuracy":69},{"item_no":8,"accuracy":61} ],
-      "tags": ["root_relation_reduction_failure","simplify_before_substitute_omitted","multi_expression_dependency_error"],
-      "tag_scope": {"multi_expression_dependency_error":[5,7]} },
-    { "type_no": 3, "type_name": "AB=0의 성질을 이용한 이차방정식의 풀이", "item_start": 9, "item_end": 11,
-      "items": [ {"item_no":9,"accuracy":93},{"item_no":10,"accuracy":81},{"item_no":11,"accuracy":90} ],
-      "tags": ["zero_product_property_application_failure","multi_step_composite_error","difference_direction_error"],
-      "tag_scope": {"difference_direction_error":[10,11]} },
-    { "type_no": 4, "type_name": "인수분해를 이용한 이차방정식의 풀이", "item_start": 12, "item_end": 15,
-      "items": [ {"item_no":12,"accuracy":60},{"item_no":13,"accuracy":63},{"item_no":14,"accuracy":45},{"item_no":15,"accuracy":90} ],
-      "tags": ["factor_pair_sum_product_matching_failure","conjugate_rationalization_setup_failure","multi_constraint_intersection_failure"],
-      "tag_scope": {"conjugate_rationalization_setup_failure":[12],"multi_constraint_intersection_failure":[14,15]} },
-    { "type_no": 5, "type_name": "이차방정식의 한 근이 주어졌을 때, 다른 한 근 구하기", "item_start": 16, "item_end": 19,
-      "items": [ {"item_no":16,"accuracy":75},{"item_no":17,"accuracy":78},{"item_no":18,"accuracy":83},{"item_no":19,"accuracy":78} ],
-      "tags": ["root_condition_substitution_failure","factor_pair_sum_product_matching_failure","multi_expression_dependency_error"] },
-    { "type_no": 6, "type_name": "이차방정식의 근의 활용", "item_start": 20, "item_end": 23,
-      "items": [ {"item_no":20,"accuracy":87},{"item_no":21,"accuracy":77},{"item_no":22,"accuracy":65},{"item_no":23,"accuracy":82} ],
-      "tags": ["root_condition_substitution_failure","multi_expression_dependency_error","integer_candidate_enumeration_gap"],
-      "tag_scope": {"integer_candidate_enumeration_gap":[22]} },
-    { "type_no": 7, "type_name": "이차방정식의 중근", "item_start": 24, "item_end": 26,
-      "items": [ {"item_no":24,"accuracy":88},{"item_no":25,"accuracy":76},{"item_no":26,"accuracy":82} ],
-      "tags": ["perfect_square_trinomial_condition_failure","law_selection_error","multiple_answer_omission"],
-      "tag_scope": {"multiple_answer_omission":[24,26]} },
-    { "type_no": 8, "type_name": "이차방정식이 중근을 가질 조건", "item_start": 27, "item_end": 31,
-      "items": [ {"item_no":27,"accuracy":84},{"item_no":28,"accuracy":72},{"item_no":29,"accuracy":65},{"item_no":30,"accuracy":65},{"item_no":31,"accuracy":64} ],
-      "tags": ["root_count_discriminant_condition_failure","multi_expression_dependency_error","integer_candidate_enumeration_gap"],
-      "tag_scope": {"integer_candidate_enumeration_gap":[30]} },
-    { "type_no": 9, "type_name": "두 이차방정식의 공통인 근", "item_start": 32, "item_end": 35,
-      "items": [ {"item_no":32,"accuracy":71},{"item_no":33,"accuracy":59},{"item_no":34,"accuracy":85},{"item_no":35,"accuracy":87} ],
-      "tags": ["multi_constraint_intersection_failure","factor_pair_sum_product_matching_failure","root_condition_substitution_failure"],
-      "tag_scope": {"root_condition_substitution_failure":[34]} },
-    { "type_no": 10, "type_name": "제곱근을 이용한 이차방정식의 풀이", "item_start": 36, "item_end": 39,
-      "items": [ {"item_no":36,"accuracy":75},{"item_no":37,"accuracy":72},{"item_no":38,"accuracy":72},{"item_no":39,"accuracy":73} ],
-      "tags": ["inverse_operation_setup_error","multiple_answer_omission","range_constraint_dropped"],
-      "tag_scope": {"multiple_answer_omission":[36,37,38],"range_constraint_dropped":[36,38]} },
-    { "type_no": 11, "type_name": "이차방정식 a(x+p)^2=q가 근을 가질 조건", "item_start": 40, "item_end": 43,
-      "items": [ {"item_no":40,"accuracy":77},{"item_no":41,"accuracy":65},{"item_no":42,"accuracy":58},{"item_no":43,"accuracy":76} ],
-      "tags": ["range_constraint_dropped","integer_candidate_enumeration_gap","law_selection_error"],
-      "tag_scope": {"integer_candidate_enumeration_gap":[42,43],"law_selection_error":[41]} },
-    { "type_no": 12, "type_name": "완전제곱식을 이용한 이차방정식의 풀이", "item_start": 44, "item_end": 46,
-      "items": [ {"item_no":44,"accuracy":76},{"item_no":45,"accuracy":71},{"item_no":46,"accuracy":75} ],
-      "tags": ["square_formula_middle_term_error","inverse_operation_setup_error","sign_propagation_error"] },
-    { "type_no": 13, "type_name": "이차방정식의 근의 공식", "item_start": 47, "item_end": 51,
-      "items": [ {"item_no":47,"accuracy":79},{"item_no":48,"accuracy":82},{"item_no":49,"accuracy":73},{"item_no":50,"accuracy":84},{"item_no":51,"accuracy":77} ],
-      "tags": ["quadratic_formula_coefficient_substitution_failure","sign_propagation_error","range_constraint_dropped"],
-      "tag_scope": {"range_constraint_dropped":[49,50]} },
-    { "type_no": 14, "type_name": "근의 공식을 이용하여 이차방정식의 미지수의 값 구하기", "item_start": 52, "item_end": 56,
-      "items": [ {"item_no":52,"accuracy":81},{"item_no":53,"accuracy":77},{"item_no":54,"accuracy":73},{"item_no":55,"accuracy":83},{"item_no":56,"accuracy":68} ],
-      "tags": ["quadratic_formula_coefficient_substitution_failure","multi_expression_dependency_error","answer_stage_confusion"] },
-    { "type_no": 15, "type_name": "복잡한 이차방정식의 풀이(1) 괄호가 있는 경우", "item_start": 57, "item_end": 61,
-      "items": [ {"item_no":57,"accuracy":72},{"item_no":58,"accuracy":74},{"item_no":59,"accuracy":84},{"item_no":60,"accuracy":78},{"item_no":61,"accuracy":56} ],
-      "tags": ["parenthesis_sign_distribution_error","like_term_misgrouping","integer_candidate_enumeration_gap"],
-      "tag_scope": {"integer_candidate_enumeration_gap":[57,61]} },
-    { "type_no": 16, "type_name": "복잡한 이차방정식의 풀이(2) 계수가 분수인 경우", "item_start": 62, "item_end": 66,
-      "items": [ {"item_no":62,"accuracy":80},{"item_no":63,"accuracy":65},{"item_no":64,"accuracy":68},{"item_no":65,"accuracy":73},{"item_no":66,"accuracy":67} ],
-      "tags": ["fraction_coefficient_lcd_error","like_term_misgrouping","integer_candidate_enumeration_gap"],
-      "tag_scope": {"integer_candidate_enumeration_gap":[63,64,66]} },
-    { "type_no": 17, "type_name": "복잡한 이차방정식의 풀이(3) 계수가 소수인 경우", "item_start": 67, "item_end": 70,
-      "items": [ {"item_no":67,"accuracy":79},{"item_no":68,"accuracy":79},{"item_no":69,"accuracy":77},{"item_no":70,"accuracy":73} ],
-      "tags": ["power_of_ten_extraction_failure","like_term_misgrouping","law_selection_error"],
-      "tag_scope": {"law_selection_error":[68,70]} },
-    { "type_no": 18, "type_name": "공통부분이 있는 이차방정식의 풀이", "item_start": 71, "item_end": 75,
-      "items": [ {"item_no":71,"accuracy":74},{"item_no":72,"accuracy":62},{"item_no":73,"accuracy":69},{"item_no":74,"accuracy":69},{"item_no":75,"accuracy":80} ],
-      "tags": ["common_subexpression_substitution_failure","multi_step_composite_error","range_constraint_dropped"],
-      "tag_scope": {"range_constraint_dropped":[72,73,75]} },
-    { "type_no": 19, "type_name": "새로운 기호로 정의된 연산에 의한 이차방정식의 풀이", "item_start": 76, "item_end": 78,
-      "items": [ {"item_no":76,"accuracy":65},{"item_no":77,"accuracy":53},{"item_no":78,"accuracy":50} ],
-      "tags": ["custom_operator_definition_misapplication","substitution_parenthesis_omission","integer_candidate_enumeration_gap"],
-      "tag_scope": {"integer_candidate_enumeration_gap":[77,78]} },
-    { "type_no": 20, "type_name": "이차방정식의 근의 개수", "item_start": 79, "item_end": 79,
-      "items": [ {"item_no":79,"accuracy":49} ],
-      "tags": ["root_count_discriminant_condition_failure","multi_expression_dependency_error","multi_step_composite_error"] },
-    { "type_no": 21, "type_name": "이차방정식이 중근을 가질 조건", "item_start": 80, "item_end": 83,
-      "items": [ {"item_no":80,"accuracy":77},{"item_no":81,"accuracy":84},{"item_no":82,"accuracy":74},{"item_no":83,"accuracy":73} ],
-      "tags": ["root_count_discriminant_condition_failure","multi_expression_dependency_error","integer_candidate_enumeration_gap"],
-      "tag_scope": {"integer_candidate_enumeration_gap":[82,83]} },
-    { "type_no": 22, "type_name": "근의 개수에 따른 미지수의 값의 범위 구하기", "item_start": 84, "item_end": 88,
-      "items": [ {"item_no":84,"accuracy":75},{"item_no":85,"accuracy":65},{"item_no":86,"accuracy":78},{"item_no":87,"accuracy":76},{"item_no":88,"accuracy":58} ],
-      "tags": ["root_count_discriminant_condition_failure","inequality_bound_conversion_error","integer_candidate_enumeration_gap"],
-      "tag_scope": {"integer_candidate_enumeration_gap":[86,87,88]} },
-    { "type_no": 23, "type_name": "이차방정식 구하기(1) 두 근 또는 중근이 주어졌을 때", "item_start": 89, "item_end": 92,
-      "items": [ {"item_no":89,"accuracy":81},{"item_no":90,"accuracy":82},{"item_no":91,"accuracy":68},{"item_no":92,"accuracy":72} ],
-      "tags": ["root_to_factor_equation_setup_failure","like_term_misgrouping","irrational_integer_fractional_part_split_failure"],
-      "tag_scope": {"irrational_integer_fractional_part_split_failure":[91]} },
-    { "type_no": 24, "type_name": "이차방정식 구하기(2) 두 근 사이의 관계식이 주어졌을 때", "item_start": 93, "item_end": 97,
-      "items": [ {"item_no":93,"accuracy":78},{"item_no":94,"accuracy":71},{"item_no":95,"accuracy":70},{"item_no":96,"accuracy":69},{"item_no":97,"accuracy":77} ],
-      "tags": ["root_to_factor_equation_setup_failure","multi_expression_dependency_error","range_constraint_dropped"],
-      "tag_scope": {"range_constraint_dropped":[95,96]} },
-    { "type_no": 25, "type_name": "잘못 보고 푼 이차방정식", "item_start": 98, "item_end": 101,
-      "items": [ {"item_no":98,"accuracy":81},{"item_no":99,"accuracy":71},{"item_no":100,"accuracy":78},{"item_no":101,"accuracy":83} ],
-      "tags": ["intended_vs_actual_value_swap","verification_missing","multi_expression_dependency_error"] },
-    { "type_no": 26, "type_name": "한 근이 무리수인 이차방정식", "item_start": 102, "item_end": 105,
-      "items": [ {"item_no":102,"accuracy":79},{"item_no":103,"accuracy":77},{"item_no":104,"accuracy":77},{"item_no":105,"accuracy":75} ],
-      "tags": ["irrational_conjugate_root_pair_failure","root_to_factor_equation_setup_failure","multi_expression_dependency_error"] },
-    { "type_no": 27, "type_name": "이차방정식의 활용(2) 수", "item_start": 106, "item_end": 108,
-      "items": [ {"item_no":106,"accuracy":63},{"item_no":107,"accuracy":80},{"item_no":108,"accuracy":80} ],
-      "tags": ["quadratic_application_equation_setup_failure","multiple_answer_omission","verification_missing"],
-      "tag_scope": {"multiple_answer_omission":[107],"verification_missing":[107]} },
-    { "type_no": 28, "type_name": "이차방정식의 활용(3) 연속하는 수", "item_start": 109, "item_end": 112,
-      "items": [ {"item_no":109,"accuracy":84},{"item_no":110,"accuracy":81},{"item_no":111,"accuracy":83},{"item_no":112,"accuracy":77} ],
-      "tags": ["quadratic_application_equation_setup_failure","pattern_extraction_failure","range_constraint_dropped"] },
-    { "type_no": 29, "type_name": "이차방정식의 활용(4) 비율, 농도", "item_start": 113, "item_end": 117,
-      "items": [ {"item_no":113,"accuracy":48},{"item_no":114,"accuracy":46},{"item_no":115,"accuracy":45},{"item_no":116,"accuracy":46},{"item_no":117,"accuracy":62} ],
-      "tags": ["quadratic_application_equation_setup_failure","conservation_condition_overlooked","percentage_scale_factor_conversion_error"],
-      "tag_scope": {"conservation_condition_overlooked":[113,114,115,116],"percentage_scale_factor_conversion_error":[117]} },
-    { "type_no": 30, "type_name": "이차방정식의 활용(5) 개수, 나이", "item_start": 118, "item_end": 120,
-      "items": [ {"item_no":118,"accuracy":74},{"item_no":119,"accuracy":49},{"item_no":120,"accuracy":84} ],
-      "tags": ["quadratic_application_equation_setup_failure","multi_constraint_intersection_failure","multi_step_composite_error"],
-      "tag_scope": {"multi_step_composite_error":[119]} },
-    { "type_no": 31, "type_name": "이차방정식의 활용(6) 쏘아 올린 물체/거리, 시간", "item_start": 121, "item_end": 124,
-      "items": [ {"item_no":121,"accuracy":75},{"item_no":122,"accuracy":69},{"item_no":123,"accuracy":58},{"item_no":124,"accuracy":44} ],
-      "tags": ["quadratic_application_equation_setup_failure","range_constraint_dropped","multi_stage_motion_distance_setup_failure"],
-      "tag_scope": {"multi_stage_motion_distance_setup_failure":[124]} },
-    { "type_no": 32, "type_name": "이차방정식의 활용(7) 삼각형과 사각형", "item_start": 125, "item_end": 128,
-      "items": [ {"item_no":125,"accuracy":79},{"item_no":126,"accuracy":82},{"item_no":127,"accuracy":55},{"item_no":128,"accuracy":59} ],
-      "tags": ["variable_length_assignment_failure","area_formula_setup_error","similar_triangle_correspondence_setup_failure"],
-      "tag_scope": {"area_formula_setup_error":[125,126,128],"similar_triangle_correspondence_setup_failure":[127,128]} },
-    { "type_no": 33, "type_name": "이차방정식의 활용(8) 붙어 있는 도형", "item_start": 129, "item_end": 133,
-      "items": [ {"item_no":129,"accuracy":87},{"item_no":130,"accuracy":59},{"item_no":131,"accuracy":67},{"item_no":132,"accuracy":66},{"item_no":133,"accuracy":74} ],
-      "tags": ["variable_length_assignment_failure","area_decomposition_equation_setup_failure","multi_expression_dependency_error"] },
-    { "type_no": 34, "type_name": "이차방정식의 활용(9) 원과 원기둥", "item_start": 134, "item_end": 137,
-      "items": [ {"item_no":134,"accuracy":79},{"item_no":135,"accuracy":83},{"item_no":136,"accuracy":83},{"item_no":137,"accuracy":86} ],
-      "tags": ["radius_offset_equation_setup_error","composite_area_subtraction_failure","area_formula_setup_error"] },
-    { "type_no": 35, "type_name": "이차방정식의 활용(10) 변의 길이를 줄이거나 늘인 도형", "item_start": 138, "item_end": 141,
-      "items": [ {"item_no":138,"accuracy":87},{"item_no":139,"accuracy":73},{"item_no":140,"accuracy":81},{"item_no":141,"accuracy":75} ],
-      "tags": ["variable_length_assignment_failure","area_formula_setup_error","ratio_direction_inversion"],
-      "tag_scope": {"ratio_direction_inversion":[138,139,140]} },
-    { "type_no": 36, "type_name": "이차방정식의 활용(11) 상자를 만드는 경우", "item_start": 142, "item_end": 145,
-      "items": [ {"item_no":142,"accuracy":80},{"item_no":143,"accuracy":84},{"item_no":144,"accuracy":76},{"item_no":145,"accuracy":74} ],
-      "tags": ["variable_length_assignment_failure","volume_formula_misapplication","multiple_answer_omission"],
-      "tag_scope": {"volume_formula_misapplication":[142,145],"multiple_answer_omission":[143]} },
-    { "type_no": 37, "type_name": "이차방정식의 활용(12) 도로를 만드는 경우", "item_start": 146, "item_end": 150,
-      "items": [ {"item_no":146,"accuracy":85},{"item_no":147,"accuracy":89},{"item_no":148,"accuracy":89},{"item_no":149,"accuracy":81},{"item_no":150,"accuracy":71} ],
-      "tags": ["variable_length_assignment_failure","composite_area_subtraction_failure","area_decomposition_equation_setup_failure"] }
+    {
+      "type_no": 1,
+      "type_name": "이차방정식의 한 근이 주어졌을 때, 미지수의 값 구하기",
+      "item_start": 1,
+      "item_end": 4,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 84
+        },
+        {
+          "item_no": 2,
+          "accuracy": 74
+        },
+        {
+          "item_no": 3,
+          "accuracy": 74
+        },
+        {
+          "item_no": 4,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "root_condition_substitution_failure",
+        "multi_expression_dependency_error",
+        "substitution_parenthesis_omission"
+      ],
+      "tag_scope": {
+        "substitution_parenthesis_omission": [
+          2,
+          3,
+          4
+        ]
+      },
+      "rationale": "Q1~Q4는 “x=r이 근”이라는 말을 원래 이차방정식에 대입하여 계수 사이의 식을 만들고, 두 조건을 연립해 미지수를 구한다. Q2~Q4는 음수인 근도 포함하므로 음수를 괄호 없이 대입해 부호가 무너지는 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "이차방정식의 한 근이 문자로 주어졌을 때, 식의 값 구하기",
+      "item_start": 5,
+      "item_end": 8,
+      "items": [
+        {
+          "item_no": 5,
+          "accuracy": 77
+        },
+        {
+          "item_no": 6,
+          "accuracy": 70
+        },
+        {
+          "item_no": 7,
+          "accuracy": 69
+        },
+        {
+          "item_no": 8,
+          "accuracy": 61
+        }
+      ],
+      "tags": [
+        "root_relation_reduction_failure",
+        "simplify_before_substitute_omitted",
+        "multi_expression_dependency_error"
+      ],
+      "tag_scope": {
+        "multi_expression_dependency_error": [
+          5,
+          7
+        ]
+      },
+      "rationale": "Q5~Q8은 한 근 α가 만족하는 f(α)=0을 이용해 α² 이상의 항이나 복잡한 식을 더 낮은 차수로 바꾸어 계산한다. Q5와 Q7은 서로 다른 두 방정식에서 얻은 관계를 함께 써야 하므로 여러 식의 의존 관계 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "AB=0의 성질을 이용한 이차방정식의 풀이",
+      "item_start": 9,
+      "item_end": 11,
+      "items": [
+        {
+          "item_no": 9,
+          "accuracy": 93
+        },
+        {
+          "item_no": 10,
+          "accuracy": 81
+        },
+        {
+          "item_no": 11,
+          "accuracy": 90
+        }
+      ],
+      "tags": [
+        "zero_product_property_application_failure",
+        "multi_step_composite_error",
+        "difference_direction_error"
+      ],
+      "tag_scope": {
+        "difference_direction_error": [
+          10,
+          11
+        ]
+      },
+      "rationale": "Q9~Q11은 이미 인수의 곱으로 주어진 식에서 AB=0이면 A=0 또는 B=0이라는 성질로 두 근을 얻은 뒤 합·차·제곱의 차를 계산한다. Q10~Q11은 두 근의 순서를 정한 뒤 어느 쪽에서 어느 쪽을 빼는지가 추가되므로 차의 방향 오류를 문항 범위로 둔다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "인수분해를 이용한 이차방정식의 풀이",
+      "item_start": 12,
+      "item_end": 15,
+      "items": [
+        {
+          "item_no": 12,
+          "accuracy": 60
+        },
+        {
+          "item_no": 13,
+          "accuracy": 63
+        },
+        {
+          "item_no": 14,
+          "accuracy": 45
+        },
+        {
+          "item_no": 15,
+          "accuracy": 90
+        }
+      ],
+      "tags": [
+        "factor_pair_sum_product_matching_failure",
+        "conjugate_rationalization_setup_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "tag_scope": {
+        "conjugate_rationalization_setup_failure": [
+          12
+        ],
+        "multi_constraint_intersection_failure": [
+          14,
+          15
+        ]
+      },
+      "rationale": "Q12~Q15는 최종적으로 이차식을 인수분해해 가능한 값을 결정한다. Q12는 켤레식을 이용한 유리화가 선행되고, Q14~Q15는 카드 조건·구간 조건과 인수분해 결과를 동시에 만족시키는 경우만 남겨야 하므로 각각 `tag_scope`로 제한한다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "이차방정식의 한 근이 주어졌을 때, 다른 한 근 구하기",
+      "item_start": 16,
+      "item_end": 19,
+      "items": [
+        {
+          "item_no": 16,
+          "accuracy": 75
+        },
+        {
+          "item_no": 17,
+          "accuracy": 78
+        },
+        {
+          "item_no": 18,
+          "accuracy": 83
+        },
+        {
+          "item_no": 19,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "root_condition_substitution_failure",
+        "factor_pair_sum_product_matching_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q16~Q19는 주어진 한 근을 원식에 대입해 계수를 먼저 확정하고, 그 이차방정식을 인수분해하여 남은 한 근을 찾는다. 첫 단계의 근 조건 대입과 두 번째 단계의 인수분해를 분리하지 못하거나 계수 결정 후 식을 다시 연결하지 못하는 것이 공통 병목이다."
+    },
+    {
+      "type_no": 6,
+      "type_name": "이차방정식의 근의 활용",
+      "item_start": 20,
+      "item_end": 23,
+      "items": [
+        {
+          "item_no": 20,
+          "accuracy": 87
+        },
+        {
+          "item_no": 21,
+          "accuracy": 77
+        },
+        {
+          "item_no": 22,
+          "accuracy": 65
+        },
+        {
+          "item_no": 23,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "root_condition_substitution_failure",
+        "multi_expression_dependency_error",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          22
+        ]
+      },
+      "rationale": "Q20~Q23은 근 하나의 정보로 미지 계수를 정한 뒤 다른 근이나 계수식을 다시 계산한다. Q22는 연속한 두 홀수와 제곱합 74를 만족하는 후보를 빠짐없이 찾아야 하므로 정수 후보 열거 오류를 Q22에만 둔다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "이차방정식의 중근",
+      "item_start": 24,
+      "item_end": 26,
+      "items": [
+        {
+          "item_no": 24,
+          "accuracy": 88
+        },
+        {
+          "item_no": 25,
+          "accuracy": 76
+        },
+        {
+          "item_no": 26,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "perfect_square_trinomial_condition_failure",
+        "law_selection_error",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          24,
+          26
+        ]
+      },
+      "rationale": "Q24~Q26은 중근을 갖는 이차식이 완전제곱식으로 정리되는지를 판별한다. Q24와 Q26은 조건에 맞는 식을 여러 개 골라 묶어야 하므로 하나만 찾고 끝내는 복수답 누락을 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 8,
+      "type_name": "이차방정식이 중근을 가질 조건",
+      "item_start": 27,
+      "item_end": 31,
+      "items": [
+        {
+          "item_no": 27,
+          "accuracy": 84
+        },
+        {
+          "item_no": 28,
+          "accuracy": 72
+        },
+        {
+          "item_no": 29,
+          "accuracy": 65
+        },
+        {
+          "item_no": 30,
+          "accuracy": 65
+        },
+        {
+          "item_no": 31,
+          "accuracy": 64
+        }
+      ],
+      "tags": [
+        "root_count_discriminant_condition_failure",
+        "multi_expression_dependency_error",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          30
+        ]
+      },
+      "rationale": "Q27~Q31은 중근 조건을 판별식 D=0으로 바꾸어 매개변수 조건을 만들고, 필요하면 그 결과를 다른 이차방정식에 다시 넣는다. Q30은 카드에서 가능한 (a,b)를 모두 조사해 확률을 계산하므로 정수 후보 누락을 Q30에만 둔다."
+    },
+    {
+      "type_no": 9,
+      "type_name": "두 이차방정식의 공통인 근",
+      "item_start": 32,
+      "item_end": 35,
+      "items": [
+        {
+          "item_no": 32,
+          "accuracy": 71
+        },
+        {
+          "item_no": 33,
+          "accuracy": 59
+        },
+        {
+          "item_no": 34,
+          "accuracy": 85
+        },
+        {
+          "item_no": 35,
+          "accuracy": 87
+        }
+      ],
+      "tags": [
+        "multi_constraint_intersection_failure",
+        "factor_pair_sum_product_matching_failure",
+        "root_condition_substitution_failure"
+      ],
+      "tag_scope": {
+        "root_condition_substitution_failure": [
+          34
+        ]
+      },
+      "rationale": "Q32~Q35는 두 개 이상의 이차방정식이 동시에 만족하는 공통근을 찾아야 한다. 각 식을 인수분해해 근 집합의 교집합을 맞추는 것이 기본이며, Q34는 먼저 x=-2를 대입해 매개변수를 결정하는 단계가 추가된다."
+    },
+    {
+      "type_no": 10,
+      "type_name": "제곱근을 이용한 이차방정식의 풀이",
+      "item_start": 36,
+      "item_end": 39,
+      "items": [
+        {
+          "item_no": 36,
+          "accuracy": 75
+        },
+        {
+          "item_no": 37,
+          "accuracy": 72
+        },
+        {
+          "item_no": 38,
+          "accuracy": 72
+        },
+        {
+          "item_no": 39,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "inverse_operation_setup_error",
+        "multiple_answer_omission",
+        "range_constraint_dropped"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          36,
+          37,
+          38
+        ],
+        "range_constraint_dropped": [
+          36,
+          38
+        ]
+      },
+      "rationale": "Q36~Q39는 (x-a)²=k 꼴에서 제곱을 풀어 x-a=±√k로 두고 주어진 부호·범위 조건을 적용한다. Q36~Q38은 ± 두 갈래를 모두 고려해야 하고, Q36·Q38은 양수 조건으로 가능한 값을 다시 걸러야 한다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "이차방정식 a(x+p)²=q가 근을 가질 조건",
+      "item_start": 40,
+      "item_end": 43,
+      "items": [
+        {
+          "item_no": 40,
+          "accuracy": 77
+        },
+        {
+          "item_no": 41,
+          "accuracy": 65
+        },
+        {
+          "item_no": 42,
+          "accuracy": 58
+        },
+        {
+          "item_no": 43,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "range_constraint_dropped",
+        "integer_candidate_enumeration_gap",
+        "law_selection_error"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          42,
+          43
+        ],
+        "law_selection_error": [
+          41
+        ]
+      },
+      "rationale": "Q40~Q43은 a(x+p)²=q에서 우변의 부호와 정수 제곱 조건으로 근의 존재 여부를 판단한다. Q42~Q43은 정수근이 되도록 k의 후보를 열거해야 하고, Q41은 제시된 명제 중 옳지 않은 것을 고르는 법칙 판별이 추가된다."
+    },
+    {
+      "type_no": 12,
+      "type_name": "완전제곱식을 이용한 이차방정식의 풀이",
+      "item_start": 44,
+      "item_end": 46,
+      "items": [
+        {
+          "item_no": 44,
+          "accuracy": 76
+        },
+        {
+          "item_no": 45,
+          "accuracy": 71
+        },
+        {
+          "item_no": 46,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "square_formula_middle_term_error",
+        "inverse_operation_setup_error",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q44~Q46은 일차항 계수의 절반을 이용해 완전제곱식을 만들고 상수항을 반대편에 정확히 보정한다. 중항 ±2ab를 잘못 만들거나 이항 과정의 부호를 놓치면 이후 제곱근 단계가 모두 틀어진다."
+    },
+    {
+      "type_no": 13,
+      "type_name": "이차방정식의 근의 공식",
+      "item_start": 47,
+      "item_end": 51,
+      "items": [
+        {
+          "item_no": 47,
+          "accuracy": 79
+        },
+        {
+          "item_no": 48,
+          "accuracy": 82
+        },
+        {
+          "item_no": 49,
+          "accuracy": 73
+        },
+        {
+          "item_no": 50,
+          "accuracy": 84
+        },
+        {
+          "item_no": 51,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "quadratic_formula_coefficient_substitution_failure",
+        "sign_propagation_error",
+        "range_constraint_dropped"
+      ],
+      "tag_scope": {
+        "range_constraint_dropped": [
+          49,
+          50
+        ]
+      },
+      "rationale": "Q47~Q51은 근의 공식에서 a,b,c를 정확한 자리에 넣고 -b, 2a, b²-4ac의 부호를 유지해야 한다. Q49~Q50은 구한 근 중 양수·부등식 조건을 만족하는 값만 선택하므로 범위 조건 누락을 해당 문항에 둔다."
+    },
+    {
+      "type_no": 14,
+      "type_name": "근의 공식을 이용하여 이차방정식의 미지수의 값 구하기",
+      "item_start": 52,
+      "item_end": 56,
+      "items": [
+        {
+          "item_no": 52,
+          "accuracy": 81
+        },
+        {
+          "item_no": 53,
+          "accuracy": 77
+        },
+        {
+          "item_no": 54,
+          "accuracy": 73
+        },
+        {
+          "item_no": 55,
+          "accuracy": 83
+        },
+        {
+          "item_no": 56,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "quadratic_formula_coefficient_substitution_failure",
+        "multi_expression_dependency_error",
+        "answer_stage_confusion"
+      ],
+      "rationale": "Q52~Q56은 근의 공식으로 얻은 표현을 문제에 주어진 B±√C 형태와 비교해 미지 계수를 역으로 결정한다. 공식 대입 결과와 추가 계수식을 연결한 뒤 A+B, A-B 같은 최종 요구값까지 가야 하므로 중간 근 표현에서 멈추는 오류도 함께 본다."
+    },
+    {
+      "type_no": 15,
+      "type_name": "복잡한 이차방정식의 풀이(1) 괄호가 있는 경우",
+      "item_start": 57,
+      "item_end": 61,
+      "items": [
+        {
+          "item_no": 57,
+          "accuracy": 72
+        },
+        {
+          "item_no": 58,
+          "accuracy": 74
+        },
+        {
+          "item_no": 59,
+          "accuracy": 84
+        },
+        {
+          "item_no": 60,
+          "accuracy": 78
+        },
+        {
+          "item_no": 61,
+          "accuracy": 56
+        }
+      ],
+      "tags": [
+        "parenthesis_sign_distribution_error",
+        "like_term_misgrouping",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          57,
+          61
+        ]
+      },
+      "rationale": "Q57~Q61은 괄호를 먼저 정확히 전개하고 같은 차수의 항을 모아 표준형 이차방정식으로 바꾸는 과정이 핵심이다. Q57과 Q61은 두 무리수 근 사이에 놓인 자연수·정수의 개수까지 세므로 후보 열거 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 16,
+      "type_name": "복잡한 이차방정식의 풀이(2) 계수가 분수인 경우",
+      "item_start": 62,
+      "item_end": 66,
+      "items": [
+        {
+          "item_no": 62,
+          "accuracy": 80
+        },
+        {
+          "item_no": 63,
+          "accuracy": 65
+        },
+        {
+          "item_no": 64,
+          "accuracy": 68
+        },
+        {
+          "item_no": 65,
+          "accuracy": 73
+        },
+        {
+          "item_no": 66,
+          "accuracy": 67
+        }
+      ],
+      "tags": [
+        "fraction_coefficient_lcd_error",
+        "like_term_misgrouping",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          63,
+          64,
+          66
+        ]
+      },
+      "rationale": "Q62~Q66은 분수계수를 없애기 위해 양변에 공통분모를 곱한 뒤 이차식을 정리한다. Q63·Q64·Q66은 구한 무리수 근의 위치에서 정수 n 또는 사이의 정수 개수를 결정해야 하므로 정수 후보 열거를 문항 범위로 둔다."
+    },
+    {
+      "type_no": 17,
+      "type_name": "복잡한 이차방정식의 풀이(3) 계수가 소수인 경우",
+      "item_start": 67,
+      "item_end": 70,
+      "items": [
+        {
+          "item_no": 67,
+          "accuracy": 79
+        },
+        {
+          "item_no": 68,
+          "accuracy": 79
+        },
+        {
+          "item_no": 69,
+          "accuracy": 77
+        },
+        {
+          "item_no": 70,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "power_of_ten_extraction_failure",
+        "like_term_misgrouping",
+        "law_selection_error"
+      ],
+      "tag_scope": {
+        "law_selection_error": [
+          68,
+          70
+        ]
+      },
+      "rationale": "Q67~Q70은 소수계수를 10의 거듭제곱으로 확대해 정수계수 이차방정식으로 바꾼 뒤 푼다. Q68과 Q70은 제시된 풀이 중 옳고 그름을 판별하는 문항이라 적용한 법칙·계산 순서의 선택 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 18,
+      "type_name": "공통부분이 있는 이차방정식의 풀이",
+      "item_start": 71,
+      "item_end": 75,
+      "items": [
+        {
+          "item_no": 71,
+          "accuracy": 74
+        },
+        {
+          "item_no": 72,
+          "accuracy": 62
+        },
+        {
+          "item_no": 73,
+          "accuracy": 69
+        },
+        {
+          "item_no": 74,
+          "accuracy": 69
+        },
+        {
+          "item_no": 75,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "common_subexpression_substitution_failure",
+        "multi_step_composite_error",
+        "range_constraint_dropped"
+      ],
+      "tag_scope": {
+        "range_constraint_dropped": [
+          72,
+          73,
+          75
+        ]
+      },
+      "rationale": "Q71~Q75는 x²-3x, x-y, a+b처럼 반복되는 공통부분을 한 문자로 치환해 먼저 이차방정식을 풀고 다시 원래 문자로 복원한다. Q72·Q73·Q75는 자연수·대소관계 조건으로 복원된 해를 걸러야 하므로 범위 조건 누락을 해당 문항에 둔다."
+    },
+    {
+      "type_no": 19,
+      "type_name": "새로운 기호로 정의된 연산에 의한 이차방정식의 풀이",
+      "item_start": 76,
+      "item_end": 78,
+      "items": [
+        {
+          "item_no": 76,
+          "accuracy": 65
+        },
+        {
+          "item_no": 77,
+          "accuracy": 53
+        },
+        {
+          "item_no": 78,
+          "accuracy": 50
+        }
+      ],
+      "tags": [
+        "custom_operator_definition_misapplication",
+        "substitution_parenthesis_omission",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          77,
+          78
+        ]
+      },
+      "rationale": "Q76~Q78은 새 기호로 정의된 연산을 먼저 정확히 펼친 뒤 그 결과를 이차방정식으로 풀어야 한다. Q77~Q78은 해가 개수·소수 조건을 만족하도록 가능한 자연수 값을 모두 세므로 정수 후보 누락을 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 20,
+      "type_name": "이차방정식의 근의 개수",
+      "item_start": 79,
+      "item_end": 79,
+      "items": [
+        {
+          "item_no": 79,
+          "accuracy": 49
+        }
+      ],
+      "tags": [
+        "root_count_discriminant_condition_failure",
+        "multi_expression_dependency_error",
+        "multi_step_composite_error"
+      ],
+      "rationale": "Q79는 주어진 a,b,c 조건을 먼저 정리한 뒤 세 이차방정식의 중근 조건을 판별식과 연결해 p,q,r을 연쇄적으로 구한다. 여러 식의 판별식 조건을 동시에 유지해야 해서 한 단계의 오류가 뒤의 모든 값에 전파된다."
+    },
+    {
+      "type_no": 21,
+      "type_name": "이차방정식이 중근을 가질 조건",
+      "item_start": 80,
+      "item_end": 83,
+      "items": [
+        {
+          "item_no": 80,
+          "accuracy": 77
+        },
+        {
+          "item_no": 81,
+          "accuracy": 84
+        },
+        {
+          "item_no": 82,
+          "accuracy": 74
+        },
+        {
+          "item_no": 83,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "root_count_discriminant_condition_failure",
+        "multi_expression_dependency_error",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          82,
+          83
+        ]
+      },
+      "rationale": "Q80~Q83은 중근 조건 D=0을 이용해 k,p,q 또는 a,b 사이의 관계를 만든다. Q82~Q83은 자연수 조건에서 가능한 값을 조사해 최소가 되는 경우를 골라야 하므로 후보 열거 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 22,
+      "type_name": "근의 개수에 따른 미지수의 값의 범위 구하기",
+      "item_start": 84,
+      "item_end": 88,
+      "items": [
+        {
+          "item_no": 84,
+          "accuracy": 75
+        },
+        {
+          "item_no": 85,
+          "accuracy": 65
+        },
+        {
+          "item_no": 86,
+          "accuracy": 78
+        },
+        {
+          "item_no": 87,
+          "accuracy": 76
+        },
+        {
+          "item_no": 88,
+          "accuracy": 58
+        }
+      ],
+      "tags": [
+        "root_count_discriminant_condition_failure",
+        "inequality_bound_conversion_error",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          86,
+          87,
+          88
+        ]
+      },
+      "rationale": "Q84~Q88은 근이 없음·서로 다른 두 근 같은 조건을 판별식의 부등식으로 바꾸어 매개변수의 범위를 구한다. Q86~Q88은 그 범위에서 가능한 정수나 카드 값을 다시 세어야 하므로 정수 후보 열거를 문항 범위로 둔다."
+    },
+    {
+      "type_no": 23,
+      "type_name": "이차방정식 구하기(1) 두 근 또는 중근이 주어졌을 때",
+      "item_start": 89,
+      "item_end": 92,
+      "items": [
+        {
+          "item_no": 89,
+          "accuracy": 81
+        },
+        {
+          "item_no": 90,
+          "accuracy": 82
+        },
+        {
+          "item_no": 91,
+          "accuracy": 68
+        },
+        {
+          "item_no": 92,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "root_to_factor_equation_setup_failure",
+        "like_term_misgrouping",
+        "irrational_integer_fractional_part_split_failure"
+      ],
+      "tag_scope": {
+        "irrational_integer_fractional_part_split_failure": [
+          91
+        ]
+      },
+      "rationale": "Q89~Q92는 주어진 두 근 α,β에서 (x-α)(x-β)=0을 만들고 필요하면 최고차항 계수를 맞춰 새 이차방정식을 구성한다. Q91은 √2와 √21-2의 정수·소수 부분을 먼저 분리해 실제 두 근을 확정해야 하므로 해당 오류를 Q91에만 둔다."
+    },
+    {
+      "type_no": 24,
+      "type_name": "이차방정식 구하기(2) 두 근 사이의 관계식이 주어졌을 때",
+      "item_start": 93,
+      "item_end": 97,
+      "items": [
+        {
+          "item_no": 93,
+          "accuracy": 78
+        },
+        {
+          "item_no": 94,
+          "accuracy": 71
+        },
+        {
+          "item_no": 95,
+          "accuracy": 70
+        },
+        {
+          "item_no": 96,
+          "accuracy": 69
+        },
+        {
+          "item_no": 97,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "root_to_factor_equation_setup_failure",
+        "multi_expression_dependency_error",
+        "range_constraint_dropped"
+      ],
+      "tag_scope": {
+        "range_constraint_dropped": [
+          95,
+          96
+        ]
+      },
+      "rationale": "Q93~Q97은 두 근을 α와 α+d 같은 관계식으로 놓고 인수식의 전개 계수를 주어진 이차방정식과 비교한다. Q95~Q96은 m>0, m<0 같은 추가 부호 조건으로 여러 해 중 하나를 선택해야 하므로 범위 조건 누락을 해당 문항에 둔다."
+    },
+    {
+      "type_no": 25,
+      "type_name": "잘못 보고 푼 이차방정식",
+      "item_start": 98,
+      "item_end": 101,
+      "items": [
+        {
+          "item_no": 98,
+          "accuracy": 81
+        },
+        {
+          "item_no": 99,
+          "accuracy": 71
+        },
+        {
+          "item_no": 100,
+          "accuracy": 78
+        },
+        {
+          "item_no": 101,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "intended_vs_actual_value_swap",
+        "verification_missing",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q98~Q101은 계수나 상수항을 잘못 보고 푼 결과에서 “잘못 본 식”과 “원래 식”을 역으로 분리해 원래 계수를 복원한다. 역추적 문제이므로 복원한 값을 잘못 본 상황에 다시 대입해 조건이 맞는지 확인하는 검산까지 독립적으로 필요하다."
+    },
+    {
+      "type_no": 26,
+      "type_name": "한 근이 무리수인 이차방정식",
+      "item_start": 102,
+      "item_end": 105,
+      "items": [
+        {
+          "item_no": 102,
+          "accuracy": 79
+        },
+        {
+          "item_no": 103,
+          "accuracy": 77
+        },
+        {
+          "item_no": 104,
+          "accuracy": 77
+        },
+        {
+          "item_no": 105,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "irrational_conjugate_root_pair_failure",
+        "root_to_factor_equation_setup_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q102~Q105는 유리수 계수 이차방정식에서 한 근이 a-√b 꼴이면 다른 근이 a+√b가 된다는 켤레근 성질을 사용한다. 두 근으로 다시 인수식을 구성해 계수를 비교하는 단계까지 이어지므로 켤레근 인식과 방정식 복원이 함께 요구된다."
+    },
+    {
+      "type_no": 27,
+      "type_name": "이차방정식의 활용(2) 수",
+      "item_start": 106,
+      "item_end": 108,
+      "items": [
+        {
+          "item_no": 106,
+          "accuracy": 63
+        },
+        {
+          "item_no": 107,
+          "accuracy": 80
+        },
+        {
+          "item_no": 108,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "quadratic_application_equation_setup_failure",
+        "multiple_answer_omission",
+        "verification_missing"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          107
+        ],
+        "verification_missing": [
+          107
+        ]
+      },
+      "rationale": "Q106~Q108은 자릿수 조건이나 잘못된 계산 상황을 미지수로 표현해 이차방정식을 세운다. Q107은 실제 계산과 잘못한 계산의 결과를 같게 두는 역방향 문제이고 두 값이 모두 정답이므로, 검산 누락과 복수답 누락을 Q107에만 둔다."
+    },
+    {
+      "type_no": 28,
+      "type_name": "이차방정식의 활용(3) 연속하는 수",
+      "item_start": 109,
+      "item_end": 112,
+      "items": [
+        {
+          "item_no": 109,
+          "accuracy": 84
+        },
+        {
+          "item_no": 110,
+          "accuracy": 81
+        },
+        {
+          "item_no": 111,
+          "accuracy": 83
+        },
+        {
+          "item_no": 112,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "quadratic_application_equation_setup_failure",
+        "pattern_extraction_failure",
+        "range_constraint_dropped"
+      ],
+      "rationale": "Q109~Q112는 연속한 홀수·자연수를 x-2,x,x+2 또는 x-1,x,x+1처럼 일정한 간격으로 표현해 조건식을 이차방정식으로 만든다. 계산 후 자연수·순서 조건을 만족하지 않는 근을 버리지 않으면 최종 답이 달라진다."
+    },
+    {
+      "type_no": 29,
+      "type_name": "이차방정식의 활용(4) 비율, 농도",
+      "item_start": 113,
+      "item_end": 117,
+      "items": [
+        {
+          "item_no": 113,
+          "accuracy": 48
+        },
+        {
+          "item_no": 114,
+          "accuracy": 46
+        },
+        {
+          "item_no": 115,
+          "accuracy": 45
+        },
+        {
+          "item_no": 116,
+          "accuracy": 46
+        },
+        {
+          "item_no": 117,
+          "accuracy": 62
+        }
+      ],
+      "tags": [
+        "quadratic_application_equation_setup_failure",
+        "conservation_condition_overlooked",
+        "percentage_scale_factor_conversion_error"
+      ],
+      "tag_scope": {
+        "conservation_condition_overlooked": [
+          113,
+          114,
+          115,
+          116
+        ],
+        "percentage_scale_factor_conversion_error": [
+          117
+        ]
+      },
+      "rationale": "Q113~Q117은 농도·비율 변화에서 양의 보존 관계를 세워 이차방정식을 만든다. Q113~Q116은 소금의 양을 반복해서 덜고 채우는 과정의 보존이 핵심이고, Q117은 가격 20% 인상과 판매량 16% 감소를 배율로 정확히 바꾸는 단계가 추가된다."
+    },
+    {
+      "type_no": 30,
+      "type_name": "이차방정식의 활용(5) 개수, 나이",
+      "item_start": 118,
+      "item_end": 120,
+      "items": [
+        {
+          "item_no": 118,
+          "accuracy": 74
+        },
+        {
+          "item_no": 119,
+          "accuracy": 49
+        },
+        {
+          "item_no": 120,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "quadratic_application_equation_setup_failure",
+        "multi_constraint_intersection_failure",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          119
+        ]
+      },
+      "rationale": "Q118~Q120은 비 오는 날의 수, 엽서 판매량, 연속한 날짜처럼 여러 조건을 한 미지수 식으로 묶어 이차방정식을 만든다. Q119는 전날 판매량·남은 수량·다른 판매가격을 연속해서 연결해야 해 다단계 의존이 특히 크므로 해당 문항에만 복합 오류를 둔다."
+    },
+    {
+      "type_no": 31,
+      "type_name": "이차방정식의 활용(6) 쏘아 올린 물체/거리, 시간",
+      "item_start": 121,
+      "item_end": 124,
+      "items": [
+        {
+          "item_no": 121,
+          "accuracy": 75
+        },
+        {
+          "item_no": 122,
+          "accuracy": 69
+        },
+        {
+          "item_no": 123,
+          "accuracy": 58
+        },
+        {
+          "item_no": 124,
+          "accuracy": 44
+        }
+      ],
+      "tags": [
+        "quadratic_application_equation_setup_failure",
+        "range_constraint_dropped",
+        "multi_stage_motion_distance_setup_failure"
+      ],
+      "tag_scope": {
+        "multi_stage_motion_distance_setup_failure": [
+          124
+        ]
+      },
+      "rationale": "Q121~Q124는 시간에 따른 높이 또는 이동 거리를 이차식으로 두고 실제 상황에 맞는 시간만 선택한다. Q121~Q123은 양의 시간·처음/다시 지나는 시점 같은 조건을 끝까지 유지해야 하며, Q124는 여러 만남과 구간 시간을 한 바퀴 거리식으로 연결해야 한다."
+    },
+    {
+      "type_no": 32,
+      "type_name": "이차방정식의 활용(7) 삼각형과 사각형",
+      "item_start": 125,
+      "item_end": 128,
+      "items": [
+        {
+          "item_no": 125,
+          "accuracy": 79
+        },
+        {
+          "item_no": 126,
+          "accuracy": 82
+        },
+        {
+          "item_no": 127,
+          "accuracy": 55
+        },
+        {
+          "item_no": 128,
+          "accuracy": 59
+        }
+      ],
+      "tags": [
+        "variable_length_assignment_failure",
+        "area_formula_setup_error",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          125,
+          126,
+          128
+        ],
+        "similar_triangle_correspondence_setup_failure": [
+          127,
+          128
+        ]
+      },
+      "rationale": "Q125~Q128은 도형의 길이를 x로 두고 넓이 또는 닮음 관계를 이차방정식으로 바꾼다. Q125·Q126·Q128은 넓이식을, Q127·Q128은 닮은 삼각형의 대응비를 먼저 정확히 세워야 하므로 문항별 범위를 나눠 적용한다."
+    },
+    {
+      "type_no": 33,
+      "type_name": "이차방정식의 활용(8) 붙어 있는 도형",
+      "item_start": 129,
+      "item_end": 133,
+      "items": [
+        {
+          "item_no": 129,
+          "accuracy": 87
+        },
+        {
+          "item_no": 130,
+          "accuracy": 59
+        },
+        {
+          "item_no": 131,
+          "accuracy": 67
+        },
+        {
+          "item_no": 132,
+          "accuracy": 66
+        },
+        {
+          "item_no": 133,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "variable_length_assignment_failure",
+        "area_decomposition_equation_setup_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q129~Q133은 서로 붙은 정사각형·직사각형의 변을 x와 전체 길이의 차로 표현한 뒤 여러 부분의 넓이를 한 식으로 합친다. 한 도형의 길이를 다른 부분과 연결하고, 이차방정식으로 얻은 변을 다시 둘레·넓이의 최종 요구값으로 넘기는 단계가 공통 병목이다."
+    },
+    {
+      "type_no": 34,
+      "type_name": "이차방정식의 활용(9) 원과 원기둥",
+      "item_start": 134,
+      "item_end": 137,
+      "items": [
+        {
+          "item_no": 134,
+          "accuracy": 79
+        },
+        {
+          "item_no": 135,
+          "accuracy": 83
+        },
+        {
+          "item_no": 136,
+          "accuracy": 83
+        },
+        {
+          "item_no": 137,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "radius_offset_equation_setup_error",
+        "composite_area_subtraction_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q134~Q137은 반지름을 x만큼 늘린 원의 넓이와 원래 원의 넓이의 차를 식으로 세운다. 안쪽 원을 빼는 환형 넓이와 (r+x)²의 반지름 오프셋을 동시에 정확히 반영해야 한다."
+    },
+    {
+      "type_no": 35,
+      "type_name": "이차방정식의 활용(10) 변의 길이를 줄이거나 늘인 도형",
+      "item_start": 138,
+      "item_end": 141,
+      "items": [
+        {
+          "item_no": 138,
+          "accuracy": 87
+        },
+        {
+          "item_no": 139,
+          "accuracy": 73
+        },
+        {
+          "item_no": 140,
+          "accuracy": 81
+        },
+        {
+          "item_no": 141,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "variable_length_assignment_failure",
+        "area_formula_setup_error",
+        "ratio_direction_inversion"
+      ],
+      "tag_scope": {
+        "ratio_direction_inversion": [
+          138,
+          139,
+          140
+        ]
+      },
+      "rationale": "Q138~Q141은 한 변 또는 가로·세로를 일정 길이만큼 늘이거나 줄인 뒤 넓이 조건을 이차방정식으로 만든다. Q138~Q140은 “몇 배”인 두 넓이의 방향을 뒤집으면 식 전체가 반대로 서므로 배율 방향 오류를 해당 문항에 둔다."
+    },
+    {
+      "type_no": 36,
+      "type_name": "이차방정식의 활용(11) 상자를 만드는 경우",
+      "item_start": 142,
+      "item_end": 145,
+      "items": [
+        {
+          "item_no": 142,
+          "accuracy": 80
+        },
+        {
+          "item_no": 143,
+          "accuracy": 84
+        },
+        {
+          "item_no": 144,
+          "accuracy": 76
+        },
+        {
+          "item_no": 145,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "variable_length_assignment_failure",
+        "volume_formula_misapplication",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "volume_formula_misapplication": [
+          142,
+          145
+        ],
+        "multiple_answer_omission": [
+          143
+        ]
+      },
+      "rationale": "Q142~Q145는 종이를 자르거나 접은 뒤 남는 길이를 x로 표현해 바닥 넓이 또는 상자 부피 조건을 만든다. Q142·Q145는 직육면체 부피식이 핵심이고, Q143은 x=4와 x=8 두 값이 모두 가능하므로 하나만 남기는 오류를 Q143에만 둔다."
+    },
+    {
+      "type_no": 37,
+      "type_name": "이차방정식의 활용(12) 도로를 만드는 경우",
+      "item_start": 146,
+      "item_end": 150,
+      "items": [
+        {
+          "item_no": 146,
+          "accuracy": 85
+        },
+        {
+          "item_no": 147,
+          "accuracy": 89
+        },
+        {
+          "item_no": 148,
+          "accuracy": 89
+        },
+        {
+          "item_no": 149,
+          "accuracy": 81
+        },
+        {
+          "item_no": 150,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "variable_length_assignment_failure",
+        "composite_area_subtraction_failure",
+        "area_decomposition_equation_setup_failure"
+      ],
+      "rationale": "Q146~Q150은 전체 직사각형에서 폭 x인 도로나 테이프가 차지하는 영역을 제외한 넓이를 이차식으로 만든다. 겹치는 도로·테이프를 중복해서 빼지 않고 여러 직사각형 영역을 정확히 분해해 식으로 세우는 것이 공통 핵심이다."
+    }
+  ],
+  "unique_tags": [
+    "answer_stage_confusion",
+    "area_decomposition_equation_setup_failure",
+    "area_formula_setup_error",
+    "common_subexpression_substitution_failure",
+    "composite_area_subtraction_failure",
+    "conjugate_rationalization_setup_failure",
+    "conservation_condition_overlooked",
+    "custom_operator_definition_misapplication",
+    "difference_direction_error",
+    "factor_pair_sum_product_matching_failure",
+    "fraction_coefficient_lcd_error",
+    "inequality_bound_conversion_error",
+    "integer_candidate_enumeration_gap",
+    "intended_vs_actual_value_swap",
+    "inverse_operation_setup_error",
+    "irrational_conjugate_root_pair_failure",
+    "irrational_integer_fractional_part_split_failure",
+    "law_selection_error",
+    "like_term_misgrouping",
+    "multi_constraint_intersection_failure",
+    "multi_expression_dependency_error",
+    "multi_stage_motion_distance_setup_failure",
+    "multi_step_composite_error",
+    "multiple_answer_omission",
+    "parenthesis_sign_distribution_error",
+    "pattern_extraction_failure",
+    "percentage_scale_factor_conversion_error",
+    "perfect_square_trinomial_condition_failure",
+    "power_of_ten_extraction_failure",
+    "quadratic_application_equation_setup_failure",
+    "quadratic_formula_coefficient_substitution_failure",
+    "radius_offset_equation_setup_error",
+    "range_constraint_dropped",
+    "ratio_direction_inversion",
+    "root_condition_substitution_failure",
+    "root_count_discriminant_condition_failure",
+    "root_relation_reduction_failure",
+    "root_to_factor_equation_setup_failure",
+    "sign_propagation_error",
+    "similar_triangle_correspondence_setup_failure",
+    "simplify_before_substitute_omitted",
+    "square_formula_middle_term_error",
+    "substitution_parenthesis_omission",
+    "variable_length_assignment_failure",
+    "verification_missing",
+    "volume_formula_misapplication",
+    "zero_product_property_application_failure"
   ],
   "new_tags": [
-    {"tag":"irrational_conjugate_root_pair_failure"},
-    {"tag":"quadratic_application_equation_setup_failure"},
-    {"tag":"quadratic_formula_coefficient_substitution_failure"},
-    {"tag":"root_condition_substitution_failure"},
-    {"tag":"root_count_discriminant_condition_failure"},
-    {"tag":"root_relation_reduction_failure"},
-    {"tag":"root_to_factor_equation_setup_failure"},
-    {"tag":"zero_product_property_application_failure"}
-  ]
+    {
+      "tag": "irrational_conjugate_root_pair_failure",
+      "why": "유리수 계수 이차방정식에서 a-√b가 근이면 a+√b도 근이라는 켤레근 성질을 놓치는 오류가 기존 무리수 계산 태그와 구분되어 사전에 없다."
+    },
+    {
+      "tag": "quadratic_application_equation_setup_failure",
+      "why": "문장 상황의 미지수를 정하고 수량 관계를 이차방정식으로 번역하는 모델링 오류가 기존 계산·공식 오류와 구분되며, 이후 단원별 공식 태그 이전 단계의 독립 오류다."
+    },
+    {
+      "tag": "quadratic_formula_coefficient_substitution_failure",
+      "why": "근의 공식에 a,b,c를 넣을 때 -b, b²-4ac, 분모 2a의 자리와 부호를 잘못 대응하는 오류가 일반 대입·부호 오류와 구분되어 사전에 없다."
+    },
+    {
+      "tag": "root_condition_substitution_failure",
+      "why": "“x=r이 이차방정식의 근”이라는 조건을 f(r)=0으로 바꾸어 원래 식에 대입하는 의미 오류가 기존 단순 대입 태그와 구분되어 사전에 없다."
+    },
+    {
+      "tag": "root_count_discriminant_condition_failure",
+      "why": "판별식 D의 부호와 0 조건을 서로 다른 두 실근·중근·실근 없음에 연결하고 매개변수 조건으로 바꾸는 오류가 기존 사전에 없다."
+    },
+    {
+      "tag": "root_relation_reduction_failure",
+      "why": "한 근 α가 만족하는 f(α)=0을 이용해 α² 이상의 항이나 복잡한 식을 낮은 차수로 환원하는 오류가 기존 `simplify_before_substitute_omitted`보다 구체적인 근 관계 활용 단계로 사전에 없다."
+    },
+    {
+      "tag": "root_to_factor_equation_setup_failure",
+      "why": "주어진 두 근 α,β에서 k(x-α)(x-β)=0 형태의 이차방정식을 복원하고 최고차항 계수를 맞추는 오류가 기존 인수분해 태그와 역방향이라 별도 항목이 필요하다."
+    },
+    {
+      "tag": "zero_product_property_application_failure",
+      "why": "AB=0에서 A=0 또는 B=0의 두 갈래를 만들고 각각의 해를 구하는 영인수 성질 적용 오류가 기존 인수분해 태그와 구분되어 사전에 없다."
+    }
+  ],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [
+      25,
+      27
+    ],
+    "types_with_answer_format_error": [
+      7,
+      14,
+      27,
+      36
+    ],
+    "note": "전체 150문항을 답 산출 이후 원조건으로 되돌아가는 검산 관점과 답 마무리 관점으로 별도 재검토했다. Q98~Q101의 “잘못 보고 푼 이차방정식”과 Q107의 잘못 계산한 상황은 원래 조건으로 되돌아가 확인하는 역방향 검산이 독립 오류가 된다. 답 마무리는 Q24·Q26의 복수 항목 선택, Q52~Q56의 A±B·a+b 등 최종 조합값, Q107의 복수정답, Q143의 두 가능한 접는 폭을 확인했다. 단위 변환·반올림 지시는 없다."
+  }
 }
