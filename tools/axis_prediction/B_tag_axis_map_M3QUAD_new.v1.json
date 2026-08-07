@@ -4,7 +4,7 @@
   "source": "_inbox/tagging_quadratic_equation5_v4_v2.json (37유형·150문항·47종, 재사용39·신규8, 검수 PASS). 다항식 인수분해 태그 대거 재사용(사례선택 적중).",
   "scope": "신규 8종만. 재사용 39종 기존 축 승계(풀 gap 0, verification_missing E1은 M3POLY맵 해소). 유닛 완비(M3_QUAD_PT)→856/등재 불필요.",
   "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지.",
-  "review_status": "CODE_DRAFT_PENDING_REVIEW",
+  "review_status": "REVIEWED_APPROVED (검수확정: 8종 전량 승인. 4갈림점 실배정=검수후보 일치, calibration 독립확증. ★D2 vs D3 판례 확립: formula_coefficient(대입자리)=D2 / square_formula_middle_term(계수계산)=D3)",
   "도메인_calibration": "이차방정식=인수분해+근/판별식+활용. 재사용 calibration: 인수분해 조건세우기 C1(factor_pair·perfect_square·irrational_split), 치환/유리화 C4(common_subexpression·conjugate), 공식대입 D2(custom_operator·volume_formula), 계산 D3(square_formula_middle_term), E1(verification_missing). 신규는 setup C1·공식대입 D2·연결 C3·경우 B3·변환 C4·개념 C2 고른 분포.",
   "map": {
     "root_condition_substitution_failure":                 {"axis":"C1","tier":"boundary","alt":"C2","note":"'x=r이 근'→f(r)=0 대입해 계수식 세우기 = 식 세우기(C1) vs 근 의미 개념(C2). 단순대입과 구별(검수 why). 근 기초스킬"},
