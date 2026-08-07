@@ -1,0 +1,22 @@
+{
+  "version": "B-tag-axis-map-M3QUAD-new-v1",
+  "unit": "m3_quadratic_equation / 이차방정식(5)=set06. 주제형 트랜치(대상146). 인수분해로 푸는 단원",
+  "source": "_inbox/tagging_quadratic_equation5_v4_v2.json (37유형·150문항·47종, 재사용39·신규8, 검수 PASS). 다항식 인수분해 태그 대거 재사용(사례선택 적중).",
+  "scope": "신규 8종만. 재사용 39종 기존 축 승계(풀 gap 0, verification_missing E1은 M3POLY맵 해소). 유닛 완비(M3_QUAD_PT)→856/등재 불필요.",
+  "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지.",
+  "review_status": "CODE_DRAFT_PENDING_REVIEW",
+  "도메인_calibration": "이차방정식=인수분해+근/판별식+활용. 재사용 calibration: 인수분해 조건세우기 C1(factor_pair·perfect_square·irrational_split), 치환/유리화 C4(common_subexpression·conjugate), 공식대입 D2(custom_operator·volume_formula), 계산 D3(square_formula_middle_term), E1(verification_missing). 신규는 setup C1·공식대입 D2·연결 C3·경우 B3·변환 C4·개념 C2 고른 분포.",
+  "map": {
+    "root_condition_substitution_failure":                 {"axis":"C1","tier":"boundary","alt":"C2","note":"'x=r이 근'→f(r)=0 대입해 계수식 세우기 = 식 세우기(C1) vs 근 의미 개념(C2). 단순대입과 구별(검수 why). 근 기초스킬"},
+    "quadratic_application_equation_setup_failure":        {"axis":"C1","tier":"confident","note":"★검수 C1: 문장 상황→미지수→이차방정식 모델링 = 식 세우기. real_world_quadratic_model(C1) 계열. 활용 대량 사용"},
+    "root_to_factor_equation_setup_failure":               {"axis":"C1","tier":"boundary","alt":"C4","note":"두 근 α,β→k(x-α)(x-β)=0 역방향 방정식 재구성 = 식 세우기(C1) vs 근↔인수 변환(C4). 인수분해 역방향(검수 why)"},
+    "quadratic_formula_coefficient_substitution_failure":  {"axis":"D2","tier":"boundary","alt":"D3","note":"★검수 D2: 근의공식에 a,b,c 자리·부호(-b,2a,b²-4ac) 대응 대입 = 공식 대입(D2). calibration custom_operator·volume_formula=D2 확증. square_formula_middle_term(D3, 계수계산)과 갈림-여긴 대입자리(D2) vs 계산실수(D3)"},
+    "root_relation_reduction_failure":                     {"axis":"C4","tier":"boundary","alt":"C1","note":"f(α)=0으로 α²이상 항을 낮은 차수로 환원 = 표현변환(C4, calibration common_subexpression 치환=C4). simplify_before_substitute(A3)보다 구체적 근관계 활용(검수 why) vs 관계 식세우기(C1)"},
+    "root_count_discriminant_condition_failure":           {"axis":"C3","tier":"boundary","alt":"B3","note":"★검수 갈림(C3 후보): 판별식 D 부호·0을 서로다른두실근/중근/실근없음에 연결 = 개념 연결(C3) vs 세 경우분류(B3). 연결이 본질→C3, 경우성분 alt B3"},
+    "zero_product_property_application_failure":           {"axis":"B3","tier":"boundary","alt":"C2","note":"★검수 갈림(B3 후보): AB=0→A=0 또는 B=0 두 갈래 생성 = 경우분류(B3). vs 영인수 성질 개념(C2). 두 갈래 만듦이 본질→B3"},
+    "irrational_conjugate_root_pair_failure":              {"axis":"C2","tier":"boundary","alt":"C3","note":"유리계수서 a-√b 근이면 a+√b도 근(켤레근 성질) 인식 = 개념(C2) vs 성질 연결·복원(C3)"}
+  },
+  "axis_distribution": {"C1":3, "C4":1, "D2":1, "C3":1, "B3":1, "C2":1},
+  "domain_note": "신규 8종 고른 분포: 식세우기 C1·3(근조건대입·활용모델링·근→방정식) + 공식대입 D2·1 + 차수환원 C4·1 + 판별식연결 C3·1 + 영인수경우 B3·1 + 켤레근개념 C2·1. 이차방정식=인수분해(C1/C4 다항식 계열)+근/판별식(C3/B3)+공식(D2)+활용(C1) 종합 단원이라 축 고름. 검수 4갈림점(discriminant→C3·zero_product→B3·formula_coef→D2·application→C1) 전부 후보와 일치.",
+  "inherited_reused_39_note": "재사용 39종 기존 축 승계(gap 0): 다항식계열(factor_pair C1·perfect_square C1·square_formula D3·common_subexpression C4·conjugate C4·irrational_split C1·verification_missing E1)·simplify_before_substitute A3·law_selection D2·custom_operator D2·volume_formula D2·intended_vs_actual_value_swap·answer_stage_confusion·fraction_coefficient_lcd·parenthesis_sign·power_of_ten_extraction·like_term·multi_expression_dependency·multi_step_composite·multi_constraint_intersection·inequality_bound_conversion·integer_candidate_enumeration_gap·range_constraint_dropped·difference_direction·inverse_operation_setup·sign_propagation·substitution_parenthesis·multiple_answer_omission·pattern_extraction·percentage_scale_factor_conversion·ratio_direction_inversion E3·conservation_condition_overlooked·variable_length_assignment·area_formula_setup·area_decomposition·composite_area_subtraction·radius_offset_equation_setup·similar_triangle_correspondence·multi_stage_motion_distance_setup. 재배정 금지."
+}

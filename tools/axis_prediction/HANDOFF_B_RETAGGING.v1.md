@@ -70,7 +70,12 @@
   - **★검수 지침 배정**: 외심·내심·위계 정의(circumcenter_equidistance·circumcenter_perp_bisector·incenter_angle_bisector·quadrilateral_hierarchy)=**C2**(정의 미소환=개념, B1 아님·isosceles_altitude B1→C2 선례). ⚠**B1 vs C2 구분**: diameter_right_angle·tangent_radius(특정 조건 누락)=B1 / 외심내심(정의)=C2. parallelogram_condition_converse=**C3**(converse family, cyclicity 선례). triangle_congruence_condition_selection=**C3/alt D2**(구성이 본질=C3, 법칙선택 D2. 최다11회, 검수 갈림점 명시).
   - **반영 축분포 C3·89 지배**/C1·53/C2·48/D2·37/C4·24/B1·13 — 도형=C편중(각연쇄·합동구성·연결), 원 계열 정합. 미해결0. 맵 CODE_DRAFT.
   - **★856 트랜치 완료**: 닮음300+이차함수300+다항식293(150+143)+도형성질150 = 검수측 재태깅 대상 종료.
-- **다음 할 일**: ① **주제형만 남음** 순차 반영(전부 완비·등재 불요): 이차방정식(5)·(11)·실수(6)·확률(5)·(10). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
+- **✅ 이차방정식(5)=set06 16단원째 완결** (주제형 트랜치 시작, `260711_이차방정식(5).pdf`). item_id `M3_QUAD_150_S06_Q###`. 유닛 완비→등재 불요. 37유형·150문항·47종(전유형 3태그), 재사용39·**신규8**. 재사용률 **83.0%**(80%대 2번째). 검증 PASS.
+  - ⚠**재수록 폴백**: Downloads 첨부 디스크 미실체(cp 불가) → Read 내용 재수록(types·items·accuracy·tags·tag_scope·new_tags 완전, rationale/verification_scan은 검수 원본). `_transcription_note` 표시.
+  - **맵 `B_tag_axis_map_M3QUAD_new.v1.json`(신규8)**: C1·3(근조건대입·활용모델링·근→방정식)/D2·1(공식대입)/C4·1(차수환원)/C3·1(판별식연결)/B3·1(영인수경우)/C2·1(켤레근). **검수 4갈림점 전부 후보 일치**: root_count_discriminant→**C3**(alt B3)·zero_product→**B3**(alt C2)·quadratic_formula_coefficient→**D2**(alt D3, calibration custom_operator·volume=D2 확증)·quadratic_application→**C1**.
+  - **verification_missing 4번째**(Q98~101·107, E1 세 단원 연속: 다항식5·13·이차방정식5 = **대수 계열 역방향 문항 구조적**). 반영 E1=10.
+  - **반영 C1·81 지배**/C3·58/B2·35/D1·33/C2·22/D2·21/C4·20/B3·19 — **14/17축 등장 광폭**(인수분해+근+판별식+활용 종합). 미해결0. 맵 CODE_DRAFT.
+- **다음 할 일**: ① 주제형 순차: 이차방정식(11)·실수(6)·확률(5)·(10). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
 - **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
   - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
