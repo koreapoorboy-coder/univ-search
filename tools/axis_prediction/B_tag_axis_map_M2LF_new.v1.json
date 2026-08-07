@@ -16,7 +16,7 @@
     "linear_rate_slope_conversion_failure":            {"axis":"C4","tier":"confident","alt":"C1","note":"상황 단위변화량→기울기(단위당 변화율) 변환 = 표현변환(C4) vs 모델 식세우기(C1). 단위변환·산술과 구별(검수 why)"},
     "parameter_sign_to_graph_mapping_failure":         {"axis":"C3","tier":"confident","alt":"C4","note":"★판례: 매개변수 부호↔그래프 사분면 연결·역추론 = 개념 연결(C3, 해석적). 순수 형태변환 아니라 alt만 C4"},
     "graph_property_statement_evaluation_failure":     {"axis":"C3","tier":"confident","alt":"C2","note":"한 그래프의 여러 진술을 기울기·절편·통과점 기준 일관 판정 = 개념 연결·일관적용(C3) vs 개념(C2)"},
-    "parallel_slope_condition_omitted":                {"axis":"C3","tier":"boundary","alt":"B1","note":"평행→기울기 동일 두 개념 잇기 = 개념 연결(C3, 검수확정). ⚠이름 _omitted가 B1(조건누락)처럼 보여 이름-축 어긋남 = 재검토 여지 표시(alt B1). 내용은 C3가 맞음"},
+    "parallel_slope_condition_omitted":                {"axis":"C3","tier":"confident","alt":"B1","note":"평행→기울기 동일 두 개념 잇기 = 개념 연결(C3, 검수확정). ⚠이름 _omitted가 B1(조건누락)처럼 보여 이름-축 어긋남 = 재검토 여지 표시(alt B1). 내용은 C3가 맞음"},
     "coincident_line_parameter_matching_failure":      {"axis":"C3","tier":"confident","alt":"C1","note":"일치↔기울기·절편/계수비 전부 매칭 연결 = 개념 연결(C3) vs 조건식 세우기(C1). 부분충족 방지"},
     "function_mapping_uniqueness_failure":             {"axis":"C2","tier":"confident","note":"함수 정의(각 x에 y 하나) 개념 판정·유지 = 개념(C2). 함수 핵심개념"},
     "slope_sign_graph_direction_confusion":            {"axis":"C2","tier":"confident","alt":"C3","note":"★판례: 기울기 부호=그래프 증감방향, 원자적 개념혼동(C2) vs 연결(C3). trig_monotonic_direction_confusion(C2) 선례"},

@@ -37,7 +37,7 @@
     "condition_dependent_probability_update_failure": {"axis":"C3","tier":"confident","note":"앞 결과에 따라 다음 확률 자체 갱신 = 조건부 상태 추적(C3)"},
     "sequential_probability_path_aggregation_failure":{"axis":"C3","tier":"confident","note":"경로 내부 곱·경로 간 합으로 전체 확률 구성 = 다단계 연결(C3)"},
     "random_walk_state_tracking_failure":             {"axis":"C3","tier":"confident","note":"연속 이동에서 중간 위치·방문 상태 추적 = 상태 추적(C3)"},
-    "game_stopping_condition_tracking_failure":       {"axis":"C3","tier":"boundary","alt":"B2","note":"승자 결정 즉시 종료 조건을 확률 경로에 반영·추적 = 상태 추적(C3) vs 범위(B2)"},
+    "game_stopping_condition_tracking_failure":       {"axis":"C3","tier":"confident","alt":"B2","note":"승자 결정 즉시 종료 조건을 확률 경로에 반영·추적 = 상태 추적(C3) vs 범위(B2)"},
     "at_least_one_complement_failure":                {"axis":"C3","tier":"confident","alt":"C1","note":"'적어도 하나'<->'하나도 없음' 여사건 전략 연결 = 해석적 연결(C3) vs 설정(C1). complement_setup(C1·기계적)와 구분"},
     "union_probability_overlap_failure":              {"axis":"C3","tier":"confident","alt":"C2","note":"P(A∪B) 공통 한번만 빼기(포함배제) = 사건 연산 연결(C3) vs 개념(C2)"},
     "intersection_probability_product_failure":       {"axis":"C3","tier":"confident","alt":"C2","note":"동시=순차/독립 곱 연결 = 사건 연산 연결(C3) vs '동시를 또는으로' 개념혼동(C2)"},

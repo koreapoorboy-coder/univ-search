@@ -12,7 +12,7 @@
     "incenter_angle_bisector_relation_failure":            {"axis":"C2","tier":"confident","alt":"C3","note":"내심=세 내각 이등분선 교점 정의 미소환 = 개념(C2). 검수 구분: angle_bisector_chain_integration(C3, 후속연쇄)과 다른 '정의'. vs 연결(C3)"},
     "quadrilateral_hierarchy_classification_failure":      {"axis":"C2","tier":"confident","alt":"C3","note":"정사각형·직사각형·마름모·평행사변형 포함관계·필요충분 방향 오분류 = 도형 위계 개념(C2). vs 관계 연결(C3)"},
     "parallelogram_condition_converse_failure":            {"axis":"C3","tier":"confident","alt":"C2","note":"조건→평행사변형 역판정 = 개념 연결·역조건 적용(C3). cyclicity_converse(C3) 선례 참조·개별판단. parallelism/pythagorean_converse(similarity, C3/alt C2)와 동일 converse family. vs 정/역 개념(C2)"},
-    "triangle_congruence_condition_selection_failure":     {"axis":"C3","tier":"boundary","alt":"D2","note":"★검수 갈림점: SSS/SAS/ASA/RHA/RHS 합동조건 구성·선택. 대응 부분 연결해 합동 확립=개념연결(C3, similar_triangle_correspondence C3 계열) vs 법칙 선택(D2, law_selection D2). 최다11회. C3우선(구성이 본질)·alt D2 명시"}
+    "triangle_congruence_condition_selection_failure":     {"axis":"C3","tier":"confident","alt":"D2","note":"★검수 갈림점: SSS/SAS/ASA/RHA/RHS 합동조건 구성·선택. 대응 부분 연결해 합동 확립=개념연결(C3, similar_triangle_correspondence C3 계열) vs 법칙 선택(D2, law_selection D2). 최다11회. C3우선(구성이 본질)·alt D2 명시"}
   },
   "axis_distribution": {"C2":4, "C3":2},
   "domain_note": "신규 6종 전량 C축(개념4+연결2) = 도형 성질 = 개념(외심·내심·위계 정의)·연결(역판정·합동구성) 편중. 재사용과 합쳐 도형=C3·C2·C1·B1 프로파일(각연쇄·개념·식·조건). 원 C편중 계열과 정합. §3 원전용태그(diameter_right_angle·central_inscribed_angle·area_inradius·tangent_radius) 실사용 — 외심·내심이 원과 연결됨 실증.",
