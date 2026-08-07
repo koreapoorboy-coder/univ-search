@@ -1,4 +1,4 @@
-﻿{
+{
     "version":  "B-tag-axis-map-M3CP-v2",
     "unit":  "m3_circle_properties",
     "scope":  "circle12(27) + circle6 new(28) = 55 observed tags. 寃??confirmed.",
@@ -219,13 +219,13 @@
                                                          },
                 "multi_circle_length_dependency_tracking_failure":  {
                                                                         "axis":  "C3",
-                                                                        "tier":  "boundary",
+                                                                        "tier":  "confident",
                                                                         "alt":  "C1",
                                                                         "note":  "여러 원 길이 의존 추적 = 연결(C3) vs 식세우기(C1)"
                                                                     },
                 "multi_circle_radius_dependency_failure":  {
                                                                "axis":  "C3",
-                                                               "tier":  "boundary",
+                                                               "tier":  "confident",
                                                                "alt":  "C1",
                                                                "note":  "여러 원 반지름 의존 = 연결(C3) vs 식세우기(C1)"
                                                            },
@@ -266,13 +266,13 @@
                                                              },
                 "composite_path_length_decomposition_failure":  {
                                                                     "axis":  "C1",
-                                                                    "tier":  "boundary",
+                                                                    "tier":  "confident",
                                                                     "alt":  "C3",
                                                                     "note":  "경로 길이 분해 = 식세우기(C1) vs 연결(C3)"
                                                                 },
                 "composite_area_subtraction_failure":  {
                                                            "axis":  "C1",
-                                                           "tier":  "boundary",
+                                                           "tier":  "confident",
                                                            "alt":  "C3",
                                                            "note":  "복합넓이 합-빼기 = 식세우기(C1) vs 연결(C3)"
                                                        },
@@ -284,7 +284,7 @@
                                                                  },
                 "segment_partition_tracking_failure":  {
                                                            "axis":  "C1",
-                                                           "tier":  "boundary",
+                                                           "tier":  "confident",
                                                            "alt":  "C3",
                                                            "note":  "선분 분할 추적 = 분할식(C1) vs 의존추적 연결(C3)"
                                                        },
