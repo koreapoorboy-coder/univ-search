@@ -13,8 +13,8 @@
     "perfect_square_trinomial_condition_failure":           {"axis":"C1","tier":"boundary","alt":"B1","note":"ax²+bx+c 완전제곱 조건(b²=4ac류) 조건식 세우기 = 식 세우기(C1) vs 조건 누락(B1). 검수 why: 단순 공식암기와 구별"},
     "grouping_for_factorization_failure":                   {"axis":"C1","tier":"boundary","alt":"D1","note":"여러 항 묶어 공통인수 나오게 묶음 전략 구성 = 전략 세우기(C1) vs 식 조작(D1)"},
     "irrational_integer_fractional_part_split_failure":     {"axis":"C1","tier":"boundary","alt":"B2","note":"무리수 정수부분·소수부분 분리 식 세우기 = 식 세우기(C1) vs 범위 판단(B2, √k 어느 두 정수 사이)"},
-    "common_subexpression_substitution_failure":            {"axis":"C4","tier":"boundary","alt":"C1","note":"반복 복합식→한 문자 치환해 저차식 변환 = 표현변환(C4, 치환) vs 전략 설정(C1). completing_square(C4) 계열"},
-    "conjugate_rationalization_setup_failure":              {"axis":"C4","tier":"boundary","alt":"C1","note":"분모 켤레 곱해 무리→유리 형태변환 = 표현변환(C4, 유리화) vs 설정(C1)"},
+    "common_subexpression_substitution_failure":            {"axis":"C4","tier":"confident","alt":"C1","note":"반복 복합식→한 문자 치환해 저차식 변환 = 표현변환(C4, 치환) vs 전략 설정(C1). completing_square(C4) 계열"},
+    "conjugate_rationalization_setup_failure":              {"axis":"C4","tier":"confident","alt":"C1","note":"분모 켤레 곱해 무리→유리 형태변환 = 표현변환(C4, 유리화) vs 설정(C1)"},
     "polynomial_reordering_for_factorization_failure":      {"axis":"A3","tier":"boundary","alt":"C1","note":"한 문자 기준 내림차순 재배열 전처리 = 식 정리 전처리(A3, simplify_before_substitute 선례) vs 구조 세우기(C1)"},
     "verification_missing":                                 {"axis":"E1","tier":"confident","note":"★재사용(신규 아님). 89종 선례 맵 B_tag_axis_map.v1.json의 E1 정본 승계. 사전 §1 범용·명세 §5-1 역방향 검산 누락. 12학습지 중 첫 사용(Q21 오계산 역추적). 축매핑 풀 첫 등장이라 여기 캐리(E1)."}
   },

@@ -8,8 +8,8 @@
   "그래프_식_판례_적용": "함수(5) 확정 3분 판례 첫 적용(검수 지시). ①순수 형태변환(완전제곱식 변형·평행이동 식변환·x축 반사)=C4 ②해석적 역추론·연결(부호↔이동방향·사분면 판정·대칭점 대응·증감구간·근↔절편)=C3 ③원자적 개념혼동(계수부호=개형·폭·꼭짓점축 식별·이차판별)=C2. 재구성/복원(꼭짓점형·인수형·조건복원·극값역산·실모델)=C1(식세우기).",
   "map": {
     "completing_square_vertex_axis_failure":                {"axis":"C4","tier":"boundary","alt":"D1","note":"★판례C4: ax²+bx+c→a(x-p)²+q 완전제곱 형태변환 = 표현변환(C4) vs 식조작(D1)"},
-    "quadratic_graph_translation_formula_failure":          {"axis":"C4","tier":"boundary","alt":"C1","note":"★판례C4: 일반형 평행이동 x치환·상수항 변화를 식으로 = 표현변환(C4). graph_translation_intercept_update(C4) 선례 vs 식재구성(C1)"},
-    "parabola_axis_reflection_mapping_failure":             {"axis":"C4","tier":"boundary","alt":"C3","note":"y=ax²↔y=-ax² x축 대칭에서 식·점 반사 대응 = 좌표 반사변환(C4). paper_fold_reflection(C4) 선례 vs 연결(C3)"},
+    "quadratic_graph_translation_formula_failure":          {"axis":"C4","tier":"confident","alt":"C1","note":"★판례C4: 일반형 평행이동 x치환·상수항 변화를 식으로 = 표현변환(C4). graph_translation_intercept_update(C4) 선례 vs 식재구성(C1)"},
+    "parabola_axis_reflection_mapping_failure":             {"axis":"C4","tier":"confident","alt":"C3","note":"y=ax²↔y=-ax² x축 대칭에서 식·점 반사 대응 = 좌표 반사변환(C4). paper_fold_reflection(C4) 선례 vs 연결(C3)"},
     "quadratic_vertex_form_reconstruction_failure":         {"axis":"C1","tier":"confident","note":"꼭짓점+한점 -> y=a(x-p)²+q 재구성 = 식 세우기. linear_equation_reconstruction(C1) 계열"},
     "quadratic_factor_form_reconstruction_failure":         {"axis":"C1","tier":"confident","note":"두 x절편 -> y=a(x-r1)(x-r2) 인수형 재구성 = 식 세우기"},
     "quadratic_function_reconstruction_from_constraints_failure":{"axis":"C1","tier":"confident","alt":"C3","note":"축·교점·점 여러조건 -> 계수 복원(연립) = 식 세우기(C1) vs 조건 연결(C3)"},

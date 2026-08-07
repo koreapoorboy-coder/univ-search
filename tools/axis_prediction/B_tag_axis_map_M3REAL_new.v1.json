@@ -18,7 +18,7 @@
     "perfect_square_factor_extraction_failure":              {"axis":"C4","tier":"confident","note":"★C4: √(m²n)->m√n 완전제곱 인수를 밖으로 꺼냄 = 근호 형태변환"},
     "radical_product_simplification_error":                  {"axis":"C4","tier":"boundary","alt":"D1","note":"★C4: √a·√b=√(ab)로 근호 합쳐 정리 = 형태변환(C4) vs 계산조작(D1). radical_ratio_simplification(나눗셈비)과 곱/나눗셈 구분"},
     "radical_denominator_rationalization_failure":           {"axis":"C4","tier":"confident","note":"★C4: 단일 근호 분모에 같은 근호 곱해 유리화 = 형태변환. conjugate_rationalization_setup_failure(C4·켤레식) 선례, 단일근호로 구분"},
-    "radical_length_to_number_line_mapping_failure":         {"axis":"C4","tier":"boundary","alt":"C3","note":"도형에서 만든 √n 길이를 수직선 기준점·좌우방향에 맞춰 좌표로 이동 = 표현 전이(C4). coordinate_projection_from_similarity_failure(C4) 선례 vs 연결(C3)"},
+    "radical_length_to_number_line_mapping_failure":         {"axis":"C4","tier":"confident","alt":"C3","note":"도형에서 만든 √n 길이를 수직선 기준점·좌우방향에 맞춰 좌표로 이동 = 표현 전이(C4). coordinate_projection_from_similarity_failure(C4) 선례 vs 연결(C3)"},
     "square_root_floor_interval_mapping_failure":            {"axis":"C3","tier":"boundary","alt":"B2","note":"√x 이하 자연수 개수를 n²<=x<(n+1)² 계단 구간으로 대응 = 크기<->구간 해석적 연결(C3) vs 범위 처리(B2). 검수 'C3 또는 B2'"}
   },
   "axis_distribution": {"C2":5, "C4":5, "C1":2, "C3":1},
