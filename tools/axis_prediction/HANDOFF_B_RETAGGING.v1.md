@@ -61,7 +61,11 @@
   - **square_formula_middle_term_error = D3/alt C2**(검수판단, triangle_area_sine_factor(½누락) 선례 그대로: 중항 ±2ab 계산실수 D3).
   - **반영 축분포 광폭+D편중**: C3·60/D1·50/C1·47/D2·46/D3·39/C4·24/A3·20/C2·14/B2·14/B3·11 + E1·1. 식조작=D(조작·공식·계산) 강세. 수와식 D편중 계열 확장.
   - ⚠선행: 잘못된 고등PDF(260712_다항식(5)) 반려 후 중3 재작업본, 고등태그 혼입0. 맵 CODE_DRAFT.
-- **다음 할 일**: ① 순차 반영: 다항식(13)·도형성질(6)·이차방정식(5)·실수(6)·확률(5)(전부 완비·등재 불요). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
+- **✅ 다항식(13)=set10 14단원째 완결** (같은 단원 2번째, `260711_다항식의 곱셈과 인수분해(13).pdf`). item_id `M3_POLY_150_S10_Q###`. 15유형·150문항·23종, new_tags **0**(다항식5 신규9 중 6재등장, 겹침20/23), 전량 풀 승계(verification_missing E1은 M3POLY맵 해소). 독립검증 PASS(3=13·2=2).
+  - **문항수 확인(검수요청)**: 재고표 143=재태깅대상(856:100+주제형:43) / **set10 뱅크=150**(item_count 150·q001~150). 반영 조인 **150, without_id=0**. → 143 아닌 150.
+  - **★E1=8**(verification_missing 3[Q28·30·31] + answer_stage_confusion 5[둘 다 E1]). verification_missing **3번째 사용** — E1 두 학습지 연속 = **다항식 역방향/답마무리 문항이 구조적**. 앞 12단원 E1 0건은 사각지대 아니라 단원 특성.
+  - 축분포 **D2·79 지배**/C3·56/C2·43/D1·39/D3·27/A3·22 — (5)보다 공식선택(D2) 더 강세. 다항식 D편중 재확인.
+- **다음 할 일**: ① 순차 반영: 도형성질(6)·이차방정식(5)·실수(6)·확률(5)(전부 완비·등재 불요). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
 - **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
   - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
