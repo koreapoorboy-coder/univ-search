@@ -91,7 +91,7 @@
     "operation_precedence_error":                     {"axis":"D1","tier":"confident","note":"사칙연산 우선순위 = 식 조작"},
     "custom_operator_definition_misapplication":      {"axis":"D2","tier":"boundary","alt":"C2","note":"새 연산 정의 적용 = 정의대입(D2) vs 개념(C2)"},
     "area_formula_setup_error":                       {"axis":"C1","tier":"confident","note":"넓이 식 세우기 실패"},
-    "subtraction_of_regions_omitted":                 {"axis":"C1","tier":"boundary","alt":"B1","note":"전체−부분 접근 못 잡음 = 식세우기(C1) vs 조건(B1)"},
+    "subtraction_of_regions_omitted":                 {"axis":"C1","tier":"confident","alt":"B1","note":"전체−부분 접근 못 잡음 = 식세우기(C1) vs 조건(B1)"},
     "variable_length_assignment_failure":             {"axis":"C1","tier":"confident","note":"세로 길이를 x식으로 세우기"},
     "volume_from_ratio_error":                        {"axis":"C4","tier":"confident","alt":"C1","note":"비→실제 길이 변환 후 부피 = 변환(C4) vs 식세우기(C1)"},
     "segment_ratio_to_length_conversion_failure":     {"axis":"C4","tier":"confident","note":"비→길이 변환(ratio_translation 선례=C4)"},
