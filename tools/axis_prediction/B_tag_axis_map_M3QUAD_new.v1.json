@@ -7,7 +7,7 @@
   "review_status": "REVIEWED_APPROVED (검수확정: 8종 전량 승인. 4갈림점 실배정=검수후보 일치, calibration 독립확증. ★D2 vs D3 판례 확립: formula_coefficient(대입자리)=D2 / square_formula_middle_term(계수계산)=D3)",
   "도메인_calibration": "이차방정식=인수분해+근/판별식+활용. 재사용 calibration: 인수분해 조건세우기 C1(factor_pair·perfect_square·irrational_split), 치환/유리화 C4(common_subexpression·conjugate), 공식대입 D2(custom_operator·volume_formula), 계산 D3(square_formula_middle_term), E1(verification_missing). 신규는 setup C1·공식대입 D2·연결 C3·경우 B3·변환 C4·개념 C2 고른 분포.",
   "map": {
-    "root_condition_substitution_failure":                 {"axis":"C1","tier":"boundary","alt":"C2","note":"'x=r이 근'→f(r)=0 대입해 계수식 세우기 = 식 세우기(C1) vs 근 의미 개념(C2). 단순대입과 구별(검수 why). 근 기초스킬"},
+    "root_condition_substitution_failure":                 {"axis":"C1","tier":"confident","alt":"C2","note":"'x=r이 근'→f(r)=0 대입해 계수식 세우기 = 식 세우기(C1) vs 근 의미 개념(C2). 단순대입과 구별(검수 why). 근 기초스킬"},
     "quadratic_application_equation_setup_failure":        {"axis":"C1","tier":"confident","note":"★검수 C1: 문장 상황→미지수→이차방정식 모델링 = 식 세우기. real_world_quadratic_model(C1) 계열. 활용 대량 사용"},
     "root_to_factor_equation_setup_failure":               {"axis":"C1","tier":"confident","alt":"C4","note":"두 근 α,β→k(x-α)(x-β)=0 역방향 방정식 재구성 = 식 세우기(C1) vs 근↔인수 변환(C4). 인수분해 역방향(검수 why)"},
     "quadratic_formula_coefficient_substitution_failure":  {"axis":"D2","tier":"boundary","alt":"D3","note":"★검수 D2: 근의공식에 a,b,c 자리·부호(-b,2a,b²-4ac) 대응 대입 = 공식 대입(D2). calibration custom_operator·volume_formula=D2 확증. square_formula_middle_term(D3, 계수계산)과 갈림-여긴 대입자리(D2) vs 계산실수(D3)"},
