@@ -65,7 +65,12 @@
   - **문항수 확인(검수요청)**: 재고표 143=재태깅대상(856:100+주제형:43) / **set10 뱅크=150**(item_count 150·q001~150). 반영 조인 **150, without_id=0**. → 143 아닌 150.
   - **★E1=8**(verification_missing 3[Q28·30·31] + answer_stage_confusion 5[둘 다 E1]). verification_missing **3번째 사용** — E1 두 학습지 연속 = **다항식 역방향/답마무리 문항이 구조적**. 앞 12단원 E1 0건은 사각지대 아니라 단원 특성.
   - 축분포 **D2·79 지배**/C3·56/C2·43/D1·39/D3·27/A3·22 — (5)보다 공식선택(D2) 더 강세. 다항식 D편중 재확인.
-- **다음 할 일**: ① 순차 반영: 도형성질(6)·이차방정식(5)·실수(6)·확률(5)(전부 완비·등재 불요). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
+- **✅ 도형의 성질(6)=set07 15단원째 완결 — 856 트랜치 종료** (`260710_도형의 성질(6).pdf`). item_id `M2_GEOM_150_S07_Q###`. 유닛 완비→856 불요. 48유형·150문항·36종, 재사용30·**신규6**. 재사용률 **83.3%(새 단원 최고**: 삼각비3%→함수59%→이차62%→다항79%→도형83%). 독립검증 PASS(3=42·2=6).
+  - **맵 `B_tag_axis_map_M2GEOM_new.v1.json`(신규6, 전량 C축)**: C2·4/C3·2.
+  - **★검수 지침 배정**: 외심·내심·위계 정의(circumcenter_equidistance·circumcenter_perp_bisector·incenter_angle_bisector·quadrilateral_hierarchy)=**C2**(정의 미소환=개념, B1 아님·isosceles_altitude B1→C2 선례). ⚠**B1 vs C2 구분**: diameter_right_angle·tangent_radius(특정 조건 누락)=B1 / 외심내심(정의)=C2. parallelogram_condition_converse=**C3**(converse family, cyclicity 선례). triangle_congruence_condition_selection=**C3/alt D2**(구성이 본질=C3, 법칙선택 D2. 최다11회, 검수 갈림점 명시).
+  - **반영 축분포 C3·89 지배**/C1·53/C2·48/D2·37/C4·24/B1·13 — 도형=C편중(각연쇄·합동구성·연결), 원 계열 정합. 미해결0. 맵 CODE_DRAFT.
+  - **★856 트랜치 완료**: 닮음300+이차함수300+다항식293(150+143)+도형성질150 = 검수측 재태깅 대상 종료.
+- **다음 할 일**: ① **주제형만 남음** 순차 반영(전부 완비·등재 불요): 이차방정식(5)·(11)·실수(6)·확률(5)·(10). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
 - **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
   - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**

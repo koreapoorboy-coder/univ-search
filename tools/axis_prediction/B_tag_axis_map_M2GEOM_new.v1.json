@@ -1,0 +1,20 @@
+{
+  "version": "B-tag-axis-map-M2GEOM-new-v1",
+  "unit": "m2_geometry_properties / 도형의 성질(6)=set07. 856 트랜치 마지막(856:91+주제형:59). 도형 계열",
+  "source": "_inbox/tagging_geometry_properties6_v4_v2.json (48유형·150문항·36종, 재사용30·신규6, 검수 PASS). 재사용률 83.3%(새 단원 최고).",
+  "scope": "신규 6종만. 재사용 30종 기존 축 승계(풀 gap 0). 유닛 완비(M2_GEOM_PT, type_variant/links 존재)→856 등재 불필요.",
+  "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지.",
+  "review_status": "CODE_DRAFT_PENDING_REVIEW",
+  "도메인_calibration": "도형 재사용: 각연쇄=C3(isosceles/angle_correspondence/angle_bisector_chain), 개념=C2(central_inscribed_angle), 식=C1(area_inradius·semiperimeter_tangent), ★조건누락=B1(diameter_right_angle·tangent_radius). B1(특정 조건 누락) vs C2(정의 미소환) 구분 = 검수 핵심.",
+  "map": {
+    "circumcenter_equidistance_relation_failure":          {"axis":"C2","tier":"boundary","alt":"C3","note":"★검수지침: 외심 OA=OB=OC 정의를 못 꺼냄 = 개념(C2), B1 아님(isosceles_altitude_bisection B1→C2 선례). vs 등거리→이등변→각 연쇄(C3)"},
+    "circumcenter_perpendicular_bisector_relation_failure":{"axis":"C2","tier":"boundary","alt":"C3","note":"외심=세 변 수직이등분선 교점 정의 미소환 = 개념(C2). diameter_right_angle(B1)와 달리 정의라 C2. vs 연결(C3)"},
+    "incenter_angle_bisector_relation_failure":            {"axis":"C2","tier":"boundary","alt":"C3","note":"내심=세 내각 이등분선 교점 정의 미소환 = 개념(C2). 검수 구분: angle_bisector_chain_integration(C3, 후속연쇄)과 다른 '정의'. vs 연결(C3)"},
+    "quadrilateral_hierarchy_classification_failure":      {"axis":"C2","tier":"boundary","alt":"C3","note":"정사각형·직사각형·마름모·평행사변형 포함관계·필요충분 방향 오분류 = 도형 위계 개념(C2). vs 관계 연결(C3)"},
+    "parallelogram_condition_converse_failure":            {"axis":"C3","tier":"boundary","alt":"C2","note":"조건→평행사변형 역판정 = 개념 연결·역조건 적용(C3). cyclicity_converse(C3) 선례 참조·개별판단. parallelism/pythagorean_converse(similarity, C3/alt C2)와 동일 converse family. vs 정/역 개념(C2)"},
+    "triangle_congruence_condition_selection_failure":     {"axis":"C3","tier":"boundary","alt":"D2","note":"★검수 갈림점: SSS/SAS/ASA/RHA/RHS 합동조건 구성·선택. 대응 부분 연결해 합동 확립=개념연결(C3, similar_triangle_correspondence C3 계열) vs 법칙 선택(D2, law_selection D2). 최다11회. C3우선(구성이 본질)·alt D2 명시"}
+  },
+  "axis_distribution": {"C2":4, "C3":2},
+  "domain_note": "신규 6종 전량 C축(개념4+연결2) = 도형 성질 = 개념(외심·내심·위계 정의)·연결(역판정·합동구성) 편중. 재사용과 합쳐 도형=C3·C2·C1·B1 프로파일(각연쇄·개념·식·조건). 원 C편중 계열과 정합. §3 원전용태그(diameter_right_angle·central_inscribed_angle·area_inradius·tangent_radius) 실사용 — 외심·내심이 원과 연결됨 실증.",
+  "inherited_reused_30_note": "재사용 30종 기존 축 승계(gap 0): isosceles_triangle_angle_chain C3·angle_correspondence_chain C3·angle_bisector_chain_integration C3·central_inscribed_angle_factor_confusion C2·diameter_right_angle_condition_omitted B1·tangent_radius_perpendicularity_omitted B1·area_inradius_relation_setup C1·semiperimeter_tangent_partition C1·right_triangle_tangent_partition·midpoint_length_relation·midpoint_area_fraction_relation_misapplied·same_altitude_area_ratio_transfer·ratio_setup_from_geometry·area_formula_setup·area_decomposition_equation_setup·composite_area_subtraction·composite_path_length_decomposition·segment_partition_tracking·multi_triangle_length_chain·parallel_line_angle_transfer·paper_fold_reflection·isosceles_altitude_bisection_overlooked·pythagorean_setup·law_selection D2·multi_constraint_intersection·multi_step_composite·multi_stage_motion_distance_setup·extremum_selection·multiple_answer_omission·answer_format_mismatch. 재배정 금지."
+}
