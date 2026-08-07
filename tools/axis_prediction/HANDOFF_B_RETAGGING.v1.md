@@ -75,7 +75,10 @@
   - **맵 `B_tag_axis_map_M3QUAD_new.v1.json`(신규8)**: C1·3(근조건대입·활용모델링·근→방정식)/D2·1(공식대입)/C4·1(차수환원)/C3·1(판별식연결)/B3·1(영인수경우)/C2·1(켤레근). **검수 4갈림점 전부 후보 일치**: root_count_discriminant→**C3**(alt B3)·zero_product→**B3**(alt C2)·quadratic_formula_coefficient→**D2**(alt D3, calibration custom_operator·volume=D2 확증)·quadratic_application→**C1**.
   - **verification_missing 4번째**(Q98~101·107, E1 세 단원 연속: 다항식5·13·이차방정식5 = **대수 계열 역방향 문항 구조적**). 반영 E1=10.
   - **반영 C1·81 지배**/C3·58/B2·35/D1·33/C2·22/D2·21/C4·20/B3·19 — **14/17축 등장 광폭**(인수분해+근+판별식+활용 종합). 미해결0. 맵 CODE_DRAFT.
-- **다음 할 일**: ① 주제형 순차: 이차방정식(11)·실수(6)·확률(5)·(10). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
+- **✅ 이차방정식(11)=set12 17단원째 완결** (같은 단원 2번째, `260711_이차방정식(11).pdf`). item_id `M3_QUAD_150_S12_Q###`. 21유형·150문항·31종, new_tags **0**(이차방정식5 신규8 중 7재등장·미등장 zero_product, 겹침30/31), 전량 풀 승계. cp 실체화 성공(정본 rationale 완전). 검증 PASS(3=20·2=1).
+  - **★E1 판정 = 문항 구조를 따름(단원 아님)**: (5)엔 "잘못 본 식→원래 식 복원" 역방향 문항 있어 E1(verification_missing)·(11)엔 없어 **E1=0**. 같은 단원인데 학습지 문항 구조에 따라 E1 갈림 = 근거 명확(음수근 버림=range_constraint 조건필터, 검산 아님·명세 §5-1). **E1 판정은 단원이 아니라 문항 구조 기준** 사례 기록.
+  - 축분포 **C1·88 지배**/C3·66/C4·33/D1·24/B2·23/B3·21/C2·13 — (5)와 동형 C1지배·광폭. D2·3(vs (5) D2·21, 근의공식 유형 적음). E1·0. 미해결0.
+- **다음 할 일**: ① 주제형 순차: 실수(6)·확률(5)·(10). ② 예측 error_tags = M2_SIMPY 예측층 정비 시 재검토(별도). ③ D2 후속(타단원 대조)·관측층 병합(§미결) = 남은 PDF 반영 후.
 - **✅ crosswalk 후속조사 완료 — 이름매칭 불필요로 판명**:
   - 조인 실체 = **`source_item_links/`** (아이템별 `item_id → primary_problem_type_id` **id 조인**, concept_ids·mapping_confidence 0.98·`review_status: verified_against_problem_answer_and_solution`). 닮음 set04/09 링크 **이미 존재**(patch209).
   - 닮음 실 canonical = **`M2_SIMPY_PT###`**(unit `M2_SIMILARITY_PYTHAGORAS`, 닮음+피타고라스 **87유형**), `type_variant_bank`가 id+type_name 정의, links/coverage/duplicate_map/source_bank가 참조. → **관측 reflection(item_id) → links → M2_SIMPY_PT 로 id 조인. §5 금지 이름매칭 안 함.**
