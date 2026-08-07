@@ -129,6 +129,9 @@
 - **프로덕션 병합**(관측층→실 source_item_links): 보류. 3~4단원 더 + 새 사각지대 안 나오면.
 - **경계 40% 누적**(수와식33·원1248·원6·삼각44): 3~4단원 후 일괄 재검토(같은 경계선 C1/C3·C2/C4 묶어 판례). `TAG_DICTIONARY §7`.
 - **★D3/C2 경계 판례 후보**(검수지정): `triangle_area_sine_factor_omitted`(삼각비, ½ 누락) + `square_formula_middle_term_error`(다항식, ±2ab 계수)= **공식은 알되 계수를 틀림** 동형. 둘 다 D3/alt C2. 삼각비 때 "C2 나아보이나 확신 없음"으로 남김. **같은 경계에 2사례 모임 → 경계 재검토 시 함께, 판례 후보.**
+- **★B1 vs C2 경계 판례(검수확정 기준)**: **문제에 주어졌는데 안 쓰면 B1 / 학생이 알고 꺼내야 하는데 못 꺼내면 C2.** 사례 4tag 축적: `diameter_right_angle_condition_omitted`→**B1**(지름 문제에 그려짐)·`tangent_radius_perpendicularity_omitted`→**B1** / 외심·내심 정의 4종(circumcenter_equidistance·circumcenter_perp_bisector·incenter_angle_bisector·quadrilateral_hierarchy)→**C2**(문제 미기재, 학생 소환)·`isosceles_altitude_bisection_overlooked`→**C2**(검수 B1→C2 선례). §7 D3/C2와 나란히 판례.
+- **★재사용률 상승곡선(사전 성숙 실증)**: 삼각비 3%→함수 59%→이차함수 62%→다항식 79%→도형성질 **83%**. 새 단원에서 80%대 첫 사례. `verification_missing`처럼 사전+직전산출 참조로 신규 최소화.
+- **triangle_congruence_condition_selection_failure = C3/alt D2** (11회 최다) — 검수 승인이나 최다사용이라 경계 재검토 여지 유지(구성=C3 vs 선택=D2).
 - **856/1655/150 트랜치**: 미완 소스 PDF 12개 부재(`B_worklist_pdfs.v1.csv`). 856 6개(닮음·다항식·이차함수·도형성질) 우선.
 - **A1·E2 미등장**: 다른 단원서 나오는지 관찰.
 
