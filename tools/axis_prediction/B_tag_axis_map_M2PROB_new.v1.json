@@ -4,7 +4,7 @@
   "source": "_inbox/tagging_probability5_v4_v2.json (43유형·150문항·47종, 재사용10·신규37, 검수 PASS·수정불요) -> Code탭 독립검증 PASS",
   "scope": "신규 37종만 17축 매핑(단원 최대 규모). 재사용 10종은 기존 축 승계(풀 전수대조 gap 0, 재사용률 21.3%). 신규 계열이 처음이라 낮은 재사용률 정당(억지 승계 금지).",
   "관측층주의": "OBSERVED 축. PREDICTED와 같은 필드 저장 금지(§9).",
-  "review_status": "CODE_DRAFT (Code탭 매핑, 검수 리뷰 대기. 검수 배정 주목점 반영 + law_selection_error=D2 풀 선례로 principle_selection=C2 구분)",
+  "review_status": "REVIEWED_APPROVED (2026-08-07 검수 전량 승인·수정없음: 37종 축배정·D2/C2 판례 등록·오염방지 모두 승인. Q112 D2+C3 공존이 층위 구분 실증)",
   "판례_적용": "①법칙 '개념' 선택(합/곱 세는 방식)=C2 (★law_selection_error=D2와 구분: law_selection은 '공식 선택'(D2 선례), principle_selection은 '세는 방식 개념 이해'(C2). 검수 지시 'C2 쪽') ②순서/조합 개념=C2 ③확률식·사건번역·여사건 '설정'=C1(식/조건 세우기) ④연속시행 상태갱신·경로집계·사건연산 연결=C3(해석적 연결·상태 추적. without_replacement 등 검수 C3 지시) ⑤경우 열거·분류·중복·제외관리=B3(검수 주력축) ⑥순열 실행 계산=D3. B2(범위)·A3(부정)·D1(다단계)·D2(law)·D3(분수)는 재사용 승계.",
   "map": {
     "addition_principle_selection_error":            {"axis":"C2","tier":"boundary","alt":"D2","note":"★합의 법칙(더할지)을 곱으로 처리 = 세는 방식 개념혼동(C2). law_selection_error(D2·공식선택)와 구분(검수 지시). alt D2"},
