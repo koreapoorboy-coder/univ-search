@@ -12,14 +12,14 @@
 - **🚀 QF 시범 진행중** (`B_wiring_pilot_QF.v1.md`). QF선정=B스키마 미소비라 진단공백→축경로 효과 순수판별+B회생 비교 가능.
   - **✅ ①a 데이터**(커밋 `f291e9fe`+`996113ef`): `data/axis_map/fine_tag_to_axis.v1.json`(재태깅321→15축·메타O). `data/axis_map/qf_pt_fine_error_tags.v1.json`(QF PT→fine태그 오버레이, 프로덕션 problem_types 무변경). 실측 PT당 태그 min2·max24·avg3.8(PT175만 24).
   - **✅ ①b 엔진**(커밋 `5833f97b`, 가산): `math_weakness_engine.js` load()에 `fineTagToAxis` 로드 + diagnose()에 axisStats(문항당 축유니크) + `observed_axes` 반환키. **debug.html 실검증**: QF 3오답 fine태그→observed_axes 정확, **비회귀 증명**(축맵 제거 시 기존12키 동일). 학생화면·Worker 무변경.
-  - **⏸ 다음 = ③ B회생 판정 대기**: QF 13 B스키마규칙 전문 검수 전달함(`B_QF_Bschema_rules.v1.md`, 커밋 `6d930919`). ★핵심=error_tags_any는 OR/SUM이라 **13규칙 전부 ≥1 backed→FULLY DEAD 0, 필드명(trigger_error_tags→trigger.error_tags_any) 수정만으로 전부 발화가능.** 미뒷받침9=무효항목(규칙 안죽임). **검수 판정후**: QF diagnosis_rules 필드명 수정→축경로 vs B회생 비교. 
+  - **✅ ③ B회생 완료** (커밋 `6489aa53`, 검수승인 2026-08-09): QF 13규칙 `trigger_error_tags`(평면)→`trigger.error_tags_any`(중첩)+**`wrong_min:2·low:1` 주입**. ★**필드명만으론 부족 발견**: 엔진 554행 `wrong_min||999`라 wrong_min 없으면 전부 死. 정상 32단원 값 2/1로 통일. **debug.html 회생전/후 동일입력 실증**: BEFORE QF발화0 / AFTER QF발화8(RULE_001·002·003·005·007·009·010·012). 타단원 31규칙·observed_axes(C1~C4) 전후 동일=회귀0. 롤백=단독커밋 revert. **TR(8규칙 동일 평면스키마)는 미착수**(QF 결과 보고 판단). ⚠**용어정정**: B회생 출력=`triggered_rules`(≠wrong_answer_diagnoses; 후자는 instruction기반이라 ③과 무관·전후 동일).
   - **⏸ ② Worker주입**: worker_skeleton `fetchUnitProblemTypes`에 fine_error_tags 1줄+`assignTypesForUnit` 프롬프트 블록. **사용자 Cloudflare 배포 필요**(실효). 검증서버=scratchpad `serve.ps1`(PS HttpListener 8731).
 
 - **⚠ 별건 이슈**(`ISSUE_4unit_diagnosis_rule_schema_mismatch.v1.md`): 4단원(GP·PB·QF·TR) 진단규칙 **스키마 불일치 미소비 확정**. B(QF/TR:trigger_error_tags 영문거친태그74%뒷받침=저비용회생)·C(GP/PB:if_observed_signals 한글자연어0%·teacher_confirmation_prompt=의도된 교사확인플로우 미구현③, 신규구현트랙). 수정 보류(검수). 배선과 겹침(4단원=관측층 최대수혜).
 
 - **🧰 환경함정(꼭)**: PS5.1이 .ps1 한글리터럴 ANSI 오독→깨짐. **스크립트 라벨·메타 전부 영문**(검수 지시). 전각괄호(（〔）〕)도 `[char]0xFF08`류 코드. ConvertFrom-Json은 `[IO.File]::ReadAllText(...,UTF8)`. 데이터(한글)는 UTF8통과 OK. scratchpad 스크립트는 매세션 재작성(predict_tally·observed_tally·compare_axes·build_axismap_qf·qf_rules_extract·serve). Downloads=검수전달용 사본.
 
-- **다음 세션 즉시 할 일**: 검수의 QF 13규칙 판정 수신 → ③ B회생(필드명수정) 실행(프로덕션·롤백명시) → QF에서 축경로 vs B회생 비교 → 확대. 병행 ② Worker설계(사용자배포). ↓ 아래는 이전 국면 이력(참고).
+- **다음 세션 즉시 할 일**: ③ 완료(위). 다음 = **④ 비교 판정**(검수): 같은 QF 입력 3출력 나란히 — 축경로 `observed_axes`(추상 17축분포 C1·C2·C3·C4) vs B회생 `triggered_rules`(QF 8규칙·구체 오류모드 메시지) vs `wrong_answer_diagnoses`(문항별 instruction, ③무관). 어느 쪽이 QF 진단에 유용한지 판정 → 확대방향(TR 회생·타단원·② Worker). ⚠B회생 `wrong` 카운트 팽창(RULE_001 wrong=9)=범용 거친태그가 pt.error_tags로 누적, 검수 지적 trigger-msg 정밀도 이슈와 동류. 병행 ② Worker설계(사용자배포). ↓ 아래는 이전 국면 이력(참고).
 
 ## ⭐ 현재 상태 (2026-08-07, 이전 진입점 — 재태깅/경계재검토 이력)
 - **정본 리포 = `C:\Users\user\projects\scshstudy`**(로컬, OneDrive 아님·은퇴대상). `_inbox/*.json` 미커밋=교환 입력본(정본 `B_tagging_*`는 커밋됨, 정상).
