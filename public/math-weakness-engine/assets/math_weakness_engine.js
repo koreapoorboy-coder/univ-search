@@ -72,6 +72,7 @@
       this.skippedUnits=[];
       this.unitLoadWarnings=[];
       const conceptPack=await this._json('data/math_concepts.v1.json');
+      this.fineTagToAxis=((await this._optionalJson('data/axis_map/fine_tag_to_axis.v1.json'))||{}).map||{};
       this.concepts=conceptPack;
       this.allProblemTypes=[]; this.allEdges=[]; this.allRules=[]; this.allRemediation=[]; this.unitData={};
       this.conceptById=byId([...(conceptPack.concepts||[]),...(conceptPack.future_target_concepts||[])],'concept_id');
@@ -513,7 +514,7 @@
     diagnose(input){
       if(!this.loaded) throw new Error('engine not loaded');
       const attempts=this._normalizeAttempts(input);
-      const conceptScores={}; const directStats={}; const tagStats={}; const missing=[];
+      const conceptScores={}; const directStats={}; const tagStats={}; const axisStats={}; const missing=[];
       const addScore=(cid,score,kind,source)=>{
         if(!conceptScores[cid]) conceptScores[cid]={concept_id:cid,score:0,direct:0,prerequisite:0,evidence:[]};
         conceptScores[cid].score+=score; conceptScores[cid][kind]=(conceptScores[cid][kind]||0)+score; conceptScores[cid].evidence.push(source);
@@ -527,6 +528,8 @@
         const instruction=this.getProblemInstruction(pt.problem_type_id);
         const tags=this._tagsFor(a,pt,instruction);
         tags.forEach(t=>{if(!tagStats[t]) tagStats[t]={tag:t,total:0,wrong:0}; tagStats[t].total++; if(!correct) tagStats[t].wrong++;});
+        const axesThis=new Set(); tags.forEach(t=>{const ax=(this.fineTagToAxis||{})[t]; if(ax) axesThis.add(ax);});
+        axesThis.forEach(ax=>{if(!axisStats[ax]) axisStats[ax]={axis:ax,total:0,wrong:0}; axisStats[ax].total++; if(!correct) axisStats[ax].wrong++;});
         (pt.concept_ids||[]).forEach(cid=>{if(!directStats[cid]) directStats[cid]={concept_id:cid,total:0,wrong:0}; directStats[cid].total++; if(!correct) directStats[cid].wrong++;});
         if(!correct){
           (pt.concept_ids||[]).forEach(cid=>addScore(cid,10*w,'direct',{question_no:a.question_no,problem_type_id:pt.problem_type_id,type_name:pt.type_name,reason:'direct_wrong'}));
@@ -573,6 +576,7 @@
         triggered_rules:triggeredRules,
         cross_grade_risks:crossGrade,
         tag_stats:Object.values(tagStats).sort((a,b)=>b.wrong-a.wrong),
+        observed_axes:Object.values(axisStats).sort((a,b)=>b.wrong-a.wrong),
         missing
       };
     }
