@@ -21,8 +21,8 @@
     "function_mapping_uniqueness_failure":             {"axis":"C2","tier":"confident","note":"함수 정의(각 x에 y 하나) 개념 판정·유지 = 개념(C2). 함수 핵심개념"},
     "slope_sign_graph_direction_confusion":            {"axis":"C2","tier":"confident","alt":"C3","note":"★판례: 기울기 부호=그래프 증감방향, 원자적 개념혼동(C2) vs 연결(C3). trig_monotonic_direction_confusion(C2) 선례"},
     "slope_magnitude_graph_comparison_error":          {"axis":"C2","tier":"confident","alt":"C3","note":"기울기 절댓값=가파른 정도, 원자적 개념혼동(C2) vs 연결(C3)"},
-    "discrete_solution_graph_continuity_error":        {"axis":"B2","tier":"boundary","alt":"C2","note":"정수(이산) 정의역 조건 무시하고 연속직선으로 = 정의역·범위 무시(B2) vs 이산↔연속 개념(C2)"},
-    "line_intersection_parameter_range_failure":       {"axis":"B2","tier":"boundary","alt":"C1","note":"직선-도형 교차 조건을 경계직선에서 매개변수 범위(열린/닫힌구간)로 = 범위 처리(B2) vs 조건식(C1)"},
+    "discrete_solution_graph_continuity_error":        {"axis":"C2","tier":"confident","alt":"B2","note":"★경계재검토: B2->C2 이동(검수). 정수해를 연속직선으로 그림=정의역이 그래프 모양 바꾼다는 함수 개념 오해(C2, function_mapping_uniqueness 계열), 범위 처리 아님"},
+    "line_intersection_parameter_range_failure":       {"axis":"B2","tier":"confident","alt":"C1","note":"직선-도형 교차 조건을 경계직선에서 매개변수 범위(열린/닫힌구간)로 = 범위 처리(B2) vs 조건식(C1)"},
     "line_configuration_case_split_failure":           {"axis":"B3","tier":"confident","note":"세 직선 삼각형 미형성(평행2+교점통과1) 경우 빠짐없이 분리 = 경우분류(B3). multi_constraint_intersection(B3) 계열"},
     "linear_function_region_area_case_split_failure":  {"axis":"B3","tier":"confident","note":"두 함수 상대위치가 매개변수 구간따라 달라 넓이식 경우분리 = 경우분류(B3)"}
   },

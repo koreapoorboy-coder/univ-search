@@ -20,7 +20,7 @@
 5. **17축 원문**(내용 확보 · 출처 "§11" 미확인) = `axis_definitions_v10_orig.md`. E1=검산생략·A3=조건정리안함·D3=단순연산실수 등.
 
 ## ⛔ 막힌 것 + 왜
-- **A2/D2·B1/C1 경계 미해소** → 보류 태그 3(146). 축 명칭표라 안 갈림. **경계 판례 필요(존재 확인 불가·검수측 보유).**
+- ~~**A2/D2·B1/C1 경계 미해소**~~ → **✅ B1/C1 해소**(2026-08-07 경계재검토: B1/C2 판례+C1 판례로 판정 가능. denominator_multiple_condition B1→C1 등. §7 경계판례 10종 확립, `HANDOFF_B_RETAGGING.v1.md`). A2/D2도 §7 ④D2vsC2로 판정 가능(principle_selection C2/law_selection D2).
 - **오탐 213부착 재판정**(E1 92·E3 121, C-01/C-10 단독 공급) → 공통규칙 수정=45단원 스윕+AELF=**A라인.**
 - **🔴 4단원 856문항**(similarity·polynomial·quad_function·geometry) → raw_taxonomy 유형 부재 = **A라인**(유형추가+규칙신설+재검증).
 - **답별 오답 분기**(진짜 병목) → 문제 **본문·선택지·해설원문 미저장**(policy), **원천 PDF 리포 0개.** ⚠ **단 정답(answer_key 3364/3364)·유형·오류태그는 확보** — 소스 재고 `B_source_inventory.v1.md`. "본문 없음"이 "아무것도 없음"은 아님.
