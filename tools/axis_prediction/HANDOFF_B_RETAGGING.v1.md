@@ -2,8 +2,27 @@
 
 > 이 문서 하나로 **재태깅 스트림**을 이어받는다. 큰 그림은 `HANDOFF_B_MASTER.md`. 관측 태그 정본은 `TAG_DICTIONARY_v1.md`.
 
-## ⭐ 현재 상태 (2026-08-07, 새 세션 진입점 — 여기부터)
-- **HEAD `55e64e84`, origin 동기화·전부 push됨.** 정본 리포 = **`C:\Users\user\projects\scshstudy`**(로컬, OneDrive 아님·은퇴대상). `_inbox/*.json` 미커밋=교환 입력본(정본 `B_tagging_*`는 커밋됨, 정상).
+## ⭐⭐ 최신 진입점 (2026-08-09, 배선 국면 — **여기부터 읽기**)
+> 재태깅·경계재검토·예측관측대조는 **완료**. 현재 = **배선(wiring) 국면**. 아래 순서로 읽어라: 이 블록 → `B_wiring_pilot_QF.v1.md`(현재 시범) → `B_wiring_design.v1.md`(설계) → `B_pred_vs_obs_20units.v1.md`(대조 발견). 리포=**`C:\Users\user\projects\scshstudy`**(OneDrive 아님). HEAD는 아래 커밋들 최신(전부 push됨).
+
+- **✅ 완료된 대과제 3**: ①재태깅 20단원(2722문항·321종). ②경계재검토(§7 판례 10종, boundary 147→14=90%해소, 잔여14 동결). ③**예측vs관측 대조 11단원**(`B_pred_vs_obs_20units.v1.md`): **D2격차=유형A정의불일치(6단원 예측과다)·E1격차=유형B예측과잉발화(C-01"주어진"·C-11"방정식" 공통규칙 표면어, `B_E1_gap_diagnosis.v1.md`)·C3=유형C관측우위.** 조인=전단원 유형vs문항이라 분포대조만.
+
+- **🔧 배선 발견(핵심)**: 관측층(재태깅 321종·17축)은 런타임과 **어휘 완전분리**(∩=0~1종). 런타임 observed_error_tags=외부 Cloudflare Worker(opus-4-8, 학생답안 판독) 자유생성 거친태그(sqrt_definition_property류). **problem_types.error_tags = Worker 프롬프트 입력 + 엔진 `_tagsFor` 매칭** 양쪽 경로(error_tags=null 보류 전제 정정됨). ⇒ **fine태그를 넣으면 관측층↔런타임 정합 = 최단로.** (b)Worker주입+(c1)엔진축경로 병행. 상세 `B_wiring_investigation.v1.md`·`B_wiring_design.v1.md`.
+
+- **🚀 QF 시범 진행중** (`B_wiring_pilot_QF.v1.md`). QF선정=B스키마 미소비라 진단공백→축경로 효과 순수판별+B회생 비교 가능.
+  - **✅ ①a 데이터**(커밋 `f291e9fe`+`996113ef`): `data/axis_map/fine_tag_to_axis.v1.json`(재태깅321→15축·메타O). `data/axis_map/qf_pt_fine_error_tags.v1.json`(QF PT→fine태그 오버레이, 프로덕션 problem_types 무변경). 실측 PT당 태그 min2·max24·avg3.8(PT175만 24).
+  - **✅ ①b 엔진**(커밋 `5833f97b`, 가산): `math_weakness_engine.js` load()에 `fineTagToAxis` 로드 + diagnose()에 axisStats(문항당 축유니크) + `observed_axes` 반환키. **debug.html 실검증**: QF 3오답 fine태그→observed_axes 정확, **비회귀 증명**(축맵 제거 시 기존12키 동일). 학생화면·Worker 무변경.
+  - **⏸ 다음 = ③ B회생 판정 대기**: QF 13 B스키마규칙 전문 검수 전달함(`B_QF_Bschema_rules.v1.md`, 커밋 `6d930919`). ★핵심=error_tags_any는 OR/SUM이라 **13규칙 전부 ≥1 backed→FULLY DEAD 0, 필드명(trigger_error_tags→trigger.error_tags_any) 수정만으로 전부 발화가능.** 미뒷받침9=무효항목(규칙 안죽임). **검수 판정후**: QF diagnosis_rules 필드명 수정→축경로 vs B회생 비교. 
+  - **⏸ ② Worker주입**: worker_skeleton `fetchUnitProblemTypes`에 fine_error_tags 1줄+`assignTypesForUnit` 프롬프트 블록. **사용자 Cloudflare 배포 필요**(실효). 검증서버=scratchpad `serve.ps1`(PS HttpListener 8731).
+
+- **⚠ 별건 이슈**(`ISSUE_4unit_diagnosis_rule_schema_mismatch.v1.md`): 4단원(GP·PB·QF·TR) 진단규칙 **스키마 불일치 미소비 확정**. B(QF/TR:trigger_error_tags 영문거친태그74%뒷받침=저비용회생)·C(GP/PB:if_observed_signals 한글자연어0%·teacher_confirmation_prompt=의도된 교사확인플로우 미구현③, 신규구현트랙). 수정 보류(검수). 배선과 겹침(4단원=관측층 최대수혜).
+
+- **🧰 환경함정(꼭)**: PS5.1이 .ps1 한글리터럴 ANSI 오독→깨짐. **스크립트 라벨·메타 전부 영문**(검수 지시). 전각괄호(（〔）〕)도 `[char]0xFF08`류 코드. ConvertFrom-Json은 `[IO.File]::ReadAllText(...,UTF8)`. 데이터(한글)는 UTF8통과 OK. scratchpad 스크립트는 매세션 재작성(predict_tally·observed_tally·compare_axes·build_axismap_qf·qf_rules_extract·serve). Downloads=검수전달용 사본.
+
+- **다음 세션 즉시 할 일**: 검수의 QF 13규칙 판정 수신 → ③ B회생(필드명수정) 실행(프로덕션·롤백명시) → QF에서 축경로 vs B회생 비교 → 확대. 병행 ② Worker설계(사용자배포). ↓ 아래는 이전 국면 이력(참고).
+
+## ⭐ 현재 상태 (2026-08-07, 이전 진입점 — 재태깅/경계재검토 이력)
+- **정본 리포 = `C:\Users\user\projects\scshstudy`**(로컬, OneDrive 아님·은퇴대상). `_inbox/*.json` 미커밋=교환 입력본(정본 `B_tagging_*`는 커밋됨, 정상).
 - **🏁 중등 재태깅 20단원 전량 완결**(2026-08-07): 수와식5·원12+6·삼각비6+무번호(set01)+10(set11)·닮음3+8·함수5+8·이차함수3+9·다항식5+13·도형성질6·이차방정식5+9·실수(6)set07·확률(5)set06+**(10)set11**. 856 트랜치 종료. **입력 소진 → 재태깅 스트림 종료. 다음 국면 = 프로덕션 병합·경계 재검토·예측 대조(§아래).**
 - **📊 20단원 완결 집계**(전 리플렉션 스캔): 총 **2722문항** / 관측 **321종**(=축매핑풀 321). **17축 관측분포**(item-level 5218건): C3·1153>C1·1083>C2·679>C4·528>B3·328>D1·322>D3·290>D2·267>B2·200>B1·125>A3·100>E3·44>B4·36>A2·35>E1·28. **미등장 = A1·E2**(2축).
 - **⚠ 맵 위생(경계 재검토 중 발견)**: `M3CP.v1`(27)·`M3CP_circle6new`(28)은 **둘 다 `M3CP.v2`(55)의 완전 부분집합·축 불일치 0**(55=27+28 정확분할). 반영 축·풀 321은 무영향(union·축 일치). 단 naive 글롭이 v1·circle6new를 함께 읽어 tier **중복 계수**. **★집계 정규 대상 = 11맵(글롭서 v1·circle6new 제외)**: M2GEOM_new·M2LF_new·M2NE·M2PROB_new·**M3CP.v2**·M3POLY_new·M3QF_new·M3QUAD_new·M3REAL_new·M3TR_new·similarity3_new. **정규 tier(11맵): boundary 147·confident 175**(앞 보고 154/223은 중복분). 경계쌍(정규): **C1↔C3=22**(C1>C3·13+C3>C1·9)·**C2↔C3=22**(12+10)·C4↔C1=11(9+2)·C4↔C3=9·C1↔C2=7·C4↔D1=6. **C계 상호경계가 압도** → 판례화 표적.
