@@ -20,7 +20,19 @@
 - 스켈레톤 기준: observed_error_tags = enum 없는 자유생성(허용목록 없음). problem_type_id·response_status는 enum 통제.
 - **미확인**: 배포 Worker 실제 시스템 프롬프트에 허용태그·candidate가 주입됐는지. 사용자 접근 가능 여부 확인 중. 이게 없으면 배선 선택지 (b)스키마 개정 논의 불가.
 
-## 종합 — 배선 선택지 3안 평가
+## [항목3 심화] 4단원 진단 실태 = 규칙 스키마 3변형 (2026-08-07 추가)
+GP·PB·QF·TR "error_tag 채널 미사용"의 실체 = **규칙 스키마가 달라 엔진 diagnose()가 안 읽는 정황**:
+| 스키마 | 필드 | 단원 | 엔진 소비? |
+|---|---|---|---|
+| A(정본) | `trigger.error_tags_any`(중첩) | NE·QE·RC·LE·다수 | ✅ diagnose() line 544 소비 |
+| B | `trigger_error_tags`(최상위·`_any` 없음)·`diagnosis_message`·`primary_concept_ids` | **QF·TR** | ❓ line 544는 `rule.trigger.error_tags_any` 찾음 → 필드 불일치·**미소비 정황** |
+| C | `if_observed_signals`·`then_diagnosis_concept_ids`·`teacher_confirmation_prompt` | **GP·PB** | ❓ 엔진 grep 0 → **미소비 정황** |
+- 셋 다 `status:curated_diagnosis_rule`(deprecated 아님). 엔진 line 544는 error_tags_any만, line 298·307은 route용 `trigger_error_tags_any`(remediation) — **QF/TR·GP/PB 진단규칙 스키마와 안 맞음.**
+- ⇒ **4단원 진단규칙은 "태그를 안 씀"이 아니라 "스키마가 달라 현 diagnose()가 미소비"일 가능성**(사문화 정황). ⚠엔진 정규화/다른 경로 여부는 엔진 코드 정독(진행중) 확정 대기.
+- **함의**: 관측층 배선 시 이 4단원은 규칙 스키마 통일이 선행돼야 할 수도. 관측층 최대 수혜 대상일 수 있음(현재 태그 진단 공백).
+
+## 종합 — 배선 선택지 3안 평가 (★검수 정리: 배타 아님)
+- **검수 판정: (a) 배제 후보**(4단원 무소비+정보손실+17축 부재). **(b)+(c) 병행 필요**(Worker가 세분태그 내도 소비처 없으면 무용·소비처 만들어도 Worker가 옛어휘 내면 불일치). 진짜 질문 = "어느 안이냐"가 아니라 **"어디부터 손대느냐"**.
 | 안 | 내용 | 평가 |
 |---|---|---|
 | **(a) 재태깅 321 → 거친태그 매핑** | 세분 태그를 런타임 거친 태그(1199)로 사상해 기존 채널 재사용 | 4단원(GP·PB·QF·TR)은 error-tag 규칙 자체가 없어 매핑해도 무소비. 17축도 여전히 런타임 부재. 부분해 |
