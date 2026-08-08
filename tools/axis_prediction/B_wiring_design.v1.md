@@ -11,7 +11,7 @@
 
 ## 1. 주입 방식 = ADD (별도 필드), 교체 아님
 - 기존 `problem_types[].error_tags`(거친 1199, diagnosis_rules 소비)는 **그대로 둔다.**
-- 재태깅 fine 태그(321종)는 **새 필드 `problem_types[].axis_error_tags`**(가칭)로 추가.
+- 재태깅 fine 태그(321종)는 **새 필드 `problem_types[].fine_error_tags`**(가칭)로 추가.
 - 이유: 한 필드에 거친+fine 섞으면 (a)diagnosis_rules가 fine을 못 매칭해 잡음, (b)Worker가 어느 어휘를 낼지 불명확. **분리하면 소비처별로 명확.**
 
 ## 2. 기존 diagnosis_rules와 공존 = 무회귀
@@ -20,21 +20,23 @@
 - Worker 주입: **fine 태그를 후보 블록으로 프롬프트에 추가**(assignTypesForUnit, 수 줄). Worker가 fine observed_error_tags 생성 → 아래 c1이 소비.
 
 ## 3. 17축 소비처 (c1) 관계 = "태그 들어오면 축은 맵으로"
-경로: `pt.axis_error_tags`(fine) → Worker 프롬프트 주입 → `observed_error_tags`(fine 생성) → **엔진 신규 axisStats 루프가 fine태그→17축 매핑**(재태깅 321→17축 맵을 data JSON으로 로드) → `observed_axes` 신규 출력키.
+경로: `pt.fine_error_tags`(fine) → Worker 프롬프트 주입 → `observed_error_tags`(fine 생성) → **엔진 신규 axisStats 루프가 fine태그→17축 매핑**(재태깅 321→17축 맵을 data JSON으로 로드) → `observed_axes` 신규 출력키.
 - 엔진 변경(c1, 소규모, tag_stats 선례 복제): `_axesFor(attempt,pt)` 헬퍼 + axisStats 집계(:528 루프 옆) + diagnose 반환에 `observed_axes` 1키 + global_logic 로딩에 축맵 JSON 1줄.
 - 렌더러: `renderObservedAxes()` + 축→설명문 맵(선택, 초기엔 JSON만도 가능).
 - **핵심**: 축은 fine태그가 들어와야 붙는다. 그래서 (b)Worker fine주입 + (c1)축경로 **병행 필수**(검수 판정 확증).
 
 ## 4. 데이터 준비 = 관측 태그를 problem_type에 조인
 - 재태깅 관측 = 워크시트 문항단위(B_reflection, item_id별 fine태그). problem_types = 유형단위.
-- 조인 = `source_item_links`(item_id → primary_problem_type_id). 문항별 fine태그를 problem_type_id로 집계 → `pt.axis_error_tags`.
+- 조인 = `source_item_links`(item_id → primary_problem_type_id). 문항별 fine태그를 problem_type_id로 집계 → `pt.fine_error_tags`.
 - ⚠커버리지 = 내 재태깅 워크시트가 링크된 problem_type만. 부분(시범엔 충분). 미재태깅 유형은 빈 배열.
 
-## 5. 단계적 적용 (시범 → 확대)
-1. **시범 1단원**(RC 실수 권장: 유닛완비·재태깅 1set·격차 명확): axis_error_tags 필드 채움 + Worker fine주입 + 엔진 axisStats + observed_axes 출력. 기존 진단 무변경 확인.
-2. **검증**: 시범 단원 학생 답안(샘플)으로 observed_axes가 나오는지·17축 분포가 관측 대조와 맞는지.
-3. **확대**: 11단원 → 전 단원. 축맵(321→17)·조인 자동화.
-4. **4단원 이슈 병합 판단**: GP·PB·QF·TR은 이 축 경로가 태그진단 공백을 메우는지 확인 후 B스키마 회생과 비교.
+## 5. 단계적 적용 (시범 → 확대) — ★시범=QF(검수)
+- **시범 단원 = QF(이차함수)** (RC 아님, 검수): QF는 B스키마 미소비라 **진단이 비어 있음** → 축 경로 효과가 기존 진단과 안 섞여 순수 판별 가능 + **B스키마 회생과 축 경로를 같은 단원에서 나란히 비교 가능한 유일 단원.**
+1. QF에 `fine_error_tags` 채움 + Worker 주입 + 엔진 axisStats → observed_axes.
+2. 기존 진단 무변경 확인(QF 원래 공백=회귀위험 최소).
+3. **별도로** B스키마 필드명 수정 시도(같은 QF): trigger_error_tags → trigger.error_tags_any.
+4. 두 결과(축 경로 vs B회생) 비교 → 확대 방향 결정. 상세=`B_wiring_pilot_QF.v1.md`.
+- 확대: 11단원 → 전 단원(축맵 321→17·조인 자동화).
 
 ## 6. 미결/설계 질문
 - **거친 vs fine 이원화 장기**: 진단 규칙(거친)과 축(fine)이 계속 별도 어휘로 갈지, 축맵을 통해 통합할지.

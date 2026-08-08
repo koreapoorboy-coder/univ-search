@@ -56,6 +56,12 @@
 - NE 99%·QE·RC·LE 100% 트리거 뒷받침 → **A규칙은 발화 가능**(트리거가 정적 vocab에 존재).
 - **런타임 실적(실제 몇 번 발화)은 학생 데이터 없어 불가.** 샘플 38개 존재하나 정적 확인만. "작동 중인 쪽이 유용한지"는 실데이터 필요.
 
+### [조사4] C = branch③ 재평가 (2026-08-07, 검수 요청)
+- `teacher_confirmation_prompt`·`if_observed_signals`·`then_diagnosis_concept_ids`·`recommended_remediation_ids`(C스키마 필드) = **읽는 코드 0개**(assets·html·worker 전수 grep).
+- 교사용 UI는 존재(렌더러 "교사용 내부 데이터"·"교사용 상세진단"·"교사용 다음 수업계획", teacher_check_questions)하나 **다른 소스**(behavior 분석·note review)에서 옴. C스키마 규칙의 teacher_confirmation_prompt와 무관.
+- ⇒ **C 재판정: "우발적 미소비"가 아니라 "의도된 다른 설계(교사 확인 플로우)인데 배선 안 됨"** = ③(의도)+①(미구현) 혼합. 스키마·출력필드(teacher_confirmation_prompt)·대상(교사)이 모두 달라 실수로 이렇게 되기 어려움(검수 지적 타당). **B(우발적 필드명 오류·근접작동)와 성격 확연히 다름.**
+- 처리 함의: **B = 저비용 필드명 회생 / C = 교사확인 플로우 미구현 = 별도 트랙**(회생이 아니라 신규 구현·필요성 재확인). 
+
 ### 조사 종합 (수정 판단 재료)
 - **B(QF·TR, 21규칙): 필드명 수정으로 ~74% 즉시 발화 가능·student 메시지 양호** = 저비용 회생 후보.
 - **C(GP·PB, 26규칙): 한글 서술→태그 변환 필요·교사용 설계** = 고비용, 의도 확인 선행. branch③ 여지.
