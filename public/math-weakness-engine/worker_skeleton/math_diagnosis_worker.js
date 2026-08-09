@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.09-fine-error-tags';
+const VERSION = '2026.08.09-fine-overlay-index-driven';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -232,23 +232,18 @@ function scopeOf(payload) {
   };
 }
 
-// 재태깅 관측 어휘(fine error_tags)를 유형별 후보로 주입하기 위한 오버레이 경로.
-// 프로덕션 problem_types는 건드리지 않는 별도 파일이다. 배선 시범(QF) 단계라 QF만
-// 등록돼 있고, 없는 단원은 후보 없이 종전대로 동작한다(가산적·무해).
-const FINE_OVERLAY_BY_UNIT = {
-  M3_QUADRATIC_FUNCTION: 'data/axis_map/qf_pt_fine_error_tags.v1.json'
-};
-
-async function fetchFineErrorTagOverlay(scope, unitId) {
-  const path = FINE_OVERLAY_BY_UNIT[unitId];
-  if (!path || !scope.dataBase) return {};
+// 재태깅 관측 어휘(fine error_tags)를 유형별 후보로 주입하는 오버레이. 경로는 index.v1.json의
+// 단원 엔트리 fine_error_tags_overlay에서 온다(하드코딩 맵 제거 → 단원 추가는 데이터만, Worker 재배포 불요).
+// 프로덕션 problem_types는 무변경. 오버레이 없는 단원은 후보 없이 종전대로 동작(가산적·무해·fail-open).
+async function fetchFineErrorTagOverlay(scope, overlayPath) {
+  if (!overlayPath || !scope.dataBase) return {};
   try {
-    const res = await fetch(`${scope.dataBase}/${path}`, { cf: { cacheTtl: 3600 } });
+    const res = await fetch(`${scope.dataBase}/${overlayPath}`, { cf: { cacheTtl: 3600 } });
     if (!res.ok) return {};
     const pack = await res.json();
     return pack.pt_fine_error_tags || {};
   } catch (err) {
-    console.warn(`fine overlay load failed (${unitId}):`, err?.message || err);
+    console.warn(`fine overlay load failed (${overlayPath}):`, err?.message || err);
     return {};
   }
 }
@@ -259,7 +254,7 @@ async function fetchUnitProblemTypes(scope, unitId) {
   const unit = (idx.units || []).find(u => u.unit_id === unitId);
   if (!unit?.problem_types) throw new Error(`${unitId}의 problem_types 경로가 없다`);
   const pack = await (await fetch(`${scope.dataBase}/${unit.problem_types}`, { cf: { cacheTtl: 3600 } })).json();
-  const fineByPt = await fetchFineErrorTagOverlay(scope, unitId);
+  const fineByPt = await fetchFineErrorTagOverlay(scope, unit.fine_error_tags_overlay);
   return (pack.problem_types || [])
     .map(p => ({ id: p.problem_type_id, name: p.type_name, fine_error_tags: fineByPt[p.problem_type_id] || [] }))
     .filter(p => p.id);
