@@ -128,6 +128,19 @@
   };
 
   renderStudents();
+
+  // 진단 페이지에서 "이 학생 기록 보기"로 넘어오면 ?code=007 (또는 SC-STUDY-007) 자동 조회.
+  (function fromQuery() {
+    try {
+      const q = new URLSearchParams(location.search).get('code');
+      if (!q) return;
+      const d = String(q).replace(/\D/g, '').slice(0, 3);
+      if (!d) return;
+      $('#code_num').value = d;
+      $('#code_num').dispatchEvent(new Event('input'));
+      lookup();
+    } catch (e) {}
+  })();
 </script>
 </body>
 </html>
