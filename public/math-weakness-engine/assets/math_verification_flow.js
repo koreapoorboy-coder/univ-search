@@ -17,6 +17,7 @@ class MathVerificationFlow {
       request_id: form.requestId || `math_${Date.now()}`,
       student_profile: {
         student_name: form.studentName || '',
+        student_code: form.studentCode || '',
         grade_label: form.gradeLabel || '',
         school_name: form.schoolName || '',
         class_group: form.classGroup || '',
