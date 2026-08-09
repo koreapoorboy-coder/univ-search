@@ -11,3 +11,14 @@ FALLBACK_ON_AI_ERROR = "true"
 
 # Set secret separately, never commit API keys.
 # wrangler secret put ANTHROPIC_API_KEY
+
+# ── 관측축 누적 저장 (B: D1) ──
+# 1) 대시보드에서 D1 DB 생성(예 scstudy-axis) → 아래 database_id 채워 주석 해제.
+#    (또는 wrangler.toml 대신 대시보드 Settings > Bindings 에서 D1 바인딩 이름 AXIS_DB로 추가)
+# [[d1_databases]]
+# binding = "AXIS_DB"
+# database_name = "scstudy-axis"
+# database_id = "<D1 대시보드에서 생성 후 붙여넣기>"
+#
+# 2) 스키마 1회 실행: data/db/axis_records.schema.v1.sql (대시보드 D1 콘솔에 붙여넣기)
+# 3) 쓰기키(record/profile 보호): wrangler secret put RECORD_WRITE_KEY  (또는 대시보드 secret)

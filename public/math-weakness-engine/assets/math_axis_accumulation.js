@@ -58,7 +58,9 @@
 
   function save(record) {
     if (!record || !record.student_code) return false;
-    const list = _load(); list.push(record); return _persist(list);
+    const list = _load(); list.push(record); const okLocal = _persist(list);
+    _postRecord(record);   // B 이중쓰기: 서버 POST(비동기·미대기). 실패 시 pending 큐. 서버 미구성이면 skip.
+    return okLocal;
   }
   function all() { return _load(); }
   function listByStudent(code) {
@@ -107,9 +109,73 @@
     return { ok: true, added, total: base.length };
   }
 
+  // ── B: 서버 이중쓰기 (A localStorage 유지·소스오브트루스, 서버는 병행) ──
+  const SERVER_KEY = 'scstudy_server_cfg';    // {url, key}
+  const PENDING_KEY = 'scstudy_sync_pending'; // { id: {record, first_failed_at, last_error, attempts} }
+  function getServer() { try { return JSON.parse(localStorage.getItem(SERVER_KEY) || 'null'); } catch (e) { return null; } }
+  function setServer(cfg) { try { localStorage.setItem(SERVER_KEY, JSON.stringify(cfg || {})); } catch (e) {} }
+  function _loadPending() { try { return JSON.parse(localStorage.getItem(PENDING_KEY) || '{}'); } catch (e) { return {}; } }
+  function _savePending(p) { try { localStorage.setItem(PENDING_KEY, JSON.stringify(p)); } catch (e) {} }
+  function _enqueue(record, reason) {
+    const p = _loadPending(); const prev = p[record.id] || {};
+    p[record.id] = { record, first_failed_at: prev.first_failed_at || _nowISO(), last_error: reason, attempts: (prev.attempts || 0) + 1 };
+    _savePending(p);
+  }
+  function _dequeue(id) { const p = _loadPending(); if (p[id]) { delete p[id]; _savePending(p); } }
+  async function _postRecord(record) {
+    const s = getServer();
+    if (!s || !s.url) return { skipped: true };   // 서버 미구성 = A 단독(정상, dual-write 비활성)
+    try {
+      const res = await fetch(s.url.replace(/\/$/, '') + '/api/axis-store/record', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Write-Key': s.key || '' },
+        body: JSON.stringify(record)
+      });
+      if (!res.ok) {
+        let code = 'http_' + res.status;
+        try { const b = await res.json(); if (b && b.code) code = b.code; } catch (e) {}
+        _enqueue(record, code); return { ok: false, reason: code };
+      }
+      _dequeue(record.id); return { ok: true };
+    } catch (e) { _enqueue(record, 'network'); return { ok: false, reason: 'network' }; }
+  }
+  async function retryPending() {
+    const s = getServer(); if (!s || !s.url) return { skipped: true };
+    const p = _loadPending(); let ok = 0, fail = 0;
+    for (const id of Object.keys(p)) { const r = await _postRecord(p[id].record); if (r.ok) ok++; else fail++; }
+    return { ok, fail, remaining: Object.keys(_loadPending()).length };
+  }
+  function pendingStatus() {
+    const p = _loadPending(); const ids = Object.keys(p); let oldest = null; const reasons = {};
+    ids.forEach(id => {
+      const f = p[id].first_failed_at; if (f && (!oldest || f < oldest)) oldest = f;
+      const e = p[id].last_error || 'unknown'; reasons[e] = (reasons[e] || 0) + 1;
+    });
+    let ageDays = null;
+    if (oldest) { try { ageDays = Math.floor((Date.parse(_nowISO()) - Date.parse(oldest)) / 86400000); } catch (e) {} }
+    return { count: ids.length, oldest_first_failed_at: oldest, oldest_age_days: ageDays, reasons, aged: ageDays != null && ageDays >= 7 };
+  }
+  async function fetchServerProfile(code) {
+    const s = getServer(); if (!s || !s.url) return null;
+    const res = await fetch(s.url.replace(/\/$/, '') + '/api/axis-store/profile', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Write-Key': s.key || '' },
+      body: JSON.stringify(code ? { student_code: code } : {})
+    });
+    if (!res.ok) { const e = new Error('profile ' + res.status); e.status = res.status; throw e; }
+    return await res.json();
+  }
+  // 기존 localStorage 레코드 전부 서버로 이관(멱등). "서버로 이관" 버튼용.
+  async function pushAllToServer() {
+    const s = getServer(); if (!s || !s.url) return { skipped: true, error: '서버 미설정' };
+    const list = _load(); let ok = 0, fail = 0;
+    for (const r of list) { const res = await _postRecord(r); if (res.ok) ok++; else fail++; }
+    return { ok, fail, total: list.length, remaining: Object.keys(_loadPending()).length };
+  }
+
   global.MathAxisStore = {
     RECORDS_KEY, SCHEMA_VERSION,
     buildRecord, save, all, listByStudent, students, aggregateAxes, deleteStudent,
-    exportAll, importJson, axisMapVersion
+    exportAll, importJson, axisMapVersion,
+    getServer, setServer, retryPending, pendingStatus, fetchServerProfile, pushAllToServer,
+    syncNow: retryPending
   };
 })(window);

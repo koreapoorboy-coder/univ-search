@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.09-unbuilt-detect';
+const VERSION = '2026.08.10-axis-store-d1';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -109,6 +109,16 @@ export default {
         return json(request, env, attachMeta(result, requestId, 'final_report'), 200, requestId, startedAt);
       }
 
+      // 관측축 누적 저장 (B: D1). /record upsert, /profile 조회. 둘 다 쓰기키 검증.
+      if (url.pathname === '/api/axis-store/record' && request.method === 'POST') {
+        const res = await axisRecord(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+      if (url.pathname === '/api/axis-store/profile' && request.method === 'POST') {
+        const res = await axisProfile(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+
       return json(request, env, { ok: false, error: 'Not found', path: url.pathname }, 404, requestId, startedAt);
     } catch (error) {
       console.error(`[${requestId}]`, error);
@@ -141,6 +151,46 @@ async function parseHybridRequest(request, env) {
 async function safeJson(request) {
   try { return await request.json(); }
   catch { throw httpError(400, 'Request body must be JSON'); }
+}
+
+// ── 관측축 누적 저장 (B: D1) ──────────────────────────────────────────────
+// 쓰기키(RECORD_WRITE_KEY) 검증: /record·/profile 둘 다(읽기도 보호 — 순번 학생코드 추측 방지).
+// 클라이언트 노출 가능한 공유키라 진짜 인증은 아니나 사고성 오염·무단조회 1차 차단.
+function axisAuth(request, env) {
+  const key = env.RECORD_WRITE_KEY;
+  if (!key) return { ok: false, code: 'not_configured', error: 'RECORD_WRITE_KEY 미설정(서버 미구성)', status: 503 };
+  if ((request.headers.get('X-Write-Key') || '') !== key) return { ok: false, code: 'unauthorized', error: '쓰기키 불일치', status: 401 };
+  return null;
+}
+function axisJson(v){ return v == null ? null : JSON.stringify(v); }
+function axisParse(v){ try { return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+
+async function axisRecord(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  const r = await safeJson(request);
+  if (!r || !r.id || !r.student_code) return { ok: false, code: 'bad_record', error: 'id·student_code 필수', status: 400 };
+  await env.AXIS_DB.prepare(
+    `INSERT INTO axis_records (id, student_code, date, exam_label, scope_units, observed_axes, attempts, axis_map_version, schema_version, created_at)
+     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10)
+     ON CONFLICT(id) DO UPDATE SET student_code=excluded.student_code, date=excluded.date, exam_label=excluded.exam_label,
+       scope_units=excluded.scope_units, observed_axes=excluded.observed_axes, attempts=excluded.attempts,
+       axis_map_version=excluded.axis_map_version, schema_version=excluded.schema_version`
+  ).bind(r.id, r.student_code, r.date || '', r.exam_label || '', axisJson(r.scope_units), axisJson(r.observed_axes), axisJson(r.attempts), r.axis_map_version || '', r.schema_version || 1, new Date().toISOString()).run();
+  return { ok: true, id: r.id };
+}
+async function axisProfile(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  const body = await safeJson(request).catch(() => ({}));
+  const code = body && body.student_code;
+  if (code) {
+    const rows = ((await env.AXIS_DB.prepare('SELECT * FROM axis_records WHERE student_code=?1 ORDER BY date').bind(code).all()).results) || [];
+    const records = rows.map(x => ({ id: x.id, student_code: x.student_code, date: x.date, exam_label: x.exam_label, scope_units: axisParse(x.scope_units), observed_axes: axisParse(x.observed_axes), attempts: axisParse(x.attempts), axis_map_version: x.axis_map_version, schema_version: x.schema_version, created_at: x.created_at }));
+    return { ok: true, student_code: code, records };
+  }
+  const rows = ((await env.AXIS_DB.prepare('SELECT student_code, COUNT(*) AS exam_count FROM axis_records GROUP BY student_code ORDER BY student_code').all()).results) || [];
+  return { ok: true, students: rows };
 }
 
 function isFile(value) {

@@ -42,6 +42,21 @@
 <div id="out"></div>
 
 <div class="card">
+  <h2>서버 저장 (D1) · 동기화</h2>
+  <p class="muted">서버를 설정하면 진단 시 로컬과 서버에 함께 저장(이중쓰기)됩니다. 서버 미설정이면 로컬만(기존과 동일).</p>
+  <label for="srv_url">Worker 주소</label>
+  <input id="srv_url" type="text" placeholder="https://math-diagnosis-worker.____.workers.dev" />
+  <label for="srv_key">쓰기 키 (교사 배정 · 진단 페이지와 동일 값)</label>
+  <input id="srv_key" type="text" placeholder="RECORD_WRITE_KEY 값" autocomplete="off" />
+  <div style="margin-top:8px">
+    <button id="srv_save">서버 설정 저장</button>
+    <button id="srv_migrate" class="ghost">기존 로컬 → 서버 이관</button>
+    <button id="srv_sync" class="ghost">지금 동기화(미동기 재전송)</button>
+  </div>
+  <div id="sync_status" class="muted" style="margin-top:8px"></div>
+</div>
+
+<div class="card">
   <h2>데이터 백업 / 이전</h2>
   <p class="muted">A안은 이 브라우저에만 저장됩니다. 기기 변경·초기화 대비로 내보내 보관하고, 새 기기에서 가져오세요.</p>
   <button id="export_btn">전체 내보내기 (JSON)</button>
@@ -70,12 +85,17 @@
     });
   }
 
-  function lookup() {
+  async function lookup() {
     const code = fullCode();
     $('#code_preview').textContent = code ? '→ ' + code : '';
     if (!code) { $('#out').innerHTML = '<div class="card">학생 코드 3자리를 입력하세요.</div>'; return; }
-    const records = MathAxisStore.listByStudent(code);
-    if (!records.length) { $('#out').innerHTML = `<div class="card">${esc(code)} 기록이 없습니다.</div>`; return; }
+    let records = null, source = '로컬';   // 서버 설정 시 서버 우선, 실패 시 localStorage 폴백
+    try {
+      const sp = await MathAxisStore.fetchServerProfile(code);
+      if (sp && sp.ok && Array.isArray(sp.records)) { records = sp.records; source = '서버'; }
+    } catch (e) { source = '로컬(서버 조회 실패: ' + esc(String(e && e.message || e)) + ')'; }
+    if (!records) records = MathAxisStore.listByStudent(code);
+    if (!records.length) { $('#out').innerHTML = `<div class="card">${esc(code)} 기록이 없습니다. <span class="muted">(조회: ${esc(source)})</span></div>`; return; }
     const agg = MathAxisStore.aggregateAxes(records);
     const maxWrong = Math.max(1, ...agg.map(a => a.wrong));
     const axisRows = agg.map(a =>
@@ -96,7 +116,7 @@
       </tr>`;
     }).join('');
     $('#out').innerHTML =
-      `<div class="card"><h2>${esc(code)} · 축 합산 <span class="muted">(${records.length}개 시험)</span></h2>
+      `<div class="card"><h2>${esc(code)} · 축 합산 <span class="muted">(${records.length}개 시험 · 조회 ${esc(source)})</span></h2>
         <p class="muted">wrong 이 반복해서 높은 축 = 이 학생의 반복 취약축.</p>
         <table><tr><th>축</th><th>wrong(합)</th><th>total(합)</th><th>등장 시험수</th></tr>${axisRows}</table></div>
        <div class="card"><h2>시험 목록</h2>
@@ -126,6 +146,26 @@
     if (fullCode()) lookup();
     e.target.value = '';
   };
+
+  // ── 서버 설정·동기화 ──
+  function renderSyncStatus() {
+    const s = MathAxisStore.getServer(); const el = $('#sync_status');
+    if (!s || !s.url) { el.innerHTML = '<span class="muted">서버 미설정 — 로컬만 저장(기존과 동일). Worker 주소·키를 넣고 저장하면 이중쓰기 시작.</span>'; return; }
+    const st = MathAxisStore.pendingStatus();
+    if (!st.count) { el.innerHTML = '<span style="color:#166534">서버 설정됨 · 미동기 0건(전부 동기화됨)</span>'; return; }
+    const reasons = Object.entries(st.reasons).map(([k, v]) => `${k}:${v}`).join(', ');
+    const warn = st.aged;
+    el.innerHTML = `<span style="color:${warn ? '#b91c1c' : '#9a3412'};font-weight:${warn ? '700' : '400'}">⚠ 서버 미동기 ${st.count}건`
+      + (st.oldest_age_days != null ? ` · 가장 오래됨 ${st.oldest_age_days}일${warn ? ' (7일↑ 방치!)' : ''}` : '')
+      + ` · 사유(${esc(reasons)})</span> — [지금 동기화]로 재전송하세요.`;
+  }
+  function loadServerFields() { const s = MathAxisStore.getServer() || {}; $('#srv_url').value = s.url || ''; $('#srv_key').value = s.key || ''; }
+  $('#srv_save').onclick = () => { MathAxisStore.setServer({ url: $('#srv_url').value.trim(), key: $('#srv_key').value.trim() }); renderSyncStatus(); $('#sync_status').innerHTML += ' <span class="muted">· 저장됨</span>'; };
+  $('#srv_sync').onclick = async () => { $('#sync_status').textContent = '동기화 중...'; const r = await MathAxisStore.retryPending(); renderSyncStatus(); if (r && !r.skipped) $('#sync_status').innerHTML += ` <span class="muted">· 재전송 성공 ${r.ok} 실패 ${r.fail}</span>`; };
+  $('#srv_migrate').onclick = async () => { if (!confirm('로컬의 모든 레코드를 서버로 이관(멱등)합니다. 진행할까요?')) return; $('#sync_status').textContent = '이관 중...'; const r = await MathAxisStore.pushAllToServer(); renderSyncStatus(); $('#sync_status').innerHTML += r.skipped ? ' <span class="muted">· 서버 미설정</span>' : ` <span class="muted">· 이관 ${r.ok}/${r.total} (남은 미동기 ${r.remaining})</span>`; };
+  loadServerFields();
+  renderSyncStatus();
+  MathAxisStore.retryPending();   // 페이지 열 때 미동기 자동 재시도(멱등·서버 미설정이면 no-op)
 
   renderStudents();
 
