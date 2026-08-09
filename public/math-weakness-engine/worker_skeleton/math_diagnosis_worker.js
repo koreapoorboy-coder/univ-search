@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.07.22-five-states';
+const VERSION = '2026.08.09-fine-error-tags';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -232,13 +232,37 @@ function scopeOf(payload) {
   };
 }
 
+// 재태깅 관측 어휘(fine error_tags)를 유형별 후보로 주입하기 위한 오버레이 경로.
+// 프로덕션 problem_types는 건드리지 않는 별도 파일이다. 배선 시범(QF) 단계라 QF만
+// 등록돼 있고, 없는 단원은 후보 없이 종전대로 동작한다(가산적·무해).
+const FINE_OVERLAY_BY_UNIT = {
+  M3_QUADRATIC_FUNCTION: 'data/axis_map/qf_pt_fine_error_tags.v1.json'
+};
+
+async function fetchFineErrorTagOverlay(scope, unitId) {
+  const path = FINE_OVERLAY_BY_UNIT[unitId];
+  if (!path || !scope.dataBase) return {};
+  try {
+    const res = await fetch(`${scope.dataBase}/${path}`, { cf: { cacheTtl: 3600 } });
+    if (!res.ok) return {};
+    const pack = await res.json();
+    return pack.pt_fine_error_tags || {};
+  } catch (err) {
+    console.warn(`fine overlay load failed (${unitId}):`, err?.message || err);
+    return {};
+  }
+}
+
 async function fetchUnitProblemTypes(scope, unitId) {
   if (!scope.dataBase) throw new Error('engine_data_base가 없어 유형 목록을 받을 수 없다');
   const idx = await (await fetch(`${scope.dataBase}/data/index.v1.json`, { cf: { cacheTtl: 3600 } })).json();
   const unit = (idx.units || []).find(u => u.unit_id === unitId);
   if (!unit?.problem_types) throw new Error(`${unitId}의 problem_types 경로가 없다`);
   const pack = await (await fetch(`${scope.dataBase}/${unit.problem_types}`, { cf: { cacheTtl: 3600 } })).json();
-  return (pack.problem_types || []).map(p => ({ id: p.problem_type_id, name: p.type_name })).filter(p => p.id);
+  const fineByPt = await fetchFineErrorTagOverlay(scope, unitId);
+  return (pack.problem_types || [])
+    .map(p => ({ id: p.problem_type_id, name: p.type_name, fine_error_tags: fineByPt[p.problem_type_id] || [] }))
+    .filter(p => p.id);
 }
 
 // 문항 상태는 맞음/틀림 두 값으로는 부족하다. 풀다 만 것과 빈칸이 "틀림"에 뭉개지면
@@ -314,7 +338,12 @@ async function assignTypesForUnit({ env, files, unitId, rows, types }) {
   const targetList = rows.map(r => `${r.question_no}번 (상태: ${r.response_status})`).join('\n');
   const askChunk = async (part, i) => {
     const split = chunks.length > 1;
-    const menu = part.map(t => `${t.id} = ${t.name}`).join('\n');
+    const menu = part.map(t => {
+      const fine = (t.fine_error_tags && t.fine_error_tags.length)
+        ? `\n    [후보 오류태그] ${t.fine_error_tags.join(', ')}`
+        : '';
+      return `${t.id} = ${t.name}${fine}`;
+    }).join('\n');
     const out = await callClaudeJson({
       env, files, structured: true,
       schemaName: `type_assignment_${unitId}${split ? `_${i + 1}` : ''}`,
@@ -332,6 +361,9 @@ ${menu}
 - response_status는 위에 적힌 상태를 그대로 다시 쓴다. 임의로 바꾸지 않는다.
 - observed_error_tags는 WRONG_COMPLETE·PARTIAL_STOP에서 실제로 관찰된 오류만 쓴다.
   CORRECT_COMPLETE와 BLANK_UNKNOWN은 빈 배열로 둔다.
+  유형에 [후보 오류태그]가 붙어 있으면 그 중 실제 관찰된 것을 우선 고른다. 이 후보는
+  재태깅 관측 어휘와 정합하여 축(17진단축) 진단으로 이어진다. 후보에 없는 오류만
+  자연어로 덧붙이되 최소화한다.
 - difficulty는 문항 난도다.${split ? `
 - 이 목록은 단원 전체 유형의 일부다. 위 목록에 맞는 유형이 없으면 억지로 고르지 말고
   problem_type_id를 "${NO_MATCH}"로, confidence를 0으로 둔다.
