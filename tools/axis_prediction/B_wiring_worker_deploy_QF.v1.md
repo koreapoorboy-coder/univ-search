@@ -62,11 +62,15 @@
 - ✅ 성공: 오버레이 URL 200 + `n_pt:46`.
 - ❌ 실패: 404 → 데이터 호스트 갱신/Pages 반영 대기. (이 상태로 3단계 가면 fail-open으로 fine태그 안 나옴 = ②무효지만 진단은 정상.)
 
-**3단계 — Worker가 fine태그를 내는가** (②의 핵심 실효)
-- 실행: QF가 `scope.candidate_units`에 포함된 실제(또는 샘플) 시험지 1건을 Worker에 태움.
-- ✅ 성공: 반환 attempts 중 QF 오답의 `observed_error_tags`에 **오버레이 fine태그가 1개 이상** 등장(예: `quadratic_vertex_form_reconstruction_failure`·`parabola_coefficient_width_direction_confusion`·`quadratic_translation_parameter_sign_confusion`). 즉 오버레이 vocab과 **문자열 일치**하는 태그가 나옴.
-- ⚠ 부분: 거친태그·자연어만 나오고 fine태그 0 → 유도 실패(프롬프트 준수율 낮음). 후보 표시 강도/문구 재조정 대상. (진단 자체는 정상.)
-- ❌ 실패: `observed_error_tags` 전부 빈배열 → 2단계(오버레이 404) 또는 Worker 미배포 의심.
+**3단계 — Worker가 fine태그를 내는가** (②의 핵심 실효). 실물 시험지 없을 때 두 방법:
+
+**방법 (a) — 무설치 테스터(권장, 실물·명령어 불요)**: `B_wiring_worker_tester.html`을 브라우저로 열고 Worker 주소·데이터 base·시험 텍스트(이차함수 3오답 사전입력) 넣고 [진단 실행]. 텍스트를 `text/plain` 파일로 Worker에 보내(이미지 불필요·`ALLOWED_FILE_TYPES`에 text/plain 포함) 응답의 `observed_error_tags`를 오버레이 fine태그 43종과 자동 대조·판정. (CORS는 `CORS_ALLOWED_ORIGINS` 미설정 시 `*`라 file://에서 동작.)
+
+**방법 (b) — 이차함수 섞인 일반 시험지**: 평소 진단 페이지에서 **이차함수 오답 2~3문항(최소 1)** 포함된 스캔 업로드 + scope에 이차함수 포함. 원시 `observed_error_tags`는 브라우저 DevTools(F12)→Network→`analyze` 요청→Response에서 `observed_error_tags` 검색해 확인.
+
+- ✅ 성공(공통): QF 오답의 `observed_error_tags`에 **오버레이 fine태그 1개 이상** 등장(vocab 문자열 일치, 예: `quadratic_translation_parameter_sign_confusion`·`completing_square_vertex_axis_failure`·`parabola_coefficient_width_direction_confusion`). 테스터는 초록 배지로 표시.
+- ⚠ 부분: 거친태그·자연어만·fine 0 → 유도 준수율 낮음. 프롬프트 후보 표시 강도 재조정 대상(진단은 정상).
+- ❌ 실패: `observed_error_tags` 전부 빈배열 → 오답 미인식, 또는 2단계 오버레이 404(fail-open으로 후보 없음), 또는 Worker 미배포.
 
 **4단계 — observed_axes가 실데이터로 채워지는가** (①b와 연결)
 - 실행: 3단계 Worker 출력(attempts)을 엔진 `diagnoseWithGuidance`에 투입(debug.html 붙여넣기 또는 런타임).

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>② Worker fine태그 검증 테스터 (QF)</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:20px;line-height:1.5;color:#111827;background:#f8fafc;max-width:960px}
+  h1{font-size:20px}h2{font-size:16px;margin-top:22px}
+  label{display:block;font-weight:600;margin:12px 0 4px}
+  input[type=text],textarea{width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:13px;box-sizing:border-box}
+  textarea{min-height:150px}
+  button{padding:10px 16px;border:0;border-radius:8px;background:#111827;color:#fff;font-size:15px;cursor:pointer;margin-top:12px}
+  button:disabled{background:#94a3b8;cursor:default}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin:14px 0}
+  .ok{background:#ecfdf5;border-color:#a7f3d0}.warn{background:#fff7ed;border-color:#fed7aa}.bad{background:#fef2f2;border-color:#fecaca}
+  .verdict{font-size:18px;font-weight:700}
+  table{border-collapse:collapse;width:100%;margin-top:10px;font-size:13px}
+  th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#f1f5f9}
+  .tag{display:inline-block;padding:1px 7px;border-radius:999px;background:#e2e8f0;margin:2px;font-size:12px}
+  .tag.fine{background:#bbf7d0;font-weight:600}
+  pre{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:12px;border-radius:8px;overflow:auto;font-size:12px;max-height:420px}
+  .muted{color:#64748b;font-size:13px}
+  code{background:#e2e8f0;padding:1px 4px;border-radius:4px}
+</style>
+</head>
+<body>
+<h1>② Worker fine태그 주입 검증 테스터 (QF)</h1>
+<p class="muted">설치 불필요. 이 파일을 브라우저에서 열고 아래 3칸을 채운 뒤 [진단 실행]. Worker에 이차함수 텍스트 시험지를 보내
+<code>observed_error_tags</code>에 재태깅 fine태그가 나오는지 자동 판정합니다. (응답에 최대 1~2분 소요 — Opus 처리)</p>
+
+<div class="card">
+  <label>1) Worker 주소 (예: <code>https://math-diagnosis-worker.계정명.workers.dev</code>)</label>
+  <input id="worker" type="text" placeholder="https://math-diagnosis-worker.____.workers.dev" />
+
+  <label>2) 데이터 base URL — 2단계에서 오버레이(200) 확인한 그 주소에서 <code>/data/axis_map/qf_pt_fine_error_tags.v1.json</code>만 뗀 것.<br>
+    <span class="muted">오버레이 전체 URL을 붙여 넣어도 자동으로 잘라줍니다.</span></label>
+  <input id="base" type="text" placeholder="https://호스트/math-weakness-engine" />
+
+  <label>3) 시험지 텍스트 (이차함수 3문항·오답 미리 채워둠 — 그대로 써도 됨)</label>
+  <textarea id="exam">[이차함수 쪽지시험 - 학생 답안]
+
+문제 1. 이차함수 y = (x - 2)^2 + 3 의 꼭짓점의 좌표를 구하시오.
+학생 답: (-2, 3)   (풀이: 괄호 안 -2니까 x좌표는 -2)
+
+문제 2. 이차함수 y = 2x^2 - 8x + 5 를 y = a(x-p)^2 + q 꼴로 고치시오.
+학생 답: y = 2(x - 2)^2 + 5   (풀이: x^2-4x를 (x-2)^2로 바꿈)
+
+문제 3. 이차함수 y = -3x^2 의 그래프를 y = x^2 과 비교해 설명하시오.
+학생 답: 아래로 볼록하고, 폭은 y = x^2 보다 더 넓다.</textarea>
+
+  <button id="run">진단 실행</button>
+  <span id="status" class="muted"></span>
+</div>
+
+<div id="out"></div>
+
+<script>
+// QF 오버레이 fine태그 43종 (배포된 qf_pt_fine_error_tags.v1.json union). 응답 태그가 이 집합에 들면 fine태그 확인.
+const FINE = new Set(["area_decomposition_equation_setup_failure","area_formula_setup_error","axis_intercept_triangle_setup_failure","completing_square_vertex_axis_failure","degree_term_confusion","difference_direction_error","excluded_case_omission","extremum_selection_error","fraction_coefficient_lcd_error","graph_property_statement_evaluation_failure","inequality_bound_conversion_error","integer_candidate_enumeration_gap","inverse_operation_setup_error","like_term_misgrouping","line_intersection_coordinate_failure","multi_constraint_intersection_failure","multi_expression_dependency_error","multiple_answer_omission","parabola_axis_reflection_mapping_failure","parabola_axis_symmetry_point_mapping_failure","parabola_coefficient_width_direction_confusion","parabola_quadrant_coverage_failure","parameter_sign_to_graph_mapping_failure","pattern_extraction_failure","quadratic_factor_form_reconstruction_failure","quadratic_function_identification_failure","quadratic_function_reconstruction_from_constraints_failure","quadratic_graph_translation_formula_failure","quadratic_monotonic_interval_from_vertex_failure","quadratic_root_intercept_relation_failure","quadratic_translation_parameter_sign_confusion","quadratic_vertex_form_reconstruction_failure","range_constraint_dropped","real_world_quadratic_model_translation_failure","same_altitude_area_ratio_transfer_failure","segment_partition_tracking_failure","segment_ratio_to_length_conversion_failure","sign_propagation_error","substitution_parenthesis_omission","unit_conversion_omitted","variable_length_assignment_failure","vertex_axis_reading_failure","vertex_extremum_parameter_recovery_failure"]);
+
+const $ = s => document.querySelector(s);
+
+// 응답 어디에 있든 observed_error_tags를 가진 항목을 재귀로 긁는다.
+function collectAttempts(node, out){
+  if(!node || typeof node!=='object') return;
+  if(Array.isArray(node)){ node.forEach(x=>collectAttempts(x,out)); return; }
+  if(Array.isArray(node.observed_error_tags) || node.problem_type_id!==undefined){
+    out.push(node);
+  }
+  for(const k in node) collectAttempts(node[k], out);
+}
+
+$('#run').onclick = async () => {
+  const worker = $('#worker').value.trim().replace(/\/$/,'');
+  let base = $('#base').value.trim().replace(/\/$/,'').replace(/\/data\/axis_map\/qf_pt_fine_error_tags\.v1\.json$/,'');
+  const exam = $('#exam').value;
+  if(!worker || !base){ alert('Worker 주소와 데이터 base URL을 채우세요.'); return; }
+
+  const payload = { learning_context: { scope: {
+    mode: 'semester', label: 'QF fine태그 검증',
+    candidate_units: [{ unit_id: 'M3_QUADRATIC_FUNCTION', unit_name: '이차함수' }],
+    engine_data_base: base
+  } } };
+
+  const fd = new FormData();
+  fd.append('payload', JSON.stringify(payload));
+  fd.append('file', new File([exam], 'exam_qf.txt', { type: 'text/plain' }));
+
+  $('#run').disabled = true;
+  $('#status').textContent = ' 요청 중... (최대 1~2분)';
+  $('#out').innerHTML = '';
+  const t0 = performance.now();
+  try {
+    const res = await fetch(`${worker}/api/math-diagnose/analyze`, { method:'POST', body: fd });
+    const secs = ((performance.now()-t0)/1000).toFixed(0);
+    const text = await res.text();
+    let data; try { data = JSON.parse(text); } catch { data = { _raw: text }; }
+
+    const attempts = []; collectAttempts(data, attempts);
+    const allTags = []; attempts.forEach(a => (a.observed_error_tags||[]).forEach(t => allTags.push(t)));
+    const fineHits = [...new Set(allTags.filter(t => FINE.has(t)))];
+    const coarse = [...new Set(allTags.filter(t => !FINE.has(t)))];
+    const qfAssigned = attempts.filter(a => a.unit_id === 'M3_QUADRATIC_FUNCTION' || String(a.problem_type_id||'').indexOf('M3_QFUNC')===0).length;
+
+    let cls, verdict;
+    if(!res.ok){ cls='bad'; verdict = `❌ HTTP ${res.status} — 요청 실패`; }
+    else if(fineHits.length){ cls='ok'; verdict = `✅ 성공 — fine태그 ${fineHits.length}종 검출 (② 실효 확인)`; }
+    else if(allTags.length){ cls='warn'; verdict = `⚠ 부분 — 태그는 나왔으나 fine태그 0 (거친/자연어만). 유도 준수율 낮음`; }
+    else { cls='warn'; verdict = `⚠ observed_error_tags 비어 있음 — 오답 인식 실패 또는 오버레이 미접근(fail-open)`; }
+
+    const rows = attempts.map(a => {
+      const tags = (a.observed_error_tags||[]).map(t => `<span class="tag ${FINE.has(t)?'fine':''}">${t}</span>`).join('') || '<span class="muted">—</span>';
+      return `<tr><td>${a.question_no??''}</td><td>${a.unit_id??''}</td><td>${a.problem_type_id??''}</td><td>${a.response_status??''}</td><td>${tags}</td></tr>`;
+    }).join('');
+
+    $('#out').innerHTML =
+      `<div class="card ${cls}"><div class="verdict">${verdict}</div>
+       <p class="muted">응답 ${secs}s · 인식 문항 ${attempts.length}개 · QF 배정 ${qfAssigned}개 · 총 태그 ${allTags.length}개</p>
+       ${fineHits.length?`<p><b>검출된 fine태그:</b> ${fineHits.map(t=>`<span class="tag fine">${t}</span>`).join('')}</p>`:''}
+       ${coarse.length?`<p><b>fine 아닌 태그:</b> ${coarse.map(t=>`<span class="tag">${t}</span>`).join('')}</p>`:''}
+       </div>
+       <div class="card"><h2>문항별 배정 (초록=fine태그)</h2>
+       <table><tr><th>문항</th><th>단원</th><th>유형ID</th><th>상태</th><th>observed_error_tags</th></tr>${rows||'<tr><td colspan=5 class="muted">항목 없음</td></tr>'}</table></div>
+       <div class="card"><h2>전체 응답 JSON</h2><pre>${JSON.stringify(data,null,2).replace(/</g,'&lt;')}</pre></div>`;
+  } catch (err) {
+    $('#out').innerHTML = `<div class="card bad"><div class="verdict">❌ 요청 오류</div><pre>${String(err&&err.message||err)}</pre>
+    <p class="muted">Worker 주소가 맞는지, 배포됐는지(/health) 확인하세요. CORS 오류면 Worker의 CORS_ALLOWED_ORIGINS 설정을 확인.</p></div>`;
+  } finally {
+    $('#run').disabled = false;
+    $('#status').textContent = '';
+  }
+};
+</script>
+</body>
+</html>
