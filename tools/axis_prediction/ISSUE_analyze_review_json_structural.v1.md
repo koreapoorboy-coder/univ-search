@@ -26,6 +26,7 @@
 
 ## 재현성
 - **결정적 재현 아님**(AI 자유텍스트라 확률적). review는 매 호출 다른 설명문 생성 → 괄호를 흘릴 때만 실패. 3단계 재실행 시 성공할 수도.
+- ★ **실측 확인(2026-08-09)**: 확대 검증 2건(similarity·geometry)에서 `file_purpose_review`·`student_material_review` **정상 산출**(fallback 아님). QF 라이브 1건에서만 실패. **≈3회 중 1회** → 확률적 분석 실증. 저빈도·저영향(교사문구만) 재확인.
 
 ## 완화안 (권장순)
 1. ★ **review도 structured=true(grammar 강제)** = 근본해. engine_adapter가 이 방식이라 구조오류 0. 블로커였던 "스키마가 커서 컴파일 한도 초과"를 **재측정 필요** — 정확 확인은 `REVIEW_SCHEMA`를 `output_config.format=json_schema`로 실은 **시범 배포**로만 가능(Anthropic grammar 컴파일러를 로컬서 못 돌림). 통과하면 전환.
