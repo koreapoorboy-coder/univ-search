@@ -1,0 +1,462 @@
+{
+    "version":  "m2_similarity_pythagoras-pt-fine-error-tags-overlay-v1",
+    "unit":  "m2_similarity_pythagoras",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  87,
+    "total_pt":  87,
+    "pt_fine_error_tags":  {
+                               "M2_SIMPY_PT004":  [
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "segment_ratio_to_length_conversion_failure",
+                                                      "multi_triangle_length_chain_failure"
+                                                  ],
+                               "M2_SIMPY_PT005":  [
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "segment_ratio_to_length_conversion_failure",
+                                                      "multi_triangle_length_chain_failure"
+                                                  ],
+                               "M2_SIMPY_PT011":  [
+                                                      "three_dimensional_length_reduction_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "segment_ratio_to_length_conversion_failure"
+                                                  ],
+                               "M2_SIMPY_PT013":  [
+                                                      "law_selection_error",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT015":  [
+                                                      "law_selection_error",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "multi_constraint_intersection_failure"
+                                                  ],
+                               "M2_SIMPY_PT019":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT021":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "multi_triangle_length_chain_failure"
+                                                  ],
+                               "M2_SIMPY_PT022":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT023":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "multi_triangle_length_chain_failure",
+                                                      "composite_path_length_decomposition_failure"
+                                                  ],
+                               "M2_SIMPY_PT026":  [
+                                                      "parallel_line_angle_transfer_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "midpoint_length_relation_error"
+                                                  ],
+                               "M2_SIMPY_PT028":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT029":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "area_formula_setup_error",
+                                                      "area_ratio_from_similarity_failure"
+                                                  ],
+                               "M2_SIMPY_PT031":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "segment_partition_tracking_failure",
+                                                      "area_formula_setup_error"
+                                                  ],
+                               "M2_SIMPY_PT033":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "segment_partition_tracking_failure",
+                                                      "area_formula_setup_error"
+                                                  ],
+                               "M2_SIMPY_PT035":  [
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "right_triangle_altitude_geometric_mean_failure",
+                                                      "area_formula_setup_error"
+                                                  ],
+                               "M2_SIMPY_PT036":  [
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "right_triangle_altitude_geometric_mean_failure",
+                                                      "area_formula_setup_error"
+                                                  ],
+                               "M2_SIMPY_PT038":  [
+                                                      "paper_fold_reflection_distance_mapping_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT040":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT042":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "multi_triangle_length_chain_failure"
+                                                  ],
+                               "M2_SIMPY_PT044":  [
+                                                      "angle_correspondence_chain_failure",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "midpoint_length_relation_error",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT047":  [
+                                                      "multi_triangle_length_chain_failure",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT049":  [
+                                                      "parallelism_converse_ratio_test_failure",
+                                                      "nested_fraction_simplification_failure"
+                                                  ],
+                               "M2_SIMPY_PT051":  [
+                                                      "parallelism_converse_ratio_test_failure",
+                                                      "nested_fraction_simplification_failure",
+                                                      "multi_constraint_intersection_failure"
+                                                  ],
+                               "M2_SIMPY_PT053":  [
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "ratio_setup_from_geometry_failure"
+                                                  ],
+                               "M2_SIMPY_PT054":  [
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "equal_tangent_segment_relation_misapplied",
+                                                      "parallel_line_angle_transfer_failure"
+                                                  ],
+                               "M2_SIMPY_PT056":  [
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "same_altitude_area_ratio_transfer_failure"
+                                                  ],
+                               "M2_SIMPY_PT057":  [
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "same_altitude_area_ratio_transfer_failure",
+                                                      "composite_area_subtraction_failure"
+                                                  ],
+                               "M2_SIMPY_PT058":  [
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "parallel_line_angle_transfer_failure"
+                                                  ],
+                               "M2_SIMPY_PT059":  [
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "parallel_line_angle_transfer_failure"
+                                                  ],
+                               "M2_SIMPY_PT061":  [
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "same_altitude_area_ratio_transfer_failure",
+                                                      "composite_area_subtraction_failure"
+                                                  ],
+                               "M2_SIMPY_PT065":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "segment_ratio_to_length_conversion_failure",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT067":  [
+                                                      "trapezoid_linear_interpolation_failure",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "pattern_extraction_failure"
+                                                  ],
+                               "M2_SIMPY_PT070":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT074":  [
+                                                      "segment_partition_tracking_failure",
+                                                      "ratio_setup_from_geometry_failure"
+                                                  ],
+                               "M2_SIMPY_PT077":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT080":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "multi_triangle_length_chain_failure",
+                                                      "area_decomposition_equation_setup_failure",
+                                                      "area_ratio_from_similarity_failure"
+                                                  ],
+                               "M2_SIMPY_PT083":  [
+                                                      "law_selection_error",
+                                                      "midpoint_length_relation_error",
+                                                      "midpoint_area_fraction_relation_misapplied",
+                                                      "difference_direction_error",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT086":  [
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "multi_constraint_intersection_failure",
+                                                      "multi_triangle_length_chain_failure",
+                                                      "midpoint_length_relation_error"
+                                                  ],
+                               "M2_SIMPY_PT089":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "multi_constraint_intersection_failure",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT090":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "multi_constraint_intersection_failure",
+                                                      "segment_partition_tracking_failure",
+                                                      "final_form_reduction_omitted"
+                                                  ],
+                               "M2_SIMPY_PT096":  [
+                                                      "midpoint_length_relation_error",
+                                                      "composite_path_length_decomposition_failure",
+                                                      "midpoint_area_fraction_relation_misapplied",
+                                                      "multi_expression_dependency_error"
+                                                  ],
+                               "M2_SIMPY_PT098":  [
+                                                      "trapezoid_midsegment_average_error",
+                                                      "segment_partition_tracking_failure",
+                                                      "ratio_setup_from_geometry_failure"
+                                                  ],
+                               "M2_SIMPY_PT100":  [
+                                                      "midpoint_area_fraction_relation_misapplied",
+                                                      "shared_altitude_length_chain_failure"
+                                                  ],
+                               "M2_SIMPY_PT101":  [
+                                                      "midpoint_area_fraction_relation_misapplied",
+                                                      "shared_altitude_length_chain_failure",
+                                                      "area_decomposition_equation_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT104":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT105":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "law_selection_error",
+                                                      "multiple_answer_omission",
+                                                      "segment_partition_tracking_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT110":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "multi_triangle_length_chain_failure"
+                                                  ],
+                               "M2_SIMPY_PT111":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "multi_triangle_length_chain_failure",
+                                                      "multi_constraint_intersection_failure"
+                                                  ],
+                               "M2_SIMPY_PT112":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "midpoint_length_relation_error",
+                                                      "multi_expression_dependency_error"
+                                                  ],
+                               "M2_SIMPY_PT113":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "midpoint_length_relation_error",
+                                                      "multi_expression_dependency_error"
+                                                  ],
+                               "M2_SIMPY_PT115":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT116":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "segment_partition_tracking_failure",
+                                                      "angle_bisector_side_ratio_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT120":  [
+                                                      "centroid_area_partition_failure",
+                                                      "same_altitude_area_ratio_transfer_failure",
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "law_selection_error"
+                                                  ],
+                               "M2_SIMPY_PT121":  [
+                                                      "centroid_area_partition_failure",
+                                                      "area_ratio_from_similarity_failure"
+                                                  ],
+                               "M2_SIMPY_PT122":  [
+                                                      "centroid_area_partition_failure",
+                                                      "area_ratio_from_similarity_failure"
+                                                  ],
+                               "M2_SIMPY_PT125":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "segment_ratio_to_length_conversion_failure"
+                                                  ],
+                               "M2_SIMPY_PT126":  [
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "segment_ratio_to_length_conversion_failure"
+                                                  ],
+                               "M2_SIMPY_PT127":  [
+                                                      "area_decomposition_equation_setup_failure",
+                                                      "area_ratio_from_similarity_failure",
+                                                      "midpoint_area_fraction_relation_misapplied",
+                                                      "centroid_area_partition_failure"
+                                                  ],
+                               "M2_SIMPY_PT128":  [
+                                                      "area_decomposition_equation_setup_failure",
+                                                      "area_ratio_from_similarity_failure",
+                                                      "midpoint_area_fraction_relation_misapplied",
+                                                      "centroid_area_partition_failure",
+                                                      "centroid_two_to_one_ratio_confusion"
+                                                  ],
+                               "M2_SIMPY_PT131":  [
+                                                      "area_ratio_from_similarity_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "area_ratio_to_side_ratio_conversion_failure",
+                                                      "midpoint_area_fraction_relation_misapplied"
+                                                  ],
+                               "M2_SIMPY_PT133":  [
+                                                      "area_ratio_from_similarity_failure"
+                                                  ],
+                               "M2_SIMPY_PT135":  [
+                                                      "area_ratio_from_similarity_failure",
+                                                      "answer_format_mismatch",
+                                                      "percentage_scale_factor_conversion_error"
+                                                  ],
+                               "M2_SIMPY_PT140":  [
+                                                      "area_ratio_to_side_ratio_conversion_failure",
+                                                      "segment_partition_tracking_failure",
+                                                      "segment_ratio_to_length_conversion_failure"
+                                                  ],
+                               "M2_SIMPY_PT143":  [
+                                                      "volume_from_ratio_error",
+                                                      "multi_step_composite_error",
+                                                      "subtraction_of_regions_omitted"
+                                                  ],
+                               "M2_SIMPY_PT144":  [
+                                                      "volume_from_ratio_error",
+                                                      "subtraction_of_regions_omitted"
+                                                  ],
+                               "M2_SIMPY_PT146":  [
+                                                      "volume_from_ratio_error",
+                                                      "answer_format_mismatch",
+                                                      "ratio_direction_inversion",
+                                                      "subtraction_of_regions_omitted"
+                                                  ],
+                               "M2_SIMPY_PT148":  [
+                                                      "unit_conversion_omitted",
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "segment_ratio_to_length_conversion_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "multi_stage_motion_distance_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT149":  [
+                                                      "ratio_setup_from_geometry_failure",
+                                                      "segment_ratio_to_length_conversion_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "unit_conversion_omitted",
+                                                      "multi_stage_motion_distance_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT151":  [
+                                                      "pythagorean_setup_failure",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT152":  [
+                                                      "angle_bisector_side_ratio_setup_failure",
+                                                      "pythagorean_setup_failure",
+                                                      "centroid_two_to_one_ratio_confusion",
+                                                      "variable_length_assignment_failure",
+                                                      "radical_ratio_simplification_error",
+                                                      "tangent_radius_perpendicularity_omitted"
+                                                  ],
+                               "M2_SIMPY_PT153":  [
+                                                      "pythagorean_setup_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "radical_ratio_simplification_error",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT155":  [
+                                                      "right_triangle_altitude_geometric_mean_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT156":  [
+                                                      "right_triangle_altitude_geometric_mean_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "multi_triangle_length_chain_failure"
+                                                  ],
+                               "M2_SIMPY_PT157":  [
+                                                      "auxiliary_line_construction_failure",
+                                                      "pythagorean_setup_failure",
+                                                      "area_formula_setup_error"
+                                                  ],
+                               "M2_SIMPY_PT158":  [
+                                                      "auxiliary_line_construction_failure",
+                                                      "pythagorean_setup_failure",
+                                                      "segment_partition_tracking_failure",
+                                                      "composite_area_subtraction_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "right_triangle_altitude_geometric_mean_failure"
+                                                  ],
+                               "M2_SIMPY_PT159":  [
+                                                      "pythagorean_setup_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "right_triangle_altitude_geometric_mean_failure",
+                                                      "area_formula_setup_error",
+                                                      "composite_path_length_decomposition_failure",
+                                                      "auxiliary_line_construction_failure",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT161":  [
+                                                      "isosceles_altitude_bisection_overlooked",
+                                                      "pythagorean_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT162":  [
+                                                      "central_angle_to_arc_ratio_failure",
+                                                      "isosceles_altitude_bisection_overlooked",
+                                                      "pythagorean_setup_failure",
+                                                      "similar_triangle_correspondence_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT165":  [
+                                                      "area_decomposition_equation_setup_failure",
+                                                      "area_formula_setup_error",
+                                                      "pythagorean_setup_failure",
+                                                      "segment_partition_tracking_failure"
+                                                  ],
+                               "M2_SIMPY_PT166":  [
+                                                      "inequality_bound_conversion_error",
+                                                      "pythagorean_converse_condition_failure",
+                                                      "trig_ratio_side_role_confusion",
+                                                      "area_formula_setup_error",
+                                                      "multi_constraint_intersection_failure",
+                                                      "answer_format_mismatch"
+                                                  ],
+                               "M2_SIMPY_PT167":  [
+                                                      "pythagorean_converse_condition_failure",
+                                                      "trig_ratio_side_role_confusion",
+                                                      "area_formula_setup_error",
+                                                      "inequality_bound_conversion_error",
+                                                      "answer_format_mismatch"
+                                                  ],
+                               "M2_SIMPY_PT169":  [
+                                                      "pythagorean_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT170":  [
+                                                      "area_formula_setup_error",
+                                                      "segment_partition_tracking_failure",
+                                                      "pythagorean_setup_failure"
+                                                  ],
+                               "M2_SIMPY_PT171":  [
+                                                      "area_formula_setup_error",
+                                                      "segment_partition_tracking_failure",
+                                                      "pythagorean_setup_failure",
+                                                      "area_inradius_relation_setup_failure",
+                                                      "right_triangle_tangent_partition_failure"
+                                                  ],
+                               "M2_SIMPY_PT174":  [
+                                                      "paper_fold_reflection_distance_mapping_failure",
+                                                      "similar_triangle_correspondence_setup_failure",
+                                                      "multiple_answer_omission",
+                                                      "composite_area_subtraction_failure",
+                                                      "area_formula_setup_error"
+                                                  ],
+                               "M2_SIMPY_PT175":  [
+                                                      "cylinder_unfolding_wrap_count_failure",
+                                                      "pythagorean_setup_failure",
+                                                      "developed_surface_base_circumference_mapping_failure"
+                                                  ],
+                               "M2_SIMPY_PT177":  [
+                                                      "spatial_cross_section_identification_failure",
+                                                      "three_dimensional_length_reduction_failure",
+                                                      "pythagorean_setup_failure"
+                                                  ]
+                           }
+}

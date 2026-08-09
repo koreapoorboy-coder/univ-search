@@ -1,0 +1,625 @@
+{
+    "version":  "m2_probability-pt-fine-error-tags-overlay-v1",
+    "unit":  "m2_probability",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  123,
+    "total_pt":  153,
+    "pt_fine_error_tags":  {
+                               "M2_PROB_PT004":  [
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "case_partition_omission",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT005":  [
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "case_partition_omission",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT006":  [
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "case_partition_omission",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT010":  [
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT011":  [
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT012":  [
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT013":  [
+                                                     "addition_principle_selection_error",
+                                                     "ordered_outcome_enumeration_failure"
+                                                 ],
+                               "M2_PROB_PT014":  [
+                                                     "addition_principle_selection_error",
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M2_PROB_PT015":  [
+                                                     "addition_principle_selection_error",
+                                                     "ordered_outcome_enumeration_failure"
+                                                 ],
+                               "M2_PROB_PT022":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT023":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT024":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT025":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "route_branch_counting_failure"
+                                                 ],
+                               "M2_PROB_PT026":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "route_branch_counting_failure"
+                                                 ],
+                               "M2_PROB_PT027":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "route_branch_counting_failure",
+                                                     "excluded_case_omission"
+                                                 ],
+                               "M2_PROB_PT028":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT029":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT030":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT031":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "order_relevance_confusion",
+                                                     "excluded_case_omission"
+                                                 ],
+                               "M2_PROB_PT032":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT033":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "order_relevance_confusion",
+                                                     "excluded_case_omission"
+                                                 ],
+                               "M2_PROB_PT034":  [
+                                                     "overlap_double_count_error",
+                                                     "multi_constraint_intersection_failure",
+                                                     "coloring_adjacency_constraint_failure",
+                                                     "multiplication_principle_selection_error"
+                                                 ],
+                               "M2_PROB_PT035":  [
+                                                     "coloring_adjacency_constraint_failure",
+                                                     "multi_constraint_intersection_failure",
+                                                     "multiplication_principle_selection_error"
+                                                 ],
+                               "M2_PROB_PT036":  [
+                                                     "multi_constraint_intersection_failure",
+                                                     "coloring_adjacency_constraint_failure",
+                                                     "multiplication_principle_selection_error"
+                                                 ],
+                               "M2_PROB_PT040":  [
+                                                     "fixed_position_arrangement_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "excluded_case_omission"
+                                                 ],
+                               "M2_PROB_PT041":  [
+                                                     "fixed_position_arrangement_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "excluded_case_omission"
+                                                 ],
+                               "M2_PROB_PT042":  [
+                                                     "fixed_position_arrangement_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "excluded_case_omission"
+                                                 ],
+                               "M2_PROB_PT043":  [
+                                                     "adjacent_block_arrangement_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT044":  [
+                                                     "adjacent_block_arrangement_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT045":  [
+                                                     "adjacent_block_arrangement_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT046":  [
+                                                     "nonadjacent_gap_placement_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "complementary_counting_setup_failure"
+                                                 ],
+                               "M2_PROB_PT047":  [
+                                                     "nonadjacent_gap_placement_failure",
+                                                     "arrangement_factorial_count_error"
+                                                 ],
+                               "M2_PROB_PT048":  [
+                                                     "nonadjacent_gap_placement_failure",
+                                                     "arrangement_factorial_count_error"
+                                                 ],
+                               "M2_PROB_PT049":  [
+                                                     "digit_divisibility_condition_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT050":  [
+                                                     "digit_divisibility_condition_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT051":  [
+                                                     "digit_divisibility_condition_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT052":  [
+                                                     "leading_zero_case_handling_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT053":  [
+                                                     "leading_zero_case_handling_failure",
+                                                     "pattern_extraction_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT054":  [
+                                                     "leading_zero_case_handling_failure",
+                                                     "range_constraint_dropped",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M2_PROB_PT055":  [
+                                                     "lexicographic_rank_tracking_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "stage_indexing_error"
+                                                 ],
+                               "M2_PROB_PT056":  [
+                                                     "lexicographic_rank_tracking_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "stage_indexing_error"
+                                                 ],
+                               "M2_PROB_PT057":  [
+                                                     "lexicographic_rank_tracking_failure",
+                                                     "arrangement_factorial_count_error",
+                                                     "stage_indexing_error"
+                                                 ],
+                               "M2_PROB_PT058":  [
+                                                     "order_relevance_confusion",
+                                                     "multiplication_principle_selection_error"
+                                                 ],
+                               "M2_PROB_PT059":  [
+                                                     "order_relevance_confusion",
+                                                     "multiplication_principle_selection_error"
+                                                 ],
+                               "M2_PROB_PT060":  [
+                                                     "order_relevance_confusion",
+                                                     "multiplication_principle_selection_error",
+                                                     "case_partition_omission"
+                                                 ],
+                               "M2_PROB_PT061":  [
+                                                     "order_relevance_confusion",
+                                                     "forbidden_position_arrangement_failure",
+                                                     "combination_selection_count_error"
+                                                 ],
+                               "M2_PROB_PT062":  [
+                                                     "order_relevance_confusion",
+                                                     "combination_selection_count_error"
+                                                 ],
+                               "M2_PROB_PT063":  [
+                                                     "order_relevance_confusion",
+                                                     "combination_selection_count_error",
+                                                     "forbidden_position_arrangement_failure"
+                                                 ],
+                               "M2_PROB_PT067":  [
+                                                     "combination_selection_count_error",
+                                                     "excluded_case_omission",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT068":  [
+                                                     "combination_selection_count_error",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT069":  [
+                                                     "combination_selection_count_error",
+                                                     "excluded_case_omission",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT070":  [
+                                                     "combination_selection_count_error",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT073":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "route_branch_counting_failure"
+                                                 ],
+                               "M2_PROB_PT074":  [
+                                                     "multiplication_principle_selection_error",
+                                                     "shortest_path_segment_counting_failure"
+                                                 ],
+                               "M2_PROB_PT076":  [
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure",
+                                                     "range_constraint_dropped",
+                                                     "overlap_double_count_error"
+                                                 ],
+                               "M2_PROB_PT077":  [
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT078":  [
+                                                     "integer_candidate_enumeration_gap",
+                                                     "multi_constraint_intersection_failure",
+                                                     "overlap_double_count_error",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT079":  [
+                                                     "case_partition_omission",
+                                                     "multi_constraint_intersection_failure",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M2_PROB_PT080":  [
+                                                     "case_partition_omission",
+                                                     "multi_constraint_intersection_failure",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M2_PROB_PT081":  [
+                                                     "case_partition_omission",
+                                                     "multi_constraint_intersection_failure",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M2_PROB_PT082":  [
+                                                     "tournament_pairing_count_failure",
+                                                     "overlap_double_count_error",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M2_PROB_PT083":  [
+                                                     "tournament_pairing_count_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M2_PROB_PT085":  [
+                                                     "sample_space_counting_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "probability_ratio_setup_error"
+                                                 ],
+                               "M2_PROB_PT086":  [
+                                                     "sample_space_counting_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "probability_ratio_setup_error"
+                                                 ],
+                               "M2_PROB_PT087":  [
+                                                     "sample_space_counting_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "probability_ratio_setup_error"
+                                                 ],
+                               "M2_PROB_PT088":  [
+                                                     "arrangement_factorial_count_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "adjacent_block_arrangement_failure"
+                                                 ],
+                               "M2_PROB_PT089":  [
+                                                     "arrangement_factorial_count_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "adjacent_block_arrangement_failure"
+                                                 ],
+                               "M2_PROB_PT090":  [
+                                                     "arrangement_factorial_count_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "adjacent_block_arrangement_failure"
+                                                 ],
+                               "M2_PROB_PT091":  [
+                                                     "probability_equation_setup_failure",
+                                                     "probability_ratio_setup_error",
+                                                     "fraction_form_arithmetic_slip"
+                                                 ],
+                               "M2_PROB_PT092":  [
+                                                     "probability_equation_setup_failure",
+                                                     "probability_ratio_setup_error",
+                                                     "fraction_form_arithmetic_slip"
+                                                 ],
+                               "M2_PROB_PT094":  [
+                                                     "event_condition_translation_failure",
+                                                     "favorable_outcome_counting_error",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT095":  [
+                                                     "event_condition_translation_failure",
+                                                     "favorable_outcome_counting_error",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT096":  [
+                                                     "event_condition_translation_failure",
+                                                     "favorable_outcome_counting_error",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_PROB_PT097":  [
+                                                     "event_condition_translation_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT098":  [
+                                                     "event_condition_translation_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT099":  [
+                                                     "event_condition_translation_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M2_PROB_PT103":  [
+                                                     "complement_probability_setup_failure",
+                                                     "sample_space_counting_error",
+                                                     "condition_negation_error"
+                                                 ],
+                               "M2_PROB_PT104":  [
+                                                     "complement_probability_setup_failure",
+                                                     "sample_space_counting_error",
+                                                     "condition_negation_error"
+                                                 ],
+                               "M2_PROB_PT105":  [
+                                                     "complement_probability_setup_failure",
+                                                     "sample_space_counting_error",
+                                                     "condition_negation_error"
+                                                 ],
+                               "M2_PROB_PT106":  [
+                                                     "at_least_one_complement_failure",
+                                                     "complement_probability_setup_failure",
+                                                     "favorable_outcome_counting_error"
+                                                 ],
+                               "M2_PROB_PT107":  [
+                                                     "at_least_one_complement_failure",
+                                                     "complement_probability_setup_failure",
+                                                     "favorable_outcome_counting_error"
+                                                 ],
+                               "M2_PROB_PT108":  [
+                                                     "at_least_one_complement_failure",
+                                                     "complement_probability_setup_failure",
+                                                     "favorable_outcome_counting_error"
+                                                 ],
+                               "M2_PROB_PT109":  [
+                                                     "union_probability_overlap_failure",
+                                                     "sample_space_counting_error",
+                                                     "law_selection_error",
+                                                     "event_condition_translation_failure",
+                                                     "favorable_outcome_counting_error"
+                                                 ],
+                               "M2_PROB_PT110":  [
+                                                     "union_probability_overlap_failure",
+                                                     "sample_space_counting_error",
+                                                     "law_selection_error",
+                                                     "event_condition_translation_failure",
+                                                     "favorable_outcome_counting_error"
+                                                 ],
+                               "M2_PROB_PT111":  [
+                                                     "law_selection_error",
+                                                     "event_condition_translation_failure",
+                                                     "favorable_outcome_counting_error",
+                                                     "union_probability_overlap_failure",
+                                                     "sample_space_counting_error"
+                                                 ],
+                               "M2_PROB_PT112":  [
+                                                     "intersection_probability_product_failure",
+                                                     "complement_probability_setup_failure",
+                                                     "event_condition_translation_failure",
+                                                     "probability_ratio_setup_error"
+                                                 ],
+                               "M2_PROB_PT113":  [
+                                                     "intersection_probability_product_failure",
+                                                     "complement_probability_setup_failure",
+                                                     "event_condition_translation_failure",
+                                                     "probability_ratio_setup_error"
+                                                 ],
+                               "M2_PROB_PT114":  [
+                                                     "intersection_probability_product_failure",
+                                                     "complement_probability_setup_failure",
+                                                     "event_condition_translation_failure",
+                                                     "probability_ratio_setup_error"
+                                                 ],
+                               "M2_PROB_PT115":  [
+                                                     "at_least_one_complement_failure",
+                                                     "event_condition_translation_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M2_PROB_PT116":  [
+                                                     "at_least_one_complement_failure",
+                                                     "event_condition_translation_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M2_PROB_PT117":  [
+                                                     "at_least_one_complement_failure",
+                                                     "event_condition_translation_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M2_PROB_PT118":  [
+                                                     "law_selection_error",
+                                                     "intersection_probability_product_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "union_probability_overlap_failure"
+                                                 ],
+                               "M2_PROB_PT119":  [
+                                                     "law_selection_error",
+                                                     "union_probability_overlap_failure",
+                                                     "intersection_probability_product_failure",
+                                                     "sequential_probability_path_aggregation_failure"
+                                                 ],
+                               "M2_PROB_PT120":  [
+                                                     "law_selection_error",
+                                                     "union_probability_overlap_failure",
+                                                     "intersection_probability_product_failure",
+                                                     "sequential_probability_path_aggregation_failure"
+                                                 ],
+                               "M2_PROB_PT121":  [
+                                                     "with_replacement_state_reset_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "fraction_form_arithmetic_slip"
+                                                 ],
+                               "M2_PROB_PT122":  [
+                                                     "with_replacement_state_reset_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "fraction_form_arithmetic_slip"
+                                                 ],
+                               "M2_PROB_PT123":  [
+                                                     "with_replacement_state_reset_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "fraction_form_arithmetic_slip"
+                                                 ],
+                               "M2_PROB_PT124":  [
+                                                     "without_replacement_denominator_update_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "condition_dependent_probability_update_failure"
+                                                 ],
+                               "M2_PROB_PT125":  [
+                                                     "without_replacement_denominator_update_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "condition_dependent_probability_update_failure"
+                                                 ],
+                               "M2_PROB_PT126":  [
+                                                     "without_replacement_denominator_update_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "condition_dependent_probability_update_failure"
+                                                 ],
+                               "M2_PROB_PT127":  [
+                                                     "condition_dependent_probability_update_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "law_selection_error"
+                                                 ],
+                               "M2_PROB_PT128":  [
+                                                     "condition_dependent_probability_update_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "law_selection_error"
+                                                 ],
+                               "M2_PROB_PT129":  [
+                                                     "condition_dependent_probability_update_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "law_selection_error"
+                                                 ],
+                               "M2_PROB_PT130":  [
+                                                     "game_stopping_condition_tracking_failure",
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "exactly_k_success_case_counting_failure"
+                                                 ],
+                               "M2_PROB_PT131":  [
+                                                     "game_stopping_condition_tracking_failure",
+                                                     "sequential_probability_path_aggregation_failure"
+                                                 ],
+                               "M2_PROB_PT132":  [
+                                                     "sequential_probability_path_aggregation_failure",
+                                                     "game_stopping_condition_tracking_failure",
+                                                     "complement_probability_setup_failure",
+                                                     "exactly_k_success_case_counting_failure"
+                                                 ],
+                               "M2_PROB_PT133":  [
+                                                     "exactly_k_success_case_counting_failure",
+                                                     "intersection_probability_product_failure",
+                                                     "complement_probability_setup_failure"
+                                                 ],
+                               "M2_PROB_PT134":  [
+                                                     "exactly_k_success_case_counting_failure",
+                                                     "intersection_probability_product_failure"
+                                                 ],
+                               "M2_PROB_PT135":  [
+                                                     "exactly_k_success_case_counting_failure",
+                                                     "intersection_probability_product_failure",
+                                                     "probability_equation_setup_failure"
+                                                 ],
+                               "M2_PROB_PT136":  [
+                                                     "at_least_one_complement_failure",
+                                                     "intersection_probability_product_failure",
+                                                     "complement_probability_setup_failure"
+                                                 ],
+                               "M2_PROB_PT137":  [
+                                                     "complement_probability_setup_failure",
+                                                     "intersection_probability_product_failure",
+                                                     "at_least_one_complement_failure"
+                                                 ],
+                               "M2_PROB_PT138":  [
+                                                     "complement_probability_setup_failure",
+                                                     "intersection_probability_product_failure",
+                                                     "at_least_one_complement_failure",
+                                                     "probability_equation_setup_failure"
+                                                 ],
+                               "M2_PROB_PT139":  [
+                                                     "sample_space_counting_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT140":  [
+                                                     "sample_space_counting_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "order_relevance_confusion"
+                                                 ],
+                               "M2_PROB_PT142":  [
+                                                     "event_condition_translation_failure",
+                                                     "ordered_outcome_enumeration_failure"
+                                                 ],
+                               "M2_PROB_PT143":  [
+                                                     "event_condition_translation_failure",
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "random_walk_state_tracking_failure"
+                                                 ],
+                               "M2_PROB_PT144":  [
+                                                     "event_condition_translation_failure",
+                                                     "ordered_outcome_enumeration_failure",
+                                                     "random_walk_state_tracking_failure"
+                                                 ],
+                               "M2_PROB_PT145":  [
+                                                     "event_condition_translation_failure",
+                                                     "favorable_outcome_counting_error",
+                                                     "random_walk_state_tracking_failure",
+                                                     "sample_space_counting_error"
+                                                 ],
+                               "M2_PROB_PT146":  [
+                                                     "event_condition_translation_failure",
+                                                     "sample_space_counting_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "random_walk_state_tracking_failure"
+                                                 ],
+                               "M2_PROB_PT147":  [
+                                                     "event_condition_translation_failure",
+                                                     "sample_space_counting_error",
+                                                     "favorable_outcome_counting_error",
+                                                     "random_walk_state_tracking_failure"
+                                                 ],
+                               "M2_PROB_PT148":  [
+                                                     "event_condition_translation_failure",
+                                                     "geometric_probability_area_ratio_failure",
+                                                     "multiplication_principle_selection_error"
+                                                 ],
+                               "M2_PROB_PT149":  [
+                                                     "event_condition_translation_failure",
+                                                     "combination_selection_count_error",
+                                                     "geometric_probability_area_ratio_failure"
+                                                 ],
+                               "M2_PROB_PT150":  [
+                                                     "event_condition_translation_failure",
+                                                     "geometric_probability_area_ratio_failure",
+                                                     "multiplication_principle_selection_error"
+                                                 ]
+                           }
+}

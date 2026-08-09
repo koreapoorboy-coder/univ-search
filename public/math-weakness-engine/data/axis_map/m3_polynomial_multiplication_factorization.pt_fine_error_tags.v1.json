@@ -1,0 +1,463 @@
+{
+    "version":  "m3_polynomial_multiplication_factorization-pt-fine-error-tags-overlay-v1",
+    "unit":  "m3_polynomial_multiplication_factorization",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  90,
+    "total_pt":  212,
+    "pt_fine_error_tags":  {
+                               "M3_POLY_PT006":  [
+                                                     "like_term_misgrouping",
+                                                     "degree_term_confusion",
+                                                     "sign_propagation_error",
+                                                     "law_selection_error"
+                                                 ],
+                               "M3_POLY_PT007":  [
+                                                     "like_term_misgrouping",
+                                                     "degree_term_confusion",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT008":  [
+                                                     "law_selection_error",
+                                                     "like_term_misgrouping",
+                                                     "multi_expression_dependency_error",
+                                                     "degree_term_confusion",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT009":  [
+                                                     "square_formula_middle_term_error",
+                                                     "sign_propagation_error",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_POLY_PT011":  [
+                                                     "square_formula_middle_term_error",
+                                                     "sign_propagation_error",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_POLY_PT012":  [
+                                                     "square_formula_middle_term_error",
+                                                     "sign_propagation_error",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_POLY_PT013":  [
+                                                     "square_formula_middle_term_error",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT017":  [
+                                                     "law_selection_error",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT019":  [
+                                                     "law_selection_error",
+                                                     "sign_propagation_error",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT020":  [
+                                                     "law_selection_error",
+                                                     "sign_propagation_error",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT022":  [
+                                                     "law_selection_error",
+                                                     "pattern_extraction_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT024":  [
+                                                     "law_selection_error",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M3_POLY_PT028":  [
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_POLY_PT030":  [
+                                                     "like_term_misgrouping"
+                                                 ],
+                               "M3_POLY_PT031":  [
+                                                     "like_term_misgrouping"
+                                                 ],
+                               "M3_POLY_PT032":  [
+                                                     "like_term_misgrouping",
+                                                     "multiple_answer_omission",
+                                                     "verification_missing",
+                                                     "intended_vs_actual_value_swap"
+                                                 ],
+                               "M3_POLY_PT038":  [
+                                                     "law_selection_error",
+                                                     "parenthesis_sign_distribution_error",
+                                                     "like_term_misgrouping"
+                                                 ],
+                               "M3_POLY_PT039":  [
+                                                     "law_selection_error",
+                                                     "like_term_misgrouping",
+                                                     "parenthesis_sign_distribution_error"
+                                                 ],
+                               "M3_POLY_PT040":  [
+                                                     "law_selection_error",
+                                                     "like_term_misgrouping",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_POLY_PT044":  [
+                                                     "area_formula_setup_error",
+                                                     "variable_length_assignment_failure",
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "composite_area_subtraction_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT046":  [
+                                                     "pattern_extraction_failure",
+                                                     "substitution_parenthesis_omission",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT047":  [
+                                                     "pattern_extraction_failure",
+                                                     "substitution_parenthesis_omission",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT050":  [
+                                                     "pattern_extraction_failure",
+                                                     "multi_step_composite_error",
+                                                     "operation_order_violation"
+                                                 ],
+                               "M3_POLY_PT051":  [
+                                                     "pattern_extraction_failure",
+                                                     "multi_step_composite_error",
+                                                     "operation_order_violation"
+                                                 ],
+                               "M3_POLY_PT052":  [
+                                                     "pattern_extraction_failure",
+                                                     "multi_step_composite_error",
+                                                     "operation_order_violation"
+                                                 ],
+                               "M3_POLY_PT054":  [
+                                                     "law_selection_error",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT056":  [
+                                                     "law_selection_error",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT058":  [
+                                                     "pattern_extraction_failure",
+                                                     "law_selection_error",
+                                                     "difference_direction_error"
+                                                 ],
+                               "M3_POLY_PT060":  [
+                                                     "pattern_extraction_failure",
+                                                     "law_selection_error",
+                                                     "difference_direction_error"
+                                                 ],
+                               "M3_POLY_PT064":  [
+                                                     "pattern_extraction_failure",
+                                                     "multi_step_composite_error",
+                                                     "exponent_factoring_failure"
+                                                 ],
+                               "M3_POLY_PT066":  [
+                                                     "law_selection_error",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT068":  [
+                                                     "law_selection_error",
+                                                     "multi_step_composite_error",
+                                                     "answer_format_mismatch"
+                                                 ],
+                               "M3_POLY_PT074":  [
+                                                     "conjugate_rationalization_setup_failure",
+                                                     "nested_fraction_simplification_failure"
+                                                 ],
+                               "M3_POLY_PT075":  [
+                                                     "conjugate_rationalization_setup_failure",
+                                                     "nested_fraction_simplification_failure",
+                                                     "sign_propagation_error",
+                                                     "answer_stage_confusion"
+                                                 ],
+                               "M3_POLY_PT076":  [
+                                                     "conjugate_rationalization_setup_failure",
+                                                     "nested_fraction_simplification_failure",
+                                                     "answer_stage_confusion",
+                                                     "sign_propagation_error",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M3_POLY_PT080":  [
+                                                     "multi_expression_dependency_error",
+                                                     "conjugate_rationalization_setup_failure",
+                                                     "simplify_before_substitute_omitted",
+                                                     "substitution_parenthesis_omission",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_POLY_PT082":  [
+                                                     "law_selection_error",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT083":  [
+                                                     "law_selection_error",
+                                                     "multi_expression_dependency_error",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_POLY_PT084":  [
+                                                     "law_selection_error",
+                                                     "multi_expression_dependency_error",
+                                                     "range_constraint_dropped",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT086":  [
+                                                     "law_selection_error",
+                                                     "multi_expression_dependency_error",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT087":  [
+                                                     "inverse_operation_setup_error",
+                                                     "law_selection_error",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT088":  [
+                                                     "inverse_operation_setup_error",
+                                                     "law_selection_error",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT090":  [
+                                                     "simplify_before_substitute_omitted",
+                                                     "substitution_parenthesis_omission",
+                                                     "multi_expression_dependency_error",
+                                                     "nested_fraction_simplification_failure"
+                                                 ],
+                               "M3_POLY_PT091":  [
+                                                     "simplify_before_substitute_omitted",
+                                                     "substitution_parenthesis_omission"
+                                                 ],
+                               "M3_POLY_PT092":  [
+                                                     "simplify_before_substitute_omitted",
+                                                     "substitution_parenthesis_omission",
+                                                     "multi_step_composite_error",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT094":  [
+                                                     "irrational_integer_fractional_part_split_failure",
+                                                     "conjugate_rationalization_setup_failure"
+                                                 ],
+                               "M3_POLY_PT096":  [
+                                                     "irrational_integer_fractional_part_split_failure",
+                                                     "conjugate_rationalization_setup_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT106":  [
+                                                     "common_factor_extraction_failure",
+                                                     "sign_propagation_error",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M3_POLY_PT109":  [
+                                                     "square_formula_middle_term_error",
+                                                     "sign_propagation_error",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT112":  [
+                                                     "perfect_square_trinomial_condition_failure",
+                                                     "square_formula_middle_term_error",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_POLY_PT113":  [
+                                                     "perfect_square_trinomial_condition_failure",
+                                                     "square_formula_middle_term_error",
+                                                     "multiple_answer_omission",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT115":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "range_constraint_dropped",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT116":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "range_constraint_dropped",
+                                                     "sign_propagation_error",
+                                                     "perfect_square_trinomial_condition_failure"
+                                                 ],
+                               "M3_POLY_PT118":  [
+                                                     "law_selection_error",
+                                                     "sign_propagation_error",
+                                                     "excluded_case_omission"
+                                                 ],
+                               "M3_POLY_PT124":  [
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_POLY_PT125":  [
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_POLY_PT127":  [
+                                                     "cross_product_factorization_coefficient_matching_failure",
+                                                     "like_term_misgrouping",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT128":  [
+                                                     "cross_product_factorization_coefficient_matching_failure",
+                                                     "like_term_misgrouping",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT136":  [
+                                                     "law_selection_error",
+                                                     "condition_negation_error"
+                                                 ],
+                               "M3_POLY_PT137":  [
+                                                     "law_selection_error",
+                                                     "common_factor_extraction_failure"
+                                                 ],
+                               "M3_POLY_PT139":  [
+                                                     "area_formula_setup_error",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_POLY_PT142":  [
+                                                     "common_factor_extraction_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT143":  [
+                                                     "common_factor_extraction_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT145":  [
+                                                     "like_term_misgrouping",
+                                                     "multi_expression_dependency_error",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT148":  [
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_POLY_PT149":  [
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_POLY_PT154":  [
+                                                     "common_factor_extraction_failure",
+                                                     "pattern_extraction_failure",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_POLY_PT155":  [
+                                                     "common_factor_extraction_failure",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M3_POLY_PT157":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_POLY_PT158":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multiple_answer_omission",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_POLY_PT160":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT161":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "sign_propagation_error",
+                                                     "condition_negation_error"
+                                                 ],
+                               "M3_POLY_PT163":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_POLY_PT164":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT166":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_POLY_PT167":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "condition_negation_error"
+                                                 ],
+                               "M3_POLY_PT169":  [
+                                                     "grouping_for_factorization_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_POLY_PT170":  [
+                                                     "grouping_for_factorization_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "final_form_reduction_omitted"
+                                                 ],
+                               "M3_POLY_PT172":  [
+                                                     "grouping_for_factorization_failure",
+                                                     "law_selection_error",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_POLY_PT173":  [
+                                                     "grouping_for_factorization_failure",
+                                                     "law_selection_error"
+                                                 ],
+                               "M3_POLY_PT178":  [
+                                                     "polynomial_reordering_for_factorization_failure",
+                                                     "common_factor_extraction_failure",
+                                                     "cross_product_factorization_coefficient_matching_failure",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT179":  [
+                                                     "polynomial_reordering_for_factorization_failure",
+                                                     "common_factor_extraction_failure",
+                                                     "multiple_answer_omission",
+                                                     "cross_product_factorization_coefficient_matching_failure",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_POLY_PT181":  [
+                                                     "common_factor_extraction_failure",
+                                                     "law_selection_error",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M3_POLY_PT182":  [
+                                                     "law_selection_error",
+                                                     "square_formula_middle_term_error",
+                                                     "common_factor_extraction_failure",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M3_POLY_PT184":  [
+                                                     "law_selection_error",
+                                                     "pattern_extraction_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT185":  [
+                                                     "law_selection_error",
+                                                     "pattern_extraction_failure",
+                                                     "answer_stage_confusion",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_POLY_PT187":  [
+                                                     "simplify_before_substitute_omitted",
+                                                     "conjugate_rationalization_setup_failure",
+                                                     "law_selection_error"
+                                                 ],
+                               "M3_POLY_PT188":  [
+                                                     "simplify_before_substitute_omitted",
+                                                     "law_selection_error",
+                                                     "multi_expression_dependency_error",
+                                                     "multi_constraint_intersection_failure",
+                                                     "common_factor_extraction_failure",
+                                                     "excluded_case_omission",
+                                                     "variable_length_assignment_failure",
+                                                     "irrational_integer_fractional_part_split_failure"
+                                                 ],
+                               "M3_POLY_PT190":  [
+                                                     "multi_expression_dependency_error",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_POLY_PT191":  [
+                                                     "composite_area_subtraction_failure",
+                                                     "area_formula_setup_error",
+                                                     "multi_expression_dependency_error",
+                                                     "solid_measure_formula_selection_error",
+                                                     "segment_partition_tracking_failure"
+                                                 ]
+                           }
+}

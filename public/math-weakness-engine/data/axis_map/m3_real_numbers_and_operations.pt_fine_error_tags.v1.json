@@ -1,0 +1,401 @@
+{
+    "version":  "m3_real_numbers_and_operations-pt-fine-error-tags-overlay-v1",
+    "unit":  "m3_real_numbers_and_operations",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  89,
+    "total_pt":  203,
+    "pt_fine_error_tags":  {
+                               "M3_REAL_PT006":  [
+                                                     "square_root_existence_count_confusion",
+                                                     "principal_square_root_notation_confusion",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_REAL_PT007":  [
+                                                     "square_root_existence_count_confusion",
+                                                     "principal_square_root_notation_confusion",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_REAL_PT008":  [
+                                                     "square_root_existence_count_confusion",
+                                                     "principal_square_root_notation_confusion"
+                                                 ],
+                               "M3_REAL_PT009":  [
+                                                     "square_root_existence_count_confusion",
+                                                     "principal_square_root_notation_confusion",
+                                                     "mixed_recurring_conversion_error"
+                                                 ],
+                               "M3_REAL_PT029":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "principal_square_root_notation_confusion"
+                                                 ],
+                               "M3_REAL_PT030":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "principal_square_root_notation_confusion"
+                                                 ],
+                               "M3_REAL_PT031":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "principal_square_root_notation_confusion",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_REAL_PT034":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "sign_propagation_error",
+                                                     "operation_order_violation"
+                                                 ],
+                               "M3_REAL_PT035":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "sign_propagation_error",
+                                                     "operation_order_violation"
+                                                 ],
+                               "M3_REAL_PT037":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "range_constraint_dropped",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_REAL_PT038":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "range_constraint_dropped",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_REAL_PT041":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "range_constraint_dropped",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_REAL_PT044":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_REAL_PT045":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_REAL_PT046":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "range_constraint_dropped",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_REAL_PT050":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_REAL_PT051":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_REAL_PT054":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_REAL_PT056":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "denominator_multiple_condition_error",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_REAL_PT057":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "denominator_multiple_condition_error"
+                                                 ],
+                               "M3_REAL_PT060":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "denominator_multiple_condition_error",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_REAL_PT064":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_REAL_PT065":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_REAL_PT066":  [
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_REAL_PT068":  [
+                                                     "radical_magnitude_comparison_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_REAL_PT069":  [
+                                                     "radical_magnitude_comparison_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_REAL_PT070":  [
+                                                     "radical_magnitude_comparison_failure",
+                                                     "range_constraint_dropped",
+                                                     "absolute_value_from_square_root_omitted"
+                                                 ],
+                               "M3_REAL_PT073":  [
+                                                     "inequality_bound_conversion_error",
+                                                     "absolute_value_from_square_root_omitted"
+                                                 ],
+                               "M3_REAL_PT074":  [
+                                                     "inequality_bound_conversion_error",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_REAL_PT075":  [
+                                                     "inequality_bound_conversion_error",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_REAL_PT081":  [
+                                                     "square_root_floor_interval_mapping_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_REAL_PT082":  [
+                                                     "square_root_floor_interval_mapping_failure",
+                                                     "pattern_extraction_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_REAL_PT083":  [
+                                                     "rational_irrational_operation_closure_error",
+                                                     "perfect_square_radicand_condition_failure"
+                                                 ],
+                               "M3_REAL_PT084":  [
+                                                     "rational_irrational_operation_closure_error",
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_REAL_PT087":  [
+                                                     "rational_irrational_operation_closure_error",
+                                                     "perfect_square_radicand_condition_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_REAL_PT093":  [
+                                                     "radical_length_to_number_line_mapping_failure",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_REAL_PT094":  [
+                                                     "radical_length_to_number_line_mapping_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "irrational_inclusion_error"
+                                                 ],
+                               "M3_REAL_PT095":  [
+                                                     "radical_length_to_number_line_mapping_failure",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_REAL_PT100":  [
+                                                     "real_number_set_density_confusion",
+                                                     "irrational_inclusion_error"
+                                                 ],
+                               "M3_REAL_PT101":  [
+                                                     "real_number_set_density_confusion",
+                                                     "irrational_inclusion_error"
+                                                 ],
+                               "M3_REAL_PT110":  [
+                                                     "radical_magnitude_comparison_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_REAL_PT111":  [
+                                                     "radical_magnitude_comparison_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "real_number_set_density_confusion"
+                                                 ],
+                               "M3_REAL_PT115":  [
+                                                     "radical_product_simplification_error",
+                                                     "perfect_square_factor_extraction_failure"
+                                                 ],
+                               "M3_REAL_PT116":  [
+                                                     "radical_product_simplification_error",
+                                                     "perfect_square_factor_extraction_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_REAL_PT118":  [
+                                                     "coefficient_inside_radical_conversion_failure",
+                                                     "radical_product_simplification_error"
+                                                 ],
+                               "M3_REAL_PT119":  [
+                                                     "coefficient_inside_radical_conversion_failure",
+                                                     "radical_product_simplification_error"
+                                                 ],
+                               "M3_REAL_PT122":  [
+                                                     "coefficient_inside_radical_conversion_failure",
+                                                     "radical_product_simplification_error",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_REAL_PT123":  [
+                                                     "radical_ratio_simplification_error",
+                                                     "ratio_direction_inversion",
+                                                     "difference_direction_error"
+                                                 ],
+                               "M3_REAL_PT124":  [
+                                                     "radical_ratio_simplification_error",
+                                                     "ratio_direction_inversion"
+                                                 ],
+                               "M3_REAL_PT125":  [
+                                                     "radical_ratio_simplification_error",
+                                                     "ratio_direction_inversion"
+                                                 ],
+                               "M3_REAL_PT127":  [
+                                                     "radical_ratio_simplification_error",
+                                                     "radical_magnitude_comparison_failure"
+                                                 ],
+                               "M3_REAL_PT128":  [
+                                                     "radical_ratio_simplification_error",
+                                                     "radical_magnitude_comparison_failure"
+                                                 ],
+                               "M3_REAL_PT129":  [
+                                                     "radical_ratio_simplification_error",
+                                                     "perfect_square_radicand_condition_failure"
+                                                 ],
+                               "M3_REAL_PT132":  [
+                                                     "power_of_ten_extraction_failure",
+                                                     "table_rule_direction_misread",
+                                                     "rounding_instruction_overlooked"
+                                                 ],
+                               "M3_REAL_PT133":  [
+                                                     "power_of_ten_extraction_failure",
+                                                     "table_rule_direction_misread"
+                                                 ],
+                               "M3_REAL_PT137":  [
+                                                     "simplify_before_substitute_omitted",
+                                                     "power_of_ten_extraction_failure",
+                                                     "substitution_direction_error"
+                                                 ],
+                               "M3_REAL_PT138":  [
+                                                     "simplify_before_substitute_omitted",
+                                                     "power_of_ten_extraction_failure",
+                                                     "substitution_direction_error"
+                                                 ],
+                               "M3_REAL_PT139":  [
+                                                     "radical_denominator_rationalization_failure",
+                                                     "radical_ratio_simplification_error"
+                                                 ],
+                               "M3_REAL_PT140":  [
+                                                     "radical_denominator_rationalization_failure",
+                                                     "radical_ratio_simplification_error"
+                                                 ],
+                               "M3_REAL_PT141":  [
+                                                     "radical_denominator_rationalization_failure",
+                                                     "radical_ratio_simplification_error",
+                                                     "final_form_reduction_omitted"
+                                                 ],
+                               "M3_REAL_PT142":  [
+                                                     "radical_product_simplification_error",
+                                                     "radical_ratio_simplification_error",
+                                                     "left_to_right_order_violation"
+                                                 ],
+                               "M3_REAL_PT143":  [
+                                                     "radical_product_simplification_error",
+                                                     "radical_ratio_simplification_error",
+                                                     "left_to_right_order_violation"
+                                                 ],
+                               "M3_REAL_PT144":  [
+                                                     "area_ratio_to_side_ratio_conversion_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_REAL_PT145":  [
+                                                     "area_ratio_to_side_ratio_conversion_failure",
+                                                     "multi_step_composite_error",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_REAL_PT156":  [
+                                                     "centroid_two_to_one_ratio_confusion"
+                                                 ],
+                               "M3_REAL_PT157":  [
+                                                     "centroid_two_to_one_ratio_confusion",
+                                                     "equilateral_area_relation_transfer_failure",
+                                                     "similar_triangle_correspondence_setup_failure"
+                                                 ],
+                               "M3_REAL_PT158":  [
+                                                     "like_term_misgrouping"
+                                                 ],
+                               "M3_REAL_PT159":  [
+                                                     "like_term_misgrouping",
+                                                     "absolute_value_from_square_root_omitted"
+                                                 ],
+                               "M3_REAL_PT160":  [
+                                                     "like_term_misgrouping",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_REAL_PT162":  [
+                                                     "perfect_square_factor_extraction_failure",
+                                                     "like_term_misgrouping",
+                                                     "ratio_setup_from_geometry_failure"
+                                                 ],
+                               "M3_REAL_PT163":  [
+                                                     "perfect_square_factor_extraction_failure",
+                                                     "like_term_misgrouping"
+                                                 ],
+                               "M3_REAL_PT165":  [
+                                                     "perfect_square_factor_extraction_failure",
+                                                     "like_term_misgrouping",
+                                                     "ratio_setup_from_geometry_failure"
+                                                 ],
+                               "M3_REAL_PT166":  [
+                                                     "radical_denominator_rationalization_failure",
+                                                     "like_term_misgrouping"
+                                                 ],
+                               "M3_REAL_PT167":  [
+                                                     "radical_denominator_rationalization_failure",
+                                                     "like_term_misgrouping",
+                                                     "irrational_inclusion_error"
+                                                 ],
+                               "M3_REAL_PT174":  [
+                                                     "radical_denominator_rationalization_failure",
+                                                     "multi_step_composite_error",
+                                                     "radical_product_simplification_error",
+                                                     "radical_ratio_simplification_error",
+                                                     "left_to_right_order_violation"
+                                                 ],
+                               "M3_REAL_PT176":  [
+                                                     "radical_denominator_rationalization_failure",
+                                                     "multi_step_composite_error",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_REAL_PT181":  [
+                                                     "irrational_coefficient_cancellation_condition_failure",
+                                                     "like_term_misgrouping"
+                                                 ],
+                               "M3_REAL_PT182":  [
+                                                     "irrational_coefficient_cancellation_condition_failure",
+                                                     "like_term_misgrouping",
+                                                     "inequality_bound_conversion_error"
+                                                 ],
+                               "M3_REAL_PT185":  [
+                                                     "irrational_integer_fractional_part_split_failure"
+                                                 ],
+                               "M3_REAL_PT186":  [
+                                                     "irrational_integer_fractional_part_split_failure"
+                                                 ],
+                               "M3_REAL_PT188":  [
+                                                     "irrational_integer_fractional_part_split_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "digit_count_off_by_one"
+                                                 ],
+                               "M3_REAL_PT190":  [
+                                                     "simplify_before_substitute_omitted",
+                                                     "power_of_ten_extraction_failure",
+                                                     "substitution_direction_error"
+                                                 ],
+                               "M3_REAL_PT192":  [
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_REAL_PT194":  [
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_REAL_PT195":  [
+                                                     "pythagorean_setup_failure",
+                                                     "centroid_two_to_one_ratio_confusion",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_REAL_PT197":  [
+                                                     "radical_length_to_number_line_mapping_failure",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_REAL_PT198":  [
+                                                     "radical_length_to_number_line_mapping_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "midpoint_length_relation_error"
+                                                 ],
+                               "M3_REAL_PT202":  [
+                                                     "radical_magnitude_comparison_failure"
+                                                 ],
+                               "M3_REAL_PT203":  [
+                                                     "radical_magnitude_comparison_failure",
+                                                     "sign_propagation_error",
+                                                     "extremum_selection_error"
+                                                 ]
+                           }
+}

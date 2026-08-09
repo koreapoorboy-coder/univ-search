@@ -1,0 +1,304 @@
+{
+    "version":  "m2_number_expression-pt-fine-error-tags-overlay-v1",
+    "unit":  "m2_number_expression",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  71,
+    "total_pt":  211,
+    "pt_fine_error_tags":  {
+                               "M2_NE_PT011":  [
+                                                   "reduction_before_test_omitted",
+                                                   "negation_condition_misread",
+                                                   "pattern_extraction_failure"
+                                               ],
+                               "M2_NE_PT013":  [
+                                                   "excluded_case_omission",
+                                                   "extremum_selection_error"
+                                               ],
+                               "M2_NE_PT014":  [
+                                                   "excluded_case_omission",
+                                                   "extremum_selection_error"
+                                               ],
+                               "M2_NE_PT016":  [
+                                                   "numerator_cancellation_overlooked",
+                                                   "unknown_position_confusion"
+                                               ],
+                               "M2_NE_PT018":  [
+                                                   "numerator_cancellation_overlooked",
+                                                   "unknown_position_confusion"
+                                               ],
+                               "M2_NE_PT019":  [
+                                                   "post_reduction_value_error",
+                                                   "range_constraint_dropped"
+                                               ],
+                               "M2_NE_PT022":  [
+                                                   "lcm_gcd_confusion",
+                                                   "joint_condition_merge_failure"
+                                               ],
+                               "M2_NE_PT024":  [
+                                                   "cycle_start_position_error",
+                                                   "incomplete_division_overread"
+                                               ],
+                               "M2_NE_PT025":  [
+                                                   "cycle_start_position_error",
+                                                   "incomplete_division_overread"
+                                               ],
+                               "M2_NE_PT031":  [
+                                                   "nonrepeating_prefix_offset_ignored",
+                                                   "remainder_zero_mapping_error"
+                                               ],
+                               "M2_NE_PT033":  [
+                                                   "nonrepeating_prefix_offset_ignored",
+                                                   "remainder_zero_mapping_error"
+                                               ],
+                               "M2_NE_PT034":  [
+                                                   "condition_negation_error",
+                                                   "cancellation_breaks_condition_overlooked"
+                                               ],
+                               "M2_NE_PT043":  [
+                                                   "mixed_recurring_subtraction_omitted",
+                                                   "digit_swap_misapplication"
+                                               ],
+                               "M2_NE_PT045":  [
+                                                   "mixed_recurring_subtraction_omitted",
+                                                   "digit_swap_misapplication"
+                                               ],
+                               "M2_NE_PT048":  [
+                                                   "recurrence_dot_scope_misread",
+                                                   "proximity_vs_magnitude_confusion"
+                                               ],
+                               "M2_NE_PT050":  [
+                                                   "mixed_recurring_conversion_error",
+                                                   "fraction_form_arithmetic_slip"
+                                               ],
+                               "M2_NE_PT051":  [
+                                                   "mixed_recurring_conversion_error",
+                                                   "fraction_form_arithmetic_slip",
+                                                   "digit_index_offset_error"
+                                               ],
+                               "M2_NE_PT053":  [
+                                                   "inequality_bound_conversion_error",
+                                                   "integer_candidate_enumeration_gap",
+                                                   "multi_constraint_intersection_failure"
+                                               ],
+                               "M2_NE_PT055":  [
+                                                   "equation_setup_from_recurring_error",
+                                                   "nested_fraction_simplification_failure"
+                                               ],
+                               "M2_NE_PT057":  [
+                                                   "equation_setup_from_recurring_error",
+                                                   "nested_fraction_simplification_failure"
+                                               ],
+                               "M2_NE_PT062":  [
+                                                   "intended_vs_actual_value_swap",
+                                                   "difference_direction_error",
+                                                   "answer_stage_confusion"
+                                               ],
+                               "M2_NE_PT063":  [
+                                                   "denominator_multiple_condition_error",
+                                                   "multiple_answer_omission"
+                                               ],
+                               "M2_NE_PT064":  [
+                                                   "denominator_multiple_condition_error"
+                                               ],
+                               "M2_NE_PT068":  [
+                                                   "irrational_inclusion_error",
+                                                   "definition_scope_overgeneralization"
+                                               ],
+                               "M2_NE_PT072":  [
+                                                   "exponent_addition_vs_multiplication_confusion",
+                                                   "negative_base_parity_error"
+                                               ],
+                               "M2_NE_PT073":  [
+                                                   "exponent_addition_vs_multiplication_confusion",
+                                                   "negative_base_parity_error"
+                                               ],
+                               "M2_NE_PT080":  [
+                                                   "exponent_subtraction_direction_error",
+                                                   "base_unification_omitted"
+                                               ],
+                               "M2_NE_PT084":  [
+                                                   "coefficient_exponent_neglect",
+                                                   "sign_of_negative_coefficient_error"
+                                               ],
+                               "M2_NE_PT085":  [
+                                                   "coefficient_exponent_neglect",
+                                                   "sign_of_negative_coefficient_error"
+                                               ],
+                               "M2_NE_PT090":  [
+                                                   "law_selection_error",
+                                                   "operation_order_violation",
+                                                   "abstract_notation_application_failure"
+                                               ],
+                               "M2_NE_PT091":  [
+                                                   "law_selection_error",
+                                                   "operation_order_violation",
+                                                   "abstract_notation_application_failure"
+                                               ],
+                               "M2_NE_PT096":  [
+                                                   "unit_conversion_omitted",
+                                                   "stage_indexing_error",
+                                                   "ratio_direction_inversion"
+                                               ],
+                               "M2_NE_PT097":  [
+                                                   "unit_conversion_omitted",
+                                                   "stage_indexing_error"
+                                               ],
+                               "M2_NE_PT101":  [
+                                                   "repeated_addition_as_multiplication_failure",
+                                                   "multi_step_composite_error"
+                                               ],
+                               "M2_NE_PT103":  [
+                                                   "repeated_addition_as_multiplication_failure",
+                                                   "multi_step_composite_error"
+                                               ],
+                               "M2_NE_PT105":  [
+                                                   "substitution_direction_error",
+                                                   "exponent_factoring_failure"
+                                               ],
+                               "M2_NE_PT106":  [
+                                                   "substitution_direction_error",
+                                                   "exponent_factoring_failure"
+                                               ],
+                               "M2_NE_PT107":  [
+                                                   "offset_exponent_handling_error",
+                                                   "constant_factor_separation_failure"
+                                               ],
+                               "M2_NE_PT108":  [
+                                                   "offset_exponent_handling_error",
+                                                   "constant_factor_separation_failure"
+                                               ],
+                               "M2_NE_PT109":  [
+                                                   "cycle_length_miscount",
+                                                   "remainder_to_position_mapping_error"
+                                               ],
+                               "M2_NE_PT110":  [
+                                                   "cycle_length_miscount",
+                                                   "remainder_to_position_mapping_error"
+                                               ],
+                               "M2_NE_PT112":  [
+                                                   "power_of_ten_extraction_failure",
+                                                   "digit_count_off_by_one"
+                                               ],
+                               "M2_NE_PT113":  [
+                                                   "power_of_ten_extraction_failure",
+                                                   "digit_count_off_by_one"
+                                               ],
+                               "M2_NE_PT115":  [
+                                                   "exponent_equation_base_matching_error",
+                                                   "common_factor_extraction_failure"
+                                               ],
+                               "M2_NE_PT119":  [
+                                                   "exponent_equation_base_matching_error",
+                                                   "common_factor_extraction_failure"
+                                               ],
+                               "M2_NE_PT120":  [
+                                                   "exponent_equation_base_matching_error",
+                                                   "common_factor_extraction_failure"
+                                               ],
+                               "M2_NE_PT123":  [
+                                                   "sign_propagation_error",
+                                                   "coefficient_vs_exponent_operation_mixup"
+                                               ],
+                               "M2_NE_PT128":  [
+                                                   "reciprocal_conversion_error",
+                                                   "unknown_exponent_matching_failure"
+                                               ],
+                               "M2_NE_PT130":  [
+                                                   "left_to_right_order_violation",
+                                                   "sign_with_even_power_error"
+                                               ],
+                               "M2_NE_PT132":  [
+                                                   "left_to_right_order_violation",
+                                                   "sign_with_even_power_error"
+                                               ],
+                               "M2_NE_PT135":  [
+                                                   "inverse_operation_setup_error"
+                                               ],
+                               "M2_NE_PT136":  [
+                                                   "inverse_operation_setup_error"
+                                               ],
+                               "M2_NE_PT143":  [
+                                                   "volume_formula_misapplication",
+                                                   "ratio_setup_from_geometry_failure",
+                                                   "conservation_condition_overlooked"
+                                               ],
+                               "M2_NE_PT148":  [
+                                                   "parenthesis_sign_distribution_error",
+                                                   "like_term_misgrouping",
+                                                   "geometric_rate_setup_failure"
+                                               ],
+                               "M2_NE_PT149":  [
+                                                   "parenthesis_sign_distribution_error",
+                                                   "like_term_misgrouping",
+                                                   "geometric_rate_setup_failure"
+                                               ],
+                               "M2_NE_PT152":  [
+                                                   "fraction_coefficient_lcd_error",
+                                                   "degree_term_confusion"
+                                               ],
+                               "M2_NE_PT157":  [
+                                                   "nested_bracket_order_violation",
+                                                   "sign_carry_through_layers"
+                                               ],
+                               "M2_NE_PT159":  [
+                                                   "nested_bracket_order_violation",
+                                                   "sign_carry_through_layers"
+                                               ],
+                               "M2_NE_PT163":  [
+                                                   "inverse_operation_sign_error",
+                                                   "table_rule_direction_misread",
+                                                   "multi_cell_dependency_tracking_failure"
+                                               ],
+                               "M2_NE_PT164":  [
+                                                   "inverse_operation_sign_error",
+                                                   "table_rule_direction_misread",
+                                                   "multi_cell_dependency_tracking_failure"
+                                               ],
+                               "M2_NE_PT177":  [
+                                                   "operation_precedence_error",
+                                                   "custom_operator_definition_misapplication"
+                                               ],
+                               "M2_NE_PT178":  [
+                                                   "operation_precedence_error",
+                                                   "custom_operator_definition_misapplication"
+                                               ],
+                               "M2_NE_PT179":  [
+                                                   "operation_precedence_error",
+                                                   "custom_operator_definition_misapplication"
+                                               ],
+                               "M2_NE_PT181":  [
+                                                   "area_formula_setup_error",
+                                                   "subtraction_of_regions_omitted",
+                                                   "variable_length_assignment_failure"
+                                               ],
+                               "M2_NE_PT182":  [
+                                                   "area_formula_setup_error",
+                                                   "subtraction_of_regions_omitted",
+                                                   "variable_length_assignment_failure"
+                                               ],
+                               "M2_NE_PT184":  [
+                                                   "volume_from_ratio_error",
+                                                   "segment_ratio_to_length_conversion_failure"
+                                               ],
+                               "M2_NE_PT185":  [
+                                                   "volume_from_ratio_error",
+                                                   "segment_ratio_to_length_conversion_failure"
+                                               ],
+                               "M2_NE_PT190":  [
+                                                   "simplify_before_substitute_omitted",
+                                                   "negative_fraction_substitution_error"
+                                               ],
+                               "M2_NE_PT191":  [
+                                                   "simplify_before_substitute_omitted",
+                                                   "negative_fraction_substitution_error"
+                                               ],
+                               "M2_NE_PT193":  [
+                                                   "substitution_parenthesis_omission",
+                                                   "multi_expression_dependency_error"
+                                               ],
+                               "M2_NE_PT194":  [
+                                                   "substitution_parenthesis_omission",
+                                                   "multi_expression_dependency_error"
+                                               ]
+                           }
+}

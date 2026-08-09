@@ -1,0 +1,178 @@
+{
+    "version":  "m2_geometry_properties-pt-fine-error-tags-overlay-v1",
+    "unit":  "m2_geometry_properties",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  27,
+    "total_pt":  140,
+    "pt_fine_error_tags":  {
+                               "M2_GEOM_PT023":  [
+                                                     "angle_bisector_chain_integration_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "isosceles_triangle_angle_chain_failure",
+                                                     "isosceles_altitude_bisection_overlooked",
+                                                     "segment_partition_tracking_failure",
+                                                     "area_formula_setup_error",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M2_GEOM_PT026":  [
+                                                     "triangle_congruence_condition_selection_failure",
+                                                     "isosceles_triangle_angle_chain_failure",
+                                                     "segment_partition_tracking_failure"
+                                                 ],
+                               "M2_GEOM_PT029":  [
+                                                     "triangle_congruence_condition_selection_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "area_formula_setup_error",
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M2_GEOM_PT038":  [
+                                                     "circumcenter_equidistance_relation_failure",
+                                                     "circumcenter_perpendicular_bisector_relation_failure",
+                                                     "law_selection_error"
+                                                 ],
+                               "M2_GEOM_PT041":  [
+                                                     "circumcenter_equidistance_relation_failure",
+                                                     "isosceles_triangle_angle_chain_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "diameter_right_angle_condition_omitted",
+                                                     "parallel_line_angle_transfer_failure",
+                                                     "central_inscribed_angle_factor_confusion",
+                                                     "midpoint_length_relation_error",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M2_GEOM_PT044":  [
+                                                     "circumcenter_equidistance_relation_failure",
+                                                     "isosceles_triangle_angle_chain_failure",
+                                                     "angle_correspondence_chain_failure"
+                                                 ],
+                               "M2_GEOM_PT047":  [
+                                                     "angle_bisector_chain_integration_failure",
+                                                     "area_formula_setup_error",
+                                                     "law_selection_error"
+                                                 ],
+                               "M2_GEOM_PT050":  [
+                                                     "incenter_angle_bisector_relation_failure",
+                                                     "tangent_radius_perpendicularity_omitted",
+                                                     "law_selection_error"
+                                                 ],
+                               "M2_GEOM_PT053":  [
+                                                     "incenter_angle_bisector_relation_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "multi_step_composite_error",
+                                                     "area_inradius_relation_setup_failure",
+                                                     "right_triangle_tangent_partition_failure",
+                                                     "semiperimeter_tangent_partition_failure",
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "angle_bisector_chain_integration_failure",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M2_GEOM_PT055":  [
+                                                     "law_selection_error",
+                                                     "circumcenter_perpendicular_bisector_relation_failure",
+                                                     "incenter_angle_bisector_relation_failure"
+                                                 ],
+                               "M2_GEOM_PT067":  [
+                                                     "parallelogram_condition_converse_failure",
+                                                     "law_selection_error",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M2_GEOM_PT071":  [
+                                                     "parallel_line_angle_transfer_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "isosceles_triangle_angle_chain_failure"
+                                                 ],
+                               "M2_GEOM_PT074":  [
+                                                     "law_selection_error",
+                                                     "multi_stage_motion_distance_setup_failure",
+                                                     "midpoint_length_relation_error",
+                                                     "segment_partition_tracking_failure",
+                                                     "composite_path_length_decomposition_failure",
+                                                     "triangle_congruence_condition_selection_failure"
+                                                 ],
+                               "M2_GEOM_PT077":  [
+                                                     "law_selection_error",
+                                                     "triangle_congruence_condition_selection_failure",
+                                                     "angle_correspondence_chain_failure"
+                                                 ],
+                               "M2_GEOM_PT080":  [
+                                                     "law_selection_error",
+                                                     "angle_bisector_chain_integration_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M2_GEOM_PT083":  [
+                                                     "law_selection_error",
+                                                     "angle_correspondence_chain_failure",
+                                                     "triangle_congruence_condition_selection_failure"
+                                                 ],
+                               "M2_GEOM_PT086":  [
+                                                     "parallel_line_angle_transfer_failure",
+                                                     "triangle_congruence_condition_selection_failure",
+                                                     "area_decomposition_equation_setup_failure"
+                                                 ],
+                               "M2_GEOM_PT089":  [
+                                                     "quadrilateral_hierarchy_classification_failure",
+                                                     "law_selection_error"
+                                                 ],
+                               "M2_GEOM_PT092":  [
+                                                     "law_selection_error",
+                                                     "angle_correspondence_chain_failure"
+                                                 ],
+                               "M2_GEOM_PT100":  [
+                                                     "parallelogram_condition_converse_failure",
+                                                     "midpoint_length_relation_error",
+                                                     "triangle_congruence_condition_selection_failure",
+                                                     "multiple_answer_omission",
+                                                     "composite_path_length_decomposition_failure"
+                                                 ],
+                               "M2_GEOM_PT103":  [
+                                                     "law_selection_error",
+                                                     "parallelogram_condition_converse_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M2_GEOM_PT104":  [
+                                                     "law_selection_error",
+                                                     "triangle_congruence_condition_selection_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M2_GEOM_PT107":  [
+                                                     "paper_fold_reflection_distance_mapping_failure",
+                                                     "parallel_line_angle_transfer_failure",
+                                                     "angle_correspondence_chain_failure"
+                                                 ],
+                               "M2_GEOM_PT116":  [
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "same_altitude_area_ratio_transfer_failure",
+                                                     "triangle_congruence_condition_selection_failure",
+                                                     "composite_area_subtraction_failure",
+                                                     "ratio_setup_from_geometry_failure",
+                                                     "parallel_line_angle_transfer_failure",
+                                                     "answer_format_mismatch",
+                                                     "law_selection_error"
+                                                 ],
+                               "M2_GEOM_PT119":  [
+                                                     "circumcenter_equidistance_relation_failure",
+                                                     "incenter_angle_bisector_relation_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "diameter_right_angle_condition_omitted",
+                                                     "right_triangle_tangent_partition_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "parallel_line_angle_transfer_failure",
+                                                     "isosceles_triangle_angle_chain_failure"
+                                                 ],
+                               "M2_GEOM_PT134":  [
+                                                     "law_selection_error",
+                                                     "segment_partition_tracking_failure",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M2_GEOM_PT140":  [
+                                                     "midpoint_length_relation_error",
+                                                     "midpoint_area_fraction_relation_misapplied",
+                                                     "parallelogram_condition_converse_failure",
+                                                     "multi_triangle_length_chain_failure",
+                                                     "composite_path_length_decomposition_failure",
+                                                     "angle_correspondence_chain_failure"
+                                                 ]
+                           }
+}

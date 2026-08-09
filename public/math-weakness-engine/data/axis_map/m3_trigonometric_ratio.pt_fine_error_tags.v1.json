@@ -1,0 +1,457 @@
+{
+    "version":  "m3_trigonometric_ratio-pt-fine-error-tags-overlay-v1",
+    "unit":  "m3_trigonometric_ratio",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  86,
+    "total_pt":  108,
+    "pt_fine_error_tags":  {
+                               "M3_TRIG_PT001":  [
+                                                     "trig_ratio_side_role_confusion",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT002":  [
+                                                     "trig_ratio_side_role_confusion",
+                                                     "pythagorean_setup_failure",
+                                                     "segment_partition_tracking_failure"
+                                                 ],
+                               "M3_TRIG_PT004":  [
+                                                     "trig_ratio_triangle_reconstruction_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_TRIG_PT005":  [
+                                                     "trig_ratio_triangle_reconstruction_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_TRIG_PT007":  [
+                                                     "trig_ratio_triangle_reconstruction_failure",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT008":  [
+                                                     "trig_ratio_triangle_reconstruction_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "complementary_angle_conversion_error"
+                                                 ],
+                               "M3_TRIG_PT009":  [
+                                                     "trig_ratio_triangle_reconstruction_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "multi_step_geometry_trig_transfer_failure"
+                                                 ],
+                               "M3_TRIG_PT010":  [
+                                                     "similar_triangle_correspondence_setup_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "right_triangle_trig_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT011":  [
+                                                     "similar_triangle_correspondence_setup_failure",
+                                                     "right_triangle_altitude_geometric_mean_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "right_triangle_trig_setup_failure",
+                                                     "multi_step_geometry_trig_transfer_failure",
+                                                     "trig_ratio_side_role_confusion"
+                                                 ],
+                               "M3_TRIG_PT012":  [
+                                                     "similar_triangle_correspondence_setup_failure",
+                                                     "coordinate_projection_from_similarity_failure",
+                                                     "multi_step_geometry_trig_transfer_failure",
+                                                     "angle_bisector_chain_integration_failure"
+                                                 ],
+                               "M3_TRIG_PT014":  [
+                                                     "line_slope_to_trig_ratio_conversion_failure",
+                                                     "axis_intercept_triangle_setup_failure",
+                                                     "trig_ratio_side_role_confusion"
+                                                 ],
+                               "M3_TRIG_PT015":  [
+                                                     "line_slope_to_trig_ratio_conversion_failure",
+                                                     "axis_intercept_triangle_setup_failure",
+                                                     "multiple_line_angle_comparison_failure",
+                                                     "right_triangle_trig_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT016":  [
+                                                     "pythagorean_setup_failure",
+                                                     "auxiliary_line_construction_failure"
+                                                 ],
+                               "M3_TRIG_PT017":  [
+                                                     "auxiliary_line_construction_failure",
+                                                     "common_altitude_sine_ratio_transfer_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "isosceles_altitude_bisection_overlooked"
+                                                 ],
+                               "M3_TRIG_PT018":  [
+                                                     "auxiliary_line_construction_failure",
+                                                     "overlapping_rotated_figure_congruence_failure"
+                                                 ],
+                               "M3_TRIG_PT020":  [
+                                                     "spatial_cross_section_identification_failure",
+                                                     "three_dimensional_length_reduction_failure",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT021":  [
+                                                     "spatial_cross_section_identification_failure",
+                                                     "three_dimensional_length_reduction_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "oblique_section_projection_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT024":  [
+                                                     "circle_chord_right_triangle_integration_failure",
+                                                     "chord_midpoint_from_center_perpendicular_omitted",
+                                                     "isosceles_altitude_bisection_overlooked"
+                                                 ],
+                               "M3_TRIG_PT025":  [
+                                                     "special_angle_trig_value_recall_error",
+                                                     "mixed_trig_expression_arithmetic_error"
+                                                 ],
+                               "M3_TRIG_PT026":  [
+                                                     "special_angle_trig_value_recall_error",
+                                                     "mixed_trig_expression_arithmetic_error",
+                                                     "equilateral_midpoint_angle_derivation_failure",
+                                                     "answer_format_mismatch"
+                                                 ],
+                               "M3_TRIG_PT028":  [
+                                                     "special_angle_trig_value_recall_error",
+                                                     "range_condition_branch_selection_failure",
+                                                     "inverse_operation_setup_error"
+                                                 ],
+                               "M3_TRIG_PT031":  [
+                                                     "trig_ratio_side_role_confusion",
+                                                     "composite_length_accumulation_error",
+                                                     "special_angle_trig_value_recall_error",
+                                                     "multi_step_geometry_trig_transfer_failure",
+                                                     "shared_altitude_length_chain_failure"
+                                                 ],
+                               "M3_TRIG_PT032":  [
+                                                     "special_angle_trig_value_recall_error",
+                                                     "multi_step_geometry_trig_transfer_failure",
+                                                     "trig_ratio_side_role_confusion",
+                                                     "shared_altitude_length_chain_failure",
+                                                     "composite_length_accumulation_error"
+                                                 ],
+                               "M3_TRIG_PT035":  [
+                                                     "spatial_cross_section_identification_failure",
+                                                     "three_dimensional_length_reduction_failure",
+                                                     "special_angle_trig_value_recall_error"
+                                                 ],
+                               "M3_TRIG_PT036":  [
+                                                     "spatial_cross_section_identification_failure",
+                                                     "three_dimensional_length_reduction_failure",
+                                                     "special_angle_trig_value_recall_error"
+                                                 ],
+                               "M3_TRIG_PT037":  [
+                                                     "special_angle_trig_value_recall_error",
+                                                     "range_condition_branch_selection_failure",
+                                                     "mixed_trig_expression_arithmetic_error",
+                                                     "auxiliary_line_construction_failure",
+                                                     "radical_ratio_simplification_error"
+                                                 ],
+                               "M3_TRIG_PT038":  [
+                                                     "special_angle_identification_from_tangent_failure",
+                                                     "special_angle_trig_value_recall_error",
+                                                     "range_condition_branch_selection_failure",
+                                                     "mixed_trig_expression_arithmetic_error",
+                                                     "auxiliary_line_construction_failure",
+                                                     "radical_ratio_simplification_error"
+                                                 ],
+                               "M3_TRIG_PT039":  [
+                                                     "auxiliary_line_construction_failure"
+                                                 ],
+                               "M3_TRIG_PT041":  [
+                                                     "line_slope_to_trig_ratio_conversion_failure",
+                                                     "special_angle_trig_value_recall_error"
+                                                 ],
+                               "M3_TRIG_PT042":  [
+                                                     "line_slope_to_trig_ratio_conversion_failure",
+                                                     "special_angle_trig_value_recall_error",
+                                                     "mixed_trig_expression_arithmetic_error"
+                                                 ],
+                               "M3_TRIG_PT043":  [
+                                                     "special_angle_area_height_failure",
+                                                     "area_formula_setup_error",
+                                                     "multi_step_geometry_trig_transfer_failure"
+                                                 ],
+                               "M3_TRIG_PT044":  [
+                                                     "special_angle_area_height_failure",
+                                                     "area_formula_setup_error",
+                                                     "multi_step_geometry_trig_transfer_failure",
+                                                     "composite_area_subtraction_failure",
+                                                     "answer_format_mismatch"
+                                                 ],
+                               "M3_TRIG_PT045":  [
+                                                     "composite_area_subtraction_failure",
+                                                     "answer_format_mismatch",
+                                                     "symmetry_congruence_angle_transfer_failure"
+                                                 ],
+                               "M3_TRIG_PT046":  [
+                                                     "coordinate_projection_axis_confusion",
+                                                     "trig_ratio_side_role_confusion"
+                                                 ],
+                               "M3_TRIG_PT047":  [
+                                                     "coordinate_projection_axis_confusion",
+                                                     "trig_ratio_side_role_confusion",
+                                                     "area_formula_setup_error",
+                                                     "complementary_angle_conversion_error",
+                                                     "scaled_radius_coordinate_conversion_failure"
+                                                 ],
+                               "M3_TRIG_PT048":  [
+                                                     "coordinate_projection_axis_confusion",
+                                                     "trig_ratio_side_role_confusion",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_TRIG_PT049":  [
+                                                     "special_angle_trig_value_recall_error"
+                                                 ],
+                               "M3_TRIG_PT050":  [
+                                                     "special_angle_trig_value_recall_error",
+                                                     "isosceles_altitude_bisection_overlooked",
+                                                     "complementary_angle_conversion_error"
+                                                 ],
+                               "M3_TRIG_PT052":  [
+                                                     "trig_monotonic_direction_confusion",
+                                                     "mixed_function_ordering_failure"
+                                                 ],
+                               "M3_TRIG_PT053":  [
+                                                     "trig_monotonic_direction_confusion",
+                                                     "mixed_function_ordering_failure",
+                                                     "coordinate_projection_axis_confusion",
+                                                     "complementary_angle_conversion_error"
+                                                 ],
+                               "M3_TRIG_PT054":  [
+                                                     "trig_monotonic_direction_confusion",
+                                                     "mixed_function_ordering_failure"
+                                                 ],
+                               "M3_TRIG_PT055":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "trig_expression_sign_determination_error",
+                                                     "range_condition_branch_selection_failure"
+                                                 ],
+                               "M3_TRIG_PT056":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "trig_expression_sign_determination_error",
+                                                     "range_condition_branch_selection_failure"
+                                                 ],
+                               "M3_TRIG_PT057":  [
+                                                     "absolute_value_from_square_root_omitted",
+                                                     "trig_expression_sign_determination_error",
+                                                     "range_condition_branch_selection_failure"
+                                                 ],
+                               "M3_TRIG_PT059":  [
+                                                     "trig_table_value_selection_error"
+                                                 ],
+                               "M3_TRIG_PT060":  [
+                                                     "trig_table_value_selection_error",
+                                                     "complementary_angle_conversion_error",
+                                                     "rounding_instruction_overlooked"
+                                                 ],
+                               "M3_TRIG_PT061":  [
+                                                     "trig_table_value_selection_error",
+                                                     "right_triangle_trig_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT063":  [
+                                                     "trig_table_value_selection_error",
+                                                     "coordinate_projection_axis_confusion"
+                                                 ],
+                               "M3_TRIG_PT064":  [
+                                                     "trig_table_value_selection_error",
+                                                     "coordinate_projection_axis_confusion"
+                                                 ],
+                               "M3_TRIG_PT065":  [
+                                                     "trig_table_value_selection_error",
+                                                     "coordinate_projection_axis_confusion"
+                                                 ],
+                               "M3_TRIG_PT066":  [
+                                                     "two_angle_distance_equation_setup_failure",
+                                                     "trig_table_value_selection_error",
+                                                     "rounding_instruction_overlooked",
+                                                     "coordinate_projection_axis_confusion",
+                                                     "answer_format_mismatch"
+                                                 ],
+                               "M3_TRIG_PT068":  [
+                                                     "trig_ratio_side_role_confusion",
+                                                     "multi_triangle_length_chain_failure",
+                                                     "right_triangle_trig_setup_failure",
+                                                     "complementary_angle_conversion_error"
+                                                 ],
+                               "M3_TRIG_PT069":  [
+                                                     "right_triangle_trig_setup_failure",
+                                                     "trig_ratio_side_role_confusion",
+                                                     "multi_triangle_length_chain_failure",
+                                                     "extremum_selection_error",
+                                                     "circle_chord_right_triangle_integration_failure",
+                                                     "complementary_angle_conversion_error",
+                                                     "multi_step_geometry_trig_transfer_failure"
+                                                 ],
+                               "M3_TRIG_PT070":  [
+                                                     "spatial_cross_section_identification_failure",
+                                                     "solid_measure_formula_selection_error"
+                                                 ],
+                               "M3_TRIG_PT071":  [
+                                                     "solid_measure_formula_selection_error",
+                                                     "spatial_cross_section_identification_failure"
+                                                 ],
+                               "M3_TRIG_PT072":  [
+                                                     "spatial_cross_section_identification_failure",
+                                                     "solid_measure_formula_selection_error",
+                                                     "prism_cross_section_area_propagation_failure",
+                                                     "developed_surface_base_circumference_mapping_failure",
+                                                     "answer_format_mismatch"
+                                                 ],
+                               "M3_TRIG_PT073":  [
+                                                     "real_world_diagram_translation_failure",
+                                                     "contextual_offset_omission"
+                                                 ],
+                               "M3_TRIG_PT074":  [
+                                                     "real_world_diagram_translation_failure",
+                                                     "contextual_offset_omission",
+                                                     "multi_stage_motion_distance_setup_failure",
+                                                     "rounding_instruction_overlooked",
+                                                     "unit_conversion_omitted"
+                                                 ],
+                               "M3_TRIG_PT075":  [
+                                                     "real_world_diagram_translation_failure",
+                                                     "contextual_offset_omission",
+                                                     "multi_stage_motion_distance_setup_failure",
+                                                     "unit_conversion_omitted"
+                                                 ],
+                               "M3_TRIG_PT076":  [
+                                                     "endpoint_angle_projection_component_confusion",
+                                                     "contextual_offset_omission",
+                                                     "difference_direction_error"
+                                                 ],
+                               "M3_TRIG_PT077":  [
+                                                     "endpoint_angle_projection_component_confusion",
+                                                     "contextual_offset_omission",
+                                                     "difference_direction_error"
+                                                 ],
+                               "M3_TRIG_PT079":  [
+                                                     "auxiliary_line_construction_failure",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT080":  [
+                                                     "auxiliary_line_construction_failure",
+                                                     "pythagorean_setup_failure",
+                                                     "obtuse_angle_supplement_conversion_error"
+                                                 ],
+                               "M3_TRIG_PT082":  [
+                                                     "altitude_base_partition_equation_failure",
+                                                     "answer_format_mismatch",
+                                                     "auxiliary_line_construction_failure",
+                                                     "endpoint_angle_projection_component_confusion"
+                                                 ],
+                               "M3_TRIG_PT083":  [
+                                                     "auxiliary_line_construction_failure",
+                                                     "endpoint_angle_projection_component_confusion",
+                                                     "rounding_instruction_overlooked"
+                                                 ],
+                               "M3_TRIG_PT084":  [
+                                                     "altitude_base_partition_equation_failure",
+                                                     "rounding_instruction_overlooked",
+                                                     "answer_format_mismatch"
+                                                 ],
+                               "M3_TRIG_PT085":  [
+                                                     "altitude_base_partition_equation_failure",
+                                                     "trig_table_value_selection_error",
+                                                     "area_decomposition_equation_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT086":  [
+                                                     "altitude_base_partition_equation_failure",
+                                                     "median_segment_area_setup_failure",
+                                                     "trig_table_value_selection_error",
+                                                     "two_angle_distance_equation_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT087":  [
+                                                     "two_angle_distance_equation_setup_failure",
+                                                     "rounding_instruction_overlooked"
+                                                 ],
+                               "M3_TRIG_PT089":  [
+                                                     "auxiliary_line_construction_failure",
+                                                     "obtuse_angle_supplement_conversion_error",
+                                                     "base_extension_difference_equation_failure",
+                                                     "two_angle_distance_equation_setup_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_TRIG_PT090":  [
+                                                     "auxiliary_line_construction_failure",
+                                                     "obtuse_angle_supplement_conversion_error",
+                                                     "base_extension_difference_equation_failure"
+                                                 ],
+                               "M3_TRIG_PT091":  [
+                                                     "triangle_area_sine_factor_omitted"
+                                                 ],
+                               "M3_TRIG_PT092":  [
+                                                     "triangle_area_sine_factor_omitted",
+                                                     "percentage_scale_factor_conversion_error",
+                                                     "area_ratio_to_side_ratio_conversion_failure",
+                                                     "same_altitude_area_ratio_transfer_failure",
+                                                     "area_decomposition_equation_setup_failure"
+                                                 ],
+                               "M3_TRIG_PT093":  [
+                                                     "triangle_area_sine_factor_omitted",
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "percentage_scale_factor_conversion_error",
+                                                     "composite_area_subtraction_failure",
+                                                     "similarity_based_subtriangle_area_failure"
+                                                 ],
+                               "M3_TRIG_PT095":  [
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "triangle_area_sine_factor_omitted",
+                                                     "obtuse_angle_supplement_conversion_error"
+                                                 ],
+                               "M3_TRIG_PT096":  [
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "equilateral_area_relation_transfer_failure",
+                                                     "scaled_extension_area_ratio_failure"
+                                                 ],
+                               "M3_TRIG_PT098":  [
+                                                     "polygon_triangulation_area_decomposition_failure",
+                                                     "triangle_area_sine_factor_omitted",
+                                                     "same_altitude_area_ratio_transfer_failure",
+                                                     "answer_format_mismatch"
+                                                 ],
+                               "M3_TRIG_PT099":  [
+                                                     "polygon_triangulation_area_decomposition_failure",
+                                                     "triangle_area_sine_factor_omitted",
+                                                     "midpoint_area_fraction_relation_misapplied"
+                                                 ],
+                               "M3_TRIG_PT100":  [
+                                                     "regular_spacing_arc_count_error",
+                                                     "polygon_triangulation_area_decomposition_failure"
+                                                 ],
+                               "M3_TRIG_PT101":  [
+                                                     "regular_spacing_arc_count_error",
+                                                     "polygon_triangulation_area_decomposition_failure"
+                                                 ],
+                               "M3_TRIG_PT102":  [
+                                                     "regular_spacing_arc_count_error",
+                                                     "polygon_triangulation_area_decomposition_failure",
+                                                     "midpoint_area_fraction_relation_misapplied",
+                                                     "auxiliary_line_construction_failure",
+                                                     "special_angle_area_height_failure"
+                                                 ],
+                               "M3_TRIG_PT103":  [
+                                                     "triangle_area_sine_factor_omitted",
+                                                     "midpoint_area_fraction_relation_misapplied"
+                                                 ],
+                               "M3_TRIG_PT104":  [
+                                                     "triangle_area_sine_factor_omitted",
+                                                     "midpoint_area_fraction_relation_misapplied",
+                                                     "final_form_reduction_omitted",
+                                                     "ratio_setup_from_geometry_failure"
+                                                 ],
+                               "M3_TRIG_PT105":  [
+                                                     "triangle_area_sine_factor_omitted",
+                                                     "midpoint_area_fraction_relation_misapplied"
+                                                 ],
+                               "M3_TRIG_PT106":  [
+                                                     "quadrilateral_diagonal_area_formula_factor_error",
+                                                     "diagonal_included_angle_derivation_failure",
+                                                     "range_condition_branch_selection_failure"
+                                                 ],
+                               "M3_TRIG_PT107":  [
+                                                     "diagonal_included_angle_derivation_failure",
+                                                     "quadrilateral_diagonal_area_formula_factor_error",
+                                                     "maximum_area_condition_overlooked",
+                                                     "range_condition_branch_selection_failure",
+                                                     "obtuse_angle_supplement_conversion_error"
+                                                 ]
+                           }
+}

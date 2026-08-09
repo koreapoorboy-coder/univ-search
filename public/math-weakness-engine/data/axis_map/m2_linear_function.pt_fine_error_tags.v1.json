@@ -1,0 +1,232 @@
+{
+    "version":  "m2_linear_function-pt-fine-error-tags-overlay-v1",
+    "unit":  "m2_linear_function",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  45,
+    "total_pt":  144,
+    "pt_fine_error_tags":  {
+                               "M2_LF_PT001":  [
+                                                   "linear_rate_slope_conversion_failure",
+                                                   "graph_property_statement_evaluation_failure",
+                                                   "function_mapping_uniqueness_failure",
+                                                   "negation_condition_misread"
+                                               ],
+                               "M2_LF_PT004":  [
+                                                   "function_mapping_uniqueness_failure",
+                                                   "multi_constraint_intersection_failure"
+                                               ],
+                               "M2_LF_PT013":  [
+                                                   "pattern_extraction_failure",
+                                                   "cycle_length_miscount",
+                                                   "abstract_notation_application_failure",
+                                                   "integer_candidate_enumeration_gap",
+                                                   "substitution_parenthesis_omission",
+                                                   "multi_expression_dependency_error"
+                                               ],
+                               "M2_LF_PT016":  [
+                                                   "substitution_parenthesis_omission",
+                                                   "operation_order_violation"
+                                               ],
+                               "M2_LF_PT020":  [
+                                                   "multi_expression_dependency_error",
+                                                   "inverse_operation_setup_error"
+                                               ],
+                               "M2_LF_PT022":  [
+                                                   "degree_term_confusion",
+                                                   "excluded_case_omission"
+                                               ],
+                               "M2_LF_PT024":  [
+                                                   "linear_rate_slope_conversion_failure",
+                                                   "sign_propagation_error"
+                                               ],
+                               "M2_LF_PT031":  [
+                                                   "graph_translation_intercept_update_failure",
+                                                   "linear_equation_reconstruction_failure"
+                                               ],
+                               "M2_LF_PT039":  [
+                                                   "slope_change_ratio_setup_failure",
+                                                   "difference_direction_error"
+                                               ],
+                               "M2_LF_PT042":  [
+                                                   "slope_magnitude_graph_comparison_error",
+                                                   "range_constraint_dropped"
+                                               ],
+                               "M2_LF_PT043":  [
+                                                   "slope_sign_graph_direction_confusion",
+                                                   "graph_property_statement_evaluation_failure",
+                                                   "multiple_answer_omission"
+                                               ],
+                               "M2_LF_PT045":  [
+                                                   "slope_change_ratio_setup_failure",
+                                                   "difference_direction_error"
+                                               ],
+                               "M2_LF_PT048":  [
+                                                   "slope_change_ratio_setup_failure",
+                                                   "multi_constraint_intersection_failure",
+                                                   "difference_direction_error"
+                                               ],
+                               "M2_LF_PT052":  [
+                                                   "linear_equation_reconstruction_failure",
+                                                   "multi_expression_dependency_error"
+                                               ],
+                               "M2_LF_PT055":  [
+                                                   "linear_equation_reconstruction_failure",
+                                                   "slope_sign_graph_direction_confusion"
+                                               ],
+                               "M2_LF_PT057":  [
+                                                   "axis_intercept_triangle_setup_failure",
+                                                   "area_formula_setup_error"
+                                               ],
+                               "M2_LF_PT060":  [
+                                                   "axis_intercept_triangle_setup_failure",
+                                                   "area_formula_setup_error",
+                                                   "range_constraint_dropped"
+                                               ],
+                               "M2_LF_PT066":  [
+                                                   "parameter_sign_to_graph_mapping_failure",
+                                                   "condition_negation_error",
+                                                   "multi_constraint_intersection_failure",
+                                                   "graph_property_statement_evaluation_failure"
+                                               ],
+                               "M2_LF_PT070":  [
+                                                   "parameter_sign_to_graph_mapping_failure",
+                                                   "linear_equation_form_conversion_failure",
+                                                   "sign_propagation_error"
+                                               ],
+                               "M2_LF_PT072":  [
+                                                   "graph_translation_intercept_update_failure",
+                                                   "graph_property_statement_evaluation_failure"
+                                               ],
+                               "M2_LF_PT073":  [
+                                                   "parallel_slope_condition_omitted",
+                                                   "linear_equation_reconstruction_failure",
+                                                   "multi_expression_dependency_error",
+                                                   "slope_change_ratio_setup_failure"
+                                               ],
+                               "M2_LF_PT080":  [
+                                                   "coincident_line_parameter_matching_failure",
+                                                   "multi_constraint_intersection_failure"
+                                               ],
+                               "M2_LF_PT084":  [
+                                                   "slope_change_ratio_setup_failure",
+                                                   "linear_equation_form_conversion_failure"
+                                               ],
+                               "M2_LF_PT087":  [
+                                                   "slope_change_ratio_setup_failure",
+                                                   "difference_direction_error",
+                                                   "linear_equation_reconstruction_failure"
+                                               ],
+                               "M2_LF_PT092":  [
+                                                   "slope_change_ratio_setup_failure",
+                                                   "linear_equation_reconstruction_failure"
+                                               ],
+                               "M2_LF_PT096":  [
+                                                   "linear_equation_reconstruction_failure",
+                                                   "multi_expression_dependency_error",
+                                                   "substitution_direction_error"
+                                               ],
+                               "M2_LF_PT100":  [
+                                                   "slope_change_ratio_setup_failure",
+                                                   "graph_translation_intercept_update_failure",
+                                                   "intended_vs_actual_value_swap",
+                                                   "linear_equation_form_conversion_failure",
+                                                   "answer_stage_confusion"
+                                               ],
+                               "M2_LF_PT101":  [
+                                                   "unit_conversion_omitted",
+                                                   "multi_stage_motion_distance_setup_failure"
+                                               ],
+                               "M2_LF_PT104":  [
+                                                   "linear_rate_slope_conversion_failure",
+                                                   "contextual_offset_omission",
+                                                   "pattern_extraction_failure",
+                                                   "stage_indexing_error",
+                                                   "inverse_operation_setup_error"
+                                               ],
+                               "M2_LF_PT107":  [
+                                                   "variable_length_assignment_failure",
+                                                   "area_formula_setup_error"
+                                               ],
+                               "M2_LF_PT111":  [
+                                                   "linear_equation_form_conversion_failure",
+                                                   "parameter_sign_to_graph_mapping_failure"
+                                               ],
+                               "M2_LF_PT112":  [
+                                                   "discrete_solution_graph_continuity_error",
+                                                   "range_constraint_dropped",
+                                                   "integer_candidate_enumeration_gap"
+                                               ],
+                               "M2_LF_PT113":  [
+                                                   "substitution_parenthesis_omission",
+                                                   "multi_expression_dependency_error"
+                                               ],
+                               "M2_LF_PT117":  [
+                                                   "parallel_slope_condition_omitted",
+                                                   "inequality_bound_conversion_error"
+                                               ],
+                               "M2_LF_PT118":  [
+                                                   "linear_equation_form_conversion_failure",
+                                                   "parameter_sign_to_graph_mapping_failure",
+                                                   "multi_expression_dependency_error",
+                                                   "multiple_answer_omission"
+                                               ],
+                               "M2_LF_PT119":  [
+                                                   "linear_equation_form_conversion_failure",
+                                                   "multi_expression_dependency_error"
+                                               ],
+                               "M2_LF_PT120":  [
+                                                   "parallel_slope_condition_omitted",
+                                                   "linear_equation_form_conversion_failure",
+                                                   "graph_property_statement_evaluation_failure"
+                                               ],
+                               "M2_LF_PT124":  [
+                                                   "variable_length_assignment_failure",
+                                                   "area_formula_setup_error",
+                                                   "linear_equation_form_conversion_failure",
+                                                   "multi_constraint_intersection_failure"
+                                               ],
+                               "M2_LF_PT125":  [
+                                                   "axis_intercept_triangle_setup_failure",
+                                                   "area_formula_setup_error",
+                                                   "multi_expression_dependency_error",
+                                                   "line_intersection_coordinate_failure"
+                                               ],
+                               "M2_LF_PT127":  [
+                                                   "line_intersection_coordinate_failure",
+                                                   "area_formula_setup_error",
+                                                   "parallel_slope_condition_omitted",
+                                                   "linear_function_region_area_case_split_failure",
+                                                   "multiple_answer_omission"
+                                               ],
+                               "M2_LF_PT130":  [
+                                                   "line_intersection_coordinate_failure",
+                                                   "multi_expression_dependency_error"
+                                               ],
+                               "M2_LF_PT136":  [
+                                                   "coincident_line_parameter_matching_failure",
+                                                   "linear_equation_form_conversion_failure"
+                                               ],
+                               "M2_LF_PT137":  [
+                                                   "line_configuration_case_split_failure",
+                                                   "multiple_answer_omission",
+                                                   "line_intersection_coordinate_failure"
+                                               ],
+                               "M2_LF_PT138":  [
+                                                   "line_intersection_coordinate_failure",
+                                                   "linear_equation_reconstruction_failure",
+                                                   "multi_expression_dependency_error",
+                                                   "difference_direction_error",
+                                                   "slope_change_ratio_setup_failure"
+                                               ],
+                               "M2_LF_PT142":  [
+                                                   "line_intersection_parameter_range_failure",
+                                                   "inequality_bound_conversion_error",
+                                                   "linear_equation_reconstruction_failure",
+                                                   "multi_expression_dependency_error",
+                                                   "extremum_selection_error",
+                                                   "line_intersection_coordinate_failure",
+                                                   "area_bisecting_line_condition_failure",
+                                                   "area_formula_setup_error"
+                                               ]
+                           }
+}

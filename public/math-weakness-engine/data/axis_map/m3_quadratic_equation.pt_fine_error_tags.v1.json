@@ -1,0 +1,405 @@
+{
+    "version":  "m3_quadratic_equation-pt-fine-error-tags-overlay-v1",
+    "unit":  "m3_quadratic_equation",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  82,
+    "total_pt":  144,
+    "pt_fine_error_tags":  {
+                               "M3_QUAD_PT004":  [
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_QUAD_PT006":  [
+                                                     "root_condition_substitution_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "substitution_parenthesis_omission"
+                                                 ],
+                               "M3_QUAD_PT007":  [
+                                                     "root_condition_substitution_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "substitution_parenthesis_omission"
+                                                 ],
+                               "M3_QUAD_PT008":  [
+                                                     "root_relation_reduction_failure",
+                                                     "simplify_before_substitute_omitted",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT009":  [
+                                                     "root_relation_reduction_failure",
+                                                     "simplify_before_substitute_omitted",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT013":  [
+                                                     "zero_product_property_application_failure",
+                                                     "multi_step_composite_error",
+                                                     "difference_direction_error"
+                                                 ],
+                               "M3_QUAD_PT014":  [
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "conjugate_rationalization_setup_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_QUAD_PT015":  [
+                                                     "root_condition_substitution_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT016":  [
+                                                     "root_condition_substitution_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT017":  [
+                                                     "root_condition_substitution_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_QUAD_PT018":  [
+                                                     "root_condition_substitution_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT019":  [
+                                                     "root_condition_substitution_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT020":  [
+                                                     "root_condition_substitution_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT022":  [
+                                                     "perfect_square_trinomial_condition_failure",
+                                                     "law_selection_error",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_QUAD_PT023":  [
+                                                     "root_count_discriminant_condition_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "pattern_extraction_failure"
+                                                 ],
+                               "M3_QUAD_PT024":  [
+                                                     "root_count_discriminant_condition_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT025":  [
+                                                     "multi_constraint_intersection_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "root_condition_substitution_failure"
+                                                 ],
+                               "M3_QUAD_PT026":  [
+                                                     "multi_constraint_intersection_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "root_condition_substitution_failure"
+                                                 ],
+                               "M3_QUAD_PT027":  [
+                                                     "multi_constraint_intersection_failure",
+                                                     "factor_pair_sum_product_matching_failure",
+                                                     "root_condition_substitution_failure"
+                                                 ],
+                               "M3_QUAD_PT029":  [
+                                                     "inverse_operation_setup_error",
+                                                     "multiple_answer_omission",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT030":  [
+                                                     "range_constraint_dropped",
+                                                     "law_selection_error"
+                                                 ],
+                               "M3_QUAD_PT032":  [
+                                                     "range_constraint_dropped",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT033":  [
+                                                     "range_constraint_dropped",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "inverse_operation_setup_error",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_QUAD_PT036":  [
+                                                     "square_formula_middle_term_error",
+                                                     "inverse_operation_setup_error",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_QUAD_PT037":  [
+                                                     "square_formula_middle_term_error",
+                                                     "inverse_operation_setup_error",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_QUAD_PT038":  [
+                                                     "quadratic_formula_coefficient_substitution_failure",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_QUAD_PT041":  [
+                                                     "quadratic_formula_coefficient_substitution_failure",
+                                                     "sign_propagation_error"
+                                                 ],
+                               "M3_QUAD_PT043":  [
+                                                     "quadratic_formula_coefficient_substitution_failure",
+                                                     "sign_propagation_error",
+                                                     "multi_expression_dependency_error",
+                                                     "answer_stage_confusion",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT044":  [
+                                                     "quadratic_formula_coefficient_substitution_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "answer_stage_confusion"
+                                                 ],
+                               "M3_QUAD_PT049":  [
+                                                     "parenthesis_sign_distribution_error",
+                                                     "like_term_misgrouping",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT050":  [
+                                                     "fraction_coefficient_lcd_error",
+                                                     "like_term_misgrouping",
+                                                     "quadratic_formula_coefficient_substitution_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT052":  [
+                                                     "fraction_coefficient_lcd_error",
+                                                     "like_term_misgrouping",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "quadratic_formula_coefficient_substitution_failure"
+                                                 ],
+                               "M3_QUAD_PT053":  [
+                                                     "power_of_ten_extraction_failure",
+                                                     "like_term_misgrouping",
+                                                     "law_selection_error"
+                                                 ],
+                               "M3_QUAD_PT055":  [
+                                                     "power_of_ten_extraction_failure",
+                                                     "integer_candidate_enumeration_gap",
+                                                     "like_term_misgrouping",
+                                                     "extremum_selection_error"
+                                                 ],
+                               "M3_QUAD_PT060":  [
+                                                     "common_subexpression_substitution_failure",
+                                                     "multi_step_composite_error",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT062":  [
+                                                     "custom_operator_definition_misapplication",
+                                                     "substitution_parenthesis_omission",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT063":  [
+                                                     "root_count_discriminant_condition_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_QUAD_PT065":  [
+                                                     "root_count_discriminant_condition_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT066":  [
+                                                     "root_count_discriminant_condition_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT067":  [
+                                                     "root_count_discriminant_condition_failure",
+                                                     "inequality_bound_conversion_error",
+                                                     "multi_expression_dependency_error",
+                                                     "pattern_extraction_failure",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT068":  [
+                                                     "root_count_discriminant_condition_failure",
+                                                     "inequality_bound_conversion_error"
+                                                 ],
+                               "M3_QUAD_PT069":  [
+                                                     "root_count_discriminant_condition_failure",
+                                                     "inequality_bound_conversion_error",
+                                                     "integer_candidate_enumeration_gap"
+                                                 ],
+                               "M3_QUAD_PT078":  [
+                                                     "root_to_factor_equation_setup_failure",
+                                                     "like_term_misgrouping",
+                                                     "multi_expression_dependency_error",
+                                                     "root_condition_substitution_failure"
+                                                 ],
+                               "M3_QUAD_PT079":  [
+                                                     "root_to_factor_equation_setup_failure",
+                                                     "like_term_misgrouping",
+                                                     "irrational_integer_fractional_part_split_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT082":  [
+                                                     "root_to_factor_equation_setup_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT086":  [
+                                                     "root_to_factor_equation_setup_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT089":  [
+                                                     "root_to_factor_equation_setup_failure",
+                                                     "multi_expression_dependency_error",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT090":  [
+                                                     "intended_vs_actual_value_swap",
+                                                     "verification_missing",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT091":  [
+                                                     "intended_vs_actual_value_swap",
+                                                     "verification_missing",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT092":  [
+                                                     "irrational_conjugate_root_pair_failure",
+                                                     "root_to_factor_equation_setup_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT093":  [
+                                                     "irrational_conjugate_root_pair_failure",
+                                                     "root_to_factor_equation_setup_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT094":  [
+                                                     "irrational_conjugate_root_pair_failure",
+                                                     "root_to_factor_equation_setup_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT104":  [
+                                                     "quadratic_application_equation_setup_failure"
+                                                 ],
+                               "M3_QUAD_PT105":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "multiple_answer_omission",
+                                                     "verification_missing"
+                                                 ],
+                               "M3_QUAD_PT110":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "pattern_extraction_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT111":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "pattern_extraction_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT112":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "pattern_extraction_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT114":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "pattern_extraction_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT116":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "percentage_scale_factor_conversion_error"
+                                                 ],
+                               "M3_QUAD_PT117":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "conservation_condition_overlooked"
+                                                 ],
+                               "M3_QUAD_PT118":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_QUAD_PT119":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "multi_constraint_intersection_failure"
+                                                 ],
+                               "M3_QUAD_PT120":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "multi_constraint_intersection_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_QUAD_PT121":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "multi_constraint_intersection_failure",
+                                                     "multi_step_composite_error"
+                                                 ],
+                               "M3_QUAD_PT122":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT123":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "range_constraint_dropped"
+                                                 ],
+                               "M3_QUAD_PT125":  [
+                                                     "quadratic_application_equation_setup_failure",
+                                                     "range_constraint_dropped",
+                                                     "multi_stage_motion_distance_setup_failure"
+                                                 ],
+                               "M3_QUAD_PT126":  [
+                                                     "variable_length_assignment_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_QUAD_PT127":  [
+                                                     "variable_length_assignment_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_QUAD_PT128":  [
+                                                     "variable_length_assignment_failure",
+                                                     "similar_triangle_correspondence_setup_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_QUAD_PT129":  [
+                                                     "variable_length_assignment_failure",
+                                                     "similar_triangle_correspondence_setup_failure"
+                                                 ],
+                               "M3_QUAD_PT131":  [
+                                                     "variable_length_assignment_failure",
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT132":  [
+                                                     "variable_length_assignment_failure",
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT133":  [
+                                                     "variable_length_assignment_failure",
+                                                     "area_decomposition_equation_setup_failure",
+                                                     "multi_expression_dependency_error"
+                                                 ],
+                               "M3_QUAD_PT134":  [
+                                                     "radius_offset_equation_setup_error",
+                                                     "composite_area_subtraction_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_QUAD_PT137":  [
+                                                     "variable_length_assignment_failure",
+                                                     "area_formula_setup_error",
+                                                     "ratio_direction_inversion"
+                                                 ],
+                               "M3_QUAD_PT138":  [
+                                                     "variable_length_assignment_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_QUAD_PT139":  [
+                                                     "variable_length_assignment_failure",
+                                                     "area_formula_setup_error"
+                                                 ],
+                               "M3_QUAD_PT140":  [
+                                                     "variable_length_assignment_failure",
+                                                     "multiple_answer_omission"
+                                                 ],
+                               "M3_QUAD_PT141":  [
+                                                     "variable_length_assignment_failure",
+                                                     "volume_formula_misapplication"
+                                                 ],
+                               "M3_QUAD_PT143":  [
+                                                     "variable_length_assignment_failure",
+                                                     "composite_area_subtraction_failure",
+                                                     "area_decomposition_equation_setup_failure"
+                                                 ],
+                               "M3_QUAD_PT144":  [
+                                                     "variable_length_assignment_failure",
+                                                     "composite_area_subtraction_failure",
+                                                     "area_decomposition_equation_setup_failure"
+                                                 ]
+                           }
+}
