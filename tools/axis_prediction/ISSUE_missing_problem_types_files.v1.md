@@ -21,4 +21,10 @@
 ## 처리 (별건 트랙)
 - **PT 파일 복구**: circle·statistics의 problem_types.v1.json 생성(raw_taxonomy·item_bank가 있으니 거기서 파생 가능성 — `data/item_bank/m3_circle_properties/`·`data/raw_taxonomy` 존재 확인됨). 별도 작업.
 - 복구 후: circle는 오버레이 이미 생성돼 있으니 즉시 배선 가능(index에 fine_error_tags_overlay 추가).
-- ⚠ 배선 확대(9단원)와 **분리** — 이 트랙 없이 9단원 진행.
+- ⚠ 배선 확대(9단원)와 **분리** — 이 트랙 없이 9단원 진행. **★9단원 배포본 확정 후 착수**(circle 복구가 index를 또 건드려 원인 판별 섞이지 않게).
+
+## 복구 사전조사 (검수 4질문 답, 착수 전 확정 필요표시)
+1. **PT 파생 레시피 = 다른 단원과 동일?** 소스 = `data/raw_taxonomy/m3_circle_properties.mathflat.v1.json`(schema `mathflat_problem_type.v1`, 유형묶음→topic_types). `_note`에 **"데이터 저장만·진단 로직 미연결"** 명시 → 다른 단원은 mathflat + runtime problem_types **둘 다 보유**(변환 선례 존재). ⚠**확정 필요**: mathflat→runtime problem_types 변환 레시피가 문서/스크립트로 있는지, 다른 단원 mathflat↔problem_types 대조로 역추적. (recovery 착수 시 첫 단계.)
+2. **★핵심 리스크 — 파생 PT id가 links 참조와 일치?** links는 **`M3_CIRC_PT###` 47개** 기대(index가 이미 이 경로 참조). 파생 problem_types가 **정확히 이 id들**을 써야 붙음. mathflat에 M3_CIRC_PT id가 있는지, 없으면 부여 규칙(다른 단원 선례)을 확인해 **id 스킴 일치를 recovery 수용 기준**으로. 어긋나면 복구해도 여전히 안 붙음.
+3. **statistics(재태깅 無)는 PT 복구만으로 정상화?** PT 복구 = problem_types 로드 → **유형→개념→취약개념 코어 진단 정상화**(PT 파일만으로 동작). observed_error_tags 기반 diagnosis_rules는 error_tags(거친)가 있어야 발화하나 **코어 진단은 무관**. **⇒ statistics는 PT 복구만으로 코어 정상화**(fine/observed축은 재태깅 필요=별개·미래). circle은 오버레이까지 있어 복구 후 fine층도 즉시.
+4. **복구 검증(성공도 조용할 것)**: (a) 브라우저 `<base>/data/problem_types/m3_circle_properties.problem_types.v1.json` = **200**. (b) overlay_tester/debug로 circle·statistics 시험지 → 반환 attempts의 **`problem_type_id`가 채워지는지**(현재 `''`=실패 → 채워짐=PT 로드 성공). (c) circle은 fine태그도. **성공 신호 = problem_type_id 빈값→채워짐.**
