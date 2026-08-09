@@ -64,6 +64,27 @@
 - **결과**: 유형배정 + 실 type_name + **observed_axes(circle 오버레이 이미 있음→fine축 즉시)**. 빠지는 것 = 취약**개념** 스코어링·instruction·rules(별개 층). ⇒ "조용한 실패"→**부분이지만 실질 진단**(축·유형), bare id 껍데기 아님.
 - ⇒ **저비용에 실가치**. 내가 (가시화만으로 충분)이라 한 근거(복구=껍데기)가 무너짐 → 검수 재판단 요.
 
+## ✅✅✅ 복구 완료 (2026-08-09, type_variant_bank 조립) — 검수 4확인 답
+- **조립**: circle 47 + statistics 23 PT를 `type_variant_bank`서 생성(`B_wiring_assemble_pt.ps1`). 실 한글 type_name·id=links **완전일치**(comm 0).
+- **로드 정상화**: 원인이던 edges/rules/remediation 부재도 최소 빈파일 6개로 해결(엔진 `_loadUnits`가 problem_types+edges+rules+remediation 4개 요구, 하나라도 404면 단원 skip이었음). circle 오버레이 재생성(9단원 커밋 때 삭제됐던것).
+- **엔진 실측**: 로드 OK·skip 0·`missing_type_count=0`·circle type_name "원의 중심과 현의 수직이등분선(1)…"·**circle fine태그→observed_axes B1**·statistics 로드 정상(fine 없음). **조용한 실패 종료.**
+- **index**: circle에 fine_error_tags_overlay 추가 + **build_status 제거(둘 다)** → 가시화 경고 사라짐(복구됨).
+
+### 검수 4확인 답
+1. **레시피 vs 정상단원(type_name_source)**: bank는 **주제명**("원의 중심과 현의 수직이등분선"), 정상단원 problem_types는 **큐레이션 진단명**("a≠0 조건 확인 누락"). 성격 다름은 맞으나 **주제명도 표시용으론 유효**(무엇에 관한 문제인지 전달, bare id보다 월등). ⇒ **무방**, `type_name_source:"variant_bank"`로 표시(큐레이션분과 구분·B트랙서 교체). 
+2. **63 vs 47**: 내 "63"은 grep 아티팩트(broad M3_CIRC_PT 매칭이 비-PT필드 포함). **정확 = 47(bank)=47(links)=완전일치.** 불일치 없음.
+3. **statistics 함께 복구**: 완료(23 PT). 재태깅 없어 fine 없음(정상)·유형배정 정상화.
+4. **검증**: PT파일 유효·엔진 missing_type_count=0·problem_type_id 채워짐·circle fine→축·statistics fine없음(정상). (배포본 검증=사이트 갱신 후 overlay_tester circle.)
+
+### 전수 확인(검수 요청): type_variant_bank 있는데 problem_types 없는 단원 = **circle·statistics 딱 2개**(다른 단원 없음).
+
+### 남는 것(별도 트랙, 이번 조립과 분리)
+- **concept 정의**(M3_CIRC_C###/M3_STAT_C### 미정의) → 취약**개념** 스코어링만 빠짐(유형·축은 됨). links가 concept_ids 참조하나 정의는 없음.
+- **큐레이션 진단 type_name·error_tags·rules·edges·remediation·concepts** = 정식 빌드(B/재태깅 버킷). circle은 이미 fine층까지 돌므로 급하지 않음.
+
+---
+(이하 아래는 착수 전 조사 이력·정정 과정 기록. 위 "복구 완료"가 최종.)
+
 ## 복구 사전조사 (검수 4질문 답, 착수 전 확정 필요표시)
 1. **PT 파생 레시피 = 다른 단원과 동일?** 소스 = `data/raw_taxonomy/m3_circle_properties.mathflat.v1.json`(schema `mathflat_problem_type.v1`, 유형묶음→topic_types). `_note`에 **"데이터 저장만·진단 로직 미연결"** 명시 → 다른 단원은 mathflat + runtime problem_types **둘 다 보유**(변환 선례 존재). ⚠**확정 필요**: mathflat→runtime problem_types 변환 레시피가 문서/스크립트로 있는지, 다른 단원 mathflat↔problem_types 대조로 역추적. (recovery 착수 시 첫 단계.)
 2. **★핵심 리스크 — 파생 PT id가 links 참조와 일치?** links는 **`M3_CIRC_PT###` 47개** 기대(index가 이미 이 경로 참조). 파생 problem_types가 **정확히 이 id들**을 써야 붙음. mathflat에 M3_CIRC_PT id가 있는지, 없으면 부여 규칙(다른 단원 선례)을 확인해 **id 스킴 일치를 recovery 수용 기준**으로. 어긋나면 복구해도 여전히 안 붙음.
