@@ -1,0 +1,248 @@
+{
+    "version":  "m3_circle_properties-pt-fine-error-tags-overlay-v1",
+    "unit":  "m3_circle_properties",
+    "join":  "reflection likely_error_tags x source_item_links primary_problem_type_id, union by item_id",
+    "n_pt":  47,
+    "total_pt":  0,
+    "pt_fine_error_tags":  {
+                               "M3_CIRC_PT003":  [
+                                                     "chord_midpoint_from_center_perpendicular_omitted",
+                                                     "pythagorean_setup_failure",
+                                                     "maximum_area_condition_overlooked"
+                                                 ],
+                               "M3_CIRC_PT013":  [
+                                                     "equal_distance_chord_equivalence_misapplied",
+                                                     "chord_midpoint_from_center_perpendicular_omitted",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_CIRC_PT014":  [
+                                                     "equal_distance_chord_equivalence_misapplied",
+                                                     "chord_midpoint_from_center_perpendicular_omitted",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_CIRC_PT019":  [
+                                                     "tangent_radius_perpendicularity_omitted",
+                                                     "auxiliary_line_construction_failure",
+                                                     "isosceles_triangle_angle_chain_failure"
+                                                 ],
+                               "M3_CIRC_PT022":  [
+                                                     "two_tangent_central_angle_relation_misapplied",
+                                                     "tangent_radius_perpendicularity_omitted"
+                                                 ],
+                               "M3_CIRC_PT023":  [
+                                                     "two_tangent_central_angle_relation_misapplied",
+                                                     "tangent_radius_perpendicularity_omitted",
+                                                     "central_angle_to_arc_ratio_failure"
+                                                 ],
+                               "M3_CIRC_PT025":  [
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "composite_path_length_decomposition_failure",
+                                                     "answer_format_mismatch"
+                                                 ],
+                               "M3_CIRC_PT032":  [
+                                                     "right_triangle_trig_setup_failure",
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "radius_offset_equation_setup_error",
+                                                     "pythagorean_setup_failure",
+                                                     "segment_partition_tracking_failure"
+                                                 ],
+                               "M3_CIRC_PT033":  [
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "segment_partition_tracking_failure",
+                                                     "multi_circle_length_dependency_tracking_failure"
+                                                 ],
+                               "M3_CIRC_PT035":  [
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "semiperimeter_tangent_partition_failure",
+                                                     "area_inradius_relation_setup_failure"
+                                                 ],
+                               "M3_CIRC_PT038":  [
+                                                     "right_triangle_tangent_partition_failure"
+                                                 ],
+                               "M3_CIRC_PT039":  [
+                                                     "right_triangle_tangent_partition_failure",
+                                                     "answer_format_mismatch",
+                                                     "multi_stage_motion_distance_setup_failure"
+                                                 ],
+                               "M3_CIRC_PT044":  [
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "right_angle_tangent_partition_failure"
+                                                 ],
+                               "M3_CIRC_PT045":  [
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "right_angle_tangent_partition_failure",
+                                                     "composite_area_subtraction_failure"
+                                                 ],
+                               "M3_CIRC_PT048":  [
+                                                     "rectangle_side_partition_setup_failure",
+                                                     "final_form_reduction_omitted",
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "derived_right_triangle_equation_error",
+                                                     "multi_circle_radius_dependency_failure"
+                                                 ],
+                               "M3_CIRC_PT050":  [
+                                                     "tangent_radius_perpendicularity_omitted",
+                                                     "central_inscribed_angle_factor_confusion"
+                                                 ],
+                               "M3_CIRC_PT051":  [
+                                                     "tangent_radius_perpendicularity_omitted",
+                                                     "nested_circle_radius_relation_setup_failure"
+                                                 ],
+                               "M3_CIRC_PT052":  [
+                                                     "central_inscribed_angle_factor_confusion",
+                                                     "overlapping_circle_angle_transfer_failure",
+                                                     "central_angle_to_arc_ratio_failure"
+                                                 ],
+                               "M3_CIRC_PT053":  [
+                                                     "central_inscribed_angle_factor_confusion",
+                                                     "moving_point_angle_transfer_failure",
+                                                     "overlapping_circle_angle_transfer_failure",
+                                                     "central_angle_to_arc_ratio_failure",
+                                                     "repeated_circle_sector_decomposition_failure"
+                                                 ],
+                               "M3_CIRC_PT061":  [
+                                                     "same_arc_inscribed_angle_matching_failure",
+                                                     "angle_correspondence_chain_failure"
+                                                 ],
+                               "M3_CIRC_PT063":  [
+                                                     "same_arc_inscribed_angle_matching_failure",
+                                                     "angle_correspondence_chain_failure",
+                                                     "diameter_right_angle_condition_omitted",
+                                                     "similar_triangle_correspondence_setup_failure"
+                                                 ],
+                               "M3_CIRC_PT065":  [
+                                                     "diameter_right_angle_condition_omitted",
+                                                     "auxiliary_line_construction_failure",
+                                                     "diameter_pair_counting_error",
+                                                     "same_arc_inscribed_angle_matching_failure",
+                                                     "area_ratio_from_similarity_failure"
+                                                 ],
+                               "M3_CIRC_PT068":  [
+                                                     "diameter_right_angle_condition_omitted",
+                                                     "right_triangle_trig_setup_failure",
+                                                     "tangent_radius_perpendicularity_omitted"
+                                                 ],
+                               "M3_CIRC_PT070":  [
+                                                     "right_triangle_trig_setup_failure",
+                                                     "diameter_chord_relation_misapplied"
+                                                 ],
+                               "M3_CIRC_PT071":  [
+                                                     "right_triangle_trig_setup_failure",
+                                                     "diameter_chord_relation_misapplied"
+                                                 ],
+                               "M3_CIRC_PT074":  [
+                                                     "central_angle_to_arc_ratio_failure",
+                                                     "same_arc_inscribed_angle_matching_failure"
+                                                 ],
+                               "M3_CIRC_PT075":  [
+                                                     "central_angle_to_arc_ratio_failure",
+                                                     "same_arc_inscribed_angle_matching_failure",
+                                                     "pythagorean_setup_failure"
+                                                 ],
+                               "M3_CIRC_PT077":  [
+                                                     "central_angle_to_arc_ratio_failure",
+                                                     "same_arc_inscribed_angle_matching_failure",
+                                                     "auxiliary_line_construction_failure"
+                                                 ],
+                               "M3_CIRC_PT080":  [
+                                                     "central_angle_to_arc_ratio_failure",
+                                                     "intersecting_secant_arc_relation_error",
+                                                     "diameter_pairing_failure",
+                                                     "intersecting_chord_angle_relation_misapplied",
+                                                     "regular_spacing_arc_count_error"
+                                                 ],
+                               "M3_CIRC_PT082":  [
+                                                     "same_arc_inscribed_angle_matching_failure",
+                                                     "cyclicity_converse_angle_condition_failure",
+                                                     "supplementary_angle_cyclicity_check_error",
+                                                     "auxiliary_cyclic_quadrilateral_detection_failure"
+                                                 ],
+                               "M3_CIRC_PT083":  [
+                                                     "cyclicity_converse_angle_condition_failure",
+                                                     "supplementary_angle_cyclicity_check_error",
+                                                     "auxiliary_cyclic_quadrilateral_detection_failure",
+                                                     "auxiliary_circle_construction_failure"
+                                                 ],
+                               "M3_CIRC_PT085":  [
+                                                     "cyclic_opposite_angle_supplement_error",
+                                                     "same_arc_inscribed_angle_matching_failure",
+                                                     "cyclic_exterior_angle_equivalence_failure",
+                                                     "central_inscribed_angle_factor_confusion",
+                                                     "angle_bisector_chain_integration_failure"
+                                                 ],
+                               "M3_CIRC_PT089":  [
+                                                     "cyclic_opposite_angle_supplement_error",
+                                                     "cyclic_exterior_angle_equivalence_failure",
+                                                     "central_inscribed_angle_factor_confusion",
+                                                     "shared_chord_angle_transfer_between_circles_failure"
+                                                 ],
+                               "M3_CIRC_PT090":  [
+                                                     "cyclic_opposite_angle_supplement_error",
+                                                     "area_ratio_from_similarity_failure",
+                                                     "cyclic_exterior_angle_equivalence_failure"
+                                                 ],
+                               "M3_CIRC_PT091":  [
+                                                     "cyclic_exterior_angle_equivalence_failure",
+                                                     "cyclic_opposite_angle_supplement_error"
+                                                 ],
+                               "M3_CIRC_PT092":  [
+                                                     "cyclic_exterior_angle_equivalence_failure",
+                                                     "cyclic_opposite_angle_supplement_error",
+                                                     "central_inscribed_angle_factor_confusion"
+                                                 ],
+                               "M3_CIRC_PT095":  [
+                                                     "cyclic_opposite_angle_supplement_error",
+                                                     "central_inscribed_angle_factor_confusion"
+                                                 ],
+                               "M3_CIRC_PT097":  [
+                                                     "shared_chord_angle_transfer_between_circles_failure",
+                                                     "cyclic_opposite_angle_supplement_error"
+                                                 ],
+                               "M3_CIRC_PT098":  [
+                                                     "shared_chord_angle_transfer_between_circles_failure",
+                                                     "cyclic_opposite_angle_supplement_error"
+                                                 ],
+                               "M3_CIRC_PT107":  [
+                                                     "tangent_chord_angle_transfer_failure",
+                                                     "collinear_supplementary_angle_chain_error",
+                                                     "isosceles_triangle_angle_chain_failure",
+                                                     "same_arc_inscribed_angle_matching_failure",
+                                                     "equal_arc_angle_transfer_failure"
+                                                 ],
+                               "M3_CIRC_PT113":  [
+                                                     "tangent_chord_angle_transfer_failure",
+                                                     "cyclic_opposite_angle_supplement_error",
+                                                     "central_angle_to_arc_ratio_failure",
+                                                     "equal_arc_angle_transfer_failure",
+                                                     "similar_triangle_correspondence_setup_failure"
+                                                 ],
+                               "M3_CIRC_PT115":  [
+                                                     "tangent_chord_angle_transfer_failure",
+                                                     "diameter_right_angle_condition_omitted",
+                                                     "overlapping_circle_angle_transfer_failure",
+                                                     "parallel_line_angle_transfer_failure"
+                                                 ],
+                               "M3_CIRC_PT118":  [
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "tangent_chord_angle_transfer_failure"
+                                                 ],
+                               "M3_CIRC_PT119":  [
+                                                     "equal_tangent_segment_relation_misapplied",
+                                                     "tangent_chord_angle_transfer_failure",
+                                                     "cyclic_opposite_angle_supplement_error"
+                                                 ],
+                               "M3_CIRC_PT122":  [
+                                                     "tangent_chord_angle_transfer_failure",
+                                                     "overlapping_circle_angle_transfer_failure"
+                                                 ],
+                               "M3_CIRC_PT125":  [
+                                                     "tangent_chord_angle_transfer_failure",
+                                                     "area_ratio_from_similarity_failure"
+                                                 ],
+                               "M3_CIRC_PT126":  [
+                                                     "tangent_chord_angle_transfer_failure",
+                                                     "area_ratio_from_similarity_failure",
+                                                     "ratio_direction_inversion"
+                                                 ]
+                           }
+}
