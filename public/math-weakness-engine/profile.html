@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>학생 관측축 누적 프로파일</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:22px;line-height:1.5;color:#111827;background:#f8fafc;max-width:960px}
+  h1{font-size:21px}h2{font-size:16px;margin-top:22px}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin:14px 0}
+  label{font-weight:600}
+  .codegrp{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .codepfx{font-family:ui-monospace,Consolas,monospace;font-weight:700;background:#eef2ff;border:1px solid #c7d2fe;border-radius:6px;padding:6px 8px;color:#3730a3;user-select:none}
+  #code_num{width:96px;font-family:ui-monospace,Consolas,monospace;font-size:16px;text-align:center;letter-spacing:3px;padding:6px}
+  button{padding:9px 14px;border:0;border-radius:8px;background:#111827;color:#fff;cursor:pointer;margin:2px}
+  button.ghost{background:#e2e8f0;color:#111827}
+  table{border-collapse:collapse;width:100%;margin-top:10px;font-size:13px}
+  th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#f1f5f9}
+  .muted{color:#64748b;font-size:13px}
+  .axisbar{display:inline-block;height:10px;background:#ef4444;border-radius:3px;vertical-align:middle}
+  .chip{display:inline-block;padding:2px 8px;border-radius:999px;background:#e2e8f0;margin:2px;font-size:12px;cursor:pointer}
+  .big{font-size:20px;font-weight:700}
+  code{background:#e2e8f0;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<h1>학생 관측축 누적 프로파일 <span class="muted">(A안 · 이 브라우저 로컬 저장)</span></h1>
+<p class="muted">진단 페이지에서 저장된 <code>observed_axes</code> 를 학생코드로 묶어 봅니다. 데이터는 이 브라우저에만 있습니다 — 정기적으로 <b>내보내기(JSON)</b> 로 보관하세요.</p>
+
+<div class="card">
+  <label for="code_num">학생 코드 조회</label>
+  <div class="codegrp">
+    <span class="codepfx">SC-STUDY-</span>
+    <input id="code_num" inputmode="numeric" maxlength="3" placeholder="001" autocomplete="off" />
+    <button id="lookup_btn">조회</button>
+    <span id="code_preview" class="muted"></span>
+  </div>
+  <div id="students_list" class="muted" style="margin-top:10px"></div>
+</div>
+
+<div id="out"></div>
+
+<div class="card">
+  <h2>데이터 백업 / 이전</h2>
+  <p class="muted">A안은 이 브라우저에만 저장됩니다. 기기 변경·초기화 대비로 내보내 보관하고, 새 기기에서 가져오세요.</p>
+  <button id="export_btn">전체 내보내기 (JSON)</button>
+  <button id="import_btn" class="ghost">가져오기 (JSON 파일)</button>
+  <input id="import_file" type="file" accept="application/json,.json" style="display:none" />
+  <span id="io_status" class="muted"></span>
+</div>
+
+<script src="assets/math_axis_accumulation.js?v=patch320"></script>
+<script>
+  const $ = s => document.querySelector(s);
+  const PFX = 'SC-STUDY-';
+  const esc = v => String(v == null ? '' : v).replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
+  function digits() { return String($('#code_num').value || '').replace(/\D/g, '').slice(0, 3); }
+  function fullCode() { const d = digits(); return d ? PFX + d.padStart(3, '0') : ''; }
+
+  function renderStudents() {
+    const list = MathAxisStore.students();
+    if (!list.length) { $('#students_list').innerHTML = '저장된 학생 없음 — 진단 페이지에서 학생코드로 진단하면 여기 쌓입니다.'; return; }
+    $('#students_list').innerHTML = '저장된 학생: ' + list.map(s =>
+      `<span class="chip" data-code="${esc(s.student_code)}">${esc(s.student_code)} · ${s.exam_count}회</span>`).join(' ');
+    document.querySelectorAll('#students_list .chip').forEach(ch => ch.onclick = () => {
+      const code = ch.getAttribute('data-code');
+      $('#code_num').value = code.replace(PFX, '');
+      lookup();
+    });
+  }
+
+  function lookup() {
+    const code = fullCode();
+    $('#code_preview').textContent = code ? '→ ' + code : '';
+    if (!code) { $('#out').innerHTML = '<div class="card">학생 코드 3자리를 입력하세요.</div>'; return; }
+    const records = MathAxisStore.listByStudent(code);
+    if (!records.length) { $('#out').innerHTML = `<div class="card">${esc(code)} 기록이 없습니다.</div>`; return; }
+    const agg = MathAxisStore.aggregateAxes(records);
+    const maxWrong = Math.max(1, ...agg.map(a => a.wrong));
+    const axisRows = agg.map(a =>
+      `<tr><td class="big">${esc(a.axis)}</td>
+        <td>${a.wrong} <span class="axisbar" style="width:${Math.round(120 * a.wrong / maxWrong)}px"></span></td>
+        <td>${a.total}</td><td>${a.exams}</td></tr>`).join('');
+    const examRows = records.map(r => {
+      const tags = (r.attempts || []).flatMap(x => x.observed_error_tags || []);
+      const uniqTags = [...new Set(tags)];
+      return `<tr>
+        <td>${esc((r.date || '').slice(0, 10))}</td>
+        <td>${esc(r.exam_label || '')}</td>
+        <td>${(r.scope_units || []).length}</td>
+        <td>${(r.attempts || []).length}</td>
+        <td>${(r.observed_axes || []).map(a => `${esc(a.axis)}·${a.wrong}`).join(' / ')}</td>
+        <td class="muted">${esc(uniqTags.slice(0, 6).join(', '))}${uniqTags.length > 6 ? ' …' : ''}</td>
+        <td class="muted">${esc(r.axis_map_version || '')}</td>
+      </tr>`;
+    }).join('');
+    $('#out').innerHTML =
+      `<div class="card"><h2>${esc(code)} · 축 합산 <span class="muted">(${records.length}개 시험)</span></h2>
+        <p class="muted">wrong 이 반복해서 높은 축 = 이 학생의 반복 취약축.</p>
+        <table><tr><th>축</th><th>wrong(합)</th><th>total(합)</th><th>등장 시험수</th></tr>${axisRows}</table></div>
+       <div class="card"><h2>시험 목록</h2>
+        <table><tr><th>날짜</th><th>범위(라벨)</th><th>단원수</th><th>문항수</th><th>이 시험 축</th><th>관측 태그(원본)</th><th>축맵ver</th></tr>${examRows}</table></div>`;
+  }
+
+  $('#code_num').addEventListener('input', () => { const d = digits(); if ($('#code_num').value !== d) $('#code_num').value = d; $('#code_preview').textContent = fullCode() ? '→ ' + fullCode() : ''; });
+  $('#code_num').addEventListener('keydown', e => { if (e.key === 'Enter') lookup(); });
+  $('#lookup_btn').onclick = lookup;
+
+  $('#export_btn').onclick = () => {
+    const blob = new Blob([MathAxisStore.exportAll()], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'scstudy_axis_records.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(a.href);
+    $('#io_status').textContent = ` · 내보냄 (${MathAxisStore.all().length}개 레코드)`;
+  };
+  $('#import_btn').onclick = () => $('#import_file').click();
+  $('#import_file').onchange = async (e) => {
+    const f = e.target.files && e.target.files[0]; if (!f) return;
+    const text = await f.text();
+    const res = MathAxisStore.importJson(text, { merge: true });
+    $('#io_status').textContent = res.ok ? ` · 가져옴 +${res.added} (총 ${res.total})` : ` · 실패: ${res.error}`;
+    renderStudents();
+    if (fullCode()) lookup();
+    e.target.value = '';
+  };
+
+  renderStudents();
+</script>
+</body>
+</html>

@@ -462,6 +462,7 @@ ol.chain::before{content:"";position:absolute;left:9px;top:12px;bottom:22px;widt
 <script src="assets/math_weakness_evidence_review.js?v=patch320"></script>
 <script src="assets/math_ai_bridge_client.js?v=patch320"></script>
 <script src="assets/math_verification_flow.js?v=patch320"></script>
+<script src="assets/math_axis_accumulation.js?v=patch320"></script>
 <script src="assets/math_hybrid_report_renderer.js?v=patch320"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
@@ -881,6 +882,21 @@ ${resultEl.innerHTML}
             locked_by: 'local_math_engine'
           };
         }
+        // 학생코드 기준 관측축 누적 저장(A안 로컬). 진단 성공 시 1레코드. 실패해도 진단 흐름은 막지 않는다.
+        try {
+          if (window.MathAxisStore && state.engineDiagnosis) {
+            const rawAttempt = state.extraction?.engine_adapter?.student_attempt;
+            const eng = flow && flow.engine;
+            const attemptsList = ((eng && eng.collectAttemptList) ? eng.collectAttemptList(rawAttempt) : (rawAttempt?.attempts || [])) || [];
+            const rec = await MathAxisStore.buildRecord({
+              studentCode: state.payload?.student_profile?.student_code || '',
+              scope: state.payload?.learning_context?.scope || {},
+              attempts: attemptsList,
+              observedAxes: state.engineDiagnosis.observed_axes || []
+            });
+            if (rec) MathAxisStore.save(rec);
+          }
+        } catch (e) { console.warn('[axis-store] record save skipped:', e); }
         state.noteReview = await flow.runLocalNoteReview(state.extraction);
         // Patch22: 1차 진단 단계에서는 보강 문제를 자동 생성하지 않는다.
         // 문제 생성은 사용자가 [2차 보강 문제 생성]을 눌렀을 때만 실행한다.
