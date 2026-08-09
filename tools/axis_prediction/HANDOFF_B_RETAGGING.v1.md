@@ -23,7 +23,8 @@
 
 - **🧰 환경함정(꼭)**: PS5.1이 .ps1 한글리터럴 ANSI 오독→깨짐. **스크립트 라벨·메타 전부 영문**(검수 지시). 전각괄호(（〔）〕)도 `[char]0xFF08`류 코드. ConvertFrom-Json은 `[IO.File]::ReadAllText(...,UTF8)`. 데이터(한글)는 UTF8통과 OK. scratchpad 스크립트는 매세션 재작성(predict_tally·observed_tally·compare_axes·build_axismap_qf·qf_rules_extract·serve). Downloads=검수전달용 사본.
 
-- **다음 세션 즉시 할 일**: ①②③④·3·4단계·**③ 학생식별자+누적저장소(A안)** 완료·배포·push. **파일럿 end-to-end + 누적층 성립.** 남은 후보(우선순위 미확정): **(a) 실사용 검증**(교사가 실제 진단→profile.html에 축 누적되는지 라이브 확인) / **(b) profile.html 링크**를 진단페이지에 노출(디스커버리) / **(c) ② 확대**(19단원 오버레이) / **(d) 5단계 팽창 재측정**(②로 완화되는지) / **(e) B(KV/D1) 이관 설계** / **(f) review-hardening**(백로그). 검증서버=scratchpad `serve.ps1`(8731·ASCII·매세션 재작성). ↓ 아래는 이전 국면 이력(참고).
+- **✅ 라이브 전구간 검증 통과**(2026-08-09, `B_wiring_live_verification_QF.v1.md`): 실제 진단페이지서 .txt 시험지(accept에 text/plain 추가) 업로드→Worker fine태그4종→observed_axes(C2·2/C3·1/C4·1)→자동저장→profile.html 조회 전부 연결 확인. profile 링크(상단nav + 진단직후 `?code` 자동조회) 동작. 축맵ver 캡처됨.
+- **다음 세션 즉시 할 일**: ①②③④·3·4단계·**③ 학생식별자+누적저장소(A안)**·**라이브검증** 완료·배포·push. **파일럿 end-to-end + 누적층 + 실사용 전부 성립.** 다음 1순위=**(b) 19단원 확대**(검수). 확대 assessment: 생성=자동화가능(20 B_reflection ⋈ 14 source_item_links dir ⋈ problem_types union, QF 레시피 검증됨) / Worker=단원별 코드수정 불요(제네릭, 등록만) / 재배포=**FINE_OVERLAY_BY_UNIT 배치등록 1회** or **index.v1.json 구동화하면 1회 후 영영 0회**(오버레이경로를 index 단원엔트리에 넣어 Worker가 거기서 읽게). 남은 후보(우선순위 미확정): **(a) 실사용 검증**(교사가 실제 진단→profile.html에 축 누적되는지 라이브 확인) / **(b) profile.html 링크**를 진단페이지에 노출(디스커버리) / **(c) ② 확대**(19단원 오버레이) / **(d) 5단계 팽창 재측정**(②로 완화되는지) / **(e) B(KV/D1) 이관 설계** / **(f) review-hardening**(백로그). 검증서버=scratchpad `serve.ps1`(8731·ASCII·매세션 재작성). ↓ 아래는 이전 국면 이력(참고).
 
 ## ⭐ 현재 상태 (2026-08-07, 이전 진입점 — 재태깅/경계재검토 이력)
 - **정본 리포 = `C:\Users\user\projects\scshstudy`**(로컬, OneDrive 아님·은퇴대상). `_inbox/*.json` 미커밋=교환 입력본(정본 `B_tagging_*`는 커밋됨, 정상).
