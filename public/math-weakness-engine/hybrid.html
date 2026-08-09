@@ -514,7 +514,9 @@ window.addEventListener('DOMContentLoaded', () => {
       const idx = await (await fetch('data/index.v1.json', { cache: 'no-cache' })).json();
       const units = idx.units || [];
       scopeState.allUnits = units.map(u => ({ unit_id: u.unit_id, unit_name: u.unit_name }));
+      scopeState.unbuilt = {};   // unit_id -> unit_name (index build_status 기반, 하드코딩 아님)
       for (const u of units) {
+        if (u.build_status && u.build_status !== 'ready') scopeState.unbuilt[u.unit_id] = u.unit_name || u.unit_id;
         if (!u.semester) continue;
         (scopeState.unitsBySemester[u.semester] = scopeState.unitsBySemester[u.semester] || [])
           .push({ unit_id: u.unit_id, unit_name: u.unit_name });
@@ -543,20 +545,33 @@ window.addEventListener('DOMContentLoaded', () => {
     syncScopeUi();
   }
 
+  // 선택 범위 안에 '준비 중(build_status)' 단원이 있으면 진단 전에 알린다(결과 다 받고 알면 시간 낭비).
+  function unbuiltInScope() {
+    const un = scopeState.unbuilt || {};
+    const list = scopeMode() === 'full'
+      ? scopeState.allUnits
+      : (scopeState.unitsBySemester[$('#scope_semester').value] || []);
+    return list.filter(u => un[u.unit_id]).map(u => u.unit_name || u.unit_id);
+  }
   function syncScopeUi() {
     const mode = scopeMode();
     const sel = $('#scope_semester');
     const note = $('#scope_note');
     // 수능이면 학기 드롭다운은 쓸 일이 없다. 비활성 상태로 남겨두면 화면만 복잡해진다.
     sel.style.display = mode === 'semester' ? '' : 'none';
+    let base;
     if (mode === 'full') {
-      note.innerHTML = '전체 범위에서 문항마다 <b>단원을 먼저 찾은 뒤 유형을 확정</b>합니다. 두 단계라 학기 선택보다 시간이 더 걸립니다.';
+      base = '전체 범위에서 문항마다 <b>단원을 먼저 찾은 뒤 유형을 확정</b>합니다. 두 단계라 학기 선택보다 시간이 더 걸립니다.';
     } else {
       const k = sel.value;
-      note.textContent = k
-        ? `${k} 범위 단원 안에서만 판정합니다.`
+      base = k ? `${esc(k)} 범위 단원 안에서만 판정합니다.`
         : '학교 시험처럼 범위가 정해진 자료입니다. 학기를 고르면 후보가 좁아져 정확도가 올라갑니다.';
     }
+    const nb = unbuiltInScope();
+    const warn = nb.length
+      ? `<div style="margin-top:8px;padding:8px 10px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;color:#9a3412"><b>⚠ 준비 중 단원 포함:</b> ${nb.map(esc).join(', ')} — 이 단원 문항은 아직 진단이 지원되지 않습니다(유형·개념 미구축). 결과에서 빠지거나 비어 나올 수 있습니다.</div>`
+      : '';
+    note.innerHTML = base + warn;
   }
 
   // 워커가 단원·유형 목록을 받아올 수 있도록 이 페이지의 위치를 같이 보낸다.

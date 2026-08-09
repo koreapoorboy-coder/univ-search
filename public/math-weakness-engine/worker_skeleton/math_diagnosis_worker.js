@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.09-fine-overlay-index-driven';
+const VERSION = '2026.08.09-unbuilt-detect';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -427,6 +427,7 @@ ${RESPONSE_STATE_RULE}`
   for (const a of assignments) (byUnit[a.unit_id] = byUnit[a.unit_id] || []).push(a);
 
   const chunkPlan = [];
+  const typeLoadFailed = [];   // 유형 로드 실패 단원(미구축·데이터 부재). 조용히 넘기지 않고 결과에 남긴다.
   const results = await Promise.all(Object.keys(byUnit).map(async unitId => {
     const rows = byUnit[unitId];
     try {
@@ -438,6 +439,7 @@ ${RESPONSE_STATE_RULE}`
       return await assignTypesForUnit({ env, files, unitId, rows, types });
     } catch (err) {
       console.error(`stage2 failed (${unitId}):`, err?.message || err);
+      typeLoadFailed.push({ unit_id: unitId, question_count: rows.length, reason: err?.message || String(err) });
       // 유형은 못 정해도 단원·정오답은 살아 있다. 버리지 않고 그대로 넘긴다.
       return rows.map(r => ({ question_no: r.question_no, problem_type_id: '', response_status: r.response_status, difficulty: 'core', observed_error_tags: [], unit_id: unitId }));
     }
@@ -470,7 +472,9 @@ ${RESPONSE_STATE_RULE}`
       // 5상태 분포. 빈칸이 0으로만 나오면 판독이 빈칸을 놓치고 있다는 신호다.
       states,
       // 어느 단원이 몇 조각으로 나뉘었는지. 유형이 안 붙었을 때 조각 문제인지 판별하는 값이다.
-      chunked: chunkPlan.filter(c => c.chunks > 1)
+      chunked: chunkPlan.filter(c => c.chunks > 1),
+      // 유형 로드 실패 단원(미구축·PT파일 부재 등). 비어 있지 않으면 그 단원 문항은 유형·개념 진단이 빠진 것.
+      type_load_failures: typeLoadFailed
     }
   };
 }
