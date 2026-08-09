@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>fine 오버레이 배선 검증 테스터 (전 단원)</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:20px;line-height:1.5;color:#111827;background:#f8fafc;max-width:960px}
+  h1{font-size:20px}h2{font-size:15px;margin-top:18px}
+  label{display:block;font-weight:600;margin:10px 0 4px}
+  input[type=text],textarea,select{width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;box-sizing:border-box}
+  textarea{min-height:150px;font-family:ui-monospace,Consolas,monospace}
+  button{padding:9px 14px;border:0;border-radius:8px;background:#111827;color:#fff;cursor:pointer;margin:3px 3px 0 0}
+  button.ghost{background:#e2e8f0;color:#111827}
+  button:disabled{background:#94a3b8}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin:12px 0}
+  .ok{background:#ecfdf5;border-color:#a7f3d0}.warn{background:#fff7ed;border-color:#fed7aa}.bad{background:#fef2f2;border-color:#fecaca}
+  .verdict{font-size:17px;font-weight:700}
+  table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13px}
+  th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#f1f5f9}
+  .tag{display:inline-block;padding:1px 7px;border-radius:999px;background:#e2e8f0;margin:2px;font-size:12px}
+  .tag.fine{background:#bbf7d0;font-weight:600}
+  pre{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:12px;border-radius:8px;overflow:auto;font-size:12px;max-height:360px}
+  .muted{color:#64748b;font-size:13px}
+</style>
+</head>
+<body>
+<h1>fine 오버레이 배선 검증 테스터 <span class="muted">(index 구동 · 전 단원)</span></h1>
+<p class="muted">이 페이지는 데이터와 같은 곳에 배포됩니다(same-origin). index.v1.json에서 오버레이 등록 단원을 읽어 드롭다운에 채우고, 선택 단원의 fine 태그셋으로 응답을 자동 판정합니다. Worker 주소만 넣고 단원·시험지를 고르면 됩니다.</p>
+
+<div class="card">
+  <label>Worker 주소 (예: <code>https://math-diagnosis-worker.계정.workers.dev</code>)</label>
+  <input id="worker" type="text" placeholder="https://math-diagnosis-worker.____.workers.dev" />
+
+  <label>단원 (index.v1.json의 오버레이 등록 단원)</label>
+  <select id="unit"><option>불러오는 중...</option></select>
+  <div id="unit_meta" class="muted"></div>
+
+  <label>시험지 텍스트</label>
+  <div>
+    <button class="ghost" data-preset="qf">이차함수 예시</button>
+    <button class="ghost" data-preset="sim">닮음 예시</button>
+    <button class="ghost" data-preset="geo">도형의성질 예시</button>
+  </div>
+  <textarea id="exam"></textarea>
+
+  <button id="run">진단 실행</button>
+  <span id="status" class="muted"></span>
+</div>
+
+<div id="out"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = v => String(v==null?'':v).replace(/[&<>"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
+const BASE = new URL('.', location.href).href.replace(/\/$/, '');   // same-origin data base
+let UNITS = [];        // [{unit_id, unit_name, overlay}]
+let FINE = new Set();  // fine tags of currently selected unit
+
+const PRESETS = {
+  qf: `[이차함수 쪽지시험 - 학생 답안]
+
+문제 1. 이차함수 y = (x - 2)^2 + 3 의 꼭짓점의 좌표를 구하시오.
+학생 답: (-2, 3)   풀이: 괄호 안 -2니까 x좌표는 -2.
+
+문제 2. y = 2x^2 - 8x + 5 를 표준형으로 고치시오.
+학생 답: y = 2(x - 2)^2 + 5   풀이: 상수 보정 안 함.
+
+문제 3. y = -3x^2 를 y = x^2 과 비교해 설명하시오.
+학생 답: 아래로 볼록하고 폭이 더 넓다.`,
+  sim: `[닮음·피타고라스 쪽지시험 - 학생 답안]
+
+문제 1. 삼각형 ABC의 무게중심 G가 중선 AD를 나누는 비 AG:GD를 구하시오.
+학생 답: 1:1   풀이: 무게중심을 중선의 중점으로 봄.
+
+문제 2. 닮음비가 2:3인 두 삼각형의 넓이의 비를 구하시오.
+학생 답: 2:3   풀이: 닮음비를 그대로 넓이비로 씀.
+
+문제 3. 직각삼각형 빗변에 내린 수선으로 생긴 두 닮은 삼각형에서 대응변의 비를 구하시오.
+학생 답: (대응변을 잘못 짝지어 비를 틀림)`,
+  geo: `[도형의 성질 쪽지시험 - 학생 답안]
+
+문제 1. 삼각형의 외심 O에서 세 꼭짓점까지의 거리 관계를 쓰시오.
+학생 답: 서로 다르다   풀이: 외심을 내심과 혼동(세 변에서 같은 거리로 봄).
+
+문제 2. 한 호에 대한 중심각과 원주각의 크기 관계를 쓰시오.
+학생 답: 중심각 = 원주각   풀이: 2배 관계를 빠뜨림.
+
+문제 3. 반원에 대한 원주각의 크기를 구하시오.
+학생 답: 알 수 없다   풀이: 지름에 대한 원주각이 90도라는 조건을 안 씀.`
+};
+
+async function loadUnits() {
+  try {
+    const idx = await fetch(`${BASE}/data/index.v1.json`).then(r => r.json());
+    UNITS = (idx.units || []).filter(u => u.fine_error_tags_overlay)
+      .map(u => ({ unit_id: u.unit_id, unit_name: u.unit_name || u.unit_id, overlay: u.fine_error_tags_overlay }));
+    $('#unit').innerHTML = UNITS.map(u => `<option value="${esc(u.unit_id)}">${esc(u.unit_name)} (${esc(u.unit_id)})</option>`).join('');
+    if (UNITS.length) await selectUnit(UNITS[0].unit_id);
+  } catch (e) {
+    $('#unit').innerHTML = '<option>index 로드 실패</option>';
+    $('#unit_meta').textContent = 'index.v1.json 로드 실패 — 이 파일이 데이터와 같은 곳에 배포됐는지 확인: ' + String(e && e.message || e);
+  }
+}
+async function selectUnit(unitId) {
+  const u = UNITS.find(x => x.unit_id === unitId); if (!u) return;
+  FINE = new Set();
+  try {
+    const ov = await fetch(`${BASE}/${u.overlay}`).then(r => r.json());
+    Object.values(ov.pt_fine_error_tags || {}).forEach(arr => (arr || []).forEach(t => FINE.add(t)));
+    $('#unit_meta').textContent = `fine 태그 ${FINE.size}종 · PT ${ov.n_pt}${ov.total_pt?('/'+ov.total_pt):''} · 오버레이 ${u.overlay}`;
+  } catch (e) { $('#unit_meta').textContent = '오버레이 로드 실패: ' + String(e && e.message || e); }
+}
+
+function collectAttempts(node, out){
+  if(!node || typeof node!=='object') return;
+  if(Array.isArray(node)){ node.forEach(x=>collectAttempts(x,out)); return; }
+  if(Array.isArray(node.observed_error_tags) || node.problem_type_id!==undefined) out.push(node);
+  for(const k in node) collectAttempts(node[k], out);
+}
+
+document.querySelectorAll('[data-preset]').forEach(b => b.onclick = () => { $('#exam').value = PRESETS[b.getAttribute('data-preset')]; });
+$('#unit').onchange = e => selectUnit(e.target.value);
+
+$('#run').onclick = async () => {
+  const worker = $('#worker').value.trim().replace(/\/$/, '');
+  const unitId = $('#unit').value;
+  const u = UNITS.find(x => x.unit_id === unitId);
+  const exam = $('#exam').value;
+  if (!worker || !u || !exam.trim()) { alert('Worker 주소 · 단원 · 시험지를 채우세요.'); return; }
+
+  const payload = { learning_context: { scope: {
+    mode: 'semester', label: `${u.unit_name} 배선검증`,
+    candidate_units: [{ unit_id: u.unit_id, unit_name: u.unit_name }],
+    engine_data_base: BASE
+  } } };
+  const fd = new FormData();
+  fd.append('payload', JSON.stringify(payload));
+  fd.append('file', new File([exam], 'exam.txt', { type: 'text/plain' }));
+
+  $('#run').disabled = true; $('#status').textContent = ' 요청 중... (최대 1~2분)'; $('#out').innerHTML = '';
+  const t0 = performance.now();
+  try {
+    const res = await fetch(`${worker}/api/math-diagnose/analyze`, { method: 'POST', body: fd });
+    const secs = ((performance.now() - t0) / 1000).toFixed(0);
+    const text = await res.text();
+    let data; try { data = JSON.parse(text); } catch { data = { _raw: text }; }
+    const attempts = []; collectAttempts(data, attempts);
+    const allTags = []; attempts.forEach(a => (a.observed_error_tags || []).forEach(t => allTags.push(t)));
+    const fineHits = [...new Set(allTags.filter(t => FINE.has(t)))];
+    const coarse = [...new Set(allTags.filter(t => !FINE.has(t)))];
+    const unitAssigned = attempts.filter(a => a.unit_id === u.unit_id || (a.observed_error_tags||[]).length).length;
+
+    let cls, verdict;
+    if (!res.ok) { cls='bad'; verdict = `❌ HTTP ${res.status}`; }
+    else if (fineHits.length) { cls='ok'; verdict = `✅ 성공 — ${u.unit_name} fine태그 ${fineHits.length}종 검출`; }
+    else if (allTags.length) { cls='warn'; verdict = `⚠ 부분 — 태그는 나오나 이 단원 fine태그 0 (거친/자유 또는 미커버 PT)`; }
+    else { cls='warn'; verdict = `⚠ observed_error_tags 비어 있음`; }
+
+    const rows = attempts.map(a => {
+      const tags = (a.observed_error_tags||[]).map(t => `<span class="tag ${FINE.has(t)?'fine':''}">${esc(t)}</span>`).join('') || '<span class="muted">—</span>';
+      return `<tr><td>${esc(a.question_no??'')}</td><td>${esc(a.unit_id??'')}</td><td>${esc(a.problem_type_id??'')}</td><td>${esc(a.response_status??'')}</td><td>${tags}</td></tr>`;
+    }).join('');
+    $('#out').innerHTML =
+      `<div class="card ${cls}"><div class="verdict">${verdict}</div>
+        <p class="muted">응답 ${secs}s · 인식 문항 ${attempts.length} · 총 태그 ${allTags.length} · 판정셋 fine ${FINE.size}종</p>
+        ${fineHits.length?`<p><b>검출 fine태그:</b> ${fineHits.map(t=>`<span class="tag fine">${esc(t)}</span>`).join('')}</p>`:''}
+        ${coarse.length?`<p><b>fine 아님:</b> ${coarse.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</p>`:''}</div>
+       <div class="card"><h2>문항별 (초록=이 단원 fine태그)</h2>
+        <table><tr><th>문항</th><th>단원</th><th>유형ID</th><th>상태</th><th>observed_error_tags</th></tr>${rows||'<tr><td colspan=5 class=muted>없음</td></tr>'}</table></div>
+       <div class="card"><h2>전체 응답 JSON</h2><pre>${esc(JSON.stringify(data,null,2))}</pre></div>`;
+  } catch (err) {
+    $('#out').innerHTML = `<div class="card bad"><div class="verdict">❌ 요청 오류</div><pre>${esc(String(err&&err.message||err))}</pre></div>`;
+  } finally { $('#run').disabled = false; $('#status').textContent = ''; }
+};
+
+loadUnits();
+</script>
+</body>
+</html>
