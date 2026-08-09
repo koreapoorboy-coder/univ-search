@@ -135,6 +135,25 @@ ol.chain::before{content:"";position:absolute;left:9px;top:12px;bottom:22px;widt
     <input id="student_name" placeholder="예: 김OO" autocomplete="name" />
   </div>
 
+  <style>
+    .codegrp{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    .codepfx{font-family:ui-monospace,Consolas,monospace;font-weight:700;background:#eef2ff;border:1px solid #c7d2fe;border-radius:6px;padding:6px 8px;color:#3730a3;user-select:none}
+    #student_code_num{width:96px;font-family:ui-monospace,Consolas,monospace;font-size:16px;text-align:center;letter-spacing:3px}
+    .codeprev{font-family:ui-monospace,Consolas,monospace;font-weight:700;color:#166534}
+    .codeprev.err{color:#b91c1c}
+    .codehelp{font-size:12px;color:#64748b;margin-top:4px}
+  </style>
+  <div class="fieldrow">
+    <label for="student_code_num">학생 코드 <span class="required-mark">*</span></label>
+    <div class="codegrp">
+      <span class="codepfx">SC-STUDY-</span>
+      <input id="student_code_num" inputmode="numeric" autocomplete="off" maxlength="3" placeholder="001" list="recent_codes_list" aria-describedby="code_help" />
+      <span id="code_preview" class="codeprev" aria-live="polite"></span>
+    </div>
+    <datalist id="recent_codes_list"></datalist>
+    <div id="code_help" class="codehelp">숫자 3자리만 입력 (예: 7 → <b>SC-STUDY-007</b>). 같은 학생은 <b>같은 코드</b>여야 누적됩니다. 칸을 클릭하면 최근 코드를 고를 수 있습니다.</div>
+  </div>
+
   <div class="fieldrow">
     <label>시험 범위 <span class="required-mark">*</span></label>
     <div class="scope-toggle" role="group" aria-label="시험 범위 선택">
@@ -556,9 +575,44 @@ window.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  // 학생 코드 SC-STUDY-NNN: 교사는 숫자 3자리만 입력. 오타=다른 학생이라 실시간 미리보기·최근목록으로 방지. A안(로컬).
+  const SC_CODE_PREFIX = 'SC-STUDY-';
+  const SC_RECENT_KEY = 'scstudy_recent_codes';
+  function scPad(d) { return String(d).padStart(3, '0'); }
+  function scDigits() { return String($('#student_code_num')?.value || '').replace(/\D/g, '').slice(0, 3); }
+  function scAssemble() { const d = scDigits(); return d ? SC_CODE_PREFIX + scPad(d) : ''; }
+  function scLoadRecent() { try { return JSON.parse(localStorage.getItem(SC_RECENT_KEY) || '[]'); } catch (e) { return []; } }
+  function scSaveRecent(code) {
+    if (!code) return;
+    let list = scLoadRecent().filter(c => c !== code);
+    list.unshift(code);
+    list = list.slice(0, 20);
+    try { localStorage.setItem(SC_RECENT_KEY, JSON.stringify(list)); } catch (e) {}
+    scRenderRecent();
+  }
+  function scRenderRecent() {
+    const dl = $('#recent_codes_list'); if (!dl) return;
+    dl.innerHTML = scLoadRecent().map(c => `<option value="${c.replace(SC_CODE_PREFIX, '')}">${c}</option>`).join('');
+  }
+  function scUpdatePreview() {
+    const inp = $('#student_code_num'); const el = $('#code_preview'); if (!inp || !el) return;
+    const d = scDigits();
+    if (inp.value !== d) inp.value = d; // 숫자만 남긴다(실시간)
+    const code = d ? SC_CODE_PREFIX + scPad(d) : '';
+    el.textContent = code ? '→ ' + code : '';
+    el.classList.remove('err');
+  }
+  (function initStudentCode() {
+    const inp = $('#student_code_num'); if (!inp) return;
+    scRenderRecent();
+    inp.addEventListener('input', scUpdatePreview);
+    inp.addEventListener('change', scUpdatePreview);
+    inp.addEventListener('blur', () => { const d = scDigits(); if (d) inp.value = scPad(d); scUpdatePreview(); });
+  })();
+
   function collectForm() {
     const payload = flow.buildStudentUploadFromForm({
-      studentName:$('#student_name').value, gradeLabel:$('#grade_label').value, course:$('#course').value,
+      studentName:$('#student_name').value, studentCode:scAssemble(), gradeLabel:$('#grade_label').value, course:$('#course').value,
       unitName:$('#unit_name').value, lessonTitle:$('#lesson_title').value, wrongQuestionNumbers:$('#wrong_numbers').value,
       knownProblemTypeIds:$('#problem_type_ids').value, studentSolutionText:$('#solution_text').value,
       lectureNoteText:$('#note_text').value, verificationAnswerText:$('#verification_answer').value,
@@ -780,14 +834,17 @@ ${resultEl.innerHTML}
       const btn = $('#analyze_btn');
       try {
         const name = String($('#student_name')?.value || '').trim();
+        const code = scAssemble();
         const fileCount = $('#files')?.files?.length || 0;
         const hasTextFallback = String($('#solution_text')?.value || $('#note_text')?.value || '').trim().length > 20;
         // 학년은 필수가 아니다 — 엔진이 자료에서 단원을 판정하고 학년은 거기서 따라온다.
         // 교사가 아는 경우에만 고급 입력에서 보조 힌트로 넣는다.
-        if (!name || (!fileCount && !hasTextFallback)) {
-          resultEl.innerHTML = `<div class="card warn"><h2>제출 정보 확인 필요</h2><p>학생 이름과 진단 자료는 필수입니다. 교사용 고급 입력에 풀이 텍스트를 넣은 경우에는 파일 없이도 테스트할 수 있습니다.</p></div>`;
+        if (!name || !code || (!fileCount && !hasTextFallback)) {
+          resultEl.innerHTML = `<div class="card warn"><h2>제출 정보 확인 필요</h2><p>학생 이름 · 학생 코드 · 진단 자료는 필수입니다. 학생 코드는 숫자 3자리(예: SC-STUDY-007)입니다. 교사용 고급 입력에 풀이 텍스트를 넣은 경우에는 파일 없이도 테스트할 수 있습니다.</p></div>`;
+          const pv = $('#code_preview'); if (!code && pv) { pv.textContent = '코드를 입력하세요'; pv.classList.add('err'); }
           return;
         }
+        scSaveRecent(code);
         // 학기 모드인데 학기를 안 고르면 후보 단원이 비어 1단계 판정이 성립하지 않는다.
         if (scopeMode() === 'semester' && !$('#scope_semester').value) {
           resultEl.innerHTML = `<div class="card warn"><h2>시험 범위 확인 필요</h2><p>학년·학기를 고르거나, 범위가 정해지지 않은 자료라면 <b>수능·모의고사(전체 범위)</b>를 선택하세요.</p></div>`;
