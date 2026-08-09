@@ -23,6 +23,20 @@
 - 복구 후: circle는 오버레이 이미 생성돼 있으니 즉시 배선 가능(index에 fine_error_tags_overlay 추가).
 - ⚠ 배선 확대(9단원)와 **분리** — 이 트랙 없이 9단원 진행. **★9단원 배포본 확정 후 착수**(circle 복구가 index를 또 건드려 원인 판별 섞이지 않게).
 
+## 🔴 관문 판정 (착수 조사 결과, 2026-08-09) — mathflat 파생 차단, 링크 재구성만 가능(라벨 없음)
+검수 #2(파생 PT id 일치)가 **실패 방향으로 확정** → 진행 보류·보고:
+- **circle mathflat에 `M3_CIRC_PT` id = 0개.** mathflat은 별도 택소노미(스크린샷 전사, 자체 토픽코드)라 M3_CIRC_PT### 소스 아님. **mathflat→problem_types 클린 파생 불가.**
+- **M3_CIRC_PT### 47개(및 statistics M3_STAT_PT### 23개)는 links가 참조만, 정의는 어디에도 없음.** 정상 단원 PT = **큐레이션 산출**(한글 `type_name`·`description`·`error_tags` 보유, 예 "동위각과 엇각 혼동"). circle/statistics는 그 큐레이션이 **아예 안 됨**(ingest가 links만 생성, PT 정의 미생성).
+- **links가 담는 것**: `primary_problem_type_id`·`concept_ids`·`likely_error_tags`(fine). **없는 것**: `type_name`·`description`(한글 라벨).
+- statistics: reflection 없음 → fine 오버레이 불가(코어만 대상).
+
+### 복구 경로 3안 (검수 결정 대기)
+- **(A) 링크 재구성(스켈레톤)**: distinct PT id → {concept_ids(union), error_tags(likely_error_tags union), type_name=플레이스홀더}. **id 자동 일치**(links서 옴). **코어 진단(유형→개념→취약개념) 동작**, 한글 라벨만 없음(화면 표시 빈약). 저비용. circle은 기존 오버레이 즉시 부착.
+- **(B) 정식 큐레이션**: 47+23 PT에 한글 type_name/description/error_tags 작성(검수 비전 or 수작업). 풍부하나 규모 큼(=중등 재태깅류 작업).
+- **(C) 보류**: ingest가 왜 links만 만들고 PT 파일 미생성했는지(파이프라인 갭) 상류 규명 후 정식 생성.
+
+⇒ **진행하지 않고 보고**(검수 지시). 링크 재구성(A)이 저비용·id일치·코어정상화라 유력하나 한글 라벨 부재가 트레이드오프 → 검수 판단 요.
+
 ## 복구 사전조사 (검수 4질문 답, 착수 전 확정 필요표시)
 1. **PT 파생 레시피 = 다른 단원과 동일?** 소스 = `data/raw_taxonomy/m3_circle_properties.mathflat.v1.json`(schema `mathflat_problem_type.v1`, 유형묶음→topic_types). `_note`에 **"데이터 저장만·진단 로직 미연결"** 명시 → 다른 단원은 mathflat + runtime problem_types **둘 다 보유**(변환 선례 존재). ⚠**확정 필요**: mathflat→runtime problem_types 변환 레시피가 문서/스크립트로 있는지, 다른 단원 mathflat↔problem_types 대조로 역추적. (recovery 착수 시 첫 단계.)
 2. **★핵심 리스크 — 파생 PT id가 links 참조와 일치?** links는 **`M3_CIRC_PT###` 47개** 기대(index가 이미 이 경로 참조). 파생 problem_types가 **정확히 이 id들**을 써야 붙음. mathflat에 M3_CIRC_PT id가 있는지, 없으면 부여 규칙(다른 단원 선례)을 확인해 **id 스킴 일치를 recovery 수용 기준**으로. 어긋나면 복구해도 여전히 안 붙음.
