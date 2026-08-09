@@ -37,6 +37,20 @@
 
 ⇒ **진행하지 않고 보고**(검수 지시). 링크 재구성(A)이 저비용·id일치·코어정상화라 유력하나 한글 라벨 부재가 트레이드오프 → 검수 판단 요.
 
+## 🔴🔴 (A) 착수 중 확대 발견 (2026-08-09) — stub 단원, "파일 하나 누락" 아님
+(A) 재구성 착수 시 concept 층까지 확인한 결과, 갭이 PT 파일보다 훨씬 큼:
+- **circle/statistics 개념도 미정의**: `M3_CIRC_C###`=DB에 **0**, `M3_STAT_C###`=**0** (QF는 `M3_FUNC_C` 44개 존재=DB 정상). links는 `M3_CIRC_C001` 등을 참조(300건)하나 그 스킴이 concepts DB에 없음.
+- circle **diagnosis_rules도 없음**.
+- ⇒ **circle/statistics = links만 자동생성된 stub 단원.** links가 **계획된 택소노미(M3_CIRC_PT###·M3_CIRC_C###)를 참조하나 PT·개념·규칙 전부 미materialize.** ingest가 links만 만들고 canonical 층 전체를 안 만든 것.
+- **(A)가 실제 주는 것(수정)**: problem_type_id는 채워짐(유형배정 실패 멈춤) BUT **concept_ids가 미정의 → 취약개념이 bare id**(conceptById fallback, 이름·remediation·prereq edges 없음). ②의 concept-derived type_name도 **bare id**가 됨(개념명 자체가 없어서). ⇒ **(A) 효과 = "조용한 실패"를 "껍데기 진단"으로 바꿈**(유형은 뜨나 개념 진단 공허).
+- **재분류**: 이건 "깨진 파일 고치기(저비용)"가 아니라 **미구축 단원의 canonical 층 생성(PT+개념+규칙)** = (B) 큐레이션/고등 재태깅과 같은 **빌드 작업 버킷**. 저비용 전제가 무너짐 → 우선순위 재판단 필요.
+
+### 수정 옵션 (검수 재결정)
+- **(A-thin) 그대로 진행**: PT id만 채움(유형배정 실패 멈춤), 개념은 bare id. 저비용이나 가치 얕음(개념 진단 공허).
+- **(가시화만)**: 미구축을 **조용한 격하 → 명시적 통지**로만 전환(예 진단 화면에 "이 단원 미구축" 표시). 초저비용, 정직성 확보, 빌드는 별도.
+- **(정식 빌드)**: circle/statistics 개념+PT+규칙 생성 = (B) 버킷·재태깅류 규모 → 뒤로.
+⇒ 권고: **저비용 전제 무너졌으므로 circle/statistics를 "1순위 저비용 수정"에서 빼고**, (가시화만) 초저비용 정직성 처리 후 정식 빌드는 (B)/고등과 함께. **다음 실작업 = B 이관으로 이동** 제안.
+
 ## 복구 사전조사 (검수 4질문 답, 착수 전 확정 필요표시)
 1. **PT 파생 레시피 = 다른 단원과 동일?** 소스 = `data/raw_taxonomy/m3_circle_properties.mathflat.v1.json`(schema `mathflat_problem_type.v1`, 유형묶음→topic_types). `_note`에 **"데이터 저장만·진단 로직 미연결"** 명시 → 다른 단원은 mathflat + runtime problem_types **둘 다 보유**(변환 선례 존재). ⚠**확정 필요**: mathflat→runtime problem_types 변환 레시피가 문서/스크립트로 있는지, 다른 단원 mathflat↔problem_types 대조로 역추적. (recovery 착수 시 첫 단계.)
 2. **★핵심 리스크 — 파생 PT id가 links 참조와 일치?** links는 **`M3_CIRC_PT###` 47개** 기대(index가 이미 이 경로 참조). 파생 problem_types가 **정확히 이 id들**을 써야 붙음. mathflat에 M3_CIRC_PT id가 있는지, 없으면 부여 규칙(다른 단원 선례)을 확인해 **id 스킴 일치를 recovery 수용 기준**으로. 어긋나면 복구해도 여전히 안 붙음.
