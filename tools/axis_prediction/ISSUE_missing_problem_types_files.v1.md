@@ -51,6 +51,19 @@
 - **(정식 빌드)**: circle/statistics 개념+PT+규칙 생성 = (B) 버킷·재태깅류 규모 → 뒤로.
 ⇒ 권고: **저비용 전제 무너졌으므로 circle/statistics를 "1순위 저비용 수정"에서 빼고**, (가시화만) 초저비용 정직성 처리 후 정식 빌드는 (B)/고등과 함께. **다음 실작업 = B 이관으로 이동** 제안.
 
+## ✅✅ 정정 (2026-08-09, 검수가 type_name 실재 지적) — "stub" 규정 철회
+위 "stub·bare id" 판정은 **틀렸다.** `type_variant_bank`를 안 보고 내린 성급한 결론:
+- **circle `type_variant_bank`에 M3_CIRC_PT### 63개 + 실제 한글 topic type_name** 완비(예 `M3_CIRC_PT003` → "원의 중심과 현의 수직이등분선(1) - 종합 활용"). **links 참조 id와 일치.** statistics도 동일(M3_STAT_PT### 23 + type_name "평균의 뜻과 성질(1)…").
+- ⇒ **circle/statistics는 stub 아님. problem_types.json이 type_variant_bank에서 조립만 안 된 것.** ingest가 type_variant_bank·links·item_bank는 만들고 **problem_types 조립 + concept 정의만 빠뜨림.**
+- **여전히 없는 것**: (1) 조립된 problem_types.json, (2) **concept 정의**(M3_CIRC_C###/M3_STAT_C### DB에 0; 정상단원 M2_GEOM_C001은 있음). type_variant_bank에도 concept_ids 없음.
+- ★**problem_types의 type_name은 큐레이션 진단명**("a≠0 조건 확인 누락")이고 type_variant_bank는 **주제명**("이차함수의 뜻과 표준형")이라 의미가 다름 — 하지만 주제명이라도 bare id보다 훨씬 나음.
+
+### 정정된 복구안 — type_variant_bank 조립(저비용·실 type_name)
+- **circle/statistics problem_types 생성** = type_variant_bank의 {problem_type_id, type_name, difficulty, item 매핑} + unit_id/unit_name(index). **id 자동일치(변환뱅크서 옴)·실 한글 type_name.**
+- **concept_ids**: type_variant_bank엔 없음. links의 M3_CIRC_C###는 정의 부재 → **비워두거나(권장, 개념 스코어링만 빠짐)** 별도 개념정의 트랙.
+- **결과**: 유형배정 + 실 type_name + **observed_axes(circle 오버레이 이미 있음→fine축 즉시)**. 빠지는 것 = 취약**개념** 스코어링·instruction·rules(별개 층). ⇒ "조용한 실패"→**부분이지만 실질 진단**(축·유형), bare id 껍데기 아님.
+- ⇒ **저비용에 실가치**. 내가 (가시화만으로 충분)이라 한 근거(복구=껍데기)가 무너짐 → 검수 재판단 요.
+
 ## 복구 사전조사 (검수 4질문 답, 착수 전 확정 필요표시)
 1. **PT 파생 레시피 = 다른 단원과 동일?** 소스 = `data/raw_taxonomy/m3_circle_properties.mathflat.v1.json`(schema `mathflat_problem_type.v1`, 유형묶음→topic_types). `_note`에 **"데이터 저장만·진단 로직 미연결"** 명시 → 다른 단원은 mathflat + runtime problem_types **둘 다 보유**(변환 선례 존재). ⚠**확정 필요**: mathflat→runtime problem_types 변환 레시피가 문서/스크립트로 있는지, 다른 단원 mathflat↔problem_types 대조로 역추적. (recovery 착수 시 첫 단계.)
 2. **★핵심 리스크 — 파생 PT id가 links 참조와 일치?** links는 **`M3_CIRC_PT###` 47개** 기대(index가 이미 이 경로 참조). 파생 problem_types가 **정확히 이 id들**을 써야 붙음. mathflat에 M3_CIRC_PT id가 있는지, 없으면 부여 규칙(다른 단원 선례)을 확인해 **id 스킴 일치를 recovery 수용 기준**으로. 어긋나면 복구해도 여전히 안 붙음.
