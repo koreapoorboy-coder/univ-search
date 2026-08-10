@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.10-user-items';
+const VERSION = '2026.08.10-user-items-qtext';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -533,6 +533,8 @@ const TYPE_ASSIGN_SCHEMA = (typeIds, allowNoMatch = false) => ({
           response_status: { type: 'string', enum: RESPONSE_STATES },
           difficulty: { type: 'string', enum: ['basic', 'core', 'advanced', 'high'] },
           observed_error_tags: { type: 'array', items: { type: 'string' } },
+          // 매칭용: 이 문항의 문제 본문(학생 풀이 제외). 등록 문항(user_items)과 대조해 정답/해설을 붙인다.
+          question_text: { type: 'string' },
           // Fix-A(풀이 원문 보존): 태그 세분화 재료. WRONG/PARTIAL만 채우고 나머지는 빈 문자열.
           // required 아님(정답·빈칸 문항은 강제 생성 안 함) — 오답에서만 비용을 쓴다.
           student_work_text: { type: 'string' },
@@ -580,6 +582,9 @@ ${menu}
 규칙:
 - 대상 문항 전부에 대해 한 줄씩 낸다.
 - response_status는 위에 적힌 상태를 그대로 다시 쓴다. 임의로 바꾸지 않는다.
+- question_text: 이 문항의 **문제 본문**을 원문 그대로 옮긴다(학생 풀이·답은 제외, 문제만).
+  수식은 평문으로(1/3, 루트2, x^2, <=, ×). 등록 문항과 대조하기 위한 것이라 정답/오답과 무관하게
+  모든 문항에서 채운다.
 - observed_error_tags는 WRONG_COMPLETE·PARTIAL_STOP에서 실제로 관찰된 오류만 쓴다.
   CORRECT_COMPLETE와 BLANK_UNKNOWN은 빈 배열로 둔다.
   유형에 [후보 오류태그]가 붙어 있으면 그 중 실제 관찰된 것을 우선 고른다. 이 후보는
@@ -1988,6 +1993,7 @@ const AI_EXTRACTION_SCHEMA = {
                   "is_correct": { "type": "boolean" },
                   "difficulty": { "type": "string", "enum": ["basic", "core", "advanced", "high"] },
                   "observed_error_tags": { "type": "array", "items": { "type": "string" } },
+                  "question_text": { "type": "string" },
                   "student_work_text": { "type": "string" },
                   "student_answer": { "type": "string" },
                   "tag_rationale": { "type": "string" }
