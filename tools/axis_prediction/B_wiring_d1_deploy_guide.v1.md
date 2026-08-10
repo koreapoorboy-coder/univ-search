@@ -25,7 +25,8 @@
 
 ## 5) Worker 재배포 (새 코드)
 - 지난 Worker 배포와 동일 방법으로 **바뀐 `worker_skeleton/math_diagnosis_worker.js`** 를 올림(대시보드 Edit code → 붙여넣기 → Save and deploy).
-- **확인**: `https://<worker-도메인>/health` → `version` = **`2026.08.10-axis-store-v2`**.
+- **확인**: `https://<worker-도메인>/health` → `version` = **`2026.08.10-fixA-work-text-preserve`**(axis-store D1 + GET + usage로깅 + review-hardening + **Fix-A 풀이원문 보존** 전부 번들).
+- **Fix-A 검증**: 오답 있는 시험지 진단 후 profile.html에서 해당 시험 attempts에 `student_work_text`·`student_answer`·`tag_rationale`가 채워지는지 확인(정답·빈칸 문항은 비어있어야 정상). D1 콘솔 `SELECT attempts FROM axis_records ORDER BY created_at DESC LIMIT 1;`로도 확인 가능.
 
 ## 6) 사이트 갱신
 - 이번 커밋(store·profile 변경)이 진단 페이지 호스트에 반영되게 사이트 갱신(GitHub Pages ~1~2분).

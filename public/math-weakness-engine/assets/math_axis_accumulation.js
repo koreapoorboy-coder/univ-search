@@ -1,6 +1,6 @@
 /* Math Axis Accumulation Store v1 (wiring 3-A, local / Option A)
  * observed_axes 를 student_code 로 누적한다. 각 레코드가 그대로 DB(B: KV/D1) 행이 되도록 설계.
- * 축만 저장하면 "C3 3회"까지만 알고 원본 복원 불가 → attempts(원본 태그)·axis_map_version 을 함께 남긴다.
+ * 축만 저장하면 "C3 3회"까지만 알고 원본 복원 불가 → attempts(원본 태그 + Fix-A: 풀이 원문·정답·태그 근거)·axis_map_version 을 함께 남긴다.
  * 경계 재검토로 축 배정이 바뀌면 저장된 축은 옛 기준; 태그가 남아 있으면 재계산 가능.
  * 브라우저 종속(A) → export/import 로 소멸/이전 대비.
  */
@@ -25,13 +25,19 @@
     return _axisMapVersion;
   }
 
+  // 문자열 상한: 풀이 원문이 길어져 D1 행이 비대해지는 것을 막는다. Worker가 이미 짧게 옮기지만 방어적으로 자른다.
+  function _cap(v, n) { const s = (v == null) ? '' : String(v); return s.length > n ? s.slice(0, n) : s; }
   function _normAttempt(a) {
     return {
       question_no: (a && (a.question_no ?? a.no ?? a.number)) ?? '',
       problem_type_id: (a && a.problem_type_id) || '',
       unit_id: (a && a.unit_id) || '',
       response_status: (a && a.response_status) || (a && a.is_correct === true ? 'CORRECT_COMPLETE' : (a && a.is_correct === false ? 'WRONG_COMPLETE' : '')),
-      observed_error_tags: (a && Array.isArray(a.observed_error_tags)) ? a.observed_error_tags.slice() : []
+      observed_error_tags: (a && Array.isArray(a.observed_error_tags)) ? a.observed_error_tags.slice() : [],
+      // Fix-A(풀이 원문 보존): 태그 세분화 재료. "왜 이 태그였나"를 나중에 되짚기 위한 원문·정답·근거.
+      student_work_text: _cap(a && a.student_work_text, 600),
+      student_answer: _cap(a && a.student_answer, 200),
+      tag_rationale: _cap(a && a.tag_rationale, 400)
     };
   }
 

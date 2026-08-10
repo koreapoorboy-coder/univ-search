@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS axis_records (
   exam_label       TEXT,
   scope_units      TEXT,               -- JSON 배열
   observed_axes    TEXT,               -- JSON
-  attempts         TEXT,               -- JSON (원본 태그 = 축 재계산 소스)
+  attempts         TEXT,               -- JSON (원본 태그 = 축 재계산 소스 + Fix-A: student_work_text·student_answer·tag_rationale = 태그 세분화 재료). TEXT=SQLite 가변길이·상한 없음(클라이언트가 필드별 캡)
   axis_map_version TEXT,               -- 별도 컬럼 (버전별 질의)
   schema_version   INTEGER,
   created_at       TEXT                -- 서버 수신 시각(감사; insert 시에만 설정)

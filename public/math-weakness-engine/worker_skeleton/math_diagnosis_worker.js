@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.10-usage-and-review-hardening';
+const VERSION = '2026.08.10-fixA-work-text-preserve';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -372,6 +372,11 @@ const TYPE_ASSIGN_SCHEMA = (typeIds, allowNoMatch = false) => ({
           response_status: { type: 'string', enum: RESPONSE_STATES },
           difficulty: { type: 'string', enum: ['basic', 'core', 'advanced', 'high'] },
           observed_error_tags: { type: 'array', items: { type: 'string' } },
+          // Fix-A(풀이 원문 보존): 태그 세분화 재료. WRONG/PARTIAL만 채우고 나머지는 빈 문자열.
+          // required 아님(정답·빈칸 문항은 강제 생성 안 함) — 오답에서만 비용을 쓴다.
+          student_work_text: { type: 'string' },
+          student_answer: { type: 'string' },
+          tag_rationale: { type: 'string' },
           // 조각이 여러 개면 둘 이상이 같은 문항을 자기 것이라 할 수 있다. 그때 고르는 기준.
           ...(allowNoMatch ? { confidence: { type: 'number' } } : {})
         }
@@ -419,6 +424,14 @@ ${menu}
   유형에 [후보 오류태그]가 붙어 있으면 그 중 실제 관찰된 것을 우선 고른다. 이 후보는
   재태깅 관측 어휘와 정합하여 축(17진단축) 진단으로 이어진다. 후보에 없는 오류만
   자연어로 덧붙이되 최소화한다.
+- WRONG_COMPLETE·PARTIAL_STOP 문항은 아래 셋을 함께 남긴다(오답 세분화 재료).
+  CORRECT_COMPLETE·BLANK_UNKNOWN은 셋 다 빈 문자열("")로 둔다.
+  · student_work_text: 학생이 그 문항에 실제로 쓴 풀이를 원문 그대로 옮긴다. 핵심 단계·식
+    위주로 짧게(대략 400자 이내), 결정적으로 틀어진 지점이 반드시 포함되게 한다.
+  · student_answer: 학생이 최종 답으로 쓴 값(없으면 "").
+  · tag_rationale: observed_error_tags를 그렇게 고른 근거를 한 문장으로.
+- 개인정보 보호: 풀이·답에 이름·학교·전화번호 등 개인식별정보가 보여도 옮기지 않는다.
+  수학 풀이 내용만 남긴다.
 - difficulty는 문항 난도다.${split ? `
 - 이 목록은 단원 전체 유형의 일부다. 위 목록에 맞는 유형이 없으면 억지로 고르지 말고
   problem_type_id를 "${NO_MATCH}"로, confidence를 0으로 둔다.
@@ -1813,7 +1826,10 @@ const AI_EXTRACTION_SCHEMA = {
                   "problem_type_id": { "type": "string" },
                   "is_correct": { "type": "boolean" },
                   "difficulty": { "type": "string", "enum": ["basic", "core", "advanced", "high"] },
-                  "observed_error_tags": { "type": "array", "items": { "type": "string" } }
+                  "observed_error_tags": { "type": "array", "items": { "type": "string" } },
+                  "student_work_text": { "type": "string" },
+                  "student_answer": { "type": "string" },
+                  "tag_rationale": { "type": "string" }
                 }
               }
             }
