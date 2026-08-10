@@ -135,12 +135,14 @@
         body: JSON.stringify(record)
       });
       if (!res.ok) {
-        let code = 'http_' + res.status;
-        try { const b = await res.json(); if (b && b.code) code = b.code; } catch (e) {}
+        // 상태코드별로 구분(오진 방지): 404=라우트/배포, 401=키, 503=서버구성, 그외 http_NNN.
+        let code;
+        if (res.status === 404) code = 'not_found(404)';
+        else { try { const b = await res.json(); code = (b && b.code ? b.code : 'http') + '(' + res.status + ')'; } catch (e) { code = 'http_' + res.status; } }
         _enqueue(record, code); return { ok: false, reason: code };
       }
       _markSynced(record.id); _dequeue(record.id); return { ok: true };
-    } catch (e) { _enqueue(record, 'network'); return { ok: false, reason: 'network' }; }
+    } catch (e) { _enqueue(record, 'network/cors'); return { ok: false, reason: 'network/cors' }; }   // fetch throw = 네트워크 또는 CORS preflight
   }
   // "지금 동기화" = 미동기(서버 미확정) 로컬 레코드 전부 올림(실패분 + 한번도 안보낸 분 모두).
   async function retryPending() {
