@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.10-axis-store-v2';
+const VERSION = '2026.08.10-usage-and-review-hardening';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -235,33 +235,38 @@ async function runAnalyze({ env, payload, files }) {
   const prepared = await prepareFiles(env, files);
   try {
     const scope = scopeOf(payload);
+    const usageSink = [];   // 호출별 토큰 집계(비용 실측). 아래 두 경로가 여기에 쌓는다.
     // 범위가 지정돼 있으면 2단계로 간다. 유효한 problem_type_id가 나오는 유일한 경로다.
     // 범위가 없는 옛 클라이언트 요청은 종전 단일 호출로 처리한다.
     const engineTask = scope.units.length
       ? runJsonTask({
-          env, task: `analyze_engine_staged_${scope.mode}`, files: prepared, structured: true,
+          env, task: `analyze_engine_staged_${scope.mode}`, files: prepared, structured: true, usageSink,
           prompt: '', schemaName: 'math_engine_adapter_staged', schema: null,
-          run: () => runStagedEngineAdapter({ env, payload, files: prepared, scope }),
+          run: () => runStagedEngineAdapter({ env, payload, files: prepared, scope, usageSink }),
           fallback: () => pickKeys(buildAnalyzeFallback(payload, 'analyze_engine_staged_fallback'), ENGINE_ADAPTER_KEYS)
         })
       : runJsonTask({
-          env, task: 'analyze_engine', files: prepared, structured: true,
+          env, task: 'analyze_engine', files: prepared, structured: true, usageSink,
           prompt: only('engine_adapter와 ok만 채운다. 화면용 검토 문구는 이번 응답에서 생성하지 않는다.'),
           schemaName: 'math_engine_adapter', schema: ENGINE_ADAPTER_SCHEMA,
           fallback: () => pickKeys(buildAnalyzeFallback(payload, 'analyze_engine_fallback'), ENGINE_ADAPTER_KEYS)
         });
+    const reviewPrompt = only('engine_adapter는 이번 응답에서 생성하지 않는다. 나머지 검토 항목만 채운다.');
     const [engine, review] = await Promise.all([
       engineTask,
       runJsonTask({
-        env, task: 'analyze_review', files: prepared, structured: false,
-        prompt: only('engine_adapter는 이번 응답에서 생성하지 않는다. 나머지 검토 항목만 채운다.'),
-        schemaName: 'math_material_review', schema: REVIEW_SCHEMA,
+        env, task: 'analyze_review', files: prepared, structured: false, usageSink,
+        prompt: reviewPrompt, schemaName: 'math_material_review', schema: REVIEW_SCHEMA,
+        // review-hardening: structured=true 우선 시도 → grammar 컴파일/파싱 실패 시 기존 structured=false로 폴백.
+        // 실패 attempt는 생성 前 400이라 토큰 거의 0(비용 안전). 회귀 불가(최악=현행).
+        run: () => callReviewWithFallback({ env, prompt: reviewPrompt, files: prepared, schema: REVIEW_SCHEMA, usageSink }),
         fallback: () => dropKeys(buildAnalyzeFallback(payload, 'analyze_review_fallback'), ENGINE_ADAPTER_KEYS)
       })
     ]);
     const merged = { ...stripRuntime(review), ...stripRuntime(engine) };
     const notes = [engine?._runtime?.note, review?._runtime?.note].filter(Boolean);
-    if (notes.length) merged._runtime = { note: notes.join(' | '), worker_version: VERSION };
+    const usageSummary = summarizeUsage(usageSink, env);
+    merged._runtime = { ...(notes.length ? { note: notes.join(' | ') } : {}), worker_version: VERSION, usage: usageSummary };
     return merged;
   } finally {
     await deleteUploadedFiles(env, prepared);
@@ -383,7 +388,7 @@ function chunkList(arr, size) {
 
 // 한 단원의 유형을 확정한다. 한도 안이면 종전대로 한 번에, 넘으면 조각으로 나눠 병렬로
 // 묻고 합친다. 호출부는 어느 쪽인지 알 필요가 없다.
-async function assignTypesForUnit({ env, files, unitId, rows, types }) {
+async function assignTypesForUnit({ env, files, unitId, rows, types, usageSink }) {
   const chunks = chunkList(types, MAX_ENUM_TYPES);
   const targetList = rows.map(r => `${r.question_no}번 (상태: ${r.response_status})`).join('\n');
   const askChunk = async (part, i) => {
@@ -395,7 +400,7 @@ async function assignTypesForUnit({ env, files, unitId, rows, types }) {
       return `${t.id} = ${t.name}${fine}`;
     }).join('\n');
     const out = await callClaudeJson({
-      env, files, structured: true,
+      env, files, structured: true, label: `analyze_stage2_type_${unitId}${split ? `_${i + 1}` : ''}`, usageSink,
       schemaName: `type_assignment_${unitId}${split ? `_${i + 1}` : ''}`,
       schema: TYPE_ASSIGN_SCHEMA(part.map(t => t.id), split),
       prompt: `아래 문항들은 「${unitId}」 단원으로 확정됐다. 각 문항이 이 단원의 어느 문항유형인지 고르라.
@@ -452,14 +457,14 @@ ${menu}
   });
 }
 
-async function runStagedEngineAdapter({ env, payload, files, scope }) {
+async function runStagedEngineAdapter({ env, payload, files, scope, usageSink }) {
   if (!scope.units.length) throw new Error('후보 단원이 비어 있다(시험 범위 미선택)');
   const unitIds = scope.units.map(u => u.unit_id);
   const unitMenu = scope.units.map(u => `${u.unit_id} = ${u.unit_name}`).join('\n');
 
   // 1단계: 문항 → 단원
   const stage1 = await callClaudeJson({
-    env, files, structured: true, schemaName: 'unit_assignment',
+    env, files, structured: true, schemaName: 'unit_assignment', label: 'analyze_stage1_unit_assign', usageSink,
     schema: UNIT_ASSIGN_SCHEMA(unitIds),
     prompt: `학생이 제출한 시험지/풀이를 읽고, 채점 대상 문항마다 어느 단원 문제인지 고르라.
 
@@ -491,7 +496,7 @@ ${RESPONSE_STATE_RULE}`
       // 한도를 넘는 단원은 assignTypesForUnit이 알아서 조각내 처리한다. 예전처럼 통째로
       // 건너뛰지 않는다 — 고등 9개 단원이 그래서 유형 없이 나가고 있었다.
       chunkPlan.push({ unit_id: unitId, types: types.length, chunks: Math.ceil(types.length / MAX_ENUM_TYPES) });
-      return await assignTypesForUnit({ env, files, unitId, rows, types });
+      return await assignTypesForUnit({ env, files, unitId, rows, types, usageSink });
     } catch (err) {
       console.error(`stage2 failed (${unitId}):`, err?.message || err);
       typeLoadFailed.push({ unit_id: unitId, question_count: rows.length, reason: err?.message || String(err) });
@@ -552,7 +557,7 @@ function stripRuntime(obj) {
   return out;
 }
 
-async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback, validate, structured = true, run = null }) {
+async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallback, validate, structured = true, run = null, usageSink = null }) {
   const stubMode = isStubMode(env);
   const allowFallback = boolEnv(env.ALLOW_STUB, false) || boolEnv(env.FALLBACK_ON_AI_ERROR, true);
   if (stubMode) return withRuntimeNote(fallback(), `stub_mode:${task}`);
@@ -562,7 +567,7 @@ async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallb
   }
   try {
     // run이 주어지면 그 절차가 호출 전체를 책임진다(2단계 판정처럼 호출이 여러 번인 경우).
-    const result = run ? await run() : await callClaudeJson({ env, prompt, files, schemaName, schema, structured });
+    const result = run ? await run() : await callClaudeJson({ env, prompt, files, schemaName, schema, structured, label: task, usageSink });
     if (validate) validate(result);
     return result;
   } catch (error) {
@@ -572,7 +577,7 @@ async function runJsonTask({ env, task, prompt, files, schemaName, schema, fallb
   }
 }
 
-async function callClaudeJson({ env, prompt, files, schemaName, schema, structured = true }) {
+async function callClaudeJson({ env, prompt, files, schemaName, schema, structured = true, label, usageSink }) {
   // structured=false는 스키마가 커서 structured outputs의 문법 컴파일 한도를 넘는 경우다.
   // 그때는 스키마를 프롬프트로 지시하고 파싱 단계에서 검증한다(실패 시 기존 fallback 경로).
   const head = (structured || !schema) ? prompt : `${prompt}
@@ -591,13 +596,42 @@ ${JSON.stringify(schema)}`;
   const ownsFiles = Array.isArray(files) && files.some(isFile);
   const prepared = ownsFiles ? await prepareFiles(env, files) : (files || []);
   try {
-    return await requestClaudeJson({ env, head, prepared, schemaName, schema, structured });
+    return await requestClaudeJson({ env, head, prepared, schemaName, schema, structured, label, usageSink });
   } finally {
     if (ownsFiles) await deleteUploadedFiles(env, prepared);
   }
 }
 
-async function requestClaudeJson({ env, head, prepared, schemaName, schema, structured }) {
+// review-hardening: structured=true 우선, 실패 시 structured=false 폴백(회귀 불가).
+async function callReviewWithFallback({ env, prompt, files, schema, usageSink }) {
+  try {
+    return await callClaudeJson({ env, prompt, files, schemaName: 'math_material_review', schema, structured: true, label: 'analyze_review(structured)', usageSink });
+  } catch (e) {
+    return await callClaudeJson({ env, prompt, files, schemaName: 'math_material_review', schema, structured: false, label: 'analyze_review(prompt-fallback)', usageSink });
+  }
+}
+
+// 참고 단가(USD/1M tok). 실제 청구는 Anthropic Console. effort/모델 바뀌면 여기 조정.
+const MODEL_PRICING = {
+  'claude-opus-4-8': { in: 5, out: 25 }, 'claude-opus-5': { in: 5, out: 25 },
+  'claude-sonnet-5': { in: 3, out: 15 }, 'claude-haiku-4-5': { in: 1, out: 5 }
+};
+function summarizeUsage(sink, env) {
+  const model = env.ANTHROPIC_MODEL || DEFAULT_MODEL;
+  const calls = Array.isArray(sink) ? sink : [];
+  let inTok = 0, outTok = 0, cacheRead = 0;
+  for (const c of calls) { inTok += c.input_tokens || 0; outTok += c.output_tokens || 0; cacheRead += c.cache_read_input_tokens || 0; }
+  const p = MODEL_PRICING[model] || null;
+  const est = p ? +((inTok * p.in + outTok * p.out) / 1e6).toFixed(4) : null;
+  return {
+    model, effort: env.ANTHROPIC_EFFORT || DEFAULT_EFFORT, call_count: calls.length,
+    total_input_tokens: inTok, total_output_tokens: outTok, total_cache_read_tokens: cacheRead,
+    est_cost_usd: est, note: 'est only; 실제 청구는 Anthropic Console에서 확인',
+    per_call: calls.map(c => ({ call: c.call, in: c.input_tokens, out: c.output_tokens }))
+  };
+}
+
+async function requestClaudeJson({ env, head, prepared, schemaName, schema, structured, label, usageSink }) {
   const content = [{ type: 'text', text: head }];
   for (const f of prepared) content.push(fileContentBlock(f.mime, f));
   const usesFileId = prepared.some(f => f.fileId);
@@ -629,7 +663,12 @@ async function requestClaudeJson({ env, head, prepared, schemaName, schema, stru
     const data = await res.json().catch(() => ({}));
     throw httpError(res.status, data?.error?.message || `Claude HTTP ${res.status}`);
   }
-  const { text, stopReason, stopDetails, streamError } = await collectClaudeStream(res);
+  const { text, stopReason, stopDetails, streamError, usage } = await collectClaudeStream(res);
+  // usage 기록: 호출별 토큰·모델을 로그(Worker Logs)와 usageSink(응답 _runtime 집계)에 남긴다.
+  const model = env.ANTHROPIC_MODEL || DEFAULT_MODEL;
+  const rec = { call: label || schemaName, model, input_tokens: usage.input_tokens, output_tokens: usage.output_tokens, cache_read_input_tokens: usage.cache_read_input_tokens, cache_creation_input_tokens: usage.cache_creation_input_tokens };
+  try { console.log('[usage]', JSON.stringify(rec)); } catch (e) {}
+  if (Array.isArray(usageSink)) usageSink.push(rec);
   if (streamError) throw httpError(502, `Claude stream error: ${streamError}`);
   if (stopReason === 'refusal') {
     throw httpError(502, `Claude declined this request (${stopDetails?.category || 'refusal'}).`);
@@ -660,6 +699,7 @@ async function collectClaudeStream(res) {
   const decoder = new TextDecoder();
   const textBlocks = new Set();
   let buf = '', text = '', stopReason = null, stopDetails = null, streamError = null;
+  const usage = { input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 };
   for (;;) {
     const { done, value } = await reader.read();
     if (done) break;
@@ -677,15 +717,19 @@ async function collectClaudeStream(res) {
         if (ev.content_block && ev.content_block.type === 'text') textBlocks.add(ev.index);
       } else if (ev.type === 'content_block_delta') {
         if (ev.delta && ev.delta.type === 'text_delta' && textBlocks.has(ev.index)) text += ev.delta.text || '';
+      } else if (ev.type === 'message_start') {
+        const u = ev.message && ev.message.usage;
+        if (u) { usage.input_tokens = u.input_tokens || 0; usage.cache_read_input_tokens = u.cache_read_input_tokens || 0; usage.cache_creation_input_tokens = u.cache_creation_input_tokens || 0; }
       } else if (ev.type === 'message_delta') {
         if (ev.delta && ev.delta.stop_reason) stopReason = ev.delta.stop_reason;
         if (ev.delta && ev.delta.stop_details) stopDetails = ev.delta.stop_details;
+        if (ev.usage && typeof ev.usage.output_tokens === 'number') usage.output_tokens = ev.usage.output_tokens;
       } else if (ev.type === 'error') {
         streamError = (ev.error && ev.error.message) || 'unknown stream error';
       }
     }
   }
-  return { text, stopReason, stopDetails, streamError };
+  return { text, stopReason, stopDetails, streamError, usage };
 }
 
 // structured outputs가 없을 때는 코드펜스나 앞뒤 설명이 섞일 수 있다.
