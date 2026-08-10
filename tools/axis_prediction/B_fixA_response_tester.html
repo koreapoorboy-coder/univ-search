@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fix-A 검증 테스터 — Worker가 풀이 원문 3필드를 채우나</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:20px;line-height:1.5;color:#111827;background:#f8fafc;max-width:1000px}
+  h1{font-size:20px}h2{font-size:16px;margin-top:22px}
+  label{display:block;font-weight:600;margin:12px 0 4px}
+  input[type=text],textarea{width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:13px;box-sizing:border-box}
+  textarea{min-height:150px}
+  button{padding:10px 16px;border:0;border-radius:8px;background:#111827;color:#fff;font-size:15px;cursor:pointer;margin-top:12px}
+  button:disabled{background:#94a3b8;cursor:default}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin:14px 0}
+  .ok{background:#ecfdf5;border-color:#a7f3d0}.warn{background:#fff7ed;border-color:#fed7aa}.bad{background:#fef2f2;border-color:#fecaca}
+  .verdict{font-size:18px;font-weight:700}
+  table{border-collapse:collapse;width:100%;margin-top:10px;font-size:13px}
+  th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#f1f5f9}
+  .yes{color:#047857;font-weight:700}.no{color:#b91c1c;font-weight:700}
+  .val{font-family:ui-monospace,Consolas,monospace;font-size:12px;white-space:pre-wrap;max-width:340px}
+  pre{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:12px;border-radius:8px;overflow:auto;font-size:12px;max-height:420px}
+  .muted{color:#64748b;font-size:13px}
+  code{background:#e2e8f0;padding:1px 4px;border-radius:4px}
+</style>
+</head>
+<body>
+<h1>Fix-A 검증 테스터 — Worker가 풀이 원문 3필드를 채우나</h1>
+<p class="muted">설치·개발자도구 불필요. 아래 2칸(Worker 주소·데이터 base)만 채우고 <b>[진단 실행]</b>. 시험지는 이차함수 3오답이 채워져 있음.
+Worker의 <code>/analyze</code> 응답을 그대로 받아, 문항마다 <b>student_work_text · student_answer · tag_rationale</b>가
+들어 있는지 눈으로 보여줍니다. (응답 1~2분 · Opus)</p>
+<p class="muted">이 테스터는 <b>Worker만</b> 직접 부릅니다. store.js·브라우저 캐시와 무관하므로,
+여기서 3필드가 보이면 <b>Worker는 정상</b>(문제는 사이트/캐시), 안 보이면 <b>Worker가 원인</b>(스키마 optional→required 필요)입니다.</p>
+
+<div class="card">
+  <label>1) Worker 주소 (예: <code>https://math-diagnosis-worker.계정명.workers.dev</code>)</label>
+  <input id="worker" type="text" placeholder="https://math-diagnosis-worker.____.workers.dev" />
+
+  <label>2) 데이터 base URL (진단 사이트의 <code>/math-weakness-engine</code> 까지. 오버레이 전체 URL 붙여도 자동 정리)</label>
+  <input id="base" type="text" placeholder="https://호스트/math-weakness-engine" />
+
+  <label>3) 시험지 텍스트 (이차함수 3문항·오답·풀이 포함 — 그대로 써도 됨)</label>
+  <textarea id="exam">[이차함수 쪽지시험 - 학생 답안]
+
+문제 1. 이차함수 y = (x - 2)^2 + 3 의 꼭짓점의 좌표를 구하시오.
+학생 답: (-2, 3)   (풀이: 괄호 안 -2니까 x좌표는 -2)
+
+문제 2. 이차함수 y = 2x^2 - 8x + 5 를 y = a(x-p)^2 + q 꼴로 고치시오.
+학생 답: y = 2(x - 2)^2 + 5   (풀이: x^2-4x를 (x-2)^2로 바꿈)
+
+문제 3. 이차함수 y = -3x^2 의 그래프를 y = x^2 과 비교해 설명하시오.
+학생 답: 아래로 볼록하고, 폭은 y = x^2 보다 더 넓다.</textarea>
+
+  <button id="run">진단 실행</button>
+  <span id="status" class="muted"></span>
+</div>
+
+<div id="out"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const FIELDS = ['student_work_text','student_answer','tag_rationale'];
+
+// 응답 어디에 있든 attempt(문항 판정)만 재귀로 긁는다. observed_error_tags 또는 problem_type_id를 가진 객체.
+function collectAttempts(node, out){
+  if(!node || typeof node!=='object') return;
+  if(Array.isArray(node)){ node.forEach(x=>collectAttempts(x,out)); return; }
+  if(Array.isArray(node.observed_error_tags) || node.problem_type_id!==undefined){ out.push(node); }
+  for(const k in node) collectAttempts(node[k], out);
+}
+const esc = s => String(s==null?'':s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const hasVal = v => typeof v==='string' && v.trim().length>0;
+
+$('#run').onclick = async () => {
+  const worker = $('#worker').value.trim().replace(/\/$/,'');
+  let base = $('#base').value.trim().replace(/\/$/,'').replace(/\/data\/.*$/,'');
+  const exam = $('#exam').value;
+  if(!worker || !base){ alert('Worker 주소와 데이터 base URL을 채우세요.'); return; }
+
+  // staged 경로를 타게 scope.candidate_units + engine_data_base를 준다(유효 problem_type_id 나오는 유일 경로).
+  const payload = { learning_context: { scope: {
+    mode: 'semester', label: 'Fix-A 풀이원문 검증',
+    candidate_units: [{ unit_id: 'M3_QUADRATIC_FUNCTION', unit_name: '이차함수' }],
+    engine_data_base: base
+  } } };
+
+  const fd = new FormData();
+  fd.append('payload', JSON.stringify(payload));
+  fd.append('file', new File([exam], 'exam_qf.txt', { type: 'text/plain' }));
+
+  $('#run').disabled = true;
+  $('#status').textContent = ' 요청 중... (최대 1~2분)';
+  $('#out').innerHTML = '';
+  const t0 = performance.now();
+  try {
+    const res = await fetch(`${worker}/api/math-diagnose/analyze`, { method:'POST', body: fd });
+    const secs = ((performance.now()-t0)/1000).toFixed(0);
+    const text = await res.text();
+    let data; try { data = JSON.parse(text); } catch { data = { _raw: text }; }
+    const ver = (data && data._runtime && data._runtime.worker_version) || (data && data._meta && data._meta.worker_version) || '(응답에 버전 없음)';
+
+    const attempts = []; collectAttempts(data, attempts);
+    // 중복 제거(재귀로 같은 객체가 여러 번 잡힐 수 있음): question_no+problem_type_id 키.
+    const seen = new Set(); const uniq = [];
+    for(const a of attempts){ const k=`${a.question_no}|${a.problem_type_id}`; if(seen.has(k)) continue; seen.add(k); uniq.push(a); }
+
+    const wrong = uniq.filter(a => a.response_status==='WRONG_COMPLETE' || a.response_status==='PARTIAL_STOP' || a.is_correct===false);
+    const wrongWithWork = wrong.filter(a => hasVal(a.student_work_text));
+    const anyFieldPresent = uniq.some(a => FIELDS.some(f => f in a)); // 키 자체가 응답에 존재하는가
+
+    let cls, verdict, hint;
+    if(!res.ok){ cls='bad'; verdict = `❌ HTTP ${res.status} — 요청 실패`; hint='Worker 주소/배포(/health) 확인.'; }
+    else if(!anyFieldPresent){ cls='bad'; verdict='❌ Worker 응답에 3필드 키가 아예 없음';
+      hint='→ Worker 원인. 스키마의 3필드가 optional이라 모델이 안 채웠을 가능성. TYPE_ASSIGN_SCHEMA/AI_EXTRACTION_SCHEMA에서 required로 올리고 재배포 필요.'; }
+    else if(wrong.length && wrongWithWork.length===0){ cls='warn'; verdict='⚠ 키는 있으나 오답 문항 student_work_text가 전부 빈값';
+      hint='→ Worker가 필드를 내보내되 전사를 안 채움. 프롬프트 강화 또는 required화 후 재배포 검토.'; }
+    else if(wrongWithWork.length){ cls='ok'; verdict=`✅ Worker 정상 — 오답 ${wrongWithWork.length}/${wrong.length} 문항에 풀이 원문 채워짐`;
+      hint='→ Worker는 문제 없음. D1에 안 들어갔다면 원인은 store.js/브라우저 캐시(사이트 갱신·강력새로고침).'; }
+    else { cls='warn'; verdict='⚠ 오답 문항이 감지되지 않음'; hint='시험지가 오답으로 판정되지 않았을 수 있음. 상태 열 확인.'; }
+
+    const rows = uniq.map(a => {
+      const cell = f => (f in a)
+        ? (hasVal(a[f]) ? `<span class="yes">있음</span><div class="val">${esc(a[f])}</div>` : `<span class="no">빈값 ""</span>`)
+        : `<span class="no">키 없음</span>`;
+      return `<tr><td>${esc(a.question_no)}</td><td>${esc(a.response_status)}</td><td>${esc(a.problem_type_id)}</td>
+        <td>${cell('student_work_text')}</td><td>${cell('student_answer')}</td><td>${cell('tag_rationale')}</td></tr>`;
+    }).join('');
+
+    $('#out').innerHTML =
+      `<div class="card ${cls}"><div class="verdict">${verdict}</div>
+       <p class="muted">응답 ${secs}s · worker_version=<code>${esc(ver)}</code> · 인식 문항 ${uniq.length} · 오답 ${wrong.length} · 원문채움 ${wrongWithWork.length}</p>
+       <p>${hint}</p></div>
+       <div class="card"><h2>문항별 3필드 (초록=있음, 빨강=없음/빈값)</h2>
+       <table><tr><th>문항</th><th>상태</th><th>유형ID</th><th>student_work_text</th><th>student_answer</th><th>tag_rationale</th></tr>
+       ${rows||'<tr><td colspan=6 class="muted">항목 없음</td></tr>'}</table></div>
+       <div class="card"><h2>전체 응답 JSON (그대로)</h2><pre>${esc(JSON.stringify(data,null,2))}</pre></div>`;
+  } catch (err) {
+    $('#out').innerHTML = `<div class="card bad"><div class="verdict">❌ 요청 오류</div><pre>${esc(err&&err.message||err)}</pre>
+    <p class="muted">Worker 주소가 맞는지, 배포됐는지(/health), CORS(CORS_ALLOWED_ORIGINS)를 확인하세요.</p></div>`;
+  } finally {
+    $('#run').disabled = false;
+    $('#status').textContent = '';
+  }
+};
+</script>
+</body>
+</html>
