@@ -1,6 +1,6 @@
 # B 이관 배포 가이드 (D1 · 대시보드 단계별) (2026-08-10)
 
-> 코드는 커밋됨. 아래는 **사용자 작업**(Cloudflare 대시보드 클릭 위주, D1 처음이라 상세). Worker 배포도 새 코드(`2026.08.10-axis-store-d1`)로 1회. 순서대로.
+> 코드는 커밋됨. 아래는 **사용자 작업**(Cloudflare 대시보드 클릭 위주, D1 처음이라 상세). Worker 배포도 새 코드(`2026.08.10-axis-store-v2`)로 1회. 순서대로.
 
 ## 1) D1 데이터베이스 생성 (대시보드)
 1. Cloudflare 대시보드 → 좌측 **Workers & Pages** → **D1 SQL Database** (또는 Storage & Databases > D1).
@@ -25,7 +25,7 @@
 
 ## 5) Worker 재배포 (새 코드)
 - 지난 Worker 배포와 동일 방법으로 **바뀐 `worker_skeleton/math_diagnosis_worker.js`** 를 올림(대시보드 Edit code → 붙여넣기 → Save and deploy).
-- **확인**: `https://<worker-도메인>/health` → `version` = **`2026.08.10-axis-store-d1`**.
+- **확인**: `https://<worker-도메인>/health` → `version` = **`2026.08.10-axis-store-v2`**.
 
 ## 6) 사이트 갱신
 - 이번 커밋(store·profile 변경)이 진단 페이지 호스트에 반영되게 사이트 갱신(GitHub Pages ~1~2분).
@@ -46,8 +46,13 @@
 1. 레코드 ≥20건(적으면 전량) 로컬↔서버 일치 · 2. 최근 ≥10회 진단 미동기 0 · 3. profile 서버조회 ≥3명 정상 · 4. **≥14일 그리고 진단 ≥10회(둘 다)**.
 
 ## 트러블슈팅 — "Failed to fetch"(서버 통신 실패)
-**원인(확정·수정됨)**: Worker CORS `Access-Control-Allow-Headers`에 `X-Write-Key`가 없어 브라우저 preflight(OPTIONS)가 그 헤더를 거부 → 실제 요청 차단. `/health`·`/analyze`는 커스텀 헤더가 없어 됐던 것. **수정: Allow-Headers에 X-Write-Key 추가, VERSION `2026.08.10-axis-store-d1-cors`.**
-→ **조치: Worker 재배포**(위 5) 후 `/health` version이 `-cors`인지 확인 + **사이트 갱신**(store/profile 수정 반영).
+**원인(확정·수정됨)**: Worker CORS `Access-Control-Allow-Headers`에 `X-Write-Key`가 없어 브라우저 preflight(OPTIONS)가 그 헤더를 거부 → 실제 요청 차단. `/health`·`/analyze`는 커스텀 헤더가 없어 됐던 것. **수정: Allow-Headers에 X-Write-Key 추가, VERSION `2026.08.10-axis-store-v2`.**
+→ **조치: Worker 재배포**(위 5) 후 `/health` version이 `2026.08.10-axis-store-v2`인지 확인 + **사이트 갱신**(store/profile 수정 반영).
+
+### ★ 주소창으로 즉시 확인 (가장 빠름 · v2 이상)
+- `https://<worker>/api/axis-store/health` → **200** `{route:"registered", has_db:true, has_key:true, version:"...v2"}` 이면 **라우트·D1바인딩·키 전부 OK**. `has_db:false`면 바인딩, `has_key:false`면 secret 재확인. **404면 아직 v2 미배포**(재배포 필요).
+- `https://<worker>/api/axis-store/profile?student_code=SC-STUDY-007` → **401**(unauthorized)이면 **라우트 정상**(키가 없어 막힌 것 = 당연, 주소창은 헤더 못 실음). **404면 미배포.**
+- ※ 이전에 이 주소로 404가 난 건 **경로 불일치가 아니라** /record·/profile이 **POST 전용**이었고 주소창은 GET이라 안 걸린 것. v2에서 /profile GET·/health를 열어 주소창 확인이 되게 함.
 
 ### F12로 직접 확인(사용자)
 1. profile.html에서 F12 → **Network** 탭 열어둔 채 [기존 로컬→서버 이관] 클릭.
