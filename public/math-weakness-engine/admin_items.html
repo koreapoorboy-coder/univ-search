@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>문항 관리 (교사 전용)</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:18px;line-height:1.5;color:#111827;background:#f8fafc;max-width:1040px}
+  h1{font-size:21px}h2{font-size:16px;margin:0 0 8px}
+  label{display:block;font-weight:700;margin:10px 0 4px;font-size:14px}
+  input,select,textarea{width:100%;box-sizing:border-box;padding:8px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;font-size:14px}
+  textarea{min-height:70px;font-family:ui-monospace,Consolas,monospace}
+  #question_text{min-height:110px}
+  button{padding:9px 15px;border:0;border-radius:8px;background:#111827;color:#fff;font-size:14px;cursor:pointer;margin:6px 6px 0 0}
+  button.sec{background:#475569}button.ai{background:#3730a3}button.danger{background:#b91c1c;padding:4px 9px;font-size:12px;margin:0}button.mini{background:#334155;padding:4px 9px;font-size:12px;margin:0 4px 0 0}
+  button:disabled{opacity:.5;cursor:default}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .muted{color:#64748b;font-size:13px}.small{font-size:12px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .chip{display:inline-block;padding:2px 8px;border-radius:999px;background:#e2e8f0;margin:2px;font-size:12px}
+  .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:700;font-size:13px;margin-right:6px}
+  .b-app{background:#bbf7d0}.b-pend{background:#fed7aa}.b-arch{background:#e2e8f0}
+  .pendhi{background:#b91c1c;color:#fff}
+  table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13px}
+  th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}th{background:#f1f5f9}
+  .st-pending{color:#b45309;font-weight:700}.st-approved{color:#047857}.st-archived{color:#94a3b8}
+  .preview{background:#f8fafc;border:1px dashed #94a3b8;border-radius:10px;padding:12px;margin-top:10px}
+  code{background:#e2e8f0;padding:1px 5px;border-radius:5px}
+  #editing{font-weight:700;color:#3730a3}
+</style>
+</head>
+<body>
+<h1>문항 관리 (교사 전용) <span class="muted small">— 학생 진단 페이지와 분리된 관리 화면</span></h1>
+<p class="muted">PDF 원문 붙여넣기 → [AI 구조화] → 검수·수정 → [저장]. 저장은 D1(user_items) 즉시 반영(git 불요).
+<b>유형을 못 정하면 pending(보류)</b>로 저장됩니다 — 아래 <b>보류 목록</b>에서 나중에 유형을 지정해 승격하세요.</p>
+
+<div class="card" id="cfgCard">
+  <h2>연결 설정 <span class="muted small">(처음 1회, 브라우저에 저장)</span></h2>
+  <div class="grid">
+    <div><label>Worker 주소</label><input id="worker" placeholder="https://math-diagnosis-worker.____.workers.dev" /></div>
+    <div><label>데이터 base URL (…/math-weakness-engine)</label><input id="base" placeholder="https://호스트/.../math-weakness-engine" /></div>
+  </div>
+  <label>쓰기키 (RECORD_WRITE_KEY — axis-store와 동일 키)</label><input id="wkey" type="password" placeholder="교사만 아는 쓰기키" />
+  <div class="row"><button class="sec" id="saveCfg">설정 저장</button><button class="sec" id="ping">연결 확인(/health)</button><span id="cfgStatus" class="muted"></span></div>
+</div>
+
+<div class="card">
+  <h2>1) 단원 선택 + 원문 붙여넣기</h2>
+  <div class="grid">
+    <div><label>단원</label><select id="unit"><option value="">— 설정 저장 후 로드 —</option></select></div>
+    <div><label>난도</label><select id="difficulty"><option value="basic">basic</option><option value="core" selected>core</option><option value="advanced">advanced</option><option value="high">high</option></select></div>
+  </div>
+  <label>문항 원문 (PDF 복사 — 본문+정답+해설 함께 가능)</label>
+  <textarea id="raw" placeholder="예) 문제 3. 이차함수 y=(x-2)^2+3 의 꼭짓점을 구하시오.  정답:(2,3)  해설: 표준형에서 꼭짓점은 (p,q)..."></textarea>
+  <div class="row"><button class="ai" id="structBtn">AI 구조화 →</button><span id="structStatus" class="muted"></span></div>
+</div>
+
+<div class="card">
+  <h2>2) 검수·수정 <span id="editing"></span></h2>
+  <label>문제 본문 <span class="muted small">(필수)</span></label>
+  <textarea id="question_text"></textarea>
+  <div class="grid">
+    <div><label>정답</label><input id="answer" /></div>
+    <div><label>유형 (problem_type_id) <span class="muted small">— 비우면 pending 저장</span></label><select id="ptype"><option value="">— 단원 선택 시 로드 —</option></select></div>
+  </div>
+  <label>해설</label><textarea id="explanation"></textarea>
+  <div class="grid">
+    <div><label>개념 (자동)</label><input id="concepts" readonly class="muted" /></div>
+    <div><label>오류태그 (선택, 쉼표)</label><input id="etags" /></div>
+  </div>
+  <label>출처/메모 (선택)</label><input id="source_note" />
+  <div class="row">
+    <button id="previewBtn" class="sec">미리보기</button>
+    <button id="saveBtn">저장 →</button>
+    <button id="newBtn" class="sec">새 문항(폼 비우기)</button>
+    <span id="saveStatus" class="muted"></span>
+  </div>
+  <div id="preview"></div>
+</div>
+
+<div class="card">
+  <h2>3) 등록 목록 <span id="counts"></span></h2>
+  <div class="row">
+    <button class="sec" id="listBtn">새로고침</button>
+    <button class="mini" data-f="">전체</button>
+    <button class="mini" data-f="pending">보류(pending)만</button>
+    <button class="mini" data-f="approved">승인만</button>
+    <label class="small" style="margin:0"><input type="checkbox" id="filterUnit" style="width:auto;display:inline"> 현재 단원만</label>
+    <span id="listStatus" class="muted"></span>
+  </div>
+  <div id="list"></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const LS = 'admin_items_cfg';
+let TYPES = [];        // 현재 단원 유형
+let CURRENT_ID = '';   // 편집 중인 문항 id(빈값=신규)
+let FILTER = '';       // '', 'pending', 'approved'
+const esc = s => String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const norm = u => String(u||'').trim().replace(/\/$/,'');
+
+function cfg(){ try{return JSON.parse(localStorage.getItem(LS)||'{}');}catch(e){return {};} }
+function loadCfg(){ const c=cfg(); $('#worker').value=c.worker||''; $('#base').value=c.base||''; $('#wkey').value=c.wkey||''; }
+function headers(){ return {'Content-Type':'application/json','X-Write-Key':cfg().wkey||''}; }
+
+$('#saveCfg').onclick = async () => {
+  localStorage.setItem(LS,JSON.stringify({worker:norm($('#worker').value),base:norm($('#base').value).replace(/\/data\/.*$/,''),wkey:$('#wkey').value.trim()}));
+  $('#cfgStatus').textContent=' 저장됨. 단원 로딩...'; await loadUnits(); loadList();
+};
+$('#ping').onclick = async () => {
+  const c=cfg(); if(!c.worker){$('#cfgStatus').textContent=' Worker 주소 먼저.';return;}
+  try{ const j=await (await fetch(`${c.worker}/api/user-items/health`)).json();
+    $('#cfgStatus').textContent=` health: ver=${j.version} · D1=${j.has_db?'O':'X'} · key=${j.has_key?'O':'X'}`;
+  }catch(e){ $('#cfgStatus').textContent=' 연결 실패: '+(e.message||e); }
+};
+
+async function loadUnits(){
+  const c=cfg(); if(!c.base){$('#cfgStatus').textContent=' 데이터 base 저장하세요.';return;}
+  try{
+    const idx=await (await fetch(`${c.base}/data/index.v1.json`,{cache:'no-store'})).json();
+    const units=(idx.units||[]).filter(u=>u.unit_id);
+    $('#unit').innerHTML='<option value="">— 단원 선택 —</option>'+units.map(u=>`<option value="${esc(u.unit_id)}" data-name="${esc(u.unit_name||u.unit_id)}">${esc(u.unit_name||u.unit_id)} (${esc(u.unit_id)})</option>`).join('');
+    $('#cfgStatus').textContent=` 단원 ${units.length}개 로드.`;
+  }catch(e){ $('#cfgStatus').textContent=' 단원 로드 실패: '+(e.message||e); }
+}
+async function loadTypes(unitId){
+  TYPES=[]; $('#ptype').innerHTML='<option value="">— 로딩 —</option>';
+  if(!unitId){$('#ptype').innerHTML='<option value="">— 단원 선택 —</option>';return;}
+  const c=cfg();
+  try{
+    const idx=await (await fetch(`${c.base}/data/index.v1.json`,{cache:'no-store'})).json();
+    const unit=(idx.units||[]).find(u=>u.unit_id===unitId);
+    if(!unit||!unit.problem_types) throw new Error('problem_types 경로 없음');
+    const pack=await (await fetch(`${c.base}/${unit.problem_types}`,{cache:'no-store'})).json();
+    TYPES=(pack.problem_types||[]).map(p=>({problem_type_id:p.problem_type_id,type_name:p.type_name,concept_ids:Array.isArray(p.concept_ids)?p.concept_ids:[]})).filter(t=>t.problem_type_id);
+    renderTypeOptions('');
+  }catch(e){ $('#ptype').innerHTML=`<option value="">유형 로드 실패: ${esc(e.message||e)}</option>`; }
+}
+function renderTypeOptions(sel){
+  $('#ptype').innerHTML='<option value="">— 유형 선택(비우면 pending) —</option>'+TYPES.map(t=>`<option value="${esc(t.problem_type_id)}"${t.problem_type_id===sel?' selected':''}>${esc(t.type_name)} · ${esc(t.problem_type_id)}</option>`).join('');
+  syncConcepts();
+}
+function syncConcepts(){ const t=TYPES.find(x=>x.problem_type_id===$('#ptype').value); $('#concepts').value=t?(t.concept_ids||[]).join(', '):''; }
+$('#unit').onchange = () => loadTypes($('#unit').value);
+$('#ptype').onchange = syncConcepts;
+
+$('#structBtn').onclick = async () => {
+  const c=cfg(); const unitId=$('#unit').value; const raw=$('#raw').value.trim();
+  if(!c.worker||!c.wkey){$('#structStatus').textContent=' 설정 먼저.';return;}
+  if(!unitId){$('#structStatus').textContent=' 단원 선택.';return;}
+  if(!raw){$('#structStatus').textContent=' 원문 붙여넣기.';return;}
+  $('#structBtn').disabled=true; $('#structStatus').textContent=' AI 구조화 중... (최대 1분)';
+  try{
+    const j=await (await fetch(`${c.worker}/api/user-items/structure`,{method:'POST',headers:headers(),body:JSON.stringify({raw_text:raw,unit_id:unitId,engine_data_base:c.base})})).json();
+    if(!j.ok){ $('#structStatus').textContent=' 실패: '+(j.error||''); return; }
+    TYPES=j.types||TYPES; const d=j.draft||{};
+    $('#question_text').value=d.question_text||''; $('#answer').value=d.answer||''; $('#explanation').value=d.explanation||'';
+    $('#difficulty').value=d.difficulty||'core'; $('#etags').value=(d.error_tags||[]).join(', ');
+    renderTypeOptions(d.problem_type_id||'');
+    $('#structStatus').textContent=` 완료 — 유형제안: ${d.problem_type_id?esc(d.type_name||d.problem_type_id):'(없음 → 저장 시 pending)'}`;
+  }catch(e){ $('#structStatus').textContent=' 오류: '+(e.message||e); }
+  finally{ $('#structBtn').disabled=false; }
+};
+
+function currentItem(){
+  const uo=$('#unit').selectedOptions[0];
+  return { id:CURRENT_ID||undefined, unit_id:$('#unit').value, unit_name:uo?uo.getAttribute('data-name'):'',
+    problem_type_id:$('#ptype').value, type_name:(TYPES.find(t=>t.problem_type_id===$('#ptype').value)||{}).type_name||'',
+    concept_ids:$('#concepts').value.split(',').map(s=>s.trim()).filter(Boolean),
+    question_text:$('#question_text').value.trim(), answer:$('#answer').value.trim(), explanation:$('#explanation').value.trim(),
+    difficulty:$('#difficulty').value, error_tags:$('#etags').value.split(',').map(s=>s.trim()).filter(Boolean), source_note:$('#source_note').value.trim() };
+}
+function clearForm(){
+  CURRENT_ID=''; $('#editing').textContent='';
+  ['raw','question_text','answer','explanation','etags','source_note'].forEach(id=>$('#'+id).value='');
+  $('#preview').innerHTML='';
+}
+$('#newBtn').onclick = clearForm;
+$('#previewBtn').onclick = () => {
+  const it=currentItem();
+  const willPend = !it.problem_type_id;
+  $('#preview').innerHTML=`<div class="preview">${willPend?'<b style="color:#b45309">⚠ 유형 없음 → pending(보류)로 저장됩니다</b><br>':''}
+    <b>본문</b><div>${esc(it.question_text)||'<span class=muted>(비어있음)</span>'}</div>
+    <b>정답</b> ${esc(it.answer)||'—'} · <b>난도</b> ${esc(it.difficulty)}<br>
+    <b>유형</b> ${esc(it.type_name)||'—'} <span class="muted small">${esc(it.problem_type_id)}</span><br>
+    <b>개념</b> ${(it.concept_ids||[]).map(c=>`<span class=chip>${esc(c)}</span>`).join('')||'—'}<br>
+    <b>해설</b><div>${esc(it.explanation)||'—'}</div></div>`;
+};
+$('#saveBtn').onclick = async () => {
+  const c=cfg(); const it=currentItem();
+  if(!c.worker||!c.wkey){$('#saveStatus').textContent=' 설정 먼저.';return;}
+  if(!it.question_text){$('#saveStatus').textContent=' 본문 필수.';return;}
+  if(!it.problem_type_id && !confirm('유형이 없어 pending(보류)로 저장됩니다. 진행할까요?')) return;
+  $('#saveBtn').disabled=true; $('#saveStatus').textContent=' 저장 중...';
+  try{
+    const j=await (await fetch(`${c.worker}/api/user-items/add`,{method:'POST',headers:headers(),body:JSON.stringify(it)})).json();
+    if(!j.ok){ $('#saveStatus').textContent=' 실패: '+(j.error||''); return; }
+    $('#saveStatus').textContent=` 저장됨 (${it.problem_type_id?'승인':'보류/pending'} · id=${String(j.id).slice(0,8)}…)`;
+    clearForm(); loadList();
+  }catch(e){ $('#saveStatus').textContent=' 오류: '+(e.message||e); }
+  finally{ $('#saveBtn').disabled=false; }
+};
+
+// 목록 행 → 폼 로드(보류 문항에 유형 지정해 승격, 또는 편집)
+async function editItem(it){
+  clearForm();
+  CURRENT_ID=it.id; $('#editing').textContent=`· 편집 중 (id ${String(it.id).slice(0,8)}…, ${it.status})`;
+  if(it.unit_id){ $('#unit').value=it.unit_id; await loadTypes(it.unit_id); }
+  $('#question_text').value=it.question_text||''; $('#answer').value=it.answer||''; $('#explanation').value=it.explanation||'';
+  $('#difficulty').value=it.difficulty||'core';
+  $('#etags').value=(it.error_tags||[]).join(', '); $('#source_note').value=it.source_note||'';
+  renderTypeOptions(it.problem_type_id||'');
+  window.scrollTo({top:$('#question_text').getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});
+  $('#saveStatus').textContent = it.status==='pending' ? ' 보류 문항 — 유형을 지정하고 저장하면 승인으로 승격됩니다.' : ' 편집 모드 — 저장하면 덮어씁니다.';
+}
+
+async function loadList(){
+  const c=cfg(); if(!c.worker||!c.wkey){$('#listStatus').textContent=' 설정 먼저.';return;}
+  const body={limit:300}; if(FILTER) body.status=FILTER; if($('#filterUnit').checked && $('#unit').value) body.unit_id=$('#unit').value;
+  $('#listStatus').textContent=' 불러오는 중...';
+  try{
+    const j=await (await fetch(`${c.worker}/api/user-items/list`,{method:'POST',headers:headers(),body:JSON.stringify(body)})).json();
+    if(!j.ok){ $('#listStatus').textContent=' 실패: '+(j.error||''); return; }
+    const ct=j.counts||{}; const pend=ct.pending||0;
+    $('#counts').innerHTML=`<span class="badge b-app">승인 ${ct.approved||0}</span><span class="badge ${pend>0?'pendhi':'b-pend'}">보류 ${pend}</span><span class="badge b-arch">보관 ${ct.archived||0}</span>`;
+    $('#listStatus').textContent=` 표시 ${j.count} · 전체 ${j.total}${FILTER?` · 필터:${FILTER}`:''}`;
+    const rows=(j.items||[]).map(it=>`<tr>
+      <td>${esc((it.created_at||'').slice(0,10))}</td><td class="st-${esc(it.status)}">${esc(it.status)}</td>
+      <td>${esc(it.unit_name||it.unit_id)}</td><td>${esc(it.type_name||it.problem_type_id)||'<span class=muted>(미지정)</span>'}</td>
+      <td>${esc((it.question_text||'').slice(0,54))}${(it.question_text||'').length>54?'…':''}</td>
+      <td><button class="mini edit" data-id="${esc(it.id)}">${it.status==='pending'?'유형지정':'수정'}</button><button class="danger del" data-id="${esc(it.id)}">삭제</button></td></tr>`).join('');
+    $('#list').innerHTML=`<table><tr><th>등록일</th><th>상태</th><th>단원</th><th>유형</th><th>본문(앞)</th><th></th></tr>${rows||'<tr><td colspan=6 class=muted>없음</td></tr>'}</table>`;
+    const map={}; (j.items||[]).forEach(it=>map[it.id]=it);
+    $('#list').querySelectorAll('button.edit').forEach(b=>b.onclick=()=>editItem(map[b.getAttribute('data-id')]));
+    $('#list').querySelectorAll('button.del').forEach(b=>b.onclick=async()=>{
+      if(!confirm('삭제(보관 처리)할까요?')) return;
+      const jj=await (await fetch(`${c.worker}/api/user-items/delete`,{method:'POST',headers:headers(),body:JSON.stringify({id:b.getAttribute('data-id')})})).json();
+      if(jj.ok) loadList(); else alert('삭제 실패: '+(jj.error||''));
+    });
+  }catch(e){ $('#listStatus').textContent=' 오류: '+(e.message||e); }
+}
+$('#listBtn').onclick = loadList;
+document.querySelectorAll('button.mini[data-f]').forEach(b=>b.onclick=()=>{ FILTER=b.getAttribute('data-f'); loadList(); });
+
+loadCfg();
+if(cfg().base){ loadUnits(); loadList(); }
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.10-itembank-register';
+const VERSION = '2026.08.10-user-items';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -123,23 +123,23 @@ export default {
         return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
       }
 
-      // 문항 등록 통로 (item_bank: D1). 교사 전용·X-Write-Key. /structure=AI 구조화 초안, 나머지=CRUD.
-      if (url.pathname === '/api/item-bank/health' && request.method === 'GET') {
-        return json(request, env, { ok: true, store: 'item_bank', route: 'registered', has_db: !!env.AXIS_DB, has_key: !!env.RECORD_WRITE_KEY, version: VERSION }, 200, requestId, startedAt);
+      // 문항 등록 통로 (user_items: D1). 교사 전용·X-Write-Key. /structure=AI 구조화 초안, 나머지=CRUD.
+      if (url.pathname === '/api/user-items/health' && request.method === 'GET') {
+        return json(request, env, { ok: true, store: 'user_items', route: 'registered', has_db: !!env.AXIS_DB, has_key: !!env.RECORD_WRITE_KEY, version: VERSION }, 200, requestId, startedAt);
       }
-      if (url.pathname === '/api/item-bank/structure' && request.method === 'POST') {
+      if (url.pathname === '/api/user-items/structure' && request.method === 'POST') {
         const res = await itemStructure(request, env);
         return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
       }
-      if (url.pathname === '/api/item-bank/add' && request.method === 'POST') {
+      if (url.pathname === '/api/user-items/add' && request.method === 'POST') {
         const res = await itemAdd(request, env);
         return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
       }
-      if (url.pathname === '/api/item-bank/list' && (request.method === 'POST' || request.method === 'GET')) {
+      if (url.pathname === '/api/user-items/list' && (request.method === 'POST' || request.method === 'GET')) {
         const res = await itemList(request, env, url);
         return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
       }
-      if (url.pathname === '/api/item-bank/delete' && request.method === 'POST') {
+      if (url.pathname === '/api/user-items/delete' && request.method === 'POST') {
         const res = await itemDelete(request, env);
         return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
       }
@@ -219,7 +219,7 @@ async function axisProfile(request, env, url) {
   return { ok: true, students: rows };
 }
 
-// ── 문항 등록 통로 (item_bank: 같은 D1 AXIS_DB, item_bank 테이블) ─────────────
+// ── 문항 등록 통로 (user_items: 같은 D1 AXIS_DB, user_items 테이블) ─────────────
 // 신규 문항은 매일 늘고 사용자가 git을 못 쓰므로 정적 파일이 아니라 D1에 쓴다.
 // /structure = AI 구조화 초안(원문→본문/정답/해설/유형후보). add/list/delete = CRUD. 전부 X-Write-Key.
 
@@ -313,13 +313,17 @@ async function itemAdd(request, env) {
   if (!qt) return { ok: false, code: 'bad_item', error: 'question_text 필수', status: 400 };
   const id = (b && b.id) || crypto.randomUUID();
   const now = new Date().toISOString();
+  // 검수 결정 B: 유형 미매칭이면 조용히 approved로 두지 않고 pending으로 보류한다(방치 방지·나중 일괄 승격).
+  // 유형이 있으면 approved. 클라이언트가 status를 명시하면 존중하되, 유형 없으면 강제 pending.
+  const hasType = String((b && b.problem_type_id) || '').trim().length > 0;
+  const status = hasType ? ((b && b.status) || 'approved') : 'pending';
   await env.AXIS_DB.prepare(
-    `INSERT INTO item_bank (id, created_at, updated_at, status, unit_id, unit_name, problem_type_id, type_name, concept_ids, question_text, answer, explanation, difficulty, error_tags, source_note)
+    `INSERT INTO user_items (id, created_at, updated_at, status, unit_id, unit_name, problem_type_id, type_name, concept_ids, question_text, answer, explanation, difficulty, error_tags, source_note)
      VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15)
      ON CONFLICT(id) DO UPDATE SET updated_at=excluded.updated_at, status=excluded.status, unit_id=excluded.unit_id, unit_name=excluded.unit_name,
        problem_type_id=excluded.problem_type_id, type_name=excluded.type_name, concept_ids=excluded.concept_ids, question_text=excluded.question_text,
        answer=excluded.answer, explanation=excluded.explanation, difficulty=excluded.difficulty, error_tags=excluded.error_tags, source_note=excluded.source_note`
-  ).bind(id, now, now, (b && b.status) || 'approved', (b && b.unit_id) || '', (b && b.unit_name) || '', (b && b.problem_type_id) || '', (b && b.type_name) || '',
+  ).bind(id, now, now, status, (b && b.unit_id) || '', (b && b.unit_name) || '', (b && b.problem_type_id) || '', (b && b.type_name) || '',
     axisJson((b && b.concept_ids) || []), qt, (b && b.answer) || '', (b && b.explanation) || '', (b && b.difficulty) || 'core', axisJson((b && b.error_tags) || []), (b && b.source_note) || '').run();
   return { ok: true, id };
 }
@@ -330,15 +334,19 @@ async function itemList(request, env, url) {
   let unitId = null, status = null, limit = 200;
   if (request.method === 'GET') { unitId = url.searchParams.get('unit_id'); status = url.searchParams.get('status'); }
   else { const b = await safeJson(request).catch(() => ({})); unitId = b && b.unit_id; status = b && b.status; if (b && b.limit) limit = Math.min(1000, Number(b.limit) || 200); }
-  let sql = 'SELECT * FROM item_bank'; const cond = [], args = [];
+  let sql = 'SELECT * FROM user_items'; const cond = [], args = [];
   if (unitId) { cond.push(`unit_id=?${args.length + 1}`); args.push(unitId); }
   if (status) { cond.push(`status=?${args.length + 1}`); args.push(status); }
   if (cond.length) sql += ' WHERE ' + cond.join(' AND ');
   sql += ` ORDER BY created_at DESC LIMIT ${limit}`;
   const rows = ((await env.AXIS_DB.prepare(sql).bind(...args).all()).results) || [];
   const items = rows.map(x => ({ ...x, concept_ids: axisParse(x.concept_ids), error_tags: axisParse(x.error_tags) }));
-  const totalRow = ((await env.AXIS_DB.prepare('SELECT COUNT(*) AS c FROM item_bank').all()).results) || [{ c: 0 }];
-  return { ok: true, items, count: items.length, total: (totalRow[0] && totalRow[0].c) || 0 };
+  // 상태별 카운트를 항상 실어 보낸다(pending 방치 방지 — 화면에 상시 표시).
+  const countRows = ((await env.AXIS_DB.prepare('SELECT status, COUNT(*) AS c FROM user_items GROUP BY status').all()).results) || [];
+  const counts = { approved: 0, pending: 0, archived: 0 };
+  countRows.forEach(r => { counts[r.status || 'unknown'] = r.c; });
+  const total = countRows.reduce((s, r) => s + (r.c || 0), 0);
+  return { ok: true, items, count: items.length, total, counts };
 }
 
 async function itemDelete(request, env) {
@@ -346,8 +354,8 @@ async function itemDelete(request, env) {
   if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
   const b = await safeJson(request);
   if (!b || !b.id) return { ok: false, code: 'bad_input', error: 'id 필수', status: 400 };
-  if (b.hard === true) { await env.AXIS_DB.prepare('DELETE FROM item_bank WHERE id=?1').bind(b.id).run(); return { ok: true, id: b.id, deleted: 'hard' }; }
-  await env.AXIS_DB.prepare('UPDATE item_bank SET status=?1, updated_at=?2 WHERE id=?3').bind('archived', new Date().toISOString(), b.id).run();
+  if (b.hard === true) { await env.AXIS_DB.prepare('DELETE FROM user_items WHERE id=?1').bind(b.id).run(); return { ok: true, id: b.id, deleted: 'hard' }; }
+  await env.AXIS_DB.prepare('UPDATE user_items SET status=?1, updated_at=?2 WHERE id=?3').bind('archived', new Date().toISOString(), b.id).run();
   return { ok: true, id: b.id, deleted: 'soft' };
 }
 
