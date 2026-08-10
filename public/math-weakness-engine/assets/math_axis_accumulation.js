@@ -64,6 +64,9 @@
 
   function save(record) {
     if (!record || !record.student_code) return false;
+    // [FIXA-DEBUG 임시] 저장 직전 attempt 키를 콘솔에 찍는다. student_work_text가 보이면 새 store,
+    // 안 보이면 옛 store(HTML 캐시). 검증 끝나면 이 줄 제거.
+    try { console.log('[axis-store][FIXA-DEBUG] store=fixA-worktext2 · attempt keys →', JSON.stringify((record.attempts || []).map(a => Object.keys(a)))); } catch (e) {}
     const list = _load(); list.push(record); const okLocal = _persist(list);
     _postRecord(record);   // B 이중쓰기: 서버 POST(비동기·미대기). 실패 시 pending 큐. 서버 미구성이면 skip.
     return okLocal;
