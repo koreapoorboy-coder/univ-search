@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<title>OCR 전사 실측 (AI question_text vs 원본)</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:18px;line-height:1.5;color:#111827;background:#f8fafc;max-width:1040px}
+  h1{font-size:20px}h2{font-size:16px;margin:0 0 8px}
+  label{display:block;font-weight:700;margin:10px 0 4px;font-size:14px}
+  input[type=text],textarea{width:100%;box-sizing:border-box;padding:8px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px}
+  textarea{min-height:120px;font-family:ui-monospace,Consolas,monospace}
+  select{padding:8px;border:1px solid #cbd5e1;border-radius:8px}
+  button{padding:10px 16px;border:0;border-radius:8px;background:#111827;color:#fff;font-size:14px;cursor:pointer;margin:6px 6px 0 0}
+  button.sec{background:#475569}button:disabled{opacity:.5}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .muted{color:#64748b;font-size:13px}.small{font-size:12px}
+  table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13px}th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}th{background:#f1f5f9}
+  code{background:#e2e8f0;padding:1px 5px;border-radius:5px}
+  .hi{background:#ecfdf5}.lo{background:#fef2f2}
+  .big{font-size:17px;font-weight:700}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<h1>OCR 전사 실측 — AI가 읽은 question_text vs 원본</h1>
+<p class="muted">등록 문항으로 만든 시험지를 업로드 → 진단 Worker가 추출한 <code>question_text</code>를 원본과 대조해
+<b>문항별 유사도 + 분포(min/max/평균)</b>를 냅니다. 한 건이 아니라 여러 문항으로 봐야 하니, 시험지에 여러 문항을 넣으세요.
+정규화 = NFKC + 공백제거 + 지수/기호 통일. (진단은 Worker 버전 <b>2026.08.10-qtext-verbatim 이상</b> 필요)</p>
+
+<div class="card">
+  <h2>설정</h2>
+  <div class="grid">
+    <div><label>Worker 주소</label><input id="worker" placeholder="https://math-diagnosis-worker.____.workers.dev" /></div>
+    <div><label>데이터 base URL (…/math-weakness-engine)</label><input id="base" placeholder="https://호스트/.../math-weakness-engine" /></div>
+  </div>
+  <div class="grid">
+    <div><label>단원</label><select id="unit" style="width:100%"><option value="">— 설정 후 로드 —</option></select></div>
+    <div><label>시험지 파일 (등록 문항으로 만든 것 · PDF/이미지/txt)</label><input id="file" type="file" accept="application/pdf,image/*,text/plain,.txt" /></div>
+  </div>
+  <div class="row"><button class="sec" id="saveCfg">설정 저장 · 단원 로드</button><span id="cfgStatus" class="muted"></span></div>
+</div>
+
+<div class="card">
+  <h2>원본 문항 (한 줄에 하나 · 시험지의 문항 번호 순서대로)</h2>
+  <p class="muted small">AI가 반환한 문항을 번호순으로 정렬해 이 목록과 1:1로 짝지어 유사도를 냅니다.</p>
+  <textarea id="origs" placeholder="1번 원문&#10;2번 원문&#10;3번 원문 ..."></textarea>
+  <div class="row"><button id="runBtn">AI 추출 &amp; 대조</button><span id="runStatus" class="muted"></span></div>
+</div>
+
+<div id="out"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const LS='ocr_measure_cfg';
+const norm = s => String(s||'').normalize('NFKC')
+  .replace(/\s+/g,'').replace(/\^/g,'')
+  .replace(/[×·]/g,'*').replace(/[−–]/g,'-')
+  .replace(/[.,·、。]/g,'').toLowerCase();
+function bg(s){const m={};for(let i=0;i<s.length-1;i++){const g=s.slice(i,i+2);m[g]=(m[g]||0)+1;}return m;}
+function dice(a,b){const ca=bg(a),cb=bg(b);let na=0,nb=0,ic=0;for(const k in ca)na+=ca[k];for(const k in cb)nb+=cb[k];for(const k in ca)ic+=Math.min(ca[k],cb[k]||0);return na+nb?2*ic/(na+nb):0;}
+const esc=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const norm2=u=>String(u||'').trim().replace(/\/$/,'').replace(/\/data\/.*$/,'');
+function cfg(){try{return JSON.parse(localStorage.getItem(LS)||'{}');}catch(e){return {};}}
+
+$('#saveCfg').onclick=async()=>{
+  localStorage.setItem(LS,JSON.stringify({worker:norm2($('#worker').value),base:norm2($('#base').value)}));
+  await loadUnits();
+};
+async function loadUnits(){
+  const c=cfg(); if(!c.base){$('#cfgStatus').textContent=' base 저장하세요.';return;}
+  try{const idx=await (await fetch(`${c.base}/data/index.v1.json`,{cache:'no-store'})).json();
+    const us=(idx.units||[]).filter(u=>u.unit_id);
+    $('#unit').innerHTML='<option value="">— 단원 —</option>'+us.map(u=>`<option value="${esc(u.unit_id)}">${esc(u.unit_name||u.unit_id)} (${esc(u.unit_id)})</option>`).join('');
+    $('#cfgStatus').textContent=` 단원 ${us.length}개.`;
+  }catch(e){$('#cfgStatus').textContent=' 단원 로드 실패: '+(e.message||e);}
+}
+function collect(node,out){
+  if(!node||typeof node!=='object')return;
+  if(Array.isArray(node)){node.forEach(x=>collect(x,out));return;}
+  if(node.question_no!==undefined && (node.question_text!==undefined||node.problem_type_id!==undefined)) out.push(node);
+  for(const k in node) collect(node[k],out);
+}
+$('#runBtn').onclick=async()=>{
+  const c=cfg(); const unit=$('#unit').value; const file=$('#file').files[0];
+  const origs=$('#origs').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  if(!c.worker){alert('Worker 주소 저장');return;}
+  if(!unit){alert('단원 선택');return;}
+  if(!file){alert('시험지 파일 선택');return;}
+  if(!origs.length){alert('원본 문항을 넣으세요');return;}
+  const payload={learning_context:{scope:{mode:'semester',label:'OCR 실측',candidate_units:[{unit_id:unit,unit_name:unit}],engine_data_base:c.base}}};
+  const fd=new FormData(); fd.append('payload',JSON.stringify(payload)); fd.append('file',file);
+  $('#runBtn').disabled=true; $('#runStatus').textContent=' 진단 추출 중... (1~2분)'; $('#out').innerHTML='';
+  try{
+    const j=await (await fetch(`${c.worker}/api/math-diagnose/analyze`,{method:'POST',body:fd})).json();
+    const ver=(j._runtime&&j._runtime.worker_version)||'?';
+    const atts=[]; collect(j,atts);
+    // 중복 제거 + 번호순 정렬
+    const seen=new Set(); const uniq=[];
+    for(const a of atts){const k=String(a.question_no); if(seen.has(k))continue; seen.add(k); uniq.push(a);}
+    uniq.sort((x,y)=>String(x.question_no).localeCompare(String(y.question_no),'en',{numeric:true}));
+    const n=Math.min(uniq.length,origs.length);
+    const sims=[]; const rows=[];
+    for(let i=0;i<n;i++){
+      const ai=uniq[i].question_text||''; const og=origs[i];
+      const sim=dice(norm(ai),norm(og)); sims.push(sim);
+      rows.push(`<tr class="${sim>=0.99?'hi':(sim<0.95?'lo':'')}"><td>${esc(uniq[i].question_no)}</td><td>${sim.toFixed(4)}</td>
+        <td><code>${esc(ai)||'<span class=muted>(비어있음)</span>'}</code></td><td><code>${esc(og)}</code></td></tr>`);
+    }
+    const min=sims.length?Math.min(...sims):0, max=sims.length?Math.max(...sims):0, avg=sims.length?sims.reduce((a,b)=>a+b,0)/sims.length:0;
+    const ge=t=>sims.filter(s=>s>=t).length;
+    $('#out').innerHTML=`<div class="card">
+      <p class="muted">worker=${esc(ver)} · AI 추출 문항 ${uniq.length} · 대조 ${n}쌍</p>
+      <p class="big">분포: min <b>${min.toFixed(4)}</b> · avg <b>${avg.toFixed(4)}</b> · max <b>${max.toFixed(4)}</b></p>
+      <p>임계 통과 수 — ≥0.99: <b>${ge(0.99)}</b>/${n} · ≥0.95: <b>${ge(0.95)}</b>/${n} · ≥0.90: <b>${ge(0.90)}</b>/${n}</p>
+      <p class="muted small">비교 기준: 실측 "다른 문항 최대 0.926". min이 이보다 확실히 높아야(마진 확보) 그 임계값이 안전.
+      min이 낮으면(요약 잔존) 프롬프트 추가 강화 또는 임계값 재검토.</p>
+      <table><tr><th>문항</th><th>유사도</th><th>AI question_text</th><th>원본</th></tr>${rows.join('')||'<tr><td colspan=4 class=muted>없음</td></tr>'}</table>
+      </div>`;
+    $('#runStatus').textContent=' 완료.';
+  }catch(e){ $('#runStatus').textContent=' 오류: '+(e.message||e); }
+  finally{ $('#runBtn').disabled=false; }
+};
+(function init(){const c=cfg();$('#worker').value=c.worker||'';$('#base').value=c.base||'';if(c.base)loadUnits();})();
+</script>
+</body>
+</html>
