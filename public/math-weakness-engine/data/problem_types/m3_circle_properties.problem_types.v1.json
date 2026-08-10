@@ -2,7 +2,7 @@
     "version":  "2026.08.09-m3_circle_properties-assembled-from-variant-bank",
     "unit_id":  "M3_CIRCLE_PROPERTIES",
     "unit_name":  "원의 성질",
-    "_note":  "problem_types assembled from type_variant_bank (type_name_source=variant_bank, topic names not curated diagnostic names). concept_ids empty (M3_*_C concepts undefined - separate track). error_tags empty (fine layer via overlay).",
+    "_note":  "problem_types assembled from type_variant_bank. pt.concept_ids filled from source_item_links (Tier1 concept build 2026-08-10). concept defs in math_concepts.v1.json (source=pt_derived).",
     "problem_type_count":  47,
     "problem_types":  [
                           {
@@ -12,7 +12,7 @@
                               "type_name":  "원의 중심과 현의 수직이등분선(1) - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C001"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -26,7 +26,7 @@
                               "type_name":  "현의 길이(1); 중심에서 같은 거리의 두 현 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C005"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -40,7 +40,7 @@
                               "type_name":  "현의 길이(1); 중심에서 같은 거리의 두 현 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C005"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -54,7 +54,7 @@
                               "type_name":  "원의 접선과 반지름 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C007"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -68,7 +68,7 @@
                               "type_name":  "원의 접선의 성질(1) - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C008"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -82,7 +82,7 @@
                               "type_name":  "원의 접선의 성질(1) - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C008"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -96,7 +96,7 @@
                               "type_name":  "원의 접선의 성질(2); 길이 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C009"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -110,7 +110,7 @@
                               "type_name":  "원의 접선의 성질의 활용 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C011"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -124,7 +124,7 @@
                               "type_name":  "원의 접선의 성질의 활용 - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C011"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -138,7 +138,7 @@
                               "type_name":  "삼각형의 내접원 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C012"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -152,7 +152,7 @@
                               "type_name":  "직각삼각형의 내접원 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C013"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -166,7 +166,7 @@
                               "type_name":  "직각삼각형의 내접원 - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C013"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -180,7 +180,7 @@
                               "type_name":  "원에 외접하는 사각형의 성질(2); 한 내각이 90˚인 경우 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C015"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -194,7 +194,7 @@
                               "type_name":  "원에 외접하는 사각형의 성질(2); 한 내각이 90˚인 경우 - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C015"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -208,7 +208,7 @@
                               "type_name":  "원에 외접하는 사각형의 성질의 활용(1); 직사각형 - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C016"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -222,7 +222,7 @@
                               "type_name":  "원에 외접하는 사각형의 성질의 활용(2); 그 외 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C017"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -236,7 +236,7 @@
                               "type_name":  "원에 외접하는 사각형의 성질의 활용(2); 그 외 - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C017"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -250,7 +250,7 @@
                               "type_name":  "원주각과 중심각의 크기(1) - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C018"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -264,7 +264,7 @@
                               "type_name":  "원주각과 중심각의 크기(1) - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C018"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -278,7 +278,7 @@
                               "type_name":  "원주각의 성질(1); 한 호 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C021"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -292,7 +292,7 @@
                               "type_name":  "원주각의 성질(1); 한 호 - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C021"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -306,7 +306,7 @@
                               "type_name":  "원주각의 성질(2); 반원 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C022"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -320,7 +320,7 @@
                               "type_name":  "원주각과 삼각비의 값(1) - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C023"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -334,7 +334,7 @@
                               "type_name":  "원주각과 삼각비의 값(2); 선분의 길이, 넓이 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C024"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -348,7 +348,7 @@
                               "type_name":  "원주각과 삼각비의 값(2); 선분의 길이, 넓이 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C024"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -362,7 +362,7 @@
                               "type_name":  "원주각의 크기와 호의 길이(1) - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C025"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -376,7 +376,7 @@
                               "type_name":  "원주각의 크기와 호의 길이(1) - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C025"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -390,7 +390,7 @@
                               "type_name":  "원주각의 크기와 호의 길이(2) - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C026"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -404,7 +404,7 @@
                               "type_name":  "원주각의 크기와 호의 길이(3) - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C027"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -418,7 +418,7 @@
                               "type_name":  "네 점이 한 원에 있기 위한 조건 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C028"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -432,7 +432,7 @@
                               "type_name":  "네 점이 한 원에 있기 위한 조건 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C028"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -446,7 +446,7 @@
                               "type_name":  "원에 내접하는 사각형의 성질(1) - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C029"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -460,7 +460,7 @@
                               "type_name":  "원에 내접하는 사각형의 성질(2) - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C030"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -474,7 +474,7 @@
                               "type_name":  "원에 내접하는 사각형의 성질(2) - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C030"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -488,7 +488,7 @@
                               "type_name":  "원에 내접하는 사각형과 외각의 성질 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C031"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -502,7 +502,7 @@
                               "type_name":  "원에 내접하는 사각형과 외각의 성질 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C031"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -516,7 +516,7 @@
                               "type_name":  "원에 내접하는 다각형 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C032"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -530,7 +530,7 @@
                               "type_name":  "두 원에서 내접하는 사각형의 성질의 활용 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C033"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -544,7 +544,7 @@
                               "type_name":  "두 원에서 내접하는 사각형의 성질의 활용 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C033"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -558,7 +558,7 @@
                               "type_name":  "접선과 현이 이루는 각; 원주각 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C036"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -572,7 +572,7 @@
                               "type_name":  "접선과 현이 이루는 각의 활용(1); 현이 중심을 지나지 않는 경우 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C038"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -586,7 +586,7 @@
                               "type_name":  "접선과 현이 이루는 각의 활용(2); 현이 중심을 지나는 경우 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C039"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -600,7 +600,7 @@
                               "type_name":  "접선과 현이 이루는 각의 활용(3); 한 점에서 원에 그은 두 접선 - 기본 판별",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C040"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -614,7 +614,7 @@
                               "type_name":  "접선과 현이 이루는 각의 활용(3); 한 점에서 원에 그은 두 접선 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C040"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -628,7 +628,7 @@
                               "type_name":  "두 원에서 접선과 현이 이루는 각(1) - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C041"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -642,7 +642,7 @@
                               "type_name":  "두 원에서 접선과 현이 이루는 각(2); 한 원이 다른 원의 내부에 있는 경우 - 조건 적용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C042"
                                               ],
                               "default_difficulty":  "concept",
                               "error_tags":  [
@@ -656,7 +656,7 @@
                               "type_name":  "두 원에서 접선과 현이 이루는 각(2); 한 원이 다른 원의 내부에 있는 경우 - 종합 활용",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_CIRC_C042"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
