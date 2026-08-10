@@ -45,6 +45,22 @@
 이중쓰기로 병행하며 4기준 **모두** 충족 시 서버 모드로 플립(가역, 플립 후에도 localStorage 백업 유지):
 1. 레코드 ≥20건(적으면 전량) 로컬↔서버 일치 · 2. 최근 ≥10회 진단 미동기 0 · 3. profile 서버조회 ≥3명 정상 · 4. **≥14일 그리고 진단 ≥10회(둘 다)**.
 
+## 트러블슈팅 — "Failed to fetch"(서버 통신 실패)
+**원인(확정·수정됨)**: Worker CORS `Access-Control-Allow-Headers`에 `X-Write-Key`가 없어 브라우저 preflight(OPTIONS)가 그 헤더를 거부 → 실제 요청 차단. `/health`·`/analyze`는 커스텀 헤더가 없어 됐던 것. **수정: Allow-Headers에 X-Write-Key 추가, VERSION `2026.08.10-axis-store-d1-cors`.**
+→ **조치: Worker 재배포**(위 5) 후 `/health` version이 `-cors`인지 확인 + **사이트 갱신**(store/profile 수정 반영).
+
+### F12로 직접 확인(사용자)
+1. profile.html에서 F12 → **Network** 탭 열어둔 채 [기존 로컬→서버 이관] 클릭.
+2. `record` 요청 두 줄이 보임:
+   - **OPTIONS** `axis-store/record` — 상태 **204**여야 정상(preflight 통과). 여기서 실패(빨강·CORS error)면 Allow-Headers 문제 → Worker 재배포 확인.
+   - **POST** `axis-store/record` — **200**이면 저장 성공. **401**=쓰기키 불일치(profile 키 = secret 값 확인). **네트워크 오류**=Worker 주소/배포 확인.
+3. 요청 클릭 → **Headers**에서 Request가 `/api/axis-store/record`로 가는지(주소 오타 확인), `X-Write-Key`가 실려 있는지 확인.
+4. **Console** 탭에 `CORS`·`blocked` 문구 있으면 Allow-Headers/오리진 문제.
+
+### "미동기 0건" 오표시(수정됨)
+- 이전: 서버설정 前 로컬 레코드는 한 번도 POST 안 돼 pending에 없음 → 실패인데 "미동기 0"으로 보였음.
+- **수정: 서버 확정(200) id를 따로 추적. 미동기 = 서버 미확정 전부(실패 + 미시도).** 이제 이관 전엔 "미동기 1/1건(미시도 1)"처럼 정직하게 뜸. 사이트 갱신 후 반영.
+
 ## 롤백
 - 서버 문제 시: profile "서버 저장" 칸 비우고 저장 → 로컬만(A)로 즉시 복귀. Worker는 그대로 둬도 무해(엔드포인트 미사용). D1 데이터도 남겨도 무해.
 - 완전 되돌리기: `git revert` 후 사이트 갱신 + 이전 Worker 재배포.
