@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.10-fixA-work-text-preserve';
+const VERSION = '2026.08.10-itembank-register';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -123,6 +123,27 @@ export default {
         return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
       }
 
+      // 문항 등록 통로 (item_bank: D1). 교사 전용·X-Write-Key. /structure=AI 구조화 초안, 나머지=CRUD.
+      if (url.pathname === '/api/item-bank/health' && request.method === 'GET') {
+        return json(request, env, { ok: true, store: 'item_bank', route: 'registered', has_db: !!env.AXIS_DB, has_key: !!env.RECORD_WRITE_KEY, version: VERSION }, 200, requestId, startedAt);
+      }
+      if (url.pathname === '/api/item-bank/structure' && request.method === 'POST') {
+        const res = await itemStructure(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+      if (url.pathname === '/api/item-bank/add' && request.method === 'POST') {
+        const res = await itemAdd(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+      if (url.pathname === '/api/item-bank/list' && (request.method === 'POST' || request.method === 'GET')) {
+        const res = await itemList(request, env, url);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+      if (url.pathname === '/api/item-bank/delete' && request.method === 'POST') {
+        const res = await itemDelete(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+
       return json(request, env, { ok: false, error: 'Not found', path: url.pathname }, 404, requestId, startedAt);
     } catch (error) {
       console.error(`[${requestId}]`, error);
@@ -196,6 +217,138 @@ async function axisProfile(request, env, url) {
   }
   const rows = ((await env.AXIS_DB.prepare('SELECT student_code, COUNT(*) AS exam_count FROM axis_records GROUP BY student_code ORDER BY student_code').all()).results) || [];
   return { ok: true, students: rows };
+}
+
+// ── 문항 등록 통로 (item_bank: 같은 D1 AXIS_DB, item_bank 테이블) ─────────────
+// 신규 문항은 매일 늘고 사용자가 git을 못 쓰므로 정적 파일이 아니라 D1에 쓴다.
+// /structure = AI 구조화 초안(원문→본문/정답/해설/유형후보). add/list/delete = CRUD. 전부 X-Write-Key.
+
+// 단원 유형 목록을 concept_ids까지 포함해 받는다(드롭다운·개념 자동상속용).
+async function fetchUnitTypesForItem(dataBase, unitId) {
+  const base = String(dataBase || '').replace(/\/$/, '');
+  if (!base) throw new Error('engine_data_base가 없다');
+  const idx = await (await fetch(`${base}/data/index.v1.json`, { cf: { cacheTtl: 3600 } })).json();
+  const unit = (idx.units || []).find(u => u.unit_id === unitId);
+  if (!unit || !unit.problem_types) throw new Error(`${unitId}의 problem_types 경로가 없다`);
+  const pack = await (await fetch(`${base}/${unit.problem_types}`, { cf: { cacheTtl: 3600 } })).json();
+  const types = (pack.problem_types || [])
+    .map(p => ({ problem_type_id: p.problem_type_id, type_name: p.type_name, concept_ids: Array.isArray(p.concept_ids) ? p.concept_ids : [] }))
+    .filter(t => t.problem_type_id);
+  return { unit_name: unit.unit_name || unitId, types };
+}
+
+const ITEM_STRUCTURE_SCHEMA = (typeIds) => ({
+  type: 'object', additionalProperties: false,
+  required: ['question_text', 'answer', 'explanation', 'difficulty', 'problem_type_id', 'error_tags'],
+  properties: {
+    question_text: { type: 'string' },
+    answer: { type: 'string' },
+    explanation: { type: 'string' },
+    difficulty: { type: 'string', enum: ['basic', 'core', 'advanced', 'high'] },
+    problem_type_id: { type: 'string', enum: [...typeIds, NO_MATCH] },
+    error_tags: { type: 'array', items: { type: 'string' } }
+  }
+});
+
+// 원문 텍스트를 구조화하고, 이 단원 유형 중 가장 맞는 problem_type_id를 고른다(진단 staged와 같은 방식).
+async function itemStructure(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  const b = await safeJson(request);
+  const rawText = String(b && b.raw_text || '').trim();
+  const unitId = String(b && b.unit_id || '').trim();
+  const dataBase = String(b && b.engine_data_base || '').trim();
+  if (!rawText || !unitId || !dataBase) return { ok: false, code: 'bad_input', error: 'raw_text·unit_id·engine_data_base 필수', status: 400 };
+  let unitInfo;
+  try { unitInfo = await fetchUnitTypesForItem(dataBase, unitId); }
+  catch (e) { return { ok: false, code: 'types_load_failed', error: e && e.message || String(e), status: 502 }; }
+  if (!unitInfo.types.length) return { ok: false, code: 'no_types', error: `${unitId} 유형 목록이 비어 있음`, status: 502 };
+  const typeIds = unitInfo.types.map(t => t.problem_type_id);
+  const menu = unitInfo.types.map(t => `${t.problem_type_id} = ${t.type_name}`).join('\n');
+  const usageSink = [];
+  let draft;
+  try {
+    draft = await callClaudeJson({
+      env, files: [], structured: true, schemaName: 'item_structure', label: 'item_structure', usageSink,
+      schema: ITEM_STRUCTURE_SCHEMA(typeIds),
+      prompt: `아래는 교사가 PDF에서 복사한 수학 문항 원문이다. 이 문항은 「${unitId}」 단원이다. 원문을 구조화하라.
+
+[원문]
+${rawText}
+
+[이 단원 문항유형 목록 · 이 목록 밖은 고를 수 없다]
+${menu}
+
+규칙:
+- question_text: 문제 본문을 정확히 옮긴다. 수식은 평문으로: 1/3, 루트2, x^2, <=, ×, (123-1)/99. LaTeX·백슬래시 금지.
+- answer: 정답. 원문에 있으면 그대로, 없으면 빈 문자열("").
+- explanation: 해설. 원문에 있으면 옮기고, 없으면 "".
+- difficulty: 문항 난도.
+- problem_type_id: 위 목록에서 이 문항에 가장 맞는 유형 하나. 맞는 게 없으면 "${NO_MATCH}".
+- error_tags: 이 문항에서 학생이 틀리기 쉬운 오류를 한국어로 0~3개(없으면 빈 배열).`
+    });
+  } catch (e) {
+    return { ok: false, code: 'ai_error', error: e && e.message || String(e), status: 502, _usage: summarizeUsage(usageSink, env) };
+  }
+  const picked = unitInfo.types.find(t => t.problem_type_id === draft.problem_type_id) || null;
+  return {
+    ok: true, unit_id: unitId, unit_name: unitInfo.unit_name,
+    draft: {
+      question_text: draft.question_text || '', answer: draft.answer || '', explanation: draft.explanation || '',
+      difficulty: draft.difficulty || 'core',
+      problem_type_id: (draft.problem_type_id && draft.problem_type_id !== NO_MATCH) ? draft.problem_type_id : '',
+      type_name: picked ? picked.type_name : '',
+      concept_ids: picked ? picked.concept_ids : [],
+      error_tags: Array.isArray(draft.error_tags) ? draft.error_tags : []
+    },
+    types: unitInfo.types,   // 클라이언트 드롭다운·concept 자동상속용
+    _usage: summarizeUsage(usageSink, env)
+  };
+}
+
+async function itemAdd(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  const b = await safeJson(request);
+  const qt = String(b && b.question_text || '').trim();
+  if (!qt) return { ok: false, code: 'bad_item', error: 'question_text 필수', status: 400 };
+  const id = (b && b.id) || crypto.randomUUID();
+  const now = new Date().toISOString();
+  await env.AXIS_DB.prepare(
+    `INSERT INTO item_bank (id, created_at, updated_at, status, unit_id, unit_name, problem_type_id, type_name, concept_ids, question_text, answer, explanation, difficulty, error_tags, source_note)
+     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15)
+     ON CONFLICT(id) DO UPDATE SET updated_at=excluded.updated_at, status=excluded.status, unit_id=excluded.unit_id, unit_name=excluded.unit_name,
+       problem_type_id=excluded.problem_type_id, type_name=excluded.type_name, concept_ids=excluded.concept_ids, question_text=excluded.question_text,
+       answer=excluded.answer, explanation=excluded.explanation, difficulty=excluded.difficulty, error_tags=excluded.error_tags, source_note=excluded.source_note`
+  ).bind(id, now, now, (b && b.status) || 'approved', (b && b.unit_id) || '', (b && b.unit_name) || '', (b && b.problem_type_id) || '', (b && b.type_name) || '',
+    axisJson((b && b.concept_ids) || []), qt, (b && b.answer) || '', (b && b.explanation) || '', (b && b.difficulty) || 'core', axisJson((b && b.error_tags) || []), (b && b.source_note) || '').run();
+  return { ok: true, id };
+}
+
+async function itemList(request, env, url) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  let unitId = null, status = null, limit = 200;
+  if (request.method === 'GET') { unitId = url.searchParams.get('unit_id'); status = url.searchParams.get('status'); }
+  else { const b = await safeJson(request).catch(() => ({})); unitId = b && b.unit_id; status = b && b.status; if (b && b.limit) limit = Math.min(1000, Number(b.limit) || 200); }
+  let sql = 'SELECT * FROM item_bank'; const cond = [], args = [];
+  if (unitId) { cond.push(`unit_id=?${args.length + 1}`); args.push(unitId); }
+  if (status) { cond.push(`status=?${args.length + 1}`); args.push(status); }
+  if (cond.length) sql += ' WHERE ' + cond.join(' AND ');
+  sql += ` ORDER BY created_at DESC LIMIT ${limit}`;
+  const rows = ((await env.AXIS_DB.prepare(sql).bind(...args).all()).results) || [];
+  const items = rows.map(x => ({ ...x, concept_ids: axisParse(x.concept_ids), error_tags: axisParse(x.error_tags) }));
+  const totalRow = ((await env.AXIS_DB.prepare('SELECT COUNT(*) AS c FROM item_bank').all()).results) || [{ c: 0 }];
+  return { ok: true, items, count: items.length, total: (totalRow[0] && totalRow[0].c) || 0 };
+}
+
+async function itemDelete(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  const b = await safeJson(request);
+  if (!b || !b.id) return { ok: false, code: 'bad_input', error: 'id 필수', status: 400 };
+  if (b.hard === true) { await env.AXIS_DB.prepare('DELETE FROM item_bank WHERE id=?1').bind(b.id).run(); return { ok: true, id: b.id, deleted: 'hard' }; }
+  await env.AXIS_DB.prepare('UPDATE item_bank SET status=?1, updated_at=?2 WHERE id=?3').bind('archived', new Date().toISOString(), b.id).run();
+  return { ok: true, id: b.id, deleted: 'soft' };
 }
 
 function isFile(value) {
