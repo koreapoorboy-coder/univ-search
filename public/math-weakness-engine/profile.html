@@ -54,6 +54,7 @@
     <button id="srv_sync" class="ghost">지금 동기화(미동기 재전송)</button>
   </div>
   <div id="sync_status" class="muted" style="margin-top:8px"></div>
+  <div id="transition_panel" style="margin-top:10px"></div>
 </div>
 
 <div class="card">
@@ -149,6 +150,7 @@
 
   // ── 서버 설정·동기화 ──
   function renderSyncStatus() {
+    renderTransition();   // 항상 그린다(아래 early-return 분기에 안 걸리게 맨 앞).
     const s = MathAxisStore.getServer(); const el = $('#sync_status');
     if (!s || !s.url) { el.innerHTML = '<span class="muted">서버 미설정 — 로컬만 저장(기존과 동일). Worker 주소·키를 넣고 저장하면 이중쓰기 시작.</span>'; return; }
     const st = MathAxisStore.pendingStatus();
@@ -161,6 +163,20 @@
       + (breakdown ? ` (${breakdown})` : '')
       + (st.oldest_age_days != null ? ` · 가장 오래된 실패 ${st.oldest_age_days}일${warn ? ' (7일↑ 방치!)' : ''}` : '')
       + (reasons ? ` · 사유(${esc(reasons)})` : '') + `</span> — [기존 로컬→서버 이관] 또는 [지금 동기화]로 올리세요.`;
+  }
+  function renderTransition() {
+    const el = $('#transition_panel'); if (!el) return;
+    const s = MathAxisStore.getServer();
+    if (!s || !s.url) { el.innerHTML = ''; return; }
+    const t = MathAxisStore.transitionState();
+    const row = c => `<div style="display:flex;gap:6px;align-items:baseline"><span>${c.ok ? '✅' : '⬜'}</span><span>${esc(c.label)}</span><span class="muted">— 현재 ${esc(String(c.cur))}${c.extra ? (' · ' + esc(c.extra)) : ''}</span></div>`;
+    el.innerHTML = `<div style="padding:10px;border:1px solid #e5e7eb;border-radius:8px;background:#fafafa">
+      <b>서버 전환 준비도</b> ${t.all_met ? '<span style="color:#166534;font-weight:700">— 4기준 충족! 수동 전환 가능</span>' : '<span class="muted">— 관측 중(4기준 모두 충족 시 전환)</span>'}
+      <div style="margin-top:6px;display:grid;gap:3px">
+        ${row(t.criteria.c1_records)}${row(t.criteria.c2_streak)}${row(t.criteria.c3_students)}${row(t.criteria.c4_time)}
+      </div>
+      <div class="muted" style="margin-top:6px">이중쓰기 시작 ${t.started_at ? esc(t.started_at.slice(0, 10)) : '–'} · 경과 ${t.days_elapsed == null ? '–' : t.days_elapsed}일 · 로컬 ${t.local_count} / 서버확정 ${t.synced_count}</div>
+    </div>`;
   }
   function loadServerFields() { const s = MathAxisStore.getServer() || {}; $('#srv_url').value = s.url || ''; $('#srv_key').value = s.key || ''; }
   $('#srv_save').onclick = () => { MathAxisStore.setServer({ url: $('#srv_url').value.trim(), key: $('#srv_key').value.trim() }); renderSyncStatus(); $('#sync_status').innerHTML += ' <span class="muted">· 저장됨</span>'; };

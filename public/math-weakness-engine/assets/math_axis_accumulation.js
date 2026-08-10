@@ -112,8 +112,15 @@
   // ── B: 서버 이중쓰기 (A localStorage 유지·소스오브트루스, 서버는 병행) ──
   const SERVER_KEY = 'scstudy_server_cfg';    // {url, key}
   const PENDING_KEY = 'scstudy_sync_pending'; // { id: {record, first_failed_at, last_error, attempts} }
+  const DUALWRITE_START_KEY = 'scstudy_dualwrite_started_at';
   function getServer() { try { return JSON.parse(localStorage.getItem(SERVER_KEY) || 'null'); } catch (e) { return null; } }
-  function setServer(cfg) { try { localStorage.setItem(SERVER_KEY, JSON.stringify(cfg || {})); } catch (e) {} }
+  function setServer(cfg) {
+    try {
+      localStorage.setItem(SERVER_KEY, JSON.stringify(cfg || {}));
+      // 서버 url이 처음 설정된 시점 = 이중쓰기 시작(전환기준 경과일 계산 기준).
+      if (cfg && cfg.url && !localStorage.getItem(DUALWRITE_START_KEY)) localStorage.setItem(DUALWRITE_START_KEY, _nowISO());
+    } catch (e) {}
+  }
   function _loadPending() { try { return JSON.parse(localStorage.getItem(PENDING_KEY) || '{}'); } catch (e) { return {}; } }
   function _savePending(p) { try { localStorage.setItem(PENDING_KEY, JSON.stringify(p)); } catch (e) {} }
   // 서버 확정(200) 레코드 id 집합. "미동기"=로컬에 있으나 서버 미확정(실패+한번도 안보낸 것 모두).
@@ -174,6 +181,30 @@
       aged: ageDays != null && ageDays >= 7
     };
   }
+  // 서버 전환 준비도(4기준). 클라이언트가 관측 상황을 볼 수 있게.
+  function transitionState() {
+    const list = _load().slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    const synced = _loadSynced();
+    const syncedList = list.filter(r => r && r.id && synced[r.id]);
+    const syncedCount = syncedList.length;
+    let streak = 0;   // 최신부터 연속 동기화 개수
+    for (let i = list.length - 1; i >= 0; i--) { if (list[i] && list[i].id && synced[list[i].id]) streak++; else break; }
+    const distinctStudents = new Set(syncedList.map(r => r.student_code)).size;
+    let startedAt = null; try { startedAt = localStorage.getItem(DUALWRITE_START_KEY); } catch (e) {}
+    let days = null; if (startedAt) { try { days = Math.floor((Date.parse(_nowISO()) - Date.parse(startedAt)) / 86400000); } catch (e) {} }
+    const c1 = syncedCount >= 20, c2 = streak >= 10, c3 = distinctStudents >= 3, c4 = (days != null && days >= 14) && (syncedCount >= 10);
+    return {
+      started_at: startedAt, days_elapsed: days, local_count: list.length, synced_count: syncedCount,
+      recent_synced_streak: streak, distinct_students_synced: distinctStudents,
+      criteria: {
+        c1_records: { ok: c1, cur: syncedCount, need: 20, label: '서버 확정 레코드 ≥20건' },
+        c2_streak: { ok: c2, cur: streak, need: 10, label: '최근 연속 동기화 ≥10건' },
+        c3_students: { ok: c3, cur: distinctStudents, need: 3, label: '서버 확정 학생 ≥3명' },
+        c4_time: { ok: c4, cur: (days == null ? '–' : days), need: 14, label: '경과 ≥14일 그리고 진단 ≥10', extra: '진단 ' + syncedCount + '/10' }
+      },
+      all_met: c1 && c2 && c3 && c4
+    };
+  }
   async function fetchServerProfile(code) {
     const s = getServer(); if (!s || !s.url) return null;
     const res = await fetch(s.url.replace(/\/$/, '') + '/api/axis-store/profile', {
@@ -195,7 +226,7 @@
     RECORDS_KEY, SCHEMA_VERSION,
     buildRecord, save, all, listByStudent, students, aggregateAxes, deleteStudent,
     exportAll, importJson, axisMapVersion,
-    getServer, setServer, retryPending, pendingStatus, fetchServerProfile, pushAllToServer,
+    getServer, setServer, retryPending, pendingStatus, transitionState, fetchServerProfile, pushAllToServer,
     syncNow: retryPending
   };
 })(window);
