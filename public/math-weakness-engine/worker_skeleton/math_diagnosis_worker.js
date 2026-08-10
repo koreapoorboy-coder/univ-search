@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.10-qtext-verbatim';
+const VERSION = '2026.08.10-qtext-required';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -524,9 +524,11 @@ const TYPE_ASSIGN_SCHEMA = (typeIds, allowNoMatch = false) => ({
       type: 'array',
       items: {
         type: 'object', additionalProperties: false,
+        // question_text는 required로 강제한다. optional로 두면 모델이 전사를 건너뛴다(관측됨).
+        // required면 문법이 모든 문항에서 문자열 생성을 강제 → 프롬프트의 전사 지시가 실효.
         required: allowNoMatch
-          ? ['question_no', 'problem_type_id', 'response_status', 'difficulty', 'observed_error_tags', 'confidence']
-          : ['question_no', 'problem_type_id', 'response_status', 'difficulty', 'observed_error_tags'],
+          ? ['question_no', 'problem_type_id', 'response_status', 'difficulty', 'observed_error_tags', 'question_text', 'confidence']
+          : ['question_no', 'problem_type_id', 'response_status', 'difficulty', 'observed_error_tags', 'question_text'],
         properties: {
           question_no: { type: 'string' },
           problem_type_id: { type: 'string', enum: allowNoMatch ? [...typeIds, NO_MATCH] : typeIds },

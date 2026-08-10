@@ -21,6 +21,8 @@
   code{background:#e2e8f0;padding:1px 5px;border-radius:5px}
   .hi{background:#ecfdf5}.lo{background:#fef2f2}
   .big{font-size:17px;font-weight:700}
+  pre{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:10px;border-radius:8px;font-size:12px;max-height:360px;overflow:auto}
+  details{margin-top:8px}summary{cursor:pointer;font-weight:700}
   .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 </style>
 </head>
@@ -106,18 +108,27 @@ $('#runBtn').onclick=async()=>{
     for(let i=0;i<n;i++){
       const ai=uniq[i].question_text||''; const og=origs[i];
       const sim=dice(norm(ai),norm(og)); sims.push(sim);
-      rows.push(`<tr class="${sim>=0.99?'hi':(sim<0.95?'lo':'')}"><td>${esc(uniq[i].question_no)}</td><td>${sim.toFixed(4)}</td>
+      rows.push(`<tr class="${sim>=0.99?'hi':(sim<0.95?'lo':'')}"><td>${esc(uniq[i].question_no)}</td><td class="small">${esc(uniq[i].problem_type_id)||'<span class=muted>—(무유형/폴백)</span>'}</td><td>${sim.toFixed(4)}</td>
         <td><code>${esc(ai)||'<span class=muted>(비어있음)</span>'}</code></td><td><code>${esc(og)}</code></td></tr>`);
     }
     const min=sims.length?Math.min(...sims):0, max=sims.length?Math.max(...sims):0, avg=sims.length?sims.reduce((a,b)=>a+b,0)/sims.length:0;
     const ge=t=>sims.filter(s=>s>=t).length;
+    const matched=uniq.filter(a=>a.question_text!==undefined && String(a.question_text).length>0).length;
+    const typed=uniq.filter(a=>String(a.problem_type_id||'').length>0).length;
+    const note=(j._runtime&&j._runtime.note)||'';
+    const diag = matched===0
+      ? (typed===0 ? '⚠ 유형도 question_text도 비어있음 = 진단이 폴백(staged 실패)일 가능성. 아래 _runtime.note와 원문 JSON 확인.'
+                   : '⚠ 유형은 있으나 question_text 비어있음 = 스키마/프롬프트 문제. required 재배포 확인.')
+      : '✅ question_text 채워짐.';
     $('#out').innerHTML=`<div class="card">
-      <p class="muted">worker=${esc(ver)} · AI 추출 문항 ${uniq.length} · 대조 ${n}쌍</p>
+      <p class="muted">worker=<b>${esc(ver)}</b> · AI 추출 문항 ${uniq.length} · 유형매칭 ${typed} · question_text채움 ${matched} · 대조 ${n}쌍</p>
+      ${note?`<p class="lo" style="padding:6px 10px">_runtime.note: <code>${esc(note)}</code> ← 이게 있으면 폴백/오류</p>`:''}
+      <p><b>${diag}</b></p>
       <p class="big">분포: min <b>${min.toFixed(4)}</b> · avg <b>${avg.toFixed(4)}</b> · max <b>${max.toFixed(4)}</b></p>
       <p>임계 통과 수 — ≥0.99: <b>${ge(0.99)}</b>/${n} · ≥0.95: <b>${ge(0.95)}</b>/${n} · ≥0.90: <b>${ge(0.90)}</b>/${n}</p>
-      <p class="muted small">비교 기준: 실측 "다른 문항 최대 0.926". min이 이보다 확실히 높아야(마진 확보) 그 임계값이 안전.
-      min이 낮으면(요약 잔존) 프롬프트 추가 강화 또는 임계값 재검토.</p>
-      <table><tr><th>문항</th><th>유사도</th><th>AI question_text</th><th>원본</th></tr>${rows.join('')||'<tr><td colspan=4 class=muted>없음</td></tr>'}</table>
+      <p class="muted small">비교 기준: 실측 "다른 문항 최대 0.926". min이 이보다 확실히 높아야 안전.</p>
+      <table><tr><th>문항</th><th>유형ID</th><th>유사도</th><th>AI question_text</th><th>원본</th></tr>${rows.join('')||'<tr><td colspan=5 class=muted>없음</td></tr>'}</table>
+      <details><summary>원문 응답 JSON 보기</summary><pre>${esc(JSON.stringify(j,null,2))}</pre></details>
       </div>`;
     $('#runStatus').textContent=' 완료.';
   }catch(e){ $('#runStatus').textContent=' 오류: '+(e.message||e); }
