@@ -2,7 +2,7 @@
     "version":  "2026.08.09-m3_statistics-assembled-from-variant-bank",
     "unit_id":  "M3_STATISTICS",
     "unit_name":  "통계",
-    "_note":  "problem_types assembled from type_variant_bank (type_name_source=variant_bank, topic names not curated diagnostic names). concept_ids empty (M3_*_C concepts undefined - separate track). error_tags empty (fine layer via overlay).",
+    "_note":  "problem_types assembled from type_variant_bank. pt.concept_ids filled from source_item_links (Tier1 concept build 2026-08-10). concept defs in math_concepts.v1.json (source=pt_derived).",
     "problem_type_count":  23,
     "problem_types":  [
                           {
@@ -12,7 +12,7 @@
                               "type_name":  "평균의 뜻과 성질(1) - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C001"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -26,7 +26,7 @@
                               "type_name":  "평균의 뜻과 성질(2); 자료의 값의 개수가 증가하거나 감소하는 경우 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C002"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -40,7 +40,7 @@
                               "type_name":  "중앙값의 뜻과 성질 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C003"
                                               ],
                               "default_difficulty":  "standard",
                               "error_tags":  [
@@ -54,7 +54,7 @@
                               "type_name":  "최빈값의 뜻과 성질 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C004"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -68,7 +68,7 @@
                               "type_name":  "여러 가지 자료에서의 대푯값 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C005"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -82,7 +82,7 @@
                               "type_name":  "대푯값을 이용하여 변량 구하기(1); 평균이 주어진 경우 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C006"
                                               ],
                               "default_difficulty":  "standard",
                               "error_tags":  [
@@ -96,7 +96,7 @@
                               "type_name":  "대푯값을 이용하여 변량 구하기(2); 중앙값이 주어진 경우 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C007"
                                               ],
                               "default_difficulty":  "standard",
                               "error_tags":  [
@@ -110,7 +110,7 @@
                               "type_name":  "대푯값을 이용하여 변량 구하기(3); 최빈값이 주어진 경우 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C008"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -124,7 +124,7 @@
                               "type_name":  "적절한 대푯값 찾기 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C009"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -138,7 +138,7 @@
                               "type_name":  "편차의 뜻과 성질 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C010"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -152,7 +152,7 @@
                               "type_name":  "편차를 이용하여 변량 구하기 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C011"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -166,7 +166,7 @@
                               "type_name":  "분산과 표준편차(1) - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C012"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -180,7 +180,7 @@
                               "type_name":  "분산과 표준편차(2); 자료가 일부 주어지지 않은 경우 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C013"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -194,7 +194,7 @@
                               "type_name":  "대푯값과 산포도의 이해 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C014"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -208,7 +208,7 @@
                               "type_name":  "평균과 분산을 이용하여 식의 값 구하기 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C015"
                                               ],
                               "default_difficulty":  "standard",
                               "error_tags":  [
@@ -222,7 +222,7 @@
                               "type_name":  "변화된 변량의 평균과 표준편차 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C016"
                                               ],
                               "default_difficulty":  "standard",
                               "error_tags":  [
@@ -236,7 +236,7 @@
                               "type_name":  "두 집단 전체의 평균 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C017"
                                               ],
                               "default_difficulty":  "standard",
                               "error_tags":  [
@@ -250,7 +250,7 @@
                               "type_name":  "두 집단 전체의 분산과 표준편차 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C018"
                                               ],
                               "default_difficulty":  "standard",
                               "error_tags":  [
@@ -264,7 +264,7 @@
                               "type_name":  "표준편차의 직관적 비교 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C019"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -278,7 +278,7 @@
                               "type_name":  "자료의 분석 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C020"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
@@ -292,7 +292,7 @@
                               "type_name":  "산점도 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C021"
                                               ],
                               "default_difficulty":  "advanced",
                               "error_tags":  [
@@ -306,7 +306,7 @@
                               "type_name":  "산점도의 응용 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C022"
                                               ],
                               "default_difficulty":  "standard",
                               "error_tags":  [
@@ -320,7 +320,7 @@
                               "type_name":  "산점도와 상관관계의 이해 - 계산·해석",
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
-
+                                                  "M3_STAT_C025"
                                               ],
                               "default_difficulty":  "core",
                               "error_tags":  [
