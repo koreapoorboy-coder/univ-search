@@ -2,8 +2,12 @@
 
 > 이 문서 하나로 **재태깅 스트림**을 이어받는다. 큰 그림은 `HANDOFF_B_MASTER.md`. 관측 태그 정본은 `TAG_DICTIONARY_v1.md`.
 
-## ⭐⭐ 최신 진입점 (2026-08-09, 배선 국면 — **여기부터 읽기**)
-> 재태깅·경계재검토·예측관측대조는 **완료**. 현재 = **배선(wiring) 국면**. 아래 순서로 읽어라: 이 블록 → `B_wiring_pilot_QF.v1.md`(현재 시범) → `B_wiring_design.v1.md`(설계) → `B_pred_vs_obs_20units.v1.md`(대조 발견). 리포=**`C:\Users\user\projects\scshstudy`**(OneDrive 아님). HEAD는 아래 커밋들 최신(전부 push됨).
+## ⭐⭐⭐ 최신 진입점 (2026-08-10, 중등완결·배선완료 — **새 세션 여기부터**)
+> 리포=**`C:\Users\user\projects\scshstudy`**(OneDrive 아님·거기서 작업금지). 전부 push됨. 검증서버=scratchpad `serve.ps1`(8731·ASCII), node 없음→PowerShell/브라우저로 검증.
+> **현재 상태**: 재태깅·배선·B이관(D1)·circle/statistics 복구+concept·팽창재측정·usage로깅·review-hardening **전부 코딩완료**. **중등 canonical층 완결**(유형·축·개념). 이 파일에서 **아래로 스크롤해 `✅`/`📍`/`🎯` 불릿들이 최신 이력** — 특히 `📍 중등 완결`·`✅ 검증문항 조사`·`다음 세션 즉시 할 일`·`🎯 고등 재태깅 착수조건` 블록을 먼저 읽어라.
+> **⏸ 사용자 대기(핵심)**: **Worker 재배포 1회** — VERSION `2026.08.10-usage-and-review-hardening`(axis-store D1+GET엔드포인트+usage로깅+review-hardening 전부 번들). + D1 생성/바인딩(AXIS_DB)/스키마SQL/secret(RECORD_WRITE_KEY) 미완이면 가이드 `B_wiring_d1_deploy_guide`. 데이터/프론트는 push시 GitHub Pages 자동.
+> **다음 실작업 후보**: (a)**비용 실측→절감판단**(`B_cost_measure_guide`: 재배포후 진단 몇회→`_runtime.usage`+Anthropic Console. effort/모델은 실측後만) / (b)**고등 재태깅**(현황조사부터, 아래 🎯) / (c)중등 Tier2 큐레이션 / (d)전환기준 충족시 서버 플립. **파일 넘길 때 검수용은 반드시 Downloads 복사+SendUserFile**(메모리 `file-transfer-workflow`).
+> ↓ 아래 6행부터는 배선 국면 초기(2026-08-09) 이력 — 참고용.
 
 - **✅ 완료된 대과제 3**: ①재태깅 20단원(2722문항·321종). ②경계재검토(§7 판례 10종, boundary 147→14=90%해소, 잔여14 동결). ③**예측vs관측 대조 11단원**(`B_pred_vs_obs_20units.v1.md`): **D2격차=유형A정의불일치(6단원 예측과다)·E1격차=유형B예측과잉발화(C-01"주어진"·C-11"방정식" 공통규칙 표면어, `B_E1_gap_diagnosis.v1.md`)·C3=유형C관측우위.** 조인=전단원 유형vs문항이라 분포대조만.
 
