@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<title>문항 매칭 실측 랩 (임계값·정규화·숫자일치)</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:18px;line-height:1.5;color:#111827;background:#f8fafc;max-width:1000px}
+  h1{font-size:20px}h2{font-size:16px;margin:0 0 8px}
+  label{display:block;font-weight:700;margin:10px 0 4px;font-size:14px}
+  textarea{width:100%;box-sizing:border-box;padding:8px;border:1px solid #cbd5e1;border-radius:8px;font-family:ui-monospace,Consolas,monospace;font-size:13px;min-height:64px}
+  input[type=number]{width:90px;padding:6px;border:1px solid #cbd5e1;border-radius:6px}
+  button{padding:9px 15px;border:0;border-radius:8px;background:#111827;color:#fff;font-size:14px;cursor:pointer;margin:6px 6px 0 0}
+  button.sec{background:#475569}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .muted{color:#64748b;font-size:13px}.small{font-size:12px}
+  table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13px}th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left}th{background:#f1f5f9}
+  code{background:#e2e8f0;padding:1px 5px;border-radius:5px}
+  .yes{color:#047857;font-weight:700}.no{color:#b91c1c;font-weight:700}
+  .verdict{font-weight:700;font-size:16px}.match{color:#047857}.nomatch{color:#b45309}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<h1>문항 매칭 실측 랩</h1>
+<p class="muted">등록 원문과 <b>AI가 읽은 학생답안 텍스트</b>를 붙여넣어, 정규화·유사도·숫자 시퀀스 일치·매칭 판정을 실시간 계산합니다.
+실데이터로 <b>하한선(같은 문항이 실제로 몇 %)</b>과 <b>상한선(다른 문항 최대 몇 %)</b>을 재세요.
+목적: 유사도 하나로는 "숫자만 다른 문항"을 못 가른다는 것을 확인하고, 안전한 복합 규칙을 검증.</p>
+
+<div class="card">
+  <h2>규칙 파라미터</h2>
+  <div class="row">
+    <label style="margin:0">유사도 임계값 θ <input type="number" id="theta" value="0.80" step="0.01" min="0" max="1"></label>
+    <label style="margin:0"><input type="checkbox" id="reqDigit" checked style="width:auto"> 숫자 시퀀스 정확 일치 필수(권장)</label>
+    <span class="muted small">매칭 = (정규화 유사도 ≥ θ) AND (숫자일치 필수 시 숫자 동일)</span>
+  </div>
+</div>
+
+<div class="card">
+  <h2>① 단건 대조 (원문 vs AI 읽음)</h2>
+  <div class="grid">
+    <div><label>등록 원문 (A)</label><textarea id="a">이차함수 y = (x-2)^2 + 3 의 꼭짓점의 좌표를 구하시오.</textarea></div>
+    <div><label>AI가 읽은 학생답안 텍스트 (B)</label><textarea id="b">이차함수 y=(x-2)²+3의 꼭짓점의 좌표를 구하시오</textarea></div>
+  </div>
+  <button id="cmpBtn">대조 계산</button>
+  <div id="one"></div>
+</div>
+
+<div class="card">
+  <h2>② 후보군 대조 (타입 필터 시뮬)</h2>
+  <p class="muted small">같은 유형(problem_type_id)으로 좁힌 <b>후보 원문들</b>을 한 줄에 하나씩 넣고, 아래 <b>학생 문항(AI 읽음)</b>과 대조.
+  top-1 유사도와 2위와의 마진, 숫자일치를 보고 매칭/미매칭을 판정합니다(마진 작으면 미매칭).</p>
+  <label>후보 원문들 (한 줄에 하나)</label>
+  <textarea id="cands" style="min-height:100px">이차함수 y = (x-2)^2 + 3 의 꼭짓점의 좌표를 구하시오.
+이차함수 y = (x-3)^2 + 5 의 꼭짓점의 좌표를 구하시오.
+이차함수 y = 2x^2 - 8x + 5 를 표준형으로 고치시오.</textarea>
+  <label>학생 문항 (AI 읽음)</label>
+  <textarea id="stud">이차함수 y=(x-2)²+3의 꼭짓점의 좌표를 구하시오</textarea>
+  <button id="candBtn">후보 대조</button>
+  <div id="multi"></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+function normText(s){
+  s=String(s||'');
+  s=s.replace(/²/g,'^2').replace(/³/g,'^3').replace(/¹/g,'^1').replace(/⁴/g,'^4').replace(/⁵/g,'^5');
+  s=s.replace(/[×·]/g,'*').replace(/[−–]/g,'-');
+  s=s.replace(/[.,·、。]/g,'');
+  s=s.replace(/\s+/g,'');
+  return s.toLowerCase();
+}
+function bigrams(s){ const m={}; for(let i=0;i<s.length-1;i++){const g=s.slice(i,i+2); m[g]=(m[g]||0)+1;} return m; }
+function dice(a,b){
+  const ca=bigrams(a), cb=bigrams(b); let na=0,nb=0,inter=0;
+  for(const k in ca) na+=ca[k]; for(const k in cb) nb+=cb[k];
+  for(const k in ca){ const n=cb[k]||0; inter+=Math.min(ca[k],n); }
+  return na+nb===0?0:(2*inter/(na+nb));
+}
+function digitsOf(s){ return (String(s).match(/\d+/g)||[]).join(','); }
+const f=x=>x.toFixed(3);
+
+function verdictFor(simNorm, digA, digB, margin){
+  const theta=parseFloat($('#theta').value)||0.8;
+  const reqD=$('#reqDigit').checked;
+  const digOk = !reqD || (digA===digB);
+  const simOk = simNorm>=theta;
+  const marginOk = margin==null || margin>=0.05;  // 2위와 최소 마진
+  const match = simOk && digOk && marginOk;
+  const why=[]; if(!simOk)why.push(`유사도 ${f(simNorm)}<θ`); if(!digOk)why.push('숫자 불일치'); if(!marginOk)why.push(`마진 ${f(margin)} 작음`);
+  return {match, why};
+}
+
+$('#cmpBtn').onclick = () => {
+  const a=$('#a').value, b=$('#b').value;
+  const na=normText(a), nb=normText(b);
+  const raw=dice(a,b), nm=dice(na,nb);
+  const da=digitsOf(na), db=digitsOf(nb);
+  const v=verdictFor(nm,da,db,null);
+  $('#one').innerHTML=`<table>
+    <tr><th></th><th>정규화 결과</th><th>숫자 시퀀스</th></tr>
+    <tr><td>A(원문)</td><td><code>${na}</code></td><td>${da||'—'}</td></tr>
+    <tr><td>B(AI읽음)</td><td><code>${nb}</code></td><td>${db||'—'}</td></tr>
+    </table>
+    <p>raw 유사도 <b>${f(raw)}</b> · <b>정규화 유사도 ${f(nm)}</b> · 숫자일치 <span class="${da===db?'yes':'no'}">${da===db?'Y':'N'}</span></p>
+    <p class="verdict ${v.match?'match':'nomatch'}">${v.match?'✅ 매칭':'⚠ 미매칭 → AI 폴백'}${v.why.length?` <span class="muted small">(${v.why.join(', ')})</span>`:''}</p>`;
+};
+
+$('#candBtn').onclick = () => {
+  const cands=$('#cands').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  const stud=$('#stud').value; const ns=normText(stud); const ds=digitsOf(ns);
+  const scored=cands.map(c=>{ const nc=normText(c); return {c, nc, sim:dice(nc,ns), dig:digitsOf(nc)}; })
+                    .sort((x,y)=>y.sim-x.sim);
+  const top=scored[0], second=scored[1];
+  const margin = second? top.sim-second.sim : null;
+  const v = top? verdictFor(top.sim, top.dig, ds, margin) : {match:false,why:['후보없음']};
+  const rows=scored.map((s,i)=>`<tr><td>${i+1}</td><td>${f(s.sim)}</td><td>${s.dig||'—'} ${s.dig===ds?'<span class=yes>=</span>':'<span class=no>≠</span>'}</td><td><code>${s.c.slice(0,50)}${s.c.length>50?'…':''}</code></td></tr>`).join('');
+  $('#multi').innerHTML=`<p class="muted small">학생 숫자 시퀀스: <b>${ds||'—'}</b></p>
+    <table><tr><th>순위</th><th>정규화 유사도</th><th>숫자(vs학생)</th><th>후보 원문</th></tr>${rows}</table>
+    <p>top-1 유사도 <b>${top?f(top.sim):'—'}</b> · 2위 마진 <b>${margin!=null?f(margin):'—'}</b></p>
+    <p class="verdict ${v.match?'match':'nomatch'}">${v.match?'✅ 매칭 (top-1)':'⚠ 미매칭 → AI 폴백'}${v.why&&v.why.length?` <span class="muted small">(${v.why.join(', ')})</span>`:''}</p>`;
+};
+
+$('#cmpBtn').click(); $('#candBtn').click();
+</script>
+</body>
+</html>
