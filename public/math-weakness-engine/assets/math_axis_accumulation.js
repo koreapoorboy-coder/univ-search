@@ -116,6 +116,10 @@
   function setServer(cfg) { try { localStorage.setItem(SERVER_KEY, JSON.stringify(cfg || {})); } catch (e) {} }
   function _loadPending() { try { return JSON.parse(localStorage.getItem(PENDING_KEY) || '{}'); } catch (e) { return {}; } }
   function _savePending(p) { try { localStorage.setItem(PENDING_KEY, JSON.stringify(p)); } catch (e) {} }
+  // 서버 확정(200) 레코드 id 집합. "미동기"=로컬에 있으나 서버 미확정(실패+한번도 안보낸 것 모두).
+  const SYNCED_KEY = 'scstudy_synced_ids';
+  function _loadSynced() { try { return JSON.parse(localStorage.getItem(SYNCED_KEY) || '{}'); } catch (e) { return {}; } }
+  function _markSynced(id) { const s = _loadSynced(); s[id] = 1; try { localStorage.setItem(SYNCED_KEY, JSON.stringify(s)); } catch (e) {} }
   function _enqueue(record, reason) {
     const p = _loadPending(); const prev = p[record.id] || {};
     p[record.id] = { record, first_failed_at: prev.first_failed_at || _nowISO(), last_error: reason, attempts: (prev.attempts || 0) + 1 };
@@ -135,24 +139,38 @@
         try { const b = await res.json(); if (b && b.code) code = b.code; } catch (e) {}
         _enqueue(record, code); return { ok: false, reason: code };
       }
-      _dequeue(record.id); return { ok: true };
+      _markSynced(record.id); _dequeue(record.id); return { ok: true };
     } catch (e) { _enqueue(record, 'network'); return { ok: false, reason: 'network' }; }
   }
+  // "지금 동기화" = 미동기(서버 미확정) 로컬 레코드 전부 올림(실패분 + 한번도 안보낸 분 모두).
   async function retryPending() {
     const s = getServer(); if (!s || !s.url) return { skipped: true };
-    const p = _loadPending(); let ok = 0, fail = 0;
-    for (const id of Object.keys(p)) { const r = await _postRecord(p[id].record); if (r.ok) ok++; else fail++; }
-    return { ok, fail, remaining: Object.keys(_loadPending()).length };
+    const synced = _loadSynced();
+    const targets = _load().filter(r => r && r.id && !synced[r.id]);
+    let ok = 0, fail = 0;
+    for (const r of targets) { const res = await _postRecord(r); if (res.ok) ok++; else fail++; }
+    const remaining = _load().filter(r => r && r.id && !_loadSynced()[r.id]).length;
+    return { ok, fail, remaining };
   }
+  // 동기화 상태: 실패 큐만이 아니라 "서버 미확정" 전부를 미동기로 센다(오표시 방지).
   function pendingStatus() {
-    const p = _loadPending(); const ids = Object.keys(p); let oldest = null; const reasons = {};
-    ids.forEach(id => {
-      const f = p[id].first_failed_at; if (f && (!oldest || f < oldest)) oldest = f;
-      const e = p[id].last_error || 'unknown'; reasons[e] = (reasons[e] || 0) + 1;
+    const list = _load(); const synced = _loadSynced(); const p = _loadPending();
+    const unsynced = list.filter(r => r && r.id && !synced[r.id]);
+    const failedIds = Object.keys(p).filter(id => !synced[id]);
+    let oldest = null; const reasons = {};
+    failedIds.forEach(id => {
+      const f = p[id] && p[id].first_failed_at; if (f && (!oldest || f < oldest)) oldest = f;
+      const e = (p[id] && p[id].last_error) || 'unknown'; reasons[e] = (reasons[e] || 0) + 1;
     });
     let ageDays = null;
     if (oldest) { try { ageDays = Math.floor((Date.parse(_nowISO()) - Date.parse(oldest)) / 86400000); } catch (e) {} }
-    return { count: ids.length, oldest_first_failed_at: oldest, oldest_age_days: ageDays, reasons, aged: ageDays != null && ageDays >= 7 };
+    return {
+      count: unsynced.length,          // 미동기 = 서버 미확정 전부(실패 + 미시도)
+      local: list.length, synced: list.length - unsynced.length,
+      failed: failedIds.length, never_tried: Math.max(0, unsynced.length - failedIds.length),
+      oldest_first_failed_at: oldest, oldest_age_days: ageDays, reasons,
+      aged: ageDays != null && ageDays >= 7
+    };
   }
   async function fetchServerProfile(code) {
     const s = getServer(); if (!s || !s.url) return null;
@@ -168,7 +186,7 @@
     const s = getServer(); if (!s || !s.url) return { skipped: true, error: '서버 미설정' };
     const list = _load(); let ok = 0, fail = 0;
     for (const r of list) { const res = await _postRecord(r); if (res.ok) ok++; else fail++; }
-    return { ok, fail, total: list.length, remaining: Object.keys(_loadPending()).length };
+    return { ok, fail, total: list.length, remaining: _load().filter(r => r && r.id && !_loadSynced()[r.id]).length };
   }
 
   global.MathAxisStore = {

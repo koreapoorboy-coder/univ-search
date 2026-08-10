@@ -152,12 +152,15 @@
     const s = MathAxisStore.getServer(); const el = $('#sync_status');
     if (!s || !s.url) { el.innerHTML = '<span class="muted">서버 미설정 — 로컬만 저장(기존과 동일). Worker 주소·키를 넣고 저장하면 이중쓰기 시작.</span>'; return; }
     const st = MathAxisStore.pendingStatus();
-    if (!st.count) { el.innerHTML = '<span style="color:#166534">서버 설정됨 · 미동기 0건(전부 동기화됨)</span>'; return; }
+    if (st.local === 0) { el.innerHTML = '<span class="muted">서버 설정됨 · 로컬 기록 없음.</span>'; return; }
+    if (st.count === 0) { el.innerHTML = `<span style="color:#166534">서버 설정됨 · 로컬 ${st.local}건 전부 서버 확인됨(미동기 0).</span>`; return; }
     const reasons = Object.entries(st.reasons).map(([k, v]) => `${k}:${v}`).join(', ');
     const warn = st.aged;
-    el.innerHTML = `<span style="color:${warn ? '#b91c1c' : '#9a3412'};font-weight:${warn ? '700' : '400'}">⚠ 서버 미동기 ${st.count}건`
-      + (st.oldest_age_days != null ? ` · 가장 오래됨 ${st.oldest_age_days}일${warn ? ' (7일↑ 방치!)' : ''}` : '')
-      + ` · 사유(${esc(reasons)})</span> — [지금 동기화]로 재전송하세요.`;
+    const breakdown = (st.failed ? `실패 ${st.failed}` : '') + (st.failed && st.never_tried ? ', ' : '') + (st.never_tried ? `미시도 ${st.never_tried}` : '');
+    el.innerHTML = `<span style="color:${warn ? '#b91c1c' : '#9a3412'};font-weight:${warn ? '700' : '400'}">⚠ 서버 미동기 ${st.count}/${st.local}건`
+      + (breakdown ? ` (${breakdown})` : '')
+      + (st.oldest_age_days != null ? ` · 가장 오래된 실패 ${st.oldest_age_days}일${warn ? ' (7일↑ 방치!)' : ''}` : '')
+      + (reasons ? ` · 사유(${esc(reasons)})` : '') + `</span> — [기존 로컬→서버 이관] 또는 [지금 동기화]로 올리세요.`;
   }
   function loadServerFields() { const s = MathAxisStore.getServer() || {}; $('#srv_url').value = s.url || ''; $('#srv_key').value = s.key || ''; }
   $('#srv_save').onclick = () => { MathAxisStore.setServer({ url: $('#srv_url').value.trim(), key: $('#srv_key').value.trim() }); renderSyncStatus(); $('#sync_status').innerHTML += ' <span class="muted">· 저장됨</span>'; };

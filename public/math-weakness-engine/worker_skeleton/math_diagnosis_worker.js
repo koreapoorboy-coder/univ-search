@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.10-axis-store-d1';
+const VERSION = '2026.08.10-axis-store-d1-cors';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -1195,7 +1195,7 @@ function withCors(request, env, res) {
   const allowedOrigin = resolveAllowedOrigin(origin, env);
   h.set('Access-Control-Allow-Origin', allowedOrigin);
   h.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  h.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+  h.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin, X-Write-Key');
   h.set('Access-Control-Expose-Headers', 'Content-Type');
   h.set('Access-Control-Max-Age', '86400');
   h.set('Vary', 'Origin');
