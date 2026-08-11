@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.10-qtext-required';
+const VERSION = '2026.08.11-nowork-guard';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -195,6 +195,21 @@ async function axisRecord(request, env) {
   if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
   const r = await safeJson(request);
   if (!r || !r.id || !r.student_code) return { ok: false, code: 'bad_record', error: 'id·student_code 필수', status: 400 };
+  // 차단1 저장가드(2026-08-11, 확인3·수정2): 풀이 부재 파일만 skip. store.js가 recommended_engine_actions와
+  // 무관하게 독립 POST하므로 서버가 최종 판별한다. 판별 = attempts가 전부 'UNKNOWN'(진단가드가 주입하는 값 —
+  // 전부-빈칸 제출의 'BLANK_UNKNOWN'과 다르다 → 빈칸 제출은 저장한다), 또는 attempts·관측축이 둘 다 비어 진단 가치 0.
+  // ★단일 판별(all_unknown/empty)로 통일 — guard_applied 배선은 클라 skip과 겹쳐 죽은 코드라 제거했다. fail-open: 애매하면 저장.
+  // ok:true(skipped)라 클라가 재시도 큐에 안 넣는다. 정상 전부정답은 CORRECT_COMPLETE라 통과.
+  let _atts = Array.isArray(r.attempts) ? r.attempts : [];
+  if (typeof r.attempts === 'string') { try { const p = JSON.parse(r.attempts); if (Array.isArray(p)) _atts = p; } catch (e) {} }
+  const _axes = Array.isArray(r.observed_axes) ? r.observed_axes : [];
+  const _allUnknown = _atts.length > 0 && _atts.every(a => a && a.response_status === 'UNKNOWN');
+  const _emptyNoValue = _atts.length === 0 && _axes.length === 0;
+  if (_allUnknown || _emptyNoValue) {
+    const why = _allUnknown ? 'all_unknown' : 'empty';
+    console.log(`[axis-guard] skip no_work record id=${r.id} student=${r.student_code} (${why})`);
+    return { ok: true, skipped: why, id: r.id };
+  }
   await env.AXIS_DB.prepare(
     `INSERT INTO axis_records (id, student_code, date, exam_label, scope_units, observed_axes, attempts, axis_map_version, schema_version, created_at)
      VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10)
@@ -425,13 +440,53 @@ async function runAnalyze({ env, payload, files }) {
       })
     ]);
     const merged = { ...stripRuntime(review), ...stripRuntime(engine) };
-    const notes = [engine?._runtime?.note, review?._runtime?.note].filter(Boolean);
+    const guardNote = applyNoWorkGuard(merged);   // 차단1: 풀이 부재 파일이면 정오답 판정 무력화 + D1오염(run_diagnoseWithGuidance) 차단
+    const notes = [engine?._runtime?.note, review?._runtime?.note, guardNote].filter(Boolean);
     const usageSummary = summarizeUsage(usageSink, env);
     merged._runtime = { ...(notes.length ? { note: notes.join(' | ') } : {}), worker_version: VERSION, usage: usageSummary };
     return merged;
   } finally {
     await deleteUploadedFiles(env, prepared);
   }
+}
+
+// 차단1(2026-08-11, ISSUE_diagnosis_false_correct): 학생 풀이가 없는 파일(문제지 등)인데 stage-1이
+// 문항을 CORRECT_COMPLETE로 오분류하면 is_correct=true가 D1까지 흘러 "전부 정답·오류 0"으로 오염된다.
+// engine_adapter와 review는 병렬 독립 2콜이라 review의 "풀이 없음" 판정이 engine을 못 막았다.
+// 병합 후 파일레벨 신호로 정오답을 무력화하고 run_diagnoseWithGuidance를 떼어 저장 경로를 끊는다.
+// ★파일레벨로만 판별한다: 개별 문항의 빈 student_work/answer로 막으면 정상 CORRECT_COMPLETE(설계상
+//   work·answer가 빈값 — 프롬프트 600행)까지 오탐한다. 파일 전체 "풀이 부재"가 맞는 기준.
+function applyNoWorkGuard(merged) {
+  const ev = merged?.extraction_summary?.student_did_work_evidence;   // strong|some|weak|none
+  const routing = merged?.file_purpose_review?.routing_decision;      // solve_diagnosis|mixed_diagnosis|concept_review|verification_review|insufficient
+  const proc = merged?.solution_review?.process_evidence;             // full_process|partial_process|answer_only|not_visible
+  // 수정2(2026-08-11): 'some'+not_visible 구멍 차단. 정상 정답 파일은 full/partial/answer_only이고
+  // not_visible = 아무 필기도 없는 파일이므로, strong이 아닌 한 not_visible이면 풀이 부재로 본다.
+  const noWork = ev === 'none'
+    || (routing && routing !== 'solve_diagnosis' && routing !== 'mixed_diagnosis')
+    || (ev !== 'strong' && proc === 'not_visible');
+  if (!noWork) return '';
+  const reason = ev === 'none' ? 'evidence=none'
+    : (routing && routing !== 'solve_diagnosis' && routing !== 'mixed_diagnosis') ? 'routing=' + routing
+    : 'proc=not_visible';
+  const ea = merged?.engine_adapter;
+  const atts = ea?.student_attempt?.attempts;
+  let n = 0;
+  if (Array.isArray(atts)) for (const a of atts) { a.response_status = 'UNKNOWN'; a.is_correct = null; a.observed_error_tags = []; n++; }
+  if (ea && Array.isArray(ea.recommended_engine_actions)) {
+    ea.recommended_engine_actions = ea.recommended_engine_actions.filter(x => x !== 'run_diagnoseWithGuidance');
+  }
+  // 수정1(2026-08-11): _staged는 가드 전에 계산돼 최상위에 붙는다. states를 재계산하고 기계판독 표식을
+  //   남겨, "attempts는 UNKNOWN인데 _staged.states는 CORRECT_COMPLETE:20"인 새 모순을 없앤다.
+  if (merged._staged && typeof merged._staged === 'object') {
+    const st = {};
+    for (const a of (atts || [])) st[a.response_status || 'UNKNOWN'] = (st[a.response_status || 'UNKNOWN'] || 0) + 1;
+    merged._staged.states = st;
+    merged._staged.guard_applied = true;
+    merged._staged.guard_reason = reason;
+  }
+  console.log(`[axis-guard] no_work file (${reason}) → ${n}문항 정오답 무력화·저장차단`);
+  return `guard:no_work(${reason}) → ${n}문항 정오답 무력화·저장차단`;
 }
 
 // 문항유형 ID를 자유 문자열로 두면 모델이 지어내고, 엔진의 12,631개 중 하나도 맞지 않아
@@ -572,7 +627,9 @@ async function assignTypesForUnit({ env, files, unitId, rows, types, usageSink }
     const out = await callClaudeJson({
       env, files, structured: true, label: `analyze_stage2_type_${unitId}${split ? `_${i + 1}` : ''}`, usageSink,
       schemaName: `type_assignment_${unitId}${split ? `_${i + 1}` : ''}`,
-      schema: TYPE_ASSIGN_SCHEMA(part.map(t => t.id), split),
+      // 차단2(2026-08-11): NO_MATCH+confidence를 조각(split)일 때만이 아니라 항상 허용한다.
+      // 단일 청크에서 강제 선택하게 두면 그림 의존 문항이 소수 유형으로 붕괴하고, type_matched가 이를 성공으로 계수했다.
+      schema: TYPE_ASSIGN_SCHEMA(part.map(t => t.id), true),
       prompt: `아래 문항들은 「${unitId}」 단원으로 확정됐다. 각 문항이 이 단원의 어느 문항유형인지 고르라.
 
 [대상 문항]
@@ -604,41 +661,47 @@ ${menu}
   · tag_rationale: observed_error_tags를 그렇게 고른 근거를 한 문장으로.
 - 개인정보 보호: 풀이·답에 이름·학교·전화번호 등 개인식별정보가 보여도 옮기지 않는다.
   수학 풀이 내용만 남긴다.
-- difficulty는 문항 난도다.${split ? `
-- 이 목록은 단원 전체 유형의 일부다. 위 목록에 맞는 유형이 없으면 억지로 고르지 말고
-  problem_type_id를 "${NO_MATCH}"로, confidence를 0으로 둔다.
-- 맞는 유형이 있으면 confidence를 0보다 크게(확신할수록 1에 가깝게) 쓴다.` : ''}`
+- difficulty는 문항 난도다.
+- 위 목록에 이 문항과 맞는 유형이 없으면 **억지로 고르지 말고** problem_type_id를 "${NO_MATCH}"로, confidence를 0으로 둔다.
+  특히 그림에 의존하는 문항을 본문만으로 구분하기 어려우면 비슷한 유형을 억지로 붙이지 말 것 — 틀린 유형보다 "없음"이 낫다.${split ? `
+  (참고: 이 목록은 단원 전체 유형의 일부다.)` : ''}
+- 맞는 유형이 있으면 confidence를 0보다 크게(확신할수록 1에 가깝게) 쓴다.`
     });
     return (out?.attempts || []).map(x => ({ ...x, _chunk: i + 1 }));
   };
 
-  if (chunks.length === 1) {
-    const got = await askChunk(chunks[0], 0);
-    // _chunk는 병합용 내부 표식이다. 결과에 남으면 engine_adapter와 교사용 JSON까지 따라간다.
-    return got.map(({ _chunk, ...x }) => ({ ...x, unit_id: unitId }));
-  }
+  // 차단2: 단일 청크도 NO_MATCH를 낼 수 있어 단일/다중 모두 같은 채택 경로를 쓴다.
+  // 단일 청크는 실패를 caller가 처리하도록 그대로 던진다(종전 동작). 다중은 조각별 실패를 흡수한다.
+  const settled = chunks.length === 1
+    ? [await askChunk(chunks[0], 0)]
+    : await Promise.all(chunks.map((part, i) => askChunk(part, i).catch(err => {
+        console.error(`stage2 chunk failed (${unitId} ${i + 1}/${chunks.length}):`, err?.message || err);
+        return [];
+      })));
 
-  // 조각 하나가 실패해도 나머지 조각의 판정은 살린다.
-  const settled = await Promise.all(chunks.map((part, i) => askChunk(part, i).catch(err => {
-    console.error(`stage2 chunk failed (${unitId} ${i + 1}/${chunks.length}):`, err?.message || err);
-    return [];
-  })));
-
-  // 문항별로 가장 확신이 높은 조각의 답을 채택한다. 전 조각이 "없다"면 유형은 비우되
-  // 단원과 정오답은 1단계 결과로 남긴다.
+  // 문항별로 가장 확신이 높은 조각의 답을 채택한다. 전 조각이 "없다"(NO_MATCH)면 유형은 비우되
+  // 단원·정오답·question_text(매칭키)는 살린다.
   const best = new Map();
+  const anyByNo = new Map();   // NO_MATCH여도 question_text 등 보존 — 유형 못 정했다고 매칭키를 잃지 않는다.
   for (const a of settled.flat()) {
-    if (!a?.question_no || a.problem_type_id === NO_MATCH || !a.problem_type_id) continue;
-    const prev = best.get(a.question_no);
-    if (!prev || Number(a.confidence || 0) > Number(prev.confidence || 0)) best.set(a.question_no, a);
+    if (!a?.question_no) continue;
+    const key = String(a.question_no);
+    if (!anyByNo.has(key)) anyByNo.set(key, a);
+    if (a.problem_type_id === NO_MATCH || !a.problem_type_id) continue;
+    const prev = best.get(key);
+    if (!prev || Number(a.confidence || 0) > Number(prev.confidence || 0)) best.set(key, a);
   }
   return rows.map(r => {
-    const hit = best.get(r.question_no);
+    const key = String(r.question_no);
+    const hit = best.get(key);
     if (hit) {
       const { _chunk, confidence, ...rest } = hit;
       return { ...rest, question_no: r.question_no, unit_id: unitId };
     }
-    return { question_no: r.question_no, problem_type_id: '', response_status: r.response_status, difficulty: 'core', observed_error_tags: [], unit_id: unitId };
+    const any = anyByNo.get(key);
+    const { _chunk, confidence, problem_type_id, ...carry } = any || {};
+    // 태그는 버리지 않는다: NO_MATCH여도 학생이 틀렸고 오류가 식별됐으면 축 진단 재료다(검수 지적).
+    return { ...carry, question_no: r.question_no, problem_type_id: '', response_status: any?.response_status || r.response_status, difficulty: any?.difficulty || 'core', observed_error_tags: any?.observed_error_tags || [], unit_id: unitId };
   });
 }
 
@@ -698,6 +761,11 @@ ${RESPONSE_STATE_RULE}`
   }));
   const topUnit = Object.keys(byUnit).sort((a, b) => byUnit[b].length - byUnit[a].length)[0] || '';
   const matched = attempts.filter(a => a.problem_type_id).length;
+  // 차단2: type_matched(유형ID 존재 수)는 붕괴를 성공으로 오독한다. 유형 분포·종수·무유형을 함께 낸다.
+  const typeDist = {};
+  for (const a of attempts) if (a.problem_type_id) typeDist[a.problem_type_id] = (typeDist[a.problem_type_id] || 0) + 1;
+  const distinctTypes = Object.keys(typeDist).length;
+  const noType = attempts.filter(a => !a.problem_type_id).length;
   const states = {};
   for (const a of attempts) states[a.response_status || 'UNKNOWN'] = (states[a.response_status || 'UNKNOWN'] || 0) + 1;
   return {
@@ -714,6 +782,8 @@ ${RESPONSE_STATE_RULE}`
     _staged: {
       mode: scope.mode, scope: scope.label, units: Object.keys(byUnit),
       questions: attempts.length, type_matched: matched,
+      // 차단2: distinct_types가 questions 대비 과소(예: 20문항→3종)면 유형 붕괴 신호. type_distribution으로 어디에 뭉쳤는지 본다.
+      distinct_types: distinctTypes, no_type: noType, type_distribution: typeDist,
       // 5상태 분포. 빈칸이 0으로만 나오면 판독이 빈칸을 놓치고 있다는 신호다.
       states,
       // 어느 단원이 몇 조각으로 나뉘었는지. 유형이 안 붙었을 때 조각 문제인지 판별하는 값이다.

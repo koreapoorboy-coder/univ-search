@@ -909,18 +909,28 @@ ${resultEl.innerHTML}
             const rawAttempt = state.extraction?.engine_adapter?.student_attempt;
             const eng = flow && flow.engine;
             const attemptsList = ((eng && eng.collectAttemptList) ? eng.collectAttemptList(rawAttempt) : (rawAttempt?.attempts || [])) || [];
-            const rec = await MathAxisStore.buildRecord({
-              studentCode: state.payload?.student_profile?.student_code || '',
-              scope: state.payload?.learning_context?.scope || {},
-              attempts: attemptsList,
-              observedAxes: state.engineDiagnosis.observed_axes || []
-            });
-            if (rec) MathAxisStore.save(rec);
-            const codeForLink = state.payload?.student_profile?.student_code || '';
+            // 차단1(확인3): 풀이 부재 파일이면 프로파일에 저장하지 않고 사유를 알린다(D1 오염 방지·조용한 누락 방지).
+            const guardApplied = state.extraction?._staged?.guard_applied === true;
+            const allUnknown = attemptsList.length > 0 && attemptsList.every(a => a && a.response_status === 'UNKNOWN');
+            const emptyNoValue = attemptsList.length === 0 && (state.engineDiagnosis.observed_axes || []).length === 0;
             const pl = document.querySelector('#profile_after');
-            if (pl && codeForLink) {
-              const num = codeForLink.replace('SC-STUDY-', '');
-              pl.innerHTML = `<a href="profile.html?code=${encodeURIComponent(num)}" target="_blank" rel="noopener" style="display:inline-block;font-weight:700;text-decoration:none;color:#3730a3;border:1px solid #c7d2fe;background:#eef2ff;border-radius:8px;padding:8px 14px">📊 이 학생(${codeForLink}) 이전 기록·축 누적 보기 →</a>`;
+            if (guardApplied || allUnknown || emptyNoValue) {
+              const reason = state.extraction?._staged?.guard_reason || 'no_work';
+              console.warn('[axis-store] 풀이 부재로 프로파일 미저장:', reason);
+              if (pl) pl.innerHTML = `<p class="muted" style="border:1px solid #fde68a;background:#fffbeb;border-radius:8px;padding:8px 12px">이 제출은 학생 풀이 흔적이 없어 누적 프로파일에 저장하지 않았습니다. (사유: ${reason})</p>`;
+            } else {
+              const rec = await MathAxisStore.buildRecord({
+                studentCode: state.payload?.student_profile?.student_code || '',
+                scope: state.payload?.learning_context?.scope || {},
+                attempts: attemptsList,
+                observedAxes: state.engineDiagnosis.observed_axes || []
+              });
+              if (rec) MathAxisStore.save(rec);
+              const codeForLink = state.payload?.student_profile?.student_code || '';
+              if (pl && codeForLink) {
+                const num = codeForLink.replace('SC-STUDY-', '');
+                pl.innerHTML = `<a href="profile.html?code=${encodeURIComponent(num)}" target="_blank" rel="noopener" style="display:inline-block;font-weight:700;text-decoration:none;color:#3730a3;border:1px solid #c7d2fe;background:#eef2ff;border-radius:8px;padding:8px 14px">📊 이 학생(${codeForLink}) 이전 기록·축 누적 보기 →</a>`;
+              }
             }
           }
         } catch (e) { console.warn('[axis-store] record save skipped:', e); }
