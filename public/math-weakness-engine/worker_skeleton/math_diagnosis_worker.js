@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.11-nowork-guard';
+const VERSION = '2026.08.11-catstage-a2';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -611,9 +611,227 @@ function chunkList(arr, size) {
   return out;
 }
 
-// 한 단원의 유형을 확정한다. 한도 안이면 종전대로 한 번에, 넘으면 조각으로 나눠 병렬로
-// 묻고 합친다. 호출부는 어느 쪽인지 알 필요가 없다.
+// description 접두("…범주")에서 범주를 코드로 파싱한다(AI 아님). 실패 시 null → 단일단계 폴백.
+function deriveCategory(t) {
+  const m = /^\s*(.+?)\s*범주/.exec(String((t && t.description) || ''));
+  return m ? m[1].trim() : null;
+}
+function renderTypeLine(t) {
+  const fine = (t.fine_error_tags && t.fine_error_tags.length)
+    ? `\n    [후보 오류태그] ${t.fine_error_tags.join(', ')}` : '';
+  return `${t.id} = ${t.name}${fine}`;
+}
+// 레버 A 자동 스코프: 다범주·대형 단원만 2단계. 소형·단일범주·파싱실패는 단일단계 유지(회귀 없음).
+const CATEGORY_STAGE_MIN_TYPES = 60;
+const CATEGORY_STAGE_MIN_CATS = 3;
+
+const CATEGORY_ASSIGN_SCHEMA = (cats) => ({
+  type: 'object', additionalProperties: false, required: ['assignments'],
+  properties: {
+    assignments: {
+      type: 'array',
+      items: {
+        type: 'object', additionalProperties: false,
+        required: ['question_no', 'category', 'category_confidence'],
+        properties: {
+          question_no: { type: 'string' },
+          category: { type: 'string', enum: [...cats, NO_MATCH] },
+          category_confidence: { type: 'number' }
+        }
+      }
+    }
+  }
+});
+
+// TYPE_ASSIGN 규칙(전사·오류태그·오답원문·NO_MATCH). 단일단계 프롬프트와 동일 문구를 2단계·복구가 공유한다.
+const TYPE_ASSIGN_RULES = `규칙:
+- 대상 문항 전부에 대해 한 줄씩 낸다.
+- response_status는 위에 적힌 상태를 그대로 다시 쓴다. 임의로 바꾸지 않는다.
+- question_text: 이 문항의 **문제 본문을 글자 그대로 전사한다.** 요약·축약·재서술·부분 생략을 절대 하지 않는다.
+  시험지에 인쇄된 문제 문장을 문두부터 문말(예: "…구하시오.", "…설명하시오.")까지 **빠짐없이** 옮긴다 —
+  조건·단서·괄호·단위·마무리 어구까지 전부. 네 말로 바꾸지 말고 인쇄된 그대로. 학생 풀이·답은 제외(문제 문장만).
+  수식은 평문으로(1/3, 루트2, x^2, <=, ×).
+  ★나쁜 예(요약·뒷부분 누락 — 금지): "이차함수 y=(x-3)^2-4의 꼭짓점"
+  ★좋은 예(전문 전사): "이차함수 y = (x-3)^2 - 4 의 꼭짓점의 좌표를 구하시오."
+  이 값은 등록 문항과 대조(매칭)하는 키라 한 글자라도 빠지면 매칭이 깨진다. 정답/오답과 무관하게 모든 문항에서 이렇게 채운다.
+- observed_error_tags는 WRONG_COMPLETE·PARTIAL_STOP에서 실제로 관찰된 오류만 쓴다.
+  CORRECT_COMPLETE와 BLANK_UNKNOWN은 빈 배열로 둔다.
+  유형에 [후보 오류태그]가 붙어 있으면 그 중 실제 관찰된 것을 우선 고른다. 이 후보는
+  재태깅 관측 어휘와 정합하여 축(17진단축) 진단으로 이어진다. 후보에 없는 오류만
+  자연어로 덧붙이되 최소화한다.
+- WRONG_COMPLETE·PARTIAL_STOP 문항은 아래 셋을 함께 남긴다(오답 세분화 재료).
+  CORRECT_COMPLETE·BLANK_UNKNOWN은 셋 다 빈 문자열("")로 둔다.
+  · student_work_text: 학생이 그 문항에 실제로 쓴 풀이를 원문 그대로 옮긴다. 핵심 단계·식
+    위주로 짧게(대략 400자 이내), 결정적으로 틀어진 지점이 반드시 포함되게 한다.
+  · student_answer: 학생이 최종 답으로 쓴 값(없으면 "").
+  · tag_rationale: observed_error_tags를 그렇게 고른 근거를 한 문장으로.
+- 개인정보 보호: 풀이·답에 이름·학교·전화번호 등 개인식별정보가 보여도 옮기지 않는다.
+  수학 풀이 내용만 남긴다.
+- difficulty는 문항 난도다.
+- 자기 후보 목록에 이 문항과 맞는 유형이 없으면 **억지로 고르지 말고** problem_type_id를 "${NO_MATCH}"로, confidence를 0으로 둔다.
+  특히 그림에 의존하는 문항을 본문만으로 구분하기 어려우면 비슷한 유형을 억지로 붙이지 말 것 — 틀린 유형보다 "없음"이 낫다.
+- 맞는 유형이 있으면 confidence를 0보다 크게(확신할수록 1에 가깝게) 쓴다.`;
+
+// 레버 A(범주 2단계, A2 단일콜 + 조건부 복구). 자격 미달 단원은 assignSingleStage로 위임한다.
+// 반환은 { rows, meta } — 계측(category_assigned·menu_violation·recovered)을 _staged로 올린다.
 async function assignTypesForUnit({ env, files, unitId, rows, types, usageSink }) {
+  for (const t of types) t.category = deriveCategory(t);
+  const allHaveCat = types.every(t => t.category);
+  const catSet = Array.from(new Set(types.map(t => t.category).filter(Boolean)));
+  const eligible = allHaveCat && catSet.length >= CATEGORY_STAGE_MIN_CATS && types.length >= CATEGORY_STAGE_MIN_TYPES;
+  if (!eligible) {
+    const reason = !allHaveCat ? 'parse_incomplete' : (catSet.length < CATEGORY_STAGE_MIN_CATS ? 'few_categories' : 'small_unit');
+    const rowsOut = await assignSingleStage({ env, files, unitId, rows, types, usageSink });
+    return { rows: rowsOut, meta: { unit_id: unitId, category_stage: 'single', reason, categories: catSet.length, types: types.length } };
+  }
+
+  const catToTypes = {};
+  for (const t of types) (catToTypes[t.category] = catToTypes[t.category] || []).push(t);
+
+  // 2a: 범주 배정(없음 허용). category_confidence 기록.
+  const targetList = rows.map(r => `${r.question_no}번 (상태: ${r.response_status})`).join('\n');
+  const catMenu = catSet.join('\n');
+  const catByNo = new Map();
+  try {
+    const catOut = await callClaudeJson({
+      env, files, structured: true, label: `analyze_stage2cat_${unitId}`, usageSink,
+      schemaName: `category_assignment_${unitId}`,
+      schema: CATEGORY_ASSIGN_SCHEMA(catSet),
+      prompt: `아래 문항들은 「${unitId}」 단원으로 확정됐다. 각 문항이 이 단원의 어느 "범주"에 속하는지 고르라.
+세부 유형이 아니라 큰 범주다. 뒤 단계에서 그 범주 안의 세부 유형을 다시 고른다.
+
+[대상 문항]
+${targetList}
+
+[범주 목록 · 이 목록 밖은 고를 수 없다]
+${catMenu}
+
+규칙:
+- 대상 문항 전부에 한 줄씩 낸다.
+- 맞는 범주가 없거나 그림만으로 범주를 정하기 어려우면 억지로 고르지 말고 category를 "${NO_MATCH}"로, category_confidence를 0으로 둔다.
+- 맞으면 category_confidence를 0보다 크게(확신할수록 1에 가깝게) 쓴다.`
+    });
+    for (const a of (catOut?.assignments || [])) if (a && a.question_no) catByNo.set(String(a.question_no), a);
+  } catch (err) {
+    // 범주 단계가 실패하면 2단계를 포기하고 단일단계로 폴백(회귀 없음).
+    console.error(`stage2 category failed (${unitId}):`, err?.message || err);
+    const rowsOut = await assignSingleStage({ env, files, unitId, rows, types, usageSink });
+    return { rows: rowsOut, meta: { unit_id: unitId, category_stage: 'single', reason: 'category_call_failed', categories: catSet.length, types: types.length } };
+  }
+
+  // 2b: 문항별 후보 메뉴(A2). 스키마 enum은 배정범주 합집합(+NO_MATCH). 프롬프트가 문항별로 좁힌다.
+  const rowCat = new Map();   // no -> { category|null, confidence, candIds:Set }
+  const enumSet = new Set();
+  const menuBlocks = [];
+  for (const r of rows) {
+    const a = catByNo.get(String(r.question_no));
+    const cat = (a && a.category && a.category !== NO_MATCH && catToTypes[a.category]) ? a.category : null;
+    const cand = cat ? catToTypes[cat] : types;   // 범주=없음이면 전체(그 문항은 여기서 이미 전부 봄 → 복구 불요)
+    const candIds = new Set(cand.map(t => t.id));
+    rowCat.set(String(r.question_no), { category: cat, confidence: a ? Number(a.category_confidence || 0) : 0, candIds });
+    cand.forEach(t => enumSet.add(t.id));
+    const lines = cand.map(t => '  ' + renderTypeLine(t).replace(/\n/g, '\n  ')).join('\n');
+    menuBlocks.push(`${r.question_no}번 (상태: ${r.response_status}) [범주: ${cat || '전체(범주 미정)'}]\n${lines}`);
+  }
+
+  const askTypeAssign = async ({ header, enumIds, label }) => {
+    const out = await callClaudeJson({
+      env, files, structured: true, label, usageSink, schemaName: label,
+      schema: TYPE_ASSIGN_SCHEMA(enumIds, true),
+      prompt: `${header}
+
+${TYPE_ASSIGN_RULES}`
+    });
+    return (out?.attempts || []);
+  };
+
+  const mainAttempts = await askTypeAssign({
+    label: `analyze_stage2type_${unitId}`,
+    enumIds: [...enumSet],
+    header: `아래 문항들은 「${unitId}」 단원으로 확정됐다. 각 문항 아래에 그 문항의 후보 유형 목록이 있다.
+각 문항은 **자기 후보 목록 안에서만** problem_type_id를 고른다. 다른 문항의 목록에서 고르지 않는다.
+
+[대상 문항과 후보 유형]
+${menuBlocks.join('\n\n')}`
+  });
+
+  const pick = new Map();     // no -> attempt(problem_type_id 있는 것 중 최고 confidence)
+  const anyByNo = new Map();
+  const absorb = (list, recovered) => {
+    for (const a of list) {
+      if (!a || !a.question_no) continue;
+      const key = String(a.question_no);
+      if (!anyByNo.has(key)) anyByNo.set(key, { ...a, _recovered: recovered });
+      if (a.problem_type_id === NO_MATCH || !a.problem_type_id) continue;
+      const prev = pick.get(key);
+      if (!prev || Number(a.confidence || 0) > Number(prev.confidence || 0)) pick.set(key, { ...a, _recovered: recovered });
+    }
+  };
+  absorb(mainAttempts, false);
+
+  // 조건부 복구: 범주를 좁혔는데(그 문항 cat != null) 유형을 못 정한 문항만 전체로 재시도.
+  // 범주=없음 문항은 이미 전체를 봤으므로 복구 대상 아님.
+  const needRecovery = rows.filter(r => {
+    const rc = rowCat.get(String(r.question_no));
+    return !pick.get(String(r.question_no)) && rc && rc.category;   // 좁혔으나 미결정
+  });
+  let recoveredCount = 0;
+  if (needRecovery.length) {
+    const fullMenu = types.map(renderTypeLine).join('\n');
+    const recTarget = needRecovery.map(r => `${r.question_no}번 (상태: ${r.response_status})`).join('\n');
+    const recAttempts = await askTypeAssign({
+      label: `analyze_stage2recover_${unitId}`,
+      enumIds: types.map(t => t.id),
+      header: `아래 문항들은 「${unitId}」 단원으로 확정됐으나 앞 단계에서 유형을 정하지 못했다. 이 단원 전체 유형에서 다시 고르라.
+
+[대상 문항]
+${recTarget}
+
+[문항유형 목록 · 이 목록 밖은 고를 수 없다]
+${fullMenu}`
+    });
+    absorb(recAttempts, true);
+    recoveredCount = needRecovery.filter(r => pick.get(String(r.question_no))).length;
+  }
+
+  // 채택 + 계측 조립.
+  const menuViolation = [];
+  const perQuestion = [];
+  const rowsOut = rows.map(r => {
+    const key = String(r.question_no);
+    const rc = rowCat.get(key) || { category: null, confidence: 0, candIds: new Set() };
+    const hit = pick.get(key);
+    const recovered = hit ? !!hit._recovered : false;
+    let ptid = '';
+    let base;
+    if (hit) {
+      const { _chunk, _recovered, confidence, ...rest } = hit;
+      base = { ...rest, question_no: r.question_no, unit_id: unitId };
+      ptid = hit.problem_type_id || '';
+    } else {
+      const any = anyByNo.get(key) || {};
+      const { _chunk, _recovered, confidence, problem_type_id, ...carry } = any;
+      base = { ...carry, question_no: r.question_no, problem_type_id: '', response_status: any.response_status || r.response_status, difficulty: any.difficulty || 'core', observed_error_tags: any.observed_error_tags || [], unit_id: unitId };
+    }
+    // menu_violation: 확정 유형이 그 문항 범주 후보에 없으면(합집합 enum 때문에 가능) 기록. 복구·범주없음은 제외.
+    const menuOk = !ptid || recovered || !rc.category || rc.candIds.has(ptid);
+    if (!menuOk) menuViolation.push({ question_no: r.question_no, unit_id: unitId, problem_type_id: ptid, category: rc.category });
+    perQuestion.push({ question_no: r.question_no, unit_id: unitId, category: rc.category || NO_MATCH, category_confidence: rc.confidence, problem_type_id: ptid, menu_ok: menuOk, recovered });
+    return base;
+  });
+
+  return {
+    rows: rowsOut,
+    meta: {
+      unit_id: unitId, category_stage: 'two_stage', categories: catSet.length, types: types.length,
+      per_question: perQuestion, menu_violation: menuViolation, recovered_count: recoveredCount
+    }
+  };
+}
+
+// 한 단원의 유형을 확정한다(단일단계). 한도 안이면 종전대로 한 번에, 넘으면 조각으로 나눠 병렬로
+// 묻고 합친다. 호출부는 어느 쪽인지 알 필요가 없다.
+async function assignSingleStage({ env, files, unitId, rows, types, usageSink }) {
   const chunks = chunkList(types, MAX_ENUM_TYPES);
   const targetList = rows.map(r => `${r.question_no}번 (상태: ${r.response_status})`).join('\n');
   const askChunk = async (part, i) => {
@@ -736,6 +954,7 @@ ${RESPONSE_STATE_RULE}`
 
   const chunkPlan = [];
   const typeLoadFailed = [];   // 유형 로드 실패 단원(미구축·데이터 부재). 조용히 넘기지 않고 결과에 남긴다.
+  const stageMetas = [];       // 레버 A 계측: 단원별 단계·문항별 범주배정·메뉴이탈·복구수.
   const results = await Promise.all(Object.keys(byUnit).map(async unitId => {
     const rows = byUnit[unitId];
     try {
@@ -744,10 +963,13 @@ ${RESPONSE_STATE_RULE}`
       // 한도를 넘는 단원은 assignTypesForUnit이 알아서 조각내 처리한다. 예전처럼 통째로
       // 건너뛰지 않는다 — 고등 9개 단원이 그래서 유형 없이 나가고 있었다.
       chunkPlan.push({ unit_id: unitId, types: types.length, chunks: Math.ceil(types.length / MAX_ENUM_TYPES) });
-      return await assignTypesForUnit({ env, files, unitId, rows, types, usageSink });
+      const r = await assignTypesForUnit({ env, files, unitId, rows, types, usageSink });
+      if (r && r.meta) stageMetas.push(r.meta);
+      return (r && r.rows) || [];
     } catch (err) {
       console.error(`stage2 failed (${unitId}):`, err?.message || err);
       typeLoadFailed.push({ unit_id: unitId, question_count: rows.length, reason: err?.message || String(err) });
+      stageMetas.push({ unit_id: unitId, category_stage: 'type_load_failed', reason: err?.message || String(err) });
       // 유형은 못 정해도 단원·정오답은 살아 있다. 버리지 않고 그대로 넘긴다.
       return rows.map(r => ({ question_no: r.question_no, problem_type_id: '', response_status: r.response_status, difficulty: 'core', observed_error_tags: [], unit_id: unitId }));
     }
@@ -789,7 +1011,16 @@ ${RESPONSE_STATE_RULE}`
       // 어느 단원이 몇 조각으로 나뉘었는지. 유형이 안 붙었을 때 조각 문제인지 판별하는 값이다.
       chunked: chunkPlan.filter(c => c.chunks > 1),
       // 유형 로드 실패 단원(미구축·PT파일 부재 등). 비어 있지 않으면 그 단원 문항은 유형·개념 진단이 빠진 것.
-      type_load_failures: typeLoadFailed
+      type_load_failures: typeLoadFailed,
+      // 레버 A(범주 2단계) 계측 — 2회 실측 대조용. units: 단원별 단계(single/two_stage/type_load_failed)·사유.
+      // per_question: 문항별 category_assigned·category_confidence·menu_ok·recovered. menu_violation: 문항 후보밖 배정(A2 느슨함 지표).
+      // recovered_count: 좁힌뒤 못 정해 전체메뉴로 복구된 수(판정은 복구 제외 일치율로).
+      type_stage: {
+        units: stageMetas.map(m => ({ unit_id: m.unit_id, mode: m.category_stage, reason: m.reason || null, categories: m.categories || null, types: m.types || null })),
+        per_question: stageMetas.flatMap(m => m.per_question || []),
+        menu_violation: stageMetas.flatMap(m => m.menu_violation || []),
+        recovered_count: stageMetas.reduce((s, m) => s + (m.recovered_count || 0), 0)
+      }
     }
   };
 }
