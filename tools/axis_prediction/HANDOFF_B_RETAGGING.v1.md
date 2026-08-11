@@ -2,7 +2,29 @@
 
 > 이 문서 하나로 **재태깅 스트림**을 이어받는다. 큰 그림은 `HANDOFF_B_MASTER.md`. 관측 태그 정본은 `TAG_DICTIONARY_v1.md`.
 
-## ⭐⭐⭐ 최신 진입점 (2026-08-10, 중등완결·배선완료 — **새 세션 여기부터**)
+## ⭐⭐⭐⭐ 최신 진입점 (2026-08-11, 실사용 배선·매칭 국면 — **새 세션 여기부터**)
+> 리포=**`C:\Users\user\projects\scshstudy`**. 전부 push됨(HEAD `6e228813`). GitHub Pages 루트=`https://koreapoorboy-coder.github.io/univ-search/public/math-weakness-engine/`. **node·python 없음** → perl·브라우저로 검증. **정적파일 캐시**: 에셋 `?v=patchNNN`(내용 고치면 이 값도 올려야 함) + 페이지 즉시확인 `?fresh=N`. GitHub Pages는 HTML을 max-age=600(10분) 고정 서빙(헤더 커스텀 불가) → 실사용자는 10분 내 자동갱신.
+> **최종목표 = 태그 세분화**([[project-goal-tag-refinement]]). 검수 확정 순서: **①문항등록✅ → ②실사용 → ③선택형출제(매칭) → ④대시보드 → ⑤세분화화면.**
+
+> **⏸ 사용자 대기(핵심)**: **Worker 재배포 1회 = VERSION `2026.08.10-qtext-required`** — 이번 세션의 모든 Worker 변경(Fix-A 풀이원문 + user_items CRUD/AI구조화 + question_text 전사·required) 번들. 직전 배포는 `qtext-verbatim`(사용자 확인). **D1 `user_items` 테이블은 생성됨**(등록 테스트 성공). RECORD_WRITE_KEY·AXIS_DB는 axis-store와 재사용.
+
+이번 세션 이력:
+- **✅ Fix-A(풀이원문 보존) 완결·라이브검증통과**: 진단→D1 `axis_records.attempts`에 `student_work_text·student_answer·tag_rationale` 저장(세분화 재료). Worker(TYPE_ASSIGN·AI_EXTRACTION 스키마)+store `_normAttempt` 화이트리스트+길이캡. ★교훈: **유실 원인은 store.js 캐시(HTML `<script ?v=>` 미갱신)**였고 `?v` 올려 해소. optional 스키마여도 WRONG한정 필드는 AI가 채움.
+- **✅ 문항 등록 통로 완결**: D1 `user_items`(기존 AXIS_DB 재사용, `data/db/user_items.schema.v2.sql`) + Worker `/api/user-items/{structure(AI구조화)·add·list·delete}`(X-Write-Key) + **`admin_items.html`**(교사전용). 입력=폼+AI초안, 유형=AI제안후 사람확정, concept 자동상속. **유형미매칭=pending 저장**(건수상시표시·[유형지정]으로 승격). 가이드 `B_item_register_guide.v1.md`.
+- **✅ 운영 절차서 `guide.html`**(교사용 한장). ★**등록≠진단 자동반영**(분리) 명시.
+- **🔬 매칭 설계(현재 국면)**: 등록문항↔학생답안 매칭 = 선택형출제의 핵심연결(학생이 푸는 문제 대부분이 등록문항). 실험기록 `B_match_threshold_experiment.v1.md`.
+  - **검수 확정 매칭 규칙**: ①`unit_id·problem_type_id`로 후보축소 → ②정규화(NFKC+공백전면제거+지수/기호통일) 유사도 ≥임계값 → ③임계 넘는 후보 2개↑면 **매칭안함** → 미달/모호=미매칭→**AI 추측 폴백**. ★오매칭 금지("틀리느니 못찾음"). 번호매칭 배제(시험지 재구성 가능).
+  - **★OCR 갭**: AI가 문제를 전사 안하고 **요약**(문말 누락)→유사도 0.79. 정규화로 불가 → **프롬프트 전사강제(A안)**. B(임계값↓·다른문항 0.926과 겹침)·C(후보목록·비용) 배제.
+  - 진단에 **question_text(문제본문) 추출 추가**=매칭키. **처음 optional→AI 전부 skip(빈값)→ `required`로 강제(방금 수정)**. 실측도구 **`ocr_measure.html`**(시험지업로드→AI추출→원본대조 분포+폴백판별+원문JSON덤프).
+- **🎯 다음 즉시 할 일**: 재배포(`qtext-required`) 후 `ocr_measure.html?fresh=1` 재실행(**순수 문제원문만** 한 줄에 하나 입력) → **question_text채움 수·유형매칭 수·`_runtime.note`** 확인.
+  - 채워지면 → 여러 문항 **분포(min vs 다른문항 최대 0.926)**로 **최종 임계값 확정**(0.99유지 vs 0.95 등, 지금 고정 안 함).
+  - 안 채워지면 → 원문JSON이 **폴백(staged 실패)인지** 보여줌 → note로 stage 실패 원인(유형로드 등) 조사.
+- **그 뒤 순서**: 임계값 확정 → **user_items 필드 확정(이미 결론: 매칭은 `question_text`+`problem_type_id`로 충분, 신규필드 불필요. q_norm은 저장X·실시간계산 권장 — 규칙 바뀌어도 재생성 불요)** → 대량투입 JSON 스펙 → 대량투입 → 선택형출제 배선(매칭 실장).
+  - 대량투입 착수 전 미결 2건: (a)투입방식 = admin `[JSON일괄업로드]`+Worker `/add-bulk` 신설 vs 클라 `/add` 순회, (b)concept_ids = 서버 자동채움(problem_type_id로) vs JSON 포함.
+- **도구/테스터**(전부 public/math-weakness-engine, 사이트서 열림): `admin_items.html`(등록)·`guide.html`(절차서)·`ocr_measure.html`(OCR실측)·`match_lab.html`(임계값랩)·`B_fixA_response_tester.html`(진단응답 원문확인)·`index.html`(진단)·`profile.html`(누적조회).
+- ↓ 아래 ⭐⭐⭐ 블록은 이전 국면(중등완결·재태깅) 이력 — 참고용.
+
+## ⭐⭐⭐ 최신 진입점 (2026-08-10, 중등완결·배선완료 — 이전 국면)
 > 리포=**`C:\Users\user\projects\scshstudy`**(OneDrive 아님·거기서 작업금지). 전부 push됨. 검증서버=scratchpad `serve.ps1`(8731·ASCII), node 없음→PowerShell/브라우저로 검증.
 > **현재 상태**: 재태깅·배선·B이관(D1)·circle/statistics 복구+concept·팽창재측정·usage로깅·review-hardening **전부 코딩완료**. **중등 canonical층 완결**(유형·축·개념). 이 파일에서 **아래로 스크롤해 `✅`/`📍`/`🎯` 불릿들이 최신 이력** — 특히 `📍 중등 완결`·`✅ 검증문항 조사`·`다음 세션 즉시 할 일`·`🎯 고등 재태깅 착수조건` 블록을 먼저 읽어라.
 > **⏸ 사용자 대기(핵심)**: **Worker 재배포 1회** — VERSION `2026.08.10-fixA-work-text-preserve`(axis-store D1+GET엔드포인트+usage로깅+review-hardening+**Fix-A 풀이원문보존** 전부 번들). + D1 생성/바인딩(AXIS_DB)/스키마SQL/secret(RECORD_WRITE_KEY) 미완이면 가이드 `B_wiring_d1_deploy_guide`(health version·Fix-A 검증 갱신됨). 데이터/프론트는 push시 GitHub Pages 자동.
