@@ -63,6 +63,17 @@
     const note=(input&&input.student_note)?input.student_note:input;
     const text=normText((note&&note.note_text)||'');
     const observed=note&&Array.isArray(note.observed_items)?note.observed_items:[];
+    // 결함②(2026-08-11): 실제 필기(note_text)도 관측항목도 없으면 근거가 없다. 하드코딩 기본 rule(순환소수 등)로
+    //   점수·teacher_questions·parent_feedback를 지어내면 근거없는 판정·학부모 피드백이 유출된다(차단1 원칙).
+    //   검수 산출물을 생성하지 않고 사유만 남긴다. 같은 shape(빈 값)로 반환해 렌더러 안전.
+    if(!text && observed.length===0){
+      return {
+        skipped:true, reason:'no_note_text',
+        summary:{unit_id:note&&note.unit_id,lesson_title:note&&note.lesson_title},
+        evidence_signals:[], risk_flags:[], teacher_check_questions:[], redo_task:[], parent_feedback:'',
+        engine_note:'제출된 강의 필기가 없어 필기 검수를 수행하지 않았습니다.'
+      };
+    }
     const rules=(this.learningEvidence.rules&&this.learningEvidence.rules.signal_rules)||[];
     const riskRules=(this.learningEvidence.rules&&this.learningEvidence.rules.risk_rules)||[];
     const signals=[];
