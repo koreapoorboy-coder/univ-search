@@ -22,6 +22,7 @@
 - **그 뒤 순서**: 임계값 확정 → **user_items 필드 확정(이미 결론: 매칭은 `question_text`+`problem_type_id`로 충분, 신규필드 불필요. q_norm은 저장X·실시간계산 권장 — 규칙 바뀌어도 재생성 불요)** → 대량투입 JSON 스펙 → 대량투입 → 선택형출제 배선(매칭 실장).
   - 대량투입 착수 전 미결 2건: (a)투입방식 = admin `[JSON일괄업로드]`+Worker `/add-bulk` 신설 vs 클라 `/add` 순회, (b)concept_ids = 서버 자동채움(problem_type_id로) vs JSON 포함.
 - **도구/테스터**(전부 public/math-weakness-engine, 사이트서 열림): `admin_items.html`(등록)·`guide.html`(절차서)·`ocr_measure.html`(OCR실측)·`match_lab.html`(임계값랩)·`B_fixA_response_tester.html`(진단응답 원문확인)·`index.html`(진단)·`profile.html`(누적조회).
+- **🧰 함정(diff 귀인, 3회 발생)**: 육안 diff는 **재입력본으로 하지 말 것** — 실제 차이가 재입력 과정에서 소실되고 표기차만 남음(지수·어휘·공백 3회). 원인 확정은 **원문 JSON의 `question_text` 또는 도구 코드포인트 열로만.** [[ocr-diff-use-tool-not-retyped]].
 - ↓ 아래 ⭐⭐⭐ 블록은 이전 국면(중등완결·재태깅) 이력 — 참고용.
 
 ## ⭐⭐⭐ 최신 진입점 (2026-08-10, 중등완결·배선완료 — 이전 국면)
