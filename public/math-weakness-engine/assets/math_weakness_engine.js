@@ -239,6 +239,12 @@
         this.problemTypeInstructions=instructionList;
         this.problemTypeInstructionById=byId(instructionList,'problem_type_id');
         this.studentActionTemplates=listOf(actionPack,'templates');
+        // 결함① 게이트(2026-08-11): 처방 템플릿이 구조적으로 없는 단원(기하·수연산)은 억지 매칭된 처방을 억제한다.
+        // 1단계 = no_template_units 리스트만 사용(매핑 정확도 무관). GENERIC은 단원중립이라 억제 제외.
+        const templateUnitMapPack=await this._optionalJson(display.template_unit_map);
+        this.templateUnitMap=templateUnitMapPack||{};
+        this.noTemplateUnits=new Set((templateUnitMapPack&&templateUnitMapPack.no_template_units)||[]);
+        this.genericTemplateIds=new Set((templateUnitMapPack&&templateUnitMapPack.generic_template_ids)||['ACTION_GENERIC_STRUCTURED_SOLUTION']);
         this.parentFeedbackTemplates=listOf(parentPack,'templates');
         this.futureLearningUnits=listOf(futurePack,'units');
         this.futureLearningByUnitId=byId(this.futureLearningUnits,'unit_id');
@@ -330,6 +336,22 @@
       const pt=this.problemTypeById[attempt.problem_type_id];
       if(!pt) return {problem_type_id:attempt.problem_type_id,missing:true};
       const instruction=this.getProblemInstruction(pt.problem_type_id);
+      // 결함① 1단계 게이트(2026-08-11): 이 단원에 전용 처방 템플릿이 구조적으로 없는데(no_template_units)
+      // 비-GENERIC 처방이 붙었으면 = 틀린 처방(예: 도형에 일차함수). 억제하고 사유를 남긴다(조용한 누락 금지).
+      // taxonomy·심각도는 유지. GENERIC(단원중립)·covered·mismatch(2단계)는 여기서 손대지 않는다.
+      const _tplId=instruction&&instruction.matched_template_id;
+      const _unitId=(instruction&&instruction.unit_id)||pt.unit_id||attempt.unit_id;
+      if(instruction && _tplId && this.noTemplateUnits && this.noTemplateUnits.has(_unitId) && !this.genericTemplateIds.has(_tplId)){
+        return stripUndefined({
+          question_no:attempt.question_no,
+          problem_type_id:pt.problem_type_id,
+          type_name:pt.type_name,
+          visible_path:instruction.visible_path,
+          matched_template_id:null,
+          suppressed_reason:'no_template_for_unit',
+          severity:this._severityFor(attempt,pt,null)
+        });
+      }
       const tags=this._tagsFor(attempt,pt,instruction);
       const backtrackRoute=this._findBacktrackRoute(instruction,tags);
       const remediationRoute=this._findGlobalRemediationRoute(instruction,tags,backtrackRoute);
