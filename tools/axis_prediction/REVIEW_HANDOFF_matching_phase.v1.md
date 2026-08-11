@@ -6,12 +6,15 @@
 - **[실측] 차단1·2 프로덕션 검증 통과**(req c89db5b8). VERSION `2026.08.11-nowork-guard` 배포됨(대시보드). 차단1: guard_applied·states{UNKNOWN:20}·is_correct null·run_diagnoseWithGuidance 제거. 차단2: distinct_types 3→12·no_type 0·정확 유형매칭.
 - **[대기·사용자]** D1 오늘 레코드 미생성 확인 + 화면 노란문구(Pages 캐시) + 기존 오염 SQL 조회. 서버 저장가드는 클라 skip 경로라 미실행(백스톱, [코드확인]만).
 
-### ★ 다음 트랙 = 결함 ① 닮음 해석층 미구축 [코드확인]
-- `m2_similarity`·`m2_similarity_pythagoras` = problem_types 있으나 **edges/rules/remediation 전무**(40 pt 중 rules 없는 단원 딱 이 2개). 유형 배정은 되나 해석 규칙 없어 **UNIT_DATA_NOT_AVAILABLE → 진단 불가**. §2 circle·stat 복구와 동종(대상만 닮음). 나머지 38단원·circle·stat 정상.
-- 스코프 미정: 닮음 해석층 구축(circle 복구 방식) vs 보류. 검수 판단 대기.
+### ★ 다음 트랙 = 결함 ① 닮음 해석층 배선 [코드확인·스코프 확정]
+- **대상 = M2_SIMILARITY_PYTHAGORAS 1개**(index 등록·87유형). `m2_similarity`(162유형)는 **index 미등록 고아** → 안 건드림.
+- **(a) 배선 확정**: problem_types(87)✓ + fine_error_tags overlay(35.8KB·262태그참조)✓ + 재태깅 축맵(similarity3_new·set04·set09)✓. **edges/rules/remediation만 부재** → 저위험 배선(태그 신규구축 아님).
+- 규모: 비교단원(도형성질) edges22.8+remediation10.9+rules10.4KB ≈ 44KB 저작. circle 복구급.
+- **착수 요건(검수)**: ①circle방식 재사용 ②구축 후 실제 진단 1건 `diagnosable_count>0` **[실측]**(조용한 실패 재발 방지) ③`axis_rules.v44.json`(§6) 영향 먼저 확인·불가침.
+- **착수 시점**: 현재 트랙(사용자 D1 3확인) 종결 후. 단일트랙.
 
 ### 동결 백로그 (배포·다음트랙 전까지 손대지 않음)
-- **결함② 필기검수 타단원 내용**: unit=M2_SIMILARITY_PYTHAGORAS·note_text="" 인데 출력=순환소수·유리수(수와식). note_text 빈값 시 하드코딩 샘플 방출 의심 = 차단1 계열(근거 없이 판정 생성). 기록만.
+- **결함② 필기검수 타단원 내용**: unit=M2_SIMILARITY_PYTHAGORAS·note_text="" 인데 출력=순환소수·유리수(수와식). note_text 빈값 시 하드코딩 샘플 방출 의심 = 차단1 계열(근거 없이 판정 생성). 동결하되 **★학생 필기 실제 수집 시작 전 반드시 해소**(그 전엔 근거없는 판정이 실데이터에 섞임).
 - **결함③ 비용 상승**: 20문항 $1.1029(vs $0.8915, +24%). stage2 출력 8,373→15,479 토큰(NO_MATCH 허용으로 응답 길어짐 추정). §10 실측·학생10명 월 재산정 필요. 기록만.
 - **인프라**: index.html==hybrid.html 바이트 동일 복제본 → 항상 같이 수정(dedupe 검토 대상).
 - JSON스펙 v2 · SQL v3.1(차단2·3·4·5+A정정엔드포인트) · GPT명세(3) · 근접중복 감사 · no-lexchange 추적(라이브=리포로 종결).
