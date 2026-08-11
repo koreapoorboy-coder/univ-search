@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.11-catstage-a2';
+const VERSION = '2026.08.11-catstage-a2b';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -531,8 +531,10 @@ async function fetchUnitProblemTypes(scope, unitId) {
   if (!unit?.problem_types) throw new Error(`${unitId}의 problem_types 경로가 없다`);
   const pack = await (await fetch(`${scope.dataBase}/${unit.problem_types}`, { cf: { cacheTtl: 3600 } })).json();
   const fineByPt = await fetchFineErrorTagOverlay(scope, unit.fine_error_tags_overlay);
+  // category는 여기서 원본 description으로 파싱해 부착한다. 이 map이 description을 솎아내던 탓에
+  // assignTypesForUnit의 deriveCategory(t)가 undefined를 읽어 전건 파싱 실패 → 단일단계 폴백했다(catstage-a2 버그).
   return (pack.problem_types || [])
-    .map(p => ({ id: p.problem_type_id, name: p.type_name, fine_error_tags: fineByPt[p.problem_type_id] || [] }))
+    .map(p => ({ id: p.problem_type_id, name: p.type_name, fine_error_tags: fineByPt[p.problem_type_id] || [], description: p.description || '', category: deriveCategory(p) }))
     .filter(p => p.id);
 }
 
@@ -675,14 +677,20 @@ const TYPE_ASSIGN_RULES = `규칙:
 // 레버 A(범주 2단계, A2 단일콜 + 조건부 복구). 자격 미달 단원은 assignSingleStage로 위임한다.
 // 반환은 { rows, meta } — 계측(category_assigned·menu_violation·recovered)을 _staged로 올린다.
 async function assignTypesForUnit({ env, files, unitId, rows, types, usageSink }) {
-  for (const t of types) t.category = deriveCategory(t);
-  const allHaveCat = types.every(t => t.category);
+  // category는 fetchUnitProblemTypes가 원본 description에서 파싱해 이미 부착한다. 여기선 판정·계측만.
+  const parseFailed = types.filter(t => !t.category);
+  const parseMeta = {
+    parse_failed_count: parseFailed.length,
+    parse_failed_sample: parseFailed.slice(0, 3).map(t => ({ id: t.id, description: String(t.description || '').slice(0, 60) })),
+    description_present: `${types.filter(t => t.description).length}/${types.length}`
+  };
+  const allHaveCat = parseFailed.length === 0;
   const catSet = Array.from(new Set(types.map(t => t.category).filter(Boolean)));
   const eligible = allHaveCat && catSet.length >= CATEGORY_STAGE_MIN_CATS && types.length >= CATEGORY_STAGE_MIN_TYPES;
   if (!eligible) {
     const reason = !allHaveCat ? 'parse_incomplete' : (catSet.length < CATEGORY_STAGE_MIN_CATS ? 'few_categories' : 'small_unit');
     const rowsOut = await assignSingleStage({ env, files, unitId, rows, types, usageSink });
-    return { rows: rowsOut, meta: { unit_id: unitId, category_stage: 'single', reason, categories: catSet.length, types: types.length } };
+    return { rows: rowsOut, meta: { unit_id: unitId, category_stage: 'single', reason, categories: catSet.length, types: types.length, ...parseMeta } };
   }
 
   const catToTypes = {};
@@ -716,7 +724,7 @@ ${catMenu}
     // 범주 단계가 실패하면 2단계를 포기하고 단일단계로 폴백(회귀 없음).
     console.error(`stage2 category failed (${unitId}):`, err?.message || err);
     const rowsOut = await assignSingleStage({ env, files, unitId, rows, types, usageSink });
-    return { rows: rowsOut, meta: { unit_id: unitId, category_stage: 'single', reason: 'category_call_failed', categories: catSet.length, types: types.length } };
+    return { rows: rowsOut, meta: { unit_id: unitId, category_stage: 'single', reason: 'category_call_failed', categories: catSet.length, types: types.length, ...parseMeta } };
   }
 
   // 2b: 문항별 후보 메뉴(A2). 스키마 enum은 배정범주 합집합(+NO_MATCH). 프롬프트가 문항별로 좁힌다.
@@ -824,7 +832,7 @@ ${fullMenu}`
     rows: rowsOut,
     meta: {
       unit_id: unitId, category_stage: 'two_stage', categories: catSet.length, types: types.length,
-      per_question: perQuestion, menu_violation: menuViolation, recovered_count: recoveredCount
+      per_question: perQuestion, menu_violation: menuViolation, recovered_count: recoveredCount, ...parseMeta
     }
   };
 }
@@ -1016,7 +1024,7 @@ ${RESPONSE_STATE_RULE}`
       // per_question: 문항별 category_assigned·category_confidence·menu_ok·recovered. menu_violation: 문항 후보밖 배정(A2 느슨함 지표).
       // recovered_count: 좁힌뒤 못 정해 전체메뉴로 복구된 수(판정은 복구 제외 일치율로).
       type_stage: {
-        units: stageMetas.map(m => ({ unit_id: m.unit_id, mode: m.category_stage, reason: m.reason || null, categories: m.categories || null, types: m.types || null })),
+        units: stageMetas.map(m => ({ unit_id: m.unit_id, mode: m.category_stage, reason: m.reason || null, categories: m.categories || null, types: m.types || null, parse_failed_count: m.parse_failed_count ?? null, parse_failed_sample: m.parse_failed_sample || null, description_present: m.description_present || null })),
         per_question: stageMetas.flatMap(m => m.per_question || []),
         menu_violation: stageMetas.flatMap(m => m.menu_violation || []),
         recovered_count: stageMetas.reduce((s, m) => s + (m.recovered_count || 0), 0)
