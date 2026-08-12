@@ -1,0 +1,176 @@
+{
+  "_meta": {
+    "unit_id": "M2_GEOMETRY_PROPERTIES",
+    "purpose": "no_template 처방 저작(레버A 후속). part04 instruction_map 엔트리의 8내용필드 교체용. matched_template_id:null·match_score:null. error_code=TAG_DICTIONARY_v2 정합(§1→§2→단원). draft:true. observed_basis=fine_error_tags 보유 27종만 true.",
+    "dict": "tools/axis_prediction/TAG_DICTIONARY_v2.md",
+    "observed_basis_true_types": ["M2_GEOM_PT023","M2_GEOM_PT026","M2_GEOM_PT029","M2_GEOM_PT038","M2_GEOM_PT041","M2_GEOM_PT044","M2_GEOM_PT047","M2_GEOM_PT050","M2_GEOM_PT053","M2_GEOM_PT055","M2_GEOM_PT067","M2_GEOM_PT071","M2_GEOM_PT074","M2_GEOM_PT077","M2_GEOM_PT080","M2_GEOM_PT083","M2_GEOM_PT086","M2_GEOM_PT089","M2_GEOM_PT092","M2_GEOM_PT100","M2_GEOM_PT103","M2_GEOM_PT104","M2_GEOM_PT107","M2_GEOM_PT116","M2_GEOM_PT119","M2_GEOM_PT134","M2_GEOM_PT140"],
+    "progress": "1/14 카테고리 (기본 각 관계 11종, C001-C003). 누계 11/140.",
+    "new_tags": [
+      {"tag": "triangle_interior_angle_sum_error", "reason": "삼각형 세 내각의 합 180° 적용 실패. 사전 §2는 각 전달·연쇄·대응만 있고 삼각형 내각합 기본정리 항목 없음."},
+      {"tag": "triangle_exterior_angle_theorem_omitted", "reason": "외각=이웃하지 않은 두 내각의 합 정리 누락. §2 collinear_supplementary(일직선 보각)와 다른 정리(외각정리). 별개."},
+      {"tag": "polygon_angle_sum_formula_error", "reason": "다각형 내각합 180×(n-2) 공식 오류. 사전에 다각형 각합 공식 항목 없음."},
+      {"tag": "polygon_exterior_angle_sum_error", "reason": "다각형 외각합 360° 적용 오류. 다각형 전용, 삼각형 외각정리와 대상 다름."}
+    ],
+    "reuse_note": "이 카테고리 distinct error_code 7종 중 3종(§2) 재사용 = 43%. C001(평행선)은 §2 100%, C002·C003(삼각형·다각형 각합 기본정리)은 사전 부재로 신설. 기본 각 관계 basics는 사전(원·삼각비·닮음 출처)에 없어 신설이 정상."
+  },
+  "prescriptions": {
+    "M2_GEOM_PT001": {
+      "problem_nature": "평행선에서 동위각·엇각·맞꼭지각의 위치 관계를 구분해 각의 크기를 구하는 유형",
+      "required_thinking": ["평행선과 횡단선 식별", "동위각/엇각/맞꼭지각 위치 구분", "같은 각 표시", "각 관계식 세우기", "한 직선 위 각의 합 180° 검산"],
+      "must_write_steps": ["평행한 두 직선과 이를 가로지르는 횡단선을 먼저 표시한다.", "구하는 각이 동위각·엇각·맞꼭지각 중 무엇인지 위치로 판별한다.", "같은 크기인 각에 같은 표시를 하고, 합이 180°인 보각을 구분한다.", "각 관계식(동위각 같음·엇각 같음·맞꼭지각 같음)으로 미지각을 구한다.", "구한 각을 삼각형 내각의 합 또는 직선 위 각의 합으로 검산한다."],
+      "common_wrong_actions": ["동위각·엇각을 위치로 구분하지 않고 이름만 외워 반대로 쓴다.", "보각(합 180°)을 같은 각으로 본다.", "맞꼭지각과 엇각을 혼동한다.", "각 대응을 끝까지 따라가지 않는다."],
+      "error_checkpoints": [
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "동위각·엇각을 횡단선 기준 위치로 구분하지 못해 각을 옮기지 못했다.", "student_fix": "횡단선 기준 같은 쪽(동위각)·엇갈린 쪽(엇각)을 먼저 표시해라."},
+        {"error_code": "collinear_supplementary_angle_chain_error", "label": "보각을 등각으로", "diagnosis": "한 직선 위 합이 180°인 두 각을 같은 크기로 두었다.", "student_fix": "한 직선 위 두 각의 합이 180°임을 표시해라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "여러 각의 대응을 끝까지 따라가지 못해 미지각을 못 구했다.", "student_fix": "아는 각부터 관계로 하나씩 옮겨 적어라."}
+      ],
+      "student_command": "평행선 각 문제는 동위각·엇각·맞꼭지각을 이름이 아니라 횡단선 기준 위치로 먼저 표시하고 풀어라.",
+      "teacher_note": "동위각/엇각 혼동은 명칭 암기가 아니라 횡단선 기준 위치 식별 실패다. 각 표시부터 시키면 대부분 해소된다.",
+      "parent_message": "평행선의 각 관계는 도형 증명·삼각비의 출발점입니다. 각의 위치를 그림에 직접 표시하는 습관이 정확도를 좌우합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT002": {
+      "problem_nature": "평행선의 각 관계를 주어진 조건(각도·이등분 등)에 적용해 미지각을 구하는 유형",
+      "required_thinking": ["평행선과 횡단선 식별", "동위각/엇각/맞꼭지각 위치 구분", "주어진 조건 각 표시", "각 관계식+조건 결합", "한 직선 위 각의 합 180° 검산"],
+      "must_write_steps": ["평행선·횡단선과 주어진 각·조건을 그림에 먼저 표시한다.", "구하는 각과 아는 각의 위치 관계(동위각·엇각·맞꼭지각)를 판별한다.", "각 관계식에 주어진 조건(각의 크기·이등분 등)을 대입한다.", "필요하면 보각·삼각형 내각의 합을 함께 써서 미지각을 구한다.", "구한 각을 다른 관계로 재확인한다."],
+      "common_wrong_actions": ["조건 각을 그림에 표시하지 않고 관계식만 세운다.", "동위각·엇각을 위치로 구분하지 않는다.", "보각과 등각을 혼동한다.", "각 대응을 끝까지 따라가지 않는다."],
+      "error_checkpoints": [
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "조건 각을 표시하고도 위치 기준으로 각을 옮기지 못했다.", "student_fix": "횡단선 기준 위치를 표시한 뒤 조건 각을 대입해라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "주어진 조건에서 미지각까지 대응을 연결하지 못했다.", "student_fix": "조건 각부터 관계로 하나씩 옮겨 미지각에 도달해라."}
+      ],
+      "student_command": "조건이 붙은 평행선 각 문제는 주어진 각·이등분 조건을 그림에 먼저 표시하고, 그다음 각 관계식에 대입해라.",
+      "teacher_note": "C001 조건적용판. 골격은 PT001과 같고 '조건을 그림에 옮겨 대입' 단계를 강조한다.",
+      "parent_message": "조건이 있는 각 문제는 조건을 그림으로 옮기는 단계가 관건입니다. 조건을 빠짐없이 표시하면 대부분 해결됩니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT003": {
+      "problem_nature": "평행선의 각 관계를 여러 단계로 연결해 미지각의 크기를 계산·추론하는 유형",
+      "required_thinking": ["평행선과 횡단선 식별", "동위각/엇각/맞꼭지각 위치 구분", "같은 각 표시", "각 관계식 세우기", "한 직선 위 각의 합 180° 검산"],
+      "must_write_steps": ["평행선과 횡단선을 표시하고 아는 각을 적는다.", "구하는 각과의 위치 관계(동위각·엇각·맞꼭지각)를 판별한다.", "여러 단계면 중간 각을 하나씩 옮겨 적는다.", "각 관계식으로 미지각을 계산한다.", "구한 각들을 삼각형 내각의 합·직선 위 각의 합으로 검산한다."],
+      "common_wrong_actions": ["중간 각을 건너뛰고 한 번에 답을 낸다.", "동위각·엇각을 위치로 구분하지 않는다.", "보각과 등각을 혼동한다.", "검산 없이 마무리한다."],
+      "error_checkpoints": [
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "여러 단계 각 대응을 끝까지 옮기지 못했다.", "student_fix": "아는 각부터 중간 각을 하나씩 적어 미지각까지 연결해라."},
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "위치 기준 없이 각을 옮겨 값이 어긋났다.", "student_fix": "횡단선 기준 위치를 표시하고 옮겨라."},
+        {"error_code": "collinear_supplementary_angle_chain_error", "label": "보각을 등각으로", "diagnosis": "한 직선 위 보각을 같은 각으로 계산했다.", "student_fix": "한 직선 위 두 각의 합 180°를 표시해라."}
+      ],
+      "student_command": "평행선 각 계산은 답을 한 번에 내지 말고, 아는 각부터 중간 각을 하나씩 적어 미지각까지 연결하고 마지막에 검산해라.",
+      "teacher_note": "C001 계산·추론판. 중간 각 생략이 오답의 핵심. 단계별 표기와 검산을 강조한다.",
+      "parent_message": "각 계산 문제는 중간 단계를 생략하지 않고 하나씩 적는 습관이 정확도를 만듭니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT004": {
+      "problem_nature": "평행선의 각 관계를 근거와 함께 서술해 결론을 증명하는 유형",
+      "required_thinking": ["평행선과 횡단선 식별", "동위각/엇각/맞꼭지각 위치 구분", "각 관계의 근거 명시", "논리 순서 배열", "결론 도출"],
+      "must_write_steps": ["주어진 것(평행 조건 등)과 구할 것(결론)을 먼저 구분해 적는다.", "쓸 각 관계(동위각·엇각·맞꼭지각)를 위치로 판별한다.", "각 단계마다 '어떤 각 관계로 같다/보각이다'를 근거로 쓴다.", "근거를 순서대로 연결해 결론에 도달한다.", "결론이 구할 것과 일치하는지 확인한다."],
+      "common_wrong_actions": ["근거 없이 각이 같다고만 쓴다.", "결론을 먼저 쓰고 근거를 나중에 억지로 붙인다.", "동위각·엇각 근거를 위치로 대지 않는다.", "논리 순서를 건너뛴다."],
+      "error_checkpoints": [
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "각 관계 근거를 순서대로 연결하지 못해 증명이 끊겼다.", "student_fix": "각 단계마다 '무슨 각 관계로 같은지'를 근거로 적어 이어라."},
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "평행 조건을 근거로 명시하지 않고 각이 같다고 썼다.", "student_fix": "'평행하므로 동위각(엇각)이 같다'를 근거로 명시해라."}
+      ],
+      "student_command": "각 증명은 각 단계마다 '어떤 각 관계로 같은지'를 근거로 적고, 근거를 순서대로 이어 결론에 도달해라.",
+      "teacher_note": "C001 증명 서술판. 결론 선행·근거 누락이 핵심 오류. 근거 명시와 순서를 강조한다.",
+      "parent_message": "증명은 답보다 '왜 그런가'를 순서대로 적는 훈련입니다. 근거를 문장으로 쓰는 습관이 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT005": {
+      "problem_nature": "삼각형의 내각의 합과 외각 정리를 이용해 각의 크기를 구하는 유형",
+      "required_thinking": ["삼각형 세 내각 식별", "내각의 합 180° 적용", "외각과 이웃하지 않은 두 내각의 관계", "각 관계식 세우기", "합 180° 검산"],
+      "must_write_steps": ["삼각형의 세 내각을 표시한다.", "세 내각의 합이 180°임을 식으로 쓴다.", "외각을 구할 때는 '이웃하지 않은 두 내각의 합'임을 쓴다.", "각 관계식으로 미지각을 구한다.", "세 내각의 합이 180°인지 검산한다."],
+      "common_wrong_actions": ["외각을 이웃한 내각과 관련짓는다.", "내각의 합을 180°가 아닌 값으로 쓴다.", "외각을 한 내각과 같다고 본다.", "검산 없이 마무리한다."],
+      "error_checkpoints": [
+        {"error_code": "triangle_exterior_angle_theorem_omitted", "label": "외각정리 누락", "diagnosis": "외각을 이웃하지 않은 두 내각의 합으로 두지 않았다.", "student_fix": "외각 = 이웃하지 않은 두 내각의 합임을 식으로 써라."},
+        {"error_code": "triangle_interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "삼각형 세 내각의 합 180°를 잘못 적용했다.", "student_fix": "세 내각의 합 = 180°를 먼저 식으로 써라."}
+      ],
+      "student_command": "삼각형 각 문제는 '세 내각의 합 180°'와 '외각 = 이웃하지 않은 두 내각의 합' 둘 중 무엇을 쓰는지 먼저 정하고 풀어라.",
+      "teacher_note": "외각을 이웃 내각의 보각으로만 처리하는 오류가 핵심. 외각정리를 식으로 쓰게 한다.",
+      "parent_message": "삼각형의 내각·외각은 이후 다각형과 원의 각으로 이어집니다. 두 정리를 구분해 쓰는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT006": {
+      "problem_nature": "삼각형 내각·외각 정리를 주어진 조건에 적용해 미지각을 구하는 유형",
+      "required_thinking": ["삼각형 세 내각 식별", "내각의 합 180° 적용", "외각정리 적용", "주어진 조건 대입", "합 180° 검산"],
+      "must_write_steps": ["삼각형의 세 내각과 주어진 조건을 표시한다.", "내각의 합 180° 또는 외각정리 중 맞는 것을 고른다.", "주어진 조건(각도·비 등)을 관계식에 대입한다.", "미지각을 구한다.", "세 내각의 합이 180°인지 검산한다."],
+      "common_wrong_actions": ["조건을 표시하지 않고 관계식만 세운다.", "외각정리와 내각합을 섞어 쓴다.", "외각을 이웃 내각과 관련짓는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "triangle_exterior_angle_theorem_omitted", "label": "외각정리 누락", "diagnosis": "조건을 대입할 때 외각정리를 쓰지 않았다.", "student_fix": "외각 = 이웃하지 않은 두 내각의 합임을 먼저 쓰고 조건을 대입해라."},
+        {"error_code": "triangle_interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "내각의 합 180° 적용에서 조건을 잘못 결합했다.", "student_fix": "세 내각의 합 = 180° 식에 조건을 하나씩 대입해라."}
+      ],
+      "student_command": "조건이 붙은 삼각형 각 문제는 조건을 그림에 표시하고, 내각합 180°인지 외각정리인지 정한 뒤 대입해라.",
+      "teacher_note": "C002 조건적용판. 두 정리 혼용이 핵심 오류. 무엇을 쓸지 먼저 정하게 한다.",
+      "parent_message": "조건이 있는 각 문제는 어떤 정리를 쓸지 정하는 판단이 먼저입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT007": {
+      "problem_nature": "삼각형 내각·외각 정리를 여러 단계로 연결해 미지각을 계산·추론하는 유형",
+      "required_thinking": ["삼각형 세 내각 식별", "내각합·외각정리 선택", "중간 각 단계 추적", "각 관계식 계산", "합 180° 검산"],
+      "must_write_steps": ["삼각형과 아는 각을 표시한다.", "내각합 180°와 외각정리 중 맞는 것을 고른다.", "여러 단계면 중간 각을 하나씩 구한다.", "미지각을 계산한다.", "세 내각의 합이 180°인지 검산한다."],
+      "common_wrong_actions": ["중간 각을 건너뛴다.", "외각정리와 내각합을 섞는다.", "외각을 이웃 내각과 관련짓는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "triangle_exterior_angle_theorem_omitted", "label": "외각정리 누락", "diagnosis": "계산 과정에서 외각을 이웃하지 않은 두 내각의 합으로 두지 않았다.", "student_fix": "외각정리를 식으로 쓰고 단계별로 계산해라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "중간 각을 끝까지 추적하지 못했다.", "student_fix": "아는 각부터 중간 각을 하나씩 구해 연결해라."},
+        {"error_code": "triangle_interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "내각의 합 180° 적용을 계산에서 틀렸다.", "student_fix": "세 내각의 합 = 180° 식으로 마지막에 검산해라."}
+      ],
+      "student_command": "삼각형 각 계산은 내각합·외각정리 중 맞는 것을 정하고, 중간 각을 하나씩 구해 연결한 뒤 180°로 검산해라.",
+      "teacher_note": "C002 계산·추론판. 중간 각 생략과 정리 혼용이 핵심. 단계 표기와 검산을 강조한다.",
+      "parent_message": "여러 단계 각 계산은 중간 과정을 하나씩 적고 마지막에 검산하는 습관이 정확도를 만듭니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT008": {
+      "problem_nature": "삼각형 내각·외각 정리를 근거와 함께 서술해 각 관계를 증명하는 유형",
+      "required_thinking": ["삼각형 세 내각 식별", "쓸 정리(내각합·외각) 판별", "각 관계 근거 명시", "논리 순서 배열", "결론 도출"],
+      "must_write_steps": ["주어진 것과 구할 것(결론)을 구분해 적는다.", "쓸 정리(내각의 합 180°·외각정리)를 판별한다.", "각 단계마다 '무슨 정리로 이 각이 이렇다'를 근거로 쓴다.", "근거를 순서대로 연결해 결론에 도달한다.", "결론이 구할 것과 일치하는지 확인한다."],
+      "common_wrong_actions": ["근거 없이 각이 같다/합이 얼마라고만 쓴다.", "결론을 먼저 쓰고 근거를 붙인다.", "외각정리와 내각합의 근거를 섞는다.", "논리 순서를 건너뛴다."],
+      "error_checkpoints": [
+        {"error_code": "triangle_exterior_angle_theorem_omitted", "label": "외각정리 누락", "diagnosis": "증명에서 외각정리를 근거로 명시하지 않았다.", "student_fix": "'외각 = 이웃하지 않은 두 내각의 합이므로'를 근거로 써라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "근거를 순서대로 연결하지 못해 증명이 끊겼다.", "student_fix": "각 단계 근거를 순서대로 이어 결론에 도달해라."}
+      ],
+      "student_command": "삼각형 각 증명은 각 단계마다 '내각합 180°/외각정리 중 무엇으로 이렇다'를 근거로 적고 순서대로 이어라.",
+      "teacher_note": "C002 증명 서술판. 근거로 어떤 정리를 썼는지 명시하게 한다.",
+      "parent_message": "증명은 결론보다 '어떤 정리로 그런가'를 순서대로 적는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT009": {
+      "problem_nature": "다각형의 내각의 합·외각의 합 공식을 이용해 각을 구하는 유형",
+      "required_thinking": ["변(꼭짓점) 수 n 확인", "내각합 180×(n-2) 적용", "외각합 360° 적용", "한 내각·외각 관계", "검산"],
+      "must_write_steps": ["다각형의 변(꼭짓점) 수 n을 센다.", "내각의 합은 180×(n-2)로 쓴다.", "정다각형이면 한 내각 = 내각합/n으로 구한다.", "외각의 합은 항상 360°임을 쓴다.", "한 내각과 한 외각의 합이 180°인지 검산한다."],
+      "common_wrong_actions": ["내각합 공식을 180×n 등으로 잘못 쓴다.", "외각합을 n에 따라 달라진다고 본다.", "정다각형이 아닌데 내각합/n으로 한 내각을 구한다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "polygon_angle_sum_formula_error", "label": "내각합 공식 오류", "diagnosis": "다각형 내각의 합 180×(n-2)를 잘못 적용했다.", "student_fix": "먼저 n을 세고 내각합 = 180×(n-2)를 그대로 써라."},
+        {"error_code": "polygon_exterior_angle_sum_error", "label": "외각합 오류", "diagnosis": "다각형 외각의 합을 360°로 두지 않았다.", "student_fix": "볼록다각형 외각의 합은 항상 360°임을 써라."}
+      ],
+      "student_command": "다각형 각 문제는 변의 수 n을 먼저 세고, 내각합 180×(n-2)·외각합 360° 중 맞는 공식을 골라 써라.",
+      "teacher_note": "내각합 공식 오적용과 외각합 360° 망각이 핵심. n 세기부터 시킨다.",
+      "parent_message": "다각형의 각 공식은 n을 정확히 세는 것에서 시작합니다. 공식을 외우기보다 왜 (n-2)인지 이해가 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT010": {
+      "problem_nature": "다각형의 내각·외각 공식을 주어진 조건에 적용해 변의 수나 각을 구하는 유형",
+      "required_thinking": ["변 수 n 또는 조건 확인", "내각합·외각합 공식 선택", "조건 대입해 방정식", "n 또는 각 풀이", "검산"],
+      "must_write_steps": ["주어진 조건(한 내각·외각·변 수 등)을 표시한다.", "내각합 180×(n-2) 또는 외각합 360° 중 맞는 공식을 고른다.", "조건을 공식에 대입해 방정식을 세운다.", "n 또는 미지각을 구한다.", "한 내각+한 외각=180°로 검산한다."],
+      "common_wrong_actions": ["조건에 맞지 않는 공식을 쓴다.", "내각합 공식을 잘못 쓴다.", "외각합을 360°가 아니라고 본다.", "구한 n이 자연수인지 확인하지 않는다."],
+      "error_checkpoints": [
+        {"error_code": "polygon_angle_sum_formula_error", "label": "내각합 공식 오류", "diagnosis": "조건을 대입할 때 내각합 공식을 틀렸다.", "student_fix": "내각합 = 180×(n-2)에 조건을 대입해 방정식을 세워라."},
+        {"error_code": "polygon_exterior_angle_sum_error", "label": "외각합 오류", "diagnosis": "외각 조건에서 외각합 360°를 쓰지 않았다.", "student_fix": "외각합 360°를 이용해 한 외각·변 수를 구해라."}
+      ],
+      "student_command": "조건이 붙은 다각형 문제는 조건이 내각합인지 외각합인지 판단하고, 맞는 공식에 대입해 방정식을 세워라.",
+      "teacher_note": "C003 조건적용판. 어떤 공식에 대입할지 판단이 핵심. n이 자연수인지 검산시킨다.",
+      "parent_message": "조건이 있는 다각형 문제는 내각·외각 중 무엇의 조건인지 판단하는 것이 먼저입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT011": {
+      "problem_nature": "다각형의 내각·외각 공식을 여러 단계로 연결해 각이나 변의 수를 계산·추론하는 유형",
+      "required_thinking": ["변 수 n 확인", "내각합·외각합 공식 적용", "중간 값 계산", "방정식 풀이", "자연수·180° 검산"],
+      "must_write_steps": ["변의 수 n 또는 아는 값을 표시한다.", "내각합 180×(n-2)·외각합 360° 중 맞는 공식을 쓴다.", "여러 단계면 중간 값을 하나씩 구한다.", "미지값을 계산한다.", "n이 자연수인지, 한 내각+한 외각=180°인지 검산한다."],
+      "common_wrong_actions": ["중간 값을 건너뛰고 답을 낸다.", "내각합 공식을 잘못 쓴다.", "외각합을 360°로 두지 않는다.", "구한 n이 자연수인지 확인하지 않는다."],
+      "error_checkpoints": [
+        {"error_code": "polygon_angle_sum_formula_error", "label": "내각합 공식 오류", "diagnosis": "계산 과정에서 내각합 180×(n-2)를 잘못 적용했다.", "student_fix": "내각합 = 180×(n-2)를 정확히 쓰고 단계별로 계산해라."},
+        {"error_code": "polygon_exterior_angle_sum_error", "label": "외각합 오류", "diagnosis": "외각을 이용한 계산에서 외각합 360°를 쓰지 않았다.", "student_fix": "외각합 360°를 이용해 한 외각·변 수를 구해라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "중간 값을 끝까지 연결하지 못했다.", "student_fix": "아는 값부터 중간 값을 하나씩 구해 연결해라."}
+      ],
+      "student_command": "다각형 각 계산은 맞는 공식을 정하고 중간 값을 하나씩 구한 뒤, n이 자연수인지·한 내각+외각=180°인지 검산해라.",
+      "teacher_note": "C003 계산·추론판. 중간 값 생략과 공식 오적용이 핵심. n의 자연수 검산을 강조한다.",
+      "parent_message": "여러 단계 다각형 계산은 중간 값을 하나씩 적고 결과가 자연수인지 확인하는 습관이 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    }
+  }
+}
