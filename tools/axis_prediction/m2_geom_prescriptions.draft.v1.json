@@ -6,15 +6,16 @@
     "authoring_rule": "error_code 통합/분리 기준(검수 확정): 같은 오류·대상만 다름 → 통합(예: 삼각형·다각형 내각합 = interior_angle_sum_error). 다른 정리·관계 → 분리(예: 외각정리 ↔ 외각합). 애매하면 통합(나중 분리가 합치기보다 쉬움). 접미는 사전 관례(_failure·_error·_omitted·_confusion·_misapplied…), 대문자·도메인접두 금지.",
     "reuse_priority": "error_code 조회 순서: (1) 이 유형의 fine_error_tags(overlay·observed_basis:true) → (2) M2_GEOM overlay 36종 관측 태그(same-unit 관측어휘, dict에 없어도 우선) → (3) TAG_DICTIONARY_v2 §1→§2→§3 → (4) 신설(new_tags 보고). (2)를 (3)보다 앞세운 이유: same-unit 관측 어휘가 dict(타단원 출처)보다 관측 정합이 높음. 검수 확인 대상.",
     "observed_basis_true_types": ["M2_GEOM_PT023","M2_GEOM_PT026","M2_GEOM_PT029","M2_GEOM_PT038","M2_GEOM_PT041","M2_GEOM_PT044","M2_GEOM_PT047","M2_GEOM_PT050","M2_GEOM_PT053","M2_GEOM_PT055","M2_GEOM_PT067","M2_GEOM_PT071","M2_GEOM_PT074","M2_GEOM_PT077","M2_GEOM_PT080","M2_GEOM_PT083","M2_GEOM_PT086","M2_GEOM_PT089","M2_GEOM_PT092","M2_GEOM_PT100","M2_GEOM_PT103","M2_GEOM_PT104","M2_GEOM_PT107","M2_GEOM_PT116","M2_GEOM_PT119","M2_GEOM_PT134","M2_GEOM_PT140"],
-    "progress": "3/14 카테고리 (기본 각 관계 11 + 삼각형의 합동 9 + 삼각형의 성질 12 C007-C010). 누계 32/140. observed_basis:true 처음 등장(PT023·026·029) — 각자 fine_error_tags를 tier-1로 사용.",
+    "progress": "4/14 카테고리 (기본 각 관계 11 + 삼각형의 합동 9 + 삼각형의 성질 12 C007-C010 + 삼각형의 외심 12 C011-C014 PT033-044). 누계 44/140. 외심 observed_basis:true = PT038·041·044(각자 fine_error_tags tier-1). 외심 관측 어휘 circumcenter_equidistance_relation_failure·circumcenter_perpendicular_bisector_relation_failure를 C011(수직이등분선 기초)부터 tier-2로 재사용.",
     "new_tags": [
       {"tag": "interior_angle_sum_error", "reason": "삼각형·다각형 내각의 합 관계/공식(180°, 180×(n-2)) 오적용. 삼각형은 n=3 특수case로 동일 오류 → 통합(v4 §2: 대상만 다른 것은 신설/분리 사유 아님). 사전 §1~§6에 내각합 항목 없어 신설."},
       {"tag": "triangle_exterior_angle_theorem_omitted", "reason": "외각=이웃하지 않은 두 내각의 합 정리 누락. §2 collinear_supplementary(일직선 보각)와 다른 정리(외각정리). 내각합·외각합과도 별개."},
       {"tag": "polygon_exterior_angle_sum_error", "reason": "다각형 외각의 합 360° 오적용. triangle_exterior(단일 외각=두 remote 내각)와 다른 정리(전체 외각의 합), 통합 불가."},
       {"tag": "congruent_correspondence_failure", "reason": "합동 도형의 대응(꼭짓점·변·각) 설정/유지 실패. dict §2 similar_triangle_correspondence_setup_failure는 닮음(비율)이라 관계가 다름 → 별개. overlay에도 합동 대응 태그 없음."},
-      {"tag": "proof_reasoning_order_failure", "reason": "증명에서 결론을 먼저 쓰거나 근거 순서를 건너뜀. dict·overlay에 증명 구조/순서 태그 없음. 도형 증명 전반(합동·사각형 증명)에 재사용 예정."}
+      {"tag": "proof_reasoning_order_failure", "reason": "증명에서 결론을 먼저 쓰거나 근거 순서를 건너뜀. dict·overlay에 증명 구조/순서 태그 없음. 도형 증명 전반(합동·사각형 증명)에 재사용 예정."},
+      {"tag": "circumcenter_position_by_triangle_type_error", "reason": "삼각형 종류(예각→내부·직각→빗변 중점·둔각→외부)에 따른 외심 위치 오판. C014 PT042·043에서 사용. dict §2·§3에 외심 위치 태그 없고, overlay 관측 태그(circumcenter_equidistance/_perpendicular_bisector_*)는 등거리·수직이등분선 관계라 위치 판단과 별개 오류 → 통합 불가, 신설. 참고: 관측 PT044(C014 계산·추론)의 fine_error_tags에는 위치 태그가 없어 위치 오류는 예측층(오류형/조건적용)에만 등장 — 관측↔예측 정의 갭 후보로 기록."}
     ],
-    "reuse_note": "누계 재사용: 기본각관계 distinct 6 중 3(§2)=50%. 삼각형합동 distinct 4 중 2 재사용(triangle_congruence_condition_selection_failure=M2_GEOM관측, angle_correspondence_chain_failure=§2/관측)=50%. 신설 누계 5종. _error 접미 사전관례([코드확인] 37종). same-unit 관측어휘 우선 적용 시작(triangle_congruence_condition_selection_failure는 dict부재·overlay존재라 재사용)."
+    "reuse_note": "누계 재사용: 기본각관계 distinct 6 중 3(§2)=50%. 삼각형합동 distinct 4 중 2 재사용(triangle_congruence_condition_selection_failure=M2_GEOM관측, angle_correspondence_chain_failure=§2/관측)=50%. 삼각형외심(C011-14) distinct 8 중 7 재사용=87.5%(circumcenter_equidistance_relation_failure·circumcenter_perpendicular_bisector_relation_failure=overlay관측/dict부재 tier-2, segment_partition_tracking_failure·isosceles_triangle_angle_chain_failure·angle_correspondence_chain_failure·central_inscribed_angle_factor_confusion=§2·§3 dict/관측, law_selection_error=§6/관측; 신설 1=circumcenter_position_by_triangle_type_error). 신설 누계 6종. _error·_failure 접미 사전관례. 외심은 관측 어휘 재사용률 최고 — 관측 circumcenter_* 태그가 C011(수직이등분선 기초)까지 tier-2로 커버."
   },
   "prescriptions": {
     "M2_GEOM_PT001": {
@@ -466,6 +467,179 @@
       "teacher_note": "C010 계산·추론판. 중간값 생략이 핵심.",
       "parent_message": "정삼각형 계산은 60°·같은 변 성질을 단계별로 잇는 훈련입니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT033": {
+      "problem_nature": "선분의 수직이등분선의 정의(수직+이등분)와 등거리 성질을 구분해 판단하는 유형",
+      "required_thinking": ["수직이등분선 정의(수직+이등분 동시) 확인", "위의 점↔양 끝점 등거리 성질", "등거리→수직이등분선 위(역) 구분", "등거리 관계식 세우기", "수직·이등분 성립 검산"],
+      "must_write_steps": ["선분의 수직이등분선은 '수직'과 '이등분(중점을 지남)' 두 조건을 동시에 만족함을 확인한다.", "수직이등분선 위의 점은 선분의 양 끝점에서 같은 거리에 있음을 표시한다.", "거꾸로 양 끝점에서 같은 거리인 점은 수직이등분선 위에 있음(역)을 구분한다.", "등거리 관계식으로 미지 길이·위치를 구한다.", "수직과 이등분이 모두 성립하는지 검산한다."],
+      "common_wrong_actions": ["수직만 보고(중점 여부 확인 없이) 등거리 결론을 낸다.", "이등분만 보고(수직 여부 확인 없이) 등거리 결론을 낸다.", "정의(수직+이등분)와 성질(등거리)을 혼동한다.", "검산 없이 마무리한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "수직이등분선 관계 실패", "diagnosis": "'수직'만으로 등거리를 결론지어 수직이등분선 조건(수직+이등분)을 놓쳤다.", "student_fix": "수직과 중점(이등분)을 모두 확인한 뒤 등거리를 써라."},
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "등거리 관계 실패", "diagnosis": "수직이등분선 위의 점이 양 끝점에서 등거리임을 바르게 쓰지 못했다.", "student_fix": "수직이등분선 위의 점 → 양 끝점 거리가 같음을 식으로 써라."}
+      ],
+      "student_command": "수직이등분선은 '수직'과 '이등분(중점을 지남)'을 둘 다 만족해야 등거리를 쓸 수 있다 — 수직만 보고 거리가 같다고 결론짓지 마라.",
+      "teacher_note": "수직 조건만으로 등거리를 쓰는 것이 핵심 오류. 수직+이등분을 모두 확인시킨다. 외심의 기초 개념(관측 어휘 circumcenter_* 재사용).",
+      "parent_message": "선분의 수직이등분선은 외심의 출발점입니다. '수직'과 '중점을 지남'을 둘 다 확인하는 습관이 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT034": {
+      "problem_nature": "수직이등분선과 등거리 성질을 주어진 조건에 적용해 길이·위치를 구하는 유형",
+      "required_thinking": ["수직이등분선 정의(수직+이등분) 확인", "위의 점↔양 끝점 등거리 성질", "주어진 조건 표시", "성질+조건 결합", "수직·이등분 성립 검산"],
+      "must_write_steps": ["선분의 수직이등분선(수직+이등분)과 주어진 조건을 함께 표시한다.", "수직이등분선 위의 점은 양 끝점에서 등거리임을 표시한다.", "주어진 조건(길이·좌표 등)을 등거리 관계식에 대입한다.", "미지 길이·위치를 구한다.", "수직·이등분과 등거리가 맞는지 검산한다."],
+      "common_wrong_actions": ["조건을 그림에 표시하지 않고 관계식만 세운다.", "수직만/이등분만 보고 등거리를 쓴다.", "정의와 성질을 혼동한다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "수직이등분선 관계 실패", "diagnosis": "조건을 대입할 때 수직+이등분 조건을 함께 쓰지 않았다.", "student_fix": "수직과 중점을 표시한 뒤 조건을 대입해라."},
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "등거리 관계 실패", "diagnosis": "주어진 조건을 등거리 관계식에 바르게 넣지 못했다.", "student_fix": "양 끝점 거리가 같음을 식으로 두고 조건을 대입해라."}
+      ],
+      "student_command": "조건이 붙은 수직이등분선 문제는 수직·중점 조건을 그림에 먼저 표시하고, 등거리 관계식에 주어진 길이를 대입해라.",
+      "teacher_note": "C011 조건적용판. 조건을 등거리 관계식에 넣는 판단이 핵심.",
+      "parent_message": "조건이 있는 문제는 수직이등분선의 두 조건을 그림에 옮기는 것이 먼저입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT035": {
+      "problem_nature": "수직이등분선의 등거리 성질을 여러 단계로 연결해 길이·위치를 계산·추론하는 유형",
+      "required_thinking": ["수직이등분선 정의(수직+이등분) 확인", "위의 점↔등거리 성질", "중간 길이 단계 추적", "등거리 관계식 계산", "수직·이등분 검산"],
+      "must_write_steps": ["선분의 수직이등분선(수직+이등분)과 아는 값을 표시한다.", "수직이등분선 위의 점이 양 끝점에서 등거리임을 이용한다.", "여러 단계면 중간 길이를 하나씩 등거리 관계로 구한다.", "등거리 관계식으로 미지 길이를 계산한다.", "수직·이등분과 등거리가 맞는지 검산한다."],
+      "common_wrong_actions": ["중간 길이를 건너뛰고 답을 낸다.", "수직만/이등분만으로 등거리를 쓴다.", "등거리 관계식을 잘못 세운다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "등거리 관계 실패", "diagnosis": "등거리 관계를 계산에 바르게 쓰지 못했다.", "student_fix": "양 끝점 거리가 같음을 식으로 두고 단계별로 계산해라."},
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "수직이등분선 관계 실패", "diagnosis": "수직+이등분 조건을 계산 전제로 확인하지 않았다.", "student_fix": "수직과 중점을 먼저 확인하고 등거리를 적용해라."},
+        {"error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "중점으로 나뉜 선분을 식으로 추적하지 못했다.", "student_fix": "중점으로 나뉜 두 선분을 문자로 두고 관계식으로 추적해라."}
+      ],
+      "student_command": "수직이등분선 계산은 등거리 관계를 식으로 두고, 중점으로 나뉜 선분을 하나씩 추적해 미지 길이를 구하고 검산해라.",
+      "teacher_note": "C011 계산·추론판. 중간 길이 생략·선분 추적이 핵심.",
+      "parent_message": "여러 단계 길이 계산은 등거리 관계를 식으로 세우고 중간값을 하나씩 적는 습관이 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT036": {
+      "problem_nature": "삼각형의 외심(세 변의 수직이등분선의 교점)과 외접원의 정의를 바르게 판단하는 유형",
+      "required_thinking": ["외심=세 변의 수직이등분선의 교점 확인", "세 꼭짓점 등거리=외접원 반지름", "외심(수직이등분선)↔내심(각이등분선) 구분", "등거리 관계식", "OA=OB=OC 검산"],
+      "must_write_steps": ["외심은 세 변의 수직이등분선이 만나는 점임을 확인한다.", "외심에서 세 꼭짓점까지의 거리가 모두 같고, 그것이 외접원의 반지름임을 표시한다.", "외심(수직이등분선 교점)과 내심(각의 이등분선 교점)을 혼동하지 않았는지 구분한다.", "등거리(=외접원 반지름) 관계로 미지 길이·각을 구한다.", "OA=OB=OC가 성립하는지 검산한다."],
+      "common_wrong_actions": ["외심을 각의 이등분선의 교점(내심)으로 본다.", "세 꼭짓점에서 등거리임을 쓰지 않는다.", "외접원 반지름=OA=OB=OC를 놓친다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "외심 정의(수직이등분선) 실패", "diagnosis": "외심을 세 변의 수직이등분선의 교점이 아니라 각의 이등분선 교점(내심)으로 보았다.", "student_fix": "외심 = 세 변의 수직이등분선의 교점임을 먼저 확정해라."},
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리 실패", "diagnosis": "외심에서 세 꼭짓점까지 등거리(=외접원 반지름)임을 쓰지 못했다.", "student_fix": "OA=OB=OC=외접원 반지름을 표시해라."}
+      ],
+      "student_command": "외심은 '세 변의 수직이등분선의 교점'이고 내심은 '세 각의 이등분선의 교점'이다 — 지금 구하는 것이 외심인지 먼저 확정해라.",
+      "teacher_note": "외심↔내심 정의 혼동이 핵심. 수직이등분선 교점=외심을 못 박는다.",
+      "parent_message": "외심과 내심은 정의가 다릅니다(수직이등분선 vs 각의 이등분선). 둘을 구분하는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT037": {
+      "problem_nature": "외심과 외접원의 성질을 주어진 조건에 적용해 길이·각을 구하는 유형",
+      "required_thinking": ["외심=세 변의 수직이등분선의 교점 확인", "세 꼭짓점 등거리=외접원 반지름", "주어진 조건 표시", "등거리(=반지름)+조건 결합", "OA=OB=OC 검산"],
+      "must_write_steps": ["외심이 세 변의 수직이등분선의 교점임과 주어진 조건을 표시한다.", "외심에서 세 꼭짓점까지 등거리(=외접원 반지름)임을 표시한다.", "주어진 조건(길이·각)을 등거리·반지름 관계에 대입한다.", "미지 길이·각을 구한다.", "OA=OB=OC가 성립하는지 검산한다."],
+      "common_wrong_actions": ["조건을 표시하지 않고 관계식만 세운다.", "외심을 내심과 혼동한다.", "등거리(=반지름)를 조건에 결합하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리 실패", "diagnosis": "조건을 외심의 등거리(=반지름) 관계에 넣지 못했다.", "student_fix": "OA=OB=OC=반지름에 주어진 조건을 대입해라."},
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "외심 정의 실패", "diagnosis": "외심이 수직이등분선 교점임을 조건 판단에 쓰지 않았다.", "student_fix": "외심=수직이등분선 교점을 근거로 조건을 해석해라."}
+      ],
+      "student_command": "조건이 붙은 외심 문제는 외심의 등거리(OA=OB=OC=반지름)를 식으로 두고, 주어진 길이·각을 그 관계에 대입해라.",
+      "teacher_note": "C012 조건적용판. 조건을 등거리·반지름 관계에 넣는 판단이 핵심.",
+      "parent_message": "외심 조건 문제는 세 꼭짓점 등거리(=반지름)에 조건을 맞춰 넣는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT038": {
+      "problem_nature": "외심과 외접원의 성질을 여러 단계로 연결해 길이·각을 계산·추론하는 유형",
+      "required_thinking": ["외심=세 변의 수직이등분선의 교점 확인", "세 꼭짓점 등거리=외접원 반지름", "쓸 성질(등거리/수직이등분선) 선택", "등거리·반지름 관계식 계산", "OA=OB=OC 검산"],
+      "must_write_steps": ["외심 O에서 OA=OB=OC(외접원 반지름)임을 표시한다.", "외심이 세 변의 수직이등분선의 교점임을 이용해 필요한 관계를 세운다.", "여러 단계면 중간 길이·각을 하나씩 구한다.", "등거리·반지름 관계식으로 미지값을 계산한다.", "OA=OB=OC가 성립하는지 검산한다."],
+      "common_wrong_actions": ["중간 값을 건너뛰고 답을 낸다.", "외심을 내심과 혼동한다.", "어떤 성질(등거리/수직이등분선)을 쓸지 잘못 고른다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리 실패", "diagnosis": "계산에서 OA=OB=OC(=반지름) 등거리를 바르게 쓰지 못했다.", "student_fix": "OA=OB=OC=반지름을 식으로 두고 단계별로 계산해라."},
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "외심 정의(수직이등분선) 실패", "diagnosis": "외심이 수직이등분선 교점임을 계산 전제로 쓰지 않았다.", "student_fix": "외심=수직이등분선 교점을 근거로 관계식을 세워라."},
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "등거리·수직이등분선·반지름 중 어느 성질을 쓸지 잘못 골랐다.", "student_fix": "구하는 것이 길이인지 각인지 보고 맞는 외심 성질을 골라 적용해라."}
+      ],
+      "student_command": "외심 계산은 OA=OB=OC(=외접원 반지름)를 먼저 식으로 두고, 어느 성질을 쓸지 정한 뒤 중간값을 하나씩 구해 검산해라.",
+      "teacher_note": "C012 계산·추론판(관측). 등거리·수직이등분선 관계와 성질 선택이 핵심. 유형 자체 fine_error_tags 사용.",
+      "parent_message": "외심 계산은 세 꼭짓점 등거리(=반지름)를 식으로 세우고 단계별로 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT039": {
+      "problem_nature": "외심에서 생기는 등거리(반지름)와 이등변삼각형 성질을 이용해 길이·각을 구하는 유형",
+      "required_thinking": ["OA=OB=OC 등거리(반지름) 확인", "OA=OB → 이등변삼각형 밑각 같음", "중심각·외접원 관계", "각·길이 관계식", "등거리·각의 합 검산"],
+      "must_write_steps": ["외심 O에서 OA=OB=OC(외접원 반지름)임을 표시한다.", "OA=OB이므로 삼각형 OAB가 이등변삼각형이고 두 밑각이 같음을 적는다.", "필요하면 중심에서 생기는 각(중심각)과 외접원 반지름 관계를 함께 쓴다.", "각·길이 관계식으로 미지값을 구한다.", "등거리와 각의 합으로 검산한다."],
+      "common_wrong_actions": ["OA=OB=OC(반지름) 등거리 관계를 쓰지 않는다.", "OA=OB로 생기는 이등변 밑각을 이용하지 않는다.", "각 대응을 끝까지 옮기지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리(반지름) 실패", "diagnosis": "OA=OB=OC가 모두 외접원 반지름으로 같음을 쓰지 않았다.", "student_fix": "OA=OB=OC=반지름을 먼저 표시해라."},
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "OA=OB로 생기는 이등변삼각형의 밑각 관계를 잇지 못했다.", "student_fix": "OA=OB이므로 두 밑각이 같음을 적고 각을 옮겨라."}
+      ],
+      "student_command": "외심 길이·각 문제는 OA=OB=OC가 모두 반지름으로 같다는 것부터 표시하고, OA=OB로 생기는 이등변 밑각을 이용해라.",
+      "teacher_note": "반지름 등거리 관계 누락이 핵심. OA=OB=OC 표시부터 시킨다.",
+      "parent_message": "외심 문제는 세 반지름이 같다는 것과 그로 생기는 이등변삼각형을 함께 쓰는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT040": {
+      "problem_nature": "외심의 등거리·이등변 성질을 주어진 조건에 적용해 길이·각을 구하는 유형",
+      "required_thinking": ["OA=OB=OC 등거리(반지름) 확인", "OA=OB → 이등변 밑각 같음", "주어진 조건 표시", "성질+조건 결합", "등거리·각의 합 검산"],
+      "must_write_steps": ["외심 O의 OA=OB=OC(반지름)와 주어진 조건을 표시한다.", "OA=OB로 생기는 이등변삼각형의 밑각이 같음을 표시한다.", "주어진 조건(각·길이)을 등거리·이등변 관계에 대입한다.", "미지 각·길이를 구한다.", "등거리·각의 합으로 검산한다."],
+      "common_wrong_actions": ["조건을 표시하지 않고 관계식만 세운다.", "반지름 등거리를 조건에 결합하지 않는다.", "이등변 밑각 관계를 안 쓴다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리(반지름) 실패", "diagnosis": "조건을 OA=OB=OC 등거리 관계에 넣지 못했다.", "student_fix": "OA=OB=OC=반지름에 주어진 조건을 대입해라."},
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "조건 각을 이등변 밑각 관계에 맞게 넣지 못했다.", "student_fix": "OA=OB로 밑각이 같음을 표시하고 조건 각을 대입해라."}
+      ],
+      "student_command": "조건이 붙은 외심 문제는 OA=OB=OC(=반지름)와 이등변 밑각 관계를 표시하고, 주어진 각·길이를 그 관계에 대입해라.",
+      "teacher_note": "C013 조건적용판. 조건을 반지름·이등변 관계에 넣는 판단이 핵심.",
+      "parent_message": "외심 조건 문제는 반지름 등거리와 이등변 성질에 조건을 맞춰 넣는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT041": {
+      "problem_nature": "외심의 등거리·이등변·중심각 성질을 여러 단계로 연결해 길이·각을 계산·추론하는 유형",
+      "required_thinking": ["OA=OB=OC 등거리(반지름) 확인", "반지름으로 생기는 이등변 밑각 연쇄", "중심각=원주각의 2배 관계", "중간 각·길이 추적", "등거리·각의 합 검산"],
+      "must_write_steps": ["외심 O에서 OA=OB=OC(외접원 반지름)임을 표시한다.", "OA=OB·OB=OC 등으로 생기는 이등변삼각형의 밑각이 같음을 이용한다.", "중심각=원주각의 2배 관계가 필요하면 함께 쓴다.", "여러 단계 각·길이를 하나씩 구해 미지값을 계산한다.", "등거리·각의 합으로 검산한다."],
+      "common_wrong_actions": ["중간 각·길이를 건너뛴다.", "반지름 등거리를 안 쓴다.", "이등변 밑각 관계를 안 잇는다.", "중심각과 원주각의 2배 관계를 뒤집는다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리(반지름) 실패", "diagnosis": "OA=OB=OC 등거리를 계산 전제로 쓰지 못했다.", "student_fix": "OA=OB=OC=반지름을 식으로 두고 이등변을 만들어라."},
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "반지름으로 생기는 이등변삼각형의 밑각 연쇄를 끝까지 잇지 못했다.", "student_fix": "OA=OB인 이등변마다 밑각이 같음을 적어 각을 옮겨라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "중간 각을 끝까지 추적하지 못했다.", "student_fix": "아는 각부터 중간 각을 하나씩 구해 연결해라."},
+        {"error_code": "central_inscribed_angle_factor_confusion", "label": "중심각·원주각 배수 혼동", "diagnosis": "중심각=원주각의 2배 관계를 뒤집거나 빠뜨렸다.", "student_fix": "중심각 = 원주각의 2배임을 확인하고 방향을 맞춰라."}
+      ],
+      "student_command": "외심 각·길이 계산은 OA=OB=OC로 이등변을 만들어 밑각을 옮기고, 필요하면 중심각=원주각의 2배를 정확한 방향으로 써라.",
+      "teacher_note": "C013 계산·추론판(관측). 반지름 이등변·각 연쇄·중심각 배수가 핵심. 유형 자체 fine_error_tags 사용.",
+      "parent_message": "외심 계산은 반지름으로 생기는 이등변삼각형과 각 관계를 단계별로 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT042": {
+      "problem_nature": "삼각형의 종류(예각·직각·둔각)에 따른 외심의 위치를 판단하는 유형",
+      "required_thinking": ["삼각형 종류(예각/직각/둔각) 판별", "종류별 외심 위치(내부/빗변 중점/외부)", "직각→빗변이 외접원 지름·외심=빗변 중점", "위치·등거리 관계식", "OA=OB=OC 검산"],
+      "must_write_steps": ["삼각형이 예각·직각·둔각 중 무엇인지 판별한다.", "외심 위치를 종류에 맞춘다: 예각삼각형→내부, 직각삼각형→빗변의 중점, 둔각삼각형→외부.", "직각삼각형은 빗변이 외접원의 지름이고 외심이 빗변의 중점임을 이용한다.", "위치·등거리(=반지름) 관계로 미지 길이·각을 구한다.", "OA=OB=OC가 성립하는지 검산한다."],
+      "common_wrong_actions": ["직각삼각형의 외심을 내부에 있다고 본다.", "둔각삼각형의 외심을 내부에 있다고 본다.", "직각삼각형 외심=빗변의 중점을 쓰지 않는다.", "종류 판별 없이 위치를 단정한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_position_by_triangle_type_error", "label": "외심 위치 판단 오류", "diagnosis": "삼각형 종류(예각/직각/둔각)에 따른 외심 위치를 잘못 판단했다(특히 직각→빗변 중점).", "student_fix": "예각→내부, 직각→빗변의 중점, 둔각→외부로 종류부터 판별해 위치를 정해라."},
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리 실패", "diagnosis": "위치를 정한 뒤 OA=OB=OC 등거리로 확인하지 않았다.", "student_fix": "정한 위치가 세 꼭짓점 등거리를 만족하는지 표시해라."}
+      ],
+      "student_command": "외심 위치는 삼각형 종류로 정해진다 — 예각은 내부, 직각은 빗변의 중점, 둔각은 외부. 직각삼각형 외심을 내부로 두지 마라.",
+      "teacher_note": "직각삼각형 외심=빗변 중점을 내부로 오판하는 것이 핵심. 종류 판별부터 시킨다. 위치 태그 신설.",
+      "parent_message": "외심의 위치는 삼각형의 종류에 따라 달라집니다(직각삼각형은 빗변의 중점). 종류를 먼저 판별하는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT043": {
+      "problem_nature": "삼각형의 종류와 외심 위치를 주어진 조건에 적용해 위치·길이·각을 판단하는 유형",
+      "required_thinking": ["삼각형 종류 판별", "종류별 외심 위치(내부/빗변 중점/외부)", "주어진 조건으로 종류 결정", "위치·등거리 관계식", "OA=OB=OC 검산"],
+      "must_write_steps": ["주어진 조건(각·변)으로 삼각형이 예각·직각·둔각 중 무엇인지 판별한다.", "판별한 종류에 맞춰 외심 위치(내부/빗변 중점/외부)를 정한다.", "직각삼각형이면 외심=빗변의 중점(빗변=외접원 지름)을 이용한다.", "위치·등거리(=반지름) 관계에 조건을 대입해 구한다.", "OA=OB=OC가 성립하는지 검산한다."],
+      "common_wrong_actions": ["조건에서 삼각형 종류를 판별하지 않는다.", "직각/둔각 외심 위치를 내부로 본다.", "직각→빗변 중점을 조건에 결합하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_position_by_triangle_type_error", "label": "외심 위치 판단 오류", "diagnosis": "주어진 조건으로 삼각형 종류를 판별하고 외심 위치를 정하지 못했다.", "student_fix": "조건으로 예각/직각/둔각을 판별해 위치(내부/빗변 중점/외부)를 정해라."},
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리 실패", "diagnosis": "조건을 등거리(=반지름) 관계에 넣지 못했다.", "student_fix": "OA=OB=OC=반지름에 조건을 대입해라."}
+      ],
+      "student_command": "조건이 붙은 외심 위치 문제는 조건으로 삼각형 종류를 먼저 판별하고, 그 종류에 맞는 외심 위치·등거리 관계에 대입해라.",
+      "teacher_note": "C014 조건적용판. 조건→종류 판별→위치 결정 순서가 핵심.",
+      "parent_message": "외심 위치 조건 문제는 조건에서 삼각형 종류를 판별하는 것이 먼저입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT044": {
+      "problem_nature": "삼각형의 종류와 외심 위치를 여러 단계로 연결해 길이·각을 계산·추론하는 유형",
+      "required_thinking": ["삼각형 종류 판별·외심 위치 결정", "OA=OB=OC 등거리(반지름) 확인", "반지름으로 생기는 이등변 밑각 연쇄", "중간 각·길이 추적", "등거리·각의 합 검산"],
+      "must_write_steps": ["삼각형 종류를 판별하고 외심 위치(예각→내부, 직각→빗변 중점, 둔각→외부)를 정한다.", "외심 O에서 OA=OB=OC(외접원 반지름) 등거리를 표시한다.", "OA=OB로 생기는 이등변삼각형의 밑각이 같음을 이용해 각을 옮긴다.", "여러 단계 각·길이를 하나씩 구해 미지값을 계산한다.", "등거리·각의 합으로 검산한다."],
+      "common_wrong_actions": ["삼각형 종류·외심 위치를 정하지 않고 계산한다.", "반지름 등거리를 안 쓴다.", "이등변 밑각 관계를 안 잇는다.", "각 대응을 끝까지 안 옮긴다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리(반지름) 실패", "diagnosis": "OA=OB=OC 등거리를 계산 전제로 쓰지 못했다.", "student_fix": "OA=OB=OC=반지름을 식으로 두고 이등변을 만들어라."},
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "반지름으로 생기는 이등변삼각형의 밑각 연쇄를 잇지 못했다.", "student_fix": "OA=OB인 이등변마다 밑각이 같음을 적어 각을 옮겨라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "종류·위치를 정한 뒤 중간 각을 끝까지 추적하지 못했다.", "student_fix": "아는 각부터 중간 각을 하나씩 구해 연결해라."}
+      ],
+      "student_command": "삼각형 종류로 외심 위치를 정한 뒤, OA=OB=OC로 이등변을 만들어 밑각을 옮기고 중간 각을 하나씩 구해 검산해라.",
+      "teacher_note": "C014 계산·추론판(관측). 등거리·이등변 밑각·각 연쇄가 핵심(관측 fine_error_tags는 위치 태그 없이 이 세 축으로 나타남). 유형 자체 fine_error_tags 사용.",
+      "parent_message": "외심 계산은 종류로 위치를 정하고 반지름 이등변삼각형으로 각을 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
 }
