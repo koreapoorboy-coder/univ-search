@@ -6,7 +6,7 @@
     "authoring_rule": "error_code 통합/분리 기준(검수 확정): 같은 오류·대상만 다름 → 통합(예: 삼각형·다각형 내각합 = interior_angle_sum_error). 다른 정리·관계 → 분리(예: 외각정리 ↔ 외각합). 애매하면 통합(나중 분리가 합치기보다 쉬움). 접미는 사전 관례(_failure·_error·_omitted·_confusion·_misapplied…), 대문자·도메인접두 금지.",
     "reuse_priority": "error_code 조회 순서: (1) 이 유형의 fine_error_tags(overlay·observed_basis:true) → (2) M2_GEOM overlay 36종 관측 태그(same-unit 관측어휘, dict에 없어도 우선) → (3) TAG_DICTIONARY_v2 §1→§2→§3 → (4) 신설(new_tags 보고). (2)를 (3)보다 앞세운 이유: same-unit 관측 어휘가 dict(타단원 출처)보다 관측 정합이 높음. 검수 확인 대상.",
     "observed_basis_true_types": ["M2_GEOM_PT023","M2_GEOM_PT026","M2_GEOM_PT029","M2_GEOM_PT038","M2_GEOM_PT041","M2_GEOM_PT044","M2_GEOM_PT047","M2_GEOM_PT050","M2_GEOM_PT053","M2_GEOM_PT055","M2_GEOM_PT067","M2_GEOM_PT071","M2_GEOM_PT074","M2_GEOM_PT077","M2_GEOM_PT080","M2_GEOM_PT083","M2_GEOM_PT086","M2_GEOM_PT089","M2_GEOM_PT092","M2_GEOM_PT100","M2_GEOM_PT103","M2_GEOM_PT104","M2_GEOM_PT107","M2_GEOM_PT116","M2_GEOM_PT119","M2_GEOM_PT134","M2_GEOM_PT140"],
-    "progress": "5/14 카테고리 (기본 각 관계 11 + 삼각형의 합동 9 + 삼각형의 성질 12 + 삼각형의 외심 12 C011-14 + 삼각형의 내심 9 C015-17 PT045-053). 누계 53/140. 내심 observed_basis:true = PT047·050·053(각자 fine_error_tags tier-1). 내심 관측 어휘 incenter_angle_bisector_relation_failure를 C015(각이등분선 기초)부터 tier-2 재사용. 내심 distinct 9 전량 재사용(신설 0). ★PT050↔PT053 재현성 상호이동쌍 — student_command 공통 앵커 공유·상충 없음(concept_map.note 참조).",
+    "progress": "6/14 카테고리 (기본 각 관계 11 + 삼각형의 합동 9 + 삼각형의 성질 12 + 삼각형의 외심 12 + 삼각형의 내심 9 + 삼각형의 중심 3 C018 PT054-056). 누계 56/140. 중심 observed_basis:true = PT055(조건적용에 관측 — 예외적. 자기 fine_error_tags tier-1). PT055가 circumcenter_perpendicular_bisector·incenter_angle_bisector 두 태그+law_selection 동시 보유 → 관측이 '외심·내심 비교 개념'임을 뒷받침. 참조 통합 시 checkpoint 상한(≤4) 유지(PT055=3). 중심 distinct 3 전량 재사용(신설 0). ★남은 상호이동쌍은 _meta.waver_pairs 등록(PT065·074·116 pending).",
     "new_tags": [
       {"tag": "interior_angle_sum_error", "reason": "삼각형·다각형 내각의 합 관계/공식(180°, 180×(n-2)) 오적용. 삼각형은 n=3 특수case로 동일 오류 → 통합(v4 §2: 대상만 다른 것은 신설/분리 사유 아님). 사전 §1~§6에 내각합 항목 없어 신설."},
       {"tag": "triangle_exterior_angle_theorem_omitted", "reason": "외각=이웃하지 않은 두 내각의 합 정리 누락. §2 collinear_supplementary(일직선 보각)와 다른 정리(외각정리). 내각합·외각합과도 별개."},
@@ -15,12 +15,13 @@
       {"tag": "proof_reasoning_order_failure", "reason": "증명에서 결론을 먼저 쓰거나 근거 순서를 건너뜀. dict·overlay에 증명 구조/순서 태그 없음. 도형 증명 전반(합동·사각형 증명)에 재사용 예정."},
       {"tag": "circumcenter_position_by_triangle_type_error", "reason": "삼각형 종류(예각→내부·직각→빗변 중점·둔각→외부)에 따른 외심 위치 오판. C014 PT042·043에서 사용. dict §2·§3에 외심 위치 태그 없고, overlay 관측 태그(circumcenter_equidistance/_perpendicular_bisector_*)는 등거리·수직이등분선 관계라 위치 판단과 별개 오류 → 통합 불가, 신설. (관측 부재는 predicted_observed_gaps 배열에 별도 기록.)"}
     ],
-    "reuse_note": "누계 재사용: 기본각관계 distinct 6 중 3(§2)=50%. 삼각형합동 distinct 4 중 2 재사용(triangle_congruence_condition_selection_failure=M2_GEOM관측, angle_correspondence_chain_failure=§2/관측)=50%. 삼각형외심(C011-14) distinct 8 중 7 재사용=87.5%(circumcenter_equidistance_relation_failure·circumcenter_perpendicular_bisector_relation_failure=overlay관측/dict부재 tier-2, segment_partition_tracking_failure·isosceles_triangle_angle_chain_failure·angle_correspondence_chain_failure·central_inscribed_angle_factor_confusion=§2·§3 dict/관측, law_selection_error=§6/관측; 신설 1=circumcenter_position_by_triangle_type_error). 삼각형내심(C015-17) distinct 9 중 9 재사용=100%(incenter_angle_bisector_relation_failure·tangent_radius_perpendicularity_omitted·angle_bisector_chain_integration_failure·area_inradius_relation_setup_failure·semiperimeter_tangent_partition_failure=overlay관측/§3 dict, area_formula_setup_error·angle_correspondence_chain_failure=§2/관측, law_selection_error=§6/관측; 신설 0). 신설 누계 6종. _error·_failure 접미 사전관례. 외심·내심은 관측 어휘 재사용률 최고 — 관측 circumcenter_*·incenter_* 태그가 C011(수직이등분선 기초)·C015(각이등분선 기초)까지 tier-2로 커버.",
+    "reuse_note": "누계 재사용: 기본각관계 distinct 6 중 3(§2)=50%. 삼각형합동 distinct 4 중 2 재사용(triangle_congruence_condition_selection_failure=M2_GEOM관측, angle_correspondence_chain_failure=§2/관측)=50%. 삼각형외심(C011-14) distinct 8 중 7 재사용=87.5%(circumcenter_equidistance_relation_failure·circumcenter_perpendicular_bisector_relation_failure=overlay관측/dict부재 tier-2, segment_partition_tracking_failure·isosceles_triangle_angle_chain_failure·angle_correspondence_chain_failure·central_inscribed_angle_factor_confusion=§2·§3 dict/관측, law_selection_error=§6/관측; 신설 1=circumcenter_position_by_triangle_type_error). 삼각형내심(C015-17) distinct 9 중 9 재사용=100%(incenter_angle_bisector_relation_failure·tangent_radius_perpendicularity_omitted·angle_bisector_chain_integration_failure·area_inradius_relation_setup_failure·semiperimeter_tangent_partition_failure=overlay관측/§3 dict, area_formula_setup_error·angle_correspondence_chain_failure=§2/관측, law_selection_error=§6/관측; 신설 0). 신설 누계 6종. _error·_failure 접미 사전관례. 외심·내심은 관측 어휘 재사용률 최고 — 관측 circumcenter_*·incenter_* 태그가 C011(수직이등분선 기초)·C015(각이등분선 기초)까지 tier-2로 커버. 삼각형중심(C018) distinct 3 전량 재사용=100%(circumcenter_perpendicular_bisector_relation_failure·incenter_angle_bisector_relation_failure=overlay관측, law_selection_error=§6/관측; 신설 0). C012~C018 7개 개념 연속 신설률 저하(외심 1→내심 0→중심 0) — 외심·내심 관측 어휘가 비교 개념까지 포화.",
     "predicted_observed_gaps": [
       {"tag": "circumcenter_position_by_triangle_type_error", "predicted_in": ["M2_GEOM_PT042","M2_GEOM_PT043"], "observed_in": [], "observed_type_checked": "M2_GEOM_PT044", "note": "종류별 외심 위치 오류(직각→빗변 중점 등)를 C014 예측층(오류형·조건적용)에 배치했으나, C014의 관측 계산·추론 PT044 fine_error_tags엔 없음(관측은 등거리·이등변 밑각·각 연쇄). 이 태그는 타 개념 관측에도 없음(전역 부재=신설 태그). 해석 보류(예측 과다 vs 문항 희소 구분 불가)."},
       {"tag": "incenter_angle_bisector_relation_failure", "predicted_in": ["M2_GEOM_PT045","M2_GEOM_PT046"], "observed_in": [], "observed_type_checked": "M2_GEOM_PT047", "note": "각이등분선-거리 관계 오류(두 변 등거리)를 C015 예측층에 배치했으나, C015의 관측 계산·추론 PT047 fine_error_tags엔 없음(관측은 각이등분 연쇄통합·넓이식·성질선택). 단 이 태그는 타 개념 C016(PT050)·C017(PT053)·C018(PT055) 관측엔 존재 — 개념국소 부재(전역 부재 아님). 해석 보류."}
     ],
     "gaps_criterion": "predicted_observed_gaps 수집 규칙(기계 추출용): 예측층(observed_basis:false) 유형에 배치한 error_code 중, 같은 개념(concept)에 관측 유형(observed_basis:true)이 존재하는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면(전량 false) 판정 불가 → 미기록(관측 부재가 곧 예측 오류가 아니므로). observed_in=개념 내 관측 유형에서의 등장(없으면 []), note에 전역 부재/개념국소 여부 표기. 해석·판정은 실사용 데이터 후로 보류.",
+    "gaps_frequency_note": "누계 갭 2건(56/140 시점). 관측 보유 개념(C007·C008·C009·C012·C013·C014·C015·C016·C017·C018) 소급/진행 검증에서 신규 갭 없음 — 갭은 빈발 현상이 아니라 예외적. 이 사실 자체가 관측↔예측 정합이 대체로 유지된다는 근거. 최종 제출 시 유지할 문장.",
     "concept_map": {
       "shared_skeleton_fields": ["required_thinking","must_write_steps"],
       "differentiated_fields": ["problem_nature","common_wrong_actions","error_checkpoints","student_command","teacher_note","parent_message"],
@@ -42,8 +43,18 @@
         "M2_GEOM_C014": {"name":"삼각형의 종류와 외심 위치","types":["M2_GEOM_PT042","M2_GEOM_PT043","M2_GEOM_PT044"],"variants":["오류형","조건적용","계산추론(관측)"]},
         "M2_GEOM_C015": {"name":"각의 이등분선과 거리","types":["M2_GEOM_PT045","M2_GEOM_PT046","M2_GEOM_PT047"],"variants":["오류형","조건적용","계산추론(관측)"]},
         "M2_GEOM_C016": {"name":"삼각형의 내심과 내접원","types":["M2_GEOM_PT048","M2_GEOM_PT049","M2_GEOM_PT050"],"variants":["오류형","조건적용","계산추론(관측)"]},
-        "M2_GEOM_C017": {"name":"내심을 이용한 각과 길이 계산","types":["M2_GEOM_PT051","M2_GEOM_PT052","M2_GEOM_PT053"],"variants":["오류형","조건적용","계산추론(관측)"]}
+        "M2_GEOM_C017": {"name":"내심을 이용한 각과 길이 계산","types":["M2_GEOM_PT051","M2_GEOM_PT052","M2_GEOM_PT053"],"variants":["오류형","조건적용","계산추론(관측)"]},
+        "M2_GEOM_C018": {"name":"외심·내심의 정의와 성질 비교","types":["M2_GEOM_PT054","M2_GEOM_PT055","M2_GEOM_PT056"],"variants":["오류형","조건적용(관측)","계산추론"]}
       }
+    },
+    "waver_pairs": {
+      "note": "재현성 실측에서 확인된 유형 상호이동쌍. 다른 concept면 골격 비공유이나 student_command는 공통 앵커 공유 + 상보 분리(상충 금지). 같은 concept면 골격 공유로 자동 처리. 상충 예: '반지름 먼저' vs '각 이등분 먼저' 처럼 순서가 배타적이면 흔들림이 곧 오조언.",
+      "pairs": [
+        {"pair": ["M2_GEOM_PT050","M2_GEOM_PT053"], "concepts": ["M2_GEOM_C016","M2_GEOM_C017"], "status": "applied", "anchor": "내심=세 각의 이등분선의 교점", "split": "PT050=반지름⊥변 강조 / PT053=각 절반·넓이 강조"},
+        {"pair": ["M2_GEOM_PT065","M2_GEOM_PT074"], "concepts": ["M2_GEOM_C021","M2_GEOM_C024"], "status": "pending", "note": "평행사변형(18종) 저작 시 공통 앵커 적용 예정"},
+        {"pair": ["M2_GEOM_PT065","M2_GEOM_PT116"], "concepts": ["M2_GEOM_C021","M2_GEOM_C038"], "status": "pending", "note": "도형 활용(12종) 저작 시 공통 앵커 적용 예정"},
+        {"pair": ["M2_GEOM_PT028","M2_GEOM_PT029"], "concepts": ["M2_GEOM_C009","M2_GEOM_C009"], "status": "auto", "note": "동일 concept — 골격 공유로 자동 처리(저작 완료)"}
+      ]
     }
   },
   "prescriptions": {
@@ -798,6 +809,50 @@
       "teacher_note": "C017 계산·추론판(관측). 각 이등분·내심 각 공식·S=r·s 넓이·반둘레 접점 분할이 핵심. 유형 자체 fine_error_tags 사용. ★PT050과 재현성 상호이동쌍 — 공통 앵커(내심=세 각의 이등분선의 교점) 공유, PT050(반지름⊥변 강조)과 상충 없음(본 유형은 각 절반·넓이 강조).",
       "parent_message": "내심 계산은 절반으로 나눈 각과 내접원 반지름·넓이 관계를 단계별로 잇는 훈련입니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT054": {
+      "problem_nature": "외심과 내심의 정의·성질을 대조해 두 중심의 명칭을 바르게 구분하는 유형",
+      "required_thinking": ["외심=수직이등분선 교점·꼭짓점 등거리 확인", "내심=각이등분선 교점·변 등거리 확인", "외심↔내심 정의·대상 대조", "구하는 중심에 맞는 성질 선택", "등거리 대상(꼭짓점/변) 검산"],
+      "must_write_steps": ["외심은 세 변의 수직이등분선의 교점이고 세 꼭짓점에서 등거리(외접원 반지름)임을 적는다.", "내심은 세 각의 이등분선의 교점이고 세 변에서 등거리(내접원 반지름)임을 적는다.", "지금 문제가 외심·내심 중 무엇을 묻는지 이름부터 확정하고 정의·등거리 대상(꼭짓점 vs 변)을 대조한다.", "확정한 중심의 성질만 골라 미지 길이·각을 구한다.", "등거리 대상(꼭짓점/변)이 맞는지 검산한다."],
+      "common_wrong_actions": ["외심·내심 명칭을 뒤바꾼다.", "외심 정의(수직이등분선)와 내심 정의(각이등분선)를 섞는다.", "등거리 대상(꼭짓점 vs 변)을 혼동한다.", "어느 중심 성질을 쓸지 정하지 않는다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "외심 정의(수직이등분선) 혼동", "diagnosis": "외심을 세 변의 수직이등분선 교점·꼭짓점 등거리로 잡지 못하고 내심과 명칭·정의를 뒤바꿨다.", "student_fix": "외심 = 세 변의 수직이등분선의 교점, 세 꼭짓점 등거리로 못 박아라."},
+        {"error_code": "incenter_angle_bisector_relation_failure", "label": "내심 정의(각이등분선) 혼동", "diagnosis": "내심을 세 각의 이등분선 교점·변 등거리로 잡지 못하고 외심과 명칭·정의를 뒤바꿨다.", "student_fix": "내심 = 세 각의 이등분선의 교점, 세 변 등거리로 못 박아라."}
+      ],
+      "student_command": "외심(세 변의 수직이등분선의 교점·꼭짓점 등거리)과 내심(세 각의 이등분선의 교점·변 등거리)을 짝지어 외우고, 지금 어느 중심인지 이름부터 확정해라.",
+      "teacher_note": "외심·내심 명칭·정의 혼동이 핵심. 두 정의를 대조표로 짝지어 확정시킨다(PT036·PT048 정의 처방과 연결).",
+      "parent_message": "외심과 내심은 이름이 비슷해 헷갈리기 쉽습니다. 정의(수직이등분선 vs 각의 이등분선)를 짝지어 구분하는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT055": {
+      "problem_nature": "외심·내심의 정의와 성질을 주어진 조건에 적용해 어느 중심의 성질인지 판별하고 길이·각을 구하는 유형",
+      "required_thinking": ["외심=수직이등분선 교점·꼭짓점 등거리 확인", "내심=각이등분선 교점·변 등거리 확인", "조건이 외심/내심 어느 성질인지 판별", "판별한 중심 성질에 조건 대입", "등거리 대상(꼭짓점/변) 검산"],
+      "must_write_steps": ["외심(수직이등분선 교점·꼭짓점 등거리)·내심(각이등분선 교점·변 등거리) 정의와 주어진 조건을 표시한다.", "조건이 외심 성질(꼭짓점 등거리·수직이등분선)인지 내심 성질(변 등거리·각이등분)인지 판별한다.", "판별한 중심의 성질에 주어진 조건(길이·각)을 대입한다.", "미지 길이·각을 구한다.", "등거리 대상(꼭짓점/변)이 조건과 맞는지 검산한다."],
+      "common_wrong_actions": ["조건이 외심·내심 중 어느 성질인지 판별하지 않는다.", "외심 조건에 내심 성질을 대입한다.", "등거리 대상(꼭짓점 vs 변)을 혼동한다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "외심 정의·성질 실패", "diagnosis": "조건이 외심(수직이등분선 교점·꼭짓점 등거리) 성질인데 바르게 적용하지 못했다.", "student_fix": "외심=수직이등분선 교점·세 꼭짓점 등거리에 조건을 대입해라."},
+        {"error_code": "incenter_angle_bisector_relation_failure", "label": "내심 정의·성질 실패", "diagnosis": "조건이 내심(각이등분선 교점·변 등거리) 성질인데 바르게 적용하지 못했다.", "student_fix": "내심=각이등분선 교점·세 변 등거리에 조건을 대입해라."},
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "조건이 외심 성질인지 내심 성질인지 판별하지 못해 잘못된 중심 성질을 골랐다.", "student_fix": "조건이 꼭짓점 등거리(외심)인지 변 등거리(내심)인지 먼저 판별해라."}
+      ],
+      "student_command": "외심·내심 비교 조건 문제는 주어진 조건이 '꼭짓점 등거리(외심)'인지 '변 등거리(내심)'인지 먼저 판별하고, 그 중심의 성질에만 조건을 대입해라.",
+      "teacher_note": "C018 조건적용판(관측). 조건이 외심/내심 중 어느 성질인지 판별이 핵심. 유형 자체 fine_error_tags 사용 — 외심·내심 두 태그+성질선택 동시 보유는 관측이 '비교 개념'임을 뒷받침. checkpoint 3(상한 내).",
+      "parent_message": "외심·내심 비교 문제는 주어진 조건이 어느 중심의 성질인지 판별하는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT056": {
+      "problem_nature": "외심·내심의 성질을 여러 단계로 연결해 길이·각을 계산·추론하는 유형",
+      "required_thinking": ["외심=수직이등분선 교점·꼭짓점 등거리 확인", "내심=각이등분선 교점·변 등거리 확인", "쓸 중심(외심/내심) 확정", "확정 중심 성질로 중간값 계산", "등거리 대상(꼭짓점/변)·각의 합 검산"],
+      "must_write_steps": ["외심·내심 정의와 아는 값을 표시하고 어느 중심을 쓰는지 정한다.", "외심이면 꼭짓점 등거리(=외접원 반지름·이등변 밑각), 내심이면 변 등거리(=내접원 반지름)·각 절반을 이용한다.", "여러 단계면 중간 각·길이를 하나씩 구한다.", "확정한 중심 성질로 미지값을 계산한다.", "등거리 대상(꼭짓점/변)·각의 합으로 검산한다."],
+      "common_wrong_actions": ["어느 중심을 쓰는지 정하지 않고 계산한다.", "외심 성질과 내심 성질을 섞어 쓴다.", "등거리 대상(꼭짓점 vs 변)을 혼동한다.", "중간값을 건너뛴다."],
+      "error_checkpoints": [
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "외심/내심 중 어느 성질을 쓸지 잘못 골라 계산했다.", "student_fix": "구하는 것이 꼭짓점 등거리(외심)인지 변 등거리(내심)인지 정하고 그 성질만 써라."},
+        {"error_code": "circumcenter_perpendicular_bisector_relation_failure", "label": "외심 성질 실패", "diagnosis": "외심(꼭짓점 등거리·수직이등분선) 성질을 계산에 바르게 쓰지 못했다.", "student_fix": "외심이면 OA=OB=OC(꼭짓점 등거리)로 이등변을 만들어라."},
+        {"error_code": "incenter_angle_bisector_relation_failure", "label": "내심 성질 실패", "diagnosis": "내심(변 등거리·각 절반) 성질을 계산에 바르게 쓰지 못했다.", "student_fix": "내심이면 세 변 등거리(=r)·각 절반(½∠A)을 이용해라."}
+      ],
+      "student_command": "외심·내심 비교 계산은 먼저 어느 중심을 쓰는지 정하고(꼭짓점 등거리=외심 / 변 등거리=내심), 그 중심의 성질로만 중간값을 하나씩 구해 검산해라.",
+      "teacher_note": "C018 계산·추론판. 중심 확정 후 해당 성질로 계산 — 외심이면 이등변 밑각(PT041), 내심이면 각 절반·반지름(PT053) 방식으로 이어짐.",
+      "parent_message": "외심·내심 비교 계산은 어느 중심인지 먼저 정하고 그 성질로만 계산하는 순서가 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
     }
   }
 }
