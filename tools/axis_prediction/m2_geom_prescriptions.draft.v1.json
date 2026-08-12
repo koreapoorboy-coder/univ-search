@@ -6,12 +6,11 @@
     "observed_basis_true_types": ["M2_GEOM_PT023","M2_GEOM_PT026","M2_GEOM_PT029","M2_GEOM_PT038","M2_GEOM_PT041","M2_GEOM_PT044","M2_GEOM_PT047","M2_GEOM_PT050","M2_GEOM_PT053","M2_GEOM_PT055","M2_GEOM_PT067","M2_GEOM_PT071","M2_GEOM_PT074","M2_GEOM_PT077","M2_GEOM_PT080","M2_GEOM_PT083","M2_GEOM_PT086","M2_GEOM_PT089","M2_GEOM_PT092","M2_GEOM_PT100","M2_GEOM_PT103","M2_GEOM_PT104","M2_GEOM_PT107","M2_GEOM_PT116","M2_GEOM_PT119","M2_GEOM_PT134","M2_GEOM_PT140"],
     "progress": "1/14 카테고리 (기본 각 관계 11종, C001-C003). 누계 11/140.",
     "new_tags": [
-      {"tag": "triangle_interior_angle_sum_error", "reason": "삼각형 세 내각의 합 180° 적용 실패. 사전 §2는 각 전달·연쇄·대응만 있고 삼각형 내각합 기본정리 항목 없음."},
-      {"tag": "triangle_exterior_angle_theorem_omitted", "reason": "외각=이웃하지 않은 두 내각의 합 정리 누락. §2 collinear_supplementary(일직선 보각)와 다른 정리(외각정리). 별개."},
-      {"tag": "polygon_angle_sum_formula_error", "reason": "다각형 내각합 180×(n-2) 공식 오류. 사전에 다각형 각합 공식 항목 없음."},
-      {"tag": "polygon_exterior_angle_sum_error", "reason": "다각형 외각합 360° 적용 오류. 다각형 전용, 삼각형 외각정리와 대상 다름."}
+      {"tag": "interior_angle_sum_error", "reason": "삼각형·다각형 내각의 합 관계/공식(180°, 180×(n-2)) 오적용. 삼각형은 n=3 특수case로 동일 오류 → 통합(v4 §2: 대상만 다른 것은 신설/분리 사유 아님). 사전 §1~§6에 내각합 항목 없어 신설."},
+      {"tag": "triangle_exterior_angle_theorem_omitted", "reason": "외각=이웃하지 않은 두 내각의 합 정리 누락. §2 collinear_supplementary(일직선 보각)와 다른 정리(외각정리). 내각합·외각합과도 별개."},
+      {"tag": "polygon_exterior_angle_sum_error", "reason": "다각형 외각의 합 360° 오적용. triangle_exterior(단일 외각=두 remote 내각)와 다른 정리(전체 외각의 합), 통합 불가."}
     ],
-    "reuse_note": "이 카테고리 distinct error_code 7종 중 3종(§2) 재사용 = 43%. C001(평행선)은 §2 100%, C002·C003(삼각형·다각형 각합 기본정리)은 사전 부재로 신설. 기본 각 관계 basics는 사전(원·삼각비·닮음 출처)에 없어 신설이 정상."
+    "reuse_note": "통합 후 이 카테고리 distinct error_code 6종 중 3종(§2) 재사용 = 50%. C001(평행선)은 §2 100%, C002·C003(삼각형·다각형 각합 기본정리)은 사전(원·삼각비·닮음 출처)에 없어 신설이 정상. _error 접미는 사전 관례([코드확인] 37종 존재)."
   },
   "prescriptions": {
     "M2_GEOM_PT001": {
@@ -79,7 +78,7 @@
       "common_wrong_actions": ["외각을 이웃한 내각과 관련짓는다.", "내각의 합을 180°가 아닌 값으로 쓴다.", "외각을 한 내각과 같다고 본다.", "검산 없이 마무리한다."],
       "error_checkpoints": [
         {"error_code": "triangle_exterior_angle_theorem_omitted", "label": "외각정리 누락", "diagnosis": "외각을 이웃하지 않은 두 내각의 합으로 두지 않았다.", "student_fix": "외각 = 이웃하지 않은 두 내각의 합임을 식으로 써라."},
-        {"error_code": "triangle_interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "삼각형 세 내각의 합 180°를 잘못 적용했다.", "student_fix": "세 내각의 합 = 180°를 먼저 식으로 써라."}
+        {"error_code": "interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "삼각형 세 내각의 합 180°를 잘못 적용했다.", "student_fix": "세 내각의 합 = 180°를 먼저 식으로 써라."}
       ],
       "student_command": "삼각형 각 문제는 '세 내각의 합 180°'와 '외각 = 이웃하지 않은 두 내각의 합' 둘 중 무엇을 쓰는지 먼저 정하고 풀어라.",
       "teacher_note": "외각을 이웃 내각의 보각으로만 처리하는 오류가 핵심. 외각정리를 식으로 쓰게 한다.",
@@ -93,7 +92,7 @@
       "common_wrong_actions": ["조건을 표시하지 않고 관계식만 세운다.", "외각정리와 내각합을 섞어 쓴다.", "외각을 이웃 내각과 관련짓는다.", "검산을 생략한다."],
       "error_checkpoints": [
         {"error_code": "triangle_exterior_angle_theorem_omitted", "label": "외각정리 누락", "diagnosis": "조건을 대입할 때 외각정리를 쓰지 않았다.", "student_fix": "외각 = 이웃하지 않은 두 내각의 합임을 먼저 쓰고 조건을 대입해라."},
-        {"error_code": "triangle_interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "내각의 합 180° 적용에서 조건을 잘못 결합했다.", "student_fix": "세 내각의 합 = 180° 식에 조건을 하나씩 대입해라."}
+        {"error_code": "interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "내각의 합 180° 적용에서 조건을 잘못 결합했다.", "student_fix": "세 내각의 합 = 180° 식에 조건을 하나씩 대입해라."}
       ],
       "student_command": "조건이 붙은 삼각형 각 문제는 조건을 그림에 표시하고, 내각합 180°인지 외각정리인지 정한 뒤 대입해라.",
       "teacher_note": "C002 조건적용판. 두 정리 혼용이 핵심 오류. 무엇을 쓸지 먼저 정하게 한다.",
@@ -108,7 +107,7 @@
       "error_checkpoints": [
         {"error_code": "triangle_exterior_angle_theorem_omitted", "label": "외각정리 누락", "diagnosis": "계산 과정에서 외각을 이웃하지 않은 두 내각의 합으로 두지 않았다.", "student_fix": "외각정리를 식으로 쓰고 단계별로 계산해라."},
         {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "중간 각을 끝까지 추적하지 못했다.", "student_fix": "아는 각부터 중간 각을 하나씩 구해 연결해라."},
-        {"error_code": "triangle_interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "내각의 합 180° 적용을 계산에서 틀렸다.", "student_fix": "세 내각의 합 = 180° 식으로 마지막에 검산해라."}
+        {"error_code": "interior_angle_sum_error", "label": "내각합 오류", "diagnosis": "내각의 합 180° 적용을 계산에서 틀렸다.", "student_fix": "세 내각의 합 = 180° 식으로 마지막에 검산해라."}
       ],
       "student_command": "삼각형 각 계산은 내각합·외각정리 중 맞는 것을 정하고, 중간 각을 하나씩 구해 연결한 뒤 180°로 검산해라.",
       "teacher_note": "C002 계산·추론판. 중간 각 생략과 정리 혼용이 핵심. 단계 표기와 검산을 강조한다.",
@@ -135,7 +134,7 @@
       "must_write_steps": ["다각형의 변(꼭짓점) 수 n을 센다.", "내각의 합은 180×(n-2)로 쓴다.", "정다각형이면 한 내각 = 내각합/n으로 구한다.", "외각의 합은 항상 360°임을 쓴다.", "한 내각과 한 외각의 합이 180°인지 검산한다."],
       "common_wrong_actions": ["내각합 공식을 180×n 등으로 잘못 쓴다.", "외각합을 n에 따라 달라진다고 본다.", "정다각형이 아닌데 내각합/n으로 한 내각을 구한다.", "검산을 생략한다."],
       "error_checkpoints": [
-        {"error_code": "polygon_angle_sum_formula_error", "label": "내각합 공식 오류", "diagnosis": "다각형 내각의 합 180×(n-2)를 잘못 적용했다.", "student_fix": "먼저 n을 세고 내각합 = 180×(n-2)를 그대로 써라."},
+        {"error_code": "interior_angle_sum_error", "label": "내각합 공식 오류", "diagnosis": "다각형 내각의 합 180×(n-2)를 잘못 적용했다.", "student_fix": "먼저 n을 세고 내각합 = 180×(n-2)를 그대로 써라."},
         {"error_code": "polygon_exterior_angle_sum_error", "label": "외각합 오류", "diagnosis": "다각형 외각의 합을 360°로 두지 않았다.", "student_fix": "볼록다각형 외각의 합은 항상 360°임을 써라."}
       ],
       "student_command": "다각형 각 문제는 변의 수 n을 먼저 세고, 내각합 180×(n-2)·외각합 360° 중 맞는 공식을 골라 써라.",
@@ -149,7 +148,7 @@
       "must_write_steps": ["주어진 조건(한 내각·외각·변 수 등)을 표시한다.", "내각합 180×(n-2) 또는 외각합 360° 중 맞는 공식을 고른다.", "조건을 공식에 대입해 방정식을 세운다.", "n 또는 미지각을 구한다.", "한 내각+한 외각=180°로 검산한다."],
       "common_wrong_actions": ["조건에 맞지 않는 공식을 쓴다.", "내각합 공식을 잘못 쓴다.", "외각합을 360°가 아니라고 본다.", "구한 n이 자연수인지 확인하지 않는다."],
       "error_checkpoints": [
-        {"error_code": "polygon_angle_sum_formula_error", "label": "내각합 공식 오류", "diagnosis": "조건을 대입할 때 내각합 공식을 틀렸다.", "student_fix": "내각합 = 180×(n-2)에 조건을 대입해 방정식을 세워라."},
+        {"error_code": "interior_angle_sum_error", "label": "내각합 공식 오류", "diagnosis": "조건을 대입할 때 내각합 공식을 틀렸다.", "student_fix": "내각합 = 180×(n-2)에 조건을 대입해 방정식을 세워라."},
         {"error_code": "polygon_exterior_angle_sum_error", "label": "외각합 오류", "diagnosis": "외각 조건에서 외각합 360°를 쓰지 않았다.", "student_fix": "외각합 360°를 이용해 한 외각·변 수를 구해라."}
       ],
       "student_command": "조건이 붙은 다각형 문제는 조건이 내각합인지 외각합인지 판단하고, 맞는 공식에 대입해 방정식을 세워라.",
@@ -163,7 +162,7 @@
       "must_write_steps": ["변의 수 n 또는 아는 값을 표시한다.", "내각합 180×(n-2)·외각합 360° 중 맞는 공식을 쓴다.", "여러 단계면 중간 값을 하나씩 구한다.", "미지값을 계산한다.", "n이 자연수인지, 한 내각+한 외각=180°인지 검산한다."],
       "common_wrong_actions": ["중간 값을 건너뛰고 답을 낸다.", "내각합 공식을 잘못 쓴다.", "외각합을 360°로 두지 않는다.", "구한 n이 자연수인지 확인하지 않는다."],
       "error_checkpoints": [
-        {"error_code": "polygon_angle_sum_formula_error", "label": "내각합 공식 오류", "diagnosis": "계산 과정에서 내각합 180×(n-2)를 잘못 적용했다.", "student_fix": "내각합 = 180×(n-2)를 정확히 쓰고 단계별로 계산해라."},
+        {"error_code": "interior_angle_sum_error", "label": "내각합 공식 오류", "diagnosis": "계산 과정에서 내각합 180×(n-2)를 잘못 적용했다.", "student_fix": "내각합 = 180×(n-2)를 정확히 쓰고 단계별로 계산해라."},
         {"error_code": "polygon_exterior_angle_sum_error", "label": "외각합 오류", "diagnosis": "외각을 이용한 계산에서 외각합 360°를 쓰지 않았다.", "student_fix": "외각합 360°를 이용해 한 외각·변 수를 구해라."},
         {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "중간 값을 끝까지 연결하지 못했다.", "student_fix": "아는 값부터 중간 값을 하나씩 구해 연결해라."}
       ],
