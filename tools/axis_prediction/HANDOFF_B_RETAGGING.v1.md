@@ -1,6 +1,6 @@
 # (B) 재태깅 → 관측축 파이프라인 인계문 (새 Code 세션)
 
-> 이 문서 하나로 **재태깅 스트림**을 이어받는다. 큰 그림은 `HANDOFF_B_MASTER.md`. 관측 태그 정본은 `TAG_DICTIONARY_v1.md`.
+> 이 문서 하나로 **재태깅 스트림**을 이어받는다. 큰 그림은 `HANDOFF_B_MASTER.md`. 관측 태그 정본은 `tools/axis_prediction/TAG_DICTIONARY_v2.md`(도형계열 163종, §1범용·§2도형공통·§3원·§4삼각비·§5닮음·§6대수 — 리포 커밋 ae388d94, v1은 구판). 처방 저작 시 error_code는 이 사전에서 §1→§2→단원 순 조회.
 
 ## ⭐⭐⭐⭐ 최신 진입점 (2026-08-11, 실사용 배선·매칭 국면 — **새 세션 여기부터**)
 > 리포=**`C:\Users\user\projects\scshstudy`**. 전부 push됨(HEAD `6e228813`). GitHub Pages 루트=`https://koreapoorboy-coder.github.io/univ-search/public/math-weakness-engine/`. **node·python 없음** → perl·브라우저로 검증. **정적파일 캐시**: 에셋 `?v=patchNNN`(내용 고치면 이 값도 올려야 함) + 페이지 즉시확인 `?fresh=N`. GitHub Pages는 HTML을 max-age=600(10분) 고정 서빙(헤더 커스텀 불가) → 실사용자는 10분 내 자동갱신.
