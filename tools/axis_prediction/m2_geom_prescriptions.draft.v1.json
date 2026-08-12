@@ -6,7 +6,7 @@
     "authoring_rule": "error_code 통합/분리 기준(검수 확정): 같은 오류·대상만 다름 → 통합(예: 삼각형·다각형 내각합 = interior_angle_sum_error). 다른 정리·관계 → 분리(예: 외각정리 ↔ 외각합). 애매하면 통합(나중 분리가 합치기보다 쉬움). 접미는 사전 관례(_failure·_error·_omitted·_confusion·_misapplied…), 대문자·도메인접두 금지.",
     "reuse_priority": "error_code 조회 순서: (1) 이 유형의 fine_error_tags(overlay·observed_basis:true) → (2) M2_GEOM overlay 36종 관측 태그(same-unit 관측어휘, dict에 없어도 우선) → (3) TAG_DICTIONARY_v2 §1→§2→§3 → (4) 신설(new_tags 보고). (2)를 (3)보다 앞세운 이유: same-unit 관측 어휘가 dict(타단원 출처)보다 관측 정합이 높음. 검수 확인 대상.",
     "observed_basis_true_types": ["M2_GEOM_PT023","M2_GEOM_PT026","M2_GEOM_PT029","M2_GEOM_PT038","M2_GEOM_PT041","M2_GEOM_PT044","M2_GEOM_PT047","M2_GEOM_PT050","M2_GEOM_PT053","M2_GEOM_PT055","M2_GEOM_PT067","M2_GEOM_PT071","M2_GEOM_PT074","M2_GEOM_PT077","M2_GEOM_PT080","M2_GEOM_PT083","M2_GEOM_PT086","M2_GEOM_PT089","M2_GEOM_PT092","M2_GEOM_PT100","M2_GEOM_PT103","M2_GEOM_PT104","M2_GEOM_PT107","M2_GEOM_PT116","M2_GEOM_PT119","M2_GEOM_PT134","M2_GEOM_PT140"],
-    "progress": "2/14 카테고리 (기본 각 관계 11 C001-C003 + 삼각형의 합동 9 C004-C006). 누계 20/140.",
+    "progress": "3/14 카테고리 (기본 각 관계 11 + 삼각형의 합동 9 + 삼각형의 성질 12 C007-C010). 누계 32/140. observed_basis:true 처음 등장(PT023·026·029) — 각자 fine_error_tags를 tier-1로 사용.",
     "new_tags": [
       {"tag": "interior_angle_sum_error", "reason": "삼각형·다각형 내각의 합 관계/공식(180°, 180×(n-2)) 오적용. 삼각형은 n=3 특수case로 동일 오류 → 통합(v4 §2: 대상만 다른 것은 신설/분리 사유 아님). 사전 §1~§6에 내각합 항목 없어 신설."},
       {"tag": "triangle_exterior_angle_theorem_omitted", "reason": "외각=이웃하지 않은 두 내각의 합 정리 누락. §2 collinear_supplementary(일직선 보각)와 다른 정리(외각정리). 내각합·외각합과도 별개."},
@@ -298,6 +298,173 @@
       "student_command": "합동 증명 계산은 먼저 합동을 조건으로 밝히고, 대응값을 하나씩 옮겨 계산한 뒤 검산해라.",
       "teacher_note": "C006 계산·추론판. 합동을 밝히지 않고 계산하는 오류가 핵심.",
       "parent_message": "합동을 이용한 계산은 먼저 합동임을 밝힌 뒤 대응값을 옮기는 순서가 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT021": {
+      "problem_nature": "이등변삼각형에서 같은 변과 같은 밑각의 대응을 바르게 잡아 각·길이를 구하는 유형",
+      "required_thinking": ["같은 두 변 식별", "두 밑각이 같음 적용", "꼭지각 이등분선=밑변 수직이등분 인지", "각·길이 관계식", "대칭 검산"],
+      "must_write_steps": ["두 변이 같은 이등변삼각형인지 확인하고 같은 변에 표시한다.", "그 두 변에 대한 밑각이 같음을 표시한다.", "꼭지각의 이등분선이 밑변을 수직이등분함을 이용한다.", "각·길이 관계식으로 미지값을 구한다.", "대칭·각의 합으로 검산한다."],
+      "common_wrong_actions": ["같은 변과 같은 각의 대응을 반대로 잡는다.", "밑각이 같음을 표시하지 않는다.", "꼭지각 이등분선의 수직이등분 성질을 빠뜨린다.", "대칭을 이용하지 않는다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "같은 변에 대한 밑각을 바르게 잡지 못했다.", "student_fix": "같은 변을 표시하고 그에 대한 밑각이 같음을 먼저 적어라."},
+        {"error_code": "isosceles_altitude_bisection_overlooked", "label": "높이 이등분 누락", "diagnosis": "꼭지각 이등분선이 밑변을 수직이등분함을 쓰지 않았다.", "student_fix": "꼭지각 이등분선은 밑변을 수직이등분함을 표시해라."}
+      ],
+      "student_command": "이등변삼각형은 같은 변부터 표시하고, 그에 대한 밑각이 같다는 것과 꼭지각 이등분선이 밑변을 수직이등분함을 함께 써라.",
+      "teacher_note": "같은 변↔같은 각 대응 착오가 핵심. 같은 변 표시부터 시킨다.",
+      "parent_message": "이등변삼각형은 같은 변과 그에 대한 밑각을 짝짓는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT022": {
+      "problem_nature": "이등변삼각형의 성질을 주어진 조건에 적용해 각·길이를 구하는 유형",
+      "required_thinking": ["같은 두 변 식별", "밑각 같음 적용", "주어진 조건 표시", "성질+조건 결합", "대칭 검산"],
+      "must_write_steps": ["이등변삼각형의 같은 변과 주어진 조건을 표시한다.", "두 밑각이 같음과 꼭지각 이등분선 성질을 적는다.", "주어진 조건(각도·길이)을 성질에 대입한다.", "미지 각·길이를 구한다.", "대칭으로 검산한다."],
+      "common_wrong_actions": ["조건을 성질에 맞춰 넣지 않는다.", "같은 변·각 대응을 틀린다.", "꼭지각 이등분선 성질을 빠뜨린다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "조건을 밑각 관계에 맞게 넣지 못했다.", "student_fix": "밑각이 같음을 표시한 뒤 조건 각을 대입해라."},
+        {"error_code": "isosceles_altitude_bisection_overlooked", "label": "높이 이등분 누락", "diagnosis": "이등분선의 수직이등분 성질을 조건에 결합하지 못했다.", "student_fix": "꼭지각 이등분선이 밑변을 수직이등분함을 이용해 조건을 연결해라."}
+      ],
+      "student_command": "조건이 붙은 이등변삼각형 문제는 같은 변·밑각을 표시하고, 주어진 각·길이를 그 성질에 대입해라.",
+      "teacher_note": "C007 조건적용판. 조건을 성질에 결합하는 판단이 핵심.",
+      "parent_message": "이등변삼각형 조건 문제는 성질에 조건을 맞춰 넣는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT023": {
+      "problem_nature": "이등변삼각형의 성질을 여러 단계로 연결해 각·길이를 계산·추론하는 유형",
+      "required_thinking": ["같은 변·밑각 식별", "밑각 연쇄 추적", "이등분선 수직이등분 이용", "중간 각·길이 계산", "대칭 검산"],
+      "must_write_steps": ["이등변삼각형의 같은 변과 아는 값을 표시한다.", "두 밑각이 같음을 이용해 각을 연쇄로 옮긴다.", "꼭지각 이등분선의 수직이등분·분할 성질을 쓴다.", "중간 각·길이를 하나씩 구한다.", "대칭·각의 합으로 검산한다."],
+      "common_wrong_actions": ["밑각 연쇄를 중간에 끊는다.", "이등분선의 수직이등분을 빠뜨린다.", "분할된 선분을 식으로 추적하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "밑각이 같음을 이용한 각 연쇄를 끝까지 잇지 못했다.", "student_fix": "밑각이 같음을 표시하고 각을 하나씩 옮겨라."},
+        {"error_code": "isosceles_altitude_bisection_overlooked", "label": "높이 이등분 누락", "diagnosis": "꼭지각 이등분선이 밑변을 수직이등분함을 계산에 쓰지 않았다.", "student_fix": "이등분선이 밑변을 수직이등분함을 이용해 길이를 나눠라."},
+        {"error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "이등분으로 나뉜 선분을 식으로 추적하지 못했다.", "student_fix": "나뉜 선분을 문자로 두고 관계식으로 추적해라."}
+      ],
+      "student_command": "이등변삼각형 계산은 밑각을 연쇄로 옮기고, 이등분선이 밑변을 수직이등분함으로 길이를 나눠 하나씩 구해라.",
+      "teacher_note": "C007 계산·추론판(관측). 밑각 연쇄·이등분 누락·선분 추적이 핵심. 유형 자체 fine_error_tags 사용.",
+      "parent_message": "이등변삼각형 계산은 밑각 관계와 이등분 성질을 단계별로 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT024": {
+      "problem_nature": "두 각이 같으면 이등변이 되는 조건(성질의 역)을 판단하는 유형",
+      "required_thinking": ["두 각이 같은지 확인", "두 각 같음→두 변 같음(역) 적용", "성질과 조건(역) 구분", "합동·각 근거", "결론"],
+      "must_write_steps": ["두 각이 같은지 표시한다.", "두 각이 같으면 그 각에 대한 두 변도 같아 이등변이 됨(역)을 적용한다.", "'이등변→밑각 같음'(성질)과 '밑각 같음→이등변'(조건)을 구분한다.", "합동·각 관계로 근거를 든다.", "이등변임을 결론짓는다."],
+      "common_wrong_actions": ["성질(이등변→밑각)과 조건(밑각→이등변)을 뒤바꿔 쓴다.", "두 각이 같음을 근거로 두 변이 같다고 연결하지 못한다.", "합동 근거를 대지 않는다.", "대응을 틀린다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 각 관계 실패", "diagnosis": "두 각이 같음에서 두 변이 같음(이등변)으로 연결하지 못했다.", "student_fix": "두 각이 같으면 그에 대한 두 변도 같음을 근거로 적어라."},
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "이등변임을 밝히는 합동 근거를 고르지 못했다.", "student_fix": "적절한 합동 조건으로 두 변이 같음을 근거로 대어라."}
+      ],
+      "student_command": "'이등변이면 밑각이 같다'(성질)와 '밑각이 같으면 이등변이다'(조건)를 구분해서 지금 어느 방향을 쓰는지 먼저 정해라.",
+      "teacher_note": "성질↔조건(역) 혼동이 핵심. 방향을 먼저 정하게 한다.",
+      "parent_message": "이등변삼각형은 '성질'과 '되는 조건(역)'의 방향을 구분하는 것이 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT025": {
+      "problem_nature": "이등변이 되는 조건을 주어진 조건에 적용해 이등변 여부나 미지값을 판단하는 유형",
+      "required_thinking": ["주어진 각·변 조건 확인", "이등변 되는 조건(역) 적용", "성질·조건 구분", "합동·각 근거", "결론"],
+      "must_write_steps": ["주어진 각·변 조건을 표시한다.", "두 각이 같으면 이등변이 됨(역)을 적용한다.", "성질과 조건의 방향을 구분한다.", "합동·각 관계로 근거를 들어 미지값을 구한다.", "이등변 여부를 결론짓는다."],
+      "common_wrong_actions": ["성질과 조건을 뒤바꾼다.", "조건을 근거로 연결하지 못한다.", "합동 근거를 대지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 각 관계 실패", "diagnosis": "조건에서 두 변이 같음(이등변)으로 연결하지 못했다.", "student_fix": "두 각이 같음을 표시하고 두 변이 같음을 근거로 적어라."},
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "이등변 근거로 쓸 합동 조건을 고르지 못했다.", "student_fix": "성립하는 합동 조건으로 근거를 대어라."}
+      ],
+      "student_command": "조건이 붙은 '이등변 되는 조건' 문제는 지금 성질(→)인지 조건(역)인지 정하고, 주어진 각·변을 그 방향으로 연결해라.",
+      "teacher_note": "C008 조건적용판. 방향 판단 후 조건 연결이 핵심.",
+      "parent_message": "'이등변이 되는 조건' 문제는 조건에서 성질로 거꾸로 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT026": {
+      "problem_nature": "이등변이 되는 조건을 여러 단계로 연결해 각·길이를 계산·추론하는 유형",
+      "required_thinking": ["두 각 같음 확인", "이등변 역 적용", "합동으로 변 같음 근거", "선분 분할 추적", "결과 검산"],
+      "must_write_steps": ["두 각이 같은지 표시한다.", "두 각이 같으면 이등변이 됨을 이용한다.", "필요하면 합동 조건으로 변이 같음을 밝힌다.", "나뉜 선분·각을 식으로 추적해 미지값을 구한다.", "이등변·대칭으로 검산한다."],
+      "common_wrong_actions": ["성질과 조건을 뒤바꾼다.", "합동 조건을 잘못 고른다.", "나뉜 선분을 식으로 추적하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "이등변임을 밝히는 합동 조건을 잘못 골랐다.", "student_fix": "같은 요소를 세어 성립하는 합동 조건을 근거로 대어라."},
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 각 관계 실패", "diagnosis": "두 각 같음에서 이등변으로 연결하는 각 관계를 잇지 못했다.", "student_fix": "두 각이 같으면 두 변도 같음을 이용해 각을 옮겨라."},
+        {"error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "나뉜 선분을 식으로 추적하지 못했다.", "student_fix": "나뉜 선분을 문자로 두고 관계식으로 추적해라."}
+      ],
+      "student_command": "'이등변 되는 조건' 계산은 합동으로 두 변이 같음을 밝히고, 나뉜 선분·각을 식으로 추적해 하나씩 구해라.",
+      "teacher_note": "C008 계산·추론판(관측). 합동 조건·각 관계·선분 추적이 핵심. 유형 자체 fine_error_tags 사용.",
+      "parent_message": "이등변 조건 계산은 합동으로 근거를 세우고 나뉜 길이를 추적하는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT027": {
+      "problem_nature": "직각삼각형의 합동 조건(RHS·RHA)에서 빗변을 바르게 식별해 합동을 판단하는 유형",
+      "required_thinking": ["직각·빗변 식별", "빗변을 일반 변과 구분", "RHS·RHA 판별", "합동 근거", "결론"],
+      "must_write_steps": ["직각삼각형의 직각과 빗변을 표시한다.", "빗변(직각의 대변)을 다른 변과 구분해 표시한다.", "RHS(직각·빗변·다른 한 변)·RHA(직각·빗변·한 예각) 중 성립을 판별한다.", "성립 조건을 근거로 합동을 결론짓는다.", "일반 삼각형 합동 조건과 섞지 않았는지 확인한다."],
+      "common_wrong_actions": ["빗변을 일반 변으로 착각한다.", "RHS·RHA를 일반 SSS·SAS와 섞는다.", "직각을 근거로 표시하지 않는다.", "빗변 대응을 틀린다."],
+      "error_checkpoints": [
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "빗변을 일반 변으로 착각해 RHS·RHA를 잘못 적용했다.", "student_fix": "직각의 대변을 빗변으로 표시하고 RHS·RHA 성립을 판별해라."}
+      ],
+      "student_command": "직각삼각형 합동은 먼저 직각과 빗변(직각의 대변)을 표시하고, RHS·RHA 중 무엇이 성립하는지 판별해라.",
+      "teacher_note": "빗변 착각이 핵심. 직각의 대변=빗변 표시부터 시킨다.",
+      "parent_message": "직각삼각형 합동은 빗변을 정확히 찾는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT028": {
+      "problem_nature": "직각삼각형 합동 조건(RHS·RHA)을 주어진 조건에 적용해 합동·미지값을 판단하는 유형",
+      "required_thinking": ["직각·빗변 식별", "주어진 조건 표시", "RHS·RHA 판별", "합동 근거", "대응값"],
+      "must_write_steps": ["직각·빗변과 주어진 조건을 표시한다.", "빗변을 구분해 표시한다.", "RHS·RHA 중 성립 조건을 판별한다.", "조건을 대입해 합동·미지값을 판단한다.", "일반 합동 조건과 섞지 않았는지 확인한다."],
+      "common_wrong_actions": ["빗변을 일반 변으로 착각한다.", "조건을 RHS·RHA에 맞게 넣지 않는다.", "직각을 근거로 대지 않는다.", "SSA와 혼동한다."],
+      "error_checkpoints": [
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "주어진 조건에서 RHS·RHA 성립을 잘못 판별했다.", "student_fix": "직각·빗변을 표시하고 조건이 RHS인지 RHA인지 판별해라."}
+      ],
+      "student_command": "조건이 붙은 직각삼각형 합동은 직각·빗변을 표시하고, 주어진 조건이 RHS인지 RHA인지 판단해 대입해라.",
+      "teacher_note": "C009 조건적용판. RHS/RHA 판별이 핵심.",
+      "parent_message": "직각삼각형 합동 조건 문제는 빗변과 조건을 맞춰 RHS·RHA를 판별하는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT029": {
+      "problem_nature": "직각삼각형 합동(RHS·RHA)을 이용해 대응 요소나 넓이를 계산·추론하는 유형",
+      "required_thinking": ["직각·빗변 식별", "RHS·RHA 판별", "합동으로 대응 이동", "넓이·길이 식 구성", "결과 검산"],
+      "must_write_steps": ["직각·빗변을 표시하고 RHS·RHA 성립을 판별한다.", "합동이므로 대응 변·각이 같음을 이용한다.", "대응값으로 넓이·길이 식을 세운다.", "미지 요소를 계산한다.", "빗변 대응·값이 맞는지 검산한다."],
+      "common_wrong_actions": ["빗변을 일반 변으로 착각한다.", "합동을 밝히지 않고 대응값을 쓴다.", "넓이 식을 잘못 세운다.", "대응을 끝까지 옮기지 않는다."],
+      "error_checkpoints": [
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "RHS·RHA를 잘못 판별해 대응값을 잘못 옮겼다.", "student_fix": "직각·빗변을 표시하고 성립 조건을 먼저 판별해라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "합동 후 대응값을 끝까지 옮기지 못했다.", "student_fix": "합동을 밝힌 뒤 대응값을 하나씩 옮겨라."},
+        {"error_code": "area_formula_setup_error", "label": "넓이 식 설정 오류", "diagnosis": "대응 길이로 넓이 식을 잘못 세웠다.", "student_fix": "밑변·높이를 대응값으로 정확히 두고 넓이 식을 세워라."}
+      ],
+      "student_command": "직각삼각형 합동 계산은 RHS·RHA로 합동을 밝히고, 대응값을 옮겨 넓이·길이 식을 세운 뒤 검산해라.",
+      "teacher_note": "C009 계산·추론판(관측). 합동 판별·대응 연쇄·넓이 식이 핵심. 유형 자체 fine_error_tags 사용.",
+      "parent_message": "직각삼각형 합동 계산은 합동을 밝힌 뒤 대응값으로 식을 세우는 순서가 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT030": {
+      "problem_nature": "정삼각형의 세 각 60°·세 변이 같은 성질을 이용해 각·길이를 구하는 유형",
+      "required_thinking": ["정삼각형 세 변·세 각 같음", "각 60° 적용", "성질을 각·길이에 연결", "관계식", "대칭 검산"],
+      "must_write_steps": ["정삼각형은 세 변이 같고 세 각이 60°임을 표시한다.", "구하는 각·길이에 60°·같은 변 성질을 연결한다.", "필요하면 이등변·대칭 성질을 함께 쓴다.", "관계식으로 미지값을 구한다.", "각의 합·대칭으로 검산한다."],
+      "common_wrong_actions": ["세 각이 60°임을 쓰지 않는다.", "세 변이 같음을 이용하지 않는다.", "정삼각형을 일반 이등변으로만 다룬다.", "대칭을 쓰지 않는다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "정삼각형 각 관계 실패", "diagnosis": "정삼각형의 세 각 60°·같은 변 성질을 각 관계에 연결하지 못했다.", "student_fix": "세 각이 60°, 세 변이 같음을 먼저 표시하고 각을 옮겨라."}
+      ],
+      "student_command": "정삼각형 문제는 세 각이 60°이고 세 변이 같다는 것을 먼저 표시하고 그 성질로 각·길이를 연결해라.",
+      "teacher_note": "60° 성질 누락이 핵심. 정삼각형 성질 표시부터 시킨다.",
+      "parent_message": "정삼각형은 세 각 60°·세 변 같음을 먼저 표시하는 습관이 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT031": {
+      "problem_nature": "정삼각형의 성질을 주어진 조건에 적용해 각·길이를 구하는 유형",
+      "required_thinking": ["정삼각형 성질 확인", "주어진 조건 표시", "60°·같은 변 결합", "관계식", "대칭 검산"],
+      "must_write_steps": ["정삼각형의 세 각 60°·같은 변과 주어진 조건을 표시한다.", "조건(각도·길이)을 정삼각형 성질에 대입한다.", "필요하면 대칭·이등변 성질을 함께 쓴다.", "미지값을 구한다.", "대칭으로 검산한다."],
+      "common_wrong_actions": ["조건을 성질에 맞춰 넣지 않는다.", "세 각 60°를 쓰지 않는다.", "같은 변을 이용하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "정삼각형 각 관계 실패", "diagnosis": "조건을 정삼각형 각 관계(60°)에 맞게 넣지 못했다.", "student_fix": "세 각 60°를 표시하고 조건 각을 대입해라."}
+      ],
+      "student_command": "조건이 붙은 정삼각형 문제는 세 각 60°·같은 변을 표시하고 주어진 각·길이를 그 성질에 대입해라.",
+      "teacher_note": "C010 조건적용판. 조건을 정삼각형 성질에 결합하는 판단이 핵심.",
+      "parent_message": "정삼각형 조건 문제는 60°·같은 변 성질에 조건을 맞춰 넣는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT032": {
+      "problem_nature": "정삼각형의 성질을 여러 단계로 연결해 각·길이를 계산·추론하는 유형",
+      "required_thinking": ["정삼각형 성질 확인", "60°·같은 변 연쇄", "중간 각·길이 추적", "관계식 계산", "대칭 검산"],
+      "must_write_steps": ["정삼각형의 세 각 60°·같은 변과 아는 값을 표시한다.", "60°·같은 변 성질로 각·길이를 연쇄로 옮긴다.", "필요하면 대칭·이등변 성질을 함께 쓴다.", "중간 각·길이를 하나씩 구한다.", "대칭·각의 합으로 검산한다."],
+      "common_wrong_actions": ["중간 각·길이를 건너뛴다.", "세 각 60°를 이용하지 않는다.", "같은 변을 쓰지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "정삼각형 각 관계 실패", "diagnosis": "60° 성질을 이용한 각 연쇄를 끝까지 잇지 못했다.", "student_fix": "세 각 60°를 표시하고 각을 하나씩 옮겨라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "중간 각·길이를 끝까지 추적하지 못했다.", "student_fix": "아는 값부터 중간값을 하나씩 구해 연결해라."}
+      ],
+      "student_command": "정삼각형 계산은 세 각 60°·같은 변으로 각·길이를 하나씩 옮기고 마지막에 대칭으로 검산해라.",
+      "teacher_note": "C010 계산·추론판. 중간값 생략이 핵심.",
+      "parent_message": "정삼각형 계산은 60°·같은 변 성질을 단계별로 잇는 훈련입니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
     }
   }
