@@ -1,10 +1,11 @@
 {
-  "version": "2026.08.11-template-unit-map",
+  "version": "2026.08.13-template-unit-map-geom-released",
+  "_geom_release_note": "2026-08-13: M2_GEOMETRY_PROPERTIES 140종 전용 처방 저작·part04 병합 완료(matched_template_id 전건 null) → no_template_units에서 제거(게이트 해제). 나머지 12단원은 유지. 엔진 게이트(line 344): _tplId null이면 이미 억제 안 됨 — 리스트 제거는 '전용 처방 존재' 명시. 실사용 대조 대상.",
   "_note": "결함① 게이트용. 각 student_action 템플릿이 정당하게 적용되는 unit_id 목록. [실측] unit->template 분포 + 내용 [코드확인] 기반. GENERIC은 단원중립(억제 제외)이라 여기 없음(엔진이 특수처리). 검수 검증 대상 — 특히 EQUATION_MODELING 광범위 적용은 잠정.",
   "generic_template_ids": ["ACTION_GENERIC_STRUCTURED_SOLUTION"],
   "_stage1_note": "no_template_units = 22개 템플릿 중 이 단원 도메인용 전용 템플릿이 구조적으로 없는 단원(기하·수연산·통계). 1단계 게이트는 이 리스트만 사용(template_units 매핑 정확도와 무관). 비-GENERIC 처방이 붙으면 억제(suppressed_reason=no_template_for_unit).",
   "no_template_units": [
-    "M2_GEOMETRY_PROPERTIES", "M1_SOLID_GEOMETRY", "M1_BASIC_GEOMETRY", "M1_PLANE_GEOMETRY",
+    "M1_SOLID_GEOMETRY", "M1_BASIC_GEOMETRY", "M1_PLANE_GEOMETRY",
     "M2_SIMILARITY_PYTHAGORAS", "M3_CIRCLE_PROPERTIES", "M3_TRIGONOMETRIC_RATIO",
     "M1_PRIME_FACTORIZATION", "M3_REAL_NUMBER_CALC", "M2_NUMBER_EXPRESSION",
     "M1_EXPRESSION", "M1_DATA_ANALYSIS", "M1_INT_RATIONAL"
