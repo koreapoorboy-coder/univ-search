@@ -6,7 +6,7 @@
     "authoring_rule": "error_code 통합/분리 기준(검수 확정): 같은 오류·대상만 다름 → 통합(예: 삼각형·다각형 내각합 = interior_angle_sum_error). 다른 정리·관계 → 분리(예: 외각정리 ↔ 외각합). 애매하면 통합(나중 분리가 합치기보다 쉬움). 접미는 사전 관례(_failure·_error·_omitted·_confusion·_misapplied…), 대문자·도메인접두 금지.",
     "reuse_priority": "error_code 조회 순서: (1) 이 유형의 fine_error_tags(overlay·observed_basis:true) → (2) M2_GEOM overlay 36종 관측 태그(same-unit 관측어휘, dict에 없어도 우선) → (3) TAG_DICTIONARY_v2 §1→§2→§3 → (4) 신설(new_tags 보고). (2)를 (3)보다 앞세운 이유: same-unit 관측 어휘가 dict(타단원 출처)보다 관측 정합이 높음. 검수 확인 대상.",
     "observed_basis_true_types": ["M2_GEOM_PT023","M2_GEOM_PT026","M2_GEOM_PT029","M2_GEOM_PT038","M2_GEOM_PT041","M2_GEOM_PT044","M2_GEOM_PT047","M2_GEOM_PT050","M2_GEOM_PT053","M2_GEOM_PT055","M2_GEOM_PT067","M2_GEOM_PT071","M2_GEOM_PT074","M2_GEOM_PT077","M2_GEOM_PT080","M2_GEOM_PT083","M2_GEOM_PT086","M2_GEOM_PT089","M2_GEOM_PT092","M2_GEOM_PT100","M2_GEOM_PT103","M2_GEOM_PT104","M2_GEOM_PT107","M2_GEOM_PT116","M2_GEOM_PT119","M2_GEOM_PT134","M2_GEOM_PT140"],
-    "progress": "누계 83/140. 여러 사각형 전반(C025-027 PT075-083 9종) 저작. 관측=PT077(직사각형)·PT080(마름모)·PT083(정사각형) tier-1. 신설 0, distinct 7 전량 재사용. ★category_ledger로 전수 재검산 확정(멀티 PT123-140 leaf 후 일괄; 이전 '평행사변형 완결'=core 15 완결로 정정). ★PT080은 36번 실사용 대조 대상 — 라이브 관측 isosceles_triangle_angle_chain_failure 3회 안정, tier-1 선두 배치(overlay 정적태그와 차이는 teacher_note에 기록). ★gap #3(quadrilateral_hierarchy_classification_failure@C027, 개념국소) 추가.",
+    "progress": "누계 92/140. 여러 사각형 21종 core 완결(C025-030 PT075-092; 멀티 PT132-134는 leaf 후). 후반 관측=PT086(등변사다리꼴)·PT089(포함관계)·PT092(대각선비교) tier-1. 신설 0, distinct 6 전량 재사용. ★PT089에서 quadrilateral_hierarchy_classification_failure tier-1 등장 → gap #3 '타 개념 존재' 실증. ★PT080 overlay↔라이브 불일치를 _meta.overlay_live_divergence(3번째 발견계열)로 분리. ★gaps_criterion에 편재 태그 제외 정제 규칙 추가(law_selection_error@C028 미기록). 다음=도형증명 core(C031-034 PT093-104, 분할).",
     "validation_procedure": "카테고리별 커밋 전 필수 검증(결과 수치를 보고에 명시): ① JSON 파싱 통과 ② 엔트리 수=예상 누계 ③ 13필드(problem_nature·required_thinking·must_write_steps·common_wrong_actions·error_checkpoints·student_command·teacher_note·parent_message·matched_template_id·match_score·draft·revision·observed_basis) 전건 완비·누락 0. 추가: checkpoint ≤4, matched_template_id 전건 null, observed_basis:true 개수=누계. 통과분만 _backup 롤링백업(_backup/m2_geom_prescriptions.draft.v1.lastgood.json) 갱신 후 커밋. (계기: 56/140 시점 _meta 닫는 중괄호 소실로 JSON 파손, 검증에서 포착.)",
     "category_ledger": {
       "note": "로스터(_m2geom_roster.tsv) 카테고리 필드 전수 집계. 합=140 [코드확인 PowerShell]. 멀티컨셉 유형(PT123-140, concept 필드 콤마 4개)은 참조 leaf concept 모두 저작 후 마지막 일괄. done=PT001-074(74), remaining=PT075-140(66).",
@@ -19,7 +19,7 @@
         {"cat": "삼각형의 중심", "pt": "PT054-056", "n": 3, "concepts": "C018", "done": true},
         {"cat": "사각형의 기초", "pt": "PT057-059", "n": 3, "concepts": "C019", "done": true},
         {"cat": "평행사변형(core)", "pt": "PT060-074", "n": 15, "concepts": "C020-C024", "done": true},
-        {"cat": "여러 사각형(core)", "pt": "PT075-092", "n": 18, "concepts": "C025-C030", "done": false},
+        {"cat": "여러 사각형(core)", "pt": "PT075-092", "n": 18, "concepts": "C025-C030", "done": true},
         {"cat": "도형 증명(core)", "pt": "PT093-104", "n": 12, "concepts": "C031-C034", "done": false},
         {"cat": "도형 활용", "pt": "PT105-116", "n": 12, "concepts": "C035-C038", "done": false},
         {"cat": "종합", "pt": "PT117-122", "n": 6, "concepts": "C039-C040", "done": false},
@@ -40,19 +40,25 @@
       {"tag": "proof_reasoning_order_failure", "reason": "증명에서 결론을 먼저 쓰거나 근거 순서를 건너뜀. dict·overlay에 증명 구조/순서 태그 없음. 도형 증명 전반(합동·사각형 증명)에 재사용 예정."},
       {"tag": "circumcenter_position_by_triangle_type_error", "reason": "삼각형 종류(예각→내부·직각→빗변 중점·둔각→외부)에 따른 외심 위치 오판. C014 PT042·043에서 사용. dict §2·§3에 외심 위치 태그 없고, overlay 관측 태그(circumcenter_equidistance/_perpendicular_bisector_*)는 등거리·수직이등분선 관계라 위치 판단과 별개 오류 → 통합 불가, 신설. (관측 부재는 predicted_observed_gaps 배열에 별도 기록.)"}
     ],
-    "reuse_note": "누계 재사용: 기본각관계 distinct 6 중 3(§2)=50%. 삼각형합동 distinct 4 중 2 재사용(triangle_congruence_condition_selection_failure=M2_GEOM관측, angle_correspondence_chain_failure=§2/관측)=50%. 삼각형외심(C011-14) distinct 8 중 7 재사용=87.5%(circumcenter_equidistance_relation_failure·circumcenter_perpendicular_bisector_relation_failure=overlay관측/dict부재 tier-2, segment_partition_tracking_failure·isosceles_triangle_angle_chain_failure·angle_correspondence_chain_failure·central_inscribed_angle_factor_confusion=§2·§3 dict/관측, law_selection_error=§6/관측; 신설 1=circumcenter_position_by_triangle_type_error). 삼각형내심(C015-17) distinct 9 중 9 재사용=100%(incenter_angle_bisector_relation_failure·tangent_radius_perpendicularity_omitted·angle_bisector_chain_integration_failure·area_inradius_relation_setup_failure·semiperimeter_tangent_partition_failure=overlay관측/§3 dict, area_formula_setup_error·angle_correspondence_chain_failure=§2/관측, law_selection_error=§6/관측; 신설 0). 신설 누계 6종. _error·_failure 접미 사전관례. 외심·내심은 관측 어휘 재사용률 최고 — 관측 circumcenter_*·incenter_* 태그가 C011(수직이등분선 기초)·C015(각이등분선 기초)까지 tier-2로 커버. 삼각형중심(C018) distinct 3 전량 재사용=100%(circumcenter_perpendicular_bisector_relation_failure·incenter_angle_bisector_relation_failure=overlay관측, law_selection_error=§6/관측; 신설 0). C012~C018 7개 개념 연속 신설률 저하(외심 1→내심 0→중심 0) — 외심·내심 관측 어휘가 비교 개념까지 포화. 사각형기초(C019) distinct 2 전량 재사용=100%(interior_angle_sum_error=기존 신설 재사용/§없음, angle_correspondence_chain_failure=§2/관측; 신설 0). ★interior_angle_sum_error가 삼각형(C002)·다각형(C003)·사각형(C019) 3맥락 재사용 — 통합 기준('대상만 다름 → 통합') 유효성 실증(별개 신설 시 3종이 됐을 것). 평행사변형 전반(C020-022) distinct 6 전량 재사용=100%(parallelogram_condition_converse_failure=overlay관측, parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·segment_partition_tracking_failure=§2/관측, law_selection_error=§6/관측, multiple_answer_omission=§1/관측; 신설 0). 평행사변형 후반(C023-024) distinct 6 전량 재사용=100%(parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·midpoint_length_relation_error·segment_partition_tracking_failure=§2/overlay관측, law_selection_error=§6/관측; 신설 0). 평행사변형 18종 전체 신설 0. 사각형 계열도 관측 어휘로 커버. 여러사각형 전반(C025-027) distinct 7 전량 재사용=100%(law_selection_error=§6/관측, triangle_congruence_condition_selection_failure·quadrilateral_hierarchy_classification_failure=overlay관측, angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·area_formula_setup_error=§2/관측, angle_bisector_chain_integration_failure=§3/관측; 신설 0). 직사각형·마름모·정사각형 오류형은 상호 성질 전이 오류(대각선 수직↔길이같음, 네각직각↔네변같음, 포함관계)를 law_selection_error·quadrilateral_hierarchy로 커버.",
+    "reuse_note": "누계 재사용: 기본각관계 distinct 6 중 3(§2)=50%. 삼각형합동 distinct 4 중 2 재사용(triangle_congruence_condition_selection_failure=M2_GEOM관측, angle_correspondence_chain_failure=§2/관측)=50%. 삼각형외심(C011-14) distinct 8 중 7 재사용=87.5%(circumcenter_equidistance_relation_failure·circumcenter_perpendicular_bisector_relation_failure=overlay관측/dict부재 tier-2, segment_partition_tracking_failure·isosceles_triangle_angle_chain_failure·angle_correspondence_chain_failure·central_inscribed_angle_factor_confusion=§2·§3 dict/관측, law_selection_error=§6/관측; 신설 1=circumcenter_position_by_triangle_type_error). 삼각형내심(C015-17) distinct 9 중 9 재사용=100%(incenter_angle_bisector_relation_failure·tangent_radius_perpendicularity_omitted·angle_bisector_chain_integration_failure·area_inradius_relation_setup_failure·semiperimeter_tangent_partition_failure=overlay관측/§3 dict, area_formula_setup_error·angle_correspondence_chain_failure=§2/관측, law_selection_error=§6/관측; 신설 0). 신설 누계 6종. _error·_failure 접미 사전관례. 외심·내심은 관측 어휘 재사용률 최고 — 관측 circumcenter_*·incenter_* 태그가 C011(수직이등분선 기초)·C015(각이등분선 기초)까지 tier-2로 커버. 삼각형중심(C018) distinct 3 전량 재사용=100%(circumcenter_perpendicular_bisector_relation_failure·incenter_angle_bisector_relation_failure=overlay관측, law_selection_error=§6/관측; 신설 0). C012~C018 7개 개념 연속 신설률 저하(외심 1→내심 0→중심 0) — 외심·내심 관측 어휘가 비교 개념까지 포화. 사각형기초(C019) distinct 2 전량 재사용=100%(interior_angle_sum_error=기존 신설 재사용/§없음, angle_correspondence_chain_failure=§2/관측; 신설 0). ★interior_angle_sum_error가 삼각형(C002)·다각형(C003)·사각형(C019) 3맥락 재사용 — 통합 기준('대상만 다름 → 통합') 유효성 실증(별개 신설 시 3종이 됐을 것). 평행사변형 전반(C020-022) distinct 6 전량 재사용=100%(parallelogram_condition_converse_failure=overlay관측, parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·segment_partition_tracking_failure=§2/관측, law_selection_error=§6/관측, multiple_answer_omission=§1/관측; 신설 0). 평행사변형 후반(C023-024) distinct 6 전량 재사용=100%(parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·midpoint_length_relation_error·segment_partition_tracking_failure=§2/overlay관측, law_selection_error=§6/관측; 신설 0). 평행사변형 18종 전체 신설 0. 사각형 계열도 관측 어휘로 커버. 여러사각형 전반(C025-027) distinct 7 전량 재사용=100%(law_selection_error=§6/관측, triangle_congruence_condition_selection_failure·quadrilateral_hierarchy_classification_failure=overlay관측, angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·area_formula_setup_error=§2/관측, angle_bisector_chain_integration_failure=§3/관측; 신설 0). 직사각형·마름모·정사각형 오류형은 상호 성질 전이 오류(대각선 수직↔길이같음, 네각직각↔네변같음, 포함관계)를 law_selection_error·quadrilateral_hierarchy로 커버. 여러사각형 후반(C028-030) distinct 6 전량 재사용=100%(parallel_line_angle_transfer_failure·triangle_congruence_condition_selection_failure·area_decomposition_equation_setup_failure·angle_correspondence_chain_failure=§2/overlay관측, quadrilateral_hierarchy_classification_failure=overlay관측, law_selection_error=§6/관측; 신설 0). 여러사각형 21종 core(18) 신설 0 — 사각형 4단원(사각형기초·평행사변형·여러사각형) 누계 신설 0.",
     "overlay_coverage_note": "M2_GEOM overlay 36종 커버리지가 27 관측유형(observed_basis:true)을 넘어섬 — 외심·내심·비교 개념(C011~C018)의 false 유형까지 tier-2로 커버(신설률 외심1→내심0→중심0). 4-tier 설계 유효성 증거이자, M1 기하(overlay 0종) 저작 시 M2_GEOM overlay 차용 판단의 근거. 최종 제출 별도 항목.",
     "predicted_observed_gaps": [
       {"tag": "circumcenter_position_by_triangle_type_error", "predicted_in": ["M2_GEOM_PT042","M2_GEOM_PT043"], "observed_in": [], "observed_type_checked": "M2_GEOM_PT044", "note": "종류별 외심 위치 오류(직각→빗변 중점 등)를 C014 예측층(오류형·조건적용)에 배치했으나, C014의 관측 계산·추론 PT044 fine_error_tags엔 없음(관측은 등거리·이등변 밑각·각 연쇄). 이 태그는 타 개념 관측에도 없음(전역 부재=신설 태그). 해석 보류(예측 과다 vs 문항 희소 구분 불가)."},
       {"tag": "incenter_angle_bisector_relation_failure", "predicted_in": ["M2_GEOM_PT045","M2_GEOM_PT046"], "observed_in": [], "observed_type_checked": "M2_GEOM_PT047", "note": "각이등분선-거리 관계 오류(두 변 등거리)를 C015 예측층에 배치했으나, C015의 관측 계산·추론 PT047 fine_error_tags엔 없음(관측은 각이등분 연쇄통합·넓이식·성질선택). 단 이 태그는 타 개념 C016(PT050)·C017(PT053)·C018(PT055) 관측엔 존재 — 개념국소 부재(전역 부재 아님). 해석 보류."},
-      {"tag": "quadrilateral_hierarchy_classification_failure", "predicted_in": ["M2_GEOM_PT081"], "observed_in": [], "observed_type_checked": "M2_GEOM_PT083", "note": "정사각형 포함관계 분류 오류를 C027 예측층(오류형 PT081)에 배치했으나, C027의 관측 계산·추론 PT083 fine_error_tags엔 없음(관측은 성질선택·각연쇄·합동선택). 단 이 태그는 타 개념 C029(PT089, 포함관계) 관측엔 존재 — 개념국소 부재. gap #2와 동형(오류형의 개념 오해가 관측 계산유형엔 안 나타남). 해석 보류."}
+      {"tag": "quadrilateral_hierarchy_classification_failure", "predicted_in": ["M2_GEOM_PT081"], "observed_in": [], "observed_type_checked": "M2_GEOM_PT083", "observed_elsewhere_confirmed": ["M2_GEOM_PT089"], "note": "정사각형 포함관계 분류 오류를 C027 예측층(오류형 PT081)에 배치했으나, C027의 관측 계산·추론 PT083 fine_error_tags엔 없음(관측은 성질선택·각연쇄·합동선택). 단 이 태그는 타 개념 C029(PT089, 포함관계) 관측엔 존재 — 개념국소 부재. gap #2와 동형(오류형의 개념 오해가 관측 계산유형엔 안 나타남). ★C029 PT089 저작 시 quadrilateral_hierarchy_classification_failure가 tier-1으로 실제 등장함을 확인 — '타 개념 존재' 실증 완료. 해석 보류."}
     ],
-    "gaps_criterion": "predicted_observed_gaps 수집 규칙(기계 추출용): 예측층(observed_basis:false) 유형에 배치한 error_code 중, 같은 개념(concept)에 관측 유형(observed_basis:true)이 존재하는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면(전량 false) 판정 불가 → 미기록(관측 부재가 곧 예측 오류가 아니므로). observed_in=개념 내 관측 유형에서의 등장(없으면 []), note에 전역 부재/개념국소 여부 표기. 해석·판정은 실사용 데이터 후로 보류.",
+    "gaps_criterion": "predicted_observed_gaps 수집 규칙(기계 추출용): 예측층(observed_basis:false) 유형에 배치한 error_code 중, 같은 개념(concept)에 관측 유형(observed_basis:true)이 존재하는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면(전량 false) 판정 불가 → 미기록(관측 부재가 곧 예측 오류가 아니므로). observed_in=개념 내 관측 유형에서의 등장(없으면 []), note에 전역 부재/개념국소 여부 표기. 해석·판정은 실사용 데이터 후로 보류. ★정제 규칙(83/140~): pan-unit 범용 태그(law_selection_error·angle_correspondence_chain_failure 등 관측 5개 유형 이상 등장)는 개념국소 갭에서 제외 — 편재 태그의 개별 관측유형 부재는 무의미(샘플링 노이즈)이고 태그 세분화 후보도 아님. 갭은 개념 특정 오해 태그만 기록. (예: law_selection_error@C028은 PT086 관측 부재이나 편재 태그라 미기록.)",
     "gaps_frequency_note": "누계 갭 3건(83/140 시점): circumcenter_position@C014(전역부재), incenter_angle_bisector_relation_failure@C015(개념국소), quadrilateral_hierarchy_classification_failure@C027(개념국소). 패턴: 2·3호 모두 '오류형의 개념 오해 태그가 같은 개념 관측 계산유형엔 안 나타남'(오류형↔계산유형 구조차). 관측 보유 개념 다수는 갭 없음 — 갭은 예외적. 해석 보류. 최종 제출 유지.",
     "observed_tag_instability": {
       "note": "predicted_observed_gaps(예측↔관측 정의 불일치)와 다른 종류의 발견: 관측끼리 흔들림 — 같은 오류에 이름이 여러 개 붙음(생성 불안정). 태그 세분화 시 '같은 오류=한 이름'으로 정리할 단서. 처방에는 dict/overlay 실재 태그만 사용. 해석 보류.",
       "cases": [
         {"item": "37번 문항", "concept_pair": ["M2_GEOM_C021","M2_GEOM_C024"], "type_waver": ["M2_GEOM_PT065","M2_GEOM_PT074"], "run_ref": "3d232d0a", "observed_names_across_runs": ["parallelogram_vertex_coordinate_error","segment_partition_tracking_failure","coordinate_vertex_determination_failure","parallelogram_vertex_coordinate_determination_failure"], "real_tags": ["segment_partition_tracking_failure"], "note": "3회 실행에서 4개 이름 전부 다름. 4개 중 dict/overlay 실재는 segment_partition_tracking_failure 1개뿐, 나머지 3개는 미실재(좌표·꼭짓점 계열, 생성 시마다 변주). 처방 PT074엔 실재 태그(segment_partition_tracking_failure·midpoint_length_relation_error·law_selection_error)만 사용."}
+      ]
+    },
+    "overlay_live_divergence": {
+      "note": "세 번째 발견 계열. predicted_observed_gaps(예측 태그가 관측에 없음)·observed_tag_instability(같은 오류에 관측 이름 여러 개)와 다름: overlay(정적 후보 목록)와 라이브 관측이 불일치. overlay는 stage-2 프롬프트에 후보로 제시되는 목록인데 라이브가 목록 밖 태그를 안정적으로 냄 → AI가 제시 후보를 안 쓰고 자유 생성하는 정황. observed_tag_instability와 같은 뿌리(자유 생성)일 수 있음. '후보 목록에서만 고르게 강제할지' 판단 근거. 해석 보류, 사례만 수집.",
+      "cases": [
+        {"type": "M2_GEOM_PT080", "overlay_tags": ["law_selection_error","angle_bisector_chain_integration_failure","area_formula_setup_error"], "live_observed": ["isosceles_triangle_angle_chain_failure"], "live_runs": 3, "live_stable": true, "note": "라이브 3회 전부 overlay 목록 밖 태그(isosceles). 단 isosceles는 dict/overlay 실재 태그(마름모 네 변 같음→이등변 다수라 개념 정합). 처방 PT080은 라이브 우선(isosceles 선두)+overlay 선별 배치(checkpoint 4, 상한). 해석 보류."}
       ]
     },
     "concept_map": {
@@ -86,7 +92,10 @@
         "M2_GEOM_C024": {"name":"평행사변형의 길이 관계","types":["M2_GEOM_PT072","M2_GEOM_PT073","M2_GEOM_PT074"],"variants":["오류형","조건적용","계산추론(관측,waver:PT074)"]},
         "M2_GEOM_C025": {"name":"직사각형의 성질과 조건","types":["M2_GEOM_PT075","M2_GEOM_PT076","M2_GEOM_PT077"],"variants":["오류형","조건적용","계산추론(관측)"]},
         "M2_GEOM_C026": {"name":"마름모의 성질과 조건","types":["M2_GEOM_PT078","M2_GEOM_PT079","M2_GEOM_PT080"],"variants":["오류형","조건적용","계산추론(관측,실사용대조:PT080)"]},
-        "M2_GEOM_C027": {"name":"정사각형의 성질","types":["M2_GEOM_PT081","M2_GEOM_PT082","M2_GEOM_PT083"],"variants":["오류형(포함관계)","조건적용","계산추론(관측)"]}
+        "M2_GEOM_C027": {"name":"정사각형의 성질","types":["M2_GEOM_PT081","M2_GEOM_PT082","M2_GEOM_PT083"],"variants":["오류형(포함관계)","조건적용","계산추론(관측)"]},
+        "M2_GEOM_C028": {"name":"등변사다리꼴의 성질","types":["M2_GEOM_PT084","M2_GEOM_PT085","M2_GEOM_PT086"],"variants":["오류형","조건적용","계산추론(관측)"]},
+        "M2_GEOM_C029": {"name":"여러 사각형의 포함 관계","types":["M2_GEOM_PT087","M2_GEOM_PT088","M2_GEOM_PT089"],"variants":["오류형","조건적용","계산추론(관측)"]},
+        "M2_GEOM_C030": {"name":"여러 사각형의 대각선 성질 비교","types":["M2_GEOM_PT090","M2_GEOM_PT091","M2_GEOM_PT092"],"variants":["오류형","조건적용","계산추론(관측)"]}
       }
     },
     "waver_pairs": {
@@ -1272,6 +1281,130 @@
       "student_command": "정사각형 계산은 대각선이 만드는 직각이등변삼각형(45°)·합동을 이용해 각·길이를 하나씩 구하고 검산해라.",
       "teacher_note": "C027 계산·추론판(관측). 성질 선택·45° 각 연쇄·대각선 합동이 핵심. 유형 자체 fine_error_tags 사용.",
       "parent_message": "정사각형 계산은 대각선이 만드는 45°·합동을 단계별로 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT084": {
+      "problem_nature": "등변사다리꼴(한 쌍 대변 평행+다리 길이 같음)을 평행사변형과 구분해 판단하는 유형",
+      "required_thinking": ["등변사다리꼴=한 쌍 대변 평행+다리 길이 같음 확인", "사다리꼴(한 쌍 평행)↔평행사변형(두 쌍 평행) 구분", "밑각 같음·대각선 길이 같음 성질", "평행·이등변 각 관계식", "성질 성립 검산"],
+      "must_write_steps": ["등변사다리꼴은 한 쌍의 대변이 평행하고 평행하지 않은 두 변(다리)의 길이가 같음을 표시한다.", "한 쌍만 평행한 사다리꼴이지 두 쌍 평행한 평행사변형이 아님을 구분한다.", "아랫변의 두 밑각이 같고 두 대각선의 길이가 같음(성질)을 이용한다.", "평행에서 생기는 각·이등변 관계로 미지값을 구한다.", "한 쌍 평행·다리 같음·밑각 같음이 성립하는지 검산한다."],
+      "common_wrong_actions": ["등변사다리꼴에 평행사변형 성질(두 쌍 평행·대변 같음)을 적용한다.", "한 쌍만 평행함을 확인하지 않는다.", "밑각 같음·대각선 길이 같음을 이용하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "law_selection_error", "label": "성질 선택 오류(사다리꼴↔평행사변형)", "diagnosis": "등변사다리꼴에 평행사변형의 성질(두 쌍 대변 평행·대변 길이 같음)을 잘못 적용했다.", "student_fix": "등변사다리꼴은 한 쌍만 평행·다리 길이 같음·밑각 같음 — 두 쌍 평행(평행사변형)이 아님을 구분해라."}
+      ],
+      "student_command": "등변사다리꼴은 한 쌍의 대변만 평행하고 다리(평행하지 않은 두 변)의 길이가 같다 — 두 쌍이 평행한 평행사변형과 구분해라.",
+      "teacher_note": "사다리꼴↔평행사변형 혼동(성질 전이)이 핵심. '한 쌍 평행 vs 두 쌍 평행'을 구분시킨다.",
+      "parent_message": "등변사다리꼴은 한 쌍만 평행하고 다리 길이가 같은 도형입니다. 두 쌍이 평행한 평행사변형과 다릅니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT085": {
+      "problem_nature": "등변사다리꼴의 성질을 주어진 조건에 적용해 미지 각·길이를 구하는 유형",
+      "required_thinking": ["등변사다리꼴=한 쌍 대변 평행+다리 길이 같음 확인", "밑각 같음·대각선 길이 같음 성질", "주어진 조건 표시", "평행 각 전달+조건 결합", "성질 성립 검산"],
+      "must_write_steps": ["등변사다리꼴(한 쌍 평행·다리 같음)과 주어진 조건을 표시한다.", "두 밑각이 같고 두 대각선의 길이가 같음을 이용한다.", "한 쌍 평행에서 생기는 동측내각·엇각에 조건을 대입한다.", "밑각·대각선 관계로 미지값을 구한다.", "한 쌍 평행·다리 같음·밑각 같음이 성립하는지 검산한다."],
+      "common_wrong_actions": ["조건을 성질에 맞춰 넣지 않는다.", "평행사변형 성질을 잘못 적용한다.", "밑각 같음·대각선 길이 같음을 안 쓴다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "조건에 맞는 등변사다리꼴 성질(밑각 같음/대각선 길이 같음)을 잘못 골랐다(평행사변형 성질 혼용).", "student_fix": "등변사다리꼴 성질(밑각 같음·대각선 길이 같음)만 골라 조건을 대입해라."},
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "한 쌍 평행에서 생기는 동측내각·엇각을 조건에 결합하지 못했다.", "student_fix": "평행한 두 대변에서 동측내각(합 180°)·엇각을 표시해 조건과 이어라."}
+      ],
+      "student_command": "조건이 붙은 등변사다리꼴 문제는 밑각 같음·대각선 길이 같음과 한 쌍 평행의 각 관계를 표시하고 주어진 값을 대입해라.",
+      "teacher_note": "C028 조건적용판. 등변사다리꼴 고유 성질(밑각·대각선)에 조건을 넣는 판단이 핵심.",
+      "parent_message": "등변사다리꼴 조건 문제는 밑각 같음·대각선 길이 같음 성질에 조건을 맞춰 넣는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT086": {
+      "problem_nature": "등변사다리꼴의 성질을 여러 단계로 연결해 미지 각·길이·넓이를 계산·추론하는 유형",
+      "required_thinking": ["등변사다리꼴=한 쌍 평행+다리 같음·밑각 같음·대각선 길이 같음 확인", "한 쌍 평행의 각 전달", "보조선(높이·평행)으로 합동·직각삼각형 구성", "넓이 분해 식", "성질 성립 검산"],
+      "must_write_steps": ["등변사다리꼴(한 쌍 평행·다리 같음·밑각 같음)과 아는 값을 표시한다.", "한 쌍 평행에서 동측내각·엇각으로 각을 옮긴다.", "높이·평행 보조선으로 생기는 합동·직각삼각형을 이용한다.", "넓이가 필요하면 삼각형·직사각형으로 분해해 식을 세운다.", "밑각 같음·대각선 길이 같음이 성립하는지 검산한다."],
+      "common_wrong_actions": ["한 쌍 평행의 각 전달을 놓친다.", "보조선으로 생기는 합동을 못 세운다.", "넓이 분해 식을 잘못 세운다.", "평행사변형 성질을 혼용한다."],
+      "error_checkpoints": [
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "한 쌍 평행에서 동측내각·엇각을 바르게 옮기지 못했다.", "student_fix": "평행한 두 대변에서 동측내각(합 180°)·엇각을 표시해 옮겨라."},
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "보조선으로 생기는 삼각형의 합동 조건을 잘못 골랐다.", "student_fix": "높이·평행 보조선으로 생기는 삼각형에서 성립하는 합동 조건을 판별해라."},
+        {"error_code": "area_decomposition_equation_setup_failure", "label": "넓이 분해 식 실패", "diagnosis": "등변사다리꼴 넓이를 삼각형·직사각형으로 분해해 식으로 세우지 못했다.", "student_fix": "높이 보조선으로 직사각형+두 직각삼각형으로 나눠 넓이 식을 세워라."}
+      ],
+      "student_command": "등변사다리꼴 계산은 한 쌍 평행의 각을 옮기고, 높이 보조선으로 합동·직각삼각형을 만들어 각·길이·넓이를 구해라.",
+      "teacher_note": "C028 계산·추론판(관측). 평행 각 전달·보조선 합동·넓이 분해가 핵심. 유형 자체 fine_error_tags 사용.",
+      "parent_message": "등변사다리꼴 계산은 평행의 각 관계와 높이 보조선을 단계별로 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT087": {
+      "problem_nature": "여러 사각형의 포함 관계를 방향(특수→일반)까지 바르게 판단하는 유형",
+      "required_thinking": ["사각형 포함 관계 계층 확인(정사각형이 가장 특수)", "포함 방향(특수→일반) 구분", "각 도형의 정의 성질 대조", "포함 판정 근거", "포함 방향 검산"],
+      "must_write_steps": ["사각형들의 포함 관계 계층을 떠올린다(정사각형은 직사각형·마름모에, 이들은 평행사변형에, 평행사변형은 사다리꼴에 포함).", "포함 방향을 특수(성질 많음)→일반(성질 적음)으로 정한다.", "각 도형의 정의 성질을 대조해 어느 것이 어느 것에 포함되는지 판별한다.", "성질의 많고 적음으로 포함 관계를 근거로 밝힌다.", "포함 방향이 반대가 아닌지 검산한다."],
+      "common_wrong_actions": ["포함 방향을 반대로(일반이 특수에 포함) 판단한다.", "성질의 많고 적음으로 방향을 정하지 않는다.", "정의 성질을 대조하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "quadrilateral_hierarchy_classification_failure", "label": "포함관계 방향 오류", "diagnosis": "포함 방향을 반대로(일반 도형이 특수 도형에 포함) 판단했다.", "student_fix": "성질이 더 많은 특수한 도형이 일반 도형에 포함됨(예: 정사각형⊂직사각형)을 방향으로 확인해라."}
+      ],
+      "student_command": "사각형 포함 관계는 성질이 많은 특수한 도형이 일반 도형에 포함된다 — 정사각형⊂직사각형·마름모⊂평행사변형 방향을 지켜라.",
+      "teacher_note": "포함 방향 반대 판단이 핵심. '성질 많음=더 특수=포함됨' 방향을 잡아준다.",
+      "parent_message": "사각형의 포함 관계는 성질이 많은 도형일수록 특수해 일반 도형에 포함됩니다. 방향을 지키는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT088": {
+      "problem_nature": "여러 사각형의 포함 관계를 주어진 조건에 적용해 도형을 판별하는 유형",
+      "required_thinking": ["사각형 포함 관계 계층 확인", "포함 방향(특수→일반) 구분", "주어진 조건(성질)으로 도형 판별", "성질 개수로 포함 판정", "포함 방향 검산"],
+      "must_write_steps": ["사각형 포함 관계 계층과 주어진 조건(성질)을 표시한다.", "주어진 성질이 어느 도형의 것인지 판별한다.", "그 성질을 가진 도형이 어느 도형에 포함되는지 방향을 정한다.", "성질 개수로 포함 관계를 근거로 판단한다.", "포함 방향이 반대가 아닌지 검산한다."],
+      "common_wrong_actions": ["조건 성질로 도형을 판별하지 않는다.", "포함 방향을 반대로 본다.", "성질 개수를 대조하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "quadrilateral_hierarchy_classification_failure", "label": "포함관계 분류 실패", "diagnosis": "주어진 성질로 도형과 그 포함 관계를 바르게 판별하지 못했다.", "student_fix": "주어진 성질이 어느 도형의 것인지 판별하고 특수→일반 포함 방향을 정해라."},
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "판별에 쓸 성질(변·각·대각선)을 잘못 골랐다.", "student_fix": "도형을 가르는 결정적 성질(예: 대각선 수직=마름모)을 골라 판별해라."}
+      ],
+      "student_command": "조건이 붙은 포함 관계 문제는 주어진 성질로 도형을 판별하고, 특수→일반 포함 방향에 맞춰 관계를 정해라.",
+      "teacher_note": "C029 조건적용판. 조건 성질로 도형 판별 후 포함 방향 결정이 핵심.",
+      "parent_message": "포함 관계 조건 문제는 주어진 성질로 어느 도형인지 판별하는 것이 먼저입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT089": {
+      "problem_nature": "여러 사각형의 포함 관계를 여러 단계로 연결해 도형·성질을 계산·추론하는 유형",
+      "required_thinking": ["사각형 포함 관계 계층 확인", "포함 방향(특수→일반) 구분", "포함 관계로 성질 상속 추적", "성질 선택 관계식", "포함 방향 검산"],
+      "must_write_steps": ["사각형 포함 관계 계층과 아는 값을 표시한다.", "특수 도형이 일반 도형의 성질을 상속함(예: 정사각형은 직사각형·마름모 성질을 모두 가짐)을 이용한다.", "여러 단계면 어느 도형에 어느 성질이 있는지 하나씩 대조한다.", "포함 관계로 상속된 성질을 골라 미지값을 계산한다.", "포함 방향·성질 상속이 맞는지 검산한다."],
+      "common_wrong_actions": ["포함 방향을 반대로 본다.", "특수 도형의 성질 상속을 놓친다.", "어느 도형에 어느 성질이 있는지 대조하지 않는다.", "성질 선택을 틀린다."],
+      "error_checkpoints": [
+        {"error_code": "quadrilateral_hierarchy_classification_failure", "label": "포함관계 분류 실패", "diagnosis": "포함 관계와 성질 상속을 바르게 추적하지 못했다.", "student_fix": "특수→일반 포함 방향과 성질 상속(특수 도형은 일반 도형 성질을 모두 가짐)을 대조해라."},
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "포함 관계로 상속된 성질 중 어느 것을 쓸지 잘못 골랐다.", "student_fix": "그 도형이 상속받은 성질(변·각·대각선) 중 구하는 것에 맞는 성질을 골라라."}
+      ],
+      "student_command": "포함 관계 계산은 특수 도형이 일반 도형의 성질을 모두 상속함을 이용해, 그 도형에 맞는 성질을 골라 미지값을 구해라.",
+      "teacher_note": "C029 계산·추론판(관측). 포함 방향·성질 상속·성질 선택이 핵심. 유형 자체 fine_error_tags 사용. ★quadrilateral_hierarchy_classification_failure가 여기 tier-1으로 등장 — gap #3(C027 PT081 예측)의 '타 개념 관측 존재' 실증.",
+      "parent_message": "포함 관계 계산은 특수한 도형이 일반 도형의 성질을 모두 갖는다는 것을 이용하는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_GEOM_PT090": {
+      "problem_nature": "여러 사각형의 대각선 성질을 도형별로 구분해(모든 사각형에 일반화하지 않고) 판단하는 유형",
+      "required_thinking": ["도형별 대각선 성질 구분(이등분/길이 같음/수직) 확인", "한 도형 성질을 전체로 일반화하지 않기", "도형별 대각선 성질 대조", "성질 선택 관계식", "성질 성립 검산"],
+      "must_write_steps": ["평행사변형(서로 이등분)·직사각형(+길이 같음)·마름모(+수직)·정사각형(+길이 같고 수직)·등변사다리꼴(길이 같음)의 대각선 성질을 대조한다.", "한 도형의 대각선 성질을 모든 사각형에 일반화하지 않도록 구분한다.", "주어진 도형에 맞는 대각선 성질을 고른다.", "그 성질로 미지 각·길이를 구한다.", "고른 성질이 그 도형에 맞는지 검산한다."],
+      "common_wrong_actions": ["한 도형의 대각선 성질(예: 수직)을 모든 사각형에 일반화한다.", "도형별 대각선 성질을 대조하지 않는다.", "주어진 도형에 맞는 성질을 고르지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "law_selection_error", "label": "성질 선택 오류(대각선 성질 과일반화)", "diagnosis": "한 도형의 대각선 성질(예: 수직)을 모든 사각형에 일반화해 적용했다.", "student_fix": "도형마다 대각선 성질이 다름 — 주어진 도형에 맞는 성질(이등분/길이 같음/수직)만 골라라."}
+      ],
+      "student_command": "사각형마다 대각선 성질이 다르다 — 수직(마름모)·길이 같음(직사각형)·이등분(평행사변형)을 도형에 맞게 골라라. 한 성질을 전체에 쓰지 마라.",
+      "teacher_note": "대각선 성질 과일반화가 핵심. 도형별 대각선 성질 대조표를 만들게 한다.",
+      "parent_message": "사각형마다 대각선의 성질이 다릅니다. 한 도형의 성질을 모든 사각형에 적용하지 않는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT091": {
+      "problem_nature": "여러 사각형의 대각선 성질 비교를 주어진 조건에 적용해 도형·미지값을 판단하는 유형",
+      "required_thinking": ["도형별 대각선 성질 구분 확인", "주어진 조건(대각선 성질)으로 도형 판별", "도형별 성질 대조", "성질 선택 관계식", "성질 성립 검산"],
+      "must_write_steps": ["도형별 대각선 성질(이등분/길이 같음/수직)과 주어진 조건을 표시한다.", "주어진 대각선 성질이 어느 도형의 것인지 판별한다.", "그 도형에 맞는 대각선 성질에 조건을 대입한다.", "미지 각·길이를 구한다.", "고른 성질이 그 도형에 맞는지 검산한다."],
+      "common_wrong_actions": ["조건 대각선 성질로 도형을 판별하지 않는다.", "한 도형 성질을 일반화한다.", "도형별 성질을 대조하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "조건의 대각선 성질에 맞는 도형·성질을 잘못 골랐다.", "student_fix": "주어진 대각선 성질(수직/길이 같음/이등분)로 도형을 판별하고 그 성질만 써라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "대각선이 만드는 각을 조건에서 미지값까지 연결하지 못했다.", "student_fix": "대각선이 만드는 각(수직=90°, 이등분 등)을 하나씩 옮겨라."}
+      ],
+      "student_command": "조건이 붙은 대각선 비교 문제는 주어진 대각선 성질로 도형을 판별하고, 그 도형에 맞는 성질에 조건을 대입해라.",
+      "teacher_note": "C030 조건적용판. 대각선 성질로 도형 판별 후 성질 선택이 핵심.",
+      "parent_message": "대각선 비교 조건 문제는 대각선 성질로 어느 도형인지 판별하는 것이 먼저입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT092": {
+      "problem_nature": "여러 사각형의 대각선 성질 비교를 여러 단계로 연결해 미지 각·길이를 계산·추론하는 유형",
+      "required_thinking": ["도형별 대각선 성질 구분 확인", "주어진 도형의 대각선 성질 선택", "대각선이 만드는 각·삼각형 추적", "각 대응 관계식", "성질 성립 검산"],
+      "must_write_steps": ["도형별 대각선 성질(이등분/길이 같음/수직)과 아는 값을 표시한다.", "주어진 도형에 맞는 대각선 성질을 고른다.", "대각선이 만드는 각(수직=90°·이등분)·삼각형을 이용해 중간값을 하나씩 구한다.", "각 대응 관계로 미지값을 계산한다.", "고른 성질이 그 도형에 맞는지 검산한다."],
+      "common_wrong_actions": ["도형에 맞지 않는 대각선 성질을 쓴다.", "대각선이 만드는 각을 끝까지 추적하지 않는다.", "한 도형 성질을 일반화한다.", "중간값을 건너뛴다."],
+      "error_checkpoints": [
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "주어진 도형에 맞는 대각선 성질을 잘못 골라 계산했다.", "student_fix": "도형에 맞는 대각선 성질(이등분/길이 같음/수직)만 골라 관계식을 세워라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "대각선이 만드는 각을 끝까지 추적하지 못했다.", "student_fix": "대각선이 만드는 각(수직=90°·이등분)을 하나씩 옮겨 미지각을 구해라."}
+      ],
+      "student_command": "대각선 비교 계산은 도형에 맞는 대각선 성질을 고르고, 대각선이 만드는 각(수직·이등분)을 하나씩 옮겨 미지값을 구해라.",
+      "teacher_note": "C030 계산·추론판(관측). 도형별 성질 선택·대각선 각 연쇄가 핵심. 유형 자체 fine_error_tags 사용.",
+      "parent_message": "대각선 비교 계산은 도형에 맞는 대각선 성질을 골라 각을 단계별로 잇는 훈련입니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
