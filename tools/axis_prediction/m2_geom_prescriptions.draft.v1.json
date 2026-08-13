@@ -94,6 +94,16 @@
       ],
       "common_direction_unverified": "관측 어휘(overlay 36종·라이브 생성)가 예측 어휘(사전 163+신설)보다 좁거나 다른 것을 가리킬 가능성. 같은 근원 현상인지 미확인. 실사용 데이터 축적 후 판정."
     },
+    "live_run_observations": {
+      "note": "part04 병합·게이트 해제 후 실사용 대조 1회(run 2caaa04c, 2026-08-13) 관찰. ✅처방층 가동 확정: 오답 4건(10·19·36·37) suppressed_reason 소멸·8내용필드 전량 렌더·matched_template_id null·ACTION_LINEAR_FUNCTION 소멸. 정상층 무손상(top_concepts6·tag_stats14·distinct18·diagnosable50/50·menu_violation0). 비용 $2.5356(직전 $2.4954 동급). 처방 적정성 검수 판정: 10·19·36·37 전건 적정. 아래 observations는 부수 관찰 — 1회라 판정 불가, 해석 보류, 추이 관찰 대상.",
+      "run_ref": "2caaa04c",
+      "prescription_layer_confirmed": true,
+      "anchor_live_confirmed": {"item": "37번", "assigned": "M2_GEOM_PT074", "student_command_prefix_literal": true, "note": "★waver 앵커 실사용 작동 [실측]: PT074 배정, student_command 앞 절이 PT065 앵커('평행사변형은 대변·대각이 각각 같고 대각선이 서로 이등분한다(수직 아님) — ') 리터럴 그대로. 유형이 갈려도 앞 절 동일 확인. 이번 실행 최대 성과."},
+      "observations": [
+        {"id": "observed_axes_D2_first_appearance", "detail": "observed_axes에 D2 최초 등장(C3·3/C2·1/D2·1/C1·1). 직전 실행들엔 C1·C2·C3만. 인계문 §2 D2격차(6단원 예측 과다 +29~48pp) 관련 가능. 처방 배치 변화가 축매핑에 영향인지 태그 변화 때문인지 미확인.", "status": "unverified_single_run"},
+        {"id": "observed_error_tags_increase_circularity_risk", "detail": "10번·36번 observed_error_tags 1→2개 증가. 처방 checkpoint 배치가 관측 태그 선택에 영향? = 처방이 관측을 유도하는 순환 위험(예측이 관측을 만듦). 1회라 판정 불가. ★사실이면 findings_bundle 5번째 계열. 다음 실행들 추이 관찰.", "status": "unverified_single_run", "candidate_findings_series": 5}
+      ]
+    },
     "concept_map": {
       "shared_skeleton_fields": ["required_thinking","must_write_steps"],
       "differentiated_fields": ["problem_nature","common_wrong_actions","error_checkpoints","student_command","teacher_note","parent_message"],
