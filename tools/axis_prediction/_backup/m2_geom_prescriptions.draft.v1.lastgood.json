@@ -6,7 +6,7 @@
     "authoring_rule": "error_code 통합/분리 기준(검수 확정): 같은 오류·대상만 다름 → 통합(예: 삼각형·다각형 내각합 = interior_angle_sum_error). 다른 정리·관계 → 분리(예: 외각정리 ↔ 외각합). 애매하면 통합(나중 분리가 합치기보다 쉬움). 접미는 사전 관례(_failure·_error·_omitted·_confusion·_misapplied…), 대문자·도메인접두 금지.",
     "reuse_priority": "error_code 조회 순서: (1) 이 유형의 fine_error_tags(overlay·observed_basis:true) → (2) M2_GEOM overlay 36종 관측 태그(same-unit 관측어휘, dict에 없어도 우선) → (3) TAG_DICTIONARY_v2 §1→§2→§3 → (4) 신설(new_tags 보고). (2)를 (3)보다 앞세운 이유: same-unit 관측 어휘가 dict(타단원 출처)보다 관측 정합이 높음. 검수 확인 대상.",
     "observed_basis_true_types": ["M2_GEOM_PT023","M2_GEOM_PT026","M2_GEOM_PT029","M2_GEOM_PT038","M2_GEOM_PT041","M2_GEOM_PT044","M2_GEOM_PT047","M2_GEOM_PT050","M2_GEOM_PT053","M2_GEOM_PT055","M2_GEOM_PT067","M2_GEOM_PT071","M2_GEOM_PT074","M2_GEOM_PT077","M2_GEOM_PT080","M2_GEOM_PT083","M2_GEOM_PT086","M2_GEOM_PT089","M2_GEOM_PT092","M2_GEOM_PT100","M2_GEOM_PT103","M2_GEOM_PT104","M2_GEOM_PT107","M2_GEOM_PT116","M2_GEOM_PT119","M2_GEOM_PT134","M2_GEOM_PT140"],
-    "progress": "누계 122/140. 종합 완결(C039-040 PT117-122). ★leaf 개념 40개(C001-C040) 전량 저작 완료 — 남은 것은 멀티 18종(PT123-140)뿐. 종합 관측=PT119(삼각형 중심 종합) tier-1. ★신설 1: proof_statement_notation_mismatch(C040 증명 서술형, 기호-문장 축; 증명 3축 완성). 누계 신설 8종. ★findings_bundle_for_final 신설(검수 지시: 4항목 묶음, '관측 어휘가 예측보다 좁음' 같은 방향이나 동일 현상 미확인 명시). 다음=멀티 18종 — 진입 전 4항목 코드 검증 예정.",
+    "progress": "누계 131/140. 멀티 전반(PT123-131 9종: 각관계와합동 3 + 삼각형특수성질과중심 3 + 평행사변형종합 3). 관측 없음(전량 false). ★신설 0 — 참조 leaf 태그 전량 재사용(멀티 고유 '개념 연결 실패'는 leaf 태그 조합+student_command 연결 강조로 표현, 신설 불필요 판단). ★PT129·130·131 student_command 앞 절을 PT065 앵커에서 리터럴 재활용(상충 방지). checkpoint: PT128 4(참조 concept 4개 각 축). 다음=멀티 후반 PT132-140(관측 PT134·140 tier-1).",
     "validation_procedure": "카테고리별 커밋 전 필수 검증(결과 수치를 보고에 명시): ① JSON 파싱 통과 ② 엔트리 수=예상 누계 ③ 13필드(problem_nature·required_thinking·must_write_steps·common_wrong_actions·error_checkpoints·student_command·teacher_note·parent_message·matched_template_id·match_score·draft·revision·observed_basis) 전건 완비·누락 0. 추가: checkpoint ≤4, matched_template_id 전건 null, observed_basis:true 개수=누계. 통과분만 _backup 롤링백업(_backup/m2_geom_prescriptions.draft.v1.lastgood.json) 갱신 후 커밋. (계기: 56/140 시점 _meta 닫는 중괄호 소실로 JSON 파손, 검증에서 포착.)",
     "category_ledger": {
       "note": "로스터(_m2geom_roster.tsv) 카테고리 필드 전수 집계. 합=140 [코드확인 PowerShell]. 멀티컨셉 유형(PT123-140, concept 필드 콤마 4개)은 참조 leaf concept 모두 저작 후 마지막 일괄. done=PT001-074(74), remaining=PT075-140(66).",
@@ -23,9 +23,9 @@
         {"cat": "도형 증명(core)", "pt": "PT093-104", "n": 12, "concepts": "C031-C034", "done": true},
         {"cat": "도형 활용", "pt": "PT105-116", "n": 12, "concepts": "C035-C038", "done": true},
         {"cat": "종합", "pt": "PT117-122", "n": 6, "concepts": "C039-C040", "done": true},
-        {"cat": "각 관계와 합동(멀티)", "pt": "PT123-125", "n": 3, "concepts": "C001·C002·C005·C006", "done": false},
-        {"cat": "삼각형의 성질(멀티)", "pt": "PT126-128", "n": 3, "concepts": "C007·C009·C012·C016", "done": false},
-        {"cat": "평행사변형(멀티)", "pt": "PT129-131", "n": 3, "concepts": "C020-C023", "done": false},
+        {"cat": "각 관계와 합동(멀티)", "pt": "PT123-125", "n": 3, "concepts": "C001·C002·C005·C006", "done": true},
+        {"cat": "삼각형의 성질(멀티)", "pt": "PT126-128", "n": 3, "concepts": "C007·C009·C012·C016", "done": true},
+        {"cat": "평행사변형(멀티)", "pt": "PT129-131", "n": 3, "concepts": "C020-C023", "done": true},
         {"cat": "여러 사각형(멀티)", "pt": "PT132-134", "n": 3, "concepts": "C025-C028", "done": false},
         {"cat": "도형 증명(멀티)", "pt": "PT135-137", "n": 3, "concepts": "C031-C034", "done": false},
         {"cat": "종합 활용(멀티)", "pt": "PT138-140", "n": 3, "concepts": "C035-C038", "done": false}
@@ -42,7 +42,7 @@
       {"tag": "proof_condition_relevance_failure", "reason": "★논증 구조 오류(계산 오류 아님) — 증명에서 결론 도출에 필요한 조건(전제)을 식별하지 못하고 결론과 무관한 조건을 사용. proof_reasoning_order_failure(근거 순서 오류)와 다른 축(전제 선택/관련성): 순서는 맞아도 전제가 틀리거나, 전제는 맞아도 순서가 틀릴 수 있어 별개. dict §1~§6·overlay에 전제 선택/관련성 태그 없음(multi_constraint_intersection_failure는 조건 교집합 개수로 다름). C031(PT093-095) 사용, 도형증명 서술형(PT121-122)·멀티(PT135-137) 재사용 예정."},
       {"tag": "proof_statement_notation_mismatch", "reason": "★논증 서술 오류(계산 아님) — 증명 서술에서 기호(≡·∠·= 등)와 문장이 가리키는 대상이 불일치. 증명 3축 중 3번째: proof_reasoning_order_failure(순서)·proof_condition_relevance_failure(전제 선택)와 다른 축(서술 표현 일치). 순서·전제가 맞아도 기호-문장 표현이 어긋날 수 있어 별개. C040(도형 증명 서술형 완성, roster taxonomy 'reason_statement' 대응) 사용 — C040은 leaf 개념(멀티 아님)이라 신설 정당. dict·overlay에 기호-문장 일치 태그 없음. 멀티 도형증명(PT135-137) 재사용 예정."}
     ],
-    "reuse_note": "누계 재사용: 기본각관계 distinct 6 중 3(§2)=50%. 삼각형합동 distinct 4 중 2 재사용(triangle_congruence_condition_selection_failure=M2_GEOM관측, angle_correspondence_chain_failure=§2/관측)=50%. 삼각형외심(C011-14) distinct 8 중 7 재사용=87.5%(circumcenter_equidistance_relation_failure·circumcenter_perpendicular_bisector_relation_failure=overlay관측/dict부재 tier-2, segment_partition_tracking_failure·isosceles_triangle_angle_chain_failure·angle_correspondence_chain_failure·central_inscribed_angle_factor_confusion=§2·§3 dict/관측, law_selection_error=§6/관측; 신설 1=circumcenter_position_by_triangle_type_error). 삼각형내심(C015-17) distinct 9 중 9 재사용=100%(incenter_angle_bisector_relation_failure·tangent_radius_perpendicularity_omitted·angle_bisector_chain_integration_failure·area_inradius_relation_setup_failure·semiperimeter_tangent_partition_failure=overlay관측/§3 dict, area_formula_setup_error·angle_correspondence_chain_failure=§2/관측, law_selection_error=§6/관측; 신설 0). 신설 누계 6종. _error·_failure 접미 사전관례. 외심·내심은 관측 어휘 재사용률 최고 — 관측 circumcenter_*·incenter_* 태그가 C011(수직이등분선 기초)·C015(각이등분선 기초)까지 tier-2로 커버. 삼각형중심(C018) distinct 3 전량 재사용=100%(circumcenter_perpendicular_bisector_relation_failure·incenter_angle_bisector_relation_failure=overlay관측, law_selection_error=§6/관측; 신설 0). C012~C018 7개 개념 연속 신설률 저하(외심 1→내심 0→중심 0) — 외심·내심 관측 어휘가 비교 개념까지 포화. 사각형기초(C019) distinct 2 전량 재사용=100%(interior_angle_sum_error=기존 신설 재사용/§없음, angle_correspondence_chain_failure=§2/관측; 신설 0). ★interior_angle_sum_error가 삼각형(C002)·다각형(C003)·사각형(C019) 3맥락 재사용 — 통합 기준('대상만 다름 → 통합') 유효성 실증(별개 신설 시 3종이 됐을 것). 평행사변형 전반(C020-022) distinct 6 전량 재사용=100%(parallelogram_condition_converse_failure=overlay관측, parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·segment_partition_tracking_failure=§2/관측, law_selection_error=§6/관측, multiple_answer_omission=§1/관측; 신설 0). 평행사변형 후반(C023-024) distinct 6 전량 재사용=100%(parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·midpoint_length_relation_error·segment_partition_tracking_failure=§2/overlay관측, law_selection_error=§6/관측; 신설 0). 평행사변형 18종 전체 신설 0. 사각형 계열도 관측 어휘로 커버. 여러사각형 전반(C025-027) distinct 7 전량 재사용=100%(law_selection_error=§6/관측, triangle_congruence_condition_selection_failure·quadrilateral_hierarchy_classification_failure=overlay관측, angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·area_formula_setup_error=§2/관측, angle_bisector_chain_integration_failure=§3/관측; 신설 0). 직사각형·마름모·정사각형 오류형은 상호 성질 전이 오류(대각선 수직↔길이같음, 네각직각↔네변같음, 포함관계)를 law_selection_error·quadrilateral_hierarchy로 커버. 여러사각형 후반(C028-030) distinct 6 전량 재사용=100%(parallel_line_angle_transfer_failure·triangle_congruence_condition_selection_failure·area_decomposition_equation_setup_failure·angle_correspondence_chain_failure=§2/overlay관측, quadrilateral_hierarchy_classification_failure=overlay관측, law_selection_error=§6/관측; 신설 0). 여러사각형 21종 core(18) 신설 0 — 사각형 4단원(사각형기초·평행사변형·여러사각형) 누계 신설 0. 도형증명 전반(C031-032) distinct 4 중 3 재사용=75%(proof_reasoning_order_failure=C006 신설 재사용, congruent_correspondence_failure=C004 신설 재사용, triangle_congruence_condition_selection_failure=overlay관측; 신설 1=proof_condition_relevance_failure). ★신설 태그 회수 실증: proof_reasoning_order_failure 누계 7회 사용(C006 3+C031-032 4), congruent_correspondence_failure 누계 5회(C004 3+C032 2) — 증명 계열에서 삼각형 계열 신설 태그가 재사용됨(신설 투자 유효). ★증명 유형은 계산 태그가 아닌 논증 구조 태그(proof_*·congruent_correspondence) 위주 — 계산 계열과 축이 다름. 단 이는 예측층(false 유형)에 한함: 도형증명 후반(C033-034) distinct 7 전량 재사용=100%(parallelogram_condition_converse_failure·triangle_congruence_condition_selection_failure·midpoint_length_relation_error·multi_constraint_intersection_failure=overlay관측, angle_correspondence_chain_failure=§2/관측, law_selection_error=§6/관측, proof_condition_relevance_failure=신설 재사용; 신설 0). ★관측 증명유형(PT100·103·104)은 오히려 조건/계산 태그만(논증 구조 0) — 예측(논증)↔관측(계산) 축 불일치를 type_observation_nature_mismatch에 기록. 도형증명 12종 신설 1(proof_condition_relevance_failure, 전반). 도형활용 전반(C035-036) distinct 8 전량 재사용=100%(auxiliary_line_construction_failure·parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·multi_triangle_length_chain_failure·segment_partition_tracking_failure·variable_length_assignment_failure=§2/관측, paper_fold_reflection_distance_mapping_failure=§5닮음/관측, law_selection_error 미사용; 신설 0). 활용은 §2 도형공통 어휘가 주력 — 사전 §2가 활용 계열까지 커버. 도형활용 후반(C037-038) distinct 8 전량 재사용=100%(angle_correspondence_chain_failure·parallel_line_angle_transfer_failure·isosceles_triangle_angle_chain_failure·area_formula_setup_error·area_decomposition_equation_setup_failure·composite_area_subtraction_failure=§2/관측, same_altitude_area_ratio_transfer_failure=§5닮음/관측, law_selection_error=§6/관측; 신설 0). 도형활용 12종 신설 0. 종합(C039-040) distinct 8 중 7 재사용=87.5%(law_selection_error·angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure=§2·§6/관측, circumcenter_equidistance_relation_failure·incenter_angle_bisector_relation_failure=overlay관측, proof_reasoning_order_failure·proof_condition_relevance_failure=신설 재사용; 신설 1=proof_statement_notation_mismatch). 누계 신설 8종. leaf 40개념 완결 시점 재사용 총괄: 신설 8은 각관계·합동·성질(3)·외심위치(1)·증명서술 3축(proof_reasoning_order·proof_condition_relevance·proof_statement_notation_mismatch)에 집중, 나머지는 사전·overlay 재사용.",
+    "reuse_note": "누계 재사용: 기본각관계 distinct 6 중 3(§2)=50%. 삼각형합동 distinct 4 중 2 재사용(triangle_congruence_condition_selection_failure=M2_GEOM관측, angle_correspondence_chain_failure=§2/관측)=50%. 삼각형외심(C011-14) distinct 8 중 7 재사용=87.5%(circumcenter_equidistance_relation_failure·circumcenter_perpendicular_bisector_relation_failure=overlay관측/dict부재 tier-2, segment_partition_tracking_failure·isosceles_triangle_angle_chain_failure·angle_correspondence_chain_failure·central_inscribed_angle_factor_confusion=§2·§3 dict/관측, law_selection_error=§6/관측; 신설 1=circumcenter_position_by_triangle_type_error). 삼각형내심(C015-17) distinct 9 중 9 재사용=100%(incenter_angle_bisector_relation_failure·tangent_radius_perpendicularity_omitted·angle_bisector_chain_integration_failure·area_inradius_relation_setup_failure·semiperimeter_tangent_partition_failure=overlay관측/§3 dict, area_formula_setup_error·angle_correspondence_chain_failure=§2/관측, law_selection_error=§6/관측; 신설 0). 신설 누계 6종. _error·_failure 접미 사전관례. 외심·내심은 관측 어휘 재사용률 최고 — 관측 circumcenter_*·incenter_* 태그가 C011(수직이등분선 기초)·C015(각이등분선 기초)까지 tier-2로 커버. 삼각형중심(C018) distinct 3 전량 재사용=100%(circumcenter_perpendicular_bisector_relation_failure·incenter_angle_bisector_relation_failure=overlay관측, law_selection_error=§6/관측; 신설 0). C012~C018 7개 개념 연속 신설률 저하(외심 1→내심 0→중심 0) — 외심·내심 관측 어휘가 비교 개념까지 포화. 사각형기초(C019) distinct 2 전량 재사용=100%(interior_angle_sum_error=기존 신설 재사용/§없음, angle_correspondence_chain_failure=§2/관측; 신설 0). ★interior_angle_sum_error가 삼각형(C002)·다각형(C003)·사각형(C019) 3맥락 재사용 — 통합 기준('대상만 다름 → 통합') 유효성 실증(별개 신설 시 3종이 됐을 것). 평행사변형 전반(C020-022) distinct 6 전량 재사용=100%(parallelogram_condition_converse_failure=overlay관측, parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·segment_partition_tracking_failure=§2/관측, law_selection_error=§6/관측, multiple_answer_omission=§1/관측; 신설 0). 평행사변형 후반(C023-024) distinct 6 전량 재사용=100%(parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·midpoint_length_relation_error·segment_partition_tracking_failure=§2/overlay관측, law_selection_error=§6/관측; 신설 0). 평행사변형 18종 전체 신설 0. 사각형 계열도 관측 어휘로 커버. 여러사각형 전반(C025-027) distinct 7 전량 재사용=100%(law_selection_error=§6/관측, triangle_congruence_condition_selection_failure·quadrilateral_hierarchy_classification_failure=overlay관측, angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·area_formula_setup_error=§2/관측, angle_bisector_chain_integration_failure=§3/관측; 신설 0). 직사각형·마름모·정사각형 오류형은 상호 성질 전이 오류(대각선 수직↔길이같음, 네각직각↔네변같음, 포함관계)를 law_selection_error·quadrilateral_hierarchy로 커버. 여러사각형 후반(C028-030) distinct 6 전량 재사용=100%(parallel_line_angle_transfer_failure·triangle_congruence_condition_selection_failure·area_decomposition_equation_setup_failure·angle_correspondence_chain_failure=§2/overlay관측, quadrilateral_hierarchy_classification_failure=overlay관측, law_selection_error=§6/관측; 신설 0). 여러사각형 21종 core(18) 신설 0 — 사각형 4단원(사각형기초·평행사변형·여러사각형) 누계 신설 0. 도형증명 전반(C031-032) distinct 4 중 3 재사용=75%(proof_reasoning_order_failure=C006 신설 재사용, congruent_correspondence_failure=C004 신설 재사용, triangle_congruence_condition_selection_failure=overlay관측; 신설 1=proof_condition_relevance_failure). ★신설 태그 회수 실증: proof_reasoning_order_failure 누계 7회 사용(C006 3+C031-032 4), congruent_correspondence_failure 누계 5회(C004 3+C032 2) — 증명 계열에서 삼각형 계열 신설 태그가 재사용됨(신설 투자 유효). ★증명 유형은 계산 태그가 아닌 논증 구조 태그(proof_*·congruent_correspondence) 위주 — 계산 계열과 축이 다름. 단 이는 예측층(false 유형)에 한함: 도형증명 후반(C033-034) distinct 7 전량 재사용=100%(parallelogram_condition_converse_failure·triangle_congruence_condition_selection_failure·midpoint_length_relation_error·multi_constraint_intersection_failure=overlay관측, angle_correspondence_chain_failure=§2/관측, law_selection_error=§6/관측, proof_condition_relevance_failure=신설 재사용; 신설 0). ★관측 증명유형(PT100·103·104)은 오히려 조건/계산 태그만(논증 구조 0) — 예측(논증)↔관측(계산) 축 불일치를 type_observation_nature_mismatch에 기록. 도형증명 12종 신설 1(proof_condition_relevance_failure, 전반). 도형활용 전반(C035-036) distinct 8 전량 재사용=100%(auxiliary_line_construction_failure·parallel_line_angle_transfer_failure·angle_correspondence_chain_failure·multi_triangle_length_chain_failure·segment_partition_tracking_failure·variable_length_assignment_failure=§2/관측, paper_fold_reflection_distance_mapping_failure=§5닮음/관측, law_selection_error 미사용; 신설 0). 활용은 §2 도형공통 어휘가 주력 — 사전 §2가 활용 계열까지 커버. 도형활용 후반(C037-038) distinct 8 전량 재사용=100%(angle_correspondence_chain_failure·parallel_line_angle_transfer_failure·isosceles_triangle_angle_chain_failure·area_formula_setup_error·area_decomposition_equation_setup_failure·composite_area_subtraction_failure=§2/관측, same_altitude_area_ratio_transfer_failure=§5닮음/관측, law_selection_error=§6/관측; 신설 0). 도형활용 12종 신설 0. 종합(C039-040) distinct 8 중 7 재사용=87.5%(law_selection_error·angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure=§2·§6/관측, circumcenter_equidistance_relation_failure·incenter_angle_bisector_relation_failure=overlay관측, proof_reasoning_order_failure·proof_condition_relevance_failure=신설 재사용; 신설 1=proof_statement_notation_mismatch). 누계 신설 8종. leaf 40개념 완결 시점 재사용 총괄: 신설 8은 각관계·합동·성질(3)·외심위치(1)·증명서술 3축(proof_reasoning_order·proof_condition_relevance·proof_statement_notation_mismatch)에 집중, 나머지는 사전·overlay 재사용. 멀티 전반(PT123-131) distinct 6 전량 재사용=100%(parallel_line_angle_transfer_failure·triangle_congruence_condition_selection_failure·angle_correspondence_chain_failure·isosceles_triangle_angle_chain_failure·segment_partition_tracking_failure=§2/관측, circumcenter_equidistance_relation_failure·incenter_angle_bisector_relation_failure·parallelogram_condition_converse_failure=overlay관측, law_selection_error=§6; 신설 0). ★멀티는 leaf 태그 조합으로 '개념 연결'을 표현 — 참조 leaf 조회로 신설 0 달성.",
     "overlay_coverage_note": "M2_GEOM overlay 36종 커버리지가 27 관측유형(observed_basis:true)을 넘어섬 — 외심·내심·비교 개념(C011~C018)의 false 유형까지 tier-2로 커버(신설률 외심1→내심0→중심0). 4-tier 설계 유효성 증거이자, M1 기하(overlay 0종) 저작 시 M2_GEOM overlay 차용 판단의 근거. 최종 제출 별도 항목.",
     "predicted_observed_gaps": [
       {"tag": "circumcenter_position_by_triangle_type_error", "predicted_in": ["M2_GEOM_PT042","M2_GEOM_PT043"], "observed_in": [], "observed_type_checked": "M2_GEOM_PT044", "note": "종류별 외심 위치 오류(직각→빗변 중점 등)를 C014 예측층(오류형·조건적용)에 배치했으나, C014의 관측 계산·추론 PT044 fine_error_tags엔 없음(관측은 등거리·이등변 밑각·각 연쇄). 이 태그는 타 개념 관측에도 없음(전역 부재=신설 태그). 해석 보류(예측 과다 vs 문항 희소 구분 불가)."},
@@ -138,6 +138,17 @@
         "M2_GEOM_C038": {"name":"사각형 성질과 넓이","types":["M2_GEOM_PT114","M2_GEOM_PT115","M2_GEOM_PT116"],"variants":["오류형","조건적용","계산추론(관측,waver:PT116)"]},
         "M2_GEOM_C039": {"name":"삼각형 중심과 사각형 성질 종합","types":["M2_GEOM_PT117","M2_GEOM_PT118","M2_GEOM_PT119"],"variants":["오류형","조건적용","계산추론(관측)"]},
         "M2_GEOM_C040": {"name":"도형 증명 서술형 완성","types":["M2_GEOM_PT120","M2_GEOM_PT121","M2_GEOM_PT122"],"variants":["오류형","조건적용","계산추론"]}
+      },
+      "multi": {
+        "note": "멀티컨셉 유형(PT123-140): 자체 concept 없이 leaf concept 여러 개를 참조. 처방은 참조 leaf 태그 재사용(신설 0 목표). 골격은 '개념 A와 B 연결'.",
+        "groups": [
+          {"group": "각 관계와 합동", "types": ["M2_GEOM_PT123","M2_GEOM_PT124","M2_GEOM_PT125"], "refs": ["C001","C002","C005","C006"]},
+          {"group": "삼각형의 특수 성질과 중심", "types": ["M2_GEOM_PT126","M2_GEOM_PT127","M2_GEOM_PT128"], "refs": ["C007","C009","C012","C016"]},
+          {"group": "평행사변형 종합", "types": ["M2_GEOM_PT129","M2_GEOM_PT130","M2_GEOM_PT131"], "refs": ["C020","C021","C022","C023"], "anchor_reuse": "PT065 앵커 리터럴 재활용(PT129·130·131 앞 절 동일)"},
+          {"group": "여러 사각형 종합", "types": ["M2_GEOM_PT132","M2_GEOM_PT133","M2_GEOM_PT134"], "refs": ["C025","C026","C027","C028"], "status": "pending"},
+          {"group": "도형 증명 종합", "types": ["M2_GEOM_PT135","M2_GEOM_PT136","M2_GEOM_PT137"], "refs": ["C031","C032","C033","C034"], "status": "pending"},
+          {"group": "종합 활용", "types": ["M2_GEOM_PT138","M2_GEOM_PT139","M2_GEOM_PT140"], "refs": ["C035","C036","C037","C038"], "status": "pending"}
+        ]
       }
     },
     "waver_pairs": {
@@ -1871,6 +1882,137 @@
       "student_command": "증명 서술형 완성은 주어진 것 → 근거 → 결론 순서로 필요한 조건을 채우고, 기호와 문장이 같은 대상을 가리키게 맞춰 검산해라.",
       "teacher_note": "C040 계산·추론판. 순서·필요 조건·기호-문장 일치 세 축을 모두 맞추는 것이 핵심(증명 3축 proof_reasoning_order·proof_condition_relevance·proof_statement_notation_mismatch 총동원).",
       "parent_message": "증명 서술형 완성은 순서·근거·기호-문장 일치를 모두 맞추는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT123": {
+      "problem_nature": "평행선의 각 관계로 각을 구하고 그것을 삼각형 합동 조건에 연결하는 유형(각 관계와 합동 종합)",
+      "required_thinking": ["평행선 각 관계(동위각·엇각) 식별", "각으로 삼각형 요소 확보", "합동 조건(SSS·SAS·ASA) 판별", "각 관계→합동 연결", "합동·각의 합 검산"],
+      "must_write_steps": ["평행선에서 동위각·엇각으로 각의 크기·같음을 구한다.", "그 각을 삼각형의 대응 요소(각·변)로 표시한다.", "같은 요소를 세어 합동 조건(SSS·SAS·ASA)을 판별한다.", "각 관계로 얻은 것을 합동 근거에 연결한다.", "합동·각의 합으로 검산한다."],
+      "common_wrong_actions": ["평행선 각은 구하지만 합동 조건에 연결하지 못한다.", "동위각·엇각을 위치로 구분하지 못한다.", "합동 조건을 잘못 고른다.", "각과 합동을 따로 놀게 둔다."],
+      "error_checkpoints": [
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "평행선에서 동위각·엇각을 옮겨 삼각형의 각으로 쓰지 못했다.", "student_fix": "평행선에서 동위각·엇각을 표시해 삼각형의 대응 각으로 옮겨라."},
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "각 관계로 얻은 요소로 성립하는 합동 조건을 고르지 못했다.", "student_fix": "같은 각·변을 세어 SSS·SAS·ASA 중 성립 조건을 판별해라."}
+      ],
+      "student_command": "평행선 각 관계(동위각·엇각)로 각을 구한 뒤, 그 각을 삼각형의 대응 요소로 옮겨 합동 조건(SSS·SAS·ASA)에 연결해라.",
+      "teacher_note": "평행선 각(C001·C002)과 삼각형 합동(C005)을 연결하지 못하는 것이 핵심(멀티). 각→합동 요소 연결을 훈련. leaf 태그 재사용(신설 없음).",
+      "parent_message": "각 관계와 합동을 함께 쓰는 문제는 구한 각을 합동의 근거로 연결하는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT124": {
+      "problem_nature": "평행선 각 관계와 삼각형 합동 조건 연결을 주어진 조건에 적용하는 유형",
+      "required_thinking": ["평행선 각 관계 식별", "주어진 조건 표시", "합동 조건 판별", "각 관계→합동 연결", "합동·각의 합 검산"],
+      "must_write_steps": ["평행선 각 관계와 주어진 조건을 표시한다.", "동위각·엇각으로 삼각형의 각을 확보한다.", "같은 요소를 세어 합동 조건을 판별한다.", "각 관계로 얻은 것을 합동 근거에 연결해 미지값을 구한다.", "합동·각의 합으로 검산한다."],
+      "common_wrong_actions": ["조건을 평행선 각·합동 어느 쪽에 쓸지 구분 못한다.", "각을 합동에 연결하지 못한다.", "합동 조건을 잘못 고른다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "조건의 평행 관계에서 각을 삼각형으로 옮기지 못했다.", "student_fix": "평행선에서 동위각·엇각을 표시해 삼각형 각으로 옮겨라."},
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "조건으로 성립하는 합동 조건을 판별하지 못했다.", "student_fix": "같은 요소를 세어 성립 합동 조건을 골라라."}
+      ],
+      "student_command": "조건이 붙은 각·합동 연결 문제는 평행선으로 각을 확보하고, 그 각을 삼각형 합동 조건에 대입해 연결해라.",
+      "teacher_note": "멀티(C001·C002·C005·C006) 조건적용판. 조건을 각→합동으로 연결하는 판단이 핵심.",
+      "parent_message": "조건이 있는 각·합동 문제는 각을 확보해 합동에 연결하는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT125": {
+      "problem_nature": "평행선 각 관계와 삼각형 합동을 여러 단계로 연결해 각·길이를 계산·추론하는 유형",
+      "required_thinking": ["평행선 각 관계 식별", "각 대응 연쇄", "합동 조건 판별", "합동으로 대응값 이동", "합동·각의 합 검산"],
+      "must_write_steps": ["평행선 각 관계로 각을 구하고 아는 값을 표시한다.", "동위각·엇각·중간 각을 하나씩 옮긴다.", "같은 요소로 합동 조건을 판별해 합동을 밝힌다.", "합동으로 대응 변·각을 옮겨 미지값을 계산한다.", "합동·각의 합으로 검산한다."],
+      "common_wrong_actions": ["중간 각을 건너뛴다.", "각과 합동을 연결하지 못한다.", "합동 조건을 잘못 고른다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "평행선 각을 삼각형으로 바르게 옮기지 못했다.", "student_fix": "평행선에서 동위각·엇각을 표시해 옮겨라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "중간 각 대응을 끝까지 연결하지 못했다.", "student_fix": "아는 각부터 중간 각을 하나씩 옮겨라."},
+        {"error_code": "triangle_congruence_condition_selection_failure", "label": "합동 조건 선택 실패", "diagnosis": "성립하는 합동 조건을 잘못 골라 대응값을 옮기지 못했다.", "student_fix": "같은 요소를 세어 성립 조건으로 합동을 밝혀라."}
+      ],
+      "student_command": "각·합동 연결 계산은 평행선 각을 하나씩 옮겨 삼각형 요소를 확보하고, 합동을 밝혀 대응값을 계산한 뒤 검산해라.",
+      "teacher_note": "멀티(C001·C002·C005·C006) 계산·추론판. 각 연쇄→합동→대응 계산 연결이 핵심.",
+      "parent_message": "각·합동 계산은 각을 옮겨 합동을 밝히고 대응값을 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT126": {
+      "problem_nature": "이등변·직각삼각형의 특수 성질과 삼각형의 중심(외심·내심)을 종합해 각·길이를 구하는 유형",
+      "required_thinking": ["이등변·직각삼각형 성질", "외심 등거리·내심 각이등분 성질", "특수 성질↔중심 연결", "각·길이 관계식", "등거리·각의 합 검산"],
+      "must_write_steps": ["이등변(밑각 같음)·직각삼각형(RHS·RHA) 성질을 표시한다.", "외심(세 꼭짓점 등거리)·내심(각 이등분) 성질을 표시한다.", "특수 삼각형 성질과 중심 성질을 연결한다.", "각·길이 관계식으로 미지값을 구한다.", "등거리·각의 합으로 검산한다."],
+      "common_wrong_actions": ["이등변 성질과 중심 성질을 연결하지 못한다.", "외심 등거리·내심 각이등분을 안 쓴다.", "특수 성질만 보고 중심을 놓친다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "이등변삼각형의 밑각 관계를 중심 성질과 연결하지 못했다.", "student_fix": "이등변의 밑각이 같음을 표시하고 중심 성질과 이어라."},
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리 실패", "diagnosis": "외심의 세 꼭짓점 등거리(=반지름)로 이등변을 만들지 못했다.", "student_fix": "OA=OB=OC=반지름으로 이등변을 만들어 밑각을 이용해라."}
+      ],
+      "student_command": "이등변·직각삼각형 성질과 외심 등거리·내심 각이등분을 함께 표시하고, 두 성질을 연결해 각·길이를 구해라.",
+      "teacher_note": "특수 삼각형 성질(C007·C009)과 중심(C012·C016)을 연결하지 못하는 것이 핵심(멀티). 외심이 만드는 이등변으로 두 개념을 잇는다. leaf 태그 재사용.",
+      "parent_message": "특수 삼각형과 중심을 함께 쓰는 문제는 두 성질을 연결하는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT127": {
+      "problem_nature": "삼각형의 특수 성질과 중심을 주어진 조건에 적용해 각·길이를 구하는 유형",
+      "required_thinking": ["이등변·직각 성질", "외심·내심 성질", "주어진 조건 표시", "성질 연결 관계식", "등거리·각의 합 검산"],
+      "must_write_steps": ["이등변·직각삼각형 성질과 외심·내심 성질, 주어진 조건을 표시한다.", "조건이 어느 성질을 요구하는지 판별한다.", "특수 성질과 중심 성질을 연결한다.", "조건을 대입해 미지값을 구한다.", "등거리·각의 합으로 검산한다."],
+      "common_wrong_actions": ["조건을 어느 성질에 쓸지 구분 못한다.", "특수 성질과 중심을 연결하지 못한다.", "외심·내심을 혼동한다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "조건 각을 이등변 밑각 관계에 넣어 중심과 연결하지 못했다.", "student_fix": "이등변 밑각이 같음을 표시하고 조건을 대입해 중심과 이어라."},
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리 실패", "diagnosis": "조건을 외심 등거리(=반지름)에 연결하지 못했다.", "student_fix": "OA=OB=OC=반지름에 조건을 대입해라."},
+        {"error_code": "incenter_angle_bisector_relation_failure", "label": "내심 각이등분 실패", "diagnosis": "조건을 내심 각 이등분(½∠A)에 연결하지 못했다.", "student_fix": "내심에서 각이 절반으로 나뉨을 표시하고 조건을 대입해라."}
+      ],
+      "student_command": "조건이 붙은 특수 성질·중심 종합은 조건이 요구하는 성질(이등변·직각·외심·내심)을 판별하고 두 성질을 연결해 값을 구해라.",
+      "teacher_note": "멀티(C007·C009·C012·C016) 조건적용판. 조건→성질 판별→연결이 핵심.",
+      "parent_message": "특수 성질·중심 조건 문제는 조건이 요구하는 성질을 판별해 연결하는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT128": {
+      "problem_nature": "삼각형의 특수 성질과 중심을 여러 단계로 연결해 각·길이를 계산·추론하는 유형",
+      "required_thinking": ["이등변·직각 성질", "외심·내심 성질", "중심이 만드는 이등변·각 연쇄", "관계식 계산", "등거리·각의 합 검산"],
+      "must_write_steps": ["이등변·직각삼각형 성질과 외심·내심 성질, 아는 값을 표시한다.", "외심 등거리로 생기는 이등변·내심 각이등분을 이용한다.", "이등변 밑각·각 대응을 순서대로 옮긴다.", "관계식으로 미지값을 계산한다.", "등거리·각의 합으로 검산한다."],
+      "common_wrong_actions": ["중간 각·길이를 건너뛴다.", "특수 성질과 중심을 연결하지 못한다.", "외심·내심 성질을 혼동한다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "isosceles_triangle_angle_chain_failure", "label": "이등변 밑각 연쇄 실패", "diagnosis": "이등변·외심이 만드는 밑각 연쇄를 끝까지 잇지 못했다.", "student_fix": "같은 변·반지름으로 생기는 이등변의 밑각이 같음을 이용해 각을 옮겨라."},
+        {"error_code": "circumcenter_equidistance_relation_failure", "label": "외심 등거리 실패", "diagnosis": "외심 등거리로 이등변을 만들지 못했다.", "student_fix": "OA=OB=OC=반지름을 식으로 두고 이등변을 만들어라."},
+        {"error_code": "incenter_angle_bisector_relation_failure", "label": "내심 각이등분 실패", "diagnosis": "내심의 각 이등분을 계산에 쓰지 못했다.", "student_fix": "내심에서 각이 절반으로 나뉨(½∠A)을 이용해라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "중간 각 대응을 끝까지 연결하지 못했다.", "student_fix": "아는 각부터 중간 각을 하나씩 옮겨라."}
+      ],
+      "student_command": "특수 성질·중심 계산은 외심 등거리로 이등변을 만들고 내심 각이등분을 이용해, 밑각·각 대응을 하나씩 이어 미지값을 구해라.",
+      "teacher_note": "멀티(C007·C009·C012·C016) 계산·추론판. 외심 이등변·내심 각이등분·각 연쇄 연결이 핵심. checkpoint 4(참조 concept 4개 각 축).",
+      "parent_message": "특수 성질·중심 계산은 외심·내심 성질로 이등변·각을 만들어 잇는 훈련입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT129": {
+      "problem_nature": "평행사변형의 정의·성질(변·각·대각선)을 종합해 각·길이를 구하는 유형",
+      "required_thinking": ["평행사변형 정의(두 쌍 대변 평행)·성질 종합", "이웃각 180°·대각 같음", "대각선 이등분(중점)", "성질 연결 관계식", "네 각 합 360° 검산"],
+      "must_write_steps": ["평행사변형의 대변·대각이 각각 같고 대각선이 서로 이등분함(성질)을 표시한다.", "정의(두 쌍 대변 평행)와 이웃각의 합 180°·대각 같음을 이용한다.", "대각선 이등분(교점=중점)으로 길이를 이용한다.", "각·변·대각선 성질을 연결해 미지값을 구한다.", "네 각 합 360°·대각선 이등분으로 검산한다."],
+      "common_wrong_actions": ["한 쌍만 평행해도 평행사변형으로 본다.", "대변·대각·대각선 성질을 연결하지 못한다.", "대각선을 수직으로 본다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "parallelogram_condition_converse_failure", "label": "평행사변형 정의·조건 실패", "diagnosis": "정의(두 쌍 대변 평행)나 되는 조건을 바르게 쓰지 못했다.", "student_fix": "두 쌍의 대변이 평행함을 확인하고 그 성질을 연결해라."},
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "대변 평행에서 이웃각 180°·동측내각을 옮기지 못했다.", "student_fix": "대변 평행에서 이웃각의 합 180°를 표시해 각을 옮겨라."}
+      ],
+      "student_command": "평행사변형은 대변·대각이 각각 같고 대각선이 서로 이등분한다(수직 아님) — 정의(두 쌍 대변 평행)를 확인하고 각·변·대각선 성질을 연결해 풀어라.",
+      "teacher_note": "멀티(C020·C021·C022·C023) 오류형. 평행사변형 성질을 종합·연결하지 못하는 것이 핵심. ★student_command 앞 절을 PT065 앵커에서 리터럴 재활용(상충 방지). leaf 태그 재사용.",
+      "parent_message": "평행사변형 종합 문제는 변·각·대각선 성질을 함께 연결하는 것이 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT130": {
+      "problem_nature": "평행사변형의 각·변·대각선 성질을 주어진 조건에 적용해 미지값을 구하는 유형",
+      "required_thinking": ["평행사변형 성질(대변·대각·대각선) 확인", "주어진 조건 표시", "조건에 맞는 성질 선택", "성질 연결 관계식", "네 각 합 360° 검산"],
+      "must_write_steps": ["평행사변형의 대변·대각 같음·대각선 이등분과 주어진 조건을 표시한다.", "조건이 각·변·대각선 중 어느 성질을 요구하는지 판별한다.", "그 성질에 조건을 대입한다.", "성질을 연결해 미지값을 구한다.", "네 각 합 360°·대각선 이등분으로 검산한다."],
+      "common_wrong_actions": ["조건을 어느 성질에 쓸지 구분 못한다.", "대각선을 수직으로 본다.", "이웃각 180°를 안 쓴다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "조건 각을 이웃각 180°·대각 같음 관계에 넣지 못했다.", "student_fix": "대변 평행의 이웃각 180°·대각 같음에 조건 각을 대입해라."},
+        {"error_code": "law_selection_error", "label": "성질 선택 오류", "diagnosis": "조건에 맞는 성질(각·변·대각선)을 잘못 골랐다(대각선 수직 오해 포함).", "student_fix": "구하는 것에 맞는 성질을 고르되 대각선은 이등분(수직 아님)으로 써라."}
+      ],
+      "student_command": "평행사변형은 대변·대각이 각각 같고 대각선이 서로 이등분한다(수직 아님) — 주어진 조건에 맞는 성질(각·변·대각선)을 골라 연결해 값을 구해라.",
+      "teacher_note": "멀티(C020·C021·C022·C023) 조건적용판. 조건에 맞는 성질 선택·연결이 핵심. ★PT065 앵커 리터럴 재활용.",
+      "parent_message": "평행사변형 조건 종합은 조건에 맞는 성질을 골라 연결하는 것이 관건입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_GEOM_PT131": {
+      "problem_nature": "평행사변형의 각·변·대각선 성질을 여러 단계로 연결해 미지값을 계산·추론하는 유형",
+      "required_thinking": ["평행사변형 성질 확인", "이웃각·대각 각 연쇄", "대각선 이등분 선분 추적", "성질 연결 관계식 계산", "네 각 합 360° 검산"],
+      "must_write_steps": ["평행사변형의 대변·대각 같음·대각선 이등분과 아는 값을 표시한다.", "이웃각 180°·대각 같음으로 각을 하나씩 옮긴다.", "대각선 이등분으로 나뉜 선분을 추적한다.", "각·변·대각선 성질을 연결해 미지값을 계산한다.", "네 각 합 360°·대각선 이등분으로 검산한다."],
+      "common_wrong_actions": ["중간 각·길이를 건너뛴다.", "대각선을 수직으로 본다.", "대각선 이등분으로 나뉜 선분을 추적하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        {"error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전달 실패", "diagnosis": "이웃각 180°·동측내각을 바르게 옮기지 못했다.", "student_fix": "대변 평행의 이웃각 180°를 표시해 각을 옮겨라."},
+        {"error_code": "angle_correspondence_chain_failure", "label": "각 대응 연쇄 실패", "diagnosis": "대각 같음·이웃각 연쇄를 끝까지 잇지 못했다.", "student_fix": "대각은 같고 이웃각은 합 180°임을 하나씩 옮겨라."},
+        {"error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "대각선 이등분으로 나뉜 선분을 식으로 추적하지 못했다.", "student_fix": "대각선 교점이 각 대각선을 반으로 나눔을 문자로 두고 추적해라."}
+      ],
+      "student_command": "평행사변형은 대변·대각이 각각 같고 대각선이 서로 이등분한다(수직 아님) — 이 성질로 각·변·대각선 관계를 연결해 중간값을 하나씩 구해라.",
+      "teacher_note": "멀티(C020·C021·C022·C023) 계산·추론판. 각 연쇄·대각선 선분 추적 연결이 핵심. ★PT065 앵커 리터럴 재활용(PT065·074·129·130과 앞 절 동일).",
+      "parent_message": "평행사변형 종합 계산은 각·대각선 성질을 단계별로 연결하는 훈련입니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
     }
   }
