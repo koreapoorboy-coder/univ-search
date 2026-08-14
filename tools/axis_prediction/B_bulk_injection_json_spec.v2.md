@@ -1,4 +1,6 @@
-# 대량투입 JSON 스펙 v2 (2026-08-14, 검수 대조·2차 반영본)
+# 대량투입 JSON 스펙 v2 — 리비전 r3 (2026-08-14, 검수 3차 반영)
+
+> ★리비전 r3: (d)+3단·행식별키 id·inserted_items·**skipped_items**·§12 26항·§13 (d) 정합. (딜리버리 파일 = `...v2.r3.md`, 파일명 혼동 방지.)
 
 > v1(2026-08-11, 보류) 대체. 확정 반영: 차단2·dedup 옵션C·qnorm.v1 canonical·스키마 v3.1 라이브.
 > ★v1과 뒤집힌 항목: **source_text 자동복사 폐지(차단2)** · **dedup_key 구성/역할 변경(옵션C)** · **ON CONFLICT DO NOTHING skip-only(updated 제거)**.
@@ -115,11 +117,13 @@ GPT는 유형을 정하지 않음((d), [[B_gpt_item_registration_spec.v2.md]]) �
 { "ok": true, "worker_version": "<VER>", "bulk_batch_id": "SCSTUDY-2026-08-14-qfunc-01",
   "count": 513, "inserted": 480, "skipped_dup": 30, "pending": 480,
   "inserted_items": [ { "question_no": "1", "id": "<uuid>" }, { "question_no": "2", "id": "<uuid>" } ],
+  "skipped_items": [ { "question_no": "5", "existing_id": "<uuid>", "existing_pending": true } ],
   "duplicate_body_warnings": [ { "dedup_key": "8942…", "ids": ["...","..."], "question_no": ["12","47"] } ],
   "near_duplicate_warnings": [ { "question_no": ["7","41"], "sim": 0.994 } ],
   "failed": [ { "index": 17, "question_no": "18", "reason": "unit_id 없음" } ] }
 ```
-- ★**`inserted_items:[{question_no,id}]` 필수**(검수 확정 2026-08-14) — 신규 삽입된 각 행의 서버 uuid를 question_no와 함께 반환. **검수 2단이 question_no↔id를 매핑해 확정 JSON(id 기준)을 만드는 근거. 없으면 3단 성립 불가.** (skipped_dup 행은 기존 id가 있으므로 필요 시 별도 조회; 신규분만 필수.)
+- ★**`inserted_items:[{question_no,id}]` 필수**(검수 확정 2026-08-14) — 신규 삽입된 각 행의 서버 uuid를 question_no와 함께 반환. **검수 2단이 question_no↔id를 매핑해 확정 JSON(id 기준)을 만드는 근거. 없으면 3단 성립 불가.**
+- ★**`skipped_items:[{question_no,existing_id,existing_pending}]` 필수**(검수 2026-08-14) — content_hash 중복으로 스킵된 재투입 건도 **기존 행이 pending이면 2단 대조 대상**(이미 DB에 있으나 유형 미배정). id 없이는 재투입분이 3단에서 누락됨 → 스킵 시 기존 행의 `existing_id`·`existing_pending` 반환. 검수 2단은 `existing_pending=true`인 건도 확정 목록에 포함.
 - ★(d) 구조에선 GPT가 유형 미배정 → 대개 **`pending`이 `inserted`와 같은 규모**(전건 pending). `inserted`=신규 저장 수, `pending`=그중 유형 없는 수.
 - ★필드: `inserted`·`skipped_dup`·`pending`·`inserted_items`·`failed` (updated 없음) + warnings 2종. **duplicate_body_warnings·near_duplicate_warnings 반드시 노출**.
 - admin 화면: 성공/중복스킵/pending/**실패목록+사유 표** + warning 목록 + **pending 후처리로 이동(§6)**. 롤백보다 재실행(멱등) 우선.
@@ -153,19 +157,23 @@ GPT는 유형을 정하지 않음((d), [[B_gpt_item_registration_spec.v2.md]]) �
 | 16 | ~~pending 임계 게이트~~ → **폐기**(사용자 결정) | ✅ 폐기 명기 | §5 |
 | 17 | **pending 후처리 절 신설**(조회·일괄지정·진행률·dry-run목록) | ✅ /add-bulk 동시 | §6 |
 | 18 | dry-run 역할 변경(후처리 파악) | ✅ | §5 |
-| 19 | 유형 카탈로그 필수 첨부(GPT 명세) | ✅ | §13 |
+| 19 | 유형 카탈로그 — ★(d)로 **GPT 아닌 검수 2단**이 축약본 사용 | ✅ | §6·§13 |
 | 20 | 기존 concept_ids 스냅샷 처리(null) | ✅ | §8 |
 | 21 | 배치 롤백 절차(admin 버튼·soft우선) | ✅ | §9 |
 | A | self-check 순서(루프 전 1회·부분INSERT 불가) | ✅ | §4·§11-1 |
 | B | 근접중복 감사 dry-run 포함 | ✅ | §5·§7 |
-| — | **누락: 없음** (21항 + 지적 A·B 반영). | — | — |
+| **3차** | (검수 2026-08-14) | | |
+| 22 | **(d) GPT 유형 미배정 · 3단 구조**(GPT 전사→검수 대조→사용자 보류분) | ✅ | §6·[[B_gpt_item_registration_spec.v2.md]] |
+| 23 | 행 식별키 = **id**(question_no 배치내 중복·번호배제) | ✅ | §6 |
+| 24 | §10 **inserted_items** + **skipped_items**(재투입 pending도 2단 대상) | ✅ | §10 |
+| 25 | 카탈로그 축약본 39단원 + 재사용 스크립트 | ✅ | §6 |
+| 26 | 유형후보에 핵심 수식·조건 1개 권장 | ✅ | GPT v2 §4 |
+| — | **누락: 없음** (26항 + 지적 A·B 반영). | — | — |
 
 ★검수 재대조 요청: 위 전항 + 누락 0 확인. 이견 시 지적.
 
 ## 13. 후속
-- **GPT 문항등록 명세(3)**: 이 JSON을 GPT가 PDF→생성하는 지침(SPEC). 포함 필수:
-  - ★**problem_type_id 유형 카탈로그 필수 첨부**(태그 사전과 동일 위상). **목록에 없으면 유형을 만들지 말고 비우고(→pending) 사유 기재.** = pending 폭증을 막는 유일한 수단(§6 후처리 부담 최소화).
-  - ★전사 정확도(부호·글자전치 = ISSUE_ai_ocr_misread) 방어 문구.
-- **/add-bulk 구현(4)**: §11 순서. computeItemHashes(Step3 헬퍼) 재사용. **§6 pending 후처리 4종 동시 구축.** 0.99미달 로그(매칭).
+- **GPT 문항등록 명세(3)**: ✅완료 = **[[B_gpt_item_registration_spec.v2.md]]** ((d)+3단). ★(d)로 **GPT는 카탈로그를 안 받고 유형을 배정하지 않음** — `source_note "유형후보:"` 힌트만. 카탈로그 대조는 검수 2단(축약본). 전사정확도(ISSUE_ai_ocr_misread) 방어·그림의존 보완 포함. (v1 초안=카탈로그로 GPT 배정=폐기.)
+- **/add-bulk 구현(4)**: §11 순서. computeItemHashes(Step3 헬퍼) 재사용. **§6 후처리(파일업로드·검색필터·유형후보 묶기·진행률) + inserted_items/skipped_items 반환 + id 기준 bulk-assign-type 동시 구축.** 0.99미달 로그(매칭).
 - **매칭 구현(5)**: qnorm.v1 canonical·norm_rule_version 결과레코드 각인·0.99미달 로그.
 - **정정 엔드포인트**: provenance append·source_text 보존·해시 재계산(content_hash 변경 시 재멱등).
