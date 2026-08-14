@@ -7,7 +7,8 @@
 > 이 세션에서 매칭 트랙이 크게 진행됨. 아래가 최신. (그 아래 옛 재개블록은 §히스토리로 이동.)
 - **완료(이 세션)**: 스키마 v3.1 라이브(22컬럼·옵션C) → 차단2(source_text 자동복사 금지) → **qnorm.v1 canonical 트랙 종결**(정본=ocr_measure NFKC·워커 인라인·self-check 계산경로 차단·backfill 3행) → bulk spec **v2.r3 승인** → GPT 명세 **v2**((d) 유형 미배정·3단 구조) → 카탈로그 축약본 39단원(`make_catalog_short.ps1`) → **/add-bulk 구현·검산·3단 실동작 통과**(worker+admin UI+스모크). → **question_no 저장(스키마 v3.2)** 추가.
 - **★배포 대기(사용자, 순서 고정)**: ① `user_items.schema.v3.2.sql` D1 실행(ALTER question_no + idx) → ② 워커 재배포(VERSION `2026.08.14-bulk-v2-qno`, /health qnorm_selfcheck=pass 확인) → ③ 스모크 테스트(`B_bulk_smoketest.v1.json`: dry-run→실투입→D1 SELECT→3단 유형지정 시연→rollback soft).
-- **다음 트랙 = 매칭 구현(5)**. 확정: 1차 unit_id(+type 보조)·2차 qnorm.v1 유사도 ≥0.99·후보다수→미매칭→AI폴백·norm_rule_version 결과레코드 각인·0.99미달 사유 로그(판독오류 무료탐지). ★도형 실측(a) 미완=매칭 후 실사용서 자연검증 이월.
+- **매칭 구현(5) = ✅완료·검산대기**(옵션2 post-stage-2, `matchAttemptsToItems`, VERSION `2026.08.14-match-v1`). 유형 교정+답해설 첨부·ai_assigned_type/type_overridden_count 기록·0.99미달 로그·self-check 가드. 설계·정정 = `B_matching_integration_design.v1.md`(검수 비용가설 철회: 매칭돼도 오류관측 AI 필요→stage-2 생략 불가, 이득=정확도). ★배포: 스키마 v3.2 라이브 후 워커 match-v1.
+- **다음 = 배포·전체 파이프라인 테스트**(bulk 투입→3단 유형지정→매칭 진단 실동작) → 화면 렌더(matched_answer/explanation 학생 표시)·stage별 비용실측(옵션1 판정) 별 트랙. ★도형 실측(a)=매칭 실사용서 자연검증 이월.
 - **진입 문서**: `B_bulk_injection_json_spec.v2.md`(투입 스펙·§12 27항)·`B_gpt_item_registration_spec.v2.md`((d)3단)·`B_qnorm_canonical.v1.md`·`B_catalog_layer_audit.v1.md`. 워커 엔드포인트: /add-bulk·/bulk-assign-type(id기준)·/rollback-batch·/backfill-hashes·list(bulk_batch_id필터).
 - **설계 확정(유지)**: 문항 단일풀·org_id 출처표시만 / 관측 기관통합(3계층) / dedup 옵션C(content_hash UNIQUE·dedup_key NON-UNIQUE) / 3단 유형배정(GPT 전사→검수 카탈로그대조→사용자 보류분).
 
