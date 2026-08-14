@@ -3,6 +3,16 @@
 > v1(2026-08-11) 대체. 검수(클로드)는 리포 접근 없음 → 파일로 받아 대조. 전달 경로 Code탭↔사용자↔검수.
 > ★이 v2는 검수 §-스펙(2026-08-13)에 따라 갱신. 검수 보유본과 대조 후 확정.
 
+## ★★ 현재 재개 지점 (2026-08-14, 새 세션은 여기부터) ★★
+- **M2_GEOM 처방 트랙 = 전항 종결**(저작 140 → 병합 → 게이트해제 → 실사용 대조 통과, 하단 §2). 손대지 말 것.
+- **현 트랙 = (1) 문항 매칭 + 다기관**. 착수 완료, 첫 작업 진행 중 = **user_items 스키마 v3.1 필드 확정**.
+- **작업 파일 = `tools/axis_prediction/B_user_items_schema_v31_fieldlist.v1.md`**(21컬럼 목록·판정1 반영·판정2 실측·옵션 A/B/C). Downloads로 검수 전달됨.
+- **★대기 중 2건(이게 오면 재개)**:
+  1. **[검수] dedup_key 판정** — 옵션 A(warn-only)/B(unit+본문+answer, UNIQUE)/C(분리키) 중 택. + 21컬럼 대조 확정. (실측: structure_fingerprint 충돌 91/150·답상이 34그룹 = 그림의존 문항 소실 위험 확인, 프록시라 과대추정.)
+  2. **[사용자] backfill 대상 건수** = admin_items.html 화면 `total`(또는 D1 `SELECT COUNT(*) FROM user_items`). 0이면 backfill SQL 생략.
+- **판정 오면 다음**: `user_items.schema.v3.1.sql` 작성(21컬럼·확정 dedup) → 차단2 워커코드 별건(source_text 자동복사 제거) → bulk spec v2(5차단+dedup) → 매칭 구현. **★확정 전 SQL 실행·user_items 변경 금지.**
+- 설계 확정: (a) 문항 단일풀·org_id 출처표시만 / (b) 관측 기관통합(3계층: 문항 단일풀·관측 통합·학생 student_code 분리). dedup_key type 제외 확정(유형 90% 흔들림).
+
 ## §2 완료된 것 (v1 이후 · [실측]/[코드확인] 표기)
 - **차단1·2 + 저장가드** — worker `2026.08.11-catstage-a2b` (+ 배포판 `2026.08.11-nowork-guard`, req c89db5b8 검증 통과). 차단1 guard_applied·is_correct null, 차단2 distinct_types 3→12·no_type 0.
 - **레버 A(범주 2단계) 적용** — 유형 일치율 90%는 A 전후 동일. **category 100% 안정**이 산출물(재현성 확보).
