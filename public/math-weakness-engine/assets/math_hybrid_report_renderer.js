@@ -53,6 +53,17 @@ class MathHybridReportRenderer {
   }
   static card(title, body, kind = '') { return `<section class="card ${kind}"><h2>${this.esc(title)}</h2>${body}</section>`; }
   static tags(items) { return (items || []).map(x => `<span class="tag">${this.esc(x)}</span>`).join(''); }
+  // 연결(cross_grade_risks/learning_connections) 객체를 사람이 읽는 문자열로. 객체 원문 노출 방지(검수 2026-08-14).
+  static connText(x, withReason) {
+    if (x && typeof x === 'object' && (x.from_name || x.to_name || x.from || x.to)) {
+      const a = x.from_name || x.from || '', b = x.to_name || x.to || '';
+      const base = b ? `${a} → ${b}` : a;
+      return withReason && x.reason ? `${base} (${x.reason})` : base;   // reason은 교사용에만
+    }
+    return (x && (x.message || x.risk)) || (typeof x === 'string' ? x : '');
+  }
+  // 오답 진단 항목은 type_name을 우선 표시(problem_type_id 원문 노출 방지). 진단문구 있으면 그것.
+  static wrongText(x) { return (x && (x.diagnosis || x.observed_error || x.type_name || x.problem_type_id)) || ''; }
   static details(title, body, open = false) { return `<details class="teacher-raw" ${open ? 'open' : ''}><summary>${this.esc(title)}</summary>${body}</details>`; }
   static badge(text, kind = '') { return `<span class="result-badge ${kind}">${this.esc(text)}</span>`; }
 
@@ -282,7 +293,7 @@ class MathHybridReportRenderer {
         <p><b>오답 완결:</b> ${this.esc(s.wrong_count || 0)}개 · <b>빈칸:</b> ${this.esc(s.blank_count || 0)}개 · <b>중단:</b> ${this.esc(s.partial_stop_count || 0)}개 · <b>매칭 실패:</b> ${this.esc(s.missing_type_count || 0)}개</p>
         ${behavior.student_view ? `<h4>학생 풀이 행동 분석</h4><p>${this.esc(behavior.student_view.one_line_diagnosis || '')}</p><p><b>시도율:</b> ${this.esc(Math.round((bm.attempt_rate || 0) * 100))}% · <b>시도 문항 정답률:</b> ${this.esc(Math.round((bm.attempted_accuracy || 0) * 100))}% · <b>전체 해결률:</b> ${this.esc(Math.round((bm.overall_resolution_rate || 0) * 100))}%</p><h4>판정 성향</h4>${this.list(bp.map(x => `${x.label || x.pattern_id} (${Math.round((x.confidence || 0) * 100)}%)`))}<h4>교사용 훈련 방향</h4>${this.list(behavior.teacher_view?.training_direction || [])}` : ''}
         <h4>핵심 취약 후보</h4>${this.list(top.map(x => x.concept_name || x.concept_id || x))}
-        <h4>주의할 연결</h4>${this.list([...(wrong || []).map(x => x.diagnosis || x.observed_error || x.problem_type_id), ...(risks || []).map(x => x.message || x.risk || x)])}
+        <h4>주의할 연결</h4>${this.list([...(wrong || []).map(x => this.wrongText(x)), ...(risks || []).map(x => this.connText(x, true))].filter(Boolean))}
         ${this.details('엔진 JSON 보기', this.pre(engineDiagnosis))}</section>`);
     }
     if (noteReview) {
@@ -599,7 +610,7 @@ class MathHybridReportRenderer {
     return this.card('엔진 매칭 결과', `
       <p><b>오답:</b> ${this.esc(s.wrong_count || 0)}개 · <b>매칭 실패:</b> ${this.esc(s.missing_type_count || 0)}개 · <b>로드 단원:</b> ${this.esc(s.loaded_unit_count || '')}개</p>
       <h3>핵심 취약 후보</h3>${this.list(top.map(x => x.concept_name || x.concept_id || x))}
-      <h3>주의할 연결</h3>${this.list([...(wrong || []).map(x => x.diagnosis || x.observed_error || x.problem_type_id), ...(risks || []).map(x => x.message || x.risk || x)])}
+      <h3>주의할 연결</h3>${this.list([...(wrong || []).map(x => this.wrongText(x)), ...(risks || []).map(x => this.connText(x, false))].filter(Boolean))}
       ${this.details('교사용 엔진 JSON 보기', this.pre(diagnosis))}
     `, 'ok');
   }
