@@ -1,0 +1,584 @@
+{
+    "unit_id":  "M3_QUADRATIC_EQUATION",
+    "unit_name":  "이차방정식",
+    "source_file":  "data/problem_types/m3_quadratic_equation.problem_types.v1.json",
+    "count":  144,
+    "types":  [
+                  {
+                      "problem_type_id":  "M3_QUAD_PT001",
+                      "type_name":  "이차방정식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT002",
+                      "type_name":  "이차방정식의 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT003",
+                      "type_name":  "주어진 해를 갖는 이차방정식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT004",
+                      "type_name":  "x값의 범위가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT005",
+                      "type_name":  "한 근이 주어진 경우의 미지수의 값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT006",
+                      "type_name":  "한 근이 주어진 경우의 두 미지수의 값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT007",
+                      "type_name":  "두 근이 주어진 경우의 미지수의 값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT008",
+                      "type_name":  "한 근이 주어진 경우의 식의 값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT009",
+                      "type_name":  "두 근이 주어진 경우의 식의 값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT010",
+                      "type_name":  "AB=0인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT011",
+                      "type_name":  "인수분해가 된 이차방정식의 해"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT012",
+                      "type_name":  "이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT013",
+                      "type_name":  "이차방정식의 해의 연산"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT014",
+                      "type_name":  "이차방정식의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT015",
+                      "type_name":  "한 근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT016",
+                      "type_name":  "한 근이 다른 이차방정식의 근인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT017",
+                      "type_name":  "주어진 수가 근이 되도록 하는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT018",
+                      "type_name":  "두 근의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT019",
+                      "type_name":  "이차방정식의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT020",
+                      "type_name":  "한 근이 다른 이차방정식의 근인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT021",
+                      "type_name":  "이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT022",
+                      "type_name":  "이차방정식의 중근 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT023",
+                      "type_name":  "중근을 가지는 이차방정식의 미지수"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT024",
+                      "type_name":  "중근을 갖는 이차방정식의 미지수를 포함한 다른 방정식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT025",
+                      "type_name":  "공통인 근 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT026",
+                      "type_name":  "공통인 근을 가지는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT027",
+                      "type_name":  "공통인 근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT028",
+                      "type_name":  "이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT029",
+                      "type_name":  "근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT030",
+                      "type_name":  "근을 가질 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT031",
+                      "type_name":  "서로 다른 두 근을 가질 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT032",
+                      "type_name":  "중근을 가질 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT033",
+                      "type_name":  "특정한 근을 가질 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT034",
+                      "type_name":  "일반형의 완전제곱꼴 변형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT035",
+                      "type_name":  "특수한 경우의 완전제곱꼴 변형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT036",
+                      "type_name":  "이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT037",
+                      "type_name":  "근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT038",
+                      "type_name":  "이차방정식의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT039",
+                      "type_name":  "해를 갖도록 하는 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT040",
+                      "type_name":  "특정한 해를 갖도록 하는 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT041",
+                      "type_name":  "일반형 이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT042",
+                      "type_name":  "다양한 형태의 이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT043",
+                      "type_name":  "근의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT044",
+                      "type_name":  "근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT045",
+                      "type_name":  "근의 일부가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT046",
+                      "type_name":  "잘못 구한 근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT047",
+                      "type_name":  "유리수근을 가지는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT048",
+                      "type_name":  "인수분해꼴"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT049",
+                      "type_name":  "완전제곱꼴이 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT050",
+                      "type_name":  "계수가 분수인 이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT051",
+                      "type_name":  "복잡한 형태의 이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT052",
+                      "type_name":  "근의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT053",
+                      "type_name":  "계수가 소수인 이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT054",
+                      "type_name":  "복잡한 형태의 이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT055",
+                      "type_name":  "근의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT056",
+                      "type_name":  "가우스가 포함된 이차방정식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT057",
+                      "type_name":  "x²의 제곱근, 절댓값이 포함된 이차방정식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT058",
+                      "type_name":  "이차방정식의 일반형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT059",
+                      "type_name":  "인수분해 풀이가 포함된 이차방정식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT060",
+                      "type_name":  "공통부분을 찾아야 하는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT061",
+                      "type_name":  "주어진 연산을 이용한 식의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT062",
+                      "type_name":  "주어진 정의를 이용한 식의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT063",
+                      "type_name":  "근의 개수 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT064",
+                      "type_name":  "특정 개수의 근을 찾는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT065",
+                      "type_name":  "중근을 갖게 하는 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT066",
+                      "type_name":  "중근을 갖게 하는 미지수 응용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT067",
+                      "type_name":  "중근을 가질 조건의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT068",
+                      "type_name":  "근을 갖도록 하는 미지수"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT069",
+                      "type_name":  "근이 존재하지 않도록 하는 미지수"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT070",
+                      "type_name":  "서로 다른 두 근을 갖도록 하는 미지수"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT071",
+                      "type_name":  "두 근의 합, 곱 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT072",
+                      "type_name":  "근과 계수의 관계 응용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT073",
+                      "type_name":  "두 근의 합과 곱 이용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT074",
+                      "type_name":  "곱셈공식 이용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT075",
+                      "type_name":  "계수에 미지수가 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT076",
+                      "type_name":  "한 근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT077",
+                      "type_name":  "두 근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT078",
+                      "type_name":  "두 근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT079",
+                      "type_name":  "중근이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT080",
+                      "type_name":  "두 근의 조건이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT081",
+                      "type_name":  "두 근의 합 또는 차가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT082",
+                      "type_name":  "두 근의 비가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT083",
+                      "type_name":  "관계식이 두 개 이상 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT084",
+                      "type_name":  "공통인 근 없이 모든 근을 나열한 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT085",
+                      "type_name":  "두 근의 합 또는 곱이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT086",
+                      "type_name":  "두 근의 차가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT087",
+                      "type_name":  "두 근의 비가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT088",
+                      "type_name":  "절댓값과 부호가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT089",
+                      "type_name":  "두 근이 연속하는 수인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT090",
+                      "type_name":  "이차방정식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT091",
+                      "type_name":  "이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT092",
+                      "type_name":  "이차방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT093",
+                      "type_name":  "미지수가 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT094",
+                      "type_name":  "미지수가 여러 개 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT095",
+                      "type_name":  "두 미지수에 대한 일차식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT096",
+                      "type_name":  "제곱근이 포함된 두 미지수의 관계"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT097",
+                      "type_name":  "두 미지수에 대한 이차식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT098",
+                      "type_name":  "자연수들의 합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT099",
+                      "type_name":  "다각형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT100",
+                      "type_name":  "경우의 수"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT101",
+                      "type_name":  "두 수의 연산이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT102",
+                      "type_name":  "수의 연산 들의 관계가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT103",
+                      "type_name":  "잘못 계산한 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT104",
+                      "type_name":  "각 자리의 수에 대한 조건이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT105",
+                      "type_name":  "표에 조건에 맞는 수 넣기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT106",
+                      "type_name":  "연속하는 두 자연수의 곱이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT107",
+                      "type_name":  "연속하는 두 짝(홀)수의 곱이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT108",
+                      "type_name":  "연속하는 자연수의 제곱의 합이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT109",
+                      "type_name":  "연속하는 짝(홀)수의 제곱의 합이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT110",
+                      "type_name":  "연속하는 세 자연수의 관계가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT111",
+                      "type_name":  "연속하는 세 짝(홀)수의 관계가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT112",
+                      "type_name":  "연속하는 네 개 이상의 자연수의 관계가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT113",
+                      "type_name":  "연속하는 세 배수의 관계가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT114",
+                      "type_name":  "연속하는 수의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT115",
+                      "type_name":  "가격 변동 후 차액이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT116",
+                      "type_name":  "가격 변동 후 매출이 동일한 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT117",
+                      "type_name":  "소금물의 농도"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT118",
+                      "type_name":  "물건을 나누어주는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT119",
+                      "type_name":  "달력 및 날짜"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT120",
+                      "type_name":  "나이 및 개수"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT121",
+                      "type_name":  "사각형으로 줄 세우기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT122",
+                      "type_name":  "지면에서 던진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT123",
+                      "type_name":  "건물 위에서 던진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT124",
+                      "type_name":  "위치에 대한 식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT125",
+                      "type_name":  "움직인 거리에 대한 식"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT126",
+                      "type_name":  "삼각형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT127",
+                      "type_name":  "사각형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT128",
+                      "type_name":  "삼각형과 사각형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT129",
+                      "type_name":  "일차함수 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT130",
+                      "type_name":  "다각형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT131",
+                      "type_name":  "두 사각형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT132",
+                      "type_name":  "사각형과 삼각형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT133",
+                      "type_name":  "사각형 나누기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT134",
+                      "type_name":  "원"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT135",
+                      "type_name":  "원기둥"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT136",
+                      "type_name":  "세 원으로 이루어진 도형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT137",
+                      "type_name":  "길이를 늘인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT138",
+                      "type_name":  "길이를 줄인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT139",
+                      "type_name":  "한 변은 늘이고 다른 한 변은 줄인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT140",
+                      "type_name":  "같은 너비로 접는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT141",
+                      "type_name":  "네 귀퉁이를 잘라내는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT142",
+                      "type_name":  "하나의 길을 만드는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT143",
+                      "type_name":  "두 개의 길을 만드는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_QUAD_PT144",
+                      "type_name":  "세 개 이상의 길을 만드는 경우"
+                  }
+              ]
+}

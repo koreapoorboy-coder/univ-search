@@ -1,0 +1,344 @@
+{
+    "unit_id":  "M1_DATA_ANALYSIS",
+    "unit_name":  "자료 정리와 해석",
+    "source_file":  "data/problem_types/m1_data_analysis.problem_types.v1.json",
+    "count":  84,
+    "types":  [
+                  {
+                      "problem_type_id":  "M1_DA_PT001",
+                      "type_name":  "자료의 평균 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT002",
+                      "type_name":  "자료의 평균 비교하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT003",
+                      "type_name":  "변량의 수가 주어진 경우 평균 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT004",
+                      "type_name":  "변량이 문자로 주어진 경우 평균 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT005",
+                      "type_name":  "변량이 추가되는 경우 평균 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT006",
+                      "type_name":  "실생활 상황에서 평균 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT007",
+                      "type_name":  "변량이 모두 주어진 자료의 중앙값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT008",
+                      "type_name":  "문자가 포함된 자료의 중앙값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT009",
+                      "type_name":  "변량이 모두 주어진 자료의 최빈값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT010",
+                      "type_name":  "문자가 포함된 자료의 최빈값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT011",
+                      "type_name":  "실생활 소재 자료에서 최빈값 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT012",
+                      "type_name":  "변량을 추가·삭제·변경한 경우 최빈값 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT013",
+                      "type_name":  "평균·중앙값·최빈값 중 적절한 대표값 고르기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT014",
+                      "type_name":  "대표값으로 적절한 것 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT015",
+                      "type_name":  "대표값의 의미와 특징 설명하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT016",
+                      "type_name":  "평균이 주어진 경우 미지수 1개 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT017",
+                      "type_name":  "평균이 주어진 경우 미지수 2개 이상 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT018",
+                      "type_name":  "평균 조건에서 잘못 본 변량을 바로잡기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT019",
+                      "type_name":  "평균 조건이 도형 자료와 연결된 경우 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT020",
+                      "type_name":  "중앙값이 주어진 경우 미지수 1개 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT021",
+                      "type_name":  "중앙값이 주어진 경우 미지수 2개 이상 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT022",
+                      "type_name":  "중앙값이 다른 대표값과 같은 경우 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT023",
+                      "type_name":  "중앙값 조건에서 변량 추가·삭제·변경 처리하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT024",
+                      "type_name":  "최빈값이 주어진 경우 미지수 1개 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT025",
+                      "type_name":  "최빈값이 주어진 경우 미지수 2개 이상 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT026",
+                      "type_name":  "최빈값이 주어진 경우 가장 큰/작은 변량 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT027",
+                      "type_name":  "최빈값이 다른 대표값과 같은 경우 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT028",
+                      "type_name":  "최빈값 조건에서 변량 추가·삭제·변경 처리하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT029",
+                      "type_name":  "막대그래프에서 대표값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT030",
+                      "type_name":  "꺾은선그래프에서 대표값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT031",
+                      "type_name":  "표·그림·점수 자료에서 대표값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT032",
+                      "type_name":  "줄기와 잎 그림 그리는 방법 이해하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT033",
+                      "type_name":  "줄기와 잎 그림 만들기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT034",
+                      "type_name":  "줄기와 잎 그림을 그려 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT035",
+                      "type_name":  "줄기와 잎 그림 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT036",
+                      "type_name":  "두 집단의 줄기와 잎 그림 비교·해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT037",
+                      "type_name":  "줄기와 잎 그림에서 대표값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT038",
+                      "type_name":  "도수분포표 만들기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT039",
+                      "type_name":  "도수분포표에서 계급과 계급값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT040",
+                      "type_name":  "도수분포표에서 변량의 범위와 계급 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT041",
+                      "type_name":  "변량의 범위에 따라 계급 정하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT042",
+                      "type_name":  "도수분포표에서 도수와 전체 도수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT043",
+                      "type_name":  "도수분포표 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT044",
+                      "type_name":  "도수분포표 설명의 옳고 그름 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT045",
+                      "type_name":  "도수분포표 응용·활용 문제 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT046",
+                      "type_name":  "도수분포표에서 특정 계급의 백분율 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT047",
+                      "type_name":  "두 계급 사이의 백분율 관계가 주어진 경우 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT048",
+                      "type_name":  "히스토그램의 기본 구조 이해하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT049",
+                      "type_name":  "히스토그램에서 도수와 계급 읽기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT050",
+                      "type_name":  "히스토그램 설명의 옳고 그름 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT051",
+                      "type_name":  "히스토그램 직사각형의 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT052",
+                      "type_name":  "히스토그램 직사각형 넓이 비교하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT053",
+                      "type_name":  "한 부분이 찢어진 히스토그램 복원하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT054",
+                      "type_name":  "두 부분이 찢어진 히스토그램 복원하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT055",
+                      "type_name":  "세로축이 찢어진 히스토그램 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT056",
+                      "type_name":  "도수분포다각형의 기본 구조 이해하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT057",
+                      "type_name":  "도수분포다각형에서 값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT058",
+                      "type_name":  "도수분포다각형 응용 문제 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT059",
+                      "type_name":  "도수분포다각형의 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT060",
+                      "type_name":  "도수분포다각형 넓이의 의미 이해하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT061",
+                      "type_name":  "찢어진 도수분포다각형 복원하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT062",
+                      "type_name":  "두 도수분포다각형 비교하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT063",
+                      "type_name":  "도수분포표가 주어진 경우 상대도수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT064",
+                      "type_name":  "히스토그램이 주어진 경우 상대도수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT065",
+                      "type_name":  "도수분포다각형이 주어진 경우 상대도수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT066",
+                      "type_name":  "상대도수·도수·도수총합 사이의 관계 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT067",
+                      "type_name":  "찢어진 히스토그램에서 상대도수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT068",
+                      "type_name":  "상대도수분포표 만들기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT069",
+                      "type_name":  "상대도수분포표 응용 문제 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT070",
+                      "type_name":  "상대도수분포표 설명의 옳고 그름 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT071",
+                      "type_name":  "문자를 사용한 상대도수 표현 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT072",
+                      "type_name":  "찢어진 상대도수분포표 복원하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT073",
+                      "type_name":  "도수총합이 주어진 경우 상대도수분포를 그래프로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT074",
+                      "type_name":  "상대도수분포그래프가 히스토그램 모양으로 주어진 경우 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT075",
+                      "type_name":  "상대도수분포그래프가 도수분포다각형 모양으로 주어진 경우 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT076",
+                      "type_name":  "도수총합이 주어지지 않은 히스토그램형 상대도수 그래프 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT077",
+                      "type_name":  "도수총합이 주어지지 않은 다각형형 상대도수 그래프 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT078",
+                      "type_name":  "찢어진 상대도수 그래프 복원하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT079",
+                      "type_name":  "도수총합이 다른 두 자료의 상대도수분포표 완성하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT080",
+                      "type_name":  "줄기와 잎 그림 또는 그래프에서 상대도수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT081",
+                      "type_name":  "각 자료의 도수총합과 계급의 상대도수 관계 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT082",
+                      "type_name":  "도수총합이 다른 두 자료의 상대도수의 비 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT083",
+                      "type_name":  "상대도수의 비와 전체 도수 총합의 비 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_DA_PT084",
+                      "type_name":  "도수총합이 다른 두 상대도수 그래프 비교하기"
+                  }
+              ]
+}

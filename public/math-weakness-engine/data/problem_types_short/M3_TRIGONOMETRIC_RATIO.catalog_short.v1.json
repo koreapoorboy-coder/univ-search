@@ -1,0 +1,440 @@
+{
+    "unit_id":  "M3_TRIGONOMETRIC_RATIO",
+    "unit_name":  "삼각비",
+    "source_file":  "data/problem_types/m3_trigonometric_ratio.problem_types.v1.json",
+    "count":  108,
+    "types":  [
+                  {
+                      "problem_type_id":  "M3_TRIG_PT001",
+                      "type_name":  "삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT002",
+                      "type_name":  "삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT003",
+                      "type_name":  "삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT004",
+                      "type_name":  "삼각비가 주어진 경우의 삼각형의 변의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT005",
+                      "type_name":  "삼각비가 주어진 경우의 삼각형의 변의 길이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT006",
+                      "type_name":  "삼각비가 주어진 경우의 삼각형의 변의 길이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT007",
+                      "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT008",
+                      "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT009",
+                      "type_name":  "한 삼각비가 주어진 경우의 다른 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT010",
+                      "type_name":  "직각삼각형의 닮음과 삼각비 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT011",
+                      "type_name":  "직각삼각형의 닮음과 삼각비 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT012",
+                      "type_name":  "직각삼각형의 닮음과 삼각비 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT013",
+                      "type_name":  "직선의 방정식과 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT014",
+                      "type_name":  "직선의 방정식과 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT015",
+                      "type_name":  "직선의 방정식과 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT016",
+                      "type_name":  "평면도형에서의 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT017",
+                      "type_name":  "평면도형에서의 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT018",
+                      "type_name":  "평면도형에서의 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT019",
+                      "type_name":  "입체도형에서의 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT020",
+                      "type_name":  "입체도형에서의 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT021",
+                      "type_name":  "입체도형에서의 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT022",
+                      "type_name":  "원에서의 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT023",
+                      "type_name":  "원에서의 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT024",
+                      "type_name":  "원에서의 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT025",
+                      "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT026",
+                      "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT027",
+                      "type_name":  "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT028",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT029",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT030",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 각의 크기 구하기 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT031",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT032",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT033",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 변의 길이 구하기 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT034",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT035",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT036",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT037",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT038",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT039",
+                      "type_name":  "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT040",
+                      "type_name":  "직선의 기울기와 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT041",
+                      "type_name":  "직선의 기울기와 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT042",
+                      "type_name":  "직선의 기울기와 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT043",
+                      "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT044",
+                      "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT045",
+                      "type_name":  "특수한 각의 삼각비의 도형에의 활용 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT046",
+                      "type_name":  "사분원을 이용한 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT047",
+                      "type_name":  "사분원을 이용한 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT048",
+                      "type_name":  "사분원을 이용한 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT049",
+                      "type_name":  "특수한 각(0˚, 90˚)의 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT050",
+                      "type_name":  "특수한 각(0˚, 90˚)의 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT051",
+                      "type_name":  "특수한 각(0˚, 90˚)의 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT052",
+                      "type_name":  "삼각비의 값의 대소 관계 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT053",
+                      "type_name":  "삼각비의 값의 대소 관계 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT054",
+                      "type_name":  "삼각비의 값의 대소 관계 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT055",
+                      "type_name":  "삼각비의 값의 대소 관계를 이용한 식의 계산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT056",
+                      "type_name":  "삼각비의 값의 대소 관계를 이용한 식의 계산 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT057",
+                      "type_name":  "삼각비의 값의 대소 관계를 이용한 식의 계산 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT058",
+                      "type_name":  "삼각비의 표(1); 삼각비의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT059",
+                      "type_name":  "삼각비의 표(1); 삼각비의 값 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT060",
+                      "type_name":  "삼각비의 표(1); 삼각비의 값 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT061",
+                      "type_name":  "삼각비의 표(2); 각의 크기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT062",
+                      "type_name":  "삼각비의 표(2); 각의 크기 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT063",
+                      "type_name":  "삼각비의 표(2); 각의 크기 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT064",
+                      "type_name":  "삼각비의 표(3); 변의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT065",
+                      "type_name":  "삼각비의 표(3); 변의 길이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT066",
+                      "type_name":  "삼각비의 표(3); 변의 길이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT067",
+                      "type_name":  "직각삼각형의 변의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT068",
+                      "type_name":  "직각삼각형의 변의 길이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT069",
+                      "type_name":  "직각삼각형의 변의 길이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT070",
+                      "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT071",
+                      "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT072",
+                      "type_name":  "입체도형에서 직각삼각형의 변의 길이의 활용 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT073",
+                      "type_name":  "실생활에서 직각삼각형의 변의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT074",
+                      "type_name":  "실생활에서 직각삼각형의 변의 길이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT075",
+                      "type_name":  "실생활에서 직각삼각형의 변의 길이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT076",
+                      "type_name":  "실생활에서 직각삼각형의 변의 길이의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT077",
+                      "type_name":  "실생활에서 직각삼각형의 변의 길이의 활용 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT078",
+                      "type_name":  "실생활에서 직각삼각형의 변의 길이의 활용 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT079",
+                      "type_name":  "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT080",
+                      "type_name":  "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT081",
+                      "type_name":  "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT082",
+                      "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT083",
+                      "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT084",
+                      "type_name":  "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT085",
+                      "type_name":  "예각삼각형의 높이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT086",
+                      "type_name":  "예각삼각형의 높이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT087",
+                      "type_name":  "예각삼각형의 높이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT088",
+                      "type_name":  "둔각삼각형의 높이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT089",
+                      "type_name":  "둔각삼각형의 높이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT090",
+                      "type_name":  "둔각삼각형의 높이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT091",
+                      "type_name":  "예각삼각형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT092",
+                      "type_name":  "예각삼각형의 넓이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT093",
+                      "type_name":  "예각삼각형의 넓이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT094",
+                      "type_name":  "둔각삼각형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT095",
+                      "type_name":  "둔각삼각형의 넓이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT096",
+                      "type_name":  "둔각삼각형의 넓이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT097",
+                      "type_name":  "다각형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT098",
+                      "type_name":  "다각형의 넓이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT099",
+                      "type_name":  "다각형의 넓이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT100",
+                      "type_name":  "정다각형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT101",
+                      "type_name":  "정다각형의 넓이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT102",
+                      "type_name":  "정다각형의 넓이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT103",
+                      "type_name":  "평행사변형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT104",
+                      "type_name":  "평행사변형의 넓이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT105",
+                      "type_name":  "평행사변형의 넓이 - 복합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT106",
+                      "type_name":  "사각형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT107",
+                      "type_name":  "사각형의 넓이 - 계산·해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_TRIG_PT108",
+                      "type_name":  "사각형의 넓이 - 복합 적용"
+                  }
+              ]
+}

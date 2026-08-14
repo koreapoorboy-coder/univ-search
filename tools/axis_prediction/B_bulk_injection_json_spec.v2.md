@@ -73,12 +73,26 @@
 - ★`would_pending`은 **question_no 목록**(어느 문항이 pending 될지 투입 전 파악 → §6 후처리 연결).
 - ★근접중복 감사(§7)를 **dry-run에 포함**(검수 권고 B): 투입 전에 유형 내 0.99≤sim<1.0 쌍을 알 수 있음.
 
-## 6. pending 후처리 (★신설 — /add-bulk와 **동시** 구축)
-사용자 방침: "유형 미확정 문항은 체크해두고 나중에 다시 작업해서 넣는다." pending은 쌓여도 안전하나 **꺼내는 수단**이 부실하면 수만 건 규모에서 방치됨. → 아래 4개를 /add-bulk 구현과 같은 시점에 만든다(미루면 쌓인 뒤에야 필요성 체감).
-1. **조회** — admin에서 `status='pending'` 필터 + **`bulk_batch_id` 필터**(★배치별로 봐야 "이번 투입분 중 미확정"을 앎). 기존 `/api/user-items/list`에 bulk_batch_id 파라미터 추가.
-2. **일괄 유형 지정** — 같은 유형인 것을 여러 건 선택 → 한 번에 `problem_type_id` 지정·approved 승격. 한 건씩은 수백 건 처리 불가. 신규 `POST /api/user-items/bulk-assign-type`(ids[]+problem_type_id, X-Write-Key). 유형 지정 시 content_hash/dedup_key 재계산(problem_type_id가 content_hash 구성요소). ★**재계산 UNIQUE 충돌 처리**(검수 2026-08-14): 승격 후 content_hash가 기존 approved 행과 같아질 수 있음 → backfill과 동일하게 **실패시키지 말고 conflicts 목록 보고**(해당 행은 미승격 유지·사용자 판단).
-3. **진행률** — 전체 pending 수 / 처리된 수 표시(줄어드는 게 보여야 작업 지속). list 응답 counts 재사용 + 배치별 집계.
-4. **dry-run would_pending 목록**(§5) 유지 — 투입 전 예측.
+## 6. 유형 배정 = 3단 구조 + pending 후처리 (★검수 2026-08-14 · /add-bulk와 **동시** 구축)
+GPT는 유형을 정하지 않음((d), [[B_gpt_item_registration_spec.v1.md]]) → **투입 시 전건 pending이 정상.** 유형은 아래 3단으로 붙는다:
+```
+1단 GPT     본문 정확 전사 + source_note "유형후보: <설명>". problem_type_id 없음.
+2단 검수     GPT JSON + 단원 카탈로그 축약본(problem_type_id·type_name) 기계 대조 →
+             확정 목록 [{ (bulk_batch_id+)question_no|id, problem_type_id }] / 애매하면 보류.
+3단 사용자   검수 보류분(소수)만 화면에서 판단. 확정 목록은 파일 업로드로 일괄 반영.
+```
+★2단이 사람 부담을 수백→수십으로 줄임(검수는 카탈로그 대조 가능 — 처방140↔사전163 대조와 동형). 사용자는 파일 업로드+클릭 or 소수 건 화면 선택만.
+
+**후처리 요건(강화 — 없으면 (d)가 사용자 부담으로 무너짐)**:
+1. **조회** — admin `status='pending'` 필터 + **`bulk_batch_id` 필터**(배치별 미확정 파악). `/api/user-items/list`에 bulk_batch_id 파라미터 추가. ★목록에 **`source_note`의 `유형후보:` 표시**(사람이 그걸 보고 판단).
+2. **일괄 유형 지정** — 신규 `POST /api/user-items/bulk-assign-type`(X-Write-Key). ★**두 입력 방식**:
+   - **파일 업로드**: 검수가 만든 확정 JSON `[{ "question_no":"12", "problem_type_id":"M2_GEOM_PT041" }, …]` 업로드 → 버튼 1회 일괄 반영. ★행 식별키 = **`bulk_batch_id` + `question_no`**(배치 간 question_no 중복 방지) 또는 `id`. 구현 시 확정.
+   - **화면 직접 선택**: 같은 유형후보 문항을 묶어 여러 건 선택 → 유형 지정(소수 건·보류분용). ★유형 선택 UI에 **검색 필터 필수**(448종 드롭다운 스크롤 불가). ★**같은 `유형후보:`끼리 묶어 표시**(비슷한 것 한 번에).
+   - 승격 시 content_hash/dedup_key 재계산(problem_type_id가 구성요소). ★**재계산 UNIQUE 충돌 → 실패 말고 conflicts 목록 보고**(§6-2 기존, 미승격 유지·사용자 판단).
+3. **진행률** — 배치별 **"미지정 N건 남음"** + 전체 pending/처리 수(줄어드는 게 보여야 작업 지속). list counts 재사용.
+4. **dry-run would_pending 목록**(§5, question_no 포함) — 투입 전 예측.
+
+★**2단용 카탈로그 축약본**: 검수는 D1·리포 접근 없음 → Code탭이 `problem_type_id`+`type_name` 2필드만 뽑은 단원별 축약 카탈로그를 전달(448종 원본은 큼). 축약 스크립트 = `scratchpad`/재사용(단원 인자).
 
 ## 7. 근접중복 감사 (실행 = dry-run 포함 · 투입후 재실행 선택)
 - **유형 내 0.99 ≤ sim < 1.0** 쌍 감사 — content_hash는 달라 통과했으나 본문 매우 유사(표기 drift·숫자만 다른 동일유형). 매칭 미매칭률↑ 소지 → `near_duplicate_warnings` 목록(차단 아님).

@@ -1,0 +1,852 @@
+{
+    "unit_id":  "M2_NUMBER_EXPRESSION",
+    "unit_name":  "수와 식",
+    "source_file":  "data/problem_types/m2_number_expression.problem_types.v1.json",
+    "count":  211,
+    "types":  [
+                  {
+                      "problem_type_id":  "M2_NE_PT001",
+                      "type_name":  "유리수의 분류"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT002",
+                      "type_name":  "정수와 정수가 아닌 유리수 구분"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT003",
+                      "type_name":  "유리수 분류 설명의 옳고 그름 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT004",
+                      "type_name":  "유한소수와 무한소수의 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT005",
+                      "type_name":  "유한소수와 무한소수의 구분"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT006",
+                      "type_name":  "소수 표현을 보고 분류하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT007",
+                      "type_name":  "분수의 소수표현 및 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT008",
+                      "type_name":  "10의 거듭제곱을 이용한 분수의 유한소수 표현"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT009",
+                      "type_name":  "분수를 소수로 고칠 때 유한소수 여부 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT010",
+                      "type_name":  "분수의 유한소수 표현 가능 여부"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT011",
+                      "type_name":  "조건을 만족하는 유한소수 표현 가능한 분수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT012",
+                      "type_name":  "1/A×x가 유한소수가 되도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT013",
+                      "type_name":  "B/A×x가 유한소수가 되도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT014",
+                      "type_name":  "일차방정식의 해가 유한소수가 되도록 하는 미지수 값"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT015",
+                      "type_name":  "B/x가 유한소수가 되도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT016",
+                      "type_name":  "B/(A×x)가 유한소수가 되도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT017",
+                      "type_name":  "y/(A×x)가 유한소수가 되지 않도록 하는 미지수 x,y"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT018",
+                      "type_name":  "여러가지 경우에서 유한소수가 되도록 하는 미지수 값"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT019",
+                      "type_name":  "x/A가 유한소수가 될 때 x/A를 기약분수 1/y로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT020",
+                      "type_name":  "x/A가 유한소수가 될 때 x/A를 기약분수 B/y로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT021",
+                      "type_name":  "x/A, x/B 모두 유한소수로 나타내어지도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT022",
+                      "type_name":  "Bx/A, Dx/C 모두 유한소수로 나타내어지도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT023",
+                      "type_name":  "소수의 순환마디 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT024",
+                      "type_name":  "분수의 순환마디 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT025",
+                      "type_name":  "나눗셈을 이용한 순환마디 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT026",
+                      "type_name":  "순환소수의 표현"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT027",
+                      "type_name":  "순환소수의 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT028",
+                      "type_name":  "분수의 순환소수 표현"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT029",
+                      "type_name":  "순환소수로만 나타낼 수 있는 분수 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT030",
+                      "type_name":  "순환소수의 소수점 아래 n번째 숫자 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT031",
+                      "type_name":  "순환소수의 소수점 아래 여러 개의 숫자 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT032",
+                      "type_name":  "분수를 소수로 나타낼 때 순환소수의 소수점 아래 n번째 숫자 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT033",
+                      "type_name":  "분수를 소수로 나타낼 때 순환소수의 소수점 아래 여러 개의 숫자 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT034",
+                      "type_name":  "x/A를 순환소수가 되도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT035",
+                      "type_name":  "A/x를 순환소수가 되도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT036",
+                      "type_name":  "A/BX를 순환소수가 되도록 하는 x"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT037",
+                      "type_name":  "순환소수를 분수로 나타낼 때 가장 편리한 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT038",
+                      "type_name":  "순환소수를 분수로 나타내는 과정"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT039",
+                      "type_name":  "순환소수를 분수로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT040",
+                      "type_name":  "소수점 아래 모두 순환하는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT041",
+                      "type_name":  "소수점 아래 일부 순환하는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT042",
+                      "type_name":  "순환소수의 분수 표현"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT043",
+                      "type_name":  "무한한 소수의 합으로 표현한 순환소수"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT044",
+                      "type_name":  "분모가 10의 거듭제곱 꼴인 분수의 합으로 표현한 순환소수"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT045",
+                      "type_name":  "분수 표현의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT046",
+                      "type_name":  "순환소수의 정수 표현"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT047",
+                      "type_name":  "정수 표현 가능한 순환소수 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT048",
+                      "type_name":  "대소관계 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT049",
+                      "type_name":  "대소관계 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT050",
+                      "type_name":  "순환소수의 사칙연산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT051",
+                      "type_name":  "순환소수 연산의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT052",
+                      "type_name":  "순환소수 활용의 연산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT053",
+                      "type_name":  "부등식을 만족하는 정수"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT054",
+                      "type_name":  "부등식을 만족하는 순환소수"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT055",
+                      "type_name":  "등식이 주어진 경우 하나의 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT056",
+                      "type_name":  "등식이 주어지지 않은 경우 하나의 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT057",
+                      "type_name":  "등식이 주어진 경우 두 개 이상의 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT058",
+                      "type_name":  "등식이 주어지지 않은 경우 두 개 이상의 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT059",
+                      "type_name":  "분자 혹은 분모만 잘못 보고 나타낸 순환소수가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT060",
+                      "type_name":  "분자와 분모를 잘못 보고 나타낸 순환소수가 모두 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT061",
+                      "type_name":  "잘못 계산한 값이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT062",
+                      "type_name":  "잘못 계산한 값과의 차이가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT063",
+                      "type_name":  "자연수가 되도록 하는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT064",
+                      "type_name":  "유한소수가 되도록 하는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT065",
+                      "type_name":  "순환소수에 대한 설명"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT066",
+                      "type_name":  "주어진 순환소수에 대한 설명"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT067",
+                      "type_name":  "유리수 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT068",
+                      "type_name":  "주어진 설명의 옳고 그름 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT069",
+                      "type_name":  "한 문자에 대한 거듭제곱의 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT070",
+                      "type_name":  "두 개 이상의 문자에 대한 거듭제곱의 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT071",
+                      "type_name":  "자연수에 대한 거듭제곱의 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT072",
+                      "type_name":  "-1에 대한 거듭제곱의 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT073",
+                      "type_name":  "거듭제곱의 곱셈 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT074",
+                      "type_name":  "한 문자에 대한 거듭제곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT075",
+                      "type_name":  "두 개 이상의 문자에 대한 거듭제곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT076",
+                      "type_name":  "한 자연수에 대한 거듭제곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT077",
+                      "type_name":  "자연수의 제곱수의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT078",
+                      "type_name":  "두 자연수에 대한 거듭제곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT079",
+                      "type_name":  "문자에 대한 거듭제곱의 나눗셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT080",
+                      "type_name":  "자연수에 대한 거듭제곱의 나눗셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT081",
+                      "type_name":  "분수꼴의 나눗셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT082",
+                      "type_name":  "한 문자에 대한 곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT083",
+                      "type_name":  "두 문자에 대한 곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT084",
+                      "type_name":  "세 문자에 대한 곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT085",
+                      "type_name":  "자연수에 대한 곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT086",
+                      "type_name":  "한 문자에 대한 몫의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT087",
+                      "type_name":  "두 개 이상의 문자에 대한 몫의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT088",
+                      "type_name":  "분수의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT089",
+                      "type_name":  "곱셈과 나눗셈의 혼합계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT090",
+                      "type_name":  "지수법칙이 포함된 여러가지 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT091",
+                      "type_name":  "주어진 규칙 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT092",
+                      "type_name":  "거듭제곱의 대소비교"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT093",
+                      "type_name":  "거듭제곱의 대소비교의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT094",
+                      "type_name":  "저장용량"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT095",
+                      "type_name":  "거리와 속력"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT096",
+                      "type_name":  "시간 당 증가"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT097",
+                      "type_name":  "일정한 길이로 등분"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT098",
+                      "type_name":  "같은 양으로 분배"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT099",
+                      "type_name":  "접은 종이의 두께"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT100",
+                      "type_name":  "같은 수의 덧셈식 간단히 하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT101",
+                      "type_name":  "분수 꼴의 형태"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT102",
+                      "type_name":  "지수법칙이 포함된 여러가지 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT103",
+                      "type_name":  "같은 수의 덧셈식 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT104",
+                      "type_name":  "한 자연수에 대하여 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT105",
+                      "type_name":  "한 자연수에 대하여 식을 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT106",
+                      "type_name":  "여러 자연수에 대하여 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT107",
+                      "type_name":  "한 자연수에 대하여 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT108",
+                      "type_name":  "여러 자연수에 대하여 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT109",
+                      "type_name":  "일의 자리 숫자 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT110",
+                      "type_name":  "일의 자리 숫자의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT111",
+                      "type_name":  "기호로 정의된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT112",
+                      "type_name":  "자연수의 자릿수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT113",
+                      "type_name":  "자연수의 자릿수 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT114",
+                      "type_name":  "거듭제곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT115",
+                      "type_name":  "거듭제곱의 나눗셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT116",
+                      "type_name":  "곱의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT117",
+                      "type_name":  "몫의 거듭제곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT118",
+                      "type_name":  "혼합계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT119",
+                      "type_name":  "나열된 수의 곱"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT120",
+                      "type_name":  "같은 수의 덧셈식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT121",
+                      "type_name":  "한 문자에 대한 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT122",
+                      "type_name":  "여러 문자에 대한 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT123",
+                      "type_name":  "여러 문자의 곱에 대한 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT124",
+                      "type_name":  "분수꼴을 포함한 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT125",
+                      "type_name":  "역수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT126",
+                      "type_name":  "한 문자에 대한 나눗셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT127",
+                      "type_name":  "여러 문자에 대한 나눗셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT128",
+                      "type_name":  "계산식에 미지수가 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT129",
+                      "type_name":  "한 문자에 대한 혼합 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT130",
+                      "type_name":  "여러 문자에 대한 혼합 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT131",
+                      "type_name":  "계산식에 미지수가 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT132",
+                      "type_name":  "혼합계산의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT133",
+                      "type_name":  "단항식의 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT134",
+                      "type_name":  "단항식의 나눗셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT135",
+                      "type_name":  "단항식의 혼합 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT136",
+                      "type_name":  "단항식의 계산에서 빈 칸에 알맞은 식 구하기 - 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT137",
+                      "type_name":  "삼각형에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT138",
+                      "type_name":  "사각형에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT139",
+                      "type_name":  "여러 도형에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT140",
+                      "type_name":  "기둥의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT141",
+                      "type_name":  "뿔의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT142",
+                      "type_name":  "회전체의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT143",
+                      "type_name":  "두 개 이상의 입체도형"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT144",
+                      "type_name":  "단항식 계산 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT145",
+                      "type_name":  "수량 관계를 단항식으로 해석"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT146",
+                      "type_name":  "다항식의 덧셈과 뺄셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT147",
+                      "type_name":  "분수꼴의 다항식을 포함한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT148",
+                      "type_name":  "다항식의 덧셈과 뺄셈 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT149",
+                      "type_name":  "다항식의 덧셈과 뺄셈 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT150",
+                      "type_name":  "한 문자에 대한 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT151",
+                      "type_name":  "두 문자에 대한 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT152",
+                      "type_name":  "한 미지수에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT153",
+                      "type_name":  "두 미지수에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT154",
+                      "type_name":  "이차식의 덧셈과 뺄셈 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT155",
+                      "type_name":  "이차식의 덧셈과 뺄셈 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT156",
+                      "type_name":  "한 미지수에 대한 중괄호 포함 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT157",
+                      "type_name":  "두 미지수에 대한 중괄호 포함 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT158",
+                      "type_name":  "한 미지수에 대한 대괄호 포함 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT159",
+                      "type_name":  "두 미지수에 대한 대괄호 포함 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT160",
+                      "type_name":  "모르는(어떤) 다항식 구하기(1) - 다항식의 덧셈과 뺄셈 이용 - 한 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT161",
+                      "type_name":  "모르는(어떤) 다항식 구하기(1) - 다항식의 덧셈과 뺄셈 이용 - 두 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT162",
+                      "type_name":  "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 - 한 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT163",
+                      "type_name":  "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 - 두 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT164",
+                      "type_name":  "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 - 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT165",
+                      "type_name":  "잘못 계산한 식에서 바른 답 구하기 - 한 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT166",
+                      "type_name":  "잘못 계산한 식에서 바른 답 구하기 - 두 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT167",
+                      "type_name":  "단항식과 다항식의 곱셈 - 한 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT168",
+                      "type_name":  "단항식과 다항식의 곱셈 - 두 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT169",
+                      "type_name":  "단항식과 다항식의 곱셈 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT170",
+                      "type_name":  "다항식과 단항식의 나눗셈 - 한 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT171",
+                      "type_name":  "다항식과 단항식의 나눗셈 - 두 문자에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT172",
+                      "type_name":  "단항식과 다항식의 나눗셈 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT173",
+                      "type_name":  "어떤 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT174",
+                      "type_name":  "바르게 계산한 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT175",
+                      "type_name":  "□ 안에 알맞은 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT176",
+                      "type_name":  "단항식과 다항식의 곱셈/나눗셈에서 빈 칸에 알맞은 식 구하기 - 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT177",
+                      "type_name":  "사칙연산이 혼합된 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT178",
+                      "type_name":  "분수꼴의 다항식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT179",
+                      "type_name":  "혼합계산의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT180",
+                      "type_name":  "삼각형"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT181",
+                      "type_name":  "사각형"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT182",
+                      "type_name":  "도형 내부의 도형"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT183",
+                      "type_name":  "기둥에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT184",
+                      "type_name":  "뿔에 대한 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT185",
+                      "type_name":  "입체도형의 계산 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT186",
+                      "type_name":  "다항식과 단항식의 곱셈과 나눗셈의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT187",
+                      "type_name":  "식의 덧셈 또는 뺄셈"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT188",
+                      "type_name":  "단항식과 다항식의 곱이 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT189",
+                      "type_name":  "단항식과 다항식의 나눗셈이 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT190",
+                      "type_name":  "곱셈, 나눗셈의 혼합계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT191",
+                      "type_name":  "분수꼴의 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT192",
+                      "type_name":  "식으로 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT193",
+                      "type_name":  "식의 계산으로 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT194",
+                      "type_name":  "식의 대입의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT195",
+                      "type_name":  "등식을 변형하여 풀기"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT196",
+                      "type_name":  "등식의 변형 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT197",
+                      "type_name":  "등식을 변형하여 다른 식에 대입하기 - 간단한 등식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT198",
+                      "type_name":  "등식을 변형하여 다른 식에 대입하기 - 복잡한 등식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT199",
+                      "type_name":  "식의 대입의 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT200",
+                      "type_name":  "등식을 변형하여 식의 값 구하기(1) - x, y에 대한 등식이 주어질 때 - 간단한 등식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT201",
+                      "type_name":  "분수꼴을 포함한 등식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT202",
+                      "type_name":  "비례식이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT203",
+                      "type_name":  "복잡한 비례식이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT204",
+                      "type_name":  "세 문자에 대한 등식"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT205",
+                      "type_name":  "비례식이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT206",
+                      "type_name":  "관계식이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT207",
+                      "type_name":  "비례식이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT208",
+                      "type_name":  "삼각형"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT209",
+                      "type_name":  "사각형"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT210",
+                      "type_name":  "도형 내부의 도형"
+                  },
+                  {
+                      "problem_type_id":  "M2_NE_PT211",
+                      "type_name":  "입체도형"
+                  }
+              ]
+}

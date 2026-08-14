@@ -1,0 +1,712 @@
+{
+    "unit_id":  "M3_QUADRATIC_FUNCTION",
+    "unit_name":  "이차함수",
+    "source_file":  "data/problem_types/m3_quadratic_function.problem_types.v1.json",
+    "count":  176,
+    "types":  [
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT001",
+                      "type_name":  "a≠0 조건 확인 누락"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT002",
+                      "type_name":  "이차함수의 뜻과 표준형 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT003",
+                      "type_name":  "이차함수의 뜻과 표준형 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT004",
+                      "type_name":  "이차함수의 뜻과 표준형 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT005",
+                      "type_name":  "제곱 계산 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT006",
+                      "type_name":  "이차함수의 함숫값 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT007",
+                      "type_name":  "이차함수의 함숫값 계산 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT008",
+                      "type_name":  "이차함수의 함숫값 계산 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT009",
+                      "type_name":  "점 좌표 대입 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT010",
+                      "type_name":  "조건을 만족하는 이차함수식 판별 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT011",
+                      "type_name":  "조건을 만족하는 이차함수식 판별 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT012",
+                      "type_name":  "조건을 만족하는 이차함수식 판별 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT013",
+                      "type_name":  "포물선 방향 착각"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT014",
+                      "type_name":  "y=ax²의 그래프 기본형 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT015",
+                      "type_name":  "y=ax²의 그래프 기본형 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT016",
+                      "type_name":  "y=ax²의 그래프 기본형 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT017",
+                      "type_name":  "a 부호와 방향 반대로 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT018",
+                      "type_name":  "a의 부호와 그래프 방향 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT019",
+                      "type_name":  "a의 부호와 그래프 방향 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT020",
+                      "type_name":  "a의 부호와 그래프 방향 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT021",
+                      "type_name":  "a값 크기와 폭 관계 반대로 판단"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT022",
+                      "type_name":  "|a|와 그래프의 폭 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT023",
+                      "type_name":  "|a|와 그래프의 폭 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT024",
+                      "type_name":  "|a|와 그래프의 폭 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT025",
+                      "type_name":  "대칭점 x좌표 부호 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT026",
+                      "type_name":  "y=ax²의 대칭성과 점 대응 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT027",
+                      "type_name":  "y=ax²의 대칭성과 점 대응 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT028",
+                      "type_name":  "y=ax²의 대칭성과 점 대응 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT029",
+                      "type_name":  "x² 계산 누락"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT030",
+                      "type_name":  "y=ax²의 식 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT031",
+                      "type_name":  "y=ax²의 식 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT032",
+                      "type_name":  "y=ax²의 식 구하기 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT033",
+                      "type_name":  "q 부호와 이동 방향 혼동"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT034",
+                      "type_name":  "y=ax²+q의 그래프 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT035",
+                      "type_name":  "y=ax²+q의 그래프 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT036",
+                      "type_name":  "y=ax²+q의 그래프 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT037",
+                      "type_name":  "(x-p)²에서 이동 방향 반대로 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT038",
+                      "type_name":  "y=a(x-p)²의 그래프 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT039",
+                      "type_name":  "y=a(x-p)²의 그래프 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT040",
+                      "type_name":  "y=a(x-p)²의 그래프 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT041",
+                      "type_name":  "p,q 좌표 순서 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT042",
+                      "type_name":  "y=a(x-p)²+q의 그래프 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT043",
+                      "type_name":  "y=a(x-p)²+q의 그래프 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT044",
+                      "type_name":  "y=a(x-p)²+q의 그래프 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT045",
+                      "type_name":  "p의 부호 해석 반대"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT046",
+                      "type_name":  "p,q의 부호와 그래프 위치 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT047",
+                      "type_name":  "p,q의 부호와 그래프 위치 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT048",
+                      "type_name":  "p,q의 부호와 그래프 위치 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT049",
+                      "type_name":  "a와 p,q 효과를 분리하지 못함"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT050",
+                      "type_name":  "여러 이차함수 그래프 비교 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT051",
+                      "type_name":  "여러 이차함수 그래프 비교 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT052",
+                      "type_name":  "여러 이차함수 그래프 비교 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT053",
+                      "type_name":  "전개 과정에서 부호 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT054",
+                      "type_name":  "표준형과 일반형의 연결 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT055",
+                      "type_name":  "표준형과 일반형의 연결 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT056",
+                      "type_name":  "표준형과 일반형의 연결 - 조건 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT057",
+                      "type_name":  "완전제곱식 항 추가 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT058",
+                      "type_name":  "완전제곱식으로 표준형 만들기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT059",
+                      "type_name":  "완전제곱식으로 표준형 만들기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT060",
+                      "type_name":  "-b/2a 부호 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT061",
+                      "type_name":  "축 x=-b/2a 이해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT062",
+                      "type_name":  "축 x=-b/2a 이해 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT063",
+                      "type_name":  "축만 구하고 y좌표 미계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT064",
+                      "type_name":  "일반형의 꼭짓점 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT065",
+                      "type_name":  "일반형의 꼭짓점 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT066",
+                      "type_name":  "꼭짓점 없이 임의로 그림"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT067",
+                      "type_name":  "이차함수 그래프 그리기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT068",
+                      "type_name":  "이차함수 그래프 그리기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT069",
+                      "type_name":  "대응표 계산 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT070",
+                      "type_name":  "대응표로 그래프 그리기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT071",
+                      "type_name":  "대응표로 그래프 그리기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT072",
+                      "type_name":  "상수항과 x절편 혼동"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT073",
+                      "type_name":  "이차함수의 y절편 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT074",
+                      "type_name":  "이차함수의 y절편 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT075",
+                      "type_name":  "y=0 설정 누락"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT076",
+                      "type_name":  "이차함수의 x절편 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT077",
+                      "type_name":  "이차함수의 x절편 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT078",
+                      "type_name":  "x,y 좌표 순서 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT079",
+                      "type_name":  "그래프 위의 점과 미지수 좌표 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT080",
+                      "type_name":  "그래프 위의 점과 미지수 좌표 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT081",
+                      "type_name":  "꼭짓점 좌표를 p,q에 반대로 대입"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT082",
+                      "type_name":  "꼭짓점과 한 점으로 이차함수식 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT083",
+                      "type_name":  "꼭짓점과 한 점으로 이차함수식 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT084",
+                      "type_name":  "축 x=p를 꼭짓점 전체로 착각"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT085",
+                      "type_name":  "축과 점 조건으로 식 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT086",
+                      "type_name":  "축과 점 조건으로 식 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT087",
+                      "type_name":  "연립식 설정 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT088",
+                      "type_name":  "세 점으로 이차함수식 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT089",
+                      "type_name":  "세 점으로 이차함수식 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT090",
+                      "type_name":  "x절편을 인수로 연결하지 못함"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT091",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT092",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT093",
+                      "type_name":  "a 부호에 따른 최댓값/최솟값 반대"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT094",
+                      "type_name":  "꼭짓점과 최댓값·최솟값 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT095",
+                      "type_name":  "꼭짓점과 최댓값·최솟값 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT096",
+                      "type_name":  "끝값 비교 누락"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT097",
+                      "type_name":  "제한된 범위에서 최댓값·최솟값 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT098",
+                      "type_name":  "제한된 범위에서 최댓값·최솟값 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT099",
+                      "type_name":  "축 기준 좌우 증감 반대"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT100",
+                      "type_name":  "이차함수의 증가와 감소 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT101",
+                      "type_name":  "이차함수의 증가와 감소 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT102",
+                      "type_name":  "대칭축 평균 관계 미사용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT103",
+                      "type_name":  "축에 대한 대칭점 활용 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT104",
+                      "type_name":  "축에 대한 대칭점 활용 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT105",
+                      "type_name":  "해와 교점 연결 실패"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT106",
+                      "type_name":  "이차방정식의 근과 x절편 연결 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT107",
+                      "type_name":  "이차방정식의 근과 x절편 연결 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT108",
+                      "type_name":  "연립 후 이차방정식 변형 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT109",
+                      "type_name":  "직선과 이차함수의 교점 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT110",
+                      "type_name":  "직선과 이차함수의 교점 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT111",
+                      "type_name":  "접한다/만나지 않는다 구분 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT112",
+                      "type_name":  "교점 개수와 위치 관계 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT113",
+                      "type_name":  "교점 개수와 위치 관계 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT114",
+                      "type_name":  "방향 조건과 폭 조건 혼동"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT115",
+                      "type_name":  "계수 a 조건 판단 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT116",
+                      "type_name":  "계수 a 조건 판단 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT117",
+                      "type_name":  "축 공식 부호 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT118",
+                      "type_name":  "축 조건으로 계수 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT119",
+                      "type_name":  "축 조건으로 계수 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT120",
+                      "type_name":  "꼭짓점 좌표 조건 일부만 사용"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT121",
+                      "type_name":  "꼭짓점 조건으로 계수 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT122",
+                      "type_name":  "꼭짓점 조건으로 계수 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT123",
+                      "type_name":  "절편 조건을 좌표로 바꾸지 못함"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT124",
+                      "type_name":  "절편 조건으로 계수 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT125",
+                      "type_name":  "절편 조건으로 계수 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT126",
+                      "type_name":  "좌표를 길이로 바꿀 때 절댓값 누락"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT127",
+                      "type_name":  "이차함수와 도형 넓이 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT128",
+                      "type_name":  "이차함수와 도형 넓이 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT129",
+                      "type_name":  "대칭축에서의 거리 관계 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT130",
+                      "type_name":  "대칭성과 거리 활용 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT131",
+                      "type_name":  "대칭성과 거리 활용 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT132",
+                      "type_name":  "변수 설정 오류"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT133",
+                      "type_name":  "상황을 이차함수로 모델링 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT134",
+                      "type_name":  "상황을 이차함수로 모델링 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT135",
+                      "type_name":  "조건별 경우 분리 실패"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT136",
+                      "type_name":  "매개변수 조건 문제 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT137",
+                      "type_name":  "매개변수 조건 문제 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT138",
+                      "type_name":  "그래프 정보를 식으로 연결하지 못함"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT139",
+                      "type_name":  "그래프에서 식과 성질 읽기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT140",
+                      "type_name":  "그래프에서 식과 성질 읽기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT141",
+                      "type_name":  "형태별 장점 구분 실패"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT142",
+                      "type_name":  "식 변형과 그래프 성질 종합 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT143",
+                      "type_name":  "식 변형과 그래프 성질 종합 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT144",
+                      "type_name":  "조건 일부 누락"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT145",
+                      "type_name":  "조건 누락 없는 이차함수 종합 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT146",
+                      "type_name":  "조건 누락 없는 이차함수 종합 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT147",
+                      "type_name":  "이차함수인지 판별"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT148",
+                      "type_name":  "이차함수 판별과 y=ax² 그래프 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT149",
+                      "type_name":  "이차함수 판별과 y=ax² 그래프 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT150",
+                      "type_name":  "p,q에 따른 꼭짓점"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT151",
+                      "type_name":  "y=a(x-p)²+q 그래프 해석 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT152",
+                      "type_name":  "y=a(x-p)²+q 그래프 해석 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT153",
+                      "type_name":  "완전제곱식 변형"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT154",
+                      "type_name":  "일반형에서 그래프 정보 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT155",
+                      "type_name":  "일반형에서 그래프 정보 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT156",
+                      "type_name":  "대응표 작성"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT157",
+                      "type_name":  "이차함수 그래프 그리기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT158",
+                      "type_name":  "이차함수 그래프 그리기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT159",
+                      "type_name":  "꼭짓점과 한 점"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT160",
+                      "type_name":  "꼭짓점·점·절편 조건으로 식 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT161",
+                      "type_name":  "꼭짓점·점·절편 조건으로 식 구하기 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT162",
+                      "type_name":  "꼭짓점 y좌표 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT163",
+                      "type_name":  "이차함수의 최댓값·최솟값·증감 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT164",
+                      "type_name":  "이차함수의 최댓값·최솟값·증감 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT165",
+                      "type_name":  "근과 x절편"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT166",
+                      "type_name":  "이차방정식과 이차함수 그래프 연결 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT167",
+                      "type_name":  "이차방정식과 이차함수 그래프 연결 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT168",
+                      "type_name":  "a의 방향과 폭"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT169",
+                      "type_name":  "계수 조건으로 그래프 성질 판단 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT170",
+                      "type_name":  "계수 조건으로 그래프 성질 판단 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT171",
+                      "type_name":  "도형 넓이"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT172",
+                      "type_name":  "이차함수 활용 문제 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT173",
+                      "type_name":  "이차함수 활용 문제 - 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT174",
+                      "type_name":  "그래프에서 식 읽기"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT175",
+                      "type_name":  "이차함수 고난도 종합 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_QFUNC_PT176",
+                      "type_name":  "이차함수 고난도 종합 - 그래프 해석"
+                  }
+              ]
+}

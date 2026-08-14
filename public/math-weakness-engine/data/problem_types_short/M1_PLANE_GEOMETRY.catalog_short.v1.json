@@ -1,0 +1,224 @@
+{
+    "unit_id":  "M1_PLANE_GEOMETRY",
+    "unit_name":  "평면도형의 성질",
+    "source_file":  "data/problem_types/m1_plane_geometry.problem_types.v1.json",
+    "count":  54,
+    "types":  [
+                  {
+                      "problem_type_id":  "M1_PG_PT001",
+                      "type_name":  "다각형 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT002",
+                      "type_name":  "다각형의 변·꼭짓점·각의 개수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT003",
+                      "type_name":  "다각형의 내각과 외각 설명 판단"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT004",
+                      "type_name":  "한 내각과 외각의 크기 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT005",
+                      "type_name":  "내각·외각 조건에서 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT006",
+                      "type_name":  "정다각형 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT007",
+                      "type_name":  "정다각형의 성질 판단"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT008",
+                      "type_name":  "정다각형 성질 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT009",
+                      "type_name":  "삼각형의 한 내각 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT010",
+                      "type_name":  "삼각형의 두 내각 조건으로 각 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT011",
+                      "type_name":  "삼각형의 세 내각 조건 해석하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT012",
+                      "type_name":  "삼각형의 외각의 성질로 각 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT013",
+                      "type_name":  "삼각형 내각·외각 관계에서 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT014",
+                      "type_name":  "삼각형 각 조건의 옳고 그름 판단"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT015",
+                      "type_name":  "한 꼭짓점에서 그을 수 있는 대각선 개수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT016",
+                      "type_name":  "다각형의 대각선 총수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT017",
+                      "type_name":  "대각선 개수 조건으로 다각형 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT018",
+                      "type_name":  "다각형의 내각의 합 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT019",
+                      "type_name":  "내각의 합 조건으로 n각형 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT020",
+                      "type_name":  "다각형의 특정 내각 크기 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT021",
+                      "type_name":  "다각형의 외각의 합 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT022",
+                      "type_name":  "외각 조건으로 미지수 또는 다각형 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT023",
+                      "type_name":  "정다각형의 한 외각 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT024",
+                      "type_name":  "정다각형의 한 내각 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT025",
+                      "type_name":  "한 내각·한 외각 조건으로 정다각형 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT026",
+                      "type_name":  "정다각형을 빈틈없이 붙이기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT027",
+                      "type_name":  "작도 가능 조건 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT028",
+                      "type_name":  "세 변이 주어진 삼각형 작도하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT029",
+                      "type_name":  "세 변 조건에서 삼각형 작도 가능성 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT030",
+                      "type_name":  "두 변과 끼인각으로 삼각형 작도하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT031",
+                      "type_name":  "한 변과 양 끝각으로 삼각형 작도하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT032",
+                      "type_name":  "삼각형이 하나로 결정되는 조건 고르기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT033",
+                      "type_name":  "삼각형이 하나로 결정되지 않는 조건 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT034",
+                      "type_name":  "삼각형 합동조건 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT035",
+                      "type_name":  "대응변·대응각 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT036",
+                      "type_name":  "합동조건을 이용하여 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT037",
+                      "type_name":  "원의 둘레 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT038",
+                      "type_name":  "원의 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT039",
+                      "type_name":  "원의 둘레 또는 넓이로 반지름 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT040",
+                      "type_name":  "중심각 비율 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT041",
+                      "type_name":  "부채꼴의 호의 길이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT042",
+                      "type_name":  "호의 길이 조건으로 중심각 또는 반지름 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT043",
+                      "type_name":  "부채꼴의 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT044",
+                      "type_name":  "부채꼴 넓이 조건으로 중심각 또는 반지름 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT045",
+                      "type_name":  "호의 길이를 이용하여 부채꼴의 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT046",
+                      "type_name":  "원과 부채꼴이 결합된 둘레 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT047",
+                      "type_name":  "다각형과 원호가 결합된 둘레 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT048",
+                      "type_name":  "색칠한 부분의 둘레에서 포함되는 경계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT049",
+                      "type_name":  "부채꼴이 포함된 색칠한 부분의 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT050",
+                      "type_name":  "원과 다각형의 차로 색칠한 부분의 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT051",
+                      "type_name":  "동심원 또는 반원·사분원을 이용한 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT052",
+                      "type_name":  "복합도형을 나누어 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT053",
+                      "type_name":  "각도 조건을 식으로 세워 해결하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_PG_PT054",
+                      "type_name":  "길이·넓이 조건을 식으로 세워 해결하기"
+                  }
+              ]
+}

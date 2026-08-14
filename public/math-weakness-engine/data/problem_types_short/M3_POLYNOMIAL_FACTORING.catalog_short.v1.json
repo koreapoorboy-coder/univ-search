@@ -1,0 +1,856 @@
+{
+    "unit_id":  "M3_POLYNOMIAL_FACTORING",
+    "unit_name":  "다항식의 곱셈과 인수분해",
+    "source_file":  "data/problem_types/m3_polynomial_multiplication_factorization.problem_types.v1.json",
+    "count":  212,
+    "types":  [
+                  {
+                      "problem_type_id":  "M3_POLY_PT001",
+                      "type_name":  "다항식과 다항식의 곱셈"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT002",
+                      "type_name":  "다항식과 다항식의 곱셈 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT003",
+                      "type_name":  "다항식과 다항식의 곱셈 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT004",
+                      "type_name":  "다항식과 다항식의 곱셈 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT005",
+                      "type_name":  "전개식의 계수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT006",
+                      "type_name":  "전개식의 계수 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT007",
+                      "type_name":  "전개식의 계수 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT008",
+                      "type_name":  "전개식의 계수 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT009",
+                      "type_name":  "합의 제곱 공식"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT010",
+                      "type_name":  "합의 제곱 공식 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT011",
+                      "type_name":  "합의 제곱 공식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT012",
+                      "type_name":  "합의 제곱 공식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT013",
+                      "type_name":  "차의 제곱 공식"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT014",
+                      "type_name":  "차의 제곱 공식 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT015",
+                      "type_name":  "차의 제곱 공식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT016",
+                      "type_name":  "차의 제곱 공식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT017",
+                      "type_name":  "합과 차의 곱 공식"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT018",
+                      "type_name":  "합과 차의 곱 공식 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT019",
+                      "type_name":  "합과 차의 곱 공식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT020",
+                      "type_name":  "합과 차의 곱 공식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT021",
+                      "type_name":  "연속한 합과 차의 곱"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT022",
+                      "type_name":  "연속한 합과 차의 곱 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT023",
+                      "type_name":  "연속한 합과 차의 곱 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT024",
+                      "type_name":  "연속한 합과 차의 곱 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT025",
+                      "type_name":  "일차항 계수가 1인 두 일차식의 곱"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT026",
+                      "type_name":  "일차항 계수가 1인 두 일차식의 곱 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT027",
+                      "type_name":  "일차항 계수가 1인 두 일차식의 곱 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT028",
+                      "type_name":  "일차항 계수가 1인 두 일차식의 곱 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT029",
+                      "type_name":  "일차항 계수가 1이 아닌 두 일차식의 곱"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT030",
+                      "type_name":  "일차항 계수가 1이 아닌 두 일차식의 곱 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT031",
+                      "type_name":  "일차항 계수가 1이 아닌 두 일차식의 곱 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT032",
+                      "type_name":  "일차항 계수가 1이 아닌 두 일차식의 곱 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT033",
+                      "type_name":  "세제곱 공식의 전개"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT034",
+                      "type_name":  "세제곱 공식의 전개 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT035",
+                      "type_name":  "세제곱 공식의 전개 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT036",
+                      "type_name":  "세제곱 공식의 전개 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT037",
+                      "type_name":  "곱셈 공식 종합 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT038",
+                      "type_name":  "곱셈 공식 종합 적용 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT039",
+                      "type_name":  "곱셈 공식 종합 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT040",
+                      "type_name":  "곱셈 공식 종합 적용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT041",
+                      "type_name":  "도형을 이용한 곱셈 공식"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT042",
+                      "type_name":  "도형을 이용한 곱셈 공식 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT043",
+                      "type_name":  "도형을 이용한 곱셈 공식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT044",
+                      "type_name":  "도형을 이용한 곱셈 공식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT045",
+                      "type_name":  "공통부분이 있는 식의 전개"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT046",
+                      "type_name":  "공통부분이 있는 식의 전개 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT047",
+                      "type_name":  "공통부분이 있는 식의 전개 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT048",
+                      "type_name":  "공통부분이 있는 식의 전개 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT049",
+                      "type_name":  "세 항 이상의 곱 전개"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT050",
+                      "type_name":  "세 항 이상의 곱 전개 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT051",
+                      "type_name":  "세 항 이상의 곱 전개 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT052",
+                      "type_name":  "세 항 이상의 곱 전개 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT053",
+                      "type_name":  "곱셈 공식을 이용한 수의 제곱 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT054",
+                      "type_name":  "곱셈 공식을 이용한 수의 제곱 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT055",
+                      "type_name":  "곱셈 공식을 이용한 수의 제곱 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT056",
+                      "type_name":  "곱셈 공식을 이용한 수의 제곱 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT057",
+                      "type_name":  "곱셈 공식을 이용한 두 수의 곱 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT058",
+                      "type_name":  "곱셈 공식을 이용한 두 수의 곱 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT059",
+                      "type_name":  "곱셈 공식을 이용한 두 수의 곱 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT060",
+                      "type_name":  "곱셈 공식을 이용한 두 수의 곱 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT061",
+                      "type_name":  "복잡한 수의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT062",
+                      "type_name":  "복잡한 수의 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT063",
+                      "type_name":  "복잡한 수의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT064",
+                      "type_name":  "복잡한 수의 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT065",
+                      "type_name":  "제곱근을 포함한 수의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT066",
+                      "type_name":  "제곱근을 포함한 수의 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT067",
+                      "type_name":  "제곱근을 포함한 수의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT068",
+                      "type_name":  "제곱근을 포함한 수의 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT069",
+                      "type_name":  "계산 결과가 유리수가 될 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT070",
+                      "type_name":  "계산 결과가 유리수가 될 조건 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT071",
+                      "type_name":  "계산 결과가 유리수가 될 조건 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT072",
+                      "type_name":  "계산 결과가 유리수가 될 조건 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT073",
+                      "type_name":  "분모의 유리화"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT074",
+                      "type_name":  "분모의 유리화 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT075",
+                      "type_name":  "분모의 유리화 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT076",
+                      "type_name":  "분모의 유리화 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT077",
+                      "type_name":  "수가 주어진 식의 값"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT078",
+                      "type_name":  "수가 주어진 식의 값 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT079",
+                      "type_name":  "수가 주어진 식의 값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT080",
+                      "type_name":  "수가 주어진 식의 값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT081",
+                      "type_name":  "두 수의 합·차·곱이 주어진 식의 값"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT082",
+                      "type_name":  "두 수의 합·차·곱이 주어진 식의 값 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT083",
+                      "type_name":  "두 수의 합·차·곱이 주어진 식의 값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT084",
+                      "type_name":  "두 수의 합·차·곱이 주어진 식의 값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT085",
+                      "type_name":  "두 수의 곱이 1인 경우와 식 만들기"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT086",
+                      "type_name":  "두 수의 곱이 1인 경우와 식 만들기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT087",
+                      "type_name":  "두 수의 곱이 1인 경우와 식 만들기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT088",
+                      "type_name":  "두 수의 곱이 1인 경우와 식 만들기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT089",
+                      "type_name":  "식을 먼저 간단히 하여 값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT090",
+                      "type_name":  "식을 먼저 간단히 하여 값 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT091",
+                      "type_name":  "식을 먼저 간단히 하여 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT092",
+                      "type_name":  "식을 먼저 간단히 하여 값 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT093",
+                      "type_name":  "무리수의 정수 부분과 소수 부분"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT094",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT095",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT096",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT097",
+                      "type_name":  "인수의 뜻과 주어진 식의 인수"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT098",
+                      "type_name":  "인수의 뜻과 주어진 식의 인수 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT099",
+                      "type_name":  "인수의 뜻과 주어진 식의 인수 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT100",
+                      "type_name":  "인수의 뜻과 주어진 식의 인수 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT101",
+                      "type_name":  "인수분해하기 전의 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT102",
+                      "type_name":  "인수분해하기 전의 식 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT103",
+                      "type_name":  "인수분해하기 전의 식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT104",
+                      "type_name":  "인수분해하기 전의 식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT105",
+                      "type_name":  "공통인수를 이용한 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT106",
+                      "type_name":  "공통인수를 이용한 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT107",
+                      "type_name":  "공통인수를 이용한 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT108",
+                      "type_name":  "완전제곱식 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT109",
+                      "type_name":  "완전제곱식 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT110",
+                      "type_name":  "완전제곱식 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT111",
+                      "type_name":  "완전제곱식이 될 조건"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT112",
+                      "type_name":  "완전제곱식이 될 조건 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT113",
+                      "type_name":  "완전제곱식이 될 조건 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT114",
+                      "type_name":  "근호 안이 완전제곱식이 되도록 하는 식"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT115",
+                      "type_name":  "근호 안이 완전제곱식이 되도록 하는 식 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT116",
+                      "type_name":  "근호 안이 완전제곱식이 되도록 하는 식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT117",
+                      "type_name":  "a^2-b^2 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT118",
+                      "type_name":  "a^2-b^2 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT119",
+                      "type_name":  "a^2-b^2 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT120",
+                      "type_name":  "두 번 이상 인수분해되는 식"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT121",
+                      "type_name":  "두 번 이상 인수분해되는 식 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT122",
+                      "type_name":  "두 번 이상 인수분해되는 식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT123",
+                      "type_name":  "x²+(a+b)x+ab 꼴 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT124",
+                      "type_name":  "x²+(a+b)x+ab 꼴 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT125",
+                      "type_name":  "x²+(a+b)x+ab 꼴 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT126",
+                      "type_name":  "일차항 계수가 1이 아닌 이차식 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT127",
+                      "type_name":  "일차항 계수가 1이 아닌 이차식 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT128",
+                      "type_name":  "일차항 계수가 1이 아닌 이차식 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT129",
+                      "type_name":  "acx²+(ad+bc)xy+bdy² 꼴"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT130",
+                      "type_name":  "acx²+(ad+bc)xy+bdy² 꼴 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT131",
+                      "type_name":  "acx²+(ad+bc)xy+bdy² 꼴 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT132",
+                      "type_name":  "a³±b³ 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT133",
+                      "type_name":  "a³±b³ 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT134",
+                      "type_name":  "a³±b³ 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT135",
+                      "type_name":  "인수분해 공식 종합"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT136",
+                      "type_name":  "인수분해 공식 종합 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT137",
+                      "type_name":  "인수분해 공식 종합 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT138",
+                      "type_name":  "도형을 이용한 인수분해 공식"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT139",
+                      "type_name":  "도형을 이용한 인수분해 공식 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT140",
+                      "type_name":  "도형을 이용한 인수분해 공식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT141",
+                      "type_name":  "두 다항식의 공통인수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT142",
+                      "type_name":  "두 다항식의 공통인수 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT143",
+                      "type_name":  "두 다항식의 공통인수 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT144",
+                      "type_name":  "인수가 주어진 이차식의 미지수와 값"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT145",
+                      "type_name":  "인수가 주어진 이차식의 미지수와 값 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT146",
+                      "type_name":  "인수가 주어진 이차식의 미지수와 값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT147",
+                      "type_name":  "두 일차식의 곱으로 인수분해될 때 미지수"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT148",
+                      "type_name":  "두 일차식의 곱으로 인수분해될 때 미지수 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT149",
+                      "type_name":  "두 일차식의 곱으로 인수분해될 때 미지수 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT150",
+                      "type_name":  "계수 또는 상수항을 잘못 보고 푼 경우"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT151",
+                      "type_name":  "계수 또는 상수항을 잘못 보고 푼 경우 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT152",
+                      "type_name":  "계수 또는 상수항을 잘못 보고 푼 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT153",
+                      "type_name":  "복잡한 식의 공통인수 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT154",
+                      "type_name":  "복잡한 식의 공통인수 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT155",
+                      "type_name":  "복잡한 식의 공통인수 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT156",
+                      "type_name":  "공통부분이 있는 식의 치환 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT157",
+                      "type_name":  "공통부분이 있는 식의 치환 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT158",
+                      "type_name":  "공통부분이 있는 식의 치환 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT159",
+                      "type_name":  "다른 형태로 주어진 공통부분 치환"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT160",
+                      "type_name":  "다른 형태로 주어진 공통부분 치환 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT161",
+                      "type_name":  "다른 형태로 주어진 공통부분 치환 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT162",
+                      "type_name":  "공통부분이 2개 있는 식의 치환"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT163",
+                      "type_name":  "공통부분이 2개 있는 식의 치환 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT164",
+                      "type_name":  "공통부분이 2개 있는 식의 치환 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT165",
+                      "type_name":  "( )( )( )+k꼴 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT166",
+                      "type_name":  "( )( )( )+k꼴 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT167",
+                      "type_name":  "( )( )( )+k꼴 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT168",
+                      "type_name":  "적당한 항끼리 묶어 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT169",
+                      "type_name":  "적당한 항끼리 묶어 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT170",
+                      "type_name":  "적당한 항끼리 묶어 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT171",
+                      "type_name":  "제곱차 꼴로 묶어 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT172",
+                      "type_name":  "제곱차 꼴로 묶어 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT173",
+                      "type_name":  "제곱차 꼴로 묶어 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT174",
+                      "type_name":  "x⁴+ax²+b꼴 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT175",
+                      "type_name":  "x⁴+ax²+b꼴 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT176",
+                      "type_name":  "x⁴+ax²+b꼴 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT177",
+                      "type_name":  "내림차순으로 정리하여 인수분해"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT178",
+                      "type_name":  "내림차순으로 정리하여 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT179",
+                      "type_name":  "내림차순으로 정리하여 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT180",
+                      "type_name":  "인수분해 공식을 이용한 수의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT181",
+                      "type_name":  "인수분해 공식을 이용한 수의 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT182",
+                      "type_name":  "인수분해 공식을 이용한 수의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT183",
+                      "type_name":  "합과 차의 곱을 이용한 수의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT184",
+                      "type_name":  "합과 차의 곱을 이용한 수의 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT185",
+                      "type_name":  "합과 차의 곱을 이용한 수의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT186",
+                      "type_name":  "인수분해 공식을 이용한 식의 값 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT187",
+                      "type_name":  "인수분해 공식을 이용한 식의 값 구하기 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT188",
+                      "type_name":  "인수분해 공식을 이용한 식의 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT189",
+                      "type_name":  "인수분해 공식의 도형 활용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT190",
+                      "type_name":  "인수분해 공식의 도형 활용 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT191",
+                      "type_name":  "인수분해 공식의 도형 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT192",
+                      "type_name":  "분배법칙과 곱셈공식 구분"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT193",
+                      "type_name":  "전개와 곱셈공식 선택 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT194",
+                      "type_name":  "전개와 곱셈공식 선택 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT195",
+                      "type_name":  "수의 제곱 계산"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT196",
+                      "type_name":  "곱셈공식을 이용한 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT197",
+                      "type_name":  "곱셈공식을 이용한 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT198",
+                      "type_name":  "합·차·곱 조건 이용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT199",
+                      "type_name":  "조건을 이용한 식의 값 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT200",
+                      "type_name":  "조건을 이용한 식의 값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT201",
+                      "type_name":  "공통인수 먼저 확인"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT202",
+                      "type_name":  "공식 선택형 인수분해 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT203",
+                      "type_name":  "공식 선택형 인수분해 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT204",
+                      "type_name":  "인수가 주어진 조건 처리"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT205",
+                      "type_name":  "복합 인수분해 전략 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT206",
+                      "type_name":  "복합 인수분해 전략 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT207",
+                      "type_name":  "x⁴+ax²+b 꼴 처리"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT208",
+                      "type_name":  "x⁴꼴과 활용 계산 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT209",
+                      "type_name":  "x⁴꼴과 활용 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT210",
+                      "type_name":  "도형 넓이로 곱셈공식 설명"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT211",
+                      "type_name":  "도형에서 전개·인수분해 공식 해석 - 계산 수행"
+                  },
+                  {
+                      "problem_type_id":  "M3_POLY_PT212",
+                      "type_name":  "도형에서 전개·인수분해 공식 해석 - 조건 적용"
+                  }
+              ]
+}

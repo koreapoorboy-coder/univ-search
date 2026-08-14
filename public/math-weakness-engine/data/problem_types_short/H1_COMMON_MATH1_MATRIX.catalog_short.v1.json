@@ -1,0 +1,740 @@
+{
+    "unit_id":  "H1_COMMON_MATH1_MATRIX",
+    "unit_name":  "행렬",
+    "source_file":  "data/problem_types/h1_common_math1_matrix.problem_types.v1.json",
+    "count":  183,
+    "types":  [
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT001",
+                      "type_name":  "행렬의 꼴 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT002",
+                      "type_name":  "행렬의 꼴 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT003",
+                      "type_name":  "행렬의 꼴 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT004",
+                      "type_name":  "행렬의 행과 열 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT005",
+                      "type_name":  "행렬의 행과 열 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT006",
+                      "type_name":  "행렬의 행과 열 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT007",
+                      "type_name":  "행렬의 성분 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT008",
+                      "type_name":  "행렬의 성분 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT009",
+                      "type_name":  "행렬의 성분 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT010",
+                      "type_name":  "행렬의 (i,j)성분 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT011",
+                      "type_name":  "행렬의 (i,j)성분 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT012",
+                      "type_name":  "행렬의 (i,j)성분 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT013",
+                      "type_name":  "행렬의 성분 a_ij가 식으로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT014",
+                      "type_name":  "행렬의 성분 a_ij가 식으로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT015",
+                      "type_name":  "행렬의 성분 a_ij가 식으로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT016",
+                      "type_name":  "수, 식의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT017",
+                      "type_name":  "수, 식의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT018",
+                      "type_name":  "수, 식의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT019",
+                      "type_name":  "이차방정식, 이차함수의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT020",
+                      "type_name":  "이차방정식, 이차함수의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT021",
+                      "type_name":  "이차방정식, 이차함수의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT022",
+                      "type_name":  "도형의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT023",
+                      "type_name":  "도형의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT024",
+                      "type_name":  "도형의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT025",
+                      "type_name":  "실생활의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT026",
+                      "type_name":  "실생활의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT027",
+                      "type_name":  "실생활의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT028",
+                      "type_name":  "행렬이 직접 주어지는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT029",
+                      "type_name":  "행렬이 직접 주어지는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT030",
+                      "type_name":  "행렬이 직접 주어지는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT031",
+                      "type_name":  "행렬이 성분으로 주어지는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT032",
+                      "type_name":  "행렬이 성분으로 주어지는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT033",
+                      "type_name":  "행렬이 성분으로 주어지는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT034",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(1) 한 행렬의 계산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT035",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(1) 한 행렬의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT036",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(1) 한 행렬의 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT037",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(2) 두 행렬의 계산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT038",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(2) 두 행렬의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT039",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(2) 두 행렬의 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT040",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(3) 세 행렬의 계산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT041",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(3) 세 행렬의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT042",
+                      "type_name":  "행렬의 덧셈, 뺄셈, 실수배(3) 세 행렬의 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT043",
+                      "type_name":  "행렬 A 또는 B를 구하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT044",
+                      "type_name":  "행렬 A 또는 B를 구하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT045",
+                      "type_name":  "행렬 A 또는 B를 구하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT046",
+                      "type_name":  "등식을 만족하는 행렬 X를 구하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT047",
+                      "type_name":  "등식을 만족하는 행렬 X를 구하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT048",
+                      "type_name":  "등식을 만족하는 행렬 X를 구하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT049",
+                      "type_name":  "증명하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT050",
+                      "type_name":  "증명하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT051",
+                      "type_name":  "증명하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT052",
+                      "type_name":  "행렬 A, B에 대한 두 등식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT053",
+                      "type_name":  "행렬 A, B에 대한 두 등식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT054",
+                      "type_name":  "행렬 A, B에 대한 두 등식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT055",
+                      "type_name":  "행렬 A, B, X, Y에 대한 두 등식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT056",
+                      "type_name":  "행렬 A, B, X, Y에 대한 두 등식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT057",
+                      "type_name":  "행렬 A, B, X, Y에 대한 두 등식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT058",
+                      "type_name":  "두 행렬이 서로 같은 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT059",
+                      "type_name":  "두 행렬이 서로 같은 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT060",
+                      "type_name":  "두 행렬이 서로 같은 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT061",
+                      "type_name":  "xA+yB꼴로 나타내는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT062",
+                      "type_name":  "xA+yB꼴로 나타내는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT063",
+                      "type_name":  "xA+yB꼴로 나타내는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT064",
+                      "type_name":  "곱셈의 정의 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT065",
+                      "type_name":  "곱셈의 정의 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT066",
+                      "type_name":  "곱셈의 정의 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT067",
+                      "type_name":  "두 행렬의 곱셈 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT068",
+                      "type_name":  "두 행렬의 곱셈 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT069",
+                      "type_name":  "두 행렬의 곱셈 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT070",
+                      "type_name":  "세 행렬의 곱셈 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT071",
+                      "type_name":  "세 행렬의 곱셈 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT072",
+                      "type_name":  "세 행렬의 곱셈 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT073",
+                      "type_name":  "곱셈을 포함한 혼합계산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT074",
+                      "type_name":  "곱셈을 포함한 혼합계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT075",
+                      "type_name":  "곱셈을 포함한 혼합계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT076",
+                      "type_name":  "등식을 만족하는 행렬 X를 구하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT077",
+                      "type_name":  "등식을 만족하는 행렬 X를 구하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT078",
+                      "type_name":  "등식을 만족하는 행렬 X를 구하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT079",
+                      "type_name":  "최댓값 또는 최솟값 구하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT080",
+                      "type_name":  "최댓값 또는 최솟값 구하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT081",
+                      "type_name":  "최댓값 또는 최솟값 구하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT082",
+                      "type_name":  "새롭게 정의된 연산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT083",
+                      "type_name":  "새롭게 정의된 연산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT084",
+                      "type_name":  "새롭게 정의된 연산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT085",
+                      "type_name":  "조건이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT086",
+                      "type_name":  "조건이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT087",
+                      "type_name":  "조건이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT088",
+                      "type_name":  "A^2의 계산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT089",
+                      "type_name":  "A^2의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT090",
+                      "type_name":  "A^2의 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT091",
+                      "type_name":  "A^3의 계산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT092",
+                      "type_name":  "A^3의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT093",
+                      "type_name":  "A^3의 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT094",
+                      "type_name":  "A^n(x,y)의 계산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT095",
+                      "type_name":  "A^n(x,y)의 계산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT096",
+                      "type_name":  "A^n(x,y)의 계산 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT097",
+                      "type_name":  "A^n 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT098",
+                      "type_name":  "A^n 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT099",
+                      "type_name":  "A^n 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT100",
+                      "type_name":  "A+A^2+A^3+⋯+A^n 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT101",
+                      "type_name":  "A+A^2+A^3+⋯+A^n 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT102",
+                      "type_name":  "A+A^2+A^3+⋯+A^n 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT103",
+                      "type_name":  "행렬의 계산결과의 의미 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT104",
+                      "type_name":  "행렬의 계산결과의 의미 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT105",
+                      "type_name":  "행렬의 계산결과의 의미 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT106",
+                      "type_name":  "행렬의 곱셈 성분 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT107",
+                      "type_name":  "행렬의 곱셈 성분 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT108",
+                      "type_name":  "행렬의 곱셈 성분 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT109",
+                      "type_name":  "행렬의 곱셈을 이용하여 해결하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT110",
+                      "type_name":  "행렬의 곱셈을 이용하여 해결하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT111",
+                      "type_name":  "행렬의 곱셈을 이용하여 해결하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT112",
+                      "type_name":  "AB≠BA - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT113",
+                      "type_name":  "AB≠BA - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT114",
+                      "type_name":  "AB≠BA - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT115",
+                      "type_name":  "분배법칙 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT116",
+                      "type_name":  "분배법칙 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT117",
+                      "type_name":  "분배법칙 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT118",
+                      "type_name":  "증명하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT119",
+                      "type_name":  "증명하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT120",
+                      "type_name":  "증명하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT121",
+                      "type_name":  "AB=BA가 성립하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT122",
+                      "type_name":  "AB=BA가 성립하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT123",
+                      "type_name":  "AB=BA가 성립하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT124",
+                      "type_name":  "곱셈공식이 성립하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT125",
+                      "type_name":  "곱셈공식이 성립하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT126",
+                      "type_name":  "곱셈공식이 성립하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT127",
+                      "type_name":  "AB=BA인 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT128",
+                      "type_name":  "AB=BA인 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT129",
+                      "type_name":  "AB=BA인 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT130",
+                      "type_name":  "A(a,b) 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT131",
+                      "type_name":  "A(a,b) 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT132",
+                      "type_name":  "A(a,b) 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT133",
+                      "type_name":  "A^n(a,b) 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT134",
+                      "type_name":  "A^n(a,b) 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT135",
+                      "type_name":  "A^n(a,b) 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT136",
+                      "type_name":  "단위행렬 E - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT137",
+                      "type_name":  "단위행렬 E - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT138",
+                      "type_name":  "단위행렬 E - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT139",
+                      "type_name":  "AE=EA=A - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT140",
+                      "type_name":  "AE=EA=A - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT141",
+                      "type_name":  "AE=EA=A - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT142",
+                      "type_name":  "E^n=E (단, n은 자연수) - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT143",
+                      "type_name":  "E^n=E (단, n은 자연수) - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT144",
+                      "type_name":  "E^n=E (단, n은 자연수) - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT145",
+                      "type_name":  "E가 포함된 곱셈 공식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT146",
+                      "type_name":  "E가 포함된 곱셈 공식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT147",
+                      "type_name":  "E가 포함된 곱셈 공식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT148",
+                      "type_name":  "A(x,y) 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT149",
+                      "type_name":  "A(x,y) 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT150",
+                      "type_name":  "A(x,y) 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT151",
+                      "type_name":  "증명하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT152",
+                      "type_name":  "증명하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT153",
+                      "type_name":  "증명하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT154",
+                      "type_name":  "A^n 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT155",
+                      "type_name":  "A^n 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT156",
+                      "type_name":  "A^n 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT157",
+                      "type_name":  "A+A^2+A^3+⋯+A^n 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT158",
+                      "type_name":  "A+A^2+A^3+⋯+A^n 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT159",
+                      "type_name":  "A+A^2+A^3+⋯+A^n 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT160",
+                      "type_name":  "양변에 A+kE 또는 B+kE를 곱하여 해결하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT161",
+                      "type_name":  "양변에 A+kE 또는 B+kE를 곱하여 해결하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT162",
+                      "type_name":  "양변에 A+kE 또는 B+kE를 곱하여 해결하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT163",
+                      "type_name":  "행렬 A, B에 대한 조건이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT164",
+                      "type_name":  "행렬 A, B에 대한 조건이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT165",
+                      "type_name":  "행렬 A, B에 대한 조건이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT166",
+                      "type_name":  "두 행렬 A, B에 대한 성질 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT167",
+                      "type_name":  "두 행렬 A, B에 대한 성질 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT168",
+                      "type_name":  "두 행렬 A, B에 대한 성질 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT169",
+                      "type_name":  "세 행렬 A, B, C에 대한 성질 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT170",
+                      "type_name":  "세 행렬 A, B, C에 대한 성질 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT171",
+                      "type_name":  "세 행렬 A, B, C에 대한 성질 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT172",
+                      "type_name":  "케일리-해밀턴의 정리 이용하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT173",
+                      "type_name":  "케일리-해밀턴의 정리 이용하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT174",
+                      "type_name":  "케일리-해밀턴의 정리 이용하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT175",
+                      "type_name":  "케일리-해밀턴의 정리 증명하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT176",
+                      "type_name":  "케일리-해밀턴의 정리 증명하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT177",
+                      "type_name":  "케일리-해밀턴의 정리 증명하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT178",
+                      "type_name":  "케일리-해밀턴의 정리 이용, 합답형 문제 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT179",
+                      "type_name":  "케일리-해밀턴의 정리 이용, 합답형 문제 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT180",
+                      "type_name":  "케일리-해밀턴의 정리 이용, 합답형 문제 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT181",
+                      "type_name":  "케일리-해밀턴의 정리 이용, 증명하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT182",
+                      "type_name":  "케일리-해밀턴의 정리 이용, 증명하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM1_MAT_PT183",
+                      "type_name":  "케일리-해밀턴의 정리 이용, 증명하기 - 종합 활용"
+                  }
+              ]
+}

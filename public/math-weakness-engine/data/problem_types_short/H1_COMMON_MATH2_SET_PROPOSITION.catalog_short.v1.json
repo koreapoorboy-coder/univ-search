@@ -1,0 +1,3464 @@
+{
+    "unit_id":  "H1_COMMON_MATH2_SET_PROPOSITION",
+    "unit_name":  "집합과 명제",
+    "source_file":  "data/problem_types/h1_common_math2_set_proposition.problem_types.v1.json",
+    "count":  864,
+    "types":  [
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT001",
+                      "type_name":  "집합과 원소의 뜻 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT002",
+                      "type_name":  "집합과 원소의 뜻 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT003",
+                      "type_name":  "집합과 원소의 뜻 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT004",
+                      "type_name":  "집합과 원소의 뜻 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT005",
+                      "type_name":  "집합과 원소의 뜻 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT006",
+                      "type_name":  "집합과 원소의 뜻 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT007",
+                      "type_name":  "집합과 원소의 뜻 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT008",
+                      "type_name":  "집합과 원소의 뜻 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT009",
+                      "type_name":  "집합과 원소의 뜻 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT010",
+                      "type_name":  "집합과 원소의 뜻 판별 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT011",
+                      "type_name":  "집합과 원소의 뜻 판별 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT012",
+                      "type_name":  "집합과 원소의 뜻 판별 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT013",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT014",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT015",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT016",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT017",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT018",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT019",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT020",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT021",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT022",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT023",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT024",
+                      "type_name":  "집합인 것과 집합이 아닌 것 구분 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT025",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT026",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT027",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT028",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT029",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT030",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT031",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT032",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT033",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT034",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT035",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT036",
+                      "type_name":  "원소 기호와 포함 기호 구분 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT037",
+                      "type_name":  "원소나열법으로 집합 표현 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT038",
+                      "type_name":  "원소나열법으로 집합 표현 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT039",
+                      "type_name":  "원소나열법으로 집합 표현 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT040",
+                      "type_name":  "원소나열법으로 집합 표현 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT041",
+                      "type_name":  "원소나열법으로 집합 표현 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT042",
+                      "type_name":  "원소나열법으로 집합 표현 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT043",
+                      "type_name":  "원소나열법으로 집합 표현 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT044",
+                      "type_name":  "원소나열법으로 집합 표현 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT045",
+                      "type_name":  "원소나열법으로 집합 표현 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT046",
+                      "type_name":  "원소나열법으로 집합 표현 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT047",
+                      "type_name":  "원소나열법으로 집합 표현 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT048",
+                      "type_name":  "원소나열법으로 집합 표현 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT049",
+                      "type_name":  "조건제시법으로 집합 표현 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT050",
+                      "type_name":  "조건제시법으로 집합 표현 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT051",
+                      "type_name":  "조건제시법으로 집합 표현 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT052",
+                      "type_name":  "조건제시법으로 집합 표현 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT053",
+                      "type_name":  "조건제시법으로 집합 표현 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT054",
+                      "type_name":  "조건제시법으로 집합 표현 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT055",
+                      "type_name":  "조건제시법으로 집합 표현 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT056",
+                      "type_name":  "조건제시법으로 집합 표현 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT057",
+                      "type_name":  "조건제시법으로 집합 표현 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT058",
+                      "type_name":  "조건제시법으로 집합 표현 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT059",
+                      "type_name":  "조건제시법으로 집합 표현 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT060",
+                      "type_name":  "조건제시법으로 집합 표현 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT061",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT062",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT063",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT064",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT065",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT066",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT067",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT068",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT069",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT070",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT071",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT072",
+                      "type_name":  "원소의 조건을 부등식으로 번역 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT073",
+                      "type_name":  "유한집합과 무한집합 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT074",
+                      "type_name":  "유한집합과 무한집합 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT075",
+                      "type_name":  "유한집합과 무한집합 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT076",
+                      "type_name":  "유한집합과 무한집합 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT077",
+                      "type_name":  "유한집합과 무한집합 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT078",
+                      "type_name":  "유한집합과 무한집합 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT079",
+                      "type_name":  "유한집합과 무한집합 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT080",
+                      "type_name":  "유한집합과 무한집합 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT081",
+                      "type_name":  "유한집합과 무한집합 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT082",
+                      "type_name":  "유한집합과 무한집합 판별 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT083",
+                      "type_name":  "유한집합과 무한집합 판별 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT084",
+                      "type_name":  "유한집합과 무한집합 판별 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT085",
+                      "type_name":  "공집합의 의미와 표기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT086",
+                      "type_name":  "공집합의 의미와 표기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT087",
+                      "type_name":  "공집합의 의미와 표기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT088",
+                      "type_name":  "공집합의 의미와 표기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT089",
+                      "type_name":  "공집합의 의미와 표기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT090",
+                      "type_name":  "공집합의 의미와 표기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT091",
+                      "type_name":  "공집합의 의미와 표기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT092",
+                      "type_name":  "공집합의 의미와 표기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT093",
+                      "type_name":  "공집합의 의미와 표기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT094",
+                      "type_name":  "공집합의 의미와 표기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT095",
+                      "type_name":  "공집합의 의미와 표기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT096",
+                      "type_name":  "공집합의 의미와 표기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT097",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT098",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT099",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT100",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT101",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT102",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT103",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT104",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT105",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT106",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT107",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT108",
+                      "type_name":  "전체집합 설정과 원소 범위 확인 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT109",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT110",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT111",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT112",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT113",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT114",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT115",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT116",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT117",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT118",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT119",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT120",
+                      "type_name":  "벤다이어그램으로 집합 표현 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT121",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT122",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT123",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT124",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT125",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT126",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT127",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT128",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT129",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT130",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT131",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT132",
+                      "type_name":  "부분집합의 뜻과 포함 관계 판별 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT133",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT134",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT135",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT136",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT137",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT138",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT139",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT140",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT141",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT142",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT143",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT144",
+                      "type_name":  "진부분집합과 서로 같은 집합 구분 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT145",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT146",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT147",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT148",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT149",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT150",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT151",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT152",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT153",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT154",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT155",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT156",
+                      "type_name":  "공집합과 전체집합의 부분집합 관계 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT157",
+                      "type_name":  "부분집합의 개수 구하기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT158",
+                      "type_name":  "부분집합의 개수 구하기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT159",
+                      "type_name":  "부분집합의 개수 구하기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT160",
+                      "type_name":  "부분집합의 개수 구하기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT161",
+                      "type_name":  "부분집합의 개수 구하기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT162",
+                      "type_name":  "부분집합의 개수 구하기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT163",
+                      "type_name":  "부분집합의 개수 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT164",
+                      "type_name":  "부분집합의 개수 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT165",
+                      "type_name":  "부분집합의 개수 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT166",
+                      "type_name":  "부분집합의 개수 구하기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT167",
+                      "type_name":  "부분집합의 개수 구하기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT168",
+                      "type_name":  "부분집합의 개수 구하기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT169",
+                      "type_name":  "진부분집합의 개수 구하기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT170",
+                      "type_name":  "진부분집합의 개수 구하기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT171",
+                      "type_name":  "진부분집합의 개수 구하기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT172",
+                      "type_name":  "진부분집합의 개수 구하기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT173",
+                      "type_name":  "진부분집합의 개수 구하기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT174",
+                      "type_name":  "진부분집합의 개수 구하기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT175",
+                      "type_name":  "진부분집합의 개수 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT176",
+                      "type_name":  "진부분집합의 개수 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT177",
+                      "type_name":  "진부분집합의 개수 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT178",
+                      "type_name":  "진부분집합의 개수 구하기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT179",
+                      "type_name":  "진부분집합의 개수 구하기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT180",
+                      "type_name":  "진부분집합의 개수 구하기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT181",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT182",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT183",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT184",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT185",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT186",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT187",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT188",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT189",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT190",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT191",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT192",
+                      "type_name":  "특정 원소를 반드시 포함하는 부분집합의 개수 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT193",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT194",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT195",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT196",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT197",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT198",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT199",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT200",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT201",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT202",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT203",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT204",
+                      "type_name":  "특정 원소를 포함하지 않는 부분집합의 개수 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT205",
+                      "type_name":  "두 집합이 서로 같을 조건 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT206",
+                      "type_name":  "두 집합이 서로 같을 조건 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT207",
+                      "type_name":  "두 집합이 서로 같을 조건 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT208",
+                      "type_name":  "두 집합이 서로 같을 조건 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT209",
+                      "type_name":  "두 집합이 서로 같을 조건 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT210",
+                      "type_name":  "두 집합이 서로 같을 조건 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT211",
+                      "type_name":  "두 집합이 서로 같을 조건 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT212",
+                      "type_name":  "두 집합이 서로 같을 조건 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT213",
+                      "type_name":  "두 집합이 서로 같을 조건 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT214",
+                      "type_name":  "두 집합이 서로 같을 조건 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT215",
+                      "type_name":  "두 집합이 서로 같을 조건 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT216",
+                      "type_name":  "두 집합이 서로 같을 조건 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT217",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT218",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT219",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT220",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT221",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT222",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT223",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT224",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT225",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT226",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT227",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT228",
+                      "type_name":  "집합의 포함 관계를 식으로 표현 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT229",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT230",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT231",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT232",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT233",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT234",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT235",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT236",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT237",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT238",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT239",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT240",
+                      "type_name":  "포함 관계를 이용한 미지수 결정 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT241",
+                      "type_name":  "교집합의 의미와 계산 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT242",
+                      "type_name":  "교집합의 의미와 계산 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT243",
+                      "type_name":  "교집합의 의미와 계산 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT244",
+                      "type_name":  "교집합의 의미와 계산 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT245",
+                      "type_name":  "교집합의 의미와 계산 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT246",
+                      "type_name":  "교집합의 의미와 계산 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT247",
+                      "type_name":  "교집합의 의미와 계산 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT248",
+                      "type_name":  "교집합의 의미와 계산 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT249",
+                      "type_name":  "교집합의 의미와 계산 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT250",
+                      "type_name":  "교집합의 의미와 계산 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT251",
+                      "type_name":  "교집합의 의미와 계산 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT252",
+                      "type_name":  "교집합의 의미와 계산 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT253",
+                      "type_name":  "합집합의 의미와 계산 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT254",
+                      "type_name":  "합집합의 의미와 계산 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT255",
+                      "type_name":  "합집합의 의미와 계산 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT256",
+                      "type_name":  "합집합의 의미와 계산 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT257",
+                      "type_name":  "합집합의 의미와 계산 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT258",
+                      "type_name":  "합집합의 의미와 계산 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT259",
+                      "type_name":  "합집합의 의미와 계산 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT260",
+                      "type_name":  "합집합의 의미와 계산 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT261",
+                      "type_name":  "합집합의 의미와 계산 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT262",
+                      "type_name":  "합집합의 의미와 계산 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT263",
+                      "type_name":  "합집합의 의미와 계산 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT264",
+                      "type_name":  "합집합의 의미와 계산 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT265",
+                      "type_name":  "차집합의 의미와 계산 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT266",
+                      "type_name":  "차집합의 의미와 계산 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT267",
+                      "type_name":  "차집합의 의미와 계산 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT268",
+                      "type_name":  "차집합의 의미와 계산 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT269",
+                      "type_name":  "차집합의 의미와 계산 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT270",
+                      "type_name":  "차집합의 의미와 계산 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT271",
+                      "type_name":  "차집합의 의미와 계산 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT272",
+                      "type_name":  "차집합의 의미와 계산 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT273",
+                      "type_name":  "차집합의 의미와 계산 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT274",
+                      "type_name":  "차집합의 의미와 계산 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT275",
+                      "type_name":  "차집합의 의미와 계산 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT276",
+                      "type_name":  "차집합의 의미와 계산 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT277",
+                      "type_name":  "여집합의 의미와 계산 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT278",
+                      "type_name":  "여집합의 의미와 계산 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT279",
+                      "type_name":  "여집합의 의미와 계산 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT280",
+                      "type_name":  "여집합의 의미와 계산 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT281",
+                      "type_name":  "여집합의 의미와 계산 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT282",
+                      "type_name":  "여집합의 의미와 계산 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT283",
+                      "type_name":  "여집합의 의미와 계산 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT284",
+                      "type_name":  "여집합의 의미와 계산 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT285",
+                      "type_name":  "여집합의 의미와 계산 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT286",
+                      "type_name":  "여집합의 의미와 계산 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT287",
+                      "type_name":  "여집합의 의미와 계산 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT288",
+                      "type_name":  "여집합의 의미와 계산 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT289",
+                      "type_name":  "서로소인 집합 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT290",
+                      "type_name":  "서로소인 집합 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT291",
+                      "type_name":  "서로소인 집합 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT292",
+                      "type_name":  "서로소인 집합 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT293",
+                      "type_name":  "서로소인 집합 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT294",
+                      "type_name":  "서로소인 집합 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT295",
+                      "type_name":  "서로소인 집합 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT296",
+                      "type_name":  "서로소인 집합 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT297",
+                      "type_name":  "서로소인 집합 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT298",
+                      "type_name":  "서로소인 집합 판별 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT299",
+                      "type_name":  "서로소인 집합 판별 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT300",
+                      "type_name":  "서로소인 집합 판별 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT301",
+                      "type_name":  "드모르간 법칙 적용 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT302",
+                      "type_name":  "드모르간 법칙 적용 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT303",
+                      "type_name":  "드모르간 법칙 적용 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT304",
+                      "type_name":  "드모르간 법칙 적용 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT305",
+                      "type_name":  "드모르간 법칙 적용 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT306",
+                      "type_name":  "드모르간 법칙 적용 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT307",
+                      "type_name":  "드모르간 법칙 적용 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT308",
+                      "type_name":  "드모르간 법칙 적용 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT309",
+                      "type_name":  "드모르간 법칙 적용 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT310",
+                      "type_name":  "드모르간 법칙 적용 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT311",
+                      "type_name":  "드모르간 법칙 적용 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT312",
+                      "type_name":  "드모르간 법칙 적용 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT313",
+                      "type_name":  "집합 연산의 우선순위 판단 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT314",
+                      "type_name":  "집합 연산의 우선순위 판단 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT315",
+                      "type_name":  "집합 연산의 우선순위 판단 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT316",
+                      "type_name":  "집합 연산의 우선순위 판단 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT317",
+                      "type_name":  "집합 연산의 우선순위 판단 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT318",
+                      "type_name":  "집합 연산의 우선순위 판단 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT319",
+                      "type_name":  "집합 연산의 우선순위 판단 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT320",
+                      "type_name":  "집합 연산의 우선순위 판단 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT321",
+                      "type_name":  "집합 연산의 우선순위 판단 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT322",
+                      "type_name":  "집합 연산의 우선순위 판단 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT323",
+                      "type_name":  "집합 연산의 우선순위 판단 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT324",
+                      "type_name":  "집합 연산의 우선순위 판단 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT325",
+                      "type_name":  "복합 집합식의 단순화 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT326",
+                      "type_name":  "복합 집합식의 단순화 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT327",
+                      "type_name":  "복합 집합식의 단순화 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT328",
+                      "type_name":  "복합 집합식의 단순화 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT329",
+                      "type_name":  "복합 집합식의 단순화 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT330",
+                      "type_name":  "복합 집합식의 단순화 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT331",
+                      "type_name":  "복합 집합식의 단순화 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT332",
+                      "type_name":  "복합 집합식의 단순화 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT333",
+                      "type_name":  "복합 집합식의 단순화 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT334",
+                      "type_name":  "복합 집합식의 단순화 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT335",
+                      "type_name":  "복합 집합식의 단순화 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT336",
+                      "type_name":  "복합 집합식의 단순화 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT337",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT338",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT339",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT340",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT341",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT342",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT343",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT344",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT345",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT346",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT347",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT348",
+                      "type_name":  "벤다이어그램을 이용한 연산 영역 표시 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT349",
+                      "type_name":  "조건제시법 집합의 연산 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT350",
+                      "type_name":  "조건제시법 집합의 연산 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT351",
+                      "type_name":  "조건제시법 집합의 연산 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT352",
+                      "type_name":  "조건제시법 집합의 연산 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT353",
+                      "type_name":  "조건제시법 집합의 연산 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT354",
+                      "type_name":  "조건제시법 집합의 연산 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT355",
+                      "type_name":  "조건제시법 집합의 연산 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT356",
+                      "type_name":  "조건제시법 집합의 연산 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT357",
+                      "type_name":  "조건제시법 집합의 연산 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT358",
+                      "type_name":  "조건제시법 집합의 연산 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT359",
+                      "type_name":  "조건제시법 집합의 연산 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT360",
+                      "type_name":  "조건제시법 집합의 연산 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT361",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT362",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT363",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT364",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT365",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT366",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT367",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT368",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT369",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT370",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT371",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT372",
+                      "type_name":  "두 집합의 합집합 원소 개수 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT373",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT374",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT375",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT376",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT377",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT378",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT379",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT380",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT381",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT382",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT383",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT384",
+                      "type_name":  "두 집합의 교집합 원소 개수 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT385",
+                      "type_name":  "차집합의 원소 개수 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT386",
+                      "type_name":  "차집합의 원소 개수 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT387",
+                      "type_name":  "차집합의 원소 개수 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT388",
+                      "type_name":  "차집합의 원소 개수 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT389",
+                      "type_name":  "차집합의 원소 개수 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT390",
+                      "type_name":  "차집합의 원소 개수 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT391",
+                      "type_name":  "차집합의 원소 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT392",
+                      "type_name":  "차집합의 원소 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT393",
+                      "type_name":  "차집합의 원소 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT394",
+                      "type_name":  "차집합의 원소 개수 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT395",
+                      "type_name":  "차집합의 원소 개수 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT396",
+                      "type_name":  "차집합의 원소 개수 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT397",
+                      "type_name":  "여집합의 원소 개수 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT398",
+                      "type_name":  "여집합의 원소 개수 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT399",
+                      "type_name":  "여집합의 원소 개수 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT400",
+                      "type_name":  "여집합의 원소 개수 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT401",
+                      "type_name":  "여집합의 원소 개수 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT402",
+                      "type_name":  "여집합의 원소 개수 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT403",
+                      "type_name":  "여집합의 원소 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT404",
+                      "type_name":  "여집합의 원소 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT405",
+                      "type_name":  "여집합의 원소 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT406",
+                      "type_name":  "여집합의 원소 개수 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT407",
+                      "type_name":  "여집합의 원소 개수 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT408",
+                      "type_name":  "여집합의 원소 개수 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT409",
+                      "type_name":  "세 집합의 포함배제 원리 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT410",
+                      "type_name":  "세 집합의 포함배제 원리 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT411",
+                      "type_name":  "세 집합의 포함배제 원리 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT412",
+                      "type_name":  "세 집합의 포함배제 원리 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT413",
+                      "type_name":  "세 집합의 포함배제 원리 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT414",
+                      "type_name":  "세 집합의 포함배제 원리 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT415",
+                      "type_name":  "세 집합의 포함배제 원리 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT416",
+                      "type_name":  "세 집합의 포함배제 원리 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT417",
+                      "type_name":  "세 집합의 포함배제 원리 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT418",
+                      "type_name":  "세 집합의 포함배제 원리 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT419",
+                      "type_name":  "세 집합의 포함배제 원리 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT420",
+                      "type_name":  "세 집합의 포함배제 원리 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT421",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT422",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT423",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT424",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT425",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT426",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT427",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT428",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT429",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT430",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT431",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT432",
+                      "type_name":  "벤다이어그램 영역별 원소 개수 배치 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT433",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT434",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT435",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT436",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT437",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT438",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT439",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT440",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT441",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT442",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT443",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT444",
+                      "type_name":  "적어도 하나 조건의 원소 개수 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT445",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT446",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT447",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT448",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT449",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT450",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT451",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT452",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT453",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT454",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT455",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT456",
+                      "type_name":  "모두 아닌 조건의 원소 개수 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT457",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT458",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT459",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT460",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT461",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT462",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT463",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT464",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT465",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT466",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT467",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT468",
+                      "type_name":  "실생활 조사표를 집합 개수로 해석 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT469",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT470",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT471",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT472",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT473",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT474",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT475",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT476",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT477",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT478",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT479",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT480",
+                      "type_name":  "원소 개수 조건으로 미지수 구하기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT481",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT482",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT483",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT484",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT485",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT486",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT487",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT488",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT489",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT490",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT491",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT492",
+                      "type_name":  "명제의 뜻과 참거짓 판별 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT493",
+                      "type_name":  "조건과 진리집합의 의미 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT494",
+                      "type_name":  "조건과 진리집합의 의미 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT495",
+                      "type_name":  "조건과 진리집합의 의미 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT496",
+                      "type_name":  "조건과 진리집합의 의미 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT497",
+                      "type_name":  "조건과 진리집합의 의미 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT498",
+                      "type_name":  "조건과 진리집합의 의미 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT499",
+                      "type_name":  "조건과 진리집합의 의미 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT500",
+                      "type_name":  "조건과 진리집합의 의미 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT501",
+                      "type_name":  "조건과 진리집합의 의미 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT502",
+                      "type_name":  "조건과 진리집합의 의미 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT503",
+                      "type_name":  "조건과 진리집합의 의미 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT504",
+                      "type_name":  "조건과 진리집합의 의미 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT505",
+                      "type_name":  "조건의 부정 표현 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT506",
+                      "type_name":  "조건의 부정 표현 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT507",
+                      "type_name":  "조건의 부정 표현 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT508",
+                      "type_name":  "조건의 부정 표현 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT509",
+                      "type_name":  "조건의 부정 표현 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT510",
+                      "type_name":  "조건의 부정 표현 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT511",
+                      "type_name":  "조건의 부정 표현 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT512",
+                      "type_name":  "조건의 부정 표현 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT513",
+                      "type_name":  "조건의 부정 표현 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT514",
+                      "type_name":  "조건의 부정 표현 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT515",
+                      "type_name":  "조건의 부정 표현 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT516",
+                      "type_name":  "조건의 부정 표현 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT517",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT518",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT519",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT520",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT521",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT522",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT523",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT524",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT525",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT526",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT527",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT528",
+                      "type_name":  "명제 p이면 q의 구조 파악 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT529",
+                      "type_name":  "명제의 가정과 결론 구분 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT530",
+                      "type_name":  "명제의 가정과 결론 구분 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT531",
+                      "type_name":  "명제의 가정과 결론 구분 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT532",
+                      "type_name":  "명제의 가정과 결론 구분 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT533",
+                      "type_name":  "명제의 가정과 결론 구분 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT534",
+                      "type_name":  "명제의 가정과 결론 구분 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT535",
+                      "type_name":  "명제의 가정과 결론 구분 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT536",
+                      "type_name":  "명제의 가정과 결론 구분 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT537",
+                      "type_name":  "명제의 가정과 결론 구분 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT538",
+                      "type_name":  "명제의 가정과 결론 구분 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT539",
+                      "type_name":  "명제의 가정과 결론 구분 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT540",
+                      "type_name":  "명제의 가정과 결론 구분 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT541",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT542",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT543",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT544",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT545",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT546",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT547",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT548",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT549",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT550",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT551",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT552",
+                      "type_name":  "명제의 참거짓과 반례 찾기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT553",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT554",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT555",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT556",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT557",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT558",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT559",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT560",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT561",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT562",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT563",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT564",
+                      "type_name":  "조건을 만족하는 수의 범위 구하기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT565",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT566",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT567",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT568",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT569",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT570",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT571",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT572",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT573",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT574",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT575",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT576",
+                      "type_name":  "진리집합으로 명제의 참거짓 판단 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT577",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT578",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT579",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT580",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT581",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT582",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT583",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT584",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT585",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT586",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT587",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT588",
+                      "type_name":  "전체집합에 따른 명제 참거짓 변화 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT589",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT590",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT591",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT592",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT593",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT594",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT595",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT596",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT597",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT598",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT599",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT600",
+                      "type_name":  "조건문을 집합 포함 관계로 번역 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT601",
+                      "type_name":  "명제의 역 만들기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT602",
+                      "type_name":  "명제의 역 만들기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT603",
+                      "type_name":  "명제의 역 만들기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT604",
+                      "type_name":  "명제의 역 만들기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT605",
+                      "type_name":  "명제의 역 만들기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT606",
+                      "type_name":  "명제의 역 만들기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT607",
+                      "type_name":  "명제의 역 만들기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT608",
+                      "type_name":  "명제의 역 만들기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT609",
+                      "type_name":  "명제의 역 만들기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT610",
+                      "type_name":  "명제의 역 만들기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT611",
+                      "type_name":  "명제의 역 만들기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT612",
+                      "type_name":  "명제의 역 만들기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT613",
+                      "type_name":  "명제의 이 만들기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT614",
+                      "type_name":  "명제의 이 만들기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT615",
+                      "type_name":  "명제의 이 만들기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT616",
+                      "type_name":  "명제의 이 만들기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT617",
+                      "type_name":  "명제의 이 만들기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT618",
+                      "type_name":  "명제의 이 만들기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT619",
+                      "type_name":  "명제의 이 만들기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT620",
+                      "type_name":  "명제의 이 만들기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT621",
+                      "type_name":  "명제의 이 만들기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT622",
+                      "type_name":  "명제의 이 만들기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT623",
+                      "type_name":  "명제의 이 만들기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT624",
+                      "type_name":  "명제의 이 만들기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT625",
+                      "type_name":  "명제의 대우 만들기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT626",
+                      "type_name":  "명제의 대우 만들기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT627",
+                      "type_name":  "명제의 대우 만들기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT628",
+                      "type_name":  "명제의 대우 만들기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT629",
+                      "type_name":  "명제의 대우 만들기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT630",
+                      "type_name":  "명제의 대우 만들기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT631",
+                      "type_name":  "명제의 대우 만들기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT632",
+                      "type_name":  "명제의 대우 만들기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT633",
+                      "type_name":  "명제의 대우 만들기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT634",
+                      "type_name":  "명제의 대우 만들기 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT635",
+                      "type_name":  "명제의 대우 만들기 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT636",
+                      "type_name":  "명제의 대우 만들기 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT637",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT638",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT639",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT640",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT641",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT642",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT643",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT644",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT645",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT646",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT647",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT648",
+                      "type_name":  "대우를 이용한 참거짓 판단 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT649",
+                      "type_name":  "명제와 대우의 동치 관계 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT650",
+                      "type_name":  "명제와 대우의 동치 관계 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT651",
+                      "type_name":  "명제와 대우의 동치 관계 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT652",
+                      "type_name":  "명제와 대우의 동치 관계 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT653",
+                      "type_name":  "명제와 대우의 동치 관계 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT654",
+                      "type_name":  "명제와 대우의 동치 관계 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT655",
+                      "type_name":  "명제와 대우의 동치 관계 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT656",
+                      "type_name":  "명제와 대우의 동치 관계 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT657",
+                      "type_name":  "명제와 대우의 동치 관계 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT658",
+                      "type_name":  "명제와 대우의 동치 관계 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT659",
+                      "type_name":  "명제와 대우의 동치 관계 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT660",
+                      "type_name":  "명제와 대우의 동치 관계 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT661",
+                      "type_name":  "역과 이의 참거짓 관계 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT662",
+                      "type_name":  "역과 이의 참거짓 관계 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT663",
+                      "type_name":  "역과 이의 참거짓 관계 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT664",
+                      "type_name":  "역과 이의 참거짓 관계 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT665",
+                      "type_name":  "역과 이의 참거짓 관계 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT666",
+                      "type_name":  "역과 이의 참거짓 관계 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT667",
+                      "type_name":  "역과 이의 참거짓 관계 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT668",
+                      "type_name":  "역과 이의 참거짓 관계 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT669",
+                      "type_name":  "역과 이의 참거짓 관계 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT670",
+                      "type_name":  "역과 이의 참거짓 관계 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT671",
+                      "type_name":  "역과 이의 참거짓 관계 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT672",
+                      "type_name":  "역과 이의 참거짓 관계 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT673",
+                      "type_name":  "조건문 부정의 오류 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT674",
+                      "type_name":  "조건문 부정의 오류 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT675",
+                      "type_name":  "조건문 부정의 오류 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT676",
+                      "type_name":  "조건문 부정의 오류 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT677",
+                      "type_name":  "조건문 부정의 오류 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT678",
+                      "type_name":  "조건문 부정의 오류 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT679",
+                      "type_name":  "조건문 부정의 오류 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT680",
+                      "type_name":  "조건문 부정의 오류 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT681",
+                      "type_name":  "조건문 부정의 오류 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT682",
+                      "type_name":  "조건문 부정의 오류 판별 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT683",
+                      "type_name":  "조건문 부정의 오류 판별 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT684",
+                      "type_name":  "조건문 부정의 오류 판별 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT685",
+                      "type_name":  "복합 조건문의 대우 구성 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT686",
+                      "type_name":  "복합 조건문의 대우 구성 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT687",
+                      "type_name":  "복합 조건문의 대우 구성 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT688",
+                      "type_name":  "복합 조건문의 대우 구성 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT689",
+                      "type_name":  "복합 조건문의 대우 구성 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT690",
+                      "type_name":  "복합 조건문의 대우 구성 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT691",
+                      "type_name":  "복합 조건문의 대우 구성 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT692",
+                      "type_name":  "복합 조건문의 대우 구성 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT693",
+                      "type_name":  "복합 조건문의 대우 구성 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT694",
+                      "type_name":  "복합 조건문의 대우 구성 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT695",
+                      "type_name":  "복합 조건문의 대우 구성 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT696",
+                      "type_name":  "복합 조건문의 대우 구성 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT697",
+                      "type_name":  "충분조건 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT698",
+                      "type_name":  "충분조건 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT699",
+                      "type_name":  "충분조건 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT700",
+                      "type_name":  "충분조건 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT701",
+                      "type_name":  "충분조건 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT702",
+                      "type_name":  "충분조건 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT703",
+                      "type_name":  "충분조건 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT704",
+                      "type_name":  "충분조건 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT705",
+                      "type_name":  "충분조건 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT706",
+                      "type_name":  "충분조건 판별 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT707",
+                      "type_name":  "충분조건 판별 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT708",
+                      "type_name":  "충분조건 판별 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT709",
+                      "type_name":  "필요조건 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT710",
+                      "type_name":  "필요조건 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT711",
+                      "type_name":  "필요조건 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT712",
+                      "type_name":  "필요조건 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT713",
+                      "type_name":  "필요조건 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT714",
+                      "type_name":  "필요조건 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT715",
+                      "type_name":  "필요조건 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT716",
+                      "type_name":  "필요조건 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT717",
+                      "type_name":  "필요조건 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT718",
+                      "type_name":  "필요조건 판별 - 보기형·참거짓 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT719",
+                      "type_name":  "필요조건 판별 - 보기형·참거짓 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT720",
+                      "type_name":  "필요조건 판별 - 보기형·참거짓 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT721",
+                      "type_name":  "필요충분조건 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT722",
+                      "type_name":  "필요충분조건 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT723",
+                      "type_name":  "필요충분조건 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT724",
+                      "type_name":  "필요충분조건 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT725",
+                      "type_name":  "필요충분조건 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT726",
+                      "type_name":  "필요충분조건 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT727",
+                      "type_name":  "필요충분조건 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT728",
+                      "type_name":  "필요충분조건 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT729",
+                      "type_name":  "필요충분조건 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT730",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT731",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT732",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT733",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT734",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT735",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT736",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT737",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT738",
+                      "type_name":  "필요조건도 충분조건도 아닌 경우 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT739",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT740",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT741",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT742",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT743",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT744",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT745",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT746",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT747",
+                      "type_name":  "진리집합 포함 관계로 필요충분조건 판단 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT748",
+                      "type_name":  "조건 p와 q의 범위 비교 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT749",
+                      "type_name":  "조건 p와 q의 범위 비교 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT750",
+                      "type_name":  "조건 p와 q의 범위 비교 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT751",
+                      "type_name":  "조건 p와 q의 범위 비교 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT752",
+                      "type_name":  "조건 p와 q의 범위 비교 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT753",
+                      "type_name":  "조건 p와 q의 범위 비교 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT754",
+                      "type_name":  "조건 p와 q의 범위 비교 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT755",
+                      "type_name":  "조건 p와 q의 범위 비교 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT756",
+                      "type_name":  "조건 p와 q의 범위 비교 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT757",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT758",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT759",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT760",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT761",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT762",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT763",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT764",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT765",
+                      "type_name":  "필요충분조건에서 미지수 범위 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT766",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT767",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT768",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT769",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT770",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT771",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT772",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT773",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT774",
+                      "type_name":  "명제의 참거짓과 필요충분조건 연결 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT775",
+                      "type_name":  "직접증명 구조 세우기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT776",
+                      "type_name":  "직접증명 구조 세우기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT777",
+                      "type_name":  "직접증명 구조 세우기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT778",
+                      "type_name":  "직접증명 구조 세우기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT779",
+                      "type_name":  "직접증명 구조 세우기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT780",
+                      "type_name":  "직접증명 구조 세우기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT781",
+                      "type_name":  "직접증명 구조 세우기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT782",
+                      "type_name":  "직접증명 구조 세우기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT783",
+                      "type_name":  "직접증명 구조 세우기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT784",
+                      "type_name":  "대우증명 구조 세우기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT785",
+                      "type_name":  "대우증명 구조 세우기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT786",
+                      "type_name":  "대우증명 구조 세우기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT787",
+                      "type_name":  "대우증명 구조 세우기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT788",
+                      "type_name":  "대우증명 구조 세우기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT789",
+                      "type_name":  "대우증명 구조 세우기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT790",
+                      "type_name":  "대우증명 구조 세우기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT791",
+                      "type_name":  "대우증명 구조 세우기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT792",
+                      "type_name":  "대우증명 구조 세우기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT793",
+                      "type_name":  "귀류법의 가정 설정 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT794",
+                      "type_name":  "귀류법의 가정 설정 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT795",
+                      "type_name":  "귀류법의 가정 설정 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT796",
+                      "type_name":  "귀류법의 가정 설정 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT797",
+                      "type_name":  "귀류법의 가정 설정 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT798",
+                      "type_name":  "귀류법의 가정 설정 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT799",
+                      "type_name":  "귀류법의 가정 설정 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT800",
+                      "type_name":  "귀류법의 가정 설정 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT801",
+                      "type_name":  "귀류법의 가정 설정 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT802",
+                      "type_name":  "반례를 이용한 거짓 판정 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT803",
+                      "type_name":  "반례를 이용한 거짓 판정 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT804",
+                      "type_name":  "반례를 이용한 거짓 판정 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT805",
+                      "type_name":  "반례를 이용한 거짓 판정 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT806",
+                      "type_name":  "반례를 이용한 거짓 판정 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT807",
+                      "type_name":  "반례를 이용한 거짓 판정 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT808",
+                      "type_name":  "반례를 이용한 거짓 판정 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT809",
+                      "type_name":  "반례를 이용한 거짓 판정 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT810",
+                      "type_name":  "반례를 이용한 거짓 판정 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT811",
+                      "type_name":  "절대부등식의 뜻 판별 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT812",
+                      "type_name":  "절대부등식의 뜻 판별 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT813",
+                      "type_name":  "절대부등식의 뜻 판별 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT814",
+                      "type_name":  "절대부등식의 뜻 판별 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT815",
+                      "type_name":  "절대부등식의 뜻 판별 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT816",
+                      "type_name":  "절대부등식의 뜻 판별 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT817",
+                      "type_name":  "절대부등식의 뜻 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT818",
+                      "type_name":  "절대부등식의 뜻 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT819",
+                      "type_name":  "절대부등식의 뜻 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT820",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT821",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT822",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT823",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT824",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT825",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT826",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT827",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT828",
+                      "type_name":  "제곱을 이용한 부등식 증명 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT829",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT830",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT831",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT832",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT833",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT834",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT835",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT836",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT837",
+                      "type_name":  "산술평균과 기하평균의 관계 적용 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT838",
+                      "type_name":  "등호 성립 조건 찾기 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT839",
+                      "type_name":  "등호 성립 조건 찾기 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT840",
+                      "type_name":  "등호 성립 조건 찾기 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT841",
+                      "type_name":  "등호 성립 조건 찾기 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT842",
+                      "type_name":  "등호 성립 조건 찾기 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT843",
+                      "type_name":  "등호 성립 조건 찾기 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT844",
+                      "type_name":  "등호 성립 조건 찾기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT845",
+                      "type_name":  "등호 성립 조건 찾기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT846",
+                      "type_name":  "등호 성립 조건 찾기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT847",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT848",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT849",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT850",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT851",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT852",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT853",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT854",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT855",
+                      "type_name":  "부등식 증명에서 양변의 부호 확인 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT856",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 기본 조건 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT857",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 기본 조건 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT858",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 기본 조건 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT859",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 계산 및 식 정리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT860",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 계산 및 식 정리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT861",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 계산 및 식 정리 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT862",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT863",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_SET_PT864",
+                      "type_name":  "최댓값·최솟값을 부등식으로 해석 - 조건 변형 적용 - 혼합 검산"
+                  }
+              ]
+}

@@ -1,0 +1,3848 @@
+{
+    "unit_id":  "H1_COMMON_MATH2_FUNCTION_GRAPH",
+    "unit_name":  "함수와 그래프",
+    "source_file":  "data/problem_types/h1_common_math2_function_graph.problem_types.v1.json",
+    "count":  960,
+    "types":  [
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT001",
+                      "type_name":  "함수의 뜻 판별 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT002",
+                      "type_name":  "함수의 뜻 판별 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT003",
+                      "type_name":  "함수의 뜻 판별 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT004",
+                      "type_name":  "함수의 뜻 판별 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT005",
+                      "type_name":  "함수의 뜻 판별 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT006",
+                      "type_name":  "함수의 뜻 판별 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT007",
+                      "type_name":  "함수의 뜻 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT008",
+                      "type_name":  "함수의 뜻 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT009",
+                      "type_name":  "함수의 뜻 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT010",
+                      "type_name":  "함수의 뜻 판별 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT011",
+                      "type_name":  "함수의 뜻 판별 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT012",
+                      "type_name":  "함수의 뜻 판별 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT013",
+                      "type_name":  "함수값 구하기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT014",
+                      "type_name":  "함수값 구하기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT015",
+                      "type_name":  "함수값 구하기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT016",
+                      "type_name":  "함수값 구하기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT017",
+                      "type_name":  "함수값 구하기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT018",
+                      "type_name":  "함수값 구하기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT019",
+                      "type_name":  "함수값 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT020",
+                      "type_name":  "함수값 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT021",
+                      "type_name":  "함수값 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT022",
+                      "type_name":  "함수값 구하기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT023",
+                      "type_name":  "함수값 구하기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT024",
+                      "type_name":  "함수값 구하기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT025",
+                      "type_name":  "함수의 정의역·공역·치역 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT026",
+                      "type_name":  "함수의 정의역·공역·치역 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT027",
+                      "type_name":  "함수의 정의역·공역·치역 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT028",
+                      "type_name":  "함수의 정의역·공역·치역 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT029",
+                      "type_name":  "함수의 정의역·공역·치역 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT030",
+                      "type_name":  "함수의 정의역·공역·치역 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT031",
+                      "type_name":  "함수의 정의역·공역·치역 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT032",
+                      "type_name":  "함수의 정의역·공역·치역 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT033",
+                      "type_name":  "함수의 정의역·공역·치역 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT034",
+                      "type_name":  "함수의 정의역·공역·치역 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT035",
+                      "type_name":  "함수의 정의역·공역·치역 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT036",
+                      "type_name":  "함수의 정의역·공역·치역 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT037",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT038",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT039",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT040",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT041",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT042",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT043",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT044",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT045",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT046",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT047",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT048",
+                      "type_name":  "조건을 이용한 함수값 구하기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT049",
+                      "type_name":  "서로 같은 함수 판별 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT050",
+                      "type_name":  "서로 같은 함수 판별 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT051",
+                      "type_name":  "서로 같은 함수 판별 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT052",
+                      "type_name":  "서로 같은 함수 판별 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT053",
+                      "type_name":  "서로 같은 함수 판별 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT054",
+                      "type_name":  "서로 같은 함수 판별 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT055",
+                      "type_name":  "서로 같은 함수 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT056",
+                      "type_name":  "서로 같은 함수 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT057",
+                      "type_name":  "서로 같은 함수 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT058",
+                      "type_name":  "서로 같은 함수 판별 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT059",
+                      "type_name":  "서로 같은 함수 판별 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT060",
+                      "type_name":  "서로 같은 함수 판별 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT061",
+                      "type_name":  "함수의 그래프 그리기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT062",
+                      "type_name":  "함수의 그래프 그리기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT063",
+                      "type_name":  "함수의 그래프 그리기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT064",
+                      "type_name":  "함수의 그래프 그리기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT065",
+                      "type_name":  "함수의 그래프 그리기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT066",
+                      "type_name":  "함수의 그래프 그리기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT067",
+                      "type_name":  "함수의 그래프 그리기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT068",
+                      "type_name":  "함수의 그래프 그리기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT069",
+                      "type_name":  "함수의 그래프 그리기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT070",
+                      "type_name":  "함수의 그래프 그리기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT071",
+                      "type_name":  "함수의 그래프 그리기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT072",
+                      "type_name":  "함수의 그래프 그리기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT073",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT074",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT075",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT076",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT077",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT078",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT079",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT080",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT081",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT082",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT083",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT084",
+                      "type_name":  "일대일함수와 일대일대응 판별 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT085",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT086",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT087",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT088",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT089",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT090",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT091",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT092",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT093",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT094",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT095",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT096",
+                      "type_name":  "일대일대응이 되기 위한 조건 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT097",
+                      "type_name":  "항등함수와 상수함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT098",
+                      "type_name":  "항등함수와 상수함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT099",
+                      "type_name":  "항등함수와 상수함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT100",
+                      "type_name":  "항등함수와 상수함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT101",
+                      "type_name":  "항등함수와 상수함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT102",
+                      "type_name":  "항등함수와 상수함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT103",
+                      "type_name":  "항등함수와 상수함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT104",
+                      "type_name":  "항등함수와 상수함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT105",
+                      "type_name":  "항등함수와 상수함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT106",
+                      "type_name":  "항등함수와 상수함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT107",
+                      "type_name":  "항등함수와 상수함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT108",
+                      "type_name":  "항등함수와 상수함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT109",
+                      "type_name":  "여러 가지 함수의 개수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT110",
+                      "type_name":  "여러 가지 함수의 개수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT111",
+                      "type_name":  "여러 가지 함수의 개수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT112",
+                      "type_name":  "여러 가지 함수의 개수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT113",
+                      "type_name":  "여러 가지 함수의 개수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT114",
+                      "type_name":  "여러 가지 함수의 개수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT115",
+                      "type_name":  "여러 가지 함수의 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT116",
+                      "type_name":  "여러 가지 함수의 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT117",
+                      "type_name":  "여러 가지 함수의 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT118",
+                      "type_name":  "여러 가지 함수의 개수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT119",
+                      "type_name":  "여러 가지 함수의 개수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT120",
+                      "type_name":  "여러 가지 함수의 개수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT121",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT122",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT123",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT124",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT125",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT126",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT127",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT128",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT129",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT130",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT131",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT132",
+                      "type_name":  "조건을 만족시키는 함수의 개수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT133",
+                      "type_name":  "우함수와 기함수 판별 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT134",
+                      "type_name":  "우함수와 기함수 판별 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT135",
+                      "type_name":  "우함수와 기함수 판별 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT136",
+                      "type_name":  "우함수와 기함수 판별 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT137",
+                      "type_name":  "우함수와 기함수 판별 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT138",
+                      "type_name":  "우함수와 기함수 판별 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT139",
+                      "type_name":  "우함수와 기함수 판별 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT140",
+                      "type_name":  "우함수와 기함수 판별 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT141",
+                      "type_name":  "우함수와 기함수 판별 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT142",
+                      "type_name":  "우함수와 기함수 판별 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT143",
+                      "type_name":  "우함수와 기함수 판별 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT144",
+                      "type_name":  "우함수와 기함수 판별 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT145",
+                      "type_name":  "주기함수와 대칭함수 활용 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT146",
+                      "type_name":  "주기함수와 대칭함수 활용 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT147",
+                      "type_name":  "주기함수와 대칭함수 활용 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT148",
+                      "type_name":  "주기함수와 대칭함수 활용 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT149",
+                      "type_name":  "주기함수와 대칭함수 활용 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT150",
+                      "type_name":  "주기함수와 대칭함수 활용 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT151",
+                      "type_name":  "주기함수와 대칭함수 활용 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT152",
+                      "type_name":  "주기함수와 대칭함수 활용 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT153",
+                      "type_name":  "주기함수와 대칭함수 활용 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT154",
+                      "type_name":  "주기함수와 대칭함수 활용 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT155",
+                      "type_name":  "주기함수와 대칭함수 활용 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT156",
+                      "type_name":  "주기함수와 대칭함수 활용 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT157",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT158",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT159",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT160",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT161",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT162",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT163",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT164",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT165",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT166",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT167",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT168",
+                      "type_name":  "절댓값 기호가 있는 일차식의 그래프 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT169",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT170",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT171",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT172",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT173",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT174",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT175",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT176",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT177",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT178",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT179",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT180",
+                      "type_name":  "절댓값 기호를 포함한 함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT181",
+                      "type_name":  "합성함수의 함수값 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT182",
+                      "type_name":  "합성함수의 함수값 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT183",
+                      "type_name":  "합성함수의 함수값 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT184",
+                      "type_name":  "합성함수의 함수값 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT185",
+                      "type_name":  "합성함수의 함수값 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT186",
+                      "type_name":  "합성함수의 함수값 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT187",
+                      "type_name":  "합성함수의 함수값 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT188",
+                      "type_name":  "합성함수의 함수값 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT189",
+                      "type_name":  "합성함수의 함수값 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT190",
+                      "type_name":  "합성함수의 함수값 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT191",
+                      "type_name":  "합성함수의 함수값 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT192",
+                      "type_name":  "합성함수의 함수값 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT193",
+                      "type_name":  "f∘g=g∘f 인 경우 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT194",
+                      "type_name":  "f∘g=g∘f 인 경우 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT195",
+                      "type_name":  "f∘g=g∘f 인 경우 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT196",
+                      "type_name":  "f∘g=g∘f 인 경우 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT197",
+                      "type_name":  "f∘g=g∘f 인 경우 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT198",
+                      "type_name":  "f∘g=g∘f 인 경우 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT199",
+                      "type_name":  "f∘g=g∘f 인 경우 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT200",
+                      "type_name":  "f∘g=g∘f 인 경우 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT201",
+                      "type_name":  "f∘g=g∘f 인 경우 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT202",
+                      "type_name":  "f∘g=g∘f 인 경우 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT203",
+                      "type_name":  "f∘g=g∘f 인 경우 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT204",
+                      "type_name":  "f∘g=g∘f 인 경우 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT205",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT206",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT207",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT208",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT209",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT210",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT211",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT212",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT213",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT214",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT215",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT216",
+                      "type_name":  "f(ax+b) 꼴로 나타낸 함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT217",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT218",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT219",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT220",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT221",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT222",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT223",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT224",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT225",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT226",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT227",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT228",
+                      "type_name":  "f∘g=h 를 만족시키는 함수 구하기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT229",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT230",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT231",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT232",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT233",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT234",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT235",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT236",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT237",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT238",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT239",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT240",
+                      "type_name":  "f의 거듭제곱 꼴 합성함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT241",
+                      "type_name":  "합성함수의 그래프 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT242",
+                      "type_name":  "합성함수의 그래프 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT243",
+                      "type_name":  "합성함수의 그래프 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT244",
+                      "type_name":  "합성함수의 그래프 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT245",
+                      "type_name":  "합성함수의 그래프 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT246",
+                      "type_name":  "합성함수의 그래프 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT247",
+                      "type_name":  "합성함수의 그래프 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT248",
+                      "type_name":  "합성함수의 그래프 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT249",
+                      "type_name":  "합성함수의 그래프 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT250",
+                      "type_name":  "합성함수의 그래프 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT251",
+                      "type_name":  "합성함수의 그래프 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT252",
+                      "type_name":  "합성함수의 그래프 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT253",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT254",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT255",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT256",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT257",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT258",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT259",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT260",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT261",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT262",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT263",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT264",
+                      "type_name":  "그래프가 주어질 때 합성함수의 함수값 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT265",
+                      "type_name":  "역함수의 함수값 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT266",
+                      "type_name":  "역함수의 함수값 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT267",
+                      "type_name":  "역함수의 함수값 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT268",
+                      "type_name":  "역함수의 함수값 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT269",
+                      "type_name":  "역함수의 함수값 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT270",
+                      "type_name":  "역함수의 함수값 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT271",
+                      "type_name":  "역함수의 함수값 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT272",
+                      "type_name":  "역함수의 함수값 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT273",
+                      "type_name":  "역함수의 함수값 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT274",
+                      "type_name":  "역함수의 함수값 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT275",
+                      "type_name":  "역함수의 함수값 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT276",
+                      "type_name":  "역함수의 함수값 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT277",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT278",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT279",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT280",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT281",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT282",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT283",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT284",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT285",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT286",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT287",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT288",
+                      "type_name":  "역함수가 존재하기 위한 조건 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT289",
+                      "type_name":  "역함수 구하기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT290",
+                      "type_name":  "역함수 구하기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT291",
+                      "type_name":  "역함수 구하기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT292",
+                      "type_name":  "역함수 구하기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT293",
+                      "type_name":  "역함수 구하기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT294",
+                      "type_name":  "역함수 구하기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT295",
+                      "type_name":  "역함수 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT296",
+                      "type_name":  "역함수 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT297",
+                      "type_name":  "역함수 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT298",
+                      "type_name":  "역함수 구하기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT299",
+                      "type_name":  "역함수 구하기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT300",
+                      "type_name":  "역함수 구하기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT301",
+                      "type_name":  "합성함수와 역함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT302",
+                      "type_name":  "합성함수와 역함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT303",
+                      "type_name":  "합성함수와 역함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT304",
+                      "type_name":  "합성함수와 역함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT305",
+                      "type_name":  "합성함수와 역함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT306",
+                      "type_name":  "합성함수와 역함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT307",
+                      "type_name":  "합성함수와 역함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT308",
+                      "type_name":  "합성함수와 역함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT309",
+                      "type_name":  "합성함수와 역함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT310",
+                      "type_name":  "합성함수와 역함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT311",
+                      "type_name":  "합성함수와 역함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT312",
+                      "type_name":  "합성함수와 역함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT313",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT314",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT315",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT316",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT317",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT318",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT319",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT320",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT321",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT322",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT323",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT324",
+                      "type_name":  "함수와 그 역함수가 서로 같은 경우 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT325",
+                      "type_name":  "역함수의 성질 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT326",
+                      "type_name":  "역함수의 성질 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT327",
+                      "type_name":  "역함수의 성질 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT328",
+                      "type_name":  "역함수의 성질 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT329",
+                      "type_name":  "역함수의 성질 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT330",
+                      "type_name":  "역함수의 성질 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT331",
+                      "type_name":  "역함수의 성질 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT332",
+                      "type_name":  "역함수의 성질 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT333",
+                      "type_name":  "역함수의 성질 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT334",
+                      "type_name":  "역함수의 성질 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT335",
+                      "type_name":  "역함수의 성질 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT336",
+                      "type_name":  "역함수의 성질 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT337",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT338",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT339",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT340",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT341",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT342",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT343",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT344",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT345",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT346",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT347",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT348",
+                      "type_name":  "구간에 따라 다르게 정의된 함수의 역함수 값 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT349",
+                      "type_name":  "역함수와 합성함수의 성질 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT350",
+                      "type_name":  "역함수와 합성함수의 성질 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT351",
+                      "type_name":  "역함수와 합성함수의 성질 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT352",
+                      "type_name":  "역함수와 합성함수의 성질 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT353",
+                      "type_name":  "역함수와 합성함수의 성질 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT354",
+                      "type_name":  "역함수와 합성함수의 성질 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT355",
+                      "type_name":  "역함수와 합성함수의 성질 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT356",
+                      "type_name":  "역함수와 합성함수의 성질 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT357",
+                      "type_name":  "역함수와 합성함수의 성질 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT358",
+                      "type_name":  "역함수와 합성함수의 성질 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT359",
+                      "type_name":  "역함수와 합성함수의 성질 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT360",
+                      "type_name":  "역함수와 합성함수의 성질 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT361",
+                      "type_name":  "역함수의 그래프의 성질 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT362",
+                      "type_name":  "역함수의 그래프의 성질 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT363",
+                      "type_name":  "역함수의 그래프의 성질 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT364",
+                      "type_name":  "역함수의 그래프의 성질 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT365",
+                      "type_name":  "역함수의 그래프의 성질 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT366",
+                      "type_name":  "역함수의 그래프의 성질 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT367",
+                      "type_name":  "역함수의 그래프의 성질 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT368",
+                      "type_name":  "역함수의 그래프의 성질 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT369",
+                      "type_name":  "역함수의 그래프의 성질 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT370",
+                      "type_name":  "역함수의 그래프의 성질 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT371",
+                      "type_name":  "역함수의 그래프의 성질 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT372",
+                      "type_name":  "역함수의 그래프의 성질 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT373",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT374",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT375",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT376",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT377",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT378",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT379",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT380",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT381",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT382",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT383",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT384",
+                      "type_name":  "그래프가 주어질 때 역함수의 함수값 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT385",
+                      "type_name":  "유리식의 뜻과 성질 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT386",
+                      "type_name":  "유리식의 뜻과 성질 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT387",
+                      "type_name":  "유리식의 뜻과 성질 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT388",
+                      "type_name":  "유리식의 뜻과 성질 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT389",
+                      "type_name":  "유리식의 뜻과 성질 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT390",
+                      "type_name":  "유리식의 뜻과 성질 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT391",
+                      "type_name":  "유리식의 뜻과 성질 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT392",
+                      "type_name":  "유리식의 뜻과 성질 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT393",
+                      "type_name":  "유리식의 뜻과 성질 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT394",
+                      "type_name":  "유리식의 뜻과 성질 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT395",
+                      "type_name":  "유리식의 뜻과 성질 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT396",
+                      "type_name":  "유리식의 뜻과 성질 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT397",
+                      "type_name":  "유리식의 사칙연산 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT398",
+                      "type_name":  "유리식의 사칙연산 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT399",
+                      "type_name":  "유리식의 사칙연산 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT400",
+                      "type_name":  "유리식의 사칙연산 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT401",
+                      "type_name":  "유리식의 사칙연산 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT402",
+                      "type_name":  "유리식의 사칙연산 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT403",
+                      "type_name":  "유리식의 사칙연산 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT404",
+                      "type_name":  "유리식의 사칙연산 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT405",
+                      "type_name":  "유리식의 사칙연산 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT406",
+                      "type_name":  "유리식의 사칙연산 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT407",
+                      "type_name":  "유리식의 사칙연산 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT408",
+                      "type_name":  "유리식의 사칙연산 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT409",
+                      "type_name":  "유리식과 항등식 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT410",
+                      "type_name":  "유리식과 항등식 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT411",
+                      "type_name":  "유리식과 항등식 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT412",
+                      "type_name":  "유리식과 항등식 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT413",
+                      "type_name":  "유리식과 항등식 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT414",
+                      "type_name":  "유리식과 항등식 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT415",
+                      "type_name":  "유리식과 항등식 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT416",
+                      "type_name":  "유리식과 항등식 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT417",
+                      "type_name":  "유리식과 항등식 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT418",
+                      "type_name":  "유리식과 항등식 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT419",
+                      "type_name":  "유리식과 항등식 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT420",
+                      "type_name":  "유리식과 항등식 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT421",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT422",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT423",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT424",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT425",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT426",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT427",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT428",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT429",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT430",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT431",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT432",
+                      "type_name":  "분자의 차수가 분모의 차수 이상인 유리식의 변형 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT433",
+                      "type_name":  "부분분수로의 변형 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT434",
+                      "type_name":  "부분분수로의 변형 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT435",
+                      "type_name":  "부분분수로의 변형 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT436",
+                      "type_name":  "부분분수로의 변형 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT437",
+                      "type_name":  "부분분수로의 변형 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT438",
+                      "type_name":  "부분분수로의 변형 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT439",
+                      "type_name":  "부분분수로의 변형 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT440",
+                      "type_name":  "부분분수로의 변형 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT441",
+                      "type_name":  "부분분수로의 변형 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT442",
+                      "type_name":  "부분분수로의 변형 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT443",
+                      "type_name":  "부분분수로의 변형 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT444",
+                      "type_name":  "부분분수로의 변형 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT445",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT446",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT447",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT448",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT449",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT450",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT451",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT452",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT453",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT454",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT455",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT456",
+                      "type_name":  "분모 또는 분자가 분수식인 유리식 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT457",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT458",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT459",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT460",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT461",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT462",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT463",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT464",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT465",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT466",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT467",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT468",
+                      "type_name":  "유리식의 값 - 곱셈 공식 변형 이용 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT469",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT470",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT471",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT472",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT473",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT474",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT475",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT476",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT477",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT478",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT479",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT480",
+                      "type_name":  "유리식의 값 - 비례식이 주어질 때 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT481",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT482",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT483",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT484",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT485",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT486",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT487",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT488",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT489",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT490",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT491",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT492",
+                      "type_name":  "유리식의 값 - x/a=y/b=z/c 꼴 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT493",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT494",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT495",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT496",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT497",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT498",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT499",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT500",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT501",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT502",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT503",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT504",
+                      "type_name":  "유리식의 값 - 관계식이 주어질 때 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT505",
+                      "type_name":  "비례식의 활용 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT506",
+                      "type_name":  "비례식의 활용 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT507",
+                      "type_name":  "비례식의 활용 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT508",
+                      "type_name":  "비례식의 활용 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT509",
+                      "type_name":  "비례식의 활용 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT510",
+                      "type_name":  "비례식의 활용 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT511",
+                      "type_name":  "비례식의 활용 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT512",
+                      "type_name":  "비례식의 활용 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT513",
+                      "type_name":  "비례식의 활용 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT514",
+                      "type_name":  "비례식의 활용 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT515",
+                      "type_name":  "비례식의 활용 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT516",
+                      "type_name":  "비례식의 활용 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT517",
+                      "type_name":  "유리함수의 뜻 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT518",
+                      "type_name":  "유리함수의 뜻 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT519",
+                      "type_name":  "유리함수의 뜻 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT520",
+                      "type_name":  "유리함수의 뜻 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT521",
+                      "type_name":  "유리함수의 뜻 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT522",
+                      "type_name":  "유리함수의 뜻 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT523",
+                      "type_name":  "유리함수의 뜻 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT524",
+                      "type_name":  "유리함수의 뜻 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT525",
+                      "type_name":  "유리함수의 뜻 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT526",
+                      "type_name":  "유리함수의 뜻 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT527",
+                      "type_name":  "유리함수의 뜻 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT528",
+                      "type_name":  "유리함수의 뜻 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT529",
+                      "type_name":  "유리함수의 정의역과 치역 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT530",
+                      "type_name":  "유리함수의 정의역과 치역 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT531",
+                      "type_name":  "유리함수의 정의역과 치역 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT532",
+                      "type_name":  "유리함수의 정의역과 치역 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT533",
+                      "type_name":  "유리함수의 정의역과 치역 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT534",
+                      "type_name":  "유리함수의 정의역과 치역 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT535",
+                      "type_name":  "유리함수의 정의역과 치역 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT536",
+                      "type_name":  "유리함수의 정의역과 치역 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT537",
+                      "type_name":  "유리함수의 정의역과 치역 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT538",
+                      "type_name":  "유리함수의 정의역과 치역 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT539",
+                      "type_name":  "유리함수의 정의역과 치역 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT540",
+                      "type_name":  "유리함수의 정의역과 치역 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT541",
+                      "type_name":  "유리함수의 그래프 그리기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT542",
+                      "type_name":  "유리함수의 그래프 그리기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT543",
+                      "type_name":  "유리함수의 그래프 그리기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT544",
+                      "type_name":  "유리함수의 그래프 그리기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT545",
+                      "type_name":  "유리함수의 그래프 그리기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT546",
+                      "type_name":  "유리함수의 그래프 그리기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT547",
+                      "type_name":  "유리함수의 그래프 그리기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT548",
+                      "type_name":  "유리함수의 그래프 그리기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT549",
+                      "type_name":  "유리함수의 그래프 그리기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT550",
+                      "type_name":  "유리함수의 그래프 그리기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT551",
+                      "type_name":  "유리함수의 그래프 그리기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT552",
+                      "type_name":  "유리함수의 그래프 그리기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT553",
+                      "type_name":  "유리함수 그래프의 평행이동 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT554",
+                      "type_name":  "유리함수 그래프의 평행이동 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT555",
+                      "type_name":  "유리함수 그래프의 평행이동 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT556",
+                      "type_name":  "유리함수 그래프의 평행이동 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT557",
+                      "type_name":  "유리함수 그래프의 평행이동 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT558",
+                      "type_name":  "유리함수 그래프의 평행이동 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT559",
+                      "type_name":  "유리함수 그래프의 평행이동 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT560",
+                      "type_name":  "유리함수 그래프의 평행이동 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT561",
+                      "type_name":  "유리함수 그래프의 평행이동 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT562",
+                      "type_name":  "유리함수 그래프의 평행이동 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT563",
+                      "type_name":  "유리함수 그래프의 평행이동 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT564",
+                      "type_name":  "유리함수 그래프의 평행이동 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT565",
+                      "type_name":  "유리함수의 최대·최소 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT566",
+                      "type_name":  "유리함수의 최대·최소 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT567",
+                      "type_name":  "유리함수의 최대·최소 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT568",
+                      "type_name":  "유리함수의 최대·최소 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT569",
+                      "type_name":  "유리함수의 최대·최소 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT570",
+                      "type_name":  "유리함수의 최대·최소 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT571",
+                      "type_name":  "유리함수의 최대·최소 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT572",
+                      "type_name":  "유리함수의 최대·최소 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT573",
+                      "type_name":  "유리함수의 최대·최소 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT574",
+                      "type_name":  "유리함수의 최대·최소 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT575",
+                      "type_name":  "유리함수의 최대·최소 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT576",
+                      "type_name":  "유리함수의 최대·최소 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT577",
+                      "type_name":  "유리함수 그래프의 점근선 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT578",
+                      "type_name":  "유리함수 그래프의 점근선 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT579",
+                      "type_name":  "유리함수 그래프의 점근선 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT580",
+                      "type_name":  "유리함수 그래프의 점근선 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT581",
+                      "type_name":  "유리함수 그래프의 점근선 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT582",
+                      "type_name":  "유리함수 그래프의 점근선 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT583",
+                      "type_name":  "유리함수 그래프의 점근선 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT584",
+                      "type_name":  "유리함수 그래프의 점근선 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT585",
+                      "type_name":  "유리함수 그래프의 점근선 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT586",
+                      "type_name":  "유리함수 그래프의 점근선 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT587",
+                      "type_name":  "유리함수 그래프의 점근선 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT588",
+                      "type_name":  "유리함수 그래프의 점근선 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT589",
+                      "type_name":  "유리함수 그래프의 대칭성 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT590",
+                      "type_name":  "유리함수 그래프의 대칭성 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT591",
+                      "type_name":  "유리함수 그래프의 대칭성 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT592",
+                      "type_name":  "유리함수 그래프의 대칭성 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT593",
+                      "type_name":  "유리함수 그래프의 대칭성 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT594",
+                      "type_name":  "유리함수 그래프의 대칭성 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT595",
+                      "type_name":  "유리함수 그래프의 대칭성 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT596",
+                      "type_name":  "유리함수 그래프의 대칭성 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT597",
+                      "type_name":  "유리함수 그래프의 대칭성 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT598",
+                      "type_name":  "유리함수 그래프의 대칭성 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT599",
+                      "type_name":  "유리함수 그래프의 대칭성 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT600",
+                      "type_name":  "유리함수 그래프의 대칭성 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT601",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT602",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT603",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT604",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT605",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT606",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT607",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT608",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT609",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT610",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT611",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT612",
+                      "type_name":  "유리함수 그래프가 지나는 사분면 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT613",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT614",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT615",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT616",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT617",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT618",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT619",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT620",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT621",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT622",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT623",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT624",
+                      "type_name":  "그래프를 이용하여 유리함수의 식 구하기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT625",
+                      "type_name":  "유리함수 그래프의 성질 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT626",
+                      "type_name":  "유리함수 그래프의 성질 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT627",
+                      "type_name":  "유리함수 그래프의 성질 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT628",
+                      "type_name":  "유리함수 그래프의 성질 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT629",
+                      "type_name":  "유리함수 그래프의 성질 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT630",
+                      "type_name":  "유리함수 그래프의 성질 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT631",
+                      "type_name":  "유리함수 그래프의 성질 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT632",
+                      "type_name":  "유리함수 그래프의 성질 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT633",
+                      "type_name":  "유리함수 그래프의 성질 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT634",
+                      "type_name":  "유리함수 그래프의 성질 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT635",
+                      "type_name":  "유리함수 그래프의 성질 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT636",
+                      "type_name":  "유리함수 그래프의 성질 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT637",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT638",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT639",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT640",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT641",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT642",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT643",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT644",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT645",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT646",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT647",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT648",
+                      "type_name":  "유리함수 그래프와 직선의 위치 관계 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT649",
+                      "type_name":  "유리함수의 합성 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT650",
+                      "type_name":  "유리함수의 합성 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT651",
+                      "type_name":  "유리함수의 합성 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT652",
+                      "type_name":  "유리함수의 합성 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT653",
+                      "type_name":  "유리함수의 합성 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT654",
+                      "type_name":  "유리함수의 합성 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT655",
+                      "type_name":  "유리함수의 합성 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT656",
+                      "type_name":  "유리함수의 합성 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT657",
+                      "type_name":  "유리함수의 합성 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT658",
+                      "type_name":  "유리함수의 합성 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT659",
+                      "type_name":  "유리함수의 합성 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT660",
+                      "type_name":  "유리함수의 합성 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT661",
+                      "type_name":  "유리함수의 역함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT662",
+                      "type_name":  "유리함수의 역함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT663",
+                      "type_name":  "유리함수의 역함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT664",
+                      "type_name":  "유리함수의 역함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT665",
+                      "type_name":  "유리함수의 역함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT666",
+                      "type_name":  "유리함수의 역함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT667",
+                      "type_name":  "유리함수의 역함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT668",
+                      "type_name":  "유리함수의 역함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT669",
+                      "type_name":  "유리함수의 역함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT670",
+                      "type_name":  "유리함수의 역함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT671",
+                      "type_name":  "유리함수의 역함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT672",
+                      "type_name":  "유리함수의 역함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT673",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT674",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT675",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT676",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT677",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT678",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT679",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT680",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT681",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT682",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT683",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT684",
+                      "type_name":  "유리함수의 합성함수와 역함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT685",
+                      "type_name":  "특수한 꼴의 유리함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT686",
+                      "type_name":  "특수한 꼴의 유리함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT687",
+                      "type_name":  "특수한 꼴의 유리함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT688",
+                      "type_name":  "특수한 꼴의 유리함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT689",
+                      "type_name":  "특수한 꼴의 유리함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT690",
+                      "type_name":  "특수한 꼴의 유리함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT691",
+                      "type_name":  "특수한 꼴의 유리함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT692",
+                      "type_name":  "특수한 꼴의 유리함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT693",
+                      "type_name":  "특수한 꼴의 유리함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT694",
+                      "type_name":  "특수한 꼴의 유리함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT695",
+                      "type_name":  "특수한 꼴의 유리함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT696",
+                      "type_name":  "특수한 꼴의 유리함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT697",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT698",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT699",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT700",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT701",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT702",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT703",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT704",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT705",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT706",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT707",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT708",
+                      "type_name":  "무리식의 값이 실수가 되기 위한 조건 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT709",
+                      "type_name":  "제곱근의 성질 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT710",
+                      "type_name":  "제곱근의 성질 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT711",
+                      "type_name":  "제곱근의 성질 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT712",
+                      "type_name":  "제곱근의 성질 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT713",
+                      "type_name":  "제곱근의 성질 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT714",
+                      "type_name":  "제곱근의 성질 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT715",
+                      "type_name":  "제곱근의 성질 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT716",
+                      "type_name":  "제곱근의 성질 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT717",
+                      "type_name":  "제곱근의 성질 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT718",
+                      "type_name":  "제곱근의 성질 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT719",
+                      "type_name":  "제곱근의 성질 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT720",
+                      "type_name":  "제곱근의 성질 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT721",
+                      "type_name":  "음수의 제곱근의 성질 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT722",
+                      "type_name":  "음수의 제곱근의 성질 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT723",
+                      "type_name":  "음수의 제곱근의 성질 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT724",
+                      "type_name":  "음수의 제곱근의 성질 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT725",
+                      "type_name":  "음수의 제곱근의 성질 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT726",
+                      "type_name":  "음수의 제곱근의 성질 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT727",
+                      "type_name":  "음수의 제곱근의 성질 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT728",
+                      "type_name":  "음수의 제곱근의 성질 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT729",
+                      "type_name":  "음수의 제곱근의 성질 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT730",
+                      "type_name":  "음수의 제곱근의 성질 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT731",
+                      "type_name":  "음수의 제곱근의 성질 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT732",
+                      "type_name":  "음수의 제곱근의 성질 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT733",
+                      "type_name":  "무리식의 계산 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT734",
+                      "type_name":  "무리식의 계산 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT735",
+                      "type_name":  "무리식의 계산 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT736",
+                      "type_name":  "무리식의 계산 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT737",
+                      "type_name":  "무리식의 계산 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT738",
+                      "type_name":  "무리식의 계산 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT739",
+                      "type_name":  "무리식의 계산 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT740",
+                      "type_name":  "무리식의 계산 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT741",
+                      "type_name":  "무리식의 계산 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT742",
+                      "type_name":  "무리식의 계산 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT743",
+                      "type_name":  "무리식의 계산 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT744",
+                      "type_name":  "무리식의 계산 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT745",
+                      "type_name":  "무리수가 서로 같을 조건 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT746",
+                      "type_name":  "무리수가 서로 같을 조건 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT747",
+                      "type_name":  "무리수가 서로 같을 조건 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT748",
+                      "type_name":  "무리수가 서로 같을 조건 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT749",
+                      "type_name":  "무리수가 서로 같을 조건 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT750",
+                      "type_name":  "무리수가 서로 같을 조건 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT751",
+                      "type_name":  "무리수가 서로 같을 조건 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT752",
+                      "type_name":  "무리수가 서로 같을 조건 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT753",
+                      "type_name":  "무리수가 서로 같을 조건 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT754",
+                      "type_name":  "무리수가 서로 같을 조건 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT755",
+                      "type_name":  "무리수가 서로 같을 조건 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT756",
+                      "type_name":  "무리수가 서로 같을 조건 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT757",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT758",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT759",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT760",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT761",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT762",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT763",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT764",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT765",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT766",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT767",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT768",
+                      "type_name":  "무리수의 정수 부분과 소수 부분 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT769",
+                      "type_name":  "무리식의 값 구하기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT770",
+                      "type_name":  "무리식의 값 구하기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT771",
+                      "type_name":  "무리식의 값 구하기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT772",
+                      "type_name":  "무리식의 값 구하기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT773",
+                      "type_name":  "무리식의 값 구하기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT774",
+                      "type_name":  "무리식의 값 구하기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT775",
+                      "type_name":  "무리식의 값 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT776",
+                      "type_name":  "무리식의 값 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT777",
+                      "type_name":  "무리식의 값 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT778",
+                      "type_name":  "무리식의 값 구하기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT779",
+                      "type_name":  "무리식의 값 구하기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT780",
+                      "type_name":  "무리식의 값 구하기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT781",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT782",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT783",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT784",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT785",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT786",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT787",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT788",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT789",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT790",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT791",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT792",
+                      "type_name":  "무리식의 값 - x+y, xy가 주어질 때 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT793",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT794",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT795",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT796",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT797",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT798",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT799",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT800",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT801",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT802",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT803",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT804",
+                      "type_name":  "무리식의 값 - x=a+√b, y=a-√b 꼴 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT805",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT806",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT807",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT808",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT809",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT810",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT811",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT812",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT813",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT814",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT815",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT816",
+                      "type_name":  "무리식의 값 - x=a+√b 꼴 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT817",
+                      "type_name":  "무리함수의 뜻 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT818",
+                      "type_name":  "무리함수의 뜻 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT819",
+                      "type_name":  "무리함수의 뜻 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT820",
+                      "type_name":  "무리함수의 뜻 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT821",
+                      "type_name":  "무리함수의 뜻 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT822",
+                      "type_name":  "무리함수의 뜻 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT823",
+                      "type_name":  "무리함수의 뜻 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT824",
+                      "type_name":  "무리함수의 뜻 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT825",
+                      "type_name":  "무리함수의 뜻 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT826",
+                      "type_name":  "무리함수의 뜻 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT827",
+                      "type_name":  "무리함수의 뜻 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT828",
+                      "type_name":  "무리함수의 뜻 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT829",
+                      "type_name":  "무리함수의 정의역과 치역 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT830",
+                      "type_name":  "무리함수의 정의역과 치역 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT831",
+                      "type_name":  "무리함수의 정의역과 치역 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT832",
+                      "type_name":  "무리함수의 정의역과 치역 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT833",
+                      "type_name":  "무리함수의 정의역과 치역 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT834",
+                      "type_name":  "무리함수의 정의역과 치역 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT835",
+                      "type_name":  "무리함수의 정의역과 치역 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT836",
+                      "type_name":  "무리함수의 정의역과 치역 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT837",
+                      "type_name":  "무리함수의 정의역과 치역 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT838",
+                      "type_name":  "무리함수의 정의역과 치역 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT839",
+                      "type_name":  "무리함수의 정의역과 치역 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT840",
+                      "type_name":  "무리함수의 정의역과 치역 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT841",
+                      "type_name":  "무리함수의 그래프 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT842",
+                      "type_name":  "무리함수의 그래프 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT843",
+                      "type_name":  "무리함수의 그래프 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT844",
+                      "type_name":  "무리함수의 그래프 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT845",
+                      "type_name":  "무리함수의 그래프 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT846",
+                      "type_name":  "무리함수의 그래프 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT847",
+                      "type_name":  "무리함수의 그래프 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT848",
+                      "type_name":  "무리함수의 그래프 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT849",
+                      "type_name":  "무리함수의 그래프 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT850",
+                      "type_name":  "무리함수의 그래프 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT851",
+                      "type_name":  "무리함수의 그래프 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT852",
+                      "type_name":  "무리함수의 그래프 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT853",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT854",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT855",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT856",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT857",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT858",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT859",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT860",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT861",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT862",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT863",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT864",
+                      "type_name":  "무리함수 그래프의 평행이동과 대칭이동 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT865",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT866",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT867",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT868",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT869",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT870",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT871",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT872",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT873",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT874",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT875",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT876",
+                      "type_name":  "무리함수 그래프가 지나는 사분면 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT877",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT878",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT879",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT880",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT881",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT882",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT883",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT884",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT885",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT886",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT887",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT888",
+                      "type_name":  "그래프를 이용하여 무리함수의 식 구하기 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT889",
+                      "type_name":  "무리함수의 최대·최소 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT890",
+                      "type_name":  "무리함수의 최대·최소 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT891",
+                      "type_name":  "무리함수의 최대·최소 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT892",
+                      "type_name":  "무리함수의 최대·최소 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT893",
+                      "type_name":  "무리함수의 최대·최소 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT894",
+                      "type_name":  "무리함수의 최대·최소 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT895",
+                      "type_name":  "무리함수의 최대·최소 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT896",
+                      "type_name":  "무리함수의 최대·최소 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT897",
+                      "type_name":  "무리함수의 최대·최소 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT898",
+                      "type_name":  "무리함수의 최대·최소 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT899",
+                      "type_name":  "무리함수의 최대·최소 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT900",
+                      "type_name":  "무리함수의 최대·최소 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT901",
+                      "type_name":  "무리함수의 역함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT902",
+                      "type_name":  "무리함수의 역함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT903",
+                      "type_name":  "무리함수의 역함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT904",
+                      "type_name":  "무리함수의 역함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT905",
+                      "type_name":  "무리함수의 역함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT906",
+                      "type_name":  "무리함수의 역함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT907",
+                      "type_name":  "무리함수의 역함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT908",
+                      "type_name":  "무리함수의 역함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT909",
+                      "type_name":  "무리함수의 역함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT910",
+                      "type_name":  "무리함수의 역함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT911",
+                      "type_name":  "무리함수의 역함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT912",
+                      "type_name":  "무리함수의 역함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT913",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT914",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT915",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT916",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT917",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT918",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT919",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT920",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT921",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT922",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT923",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT924",
+                      "type_name":  "무리함수의 합성함수와 역함수 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT925",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT926",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT927",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT928",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT929",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT930",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT931",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT932",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT933",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT934",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT935",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT936",
+                      "type_name":  "무리함수와 그 역함수의 교점 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT937",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT938",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT939",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT940",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT941",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT942",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT943",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT944",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT945",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT946",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT947",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT948",
+                      "type_name":  "무리함수의 그래프와 직선의 위치관계 - 그래프·보기형 검산 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT949",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 기본 개념 판별 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT950",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 기본 개념 판별 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT951",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 기본 개념 판별 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT952",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 식 계산 및 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT953",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 식 계산 및 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT954",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 식 계산 및 값 구하기 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT955",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 조건 변형 적용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT956",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 조건 변형 적용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT957",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 조건 변형 적용 - 혼합 검산"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT958",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 그래프·보기형 검산 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT959",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 그래프·보기형 검산 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_FUNC_PT960",
+                      "type_name":  "절댓값 기호를 포함한 무리함수의 그래프 - 그래프·보기형 검산 - 혼합 검산"
+                  }
+              ]
+}

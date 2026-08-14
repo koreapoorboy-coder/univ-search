@@ -1,0 +1,584 @@
+{
+    "unit_id":  "M2_LINEAR_FUNCTION",
+    "unit_name":  "일차함수",
+    "source_file":  "data/problem_types/m2_linear_function.problem_types.v1.json",
+    "count":  144,
+    "types":  [
+                  {
+                      "problem_type_id":  "M2_LF_PT001",
+                      "type_name":  "함수의 뜻 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT002",
+                      "type_name":  "함수와 대응 관계 - 정의역·공역·치역 구분"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT003",
+                      "type_name":  "함수와 대응 관계 - 함수인 대응 관계 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT004",
+                      "type_name":  "함수와 대응 관계 - 함수와 대응 관계"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT005",
+                      "type_name":  "대응표에서 함수 여부 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT006",
+                      "type_name":  "대응표와 함수 판별 - 한 x값에 두 y값이 대응되는 오류 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT007",
+                      "type_name":  "대응표와 함수 판별 - 대응 관계의 설명 참거짓"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT008",
+                      "type_name":  "대응표와 함수 판별 - 대응표와 함수 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT009",
+                      "type_name":  "문장 조건을 x,y 관계식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT010",
+                      "type_name":  "상황에서 관계식 세우기 - 비례/증가 조건을 식으로 번역"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT011",
+                      "type_name":  "상황에서 관계식 세우기 - 조건에 맞는 관계식 선택"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT012",
+                      "type_name":  "상황에서 관계식 세우기 - 상황에서 관계식 세우기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT013",
+                      "type_name":  "f(a) 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT014",
+                      "type_name":  "함숫값 계산 - 대입 순서 확인"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT015",
+                      "type_name":  "함숫값 계산 - 음수 대입과 괄호 처리"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT016",
+                      "type_name":  "함숫값 계산 - 함숫값 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT017",
+                      "type_name":  "f(a)=b 조건에서 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT018",
+                      "type_name":  "함숫값을 이용한 미지수 - 상수항 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT019",
+                      "type_name":  "함숫값을 이용한 미지수 - 계수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT020",
+                      "type_name":  "함숫값을 이용한 미지수 - 함숫값을 이용한 미지수"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT021",
+                      "type_name":  "y=ax+b 꼴 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT022",
+                      "type_name":  "일차함수 판별 - 일차항 계수 조건 a≠0 확인"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT023",
+                      "type_name":  "일차함수 판별 - 일차함수가 아닌 식 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT024",
+                      "type_name":  "일차함수 판별 - 일차함수 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT025",
+                      "type_name":  "일차함수 함숫값 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT026",
+                      "type_name":  "일차함수의 함숫값과 점 - 그래프 위의 점 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT027",
+                      "type_name":  "일차함수의 함숫값과 점 - 좌표 대입 검산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT028",
+                      "type_name":  "일차함수의 함숫값과 점 - 일차함수의 함숫값과 점"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT029",
+                      "type_name":  "y=ax+b의 위아래 평행이동"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT030",
+                      "type_name":  "평행이동 - y절편 변화 해석"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT031",
+                      "type_name":  "평행이동 - 그래프 이동 후 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT032",
+                      "type_name":  "평행이동 - 평행이동"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT033",
+                      "type_name":  "x절편 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT034",
+                      "type_name":  "x절편과 y절편 읽기 - y절편 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT035",
+                      "type_name":  "x절편과 y절편 읽기 - 절편을 좌표로 표현"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT036",
+                      "type_name":  "x절편과 y절편 읽기 - x절편과 y절편 읽기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT037",
+                      "type_name":  "x의 증가량과 y의 증가량"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT038",
+                      "type_name":  "변화량과 기울기 - 기울기 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT039",
+                      "type_name":  "변화량과 기울기 - 변화율 해석"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT040",
+                      "type_name":  "변화량과 기울기 - 변화량과 기울기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT041",
+                      "type_name":  "기울기 양수/음수 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT042",
+                      "type_name":  "기울기에 따른 그래프 모양 - 기울기 크기와 그래프 기울어진 정도"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT043",
+                      "type_name":  "기울기에 따른 그래프 모양 - 감소·증가 그래프 구분"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT044",
+                      "type_name":  "기울기에 따른 그래프 모양 - 기울기에 따른 그래프 모양"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT045",
+                      "type_name":  "두 점의 좌표로 기울기 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT046",
+                      "type_name":  "두 점을 지나는 직선의 기울기 - 좌표 순서 오류 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT047",
+                      "type_name":  "두 점을 지나는 직선의 기울기 - 수직/수평에 가까운 그래프 해석"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT048",
+                      "type_name":  "두 점을 지나는 직선의 기울기 - 두 점을 지나는 직선의 기울기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT049",
+                      "type_name":  "식에서 기울기·y절편 읽기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT050",
+                      "type_name":  "기울기와 y절편 관계 - 그래프에서 식의 계수 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT051",
+                      "type_name":  "기울기와 y절편 관계 - 기울기와 절편 조건 연결"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT052",
+                      "type_name":  "기울기와 y절편 관계 - 기울기와 y절편 관계"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT053",
+                      "type_name":  "두 점 잡아 그래프 그리기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT054",
+                      "type_name":  "일차함수 그래프 그리기 - 절편을 이용한 그래프"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT055",
+                      "type_name":  "일차함수 그래프 그리기 - 주어진 그래프와 식 매칭"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT056",
+                      "type_name":  "일차함수 그래프 그리기 - 일차함수 그래프 그리기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT057",
+                      "type_name":  "절편으로 삼각형 넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT058",
+                      "type_name":  "좌표축으로 둘러싸인 넓이 - 좌표축과 직선의 교점 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT059",
+                      "type_name":  "좌표축으로 둘러싸인 넓이 - 음수 절편의 길이 처리"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT060",
+                      "type_name":  "좌표축으로 둘러싸인 넓이 - 좌표축으로 둘러싸인 넓이"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT061",
+                      "type_name":  "같은 기울기 비교"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT062",
+                      "type_name":  "기울기의 성질 활용 - 기울기와 변화량 비례"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT063",
+                      "type_name":  "기울기의 성질 활용 - 기울기 조건으로 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT064",
+                      "type_name":  "기울기의 성질 활용 - 기울기의 성질 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT065",
+                      "type_name":  "a,b 부호로 그래프 위치 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT066",
+                      "type_name":  "a,b 부호와 사분면 - 그래프가 지나는 사분면"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT067",
+                      "type_name":  "a,b 부호와 사분면 - y절편 부호와 방향 연결"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT068",
+                      "type_name":  "a,b 부호와 사분면 - a,b 부호와 사분면"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT069",
+                      "type_name":  "식의 계수 변화와 그래프 변화"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT070",
+                      "type_name":  "그래프와 계수 관계 종합 - 그래프 비교"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT071",
+                      "type_name":  "그래프와 계수 관계 종합 - 조건에 맞는 a,b 범위 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT072",
+                      "type_name":  "그래프와 계수 관계 종합 - 그래프와 계수 관계 종합"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT073",
+                      "type_name":  "평행 조건 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT074",
+                      "type_name":  "평행한 직선 - 기울기가 같은 직선의 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT075",
+                      "type_name":  "평행한 직선 - 서로 다른 y절편 확인"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT076",
+                      "type_name":  "평행한 직선 - 평행한 직선"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT077",
+                      "type_name":  "두 식이 같은 직선이 되는 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT078",
+                      "type_name":  "일치하는 직선 - 계수비 비교"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT079",
+                      "type_name":  "일치하는 직선 - 일치와 평행 구분"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT080",
+                      "type_name":  "일치하는 직선 - 일치하는 직선"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT081",
+                      "type_name":  "기울기와 y절편이 주어진 직선"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT082",
+                      "type_name":  "기울기와 y절편으로 식 구하기 - 그래프에서 y=ax+b 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT083",
+                      "type_name":  "기울기와 y절편으로 식 구하기 - 절편 조건으로 식 완성"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT084",
+                      "type_name":  "기울기와 y절편으로 식 구하기 - 기울기와 y절편으로 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT085",
+                      "type_name":  "점-기울기 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT086",
+                      "type_name":  "기울기와 한 점으로 식 구하기 - 대입으로 b 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT087",
+                      "type_name":  "기울기와 한 점으로 식 구하기 - 한 점을 지나는 직선의 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT088",
+                      "type_name":  "기울기와 한 점으로 식 구하기 - 기울기와 한 점으로 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT089",
+                      "type_name":  "두 점으로 기울기 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT090",
+                      "type_name":  "두 점으로 직선의 식 구하기 - 한 점 대입하여 y절편 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT091",
+                      "type_name":  "두 점으로 직선의 식 구하기 - 좌표 순서 확인"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT092",
+                      "type_name":  "두 점으로 직선의 식 구하기 - 두 점으로 직선의 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT093",
+                      "type_name":  "두 절편으로 직선의 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT094",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - 절편형 사고"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT095",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - 절편의 부호와 길이 구분"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT096",
+                      "type_name":  "x절편과 y절편으로 식 구하기 - x절편과 y절편으로 식 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT097",
+                      "type_name":  "평행/절편/점 조건 결합"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT098",
+                      "type_name":  "여러 조건을 만족하는 식 - 미지수 계수 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT099",
+                      "type_name":  "여러 조건을 만족하는 식 - 조건 해석 순서"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT100",
+                      "type_name":  "여러 조건을 만족하는 식 - 여러 조건을 만족하는 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT101",
+                      "type_name":  "거리·시간·요금 관계식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT102",
+                      "type_name":  "일차함수 활용 - 처음값과 변화율 해석"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT103",
+                      "type_name":  "일차함수 활용 - 문장 조건을 그래프로 변환"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT104",
+                      "type_name":  "일차함수 활용 - 일차함수 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT105",
+                      "type_name":  "좌표평면에서 길이·넓이 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT106",
+                      "type_name":  "도형과 거리 활용 - 이동 거리와 시간 그래프"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT107",
+                      "type_name":  "도형과 거리 활용 - 도형 조건을 식으로 변환"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT108",
+                      "type_name":  "도형과 거리 활용 - 도형과 거리 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT109",
+                      "type_name":  "ax+by+c=0의 그래프"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT110",
+                      "type_name":  "일차방정식의 그래프 - x,y 절편으로 그래프 그리기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT111",
+                      "type_name":  "일차방정식의 그래프 - 방정식과 직선의 대응"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT112",
+                      "type_name":  "일차방정식의 그래프 - 일차방정식의 그래프"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT113",
+                      "type_name":  "좌표를 방정식에 대입"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT114",
+                      "type_name":  "방정식 그래프 위의 점 - 그래프 위/밖의 점 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT115",
+                      "type_name":  "방정식 그래프 위의 점 - 미지수 좌표 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT116",
+                      "type_name":  "방정식 그래프 위의 점 - 방정식 그래프 위의 점"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT117",
+                      "type_name":  "일차방정식 그래프의 기울기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT118",
+                      "type_name":  "그래프와 방정식 성질 - 계수와 절편 관계"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT119",
+                      "type_name":  "그래프와 방정식 성질 - 표준형과 함수식 변환"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT120",
+                      "type_name":  "그래프와 방정식 성질 - 그래프와 방정식 성질"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT121",
+                      "type_name":  "x=a, y=b 형태 구분"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT122",
+                      "type_name":  "좌표축에 평행한 직선 - 수직선/수평선 그래프"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT123",
+                      "type_name":  "좌표축에 평행한 직선 - 기울기 없는 경우 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT124",
+                      "type_name":  "좌표축에 평행한 직선 - 좌표축에 평행한 직선"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT125",
+                      "type_name":  "두 직선과 좌표축의 넓이"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT126",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 교점과 절편 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT127",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 삼각형/사각형 넓이 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT128",
+                      "type_name":  "직선으로 둘러싸인 넓이 - 직선으로 둘러싸인 넓이"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT129",
+                      "type_name":  "두 직선의 교점 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT130",
+                      "type_name":  "교점과 해 - 연립방정식의 해와 교점 연결"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT131",
+                      "type_name":  "교점과 해 - 그래프에서 해 읽기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT132",
+                      "type_name":  "교점과 해 - 교점과 해"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT133",
+                      "type_name":  "한 점에서 만남"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT134",
+                      "type_name":  "해의 개수와 위치관계 - 평행하여 해 없음"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT135",
+                      "type_name":  "해의 개수와 위치관계 - 일치하여 해 무수히 많음"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT136",
+                      "type_name":  "해의 개수와 위치관계 - 해의 개수와 위치관계"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT137",
+                      "type_name":  "세 직선의 위치 관계"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT138",
+                      "type_name":  "세 직선과 교점 활용 - 교점으로 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT139",
+                      "type_name":  "세 직선과 교점 활용 - 교점 활용 모델링"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT140",
+                      "type_name":  "세 직선과 교점 활용 - 세 직선과 교점 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT141",
+                      "type_name":  "그래프·식·표 변환 종합"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT142",
+                      "type_name":  "조건 여러 개로 일차함수 결정"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT143",
+                      "type_name":  "교점과 연립방정식 해석 종합"
+                  },
+                  {
+                      "problem_type_id":  "M2_LF_PT144",
+                      "type_name":  "일차함수 활용 모델링 종합"
+                  }
+              ]
+}

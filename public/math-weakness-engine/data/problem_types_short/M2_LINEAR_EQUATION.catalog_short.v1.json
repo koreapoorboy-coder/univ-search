@@ -1,0 +1,632 @@
+{
+    "unit_id":  "M2_LINEAR_EQUATION",
+    "unit_name":  "일차방정식·연립일차방정식",
+    "source_file":  "data/problem_types/m2_linear_equation.problem_types.v1.json",
+    "count":  156,
+    "types":  [
+                  {
+                      "problem_type_id":  "M2_LE_PT001",
+                      "type_name":  "미지수가 2개인 일차방정식의 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT002",
+                      "type_name":  "미지수가 2개인 일차방정식이 되기 위한 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT003",
+                      "type_name":  "미지수가 2개인 일차방정식의 정리"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT004",
+                      "type_name":  "미지수가 2개인 일차방정식으로의 표현"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT005",
+                      "type_name":  "문장 조건을 일차방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT006",
+                      "type_name":  "응용 조건의 식 세우기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT007",
+                      "type_name":  "일차방정식의 해의 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT008",
+                      "type_name":  "조건이 주어진 해 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT009",
+                      "type_name":  "순서쌍을 대입한 검산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT010",
+                      "type_name":  "미지수가 자연수인 일차방정식의 해 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT011",
+                      "type_name":  "미지수의 조건이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT012",
+                      "type_name":  "해의 개수가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT013",
+                      "type_name":  "미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT014",
+                      "type_name":  "해에 대한 조건이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT015",
+                      "type_name":  "다른 해 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT016",
+                      "type_name":  "미지수가 2개인 일차방정식의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT017",
+                      "type_name":  "새로운 기호가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT018",
+                      "type_name":  "식으로 나타내기 응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT019",
+                      "type_name":  "일차방정식의 성질"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT020",
+                      "type_name":  "등식 변형 원리"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT021",
+                      "type_name":  "연립방정식 세우기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT022",
+                      "type_name":  "문장 조건에서 두 식 세우기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT023",
+                      "type_name":  "두 조건을 동시에 만족하는 식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT024",
+                      "type_name":  "연립방정식의 해 판단"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT025",
+                      "type_name":  "연립방정식의 해 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT026",
+                      "type_name":  "순서쌍 검산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT027",
+                      "type_name":  "대입법을 이용한 풀이 과정"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT028",
+                      "type_name":  "연립방정식 풀기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT029",
+                      "type_name":  "연립방정식의 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT030",
+                      "type_name":  "가감법을 이용한 풀이 과정"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT031",
+                      "type_name":  "가감법의 이용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT032",
+                      "type_name":  "가감법으로 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT033",
+                      "type_name":  "연립방정식의 해 또는 해의 연산: 대입법 이용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT034",
+                      "type_name":  "연립방정식의 해 구하기 또는 해의 연산: 가감법 이용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT035",
+                      "type_name":  "표를 이용한 연립방정식의 계산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT036",
+                      "type_name":  "문자가 3개인 연립방정식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT037",
+                      "type_name":  "세 식에서 두 문자 소거"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT038",
+                      "type_name":  "세 미지수 해 검산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT039",
+                      "type_name":  "괄호가 있는 연립방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT040",
+                      "type_name":  "괄호가 1개인 연립방정식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT041",
+                      "type_name":  "괄호가 2개인 연립방정식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT042",
+                      "type_name":  "계수가 분수인 연립방정식 풀기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT043",
+                      "type_name":  "분모 제거 후 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT044",
+                      "type_name":  "응용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT045",
+                      "type_name":  "계수가 소수인 연립방정식 풀기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT046",
+                      "type_name":  "같은 해를 가진 연립방정식 고르기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT047",
+                      "type_name":  "소수 계수의 정수화"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT048",
+                      "type_name":  "계수가 순환소수인 연립방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT049",
+                      "type_name":  "연립방정식의 해의 연산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT050",
+                      "type_name":  "순환소수를 분수로 바꾸기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT051",
+                      "type_name":  "비례식을 포함한 연립방정식의 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT052",
+                      "type_name":  "비례식 정리 후 풀이"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT053",
+                      "type_name":  "해의 연산"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT054",
+                      "type_name":  "두 문자에 대한 연립방정식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT055",
+                      "type_name":  "세 문자에 대한 연립방정식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT056",
+                      "type_name":  "분모가 0이 되지 않는 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT057",
+                      "type_name":  "C가 상수인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT058",
+                      "type_name":  "C가 식인 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT059",
+                      "type_name":  "두 등식으로 분리하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT060",
+                      "type_name":  "해의 일부가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT061",
+                      "type_name":  "해가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT062",
+                      "type_name":  "해의 조건이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT063",
+                      "type_name":  "미지수를 포함한 연립방정식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT064",
+                      "type_name":  "미지수를 포함한 일차방정식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT065",
+                      "type_name":  "미지수를 포함한 연립방정식과 일차방정식"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT066",
+                      "type_name":  "x,y값의 비 또는 배수 관계"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT067",
+                      "type_name":  "x,y값의 합 또는 차"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT068",
+                      "type_name":  "x값과 y값 사이의 관계"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT069",
+                      "type_name":  "x의 계수 또는 y의 계수 오류"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT070",
+                      "type_name":  "미지수를 서로 바꾸어 본 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT071",
+                      "type_name":  "잘못 본 해를 이용한 원래값 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT072",
+                      "type_name":  "해가 서로 같은 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT073",
+                      "type_name":  "해 사이에 조건이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT074",
+                      "type_name":  "공통해를 이용한 계수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT075",
+                      "type_name":  "연립방정식의 해 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT076",
+                      "type_name":  "연립방정식의 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT077",
+                      "type_name":  "해가 무수히 많은 연립방정식 고르기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT078",
+                      "type_name":  "연립방정식의 해 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT079",
+                      "type_name":  "해가 없는 연립방정식 고르기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT080",
+                      "type_name":  "연립방정식의 미지수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT081",
+                      "type_name":  "연립방정식을 이용한 두 수를 구하는 과정"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT082",
+                      "type_name":  "연립방정식을 이용한 두 수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT083",
+                      "type_name":  "합과 차 또는 배수 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT084",
+                      "type_name":  "연립방정식을 이용하여 수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT085",
+                      "type_name":  "실생활에의 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT086",
+                      "type_name":  "수의 특정 자리 숫자 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT087",
+                      "type_name":  "두 그룹에 대한 평균"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT088",
+                      "type_name":  "세 그룹에 대한 평균"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT089",
+                      "type_name":  "시험 점수 평균"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT090",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT091",
+                      "type_name":  "문장으로 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT092",
+                      "type_name":  "표 또는 그림이 함께 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT093",
+                      "type_name":  "문장으로 주어진 가격 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT094",
+                      "type_name":  "표 또는 그림에서 가격 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT095",
+                      "type_name":  "총액 조건 활용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT096",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT097",
+                      "type_name":  "연립방정식을 이용한 개수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT098",
+                      "type_name":  "대상별 개수와 총합"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT099",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT100",
+                      "type_name":  "합 또는 차가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT101",
+                      "type_name":  "배수 관계가 포함된 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT102",
+                      "type_name":  "분수로 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT103",
+                      "type_name":  "퍼센트로 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT104",
+                      "type_name":  "비가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT105",
+                      "type_name":  "끈을 나누는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT106",
+                      "type_name":  "길이 합 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT107",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT108",
+                      "type_name":  "변의 길이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT109",
+                      "type_name":  "넓이 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT110",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT111",
+                      "type_name":  "득점과 감점이 있는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT112",
+                      "type_name":  "득점이 있는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT113",
+                      "type_name":  "연립방정식을 이용한 분배: 문자 2개"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT114",
+                      "type_name":  "연립방정식을 이용한 분배: 문자 3개"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT115",
+                      "type_name":  "남거나 부족한 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT116",
+                      "type_name":  "비기는 경우를 제외"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT117",
+                      "type_name":  "비기는 경우 포함"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT118",
+                      "type_name":  "칸 수와 횟수 관계"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT119",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT120",
+                      "type_name":  "두 물품값 비교"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT121",
+                      "type_name":  "두 그룹의 사람 수 비교"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT122",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT123",
+                      "type_name":  "표가 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT124",
+                      "type_name":  "이익률이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT125",
+                      "type_name":  "두 사람이 각자 일하는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT126",
+                      "type_name":  "동시에 일하는 시간을 포함한 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT127",
+                      "type_name":  "전체 일을 1로 두기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT128",
+                      "type_name":  "연립방정식을 이용한 무게"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT129",
+                      "type_name":  "저울 평형 조건"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT130",
+                      "type_name":  "물건별 무게 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT131",
+                      "type_name":  "빈칸 채우기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT132",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT133",
+                      "type_name":  "거리 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT134",
+                      "type_name":  "연립방정식을 이용한 왕복의 빈칸 채우기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT135",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT136",
+                      "type_name":  "거리 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT137",
+                      "type_name":  "거리 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT138",
+                      "type_name":  "시간 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT139",
+                      "type_name":  "속력 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT140",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT141",
+                      "type_name":  "소요시간 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT142",
+                      "type_name":  "거리 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT143",
+                      "type_name":  "같은 방향과 반대 방향으로 도는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT144",
+                      "type_name":  "서로 반대 방향으로 도는 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT145",
+                      "type_name":  "속력 차와 합 이용"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT146",
+                      "type_name":  "속력 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT147",
+                      "type_name":  "거리 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT148",
+                      "type_name":  "기차의 터널 통과에 대한 문제"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT149",
+                      "type_name":  "속력 또는 길이에 대한 조건이 주어진 경우"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT150",
+                      "type_name":  "통과거리 이해"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT151",
+                      "type_name":  "연립방정식으로 나타내기"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT152",
+                      "type_name":  "두 소금물의 혼합"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT153",
+                      "type_name":  "물 또는 소금 추가"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT154",
+                      "type_name":  "두 소금물의 혼합물의 농도"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT155",
+                      "type_name":  "두 소금물을 서로 바꾸어 혼합하는 경우의 농도"
+                  },
+                  {
+                      "problem_type_id":  "M2_LE_PT156",
+                      "type_name":  "합금에 대한 문제"
+                  }
+              ]
+}

@@ -1,0 +1,356 @@
+{
+    "unit_id":  "M2_SIMILARITY_PYTHAGORAS",
+    "unit_name":  "도형의 닮음과 피타고라스 정리",
+    "source_file":  "data/problem_types/m2_similarity_pythagoras.problem_types.v1.json",
+    "count":  87,
+    "types":  [
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT004",
+                      "type_name":  "평면도형의 닮음비 계산과 활용 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT005",
+                      "type_name":  "평면도형의 닮음비 계산과 활용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT011",
+                      "type_name":  "회전체의 닮음비와 대응 길이 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT013",
+                      "type_name":  "삼각형의 닮음 조건 판별 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT015",
+                      "type_name":  "삼각형의 닮음 조건 판별 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT019",
+                      "type_name":  "SAS 닮음의 조건 적용 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT021",
+                      "type_name":  "SAS 닮음의 조건 적용 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT022",
+                      "type_name":  "AA 닮음의 조건 적용 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT023",
+                      "type_name":  "AA 닮음의 조건 적용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT026",
+                      "type_name":  "평행선에서 삼각형의 닮음 찾기 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT028",
+                      "type_name":  "직각삼각형의 닮음 - 공통각 구조 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT029",
+                      "type_name":  "직각삼각형의 닮음 - 공통각 구조 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT031",
+                      "type_name":  "직각삼각형의 닮음 - 같은 예각 구조 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT033",
+                      "type_name":  "직각삼각형의 닮음 - 같은 예각 구조 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT035",
+                      "type_name":  "직각삼각형 닮음의 길이·넓이 응용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT036",
+                      "type_name":  "직각삼각형 닮음의 길이·넓이 응용 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT038",
+                      "type_name":  "종이접기에서 닮은 삼각형 찾기 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT040",
+                      "type_name":  "평행선과 선분비 - 공통각 구조 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT042",
+                      "type_name":  "평행선과 선분비 - 공통각 구조 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT044",
+                      "type_name":  "평행선과 선분비 - 맞꼭지각 구조 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT047",
+                      "type_name":  "삼각형에서 평행선 선분비 응용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT049",
+                      "type_name":  "역으로 평행선 판정하기 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT051",
+                      "type_name":  "역으로 평행선 판정하기 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT053",
+                      "type_name":  "삼각형 내각의 이등분선과 변의 비 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT054",
+                      "type_name":  "삼각형 내각의 이등분선과 변의 비 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT056",
+                      "type_name":  "삼각형 내각의 이등분선과 넓이비 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT057",
+                      "type_name":  "삼각형 내각의 이등분선과 넓이비 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT058",
+                      "type_name":  "삼각형 외각의 이등분선과 변의 비 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT059",
+                      "type_name":  "삼각형 외각의 이등분선과 변의 비 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT061",
+                      "type_name":  "삼각형 외각의 이등분선과 넓이비 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT065",
+                      "type_name":  "여러 평행선 사이의 길이비 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT067",
+                      "type_name":  "사다리꼴에서 평행선 선분비 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT070",
+                      "type_name":  "사다리꼴과 한 대각선의 길이비 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT074",
+                      "type_name":  "사다리꼴과 두 대각선 - 교점 비통과 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT077",
+                      "type_name":  "사다리꼴과 두 대각선 - 교점 통과 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT080",
+                      "type_name":  "평행선 사이 길이비의 종합 응용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT083",
+                      "type_name":  "삼각형의 중점연결정리 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT086",
+                      "type_name":  "중점연결정리의 중점 응용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT089",
+                      "type_name":  "중점연결정리의 삼등분선 응용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT090",
+                      "type_name":  "중점연결정리의 삼등분선 응용 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT096",
+                      "type_name":  "사각형 각 변의 중점을 이은 사각형 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT098",
+                      "type_name":  "사다리꼴의 중점연결정리 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT100",
+                      "type_name":  "삼각형의 중선과 넓이 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT101",
+                      "type_name":  "삼각형의 중선과 넓이 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT104",
+                      "type_name":  "삼각형의 무게중심 기본 성질 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT105",
+                      "type_name":  "삼각형의 무게중심 기본 성질 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT110",
+                      "type_name":  "무게중심 응용 - 선분 길이 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT111",
+                      "type_name":  "무게중심 응용 - 선분 길이 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT112",
+                      "type_name":  "무게중심 응용 - 비례식 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT113",
+                      "type_name":  "무게중심 응용 - 비례식 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT115",
+                      "type_name":  "무게중심 응용 - 복합도형 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT116",
+                      "type_name":  "무게중심 응용 - 복합도형 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT120",
+                      "type_name":  "무게중심과 삼각형 넓이비 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT121",
+                      "type_name":  "두 무게중심과 넓이 관계 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT122",
+                      "type_name":  "두 무게중심과 넓이 관계 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT125",
+                      "type_name":  "평행사변형에서 무게중심과 길이 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT126",
+                      "type_name":  "평행사변형에서 무게중심과 길이 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT127",
+                      "type_name":  "평행사변형에서 무게중심과 넓이 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT128",
+                      "type_name":  "평행사변형에서 무게중심과 넓이 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT131",
+                      "type_name":  "닮은 평면도형의 넓이비 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT133",
+                      "type_name":  "닮은 평면도형 넓이비의 활용 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT135",
+                      "type_name":  "닮은 평면도형 넓이비의 활용 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT140",
+                      "type_name":  "닮은 입체도형 겉넓이비의 활용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT143",
+                      "type_name":  "닮은 입체도형의 부피비 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT144",
+                      "type_name":  "닮은 입체도형의 부피비 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT146",
+                      "type_name":  "닮은 입체도형 부피비의 활용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT148",
+                      "type_name":  "닮음의 실생활 활용 - 높이·축척 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT149",
+                      "type_name":  "닮음의 실생활 활용 - 높이·축척 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT151",
+                      "type_name":  "피타고라스 정리로 삼각형의 변 구하기 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT152",
+                      "type_name":  "피타고라스 정리로 삼각형의 변 구하기 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT153",
+                      "type_name":  "피타고라스 정리로 삼각형의 변 구하기 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT155",
+                      "type_name":  "직각삼각형의 닮음과 피타고라스 정리 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT156",
+                      "type_name":  "직각삼각형의 닮음과 피타고라스 정리 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT157",
+                      "type_name":  "사각형·직사각형에서 피타고라스 정리 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT158",
+                      "type_name":  "사각형·직사각형에서 피타고라스 정리 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT159",
+                      "type_name":  "사각형·직사각형에서 피타고라스 정리 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT161",
+                      "type_name":  "이등변삼각형의 높이와 넓이 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT162",
+                      "type_name":  "이등변삼각형의 높이와 넓이 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT165",
+                      "type_name":  "피타고라스 정리의 여러 증명 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT166",
+                      "type_name":  "피타고라스 정리의 역과 삼각형 분류 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT167",
+                      "type_name":  "피타고라스 정리의 역과 삼각형 분류 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT169",
+                      "type_name":  "평면도형에서 피타고라스 정리의 활용 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT170",
+                      "type_name":  "평면도형에서 피타고라스 정리의 활용 - 비례식·정리 적용"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT171",
+                      "type_name":  "평면도형에서 피타고라스 정리의 활용 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT174",
+                      "type_name":  "히포크라테스·피타고라스 나무·종이접기 - 복합 계산·증명"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT175",
+                      "type_name":  "입체도형과 원기둥 최단거리 - 개념·조건 판별"
+                  },
+                  {
+                      "problem_type_id":  "M2_SIMPY_PT177",
+                      "type_name":  "입체도형과 원기둥 최단거리 - 복합 계산·증명"
+                  }
+              ]
+}

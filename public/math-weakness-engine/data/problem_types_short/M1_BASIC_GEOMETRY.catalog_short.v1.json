@@ -1,0 +1,228 @@
+{
+    "unit_id":  "M1_BASIC_GEOMETRY",
+    "unit_name":  "기본 도형과 작도",
+    "source_file":  "data/problem_types/m1_basic_geometry.problem_types.v1.json",
+    "count":  55,
+    "types":  [
+                  {
+                      "problem_type_id":  "M1_BG_PT001",
+                      "type_name":  "도형의 기본 요소 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT002",
+                      "type_name":  "교점과 교선 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT003",
+                      "type_name":  "직선·반직선·선분 구분하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT004",
+                      "type_name":  "직선·반직선·선분의 개수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT005",
+                      "type_name":  "두 점 사이의 거리 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT006",
+                      "type_name":  "선분의 중점 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT007",
+                      "type_name":  "두 점 사이의 거리 조건 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT008",
+                      "type_name":  "각의 이름과 크기 읽기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT009",
+                      "type_name":  "직각자를 이용하여 각의 크기 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT010",
+                      "type_name":  "평각을 이용하여 각의 크기 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT011",
+                      "type_name":  "각의 크기 비가 주어진 경우 각도 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT012",
+                      "type_name":  "각의 크기 조건이 주어진 경우 각도 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT013",
+                      "type_name":  "시침과 분침이 이루는 각의 크기 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT014",
+                      "type_name":  "맞꼭지각의 성질로 각도 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT015",
+                      "type_name":  "맞꼭지각의 쌍의 개수 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT016",
+                      "type_name":  "수직과 수선 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT017",
+                      "type_name":  "점과 직선 사이의 거리 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT018",
+                      "type_name":  "맞꼭지각 성질 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT019",
+                      "type_name":  "점·직선·평면의 위치 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT020",
+                      "type_name":  "평면에서 두 직선의 위치 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT021",
+                      "type_name":  "평면이 정해질 조건 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT022",
+                      "type_name":  "꼬인 위치 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT023",
+                      "type_name":  "공간에서 두 직선의 위치 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT024",
+                      "type_name":  "공간에서 직선과 평면의 위치 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT025",
+                      "type_name":  "점과 평면 사이의 거리 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT026",
+                      "type_name":  "공간에서 두 평면의 위치 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT027",
+                      "type_name":  "잘린 입체도형에서 위치 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT028",
+                      "type_name":  "전개도에서 입체도형 위치 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT029",
+                      "type_name":  "동위각과 엇각 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT030",
+                      "type_name":  "평행선의 성질로 각도 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT031",
+                      "type_name":  "두 직선이 평행할 조건 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT032",
+                      "type_name":  "두 쌍의 평행선에서 각도 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT033",
+                      "type_name":  "평행선과 삼각형 모양에서 각도 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT034",
+                      "type_name":  "평행선과 꺾인 직선에서 각도 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT035",
+                      "type_name":  "평행선에서 복합 각도 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT036",
+                      "type_name":  "종이를 접었을 때 각의 크기 구하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT037",
+                      "type_name":  "작도의 뜻과 기본 절차 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT038",
+                      "type_name":  "길이가 같은 선분 작도하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT039",
+                      "type_name":  "크기가 같은 각 작도하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT040",
+                      "type_name":  "동위각을 이용하여 평행선 작도하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT041",
+                      "type_name":  "엇각을 이용하여 평행선 작도하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT042",
+                      "type_name":  "삼각형의 대변과 대각 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT043",
+                      "type_name":  "삼각형의 세 변의 길이 관계 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT044",
+                      "type_name":  "삼각형 작도하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT045",
+                      "type_name":  "삼각형이 정해질 조건 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT046",
+                      "type_name":  "삼각형이 하나로 정해지지 않는 경우 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT047",
+                      "type_name":  "도형의 합동 판단하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT048",
+                      "type_name":  "합동인 도형의 성질 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT049",
+                      "type_name":  "합동인 삼각형 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT050",
+                      "type_name":  "삼각형이 합동이 되기 위해 추가될 조건 찾기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT051",
+                      "type_name":  "SSS 합동조건 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT052",
+                      "type_name":  "SAS 합동조건 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT053",
+                      "type_name":  "ASA 합동조건 판별하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT054",
+                      "type_name":  "정삼각형에서 삼각형 합동 활용하기"
+                  },
+                  {
+                      "problem_type_id":  "M1_BG_PT055",
+                      "type_name":  "직사각형에서 삼각형 합동 활용하기"
+                  }
+              ]
+}

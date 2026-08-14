@@ -1,0 +1,3380 @@
+{
+    "unit_id":  "H1_COMMON_MATH2_GEOMETRY_EQUATION",
+    "unit_name":  "도형의 방정식",
+    "source_file":  "data/problem_types/h1_common_math2_geometry_equation.problem_types.v1.json",
+    "count":  843,
+    "types":  [
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT001",
+                      "type_name":  "수직선 위의 좌표가 주어진 두 점 사이의 거리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT002",
+                      "type_name":  "수직선 위의 좌표가 주어진 두 점 사이의 거리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT003",
+                      "type_name":  "수직선 위의 좌표가 주어진 두 점 사이의 거리 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT004",
+                      "type_name":  "두 점 사이의 거리를 이용하여 수직선 위의 점의 좌표 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT005",
+                      "type_name":  "두 점 사이의 거리를 이용하여 수직선 위의 점의 좌표 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT006",
+                      "type_name":  "두 점 사이의 거리를 이용하여 수직선 위의 점의 좌표 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT007",
+                      "type_name":  "좌표가 주어졌을 때 두 점 사이의 거리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT008",
+                      "type_name":  "좌표가 주어졌을 때 두 점 사이의 거리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT009",
+                      "type_name":  "좌표가 주어졌을 때 두 점 사이의 거리 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT010",
+                      "type_name":  "두 점 사이의 거리가 어떤 수 이하가 되도록 하는 실수 범위 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT011",
+                      "type_name":  "두 점 사이의 거리가 어떤 수 이하가 되도록 하는 실수 범위 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT012",
+                      "type_name":  "두 점 사이의 거리가 어떤 수 이하가 되도록 하는 실수 범위 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT013",
+                      "type_name":  "선분의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT014",
+                      "type_name":  "선분의 길이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT015",
+                      "type_name":  "선분의 길이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT016",
+                      "type_name":  "거리의 최솟값, 선분의 길이의 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT017",
+                      "type_name":  "거리의 최솟값, 선분의 길이의 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT018",
+                      "type_name":  "거리의 최솟값, 선분의 길이의 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT019",
+                      "type_name":  "도형에의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT020",
+                      "type_name":  "도형에의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT021",
+                      "type_name":  "도형에의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT022",
+                      "type_name":  "실생활 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT023",
+                      "type_name":  "실생활 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT024",
+                      "type_name":  "실생활 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT025",
+                      "type_name":  "두 점으로부터 같은 거리에 있는 x축(y축) 위의 점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT026",
+                      "type_name":  "두 점으로부터 같은 거리에 있는 x축(y축) 위의 점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT027",
+                      "type_name":  "두 점으로부터 같은 거리에 있는 x축(y축) 위의 점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT028",
+                      "type_name":  "두 점으로부터 같은 거리에 있는 직선 위의 점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT029",
+                      "type_name":  "두 점으로부터 같은 거리에 있는 직선 위의 점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT030",
+                      "type_name":  "두 점으로부터 같은 거리에 있는 직선 위의 점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT031",
+                      "type_name":  "삼각형의 외심의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT032",
+                      "type_name":  "삼각형의 외심의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT033",
+                      "type_name":  "삼각형의 외심의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT034",
+                      "type_name":  "실생활 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT035",
+                      "type_name":  "실생활 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT036",
+                      "type_name":  "실생활 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT037",
+                      "type_name":  "어떤 삼각형이 되도록 하는 점의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT038",
+                      "type_name":  "어떤 삼각형이 되도록 하는 점의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT039",
+                      "type_name":  "어떤 삼각형이 되도록 하는 점의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT040",
+                      "type_name":  "삼각형의 모양 판단 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT041",
+                      "type_name":  "삼각형의 모양 판단 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT042",
+                      "type_name":  "삼각형의 모양 판단 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT043",
+                      "type_name":  "한 점이 좌표평면 임의의 점일 때 길이의 합의 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT044",
+                      "type_name":  "한 점이 좌표평면 임의의 점일 때 길이의 합의 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT045",
+                      "type_name":  "한 점이 좌표평면 임의의 점일 때 길이의 합의 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT046",
+                      "type_name":  "두 점 사이의 거리 공식의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT047",
+                      "type_name":  "두 점 사이의 거리 공식의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT048",
+                      "type_name":  "두 점 사이의 거리 공식의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT049",
+                      "type_name":  "거리의 제곱의 합의 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT050",
+                      "type_name":  "거리의 제곱의 합의 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT051",
+                      "type_name":  "거리의 제곱의 합의 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT052",
+                      "type_name":  "거리의 제곱의 합이 최소가 되는 점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT053",
+                      "type_name":  "거리의 제곱의 합이 최소가 되는 점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT054",
+                      "type_name":  "거리의 제곱의 합이 최소가 되는 점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT055",
+                      "type_name":  "실생활 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT056",
+                      "type_name":  "실생활 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT057",
+                      "type_name":  "실생활 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT058",
+                      "type_name":  "정사각형의 성질 활용하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT059",
+                      "type_name":  "정사각형의 성질 활용하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT060",
+                      "type_name":  "정사각형의 성질 활용하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT061",
+                      "type_name":  "일정한 속도로 움직이는 두 점 사이의 거리의 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT062",
+                      "type_name":  "일정한 속도로 움직이는 두 점 사이의 거리의 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT063",
+                      "type_name":  "일정한 속도로 움직이는 두 점 사이의 거리의 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT064",
+                      "type_name":  "삼각형의 성질 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT065",
+                      "type_name":  "삼각형의 성질 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT066",
+                      "type_name":  "삼각형의 성질 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT067",
+                      "type_name":  "사각형의 성질 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT068",
+                      "type_name":  "사각형의 성질 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT069",
+                      "type_name":  "사각형의 성질 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT070",
+                      "type_name":  "중선의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT071",
+                      "type_name":  "중선의 길이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT072",
+                      "type_name":  "중선의 길이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT073",
+                      "type_name":  "중선정리의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT074",
+                      "type_name":  "중선정리의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT075",
+                      "type_name":  "중선정리의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT076",
+                      "type_name":  "수직선 위의 점이 숫자로 주어졌을 때 내분점, 외분점, 중점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT077",
+                      "type_name":  "수직선 위의 점이 숫자로 주어졌을 때 내분점, 외분점, 중점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT078",
+                      "type_name":  "수직선 위의 점이 숫자로 주어졌을 때 내분점, 외분점, 중점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT079",
+                      "type_name":  "선분의 n등분점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT080",
+                      "type_name":  "선분의 n등분점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT081",
+                      "type_name":  "선분의 n등분점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT082",
+                      "type_name":  "수직선 위의 점에 문자가 포함되어 있을 때 내분점, 중점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT083",
+                      "type_name":  "수직선 위의 점에 문자가 포함되어 있을 때 내분점, 중점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT084",
+                      "type_name":  "수직선 위의 점에 문자가 포함되어 있을 때 내분점, 중점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT085",
+                      "type_name":  "점의 좌표가 숫자로 주어졌을 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT086",
+                      "type_name":  "점의 좌표가 숫자로 주어졌을 때 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT087",
+                      "type_name":  "점의 좌표가 숫자로 주어졌을 때 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT088",
+                      "type_name":  "점의 좌표에 문자(상수)가 포함되어 있을 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT089",
+                      "type_name":  "점의 좌표에 문자(상수)가 포함되어 있을 때 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT090",
+                      "type_name":  "점의 좌표에 문자(상수)가 포함되어 있을 때 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT091",
+                      "type_name":  "도형과 그래프에서의 내분점, 중점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT092",
+                      "type_name":  "도형과 그래프에서의 내분점, 중점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT093",
+                      "type_name":  "도형과 그래프에서의 내분점, 중점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT094",
+                      "type_name":  "선분의 길이에 관한 등식을 만족시키는 점의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT095",
+                      "type_name":  "선분의 길이에 관한 등식을 만족시키는 점의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT096",
+                      "type_name":  "선분의 길이에 관한 등식을 만족시키는 점의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT097",
+                      "type_name":  "수직선이나 도형이 주어졌을 때 조건을 만족시키는 점의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT098",
+                      "type_name":  "수직선이나 도형이 주어졌을 때 조건을 만족시키는 점의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT099",
+                      "type_name":  "수직선이나 도형이 주어졌을 때 조건을 만족시키는 점의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT100",
+                      "type_name":  "내분점의 좌표가 주어졌을 때 공식 활용하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT101",
+                      "type_name":  "내분점의 좌표가 주어졌을 때 공식 활용하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT102",
+                      "type_name":  "내분점의 좌표가 주어졌을 때 공식 활용하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT103",
+                      "type_name":  "내분점(외분점)이 좌표축 위에 있을 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT104",
+                      "type_name":  "내분점(외분점)이 좌표축 위에 있을 때 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT105",
+                      "type_name":  "내분점(외분점)이 좌표축 위에 있을 때 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT106",
+                      "type_name":  "내분점(외분점)이 직선이나 사분면 위에 있을 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT107",
+                      "type_name":  "내분점(외분점)이 직선이나 사분면 위에 있을 때 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT108",
+                      "type_name":  "내분점(외분점)이 직선이나 사분면 위에 있을 때 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT109",
+                      "type_name":  "꼭짓점의 좌표가 숫자로 주어졌을 때 무게중심의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT110",
+                      "type_name":  "꼭짓점의 좌표가 숫자로 주어졌을 때 무게중심의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT111",
+                      "type_name":  "꼭짓점의 좌표가 숫자로 주어졌을 때 무게중심의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT112",
+                      "type_name":  "꼭짓점의 좌표에 문자가 포함되어 있을 때 무게중심의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT113",
+                      "type_name":  "꼭짓점의 좌표에 문자가 포함되어 있을 때 무게중심의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT114",
+                      "type_name":  "꼭짓점의 좌표에 문자가 포함되어 있을 때 무게중심의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT115",
+                      "type_name":  "내분점, 중점 공식을 활용하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT116",
+                      "type_name":  "내분점, 중점 공식을 활용하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT117",
+                      "type_name":  "내분점, 중점 공식을 활용하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT118",
+                      "type_name":  "삼각형과 임의의 한 점이 주어졌을 때 거리의 제곱의 합의 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT119",
+                      "type_name":  "삼각형과 임의의 한 점이 주어졌을 때 거리의 제곱의 합의 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT120",
+                      "type_name":  "삼각형과 임의의 한 점이 주어졌을 때 거리의 제곱의 합의 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT121",
+                      "type_name":  "세 점과 임의의 한 점이 주어졌을 때 거리의 제곱의 합의 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT122",
+                      "type_name":  "세 점과 임의의 한 점이 주어졌을 때 거리의 제곱의 합의 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT123",
+                      "type_name":  "세 점과 임의의 한 점이 주어졌을 때 거리의 제곱의 합의 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT124",
+                      "type_name":  "실생활 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT125",
+                      "type_name":  "실생활 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT126",
+                      "type_name":  "실생활 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT127",
+                      "type_name":  "중점을 이용한 삼각형의 무게중심 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT128",
+                      "type_name":  "중점을 이용한 삼각형의 무게중심 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT129",
+                      "type_name":  "중점을 이용한 삼각형의 무게중심 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT130",
+                      "type_name":  "일정한 내분점을 이용한 삼각형의 무게중심 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT131",
+                      "type_name":  "일정한 내분점을 이용한 삼각형의 무게중심 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT132",
+                      "type_name":  "일정한 내분점을 이용한 삼각형의 무게중심 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT133",
+                      "type_name":  "내각의 이등분선과 삼각형의 넓이의 비 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT134",
+                      "type_name":  "내각의 이등분선과 삼각형의 넓이의 비 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT135",
+                      "type_name":  "내각의 이등분선과 삼각형의 넓이의 비 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT136",
+                      "type_name":  "내각의 이등분선과 점의 좌표, 선분의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT137",
+                      "type_name":  "내각의 이등분선과 점의 좌표, 선분의 길이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT138",
+                      "type_name":  "내각의 이등분선과 점의 좌표, 선분의 길이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT139",
+                      "type_name":  "내분점을 이용한 삼각형의 넓이의 비 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT140",
+                      "type_name":  "내분점을 이용한 삼각형의 넓이의 비 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT141",
+                      "type_name":  "내분점을 이용한 삼각형의 넓이의 비 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT142",
+                      "type_name":  "내분점을 이용한 선분의 길이의 제곱의 합 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT143",
+                      "type_name":  "내분점을 이용한 선분의 길이의 제곱의 합 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT144",
+                      "type_name":  "내분점을 이용한 선분의 길이의 제곱의 합 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT145",
+                      "type_name":  "평행사변형이 되도록 하는 점의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT146",
+                      "type_name":  "평행사변형이 되도록 하는 점의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT147",
+                      "type_name":  "평행사변형이 되도록 하는 점의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT148",
+                      "type_name":  "마름모가 되도록 하는 점의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT149",
+                      "type_name":  "마름모가 되도록 하는 점의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT150",
+                      "type_name":  "마름모가 되도록 하는 점의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT151",
+                      "type_name":  "평행사변형의 두 대각선의 교점의 좌표가 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT152",
+                      "type_name":  "평행사변형의 두 대각선의 교점의 좌표가 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT153",
+                      "type_name":  "평행사변형의 두 대각선의 교점의 좌표가 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT154",
+                      "type_name":  "마름모의 두 대각선의 교점의 좌표가 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT155",
+                      "type_name":  "마름모의 두 대각선의 교점의 좌표가 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT156",
+                      "type_name":  "마름모의 두 대각선의 교점의 좌표가 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT157",
+                      "type_name":  "평행사변형의 두 꼭짓점의 좌표와 둘레의 길이가 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT158",
+                      "type_name":  "평행사변형의 두 꼭짓점의 좌표와 둘레의 길이가 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT159",
+                      "type_name":  "평행사변형의 두 꼭짓점의 좌표와 둘레의 길이가 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT160",
+                      "type_name":  "평행사변형에서 삼각형의 무게중심 활용하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT161",
+                      "type_name":  "평행사변형에서 삼각형의 무게중심 활용하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT162",
+                      "type_name":  "평행사변형에서 삼각형의 무게중심 활용하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT163",
+                      "type_name":  "마름모에서 삼각형의 성질 활용하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT164",
+                      "type_name":  "마름모에서 삼각형의 성질 활용하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT165",
+                      "type_name":  "마름모에서 삼각형의 성질 활용하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT166",
+                      "type_name":  "거리 또는 선분의 길이에 관한 식이 주어졌을 때 자취의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT167",
+                      "type_name":  "거리 또는 선분의 길이에 관한 식이 주어졌을 때 자취의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT168",
+                      "type_name":  "거리 또는 선분의 길이에 관한 식이 주어졌을 때 자취의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT169",
+                      "type_name":  "직선 위를 움직이는 점에 대한 자취의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT170",
+                      "type_name":  "직선 위를 움직이는 점에 대한 자취의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT171",
+                      "type_name":  "직선 위를 움직이는 점에 대한 자취의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT172",
+                      "type_name":  "기울기가 숫자나 문자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT173",
+                      "type_name":  "기울기가 숫자나 문자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT174",
+                      "type_name":  "기울기가 숫자나 문자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT175",
+                      "type_name":  "기울기가 직선의 방정식으로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT176",
+                      "type_name":  "기울기가 직선의 방정식으로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT177",
+                      "type_name":  "기울기가 직선의 방정식으로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT178",
+                      "type_name":  "한 점과 x축의 양의 방향이 이루는 각의 크기가 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT179",
+                      "type_name":  "한 점과 x축의 양의 방향이 이루는 각의 크기가 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT180",
+                      "type_name":  "한 점과 x축의 양의 방향이 이루는 각의 크기가 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT181",
+                      "type_name":  "두 점의 좌표가 숫자로 주어졌을 때 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT182",
+                      "type_name":  "두 점의 좌표가 숫자로 주어졌을 때 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT183",
+                      "type_name":  "두 점의 좌표가 숫자로 주어졌을 때 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT184",
+                      "type_name":  "두 점의 좌표에 문자(상수)가 포함되어 있을 때 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT185",
+                      "type_name":  "두 점의 좌표에 문자(상수)가 포함되어 있을 때 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT186",
+                      "type_name":  "두 점의 좌표에 문자(상수)가 포함되어 있을 때 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT187",
+                      "type_name":  "내분점, 중점, 무게중심, 대칭을 활용한 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT188",
+                      "type_name":  "내분점, 중점, 무게중심, 대칭을 활용한 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT189",
+                      "type_name":  "내분점, 중점, 무게중심, 대칭을 활용한 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT190",
+                      "type_name":  "실생활 활용 문제 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT191",
+                      "type_name":  "실생활 활용 문제 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT192",
+                      "type_name":  "실생활 활용 문제 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT193",
+                      "type_name":  "도형의 성질을 활용하는 문제 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT194",
+                      "type_name":  "도형의 성질을 활용하는 문제 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT195",
+                      "type_name":  "도형의 성질을 활용하는 문제 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT196",
+                      "type_name":  "절편이 숫자나 좌표로 직접 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT197",
+                      "type_name":  "절편이 숫자나 좌표로 직접 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT198",
+                      "type_name":  "절편이 숫자나 좌표로 직접 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT199",
+                      "type_name":  "절편이 숫자나 좌표로 주어지지 않은 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT200",
+                      "type_name":  "절편이 숫자나 좌표로 주어지지 않은 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT201",
+                      "type_name":  "절편이 숫자나 좌표로 주어지지 않은 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT202",
+                      "type_name":  "직선의 방정식에서 x절편, y절편을 구할 수 있는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT203",
+                      "type_name":  "직선의 방정식에서 x절편, y절편을 구할 수 있는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT204",
+                      "type_name":  "직선의 방정식에서 x절편, y절편을 구할 수 있는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT205",
+                      "type_name":  "직선의 방정식이 주어지지 않은 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT206",
+                      "type_name":  "직선의 방정식이 주어지지 않은 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT207",
+                      "type_name":  "직선의 방정식이 주어지지 않은 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT208",
+                      "type_name":  "일직선 위에 있는 점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT209",
+                      "type_name":  "일직선 위에 있는 점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT210",
+                      "type_name":  "일직선 위에 있는 점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT211",
+                      "type_name":  "삼각형의 넓이를 이등분하는 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT212",
+                      "type_name":  "삼각형의 넓이를 이등분하는 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT213",
+                      "type_name":  "삼각형의 넓이를 이등분하는 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT214",
+                      "type_name":  "삼각형의 넓이의 비, 삼등분점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT215",
+                      "type_name":  "삼각형의 넓이의 비, 삼등분점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT216",
+                      "type_name":  "삼각형의 넓이의 비, 삼등분점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT217",
+                      "type_name":  "한 사각형의 넓이를 이등분하는 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT218",
+                      "type_name":  "한 사각형의 넓이를 이등분하는 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT219",
+                      "type_name":  "한 사각형의 넓이를 이등분하는 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT220",
+                      "type_name":  "두 사각형의 넓이를 동시에 이등분하는 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT221",
+                      "type_name":  "두 사각형의 넓이를 동시에 이등분하는 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT222",
+                      "type_name":  "두 사각형의 넓이를 동시에 이등분하는 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT223",
+                      "type_name":  "직선이 지나거나 지나지 않는 사분면 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT224",
+                      "type_name":  "직선이 지나거나 지나지 않는 사분면 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT225",
+                      "type_name":  "직선이 지나거나 지나지 않는 사분면 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT226",
+                      "type_name":  "그래프의 개형 추론 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT227",
+                      "type_name":  "그래프의 개형 추론 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT228",
+                      "type_name":  "그래프의 개형 추론 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT229",
+                      "type_name":  "직선이 실수 k의 값에 관계없이 항상 지나는 점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT230",
+                      "type_name":  "직선이 실수 k의 값에 관계없이 항상 지나는 점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT231",
+                      "type_name":  "직선이 실수 k의 값에 관계없이 항상 지나는 점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT232",
+                      "type_name":  "직선이 두 실수 a, b의 값에 관계없이 항상 지나는 점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT233",
+                      "type_name":  "직선이 두 실수 a, b의 값에 관계없이 항상 지나는 점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT234",
+                      "type_name":  "직선이 두 실수 a, b의 값에 관계없이 항상 지나는 점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT235",
+                      "type_name":  "직선이 도형의 넓이를 이등분하기 위한 조건 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT236",
+                      "type_name":  "직선이 도형의 넓이를 이등분하기 위한 조건 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT237",
+                      "type_name":  "직선이 도형의 넓이를 이등분하기 위한 조건 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT238",
+                      "type_name":  "직선이 도형과 만나기 위한 조건 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT239",
+                      "type_name":  "직선이 도형과 만나기 위한 조건 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT240",
+                      "type_name":  "직선이 도형과 만나기 위한 조건 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT241",
+                      "type_name":  "두 직선의 교점과 다른 한 점을 지나는 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT242",
+                      "type_name":  "두 직선의 교점과 다른 한 점을 지나는 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT243",
+                      "type_name":  "두 직선의 교점과 다른 한 점을 지나는 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT244",
+                      "type_name":  "두 직선의 교점을 지나고 기울기가 주어진 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT245",
+                      "type_name":  "두 직선의 교점을 지나고 기울기가 주어진 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT246",
+                      "type_name":  "두 직선의 교점을 지나고 기울기가 주어진 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT247",
+                      "type_name":  "직선이 만나거나 지나가는 사분면 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT248",
+                      "type_name":  "직선이 만나거나 지나가는 사분면 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT249",
+                      "type_name":  "직선이 만나거나 지나가는 사분면 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT250",
+                      "type_name":  "직선이 선분과 한 점에서 만나기 위한 조건 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT251",
+                      "type_name":  "직선이 선분과 한 점에서 만나기 위한 조건 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT252",
+                      "type_name":  "직선이 선분과 한 점에서 만나기 위한 조건 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT253",
+                      "type_name":  "좌표축에 평행 또는 수직인 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT254",
+                      "type_name":  "좌표축에 평행 또는 수직인 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT255",
+                      "type_name":  "좌표축에 평행 또는 수직인 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT256",
+                      "type_name":  "두 직선(표준형)이 서로 평행 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT257",
+                      "type_name":  "두 직선(표준형)이 서로 평행 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT258",
+                      "type_name":  "두 직선(표준형)이 서로 평행 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT259",
+                      "type_name":  "두 직선(표준형)이 서로 수직 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT260",
+                      "type_name":  "두 직선(표준형)이 서로 수직 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT261",
+                      "type_name":  "두 직선(표준형)이 서로 수직 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT262",
+                      "type_name":  "두 직선(표준형)이 일치 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT263",
+                      "type_name":  "두 직선(표준형)이 일치 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT264",
+                      "type_name":  "두 직선(표준형)이 일치 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT265",
+                      "type_name":  "두 직선(표준형)의 위치 관계 판단하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT266",
+                      "type_name":  "두 직선(표준형)의 위치 관계 판단하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT267",
+                      "type_name":  "두 직선(표준형)의 위치 관계 판단하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT268",
+                      "type_name":  "두 직선(표준형)의 위치 관계의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT269",
+                      "type_name":  "두 직선(표준형)의 위치 관계의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT270",
+                      "type_name":  "두 직선(표준형)의 위치 관계의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT271",
+                      "type_name":  "두 직선(일반형)이 서로 평행 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT272",
+                      "type_name":  "두 직선(일반형)이 서로 평행 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT273",
+                      "type_name":  "두 직선(일반형)이 서로 평행 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT274",
+                      "type_name":  "두 직선(일반형)이 서로 수직 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT275",
+                      "type_name":  "두 직선(일반형)이 서로 수직 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT276",
+                      "type_name":  "두 직선(일반형)이 서로 수직 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT277",
+                      "type_name":  "두 직선(일반형)이 일치 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT278",
+                      "type_name":  "두 직선(일반형)이 일치 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT279",
+                      "type_name":  "두 직선(일반형)이 일치 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT280",
+                      "type_name":  "두 직선(일반형)의 위치 관계 판단하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT281",
+                      "type_name":  "두 직선(일반형)의 위치 관계 판단하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT282",
+                      "type_name":  "두 직선(일반형)의 위치 관계 판단하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT283",
+                      "type_name":  "두 직선(일반형)의 위치 관계의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT284",
+                      "type_name":  "두 직선(일반형)의 위치 관계의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT285",
+                      "type_name":  "두 직선(일반형)의 위치 관계의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT286",
+                      "type_name":  "도형 또는 좌표평면에서 직선의 기울기의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT287",
+                      "type_name":  "도형 또는 좌표평면에서 직선의 기울기의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT288",
+                      "type_name":  "도형 또는 좌표평면에서 직선의 기울기의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT289",
+                      "type_name":  "세 직선의 교점에 관한 조건이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT290",
+                      "type_name":  "세 직선의 교점에 관한 조건이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT291",
+                      "type_name":  "세 직선의 교점에 관한 조건이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT292",
+                      "type_name":  "세 직선의 위치 관계의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT293",
+                      "type_name":  "세 직선의 위치 관계의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT294",
+                      "type_name":  "세 직선의 위치 관계의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT295",
+                      "type_name":  "세 직선이 삼각형을 이루지 않도록 하는 상수의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT296",
+                      "type_name":  "세 직선이 삼각형을 이루지 않도록 하는 상수의 값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT297",
+                      "type_name":  "세 직선이 삼각형을 이루지 않도록 하는 상수의 값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT298",
+                      "type_name":  "두 점의 좌표가 숫자로 주어졌을 때 수직이등분선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT299",
+                      "type_name":  "두 점의 좌표가 숫자로 주어졌을 때 수직이등분선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT300",
+                      "type_name":  "두 점의 좌표가 숫자로 주어졌을 때 수직이등분선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT301",
+                      "type_name":  "두 점의 좌표가 숫자로 주어지지 않았을 때 수직이등분선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT302",
+                      "type_name":  "두 점의 좌표가 숫자로 주어지지 않았을 때 수직이등분선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT303",
+                      "type_name":  "두 점의 좌표가 숫자로 주어지지 않았을 때 수직이등분선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT304",
+                      "type_name":  "삼각형의 세 꼭짓점에서 각각의 대변에 그은 세 수선의 교점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT305",
+                      "type_name":  "삼각형의 세 꼭짓점에서 각각의 대변에 그은 세 수선의 교점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT306",
+                      "type_name":  "삼각형의 세 꼭짓점에서 각각의 대변에 그은 세 수선의 교점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT307",
+                      "type_name":  "주어진 이차방정식이 두 직선을 나타낼 조건 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT308",
+                      "type_name":  "주어진 이차방정식이 두 직선을 나타낼 조건 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT309",
+                      "type_name":  "주어진 이차방정식이 두 직선을 나타낼 조건 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT310",
+                      "type_name":  "점의 좌표와 직선의 방정식의 계수(상수항)가 모두 숫자인 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT311",
+                      "type_name":  "점의 좌표와 직선의 방정식의 계수(상수항)가 모두 숫자인 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT312",
+                      "type_name":  "점의 좌표와 직선의 방정식의 계수(상수항)가 모두 숫자인 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT313",
+                      "type_name":  "점의 좌표나 직선의 방정식의 계수(상수항)에 문자가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT314",
+                      "type_name":  "점의 좌표나 직선의 방정식의 계수(상수항)에 문자가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT315",
+                      "type_name":  "점의 좌표나 직선의 방정식의 계수(상수항)에 문자가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT316",
+                      "type_name":  "한 점에서 직선까지의 거리가 주어졌을 때 직선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT317",
+                      "type_name":  "한 점에서 직선까지의 거리가 주어졌을 때 직선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT318",
+                      "type_name":  "한 점에서 직선까지의 거리가 주어졌을 때 직선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT319",
+                      "type_name":  "평행한 두 직선의 방정식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT320",
+                      "type_name":  "평행한 두 직선의 방정식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT321",
+                      "type_name":  "평행한 두 직선의 방정식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT322",
+                      "type_name":  "평행한 두 직선의 방정식의 계수(상수항)에 상수가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT323",
+                      "type_name":  "평행한 두 직선의 방정식의 계수(상수항)에 상수가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT324",
+                      "type_name":  "평행한 두 직선의 방정식의 계수(상수항)에 상수가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT325",
+                      "type_name":  "평행한 두 직선 사이의 거리의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT326",
+                      "type_name":  "평행한 두 직선 사이의 거리의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT327",
+                      "type_name":  "평행한 두 직선 사이의 거리의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT328",
+                      "type_name":  "한 점과 두 직선 사이의 거리 비교 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT329",
+                      "type_name":  "한 점과 두 직선 사이의 거리 비교 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT330",
+                      "type_name":  "한 점과 두 직선 사이의 거리 비교 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT331",
+                      "type_name":  "직선의 방정식에 임의의 실수 k 또는 a,m이 포함되어 있을 때 한 점에 이르는 거리의 최댓값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT332",
+                      "type_name":  "직선의 방정식에 임의의 실수 k 또는 a,m이 포함되어 있을 때 한 점에 이르는 거리의 최댓값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT333",
+                      "type_name":  "직선의 방정식에 임의의 실수 k 또는 a,m이 포함되어 있을 때 한 점에 이르는 거리의 최댓값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT334",
+                      "type_name":  "도형에의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT335",
+                      "type_name":  "도형에의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT336",
+                      "type_name":  "도형에의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT337",
+                      "type_name":  "실생활 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT338",
+                      "type_name":  "실생활 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT339",
+                      "type_name":  "실생활 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT340",
+                      "type_name":  "세 꼭짓점의 좌표가 모두 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT341",
+                      "type_name":  "세 꼭짓점의 좌표가 모두 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT342",
+                      "type_name":  "세 꼭짓점의 좌표가 모두 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT343",
+                      "type_name":  "세 꼭짓점의 좌표 중 일부를 직접 구해야 하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT344",
+                      "type_name":  "세 꼭짓점의 좌표 중 일부를 직접 구해야 하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT345",
+                      "type_name":  "세 꼭짓점의 좌표 중 일부를 직접 구해야 하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT346",
+                      "type_name":  "세 직선으로 둘러싸인 삼각형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT347",
+                      "type_name":  "세 직선으로 둘러싸인 삼각형의 넓이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT348",
+                      "type_name":  "세 직선으로 둘러싸인 삼각형의 넓이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT349",
+                      "type_name":  "세 직선에 둘러싸인 삼각형의 내접원 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT350",
+                      "type_name":  "세 직선에 둘러싸인 삼각형의 내접원 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT351",
+                      "type_name":  "세 직선에 둘러싸인 삼각형의 내접원 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT352",
+                      "type_name":  "두 직선으로부터 같은 거리에 있는 점이 나타내는 도형의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT353",
+                      "type_name":  "두 직선으로부터 같은 거리에 있는 점이 나타내는 도형의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT354",
+                      "type_name":  "두 직선으로부터 같은 거리에 있는 점이 나타내는 도형의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT355",
+                      "type_name":  "각의 이등분선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT356",
+                      "type_name":  "각의 이등분선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT357",
+                      "type_name":  "각의 이등분선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT358",
+                      "type_name":  "각의 이등분선의 방정식의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT359",
+                      "type_name":  "각의 이등분선의 방정식의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT360",
+                      "type_name":  "각의 이등분선의 방정식의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT361",
+                      "type_name":  "선분의 길이에 관한 관계식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT362",
+                      "type_name":  "선분의 길이에 관한 관계식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT363",
+                      "type_name":  "선분의 길이에 관한 관계식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT364",
+                      "type_name":  "중점, 내분점에 관한 관계식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT365",
+                      "type_name":  "중점, 내분점에 관한 관계식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT366",
+                      "type_name":  "중점, 내분점에 관한 관계식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT367",
+                      "type_name":  "넓이에 관한 관계식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT368",
+                      "type_name":  "넓이에 관한 관계식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT369",
+                      "type_name":  "넓이에 관한 관계식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT370",
+                      "type_name":  "두 직선으로부터 같은 거리에 있는 점이 나타내는 도형의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT371",
+                      "type_name":  "두 직선으로부터 같은 거리에 있는 점이 나타내는 도형의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT372",
+                      "type_name":  "두 직선으로부터 같은 거리에 있는 점이 나타내는 도형의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT373",
+                      "type_name":  "원의 방정식(표준형)이 주어졌을 때 중심과 반지름 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT374",
+                      "type_name":  "원의 방정식(표준형)이 주어졌을 때 중심과 반지름 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT375",
+                      "type_name":  "원의 방정식(표준형)이 주어졌을 때 중심과 반지름 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT376",
+                      "type_name":  "중심과 반지름을 이용한 원의 방정식(표준형) 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT377",
+                      "type_name":  "중심과 반지름을 이용한 원의 방정식(표준형) 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT378",
+                      "type_name":  "중심과 반지름을 이용한 원의 방정식(표준형) 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT379",
+                      "type_name":  "원의 방정식(일반형)의 계수(상수항)가 모두 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT380",
+                      "type_name":  "원의 방정식(일반형)의 계수(상수항)가 모두 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT381",
+                      "type_name":  "원의 방정식(일반형)의 계수(상수항)가 모두 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT382",
+                      "type_name":  "원의 방정식(일반형)의 계수(상수항)에 문자가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT383",
+                      "type_name":  "원의 방정식(일반형)의 계수(상수항)에 문자가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT384",
+                      "type_name":  "원의 방정식(일반형)의 계수(상수항)에 문자가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT385",
+                      "type_name":  "원의 방정식(표준형)의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT386",
+                      "type_name":  "원의 방정식(표준형)의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT387",
+                      "type_name":  "원의 방정식(표준형)의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT388",
+                      "type_name":  "지름의 양 끝 점의 좌표가 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT389",
+                      "type_name":  "지름의 양 끝 점의 좌표가 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT390",
+                      "type_name":  "지름의 양 끝 점의 좌표가 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT391",
+                      "type_name":  "지름의 양 끝 점의 좌표에 문자가 포함되어 있거나 직접 구해야 하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT392",
+                      "type_name":  "지름의 양 끝 점의 좌표에 문자가 포함되어 있거나 직접 구해야 하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT393",
+                      "type_name":  "지름의 양 끝 점의 좌표에 문자가 포함되어 있거나 직접 구해야 하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT394",
+                      "type_name":  "원이 지나는 세 점의 좌표가 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT395",
+                      "type_name":  "원이 지나는 세 점의 좌표가 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT396",
+                      "type_name":  "원이 지나는 세 점의 좌표가 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT397",
+                      "type_name":  "원이 지나는 세 점의 좌표에 문자가 포함되어 있거나 직접 구해야 하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT398",
+                      "type_name":  "원이 지나는 세 점의 좌표에 문자가 포함되어 있거나 직접 구해야 하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT399",
+                      "type_name":  "원이 지나는 세 점의 좌표에 문자가 포함되어 있거나 직접 구해야 하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT400",
+                      "type_name":  "중심이 같은 원의 방정식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT401",
+                      "type_name":  "중심이 같은 원의 방정식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT402",
+                      "type_name":  "중심이 같은 원의 방정식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT403",
+                      "type_name":  "중심이 좌표축 위에 있다는 조건이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT404",
+                      "type_name":  "중심이 좌표축 위에 있다는 조건이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT405",
+                      "type_name":  "중심이 좌표축 위에 있다는 조건이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT406",
+                      "type_name":  "중심이 있는 직선의 방정식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT407",
+                      "type_name":  "중심이 있는 직선의 방정식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT408",
+                      "type_name":  "중심이 있는 직선의 방정식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT409",
+                      "type_name":  "이외의 조건을 이용하여 원의 중심을 찾아야 하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT410",
+                      "type_name":  "이외의 조건을 이용하여 원의 중심을 찾아야 하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT411",
+                      "type_name":  "이외의 조건을 이용하여 원의 중심을 찾아야 하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT412",
+                      "type_name":  "방정식이 나타내는 도형이 원이 되기 위한 실수의 범위(정수의 개수) - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT413",
+                      "type_name":  "방정식이 나타내는 도형이 원이 되기 위한 실수의 범위(정수의 개수) - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT414",
+                      "type_name":  "방정식이 나타내는 도형이 원이 되기 위한 실수의 범위(정수의 개수) - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT415",
+                      "type_name":  "원의 방정식이 아닌 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT416",
+                      "type_name":  "원의 방정식이 아닌 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT417",
+                      "type_name":  "원의 방정식이 아닌 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT418",
+                      "type_name":  "원의 방정식에 임의의 실수가 포함되어 있을 때 원의 넓이의 최댓값, 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT419",
+                      "type_name":  "원의 방정식에 임의의 실수가 포함되어 있을 때 원의 넓이의 최댓값, 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT420",
+                      "type_name":  "원의 방정식에 임의의 실수가 포함되어 있을 때 원의 넓이의 최댓값, 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT421",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우(x축) - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT422",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우(x축) - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT423",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우(x축) - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT424",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우(y축) - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT425",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우(y축) - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT426",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우(y축) - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT427",
+                      "type_name":  "원이 x축에 접하도록 방정식에 포함된 상수 결정하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT428",
+                      "type_name":  "원이 x축에 접하도록 방정식에 포함된 상수 결정하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT429",
+                      "type_name":  "원이 x축에 접하도록 방정식에 포함된 상수 결정하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT430",
+                      "type_name":  "원이 y축에 접하도록 방정식에 포함된 상수 결정하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT431",
+                      "type_name":  "원이 y축에 접하도록 방정식에 포함된 상수 결정하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT432",
+                      "type_name":  "원이 y축에 접하도록 방정식에 포함된 상수 결정하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT433",
+                      "type_name":  "x축에 접하는 원의 방정식의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT434",
+                      "type_name":  "x축에 접하는 원의 방정식의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT435",
+                      "type_name":  "x축에 접하는 원의 방정식의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT436",
+                      "type_name":  "y축에 접하는 원의 방정식의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT437",
+                      "type_name":  "y축에 접하는 원의 방정식의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT438",
+                      "type_name":  "y축에 접하는 원의 방정식의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT439",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT440",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT441",
+                      "type_name":  "원의 중심에 관한 조건이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT442",
+                      "type_name":  "원이 x축과 y축에 동시에 접하도록 방정식에 포함된 상수 결정하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT443",
+                      "type_name":  "원이 x축과 y축에 동시에 접하도록 방정식에 포함된 상수 결정하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT444",
+                      "type_name":  "원이 x축과 y축에 동시에 접하도록 방정식에 포함된 상수 결정하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT445",
+                      "type_name":  "x축과 y축에 동시에 접하는 원의 방정식의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT446",
+                      "type_name":  "x축과 y축에 동시에 접하는 원의 방정식의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT447",
+                      "type_name":  "x축과 y축에 동시에 접하는 원의 방정식의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT448",
+                      "type_name":  "원의 방정식의 모든 계수와 원 밖의 한 점이 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT449",
+                      "type_name":  "원의 방정식의 모든 계수와 원 밖의 한 점이 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT450",
+                      "type_name":  "원의 방정식의 모든 계수와 원 밖의 한 점이 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT451",
+                      "type_name":  "거리의 최댓값(최솟값)이 주어졌을 때 상수 결정하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT452",
+                      "type_name":  "거리의 최댓값(최솟값)이 주어졌을 때 상수 결정하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT453",
+                      "type_name":  "거리의 최댓값(최솟값)이 주어졌을 때 상수 결정하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT454",
+                      "type_name":  "원 밖의 두 정점과 원 위를 움직이는 한 점이 주어진 경우의 삼각형의 넓이의 최댓값 또는 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT455",
+                      "type_name":  "원 밖의 두 정점과 원 위를 움직이는 한 점이 주어진 경우의 삼각형의 넓이의 최댓값 또는 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT456",
+                      "type_name":  "원 밖의 두 정점과 원 위를 움직이는 한 점이 주어진 경우의 삼각형의 넓이의 최댓값 또는 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT457",
+                      "type_name":  "원 밖의 한 점과 원 위의 점 사이의 거리의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT458",
+                      "type_name":  "원 밖의 한 점과 원 위의 점 사이의 거리의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT459",
+                      "type_name":  "원 밖의 한 점과 원 위의 점 사이의 거리의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT460",
+                      "type_name":  "두 점으로부터의 거리의 비가 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT461",
+                      "type_name":  "두 점으로부터의 거리의 비가 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT462",
+                      "type_name":  "두 점으로부터의 거리의 비가 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT463",
+                      "type_name":  "두 선분의 길이의 비가 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT464",
+                      "type_name":  "두 선분의 길이의 비가 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT465",
+                      "type_name":  "두 선분의 길이의 비가 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT466",
+                      "type_name":  "실생활, 도형에의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT467",
+                      "type_name":  "실생활, 도형에의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT468",
+                      "type_name":  "실생활, 도형에의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT469",
+                      "type_name":  "선분의 길이의 제곱 또는 선분의 길이에 대한 관계식이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT470",
+                      "type_name":  "선분의 길이의 제곱 또는 선분의 길이에 대한 관계식이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT471",
+                      "type_name":  "선분의 길이의 제곱 또는 선분의 길이에 대한 관계식이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT472",
+                      "type_name":  "중점, 내분점, 무게중심의 자취의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT473",
+                      "type_name":  "중점, 내분점, 무게중심의 자취의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT474",
+                      "type_name":  "중점, 내분점, 무게중심의 자취의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT475",
+                      "type_name":  "직각(수직)에 대한 조건이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT476",
+                      "type_name":  "직각(수직)에 대한 조건이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT477",
+                      "type_name":  "직각(수직)에 대한 조건이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT478",
+                      "type_name":  "두 원의 교점과 한 점을 지나는 원의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT479",
+                      "type_name":  "두 원의 교점과 한 점을 지나는 원의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT480",
+                      "type_name":  "두 원의 교점과 한 점을 지나는 원의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT481",
+                      "type_name":  "두 원의 교점을 지나고 중심이 좌표축이나 직선 위에 있는 원의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT482",
+                      "type_name":  "두 원의 교점을 지나고 중심이 좌표축이나 직선 위에 있는 원의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT483",
+                      "type_name":  "두 원의 교점을 지나고 중심이 좌표축이나 직선 위에 있는 원의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT484",
+                      "type_name":  "두 원의 교점을 지나는 원의 넓이의 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT485",
+                      "type_name":  "두 원의 교점을 지나는 원의 넓이의 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT486",
+                      "type_name":  "두 원의 교점을 지나는 원의 넓이의 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT487",
+                      "type_name":  "두 원의 방정식의 계수가 모두 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT488",
+                      "type_name":  "두 원의 방정식의 계수가 모두 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT489",
+                      "type_name":  "두 원의 방정식의 계수가 모두 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT490",
+                      "type_name":  "두 원의 방정식의 계수에 문자가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT491",
+                      "type_name":  "두 원의 방정식의 계수에 문자가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT492",
+                      "type_name":  "두 원의 방정식의 계수에 문자가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT493",
+                      "type_name":  "공통현의 중점의 좌표 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT494",
+                      "type_name":  "공통현의 중점의 좌표 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT495",
+                      "type_name":  "공통현의 중점의 좌표 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT496",
+                      "type_name":  "한 원이 다른 원의 둘레를 이등분하기 위한 상수의 값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT497",
+                      "type_name":  "한 원이 다른 원의 둘레를 이등분하기 위한 상수의 값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT498",
+                      "type_name":  "한 원이 다른 원의 둘레를 이등분하기 위한 상수의 값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT499",
+                      "type_name":  "한 원이 다른 원의 둘레를 이등분할 때 두 상수 사이의 관계 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT500",
+                      "type_name":  "한 원이 다른 원의 둘레를 이등분할 때 두 상수 사이의 관계 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT501",
+                      "type_name":  "한 원이 다른 원의 둘레를 이등분할 때 두 상수 사이의 관계 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT502",
+                      "type_name":  "공통현의 방정식의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT503",
+                      "type_name":  "공통현의 방정식의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT504",
+                      "type_name":  "공통현의 방정식의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT505",
+                      "type_name":  "두 원의 공통현의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT506",
+                      "type_name":  "두 원의 공통현의 길이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT507",
+                      "type_name":  "두 원의 공통현의 길이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT508",
+                      "type_name":  "공통현을 이용한 삼각형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT509",
+                      "type_name":  "공통현을 이용한 삼각형의 넓이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT510",
+                      "type_name":  "공통현을 이용한 삼각형의 넓이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT511",
+                      "type_name":  "원의 넓이를 이등분하는 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT512",
+                      "type_name":  "원의 넓이를 이등분하는 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT513",
+                      "type_name":  "원의 넓이를 이등분하는 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT514",
+                      "type_name":  "원의 둘레를 이등분하는 직선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT515",
+                      "type_name":  "원의 둘레를 이등분하는 직선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT516",
+                      "type_name":  "원의 둘레를 이등분하는 직선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT517",
+                      "type_name":  "원의 성질을 활용하여 직선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT518",
+                      "type_name":  "원의 성질을 활용하여 직선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT519",
+                      "type_name":  "원의 성질을 활용하여 직선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT520",
+                      "type_name":  "방정식이 주어진 두 원의 위치 관계 판단하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT521",
+                      "type_name":  "방정식이 주어진 두 원의 위치 관계 판단하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT522",
+                      "type_name":  "방정식이 주어진 두 원의 위치 관계 판단하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT523",
+                      "type_name":  "두 원의 위치 관계를 만족시키는 상수 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT524",
+                      "type_name":  "두 원의 위치 관계를 만족시키는 상수 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT525",
+                      "type_name":  "두 원의 위치 관계를 만족시키는 상수 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT526",
+                      "type_name":  "두 원 위의 접점을 이은 선분의 길이의 최댓값과 최솟값 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT527",
+                      "type_name":  "두 원 위의 접점을 이은 선분의 길이의 최댓값과 최솟값 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT528",
+                      "type_name":  "두 원 위의 접점을 이은 선분의 길이의 최댓값과 최솟값 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT529",
+                      "type_name":  "두 원의 위치 관계의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT530",
+                      "type_name":  "두 원의 위치 관계의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT531",
+                      "type_name":  "두 원의 위치 관계의 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT532",
+                      "type_name":  "두 원의 방정식이 주어진 경우의 공통외접선 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT533",
+                      "type_name":  "두 원의 방정식이 주어진 경우의 공통외접선 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT534",
+                      "type_name":  "두 원의 방정식이 주어진 경우의 공통외접선 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT535",
+                      "type_name":  "두 원의 방정식이 주어진 경우의 공통내접선 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT536",
+                      "type_name":  "두 원의 방정식이 주어진 경우의 공통내접선 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT537",
+                      "type_name":  "두 원의 방정식이 주어진 경우의 공통내접선 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT538",
+                      "type_name":  "두 원의 반지름과 중심 사이의 거리가 그림으로 주어진 경우의 공통외접선 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT539",
+                      "type_name":  "두 원의 반지름과 중심 사이의 거리가 그림으로 주어진 경우의 공통외접선 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT540",
+                      "type_name":  "두 원의 반지름과 중심 사이의 거리가 그림으로 주어진 경우의 공통외접선 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT541",
+                      "type_name":  "두 원의 반지름과 중심 사이의 거리가 그림으로 주어진 경우의 공통내접선 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT542",
+                      "type_name":  "두 원의 반지름과 중심 사이의 거리가 그림으로 주어진 경우의 공통내접선 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT543",
+                      "type_name":  "두 원의 반지름과 중심 사이의 거리가 그림으로 주어진 경우의 공통내접선 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT544",
+                      "type_name":  "판별식을 이용한 원과 직선의 위치 관계 판단 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT545",
+                      "type_name":  "판별식을 이용한 원과 직선의 위치 관계 판단 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT546",
+                      "type_name":  "판별식을 이용한 원과 직선의 위치 관계 판단 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT547",
+                      "type_name":  "원의 중심에서 직선까지의 거리를 이용한 위치 관계 판단 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT548",
+                      "type_name":  "원의 중심에서 직선까지의 거리를 이용한 위치 관계 판단 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT549",
+                      "type_name":  "원의 중심에서 직선까지의 거리를 이용한 위치 관계 판단 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT550",
+                      "type_name":  "판별식을 이용한 원과 직선의 교점의 개수 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT551",
+                      "type_name":  "판별식을 이용한 원과 직선의 교점의 개수 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT552",
+                      "type_name":  "판별식을 이용한 원과 직선의 교점의 개수 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT553",
+                      "type_name":  "원의 중심에서 직선까지의 거리를 이용한 교점의 개수 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT554",
+                      "type_name":  "원의 중심에서 직선까지의 거리를 이용한 교점의 개수 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT555",
+                      "type_name":  "원의 중심에서 직선까지의 거리를 이용한 교점의 개수 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT556",
+                      "type_name":  "원과 직선이 만나지 않을 때 직선의 방정식에 상수가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT557",
+                      "type_name":  "원과 직선이 만나지 않을 때 직선의 방정식에 상수가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT558",
+                      "type_name":  "원과 직선이 만나지 않을 때 직선의 방정식에 상수가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT559",
+                      "type_name":  "원과 직선이 접할 때 직선의 방정식에 상수가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT560",
+                      "type_name":  "원과 직선이 접할 때 직선의 방정식에 상수가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT561",
+                      "type_name":  "원과 직선이 접할 때 직선의 방정식에 상수가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT562",
+                      "type_name":  "원과 직선이 두 점에서 만날 때 직선의 방정식에 상수가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT563",
+                      "type_name":  "원과 직선이 두 점에서 만날 때 직선의 방정식에 상수가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT564",
+                      "type_name":  "원과 직선이 두 점에서 만날 때 직선의 방정식에 상수가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT565",
+                      "type_name":  "원과 직선이 만나지 않을 때 원의 방정식에 상수가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT566",
+                      "type_name":  "원과 직선이 만나지 않을 때 원의 방정식에 상수가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT567",
+                      "type_name":  "원과 직선이 만나지 않을 때 원의 방정식에 상수가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT568",
+                      "type_name":  "원과 직선이 접할 때 원의 방정식에 상수가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT569",
+                      "type_name":  "원과 직선이 접할 때 원의 방정식에 상수가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT570",
+                      "type_name":  "원과 직선이 접할 때 원의 방정식에 상수가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT571",
+                      "type_name":  "원과 직선이 두 점에서 만날 때 원의 방정식에 상수가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT572",
+                      "type_name":  "원과 직선이 두 점에서 만날 때 원의 방정식에 상수가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT573",
+                      "type_name":  "원과 직선이 두 점에서 만날 때 원의 방정식에 상수가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT574",
+                      "type_name":  "직선과 접하는 원 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT575",
+                      "type_name":  "직선과 접하는 원 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT576",
+                      "type_name":  "직선과 접하는 원 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT577",
+                      "type_name":  "원과 직선이 만날 때(접하는 경우 포함) - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT578",
+                      "type_name":  "원과 직선이 만날 때(접하는 경우 포함) - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT579",
+                      "type_name":  "원과 직선이 만날 때(접하는 경우 포함) - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT580",
+                      "type_name":  "두 원의 공통접선의 방정식 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT581",
+                      "type_name":  "두 원의 공통접선의 방정식 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT582",
+                      "type_name":  "두 원의 공통접선의 방정식 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT583",
+                      "type_name":  "실생활 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT584",
+                      "type_name":  "실생활 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT585",
+                      "type_name":  "실생활 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT586",
+                      "type_name":  "원과 좌표축(직선)이 만나서 생기는 현의 길이 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT587",
+                      "type_name":  "원과 좌표축(직선)이 만나서 생기는 현의 길이 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT588",
+                      "type_name":  "원과 좌표축(직선)이 만나서 생기는 현의 길이 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT589",
+                      "type_name":  "현의 길이가 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT590",
+                      "type_name":  "현의 길이가 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT591",
+                      "type_name":  "현의 길이가 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT592",
+                      "type_name":  "현의 길이의 최대, 최소 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT593",
+                      "type_name":  "현의 길이의 최대, 최소 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT594",
+                      "type_name":  "현의 길이의 최대, 최소 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT595",
+                      "type_name":  "원 밖의 한 점에서 원에 그은 접선의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT596",
+                      "type_name":  "원 밖의 한 점에서 원에 그은 접선의 길이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT597",
+                      "type_name":  "원 밖의 한 점에서 원에 그은 접선의 길이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT598",
+                      "type_name":  "원과 직선 사이의 거리의 최댓값(최솟값) - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT599",
+                      "type_name":  "원과 직선 사이의 거리의 최댓값(최솟값) - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT600",
+                      "type_name":  "원과 직선 사이의 거리의 최댓값(최솟값) - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT601",
+                      "type_name":  "접선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT602",
+                      "type_name":  "접선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT603",
+                      "type_name":  "접선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT604",
+                      "type_name":  "접선과 좌표축이 만나는 점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT605",
+                      "type_name":  "접선과 좌표축이 만나는 점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT606",
+                      "type_name":  "접선과 좌표축이 만나는 점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT607",
+                      "type_name":  "접선이 지나는 점의 좌표 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT608",
+                      "type_name":  "접선이 지나는 점의 좌표 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT609",
+                      "type_name":  "접선이 지나는 점의 좌표 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT610",
+                      "type_name":  "접선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT611",
+                      "type_name":  "접선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT612",
+                      "type_name":  "접선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT613",
+                      "type_name":  "접선이 지나는 점, 선분의 길이 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT614",
+                      "type_name":  "접선이 지나는 점, 선분의 길이 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT615",
+                      "type_name":  "접선이 지나는 점, 선분의 길이 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT616",
+                      "type_name":  "접선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT617",
+                      "type_name":  "접선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT618",
+                      "type_name":  "접선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT619",
+                      "type_name":  "접선의 기울기와 그 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT620",
+                      "type_name":  "접선의 기울기와 그 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT621",
+                      "type_name":  "접선의 기울기와 그 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT622",
+                      "type_name":  "원 밖의 한 점에서 접선을 그었을 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT623",
+                      "type_name":  "원 밖의 한 점에서 접선을 그었을 때 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT624",
+                      "type_name":  "원 밖의 한 점에서 접선을 그었을 때 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT625",
+                      "type_name":  "접선과 좌표축이 만나는 점, 접선이 지나는 점 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT626",
+                      "type_name":  "접선과 좌표축이 만나는 점, 접선이 지나는 점 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT627",
+                      "type_name":  "접선과 좌표축이 만나는 점, 접선이 지나는 점 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT628",
+                      "type_name":  "접선과 좌표축이 만나서 생기는 선분의 길이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT629",
+                      "type_name":  "접선과 좌표축이 만나서 생기는 선분의 길이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT630",
+                      "type_name":  "접선과 좌표축이 만나서 생기는 선분의 길이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT631",
+                      "type_name":  "원 위의 점에서 접선을 그었을 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT632",
+                      "type_name":  "원 위의 점에서 접선을 그었을 때 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT633",
+                      "type_name":  "원 위의 점에서 접선을 그었을 때 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT634",
+                      "type_name":  "원 위의 두 점에서 접선을 긋는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT635",
+                      "type_name":  "원 위의 두 점에서 접선을 긋는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT636",
+                      "type_name":  "원 위의 두 점에서 접선을 긋는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT637",
+                      "type_name":  "원 밖의 한 점에서 그은 두 접선이 서로 수직 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT638",
+                      "type_name":  "원 밖의 한 점에서 그은 두 접선이 서로 수직 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT639",
+                      "type_name":  "원 밖의 한 점에서 그은 두 접선이 서로 수직 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT640",
+                      "type_name":  "세 원이 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT641",
+                      "type_name":  "세 원이 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT642",
+                      "type_name":  "세 원이 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT643",
+                      "type_name":  "삼각형의 넓이, 삼각형의 성질을 활용하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT644",
+                      "type_name":  "삼각형의 넓이, 삼각형의 성질을 활용하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT645",
+                      "type_name":  "삼각형의 넓이, 삼각형의 성질을 활용하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT646",
+                      "type_name":  "평행이동이 (x, y) → (x+a, y+b)의 꼴로 주어지는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT647",
+                      "type_name":  "평행이동이 (x, y) → (x+a, y+b)의 꼴로 주어지는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT648",
+                      "type_name":  "평행이동이 (x, y) → (x+a, y+b)의 꼴로 주어지는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT649",
+                      "type_name":  "x축, y축의 방향으로의 평행이동으로 주어지는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT650",
+                      "type_name":  "x축, y축의 방향으로의 평행이동으로 주어지는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT651",
+                      "type_name":  "x축, y축의 방향으로의 평행이동으로 주어지는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT652",
+                      "type_name":  "평행이동이 두 점의 좌표로 정의되는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT653",
+                      "type_name":  "평행이동이 두 점의 좌표로 정의되는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT654",
+                      "type_name":  "평행이동이 두 점의 좌표로 정의되는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT655",
+                      "type_name":  "평행이동 (x, y) → (x+a, y+b)에 상수(문자)가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT656",
+                      "type_name":  "평행이동 (x, y) → (x+a, y+b)에 상수(문자)가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT657",
+                      "type_name":  "평행이동 (x, y) → (x+a, y+b)에 상수(문자)가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT658",
+                      "type_name":  "x축, y축의 방향으로의 평행이동에 상수(문자)가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT659",
+                      "type_name":  "x축, y축의 방향으로의 평행이동에 상수(문자)가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT660",
+                      "type_name":  "x축, y축의 방향으로의 평행이동에 상수(문자)가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT661",
+                      "type_name":  "두 점의 좌표로 정의된 평행이동에 상수(문자)가 포함된 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT662",
+                      "type_name":  "두 점의 좌표로 정의된 평행이동에 상수(문자)가 포함된 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT663",
+                      "type_name":  "두 점의 좌표로 정의된 평행이동에 상수(문자)가 포함된 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT664",
+                      "type_name":  "평행이동한 직선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT665",
+                      "type_name":  "평행이동한 직선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT666",
+                      "type_name":  "평행이동한 직선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT667",
+                      "type_name":  "평행이동 전후의 직선의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT668",
+                      "type_name":  "평행이동 전후의 직선의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT669",
+                      "type_name":  "평행이동 전후의 직선의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT670",
+                      "type_name":  "평행이동한 직선이 지나는 점이 주어졌을 때 상수(문자)의 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT671",
+                      "type_name":  "평행이동한 직선이 지나는 점이 주어졌을 때 상수(문자)의 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT672",
+                      "type_name":  "평행이동한 직선이 지나는 점이 주어졌을 때 상수(문자)의 값 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT673",
+                      "type_name":  "평행이동한 직선과 곡선의 위치 관계를 활용하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT674",
+                      "type_name":  "평행이동한 직선과 곡선의 위치 관계를 활용하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT675",
+                      "type_name":  "평행이동한 직선과 곡선의 위치 관계를 활용하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT676",
+                      "type_name":  "평행이동한 원의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT677",
+                      "type_name":  "평행이동한 원의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT678",
+                      "type_name":  "평행이동한 원의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT679",
+                      "type_name":  "평행이동 전후의 원의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT680",
+                      "type_name":  "평행이동 전후의 원의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT681",
+                      "type_name":  "평행이동 전후의 원의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT682",
+                      "type_name":  "평행이동한 원의 중심의 좌표를 구하거나 이용하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT683",
+                      "type_name":  "평행이동한 원의 중심의 좌표를 구하거나 이용하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT684",
+                      "type_name":  "평행이동한 원의 중심의 좌표를 구하거나 이용하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT685",
+                      "type_name":  "평행이동한 원과 직선의 위치 관계를 활용하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT686",
+                      "type_name":  "평행이동한 원과 직선의 위치 관계를 활용하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT687",
+                      "type_name":  "평행이동한 원과 직선의 위치 관계를 활용하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT688",
+                      "type_name":  "평행이동한 원과 다른 원의 위치 관계를 활용하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT689",
+                      "type_name":  "평행이동한 원과 다른 원의 위치 관계를 활용하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT690",
+                      "type_name":  "평행이동한 원과 다른 원의 위치 관계를 활용하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT691",
+                      "type_name":  "평행이동한 포물선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT692",
+                      "type_name":  "평행이동한 포물선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT693",
+                      "type_name":  "평행이동한 포물선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT694",
+                      "type_name":  "평행이동 전후의 포물선의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT695",
+                      "type_name":  "평행이동 전후의 포물선의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT696",
+                      "type_name":  "평행이동 전후의 포물선의 방정식이 주어졌을 때 상수(문자)의 값 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT697",
+                      "type_name":  "평행이동한 포물선의 꼭짓점의 좌표를 구하거나 이용하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT698",
+                      "type_name":  "평행이동한 포물선의 꼭짓점의 좌표를 구하거나 이용하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT699",
+                      "type_name":  "평행이동한 포물선의 꼭짓점의 좌표를 구하거나 이용하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT700",
+                      "type_name":  "평행이동한 포물선과 직선의 위치 관계를 활용하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT701",
+                      "type_name":  "평행이동한 포물선과 직선의 위치 관계를 활용하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT702",
+                      "type_name":  "평행이동한 포물선과 직선의 위치 관계를 활용하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT703",
+                      "type_name":  "삼각형을 평행이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT704",
+                      "type_name":  "삼각형을 평행이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT705",
+                      "type_name":  "삼각형을 평행이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT706",
+                      "type_name":  "사각형을 평행이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT707",
+                      "type_name":  "사각형을 평행이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT708",
+                      "type_name":  "사각형을 평행이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT709",
+                      "type_name":  "평행이동의 실생활 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT710",
+                      "type_name":  "평행이동의 실생활 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT711",
+                      "type_name":  "평행이동의 실생활 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT712",
+                      "type_name":  "원을 평행이동하여 좌표축에 접하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT713",
+                      "type_name":  "원을 평행이동하여 좌표축에 접하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT714",
+                      "type_name":  "원을 평행이동하여 좌표축에 접하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT715",
+                      "type_name":  "원 또는 직선을 평행이동하여 서로 접하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT716",
+                      "type_name":  "원 또는 직선을 평행이동하여 서로 접하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT717",
+                      "type_name":  "원 또는 직선을 평행이동하여 서로 접하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT718",
+                      "type_name":  "직선이 원의 넓이를 이등분하도록 평행이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT719",
+                      "type_name":  "직선이 원의 넓이를 이등분하도록 평행이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT720",
+                      "type_name":  "직선이 원의 넓이를 이등분하도록 평행이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT721",
+                      "type_name":  "대칭이동한 점의 좌표 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT722",
+                      "type_name":  "대칭이동한 점의 좌표 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT723",
+                      "type_name":  "대칭이동한 점의 좌표 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT724",
+                      "type_name":  "대칭이동한 점이 직선 위에 있는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT725",
+                      "type_name":  "대칭이동한 점이 직선 위에 있는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT726",
+                      "type_name":  "대칭이동한 점이 직선 위에 있는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT727",
+                      "type_name":  "대칭이동한 점을 꼭짓점으로 하는 선분의 길이 또는 도형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT728",
+                      "type_name":  "대칭이동한 점을 꼭짓점으로 하는 선분의 길이 또는 도형의 넓이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT729",
+                      "type_name":  "대칭이동한 점을 꼭짓점으로 하는 선분의 길이 또는 도형의 넓이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT730",
+                      "type_name":  "대칭이동한 직선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT731",
+                      "type_name":  "대칭이동한 직선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT732",
+                      "type_name":  "대칭이동한 직선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT733",
+                      "type_name":  "대칭이동한 직선과 수직(평행)인 직선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT734",
+                      "type_name":  "대칭이동한 직선과 수직(평행)인 직선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT735",
+                      "type_name":  "대칭이동한 직선과 수직(평행)인 직선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT736",
+                      "type_name":  "대칭이동한 직선이 지나는 점의 좌표가 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT737",
+                      "type_name":  "대칭이동한 직선이 지나는 점의 좌표가 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT738",
+                      "type_name":  "대칭이동한 직선이 지나는 점의 좌표가 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT739",
+                      "type_name":  "직선의 대칭이동과 도형의 넓이 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT740",
+                      "type_name":  "직선의 대칭이동과 도형의 넓이 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT741",
+                      "type_name":  "직선의 대칭이동과 도형의 넓이 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT742",
+                      "type_name":  "대칭이동한 직선 사이의 거리 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT743",
+                      "type_name":  "대칭이동한 직선 사이의 거리 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT744",
+                      "type_name":  "대칭이동한 직선 사이의 거리 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT745",
+                      "type_name":  "대칭이동한 원의 방정식(중심의 좌표) 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT746",
+                      "type_name":  "대칭이동한 원의 방정식(중심의 좌표) 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT747",
+                      "type_name":  "대칭이동한 원의 방정식(중심의 좌표) 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT748",
+                      "type_name":  "대칭이동한 원이 지나는 점의 좌표가 숫자로 주어진 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT749",
+                      "type_name":  "대칭이동한 원이 지나는 점의 좌표가 숫자로 주어진 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT750",
+                      "type_name":  "대칭이동한 원이 지나는 점의 좌표가 숫자로 주어진 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT751",
+                      "type_name":  "대칭이동한 원의 중심이 직선 위에 있는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT752",
+                      "type_name":  "대칭이동한 원의 중심이 직선 위에 있는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT753",
+                      "type_name":  "대칭이동한 원의 중심이 직선 위에 있는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT754",
+                      "type_name":  "원의 일부분만 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT755",
+                      "type_name":  "원의 일부분만 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT756",
+                      "type_name":  "원의 일부분만 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT757",
+                      "type_name":  "대칭이동한 포물선의 방정식 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT758",
+                      "type_name":  "대칭이동한 포물선의 방정식 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT759",
+                      "type_name":  "대칭이동한 포물선의 방정식 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT760",
+                      "type_name":  "대칭이동한 포물선의 꼭짓점의 좌표를 구하거나 이용하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT761",
+                      "type_name":  "대칭이동한 포물선의 꼭짓점의 좌표를 구하거나 이용하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT762",
+                      "type_name":  "대칭이동한 포물선의 꼭짓점의 좌표를 구하거나 이용하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT763",
+                      "type_name":  "대칭이동한 포물선이 지나는 점의 좌표를 구하거나 이용하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT764",
+                      "type_name":  "대칭이동한 포물선이 지나는 점의 좌표를 구하거나 이용하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT765",
+                      "type_name":  "대칭이동한 포물선이 지나는 점의 좌표를 구하거나 이용하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT766",
+                      "type_name":  "점을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT767",
+                      "type_name":  "점을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT768",
+                      "type_name":  "점을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT769",
+                      "type_name":  "직선을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT770",
+                      "type_name":  "직선을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT771",
+                      "type_name":  "직선을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT772",
+                      "type_name":  "원을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT773",
+                      "type_name":  "원을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT774",
+                      "type_name":  "원을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT775",
+                      "type_name":  "포물선을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT776",
+                      "type_name":  "포물선을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT777",
+                      "type_name":  "포물선을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT778",
+                      "type_name":  "여러 가지 방정식이 나타내는 도형을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT779",
+                      "type_name":  "여러 가지 방정식이 나타내는 도형을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT780",
+                      "type_name":  "여러 가지 방정식이 나타내는 도형을 직선 y=x, y=-x에 대하여 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT781",
+                      "type_name":  "평행이동과 대칭이동 전, 후의 점의 좌표 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT782",
+                      "type_name":  "평행이동과 대칭이동 전, 후의 점의 좌표 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT783",
+                      "type_name":  "평행이동과 대칭이동 전, 후의 점의 좌표 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT784",
+                      "type_name":  "직선을 평행이동, 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT785",
+                      "type_name":  "직선을 평행이동, 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT786",
+                      "type_name":  "직선을 평행이동, 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT787",
+                      "type_name":  "원을 평행이동, 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT788",
+                      "type_name":  "원을 평행이동, 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT789",
+                      "type_name":  "원을 평행이동, 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT790",
+                      "type_name":  "포물선을 평행이동, 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT791",
+                      "type_name":  "포물선을 평행이동, 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT792",
+                      "type_name":  "포물선을 평행이동, 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT793",
+                      "type_name":  "여러 가지 방정식이 나타내는 도형을 평행이동, 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT794",
+                      "type_name":  "여러 가지 방정식이 나타내는 도형을 평행이동, 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT795",
+                      "type_name":  "여러 가지 방정식이 나타내는 도형을 평행이동, 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT796",
+                      "type_name":  "점을 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT797",
+                      "type_name":  "점을 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT798",
+                      "type_name":  "점을 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT799",
+                      "type_name":  "직선을 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT800",
+                      "type_name":  "직선을 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT801",
+                      "type_name":  "직선을 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT802",
+                      "type_name":  "원을 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT803",
+                      "type_name":  "원을 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT804",
+                      "type_name":  "원을 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT805",
+                      "type_name":  "포물선을 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT806",
+                      "type_name":  "포물선을 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT807",
+                      "type_name":  "포물선을 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT808",
+                      "type_name":  "점을 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT809",
+                      "type_name":  "점을 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT810",
+                      "type_name":  "점을 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT811",
+                      "type_name":  "직선을 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT812",
+                      "type_name":  "직선을 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT813",
+                      "type_name":  "직선을 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT814",
+                      "type_name":  "원을 대칭이동하는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT815",
+                      "type_name":  "원을 대칭이동하는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT816",
+                      "type_name":  "원을 대칭이동하는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT817",
+                      "type_name":  "도형 f(x, y)=0이 그림으로 주어졌을 때 다른 방정식이 나타내는 도형 구하기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT818",
+                      "type_name":  "도형 f(x, y)=0이 그림으로 주어졌을 때 다른 방정식이 나타내는 도형 구하기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT819",
+                      "type_name":  "도형 f(x, y)=0이 그림으로 주어졌을 때 다른 방정식이 나타내는 도형 구하기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT820",
+                      "type_name":  "도형 f(x, y)=0과 다른 도형이 그림으로 주어졌을 때 두 도형 사이의 관계 찾기 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT821",
+                      "type_name":  "도형 f(x, y)=0과 다른 도형이 그림으로 주어졌을 때 두 도형 사이의 관계 찾기 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT822",
+                      "type_name":  "도형 f(x, y)=0과 다른 도형이 그림으로 주어졌을 때 두 도형 사이의 관계 찾기 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT823",
+                      "type_name":  "한 점이 움직이는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT824",
+                      "type_name":  "한 점이 움직이는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT825",
+                      "type_name":  "한 점이 움직이는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT826",
+                      "type_name":  "두 개 이상의 점이 동시에 움직이는 경우 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT827",
+                      "type_name":  "두 개 이상의 점이 동시에 움직이는 경우 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT828",
+                      "type_name":  "두 개 이상의 점이 동시에 움직이는 경우 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT829",
+                      "type_name":  "실생활 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT830",
+                      "type_name":  "실생활 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT831",
+                      "type_name":  "실생활 활용 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT832",
+                      "type_name":  "대칭이동 후 원의 중심이 직선 위에 있을 때 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT833",
+                      "type_name":  "대칭이동 후 원의 중심이 직선 위에 있을 때 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT834",
+                      "type_name":  "대칭이동 후 원의 중심이 직선 위에 있을 때 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT835",
+                      "type_name":  "대칭이동 후 원과 직선의 위치 관계 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT836",
+                      "type_name":  "대칭이동 후 원과 직선의 위치 관계 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT837",
+                      "type_name":  "대칭이동 후 원과 직선의 위치 관계 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT838",
+                      "type_name":  "대칭이동 후 이차함수의 그래프와 직선의 위치 관계 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT839",
+                      "type_name":  "대칭이동 후 이차함수의 그래프와 직선의 위치 관계 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT840",
+                      "type_name":  "대칭이동 후 이차함수의 그래프와 직선의 위치 관계 - 종합 활용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT841",
+                      "type_name":  "도형의 넓이에의 활용 - 기본 판별"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT842",
+                      "type_name":  "도형의 넓이에의 활용 - 조건 적용"
+                  },
+                  {
+                      "problem_type_id":  "H1_CM2_GEQ_PT843",
+                      "type_name":  "도형의 넓이에의 활용 - 종합 활용"
+                  }
+              ]
+}
