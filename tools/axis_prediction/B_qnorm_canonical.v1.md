@@ -84,6 +84,6 @@ function qnormV1(s){
 ## 7. 구현 진행 (§5 순서)
 - ✅ **Step1** `js/qnorm.v1.js` 생성 — CANONICAL CORE 블록(워커 인라인용)+브라우저 글루+로드시 self-check. 벡터 11건(정제② 반영).
 - ✅ **Step2** 클라 배선 — `ocr_measure.html`(정본이라 동작불변)·`match_lab.html`(드리프트 해소·동작변경 주석) → `<script src="js/qnorm.v1.js">` + `norm/normText`를 `qnormV1` 참조.
-- ⏳ **Step3** 워커 — qnormV1 CORE 인라인 + hash 헬퍼(`crypto.subtle` SHA-256) + **계산경로 self-check 차단** + /health `qnorm_selfcheck` + backfill 엔드포인트(`WHERE content_hash IS NULL OR dedup_key_norm_version != 'qnorm.v1'`, UNIQUE위반 목록보고, 빈본문 skip). ★단건 /add는 해시 미계산 유지(검수 §5는 add-bulk·매칭·backfill 공유 — 단건 제외). 배포 게이트: 스키마 라이브 후(이미 완료).
-- ⏳ **Step4** backfill 3행(기존2+테스트34633203) — ★실행 전 검수 확인(정제③). 3행 SELECT 보고.
+- ✅ **Step3** 워커 — qnormV1 CORE 인라인(함수·벡터값 UTF-8 동일 검증필) + hash 헬퍼(`crypto.subtle` SHA-256, 구분자 U+001F) + **계산경로 self-check 차단**(`itemBackfillHashes` 진입시) + /health `qnorm_selfcheck:"pass"|"fail"` + backfill 엔드포인트 `POST /api/user-items/backfill-hashes`(`WHERE content_hash IS NULL OR dedup_key_norm_version IS NULL OR != 'qnorm.v1'`, UNIQUE위반 목록보고, 빈본문 skip). ★단건 /add는 해시 미계산 유지(검수 §5=add-bulk·매칭·backfill 공유, 단건 제외). VERSION `2026.08.14-qnorm-v1`. 검증: 함수동일·벡터값동일·괄호델타0(로컬 JS런타임 없음→파서검증 불가, 배포시 Cloudflare 거부+런타임 self-check가 안전망). 배포 게이트: 스키마 라이브 후(완료).
+- ⏳ **Step4** backfill 3행(기존2+테스트34633203) — ★**실행 전 검수 확인(정제③)**. 배포 후 `POST /api/user-items/backfill-hashes`(X-Write-Key) 1회 → 결과(updated/skipped_empty/conflicts) + `SELECT id,content_hash,dedup_key,dedup_key_norm_version FROM user_items` 3행 보고 → 검수 확인 후 다음.
 - ⏳ 이후 bulk spec v2 → /add-bulk → 매칭.

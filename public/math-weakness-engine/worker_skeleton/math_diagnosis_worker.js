@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.14-itemadd-v31cols';
+const VERSION = '2026.08.14-qnorm-v1';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -44,6 +44,7 @@ export default {
           ok: true,
           service: SERVICE_NAME,
           version: VERSION,
+          qnorm_selfcheck: qnormV1SelfCheck().pass ? 'pass' : 'fail',  // 표시용(차단은 해시 계산경로). 검수 2026-08-14.
           hasApiKey: Boolean(env.ANTHROPIC_API_KEY),
           provider: 'anthropic',
           mode: env.ENGINE_MODE || 'production',
@@ -141,6 +142,11 @@ export default {
       }
       if (url.pathname === '/api/user-items/delete' && request.method === 'POST') {
         const res = await itemDelete(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+      // 해시 backfill (content_hash/dedup_key 채움). 교사 전용·X-Write-Key. self-check 차단 내장.
+      if (url.pathname === '/api/user-items/backfill-hashes' && request.method === 'POST') {
+        const res = await itemBackfillHashes(request, env);
         return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
       }
 
@@ -388,6 +394,104 @@ async function itemDelete(request, env) {
   if (b.hard === true) { await env.AXIS_DB.prepare('DELETE FROM user_items WHERE id=?1').bind(b.id).run(); return { ok: true, id: b.id, deleted: 'hard' }; }
   await env.AXIS_DB.prepare('UPDATE user_items SET status=?1, updated_at=?2 WHERE id=?3').bind('archived', new Date().toISOString(), b.id).run();
   return { ok: true, id: b.id, deleted: 'soft' };
+}
+
+// ── qnorm.v1 canonical (매칭·해시 정본) ─────────────────────────────────────────
+// ★아래 [CANONICAL CORE]의 qnormV1 함수·QNORM_V1_TESTVEC 값은 js/qnorm.v1.js CORE와 동일(2026-08-14 UTF-8 검증필).
+//   (js쪽엔 벡터 인라인 주석이 더 있음 — 값은 동일.) 검증법: 두 파일의 함수체인·벡터값 대조.
+//   paste-deploy라 import 불가 → 인라인 사본. 변경 시 양쪽 동시 + 버전 올림(qnorm.v2). 드리프트는 계산경로 self-check로 차단.
+// ==== [CANONICAL CORE] BEGIN ====
+var QNORM_VERSION = 'qnorm.v1';
+
+function qnormV1(s) {
+  return String(s == null ? '' : s)
+    .normalize('NFKC')
+    .replace(/\s+/g, '')
+    .replace(/\^/g, '')
+    .replace(/[×·]/g, '*')
+    .replace(/[−–]/g, '-')
+    .replace(/[.,·、。]/g, '')
+    .toLowerCase();
+}
+
+var QNORM_V1_TESTVEC = [
+  ['2 cm³',       '2cm3'],
+  ['2 cm^3',      '2cm3'],
+  ['x²+1',        'x2+1'],
+  ['x^2+1',       'x2+1'],
+  ['a  b\tc',     'abc'],
+  ['1, 2. 3',     '123'],
+  ['3×4',         '3*4'],
+  ['x⁶',          'x6'],
+  ['ＡＢＣ１２３', 'abc123'],
+  [null,          ''],
+  ['',            '']
+];
+
+function qnormV1SelfCheck() {
+  for (var i = 0; i < QNORM_V1_TESTVEC.length; i++) {
+    var inp = QNORM_V1_TESTVEC[i][0], exp = QNORM_V1_TESTVEC[i][1], got = qnormV1(inp);
+    if (got !== exp) return { pass: false, index: i, input: String(inp), expected: exp, got: got };
+  }
+  return { pass: true };
+}
+// ==== [CANONICAL CORE] END ====
+
+// 인스턴스당 1회 캐시. 해시 계산경로가 호출 → 불일치면 차단(저장 금지). 표시는 /health(qnorm_selfcheck).
+let _QNORM_SELFCHECK = null;
+function qnormSelfCheckCached() {
+  if (_QNORM_SELFCHECK === null) _QNORM_SELFCHECK = qnormV1SelfCheck();
+  return _QNORM_SELFCHECK;
+}
+
+// 해시 구성 정본 = user_items.schema.v3.1.sql 상단. content_hash=멱등(UNIQUE) / dedup_key=탐지(NON-UNIQUE).
+const QNORM_SEP = '';  // unit separator — 필드 경계(본문 미출현). 스키마 문서의 '|'는 논리 구분자.
+async function sha256Hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+// ★빈 본문(qnorm 결과 '')은 해시 계산 안 함 → null(빈문자열 해시 다행 UNIQUE 충돌 방지, 검수 2026-08-14).
+async function computeItemHashes(row) {
+  const qn = qnormV1(row && row.question_text);
+  if (qn === '') return { dedup_key: null, content_hash: null, empty: true };
+  const dedup_key = await sha256Hex(qn + QNORM_SEP + String((row && row.unit_id) || ''));
+  const content_hash = await sha256Hex([
+    qn, String((row && row.unit_id) || ''), String((row && row.problem_type_id) || ''),
+    String((row && row.answer) || ''), String((row && row.explanation) || ''), String((row && row.difficulty) || '')
+  ].join(QNORM_SEP));
+  return { dedup_key, content_hash, empty: false };
+}
+
+// ── backfill: 기존 행 content_hash/dedup_key 채움. 멱등(재실행 안전). ★검수 §5-4 체크포인트 대상 ──
+async function itemBackfillHashes(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  // ★계산경로 self-check 차단: 드리프트면 해시 계산·저장 금지(경보 아닌 차단).
+  const sc = qnormSelfCheckCached();
+  if (!sc.pass) return { ok: false, code: 'qnorm_selfcheck_fail', error: 'qnorm.v1 self-check 실패 — 저장 차단', detail: sc, status: 500 };
+  const bd = await safeJson(request).catch(() => ({}));
+  const limit = Math.min(1000, Number(bd && bd.limit) || 500);
+  const rows = ((await env.AXIS_DB.prepare(
+    `SELECT id, question_text, unit_id, problem_type_id, answer, explanation, difficulty
+       FROM user_items
+      WHERE content_hash IS NULL OR dedup_key_norm_version IS NULL OR dedup_key_norm_version != ?1
+      LIMIT ${limit}`
+  ).bind(QNORM_VERSION).all()).results) || [];
+  const updated = [], skipped_empty = [], conflicts = [];
+  for (const row of rows) {
+    const h = await computeItemHashes(row);
+    if (h.empty) { skipped_empty.push(row.id); continue; }
+    try {
+      await env.AXIS_DB.prepare(
+        `UPDATE user_items SET content_hash=?1, dedup_key=?2, dedup_key_norm_version=?3, updated_at=?4 WHERE id=?5`
+      ).bind(h.content_hash, h.dedup_key, QNORM_VERSION, new Date().toISOString(), row.id).run();
+      updated.push({ id: row.id, content_hash: h.content_hash, dedup_key: h.dedup_key });
+    } catch (e) {
+      // content_hash UNIQUE 위반 = 동일내용 기존행 존재. 실패시키지 말고 목록보고(검수 지시).
+      conflicts.push({ id: row.id, content_hash: h.content_hash, error: (e && e.message) || String(e) });
+    }
+  }
+  return { ok: true, norm_version: QNORM_VERSION, candidates: rows.length, updated, skipped_empty, conflicts };
 }
 
 function isFile(value) {
