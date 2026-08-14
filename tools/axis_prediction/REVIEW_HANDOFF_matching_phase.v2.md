@@ -7,8 +7,10 @@
 > 이 세션에서 매칭 트랙이 크게 진행됨. 아래가 최신. (그 아래 옛 재개블록은 §히스토리로 이동.)
 - **완료(이 세션)**: 스키마 v3.1 라이브(22컬럼·옵션C) → 차단2(source_text 자동복사 금지) → **qnorm.v1 canonical 트랙 종결**(정본=ocr_measure NFKC·워커 인라인·self-check 계산경로 차단·backfill 3행) → bulk spec **v2.r3 승인** → GPT 명세 **v2**((d) 유형 미배정·3단 구조) → 카탈로그 축약본 39단원(`make_catalog_short.ps1`) → **/add-bulk 구현·검산·3단 실동작 통과**(worker+admin UI+스모크). → **question_no 저장(스키마 v3.2)** 추가.
 - **★배포 대기(사용자, 순서 고정)**: ① `user_items.schema.v3.2.sql` D1 실행(ALTER question_no + idx) → ② 워커 재배포(VERSION `2026.08.14-bulk-v2-qno`, /health qnorm_selfcheck=pass 확인) → ③ 스모크 테스트(`B_bulk_smoketest.v1.json`: dry-run→실투입→D1 SELECT→3단 유형지정 시연→rollback soft).
-- **매칭 구현(5) = ✅완료·검산대기**(옵션2 post-stage-2, `matchAttemptsToItems`, VERSION `2026.08.14-match-v1`). 유형 교정+답해설 첨부·ai_assigned_type/type_overridden_count 기록·0.99미달 로그·self-check 가드. 설계·정정 = `B_matching_integration_design.v1.md`(검수 비용가설 철회: 매칭돼도 오류관측 AI 필요→stage-2 생략 불가, 이득=정확도). ★배포: 스키마 v3.2 라이브 후 워커 match-v1.
-- **다음 = 배포·전체 파이프라인 테스트**(bulk 투입→3단 유형지정→매칭 진단 실동작) → 화면 렌더(matched_answer/explanation 학생 표시)·stage별 비용실측(옵션1 판정) 별 트랙. ★도형 실측(a)=매칭 실사용서 자연검증 이월.
+- **★매칭 트랙 = ✅전항 종결·실동작 검증**(2026-08-14, run 9d629345). 옵션2 post-stage-2 `matchAttemptsToItems`, VERSION `2026.08.14-match-v1` 배포. [실측]: matched 3·score 1.0·오매칭 0(25번 0.949·27번 0.835 미달 미매칭=임계값 정상)·정상층 무손상·type_overridden 0(3건 AI 정확, 표본소)·비용 $3.0057(+18.5%=recover콜, 매칭무관·매칭은 AI비용 0). 설계·검수 비용가설 철회 = `B_matching_integration_design.v1.md`.
+- **파이프라인 전체 완성**: 스키마 v3.1/3.2 → 차단2 → qnorm.v1 → bulk(/add-bulk·3단) → 매칭. end-to-end 실동작 확인.
+- **남은 것**: ① 화면 렌더(matched_answer/explanation 학생 표시 미배선·JSON엔 있음) ② 테스트 3배치 정리(smoke·smoke2·match soft-delete, 사용자) ③ stage별 비용실측(옵션1 보류) ④ 도형 실측(a) 실사용 자연검증 이월.
+- **다음 트랙(사용자 판단)**: (1)GPT 실제 학습지 1장→대량투입 실전[검수 권고] / (2)M1 기하 재태깅+처방192 / (3)수연산 처방739.
 - **진입 문서**: `B_bulk_injection_json_spec.v2.md`(투입 스펙·§12 27항)·`B_gpt_item_registration_spec.v2.md`((d)3단)·`B_qnorm_canonical.v1.md`·`B_catalog_layer_audit.v1.md`. 워커 엔드포인트: /add-bulk·/bulk-assign-type(id기준)·/rollback-batch·/backfill-hashes·list(bulk_batch_id필터).
 - **설계 확정(유지)**: 문항 단일풀·org_id 출처표시만 / 관측 기관통합(3계층) / dedup 옵션C(content_hash UNIQUE·dedup_key NON-UNIQUE) / 3단 유형배정(GPT 전사→검수 카탈로그대조→사용자 보류분).
 
