@@ -1,4 +1,8 @@
--- ★★ user_items 스키마 v3.1 — 검수 확정 2026-08-14 ★★
+-- ★★ user_items 스키마 v3.1 — 검수 확정 2026-08-14 · ✅D1 실행 완료 2026-08-14 ★★
+-- 실행 결과[실측]: STEP0 백업(2건) · STEP1 ALTER 7개 · STEP2 인덱스 3개 · STEP3a org_id=SCSTUDY 2건 성공.
+--   검증 SELECT: org_id=SCSTUDY 2 · source_text=null 2(자동복사 없음) · content_hash=null 2 · dedup_key=null 2. 22컬럼 라이브.
+--   D1 북마크: 00000019-00000000-000050c7-dac76f1f189da565d57c226fb13f6954
+--   STEP3b(content_hash/dedup_key backfill)만 보류 — qnorm.v1 구현 시 코드경로. 백로그11.
 -- 확정 근거: 검수 판정(2026-08-14) — 22컬럼 · dedup 옵션 C · backfill 2건 · org_id 채움.
 --   옵션 C = 멱등키 content_hash UNIQUE / 탐지키 dedup_key NON-UNIQUE (목적 분리).
 --   ★v3 초안의 uq_ui_dedup UNIQUE 는 만들지 않는다(검수 명시).

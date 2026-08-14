@@ -173,7 +173,8 @@ function currentItem(){
     problem_type_id:$('#ptype').value, type_name:(TYPES.find(t=>t.problem_type_id===$('#ptype').value)||{}).type_name||'',
     concept_ids:$('#concepts').value.split(',').map(s=>s.trim()).filter(Boolean),
     question_text:$('#question_text').value.trim(), answer:$('#answer').value.trim(), explanation:$('#explanation').value.trim(),
-    difficulty:$('#difficulty').value, error_tags:$('#etags').value.split(',').map(s=>s.trim()).filter(Boolean), source_note:$('#source_note').value.trim() };
+    difficulty:$('#difficulty').value, error_tags:$('#etags').value.split(',').map(s=>s.trim()).filter(Boolean), source_note:$('#source_note').value.trim(),
+    source_text:$('#raw').value.trim() };  // ★차단2: AI 구조화 이전 원문(#raw)을 그대로 넘긴다. 빈값이면 워커가 null 유지(자동복사 금지). 편집 시 #raw 비어도 워커 COALESCE로 기존 보존.
 }
 function clearForm(){
   CURRENT_ID=''; $('#editing').textContent='';

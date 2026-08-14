@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.11-catstage-a2b';
+const VERSION = '2026.08.14-itemadd-v31cols';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -332,14 +332,30 @@ async function itemAdd(request, env) {
   // 유형이 있으면 approved. 클라이언트가 status를 명시하면 존중하되, 유형 없으면 강제 pending.
   const hasType = String((b && b.problem_type_id) || '').trim().length > 0;
   const status = hasType ? ((b && b.status) || 'approved') : 'pending';
+  // ── v3.1 신규 컬럼 (차단2, 2026-08-14) ────────────────────────────────
+  // ★배포 게이트: 이 INSERT는 스키마 v3.1(source_text 등 7컬럼)이 D1에 적용된 뒤에만 동작.
+  //   스키마 미적용 상태로 배포하면 "no such column" 으로 단건 등록이 죽는다. 순서: 스키마 실행 → 워커 배포.
+  // ★source_text: AI 구조화 이전 원문(교사 붙여넣기). 빈값이면 null 유지 — question_text 자동복사 절대 금지(차단2 핵심).
+  const srcText = (b && typeof b.source_text === 'string') ? b.source_text.trim() : '';
+  const source_text = srcText || null;
+  const orgId = (String((b && b.org_id) || '').trim()) || 'SCSTUDY';   // 기관 통합: 기본 SCSTUDY(출처표시·매칭 미참조)
+  const provenance = axisJson({ ingest: 'admin', extraction: source_text ? `worker-${VERSION}` : 'manual', at: now });
+  // ★content_hash·dedup_key·dedup_key_norm_version = null. qnorm.v1 미구현(매칭/bulk에서 canonical 정의) →
+  //   그때 코드경로 backfill(WHERE content_hash IS NULL OR dedup_key_norm_version != 현재). 백로그11.
   await env.AXIS_DB.prepare(
-    `INSERT INTO user_items (id, created_at, updated_at, status, unit_id, unit_name, problem_type_id, type_name, concept_ids, question_text, answer, explanation, difficulty, error_tags, source_note)
-     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15)
+    `INSERT INTO user_items (id, created_at, updated_at, status, unit_id, unit_name, problem_type_id, type_name, concept_ids, question_text, answer, explanation, difficulty, error_tags, source_note, source_text, provenance, org_id, bulk_batch_id, content_hash, dedup_key, dedup_key_norm_version)
+     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20,?21,?22)
      ON CONFLICT(id) DO UPDATE SET updated_at=excluded.updated_at, status=excluded.status, unit_id=excluded.unit_id, unit_name=excluded.unit_name,
        problem_type_id=excluded.problem_type_id, type_name=excluded.type_name, concept_ids=excluded.concept_ids, question_text=excluded.question_text,
-       answer=excluded.answer, explanation=excluded.explanation, difficulty=excluded.difficulty, error_tags=excluded.error_tags, source_note=excluded.source_note`
+       answer=excluded.answer, explanation=excluded.explanation, difficulty=excluded.difficulty, error_tags=excluded.error_tags, source_note=excluded.source_note,
+       source_text=COALESCE(excluded.source_text, user_items.source_text), provenance=excluded.provenance, org_id=COALESCE(excluded.org_id, user_items.org_id),
+       content_hash=NULL, dedup_key=NULL, dedup_key_norm_version=NULL`
+    // ★편집(ON CONFLICT) 시: source_text·org_id 는 빈값이면 기존 보존(COALESCE, 비소급 유실 방지).
+    //   content_hash/dedup_key/norm_version 은 NULL 재설정 = question_text 변경 시 코드경로가 재계산하도록(stale 해시 방지).
+    //   bulk_batch_id 는 미변경(단건 편집이 배치출처를 바꾸지 않음).
   ).bind(id, now, now, status, (b && b.unit_id) || '', (b && b.unit_name) || '', (b && b.problem_type_id) || '', (b && b.type_name) || '',
-    axisJson((b && b.concept_ids) || []), qt, (b && b.answer) || '', (b && b.explanation) || '', (b && b.difficulty) || 'core', axisJson((b && b.error_tags) || []), (b && b.source_note) || '').run();
+    axisJson((b && b.concept_ids) || []), qt, (b && b.answer) || '', (b && b.explanation) || '', (b && b.difficulty) || 'core', axisJson((b && b.error_tags) || []), (b && b.source_note) || '',
+    source_text, provenance, orgId, null, null, null, null).run();
   return { ok: true, id };
 }
 
