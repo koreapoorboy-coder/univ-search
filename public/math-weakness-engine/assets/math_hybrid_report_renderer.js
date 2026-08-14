@@ -62,8 +62,9 @@ class MathHybridReportRenderer {
     }
     return (x && (x.message || x.risk)) || (typeof x === 'string' ? x : '');
   }
-  // 오답 진단 항목은 type_name을 우선 표시(problem_type_id 원문 노출 방지). 진단문구 있으면 그것.
-  static wrongText(x) { return (x && (x.diagnosis || x.observed_error || x.type_name || x.problem_type_id)) || ''; }
+  // 오답 진단 항목: 사람이 읽는 값만(진단문구·type_name). ★problem_type_id 원문은 절대 노출 안 함 —
+  //   type_name이 비면 항목을 아예 뺀다(빈 문자열→filter(Boolean)로 제거). "틀린 것보다 없는 것"(검수 2026-08-14).
+  static wrongText(x) { return (x && (x.diagnosis || x.observed_error || x.type_name)) || ''; }
   static details(title, body, open = false) { return `<details class="teacher-raw" ${open ? 'open' : ''}><summary>${this.esc(title)}</summary>${body}</details>`; }
   static badge(text, kind = '') { return `<span class="result-badge ${kind}">${this.esc(text)}</span>`; }
 
