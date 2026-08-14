@@ -31,3 +31,11 @@
 ## 6. 검수 판정 요청 = 1건
 **통합 지점 = 옵션 2(post-stage-2, 정확도 우선·비용 불변) 승인?** + stage별 비용 실측을 옵션1의 선행조건으로 두는 데 동의?
 → 승인 시: 매칭 함수(qnorm.v1 dice·후보조회·0.99게이트·유형덮어쓰기·답해설첨부·미달로그)를 runStagedEngineAdapter의 stage-2 직후에 삽입 + 결과레코드 norm_rule_version 각인. 확정 전 구현 없음.
+
+## 7. ★ 구현 완료 (검수 승인 2026-08-14 · 옵션2)
+- `matchAttemptsToItems({env,attempts})` 신설, `runStagedEngineAdapter`의 attempts 구성 직후 호출(stage-2 이후). VERSION `2026.08.14-match-v1`. 검증: 괄호델타0·정의/호출/통계 정합.
+- 동작: 단원별 `status='approved'` 후보 1회 조회 → qnorm.v1 dice → **정확히 1건만 ≥0.99 → 매칭**(후보 다수=모호→미매칭). 매칭 시 problem_type_id 교정 + `matched_answer`/`matched_explanation` 첨부(등록본 우선·관측값 무손상).
+- **검수 요건 4건 반영**: ① 기록 `matched`·`matched_item_id`·`match_score`·`norm_rule_version`·**`ai_assigned_type`**(덮어쓰기 전 AI유형=AI배정률 실측재료). ② `_staged.matching`: `matched_count`·`unmatched_count`·**`type_overridden_count`**(매칭유형≠AI유형). ③ 0.99미달 로그(question_no·best_score·candidate_ids). ④ 답/해설 등록본 우선(별 필드 첨부).
+- **self-check 가드**: qnorm self-check fail 시 매칭 전부 skip(잘못된 매칭 금지·진단은 AI로 진행, stats.skipped 기록). 후보 없음/본문 없음 → 조용히 미매칭.
+- ★배포: 스키마 v3.2(question_no) 라이브 후 워커 재배포(match-v1은 bulk-v2-qno 포함). 매칭 자체는 스키마 변경 불요.
+- **미구현(후속)**: matched_answer/explanation의 화면 렌더(학생에게 정답/해설 표시)는 별도. stage별 비용 실측(옵션1 판정용)도 별 트랙.

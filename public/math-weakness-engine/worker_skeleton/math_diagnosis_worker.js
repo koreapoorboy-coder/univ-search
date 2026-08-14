@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.14-bulk-v2-qno';
+const VERSION = '2026.08.14-match-v1';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -1198,6 +1198,47 @@ ${menu}
   });
 }
 
+// ── 매칭 (옵션2, post-stage-2): stage-2가 낸 question_text로 등록 문항(user_items approved) 대조.
+//    성공 시 problem_type_id 교정(AI 붕괴 유형 대체) + 답/해설 첨부. 미달·후보다수 → 미매칭(AI 유형 유지).
+//    ★self-check fail 시 매칭 전부 skip(잘못된 매칭 금지, 진단은 AI로 진행). attempts를 제자리 변형.
+async function matchAttemptsToItems({ env, attempts }) {
+  const base = { matched_count: 0, unmatched_count: attempts.length, type_overridden_count: 0 };
+  if (!env.AXIS_DB) return { stats: { ...base, skipped: 'no_db' }, unmatched_log: [] };
+  const sc = qnormSelfCheckCached();
+  if (!sc.pass) return { stats: { ...base, skipped: 'qnorm_selfcheck_fail' }, unmatched_log: [], selfcheck: sc };
+  // 단원별 approved 후보 1회 조회 후 재사용. 후보 = status='approved'만(pending·archived 제외).
+  const byUnit = {};
+  for (const uid of Array.from(new Set(attempts.map(a => a.unit_id).filter(Boolean)))) {
+    const rows = ((await env.AXIS_DB.prepare(
+      "SELECT id, problem_type_id, question_text, answer, explanation FROM user_items WHERE status='approved' AND unit_id=?1 LIMIT 2000"
+    ).bind(uid).all()).results) || [];
+    byUnit[uid] = rows.map(r => ({ id: r.id, problem_type_id: r.problem_type_id, answer: r.answer, explanation: r.explanation, qn: qnormV1(r.question_text) })).filter(c => c.qn !== '');
+  }
+  const unmatched_log = []; let matched_count = 0, type_overridden_count = 0;
+  for (const a of attempts) {
+    if (!a.question_text || !a.unit_id) continue;
+    const cands = byUnit[a.unit_id] || []; if (!cands.length) continue;
+    const qn = qnormV1(a.question_text); if (qn === '') continue;
+    let best = -1, bestId = null; const over99 = [];
+    for (const c of cands) { const s = diceBigram(qn, c.qn); if (s > best) { best = s; bestId = c.id; } if (s >= 0.99) over99.push({ c, s }); }
+    const bestR = Math.round(best * 1000) / 1000;
+    if (over99.length === 1) {   // 정확히 1건만 0.99↑ → 매칭. 후보 다수면 모호 → 미매칭(오매칭 금지).
+      const m = over99[0].c;
+      a.matched = true; a.matched_item_id = m.id; a.match_score = Math.round(over99[0].s * 1000) / 1000; a.norm_rule_version = QNORM_VERSION;
+      a.ai_assigned_type = a.problem_type_id || '';   // ★덮어쓰기 전 AI 유형 보존(AI 배정률 실측 재료)
+      if (m.problem_type_id) { if (m.problem_type_id !== a.problem_type_id) type_overridden_count++; a.problem_type_id = m.problem_type_id; }
+      if (m.answer) a.matched_answer = m.answer;         // ★답/해설은 등록본 우선(별 필드로 첨부, 관측값 무손상)
+      if (m.explanation) a.matched_explanation = m.explanation;
+      matched_count++;
+    } else {
+      a.matched = false;
+      if (over99.length > 1) unmatched_log.push({ question_no: a.question_no, best_score: bestR, reason: 'ambiguous', candidate_ids: over99.map(o => o.c.id).slice(0, 5) });
+      else if (best >= 0) unmatched_log.push({ question_no: a.question_no, best_score: bestR, candidate_ids: bestId ? [bestId] : [] });
+    }
+  }
+  return { stats: { matched_count, unmatched_count: attempts.length - matched_count, type_overridden_count }, unmatched_log };
+}
+
 async function runStagedEngineAdapter({ env, payload, files, scope, usageSink }) {
   if (!scope.units.length) throw new Error('후보 단원이 비어 있다(시험 범위 미선택)');
   const unitIds = scope.units.map(u => u.unit_id);
@@ -1256,6 +1297,8 @@ ${RESPONSE_STATE_RULE}`
     ...a,
     is_correct: a.response_status === 'CORRECT_COMPLETE'
   }));
+  // ── 매칭(옵션2): 등록 문항 대조 → 유형 교정 + 답/해설 첨부. attempts 제자리 변형. 이후 통계는 매칭 반영값. ──
+  const match = await matchAttemptsToItems({ env, attempts });
   const topUnit = Object.keys(byUnit).sort((a, b) => byUnit[b].length - byUnit[a].length)[0] || '';
   const matched = attempts.filter(a => a.problem_type_id).length;
   // 차단2: type_matched(유형ID 존재 수)는 붕괴를 성공으로 오독한다. 유형 분포·종수·무유형을 함께 낸다.
@@ -1295,7 +1338,9 @@ ${RESPONSE_STATE_RULE}`
         per_question: stageMetas.flatMap(m => m.per_question || []),
         menu_violation: stageMetas.flatMap(m => m.menu_violation || []),
         recovered_count: stageMetas.reduce((s, m) => s + (m.recovered_count || 0), 0)
-      }
+      },
+      // 매칭(옵션2) 계측: 등록 문항 대조 결과. type_overridden_count = 매칭유형≠AI유형(매칭의 정확도 기여·AI배정률 실측 재료).
+      matching: { norm_rule_version: QNORM_VERSION, ...match.stats, unmatched: (match.unmatched_log || []).slice(0, 50) }
     }
   };
 }
