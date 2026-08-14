@@ -39,7 +39,24 @@
 - 이미지 원본 참조 — 텍스트 체제 우선, 이미지 미검증(field_req §텍스트vs이미지). 이미지 투입 도입 시점에 추가(그때도 비소급이라 그 투입 전). 지금 불요.
 
 ## 전체 컬럼 수
-v2 15 + v3 추가 3 + v3.1 신규 2 = **20 컬럼**. 신규 5개 전부 nullable·가산 → 기존 행 무손실.
+~~v2 15 + v3 추가 3 + v3.1 신규 2 = 20 컬럼~~ ← **낡음(판정1 bulk_batch_id 미반영 카운트)**. **확정: 아래 §확정(2026-08-14) 참조 = 22컬럼.** 신규 7개 전부 nullable·가산 → 기존 행 무손실.
+
+---
+
+## ★ 확정 (검수 판정 2026-08-14)
+- **22컬럼** = v2 15 + v3 3(source_text·provenance·dedup_key) + v3.1 3(dedup_key_norm_version·org_id·bulk_batch_id) + **content_hash 1(신규)**.
+- **dedup = 옵션 C**: 멱등키 `content_hash` **UNIQUE**(재투입 차단) / 탐지키 `dedup_key` **NON-UNIQUE**(중복 경고). 목적 분리 → 그림의존 문항 소실 0.
+  - ★**v3 초안 `uq_ui_dedup` UNIQUE 는 만들지 않음**(검수 명시).
+- **인덱스**: `uq_ui_content` UNIQUE(content_hash) · `idx_ui_dedup`(dedup_key) · `idx_ui_batch`(bulk_batch_id).
+- **backfill 대상 = 2건**(admin_items.html: approved 2/pending 0/archived 0). 0건 아님 → 필요.
+- **org_id**: 기존 2건 사용자 기관 값으로 채움(검수 권고, NULL 금지). ★기관 식별자 문자열 = **사용자 확인 대기**.
+- **SQL 원문 = `public/math-weakness-engine/data/db/user_items.schema.v3.1.sql`**(작성 완료).
+
+### ★ 코드확인 발견 — backfill 실행 방식 정정 (Code탭 2026-08-14)
+- 워커(`math_diagnosis_worker.js`) 전체에 `qnorm`/`normalize`/`sha256`/`crypto.subtle.digest` **부재**. `itemAdd`(323)는 v2 15컬럼만 INSERT. **qnorm.v1 정규화·해시가 아직 코드에 없음**(매칭·bulk 미구현).
+- ⇒ `content_hash`·`dedup_key` backfill 은 **D1 콘솔 SQL로 계산 불가**(SQLite SHA256 내장 없음 + qnorm 미존재). 검수가 가정한 "콘솔 backfill 스크립트"는 성립 불가.
+- ⇒ **분리 실행**: (1) STEP 1·2 DDL + org_id UPDATE = **지금 콘솔 실행 가능**. (2) `content_hash`/`dedup_key`/`norm_version` backfill = **qnorm.v1 이 코드에 정의되는 시점(bulk/매칭 구현)에 동일 코드경로로**. 이게 검수가 말한 "M1·수연산 재실행" 재사용 스크립트의 정본 위치(워커 admin backfill: `WHERE content_hash IS NULL OR dedup_key_norm_version != 현재`). UNIQUE 위반 보고도 이 경로에서.
+- ⇒ 2행은 그동안 content_hash/dedup_key NULL 로 남음(UNIQUE 인덱스 NULL 다중 허용 → 안전). **검수 재확인 요청**(계획 전제 정정).
 
 ## ★ 판정2: dedup_key type 제외 부작용 — [실측]
 ### 데이터 제약
