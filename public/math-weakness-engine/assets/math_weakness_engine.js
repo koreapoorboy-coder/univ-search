@@ -345,7 +345,7 @@
         return stripUndefined({
           question_no:attempt.question_no,
           problem_type_id:pt.problem_type_id,
-          type_name:pt.type_name,
+          type_name:pt.type_name||attempt.type_name||'',
           visible_path:instruction.visible_path,
           matched_template_id:null,
           suppressed_reason:'no_template_for_unit',
@@ -359,7 +359,7 @@
       return stripUndefined({
         question_no:attempt.question_no,
         problem_type_id:pt.problem_type_id,
-        type_name:pt.type_name,
+        type_name:pt.type_name||attempt.type_name||'',
         visible_path:instruction&&instruction.visible_path,
         problem_nature:instruction&&instruction.problem_nature,
         required_thinking:instruction&&instruction.required_thinking,

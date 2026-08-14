@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.14-match-v1';
+const VERSION = '2026.08.14-typename';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -1269,12 +1269,14 @@ ${RESPONSE_STATE_RULE}`
   for (const a of assignments) (byUnit[a.unit_id] = byUnit[a.unit_id] || []).push(a);
 
   const chunkPlan = [];
+  const typeNameById = {};     // ★problem_type_id → type_name 맵(렌더용). stage-2·매칭은 id만 반환하므로 여기서 모아 attempts에 첨부(검수 2026-08-14).
   const typeLoadFailed = [];   // 유형 로드 실패 단원(미구축·데이터 부재). 조용히 넘기지 않고 결과에 남긴다.
   const stageMetas = [];       // 레버 A 계측: 단원별 단계·문항별 범주배정·메뉴이탈·복구수.
   const results = await Promise.all(Object.keys(byUnit).map(async unitId => {
     const rows = byUnit[unitId];
     try {
       const types = await fetchUnitProblemTypes(scope, unitId);
+      for (const t of types) if (t && t.id) typeNameById[t.id] = t.name || '';   // ★fetchUnitProblemTypes 필드 = id·name(problem_type_id/type_name 아님)
       if (!types.length) throw new Error(`${unitId} 유형 목록이 비어 있다`);
       // 한도를 넘는 단원은 assignTypesForUnit이 알아서 조각내 처리한다. 예전처럼 통째로
       // 건너뛰지 않는다 — 고등 9개 단원이 그래서 유형 없이 나가고 있었다.
@@ -1299,6 +1301,9 @@ ${RESPONSE_STATE_RULE}`
   }));
   // ── 매칭(옵션2): 등록 문항 대조 → 유형 교정 + 답/해설 첨부. attempts 제자리 변형. 이후 통계는 매칭 반영값. ──
   const match = await matchAttemptsToItems({ env, attempts });
+  // ★type_name 채움(검수 2026-08-14): stage-2·매칭은 problem_type_id만 반환 → attempts에 type_name 없음(주의할 연결 항목 소실 원인).
+  //   카탈로그 맵으로 첨부. 매칭 후 실행 = 매칭이 교정한 유형의 이름을 씀. 맵에 없으면 빈값(렌더가 항목 제외).
+  for (const a of attempts) if (a && a.problem_type_id && !a.type_name) a.type_name = typeNameById[a.problem_type_id] || '';
   const topUnit = Object.keys(byUnit).sort((a, b) => byUnit[b].length - byUnit[a].length)[0] || '';
   const matched = attempts.filter(a => a.problem_type_id).length;
   // 차단2: type_matched(유형ID 존재 수)는 붕괴를 성공으로 오독한다. 유형 분포·종수·무유형을 함께 낸다.
