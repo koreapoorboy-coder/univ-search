@@ -235,6 +235,37 @@ class MathHybridReportRenderer {
     </section>`;
   }
 
+  // 매칭(옵션2) 학생용: 등록 문항과 일치한 문항의 정답·해설 표시(등록본 우선). 미매칭은 아무 표시 없음(검수 2026-08-14).
+  static renderMatchedItems(data) {
+    const attempts = (data && data.engine_adapter && data.engine_adapter.student_attempt && data.engine_adapter.student_attempt.attempts) || [];
+    const matched = attempts.filter(a => a && a.matched === true && (a.matched_answer || a.matched_explanation));
+    if (!matched.length) return '';
+    const cards = matched.map(a => {
+      const ans = a.matched_answer ? `<p style="margin:6px 0 0"><b>정답</b> ${this.esc(a.matched_answer)}</p>` : '';
+      const exp = a.matched_explanation ? `<details style="margin-top:6px"><summary style="cursor:pointer;color:#3730a3">해설 보기</summary><div class="small" style="margin-top:4px;white-space:pre-wrap">${this.esc(a.matched_explanation)}</div></details>` : '';
+      return `<div class="matched-item" style="border:1px solid #c7d2fe;background:#eef2ff;border-radius:10px;padding:10px 12px;margin-top:8px">
+        <div><b>${this.esc(a.question_no || '')}번</b> <span class="tag" style="background:#3730a3;color:#fff">등록 문항과 일치</span></div>
+        ${ans}${exp}</div>`;
+    }).join('');
+    return `<section class="result-box"><h3>등록 문항 정답·해설</h3><p class="muted small">등록된 동일 문항에서 정답·해설을 가져왔습니다.</p>${cards}</section>`;
+  }
+
+  // 매칭(옵션2) 교사용: 매칭 통계 + 문항별 확정유형·AI배정(교정 전)·일치도. type_overridden=AI 배정 정확도 실측 재료.
+  static renderMatchingTeacherDetail(data) {
+    const attempts = (data && data.engine_adapter && data.engine_adapter.student_attempt && data.engine_adapter.student_attempt.attempts) || [];
+    const matched = attempts.filter(a => a && a.matched === true);
+    const m = (data && data._staged && data._staged.matching) || null;
+    if (!matched.length && !m) return '';
+    const total = m ? ((m.matched_count || 0) + (m.unmatched_count || 0)) : attempts.length;
+    const statLine = m ? `<p><b>등록 문항 매칭:</b> ${this.esc(m.matched_count || 0)} / ${this.esc(total)} · <b>유형 교정:</b> ${this.esc(m.type_overridden_count || 0)}건${m.skipped ? ` · <span class="muted">(매칭 skip: ${this.esc(m.skipped)})</span>` : ''}</p>` : '';
+    const rows = matched.map(a => {
+      const overridden = a.ai_assigned_type && a.ai_assigned_type !== a.problem_type_id;
+      return `<tr><td>${this.esc(a.question_no || '')}</td><td>${this.esc(a.problem_type_id || '')}</td><td>${overridden ? `<span style="color:#b45309">${this.esc(a.ai_assigned_type)} → 교정</span>` : this.esc(a.ai_assigned_type || '-')}</td><td>${a.match_score != null ? this.esc(a.match_score) : '-'}</td></tr>`;
+    }).join('');
+    const table = rows ? `<table><tr><th>문항</th><th>확정 유형</th><th>AI 배정(교정 전)</th><th>일치도</th></tr>${rows}</table>` : '';
+    return `<section class="result-box"><h3>매칭 상세 (교사용)</h3>${statLine}${table}<p class="muted small">유형 교정 = 매칭 유형이 AI 배정과 달라 등록본으로 바꾼 건수(AI 배정 정확도 실측 재료).</p></section>`;
+  }
+
   static renderTeacherDiagnostics(extraction, engineDiagnosis, noteReview) {
     if (!extraction && !engineDiagnosis && !noteReview) return '';
     const parts = [];
@@ -266,6 +297,8 @@ class MathHybridReportRenderer {
         <h4>교사가 확인할 질문</h4>${this.list(qs)}
         ${this.details('필기 검수 JSON 보기', this.pre(noteReview))}</section>`);
     }
+    const matchingDetail = this.renderMatchingTeacherDetail(extraction);
+    if (matchingDetail) parts.push(matchingDetail);
     if (extraction) parts.push(`<section class="result-box"><h3>1차 AI 분석 원자료</h3>${this.details('분석 JSON 보기', this.pre(extraction))}</section>`);
     return this.card('교사용 내부 데이터', this.details('엔진·필기 검수·JSON 열기', parts.join(''), false), 'info teacher-only-card');
   }
@@ -468,6 +501,7 @@ class MathHybridReportRenderer {
         <div class="result-meta">자료 유형: ${this.esc(outcome.purposeKo)} · 진단 경로: ${this.esc(outcome.routeKo)}</div>
       </div>
       ${isSolve ? this.renderSolutionPlan(proofPlan, this.engineConnections(engineDiagnosis)) : this.renderProofPlan(proofPlan, this.engineConnections(engineDiagnosis))}
+      ${this.renderMatchedItems(data)}
       ${this.renderStudentBehaviorAnalysis(engineDiagnosis)}
       ${this.renderAttemptCoverage(data.engine_adapter?.student_attempt?._unit_binding?.attempt_accounting)}
       ${this.details('교사용 상세 진단 열기', teacherSummary)}
