@@ -62,16 +62,12 @@
   <div id="multi"></div>
 </div>
 
+<script src="js/qnorm.v1.js"></script>
 <script>
 const $ = s => document.querySelector(s);
-function normText(s){
-  s=String(s||'');
-  s=s.replace(/²/g,'^2').replace(/³/g,'^3').replace(/¹/g,'^1').replace(/⁴/g,'^4').replace(/⁵/g,'^5');
-  s=s.replace(/[×·]/g,'*').replace(/[−–]/g,'-');
-  s=s.replace(/[.,·、。]/g,'');
-  s=s.replace(/\s+/g,'');
-  return s.toLowerCase();
-}
+// ★canonical qnorm.v1(js/qnorm.v1.js)로 교체. 구 normText는 드리프트본(²→^2·NFKC없음·^유지).
+// ★동작 변경: x² → 구 "x^2" → 신 "x2". ⇒ qnorm.v1 이전에 이 도구로 낸 측정값은 재현되지 않음(이전/이후 구분 필요).
+function normText(s){ return qnormV1(s); }
 function bigrams(s){ const m={}; for(let i=0;i<s.length-1;i++){const g=s.slice(i,i+2); m[g]=(m[g]||0)+1;} return m; }
 function dice(a,b){
   const ca=bigrams(a), cb=bigrams(b); let na=0,nb=0,inter=0;

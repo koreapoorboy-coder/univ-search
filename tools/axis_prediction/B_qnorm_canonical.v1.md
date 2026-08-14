@@ -73,7 +73,17 @@ function qnormV1(s){
 4. **백로그11 backfill**: 기존 2행 + 테스트 34633203 = **3행**. content_hash/dedup_key/dedup_key_norm_version 채움. UNIQUE 위반 시 실패 말고 목록보고.
 5. 해시 구성(정본, `user_items.schema.v3.1.sql` 상단): `content_hash=sha256(qnorm(question_text)|unit_id|problem_type_id|answer|explanation|difficulty)` · `dedup_key=qnorm(question_text)|unit_id`.
 
-## 6. 검수 대기 = 2건
-1. **정본 확정** — ocr_measure `norm`(NFKC형) = qnorm.v1 정본 승인? (§1)
-2. **아키텍처** — §4 (a)/(b)/(c) 택.
-→ 승인 오면 §5 순서로 구현(live 도구·워커·backfill).
+## 6. ★ 확정 (검수 승인 2026-08-14) + 정제 4건
+- **정본 = ocr_measure `norm`(NFKC형) 승인.** 근거(1) 결정적: 0.99를 실측한 도구 = 이것, 다른 구현 정본삼으면 0.99 무효.
+- **아키텍처 = (a) 단일정의 + 검증강제 승인.** 워커 인라인 불가피 인정.
+- **★정제① self-check 위치 변경** — /health가 아니라 **해시 계산경로에서 실행**. content_hash·dedup_key 계산 직전 벡터 self-check → 불일치 시 **계산 중단·에러 반환(저장 금지)**. 경보 아닌 **차단**(차단2·게이트 원칙: 틀린 값 저장하느니 안 함). 인스턴스당 1회 캐시(6+벡터라 무시가능). ★/health엔 `qnorm_selfcheck:"pass"|"fail"` 필드 별도 유지(운영 표시). **차단=계산경로, 표시=/health, 둘 다.**
+- **★정제② 벡터 보강** — §3에 7(전각 `ＡＢＣ１２３`→`abc123`)·8(빈값 `null`/`''`→`''`) 추가(qnorm.v1.js 반영 완료). ★**빈 본문은 해시 계산 자체 금지**(qnorm이 ''이면 null 유지) — 빈문자열 해시 다행 UNIQUE 충돌 방지. §5 구현 규칙에 포함.
+- **★정제③ backfill 체크포인트** — §5-4(3행 backfill) 실행 **전** 검수 확인. 3행 SELECT 결과 보고 → 검수 확인 후 진행. 눈검증 가능한 마지막 규모.
+- **★정제④ match_lab 이전/이후** — 교체는 동작변경(`x^2`→`x2`). 그 도구 과거 측정값은 재현 안 됨. "match_lab 결과는 qnorm.v1 이전/이후 구분" 명기(파일 주석 반영 완료).
+
+## 7. 구현 진행 (§5 순서)
+- ✅ **Step1** `js/qnorm.v1.js` 생성 — CANONICAL CORE 블록(워커 인라인용)+브라우저 글루+로드시 self-check. 벡터 11건(정제② 반영).
+- ✅ **Step2** 클라 배선 — `ocr_measure.html`(정본이라 동작불변)·`match_lab.html`(드리프트 해소·동작변경 주석) → `<script src="js/qnorm.v1.js">` + `norm/normText`를 `qnormV1` 참조.
+- ⏳ **Step3** 워커 — qnormV1 CORE 인라인 + hash 헬퍼(`crypto.subtle` SHA-256) + **계산경로 self-check 차단** + /health `qnorm_selfcheck` + backfill 엔드포인트(`WHERE content_hash IS NULL OR dedup_key_norm_version != 'qnorm.v1'`, UNIQUE위반 목록보고, 빈본문 skip). ★단건 /add는 해시 미계산 유지(검수 §5는 add-bulk·매칭·backfill 공유 — 단건 제외). 배포 게이트: 스키마 라이브 후(이미 완료).
+- ⏳ **Step4** backfill 3행(기존2+테스트34633203) — ★실행 전 검수 확인(정제③). 3행 SELECT 보고.
+- ⏳ 이후 bulk spec v2 → /add-bulk → 매칭.

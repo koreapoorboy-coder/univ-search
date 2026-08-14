@@ -54,13 +54,12 @@
 
 <div id="out"></div>
 
+<script src="js/qnorm.v1.js"></script>
 <script>
 const $ = s => document.querySelector(s);
 const LS='ocr_measure_cfg';
-const norm = s => String(s||'').normalize('NFKC')
-  .replace(/\s+/g,'').replace(/\^/g,'')
-  .replace(/[×·]/g,'*').replace(/[−–]/g,'-')
-  .replace(/[.,·、。]/g,'').toLowerCase();
+// ★canonical qnorm.v1(js/qnorm.v1.js) 참조. 구 인라인 정의가 곧 정본이었으므로 동작 불변(무사본화).
+const norm = qnormV1;
 function bg(s){const m={};for(let i=0;i<s.length-1;i++){const g=s.slice(i,i+2);m[g]=(m[g]||0)+1;}return m;}
 function dice(a,b){const ca=bg(a),cb=bg(b);let na=0,nb=0,ic=0;for(const k in ca)na+=ca[k];for(const k in cb)nb+=cb[k];for(const k in ca)ic+=Math.min(ca[k],cb[k]||0);return na+nb?2*ic/(na+nb):0;}
 // 낮은 행 원인판별용 문자 diff(공통 접두/접미 잘라내고 가운데 차이만 강조)
