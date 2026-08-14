@@ -76,7 +76,7 @@
 ## 6. pending 후처리 (★신설 — /add-bulk와 **동시** 구축)
 사용자 방침: "유형 미확정 문항은 체크해두고 나중에 다시 작업해서 넣는다." pending은 쌓여도 안전하나 **꺼내는 수단**이 부실하면 수만 건 규모에서 방치됨. → 아래 4개를 /add-bulk 구현과 같은 시점에 만든다(미루면 쌓인 뒤에야 필요성 체감).
 1. **조회** — admin에서 `status='pending'` 필터 + **`bulk_batch_id` 필터**(★배치별로 봐야 "이번 투입분 중 미확정"을 앎). 기존 `/api/user-items/list`에 bulk_batch_id 파라미터 추가.
-2. **일괄 유형 지정** — 같은 유형인 것을 여러 건 선택 → 한 번에 `problem_type_id` 지정·approved 승격. 한 건씩은 수백 건 처리 불가. 신규 `POST /api/user-items/bulk-assign-type`(ids[]+problem_type_id, X-Write-Key). 유형 지정 시 content_hash/dedup_key 재계산(problem_type_id가 content_hash 구성요소).
+2. **일괄 유형 지정** — 같은 유형인 것을 여러 건 선택 → 한 번에 `problem_type_id` 지정·approved 승격. 한 건씩은 수백 건 처리 불가. 신규 `POST /api/user-items/bulk-assign-type`(ids[]+problem_type_id, X-Write-Key). 유형 지정 시 content_hash/dedup_key 재계산(problem_type_id가 content_hash 구성요소). ★**재계산 UNIQUE 충돌 처리**(검수 2026-08-14): 승격 후 content_hash가 기존 approved 행과 같아질 수 있음 → backfill과 동일하게 **실패시키지 말고 conflicts 목록 보고**(해당 행은 미승격 유지·사용자 판단).
 3. **진행률** — 전체 pending 수 / 처리된 수 표시(줄어드는 게 보여야 작업 지속). list 응답 counts 재사용 + 배치별 집계.
 4. **dry-run would_pending 목록**(§5) 유지 — 투입 전 예측.
 
