@@ -3,15 +3,16 @@
 > v1(2026-08-11) 대체. 검수(클로드)는 리포 접근 없음 → 파일로 받아 대조. 전달 경로 Code탭↔사용자↔검수.
 > ★이 v2는 검수 §-스펙(2026-08-13)에 따라 갱신. 검수 보유본과 대조 후 확정.
 
-## ★★ 현재 재개 지점 (2026-08-14, 새 세션은 여기부터) ★★
-- **M2_GEOM 처방 트랙 = 전항 종결**(저작 140 → 병합 → 게이트해제 → 실사용 대조 통과, 하단 §2). 손대지 말 것.
-- **현 트랙 = (1) 문항 매칭 + 다기관**. 착수 완료, 첫 작업 진행 중 = **user_items 스키마 v3.1 필드 확정**.
-- **작업 파일 = `tools/axis_prediction/B_user_items_schema_v31_fieldlist.v1.md`**(21컬럼 목록·판정1 반영·판정2 실측·옵션 A/B/C). Downloads로 검수 전달됨.
-- **★대기 중 2건(이게 오면 재개)**:
-  1. **[검수] dedup_key 판정** — 옵션 A(warn-only)/B(unit+본문+answer, UNIQUE)/C(분리키) 중 택. + 21컬럼 대조 확정. (실측: structure_fingerprint 충돌 91/150·답상이 34그룹 = 그림의존 문항 소실 위험 확인, 프록시라 과대추정.)
-  2. **[사용자] backfill 대상 건수** = admin_items.html 화면 `total`(또는 D1 `SELECT COUNT(*) FROM user_items`). 0이면 backfill SQL 생략.
-- **판정 오면 다음**: `user_items.schema.v3.1.sql` 작성(21컬럼·확정 dedup) → 차단2 워커코드 별건(source_text 자동복사 제거) → bulk spec v2(5차단+dedup) → 매칭 구현. **★확정 전 SQL 실행·user_items 변경 금지.**
-- 설계 확정: (a) 문항 단일풀·org_id 출처표시만 / (b) 관측 기관통합(3계층: 문항 단일풀·관측 통합·학생 student_code 분리). dedup_key type 제외 확정(유형 90% 흔들림).
+## ★★ 현재 재개 지점 (2026-08-14 말, 새 세션은 여기부터) ★★
+> 이 세션에서 매칭 트랙이 크게 진행됨. 아래가 최신. (그 아래 옛 재개블록은 §히스토리로 이동.)
+- **완료(이 세션)**: 스키마 v3.1 라이브(22컬럼·옵션C) → 차단2(source_text 자동복사 금지) → **qnorm.v1 canonical 트랙 종결**(정본=ocr_measure NFKC·워커 인라인·self-check 계산경로 차단·backfill 3행) → bulk spec **v2.r3 승인** → GPT 명세 **v2**((d) 유형 미배정·3단 구조) → 카탈로그 축약본 39단원(`make_catalog_short.ps1`) → **/add-bulk 구현·검산·3단 실동작 통과**(worker+admin UI+스모크). → **question_no 저장(스키마 v3.2)** 추가.
+- **★배포 대기(사용자, 순서 고정)**: ① `user_items.schema.v3.2.sql` D1 실행(ALTER question_no + idx) → ② 워커 재배포(VERSION `2026.08.14-bulk-v2-qno`, /health qnorm_selfcheck=pass 확인) → ③ 스모크 테스트(`B_bulk_smoketest.v1.json`: dry-run→실투입→D1 SELECT→3단 유형지정 시연→rollback soft).
+- **다음 트랙 = 매칭 구현(5)**. 확정: 1차 unit_id(+type 보조)·2차 qnorm.v1 유사도 ≥0.99·후보다수→미매칭→AI폴백·norm_rule_version 결과레코드 각인·0.99미달 사유 로그(판독오류 무료탐지). ★도형 실측(a) 미완=매칭 후 실사용서 자연검증 이월.
+- **진입 문서**: `B_bulk_injection_json_spec.v2.md`(투입 스펙·§12 27항)·`B_gpt_item_registration_spec.v2.md`((d)3단)·`B_qnorm_canonical.v1.md`·`B_catalog_layer_audit.v1.md`. 워커 엔드포인트: /add-bulk·/bulk-assign-type(id기준)·/rollback-batch·/backfill-hashes·list(bulk_batch_id필터).
+- **설계 확정(유지)**: 문항 단일풀·org_id 출처표시만 / 관측 기관통합(3계층) / dedup 옵션C(content_hash UNIQUE·dedup_key NON-UNIQUE) / 3단 유형배정(GPT 전사→검수 카탈로그대조→사용자 보류분).
+
+### (옛 재개블록 — 이 세션 시작 시점, 히스토리)
+- M2_GEOM 처방 트랙 종결(하단 §2). user_items 스키마 v3.1 필드 확정으로 시작 → 위 완료 흐름으로 진행됨.
 
 ## §2 완료된 것 (v1 이후 · [실측]/[코드확인] 표기)
 - **차단1·2 + 저장가드** — worker `2026.08.11-catstage-a2b` (+ 배포판 `2026.08.11-nowork-guard`, req c89db5b8 검증 통과). 차단1 guard_applied·is_correct null, 차단2 distinct_types 3→12·no_type 0.
