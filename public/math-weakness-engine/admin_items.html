@@ -95,6 +95,13 @@
   <div id="list"></div>
 </div>
 
+<div class="card" style="border:1px dashed #cbd5e1">
+  <h2 class="muted" style="font-size:15px">유지보수 — 해시 backfill <span class="muted small">(관리자 · 재실행 안전 · 자주 쓰지 않음)</span></h2>
+  <p class="muted small">기존 행의 <code>content_hash</code>·<code>dedup_key</code>를 canonical <code>qnorm.v1</code>로 채웁니다. 빈 본문·이미 최신 행은 건너뜁니다. 멱등(여러 번 눌러도 안전) — M1·수연산 투입 후에도 재실행. <b>정규화 self-check 실패 시 저장하지 않고 사유를 표시</b>합니다.</p>
+  <div class="row"><button class="sec" id="backfillBtn">해시 backfill 실행</button><span id="backfillStatus" class="muted"></span></div>
+  <div id="backfillResult"></div>
+</div>
+
 <script>
 const $ = s => document.querySelector(s);
 const LS = 'admin_items_cfg';
@@ -247,6 +254,30 @@ async function loadList(){
 }
 $('#listBtn').onclick = loadList;
 document.querySelectorAll('button.mini[data-f]').forEach(b=>b.onclick=()=>{ FILTER=b.getAttribute('data-f'); loadList(); });
+
+// ── 해시 backfill (관리자) — content_hash/dedup_key 채움. 멱등. self-check fail·conflicts 화면 표시 ──
+$('#backfillBtn').onclick = async () => {
+  const c=cfg();
+  if(!c.worker||!c.wkey){ $('#backfillStatus').textContent=' 설정 먼저.'; return; }
+  if(!confirm('해시 backfill을 실행합니다.\n기존 행의 content_hash·dedup_key를 계산해 D1에 저장합니다(빈 본문·이미 최신 행은 건너뜀).\n진행할까요?')) return;
+  $('#backfillBtn').disabled=true; $('#backfillStatus').textContent=' 실행 중...';
+  try{
+    const j=await (await fetch(`${c.worker}/api/user-items/backfill-hashes`,{method:'POST',headers:headers(),body:JSON.stringify({})})).json();
+    if(!j.ok){
+      $('#backfillResult').innerHTML=`<div class="preview" style="border-color:#c00;color:#b91c1c"><b>실패:</b> <code>${esc(j.code||'')}</code> — ${esc(j.error||'')}${j.detail?'<br><span class="small">'+esc(JSON.stringify(j.detail))+'</span>':''}</div>`;
+      $('#backfillStatus').textContent=' 실패 — 저장 안 됨'; return;
+    }
+    const up=j.updated||[], se=j.skipped_empty||[], cf=j.conflicts||[];
+    let html=`<div class="preview"><b>완료</b> — candidates ${j.candidates} · updated ${up.length} · skipped_empty ${se.length} · <b style="color:${cf.length?'#b91c1c':'#047857'}">conflicts ${cf.length}</b> · norm_version <code>${esc(j.norm_version||'')}</code>`;
+    if(up.length) html+=`<div class="small" style="margin-top:6px"><b>updated</b><br>${up.map(r=>`<code>${esc(String(r.id).slice(0,8))}…</code> content_hash=${esc(String(r.content_hash).slice(0,16))}… dedup_key=${esc(String(r.dedup_key).slice(0,12))}…`).join('<br>')}</div>`;
+    if(se.length) html+=`<div class="small" style="margin-top:6px"><b>skipped_empty</b>: ${se.map(id=>'<code>'+esc(String(id).slice(0,8))+'…</code>').join(', ')}</div>`;
+    if(cf.length) html+=`<div class="small" style="margin-top:6px;color:#b91c1c"><b>★ conflicts — 반드시 확인(동일내용 기존행)</b><br>${cf.map(r=>`<code>${esc(String(r.id).slice(0,8))}…</code> ${esc(r.error||'')}`).join('<br>')}</div>`;
+    html+=`</div>`;
+    $('#backfillResult').innerHTML=html;
+    $('#backfillStatus').textContent=` 완료 (updated ${up.length}, conflicts ${cf.length})`;
+  }catch(e){ $('#backfillStatus').textContent=' 오류: '+(e.message||e); }
+  finally{ $('#backfillBtn').disabled=false; }
+};
 
 loadCfg();
 if(cfg().base){ loadUnits(); loadList(); }
