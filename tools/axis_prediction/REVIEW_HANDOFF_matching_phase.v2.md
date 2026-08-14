@@ -23,7 +23,10 @@
 - **★user_items 스키마 v3.1 — D1 라이브**(2026-08-14) [실측]. 22컬럼(v2 15 + source_text·provenance·dedup_key·dedup_key_norm_version·org_id·bulk_batch_id·content_hash). dedup 옵션 C(content_hash UNIQUE·`uq_ui_content` / dedup_key NON-UNIQUE·`idx_ui_dedup` / `idx_ui_batch`). STEP0 백업·STEP1 ALTER·STEP2 인덱스·STEP3a org_id=SCSTUDY 성공, 검증 4항목 의도대로(source_text/content_hash/dedup_key=null). D1 북마크 000050c7. **backfill(STEP3b)만 대기**(백로그11). SQL 정본 `data/db/user_items.schema.v3.1.sql`.
 - **차단2 워커코드 — ✅배포·단건테스트 통과**(2026-08-14). `itemAdd` INSERT 22컬럼 확장: source_text(빈값 null·자동복사 금지)·provenance(`{ingest:admin,extraction:worker-VER|manual,at}`)·org_id(기본 SCSTUDY) 채움, content_hash/dedup_key/norm_version=null(qnorm.v1 분리). VERSION `2026.08.14-itemadd-v31cols`(배포 확인). ON CONFLICT: 비소급 COALESCE 보존·해시 NULL재설정. 클라 `admin_items.html` #raw→source_text 배선. 22컬럼 정합 검증(cols/params/binds=22) 통과.
   - 단건 테스트[실측] id 34633203: org_id=SCSTUDY·source_text=null(자동복사 없음)·provenance extraction=manual·content_hash=null. **테스트문항 존치**(검수 권고, status=pending라 매칭 제외·backfill 대상 유용). 미검증 1건=원문붙여넣기 경로(extraction=worker-VER·source_text=원문), 실사용 시 자연 검증.
-- **★qnorm.v1 canonical 확정 — 착수(매칭 빌드 첫 태스크)**. 결정 문서 `B_qnorm_canonical.v1.md`. **정본 = ocr_measure.html `norm`(NFKC형)** [코드확인]: 0.99게이트 실측 도구·근거3 일치. **드리프트 실재 확인**: match_lab.html `normText`는 `²→^2`(NFKC없음·^유지) = 지수시 출력상이(`x²`→ocr `x2`/lab `x^2`). perl(문서)도 동일 드리프트. → 문서·match_lab을 정본(NFKC)에 맞춤. 검수 정본확정+아키텍처(paste-deploy 워커는 모듈import 불가→단일 spec+공유 테스트벡터) 대기.
+- **★qnorm.v1 canonical 트랙 — ✅전항 완료**(2026-08-14). 결정 문서 `B_qnorm_canonical.v1.md`. **정본 = ocr_measure.html `norm`(NFKC형)**(0.99게이트 실측 도구·근거3 일치). 드리프트 실재 확인·해소: match_lab `normText` `²→^2`(NFKC없음) = 지수 출력상이 → 정본에 맞춤(동작변경 `x^2`→`x2`, 과거측정 비재현 주석 line68-69).
+  - Step1 `js/qnorm.v1.js`(CORE+벡터11+로드 self-check) · Step2 클라 배선(ocr_measure 불변·match_lab 교체) · Step3 워커(CORE 인라인·해시헬퍼 crypto.subtle·구분자 U+001F·**계산경로 self-check 차단**·backfill 엔드포인트·/health `qnorm_selfcheck`) VERSION `2026.08.14-qnorm-v1` · Step4 backfill 3행.
+  - **배포·실측**[실측]: /health `qnorm_selfcheck="pass"`(벡터 11건 실V8 통과=로컬 미검증분 실증). backfill 결과 candidates 3·updated 3·skipped_empty 0·conflicts 0·norm_version `qnorm.v1`. D1 SELECT 3행 전부 content_hash/dedup_key 64hex·norm_version `qnorm.v1`(9105bf20·3fd9421c·34633203, 해시 6개 전부 상이). 트리거 = admin_items.html "해시 backfill" 버튼(멱등·재사용).
+  - ★정규화 3벌 드리프트 해소 = 워커·클라 동일 정의 참조. 버전각인 → 규칙변경 시 `WHERE norm_version != 현재` 대상특정 가능.
 
 ## §4/§5 우선순위 순서 (교체)
 - 기존 **"AI 판독 오류 조사" 국면 종료.**
@@ -64,7 +67,7 @@
 8. **결함② 필기검수** — 해결됨(저장가드), 확인 완료.
 9. **23번 범주 오배정**(원 접선→삼각형의 내심) 2회 재현 — 미해소.
 10. **타 기관 결과 제공 형태 시 §1 원칙 재검토** — 관측 데이터는 기관 통합 확정(2026-08-13, 사용자 고유 프로그램). 나중에 "통합 관측으로 만든 태그를 타 기관에 결과로 제공"하는 형태가 되면 §1(서비스형·데이터는 사용자 보유)과의 성격 재검토 필요. 지금 해당 없음(전부 사용자 데이터).
-11. **★user_items 기존 2행 content_hash/dedup_key backfill 대기**(2026-08-14) — ✅**스키마 v3.1은 D1 적용 완료**(22컬럼 라이브). **backfill만 대기**. 사유: 워커에 qnorm.v1/SHA256 부재(콘솔 SQL 불가). **bulk/매칭 구현으로 qnorm.v1 정의 시 반드시 코드경로로 backfill**(워커 admin: `WHERE content_hash IS NULL OR dedup_key_norm_version != 현재`, UNIQUE 위반 시 실패 말고 목록보고). 해시 구성 정본 = `user_items.schema.v3.1.sql` 상단 정규화·해시 블록. 그때까지 2행은 content_hash/dedup_key NULL(안전).
+11. ~~user_items 기존 행 content_hash/dedup_key backfill 미실행~~ — ✅**완료**(2026-08-14). qnorm.v1 워커 구현 후 `POST /api/user-items/backfill-hashes`로 3행(기존2+테스트34633203) 채움 [실측]: updated 3·conflicts 0·norm_version `qnorm.v1`, D1 SELECT 3행 64hex 확인. 재사용 수단=admin backfill 버튼(멱등, M1·수연산 재실행). 해시 구성 정본 = `user_items.schema.v3.1.sql` 상단.
 
 ## 다음 트랙 착수 = (1) 문항 매칭 + 다기관 지원
 - 사용자 결정 확인됨(다기관 완성 포함 진행).
