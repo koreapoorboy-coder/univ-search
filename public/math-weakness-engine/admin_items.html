@@ -280,7 +280,7 @@ async function loadList(){
     const rows=(j.items||[]).map(it=>`<tr title="id=${esc(it.id)}">
       <td>${esc((it.created_at||'').slice(0,10))}</td><td class="st-${esc(it.status)}">${esc(it.status)}</td>
       <td>${esc(it.unit_name||it.unit_id)}</td><td>${esc(it.type_name||it.problem_type_id)||'<span class=muted>(미지정)</span>'}${it.status==='pending'?hintOf(it):''}</td>
-      <td>${esc((it.question_text||'').slice(0,54))}${(it.question_text||'').length>54?'…':''}</td>
+      <td>${it.question_no?'<b>#'+esc(it.question_no)+'</b> ':''}${esc((it.question_text||'').slice(0,54))}${(it.question_text||'').length>54?'…':''}</td>
       <td><button class="mini edit" data-id="${esc(it.id)}">${it.status==='pending'?'유형지정':'수정'}</button><button class="danger del" data-id="${esc(it.id)}">삭제</button></td></tr>`).join('');
     $('#list').innerHTML=`<table><tr><th>등록일</th><th>상태</th><th>단원</th><th>유형</th><th>본문(앞)</th><th></th></tr>${rows||'<tr><td colspan=6 class=muted>없음</td></tr>'}</table>`;
     const map={}; (j.items||[]).forEach(it=>map[it.id]=it);

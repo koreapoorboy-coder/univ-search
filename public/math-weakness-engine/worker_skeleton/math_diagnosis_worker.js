@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.14-bulk-v2';
+const VERSION = '2026.08.14-bulk-v2-qno';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -566,12 +566,12 @@ async function itemAddBulk(request, env) {
     const prov = axisJson([Object.assign({}, batchProv, { bulk_batch_id: bulkBatchId })]);  // append-ready 배열
     const diff = ['basic', 'core', 'advanced', 'high'].includes(String(it.difficulty)) ? it.difficulty : 'core';
     const res = await env.AXIS_DB.prepare(
-      `INSERT INTO user_items (id, created_at, updated_at, status, unit_id, unit_name, problem_type_id, type_name, concept_ids, question_text, answer, explanation, difficulty, error_tags, source_note, source_text, provenance, org_id, bulk_batch_id, content_hash, dedup_key, dedup_key_norm_version)
-       VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20,?21,?22)
+      `INSERT INTO user_items (id, created_at, updated_at, status, unit_id, unit_name, problem_type_id, type_name, concept_ids, question_text, answer, explanation, difficulty, error_tags, source_note, source_text, provenance, org_id, bulk_batch_id, content_hash, dedup_key, dedup_key_norm_version, question_no)
+       VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20,?21,?22,?23)
        ON CONFLICT(content_hash) DO NOTHING`
     ).bind(id, now, now, status, unitId, String(it.unit_name || ''), String(it.problem_type_id || ''), String(it.type_name || ''),
       axisJson([]), qt, String(it.answer || ''), String(it.explanation || ''), diff, axisJson(it.error_tags || []), String(it.source_note || ''),
-      srcText, prov, orgId, bulkBatchId, hashes.content_hash, hashes.dedup_key, QNORM_VERSION).run();
+      srcText, prov, orgId, bulkBatchId, hashes.content_hash, hashes.dedup_key, QNORM_VERSION, qno).run();  // ★question_no 참조저장(v3.2·검수 2026-08-14). 해시 미포함(번호배제).
     if (res && res.meta && res.meta.changes) {
       inserted_items.push({ question_no: qno, id }); if (status === 'pending') insertedPending++;
     } else {
