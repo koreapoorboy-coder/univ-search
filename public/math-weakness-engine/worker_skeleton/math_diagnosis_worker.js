@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.14-qnorm-v1';
+const VERSION = '2026.08.14-bulk-v2';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -147,6 +147,21 @@ export default {
       // 해시 backfill (content_hash/dedup_key 채움). 교사 전용·X-Write-Key. self-check 차단 내장.
       if (url.pathname === '/api/user-items/backfill-hashes' && request.method === 'POST') {
         const res = await itemBackfillHashes(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+      // 대량 투입 (skip-only 멱등·dry_run). spec v2.r3.
+      if (url.pathname === '/api/user-items/add-bulk' && request.method === 'POST') {
+        const res = await itemAddBulk(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+      // pending 문항 유형 일괄 지정 (id 기준). 파일 업로드/화면 선택 공용.
+      if (url.pathname === '/api/user-items/bulk-assign-type' && request.method === 'POST') {
+        const res = await bulkAssignType(request, env);
+        return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
+      }
+      // 배치 롤백 (미리보기 → confirm, soft 우선).
+      if (url.pathname === '/api/user-items/rollback-batch' && request.method === 'POST') {
+        const res = await rollbackBatch(request, env);
         return json(request, env, res, res.status || (res.ok ? 200 : 400), requestId, startedAt);
       }
 
@@ -368,12 +383,13 @@ async function itemAdd(request, env) {
 async function itemList(request, env, url) {
   const bad = axisAuth(request, env); if (bad) return bad;
   if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
-  let unitId = null, status = null, limit = 200;
-  if (request.method === 'GET') { unitId = url.searchParams.get('unit_id'); status = url.searchParams.get('status'); }
-  else { const b = await safeJson(request).catch(() => ({})); unitId = b && b.unit_id; status = b && b.status; if (b && b.limit) limit = Math.min(1000, Number(b.limit) || 200); }
+  let unitId = null, status = null, bulkBatchId = null, limit = 200;
+  if (request.method === 'GET') { unitId = url.searchParams.get('unit_id'); status = url.searchParams.get('status'); bulkBatchId = url.searchParams.get('bulk_batch_id'); }
+  else { const b = await safeJson(request).catch(() => ({})); unitId = b && b.unit_id; status = b && b.status; bulkBatchId = b && b.bulk_batch_id; if (b && b.limit) limit = Math.min(1000, Number(b.limit) || 200); }
   let sql = 'SELECT * FROM user_items'; const cond = [], args = [];
   if (unitId) { cond.push(`unit_id=?${args.length + 1}`); args.push(unitId); }
   if (status) { cond.push(`status=?${args.length + 1}`); args.push(status); }
+  if (bulkBatchId) { cond.push(`bulk_batch_id=?${args.length + 1}`); args.push(bulkBatchId); }
   if (cond.length) sql += ' WHERE ' + cond.join(' AND ');
   sql += ` ORDER BY created_at DESC LIMIT ${limit}`;
   const rows = ((await env.AXIS_DB.prepare(sql).bind(...args).all()).results) || [];
@@ -492,6 +508,137 @@ async function itemBackfillHashes(request, env) {
     }
   }
   return { ok: true, norm_version: QNORM_VERSION, candidates: rows.length, updated, skipped_empty, conflicts };
+}
+
+// bigram Dice (근접중복 감사). ocr_measure/match_lab와 동일 알고리즘.
+function diceBigram(a, b) {
+  function bg(s) { const m = {}; for (let i = 0; i < s.length - 1; i++) { const g = s.slice(i, i + 2); m[g] = (m[g] || 0) + 1; } return m; }
+  const ca = bg(a), cb = bg(b); let na = 0, nb = 0, ic = 0;
+  for (const k in ca) na += ca[k]; for (const k in cb) nb += cb[k];
+  for (const k in ca) ic += Math.min(ca[k], cb[k] || 0);
+  return (na + nb) ? 2 * ic / (na + nb) : 0;
+}
+
+// ── /add-bulk: 대량 투입 (skip-only 멱등·dry_run). spec v2.r3 §11. (d): GPT 유형 미배정→전건 pending ──
+async function itemAddBulk(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  const sc = qnormSelfCheckCached();  // ★계산경로 self-check 차단(루프 진입 전 1회)
+  if (!sc.pass) return { ok: false, code: 'qnorm_selfcheck_fail', error: 'qnorm.v1 self-check 실패 — 배치 전체 저장 차단', detail: sc, status: 500 };
+  const body = await safeJson(request).catch(() => null);
+  if (!body || !Array.isArray(body.items)) return { ok: false, code: 'bad_input', error: 'items 배열 필수', status: 400 };
+  const dryRun = body.dry_run === true;
+  const batch = body.batch || {};
+  const batchUnit = String(batch.unit_id || '').trim();
+  const orgId = (String(batch.org_id || '').trim()) || 'SCSTUDY';
+  const bulkBatchId = String(batch.bulk_batch_id || '').trim() || null;
+  const now = new Date().toISOString();
+  const batchProv = batch.provenance || { ingest: 'bulk', at: now };
+
+  const inserted_items = [], skipped_items = [], failed = [], would_pending = []; let would_approved = 0, insertedPending = 0;
+  const dedupGroups = {};   // dedup_key -> [question_no]
+  const nearItems = [];     // {question_no, unit_id, qn}
+
+  for (let i = 0; i < body.items.length; i++) {
+    const it = body.items[i] || {};
+    const qno = String(it.question_no || '').trim();
+    const unitId = (String(it.unit_id || '').trim()) || batchUnit;
+    const qt = String(it.question_text || '').trim();
+    if (!qno) { failed.push({ index: i, question_no: qno, reason: 'question_no 없음' }); continue; }
+    if (!unitId) { failed.push({ index: i, question_no: qno, reason: 'unit_id 없음' }); continue; }
+    if (!qt) { failed.push({ index: i, question_no: qno, reason: 'question_text 없음' }); continue; }
+    const qn = qnormV1(qt);
+    if (qn === '') { failed.push({ index: i, question_no: qno, reason: 'qnorm 결과 빈 문자열' }); continue; }
+    const hashes = await computeItemHashes({ question_text: qt, unit_id: unitId, problem_type_id: it.problem_type_id, answer: it.answer, explanation: it.explanation, difficulty: it.difficulty });
+    const hasType = String(it.problem_type_id || '').trim().length > 0;
+    const status = hasType ? 'approved' : 'pending';
+    nearItems.push({ question_no: qno, unit_id: unitId, qn });
+    (dedupGroups[hashes.dedup_key] = dedupGroups[hashes.dedup_key] || []).push(qno);
+
+    if (dryRun) {
+      const ex = await env.AXIS_DB.prepare('SELECT id, status FROM user_items WHERE content_hash=?1').bind(hashes.content_hash).first();
+      if (ex) skipped_items.push({ question_no: qno, existing_id: ex.id, existing_pending: ex.status === 'pending' });
+      else if (hasType) would_approved++; else would_pending.push({ question_no: qno, reason: 'problem_type_id 미지정' });
+      continue;
+    }
+    const id = crypto.randomUUID();
+    const srcText = (typeof it.source_text === 'string' && it.source_text.trim()) ? it.source_text.trim() : null;
+    const prov = axisJson([Object.assign({}, batchProv, { bulk_batch_id: bulkBatchId })]);  // append-ready 배열
+    const diff = ['basic', 'core', 'advanced', 'high'].includes(String(it.difficulty)) ? it.difficulty : 'core';
+    const res = await env.AXIS_DB.prepare(
+      `INSERT INTO user_items (id, created_at, updated_at, status, unit_id, unit_name, problem_type_id, type_name, concept_ids, question_text, answer, explanation, difficulty, error_tags, source_note, source_text, provenance, org_id, bulk_batch_id, content_hash, dedup_key, dedup_key_norm_version)
+       VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20,?21,?22)
+       ON CONFLICT(content_hash) DO NOTHING`
+    ).bind(id, now, now, status, unitId, String(it.unit_name || ''), String(it.problem_type_id || ''), String(it.type_name || ''),
+      axisJson([]), qt, String(it.answer || ''), String(it.explanation || ''), diff, axisJson(it.error_tags || []), String(it.source_note || ''),
+      srcText, prov, orgId, bulkBatchId, hashes.content_hash, hashes.dedup_key, QNORM_VERSION).run();
+    if (res && res.meta && res.meta.changes) {
+      inserted_items.push({ question_no: qno, id }); if (status === 'pending') insertedPending++;
+    } else {
+      const ex = await env.AXIS_DB.prepare('SELECT id, status FROM user_items WHERE content_hash=?1').bind(hashes.content_hash).first();
+      skipped_items.push({ question_no: qno, existing_id: ex ? ex.id : null, existing_pending: ex ? (ex.status === 'pending') : null });
+    }
+  }
+
+  const duplicate_body_warnings = [];
+  for (const k in dedupGroups) if (dedupGroups[k].length > 1) duplicate_body_warnings.push({ dedup_key: String(k).slice(0, 12), question_no: dedupGroups[k] });
+  const near_duplicate_warnings = []; let near_capped = false;
+  if (nearItems.length <= 300) {
+    for (let a = 0; a < nearItems.length; a++) for (let b = a + 1; b < nearItems.length; b++) {
+      if (nearItems[a].unit_id !== nearItems[b].unit_id) continue;
+      const sim = diceBigram(nearItems[a].qn, nearItems[b].qn);
+      if (sim >= 0.99 && sim < 1.0) near_duplicate_warnings.push({ question_no: [nearItems[a].question_no, nearItems[b].question_no], sim: Math.round(sim * 1000) / 1000 });
+    }
+  } else near_capped = true;
+
+  if (dryRun) return { ok: true, dry_run: true, count: body.items.length, would_approved, would_pending, would_skipped_dup: skipped_items.length, skipped_items, duplicate_body_warnings, near_duplicate_warnings, near_capped, failed };
+  return { ok: true, worker_version: VERSION, bulk_batch_id: bulkBatchId, count: body.items.length, inserted: inserted_items.length, skipped_dup: skipped_items.length, pending: insertedPending, inserted_items, skipped_items, duplicate_body_warnings, near_duplicate_warnings, near_capped, failed };
+}
+
+// ── /bulk-assign-type: pending 문항에 유형 일괄 지정 (id 기준). content_hash 재계산·UNIQUE 충돌 목록보고 ──
+async function bulkAssignType(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  const sc = qnormSelfCheckCached();
+  if (!sc.pass) return { ok: false, code: 'qnorm_selfcheck_fail', error: 'qnorm.v1 self-check 실패 — 저장 차단', detail: sc, status: 500 };
+  const body = await safeJson(request).catch(() => null);
+  if (!body) return { ok: false, code: 'bad_input', error: '입력 없음', status: 400 };
+  let assigns = [];
+  if (Array.isArray(body.assignments)) assigns = body.assignments.map(a => ({ id: String((a && a.id) || ''), problem_type_id: String((a && a.problem_type_id) || '') }));
+  else if (Array.isArray(body.ids) && body.problem_type_id) assigns = body.ids.map(id => ({ id: String(id), problem_type_id: String(body.problem_type_id) }));
+  else return { ok: false, code: 'bad_input', error: 'assignments[{id,problem_type_id}] 또는 (ids[]+problem_type_id) 필요', status: 400 };
+  const now = new Date().toISOString();
+  const updated = [], conflicts = [], notfound = [];
+  for (const a of assigns) {
+    if (!a.id || !a.problem_type_id) { notfound.push({ id: a.id, reason: 'id·problem_type_id 필수' }); continue; }
+    const row = await env.AXIS_DB.prepare('SELECT * FROM user_items WHERE id=?1').bind(a.id).first();
+    if (!row) { notfound.push({ id: a.id, reason: '행 없음' }); continue; }
+    const h = await computeItemHashes({ question_text: row.question_text, unit_id: row.unit_id, problem_type_id: a.problem_type_id, answer: row.answer, explanation: row.explanation, difficulty: row.difficulty });
+    try {
+      await env.AXIS_DB.prepare('UPDATE user_items SET problem_type_id=?1, status=?2, content_hash=?3, dedup_key=?4, dedup_key_norm_version=?5, updated_at=?6 WHERE id=?7')
+        .bind(a.problem_type_id, 'approved', h.content_hash, h.dedup_key, QNORM_VERSION, now, a.id).run();
+      updated.push({ id: a.id, problem_type_id: a.problem_type_id });
+    } catch (e) {
+      // content_hash UNIQUE 충돌(승격 후 기존 approved와 동일내용) → 실패 말고 목록보고. 해당 행 미승격 유지.
+      conflicts.push({ id: a.id, problem_type_id: a.problem_type_id, content_hash: h.content_hash, error: (e && e.message) || String(e) });
+    }
+  }
+  return { ok: true, updated, conflicts, notfound, count: assigns.length };
+}
+
+// ── /rollback-batch: 배치 단위 롤백. 미리보기 → confirm. soft-delete(archived) 우선, hard 별도 플래그 ──
+async function rollbackBatch(request, env) {
+  const bad = axisAuth(request, env); if (bad) return bad;
+  if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
+  const b = await safeJson(request).catch(() => null);
+  const bid = b && String(b.bulk_batch_id || '').trim();
+  if (!bid) return { ok: false, code: 'bad_input', error: 'bulk_batch_id 필수', status: 400 };
+  const cnt = (await env.AXIS_DB.prepare('SELECT COUNT(*) AS c FROM user_items WHERE bulk_batch_id=?1').bind(bid).first() || {}).c || 0;
+  if (!b.confirm) return { ok: true, preview: true, bulk_batch_id: bid, count: cnt, note: 'confirm=true로 실행. 기본 soft-delete(archived, 복구가능), hard=true면 완전삭제.' };
+  const now = new Date().toISOString();
+  if (b.hard === true) { await env.AXIS_DB.prepare('DELETE FROM user_items WHERE bulk_batch_id=?1').bind(bid).run(); return { ok: true, bulk_batch_id: bid, count: cnt, action: 'hard_delete' }; }
+  await env.AXIS_DB.prepare('UPDATE user_items SET status=?1, updated_at=?2 WHERE bulk_batch_id=?3').bind('archived', now, bid).run();
+  return { ok: true, bulk_batch_id: bid, count: cnt, action: 'soft_archive' };
 }
 
 function isFile(value) {
