@@ -51,6 +51,11 @@
 - **backfill 대상 = 2건**(admin_items.html: approved 2/pending 0/archived 0). 0건 아님 → 필요.
 - **org_id**: 기존 2건 사용자 기관 값으로 채움(검수 권고, NULL 금지). ★기관 식별자 문자열 = **사용자 확인 대기**.
 - **SQL 원문 = `public/math-weakness-engine/data/db/user_items.schema.v3.1.sql`**(작성 완료).
+- **★해시 구성 정본(검수 확정 2026-08-14 — 구현 시 그대로 사용, 재논의 금지)**:
+  - `dedup_key`(탐지키·NON-UNIQUE) = `qnorm(question_text) | unit_id` 해시.
+  - `content_hash`(멱등키·UNIQUE) = `sha256( qnorm(question_text) | unit_id | problem_type_id | answer | explanation | difficulty )`.
+  - `problem_type_id`(content_hash 내) = 등록시 admin 지정값(안정) — 진단 stage-2 붕괴유형과 무관. dedup_key type 제외와 상충 아님(탐지=본문단위/멱등=전체레코드단위, 목적 분리).
+  - `qnorm` = canonical qnorm.v1(매칭과 동일). `dedup_key_norm_version`에 `'qnorm.v1'` 각인.
 
 ### ★ 코드확인 발견 — backfill 실행 방식 정정 (Code탭 2026-08-14)
 - 워커(`math_diagnosis_worker.js`) 전체에 `qnorm`/`normalize`/`sha256`/`crypto.subtle.digest` **부재**. `itemAdd`(323)는 v2 15컬럼만 INSERT. **qnorm.v1 정규화·해시가 아직 코드에 없음**(매칭·bulk 미구현).

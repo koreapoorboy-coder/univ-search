@@ -5,7 +5,18 @@
 -- 실제 기반: user_items.schema.v2.sql(라이브 15컬럼) 위에 가산. 전부 nullable = 기존 2행 무손실.
 -- 실행 주체: 사용자가 D1(scstudy-axis, AXIS_DB) 콘솔에서 1회 실행. Code탭은 원문 제공만(인계문 §7).
 -- ★ALTER ADD COLUMN 은 SQLite에서 IF NOT EXISTS 미지원 → 1회만 실행.
---   재실행 시 "duplicate column name" 에러 = 이미 적용됨 신호(무해, 무시).
+--   ★STEP1 의 ALTER 7개는 한 줄씩 실행(중간 실패 시 어디까지 됐는지 확인 가능).
+--   재실행 시 "duplicate column name" 에러 = 이미 적용됨 신호(무해, 무시하고 다음 줄).
+--
+-- ══════════════════════════════════════════════════════════════════
+-- ★ 정규화·해시 구성 (구현 정본 — qnorm.v1 정의 시 아래 구성을 그대로 쓸 것) ★
+--   검수 확정 2026-08-14. 여기 박아둠 = 구현 시 재논의 방지.
+--   dedup_key(탐지키, NON-UNIQUE)  = qnorm(question_text) | unit_id                                 를 해시
+--   content_hash(멱등키, UNIQUE)   = sha256( qnorm(question_text) | unit_id | problem_type_id | answer | explanation | difficulty )
+--     ※ content_hash 의 problem_type_id = 등록시 admin 지정값(안정). 진단 stage-2 붕괴유형(90% 흔들림)과 무관.
+--     ※ dedup_key 가 type 제외인 이유와 상충 아님 — 탐지키는 본문 단위(경고), 멱등키는 전체레코드 단위(재투입 차단). 목적 분리(옵션 C).
+--   qnorm = canonical qnorm.v1(매칭과 동일 함수). dedup_key_norm_version 에 'qnorm.v1' 각인.
+-- ══════════════════════════════════════════════════════════════════
 
 -- ══════════════════════════════════════════════════════════════════
 -- STEP 0 — 실행 전 백업 (읽기전용). 결과를 텍스트로 복사·보존할 것.
@@ -22,7 +33,7 @@ ALTER TABLE user_items ADD COLUMN dedup_key              TEXT;   -- 탐지키(NO
 ALTER TABLE user_items ADD COLUMN dedup_key_norm_version TEXT;   -- 차단3: dedup_key/content_hash 계산에 쓴 정규화 버전(=qnorm.v1). 규칙 변경 시 대상 재생성.
 ALTER TABLE user_items ADD COLUMN org_id                 TEXT;   -- 비소급: 출처 기관. 매칭 미참조·집계 미사용(출처 표시만). 기관 통합 확정(2026-08-13).
 ALTER TABLE user_items ADD COLUMN bulk_batch_id          TEXT;   -- 비소급: 대량투입 배치 식별(배치 롤백 대상 특정). 판정1(2026-08-13).
-ALTER TABLE user_items ADD COLUMN content_hash           TEXT;   -- 멱등키(UNIQUE): 전체내용 해시. 동일 문항 재투입 차단(ON CONFLICT).
+ALTER TABLE user_items ADD COLUMN content_hash           TEXT;   -- 멱등키(UNIQUE): 전체내용 해시(구성=상단 정규화·해시 블록). 동일 문항 재투입 차단(ON CONFLICT).
 
 -- ══════════════════════════════════════════════════════════════════
 -- STEP 2 — 인덱스. content_hash 만 UNIQUE. dedup_key 는 NON-UNIQUE.
@@ -36,9 +47,9 @@ CREATE INDEX        IF NOT EXISTS idx_ui_batch  ON user_items(bulk_batch_id); --
 -- ══════════════════════════════════════════════════════════════════
 -- STEP 3 — backfill (기존 2행)
 -- ══════════════════════════════════════════════════════════════════
--- 3a. org_id — 콘솔에서 실행 가능(해시 불요). ★기관 식별자 문자열 확정 후 <ORG> 치환.
---     검수 권고: NULL 로 두지 말고 사용자 기관 값으로 채울 것(지금 2건뿐, 비용 0).
--- UPDATE user_items SET org_id = '<ORG>' WHERE org_id IS NULL;
+-- 3a. org_id — 콘솔에서 실행 가능(해시 불요). ★기관 식별자 = 'SCSTUDY'(사용자 확정 2026-08-14).
+--     검수 권고: NULL 로 두지 말고 사용자 기관 값으로 채움(지금 2건뿐, 비용 0).
+UPDATE user_items SET org_id = 'SCSTUDY' WHERE org_id IS NULL;
 
 -- 3b. content_hash / dedup_key / dedup_key_norm_version — ★콘솔 SQL로 채울 수 없음(보류).
 --     이유(코드 확인, 워커 math_diagnosis_worker.js):
