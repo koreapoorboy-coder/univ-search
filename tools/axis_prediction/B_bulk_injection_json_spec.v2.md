@@ -74,7 +74,7 @@
 - ★근접중복 감사(§7)를 **dry-run에 포함**(검수 권고 B): 투입 전에 유형 내 0.99≤sim<1.0 쌍을 알 수 있음.
 
 ## 6. 유형 배정 = 3단 구조 + pending 후처리 (★검수 2026-08-14 · /add-bulk와 **동시** 구축)
-GPT는 유형을 정하지 않음((d), [[B_gpt_item_registration_spec.v1.md]]) → **투입 시 전건 pending이 정상.** 유형은 아래 3단으로 붙는다:
+GPT는 유형을 정하지 않음((d), [[B_gpt_item_registration_spec.v2.md]]) → **투입 시 전건 pending이 정상.** 유형은 아래 3단으로 붙는다:
 ```
 1단 GPT     본문 정확 전사 + source_note "유형후보: <설명>". problem_type_id 없음.
 2단 검수     GPT JSON + 단원 카탈로그 축약본(problem_type_id·type_name) 기계 대조 →
@@ -86,13 +86,14 @@ GPT는 유형을 정하지 않음((d), [[B_gpt_item_registration_spec.v1.md]]) �
 **후처리 요건(강화 — 없으면 (d)가 사용자 부담으로 무너짐)**:
 1. **조회** — admin `status='pending'` 필터 + **`bulk_batch_id` 필터**(배치별 미확정 파악). `/api/user-items/list`에 bulk_batch_id 파라미터 추가. ★목록에 **`source_note`의 `유형후보:` 표시**(사람이 그걸 보고 판단).
 2. **일괄 유형 지정** — 신규 `POST /api/user-items/bulk-assign-type`(X-Write-Key). ★**두 입력 방식**:
-   - **파일 업로드**: 검수가 만든 확정 JSON `[{ "question_no":"12", "problem_type_id":"M2_GEOM_PT041" }, …]` 업로드 → 버튼 1회 일괄 반영. ★행 식별키 = **`bulk_batch_id` + `question_no`**(배치 간 question_no 중복 방지) 또는 `id`. 구현 시 확정.
+   - **파일 업로드**: 검수가 만든 확정 JSON `[{ "id":"<uuid>", "problem_type_id":"M2_GEOM_PT041" }, …]` 업로드 → 버튼 1회 일괄 반영. ★**행 식별키 = `id`(검수 확정 2026-08-14)**. `bulk_batch_id+question_no`는 기각(question_no는 PDF 번호라 배치 내 중복 가능 — 같은 학습지 2파일 분할 시 1번이 둘 · §번호배제 원칙과 일관). id는 서버 uuid로 유일. → **검수가 2단 산출물을 만들려면 각 행의 id를 알아야 함 → 투입 응답(§10)에 `inserted_items:[{question_no,id}]` 필수**(없으면 3단 성립 불가).
    - **화면 직접 선택**: 같은 유형후보 문항을 묶어 여러 건 선택 → 유형 지정(소수 건·보류분용). ★유형 선택 UI에 **검색 필터 필수**(448종 드롭다운 스크롤 불가). ★**같은 `유형후보:`끼리 묶어 표시**(비슷한 것 한 번에).
    - 승격 시 content_hash/dedup_key 재계산(problem_type_id가 구성요소). ★**재계산 UNIQUE 충돌 → 실패 말고 conflicts 목록 보고**(§6-2 기존, 미승격 유지·사용자 판단).
 3. **진행률** — 배치별 **"미지정 N건 남음"** + 전체 pending/처리 수(줄어드는 게 보여야 작업 지속). list counts 재사용.
 4. **dry-run would_pending 목록**(§5, question_no 포함) — 투입 전 예측.
 
-★**2단용 카탈로그 축약본**: 검수는 D1·리포 접근 없음 → Code탭이 `problem_type_id`+`type_name` 2필드만 뽑은 단원별 축약 카탈로그를 전달(448종 원본은 큼). 축약 스크립트 = `scratchpad`/재사용(단원 인자).
+★**2단용 카탈로그 축약본**: 검수는 D1·리포 접근 없음 → Code탭이 `problem_type_id`+`type_name` 2필드만 뽑은 단원별 축약 카탈로그를 전달. 스크립트 = `tools/axis_prediction/make_catalog_short.ps1`(ASCII·단원 인자·재사용), 산출 = `data/problem_types_short/<UNIT>.catalog_short.v1.json`(39단원 생성됨).
+- ★**2단 대조 감안**(검수 관찰 2026-08-14): `type_name`이 두 계열 혼재 — **오류 서술형**("동위각과 엇각 혼동", 무접미 ~46종) vs **유형 서술형**("…-조건 적용", 접미). GPT 유형후보는 "무엇을 묻는가"로 오는데 무접미 46종은 "무엇을 틀리는가"로 적혀 매칭 난이도↑. 2단 대조 시 무접미 계열을 별도 취급(지금 조치 불요).
 
 ## 7. 근접중복 감사 (실행 = dry-run 포함 · 투입후 재실행 선택)
 - **유형 내 0.99 ≤ sim < 1.0** 쌍 감사 — content_hash는 달라 통과했으나 본문 매우 유사(표기 drift·숫자만 다른 동일유형). 매칭 미매칭률↑ 소지 → `near_duplicate_warnings` 목록(차단 아님).
@@ -112,12 +113,15 @@ GPT는 유형을 정하지 않음((d), [[B_gpt_item_registration_spec.v1.md]]) �
 ## 10. 응답 (부분실패 표 — skip-only)
 ```json
 { "ok": true, "worker_version": "<VER>", "bulk_batch_id": "SCSTUDY-2026-08-14-qfunc-01",
-  "count": 513, "inserted": 480, "skipped_dup": 30, "pending": 3,
+  "count": 513, "inserted": 480, "skipped_dup": 30, "pending": 480,
+  "inserted_items": [ { "question_no": "1", "id": "<uuid>" }, { "question_no": "2", "id": "<uuid>" } ],
   "duplicate_body_warnings": [ { "dedup_key": "8942…", "ids": ["...","..."], "question_no": ["12","47"] } ],
   "near_duplicate_warnings": [ { "question_no": ["7","41"], "sim": 0.994 } ],
   "failed": [ { "index": 17, "question_no": "18", "reason": "unit_id 없음" } ] }
 ```
-- ★필드: `inserted`·`skipped_dup`·`pending`·`failed` (updated 없음) + warnings 2종. **duplicate_body_warnings·near_duplicate_warnings 반드시 노출**.
+- ★**`inserted_items:[{question_no,id}]` 필수**(검수 확정 2026-08-14) — 신규 삽입된 각 행의 서버 uuid를 question_no와 함께 반환. **검수 2단이 question_no↔id를 매핑해 확정 JSON(id 기준)을 만드는 근거. 없으면 3단 성립 불가.** (skipped_dup 행은 기존 id가 있으므로 필요 시 별도 조회; 신규분만 필수.)
+- ★(d) 구조에선 GPT가 유형 미배정 → 대개 **`pending`이 `inserted`와 같은 규모**(전건 pending). `inserted`=신규 저장 수, `pending`=그중 유형 없는 수.
+- ★필드: `inserted`·`skipped_dup`·`pending`·`inserted_items`·`failed` (updated 없음) + warnings 2종. **duplicate_body_warnings·near_duplicate_warnings 반드시 노출**.
 - admin 화면: 성공/중복스킵/pending/**실패목록+사유 표** + warning 목록 + **pending 후처리로 이동(§6)**. 롤백보다 재실행(멱등) 우선.
 
 ## 11. 서버 처리 순서 (구현 메모)
