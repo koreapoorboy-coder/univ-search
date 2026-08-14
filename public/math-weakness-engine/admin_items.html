@@ -90,9 +90,47 @@
     <button class="mini" data-f="pending">보류(pending)만</button>
     <button class="mini" data-f="approved">승인만</button>
     <label class="small" style="margin:0"><input type="checkbox" id="filterUnit" style="width:auto;display:inline"> 현재 단원만</label>
+    <input id="batchFilter" placeholder="bulk_batch_id 필터(선택)" style="width:auto;flex:1;min-width:160px" />
     <span id="listStatus" class="muted"></span>
   </div>
   <div id="list"></div>
+</div>
+
+<div class="card">
+  <h2>4) 대량 투입 (JSON) <span class="muted small">— spec v2 형식 · GPT 산출물</span></h2>
+  <p class="muted small">batch+items JSON을 붙여넣거나 파일 선택. <b>먼저 [dry-run]</b>으로 예측 확인 후 [실투입]. 유형 없는 문항은 pending 저장 → 아래 3단 후처리.</p>
+  <textarea id="bulkJson" placeholder='{ "batch": { "unit_id":"...", "bulk_batch_id":"..." }, "items": [ ... ] }' style="min-height:120px;font-family:monospace"></textarea>
+  <div class="row">
+    <input type="file" id="bulkFile" accept=".json,application/json" style="width:auto" />
+    <button class="sec" id="bulkDryBtn">dry-run(예측)</button>
+    <button id="bulkRunBtn">실투입 →</button>
+    <span id="bulkStatus" class="muted"></span>
+  </div>
+  <div id="bulkResult"></div>
+</div>
+
+<div class="card">
+  <h2>5) 유형 일괄 지정 (검수 확정 파일) <span class="muted small">— 3단: 검수 산출 JSON 업로드</span></h2>
+  <p class="muted small">검수가 만든 <code>[{ "id":"…", "problem_type_id":"…" }, …]</code> 파일 업로드 → 버튼 1회로 pending→approved 일괄 승격. (소수 건은 위 목록에서 행별 [유형지정].) ★UNIQUE 충돌 건은 목록으로 표시(미승격 유지).</p>
+  <div class="row">
+    <input type="file" id="assignFile" accept=".json,application/json" style="width:auto" />
+    <button id="assignBtn">유형 일괄 지정 →</button>
+    <span id="assignStatus" class="muted"></span>
+  </div>
+  <div id="assignResult"></div>
+</div>
+
+<div class="card" style="border:1px dashed #fca5a5">
+  <h2 class="muted" style="font-size:15px">배치 롤백 <span class="muted small">(잘못 투입한 배치 되돌리기)</span></h2>
+  <p class="muted small">bulk_batch_id로 대상 확인 → <b>보관(archived, 복구가능)</b> 또는 완전삭제. 먼저 [미리보기]로 건수 확인.</p>
+  <div class="row">
+    <input id="rbBatch" placeholder="bulk_batch_id" style="width:auto;flex:1;min-width:200px" />
+    <button class="sec" id="rbPreviewBtn">미리보기</button>
+    <button class="sec" id="rbSoftBtn">보관(soft)</button>
+    <button class="danger" id="rbHardBtn">완전삭제(hard)</button>
+    <span id="rbStatus" class="muted"></span>
+  </div>
+  <div id="rbResult"></div>
 </div>
 
 <div class="card" style="border:1px dashed #cbd5e1">
@@ -229,7 +267,8 @@ async function editItem(it){
 
 async function loadList(){
   const c=cfg(); if(!c.worker||!c.wkey){$('#listStatus').textContent=' 설정 먼저.';return;}
-  const body={limit:300}; if(FILTER) body.status=FILTER; if($('#filterUnit').checked && $('#unit').value) body.unit_id=$('#unit').value;
+  const body={limit:500}; if(FILTER) body.status=FILTER; if($('#filterUnit').checked && $('#unit').value) body.unit_id=$('#unit').value;
+  const bf=($('#batchFilter')&&$('#batchFilter').value.trim()); if(bf) body.bulk_batch_id=bf;
   $('#listStatus').textContent=' 불러오는 중...';
   try{
     const j=await (await fetch(`${c.worker}/api/user-items/list`,{method:'POST',headers:headers(),body:JSON.stringify(body)})).json();
@@ -237,9 +276,10 @@ async function loadList(){
     const ct=j.counts||{}; const pend=ct.pending||0;
     $('#counts').innerHTML=`<span class="badge b-app">승인 ${ct.approved||0}</span><span class="badge ${pend>0?'pendhi':'b-pend'}">보류 ${pend}</span><span class="badge b-arch">보관 ${ct.archived||0}</span>`;
     $('#listStatus').textContent=` 표시 ${j.count} · 전체 ${j.total}${FILTER?` · 필터:${FILTER}`:''}`;
-    const rows=(j.items||[]).map(it=>`<tr>
+    const hintOf=it=>{ const m=(it.source_note||'').split('|').map(s=>s.trim()).find(s=>s.startsWith('유형후보:')); return m?`<div class="small" style="color:#7c3aed">${esc(m)}</div>`:''; };
+    const rows=(j.items||[]).map(it=>`<tr title="id=${esc(it.id)}">
       <td>${esc((it.created_at||'').slice(0,10))}</td><td class="st-${esc(it.status)}">${esc(it.status)}</td>
-      <td>${esc(it.unit_name||it.unit_id)}</td><td>${esc(it.type_name||it.problem_type_id)||'<span class=muted>(미지정)</span>'}</td>
+      <td>${esc(it.unit_name||it.unit_id)}</td><td>${esc(it.type_name||it.problem_type_id)||'<span class=muted>(미지정)</span>'}${it.status==='pending'?hintOf(it):''}</td>
       <td>${esc((it.question_text||'').slice(0,54))}${(it.question_text||'').length>54?'…':''}</td>
       <td><button class="mini edit" data-id="${esc(it.id)}">${it.status==='pending'?'유형지정':'수정'}</button><button class="danger del" data-id="${esc(it.id)}">삭제</button></td></tr>`).join('');
     $('#list').innerHTML=`<table><tr><th>등록일</th><th>상태</th><th>단원</th><th>유형</th><th>본문(앞)</th><th></th></tr>${rows||'<tr><td colspan=6 class=muted>없음</td></tr>'}</table>`;
@@ -254,6 +294,83 @@ async function loadList(){
 }
 $('#listBtn').onclick = loadList;
 document.querySelectorAll('button.mini[data-f]').forEach(b=>b.onclick=()=>{ FILTER=b.getAttribute('data-f'); loadList(); });
+
+// ── 대량 투입 (JSON) — dry-run / 실투입 ──
+async function readBulkJson(){
+  const f=$('#bulkFile').files[0];
+  const txt=f? await f.text() : $('#bulkJson').value.trim();
+  if(!txt) throw new Error('JSON 없음(붙여넣기 또는 파일)');
+  return JSON.parse(txt);
+}
+function renderBulkResult(j,dry){
+  if(!j.ok){ $('#bulkResult').innerHTML=`<div class="preview" style="border-color:#c00;color:#b91c1c"><b>실패:</b> <code>${esc(j.code||'')}</code> — ${esc(j.error||'')}${j.detail?'<br><span class=small>'+esc(JSON.stringify(j.detail))+'</span>':''}</div>`; return; }
+  const dbw=j.duplicate_body_warnings||[], ndw=j.near_duplicate_warnings||[], fl=j.failed||[], si=j.skipped_items||[];
+  let h=`<div class="preview">`;
+  if(dry) h+=`<b>dry-run(예측)</b> — count ${j.count} · approved예상 ${j.would_approved} · pending예상 ${(j.would_pending||[]).length} · 중복스킵예상 ${j.would_skipped_dup}`;
+  else h+=`<b>실투입 완료</b> — count ${j.count} · <b>inserted ${j.inserted}</b> · skipped_dup ${j.skipped_dup} · pending ${j.pending} · batch <code>${esc(j.bulk_batch_id||'')}</code>`;
+  const wp=(j.would_pending||[]); if(dry&&wp.length) h+=`<div class="small" style="margin-top:6px">pending 예상 문항#: ${wp.slice(0,40).map(p=>esc(p.question_no)).join(', ')}${wp.length>40?' …':''}</div>`;
+  if(!dry&&(j.inserted_items||[]).length) h+=`<div class="small muted" style="margin-top:6px">inserted ${j.inserted_items.length}건 id 반환됨(검수 2단 대조 입력).</div>`;
+  if(si.length){ const sp=si.filter(s=>s.existing_pending); h+=`<div class="small" style="margin-top:6px">skipped_dup ${si.length}건${sp.length?` · 그중 기존 pending ${sp.length}건 = 2단 대상`:''}</div>`; }
+  if(dbw.length) h+=`<div class="small" style="margin-top:6px;color:#b45309"><b>중복본문 경고 ${dbw.length}</b>: ${dbw.slice(0,10).map(d=>'['+esc((d.question_no||[]).join(','))+']').join(' ')}</div>`;
+  if(ndw.length) h+=`<div class="small" style="margin-top:6px;color:#b45309"><b>근접중복 ${ndw.length}</b>: ${ndw.slice(0,10).map(d=>esc((d.question_no||[]).join('↔'))+'('+d.sim+')').join(' ')}</div>`;
+  if(j.near_capped) h+=`<div class="small" style="color:#b45309">※ 근접중복 감사 생략(300건 초과)</div>`;
+  if(fl.length) h+=`<div class="small" style="margin-top:6px;color:#b91c1c"><b>실패 ${fl.length}</b><br>${fl.slice(0,20).map(f=>'#'+esc(String(f.question_no!=null?f.question_no:f.index))+' '+esc(f.reason)).join('<br>')}</div>`;
+  h+=`</div>`; $('#bulkResult').innerHTML=h;
+}
+async function runBulk(dry){
+  const c=cfg(); if(!c.worker||!c.wkey){$('#bulkStatus').textContent=' 설정 먼저.';return;}
+  let payload; try{ payload=await readBulkJson(); }catch(e){ $('#bulkStatus').textContent=' JSON 오류: '+(e.message||e); return; }
+  if(!dry && !confirm('실투입합니다. content_hash 중복은 건너뜁니다(멱등). 진행할까요?')) return;
+  payload.dry_run=!!dry;
+  $('#bulkDryBtn').disabled=true;$('#bulkRunBtn').disabled=true;$('#bulkStatus').textContent=dry?' 예측 중...':' 투입 중...';
+  try{
+    const j=await (await fetch(`${c.worker}/api/user-items/add-bulk`,{method:'POST',headers:headers(),body:JSON.stringify(payload)})).json();
+    renderBulkResult(j,dry);
+    $('#bulkStatus').textContent=j.ok?(dry?' 예측 완료':' 투입 완료'):' 실패';
+    if(!dry&&j.ok) loadList();
+  }catch(e){ $('#bulkStatus').textContent=' 오류: '+(e.message||e); }
+  finally{ $('#bulkDryBtn').disabled=false;$('#bulkRunBtn').disabled=false; }
+}
+$('#bulkDryBtn').onclick=()=>runBulk(true);
+$('#bulkRunBtn').onclick=()=>runBulk(false);
+
+// ── 유형 일괄 지정 (검수 확정 파일 업로드) ──
+$('#assignBtn').onclick=async()=>{
+  const c=cfg(); if(!c.worker||!c.wkey){$('#assignStatus').textContent=' 설정 먼저.';return;}
+  const f=$('#assignFile').files[0]; if(!f){$('#assignStatus').textContent=' 파일 선택.';return;}
+  let arr; try{ arr=JSON.parse(await f.text()); if(!Array.isArray(arr)) throw new Error('배열이 아님'); }catch(e){ $('#assignStatus').textContent=' JSON 오류: '+(e.message||e); return; }
+  if(!confirm(arr.length+'건 유형 지정(승격)합니다. 진행할까요?')) return;
+  $('#assignBtn').disabled=true;$('#assignStatus').textContent=' 지정 중...';
+  try{
+    const j=await (await fetch(`${c.worker}/api/user-items/bulk-assign-type`,{method:'POST',headers:headers(),body:JSON.stringify({assignments:arr})})).json();
+    if(!j.ok){ $('#assignResult').innerHTML=`<div class="preview" style="border-color:#c00;color:#b91c1c">실패: ${esc(j.error||'')}</div>`; $('#assignStatus').textContent=' 실패'; return; }
+    const up=j.updated||[],cf=j.conflicts||[],nf=j.notfound||[];
+    let h=`<div class="preview"><b>완료</b> — updated ${up.length} · <b style="color:${cf.length?'#b91c1c':'#047857'}">conflicts ${cf.length}</b> · notfound ${nf.length}`;
+    if(cf.length) h+=`<div class="small" style="margin-top:6px;color:#b91c1c"><b>★ conflicts (미승격 유지)</b><br>${cf.map(x=>`<code>${esc(String(x.id).slice(0,8))}…</code> ${esc(x.problem_type_id)} ${esc(x.error||'')}`).join('<br>')}</div>`;
+    if(nf.length) h+=`<div class="small" style="margin-top:6px">notfound: ${nf.map(x=>esc(String(x.id).slice(0,8))+'…').join(', ')}</div>`;
+    h+=`</div>`; $('#assignResult').innerHTML=h; $('#assignStatus').textContent=` 완료 (updated ${up.length}, conflicts ${cf.length})`; loadList();
+  }catch(e){ $('#assignStatus').textContent=' 오류: '+(e.message||e); }
+  finally{ $('#assignBtn').disabled=false; }
+};
+
+// ── 배치 롤백 (미리보기 → 보관/삭제) ──
+async function rollback(mode){
+  const c=cfg(); if(!c.worker||!c.wkey){$('#rbStatus').textContent=' 설정 먼저.';return;}
+  const bid=$('#rbBatch').value.trim(); if(!bid){$('#rbStatus').textContent=' bulk_batch_id 입력.';return;}
+  const payload={bulk_batch_id:bid};
+  if(mode==='soft'){ if(!confirm('배치 '+bid+' 를 보관(archived)합니다. 복구 가능. 진행?'))return; payload.confirm=true; }
+  else if(mode==='hard'){ if(!confirm('배치 '+bid+' 를 완전삭제합니다. 복구 불가! 진행?'))return; payload.confirm=true; payload.hard=true; }
+  $('#rbStatus').textContent=' 처리 중...';
+  try{
+    const j=await (await fetch(`${c.worker}/api/user-items/rollback-batch`,{method:'POST',headers:headers(),body:JSON.stringify(payload)})).json();
+    if(!j.ok){ $('#rbResult').innerHTML=`<div class="preview" style="border-color:#c00;color:#b91c1c">실패: ${esc(j.error||'')}</div>`; $('#rbStatus').textContent=' 실패'; return; }
+    if(j.preview){ $('#rbResult').innerHTML=`<div class="preview">대상 <b>${j.count}</b>건. 보관 또는 완전삭제 선택.</div>`; $('#rbStatus').textContent=` 미리보기 (${j.count}건)`; }
+    else { $('#rbResult').innerHTML=`<div class="preview"><b>${esc(j.action)}</b> — ${j.count}건 처리.</div>`; $('#rbStatus').textContent=` 완료 (${esc(j.action)})`; loadList(); }
+  }catch(e){ $('#rbStatus').textContent=' 오류: '+(e.message||e); }
+}
+$('#rbPreviewBtn').onclick=()=>rollback('preview');
+$('#rbSoftBtn').onclick=()=>rollback('soft');
+$('#rbHardBtn').onclick=()=>rollback('hard');
 
 // ── 해시 backfill (관리자) — content_hash/dedup_key 채움. 멱등. self-check fail·conflicts 화면 표시 ──
 $('#backfillBtn').onclick = async () => {
