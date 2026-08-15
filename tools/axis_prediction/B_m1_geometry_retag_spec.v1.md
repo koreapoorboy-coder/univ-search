@@ -1,6 +1,7 @@
-# M1 기하 재태깅 명세 v1 — 리비전 r3 (GPT용) 2026-08-14
+# M1 기하 재태깅 명세 v1 — 리비전 r4 (GPT용) 2026-08-14
 
-> ★r3: tier-1 기대치 정정(overlay 36 = 사전중복 29 + 고유 7, 고유 대부분 M2전용 → M1 재사용 기대 낮음·실질풀 tier-2 45) + 단원별 순차·new_tags 이월(§11).
+> ★r4: 수치 정정 — overlay 36 = 사전중복 **30** + 고유 **6**(`law_selection_error`는 사전 §6 소속 = tier-2, overlay 고유 아님). tier 표 ~39→36.
+> ★r3: tier-1 기대치 정정(고유 대부분 M2전용 → M1 재사용 기대 낮음·실질풀 tier-2 45) + 단원별 순차·new_tags 이월(§11).
 > ★r2: SPEC v4 누락 3건 반영 — §3 정답률 판정 · §4 verification_scan · §5 tag_scope + 유형당 2~3개.
 > 대상: M1_BASIC_GEOMETRY(55)·M1_PLANE_GEOMETRY(54)·M1_SOLID_GEOMETRY(83) = **192유형**. 실태 = [[B_m1_geometry_retag_audit.v1.md]].
 > 성격: **예측층 재태깅**. ★관측 대조·predicted_observed_gaps 수집 안 함(실사용에서). SPEC_tagging_v4 계승 + [[TAG_DICTIONARY_v2.md]](163종).
@@ -15,10 +16,10 @@
 ## 1. 태그 소스 우선순위 (★이 순서로 조회 후 신설)
 | tier | 소스 | 규모 |
 |---|---|---|
-| **1** | `axis_map/m2_geometry_properties.pt_fine_error_tags.v1.json`(M2_GEOM overlay) | ~39 도형 오류태그(각대응·이등변·각추론) |
+| **1** | `axis_map/m2_geometry_properties.pt_fine_error_tags.v1.json`(M2_GEOM overlay) | 36 도형 오류태그(각대응·이등변·각추론) |
 | **2** | 사전 v2 **§1 범용 13** + **§2 도형공통 32** = **45** | 사전이 "§2를 가장 꼼꼼히" |
 | **3** | **신설**(M1 고유) | 작도·전개도·겨냥도·위치관계·다면체 |
-- ★**tier-1 실질 기대치(정정 r3)**: overlay 36 중 **29종은 사전 v2 중복**(tier-2로도 조회됨). **고유 7종은 대부분 M2 전용**(외심 `circumcenter_*`·내심 `incenter_*`·평행사변형 `parallelogram_condition_converse_failure`·사각형포함 `quadrilateral_hierarchy_classification_failure`·합동 `triangle_congruence_condition_selection_failure`·`law_selection_error`) — **외심·내심·평행사변형·합동은 중2 과정이라 중1(M1)엔 거의 안 나옴** → **tier-1의 M1 재사용 기대는 사실상 0. 실질 재사용 풀 = tier-2 45종.** ★단 tier-1 파일은 **삭제 말 것**: M1에 합동 문항이 있으면 `triangle_congruence_condition_selection_failure`가 쓰임(기대 낮을 뿐 0 아님). tier-1 재사용 0은 **정상 신호**(경보 아님).
+- ★**tier-1 실질 기대치(정정 r4)**: overlay 36 중 **30종은 사전 v2 중복**(tier-2로도 조회됨). **고유 6종은 전부 M2 전용**(외심 `circumcenter_*`×2·내심 `incenter_*`·평행사변형 `parallelogram_condition_converse_failure`·사각형포함 `quadrilateral_hierarchy_classification_failure`·합동 `triangle_congruence_condition_selection_failure`) — **외심·내심·평행사변형·합동은 중2 과정이라 중1(M1)엔 거의 안 나옴** → **tier-1의 M1 재사용 기대는 사실상 0. 실질 재사용 풀 = tier-2 45종.** ★단 tier-1 파일은 **삭제 말 것**: M1에 합동 문항이 있으면 `triangle_congruence_condition_selection_failure`가 쓰임(기대 낮을 뿐 0 아님). tier-1 재사용 0은 **정상 신호**(경보 아님).
 - ★**단원 간 재사용**: **BASIC→PLANE→SOLID 순** 누적. 앞 단원 태그를 뒤 단원이 조회·재사용.
 
 ## 2. 신설 규칙 (v4 §2)
