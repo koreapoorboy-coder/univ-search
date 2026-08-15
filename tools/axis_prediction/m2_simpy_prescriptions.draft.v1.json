@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "unit_id": "M2_SIMILARITY_PYTHAGORAS",
+    "purpose": "닮음·피타고라스 87종 no_template 처방 저작(엔트리 신설). instruction_map 엔트리 0 → 신규 생성 후 part04 병합. M2_GEOM 140 기법 승계.",
+    "dict": "TAG_DICTIONARY_v2 (163종)",
+    "authoring_rule": "error_checkpoints[].error_code는 4-tier 조회: 1)자기 overlay fine_error_tags → 2)단원 overlay 87 → 3)dict v2 §5 닮음13+§2 도형공통32 → 4)신설(new_tags 보고). checkpoint 3~4 상한. concept_ids 미포함(런타임조인·엔진 미참조). source_orders/raw_section_id 미포함(카탈로그 부재). visible_path/taxonomy 단순형(strand=sub_strand=type_name).",
+    "reuse_priority": ["self_overlay_tags", "unit_overlay_87", "dict_v2_sim13_geomcommon32", "new"],
+    "observed_basis_true_types": "overlay 87/87 전건 태그보유(빈배열 0·총 279·평균 3.2) → observed_basis 전건 true",
+    "progress": { "authored": 6, "total": 87, "batch": "1 (무게중심)" },
+    "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + 보조(cp≤4·nonnull·ledger합). 롤링 백업.",
+    "category_ledger": { "무게중심·중선": ["M2_SIMPY_PT100","M2_SIMPY_PT101","M2_SIMPY_PT104","M2_SIMPY_PT105","M2_SIMPY_PT110","M2_SIMPY_PT111"] },
+    "new_tags": [],
+    "reuse_note": "무게중심 배치 6종: error_code 전부 tier-1(자기 overlay)에서 조회. 신설 0.",
+    "overlay_coverage_note": "87/87 (M2_GEOM 27/140 대비 완비). 처방 근거 전건 관측.",
+    "predicted_observed_gaps": [],
+    "gaps_criterion": "예측 유형어 regex 발화 vs overlay 관측. overlay 100%라 정확. A계열=전역부재, B계열=개념국소.",
+    "concept_map": { "무게중심 2:1 분할": ["M2_SIMPY_PT104","M2_SIMPY_PT105","M2_SIMPY_PT110","M2_SIMPY_PT111"], "중선과 넓이": ["M2_SIMPY_PT100","M2_SIMPY_PT101"] },
+    "waver_pairs": []
+  },
+  "prescriptions": {
+    "M2_SIMPY_PT100": {
+      "problem_nature": "삼각형에서 중선이 넓이를 어떻게 나누는지(중선은 넓이를 이등분, 무게중심은 6등분)를 판별하는 유형",
+      "required_thinking": ["중선의 정의(꼭짓점과 대변의 중점을 잇는 선분) 확인", "중선이 밑변을 이등분 → 두 삼각형의 밑변·높이 같음 → 넓이 이등분", "무게중심이 만드는 6개 작은 삼각형의 넓이가 모두 같음(=전체의 1/6)", "넓이 비를 밑변 비 또는 높이 비로 환원"],
+      "must_write_steps": ["중선과 그 중선이 이등분하는 밑변을 그림에 표시한다.", "중선으로 나뉜 두 삼각형이 밑변이 같고 높이가 공통임을 적어 넓이가 같음을 보인다.", "무게중심이 있으면 6개 작은 삼각형이 넓이가 같음(각 1/6)을 근거로 구하는 부분의 분수를 정한다.", "구한 넓이를 전체 넓이의 몇 분의 몇인지로 검산한다."],
+      "common_wrong_actions": ["중선이 넓이를 이등분한다는 근거(밑변 이등분·높이 공통)를 빠뜨리고 결과만 쓴다.", "무게중심의 6등분을 3등분(중선 3개)으로 착각해 1/3로 쓴다.", "밑변 비와 넓이 비를 구분하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "midpoint_area_fraction_relation_misapplied", "label": "중점 넓이 분수 관계 오적용", "diagnosis": "중선·무게중심이 만드는 넓이 분수(1/2·1/6·1/3)를 상황에 맞게 고르지 못했다.", "student_fix": "중선=넓이 이등분(1/2), 무게중심 6등분(각 1/6)을 그림에 넓이 표시로 확인하고 골라라." },
+        { "error_code": "shared_altitude_length_chain_failure", "label": "공통 높이 길이 연결 실패", "diagnosis": "두 삼각형이 높이를 공유함을 이용해 넓이 비를 밑변 비로 환원하지 못했다.", "student_fix": "높이가 같은 두 삼각형은 넓이 비 = 밑변 비임을 먼저 적고 시작하라." }
+      ],
+      "student_command": "중선 넓이 문제는 '중선은 넓이를 반으로, 무게중심은 여섯으로 나눈다'를 그림에 넓이로 표시하고 분수를 정하라.",
+      "teacher_note": "1/6과 1/3 혼동은 무게중심(중선 교점)이 만드는 6등분을 못 그려서 생긴다. 6개 작은 삼각형을 직접 그리게 하라.",
+      "parent_message": "무게중심의 넓이 성질은 그림에 직접 나눠 표시하는 습관이 핵심입니다. 공식 암기보다 넓이 분할을 그리게 해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT101": {
+      "problem_nature": "중선과 넓이 관계를 비례식·정리로 적용해 특정 부분의 넓이를 계산하는 유형",
+      "required_thinking": ["중선·무게중심이 만드는 넓이 분할(1/2·1/6) 확정", "구하는 부분이 몇 개의 1/6 조각인지 셈", "넓이 비를 밑변 비/높이 비로 환원해 식 세우기", "전체 넓이 대비 분수로 검산"],
+      "must_write_steps": ["중선·무게중심으로 나뉜 조각을 그림에 표시하고 각 조각의 넓이(전체의 1/6)를 적는다.", "구하는 부분이 몇 조각인지 세어 분수를 세운다.", "필요하면 높이 공통·밑변 비로 넓이 비 식을 세운다.", "구한 값을 전체 넓이의 분수로 검산한다."],
+      "common_wrong_actions": ["조각 수를 잘못 세어 분자를 틀린다.", "밑변 비를 넓이 비로 그대로 쓴다(높이 조건 확인 안 함).", "넓이 분할 근거를 안 적고 값만 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "midpoint_area_fraction_relation_misapplied", "label": "중점 넓이 분수 관계 오적용", "diagnosis": "구하는 부분의 넓이 분수를 무게중심 6등분에 맞춰 세지 못했다.", "student_fix": "전체를 6조각으로 그려 구하는 부분이 몇 조각인지 세라." },
+        { "error_code": "shared_altitude_length_chain_failure", "label": "공통 높이 길이 연결 실패", "diagnosis": "높이 공통을 이용해 넓이 비를 밑변 비로 바꾸지 못했다.", "student_fix": "높이가 같으면 넓이 비 = 밑변 비. 이 문장을 먼저 써라." },
+        { "error_code": "area_decomposition_equation_setup_failure", "label": "넓이 분해 식 세우기 실패", "diagnosis": "전체 넓이를 조각으로 분해해 미지 넓이를 식으로 세우지 못했다.", "student_fix": "전체 = 조각들의 합으로 식을 세우고 미지 넓이를 남겨 풀어라." }
+      ],
+      "student_command": "중선 넓이 계산은 전체를 6조각으로 그려 구하는 부분이 몇 조각인지 세고, 높이 공통이면 밑변 비로 넓이 비를 세워라.",
+      "teacher_note": "값이 틀리면 대개 조각 세기 오류다. 6조각 그림에 번호를 매겨 세게 하면 해소된다.",
+      "parent_message": "넓이 계산은 그림을 조각으로 나눠 세는 훈련이 정확도를 만듭니다. 답만 확인하지 말고 조각 그림을 보게 해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT104": {
+      "problem_nature": "삼각형 무게중심이 각 중선을 2:1로 나눈다는 기본 성질을 비례식·정리로 적용하는 유형",
+      "required_thinking": ["무게중심 = 세 중선의 교점 확인", "각 중선을 꼭짓점:중점 = 2:1로 나눔(2가 꼭짓점 쪽)", "주어진 한 선분으로 나머지 선분을 2:1로 환산", "구한 길이를 중선 전체 길이로 검산"],
+      "must_write_steps": ["무게중심과 세 중선, 각 중점을 그림에 표시한다.", "무게중심이 중선을 꼭짓점:중점 = 2:1로 나눔을 적는다(어느 쪽이 2인지 명시).", "주어진 선분을 기준으로 비례식(2:1)을 세워 미지 선분을 구한다.", "구한 값으로 중선 전체(2+1=3 부분)를 검산한다."],
+      "common_wrong_actions": ["2:1의 방향을 뒤집어 중점 쪽을 2로 쓴다.", "중선 전체가 아니라 반쪽에 2:1을 적용한다.", "여러 중선의 분할을 섞어 추적을 놓친다."],
+      "error_checkpoints": [
+        { "error_code": "centroid_two_to_one_ratio_confusion", "label": "무게중심 2:1 비율 혼동", "diagnosis": "무게중심이 중선을 2:1로 나눌 때 어느 쪽이 2(꼭짓점 쪽)인지 방향을 뒤집었다.", "student_fix": "'꼭짓점 쪽이 2, 중점 쪽이 1'을 그림에 2와 1로 직접 써라." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "여러 중선·조각의 2:1 분할을 끝까지 추적하지 못하고 섞었다.", "student_fix": "각 중선마다 2:1을 따로 표시하고 구하는 선분이 어느 중선의 어느 부분인지 짚어라." }
+      ],
+      "student_command": "무게중심 문제는 '꼭짓점 쪽 2 : 중점 쪽 1'을 그림에 2와 1로 써 방향을 고정하고 비례식을 세워라.",
+      "teacher_note": "2:1 방향 뒤집기가 가장 흔하다. 그림에 2/1을 쓰게 하면 오류가 눈에 보인다.",
+      "parent_message": "무게중심의 2:1 성질은 방향을 그림에 표시하는 것이 전부입니다. 숫자를 그림에 쓰는 습관을 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT105": {
+      "problem_nature": "무게중심 2:1 성질을 여러 조작(넓이·닮음·복수 미지수)과 결합해 계산·증명하는 복합 유형",
+      "required_thinking": ["무게중심 2:1 분할을 기준으로 필요한 선분·넓이 관계 정리", "닮은 삼각형이 있으면 대응 관계를 세워 비례식 연결", "복수 미지수는 조건 교집합으로 좁혀 모두 구함", "가능한 답이 여럿이면 조건을 만족하는 것만 남김"],
+      "must_write_steps": ["무게중심·중선·중점과 닮은 삼각형(있으면)을 그림에 표시한다.", "2:1 분할과 닮음 대응을 각각 비례식으로 적는다.", "여러 조건을 연립해 미지수를 모두 구한다.", "조건(범위·형태)을 만족하는 답만 남기고 검산한다."],
+      "common_wrong_actions": ["2:1과 닮음비를 섞어 잘못된 대응을 쓴다.", "적용할 정리(2:1·닮음·중점연결)를 잘못 고른다.", "답이 여럿인데 하나만 쓴다.", "조건을 도중에 놓친다."],
+      "error_checkpoints": [
+        { "error_code": "centroid_two_to_one_ratio_confusion", "label": "무게중심 2:1 비율 혼동", "diagnosis": "2:1 방향·적용 위치를 틀려 복합 계산이 어긋났다.", "student_fix": "먼저 2:1을 그림에 고정하고, 닮음비와 섞지 말고 따로 적어라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "닮은 두 삼각형의 대응 꼭짓점·변을 잘못 짝지어 비례식이 틀렸다.", "student_fix": "대응 꼭짓점을 같은 순서로 나열해 대응변 비를 세워라." },
+        { "error_code": "multiple_answer_omission", "label": "복수 정답 누락", "diagnosis": "조건을 만족하는 답이 여럿인데 하나만 적었다.", "student_fix": "경우를 나눠 가능한 답을 모두 구한 뒤 조건으로 거른다." },
+        { "error_code": "law_selection_error", "label": "적용 정리 선택 오류", "diagnosis": "2:1·닮음·중점연결 중 상황에 맞는 정리를 잘못 골랐다.", "student_fix": "주어진 것(중선? 닮음? 중점?)을 먼저 확인하고 그에 맞는 정리를 골라라." }
+      ],
+      "student_command": "무게중심 복합 문제는 2:1과 닮음비를 섞지 말고 따로 세운 뒤 연립하고, 답이 여럿일 수 있으니 조건으로 걸러라.",
+      "teacher_note": "복합 유형은 2:1과 닮음비 혼선이 핵심 실패다. 두 비례식을 색을 달리해 따로 쓰게 하라.",
+      "parent_message": "복합 도형 문제는 여러 성질을 섞지 않고 하나씩 정리하는 훈련이 필요합니다. 풀이를 단계로 나눠 쓰게 해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT110": {
+      "problem_nature": "무게중심 2:1 성질을 이용해 여러 삼각형에 걸친 선분 길이를 구하는 응용 유형",
+      "required_thinking": ["무게중심 2:1 분할 확정", "구하는 선분이 어느 중선·어느 조각인지 식별", "여러 삼각형에 걸친 길이를 2:1과 닮음으로 연결", "구한 길이를 원래 조건으로 검산"],
+      "must_write_steps": ["무게중심·중선·중점을 표시하고 각 중선에 2:1을 적는다.", "구하는 선분이 포함된 중선·조각을 짚는다.", "2:1 비례식(필요하면 닮음)을 세워 여러 삼각형을 거쳐 길이를 구한다.", "구한 길이를 전체 중선(3부분)으로 검산한다."],
+      "common_wrong_actions": ["여러 삼각형을 거치는 길이 연결을 중간에서 놓친다.", "2:1 방향을 뒤집는다.", "조각 길이를 중선 전체 길이로 착각한다."],
+      "error_checkpoints": [
+        { "error_code": "centroid_two_to_one_ratio_confusion", "label": "무게중심 2:1 비율 혼동", "diagnosis": "2:1 방향·적용 조각을 틀려 길이가 어긋났다.", "student_fix": "각 중선에 '2(꼭짓점)/1(중점)'을 써 방향을 고정하라." },
+        { "error_code": "multi_triangle_length_chain_failure", "label": "다중 삼각형 길이 연결 실패", "diagnosis": "여러 삼각형에 걸친 길이 관계를 끝까지 연결하지 못했다.", "student_fix": "구하는 선분까지 거쳐 가는 삼각형들을 순서대로 나열하고 각 단계 비를 이어라." }
+      ],
+      "student_command": "무게중심 길이 응용은 각 중선에 2:1을 쓰고, 구하는 선분까지 거치는 삼각형을 순서대로 이어 비례식을 연결하라.",
+      "teacher_note": "여러 삼각형을 거치는 연결 실패가 잦다. 거쳐 가는 삼각형을 순서대로 적게 하면 끊긴 지점이 보인다.",
+      "parent_message": "여러 도형을 거치는 길이 문제는 중간 과정을 순서대로 적는 습관이 정확도를 만듭니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT111": {
+      "problem_nature": "무게중심 응용 선분 길이를 여러 조건과 결합해 계산·증명하는 복합 유형",
+      "required_thinking": ["무게중심 2:1과 관련 닮음 정리 정리", "여러 삼각형에 걸친 길이 연결", "복수 조건의 교집합으로 미지수 확정", "조건 만족 여부로 답 검토"],
+      "must_write_steps": ["무게중심·중선·관련 삼각형을 표시하고 2:1을 적는다.", "구하는 선분까지의 길이 연결을 비례식으로 세운다.", "여러 조건을 연립해 미지 길이를 모두 구한다.", "조건(범위·기하 제약)을 만족하는 답만 남겨 검산한다."],
+      "common_wrong_actions": ["길이 연결을 놓치거나 2:1을 뒤집는다.", "여러 조건의 교집합을 빠짐없이 세지 못한다.", "조건에 안 맞는 답을 남긴다."],
+      "error_checkpoints": [
+        { "error_code": "centroid_two_to_one_ratio_confusion", "label": "무게중심 2:1 비율 혼동", "diagnosis": "2:1 방향·위치를 틀려 복합 길이 계산이 어긋났다.", "student_fix": "2:1을 그림에 먼저 고정하고 닮음비와 분리해 적어라." },
+        { "error_code": "multi_triangle_length_chain_failure", "label": "다중 삼각형 길이 연결 실패", "diagnosis": "여러 삼각형에 걸친 길이 연결을 끝까지 잇지 못했다.", "student_fix": "거쳐 가는 삼각형을 순서대로 나열하고 각 단계 비를 이어라." },
+        { "error_code": "multi_constraint_intersection_failure", "label": "복수 조건 교집합 실패", "diagnosis": "여러 조건을 빠짐없이 교차해 미지수를 확정하지 못했다.", "student_fix": "조건을 하나씩 식으로 적고 모두 만족하는 값만 남겨라." }
+      ],
+      "student_command": "무게중심 길이 복합 문제는 2:1과 닮음을 분리해 세우고, 거치는 삼각형을 순서대로 이은 뒤 조건 교집합으로 답을 확정하라.",
+      "teacher_note": "복합 유형은 길이 연결 끊김과 조건 누락이 겹친다. 조건을 번호로 적어 하나씩 대조하게 하라.",
+      "parent_message": "조건이 많은 도형 문제는 조건을 하나씩 적어 확인하는 훈련이 필요합니다. 풀이 과정을 단계로 나눠 쓰게 해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    }
+  }
+}
