@@ -1,69 +1,83 @@
-# M1 기하 재태깅 명세 v1 (GPT용) 2026-08-14
+# M1 기하 재태깅 명세 v1 — 리비전 r2 (GPT용) 2026-08-14
 
-> 대상: M1_BASIC_GEOMETRY(55)·M1_PLANE_GEOMETRY(54)·M1_SOLID_GEOMETRY(83) = **192유형**. 실태 = [[B_m1_geometry_retag_audit.v1.md]](overlay 부재·재태깅 미착수).
-> 성격: **예측층 재태깅**(학습지 문항/유형에서 "학생이 틀리기 쉬운 오류"를 예측). ★관측 대조·predicted_observed_gaps 수집은 **하지 않음**(실사용에서 나중). SPEC_tagging_v4 원칙 계승 + [[TAG_DICTIONARY_v2.md]](163종) 기준.
-> 산출 = `tagging_<unit>_v4_v2.json`(§2 형식) → 반영 `axis_map/<unit>.pt_fine_error_tags.v1.json` overlay.
+> ★r2: SPEC v4 대조로 누락 3건 반영 — §4 정답률 판정 · §5 verification_scan · §6 tag_scope + 유형당 2~3개.
+> 대상: M1_BASIC_GEOMETRY(55)·M1_PLANE_GEOMETRY(54)·M1_SOLID_GEOMETRY(83) = **192유형**. 실태 = [[B_m1_geometry_retag_audit.v1.md]].
+> 성격: **예측층 재태깅**. ★관측 대조·predicted_observed_gaps 수집 안 함(실사용에서). SPEC_tagging_v4 계승 + [[TAG_DICTIONARY_v2.md]](163종).
+> 산출 = `tagging_<unit>_v4_v2.json` → `axis_map/<unit>.pt_fine_error_tags.v1.json` overlay.
 
-## 0. 대원칙 3
-1. **재사용 먼저.** 신설 전 반드시 §2 tier 순서로 조회. 사전은 **v2(163종)** — ★v1 참조 금지.
-2. **오류형만.** 태그는 "무엇을 틀리는가"(오류형). "무엇을 묻는가"(주제형) 금지.
-3. **1태그=1오류·snake_case.** 대상만 다른 동일 오류는 통합(신설 남발 금지).
+## 0. 대원칙
+1. **재사용 먼저** — 신설 전 tier 순서 조회(§1). 사전은 **v2(163종)** — ★v1 참조 금지(v1은 통합 지시 2건이 정정 전이라 오통합 유발).
+2. **오류형만** — "무엇을 틀리는가". 주제형 금지.
+3. **1태그=1오류·snake_case.** 대상만 다른 동일 오류는 통합.
+4. **유형당 2~3개**(v4 §3). 처방의 checkpoint 3~4와 다름 — 재태깅은 2~3 유지.
 
-## 1. 태그 소스 우선순위 (★반드시 이 순서로 조회 후 신설)
-| tier | 소스 | 규모 | 성격 |
-|---|---|---|---|
-| **1** | `axis_map/m2_geometry_properties.pt_fine_error_tags.v1.json`(M2_GEOM overlay) | ~39 도형 오류태그 | 각대응·이등변·각추론 등 **도형 공통** — M1 각·합동에 직접 차용 |
-| **2** | TAG_DICTIONARY_v2 **§1 범용 13** + **§2 도형공통 32** = **45** | 45 | §1=단원무관, §2="원·삼각비·닮음 어디서든" = 도형 전반. ★사전이 "§2를 가장 꼼꼼히" 지시 |
-| **3** | **신설** — M1 고유 오류만 | ? | 작도·전개도·겨냥도·위치관계·다면체 등 tier1/2에 없는 것 |
-- ★**단원 간 재사용 유도**: BASIC에서 만든/쓴 태그를 PLANE·SOLID가 재사용. 3단원을 독립 작업하지 말고 **BASIC→PLANE→SOLID 순**으로 누적(앞 단원 태그를 뒤 단원이 조회).
+## 1. 태그 소스 우선순위 (★이 순서로 조회 후 신설)
+| tier | 소스 | 규모 |
+|---|---|---|
+| **1** | `axis_map/m2_geometry_properties.pt_fine_error_tags.v1.json`(M2_GEOM overlay) | ~39 도형 오류태그(각대응·이등변·각추론) |
+| **2** | 사전 v2 **§1 범용 13** + **§2 도형공통 32** = **45** | 사전이 "§2를 가장 꼼꼼히" |
+| **3** | **신설**(M1 고유) | 작도·전개도·겨냥도·위치관계·다면체 |
+- ★**단원 간 재사용**: **BASIC→PLANE→SOLID 순** 누적. 앞 단원 태그를 뒤 단원이 조회·재사용.
 
 ## 2. 신설 규칙 (v4 §2)
-- `snake_case` · **1태그=1오류** · **오류형**(주제형 금지) · 영문.
-- **대상만 다른 것은 통합**: 같은 오류가 삼각형·사각형·다각형에서 나오면 하나로(예: `interior_angle_sum_error`를 대상 무관 재사용 — M2_GEOM 저작서 3맥락 재사용 실증).
-- **new_tags 전량 보고** + 각 신설 사유(왜 tier1/2에 없는지) 1줄.
+- `snake_case`·**1태그=1오류**·오류형·영문. **대상만 다른 것 통합**(예 `interior_angle_sum_error`를 삼각형·사각형·다각형 공용 — M2_GEOM서 3맥락 실증). **new_tags 전량 보고 + 사유 1줄**.
 
-## 3. M1 고유 후보 영역 (신설 예상 — 참고, 강제 아님)
-- BASIC(기본도형·작도): 작도 절차 오류, 점·선·면 위치관계, 각의 이등분·수직이등분 작도.
-- PLANE(평면도형): 다각형 내·외각, 원과 부채꼴 호·넓이(중등 원의성질과 구분), 다각형 대각선.
-- SOLID(입체도형): 겨냥도·전개도 대응, 다면체 요소 수(오일러), 회전체, 겉넓이·부피 전개.
-- ★위는 힌트일 뿐. **먼저 tier1/2 조회**하고 없을 때만 신설.
+## 3. ★ 정답률 기반 판정 (v4 §4)
+- **정답률이 PDF에 있으면**(문항 위 `| 유형명 | 정답률 67%`) 두 패턴으로 조작 추가지점 판정:
+  - **패턴 A 유형 간 절벽**: 인접 유형 20~30pp 하락 = 그 유형에 조작이 하나 더 붙은 지점.
+  - **패턴 B 유형 내 이탈**: 유형 내 한두 문항만 낮음 = 그 문항 고유 요소(→ §6 tag_scope 대상).
+- ★**M1 학습지에 정답률이 없으면**(shstudy 학습지 실측: 정답률 없음) → **`accuracy: null` 로 두고 §4 스킵, 해설·문항 구조 중심 판정.** 정답률을 지어내지 말 것.
 
-## 4. 재사용률 목표·경보
-- M1은 신설 단원이라 재사용률은 낮게 나올 수 있음(정상).
-- ★단 **tier2의 §1 범용 13 + §2 도형공통 32 = 45종은 상당수 재사용되어야 정상**. 그 45종에서 **하나도 안 쓰였다면 조회 누락 의심** → 재확인.
-- 보고에 **단원별 재사용률**(tier1/2 재사용 수 / 전체 태그 수) 명시.
+## 4. ★ 두 관점 스캔 = verification_scan (v4 §5) — 사전 §1을 실제로 쓰는 장치
+모든 유형에 아래 2관점을 **반드시 스캔**하고, 해당하면 사전 §1 범용 태그를 붙인다. **0건이어도 `verification_scan.checked:true`로 명시(보고 의무).**
+- **5-1 검산**(답을 구한 뒤 원 조건으로 되돌아가는 문제인가) → `verification_missing`·`solution_check_omitted`.
+- **5-2 답 마무리**(형식·단위·자릿수 확인이 필요한 문제인가) → `answer_format_mismatch`·`final_form_reduction_omitted`·`rounding_instruction_overlooked`·`unit_conversion_omitted`·`ratio_direction_inversion`.
+- ★이 스캔이 없으면 §1 범용 13이 재사용될 경로가 없음(요건4 경보의 실행 수단).
 
-## 5. M2_GEOM 저작 경험 반영
-- **개념 내 골격 공유** → 태그도 **개념 단위로 묶어** 부여(같은 개념의 유형들은 태그 집합이 겹침).
-- **상호이동쌍 주의**: 유형이 서로 흔들리는 쌍(A2 관측)엔 **상충되는 태그를 쓰지 말 것**(같은 오류를 다르게 태깅하면 진단 불안정).
-- ★**predicted_observed_gaps 수집 안 함** — 재태깅은 예측층. 관측 대조는 실사용에서(명세 범위 밖).
+## 5. ★ tag_scope (v4 §6) — 유형 전체 아닌 특정 문항 태그
+- 근거가 "이 유형에서 **○○ 문항만** 낮다/특정 조건에서만"이면 그 태그는 **유형 전체가 아니라 그 문항/조건에만** 적용 → `tag_scope`에 명시.
+- ★**v4 §8 금지: tag_scope 생략 금지.** 특정 문항 태그를 유형 전체에 붙이면 오진단.
 
-## 6. 산출 형식
+## 6. M1 고유 후보 영역 (신설 예상 — 힌트, 먼저 tier1/2 조회)
+- BASIC: 작도 절차·점선면 위치관계·각 이등분/수직이등분 작도.
+- PLANE: 다각형 내외각·대각선·부채꼴 호넓이(중등 원의성질과 구분).
+- SOLID: 겨냥도·전개도 대응·다면체 요소수(오일러)·회전체·겉넓이/부피 전개.
+
+## 7. 재사용률 목표·경보
+- M1 신설 단원이라 재사용률 낮게 예상(정상). ★단 **§1(13)+§2(32)=45 중 상당수 재사용되어야 정상. 하나도 안 쓰이면 조회 누락 의심**(특히 §4 verification_scan 미실행 신호). 단원별 `reuse_rate` 보고.
+
+## 8. M2_GEOM 저작 경험
+- **개념 내 골격 공유 → 태그도 개념 단위로 묶기.** **상호이동쌍**(흔들리는 유형쌍)엔 상충 태그 금지. ★predicted_observed_gaps 수집 안 함(예측층).
+
+## 9. 산출 형식
 ```json
 {
-  "unit": "m1_basic_geometry",
-  "spec": "v4", "dictionary": "v2",
+  "unit": "m1_basic_geometry", "spec": "v4", "dictionary": "v2",
   "problem_types": [
     { "problem_type_id": "M1_BG_PT001", "type_name": "<카탈로그 그대로>",
-      "error_tags": ["angle_correspondence_chain_failure", "<...>"],
-      "tag_sources": { "reused": ["…(tier1/2 태그)"], "new": ["…(신설)"] } }
+      "accuracy": null,
+      "error_tags": ["angle_correspondence_chain_failure", "verification_missing"],
+      "tag_scope": { "verification_missing": "3번 문항(검산 요구)만" },
+      "verification_scan": { "checked": true, "applied": ["verification_missing"] },
+      "tag_sources": { "reused": ["…"], "new": ["…"] } }
   ],
-  "new_tags": [ { "tag": "compass_construction_step_order_error", "reason": "작도 절차 오류 — tier1/2에 없음" } ],
+  "new_tags": [ { "tag": "compass_construction_step_order_error", "reason": "작도 절차 오류 — tier1/2 부재" } ],
   "reuse_rate": { "tier1": 0, "tier2": 0, "new": 0, "total": 0 }
 }
 ```
-- 파일명 = `tagging_<unit>_v4_v2.json`(예: `tagging_basic_geometry_v4_v2.json`). 유형은 **카탈로그 192개 전부**(빠짐없이).
+- 파일명 `tagging_<unit>_v4_v2.json`. 유형은 카탈로그 **192개 전부**. 태그 2~3개/유형.
 
-## 7. ★ 자가검산 체크리스트 (출력 전 — 태그사전 §7 형식)
-1. [ ] 사전 참조가 **v2**인가(v1 금지).
-2. [ ] 모든 유형(단원 카탈로그 전건)에 error_tags 있는가.
-3. [ ] 신설 전 tier1(M2_GEOM overlay)·tier2(§1·§2 45종)를 조회했는가. **§1·§2에서 실제로 재사용된 태그가 있는가**(0이면 조회 누락).
-4. [ ] 모든 태그가 오류형·snake_case·1태그=1오류인가(주제형 0).
-5. [ ] 대상만 다른 동일 오류를 통합했는가(불필요 신설 0).
-6. [ ] new_tags 전량 + 사유가 있는가.
-7. [ ] BASIC→PLANE→SOLID 순으로 앞 단원 태그를 뒤 단원이 재사용했는가.
-8. [ ] tag_sources(reused/new)·reuse_rate를 채웠는가.
-9. [ ] predicted_observed_gaps 같은 관측 필드를 넣지 않았는가(예측층).
+## 10. ★ 자가검산 체크리스트 (출력 전 — 태그사전 §7 형식)
+1. [ ] 사전 참조 **v2**인가(v1 금지).
+2. [ ] 카탈로그 전건에 error_tags(2~3개)·**verification_scan.checked** 있는가.
+3. [ ] 신설 전 tier1·tier2(45) 조회했고 **§1·§2에서 실제 재사용된 태그가 있는가**(0이면 §4 스캔 누락 의심).
+4. [ ] 모든 태그 오류형·snake_case·1태그1오류(주제형 0).
+5. [ ] 대상만 다른 동일 오류 통합(불필요 신설 0).
+6. [ ] **특정 문항 태그는 tag_scope 명시**(생략 0).
+7. [ ] 정답률 있으면 §4 절벽/이탈, 없으면 `accuracy:null`(지어내기 0).
+8. [ ] BASIC→PLANE→SOLID 재사용했는가.
+9. [ ] new_tags 전량+사유·tag_sources·reuse_rate 채웠는가.
+10. [ ] predicted_observed_gaps 등 관측 필드 안 넣었는가(예측층).
 
-## 8. 이후 흐름
-GPT 재태깅(사용자, 문항등록 뒤) → 검수 대조(tier 재사용·신설 사유·오류형) → overlay 반영(`axis_map/<unit>.pt_fine_error_tags.v1.json`) → **M1 처방 192종 저작**(M2_GEOM 140종 기법: 개념 골격·category_ledger·part 병합 서지컬).
+## 11. 이후 흐름
+GPT 재태깅(사용자·문항등록 뒤) → 검수 대조 → overlay 반영 → M1 처방 192종(M2_GEOM 140종 기법).
