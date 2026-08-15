@@ -1,6 +1,7 @@
-# M1 기하 재태깅 명세 v1 — 리비전 r2 (GPT용) 2026-08-14
+# M1 기하 재태깅 명세 v1 — 리비전 r3 (GPT용) 2026-08-14
 
-> ★r2: SPEC v4 대조로 누락 3건 반영 — §4 정답률 판정 · §5 verification_scan · §6 tag_scope + 유형당 2~3개.
+> ★r3: tier-1 기대치 정정(overlay 36 = 사전중복 29 + 고유 7, 고유 대부분 M2전용 → M1 재사용 기대 낮음·실질풀 tier-2 45) + 단원별 순차·new_tags 이월(§11).
+> ★r2: SPEC v4 누락 3건 반영 — §3 정답률 판정 · §4 verification_scan · §5 tag_scope + 유형당 2~3개.
 > 대상: M1_BASIC_GEOMETRY(55)·M1_PLANE_GEOMETRY(54)·M1_SOLID_GEOMETRY(83) = **192유형**. 실태 = [[B_m1_geometry_retag_audit.v1.md]].
 > 성격: **예측층 재태깅**. ★관측 대조·predicted_observed_gaps 수집 안 함(실사용에서). SPEC_tagging_v4 계승 + [[TAG_DICTIONARY_v2.md]](163종).
 > 산출 = `tagging_<unit>_v4_v2.json` → `axis_map/<unit>.pt_fine_error_tags.v1.json` overlay.
@@ -17,6 +18,7 @@
 | **1** | `axis_map/m2_geometry_properties.pt_fine_error_tags.v1.json`(M2_GEOM overlay) | ~39 도형 오류태그(각대응·이등변·각추론) |
 | **2** | 사전 v2 **§1 범용 13** + **§2 도형공통 32** = **45** | 사전이 "§2를 가장 꼼꼼히" |
 | **3** | **신설**(M1 고유) | 작도·전개도·겨냥도·위치관계·다면체 |
+- ★**tier-1 실질 기대치(정정 r3)**: overlay 36 중 **29종은 사전 v2 중복**(tier-2로도 조회됨). **고유 7종은 대부분 M2 전용**(외심 `circumcenter_*`·내심 `incenter_*`·평행사변형 `parallelogram_condition_converse_failure`·사각형포함 `quadrilateral_hierarchy_classification_failure`·합동 `triangle_congruence_condition_selection_failure`·`law_selection_error`) — **외심·내심·평행사변형·합동은 중2 과정이라 중1(M1)엔 거의 안 나옴** → **tier-1의 M1 재사용 기대는 사실상 0. 실질 재사용 풀 = tier-2 45종.** ★단 tier-1 파일은 **삭제 말 것**: M1에 합동 문항이 있으면 `triangle_congruence_condition_selection_failure`가 쓰임(기대 낮을 뿐 0 아님). tier-1 재사용 0은 **정상 신호**(경보 아님).
 - ★**단원 간 재사용**: **BASIC→PLANE→SOLID 순** 누적. 앞 단원 태그를 뒤 단원이 조회·재사용.
 
 ## 2. 신설 규칙 (v4 §2)
@@ -79,5 +81,7 @@
 9. [ ] new_tags 전량+사유·tag_sources·reuse_rate 채웠는가.
 10. [ ] predicted_observed_gaps 등 관측 필드 안 넣었는가(예측층).
 
-## 11. 이후 흐름
-GPT 재태깅(사용자·문항등록 뒤) → 검수 대조 → overlay 반영 → M1 처방 192종(M2_GEOM 140종 기법).
+## 11. 이후 흐름 · 작업 방식
+- ★**단원 하나씩** 진행(BASIC / PLANE / SOLID 3단원을 한 번에 넣지 말 것).
+- ★**앞 단원 결과의 `new_tags`를 다음 단원 작업 시 함께 줄 것**(BASIC 결과 → PLANE 작업 입력, PLANE 결과 → SOLID 입력). 안 주면 같은 오류에 이름이 두 번 생김(§1 단원 간 재사용의 실행 수단).
+- GPT 재태깅(사용자·문항등록 뒤) → 검수 대조 → overlay 반영(`axis_map/<unit>.pt_fine_error_tags.v1.json`) → **M1 처방 192종**(M2_GEOM 140종 기법: 개념 골격·category_ledger·part 서지컬 병합).
