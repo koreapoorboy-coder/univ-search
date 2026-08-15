@@ -3,16 +3,27 @@
 > v1(2026-08-11) 대체. 검수(클로드)는 리포 접근 없음 → 파일로 받아 대조. 전달 경로 Code탭↔사용자↔검수.
 > ★이 v2는 검수 §-스펙(2026-08-13)에 따라 갱신. 검수 보유본과 대조 후 확정.
 
-## ★★ 현재 재개 지점 (2026-08-14 말, 새 세션은 여기부터) ★★
-> 이 세션에서 매칭 트랙이 크게 진행됨. 아래가 최신. (그 아래 옛 재개블록은 §히스토리로 이동.)
-- **완료(이 세션)**: 스키마 v3.1 라이브(22컬럼·옵션C) → 차단2(source_text 자동복사 금지) → **qnorm.v1 canonical 트랙 종결**(정본=ocr_measure NFKC·워커 인라인·self-check 계산경로 차단·backfill 3행) → bulk spec **v2.r3 승인** → GPT 명세 **v2**((d) 유형 미배정·3단 구조) → 카탈로그 축약본 39단원(`make_catalog_short.ps1`) → **/add-bulk 구현·검산·3단 실동작 통과**(worker+admin UI+스모크). → **question_no 저장(스키마 v3.2)** 추가.
-- **★배포 대기(사용자, 순서 고정)**: ① `user_items.schema.v3.2.sql` D1 실행(ALTER question_no + idx) → ② 워커 재배포(VERSION `2026.08.14-bulk-v2-qno`, /health qnorm_selfcheck=pass 확인) → ③ 스모크 테스트(`B_bulk_smoketest.v1.json`: dry-run→실투입→D1 SELECT→3단 유형지정 시연→rollback soft).
-- **★매칭 트랙 = ✅전항 종결·실동작 검증**(2026-08-14, run 9d629345). 옵션2 post-stage-2 `matchAttemptsToItems`, VERSION `2026.08.14-match-v1` 배포. [실측]: matched 3·score 1.0·오매칭 0(25번 0.949·27번 0.835 미달 미매칭=임계값 정상)·정상층 무손상·type_overridden 0(3건 AI 정확, 표본소)·비용 $3.0057(+18.5%=recover콜, 매칭무관·매칭은 AI비용 0). 설계·검수 비용가설 철회 = `B_matching_integration_design.v1.md`.
-- **파이프라인 전체 완성**: 스키마 v3.1/3.2 → 차단2 → qnorm.v1 → bulk(/add-bulk·3단) → 매칭. end-to-end 실동작 확인.
-- **남은 것**: ① 화면 렌더(matched_answer/explanation 학생 표시 미배선·JSON엔 있음) ② 테스트 3배치 정리(smoke·smoke2·match soft-delete, 사용자) ③ stage별 비용실측(옵션1 보류) ④ 도형 실측(a) 실사용 자연검증 이월.
-- **다음 트랙(사용자 판단)**: (1)GPT 실제 학습지 1장→대량투입 실전[검수 권고] / (2)M1 기하 재태깅+처방192 / (3)수연산 처방739.
-- **진입 문서**: `B_bulk_injection_json_spec.v2.md`(투입 스펙·§12 27항)·`B_gpt_item_registration_spec.v2.md`((d)3단)·`B_qnorm_canonical.v1.md`·`B_catalog_layer_audit.v1.md`. 워커 엔드포인트: /add-bulk·/bulk-assign-type(id기준)·/rollback-batch·/backfill-hashes·list(bulk_batch_id필터).
-- **설계 확정(유지)**: 문항 단일풀·org_id 출처표시만 / 관측 기관통합(3계층) / dedup 옵션C(content_hash UNIQUE·dedup_key NON-UNIQUE) / 3단 유형배정(GPT 전사→검수 카탈로그대조→사용자 보류분).
+## ★★ 현재 재개 지점 (2026-08-15, 새 세션은 여기부터) ★★
+> 매칭 파이프라인 완성·배포·검증 후, 렌더+결함수정 완료, 지금은 **M1 재태깅 명세 확정 + 닮음 처방 저작 착수(배치1)** 국면.
+
+### 완료·종결 트랙
+- **파이프라인 전체 완성·배포·실동작 검증**(run 9d629345): 스키마 v3.1(22컬럼·옵션C)·v3.2(question_no) → 차단2 → **qnorm.v1 canonical**(정본=ocr_measure NFKC·워커 인라인·self-check 계산경로 차단·backfill) → bulk **v2.r3**(/add-bulk·3단·admin UI) → **매칭**(옵션2 post-stage-2 `matchAttemptsToItems`). matched 3·오매칭 0·정상층 무손상. 설계=`B_matching_integration_design.v1.md`.
+- **매칭 결과 화면 렌더 = 종결**: `renderMatchedItems`(학생: 정답·해설접기·배지)·`renderMatchingTeacherDetail`(교사: 통계·ai_assigned_type·일치도). `math_hybrid_report_renderer.js`(index=hybrid 공유).
+- **기존 렌더 결함 2건 수정**(매칭 무관): ①"주의할 연결" JSON 원문 노출 → `connText`(from_name→to_name). ②problem_type_id 노출 → 근본원인=type_name이 데이터 흐름에 없음 → **워커 attempts.type_name 채움**(`typeNameById`, fetchUnitProblemTypes 필드=id·name) + **엔진 `pt.type_name||attempt.type_name` 폴백**(2곳) + 렌더 `wrongText`(id 미노출·없으면 항목제외).
+
+### ★배포 대기(사용자) — 결함2 근본수정
+- 워커 재배포 **VERSION `2026.08.14-typename`**(attempts.type_name 채움) + 정적 push 반영(`?fresh`)로 렌더러·엔진(type_name 폴백). 검증=다음 진단 시 자연 확인(재진단 비용 회피). (schema v3.2·bulk-v2-qno·match-v1은 이미 배포됨.)
+- 테스트 3배치 정리(smoke·smoke2·match soft-delete, admin 롤백 카드).
+
+### 진행 중 트랙
+- **M1 기하 재태깅 = 명세 확정**(`B_m1_geometry_retag_spec.v1.md` r4). 3단원 192종·overlay 부재·재태깅 미착수(`B_m1_geometry_retag_audit.v1.md`). GPT 패킷 5종 완비: 명세·`TAG_DICTIONARY_v2.md`·`m2_geom_overlay_tags.v1.json`(tier-1 36)·단원 축약본·PDF. tier: 1)M2_GEOM overlay(고유 6 M2전용=M1 기대 0) 2)사전 §1(13)+§2(32)=45 실질풀 3)신설. **대기=사용자 GPT 재태깅(문항등록 뒤)** → 검수 대조 → overlay 반영 → 처방 192.
+- **닮음(M2_SIMPY) 처방 저작 = 착수(배치1)**. 조사=`B_similarity_analysis_layer_audit.v1.md`(overlay 87/87 완료·instruction_map 0·해석층 빈 placeholder). 규격=`B_similarity_prescription_prep.v1.md`(엔트리 26필드·concept_ids/source_orders/raw_section_id 미포함·part04 append·단순형·observed_basis 전건 true). **배치1 무게중심 6종 저작·검증** = `m2_simpy_prescriptions.draft.v1.json`(_meta+prescriptions, error_checkpoints[]={error_code,label,diagnosis,student_fix}). **대기=검수 형식 확인** → 나머지 81종 배치(카테고리별·12/커밋·수치검증 13필드/cp≤4/tier조회·롤링백업 lastgood·30 중간제출) → part04 서지컬 병합(`merge_part04.ps1`) → no_template 해제. **Code탭 저작(사용자 부담 없음)**.
+- **문항 등록**: 사용자 진행 중(전 단원 문항 JSON 제작, 등록은 나중 일괄).
+
+### 진입 문서·엔드포인트
+- 스펙: `B_bulk_injection_json_spec.v2.md`(§12 27항)·`B_gpt_item_registration_spec.v2.md`((d)3단)·`B_qnorm_canonical.v1.md`. 워커 엔드포인트: /add-bulk·/bulk-assign-type(id)·/rollback-batch·/backfill-hashes·list(bulk_batch_id).
+- 설계 확정(유지): 문항 단일풀·org_id 출처표시만 / 관측 기관통합(3계층) / dedup 옵션C / 3단 유형배정(GPT 전사→검수 카탈로그대조→사용자 보류분).
+- ★작업 규칙: 넘길 파일은 Downloads 복사+SendUserFile(리비전 파일명), 커밋 후 push 확인, 추측 금지(코드확인), 검증 기준 독립. [[file-transfer-workflow]].
 
 ### (옛 재개블록 — 이 세션 시작 시점, 히스토리)
 - M2_GEOM 처방 트랙 종결(하단 §2). user_items 스키마 v3.1 필드 확정으로 시작 → 위 완료 흐름으로 진행됨.
