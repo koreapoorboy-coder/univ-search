@@ -6,7 +6,7 @@
     "authoring_rule": "error_checkpoints[].error_code는 4-tier 조회: 1)자기 overlay fine_error_tags → 2)단원 overlay 87 → 3)dict v2 §5 닮음13+§2 도형공통32 → 4)신설(new_tags 보고). checkpoint 3~4 상한. concept_ids 미포함(런타임조인·엔진 미참조). source_orders/raw_section_id 미포함(카탈로그 부재). visible_path/taxonomy 단순형(strand=sub_strand=type_name).",
     "reuse_priority": ["self_overlay_tags", "unit_overlay_87", "dict_v2_sim13_geomcommon32", "new"],
     "observed_basis_true_types": "overlay 87/87 전건 태그보유(빈배열 0·총 279·평균 3.2) → observed_basis 전건 true",
-    "progress": { "authored": 59, "total": 87, "batch": "8 (무게중심 응용·평행사변형) 완료" },
+    "progress": { "authored": 68, "total": 87, "batch": "9 (넓이비·부피비·실생활) 완료" },
     "checkpoint_schema": "error_code · label · diagnosis · student_fix. ★[코드확인 2026-08-16] 이것이 정본 스키마 — instruction_map 4파트 12,523 엔트리 전건(diagnosis/student_fix 각 25,510회, check/fix 0회) · M2_GEOM draft 303 cp 전건 · display/student_action_templates.v1.json 45 cp 전건 동일. 리포·전달본 어디에도 check/fix 스키마 없음. 엔진은 error_checkpoints를 통째로 패스스루(math_weakness_engine.js:368)하며 하위 필드명을 읽는 코드는 없음.",
     "batch_plan": "B_similarity_prescription_batch_plan.v1.md — 잔여 81종을 개념 단위 10배치로 분할(B2~B11). 본 파일은 배치1 + B2 반영분.",
     "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + 보조(cp≤4·nonnull·ledger합). 롤링 백업.",
@@ -25,7 +25,8 @@
       "각의 이등분선(내각·외각)": ["M2_SIMPY_PT053","M2_SIMPY_PT054","M2_SIMPY_PT056","M2_SIMPY_PT057","M2_SIMPY_PT058","M2_SIMPY_PT059","M2_SIMPY_PT061"],
       "사다리꼴 대각선·평행선 종합": ["M2_SIMPY_PT070","M2_SIMPY_PT074","M2_SIMPY_PT077","M2_SIMPY_PT080"],
       "중점연결정리": ["M2_SIMPY_PT083","M2_SIMPY_PT086","M2_SIMPY_PT089","M2_SIMPY_PT090","M2_SIMPY_PT096","M2_SIMPY_PT098"],
-      "무게중심 응용·평행사변형": ["M2_SIMPY_PT112","M2_SIMPY_PT113","M2_SIMPY_PT115","M2_SIMPY_PT116","M2_SIMPY_PT120","M2_SIMPY_PT121","M2_SIMPY_PT122","M2_SIMPY_PT125","M2_SIMPY_PT126","M2_SIMPY_PT127","M2_SIMPY_PT128"]
+      "무게중심 응용·평행사변형": ["M2_SIMPY_PT112","M2_SIMPY_PT113","M2_SIMPY_PT115","M2_SIMPY_PT116","M2_SIMPY_PT120","M2_SIMPY_PT121","M2_SIMPY_PT122","M2_SIMPY_PT125","M2_SIMPY_PT126","M2_SIMPY_PT127","M2_SIMPY_PT128"],
+      "넓이비·부피비·실생활": ["M2_SIMPY_PT131","M2_SIMPY_PT133","M2_SIMPY_PT135","M2_SIMPY_PT140","M2_SIMPY_PT143","M2_SIMPY_PT144","M2_SIMPY_PT146","M2_SIMPY_PT148","M2_SIMPY_PT149"]
     },
     "new_tags": [],
     "reuse_note": "배치1(6)+B2(10)+B3(7)+B4(8)=31종. error_code 전부 tier-1(자기 overlay)에서 조회 — tier-2·3·4 = 0. 신설 0. 31종 전부 overlay 4개 이하라 cp 절삭 없음(태그 전건 채택). ★M2_GEOM 첫 배치 재사용 43% 대비: 닮음은 overlay 87/87(관측 완비)이라 첫 배치부터 tier-1 100% — 관측 커버리지가 재사용률을 결정한다는 대조 자료.",
@@ -64,7 +65,16 @@
       "final_form_reduction_omitted": "최종형 정리 누락",
       "multi_expression_dependency_error": "다중 식 의존 처리 오류",
       "trapezoid_midsegment_average_error": "사다리꼴 중점연결 평균 오류",
-      "centroid_area_partition_failure": "무게중심 넓이 분할 실패"
+      "centroid_area_partition_failure": "무게중심 넓이 분할 실패",
+      "area_ratio_to_side_ratio_conversion_failure": "넓이비→변비 역환산 실패",
+      "answer_format_mismatch": "답 형식 불일치",
+      "percentage_scale_factor_conversion_error": "백분율·축척 환산 오류",
+      "volume_from_ratio_error": "부피비 적용 오류",
+      "multi_step_composite_error": "다단계 복합 처리 오류",
+      "subtraction_of_regions_omitted": "영역 빼기 누락",
+      "ratio_direction_inversion": "비 방향 뒤집음",
+      "unit_conversion_omitted": "단위 환산 누락",
+      "multi_stage_motion_distance_setup_failure": "다단계 이동 거리 세우기 실패"
     },
     "overlay_coverage_note": "87/87 (M2_GEOM 27/140 대비 완비). 처방 근거 전건 관측.",
     "predicted_observed_gaps": [],
@@ -113,7 +123,13 @@
       "무게중심과 삼각형 넓이비": ["M2_SIMPY_PT120"],
       "두 무게중심과 넓이 관계": ["M2_SIMPY_PT121","M2_SIMPY_PT122"],
       "평행사변형에서 무게중심과 길이": ["M2_SIMPY_PT125","M2_SIMPY_PT126"],
-      "평행사변형에서 무게중심과 넓이": ["M2_SIMPY_PT127","M2_SIMPY_PT128"]
+      "평행사변형에서 무게중심과 넓이": ["M2_SIMPY_PT127","M2_SIMPY_PT128"],
+      "닮은 평면도형의 넓이비": ["M2_SIMPY_PT131"],
+      "닮은 평면도형 넓이비의 활용": ["M2_SIMPY_PT133","M2_SIMPY_PT135"],
+      "닮은 입체도형 겉넓이비의 활용": ["M2_SIMPY_PT140"],
+      "닮은 입체도형의 부피비": ["M2_SIMPY_PT143","M2_SIMPY_PT144"],
+      "닮은 입체도형 부피비의 활용": ["M2_SIMPY_PT146"],
+      "닮음의 실생활 활용 - 높이·축척": ["M2_SIMPY_PT148","M2_SIMPY_PT149"]
     },
     "concept_map_semantics": "★주의: 이 파일의 concept_map은 '개념 → problem_type_id 목록'(커버리지 검증용). M2_GEOM 정본의 concept_map은 '골격 공유 규칙 명세'로 의미가 다름 — 아래 skeleton_sharing이 그 역할을 승계한다(2026-08-16 정렬).",
     "skeleton_sharing": {
@@ -127,10 +143,16 @@
         { "problem_type_id": "M2_SIMPY_PT054", "type_name": "삼각형 내각의 이등분선과 변의 비 - 복합 계산·증명", "atypical_tag": "equal_tangent_segment_relation_misapplied", "why_atypical": "접선 길이 성질은 원 단원 어휘. 각의 이등분선 유형의 주 구조(변비)와 직접 연결되지 않는다.", "unit_frequency": 1, "handling": "tier-1 원칙대로 채택. 내접원·접선이 함께 나오는 복합 문항을 가정하고 '한 점에서 그은 두 접선만 길이가 같다'의 오적용 지점으로 문안 구성.", "verdict": "판정 보류" }
       ]
     },
+    "frequent_deprioritized_tags": {
+      "_note": "★검수 지시 2026-08-16(기록만·판정 금지). cp 상한 4 절삭에서 '전역 빈발 일반 태그 후순위' 사유로 반복 탈락한 태그 목록. 두 해석이 가능하며 현 데이터로 구분 불가: (가) 실제로 범용이라 특정 유형의 핵심이 아님(정상) (나) overlay가 과다 부여함(overlay 품질 사안). M2_GEOM gaps_excluded (b) '편재 태그'와 같은 계열. 최종 제출 시 확정 목록을 낸다.",
+      "tags": []
+    },
     "trimmed_checkpoints": [
       { "problem_type_id": "M2_SIMPY_PT105", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["centroid_two_to_one_ratio_confusion","similar_triangle_correspondence_setup_failure","multiple_answer_omission","law_selection_error"], "dropped": ["segment_partition_tracking_failure"], "reason": "배치1 저작분. 유형명이 지시하는 핵심(무게중심 2:1·닮음 대응·복수정답·정리선택)을 우선하고, 전역 빈발 일반 태그인 선분 분할 추적을 후순위로 뒀다. ★탈락 사유가 배치1 시점에 기록되지 않았던 것을 31종 검증에서 발견해 소급 기록(2026-08-16).", "dropped_adopted_elsewhere": { "segment_partition_tracking_failure": true }, "recorded_retroactively": true },
       { "problem_type_id": "M2_SIMPY_PT083", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["midpoint_length_relation_error","midpoint_area_fraction_relation_misapplied","law_selection_error","difference_direction_error"], "dropped": ["segment_partition_tracking_failure"], "reason": "유형명='중점연결정리 - 비례식·정리 적용'. ①유형명 핵심=중점 길이·넓이 관계 ②'정리 적용'이 지시하는 정리 선택(law_selection_error) ③이 유형 특이 단발 태그(difference_direction_error, 단원 1회)를 채택. 전역 빈발 일반 태그인 선분 분할 추적(단원 19회)을 후순위로 탈락.", "dropped_adopted_elsewhere": { "segment_partition_tracking_failure": true } },
-      { "problem_type_id": "M2_SIMPY_PT128", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["centroid_area_partition_failure","centroid_two_to_one_ratio_confusion","midpoint_area_fraction_relation_misapplied","area_decomposition_equation_setup_failure"], "dropped": ["area_ratio_from_similarity_failure"], "reason": "유형명='평행사변형에서 무게중심과 넓이 - 비례식·정리 적용'. ①유형명 핵심=무게중심 넓이 분할·2:1 ②중점 넓이 분수 ③전체를 조각으로 분해하는 식 세우기를 채택. 닮음비→넓이비 전환은 이 유형의 주 구조(무게중심 분할)가 아니라 후순위로 탈락. ★같은 개념(C043)의 PT127에서 tier-1으로 채택되어 개념 내 커버 유지.", "dropped_adopted_elsewhere": { "area_ratio_from_similarity_failure": true } }
+      { "problem_type_id": "M2_SIMPY_PT128", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["centroid_area_partition_failure","centroid_two_to_one_ratio_confusion","midpoint_area_fraction_relation_misapplied","area_decomposition_equation_setup_failure"], "dropped": ["area_ratio_from_similarity_failure"], "reason": "유형명='평행사변형에서 무게중심과 넓이 - 비례식·정리 적용'. ①유형명 핵심=무게중심 넓이 분할·2:1 ②중점 넓이 분수 ③전체를 조각으로 분해하는 식 세우기를 채택. 닮음비→넓이비 전환은 이 유형의 주 구조(무게중심 분할)가 아니라 후순위로 탈락. ★같은 개념(C043)의 PT127에서 tier-1으로 채택되어 개념 내 커버 유지.", "dropped_adopted_elsewhere": { "area_ratio_from_similarity_failure": true } },
+      { "problem_type_id": "M2_SIMPY_PT148", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["unit_conversion_omitted","ratio_setup_from_geometry_failure","similar_triangle_correspondence_setup_failure","segment_ratio_to_length_conversion_failure"], "dropped": ["multi_stage_motion_distance_setup_failure"], "reason": "유형명='높이·축척 - 개념·조건 판별'. 판별 유형의 핵심은 단위 통일·대응 짝짓기이며, 다단계 이동 거리는 계산 유형(PT149)의 구조. ★같은 개념(C050)의 PT149에서 tier-1으로 채택해 개념 내 커버 유지.", "dropped_adopted_elsewhere": { "multi_stage_motion_distance_setup_failure": true } },
+      { "problem_type_id": "M2_SIMPY_PT149", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["multi_stage_motion_distance_setup_failure","unit_conversion_omitted","ratio_setup_from_geometry_failure","segment_ratio_to_length_conversion_failure"], "dropped": ["similar_triangle_correspondence_setup_failure"], "reason": "계산 유형이라 다단계 이동 거리를 우선 채택. 탈락한 닮음 대응은 단원 전역 빈발(31회) 일반 태그로 후순위. 같은 개념 PT148에서 채택됨.", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true } }
     ],
     "waver_pairs": []
   },
@@ -1013,6 +1035,142 @@
       "student_command": "넓이를 답할 때는 기준을 명시하라. '삼각형의 1/6 = 평행사변형의 1/12'처럼 두 기준을 함께 적으면 틀리지 않는다.",
       "teacher_note": "기준 도형 혼동이 유일한 병목이다. 두 기준을 함께 쓰게 하라.",
       "parent_message": "무엇을 기준으로 한 분수인지 적는 습관이 정확도를 만듭니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT131": {
+      "problem_nature": "닮은 두 평면도형의 넓이비가 닮음비의 제곱임을 이용해 넓이 또는 변의 길이를 구하는 유형",
+      "required_thinking": ["닮음비(길이비) m:n이면 넓이비는 m²:n²", "넓이비가 주어지면 변의 비는 제곱근으로 역환산", "대응변을 정확히 짚어 닮음비를 확정", "중점으로 만들어진 도형이면 1:2 닮음비(넓이 1:4)임을 적용"],
+      "must_write_steps": ["두 도형의 대응 꼭짓점·대응변을 짝지어 닮음비를 적는다.", "'길이비 m:n → 넓이비 m²:n²' 한 줄을 쓴다.", "넓이를 구하면 제곱을, 변을 구하면 제곱근을 적용해 계산한다.", "구한 값을 다른 대응쌍으로 검산한다."],
+      "common_wrong_actions": ["넓이비에 길이비를 그대로 쓴다(제곱 누락).", "넓이비에서 변의 비로 갈 때 제곱근을 취하지 않는다.", "중점 도형의 넓이 1/4을 1/2로 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "area_ratio_from_similarity_failure", "label": "닮음비→넓이비 전환 실패", "diagnosis": "길이비를 넓이비로 바꿀 때 제곱하지 않았다.", "student_fix": "'m:n → m²:n²'를 먼저 쓰고 값을 대입하라." },
+        { "error_code": "area_ratio_to_side_ratio_conversion_failure", "label": "넓이비→변비 역환산 실패", "diagnosis": "넓이비가 주어졌는데 변의 비로 되돌릴 때 제곱근을 취하지 않았다.", "student_fix": "넓이비 a:b → 변비는 √a:√b. 방향이 반대임을 그림 옆에 적어라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "대응변을 잘못 짚어 닮음비 자체가 틀렸다.", "student_fix": "대응 꼭짓점을 세로로 적고 그 순서대로 변을 짝지어라." },
+        { "error_code": "midpoint_area_fraction_relation_misapplied", "label": "중점 넓이 분수 관계 오적용", "diagnosis": "중점으로 만들어진 도형의 넓이 분수(1/4)를 길이 분수(1/2)와 혼동했다.", "student_fix": "중점이면 길이 1/2, 넓이 1/4이다. 두 값을 나란히 적어라." }
+      ],
+      "student_command": "닮은 도형의 넓이는 '길이비의 제곱'이다. 넓이에서 길이로 돌아갈 때는 제곱근이다. 방향을 먼저 적어라.",
+      "teacher_note": "제곱과 제곱근의 방향을 헷갈린다. 화살표로 양방향을 그려두게 하라.",
+      "parent_message": "길이와 넓이의 관계(제곱)를 방향까지 알고 있는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT133": {
+      "problem_nature": "닮은 평면도형의 넓이비를 실제 상황(지도·도면·확대 그림)에 적용할 수 있는지 판별하는 유형",
+      "required_thinking": ["주어진 비가 길이비인지 넓이비인지 먼저 구분", "넓이를 물으면 제곱, 길이를 물으면 그대로임을 판별", "실제 상황에서 대응 관계가 성립하는지(닮음인지) 확인", "구하는 값의 단위를 확인"],
+      "must_write_steps": ["주어진 비가 길이비인지 넓이비인지 한 줄로 적는다.", "구하는 것이 길이인지 넓이인지 적는다.", "둘의 관계(제곱 또는 제곱근)를 적용한다.", "단위를 붙여 답하고 크기가 상식적인지 확인한다."],
+      "common_wrong_actions": ["주어진 비의 종류를 확인하지 않고 계산한다.", "넓이에 길이비를 그대로 곱한다.", "단위를 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "area_ratio_from_similarity_failure", "label": "닮음비→넓이비 전환 실패", "diagnosis": "길이비와 넓이비를 구분하지 못해 제곱을 빠뜨리거나 잘못 적용했다.", "student_fix": "'주어진 것은 ○○비, 구하는 것은 ○○'를 먼저 쓰고 제곱 여부를 정하라." }
+      ],
+      "student_command": "실생활 넓이비는 '주어진 것이 길이비인가 넓이비인가'를 먼저 적어라. 거기서 제곱 여부가 결정된다.",
+      "teacher_note": "비의 종류를 확인하지 않고 계산으로 직행하는 것이 유일한 병목이다.",
+      "parent_message": "무엇이 주어졌는지 먼저 적는 습관이 실수를 막습니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT135": {
+      "problem_nature": "닮은 평면도형의 넓이비를 축척·백분율 등 다른 표현과 결합해 계산하고 요구된 형태로 답하는 복합 유형",
+      "required_thinking": ["축척·백분율을 길이비로 먼저 환산", "길이비에서 넓이비로 제곱 적용", "구한 값을 요구된 형태(백분율·배수·단위)로 변환", "답의 형식이 문제 요구와 맞는지 확인"],
+      "must_write_steps": ["축척·백분율을 길이비 형태로 바꿔 적는다.", "길이비를 제곱해 넓이비를 구한다.", "구한 넓이를 계산한다.", "요구된 형태(％·배·단위)로 바꿔 답하고 형식을 확인한다."],
+      "common_wrong_actions": ["백분율을 길이비로 바꾸지 않고 넓이에 바로 곱한다.", "제곱을 백분율 단계에서 잘못 적용한다.", "요구된 형식(백분율/배수)과 다른 형태로 답한다."],
+      "error_checkpoints": [
+        { "error_code": "area_ratio_from_similarity_failure", "label": "닮음비→넓이비 전환 실패", "diagnosis": "길이비를 넓이비로 바꾸는 제곱을 빠뜨리거나 잘못된 단계에서 적용했다.", "student_fix": "길이비를 먼저 확정하고 그 다음에 제곱하라. 순서를 바꾸지 마라." },
+        { "error_code": "percentage_scale_factor_conversion_error", "label": "백분율·축척 환산 오류", "diagnosis": "백분율·축척을 길이비로 환산하는 과정에서 값을 틀렸다(20% 확대 → 1:1.2 등).", "student_fix": "'20% 늘림 = 1 → 1.2'처럼 배수로 먼저 바꿔 적고 계산하라." },
+        { "error_code": "answer_format_mismatch", "label": "답 형식 불일치", "diagnosis": "값은 맞으나 요구된 형식(백분율·배수·단위)으로 답하지 않았다.", "student_fix": "문제의 마지막 문장을 다시 읽고 요구 형식에 맞춰 답을 변환하라." }
+      ],
+      "student_command": "축척·백분율은 먼저 배수(길이비)로 바꿔라. 그 다음에 제곱해 넓이비를 구하고, 마지막에 요구 형식으로 변환하라.",
+      "teacher_note": "백분율 단계에서 제곱을 먼저 해버리는 순서 오류가 잦다. 순서를 고정시켜라.",
+      "parent_message": "문제가 요구한 형식(%·배)으로 답했는지 마지막에 확인하게 해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT140": {
+      "problem_nature": "닮은 두 입체도형의 겉넓이비(닮음비의 제곱)를 이용해 겉넓이 또는 길이를 구하는 유형",
+      "required_thinking": ["입체에서도 겉넓이비 = 닮음비의 제곱", "겉넓이비가 주어지면 길이비는 제곱근으로 역환산", "구하는 부분이 전체 겉넓이인지 일부(옆면 등)인지 구분", "길이비를 실제 길이로 환산"],
+      "must_write_steps": ["두 입체의 대응 길이를 짝지어 닮음비를 적는다.", "'길이비 m:n → 겉넓이비 m²:n²'를 적는다.", "구하는 부분(전체/옆면/밑면)을 명시하고 계산한다.", "비를 실제 값으로 환산하고 단위를 확인한다."],
+      "common_wrong_actions": ["겉넓이비에서 길이비로 갈 때 제곱근을 빠뜨린다.", "옆면만 물었는데 전체 겉넓이를 구한다.", "비까지만 구하고 값으로 환산하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "area_ratio_to_side_ratio_conversion_failure", "label": "넓이비→변비 역환산 실패", "diagnosis": "겉넓이비에서 길이비로 되돌릴 때 제곱근을 취하지 않았다.", "student_fix": "겉넓이비 a:b → 길이비 √a:√b. 방향을 화살표로 그려두고 계산하라." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "잘린 입체에서 부분과 전체의 길이를 혼동했다.", "student_fix": "잘린 부분과 전체 높이에 각각 이름을 붙이고 '전체 = 부분 + 나머지'를 적어라." },
+        { "error_code": "segment_ratio_to_length_conversion_failure", "label": "선분비→길이 환산 실패", "diagnosis": "비를 구하고 실제 길이·넓이로 환산하지 못했다.", "student_fix": "비를 구한 뒤 '값 = 대응 값 × 비' 한 줄을 더 써라." }
+      ],
+      "student_command": "입체 겉넓이도 길이비의 제곱이다. 겉넓이에서 길이로 갈 때는 제곱근이며, 구하는 면이 어디인지 먼저 적어라.",
+      "teacher_note": "전체 겉넓이와 일부 면을 혼동하는 경우가 있다. 구하는 면을 표시하게 하라.",
+      "parent_message": "어느 면의 넓이를 묻는지 먼저 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT143": {
+      "problem_nature": "닮은 두 입체도형의 부피비가 닮음비의 세제곱임을 이용해 부피를 구하는 유형",
+      "required_thinking": ["길이비 m:n → 부피비 m³:n³", "원뿔대처럼 잘린 입체는 전체에서 작은 부분을 빼서 구함", "여러 단계(길이비→부피비→실제 부피)를 순서대로 처리", "구한 값을 전체 부피와 대조해 검산"],
+      "must_write_steps": ["두 입체의 대응 길이로 닮음비를 적는다.", "'길이비 m:n → 부피비 m³:n³'를 적는다.", "잘린 입체면 전체 - 작은 부분으로 식을 세운다.", "계산한 부피가 전체보다 작은지 확인해 검산한다."],
+      "common_wrong_actions": ["부피비에 제곱을 적용한다(세제곱이어야 함).", "잘린 부분을 빼지 않고 전체를 답한다.", "단계 순서를 섞어 중간값을 잘못 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "volume_from_ratio_error", "label": "부피비 적용 오류", "diagnosis": "부피비를 닮음비의 세제곱으로 적용하지 못했다(제곱·그대로 사용 포함).", "student_fix": "길이·넓이·부피 = 1승·2승·3승. 세 줄을 나란히 적고 필요한 것을 골라라." },
+        { "error_code": "subtraction_of_regions_omitted", "label": "영역 빼기 누락", "diagnosis": "잘린 입체(원뿔대 등)에서 작은 부분을 빼는 처리를 빠뜨렸다.", "student_fix": "'구하는 것 = 전체 - 잘라낸 부분' 식을 먼저 쓰고 값을 넣어라." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "길이비→부피비→실제 부피의 단계 순서를 섞어 중간값을 잘못 사용했다.", "student_fix": "단계마다 줄을 바꿔 쓰고 각 줄의 결과에 이름을 붙여라." }
+      ],
+      "student_command": "부피는 길이비의 세제곱이다. 잘린 입체는 '전체 - 잘라낸 부분' 식을 먼저 쓰고 값을 넣어라.",
+      "teacher_note": "제곱과 세제곱 혼동, 그리고 빼기 누락이 두 축이다. 1승·2승·3승을 나란히 적게 하라.",
+      "parent_message": "길이·넓이·부피의 관계(1승·2승·3승)를 구분하는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT144": {
+      "problem_nature": "입체 부피비를 여러 조건과 결합해 계산하거나 관계를 증명하는 복합 유형",
+      "required_thinking": ["부피비 = 닮음비의 세제곱을 기준으로 관계 정리", "잘린 부분·남은 부분의 부피를 각각 표현", "조건을 연립해 미지 부피·길이를 구함", "부분의 합이 전체가 되는지 확인"],
+      "must_write_steps": ["닮음비와 부피비를 적는다.", "전체·잘라낸 부분·남은 부분의 부피를 각각 표현한다.", "조건을 연립해 미지값을 구한다.", "부분의 합 = 전체인지 확인해 검산한다."],
+      "common_wrong_actions": ["남은 부분의 부피를 세제곱비로 직접 구하려 한다(닮음이 아님).", "빼기를 빠뜨린다.", "부피비와 길이비를 섞는다."],
+      "error_checkpoints": [
+        { "error_code": "volume_from_ratio_error", "label": "부피비 적용 오류", "diagnosis": "부피비를 세제곱으로 적용하지 못했거나 닮지 않은 부분에 적용했다.", "student_fix": "세제곱비는 '닮은 두 입체' 사이에서만 쓴다. 남은 부분은 빼서 구하라." },
+        { "error_code": "subtraction_of_regions_omitted", "label": "영역 빼기 누락", "diagnosis": "남은 부분을 전체에서 빼는 처리를 하지 않았다.", "student_fix": "'남은 것 = 전체 - 닮은 작은 부분' 식을 반드시 먼저 써라." }
+      ],
+      "student_command": "세제곱비는 닮은 두 입체 사이에만 쓴다. 남은 부분(원뿔대 등)은 반드시 빼서 구하라.",
+      "teacher_note": "원뿔대 자체를 닮음으로 착각해 세제곱을 적용하는 오류가 핵심이다.",
+      "parent_message": "잘라낸 부분과 남은 부분을 구분해 계산하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT146": {
+      "problem_nature": "입체 부피비를 실제 상황(그릇의 물·모형·용량)에 적용해 값을 구하고 요구 형식으로 답하는 유형",
+      "required_thinking": ["주어진 비가 길이비인지 부피비인지 구분", "부피비는 세제곱 관계임을 적용", "비의 방향(큰 것 기준인지 작은 것 기준인지)을 확정", "채워진 부분·빈 부분 중 무엇을 묻는지 판별"],
+      "must_write_steps": ["주어진 비의 종류와 방향을 한 줄로 적는다.", "길이비 → 부피비(세제곱)로 변환한다.", "묻는 것이 채운 부분인지 빈 부분인지 표시하고 필요하면 빼서 구한다.", "요구된 형식·단위로 답하고 상식적인 크기인지 확인한다."],
+      "common_wrong_actions": ["비의 방향을 뒤집어 역수로 계산한다.", "빈 부분을 물었는데 채운 부분을 답한다.", "요구된 단위·형식과 다르게 답한다."],
+      "error_checkpoints": [
+        { "error_code": "volume_from_ratio_error", "label": "부피비 적용 오류", "diagnosis": "길이비를 부피비로 바꾸는 세제곱을 빠뜨렸다.", "student_fix": "'길이 m:n → 부피 m³:n³'를 먼저 쓰고 대입하라." },
+        { "error_code": "ratio_direction_inversion", "label": "비 방향 뒤집음", "diagnosis": "비의 앞뒤(기준)를 뒤집어 역수로 계산했다.", "student_fix": "'무엇 대비 무엇인지'를 문장으로 적고 그 순서대로 분수를 세워라." },
+        { "error_code": "subtraction_of_regions_omitted", "label": "영역 빼기 누락", "diagnosis": "빈 부분을 물었는데 전체에서 빼는 처리를 하지 않았다.", "student_fix": "'빈 부분 = 전체 - 채운 부분' 식을 먼저 써라." },
+        { "error_code": "answer_format_mismatch", "label": "답 형식 불일치", "diagnosis": "값은 맞으나 요구된 단위·형식으로 답하지 않았다.", "student_fix": "문제의 마지막 문장을 다시 읽고 단위·형식을 맞춰라." }
+      ],
+      "student_command": "실생활 부피 문제는 비의 방향을 문장으로 먼저 적고, 세제곱을 적용한 뒤, 묻는 것이 채운 부분인지 빈 부분인지 확인하라.",
+      "teacher_note": "방향 뒤집기와 빈 부분 혼동이 겹친다. 두 가지를 각각 한 줄로 쓰게 하라.",
+      "parent_message": "무엇을 묻는지(채운 것/빈 것)를 확인하고 답하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT148": {
+      "problem_nature": "그림자·축척 등 실생활 상황에서 닮음이 성립하는지 판별하고 필요한 대응 관계를 세우는 유형",
+      "required_thinking": ["같은 시각의 그림자는 태양광이 평행이라 닮은 직각삼각형이 됨을 확인", "축척은 지도 길이와 실제 길이의 비임을 확인", "단위가 다르면(cm↔m↔km) 먼저 통일", "대응 관계(높이↔그림자)를 짝지어 비를 세움"],
+      "must_write_steps": ["실제 상황을 직각삼각형 두 개로 그려 대응을 표시한다.", "단위를 하나로 통일해 다시 적는다.", "높이와 그림자를 짝지어 비를 세운다.", "구한 값의 단위와 크기가 상식적인지 확인한다."],
+      "common_wrong_actions": ["단위를 통일하지 않고 수만 대입한다.", "높이와 그림자의 짝을 뒤바꾼다.", "그림을 그리지 않아 대응이 안 보인다."],
+      "error_checkpoints": [
+        { "error_code": "unit_conversion_omitted", "label": "단위 환산 누락", "diagnosis": "cm·m·km 등 단위를 통일하지 않고 계산했다.", "student_fix": "계산 전에 모든 길이를 같은 단위로 바꿔 다시 적어라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "실제 상황을 도형으로 옮겨 비를 세우지 못했다.", "student_fix": "막대와 그림자로 직각삼각형을 그리고 높이·그림자에 이름을 붙여라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "높이와 그림자의 대응을 뒤바꿔 짝지었다.", "student_fix": "높이는 높이끼리, 그림자는 그림자끼리 짝지어 분수를 만들어라." },
+        { "error_code": "segment_ratio_to_length_conversion_failure", "label": "선분비→길이 환산 실패", "diagnosis": "비를 세우고 실제 길이로 환산하지 못했다.", "student_fix": "비를 구한 뒤 '길이 = 대응 길이 × 비'를 계산하고 단위를 붙여라." }
+      ],
+      "student_command": "그림자·축척 문제는 먼저 단위를 통일하고, 높이는 높이끼리·그림자는 그림자끼리 짝지어 비를 세워라.",
+      "teacher_note": "단위 통일을 건너뛰는 것이 가장 흔하다. 통일한 값을 다시 적게 하라.",
+      "parent_message": "단위를 맞춘 뒤 계산하는지 확인해 주세요. 이 한 단계가 정답을 가릅니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT149": {
+      "problem_nature": "닮음을 이용해 실생활의 높이·거리를 비례식으로 계산하는 유형(여러 단계 이동·측정 포함)",
+      "required_thinking": ["상황을 닮은 직각삼각형으로 옮겨 대응을 확정", "단위를 통일한 뒤 비례식을 세움", "이동·측정이 여러 단계면 각 단계의 거리를 순서대로 정리", "구한 값을 단위와 함께 상식적인지 확인"],
+      "must_write_steps": ["상황을 그림으로 옮기고 대응 길이에 이름을 붙인다.", "단위를 통일해 다시 적는다.", "여러 단계면 단계별 거리를 순서대로 적고 비례식을 세운다.", "구한 값에 단위를 붙이고 크기를 검토한다."],
+      "common_wrong_actions": ["여러 단계 이동을 한 번에 처리해 거리를 잘못 세운다.", "단위를 섞어 쓴다.", "비까지만 구하고 길이로 환산하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "multi_stage_motion_distance_setup_failure", "label": "다단계 이동 거리 세우기 실패", "diagnosis": "여러 단계로 이동·측정하는 상황에서 각 단계의 거리를 순서대로 세우지 못했다.", "student_fix": "이동을 단계별로 나눠 각 구간 거리에 이름을 붙이고 합·차를 식으로 적어라." },
+        { "error_code": "unit_conversion_omitted", "label": "단위 환산 누락", "diagnosis": "서로 다른 단위를 통일하지 않고 계산했다.", "student_fix": "계산 전에 모든 값을 같은 단위로 바꿔 다시 적어라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "실제 상황을 도형으로 옮겨 비례식을 세우지 못했다.", "student_fix": "직각삼각형을 그려 대응 길이에 이름을 붙인 뒤 비를 세워라." },
+        { "error_code": "segment_ratio_to_length_conversion_failure", "label": "선분비→길이 환산 실패", "diagnosis": "비를 구하고 실제 길이로 환산하는 단계를 빠뜨렸다.", "student_fix": "'길이 = 대응 길이 × 비'를 계산하고 단위를 붙여 답하라." }
+      ],
+      "student_command": "실생활 거리 계산은 이동을 단계별로 나눠 각 구간에 이름을 붙이고, 단위를 통일한 뒤 비례식을 세워라.",
+      "teacher_note": "여러 단계를 한 번에 처리하려다 거리 관계가 무너진다. 구간을 나눠 적게 하라.",
+      "parent_message": "여러 번 움직이는 상황은 구간을 나눠 적는 것이 요령입니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
