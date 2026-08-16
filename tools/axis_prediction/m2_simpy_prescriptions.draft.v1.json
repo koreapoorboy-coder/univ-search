@@ -6,7 +6,8 @@
     "authoring_rule": "error_checkpoints[].error_code는 4-tier 조회: 1)자기 overlay fine_error_tags → 2)단원 overlay 87 → 3)dict v2 §5 닮음13+§2 도형공통32 → 4)신설(new_tags 보고). checkpoint 3~4 상한. concept_ids 미포함(런타임조인·엔진 미참조). source_orders/raw_section_id 미포함(카탈로그 부재). visible_path/taxonomy 단순형(strand=sub_strand=type_name).",
     "reuse_priority": ["self_overlay_tags", "unit_overlay_87", "dict_v2_sim13_geomcommon32", "new"],
     "observed_basis_true_types": "overlay 87/87 전건 태그보유(빈배열 0·총 279·평균 3.2) → observed_basis 전건 true",
-    "progress": { "authored": 31, "total": 87, "batch": "4 (평행선과 선분비) 완료 — 중간제출 지점" },
+    "progress": { "authored": 42, "total": 87, "batch": "6 (사다리꼴 대각선·평행선 종합) 완료" },
+    "checkpoint_schema": "error_code · label · diagnosis · student_fix. ★[코드확인 2026-08-16] 이것이 정본 스키마 — instruction_map 4파트 12,523 엔트리 전건(diagnosis/student_fix 각 25,510회, check/fix 0회) · M2_GEOM draft 303 cp 전건 · display/student_action_templates.v1.json 45 cp 전건 동일. 리포·전달본 어디에도 check/fix 스키마 없음. 엔진은 error_checkpoints를 통째로 패스스루(math_weakness_engine.js:368)하며 하위 필드명을 읽는 코드는 없음.",
     "batch_plan": "B_similarity_prescription_batch_plan.v1.md — 잔여 81종을 개념 단위 10배치로 분할(B2~B11). 본 파일은 배치1 + B2 반영분.",
     "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + 보조(cp≤4·nonnull·ledger합). 롤링 백업.",
     "category_ledger": {
@@ -20,7 +21,9 @@
       "종이접기 닮음": ["M2_SIMPY_PT038"],
       "평행선과 선분비": ["M2_SIMPY_PT040","M2_SIMPY_PT042","M2_SIMPY_PT044","M2_SIMPY_PT047"],
       "평행 역판정": ["M2_SIMPY_PT049","M2_SIMPY_PT051"],
-      "여러 평행선·사다리꼴 선분비": ["M2_SIMPY_PT065","M2_SIMPY_PT067"]
+      "여러 평행선·사다리꼴 선분비": ["M2_SIMPY_PT065","M2_SIMPY_PT067"],
+      "각의 이등분선(내각·외각)": ["M2_SIMPY_PT053","M2_SIMPY_PT054","M2_SIMPY_PT056","M2_SIMPY_PT057","M2_SIMPY_PT058","M2_SIMPY_PT059","M2_SIMPY_PT061"],
+      "사다리꼴 대각선·평행선 종합": ["M2_SIMPY_PT070","M2_SIMPY_PT074","M2_SIMPY_PT077","M2_SIMPY_PT080"]
     },
     "new_tags": [],
     "reuse_note": "배치1(6)+B2(10)+B3(7)+B4(8)=31종. error_code 전부 tier-1(자기 overlay)에서 조회 — tier-2·3·4 = 0. 신설 0. 31종 전부 overlay 4개 이하라 cp 절삭 없음(태그 전건 채택). ★M2_GEOM 첫 배치 재사용 43% 대비: 닮음은 overlay 87/87(관측 완비)이라 첫 배치부터 tier-1 100% — 관측 커버리지가 재사용률을 결정한다는 대조 자료.",
@@ -50,7 +53,11 @@
       "parallelism_converse_ratio_test_failure": "평행 역판정 비 검사 실패",
       "nested_fraction_simplification_failure": "겹친 분수 정리 실패",
       "trapezoid_linear_interpolation_failure": "사다리꼴 선형보간 실패",
-      "pattern_extraction_failure": "규칙 추출 실패"
+      "pattern_extraction_failure": "규칙 추출 실패",
+      "angle_bisector_side_ratio_setup_failure": "각의 이등분선 변비 세우기 실패",
+      "same_altitude_area_ratio_transfer_failure": "같은 높이 넓이비 전이 실패",
+      "composite_area_subtraction_failure": "복합 넓이 빼기 실패",
+      "equal_tangent_segment_relation_misapplied": "접선 길이 같음 오적용"
     },
     "overlay_coverage_note": "87/87 (M2_GEOM 27/140 대비 완비). 처방 근거 전건 관측.",
     "predicted_observed_gaps": [],
@@ -80,7 +87,15 @@
       "삼각형에서 평행선 선분비 응용": ["M2_SIMPY_PT047"],
       "역으로 평행선 판정하기": ["M2_SIMPY_PT049","M2_SIMPY_PT051"],
       "여러 평행선 사이의 길이비": ["M2_SIMPY_PT065"],
-      "사다리꼴에서 평행선 선분비": ["M2_SIMPY_PT067"]
+      "사다리꼴에서 평행선 선분비": ["M2_SIMPY_PT067"],
+      "삼각형 내각의 이등분선과 변의 비": ["M2_SIMPY_PT053","M2_SIMPY_PT054"],
+      "삼각형 내각의 이등분선과 넓이비": ["M2_SIMPY_PT056","M2_SIMPY_PT057"],
+      "삼각형 외각의 이등분선과 변의 비": ["M2_SIMPY_PT058","M2_SIMPY_PT059"],
+      "삼각형 외각의 이등분선과 넓이비": ["M2_SIMPY_PT061"],
+      "사다리꼴과 한 대각선의 길이비": ["M2_SIMPY_PT070"],
+      "사다리꼴과 두 대각선 - 교점 비통과": ["M2_SIMPY_PT074"],
+      "사다리꼴과 두 대각선 - 교점 통과": ["M2_SIMPY_PT077"],
+      "평행선 사이 길이비의 종합 응용": ["M2_SIMPY_PT080"]
     },
     "concept_map_semantics": "★주의: 이 파일의 concept_map은 '개념 → problem_type_id 목록'(커버리지 검증용). M2_GEOM 정본의 concept_map은 '골격 공유 규칙 명세'로 의미가 다름 — 아래 skeleton_sharing이 그 역할을 승계한다(2026-08-16 정렬).",
     "skeleton_sharing": {
@@ -551,6 +566,168 @@
       "student_command": "사다리꼴 평행선은 위치 비를 먼저 적어라. 중점이면 두 밑변의 평균, 아니면 위치만큼 나눈 값이다.",
       "teacher_note": "무조건 평균으로 계산하는 오류가 잦다. 위치 비를 먼저 쓰게 하면 구분된다.",
       "parent_message": "'어디에 있는 선인가'를 먼저 확인하는 습관이 필요합니다. 위치가 적혀 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT053": {
+      "problem_nature": "삼각형의 한 내각을 이등분한 선이 대변을 나눌 때 생기는 변의 비로 길이를 구하는 유형",
+      "required_thinking": ["내각의 이등분선은 대변을 이웃한 두 변의 비로 나눔을 확인", "어느 변이 어느 조각에 대응하는지(가까운 변 ↔ 가까운 조각) 확정", "비례식을 세워 조각 길이를 구함", "두 조각의 합이 대변 전체와 같은지 검산"],
+      "must_write_steps": ["이등분되는 각과 그 대변, 나뉜 두 조각에 이름을 붙인다.", "이웃한 두 변의 비를 적고 각 변이 어느 조각과 짝인지 화살표로 표시한다.", "비례식을 세워 조각 길이를 구한다.", "조각1 + 조각2 = 대변 전체인지 확인해 검산한다."],
+      "common_wrong_actions": ["변과 조각의 짝을 반대로 붙인다.", "비를 그대로 길이로 쓴다.", "이등분선 자체의 길이를 조각 길이로 착각한다."],
+      "error_checkpoints": [
+        { "error_code": "angle_bisector_side_ratio_setup_failure", "label": "각의 이등분선 변비 세우기 실패", "diagnosis": "이등분선이 대변을 이웃한 두 변의 비로 나눈다는 관계를 세우지 못했거나 짝을 반대로 붙였다.", "student_fix": "각을 낀 두 변에서 각 변과 '그 변에 가까운 조각'을 화살표로 이어라. 그 짝이 곧 비다." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "조각:조각과 조각:전체의 기준을 섞어 비례식이 어긋났다.", "student_fix": "'지금은 조각:조각이다'를 한 줄 적고 그 기준대로만 식을 세워라." }
+      ],
+      "student_command": "내각의 이등분선은 대변을 '이웃한 두 변의 비'로 나눈다. 각 변과 가까운 조각을 화살표로 이어 짝을 고정하고 비례식을 세워라.",
+      "teacher_note": "짝을 반대로 붙이는 오류가 대부분이다. 화살표로 잇게 하면 눈으로 잡힌다.",
+      "parent_message": "어느 변이 어느 조각과 짝인지 표시하는 것이 핵심입니다. 화살표가 그려져 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT054": {
+      "problem_nature": "내각 이등분선의 변비를 다른 성질(평행선·접선 등)과 결합해 길이를 구하거나 증명하는 복합 유형",
+      "required_thinking": ["이등분선 변비를 먼저 확정", "함께 주어진 성질(평행선 각 전이·접선 길이 같음)을 따로 정리", "두 관계를 연립해 미지수를 구함", "성질을 섞어 쓰지 않았는지 근거별로 검토"],
+      "must_write_steps": ["이등분선으로 생긴 변비를 비례식으로 적는다.", "평행선·접선 등 추가 성질을 각각 별도의 줄에 근거와 함께 적는다.", "두 관계를 연립해 미지수를 구한다.", "각 근거가 어디에 쓰였는지 표시하고 검산한다."],
+      "common_wrong_actions": ["이등분선 변비와 다른 성질의 비를 한 식에 섞는다.", "접선 길이가 같다는 성질을 접점이 아닌 곳에 적용한다.", "평행선의 각 전이를 생략한 채 닮음을 주장한다."],
+      "error_checkpoints": [
+        { "error_code": "angle_bisector_side_ratio_setup_failure", "label": "각의 이등분선 변비 세우기 실패", "diagnosis": "이등분선 변비의 짝·방향을 틀린 채 복합 계산을 진행했다.", "student_fix": "변과 가까운 조각을 화살표로 이어 비를 먼저 고정하고 다른 성질은 따로 적어라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "서로 다른 근거에서 나온 비를 한 식에 섞었다.", "student_fix": "비마다 근거를 옆에 적고, 근거가 다르면 다른 줄에 써라." },
+        { "error_code": "equal_tangent_segment_relation_misapplied", "label": "접선 길이 같음 오적용", "diagnosis": "한 점에서 그은 두 접선의 길이가 같다는 성질을 접점이 아닌 선분에 적용했다.", "student_fix": "접점을 먼저 표시하고, 같은 점에서 나간 두 접선만 같다고 적어라." },
+        { "error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전이 실패", "diagnosis": "평행선의 동위각·엇각으로 각을 옮기지 못해 관계가 끊겼다.", "student_fix": "평행 표시를 찾아 F자·Z자를 같은 기호로 표시한 뒤 진행하라." }
+      ],
+      "student_command": "복합 문제는 근거마다 줄을 나눠라. 이등분선 변비 한 줄, 평행선 각 한 줄, 접선 길이 한 줄 — 섞으면 반드시 틀린다.",
+      "teacher_note": "근거가 둘 이상이면 섞임이 발생한다. 근거별로 줄을 나눠 쓰게 하라.",
+      "parent_message": "이유가 다른 식은 줄을 나눠 쓰는 습관이 필요합니다. 풀이가 줄별로 정리돼 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT056": {
+      "problem_nature": "내각의 이등분선이 삼각형을 나눌 때 두 부분의 넓이비를 구하는 유형",
+      "required_thinking": ["이등분선이 대변을 두 변의 비로 나눔을 확인", "나뉜 두 삼각형이 높이를 공유함을 확인", "높이가 같으면 넓이비 = 밑변비임을 적용", "넓이비가 이웃한 두 변의 비와 같아짐을 확인"],
+      "must_write_steps": ["이등분선으로 나뉜 두 삼각형을 표시하고 공통 높이를 그린다.", "밑변(조각)의 비를 이웃한 두 변의 비로 적는다.", "높이가 같으므로 넓이비 = 밑변비임을 적어 넓이비를 구한다.", "두 넓이의 합이 전체 넓이인지 검산한다."],
+      "common_wrong_actions": ["높이가 같음을 확인하지 않고 넓이비를 밑변비로 쓴다.", "넓이비에 닮음비의 제곱을 잘못 적용한다.", "변의 비와 조각의 비를 뒤집는다."],
+      "error_checkpoints": [
+        { "error_code": "angle_bisector_side_ratio_setup_failure", "label": "각의 이등분선 변비 세우기 실패", "diagnosis": "이등분선이 만드는 밑변의 비를 잘못 세워 넓이비가 어긋났다.", "student_fix": "각을 낀 두 변과 가까운 조각을 화살표로 이어 밑변비를 먼저 확정하라." },
+        { "error_code": "same_altitude_area_ratio_transfer_failure", "label": "같은 높이 넓이비 전이 실패", "diagnosis": "두 삼각형이 높이를 공유한다는 근거 없이 넓이비를 밑변비로 옮겼다(또는 옮기지 못했다).", "student_fix": "공통 높이를 그림에 그리고 '높이가 같으므로 넓이비 = 밑변비'를 한 줄로 적어라." }
+      ],
+      "student_command": "이등분선 넓이비는 공통 높이를 먼저 그려라. 높이가 같으므로 넓이비 = 밑변비 = 이웃한 두 변의 비다.",
+      "teacher_note": "'높이가 같으므로'라는 근거 문장을 빠뜨리면 닮음비 제곱과 혼동한다. 그 한 줄을 필수로 요구하라.",
+      "parent_message": "넓이비를 쓸 때 '높이가 같아서'라는 이유가 적혀 있는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT057": {
+      "problem_nature": "이등분선 넓이비를 여러 조각의 합·차와 결합해 특정 부분의 넓이를 구하는 복합 유형",
+      "required_thinking": ["이등분선으로 나뉜 조각의 넓이비를 확정", "구하는 부분이 어느 조각들의 합 또는 차인지 판별", "전체 넓이를 기준으로 각 조각의 분수를 계산", "겹치는 부분을 두 번 세지 않았는지 확인"],
+      "must_write_steps": ["나뉜 조각에 이름을 붙이고 각 조각의 넓이비를 적는다.", "구하는 부분을 조각의 합·차로 표현한다.", "전체 넓이 대비 분수로 각 조각을 구해 더하거나 뺀다.", "겹침·누락이 없는지 조각 목록으로 확인해 검산한다."],
+      "common_wrong_actions": ["겹치는 부분을 두 번 더한다.", "빼야 할 부분을 빠뜨린다.", "높이가 다른 삼각형에 밑변비를 넓이비로 그대로 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "angle_bisector_side_ratio_setup_failure", "label": "각의 이등분선 변비 세우기 실패", "diagnosis": "이등분선 변비를 틀려 조각의 넓이 분수가 어긋났다.", "student_fix": "변과 조각의 짝을 화살표로 고정한 뒤 넓이 분수를 계산하라." },
+        { "error_code": "same_altitude_area_ratio_transfer_failure", "label": "같은 높이 넓이비 전이 실패", "diagnosis": "높이가 같지 않은 삼각형에 밑변비를 넓이비로 그대로 옮겼다.", "student_fix": "넓이비를 밑변비로 바꾸기 전에 두 삼각형의 높이가 같은지 그림에서 확인하라." },
+        { "error_code": "composite_area_subtraction_failure", "label": "복합 넓이 빼기 실패", "diagnosis": "구하는 부분을 조각의 합·차로 표현하는 과정에서 겹침을 두 번 세거나 뺄 부분을 빠뜨렸다.", "student_fix": "조각에 번호를 붙여 목록을 만들고 '구하는 것 = ①+② - ③' 형태로 먼저 식을 써라." }
+      ],
+      "student_command": "복합 넓이는 조각에 번호를 붙여 '구하는 것 = ①+②-③' 식을 먼저 쓰고, 각 조각을 전체의 분수로 구해 대입하라.",
+      "teacher_note": "겹침을 두 번 세는 실수가 잦다. 조각 목록과 식을 먼저 쓰게 하면 잡힌다.",
+      "parent_message": "넓이 문제는 조각을 번호로 적고 식을 먼저 세우는 것이 요령입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT058": {
+      "problem_nature": "삼각형의 한 외각을 이등분한 선이 대변의 연장선과 만날 때 생기는 변의 비를 판별하는 유형",
+      "required_thinking": ["외각의 이등분선은 대변의 '연장선' 위에서 만남을 확인", "만나는 점이 선분 바깥이므로 비가 조각의 차로 나타남을 인식", "이웃한 두 변의 비가 그대로 적용됨을 확인", "두 변의 길이가 같으면 만나지 않음(평행)을 예외로 인식"],
+      "must_write_steps": ["외각과 그 이등분선, 대변의 연장선을 그려 만나는 점을 표시한다.", "이웃한 두 변의 비를 적고 각 변이 어느 선분과 짝인지 표시한다.", "만나는 점이 선분 바깥임을 표시하고 비를 세운다.", "두 변이 같으면 평행해 만나지 않음을 확인한다."],
+      "common_wrong_actions": ["연장선을 그리지 않고 선분 안에서 점을 찾는다.", "내각 이등분선의 비를 그대로 적용해 부호·위치를 틀린다.", "두 변이 같은 경우(평행)를 놓친다."],
+      "error_checkpoints": [
+        { "error_code": "angle_bisector_side_ratio_setup_failure", "label": "각의 이등분선 변비 세우기 실패", "diagnosis": "외각 이등분선의 비를 내각의 경우와 구분하지 못했다(만나는 점의 위치 포함).", "student_fix": "외각이면 대변을 늘려 연장선 위에서 만난다. 연장선을 먼저 그리고 점을 찍어라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "연장선 위의 점 때문에 조각의 합·차 구조가 달라진 것을 반영하지 못했다.", "student_fix": "만나는 점이 선분 밖이면 '전체 = 큰 조각 - 작은 조각' 관계임을 그림에 적어라." },
+        { "error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전이 실패", "diagnosis": "보조 평행선으로 각을 옮겨 비를 유도하는 경로를 세우지 못했다.", "student_fix": "한 꼭짓점에서 이등분선과 평행한 보조선을 긋고 동위각·엇각을 표시하라." }
+      ],
+      "student_command": "외각의 이등분선은 대변을 늘린 연장선 위에서 만난다. 연장선을 먼저 그리고 점을 찍은 뒤 비를 세워라.",
+      "teacher_note": "연장선을 안 그려서 막히는 경우가 대부분이다. 그림을 늘려 그리게 하라.",
+      "parent_message": "선을 밖으로 늘려 그려야 하는 문제입니다. 연장선이 그려져 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT059": {
+      "problem_nature": "외각 이등분선의 변비를 비례식으로 세워 연장선 위의 길이를 계산하는 유형",
+      "required_thinking": ["연장선 위 만나는 점의 위치를 먼저 확정", "이웃한 두 변의 비를 연장선 위 두 선분에 대응", "조각의 차 관계를 반영해 비례식을 세움", "구한 길이가 그림의 위치(선분 밖)와 맞는지 확인"],
+      "must_write_steps": ["연장선과 만나는 점을 그려 각 선분에 이름을 붙인다.", "이웃한 두 변의 비를 대응 선분에 짝지어 적는다.", "차 관계를 반영해 비례식을 세우고 길이를 구한다.", "구한 값이 양수이고 점이 선분 밖에 오는지 확인해 검산한다."],
+      "common_wrong_actions": ["내각의 경우처럼 합 관계로 식을 세운다.", "구한 값의 위치(선분 안/밖)를 확인하지 않는다.", "대응 짝을 반대로 붙인다."],
+      "error_checkpoints": [
+        { "error_code": "angle_bisector_side_ratio_setup_failure", "label": "각의 이등분선 변비 세우기 실패", "diagnosis": "외각 이등분선의 대응 짝·위치 관계를 틀려 비례식이 어긋났다.", "student_fix": "연장선을 그린 뒤 두 변과 두 선분을 화살표로 이어 짝을 고정하라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "합 관계와 차 관계를 구분하지 못하고 식을 세웠다.", "student_fix": "점이 선분 밖이면 차 관계다. '큰 것 - 작은 것'을 먼저 적고 식을 세워라." },
+        { "error_code": "parallel_line_angle_transfer_failure", "label": "평행선 각 전이 실패", "diagnosis": "보조 평행선의 각 전이를 세우지 못해 비의 근거가 빠졌다.", "student_fix": "이등분선과 평행한 보조선을 긋고 같은 각을 표시해 근거를 만들어라." }
+      ],
+      "student_command": "외각 이등분선 계산은 연장선 위 점이 선분 밖임을 표시하고, 합이 아니라 차 관계로 비례식을 세워라.",
+      "teacher_note": "내각과 같은 방식으로 합 관계를 쓰는 것이 전형적 실패다. 위치를 먼저 표시하게 하라.",
+      "parent_message": "점이 선분 안인지 밖인지 확인하는 것이 이 유형의 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT061": {
+      "problem_nature": "외각의 이등분선이 만드는 삼각형들의 넓이비를 판별하는 유형",
+      "required_thinking": ["외각 이등분선으로 생긴 삼각형들의 밑변 관계를 연장선 위에서 확인", "높이를 공유하는 삼각형 쌍을 찾아 넓이비 = 밑변비 적용", "구하는 넓이가 조각의 합인지 차인지 판별", "선분 밖 부분을 뺄 때 부호·범위를 확인"],
+      "must_write_steps": ["연장선과 이등분선으로 생긴 삼각형들을 표시하고 공통 높이를 그린다.", "밑변의 비(차 관계 포함)를 적는다.", "높이가 같으므로 넓이비 = 밑변비를 적용해 각 넓이를 구한다.", "구하는 부분을 합·차로 표현하고 겹침·누락을 확인해 검산한다."],
+      "common_wrong_actions": ["연장선 밖 삼각형을 전체에 그냥 더한다.", "높이가 같은지 확인하지 않고 넓이비를 쓴다.", "빼야 할 부분을 더한다."],
+      "error_checkpoints": [
+        { "error_code": "angle_bisector_side_ratio_setup_failure", "label": "각의 이등분선 변비 세우기 실패", "diagnosis": "외각 이등분선이 만드는 밑변의 비를 잘못 세웠다.", "student_fix": "연장선을 그리고 두 변과 두 선분의 짝을 화살표로 이어 밑변비를 확정하라." },
+        { "error_code": "same_altitude_area_ratio_transfer_failure", "label": "같은 높이 넓이비 전이 실패", "diagnosis": "공통 높이 근거 없이 넓이비를 밑변비로 옮겼다.", "student_fix": "공통 높이를 그려 '높이가 같으므로 넓이비 = 밑변비'를 한 줄로 적어라." },
+        { "error_code": "composite_area_subtraction_failure", "label": "복합 넓이 빼기 실패", "diagnosis": "선분 밖 부분을 더하거나 빼는 처리를 틀려 넓이가 어긋났다.", "student_fix": "구하는 넓이를 '①+② -③' 식으로 먼저 쓰고 각 조각이 안인지 밖인지 표시하라." }
+      ],
+      "student_command": "외각 넓이비는 공통 높이를 그려 넓이비 = 밑변비를 쓰고, 선분 밖 조각은 더할지 뺄지를 식에 먼저 표시하라.",
+      "teacher_note": "밖 조각의 부호 처리가 병목이다. 식을 먼저 쓰고 조각의 안/밖을 표시하게 하라.",
+      "parent_message": "어느 부분을 더하고 어느 부분을 빼는지 먼저 적는 것이 정확도를 만듭니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT070": {
+      "problem_nature": "사다리꼴에 한 대각선을 그었을 때 생기는 두 삼각형의 닮음과 길이비를 판별하는 유형",
+      "required_thinking": ["사다리꼴의 두 밑변이 평행함을 근거로 엇각이 같음을 확인", "대각선이 만드는 두 삼각형이 닮음임을 확인", "닮음비 = 두 밑변의 비임을 확정", "대응변 짝을 밑변 기준으로 고정"],
+      "must_write_steps": ["평행한 두 밑변을 표시하고 대각선으로 생긴 두 삼각형을 지목한다.", "엇각을 같은 기호로 표시해 닮음을 선언한다.", "닮음비 = 두 밑변의 비로 적고 대응변을 짝짓는다.", "다른 대응쌍으로도 같은 비가 나오는지 검산한다."],
+      "common_wrong_actions": ["두 삼각형의 방향이 반대인데 대응을 그대로 짝짓는다.", "닮음비를 밑변이 아닌 다리(빗변)의 비로 잡는다.", "평행 근거 없이 닮음을 주장한다."],
+      "error_checkpoints": [
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "닮음비의 기준을 두 밑변이 아닌 다른 변으로 잡았다.", "student_fix": "사다리꼴 대각선 문제의 닮음비는 두 밑변의 비다. 밑변 길이를 먼저 적어라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "마주 보는 두 삼각형의 대응 방향을 뒤집지 않고 짝지었다.", "student_fix": "두 삼각형을 떼어 같은 방향으로 돌려 그린 뒤 대응 꼭짓점을 적어라." }
+      ],
+      "student_command": "사다리꼴 대각선은 엇각으로 닮음을 만든다. 닮음비는 두 밑변의 비이며, 삼각형은 돌려 그려 대응을 맞춰라.",
+      "teacher_note": "닮음비를 다리에서 잡는 오류가 잦다. 두 밑변을 먼저 적게 하라.",
+      "parent_message": "어느 변의 비가 기준인지 먼저 확인하는 습관이 필요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT074": {
+      "problem_nature": "사다리꼴의 두 대각선이 만드는 구조에서 교점을 지나지 않는 선분의 길이비를 구하는 유형",
+      "required_thinking": ["두 대각선의 교점이 만드는 닮은 삼각형 쌍을 확인", "구하는 선분이 교점을 지나지 않음을 확인해 다른 경로를 선택", "선분이 여러 조각으로 나뉘는 구조를 추적", "조각의 합이 전체와 맞는지 검산"],
+      "must_write_steps": ["두 대각선과 교점을 표시하고 나뉘는 조각에 이름을 붙인다.", "구하는 선분이 교점을 지나는지 먼저 확인해 적는다.", "지나지 않으면 밑변비로 만든 닮음 관계를 따라 조각을 차례로 구한다.", "조각의 합이 전체 선분과 같은지 검산한다."],
+      "common_wrong_actions": ["교점을 지나는 경우의 비를 그대로 적용한다.", "조각과 전체를 혼동해 비례식에 잘못 넣는다.", "조각 하나를 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "대각선으로 나뉜 조각과 전체 선분을 구분하지 못하고 섞었다.", "student_fix": "교점으로 나뉜 조각마다 이름을 붙이고 '전체 = 조각의 합'을 먼저 적어라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "교점을 지나지 않는 선분인데 교점 기준 비를 그대로 적용했다.", "student_fix": "구하는 선분이 교점을 지나는지 먼저 적고, 지나지 않으면 밑변비 경로로 돌아가라." }
+      ],
+      "student_command": "두 대각선 문제는 '구하는 선분이 교점을 지나는가'를 먼저 적어라. 지나지 않으면 밑변비 경로로 조각을 차례로 구한다.",
+      "teacher_note": "교점 통과 여부를 확인하지 않고 공식처럼 쓰는 것이 실패 원인이다. 그 한 줄을 먼저 쓰게 하라.",
+      "parent_message": "문제 조건을 먼저 확인하고 방법을 고르는 습관이 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT077": {
+      "problem_nature": "사다리꼴의 두 대각선의 교점을 지나는 선분(두 밑변에 평행)의 길이를 구하는 유형",
+      "required_thinking": ["교점에서 두 밑변에 평행한 선분이 생기는 구조를 확인", "교점이 각 대각선을 두 밑변의 비로 나눔을 확인", "평행선 닮음으로 조각 길이를 두 밑변으로 표현", "좌우 두 조각의 길이가 같아짐을 확인해 검산"],
+      "must_write_steps": ["두 대각선과 교점, 교점을 지나는 평행선분을 그린다.", "교점이 대각선을 나누는 비(두 밑변의 비)를 적는다.", "평행선 닮음으로 좌·우 조각의 길이를 두 밑변으로 각각 표현한다.", "두 조각이 같은 값인지 확인하고 전체 길이를 구한다."],
+      "common_wrong_actions": ["교점이 대각선을 이등분한다고 착각한다.", "두 밑변의 평균으로 계산한다(중점 연결과 혼동).", "좌우 조각 중 하나만 구하고 끝낸다."],
+      "error_checkpoints": [
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "교점이 대각선을 두 밑변의 비로 나눈다는 관계를 세우지 못했다(이등분으로 착각 포함).", "student_fix": "교점은 대각선을 '두 밑변의 비'로 나눈다. 밑변 길이를 적고 그 비를 대각선에 표시하라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "평행선으로 생긴 닮은 삼각형의 대응을 잘못 짝지어 조각 길이가 틀렸다.", "student_fix": "좌·우 삼각형을 따로 그려 대응 꼭짓점을 적고 각각 조각을 구하라." }
+      ],
+      "student_command": "교점을 지나는 평행선분은 '교점이 대각선을 두 밑변의 비로 나눈다'에서 출발하라. 중점(평균)과 혼동하지 마라.",
+      "teacher_note": "중점연결정리의 평균과 혼동하는 것이 핵심 오류다. 두 상황을 나란히 비교해 주라.",
+      "parent_message": "비슷해 보이는 두 상황(중점 / 대각선 교점)을 구분하는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT080": {
+      "problem_nature": "평행선 사이의 길이비를 여러 삼각형·넓이 관계와 함께 종합적으로 적용하는 응용 유형",
+      "required_thinking": ["평행 구조로 만들어지는 닮은 쌍을 모두 찾음", "길이 관계와 넓이 관계를 구분해 각각 정리", "넓이는 닮음비의 제곱 또는 공통 높이 밑변비 중 어느 쪽인지 판별", "여러 삼각형을 거치는 경로를 정해 값을 연결"],
+      "must_write_steps": ["평행 표시와 닮은 쌍을 모두 나열한다.", "길이 관계와 넓이 관계를 각각 다른 줄에 적는다.", "넓이는 근거(닮음비 제곱 / 공통 높이)를 명시해 계산한다.", "전체 넓이를 조각의 합으로 분해해 검산한다."],
+      "common_wrong_actions": ["넓이비에 길이비를 그대로 쓴다.", "공통 높이 상황과 닮음 상황을 섞는다.", "여러 경로 중간에서 값을 잃는다."],
+      "error_checkpoints": [
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "길이 관계와 넓이 관계를 같은 기준으로 섞어 세웠다.", "student_fix": "길이 줄과 넓이 줄을 나눠 쓰고 각 줄에 근거를 적어라." },
+        { "error_code": "multi_triangle_length_chain_failure", "label": "다중 삼각형 길이 연결 실패", "diagnosis": "여러 삼각형을 거치는 길이 연결이 중간에서 끊겼다.", "student_fix": "경로를 화살표로 그리고 단계마다 비를 이어 적어라." },
+        { "error_code": "area_ratio_from_similarity_failure", "label": "닮음비→넓이비 전환 실패", "diagnosis": "닮음 상황의 넓이비에서 제곱을 빠뜨렸다.", "student_fix": "닮음이면 넓이비는 길이비의 제곱이다. 'm:n → m²:n²'를 한 줄 적어라." },
+        { "error_code": "area_decomposition_equation_setup_failure", "label": "넓이 분해 식 세우기 실패", "diagnosis": "전체 넓이를 조각으로 분해해 미지 넓이를 식으로 세우지 못했다.", "student_fix": "전체 = 조각들의 합으로 식을 세우고 미지 넓이를 남겨 풀어라." }
+      ],
+      "student_command": "종합 응용은 길이 줄과 넓이 줄을 나눠 쓰고, 넓이는 '닮음이면 제곱, 높이가 같으면 밑변비' 중 근거를 반드시 적어라.",
+      "teacher_note": "넓이 근거 두 가지를 구분하지 못해 섞인다. 근거를 적게 하면 선택이 정확해진다.",
+      "parent_message": "넓이를 구한 이유가 적혀 있는지 확인해 주세요. 이유가 정확하면 답도 정확합니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
