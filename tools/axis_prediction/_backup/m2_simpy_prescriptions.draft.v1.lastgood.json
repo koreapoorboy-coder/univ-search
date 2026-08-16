@@ -6,7 +6,7 @@
     "authoring_rule": "error_checkpoints[].error_code는 4-tier 조회: 1)자기 overlay fine_error_tags → 2)단원 overlay 87 → 3)dict v2 §5 닮음13+§2 도형공통32 → 4)신설(new_tags 보고). checkpoint 3~4 상한. concept_ids 미포함(런타임조인·엔진 미참조). source_orders/raw_section_id 미포함(카탈로그 부재). visible_path/taxonomy 단순형(strand=sub_strand=type_name).",
     "reuse_priority": ["self_overlay_tags", "unit_overlay_87", "dict_v2_sim13_geomcommon32", "new"],
     "observed_basis_true_types": "overlay 87/87 전건 태그보유(빈배열 0·총 279·평균 3.2) → observed_basis 전건 true",
-    "progress": { "authored": 76, "total": 87, "batch": "10 (피타고라스 기본) 완료" },
+    "progress": { "authored": 87, "total": 87, "batch": "11 (피타고라스 활용·역·입체) 완료 — 전량 저작 완료" },
     "checkpoint_schema": "error_code · label · diagnosis · student_fix. ★[코드확인 2026-08-16] 이것이 정본 스키마 — instruction_map 4파트 12,523 엔트리 전건(diagnosis/student_fix 각 25,510회, check/fix 0회) · M2_GEOM draft 303 cp 전건 · display/student_action_templates.v1.json 45 cp 전건 동일. 리포·전달본 어디에도 check/fix 스키마 없음. 엔진은 error_checkpoints를 통째로 패스스루(math_weakness_engine.js:368)하며 하위 필드명을 읽는 코드는 없음.",
     "batch_plan": "B_similarity_prescription_batch_plan.v1.md — 잔여 81종을 개념 단위 10배치로 분할(B2~B11). 본 파일은 배치1 + B2 반영분.",
     "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + 보조(cp≤4·nonnull·ledger합). 롤링 백업.",
@@ -27,7 +27,8 @@
       "중점연결정리": ["M2_SIMPY_PT083","M2_SIMPY_PT086","M2_SIMPY_PT089","M2_SIMPY_PT090","M2_SIMPY_PT096","M2_SIMPY_PT098"],
       "무게중심 응용·평행사변형": ["M2_SIMPY_PT112","M2_SIMPY_PT113","M2_SIMPY_PT115","M2_SIMPY_PT116","M2_SIMPY_PT120","M2_SIMPY_PT121","M2_SIMPY_PT122","M2_SIMPY_PT125","M2_SIMPY_PT126","M2_SIMPY_PT127","M2_SIMPY_PT128"],
       "넓이비·부피비·실생활": ["M2_SIMPY_PT131","M2_SIMPY_PT133","M2_SIMPY_PT135","M2_SIMPY_PT140","M2_SIMPY_PT143","M2_SIMPY_PT144","M2_SIMPY_PT146","M2_SIMPY_PT148","M2_SIMPY_PT149"],
-      "피타고라스 기본": ["M2_SIMPY_PT151","M2_SIMPY_PT152","M2_SIMPY_PT153","M2_SIMPY_PT155","M2_SIMPY_PT156","M2_SIMPY_PT157","M2_SIMPY_PT158","M2_SIMPY_PT159"]
+      "피타고라스 기본": ["M2_SIMPY_PT151","M2_SIMPY_PT152","M2_SIMPY_PT153","M2_SIMPY_PT155","M2_SIMPY_PT156","M2_SIMPY_PT157","M2_SIMPY_PT158","M2_SIMPY_PT159"],
+      "피타고라스 활용·역·입체": ["M2_SIMPY_PT161","M2_SIMPY_PT162","M2_SIMPY_PT165","M2_SIMPY_PT166","M2_SIMPY_PT167","M2_SIMPY_PT169","M2_SIMPY_PT170","M2_SIMPY_PT171","M2_SIMPY_PT174","M2_SIMPY_PT175","M2_SIMPY_PT177"]
     },
     "new_tags": [],
     "reuse_note": "배치1(6)+B2(10)+B3(7)+B4(8)=31종. error_code 전부 tier-1(자기 overlay)에서 조회 — tier-2·3·4 = 0. 신설 0. 31종 전부 overlay 4개 이하라 cp 절삭 없음(태그 전건 채택). ★M2_GEOM 첫 배치 재사용 43% 대비: 닮음은 overlay 87/87(관측 완비)이라 첫 배치부터 tier-1 100% — 관측 커버리지가 재사용률을 결정한다는 대조 자료.",
@@ -80,7 +81,17 @@
       "variable_length_assignment_failure": "미지 길이 설정 실패",
       "radical_ratio_simplification_error": "무리수 비 정리 오류",
       "tangent_radius_perpendicularity_omitted": "접선·반지름 수직 누락",
-      "auxiliary_line_construction_failure": "보조선 작도 실패"
+      "auxiliary_line_construction_failure": "보조선 작도 실패",
+      "isosceles_altitude_bisection_overlooked": "이등변삼각형 높이 이등분 간과",
+      "central_angle_to_arc_ratio_failure": "중심각→호 비 연결 실패",
+      "pythagorean_converse_condition_failure": "피타고라스 역 조건 판정 실패",
+      "trig_ratio_side_role_confusion": "변의 역할 혼동",
+      "inequality_bound_conversion_error": "부등식 경계 변환 오류",
+      "area_inradius_relation_setup_failure": "넓이·내접원 반지름 관계 세우기 실패",
+      "right_triangle_tangent_partition_failure": "직각삼각형 접선 분할 실패",
+      "cylinder_unfolding_wrap_count_failure": "원기둥 전개 감김 횟수 오류",
+      "developed_surface_base_circumference_mapping_failure": "전개도 밑면 둘레 대응 실패",
+      "spatial_cross_section_identification_failure": "공간 단면 식별 실패"
     },
     "overlay_coverage_note": "87/87 (M2_GEOM 27/140 대비 완비). 처방 근거 전건 관측.",
     "predicted_observed_gaps": [],
@@ -138,7 +149,13 @@
       "닮음의 실생활 활용 - 높이·축척": ["M2_SIMPY_PT148","M2_SIMPY_PT149"],
       "피타고라스 정리로 삼각형의 변 구하기": ["M2_SIMPY_PT151","M2_SIMPY_PT152","M2_SIMPY_PT153"],
       "직각삼각형의 닮음과 피타고라스 정리": ["M2_SIMPY_PT155","M2_SIMPY_PT156"],
-      "사각형·직사각형에서 피타고라스 정리": ["M2_SIMPY_PT157","M2_SIMPY_PT158","M2_SIMPY_PT159"]
+      "사각형·직사각형에서 피타고라스 정리": ["M2_SIMPY_PT157","M2_SIMPY_PT158","M2_SIMPY_PT159"],
+      "이등변삼각형의 높이와 넓이": ["M2_SIMPY_PT161","M2_SIMPY_PT162"],
+      "피타고라스 정리의 여러 증명": ["M2_SIMPY_PT165"],
+      "피타고라스 정리의 역과 삼각형 분류": ["M2_SIMPY_PT166","M2_SIMPY_PT167"],
+      "평면도형에서 피타고라스 정리의 활용": ["M2_SIMPY_PT169","M2_SIMPY_PT170","M2_SIMPY_PT171"],
+      "히포크라테스·피타고라스 나무·종이접기": ["M2_SIMPY_PT174"],
+      "입체도형과 원기둥 최단거리": ["M2_SIMPY_PT175","M2_SIMPY_PT177"]
     },
     "concept_map_semantics": "★주의: 이 파일의 concept_map은 '개념 → problem_type_id 목록'(커버리지 검증용). M2_GEOM 정본의 concept_map은 '골격 공유 규칙 명세'로 의미가 다름 — 아래 skeleton_sharing이 그 역할을 승계한다(2026-08-16 정렬).",
     "skeleton_sharing": {
@@ -155,7 +172,30 @@
     },
     "frequent_deprioritized_tags": {
       "_note": "★검수 지시 2026-08-16(기록만·판정 금지). cp 상한 4 절삭에서 '전역 빈발 일반 태그 후순위' 사유로 반복 탈락한 태그 목록. 두 해석이 가능하며 현 데이터로 구분 불가: (가) 실제로 범용이라 특정 유형의 핵심이 아님(정상) (나) overlay가 과다 부여함(overlay 품질 사안). M2_GEOM gaps_excluded (b) '편재 태그'와 같은 계열. 최종 제출 시 확정 목록을 낸다.",
-      "tags": []
+      "measure": "탈락 횟수 / 단원 출현 횟수 = 비율 (채택 횟수 병기). 87종 완료 시점 확정치 [실측 2026-08-16].",
+      "tags": [
+        { "tag": "segment_partition_tracking_failure", "dropped": 5, "unit_occurrences": 21, "ratio": "24%", "adopted": 16 },
+        { "tag": "similar_triangle_correspondence_setup_failure", "dropped": 4, "unit_occurrences": 32, "ratio": "13%", "adopted": 28 },
+        { "tag": "area_formula_setup_error", "dropped": 2, "unit_occurrences": 13, "ratio": "15%", "adopted": 11 },
+        { "tag": "answer_format_mismatch", "dropped": 2, "unit_occurrences": 4, "ratio": "50%", "adopted": 2 },
+        { "tag": "multi_stage_motion_distance_setup_failure", "dropped": 1, "unit_occurrences": 2, "ratio": "50%", "adopted": 1 },
+        { "tag": "centroid_two_to_one_ratio_confusion", "dropped": 1, "unit_occurrences": 12, "ratio": "8%", "adopted": 11 },
+        { "tag": "angle_bisector_side_ratio_setup_failure", "dropped": 1, "unit_occurrences": 10, "ratio": "10%", "adopted": 9 },
+        { "tag": "area_ratio_from_similarity_failure", "dropped": 1, "unit_occurrences": 9, "ratio": "11%", "adopted": 8 }
+      ]
+    },
+    "overlay_single_tag_types": {
+      "_note": "★검수 지시 2026-08-16. overlay 태그가 1종뿐이라 checkpoint도 1개가 된 유형. cp 하한 위반이 아니라 관측 어휘 자체가 얇은 경우이며, 나중에 처방 품질을 볼 때 관측 보강 대상.",
+      "types": [
+        { "problem_type_id": "M2_SIMPY_PT133", "type_name": "닮은 평면도형 넓이비의 활용 - 개념·조건 판별", "only_tag": "area_ratio_from_similarity_failure" },
+        { "problem_type_id": "M2_SIMPY_PT169", "type_name": "평면도형에서 피타고라스 정리의 활용 - 개념·조건 판별", "only_tag": "pythagorean_setup_failure" }
+      ]
+    },
+    "unused_overlay_tags": {
+      "_note": "어느 유형에서도 checkpoint로 채택되지 않은 overlay 태그. 절삭 17건이 전부 타 유형에서 채택되어 최종 0건 유지 [실측].",
+      "count": 0,
+      "tags": [],
+      "reconciliation": "overlay 총 279 = 채택 262 + 탈락 17. distinct 58종 전부 최소 1회 채택."
     },
     "trimmed_checkpoints": [
       { "problem_type_id": "M2_SIMPY_PT105", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["centroid_two_to_one_ratio_confusion","similar_triangle_correspondence_setup_failure","multiple_answer_omission","law_selection_error"], "dropped": ["segment_partition_tracking_failure"], "reason": "배치1 저작분. 유형명이 지시하는 핵심(무게중심 2:1·닮음 대응·복수정답·정리선택)을 우선하고, 전역 빈발 일반 태그인 선분 분할 추적을 후순위로 뒀다. ★탈락 사유가 배치1 시점에 기록되지 않았던 것을 31종 검증에서 발견해 소급 기록(2026-08-16).", "dropped_adopted_elsewhere": { "segment_partition_tracking_failure": true }, "recorded_retroactively": true },
@@ -165,7 +205,11 @@
       { "problem_type_id": "M2_SIMPY_PT149", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["multi_stage_motion_distance_setup_failure","unit_conversion_omitted","ratio_setup_from_geometry_failure","segment_ratio_to_length_conversion_failure"], "dropped": ["similar_triangle_correspondence_setup_failure"], "reason": "계산 유형이라 다단계 이동 거리를 우선 채택. 탈락한 닮음 대응은 단원 전역 빈발(31회) 일반 태그로 후순위. 같은 개념 PT148에서 채택됨.", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true } },
       { "problem_type_id": "M2_SIMPY_PT152", "overlay_count": 6, "checkpoint_count": 4, "adopted": ["pythagorean_setup_failure","variable_length_assignment_failure","radical_ratio_simplification_error","tangent_radius_perpendicularity_omitted"], "dropped": ["angle_bisector_side_ratio_setup_failure","centroid_two_to_one_ratio_confusion"], "reason": "유형명 핵심=피타고라스 식·미지 길이 설정. 근호 정리는 이 계산 유형 특이. 접선·반지름 수직은 단발(단원 1회)로 개념국소 우선 규칙에 따라 채택(tier1_atypical 기록). 탈락 2건은 각각 단원 10회·8회의 전역 빈발 일반 태그로 후순위.", "dropped_adopted_elsewhere": { "angle_bisector_side_ratio_setup_failure": true, "centroid_two_to_one_ratio_confusion": true } },
       { "problem_type_id": "M2_SIMPY_PT158", "overlay_count": 6, "checkpoint_count": 4, "adopted": ["auxiliary_line_construction_failure","pythagorean_setup_failure","composite_area_subtraction_failure","right_triangle_altitude_geometric_mean_failure"], "dropped": ["similar_triangle_correspondence_setup_failure","segment_partition_tracking_failure"], "reason": "유형명='사각형·직사각형에서 피타고라스 - 비례식·정리 적용'. 사각형에서의 보조선 작도가 이 개념의 국소 핵심이라 우선. 탈락 2건은 단원 31회·19회의 전역 빈발 일반 태그로 후순위.", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true, "segment_partition_tracking_failure": true } },
-      { "problem_type_id": "M2_SIMPY_PT159", "overlay_count": 7, "checkpoint_count": 4, "adopted": ["pythagorean_setup_failure","auxiliary_line_construction_failure","right_triangle_altitude_geometric_mean_failure","composite_path_length_decomposition_failure"], "dropped": ["similar_triangle_correspondence_setup_failure","segment_partition_tracking_failure","area_formula_setup_error"], "reason": "복합 유형. 보조선·비례중항·경로 분해가 이 개념의 국소 핵심. 탈락 3건은 단원 31회·19회·13회의 전역 빈발 일반 태그로 후순위(cp 상한 4로 3건 탈락).", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true, "segment_partition_tracking_failure": true, "area_formula_setup_error": true } }
+      { "problem_type_id": "M2_SIMPY_PT159", "overlay_count": 7, "checkpoint_count": 4, "adopted": ["pythagorean_setup_failure","auxiliary_line_construction_failure","right_triangle_altitude_geometric_mean_failure","composite_path_length_decomposition_failure"], "dropped": ["similar_triangle_correspondence_setup_failure","segment_partition_tracking_failure","area_formula_setup_error"], "reason": "복합 유형. 보조선·비례중항·경로 분해가 이 개념의 국소 핵심. 탈락 3건은 단원 31회·19회·13회의 전역 빈발 일반 태그로 후순위(cp 상한 4로 3건 탈락).", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true, "segment_partition_tracking_failure": true, "area_formula_setup_error": true } },
+      { "problem_type_id": "M2_SIMPY_PT166", "overlay_count": 6, "checkpoint_count": 4, "adopted": ["pythagorean_converse_condition_failure","trig_ratio_side_role_confusion","inequality_bound_conversion_error","multi_constraint_intersection_failure"], "dropped": ["area_formula_setup_error","answer_format_mismatch"], "reason": "유형명='피타고라스 역과 삼각형 분류 - 개념·조건 판별'. 역 조건·가장 긴 변 지정·부등식 경계·조건 교집합이 판별 유형의 국소 핵심. 탈락 2건은 단원 13회·4회의 전역 일반 태그로 후순위(넓이 공식은 같은 개념 PT167에서 채택).", "dropped_adopted_elsewhere": { "area_formula_setup_error": true, "answer_format_mismatch": true } },
+      { "problem_type_id": "M2_SIMPY_PT167", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["pythagorean_converse_condition_failure","trig_ratio_side_role_confusion","inequality_bound_conversion_error","area_formula_setup_error"], "dropped": ["answer_format_mismatch"], "reason": "계산 유형이라 넓이 공식을 채택. 답 형식은 단원 4회의 전역 일반 태그로 후순위(PT135·PT146에서 채택).", "dropped_adopted_elsewhere": { "answer_format_mismatch": true } },
+      { "problem_type_id": "M2_SIMPY_PT171", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["pythagorean_setup_failure","area_inradius_relation_setup_failure","right_triangle_tangent_partition_failure","area_formula_setup_error"], "dropped": ["segment_partition_tracking_failure"], "reason": "내접원·접선 분할이 이 유형의 단발 국소 태그(각 단원 1회)라 우선 채택. 탈락은 단원 19회의 전역 빈발 일반 태그.", "dropped_adopted_elsewhere": { "segment_partition_tracking_failure": true } },
+      { "problem_type_id": "M2_SIMPY_PT174", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["paper_fold_reflection_distance_mapping_failure","composite_area_subtraction_failure","area_formula_setup_error","multiple_answer_omission"], "dropped": ["similar_triangle_correspondence_setup_failure"], "reason": "히포크라테스·종이접기의 국소 핵심은 넓이 빼기와 접기 대응. 탈락은 단원 31회의 전역 빈발 일반 태그로 후순위.", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true } }
     ],
     "waver_pairs": []
   },
@@ -1306,6 +1350,174 @@
       "student_command": "복합 사각형 문제는 보조선을 긋고, 구하는 선분을 조각으로 쪼개 각 조각을 따로 구한 뒤 합치거나 빼라.",
       "teacher_note": "한 번에 구하려는 습관이 병목이다. 조각으로 쪼개 이름 붙이기를 먼저 시키라.",
       "parent_message": "긴 문제는 조각으로 나눠 하나씩 구하는 것이 정확합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT161": {
+      "problem_nature": "이등변삼각형에서 꼭지각의 이등분선(=높이)이 밑변을 이등분함을 이용해 높이와 넓이를 구하는 유형",
+      "required_thinking": ["이등변삼각형의 꼭지각에서 내린 높이는 밑변을 이등분함", "이등분된 밑변의 절반과 빗변(등변)으로 직각삼각형을 만듦", "피타고라스로 높이를 구함", "넓이 = 밑변 × 높이 ÷ 2로 마무리"],
+      "must_write_steps": ["꼭지각에서 밑변에 수선을 내리고 밑변이 이등분됨을 표시한다.", "밑변의 절반과 등변으로 직각삼각형을 만들고 빗변을 표시한다.", "피타고라스로 높이를 구한다.", "넓이 = 밑변 × 높이 ÷ 2로 계산하고 값을 검토한다."],
+      "common_wrong_actions": ["밑변 전체를 직각삼각형의 한 변으로 쓴다(절반을 쓰지 않는다).", "등변을 높이로 착각한다.", "높이를 구하지 않고 등변으로 넓이를 계산한다."],
+      "error_checkpoints": [
+        { "error_code": "isosceles_altitude_bisection_overlooked", "label": "이등변삼각형 높이 이등분 간과", "diagnosis": "높이가 밑변을 이등분한다는 사실을 쓰지 않아 직각삼각형의 변을 잘못 잡았다.", "student_fix": "높이를 내린 발이 밑변의 중점임을 표시하고 '절반'을 숫자로 적어라." },
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "만든 직각삼각형에서 빗변(등변)을 잘못 잡아 식이 어긋났다.", "student_fix": "등변이 빗변이다. '등변² = (밑변÷2)² + 높이²'를 그대로 써라." }
+      ],
+      "student_command": "이등변삼각형은 높이를 내리면 밑변이 반으로 나뉜다. '절반'을 숫자로 적고 등변을 빗변으로 두어 식을 세워라.",
+      "teacher_note": "밑변 전체를 그대로 넣는 실수가 가장 흔하다. 절반 값을 그림에 쓰게 하라.",
+      "parent_message": "높이를 그으면 밑변이 반으로 나뉜다는 점을 알고 있는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT162": {
+      "problem_nature": "이등변삼각형의 높이·넓이를 원·닮음 등 다른 요소와 결합해 계산하거나 증명하는 복합 유형",
+      "required_thinking": ["이등변삼각형의 높이가 밑변을 이등분함을 먼저 확정", "원이 관련되면 중심각과 호·현의 관계를 따로 정리", "닮은 삼각형이 있으면 대응을 세워 비를 연결", "피타고라스로 길이를 확정한 뒤 넓이를 계산"],
+      "must_write_steps": ["높이를 내려 밑변의 이등분을 표시한다.", "원이 있으면 중심각·호·현 관계를 별도 줄에 적는다.", "닮음 대응을 적고 필요한 비를 세운다.", "피타고라스로 길이를 구하고 넓이를 계산해 검산한다."],
+      "common_wrong_actions": ["중심각과 호의 비 관계를 각도 그대로 길이에 적용한다.", "높이의 이등분을 빠뜨린다.", "닮음 대응을 잘못 세운다."],
+      "error_checkpoints": [
+        { "error_code": "isosceles_altitude_bisection_overlooked", "label": "이등변삼각형 높이 이등분 간과", "diagnosis": "높이가 밑변을 이등분한다는 성질을 쓰지 않아 계산이 어긋났다.", "student_fix": "높이의 발이 중점임을 표시하고 절반 값을 먼저 적어라." },
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "직각삼각형을 특정하지 못했거나 빗변을 틀렸다.", "student_fix": "쓸 직각삼각형을 하나 골라 따로 그리고 빗변을 표시한 뒤 식을 써라." },
+        { "error_code": "central_angle_to_arc_ratio_failure", "label": "중심각→호 비 연결 실패", "diagnosis": "중심각의 크기를 호의 길이 비로 연결하지 못했다(또는 현의 길이와 혼동했다).", "student_fix": "호는 중심각에 비례하지만 현은 비례하지 않는다. 무엇을 묻는지 먼저 적어라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "닮은 삼각형의 대응을 잘못 짝지어 비가 어긋났다.", "student_fix": "대응 꼭짓점을 세로로 적고 그 순서대로 비를 만들어라." }
+      ],
+      "student_command": "복합 문제는 높이의 이등분을 먼저 표시하고, 원이 있으면 '호는 중심각에 비례, 현은 아님'을 구분해 적어라.",
+      "teacher_note": "호와 현의 비례 여부 혼동이 자주 나온다. 두 문장을 대조해 적게 하라.",
+      "parent_message": "성질을 하나씩 적어가며 푸는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT165": {
+      "problem_nature": "넓이를 이용한 피타고라스 정리의 증명(유클리드·바스카라 등)을 이해하고 관계식을 세우는 유형",
+      "required_thinking": ["큰 정사각형의 넓이를 두 가지 방법으로 표현", "조각(작은 정사각형·직각삼각형)의 넓이 합으로 분해", "두 표현이 같다고 두어 a² + b² = c²를 유도", "각 조각의 넓이 공식이 정확한지 확인"],
+      "must_write_steps": ["그림의 정사각형·삼각형 조각에 이름을 붙인다.", "전체 넓이를 한 덩어리로 표현한다.", "같은 넓이를 조각의 합으로 다시 표현한다.", "두 식을 같다고 두고 정리해 관계식을 유도한다."],
+      "common_wrong_actions": ["조각을 빠뜨리거나 두 번 센다.", "삼각형 넓이에서 ÷2를 빠뜨린다.", "두 표현을 같다고 두는 단계를 생략한다."],
+      "error_checkpoints": [
+        { "error_code": "area_decomposition_equation_setup_failure", "label": "넓이 분해 식 세우기 실패", "diagnosis": "전체 넓이를 조각의 합으로 분해해 등식으로 세우지 못했다.", "student_fix": "'전체 = 조각①+②+③…' 식을 먼저 쓰고 각 조각의 넓이를 채워라." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "삼각형·정사각형의 넓이 공식을 잘못 적용했다(÷2 누락 등).", "student_fix": "삼각형은 밑변×높이÷2, 정사각형은 한 변². 조각마다 공식을 옆에 적어라." },
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "유도한 등식을 정리해 a²+b²=c² 형태로 만들지 못했다.", "student_fix": "양변을 전개해 같은 항을 지우면 남는 것이 관계식이다. 전개를 끝까지 하라." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "조각의 변 길이를 a·b·c로 표현하는 과정에서 어느 선분인지 혼동했다.", "student_fix": "그림의 모든 선분에 a·b·c 중 무엇인지 직접 써넣어라." }
+      ],
+      "student_command": "넓이 증명은 같은 넓이를 두 가지로 쓰는 것이다. '전체 = 조각의 합' 식을 세우고 전개해 남는 관계식을 확인하라.",
+      "teacher_note": "조각 세기와 ÷2가 병목이다. 조각마다 공식을 옆에 쓰게 하라.",
+      "parent_message": "같은 넓이를 두 가지 방법으로 쓰는 아이디어를 이해했는지 물어봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT166": {
+      "problem_nature": "세 변의 길이로 삼각형이 예각·직각·둔각 중 어느 것인지 판별하는 유형(피타고라스 정리의 역)",
+      "required_thinking": ["가장 긴 변을 먼저 찾아 c로 둠", "c² 와 a²+b² 를 비교: 같으면 직각, c²가 작으면 예각, 크면 둔각", "삼각형이 성립하는지(두 변의 합 > 나머지 변)도 확인", "미지수가 있으면 각 경우의 범위를 부등식으로 표현"],
+      "must_write_steps": ["세 변 중 가장 긴 변을 찾아 c로 표시한다.", "c² 와 a²+b² 를 각각 계산해 나란히 적는다.", "대소를 비교해 예각·직각·둔각을 판정한다.", "삼각형 성립 조건과 범위를 확인해 답을 정리한다."],
+      "common_wrong_actions": ["가장 긴 변을 확인하지 않고 아무 변을 c로 둔다.", "부등호 방향을 반대로 해 예각·둔각을 뒤바꾼다.", "삼각형 성립 조건을 확인하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_converse_condition_failure", "label": "피타고라스 역 조건 판정 실패", "diagnosis": "c²와 a²+b²의 대소로 예각·직각·둔각을 판정하는 기준을 잘못 적용했다.", "student_fix": "'c² < a²+b² → 예각 / = → 직각 / > → 둔각'을 그대로 적어놓고 대입하라." },
+        { "error_code": "trig_ratio_side_role_confusion", "label": "변의 역할 혼동", "diagnosis": "가장 긴 변을 c로 두지 않아 판정 기준이 무너졌다.", "student_fix": "세 변을 크기순으로 나열해 가장 긴 것에 c라고 써라. 그 다음에 비교하라." },
+        { "error_code": "inequality_bound_conversion_error", "label": "부등식 경계 변환 오류", "diagnosis": "미지수 범위를 부등식으로 옮기는 과정에서 경계·방향을 틀렸다.", "student_fix": "조건마다 부등식을 따로 쓰고 경계값 포함 여부를 표시하라." },
+        { "error_code": "multi_constraint_intersection_failure", "label": "복수 조건 교집합 실패", "diagnosis": "판정 조건과 삼각형 성립 조건을 함께 만족하는 범위를 구하지 못했다.", "student_fix": "조건을 수직선에 각각 그려 겹치는 구간만 답으로 남겨라." }
+      ],
+      "student_command": "역 판정은 가장 긴 변을 c로 두는 것부터다. 'c² vs a²+b²' 를 나란히 쓰고, 삼각형 성립 조건도 함께 확인하라.",
+      "teacher_note": "가장 긴 변 지정과 부등호 방향, 두 곳에서 갈린다. 기준 문장을 적어두고 대입하게 하라.",
+      "parent_message": "가장 긴 변을 먼저 찾는지 확인해 주세요. 거기서 정답이 갈립니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT167": {
+      "problem_nature": "피타고라스 역을 이용해 미지수 값·범위를 구하거나 직각삼각형임을 밝혀 넓이를 계산하는 유형",
+      "required_thinking": ["가장 긴 변을 미지수 포함해 판별(경우 나누기 필요할 수 있음)", "직각이면 두 직각변으로 넓이를 계산", "범위 문제는 부등식으로 표현해 교집합", "구한 값이 삼각형 성립 조건을 만족하는지 확인"],
+      "must_write_steps": ["가장 긴 변이 무엇인지 경우를 나눠 적는다.", "각 경우에 c² 와 a²+b² 를 비교하는 식·부등식을 세운다.", "직각이면 두 직각변으로 넓이를 구한다.", "삼각형 성립 조건으로 답을 걸러 정리한다."],
+      "common_wrong_actions": ["미지수가 가장 긴 변인 경우를 빠뜨린다.", "넓이 계산에 빗변을 쓴다.", "부등식 경계를 잘못 포함한다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_converse_condition_failure", "label": "피타고라스 역 조건 판정 실패", "diagnosis": "역 조건 식을 세우지 못했거나 방향을 틀렸다.", "student_fix": "'c²=a²+b²이면 직각'을 먼저 쓰고 미지수를 대입하라." },
+        { "error_code": "trig_ratio_side_role_confusion", "label": "변의 역할 혼동", "diagnosis": "미지수가 빗변인 경우와 직각변인 경우를 나누지 않았다.", "student_fix": "미지수가 가장 긴 변일 때와 아닐 때, 두 경우로 나눠 각각 풀어라." },
+        { "error_code": "inequality_bound_conversion_error", "label": "부등식 경계 변환 오류", "diagnosis": "범위를 부등식으로 옮기며 경계 포함 여부를 틀렸다.", "student_fix": "경계값을 대입해 성립하는지 직접 확인한 뒤 부등호를 정하라." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "직각삼각형 넓이에 빗변을 사용했다.", "student_fix": "직각을 낀 두 변의 곱÷2가 넓이다. 빗변은 넣지 마라." }
+      ],
+      "student_command": "미지수가 있으면 '가장 긴 변인 경우'와 '아닌 경우'로 나눠 각각 풀어라. 넓이는 직각을 낀 두 변으로만 구한다.",
+      "teacher_note": "경우를 나누지 않아 답을 하나 놓치는 일이 잦다. 두 경우를 반드시 쓰게 하라.",
+      "parent_message": "경우를 나눠 생각하는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT169": {
+      "problem_nature": "평면도형(사각형·마름모·사다리꼴 등)에서 피타고라스를 적용할 수 있는 직각삼각형을 찾아내는 유형",
+      "required_thinking": ["도형의 성질에서 직각이 어디에 있는지 확인(마름모의 대각선 수직 등)", "직각삼각형이 안 보이면 보조선으로 만들 수 있는지 검토", "구하는 길이가 그 직각삼각형의 어느 변인지 확정", "빗변을 특정한 뒤 식을 적용"],
+      "must_write_steps": ["도형의 성질에서 직각을 찾아 표시한다.", "직각삼각형을 지목하고 빗변을 표시한다.", "구하는 길이가 어느 변인지 표시한다.", "피타고라스 식을 세워 확인한다."],
+      "common_wrong_actions": ["도형의 성질(대각선 수직 등)을 떠올리지 못한다.", "직각이 아닌 곳에 피타고라스를 적용한다.", "빗변을 잘못 잡는다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "직각의 위치를 찾지 못했거나 빗변을 잘못 잡아 식이 성립하지 않았다.", "student_fix": "먼저 직각 표시를 찾아라(도형의 성질에서 나온다). 그 마주 보는 변이 빗변이다." }
+      ],
+      "student_command": "평면도형에서는 직각이 어디 있는지부터 찾아라. 마름모의 대각선처럼 성질에서 직각이 나온다.",
+      "teacher_note": "도형 성질과 피타고라스를 연결하지 못하는 것이 병목이다. 성질 목록을 먼저 확인하게 하라.",
+      "parent_message": "직각이 어디 있는지 찾고 시작하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT170": {
+      "problem_nature": "평면도형에서 피타고라스로 길이를 구해 넓이·둘레를 계산하는 유형",
+      "required_thinking": ["도형의 성질에서 직각을 찾아 직각삼각형을 확보", "나뉜 조각과 전체 변을 구분해 식에 대입", "구한 길이로 넓이 공식을 세움(수직 관계 확인)", "결과가 도형 조건에 맞는지 검토"],
+      "must_write_steps": ["직각과 직각삼각형을 표시하고 조각에 이름을 붙인다.", "피타고라스로 필요한 길이를 구한다.", "수직인 밑변·높이로 넓이 공식을 세운다.", "구한 값이 도형 조건과 맞는지 검산한다."],
+      "common_wrong_actions": ["조각과 전체 길이를 혼동한다.", "수직이 아닌 변을 높이로 쓴다.", "구한 길이를 넓이에 쓰지 않고 다른 값을 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "직각삼각형·빗변 특정을 틀려 길이가 어긋났다.", "student_fix": "직각→빗변→식 순서를 지키고 넣는 값이 어느 선분인지 표시하라." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "나뉜 조각과 전체 변을 혼동해 잘못된 길이를 대입했다.", "student_fix": "조각에 이름을 붙이고 '전체 = 조각의 합'을 적은 뒤 대입하라." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "수직 관계가 아닌 두 변을 밑변·높이로 사용했다.", "student_fix": "높이는 밑변에 수직인 선분이다. 직각 표시를 확인하고 넣어라." }
+      ],
+      "student_command": "길이를 구한 뒤 넓이로 넘어갈 때는 밑변과 높이가 수직인지 반드시 확인하라.",
+      "teacher_note": "길이는 맞고 넓이에서 틀리는 경우가 많다. 수직 확인 한 줄을 요구하라.",
+      "parent_message": "넓이 공식에 넣는 두 변이 수직인지 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT171": {
+      "problem_nature": "평면도형에서 피타고라스를 내접원·접선 등과 결합해 길이·넓이를 구하는 복합 유형",
+      "required_thinking": ["직각삼각형과 내접원의 관계(넓이 = 반둘레 × 내접원 반지름) 확인", "접점이 변을 나누는 길이 관계(같은 점에서 그은 접선은 같음) 활용", "피타고라스로 변의 길이를 확정", "여러 관계를 연립해 미지값을 구함"],
+      "must_write_steps": ["직각삼각형과 내접원, 접점을 표시한다.", "피타고라스로 변의 길이를 구한다.", "넓이 = 반둘레 × 반지름 관계를 세운다.", "접점이 나눈 조각 관계를 적고 연립해 검산한다."],
+      "common_wrong_actions": ["내접원 반지름 관계를 세우지 못해 막힌다.", "접점이 나눈 조각을 잘못 짝짓는다.", "넓이 공식에 수직이 아닌 변을 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "직각삼각형에서 빗변을 잘못 잡아 변의 길이가 어긋났다.", "student_fix": "직각 표시 후 마주 보는 변을 빗변으로 두고 식을 써라." },
+        { "error_code": "area_inradius_relation_setup_failure", "label": "넓이·내접원 반지름 관계 세우기 실패", "diagnosis": "넓이 = 반둘레 × 내접원 반지름 관계를 세우지 못했다.", "student_fix": "'넓이 = (둘레÷2) × r' 를 적어두고 아는 값을 넣어 r을 구하라." },
+        { "error_code": "right_triangle_tangent_partition_failure", "label": "직각삼각형 접선 분할 실패", "diagnosis": "접점이 각 변을 나누는 조각의 대응을 잘못 세웠다.", "student_fix": "한 꼭짓점에서 그은 두 접선은 길이가 같다. 같은 길이에 같은 표시를 하라." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "넓이를 구할 때 수직인 두 변을 쓰지 않았다.", "student_fix": "직각을 낀 두 변의 곱÷2로 계산하고 다른 표현과 비교하라." }
+      ],
+      "student_command": "내접원이 있으면 '넓이 = 반둘레 × r'을 적어두고, 접점에서 같은 길이끼리 같은 표시를 해라.",
+      "teacher_note": "내접원 관계식을 모르면 막힌다. 공식을 먼저 적어두고 대입하게 하라.",
+      "parent_message": "원이 들어간 문제는 관계식을 먼저 적어두고 푸는 것이 요령입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT174": {
+      "problem_nature": "히포크라테스의 초승달·피타고라스 나무·종이접기 등 넓이 빼기와 대응 이동이 결합된 복합 유형",
+      "required_thinking": ["구하는 넓이를 '전체 - 빼는 부분'으로 표현", "반원·부채꼴의 넓이 공식을 정확히 적용", "종이접기면 접힌 부분이 합동임을 이용해 길이를 옮김", "조건을 만족하는 답이 여럿일 수 있음을 검토"],
+      "must_write_steps": ["도형을 조각으로 나눠 이름을 붙인다.", "'구하는 것 = 전체 - ①- ②' 식을 먼저 쓴다.", "각 조각의 넓이를 공식으로 계산한다(반원·삼각형 구분).", "경우가 여럿이면 모두 구하고 조건으로 거른다."],
+      "common_wrong_actions": ["겹치는 부분을 두 번 빼거나 빠뜨린다.", "반원 넓이에서 ÷2를 잊는다.", "가능한 경우를 하나만 답한다."],
+      "error_checkpoints": [
+        { "error_code": "paper_fold_reflection_distance_mapping_failure", "label": "종이접기 대응 길이 매핑 실패", "diagnosis": "접기로 옮겨지는 대응 길이·각을 그림에 옮기지 못했다.", "student_fix": "접은 선을 거울로 보고 옮겨간 점에 원래 이름을 다시 적어라." },
+        { "error_code": "composite_area_subtraction_failure", "label": "복합 넓이 빼기 실패", "diagnosis": "전체에서 빼는 부분을 정하는 과정에서 겹침·누락이 생겼다.", "student_fix": "조각에 번호를 붙이고 '전체 - ①- ②' 식을 먼저 쓴 뒤 값을 채워라." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "반원·부채꼴·삼각형의 넓이 공식을 잘못 적용했다.", "student_fix": "조각마다 공식을 옆에 적어라(반원은 원넓이÷2)." },
+        { "error_code": "multiple_answer_omission", "label": "복수 정답 누락", "diagnosis": "조건을 만족하는 경우가 여럿인데 하나만 답했다.", "student_fix": "경우를 나눠 모두 구한 뒤 조건으로 걸러라." }
+      ],
+      "student_command": "넓이 빼기 문제는 조각에 번호를 붙이고 '전체 - ①- ②' 식을 먼저 써라. 접힌 부분은 길이가 그대로다.",
+      "teacher_note": "식을 먼저 쓰지 않고 계산부터 하면 겹침을 놓친다. 식 우선을 습관화하라.",
+      "parent_message": "무엇에서 무엇을 빼는지 식으로 먼저 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT175": {
+      "problem_nature": "원기둥 등 입체의 겉면을 따라가는 최단거리를 전개도에서 구할 수 있는지 판별하는 유형",
+      "required_thinking": ["최단거리는 전개도에서 직선임을 인식", "원기둥 옆면을 펼치면 가로가 밑면 둘레(감는 횟수만큼 배)인 직사각형", "몇 바퀴 감는지에 따라 가로 길이가 달라짐", "펼친 직사각형의 대각선을 피타고라스로 계산"],
+      "must_write_steps": ["옆면을 펼쳐 직사각형으로 그린다.", "가로 = 밑면 둘레 × 감는 횟수, 세로 = 높이를 적는다.", "출발점과 도착점을 펼친 그림에 표시하고 직선으로 잇는다.", "피타고라스로 그 직선(대각선) 길이를 구한다."],
+      "common_wrong_actions": ["입체 상태에서 곡선 거리를 재려 한다.", "감는 횟수를 반영하지 않아 가로 길이가 틀린다.", "밑면 둘레 대신 지름·반지름을 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "cylinder_unfolding_wrap_count_failure", "label": "원기둥 전개 감김 횟수 오류", "diagnosis": "몇 바퀴 감는지를 전개도의 가로 길이에 반영하지 못했다.", "student_fix": "'가로 = 밑면 둘레 × 감는 횟수'를 적고 문제에서 횟수를 찾아 넣어라." },
+        { "error_code": "developed_surface_base_circumference_mapping_failure", "label": "전개도 밑면 둘레 대응 실패", "diagnosis": "전개도의 가로가 밑면의 둘레임을 연결하지 못했다(지름·반지름 사용).", "student_fix": "밑면 둘레 = 2πr 을 먼저 계산해 가로에 써넣어라." },
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "펼친 직사각형의 대각선을 빗변으로 두는 식을 세우지 못했다.", "student_fix": "가로·세로를 두 변으로, 최단거리를 빗변으로 두고 식을 써라." }
+      ],
+      "student_command": "겉면 최단거리는 펼쳐서 직선으로 잇는다. 가로 = 밑면 둘레 × 감는 횟수, 세로 = 높이로 두고 대각선을 구하라.",
+      "teacher_note": "펼치는 착상과 감는 횟수, 두 곳에서 갈린다. 전개도를 직접 그리게 하라.",
+      "parent_message": "입체를 펼쳐 그려보는 습관이 이 유형의 핵심입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT177": {
+      "problem_nature": "입체도형의 단면이나 내부 경로에서 최단거리·길이를 구하는 복합 유형",
+      "required_thinking": ["구하는 경로가 겉면인지 내부인지 구분(겉면=전개도, 내부=단면)", "필요한 단면을 잘라 평면도형으로 환원", "단면에서 직각삼각형을 찾아 피타고라스 적용", "구한 값이 입체의 크기와 모순 없는지 검토"],
+      "must_write_steps": ["경로가 겉면인지 내부인지 적는다.", "필요한 단면(축 단면·대각 단면)을 그려 평면으로 옮긴다.", "단면에서 직각삼각형을 찾아 변의 길이를 표시한다.", "피타고라스로 길이를 구하고 크기를 검토한다."],
+      "common_wrong_actions": ["입체 그림 위에서 바로 계산한다.", "필요한 단면을 잘못 고른다.", "겉면 경로와 내부 경로를 혼동한다."],
+      "error_checkpoints": [
+        { "error_code": "spatial_cross_section_identification_failure", "label": "공간 단면 식별 실패", "diagnosis": "구하는 길이가 포함된 적절한 단면을 찾아 그리지 못했다.", "student_fix": "구하는 두 점을 모두 지나는 평면을 상상해 그 단면을 그려라." },
+        { "error_code": "three_dimensional_length_reduction_failure", "label": "입체 길이 환원 실패", "diagnosis": "입체의 길이를 평면 단면의 길이로 옮기지 못했다.", "student_fix": "단면을 따로 평면 그림으로 그리고 길이를 옮겨 적어라." },
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "단면에서 직각삼각형을 특정하지 못했거나 빗변을 틀렸다.", "student_fix": "단면 그림에서 직각을 찾아 표시하고 마주 보는 변을 빗변으로 두어라." }
+      ],
+      "student_command": "입체 문제는 구하는 두 점을 지나는 단면을 그려 평면으로 바꿔라. 겉면이면 전개도, 내부면 단면이다.",
+      "teacher_note": "겉면과 내부를 구분하지 못해 방법을 잘못 고른다. 첫 줄에 어느 쪽인지 쓰게 하라.",
+      "parent_message": "입체는 평면으로 바꿔 그리는 것이 요령입니다. 단면을 그리는지 봐 주세요.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
