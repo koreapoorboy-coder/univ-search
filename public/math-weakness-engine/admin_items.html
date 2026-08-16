@@ -122,7 +122,7 @@
       <option value="qno_str_asc">문항번호 ↑(문자)</option>
     </select>
     <label class="small" style="margin:0">쪽당</label>
-    <select id="pageSize"><option value="50">50</option><option value="25">25</option><option value="100">100</option><option value="0">전체</option></select>
+    <select id="pageSize"><option value="50">50</option><option value="100">100</option><option value="200">200</option><option value="0">전체</option></select>
     <button class="mini" id="prevPage">◀</button><span id="pageInfo" class="small muted"></span><button class="mini" id="nextPage">▶</button>
     <button class="mini" id="expandAll">모두 펼치기</button><button class="mini" id="collapseAll">모두 접기</button>
     <button class="mini" id="grpBtn">유형후보 묶기</button>
@@ -336,7 +336,22 @@ let ITEMS=[], VIEW=[], PAGE=0, PAGE_SIZE=50, SORT='created_desc', GROUP_HINT=fal
 const SEL=new Set(), OPEN=new Set();
 
 const hintText=it=>{ const m=(it.source_note||'').split('|').map(s=>s.trim()).find(s=>s.startsWith('유형후보:')); return m||''; };
-const numOf=s=>{ const m=String(s==null?'':s).match(/\d+/); return m?parseInt(m[0],10):NaN; };
+// ★자연 정렬 — 숫자 덩어리는 수로, 나머지는 문자열로 비교(검수 확인2 2026-08-16).
+//   '01'<'2'<'100' 을 만족하면서 '1-3'·'가-2' 같은 비순수숫자 번호에서도 정렬이 깨지지 않는다.
+//   숫자 파싱이 아예 불가한 값끼리는 문자열 비교로 폴백. 데이터는 문자열 그대로 유지(표시 순서만 바뀜).
+const natCmp=(a,b)=>{
+  const A=String(a==null?'':a), B=String(b==null?'':b);
+  const ca=A.match(/\d+|\D+/g)||[], cb=B.match(/\d+|\D+/g)||[];
+  for(let i=0;i<Math.max(ca.length,cb.length);i++){
+    const x=ca[i], y=cb[i];
+    if(x===undefined) return -1; if(y===undefined) return 1;
+    const nx=/^\d/.test(x), ny=/^\d/.test(y);
+    if(nx&&ny){ const d=parseInt(x,10)-parseInt(y,10); if(d) return d; }        // 숫자 덩어리 = 수 비교
+    else if(nx!==ny) return nx? -1 : 1;                                         // 숫자가 문자보다 앞
+    else { const d=x.localeCompare(y); if(d) return d; }                        // 문자 덩어리 = 문자열 폴백
+  }
+  return 0;
+};
 const cut=(s,n)=>{ const t=String(s==null?'':s).replace(/\s+/g,' ').trim(); return t.length>n? t.slice(0,n)+'…' : t; };
 const itemById=id=>ITEMS.find(x=>String(x.id)===String(id));
 function pageItems(){ return PAGE_SIZE? VIEW.slice(PAGE*PAGE_SIZE, PAGE*PAGE_SIZE+PAGE_SIZE) : VIEW; }
@@ -349,12 +364,14 @@ function applyView(){
     return true;
   });
   const byCreated=(a,b)=>String(a.created_at||'').localeCompare(String(b.created_at||''));
-  // ★question_no는 문자열 저장 유지 — 숫자 정렬은 표시 순서만 바꾼다(데이터 무변경).
-  const byNum=(a,b)=>{ const x=numOf(a.question_no), y=numOf(b.question_no);
-    if(isNaN(x)&&isNaN(y)) return String(a.question_no||'').localeCompare(String(b.question_no||''));
-    if(isNaN(x)) return 1; if(isNaN(y)) return -1;
-    return x!==y ? x-y : byCreated(a,b); };
-  const S={ created_desc:(a,b)=>-byCreated(a,b), created_asc:byCreated, qno_num_asc:byNum, qno_num_desc:(a,b)=>-byNum(a,b),
+  // ★question_no는 문자열 저장 유지 — 정렬은 표시 순서만 바꾼다(데이터 무변경).
+  // dir=1 오름 / -1 내림. ★번호 없는 문항은 방향과 무관하게 항상 뒤로(내림에서 앞으로 튀지 않게).
+  const byNum=dir=>(a,b)=>{
+    const A=String(a.question_no||''), B=String(b.question_no||'');
+    if(!A!==!B) return A? -1 : 1;
+    const d=dir*natCmp(A,B); return d? d : byCreated(a,b);
+  };
+  const S={ created_desc:(a,b)=>-byCreated(a,b), created_asc:byCreated, qno_num_asc:byNum(1), qno_num_desc:byNum(-1),
             qno_str_asc:(a,b)=>String(a.question_no||'').localeCompare(String(b.question_no||'')) };
   VIEW.sort(S[SORT]||S.created_desc);
   const maxPage=PAGE_SIZE? Math.max(0,Math.ceil(VIEW.length/PAGE_SIZE)-1) : 0;
@@ -365,18 +382,24 @@ function rowHtml(it){
   const id=String(it.id), open=OPEN.has(id), pend=it.status==='pending', hint=pend?hintText(it):'';
   const typeCell = pend ? '<span class="st-pending">pending</span>'
                         : (it.problem_type_id? `<code>${esc(it.problem_type_id)}</code>` : '<span class="muted">(미지정)</span>');
+  // ★배치는 뒷자리만 표시(한 줄 유지) — 전체 값은 tooltip·펼침 상세에. 단건 등록은 '—'.
+  const bid=it.bulk_batch_id? String(it.bulk_batch_id) : '';
+  const bidCell = bid
+    ? `<span class="small" title="${esc(bid)}">…${esc(bid.length>8? bid.slice(-8) : bid)}</span>`
+    : '<span class="muted small">—</span>';
   return `<tr class="sum" data-id="${esc(id)}" title="id=${esc(id)}">
     <td><input type="checkbox" class="selbox" data-id="${esc(id)}" ${SEL.has(id)?'checked':''} style="width:auto"></td>
     <td><button class="mini tg" data-id="${esc(id)}">${open?'▼':'▶'}</button></td>
     <td>${it.question_no?('<b>#'+esc(it.question_no)+'</b>'):'<span class="muted">—</span>'}</td>
     <td class="st-${esc(it.status)}">${esc(it.status)}</td>
+    <td>${bidCell}</td>
     <td>${typeCell}${hint?`<div class="small" style="color:#7c3aed">${esc(hint)}</div>`:''}</td>
     <td>${esc(cut(it.question_text,40))||'<span class="muted">(본문 없음)</span>'}</td>
     <td><button class="mini edit" data-id="${esc(id)}">${pend?'유형지정':'수정'}</button><button class="danger del" data-id="${esc(id)}">삭제</button></td>
   </tr>` + (open? detHtml(it) : '');
 }
 function detHtml(it){
-  return `<tr class="det"><td colspan="7">
+  return `<tr class="det"><td colspan="8">
     <div class="kv">등록 ${esc((it.created_at||'').slice(0,16).replace('T',' '))} · 단원 ${esc(it.unit_name||it.unit_id||'—')} · 난도 ${esc(it.difficulty||'—')} · id <code>${esc(String(it.id).slice(0,8))}…</code>${it.bulk_batch_id?` · 배치 <code>${esc(it.bulk_batch_id)}</code>`:''}${it.type_name?` · ${esc(it.type_name)}`:''}</div>
     <div class="det-body">${esc(it.question_text||'(본문 없음)')}</div>
     <div class="kv"><b>정답</b> ${esc(it.answer||'—')}</div>
@@ -393,11 +416,11 @@ function renderList(){
     const groups=new Map();
     page.forEach(it=>{ const k=hintText(it)||'(유형후보 없음)'; if(!groups.has(k)) groups.set(k,[]); groups.get(k).push(it); });
     [...groups.entries()].sort((a,b)=>b[1].length-a[1].length).forEach(([k,arr])=>{
-      rows+=`<tr class="grp"><td colspan="7">${esc(k)} — ${arr.length}건 <button class="mini gsel" data-g="${esc(k)}">그룹 선택</button></td></tr>`;
+      rows+=`<tr class="grp"><td colspan="8">${esc(k)} — ${arr.length}건 <button class="mini gsel" data-g="${esc(k)}">그룹 선택</button></td></tr>`;
       arr.forEach(it=>{ rows+=rowHtml(it); });
     });
   } else page.forEach(it=>{ rows+=rowHtml(it); });
-  $('#list').innerHTML=`<table><tr><th style="width:24px"></th><th style="width:24px"></th><th>문항#</th><th>상태</th><th>유형</th><th>본문(앞 40자)</th><th></th></tr>${rows||'<tr><td colspan=7 class=muted>없음</td></tr>'}</table>`;
+  $('#list').innerHTML=`<table><tr><th style="width:24px"></th><th style="width:24px"></th><th>문항#</th><th>상태</th><th>배치</th><th>유형</th><th>본문(앞 40자)</th><th></th></tr>${rows||'<tr><td colspan=8 class=muted>없음</td></tr>'}</table>`;
   const total=VIEW.length, pages=PAGE_SIZE?Math.max(1,Math.ceil(total/PAGE_SIZE)):1;
   $('#pageInfo').textContent = total
     ? ` ${PAGE_SIZE?PAGE+1:1}/${pages}쪽 · ${PAGE_SIZE?PAGE*PAGE_SIZE+1:1}–${PAGE_SIZE?Math.min(PAGE*PAGE_SIZE+PAGE_SIZE,total):total} / ${total}건 `
