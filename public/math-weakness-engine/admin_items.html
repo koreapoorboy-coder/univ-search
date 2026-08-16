@@ -31,6 +31,21 @@
   .preview{background:#f8fafc;border:1px dashed #94a3b8;border-radius:10px;padding:12px;margin-top:10px}
   code{background:#e2e8f0;padding:1px 5px;border-radius:5px}
   #editing{font-weight:700;color:#3730a3}
+  /* ── 목록 UI (접힘 기본·페이지·필터) ── */
+  .tbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+  .tbar input,.tbar select{width:auto;padding:5px 7px;font-size:13px}
+  button.mini.on{background:#2563eb}
+  tr.sum{cursor:pointer}
+  tr.sum:hover>td{background:#f1f5f9}
+  tr.det>td{background:#f8fafc}
+  .det-body{white-space:pre-wrap;font-size:13px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;margin:4px 0}
+  .kv{font-size:12px;color:#475569;margin:3px 0}
+  .warn{background:#fef2f2;border:1px solid #fca5a5;color:#b91c1c;border-radius:8px;padding:8px;margin:6px 0;font-size:13px}
+  .bpanel{border:1px solid #e5e7eb;border-radius:10px;padding:8px;margin:6px 0;background:#fff;max-height:260px;overflow:auto}
+  .bpanel table{margin:0}
+  .selbar{background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:8px;margin:6px 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .selbar input,.selbar select{width:auto;padding:5px 7px;font-size:13px}
+  tr.grp>td{background:#ede9fe;font-weight:700;font-size:12px}
 </style>
 </head>
 <body>
@@ -65,7 +80,9 @@
   <textarea id="question_text"></textarea>
   <div class="grid">
     <div><label>정답</label><input id="answer" /></div>
-    <div><label>유형 (problem_type_id) <span class="muted small">— 비우면 pending 저장</span></label><select id="ptype"><option value="">— 단원 선택 시 로드 —</option></select></div>
+    <div><label>유형 (problem_type_id) <span class="muted small">— 비우면 pending 저장</span></label>
+      <input id="ptypeSearch" placeholder="유형 검색(이름·id) — 448종 스크롤 대신" style="margin-bottom:5px" />
+      <select id="ptype"><option value="">— 단원 선택 시 로드 —</option></select></div>
   </div>
   <label>해설</label><textarea id="explanation"></textarea>
   <div class="grid">
@@ -84,14 +101,43 @@
 
 <div class="card">
   <h2>3) 등록 목록 <span id="counts"></span></h2>
-  <div class="row">
+  <p class="muted small" style="margin:0 0 8px">행은 <b>기본 접힘</b> — 클릭하면 전문·정답·해설이 펼쳐집니다. 필터·검색·정렬·페이지는 받아온 목록 안에서 즉시 적용(재조회 없음).</p>
+  <div class="tbar">
     <button class="sec" id="listBtn">새로고침</button>
     <button class="mini" data-f="">전체</button>
     <button class="mini" data-f="pending">보류(pending)만</button>
     <button class="mini" data-f="approved">승인만</button>
+    <button class="mini" data-f="archived">보관만</button>
     <label class="small" style="margin:0"><input type="checkbox" id="filterUnit" style="width:auto;display:inline"> 현재 단원만</label>
-    <input id="batchFilter" placeholder="bulk_batch_id 필터(선택)" style="width:auto;flex:1;min-width:160px" />
-    <span id="listStatus" class="muted"></span>
+    <input id="batchFilter" placeholder="bulk_batch_id 필터" style="min-width:170px" />
+    <input id="qSearch" placeholder="본문·문항번호 검색" style="min-width:150px" />
+  </div>
+  <div class="tbar">
+    <label class="small" style="margin:0">정렬</label>
+    <select id="sortSel">
+      <option value="created_desc">등록일 ↓(최신)</option>
+      <option value="created_asc">등록일 ↑</option>
+      <option value="qno_num_asc">문항번호 ↑(숫자)</option>
+      <option value="qno_num_desc">문항번호 ↓(숫자)</option>
+      <option value="qno_str_asc">문항번호 ↑(문자)</option>
+    </select>
+    <label class="small" style="margin:0">쪽당</label>
+    <select id="pageSize"><option value="50">50</option><option value="25">25</option><option value="100">100</option><option value="0">전체</option></select>
+    <button class="mini" id="prevPage">◀</button><span id="pageInfo" class="small muted"></span><button class="mini" id="nextPage">▶</button>
+    <button class="mini" id="expandAll">모두 펼치기</button><button class="mini" id="collapseAll">모두 접기</button>
+    <button class="mini" id="grpBtn">유형후보 묶기</button>
+    <button class="mini" id="batchBtn">배치별 현황</button>
+    <span id="listStatus" class="muted small"></span>
+  </div>
+  <div id="listWarn"></div>
+  <div id="batchPanel" hidden></div>
+  <div class="selbar" id="selBar" hidden>
+    <b class="small">선택 <span id="selCount">0</span>건</b>
+    <input id="selTypeSearch" placeholder="유형 검색" style="min-width:150px" />
+    <select id="selPtype" style="min-width:260px"><option value="">— 유형 선택 —</option></select>
+    <button class="mini" id="selAssign">선택 항목 유형 지정 →</button>
+    <button class="mini" id="selClear">선택 해제</button>
+    <span id="selStatus" class="small muted"></span>
   </div>
   <div id="list"></div>
 </div>
@@ -173,23 +219,38 @@ async function loadUnits(){
     $('#cfgStatus').textContent=` 단원 ${units.length}개 로드.`;
   }catch(e){ $('#cfgStatus').textContent=' 단원 로드 실패: '+(e.message||e); }
 }
+// 단원별 유형 캐시 — 폼(#ptype)과 목록 선택지정(#selPtype)이 함께 쓴다.
+const TYPE_CACHE={};
+async function fetchTypes(unitId){
+  if(!unitId) return [];
+  if(TYPE_CACHE[unitId]) return TYPE_CACHE[unitId];
+  const c=cfg();
+  const idx=await (await fetch(`${c.base}/data/index.v1.json`,{cache:'no-store'})).json();
+  const unit=(idx.units||[]).find(u=>u.unit_id===unitId);
+  if(!unit||!unit.problem_types) throw new Error('problem_types 경로 없음');
+  const pack=await (await fetch(`${c.base}/${unit.problem_types}`,{cache:'no-store'})).json();
+  const list=(pack.problem_types||[]).map(p=>({problem_type_id:p.problem_type_id,type_name:p.type_name,concept_ids:Array.isArray(p.concept_ids)?p.concept_ids:[]})).filter(t=>t.problem_type_id);
+  TYPE_CACHE[unitId]=list; return list;
+}
+// 검색어로 옵션을 좁힌다(448종 드롭다운 스크롤 대체). 선택된 값은 필터에 걸러져도 유지.
+function fillTypeSelect(selEl, list, q, chosen, label){
+  const f=String(q||'').trim().toLowerCase();
+  let arr=f? list.filter(t=>((t.type_name||'')+' '+t.problem_type_id).toLowerCase().indexOf(f)>=0) : list;
+  if(chosen && !arr.some(t=>t.problem_type_id===chosen)){ const keep=list.find(t=>t.problem_type_id===chosen); if(keep) arr=[keep].concat(arr); }
+  selEl.innerHTML=`<option value="">— ${esc(label||'유형 선택')}${f?` (검색 ${arr.length}/${list.length})`:''} —</option>`
+    +arr.map(t=>`<option value="${esc(t.problem_type_id)}"${t.problem_type_id===chosen?' selected':''}>${esc(t.type_name)} · ${esc(t.problem_type_id)}</option>`).join('');
+}
 async function loadTypes(unitId){
   TYPES=[]; $('#ptype').innerHTML='<option value="">— 로딩 —</option>';
   if(!unitId){$('#ptype').innerHTML='<option value="">— 단원 선택 —</option>';return;}
-  const c=cfg();
-  try{
-    const idx=await (await fetch(`${c.base}/data/index.v1.json`,{cache:'no-store'})).json();
-    const unit=(idx.units||[]).find(u=>u.unit_id===unitId);
-    if(!unit||!unit.problem_types) throw new Error('problem_types 경로 없음');
-    const pack=await (await fetch(`${c.base}/${unit.problem_types}`,{cache:'no-store'})).json();
-    TYPES=(pack.problem_types||[]).map(p=>({problem_type_id:p.problem_type_id,type_name:p.type_name,concept_ids:Array.isArray(p.concept_ids)?p.concept_ids:[]})).filter(t=>t.problem_type_id);
-    renderTypeOptions('');
-  }catch(e){ $('#ptype').innerHTML=`<option value="">유형 로드 실패: ${esc(e.message||e)}</option>`; }
+  try{ TYPES=await fetchTypes(unitId); renderTypeOptions(''); }
+  catch(e){ $('#ptype').innerHTML=`<option value="">유형 로드 실패: ${esc(e.message||e)}</option>`; }
 }
 function renderTypeOptions(sel){
-  $('#ptype').innerHTML='<option value="">— 유형 선택(비우면 pending) —</option>'+TYPES.map(t=>`<option value="${esc(t.problem_type_id)}"${t.problem_type_id===sel?' selected':''}>${esc(t.type_name)} · ${esc(t.problem_type_id)}</option>`).join('');
+  fillTypeSelect($('#ptype'), TYPES, $('#ptypeSearch').value, sel||'', '유형 선택(비우면 pending)');
   syncConcepts();
 }
+$('#ptypeSearch').oninput = () => renderTypeOptions($('#ptype').value);
 function syncConcepts(){ const t=TYPES.find(x=>x.problem_type_id===$('#ptype').value); $('#concepts').value=t?(t.concept_ids||[]).join(', '):''; }
 $('#unit').onchange = () => loadTypes($('#unit').value);
 $('#ptype').onchange = syncConcepts;
@@ -265,35 +326,208 @@ async function editItem(it){
   $('#saveStatus').textContent = it.status==='pending' ? ' 보류 문항 — 유형을 지정하고 저장하면 승인으로 승격됩니다.' : ' 편집 모드 — 저장하면 덮어씁니다.';
 }
 
+// ── 등록 목록 ──────────────────────────────────────────────────────────────────
+// ★[코드확인 2026-08-16] /api/user-items/list = POST {unit_id, status, bulk_batch_id, limit}.
+//   limit 기본 200·상한 1000. **offset 없음** → 페이지네이션은 클라 슬라이싱.
+//   서버에는 좁히는 필터(unit_id·bulk_batch_id)만 보내고 status는 보내지 않는다 —
+//   배치별 "미지정 N건 남음"과 유형후보 묶기가 배치 전건을 필요로 하기 때문(§6-1·3).
+const LIST_LIMIT=1000;
+let ITEMS=[], VIEW=[], PAGE=0, PAGE_SIZE=50, SORT='created_desc', GROUP_HINT=false, SHOW_BATCH=false;
+const SEL=new Set(), OPEN=new Set();
+
+const hintText=it=>{ const m=(it.source_note||'').split('|').map(s=>s.trim()).find(s=>s.startsWith('유형후보:')); return m||''; };
+const numOf=s=>{ const m=String(s==null?'':s).match(/\d+/); return m?parseInt(m[0],10):NaN; };
+const cut=(s,n)=>{ const t=String(s==null?'':s).replace(/\s+/g,' ').trim(); return t.length>n? t.slice(0,n)+'…' : t; };
+const itemById=id=>ITEMS.find(x=>String(x.id)===String(id));
+function pageItems(){ return PAGE_SIZE? VIEW.slice(PAGE*PAGE_SIZE, PAGE*PAGE_SIZE+PAGE_SIZE) : VIEW; }
+
+function applyView(){
+  const q=($('#qSearch').value||'').trim().toLowerCase();
+  VIEW=ITEMS.filter(it=>{
+    if(FILTER && String(it.status||'')!==FILTER) return false;
+    if(q){ const hay=`${it.question_text||''} ${it.question_no||''} ${it.type_name||''} ${it.problem_type_id||''}`.toLowerCase(); if(hay.indexOf(q)<0) return false; }
+    return true;
+  });
+  const byCreated=(a,b)=>String(a.created_at||'').localeCompare(String(b.created_at||''));
+  // ★question_no는 문자열 저장 유지 — 숫자 정렬은 표시 순서만 바꾼다(데이터 무변경).
+  const byNum=(a,b)=>{ const x=numOf(a.question_no), y=numOf(b.question_no);
+    if(isNaN(x)&&isNaN(y)) return String(a.question_no||'').localeCompare(String(b.question_no||''));
+    if(isNaN(x)) return 1; if(isNaN(y)) return -1;
+    return x!==y ? x-y : byCreated(a,b); };
+  const S={ created_desc:(a,b)=>-byCreated(a,b), created_asc:byCreated, qno_num_asc:byNum, qno_num_desc:(a,b)=>-byNum(a,b),
+            qno_str_asc:(a,b)=>String(a.question_no||'').localeCompare(String(b.question_no||'')) };
+  VIEW.sort(S[SORT]||S.created_desc);
+  const maxPage=PAGE_SIZE? Math.max(0,Math.ceil(VIEW.length/PAGE_SIZE)-1) : 0;
+  if(PAGE>maxPage) PAGE=maxPage;
+}
+
+function rowHtml(it){
+  const id=String(it.id), open=OPEN.has(id), pend=it.status==='pending', hint=pend?hintText(it):'';
+  const typeCell = pend ? '<span class="st-pending">pending</span>'
+                        : (it.problem_type_id? `<code>${esc(it.problem_type_id)}</code>` : '<span class="muted">(미지정)</span>');
+  return `<tr class="sum" data-id="${esc(id)}" title="id=${esc(id)}">
+    <td><input type="checkbox" class="selbox" data-id="${esc(id)}" ${SEL.has(id)?'checked':''} style="width:auto"></td>
+    <td><button class="mini tg" data-id="${esc(id)}">${open?'▼':'▶'}</button></td>
+    <td>${it.question_no?('<b>#'+esc(it.question_no)+'</b>'):'<span class="muted">—</span>'}</td>
+    <td class="st-${esc(it.status)}">${esc(it.status)}</td>
+    <td>${typeCell}${hint?`<div class="small" style="color:#7c3aed">${esc(hint)}</div>`:''}</td>
+    <td>${esc(cut(it.question_text,40))||'<span class="muted">(본문 없음)</span>'}</td>
+    <td><button class="mini edit" data-id="${esc(id)}">${pend?'유형지정':'수정'}</button><button class="danger del" data-id="${esc(id)}">삭제</button></td>
+  </tr>` + (open? detHtml(it) : '');
+}
+function detHtml(it){
+  return `<tr class="det"><td colspan="7">
+    <div class="kv">등록 ${esc((it.created_at||'').slice(0,16).replace('T',' '))} · 단원 ${esc(it.unit_name||it.unit_id||'—')} · 난도 ${esc(it.difficulty||'—')} · id <code>${esc(String(it.id).slice(0,8))}…</code>${it.bulk_batch_id?` · 배치 <code>${esc(it.bulk_batch_id)}</code>`:''}${it.type_name?` · ${esc(it.type_name)}`:''}</div>
+    <div class="det-body">${esc(it.question_text||'(본문 없음)')}</div>
+    <div class="kv"><b>정답</b> ${esc(it.answer||'—')}</div>
+    ${it.explanation?`<div class="kv"><b>해설</b></div><div class="det-body">${esc(it.explanation)}</div>`:''}
+    ${(it.error_tags||[]).length?`<div>${(it.error_tags||[]).map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div>`:''}
+    ${it.source_note?`<div class="kv">메모: ${esc(it.source_note)}</div>`:''}
+  </td></tr>`;
+}
+
+function renderList(){
+  applyView();
+  const page=pageItems(); let rows='';
+  if(GROUP_HINT){   // §6-2 같은 유형후보끼리 묶어 표시(현재 쪽 안에서)
+    const groups=new Map();
+    page.forEach(it=>{ const k=hintText(it)||'(유형후보 없음)'; if(!groups.has(k)) groups.set(k,[]); groups.get(k).push(it); });
+    [...groups.entries()].sort((a,b)=>b[1].length-a[1].length).forEach(([k,arr])=>{
+      rows+=`<tr class="grp"><td colspan="7">${esc(k)} — ${arr.length}건 <button class="mini gsel" data-g="${esc(k)}">그룹 선택</button></td></tr>`;
+      arr.forEach(it=>{ rows+=rowHtml(it); });
+    });
+  } else page.forEach(it=>{ rows+=rowHtml(it); });
+  $('#list').innerHTML=`<table><tr><th style="width:24px"></th><th style="width:24px"></th><th>문항#</th><th>상태</th><th>유형</th><th>본문(앞 40자)</th><th></th></tr>${rows||'<tr><td colspan=7 class=muted>없음</td></tr>'}</table>`;
+  const total=VIEW.length, pages=PAGE_SIZE?Math.max(1,Math.ceil(total/PAGE_SIZE)):1;
+  $('#pageInfo').textContent = total
+    ? ` ${PAGE_SIZE?PAGE+1:1}/${pages}쪽 · ${PAGE_SIZE?PAGE*PAGE_SIZE+1:1}–${PAGE_SIZE?Math.min(PAGE*PAGE_SIZE+PAGE_SIZE,total):total} / ${total}건 `
+    : ' 0건 ';
+  $('#prevPage').disabled = !PAGE_SIZE || PAGE<=0;
+  $('#nextPage').disabled = !PAGE_SIZE || PAGE>=pages-1;
+}
+
+function renderBatchPanel(){   // §6-1 배치 인벤토리 + §6-3 진행률(배치별 미지정)
+  $('#batchPanel').hidden=!SHOW_BATCH;
+  if(!SHOW_BATCH) return;
+  const m=new Map();
+  ITEMS.forEach(it=>{ const k=it.bulk_batch_id||'(단건 등록)';
+    const g=m.get(k)||{total:0,pending:0,approved:0,archived:0,unit:it.unit_name||it.unit_id||''};
+    g.total++; g[it.status]=(g[it.status]||0)+1; m.set(k,g); });
+  const rows=[...m.entries()]
+    .sort((a,b)=>(b[1].pending||0)-(a[1].pending||0)||String(a[0]).localeCompare(String(b[0])))
+    .map(([k,g])=>`<tr><td><code>${esc(k)}</code></td><td>${esc(g.unit)}</td><td>${g.total}</td><td class="${g.pending?'st-pending':''}">${g.pending||0}</td><td>${g.approved||0}</td><td>${g.archived||0}</td><td>${k==='(단건 등록)'?'':`<button class="mini bpick" data-b="${esc(k)}">이 배치만</button>`}</td></tr>`).join('');
+  $('#batchPanel').innerHTML=`<div class="bpanel"><div class="small muted">받아온 ${ITEMS.length}건 기준 · 미지정 많은 순</div>
+    <table><tr><th>bulk_batch_id</th><th>단원</th><th>전체</th><th>미지정</th><th>승인</th><th>보관</th><th></th></tr>${rows||'<tr><td colspan=7 class=muted>없음</td></tr>'}</table></div>`;
+}
+
+function renderSelBar(){   // §6-2 화면 직접 선택 → 일괄 유형 지정
+  const n=SEL.size; $('#selBar').hidden = n===0; $('#selCount').textContent=n;
+  if(!n) return;
+  const units=[...new Set([...SEL].map(id=>(itemById(id)||{}).unit_id).filter(Boolean))];
+  if(units.length!==1){
+    $('#selStatus').textContent=' ※ 선택이 여러 단원에 걸쳐 있음 — 한 단원씩 지정하세요.';
+    $('#selPtype').innerHTML='<option value="">— 단원 혼재 —</option>'; return;
+  }
+  $('#selStatus').textContent='';
+  fetchTypes(units[0])
+    .then(list=>fillTypeSelect($('#selPtype'), list, $('#selTypeSearch').value, $('#selPtype').value||'', '유형 선택'))
+    .catch(e=>{ $('#selPtype').innerHTML=`<option value="">유형 로드 실패: ${esc(e.message||e)}</option>`; });
+}
+
 async function loadList(){
   const c=cfg(); if(!c.worker||!c.wkey){$('#listStatus').textContent=' 설정 먼저.';return;}
-  const body={limit:500}; if(FILTER) body.status=FILTER; if($('#filterUnit').checked && $('#unit').value) body.unit_id=$('#unit').value;
-  const bf=($('#batchFilter')&&$('#batchFilter').value.trim()); if(bf) body.bulk_batch_id=bf;
+  const body={limit:LIST_LIMIT};
+  if($('#filterUnit').checked && $('#unit').value) body.unit_id=$('#unit').value;
+  const bf=($('#batchFilter').value||'').trim(); if(bf) body.bulk_batch_id=bf;
   $('#listStatus').textContent=' 불러오는 중...';
   try{
     const j=await (await fetch(`${c.worker}/api/user-items/list`,{method:'POST',headers:headers(),body:JSON.stringify(body)})).json();
     if(!j.ok){ $('#listStatus').textContent=' 실패: '+(j.error||''); return; }
-    const ct=j.counts||{}; const pend=ct.pending||0;
-    $('#counts').innerHTML=`<span class="badge b-app">승인 ${ct.approved||0}</span><span class="badge ${pend>0?'pendhi':'b-pend'}">보류 ${pend}</span><span class="badge b-arch">보관 ${ct.archived||0}</span>`;
-    $('#listStatus').textContent=` 표시 ${j.count} · 전체 ${j.total}${FILTER?` · 필터:${FILTER}`:''}`;
-    const hintOf=it=>{ const m=(it.source_note||'').split('|').map(s=>s.trim()).find(s=>s.startsWith('유형후보:')); return m?`<div class="small" style="color:#7c3aed">${esc(m)}</div>`:''; };
-    const rows=(j.items||[]).map(it=>`<tr title="id=${esc(it.id)}">
-      <td>${esc((it.created_at||'').slice(0,10))}</td><td class="st-${esc(it.status)}">${esc(it.status)}</td>
-      <td>${esc(it.unit_name||it.unit_id)}</td><td>${esc(it.type_name||it.problem_type_id)||'<span class=muted>(미지정)</span>'}${it.status==='pending'?hintOf(it):''}</td>
-      <td>${it.question_no?'<b>#'+esc(it.question_no)+'</b> ':''}${esc((it.question_text||'').slice(0,54))}${(it.question_text||'').length>54?'…':''}</td>
-      <td><button class="mini edit" data-id="${esc(it.id)}">${it.status==='pending'?'유형지정':'수정'}</button><button class="danger del" data-id="${esc(it.id)}">삭제</button></td></tr>`).join('');
-    $('#list').innerHTML=`<table><tr><th>등록일</th><th>상태</th><th>단원</th><th>유형</th><th>본문(앞)</th><th></th></tr>${rows||'<tr><td colspan=6 class=muted>없음</td></tr>'}</table>`;
-    const map={}; (j.items||[]).forEach(it=>map[it.id]=it);
-    $('#list').querySelectorAll('button.edit').forEach(b=>b.onclick=()=>editItem(map[b.getAttribute('data-id')]));
-    $('#list').querySelectorAll('button.del').forEach(b=>b.onclick=async()=>{
-      if(!confirm('삭제(보관 처리)할까요?')) return;
-      const jj=await (await fetch(`${c.worker}/api/user-items/delete`,{method:'POST',headers:headers(),body:JSON.stringify({id:b.getAttribute('data-id')})})).json();
-      if(jj.ok) loadList(); else alert('삭제 실패: '+(jj.error||''));
-    });
+    ITEMS=j.items||[]; SEL.clear(); OPEN.clear(); PAGE=0;
+    const ct=j.counts||{}, pend=ct.pending||0;
+    $('#counts').innerHTML=`<span class="badge b-app">승인 ${ct.approved||0}</span><span class="badge ${pend>0?'pendhi':'b-pend'}">미지정 ${pend}건 남음</span><span class="badge b-arch">보관 ${ct.archived||0}</span>`;
+    // ★목록 상한 도달 = 조용한 누락 위험 → 반드시 표시(서버에 offset이 없어 더 받을 방법이 없음).
+    const capped = ITEMS.length>=LIST_LIMIT;
+    const partial = !body.unit_id && !body.bulk_batch_id && (j.total||0)>ITEMS.length;
+    $('#listWarn').innerHTML = (capped||partial)
+      ? `<div class="warn"><b>※ 목록이 잘렸습니다 — 받은 ${ITEMS.length}건 / 전체 ${j.total}건.</b> 아래 통계·필터·배치현황은 <b>받은 ${ITEMS.length}건 기준</b>입니다. 단원·배치 필터로 좁혀 보세요. (목록 API에 offset 없음 = 서버 페이지네이션 필요)</div>`
+      : '';
+    renderBatchPanel(); renderSelBar(); renderList();
+    $('#listStatus').textContent=` 받음 ${ITEMS.length} · 전체 ${j.total}${bf?` · 배치 ${bf}`:''}`;
   }catch(e){ $('#listStatus').textContent=' 오류: '+(e.message||e); }
 }
+
+// ── 목록 조작 배선 ──
 $('#listBtn').onclick = loadList;
-document.querySelectorAll('button.mini[data-f]').forEach(b=>b.onclick=()=>{ FILTER=b.getAttribute('data-f'); loadList(); });
+$('#filterUnit').onchange = loadList;
+$('#batchFilter').onchange = loadList;
+document.querySelectorAll('button.mini[data-f]').forEach(b=>b.onclick=()=>{
+  FILTER=b.getAttribute('data-f'); PAGE=0;
+  document.querySelectorAll('button.mini[data-f]').forEach(x=>x.classList.toggle('on',x===b));
+  renderList();
+});
+$('#qSearch').oninput = ()=>{ PAGE=0; renderList(); };
+$('#sortSel').onchange = ()=>{ SORT=$('#sortSel').value; PAGE=0; renderList(); };
+$('#pageSize').onchange = ()=>{ PAGE_SIZE=Number($('#pageSize').value)||0; PAGE=0; renderList(); };
+$('#prevPage').onclick = ()=>{ if(PAGE>0){ PAGE--; renderList(); } };
+$('#nextPage').onclick = ()=>{ PAGE++; renderList(); };
+$('#expandAll').onclick = ()=>{ pageItems().forEach(it=>OPEN.add(String(it.id))); renderList(); };
+$('#collapseAll').onclick = ()=>{ OPEN.clear(); renderList(); };
+$('#grpBtn').onclick = ()=>{ GROUP_HINT=!GROUP_HINT; $('#grpBtn').classList.toggle('on',GROUP_HINT); renderList(); };
+$('#batchBtn').onclick = ()=>{ SHOW_BATCH=!SHOW_BATCH; $('#batchBtn').classList.toggle('on',SHOW_BATCH); renderBatchPanel(); };
+
+$('#batchPanel').addEventListener('click', ev=>{
+  const b=ev.target.closest('button.bpick'); if(!b) return;
+  $('#batchFilter').value=b.getAttribute('data-b'); loadList();
+});
+
+$('#list').addEventListener('change', ev=>{
+  const cb=ev.target.closest('input.selbox'); if(!cb) return;
+  const id=cb.getAttribute('data-id');
+  if(cb.checked) SEL.add(id); else SEL.delete(id);
+  renderSelBar();
+});
+$('#list').addEventListener('click', async ev=>{
+  const el=ev.target.closest('button.tg, button.edit, button.del, button.gsel, input.selbox, tr.sum');
+  if(!el) return;
+  if(el.matches('input.selbox')) return;                       // change 핸들러가 처리
+  if(el.matches('button.tg') || el.matches('tr.sum')){          // 행 클릭·▶ = 펼침 토글
+    const id=el.getAttribute('data-id');   // tg 버튼·요약행 둘 다 data-id 보유
+    if(OPEN.has(id)) OPEN.delete(id); else OPEN.add(id);
+    renderList(); return;
+  }
+  if(el.matches('button.edit')){ const it=itemById(el.getAttribute('data-id')); if(it) editItem(it); return; }
+  if(el.matches('button.gsel')){
+    const g=el.getAttribute('data-g');
+    pageItems().filter(it=>(hintText(it)||'(유형후보 없음)')===g).forEach(it=>SEL.add(String(it.id)));
+    renderSelBar(); renderList(); return;
+  }
+  if(el.matches('button.del')){
+    if(!confirm('삭제(보관 처리)할까요?')) return;
+    const jj=await (await fetch(`${cfg().worker}/api/user-items/delete`,{method:'POST',headers:headers(),body:JSON.stringify({id:el.getAttribute('data-id')})})).json();
+    if(jj.ok) loadList(); else alert('삭제 실패: '+(jj.error||''));
+  }
+});
+
+$('#selTypeSearch').oninput = renderSelBar;
+$('#selClear').onclick = ()=>{ SEL.clear(); renderSelBar(); renderList(); };
+$('#selAssign').onclick = async ()=>{
+  const c=cfg(), pt=$('#selPtype').value, ids=[...SEL];
+  if(!ids.length) return;
+  if(!pt){ $('#selStatus').textContent=' 유형을 선택하세요.'; return; }
+  if(!confirm(`선택 ${ids.length}건에 유형 ${pt} 을 지정(승격)합니다. 진행할까요?`)) return;
+  $('#selAssign').disabled=true; $('#selStatus').textContent=' 지정 중...';
+  try{
+    // ★[코드확인] bulk-assign-type은 {ids[], problem_type_id} 형식도 받는다(worker bulkAssignType) → 서버 변경 불요.
+    const j=await (await fetch(`${c.worker}/api/user-items/bulk-assign-type`,{method:'POST',headers:headers(),body:JSON.stringify({ids,problem_type_id:pt})})).json();
+    if(!j.ok){ $('#selStatus').textContent=' 실패: '+(j.error||''); return; }
+    const up=(j.updated||[]).length, cf=(j.conflicts||[]), nf=(j.notfound||[]).length;
+    if(cf.length) $('#assignResult').innerHTML=`<div class="preview" style="border-color:#fca5a5;color:#b91c1c"><b>화면 선택 지정 — conflicts ${cf.length} (미승격 유지)</b><div class="small">${cf.map(x=>esc(String(x.id).slice(0,8))+'… '+esc(x.problem_type_id)).join('<br>')}</div></div>`;
+    await loadList();
+    $('#listStatus').textContent += ` · 유형지정 ${up}건 완료${cf.length?` · conflicts ${cf.length}`:''}${nf?` · notfound ${nf}`:''}`;
+  }catch(e){ $('#selStatus').textContent=' 오류: '+(e.message||e); }
+  finally{ $('#selAssign').disabled=false; }
+};
 
 // ── 대량 투입 (JSON) — dry-run / 실투입 ──
 async function readBulkJson(){
@@ -397,6 +631,8 @@ $('#backfillBtn').onclick = async () => {
 };
 
 loadCfg();
+PAGE_SIZE=Number($('#pageSize').value)||50; SORT=$('#sortSel').value;
+document.querySelector('button.mini[data-f=""]').classList.add('on');
 if(cfg().base){ loadUnits(); loadList(); }
 </script>
 </body>
