@@ -3,7 +3,7 @@
     "unit_id": "M2_SIMILARITY_PYTHAGORAS",
     "purpose": "닮음·피타고라스 87종 no_template 처방 저작(엔트리 신설). instruction_map 엔트리 0 → 신규 생성 후 part04 병합. M2_GEOM 140 기법 승계.",
     "dict": "TAG_DICTIONARY_v2 (163종)",
-    "authoring_rule": "error_checkpoints[].error_code는 4-tier 조회: 1)자기 overlay fine_error_tags → 2)단원 overlay 87 → 3)dict v2 §5 닮음13+§2 도형공통32 → 4)신설(new_tags 보고). checkpoint 3~4 상한. concept_ids 미포함(런타임조인·엔진 미참조). source_orders/raw_section_id 미포함(카탈로그 부재). visible_path/taxonomy 단순형(strand=sub_strand=type_name).",
+    "authoring_rule": "error_checkpoints[].error_code는 4-tier 조회: 1)자기 overlay fine_error_tags → 2)단원 overlay 87 → 3)dict v2 §5 닮음13+§2 도형공통32 → 4)신설(new_tags 보고). checkpoint 3~4 상한. concept_ids 미포함(런타임조인·엔진 미참조). source_orders/raw_section_id 미포함(카탈로그 부재). visible_path/taxonomy = type_name 마지막 ' - ' 기준 분해(2026-08-16 병합 시 확정, 근거: 87/87 구분자 보유·세부 3종 정확 분류). strand=sub_strand=representative_type=앞부분, detail_type=뒷부분. M2_GEOM 정본과 동일 형태.",
     "reuse_priority": ["self_overlay_tags", "unit_overlay_87", "dict_v2_sim13_geomcommon32", "new"],
     "observed_basis_true_types": "overlay 87/87 전건 태그보유(빈배열 0·총 279·평균 3.2) → observed_basis 전건 true",
     "progress": { "authored": 87, "total": 87, "batch": "11 (피타고라스 활용·역·입체) 완료 — 전량 저작 완료" },
