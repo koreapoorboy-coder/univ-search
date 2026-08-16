@@ -6,7 +6,7 @@
     "authoring_rule": "error_checkpoints[].error_code는 4-tier 조회: 1)자기 overlay fine_error_tags → 2)단원 overlay 87 → 3)dict v2 §5 닮음13+§2 도형공통32 → 4)신설(new_tags 보고). checkpoint 3~4 상한. concept_ids 미포함(런타임조인·엔진 미참조). source_orders/raw_section_id 미포함(카탈로그 부재). visible_path/taxonomy 단순형(strand=sub_strand=type_name).",
     "reuse_priority": ["self_overlay_tags", "unit_overlay_87", "dict_v2_sim13_geomcommon32", "new"],
     "observed_basis_true_types": "overlay 87/87 전건 태그보유(빈배열 0·총 279·평균 3.2) → observed_basis 전건 true",
-    "progress": { "authored": 42, "total": 87, "batch": "6 (사다리꼴 대각선·평행선 종합) 완료" },
+    "progress": { "authored": 48, "total": 87, "batch": "7 (중점연결정리) 완료" },
     "checkpoint_schema": "error_code · label · diagnosis · student_fix. ★[코드확인 2026-08-16] 이것이 정본 스키마 — instruction_map 4파트 12,523 엔트리 전건(diagnosis/student_fix 각 25,510회, check/fix 0회) · M2_GEOM draft 303 cp 전건 · display/student_action_templates.v1.json 45 cp 전건 동일. 리포·전달본 어디에도 check/fix 스키마 없음. 엔진은 error_checkpoints를 통째로 패스스루(math_weakness_engine.js:368)하며 하위 필드명을 읽는 코드는 없음.",
     "batch_plan": "B_similarity_prescription_batch_plan.v1.md — 잔여 81종을 개념 단위 10배치로 분할(B2~B11). 본 파일은 배치1 + B2 반영분.",
     "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + 보조(cp≤4·nonnull·ledger합). 롤링 백업.",
@@ -23,7 +23,8 @@
       "평행 역판정": ["M2_SIMPY_PT049","M2_SIMPY_PT051"],
       "여러 평행선·사다리꼴 선분비": ["M2_SIMPY_PT065","M2_SIMPY_PT067"],
       "각의 이등분선(내각·외각)": ["M2_SIMPY_PT053","M2_SIMPY_PT054","M2_SIMPY_PT056","M2_SIMPY_PT057","M2_SIMPY_PT058","M2_SIMPY_PT059","M2_SIMPY_PT061"],
-      "사다리꼴 대각선·평행선 종합": ["M2_SIMPY_PT070","M2_SIMPY_PT074","M2_SIMPY_PT077","M2_SIMPY_PT080"]
+      "사다리꼴 대각선·평행선 종합": ["M2_SIMPY_PT070","M2_SIMPY_PT074","M2_SIMPY_PT077","M2_SIMPY_PT080"],
+      "중점연결정리": ["M2_SIMPY_PT083","M2_SIMPY_PT086","M2_SIMPY_PT089","M2_SIMPY_PT090","M2_SIMPY_PT096","M2_SIMPY_PT098"]
     },
     "new_tags": [],
     "reuse_note": "배치1(6)+B2(10)+B3(7)+B4(8)=31종. error_code 전부 tier-1(자기 overlay)에서 조회 — tier-2·3·4 = 0. 신설 0. 31종 전부 overlay 4개 이하라 cp 절삭 없음(태그 전건 채택). ★M2_GEOM 첫 배치 재사용 43% 대비: 닮음은 overlay 87/87(관측 완비)이라 첫 배치부터 tier-1 100% — 관측 커버리지가 재사용률을 결정한다는 대조 자료.",
@@ -57,7 +58,11 @@
       "angle_bisector_side_ratio_setup_failure": "각의 이등분선 변비 세우기 실패",
       "same_altitude_area_ratio_transfer_failure": "같은 높이 넓이비 전이 실패",
       "composite_area_subtraction_failure": "복합 넓이 빼기 실패",
-      "equal_tangent_segment_relation_misapplied": "접선 길이 같음 오적용"
+      "equal_tangent_segment_relation_misapplied": "접선 길이 같음 오적용",
+      "difference_direction_error": "차의 방향 오류",
+      "final_form_reduction_omitted": "최종형 정리 누락",
+      "multi_expression_dependency_error": "다중 식 의존 처리 오류",
+      "trapezoid_midsegment_average_error": "사다리꼴 중점연결 평균 오류"
     },
     "overlay_coverage_note": "87/87 (M2_GEOM 27/140 대비 완비). 처방 근거 전건 관측.",
     "predicted_observed_gaps": [],
@@ -95,7 +100,12 @@
       "사다리꼴과 한 대각선의 길이비": ["M2_SIMPY_PT070"],
       "사다리꼴과 두 대각선 - 교점 비통과": ["M2_SIMPY_PT074"],
       "사다리꼴과 두 대각선 - 교점 통과": ["M2_SIMPY_PT077"],
-      "평행선 사이 길이비의 종합 응용": ["M2_SIMPY_PT080"]
+      "평행선 사이 길이비의 종합 응용": ["M2_SIMPY_PT080"],
+      "삼각형의 중점연결정리": ["M2_SIMPY_PT083"],
+      "중점연결정리의 중점 응용": ["M2_SIMPY_PT086"],
+      "중점연결정리의 삼등분선 응용": ["M2_SIMPY_PT089","M2_SIMPY_PT090"],
+      "사각형 각 변의 중점을 이은 사각형": ["M2_SIMPY_PT096"],
+      "사다리꼴의 중점연결정리": ["M2_SIMPY_PT098"]
     },
     "concept_map_semantics": "★주의: 이 파일의 concept_map은 '개념 → problem_type_id 목록'(커버리지 검증용). M2_GEOM 정본의 concept_map은 '골격 공유 규칙 명세'로 의미가 다름 — 아래 skeleton_sharing이 그 역할을 승계한다(2026-08-16 정렬).",
     "skeleton_sharing": {
@@ -103,8 +113,15 @@
       "differentiated_fields": ["problem_nature", "common_wrong_actions", "error_checkpoints", "student_command", "teacher_note", "parent_message"],
       "note": "M2_GEOM 정본 승계 — 개념 내 골격 공유는 **완전 동일 문자열이 아니라 같은 단계 구조**를 뜻한다. 변형축은 유형명 접미에 대응: 개념·조건 판별=정의·조건 확인 강조 / 비례식·정리 적용=비 확정→비례식→환산 / 복합 계산·증명=근거 선언→연립→조건 거르기. 실측(2026-08-16): 31종 전체에서 problem_nature·student_command·teacher_note·parent_message **완전중복 0건**, 개념 내 required_thinking·must_write_steps도 완전동일 문장 0(구조만 공유) — 정본 규칙과 일치."
     },
+    "tier1_atypical": {
+      "_note": "관측 overlay에 그 유형과 이질적으로 보이는 태그가 포함된 사례 목록. ★기록만 하고 판정하지 않는다(검수 지시 2026-08-16). overlay 품질을 나중에 볼 때의 단서. tier-1 원칙대로 채택은 하되, 채택 시 어떤 각도로 문안을 구성했는지 남긴다.",
+      "cases": [
+        { "problem_type_id": "M2_SIMPY_PT054", "type_name": "삼각형 내각의 이등분선과 변의 비 - 복합 계산·증명", "atypical_tag": "equal_tangent_segment_relation_misapplied", "why_atypical": "접선 길이 성질은 원 단원 어휘. 각의 이등분선 유형의 주 구조(변비)와 직접 연결되지 않는다.", "unit_frequency": 1, "handling": "tier-1 원칙대로 채택. 내접원·접선이 함께 나오는 복합 문항을 가정하고 '한 점에서 그은 두 접선만 길이가 같다'의 오적용 지점으로 문안 구성.", "verdict": "판정 보류" }
+      ]
+    },
     "trimmed_checkpoints": [
-      { "problem_type_id": "M2_SIMPY_PT105", "overlay_count": 5, "checkpoint_count": 4, "dropped": ["segment_partition_tracking_failure"], "reason": "배치1 저작분. overlay 5개 중 cp 상한 4에 맞춰 1개 탈락. 유형명이 지시하는 핵심(무게중심 2:1·닮음 대응·복수정답·정리선택)을 우선하고, 전역 빈발 일반 태그인 선분 분할 추적을 후순위로 뒀다. ★탈락 사유가 배치1 시점에 기록되지 않았던 것을 31종 검증에서 발견해 소급 기록(2026-08-16). 태그 자체는 overlay에 남아 관측 손실 없음.", "recorded_retroactively": true }
+      { "problem_type_id": "M2_SIMPY_PT105", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["centroid_two_to_one_ratio_confusion","similar_triangle_correspondence_setup_failure","multiple_answer_omission","law_selection_error"], "dropped": ["segment_partition_tracking_failure"], "reason": "배치1 저작분. 유형명이 지시하는 핵심(무게중심 2:1·닮음 대응·복수정답·정리선택)을 우선하고, 전역 빈발 일반 태그인 선분 분할 추적을 후순위로 뒀다. ★탈락 사유가 배치1 시점에 기록되지 않았던 것을 31종 검증에서 발견해 소급 기록(2026-08-16).", "dropped_adopted_elsewhere": { "segment_partition_tracking_failure": true }, "recorded_retroactively": true },
+      { "problem_type_id": "M2_SIMPY_PT083", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["midpoint_length_relation_error","midpoint_area_fraction_relation_misapplied","law_selection_error","difference_direction_error"], "dropped": ["segment_partition_tracking_failure"], "reason": "유형명='중점연결정리 - 비례식·정리 적용'. ①유형명 핵심=중점 길이·넓이 관계 ②'정리 적용'이 지시하는 정리 선택(law_selection_error) ③이 유형 특이 단발 태그(difference_direction_error, 단원 1회)를 채택. 전역 빈발 일반 태그인 선분 분할 추적(단원 19회)을 후순위로 탈락.", "dropped_adopted_elsewhere": { "segment_partition_tracking_failure": true } }
     ],
     "waver_pairs": []
   },
@@ -728,6 +745,100 @@
       "student_command": "종합 응용은 길이 줄과 넓이 줄을 나눠 쓰고, 넓이는 '닮음이면 제곱, 높이가 같으면 밑변비' 중 근거를 반드시 적어라.",
       "teacher_note": "넓이 근거 두 가지를 구분하지 못해 섞인다. 근거를 적게 하면 선택이 정확해진다.",
       "parent_message": "넓이를 구한 이유가 적혀 있는지 확인해 주세요. 이유가 정확하면 답도 정확합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT083": {
+      "problem_nature": "삼각형 두 변의 중점을 이은 선분이 밑변과 평행하고 길이가 절반임을 이용해 길이·넓이를 구하는 유형",
+      "required_thinking": ["두 변의 중점을 이은 선분 = 밑변과 평행, 길이는 밑변의 1/2", "역으로 한 변의 중점을 지나 밑변과 평행한 선은 다른 변의 중점을 지남", "중점연결선이 만드는 작은 삼각형은 원래와 닮음비 1:2, 넓이비 1:4", "구하는 것이 길이인지 넓이인지에 따라 1/2인지 1/4인지 선택"],
+      "must_write_steps": ["중점 두 개를 표시하고 이은 선분을 그린다.", "'중점연결선 = 밑변의 1/2, 밑변과 평행'을 근거로 적는다.", "길이는 1/2, 넓이는 1/4임을 구분해 적용한다.", "구한 값을 밑변·전체 넓이와 대조해 검산한다."],
+      "common_wrong_actions": ["길이의 1/2과 넓이의 1/4을 바꿔 쓴다.", "중점이 아닌 점에 중점연결정리를 적용한다.", "차를 구할 때 빼는 순서를 뒤집는다."],
+      "error_checkpoints": [
+        { "error_code": "midpoint_length_relation_error", "label": "중점 길이 관계 오류", "diagnosis": "중점연결선이 밑변의 1/2이라는 관계를 잘못 적용했다(2배로 쓰거나 중점이 아닌 점에 적용).", "student_fix": "두 점이 정말 중점인지 먼저 표시하고, '중점연결선 = 밑변의 1/2'을 그림 옆에 적어라." },
+        { "error_code": "midpoint_area_fraction_relation_misapplied", "label": "중점 넓이 분수 관계 오적용", "diagnosis": "넓이 분수(1/4·3/4)를 길이 분수(1/2)와 혼동했다.", "student_fix": "길이비 1:2 → 넓이비 1:4. 넓이를 물으면 제곱한다는 줄을 반드시 써라." },
+        { "error_code": "law_selection_error", "label": "적용 정리 선택 오류", "diagnosis": "중점연결정리와 그 역(평행 → 중점) 중 상황에 맞지 않는 쪽을 골랐다.", "student_fix": "주어진 것이 '중점 두 개'인지 '중점 하나 + 평행'인지 먼저 적고 정리를 골라라." },
+        { "error_code": "difference_direction_error", "label": "차의 방향 오류", "diagnosis": "두 길이(또는 넓이)의 차를 구할 때 빼는 순서를 뒤집어 부호가 반대가 되었다.", "student_fix": "무엇에서 무엇을 빼는지 '큰 것 - 작은 것'으로 먼저 쓰고 계산하라." }
+      ],
+      "student_command": "중점연결정리는 '길이는 절반, 넓이는 1/4'이다. 두 점이 중점인지 먼저 확인하고 길이인지 넓이인지 구분해 적용하라.",
+      "teacher_note": "길이 1/2과 넓이 1/4의 혼동이 핵심이다. 두 값을 나란히 적게 하면 구분된다.",
+      "parent_message": "길이가 절반이면 넓이는 1/4입니다. 이 구분을 알고 있는지 물어봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT086": {
+      "problem_nature": "중점이 여러 개 주어진 그림에서 중점연결정리를 반복 적용해 길이를 구하는 유형",
+      "required_thinking": ["중점이 여러 개일 때 어느 삼각형의 중점연결선인지 각각 확정", "한 단계의 결과가 다음 단계의 밑변이 되는 연쇄 구조 파악", "여러 조건이 동시에 걸리면 교집합으로 좁힘", "각 단계의 1/2이 몇 번 적용됐는지 세어 검산"],
+      "must_write_steps": ["중점을 모두 표시하고 각 중점연결선이 속한 삼각형을 지목한다.", "단계별로 '이 선분은 저 밑변의 1/2'을 순서대로 적는다.", "연쇄를 따라 구하는 선분까지 값을 이어간다.", "1/2이 몇 번 적용됐는지 세어 최종 값을 검산한다."],
+      "common_wrong_actions": ["어느 삼각형의 중점연결선인지 섞는다.", "1/2을 한 번 더 적용하거나 빠뜨린다.", "조건을 하나만 쓰고 나머지를 놓친다."],
+      "error_checkpoints": [
+        { "error_code": "midpoint_length_relation_error", "label": "중점 길이 관계 오류", "diagnosis": "각 단계에서 어느 밑변의 1/2인지 대응을 틀렸다.", "student_fix": "단계마다 '(선분) = (밑변)의 1/2'을 밑변 이름까지 적어라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "중점연결선이 만드는 닮은 삼각형의 대응을 잘못 짝지었다.", "student_fix": "작은 삼각형과 큰 삼각형을 따로 그려 대응 꼭짓점을 적어라." },
+        { "error_code": "multi_triangle_length_chain_failure", "label": "다중 삼각형 길이 연결 실패", "diagnosis": "여러 삼각형을 거치는 연쇄에서 중간 단계가 끊겼다.", "student_fix": "거쳐 가는 삼각형에 번호를 매기고 단계마다 값을 적어 이어라." },
+        { "error_code": "multi_constraint_intersection_failure", "label": "복수 조건 교집합 실패", "diagnosis": "여러 중점 조건을 빠짐없이 교차하지 못했다.", "student_fix": "조건에 번호를 매겨 각각 적고 모두 쓴 뒤에 답을 정하라." }
+      ],
+      "student_command": "중점이 여러 개면 단계마다 '(이 선분) = (저 밑변)의 1/2'을 밑변 이름까지 적어 연쇄를 끊기지 않게 하라.",
+      "teacher_note": "어느 삼각형의 중점연결선인지 섞이는 것이 병목이다. 밑변 이름을 함께 쓰게 하라.",
+      "parent_message": "단계마다 무엇의 절반인지 적는 습관이 필요합니다. 이름이 적혀 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT089": {
+      "problem_nature": "삼등분점이 주어진 그림에서 평행선과 선분비로 길이를 구하는 유형",
+      "required_thinking": ["삼등분점은 중점과 달리 1:2 또는 1:1:1 구조임을 구분", "평행선을 그어 삼등분 구조를 다른 변으로 옮김", "여러 조건(삼등분·평행)을 함께 만족하는 관계를 세움", "조각의 합이 전체와 맞는지 확인"],
+      "must_write_steps": ["삼등분점을 표시하고 각 조각에 이름을 붙인다.", "보조 평행선을 그어 삼등분 구조를 옮긴다.", "조각의 비(1:1:1 또는 1:2)를 적고 비례식을 세운다.", "조각의 합이 전체와 같은지 확인해 검산한다."],
+      "common_wrong_actions": ["삼등분을 중점(1/2)처럼 다룬다.", "보조선을 긋지 않아 관계가 안 보인다.", "조각 하나를 빠뜨려 합이 안 맞는다."],
+      "error_checkpoints": [
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "삼등분 구조의 비(1:1:1 / 1:2)를 상황에 맞게 세우지 못했다.", "student_fix": "조각에 번호를 붙이고 '지금 비는 1:1:1인가 1:2인가'를 한 줄 적어라." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "삼등분된 조각과 전체를 혼동해 비례식에 잘못 넣었다.", "student_fix": "조각1·2·3에 이름을 붙이고 전체 = 조각의 합을 먼저 적어라." },
+        { "error_code": "multi_constraint_intersection_failure", "label": "복수 조건 교집합 실패", "diagnosis": "삼등분·평행 조건을 함께 쓰지 못하고 하나만 적용했다.", "student_fix": "조건을 번호로 적고 각각 어디에 썼는지 표시하라." }
+      ],
+      "student_command": "삼등분 문제는 조각에 번호를 붙이고 비가 1:1:1인지 1:2인지 먼저 적어라. 안 보이면 보조 평행선을 그어라.",
+      "teacher_note": "중점 감각으로 절반을 적용하는 오류가 잦다. 조각 번호와 비를 먼저 쓰게 하라.",
+      "parent_message": "삼등분과 이등분을 구분하는지 확인해 주세요. 조각에 번호가 적혀 있으면 좋습니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT090": {
+      "problem_nature": "삼등분선 응용을 여러 조건과 결합해 길이를 구하거나 증명하고, 답을 최종 형태로 정리하는 복합 유형",
+      "required_thinking": ["삼등분 구조와 평행 조건을 각각 식으로 정리", "여러 조건을 연립해 미지수를 구함", "구한 값을 요구된 형태(기약분수·최簡 형태)로 정리", "조건 범위를 만족하는지 확인"],
+      "must_write_steps": ["삼등분 조각과 평행 관계를 각각 식으로 적는다.", "조건을 번호로 나열하고 연립해 미지수를 구한다.", "답을 요구된 형태(약분·정리)로 마무리한다.", "조각의 합·범위 조건으로 검산한다."],
+      "common_wrong_actions": ["약분하지 않은 형태로 답을 낸다.", "조건 하나를 빠뜨린다.", "조각과 전체를 혼동한다."],
+      "error_checkpoints": [
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "삼등분·평행 구조에서 비의 기준을 잘못 잡았다.", "student_fix": "조각 번호와 비 기준을 먼저 적고 그대로 지켜라." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "조각과 전체를 혼동해 연립식이 어긋났다.", "student_fix": "전체 = 조각의 합을 먼저 적고 미지수를 조각에 붙여라." },
+        { "error_code": "multi_constraint_intersection_failure", "label": "복수 조건 교집합 실패", "diagnosis": "여러 조건을 빠짐없이 교차해 미지수를 확정하지 못했다.", "student_fix": "조건에 번호를 매겨 각각 식으로 적고 모두 만족하는 값만 남겨라." },
+        { "error_code": "final_form_reduction_omitted", "label": "최종형 정리 누락", "diagnosis": "값은 맞았으나 약분·정리를 하지 않아 요구된 형태로 답하지 않았다.", "student_fix": "답을 쓰기 전에 '약분되나? 요구된 형태인가?'를 한 번 확인하라." }
+      ],
+      "student_command": "복합 삼등분 문제는 조건을 번호로 적어 연립하고, 마지막에 약분·형태 정리를 한 번 더 확인하라.",
+      "teacher_note": "계산은 맞고 형태에서 감점되는 경우가 있다. 마지막 정리 단계를 습관으로 만들어라.",
+      "parent_message": "답을 쓰기 전에 약분했는지 확인하는 습관이 필요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT096": {
+      "problem_nature": "사각형 각 변의 중점을 이어 만든 사각형의 둘레·넓이와 원래 사각형의 관계를 구하는 복합 유형",
+      "required_thinking": ["대각선을 그어 사각형을 삼각형으로 나눔", "각 삼각형에서 중점연결정리를 적용해 변이 대각선의 1/2·평행임을 확인", "중점 사각형의 둘레 = 두 대각선의 합, 넓이 = 원래의 1/2임을 도출", "구하는 것이 둘레인지 넓이인지에 따라 관계를 선택"],
+      "must_write_steps": ["대각선을 그어 사각형을 삼각형으로 나눈다.", "각 삼각형에서 중점연결선이 대각선의 1/2이고 평행임을 적는다.", "둘레는 두 대각선의 합, 넓이는 원래의 1/2로 연결한다.", "구한 값을 원래 사각형의 값과 대조해 검산한다."],
+      "common_wrong_actions": ["대각선을 긋지 않아 관계가 안 보인다.", "넓이 관계(1/2)를 길이 관계(1/2)와 섞어 잘못 적용한다.", "둘레를 구할 때 조각을 두 번 세거나 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "midpoint_length_relation_error", "label": "중점 길이 관계 오류", "diagnosis": "중점연결선이 대각선의 1/2이라는 관계를 세우지 못했다.", "student_fix": "대각선을 먼저 긋고 각 삼각형에서 '이 변 = 대각선의 1/2'을 적어라." },
+        { "error_code": "midpoint_area_fraction_relation_misapplied", "label": "중점 넓이 분수 관계 오적용", "diagnosis": "중점 사각형의 넓이가 원래의 1/2임을 잘못 적용했다(1/4 등과 혼동).", "student_fix": "삼각형 조각으로 나눠 각 조각의 넓이를 세어 1/2이 되는 과정을 직접 확인하라." },
+        { "error_code": "composite_path_length_decomposition_failure", "label": "복합 경로 길이 분해 실패", "diagnosis": "둘레를 구할 때 변들을 조각으로 분해해 더하는 처리를 틀렸다.", "student_fix": "네 변을 각각 어느 대각선의 1/2인지 적고 모두 더해라." },
+        { "error_code": "multi_expression_dependency_error", "label": "다중 식 의존 처리 오류", "diagnosis": "둘레 식과 넓이 식이 서로 의존하는데 한쪽 결과를 다른 쪽에 잘못 넣었다.", "student_fix": "둘레 식과 넓이 식을 따로 적고 어느 값을 공유하는지 화살표로 표시하라." }
+      ],
+      "student_command": "중점 사각형 문제는 대각선을 먼저 그어라. 네 변은 대각선의 1/2이고, 넓이는 원래의 1/2이다.",
+      "teacher_note": "대각선을 긋는 보조선 착상이 전부다. 그것만 유도하면 나머지는 따라온다.",
+      "parent_message": "보조선(대각선)을 그어보는 습관이 이 유형의 열쇠입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT098": {
+      "problem_nature": "사다리꼴에서 두 다리의 중점을 이은 선분(중점연결선)의 길이를 두 밑변으로 구하는 유형",
+      "required_thinking": ["사다리꼴의 중점연결선 = 두 밑변의 평균임을 확인", "대각선이나 보조선으로 삼각형 두 개로 나눠 유도할 수 있음을 인식", "주어진 것이 중점인지 다른 비율점인지 구분", "구한 값이 두 밑변 사이 값인지 확인"],
+      "must_write_steps": ["두 다리의 중점을 표시하고 이은 선분을 그린다.", "'중점연결선 = (윗변 + 아랫변) ÷ 2'를 근거로 적는다.", "값을 넣어 길이를 구한다.", "구한 값이 두 밑변 사이에 오는지 확인해 검산한다."],
+      "common_wrong_actions": ["두 밑변의 차로 계산한다.", "중점이 아닌 비율점에 평균 공식을 쓴다.", "조각으로 나뉜 선분과 전체를 혼동한다."],
+      "error_checkpoints": [
+        { "error_code": "trapezoid_midsegment_average_error", "label": "사다리꼴 중점연결 평균 오류", "diagnosis": "중점연결선의 길이를 두 밑변의 평균으로 구하지 못했다(차·합으로 계산하거나 2로 나누지 않음).", "student_fix": "'(윗변 + 아랫변) ÷ 2'를 먼저 적고 값을 넣어라. 답은 두 밑변 사이 값이어야 한다." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "중점연결선이 대각선 등으로 나뉜 조각과 전체를 혼동했다.", "student_fix": "조각에 이름을 붙이고 전체 = 조각의 합을 적은 뒤 계산하라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "중점이 아닌 비율점인데 평균 공식을 그대로 적용했다.", "student_fix": "주어진 점이 중점인지 먼저 확인하라. 중점이 아니면 위치 비로 나눈 값을 써야 한다." }
+      ],
+      "student_command": "사다리꼴 중점연결선은 두 밑변의 평균이다. '(윗변+아랫변)÷2'를 먼저 적고, 답이 두 밑변 사이 값인지 확인하라.",
+      "teacher_note": "차로 계산하거나 2로 안 나누는 실수가 잦다. 답의 범위(두 밑변 사이)로 스스로 검산하게 하라.",
+      "parent_message": "답이 두 밑변 사이 값인지 확인하면 스스로 실수를 잡을 수 있습니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
