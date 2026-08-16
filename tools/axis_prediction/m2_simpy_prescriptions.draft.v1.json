@@ -6,7 +6,7 @@
     "authoring_rule": "error_checkpoints[].error_code는 4-tier 조회: 1)자기 overlay fine_error_tags → 2)단원 overlay 87 → 3)dict v2 §5 닮음13+§2 도형공통32 → 4)신설(new_tags 보고). checkpoint 3~4 상한. concept_ids 미포함(런타임조인·엔진 미참조). source_orders/raw_section_id 미포함(카탈로그 부재). visible_path/taxonomy 단순형(strand=sub_strand=type_name).",
     "reuse_priority": ["self_overlay_tags", "unit_overlay_87", "dict_v2_sim13_geomcommon32", "new"],
     "observed_basis_true_types": "overlay 87/87 전건 태그보유(빈배열 0·총 279·평균 3.2) → observed_basis 전건 true",
-    "progress": { "authored": 68, "total": 87, "batch": "9 (넓이비·부피비·실생활) 완료" },
+    "progress": { "authored": 76, "total": 87, "batch": "10 (피타고라스 기본) 완료" },
     "checkpoint_schema": "error_code · label · diagnosis · student_fix. ★[코드확인 2026-08-16] 이것이 정본 스키마 — instruction_map 4파트 12,523 엔트리 전건(diagnosis/student_fix 각 25,510회, check/fix 0회) · M2_GEOM draft 303 cp 전건 · display/student_action_templates.v1.json 45 cp 전건 동일. 리포·전달본 어디에도 check/fix 스키마 없음. 엔진은 error_checkpoints를 통째로 패스스루(math_weakness_engine.js:368)하며 하위 필드명을 읽는 코드는 없음.",
     "batch_plan": "B_similarity_prescription_batch_plan.v1.md — 잔여 81종을 개념 단위 10배치로 분할(B2~B11). 본 파일은 배치1 + B2 반영분.",
     "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + 보조(cp≤4·nonnull·ledger합). 롤링 백업.",
@@ -26,7 +26,8 @@
       "사다리꼴 대각선·평행선 종합": ["M2_SIMPY_PT070","M2_SIMPY_PT074","M2_SIMPY_PT077","M2_SIMPY_PT080"],
       "중점연결정리": ["M2_SIMPY_PT083","M2_SIMPY_PT086","M2_SIMPY_PT089","M2_SIMPY_PT090","M2_SIMPY_PT096","M2_SIMPY_PT098"],
       "무게중심 응용·평행사변형": ["M2_SIMPY_PT112","M2_SIMPY_PT113","M2_SIMPY_PT115","M2_SIMPY_PT116","M2_SIMPY_PT120","M2_SIMPY_PT121","M2_SIMPY_PT122","M2_SIMPY_PT125","M2_SIMPY_PT126","M2_SIMPY_PT127","M2_SIMPY_PT128"],
-      "넓이비·부피비·실생활": ["M2_SIMPY_PT131","M2_SIMPY_PT133","M2_SIMPY_PT135","M2_SIMPY_PT140","M2_SIMPY_PT143","M2_SIMPY_PT144","M2_SIMPY_PT146","M2_SIMPY_PT148","M2_SIMPY_PT149"]
+      "넓이비·부피비·실생활": ["M2_SIMPY_PT131","M2_SIMPY_PT133","M2_SIMPY_PT135","M2_SIMPY_PT140","M2_SIMPY_PT143","M2_SIMPY_PT144","M2_SIMPY_PT146","M2_SIMPY_PT148","M2_SIMPY_PT149"],
+      "피타고라스 기본": ["M2_SIMPY_PT151","M2_SIMPY_PT152","M2_SIMPY_PT153","M2_SIMPY_PT155","M2_SIMPY_PT156","M2_SIMPY_PT157","M2_SIMPY_PT158","M2_SIMPY_PT159"]
     },
     "new_tags": [],
     "reuse_note": "배치1(6)+B2(10)+B3(7)+B4(8)=31종. error_code 전부 tier-1(자기 overlay)에서 조회 — tier-2·3·4 = 0. 신설 0. 31종 전부 overlay 4개 이하라 cp 절삭 없음(태그 전건 채택). ★M2_GEOM 첫 배치 재사용 43% 대비: 닮음은 overlay 87/87(관측 완비)이라 첫 배치부터 tier-1 100% — 관측 커버리지가 재사용률을 결정한다는 대조 자료.",
@@ -74,7 +75,12 @@
       "subtraction_of_regions_omitted": "영역 빼기 누락",
       "ratio_direction_inversion": "비 방향 뒤집음",
       "unit_conversion_omitted": "단위 환산 누락",
-      "multi_stage_motion_distance_setup_failure": "다단계 이동 거리 세우기 실패"
+      "multi_stage_motion_distance_setup_failure": "다단계 이동 거리 세우기 실패",
+      "pythagorean_setup_failure": "피타고라스 식 세우기 실패",
+      "variable_length_assignment_failure": "미지 길이 설정 실패",
+      "radical_ratio_simplification_error": "무리수 비 정리 오류",
+      "tangent_radius_perpendicularity_omitted": "접선·반지름 수직 누락",
+      "auxiliary_line_construction_failure": "보조선 작도 실패"
     },
     "overlay_coverage_note": "87/87 (M2_GEOM 27/140 대비 완비). 처방 근거 전건 관측.",
     "predicted_observed_gaps": [],
@@ -129,7 +135,10 @@
       "닮은 입체도형 겉넓이비의 활용": ["M2_SIMPY_PT140"],
       "닮은 입체도형의 부피비": ["M2_SIMPY_PT143","M2_SIMPY_PT144"],
       "닮은 입체도형 부피비의 활용": ["M2_SIMPY_PT146"],
-      "닮음의 실생활 활용 - 높이·축척": ["M2_SIMPY_PT148","M2_SIMPY_PT149"]
+      "닮음의 실생활 활용 - 높이·축척": ["M2_SIMPY_PT148","M2_SIMPY_PT149"],
+      "피타고라스 정리로 삼각형의 변 구하기": ["M2_SIMPY_PT151","M2_SIMPY_PT152","M2_SIMPY_PT153"],
+      "직각삼각형의 닮음과 피타고라스 정리": ["M2_SIMPY_PT155","M2_SIMPY_PT156"],
+      "사각형·직사각형에서 피타고라스 정리": ["M2_SIMPY_PT157","M2_SIMPY_PT158","M2_SIMPY_PT159"]
     },
     "concept_map_semantics": "★주의: 이 파일의 concept_map은 '개념 → problem_type_id 목록'(커버리지 검증용). M2_GEOM 정본의 concept_map은 '골격 공유 규칙 명세'로 의미가 다름 — 아래 skeleton_sharing이 그 역할을 승계한다(2026-08-16 정렬).",
     "skeleton_sharing": {
@@ -140,7 +149,8 @@
     "tier1_atypical": {
       "_note": "관측 overlay에 그 유형과 이질적으로 보이는 태그가 포함된 사례 목록. ★기록만 하고 판정하지 않는다(검수 지시 2026-08-16). overlay 품질을 나중에 볼 때의 단서. tier-1 원칙대로 채택은 하되, 채택 시 어떤 각도로 문안을 구성했는지 남긴다.",
       "cases": [
-        { "problem_type_id": "M2_SIMPY_PT054", "type_name": "삼각형 내각의 이등분선과 변의 비 - 복합 계산·증명", "atypical_tag": "equal_tangent_segment_relation_misapplied", "why_atypical": "접선 길이 성질은 원 단원 어휘. 각의 이등분선 유형의 주 구조(변비)와 직접 연결되지 않는다.", "unit_frequency": 1, "handling": "tier-1 원칙대로 채택. 내접원·접선이 함께 나오는 복합 문항을 가정하고 '한 점에서 그은 두 접선만 길이가 같다'의 오적용 지점으로 문안 구성.", "verdict": "판정 보류" }
+        { "problem_type_id": "M2_SIMPY_PT054", "type_name": "삼각형 내각의 이등분선과 변의 비 - 복합 계산·증명", "atypical_tag": "equal_tangent_segment_relation_misapplied", "why_atypical": "접선 길이 성질은 원 단원 어휘. 각의 이등분선 유형의 주 구조(변비)와 직접 연결되지 않는다.", "unit_frequency": 1, "handling": "tier-1 원칙대로 채택. 내접원·접선이 함께 나오는 복합 문항을 가정하고 '한 점에서 그은 두 접선만 길이가 같다'의 오적용 지점으로 문안 구성.", "verdict": "판정 보류" },
+        { "problem_type_id": "M2_SIMPY_PT152", "type_name": "피타고라스 정리로 삼각형의 변 구하기 - 비례식·정리 적용", "atypical_tag": "tangent_radius_perpendicularity_omitted", "why_atypical": "접선⊥반지름은 원 단원 어휘. 피타고라스로 변을 구하는 유형의 주 구조와 직접 연결되지 않는다.", "unit_frequency": 1, "handling": "tier-1 채택(단발·개념국소 우선 규칙). 원과 접선이 함께 나오는 문항에서 '접점에서 반지름과 접선이 수직'을 못 세워 직각삼각형을 못 만드는 지점으로 문안 구성.", "verdict": "판정 보류" }
       ]
     },
     "frequent_deprioritized_tags": {
@@ -152,7 +162,10 @@
       { "problem_type_id": "M2_SIMPY_PT083", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["midpoint_length_relation_error","midpoint_area_fraction_relation_misapplied","law_selection_error","difference_direction_error"], "dropped": ["segment_partition_tracking_failure"], "reason": "유형명='중점연결정리 - 비례식·정리 적용'. ①유형명 핵심=중점 길이·넓이 관계 ②'정리 적용'이 지시하는 정리 선택(law_selection_error) ③이 유형 특이 단발 태그(difference_direction_error, 단원 1회)를 채택. 전역 빈발 일반 태그인 선분 분할 추적(단원 19회)을 후순위로 탈락.", "dropped_adopted_elsewhere": { "segment_partition_tracking_failure": true } },
       { "problem_type_id": "M2_SIMPY_PT128", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["centroid_area_partition_failure","centroid_two_to_one_ratio_confusion","midpoint_area_fraction_relation_misapplied","area_decomposition_equation_setup_failure"], "dropped": ["area_ratio_from_similarity_failure"], "reason": "유형명='평행사변형에서 무게중심과 넓이 - 비례식·정리 적용'. ①유형명 핵심=무게중심 넓이 분할·2:1 ②중점 넓이 분수 ③전체를 조각으로 분해하는 식 세우기를 채택. 닮음비→넓이비 전환은 이 유형의 주 구조(무게중심 분할)가 아니라 후순위로 탈락. ★같은 개념(C043)의 PT127에서 tier-1으로 채택되어 개념 내 커버 유지.", "dropped_adopted_elsewhere": { "area_ratio_from_similarity_failure": true } },
       { "problem_type_id": "M2_SIMPY_PT148", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["unit_conversion_omitted","ratio_setup_from_geometry_failure","similar_triangle_correspondence_setup_failure","segment_ratio_to_length_conversion_failure"], "dropped": ["multi_stage_motion_distance_setup_failure"], "reason": "유형명='높이·축척 - 개념·조건 판별'. 판별 유형의 핵심은 단위 통일·대응 짝짓기이며, 다단계 이동 거리는 계산 유형(PT149)의 구조. ★같은 개념(C050)의 PT149에서 tier-1으로 채택해 개념 내 커버 유지.", "dropped_adopted_elsewhere": { "multi_stage_motion_distance_setup_failure": true } },
-      { "problem_type_id": "M2_SIMPY_PT149", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["multi_stage_motion_distance_setup_failure","unit_conversion_omitted","ratio_setup_from_geometry_failure","segment_ratio_to_length_conversion_failure"], "dropped": ["similar_triangle_correspondence_setup_failure"], "reason": "계산 유형이라 다단계 이동 거리를 우선 채택. 탈락한 닮음 대응은 단원 전역 빈발(31회) 일반 태그로 후순위. 같은 개념 PT148에서 채택됨.", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true } }
+      { "problem_type_id": "M2_SIMPY_PT149", "overlay_count": 5, "checkpoint_count": 4, "adopted": ["multi_stage_motion_distance_setup_failure","unit_conversion_omitted","ratio_setup_from_geometry_failure","segment_ratio_to_length_conversion_failure"], "dropped": ["similar_triangle_correspondence_setup_failure"], "reason": "계산 유형이라 다단계 이동 거리를 우선 채택. 탈락한 닮음 대응은 단원 전역 빈발(31회) 일반 태그로 후순위. 같은 개념 PT148에서 채택됨.", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true } },
+      { "problem_type_id": "M2_SIMPY_PT152", "overlay_count": 6, "checkpoint_count": 4, "adopted": ["pythagorean_setup_failure","variable_length_assignment_failure","radical_ratio_simplification_error","tangent_radius_perpendicularity_omitted"], "dropped": ["angle_bisector_side_ratio_setup_failure","centroid_two_to_one_ratio_confusion"], "reason": "유형명 핵심=피타고라스 식·미지 길이 설정. 근호 정리는 이 계산 유형 특이. 접선·반지름 수직은 단발(단원 1회)로 개념국소 우선 규칙에 따라 채택(tier1_atypical 기록). 탈락 2건은 각각 단원 10회·8회의 전역 빈발 일반 태그로 후순위.", "dropped_adopted_elsewhere": { "angle_bisector_side_ratio_setup_failure": true, "centroid_two_to_one_ratio_confusion": true } },
+      { "problem_type_id": "M2_SIMPY_PT158", "overlay_count": 6, "checkpoint_count": 4, "adopted": ["auxiliary_line_construction_failure","pythagorean_setup_failure","composite_area_subtraction_failure","right_triangle_altitude_geometric_mean_failure"], "dropped": ["similar_triangle_correspondence_setup_failure","segment_partition_tracking_failure"], "reason": "유형명='사각형·직사각형에서 피타고라스 - 비례식·정리 적용'. 사각형에서의 보조선 작도가 이 개념의 국소 핵심이라 우선. 탈락 2건은 단원 31회·19회의 전역 빈발 일반 태그로 후순위.", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true, "segment_partition_tracking_failure": true } },
+      { "problem_type_id": "M2_SIMPY_PT159", "overlay_count": 7, "checkpoint_count": 4, "adopted": ["pythagorean_setup_failure","auxiliary_line_construction_failure","right_triangle_altitude_geometric_mean_failure","composite_path_length_decomposition_failure"], "dropped": ["similar_triangle_correspondence_setup_failure","segment_partition_tracking_failure","area_formula_setup_error"], "reason": "복합 유형. 보조선·비례중항·경로 분해가 이 개념의 국소 핵심. 탈락 3건은 단원 31회·19회·13회의 전역 빈발 일반 태그로 후순위(cp 상한 4로 3건 탈락).", "dropped_adopted_elsewhere": { "similar_triangle_correspondence_setup_failure": true, "segment_partition_tracking_failure": true, "area_formula_setup_error": true } }
     ],
     "waver_pairs": []
   },
@@ -1171,6 +1184,128 @@
       "student_command": "실생활 거리 계산은 이동을 단계별로 나눠 각 구간에 이름을 붙이고, 단위를 통일한 뒤 비례식을 세워라.",
       "teacher_note": "여러 단계를 한 번에 처리하려다 거리 관계가 무너진다. 구간을 나눠 적게 하라.",
       "parent_message": "여러 번 움직이는 상황은 구간을 나눠 적는 것이 요령입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT151": {
+      "problem_nature": "직각삼각형에서 피타고라스 정리를 세워 나머지 한 변을 구할 수 있는지 판별하는 유형",
+      "required_thinking": ["직각의 위치를 찾아 빗변을 특정(직각의 마주 보는 변이 빗변)", "빗변² = 다른 두 변의 제곱의 합", "구하는 변이 빗변인지 아닌지에 따라 더할지 뺄지 결정", "변이 여러 조각으로 나뉘어 있으면 어느 길이를 쓸지 확정"],
+      "must_write_steps": ["직각 표시를 찾아 빗변에 표시를 한다.", "'빗변² = 밑변² + 높이²' 식을 그대로 적는다.", "구하는 변의 위치에 따라 더하거나 빼서 계산한다.", "빗변이 가장 긴지 확인해 검산한다."],
+      "common_wrong_actions": ["빗변이 아닌 변을 빗변 자리에 넣는다.", "구하는 변이 빗변이 아닌데 제곱을 더한다.", "나뉜 조각의 길이와 전체 길이를 혼동한다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "빗변의 위치를 잘못 잡거나 더할 자리와 뺄 자리를 틀려 식이 어긋났다.", "student_fix": "직각의 마주 보는 변이 빗변이다. 빗변에 표시부터 하고 '빗변² = 나머지² + 나머지²'를 써라." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "나뉜 조각과 전체 변을 혼동해 식에 잘못된 길이를 넣었다.", "student_fix": "조각에 이름을 붙이고 '전체 = 조각의 합'을 적은 뒤 어느 길이를 쓸지 정하라." }
+      ],
+      "student_command": "피타고라스는 빗변 표시부터다. 직각의 마주 보는 변이 빗변이며, 빗변을 구하면 더하고 나머지를 구하면 뺀다.",
+      "teacher_note": "빗변을 잘못 잡는 것이 거의 전부다. 직각→마주 보는 변 순서로 짚게 하라.",
+      "parent_message": "빗변을 먼저 표시하고 식을 쓰는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT152": {
+      "problem_nature": "피타고라스 정리를 다른 성질(각의 이등분선·접선 등)과 결합해 변의 길이를 계산하는 유형",
+      "required_thinking": ["직각삼각형을 찾거나 보조선으로 만들어냄", "구하는 길이를 미지수로 두고 식을 세움", "원·접선이 있으면 접점에서 반지름과 접선이 수직임을 이용해 직각을 확보", "근호가 나오면 마지막에 정리해 최簡 형태로"],
+      "must_write_steps": ["직각삼각형을 찾아 빗변을 표시한다(없으면 보조선으로 만든다).", "구하는 길이를 문자로 두고 다른 길이를 그 문자로 표현한다.", "피타고라스 식을 세워 방정식을 푼다.", "근호를 정리하고 길이가 양수인지 확인해 검산한다."],
+      "common_wrong_actions": ["미지수를 어디에 둘지 정하지 않아 식이 복잡해진다.", "근호를 정리하지 않고 답한다.", "접선이 있는데 반지름과의 수직을 표시하지 않아 직각삼각형을 못 만든다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "직각삼각형을 특정하지 못했거나 빗변 자리를 틀려 식이 성립하지 않았다.", "student_fix": "직각 표시 → 빗변 표시 → 식 작성 순서를 지켜라." },
+        { "error_code": "variable_length_assignment_failure", "label": "미지 길이 설정 실패", "diagnosis": "무엇을 문자로 둘지 정하지 못했거나, 둔 문자로 다른 길이를 표현하지 못했다.", "student_fix": "구하는 것을 x로 두고, 나머지 길이를 x로 적을 수 있는지 먼저 확인하라." },
+        { "error_code": "radical_ratio_simplification_error", "label": "무리수 비 정리 오류", "diagnosis": "근호가 든 값을 정리·약분하는 과정에서 틀렸다.", "student_fix": "√ 안의 수를 소인수로 쪼개 밖으로 뺄 수 있는지 확인한 뒤 약분하라." },
+        { "error_code": "tangent_radius_perpendicularity_omitted", "label": "접선·반지름 수직 누락", "diagnosis": "접점에서 반지름과 접선이 수직임을 표시하지 않아 직각삼각형을 만들지 못했다.", "student_fix": "접점을 찾아 반지름을 긋고 직각 표시를 해라. 거기서 직각삼각형이 생긴다." }
+      ],
+      "student_command": "피타고라스 계산은 직각 표시 → 빗변 표시 → 미지수 설정 → 식 순서로 가라. 원이 있으면 접점에 반지름을 긋고 직각을 만들어라.",
+      "teacher_note": "미지수를 두는 위치 선택이 난이도를 가른다. 구하는 것을 x로 두고 나머지를 x로 쓰게 하라.",
+      "parent_message": "무엇을 x로 둘지 먼저 정하고 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT153": {
+      "problem_nature": "피타고라스 정리와 닮음을 결합해 여러 단계로 변의 길이를 구하거나 증명하는 복합 유형",
+      "required_thinking": ["닮음으로 얻은 비를 길이로 바꾼 뒤 피타고라스에 대입", "여러 직각삼각형을 거치면 순서를 정해 값을 이어감", "나뉜 조각과 전체를 구분해 식에 넣음", "근호 값을 정리하고 크기를 검토"],
+      "must_write_steps": ["닮은 삼각형의 대응을 적어 비를 확정한다.", "비로 얻은 길이를 표시하고 직각삼각형을 지목한다.", "피타고라스 식을 세워 값을 구한다(여러 단계면 순서대로).", "근호를 정리하고 빗변이 가장 긴지 확인해 검산한다."],
+      "common_wrong_actions": ["닮음비를 길이로 바꾸지 않고 바로 피타고라스에 넣는다.", "조각과 전체를 섞는다.", "근호 정리를 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "어느 직각삼각형에 적용할지 특정하지 못했거나 빗변을 틀렸다.", "student_fix": "쓸 직각삼각형을 하나 골라 따로 그리고 그 안에서만 식을 세워라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "닮음 대응을 잘못 세워 대입한 길이가 틀렸다.", "student_fix": "대응 꼭짓점을 세로로 적고 그 순서대로 비를 만들어라." },
+        { "error_code": "radical_ratio_simplification_error", "label": "무리수 비 정리 오류", "diagnosis": "근호가 포함된 비·길이를 정리하지 못했다.", "student_fix": "√ 안을 소인수분해해 밖으로 뺄 수 있는지 확인하고 약분하라." },
+        { "error_code": "segment_partition_tracking_failure", "label": "선분 분할 추적 실패", "diagnosis": "나뉜 조각과 전체 길이를 혼동해 식에 잘못 넣었다.", "student_fix": "조각에 이름을 붙이고 전체 = 조각의 합을 먼저 적어라." }
+      ],
+      "student_command": "닮음과 피타고라스를 함께 쓸 때는 닮음으로 길이를 먼저 확정하고, 쓸 직각삼각형 하나를 골라 따로 그려 식을 세워라.",
+      "teacher_note": "여러 삼각형을 한 그림에서 처리하려다 섞인다. 쓸 삼각형만 떼어 그리게 하라.",
+      "parent_message": "필요한 삼각형만 따로 그려 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT155": {
+      "problem_nature": "직각삼각형의 빗변에 내린 수선이 만드는 닮음과 피타고라스를 함께 이용해 길이를 구하는 유형",
+      "required_thinking": ["수선이 만드는 세 닮은 직각삼각형 확인", "비례중항 관계(높이² = 조각의 곱, 변² = 빗변 × 조각)", "피타고라스로 빗변·직각변을 보완 계산", "두 방법의 결과가 일치하는지 검산"],
+      "must_write_steps": ["빗변과 수선을 표시하고 조각에 이름을 붙인다.", "세 삼각형의 대응을 적어 닮음을 확정한다.", "비례중항 또는 피타고라스 중 필요한 식을 골라 계산한다.", "다른 식으로도 같은 값이 나오는지 검산한다."],
+      "common_wrong_actions": ["높이²과 변²의 관계식을 바꿔 쓴다.", "대응을 잘못 세워 조각을 뒤바꾼다.", "검산 없이 한 경로만 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "right_triangle_altitude_geometric_mean_failure", "label": "직각삼각형 수선 비례중항 실패", "diagnosis": "높이² = 두 조각의 곱과 변² = 빗변 × 자기 쪽 조각을 구분하지 못했다.", "student_fix": "높이는 두 조각 사이, 변은 자기 쪽 조각과 짝이다. 화살표로 짝을 표시하고 식을 골라라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "세 삼각형의 대응을 잘못 짝지어 식이 어긋났다.", "student_fix": "전체·좌·우 삼각형을 따로 그려 대응 꼭짓점을 적어라." }
+      ],
+      "student_command": "빗변에 수선이 있으면 세 삼각형이 닮음이다. 짝을 화살표로 표시해 비례중항 식을 고르고, 피타고라스로 검산하라.",
+      "teacher_note": "두 관계식 선택이 병목이다. 짝을 그리게 하면 선택이 정확해진다.",
+      "parent_message": "공식 암기보다 어느 변과 어느 조각이 짝인지 그리는 것이 중요합니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT156": {
+      "problem_nature": "직각삼각형의 닮음·비례중항·피타고라스를 여러 삼각형에 걸쳐 결합해 계산·증명하는 복합 유형",
+      "required_thinking": ["세 닮은 삼각형의 관계를 모두 정리", "여러 삼각형을 거치는 경로를 정해 길이를 이어감", "각 단계에서 비례중항과 피타고라스 중 적절한 식 선택", "넓이 두 표현 등으로 최종 검산"],
+      "must_write_steps": ["빗변·수선·조각에 이름을 붙이고 세 삼각형의 대응을 적는다.", "구하는 길이까지 거쳐 갈 삼각형 순서를 정한다.", "단계마다 알맞은 식(비례중항/피타고라스)을 골라 값을 잇는다.", "다른 경로나 넓이 표현으로 검산한다."],
+      "common_wrong_actions": ["단계 순서를 정하지 않아 중간값이 꼬인다.", "관계식을 바꿔 쓴다.", "여러 삼각형의 조각을 섞는다."],
+      "error_checkpoints": [
+        { "error_code": "right_triangle_altitude_geometric_mean_failure", "label": "직각삼각형 수선 비례중항 실패", "diagnosis": "비례중항 식 선택을 틀려 복합 계산이 어긋났다.", "student_fix": "쓸 수 있는 식을 먼저 모두 적어놓고 조건에 맞는 것을 골라라." },
+        { "error_code": "similar_triangle_correspondence_setup_failure", "label": "닮은 삼각형 대응 세우기 실패", "diagnosis": "세 삼각형의 대응이 어긋난 채 식을 세웠다.", "student_fix": "삼각형을 분리해 그리고 대응 꼭짓점을 적은 뒤 식을 만들어라." },
+        { "error_code": "multi_triangle_length_chain_failure", "label": "다중 삼각형 길이 연결 실패", "diagnosis": "여러 삼각형을 거치는 길이 연결이 중간에서 끊겼다.", "student_fix": "거쳐 가는 삼각형에 번호를 매기고 단계마다 값을 적어 이어라." }
+      ],
+      "student_command": "복합 문제는 쓸 수 있는 식을 먼저 모두 적고, 거쳐 갈 삼각형 순서를 번호로 정한 뒤 단계마다 값을 이어라.",
+      "teacher_note": "식 목록과 경로 번호, 두 가지를 먼저 쓰게 하면 꼬임이 사라진다.",
+      "parent_message": "순서를 정해놓고 푸는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT157": {
+      "problem_nature": "직사각형·사각형에서 보조선을 그어 직각삼각형을 만들고 피타고라스를 적용할 수 있는지 판별하는 유형",
+      "required_thinking": ["사각형에는 직각삼각형이 바로 없을 수 있어 보조선(대각선·수선)이 필요함", "직사각형의 성질(네 각이 직각·대변이 같음)을 활용", "만든 직각삼각형의 빗변을 특정", "넓이를 물으면 밑변·높이가 수직인지 확인"],
+      "must_write_steps": ["대각선이나 수선을 그어 직각삼각형을 만든다.", "직각과 빗변을 표시한다.", "피타고라스 식을 세워 필요한 길이를 구한다.", "넓이를 물으면 수직인 밑변·높이로 공식을 세워 계산한다."],
+      "common_wrong_actions": ["보조선을 긋지 않아 직각삼각형을 못 찾는다.", "직사각형의 성질을 쓰지 않아 길이를 놓친다.", "수직이 아닌 변을 높이로 써서 넓이가 틀린다."],
+      "error_checkpoints": [
+        { "error_code": "auxiliary_line_construction_failure", "label": "보조선 작도 실패", "diagnosis": "직각삼각형을 만들 보조선(대각선·수선)을 떠올리지 못했다.", "student_fix": "직각삼각형이 안 보이면 대각선을 긋거나 한 점에서 수선을 내려라. 두 가지가 기본 수단이다." },
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "만든 삼각형에서 빗변을 잘못 잡아 식이 어긋났다.", "student_fix": "직각 표시 후 마주 보는 변을 빗변으로 표시하고 식을 써라." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "수직 관계가 아닌 두 변을 밑변·높이로 사용했다.", "student_fix": "높이는 밑변에 수직인 선분이다. 직각 표시를 확인하고 공식에 넣어라." }
+      ],
+      "student_command": "사각형에서 직각삼각형이 안 보이면 대각선을 긋거나 수선을 내려라. 그 다음 빗변을 표시하고 식을 세워라.",
+      "teacher_note": "보조선 두 수단(대각선·수선)을 목록으로 갖게 하는 것이 가장 효과적이다.",
+      "parent_message": "보조선을 그어보는 시도를 하는지 봐 주세요. 그것이 이 유형의 열쇠입니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT158": {
+      "problem_nature": "사각형에서 보조선으로 만든 직각삼각형에 피타고라스와 닮음을 적용해 길이·넓이를 계산하는 유형",
+      "required_thinking": ["보조선으로 직각삼각형을 만들고 빗변을 특정", "겹치거나 남는 영역이 있으면 빼서 구함", "수선이 있으면 비례중항 관계도 함께 검토", "구한 값을 원래 사각형 조건으로 검산"],
+      "must_write_steps": ["보조선을 그어 직각삼각형을 만들고 직각·빗변을 표시한다.", "피타고라스로 필요한 길이를 구한다.", "넓이는 '전체 - 빼는 부분' 식으로 세워 계산한다.", "구한 값이 사각형 조건과 맞는지 검산한다."],
+      "common_wrong_actions": ["보조선 없이 억지로 식을 세운다.", "겹치는 영역을 빼지 않는다.", "비례중항 관계를 잘못 적용한다."],
+      "error_checkpoints": [
+        { "error_code": "auxiliary_line_construction_failure", "label": "보조선 작도 실패", "diagnosis": "필요한 보조선을 긋지 못해 직각삼각형을 만들지 못했다.", "student_fix": "대각선·수선 두 수단을 차례로 시도하고 어느 쪽이 직각을 만드는지 확인하라." },
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "빗변 위치를 틀리거나 조각 길이를 잘못 넣어 식이 어긋났다.", "student_fix": "직각→빗변→식 순서를 지키고, 넣는 길이가 어느 선분인지 표시하라." },
+        { "error_code": "composite_area_subtraction_failure", "label": "복합 넓이 빼기 실패", "diagnosis": "구하는 넓이를 전체에서 빼는 처리에서 겹침·누락이 생겼다.", "student_fix": "'구하는 것 = 전체 - ①- ②' 식을 먼저 쓰고 각 부분을 계산하라." },
+        { "error_code": "right_triangle_altitude_geometric_mean_failure", "label": "직각삼각형 수선 비례중항 실패", "diagnosis": "수선이 만드는 비례중항 관계를 잘못 골랐다.", "student_fix": "높이는 두 조각 사이, 변은 자기 쪽 조각과 짝임을 화살표로 표시하고 식을 골라라." }
+      ],
+      "student_command": "사각형 피타고라스 계산은 보조선 → 직각·빗변 표시 → 식 순서로 가고, 넓이는 '전체 - 빼는 부분' 식을 먼저 써라.",
+      "teacher_note": "보조선과 빼기, 두 곳에서 갈린다. 두 단계를 각각 한 줄로 쓰게 하라.",
+      "parent_message": "보조선을 긋고 빼는 부분을 표시하며 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_SIMPY_PT159": {
+      "problem_nature": "사각형에서 피타고라스·닮음·넓이를 결합해 여러 단계로 계산하거나 관계를 증명하는 복합 유형",
+      "required_thinking": ["보조선으로 직각삼각형을 만들고 필요한 관계를 모두 정리", "구하는 선분이 여러 조각의 합·차인지 판별", "단계별로 피타고라스·닮음 중 알맞은 것을 선택", "검산 경로(넓이 두 표현 등)를 확보"],
+      "must_write_steps": ["보조선을 긋고 생긴 직각삼각형·닮은 삼각형을 나열한다.", "구하는 선분을 조각으로 쪼개 각 조각의 구할 방법을 적는다.", "단계마다 알맞은 식으로 값을 구해 더하거나 뺀다.", "다른 경로로 검산한다."],
+      "common_wrong_actions": ["구하는 선분을 한 번에 구하려 한다.", "보조선을 긋지 않는다.", "여러 삼각형의 값을 섞는다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "여러 삼각형 중 어디에 적용할지 특정하지 못했거나 빗변을 틀렸다.", "student_fix": "쓸 삼각형을 하나 골라 따로 그리고 그 안에서만 식을 세워라." },
+        { "error_code": "auxiliary_line_construction_failure", "label": "보조선 작도 실패", "diagnosis": "필요한 보조선을 긋지 못해 관계가 만들어지지 않았다.", "student_fix": "대각선·수선을 차례로 시도하고 직각이 생기는 쪽을 택하라." },
+        { "error_code": "right_triangle_altitude_geometric_mean_failure", "label": "직각삼각형 수선 비례중항 실패", "diagnosis": "수선이 만드는 비례중항 관계 선택을 틀렸다.", "student_fix": "쓸 수 있는 관계식을 먼저 모두 적고 조건에 맞는 것을 골라라." },
+        { "error_code": "composite_path_length_decomposition_failure", "label": "복합 경로 길이 분해 실패", "diagnosis": "구하는 선분이 조각의 합·차인데 한 번에 구하려 했다.", "student_fix": "구하는 선분을 조각으로 쪼개 이름을 붙이고 하나씩 구한 뒤 더하거나 빼라." }
+      ],
+      "student_command": "복합 사각형 문제는 보조선을 긋고, 구하는 선분을 조각으로 쪼개 각 조각을 따로 구한 뒤 합치거나 빼라.",
+      "teacher_note": "한 번에 구하려는 습관이 병목이다. 조각으로 쪼개 이름 붙이기를 먼저 시키라.",
+      "parent_message": "긴 문제는 조각으로 나눠 하나씩 구하는 것이 정확합니다.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
