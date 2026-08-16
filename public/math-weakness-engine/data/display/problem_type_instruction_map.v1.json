@@ -30,6 +30,7 @@
     "data/problem_types/m1_prime_factorization.problem_types.v1.json",
     "data/problem_types/m1_solid_geometry.problem_types.v1.json",
     "data/problem_types/m2_geometry_properties.problem_types.v1.json",
+    "data/problem_types/m2_similarity_pythagoras.problem_types.v1.json",
     "data/problem_types/m2_linear_equation.problem_types.v1.json",
     "data/problem_types/m2_linear_function.problem_types.v1.json",
     "data/problem_types/m2_linear_inequality.problem_types.v1.json",
@@ -40,7 +41,7 @@
     "data/problem_types/m3_quadratic_function.problem_types.v1.json",
     "data/problem_types/m3_real_numbers_and_operations.problem_types.v1.json"
   ],
-  "problem_type_count": 12523,
+  "problem_type_count": 12610,
   "template_usage": {
     "ACTION_COUNTING_CASEWORK": 487,
     "ACTION_EQUATION_ROOTS": 777,
@@ -65,7 +66,7 @@
     "ACTION_GENERIC_STRUCTURED_SOLUTION": 403,
     "ACTION_QUADRATIC_FUNCTION": 115
   },
-  "instruction_total_count": 12523,
+  "instruction_total_count": 12610,
   "part_count": 4,
   "parts": [
     {
@@ -92,9 +93,9 @@
     {
       "part_no": 4,
       "path": "data/display/problem_type_instruction_map_parts/problem_type_instruction_map.part04.v1.json",
-      "instruction_count": 2023,
+      "instruction_count": 2110,
       "instruction_start_index": 10500,
-      "instruction_end_index": 12522
+      "instruction_end_index": 12609
     }
   ],
   "loader_note": "이 파일은 manifest입니다. 실제 instructions는 parts 배열의 JSON 파일을 순서대로 로드해 병합합니다."
