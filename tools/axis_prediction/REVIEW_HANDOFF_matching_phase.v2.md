@@ -83,6 +83,7 @@
 9. **23번 범주 오배정**(원 접선→삼각형의 내심) 2회 재현 — 미해소.
 10. **타 기관 결과 제공 형태 시 §1 원칙 재검토** — 관측 데이터는 기관 통합 확정(2026-08-13, 사용자 고유 프로그램). 나중에 "통합 관측으로 만든 태그를 타 기관에 결과로 제공"하는 형태가 되면 §1(서비스형·데이터는 사용자 보유)과의 성격 재검토 필요. 지금 해당 없음(전부 사용자 데이터).
 11. ~~user_items 기존 행 content_hash/dedup_key backfill 미실행~~ — ✅**완료**(2026-08-14). qnorm.v1 워커 구현 후 `POST /api/user-items/backfill-hashes`로 3행(기존2+테스트34633203) 채움 [실측]: updated 3·conflicts 0·norm_version `qnorm.v1`, D1 SELECT 3행 64hex 확인. 재사용 수단=admin backfill 버튼(멱등, M1·수연산 재실행). 해시 구성 정본 = `user_items.schema.v3.1.sql` 상단.
+13. **★"조용한 실패" 계열 — `editItem`의 `#unit` 로드 순서 의존**(2026-08-16 신설, 검수 지시). `admin_items.html` `editItem`이 `$('#unit').value=it.unit_id`를 하는데, 단원 옵션이 아직 로드되지 않았으면 **예외 없이 빈 값**이 되고 이후 `currentItem()`이 `unit_id:''`로 저장할 수 있다. 현재는 초기화가 `loadUnits()` → `loadList()` 순서라 실사용에서 미발생(그래서 미조치). ★위험은 **loadUnits가 실패했을 때도 조용히 같은 상태가 된다**는 것 — circle·statistics 조용한 실패와 동계열. 재발 조건: base URL 오설정·index.v1.json 404·네트워크 실패. 조치 후보 = 저장 전 `unit_id` 빈값 가드 또는 `loadUnits` 실패 시 폼 비활성.
 12. **★admin 목록 전건 로드의 임계 = 총 1,000건**(2026-08-16 신설, 검수 확인1). `/api/user-items/list`는 **offset이 없고** `limit` 상한이 1000 [코드확인]. 현재 목록 UI는 전건을 받아 **클라 슬라이싱**으로 페이지·필터·정렬을 한다(정적만 변경·서버 무변경). **총 등록이 1,000건을 넘으면 조용한 누락이 시작되므로 서버 `offset`/`limit` 도입 필요** → 워커 변경·VERSION 갱신·재배포. 화면이 자동 감지해 빨간 경고를 띄우므로(받은 수가 상한 도달 또는 `total>받은 수`) 그 경고가 착수 신호. 상세 = `B_admin_items_list_ui.v1.md` §1·§7.
 
 ## 다음 트랙 착수 = (1) 문항 매칭 + 다기관 지원
