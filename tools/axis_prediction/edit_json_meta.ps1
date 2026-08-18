@@ -87,9 +87,13 @@ if (-not $parseOk) { throw ("JSON parse FAILED after edit, file untouched :: " +
 
 # --- gate 2: U+FFFD scan (encoding damage) ------------------------------------
 # NOTE: never write the replacement char as a literal here - this file must stay ASCII.
-$FFFD = [string][char]0xFFFD
-$fffd = ([regex]::Matches($new, [regex]::Escape($FFFD))).Count
-if ($fffd -gt 0) { throw ("U+FFFD x $fffd found after edit, file untouched (encoding damage)") }
+# ★BUG FIXED 2026-08-18: PowerShell variable names are CASE-INSENSITIVE.
+#   $FFFD (the char) and $fffd (the count) were the SAME variable, so the count
+#   overwrote the char and the post-write gate escaped 0 -> counted digit "0" (86 hits).
+#   Distinct names are mandatory here: $FFFD_CHAR vs $fffdNew/$fffd2.
+$FFFD_CHAR = [string][char]0xFFFD
+$fffdNew = ([regex]::Matches($new, [regex]::Escape($FFFD_CHAR))).Count
+if ($fffdNew -gt 0) { throw ("U+FFFD x $fffdNew found after edit, file untouched (encoding damage)") }
 
 # --- gate 3: prescriptions text must be byte-identical ------------------------
 $oldTail = $text.Substring($close + 1)
@@ -105,7 +109,7 @@ Copy-Item $File $bk -Force
 $check = [System.IO.File]::ReadAllText($File, [System.Text.Encoding]::UTF8)
 $ok = $true
 try { $null = $check | ConvertFrom-Json } catch { $ok = $false }
-$fffd2 = ([regex]::Matches($check, [regex]::Escape($FFFD))).Count
+$fffd2 = ([regex]::Matches($check, [regex]::Escape($FFFD_CHAR))).Count
 if ((-not $ok) -or $fffd2 -gt 0) {
   Copy-Item $bk $File -Force
   throw "post-write verification FAILED (parse=$ok, U+FFFD=$fffd2) -> restored from .bak"

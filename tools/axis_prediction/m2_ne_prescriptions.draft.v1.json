@@ -40,6 +40,27 @@
       "nonrepeating_prefix_offset_ignored": "비순환 앞자리 보정 누락"
     },
     "tier_report": "이 배치의 tier 분해는 커밋 메시지·보고서에 수치로 낸다(검수 지시: 첫 배치 분포로 방침 결정).",
+    "tier_breakdown": {
+      "_note": "배치별 tier 분해 누적 기록(검수 지시 2026-08-18). 최종 제출 시 414종 전체 분포를 이 표로 낸다.",
+      "batches": [
+        { "batch": 1, "scope": "순환소수 계열 3범주", "types": 10, "overlay_true": 6, "overlay_false": 4, "tier1": 13, "tier2": 11, "tier3": 0, "new": 0, "codes_total": 24 }
+      ],
+      "cumulative": { "types": 10, "tier1": 13, "tier2": 11, "tier3": 0, "new": 0, "codes_total": 24 },
+      "finding": "★자기 유형에 overlay가 없어도 같은 단원 이웃 유형의 관측 어휘(tier-2)로 커버된다. 커버리지 34%인데 신설 0. M2_GEOM(19% → 신설 8종)과 대비."
+    },
+    "predicted_observed_gaps": [
+      { "tag": "cycle_length_miscount", "concept": "순환마디", "predicted_in": ["M2_NE_PT023"], "observed_types_checked": ["M2_NE_PT024", "M2_NE_PT025"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "note": "소수의 순환마디(예측층)에 '마디 길이 오산'을 배치했으나, 같은 개념의 관측 유형(분수·나눗셈 순환마디) 관측 태그엔 없음(관측은 시작 위치·나눗셈 미완). 타 개념 관측엔 존재. 해석 보류." },
+      { "tag": "nonrepeating_prefix_offset_ignored", "concept": "순환소수를 포함한 식의 계산", "predicted_in": ["M2_NE_PT052"], "observed_types_checked": ["M2_NE_PT050", "M2_NE_PT051"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "note": "활용 연산(예측층)에 '비순환 앞자리 보정 누락'을 배치했으나 같은 개념 관측 유형엔 없음(관측은 혼합 변환·분수 연산 실수). 타 개념 관측엔 존재. 해석 보류." },
+      { "tag": "multi_constraint_intersection_failure", "concept": "순환소수를 포함한 등식에서 미지수의 값 구하기", "predicted_in": ["M2_NE_PT058"], "observed_types_checked": ["M2_NE_PT055", "M2_NE_PT057"], "observed_in": [], "unit_occurrences": 1, "kind": "개념국소(단원 overlay 존재)", "note": "등식 미주어짐·복수 미지수(예측층)에 '복수 조건 교집합 실패'를 배치했으나 같은 개념 관측 유형엔 없음(관측은 등식 세우기·겹친 분수). 해석 보류." }
+    ],
+    "gaps_criterion": "M2_GEOM 정본 기준 — 예측층 유형(observed_basis:false)에 배치한 error_code 중, 같은 개념에 관측 유형(observed_basis:true)이 있는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면 판정 불가로 미기록. kind: A계열=전역부재(단원 overlay에도 없음=신설 성격) / B계열=개념국소(단원 overlay엔 있으나 그 개념 관측엔 없음). 정제 규칙(M2_GEOM 승계): 편재 태그(단원 관측 5개 유형 이상 등장)는 샘플링 노이즈로 보아 gaps_excluded_by_criterion으로 분리.",
+    "gaps_excluded_by_criterion": [],
+    "gaps_measured": {
+      "status": "(a) 수집·결과 3건. 배치1분 소급 수집(2026-08-18) 후 이후 배치 상시 포함.",
+      "why_collectable": "★이 단원은 observed_basis 혼재(true 6 / false 4)라 예측층 유형이 존재 → 갭 판정의 입력이 있다. 닮음(overlay 100% → 예측층 0 → 구조적 0)과 다르고 M2_GEOM과 같은 조건.",
+      "coverage_context": "커버리지 34% 구간의 관측점. M2_GEOM 19%(갭 5) · 닮음 100%(갭 0) 사이에 위치 — M1 재태깅 우선순위 판단 근거.",
+      "batch1_result": "갭 3건 전부 B계열(개념국소). A계열(전역부재) 0건 = 신설 0과 정합."
+    },
     "new_tags": []
   },
   "prescriptions": {
