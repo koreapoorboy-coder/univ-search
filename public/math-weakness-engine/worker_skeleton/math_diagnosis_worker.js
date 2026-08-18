@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.14-typename';
+const VERSION = '2026.08.18-list-paging';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -383,23 +383,72 @@ async function itemAdd(request, env) {
 async function itemList(request, env, url) {
   const bad = axisAuth(request, env); if (bad) return bad;
   if (!env.AXIS_DB) return { ok: false, code: 'no_binding', error: 'AXIS_DB(D1) 바인딩 없음', status: 503 };
-  let unitId = null, status = null, bulkBatchId = null, limit = 200;
-  if (request.method === 'GET') { unitId = url.searchParams.get('unit_id'); status = url.searchParams.get('status'); bulkBatchId = url.searchParams.get('bulk_batch_id'); }
-  else { const b = await safeJson(request).catch(() => ({})); unitId = b && b.unit_id; status = b && b.status; bulkBatchId = b && b.bulk_batch_id; if (b && b.limit) limit = Math.min(1000, Number(b.limit) || 200); }
-  let sql = 'SELECT * FROM user_items'; const cond = [], args = [];
+  // ★서버 페이지네이션(2026-08-18). 총 등록이 1,000건을 넘어 클라 전건 로드가 절단되기 시작했다.
+  //   필터·정렬·집계를 전부 서버로 옮긴다 — 클라 필터는 받은 페이지 안에서만 걸려 무의미해지기 때문.
+  const src = request.method === 'GET'
+    ? (k => url.searchParams.get(k))
+    : (b => k => (b && b[k] !== undefined && b[k] !== null) ? b[k] : null)(await safeJson(request).catch(() => ({})));
+  const unitId = src('unit_id'), status = src('status'), bulkBatchId = src('bulk_batch_id');
+  const q = String(src('q') || '').trim();
+  const sort = String(src('sort') || 'created_desc');
+  const limit = Math.min(500, Math.max(1, Number(src('limit')) || 50));   // 상한 500(응답 크기 보호)
+  const offset = Math.max(0, Number(src('offset')) || 0);
+
+  const cond = [], args = [];
   if (unitId) { cond.push(`unit_id=?${args.length + 1}`); args.push(unitId); }
   if (status) { cond.push(`status=?${args.length + 1}`); args.push(status); }
   if (bulkBatchId) { cond.push(`bulk_batch_id=?${args.length + 1}`); args.push(bulkBatchId); }
-  if (cond.length) sql += ' WHERE ' + cond.join(' AND ');
-  sql += ` ORDER BY created_at DESC LIMIT ${limit}`;
-  const rows = ((await env.AXIS_DB.prepare(sql).bind(...args).all()).results) || [];
+  if (q) {
+    // 본문·문항번호·유형 동시 검색. LIKE 와일드카드는 이스케이프한다.
+    const esc = q.replace(/[\\%_]/g, m => '\\' + m);
+    const p = `%${esc}%`;
+    const i = args.length;
+    cond.push(`(question_text LIKE ?${i + 1} ESCAPE '\\' OR question_no LIKE ?${i + 2} ESCAPE '\\' OR problem_type_id LIKE ?${i + 3} ESCAPE '\\' OR type_name LIKE ?${i + 4} ESCAPE '\\')`);
+    args.push(p, p, p, p);
+  }
+  const where = cond.length ? ' WHERE ' + cond.join(' AND ') : '';
+
+  // ★정렬 안정성: /add-bulk 는 배치당 created_at 을 1회 계산해 전 행이 동일 시각이다.
+  //   created_at 단독 정렬은 페이지 경계에서 행 중복·누락을 만든다 → id 타이브레이커 필수.
+  const EMPTY_LAST = `CASE WHEN question_no IS NULL OR question_no='' THEN 1 ELSE 0 END`;
+  const ORDERS = {
+    created_desc: 'created_at DESC, id DESC',
+    created_asc: 'created_at ASC, id ASC',
+    qno_asc: `${EMPTY_LAST} ASC, CAST(question_no AS INTEGER) ASC, question_no ASC, id ASC`,
+    qno_desc: `${EMPTY_LAST} ASC, CAST(question_no AS INTEGER) DESC, question_no DESC, id DESC`
+  };
+  const orderBy = ORDERS[sort] || ORDERS.created_desc;
+
+  const rows = ((await env.AXIS_DB.prepare(
+    `SELECT * FROM user_items${where} ORDER BY ${orderBy} LIMIT ?${args.length + 1} OFFSET ?${args.length + 2}`
+  ).bind(...args, limit, offset).all()).results) || [];
   const items = rows.map(x => ({ ...x, concept_ids: axisParse(x.concept_ids), error_tags: axisParse(x.error_tags) }));
-  // 상태별 카운트를 항상 실어 보낸다(pending 방치 방지 — 화면에 상시 표시).
+
+  // 현재 필터에 맞는 전체 건수(페이지네이션 분모). 페이지 크기와 무관하다.
+  const ftRow = await env.AXIS_DB.prepare(`SELECT COUNT(*) AS c FROM user_items${where}`).bind(...args).first();
+  const filteredTotal = (ftRow && ftRow.c) || 0;
+
+  // ★집계는 항상 전체 기준(필터·페이지 무관). "받은 N건 기준" 통계가 틀리던 원인.
   const countRows = ((await env.AXIS_DB.prepare('SELECT status, COUNT(*) AS c FROM user_items GROUP BY status').all()).results) || [];
   const counts = { approved: 0, pending: 0, archived: 0 };
   countRows.forEach(r => { counts[r.status || 'unknown'] = r.c; });
   const total = countRows.reduce((s, r) => s + (r.c || 0), 0);
-  return { ok: true, items, count: items.length, total, counts };
+
+  // 배치별 현황도 전체 기준으로 낸다(배치 id를 모르면 필터를 못 거는 문제 해소).
+  const batchRows = ((await env.AXIS_DB.prepare(
+    'SELECT COALESCE(bulk_batch_id, \'\') AS b, status, COUNT(*) AS c, MAX(unit_name) AS unit_name FROM user_items GROUP BY b, status'
+  ).all()).results) || [];
+  const bmap = {};
+  batchRows.forEach(r => {
+    const k = r.b || '';
+    const e = bmap[k] || (bmap[k] = { bulk_batch_id: k, unit_name: r.unit_name || '', total: 0, approved: 0, pending: 0, archived: 0 });
+    e.total += r.c || 0;
+    if (r.status) e[r.status] = (e[r.status] || 0) + (r.c || 0);
+    if (!e.unit_name && r.unit_name) e.unit_name = r.unit_name;
+  });
+  const batches = Object.values(bmap).sort((x, y) => (y.pending - x.pending) || String(x.bulk_batch_id).localeCompare(String(y.bulk_batch_id)));
+
+  return { ok: true, items, count: items.length, total, counts, filtered_total: filteredTotal, offset, limit, sort, batches };
 }
 
 async function itemDelete(request, env) {

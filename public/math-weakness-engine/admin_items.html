@@ -101,7 +101,7 @@
 
 <div class="card">
   <h2>3) 등록 목록 <span id="counts"></span></h2>
-  <p class="muted small" style="margin:0 0 8px">행은 <b>기본 접힘</b> — 클릭하면 전문·정답·해설이 펼쳐집니다. 필터·검색·정렬·페이지는 받아온 목록 안에서 즉시 적용(재조회 없음).</p>
+  <p class="muted small" style="margin:0 0 8px">행은 <b>기본 접힘</b> — 클릭하면 전문·정답·해설이 펼쳐집니다. 필터·검색·정렬·페이지는 <b>서버에서</b> 처리됩니다 — 전체 등록분 기준으로 걸립니다.</p>
   <div class="tbar">
     <button class="sec" id="listBtn">새로고침</button>
     <button class="mini" data-f="">전체</button>
@@ -117,12 +117,11 @@
     <select id="sortSel">
       <option value="created_desc">등록일 ↓(최신)</option>
       <option value="created_asc">등록일 ↑</option>
-      <option value="qno_num_asc">문항번호 ↑(숫자)</option>
-      <option value="qno_num_desc">문항번호 ↓(숫자)</option>
-      <option value="qno_str_asc">문항번호 ↑(문자)</option>
+      <option value="qno_asc">문항번호 ↑(숫자)</option>
+      <option value="qno_desc">문항번호 ↓(숫자)</option>
     </select>
     <label class="small" style="margin:0">쪽당</label>
-    <select id="pageSize"><option value="50">50</option><option value="100">100</option><option value="200">200</option><option value="0">전체</option></select>
+    <select id="pageSize"><option value="50">50</option><option value="100">100</option><option value="200">200</option><option value="500">500</option></select>
     <button class="mini" id="prevPage">◀</button><span id="pageInfo" class="small muted"></span><button class="mini" id="nextPage">▶</button>
     <button class="mini" id="expandAll">모두 펼치기</button><button class="mini" id="collapseAll">모두 접기</button>
     <button class="mini" id="grpBtn">유형후보 묶기</button>
@@ -332,9 +331,22 @@ async function editItem(it){
     await loadTypes(it.unit_id);
   }
   $('#question_text').value=it.question_text||''; $('#answer').value=it.answer||''; $('#explanation').value=it.explanation||'';
-  $('#difficulty').value=it.difficulty||'core';
+  // ★같은 계열 점검(2026-08-16): select 값 대입은 옵션에 없으면 예외 없이 무시된다.
+  //   난도는 enum 밖 값, 유형은 로드 실패 시 조용히 빈 값이 되어 그대로 덮어써진다.
+  const wantDiff=it.difficulty||'core';
+  $('#difficulty').value=wantDiff;
+  if($('#difficulty').value!==wantDiff){
+    unitWarn+=` ⚠ 난도(${wantDiff})가 목록에 없어 선택되지 않았습니다.`;
+    console.warn('[admin_items] difficulty select failed:', wantDiff);
+    $('#difficulty').style.borderColor='#b91c1c';
+  } else { $('#difficulty').style.borderColor=''; }
   $('#etags').value=(it.error_tags||[]).join(', '); $('#source_note').value=it.source_note||'';
   renderTypeOptions(it.problem_type_id||'');
+  if(it.problem_type_id && $('#ptype').value!==it.problem_type_id){
+    unitWarn+=` ⚠ 유형(${it.problem_type_id})을 선택하지 못했습니다 — 유형 목록 로드 실패. 이대로 저장하면 유형이 빈 값이 됩니다.`;
+    console.warn('[admin_items] ptype select failed:', it.problem_type_id, '(options=', $('#ptype').options.length, ')');
+    $('#ptype').style.borderColor='#b91c1c';
+  } else { $('#ptype').style.borderColor=''; }
   window.scrollTo({top:$('#question_text').getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});
   // ★경고가 있으면 상태 문구에 덮이지 않게 뒤에 붙인다(조용한 실패 차단).
   $('#saveStatus').textContent = (it.status==='pending' ? ' 보류 문항 — 유형을 지정하고 저장하면 승인으로 승격됩니다.' : ' 편집 모드 — 저장하면 덮어씁니다.') + unitWarn;
@@ -345,52 +357,17 @@ async function editItem(it){
 //   limit 기본 200·상한 1000. **offset 없음** → 페이지네이션은 클라 슬라이싱.
 //   서버에는 좁히는 필터(unit_id·bulk_batch_id)만 보내고 status는 보내지 않는다 —
 //   배치별 "미지정 N건 남음"과 유형후보 묶기가 배치 전건을 필요로 하기 때문(§6-1·3).
-const LIST_LIMIT=1000;
-let ITEMS=[], VIEW=[], PAGE=0, PAGE_SIZE=50, SORT='created_desc', GROUP_HINT=false, SHOW_BATCH=false;
+let ITEMS=[], PAGE=0, PAGE_SIZE=50, SORT='created_desc', GROUP_HINT=false, SHOW_BATCH=false;
+let FILTERED_TOTAL=0, BATCHES=[], LIST_SEQ=0, SEARCH_T=null;
 const SEL=new Set(), OPEN=new Set();
 
 const hintText=it=>{ const m=(it.source_note||'').split('|').map(s=>s.trim()).find(s=>s.startsWith('유형후보:')); return m||''; };
-// ★자연 정렬 — 숫자 덩어리는 수로, 나머지는 문자열로 비교(검수 확인2 2026-08-16).
-//   '01'<'2'<'100' 을 만족하면서 '1-3'·'가-2' 같은 비순수숫자 번호에서도 정렬이 깨지지 않는다.
-//   숫자 파싱이 아예 불가한 값끼리는 문자열 비교로 폴백. 데이터는 문자열 그대로 유지(표시 순서만 바뀜).
-const natCmp=(a,b)=>{
-  const A=String(a==null?'':a), B=String(b==null?'':b);
-  const ca=A.match(/\d+|\D+/g)||[], cb=B.match(/\d+|\D+/g)||[];
-  for(let i=0;i<Math.max(ca.length,cb.length);i++){
-    const x=ca[i], y=cb[i];
-    if(x===undefined) return -1; if(y===undefined) return 1;
-    const nx=/^\d/.test(x), ny=/^\d/.test(y);
-    if(nx&&ny){ const d=parseInt(x,10)-parseInt(y,10); if(d) return d; }        // 숫자 덩어리 = 수 비교
-    else if(nx!==ny) return nx? -1 : 1;                                         // 숫자가 문자보다 앞
-    else { const d=x.localeCompare(y); if(d) return d; }                        // 문자 덩어리 = 문자열 폴백
-  }
-  return 0;
-};
 const cut=(s,n)=>{ const t=String(s==null?'':s).replace(/\s+/g,' ').trim(); return t.length>n? t.slice(0,n)+'…' : t; };
 const itemById=id=>ITEMS.find(x=>String(x.id)===String(id));
-function pageItems(){ return PAGE_SIZE? VIEW.slice(PAGE*PAGE_SIZE, PAGE*PAGE_SIZE+PAGE_SIZE) : VIEW; }
-
-function applyView(){
-  const q=($('#qSearch').value||'').trim().toLowerCase();
-  VIEW=ITEMS.filter(it=>{
-    if(FILTER && String(it.status||'')!==FILTER) return false;
-    if(q){ const hay=`${it.question_text||''} ${it.question_no||''} ${it.type_name||''} ${it.problem_type_id||''}`.toLowerCase(); if(hay.indexOf(q)<0) return false; }
-    return true;
-  });
-  const byCreated=(a,b)=>String(a.created_at||'').localeCompare(String(b.created_at||''));
-  // ★question_no는 문자열 저장 유지 — 정렬은 표시 순서만 바꾼다(데이터 무변경).
-  // dir=1 오름 / -1 내림. ★번호 없는 문항은 방향과 무관하게 항상 뒤로(내림에서 앞으로 튀지 않게).
-  const byNum=dir=>(a,b)=>{
-    const A=String(a.question_no||''), B=String(b.question_no||'');
-    if(!A!==!B) return A? -1 : 1;
-    const d=dir*natCmp(A,B); return d? d : byCreated(a,b);
-  };
-  const S={ created_desc:(a,b)=>-byCreated(a,b), created_asc:byCreated, qno_num_asc:byNum(1), qno_num_desc:byNum(-1),
-            qno_str_asc:(a,b)=>String(a.question_no||'').localeCompare(String(b.question_no||'')) };
-  VIEW.sort(S[SORT]||S.created_desc);
-  const maxPage=PAGE_SIZE? Math.max(0,Math.ceil(VIEW.length/PAGE_SIZE)-1) : 0;
-  if(PAGE>maxPage) PAGE=maxPage;
-}
+// ★서버 페이지네이션(2026-08-18) 이후: 필터·정렬·페이지는 전부 서버가 처리한다.
+//   ITEMS = 서버가 돌려준 "현재 페이지" 그대로. 클라에서 다시 거르거나 정렬하지 않는다.
+//   (클라 필터는 받은 페이지 안에서만 걸려 "pending 전체"를 못 보여줬다 — 1,000건 상한 도달로 실제 발생)
+function pageItems(){ return ITEMS; }
 
 function rowHtml(it){
   const id=String(it.id), open=OPEN.has(id), pend=it.status==='pending', hint=pend?hintText(it):'';
@@ -424,7 +401,6 @@ function detHtml(it){
 }
 
 function renderList(){
-  applyView();
   const page=pageItems(); let rows='';
   if(GROUP_HINT){   // §6-2 같은 유형후보끼리 묶어 표시(현재 쪽 안에서)
     const groups=new Map();
@@ -435,25 +411,25 @@ function renderList(){
     });
   } else page.forEach(it=>{ rows+=rowHtml(it); });
   $('#list').innerHTML=`<table><tr><th style="width:24px"></th><th style="width:24px"></th><th>문항#</th><th>상태</th><th>배치</th><th>유형</th><th>본문(앞 40자)</th><th></th></tr>${rows||'<tr><td colspan=8 class=muted>없음</td></tr>'}</table>`;
-  const total=VIEW.length, pages=PAGE_SIZE?Math.max(1,Math.ceil(total/PAGE_SIZE)):1;
-  $('#pageInfo').textContent = total
-    ? ` ${PAGE_SIZE?PAGE+1:1}/${pages}쪽 · ${PAGE_SIZE?PAGE*PAGE_SIZE+1:1}–${PAGE_SIZE?Math.min(PAGE*PAGE_SIZE+PAGE_SIZE,total):total} / ${total}건 `
-    : ' 0건 ';
-  $('#prevPage').disabled = !PAGE_SIZE || PAGE<=0;
-  $('#nextPage').disabled = !PAGE_SIZE || PAGE>=pages-1;
+  // ★분모는 서버가 준 filtered_total(현재 필터 전체). 받은 페이지 길이가 아니다.
+  const total=FILTERED_TOTAL, pages=Math.max(1,Math.ceil(total/PAGE_SIZE));
+  const from=total? PAGE*PAGE_SIZE+1 : 0, to=Math.min(PAGE*PAGE_SIZE+page.length, total);
+  $('#pageInfo').textContent = total ? ` ${PAGE+1}/${pages}쪽 · ${from}–${to} / ${total}건 ` : ' 0건 ';
+  $('#prevPage').disabled = PAGE<=0;
+  $('#nextPage').disabled = PAGE>=pages-1;
 }
 
 function renderBatchPanel(){   // §6-1 배치 인벤토리 + §6-3 진행률(배치별 미지정)
   $('#batchPanel').hidden=!SHOW_BATCH;
   if(!SHOW_BATCH) return;
-  const m=new Map();
-  ITEMS.forEach(it=>{ const k=it.bulk_batch_id||'(단건 등록)';
-    const g=m.get(k)||{total:0,pending:0,approved:0,archived:0,unit:it.unit_name||it.unit_id||''};
-    g.total++; g[it.status]=(g[it.status]||0)+1; m.set(k,g); });
-  const rows=[...m.entries()]
-    .sort((a,b)=>(b[1].pending||0)-(a[1].pending||0)||String(a[0]).localeCompare(String(b[0])))
-    .map(([k,g])=>`<tr><td><code>${esc(k)}</code></td><td>${esc(g.unit)}</td><td>${g.total}</td><td class="${g.pending?'st-pending':''}">${g.pending||0}</td><td>${g.approved||0}</td><td>${g.archived||0}</td><td>${k==='(단건 등록)'?'':`<button class="mini bpick" data-b="${esc(k)}">이 배치만</button>`}</td></tr>`).join('');
-  $('#batchPanel').innerHTML=`<div class="bpanel"><div class="small muted">받아온 ${ITEMS.length}건 기준 · 미지정 많은 순</div>
+  // ★서버가 전체 기준으로 집계해 준다(BATCHES). 받은 페이지 기준이 아니다 — 1,000건 상한 때
+  //   "배치 현황이 일부만 보이던" 문제의 원인이었다.
+  const rows=BATCHES.map(g=>{
+    const k=g.bulk_batch_id||'';
+    const label=k||'(단건 등록)';
+    return `<tr><td><code>${esc(label)}</code></td><td>${esc(g.unit_name||'')}</td><td>${g.total||0}</td><td class="${g.pending?'st-pending':''}">${g.pending||0}</td><td>${g.approved||0}</td><td>${g.archived||0}</td><td>${k?`<button class="mini bpick" data-b="${esc(k)}">이 배치만</button>`:''}</td></tr>`;
+  }).join('');
+  $('#batchPanel').innerHTML=`<div class="bpanel"><div class="small muted">전체 기준(서버 집계) · 미지정 많은 순 · 배치 ${BATCHES.length}개</div>
     <table><tr><th>bulk_batch_id</th><th>단원</th><th>전체</th><th>미지정</th><th>승인</th><th>보관</th><th></th></tr>${rows||'<tr><td colspan=7 class=muted>없음</td></tr>'}</table></div>`;
 }
 
@@ -471,43 +447,57 @@ function renderSelBar(){   // §6-2 화면 직접 선택 → 일괄 유형 지�
     .catch(e=>{ $('#selPtype').innerHTML=`<option value="">유형 로드 실패: ${esc(e.message||e)}</option>`; });
 }
 
+// ★서버 페이지네이션 호출(2026-08-18). 필터·검색·정렬·페이지를 전부 서버 파라미터로 보낸다.
+//   응답: items(현재 페이지) · filtered_total(현 필터 전체) · total/counts(전체) · batches(전체 집계)
 async function loadList(){
   const c=cfg(); if(!c.worker||!c.wkey){$('#listStatus').textContent=' 설정 먼저.';return;}
-  const body={limit:LIST_LIMIT};
+  const body={ limit:PAGE_SIZE, offset:PAGE*PAGE_SIZE, sort:SORT };
+  if(FILTER) body.status=FILTER;
   if($('#filterUnit').checked && $('#unit').value) body.unit_id=$('#unit').value;
   const bf=($('#batchFilter').value||'').trim(); if(bf) body.bulk_batch_id=bf;
+  const q=($('#qSearch').value||'').trim(); if(q) body.q=q;
+  const seq=++LIST_SEQ;                       // 늦게 도착한 옛 응답이 최신 화면을 덮지 않게
   $('#listStatus').textContent=' 불러오는 중...';
   try{
     const j=await (await fetch(`${c.worker}/api/user-items/list`,{method:'POST',headers:headers(),body:JSON.stringify(body)})).json();
+    if(seq!==LIST_SEQ) return;
     if(!j.ok){ $('#listStatus').textContent=' 실패: '+(j.error||''); return; }
-    ITEMS=j.items||[]; SEL.clear(); OPEN.clear(); PAGE=0;
+    ITEMS=j.items||[]; FILTERED_TOTAL=Number(j.filtered_total||0); BATCHES=j.batches||[];
+    SEL.clear(); OPEN.clear();
     const ct=j.counts||{}, pend=ct.pending||0;
     $('#counts').innerHTML=`<span class="badge b-app">승인 ${ct.approved||0}</span><span class="badge ${pend>0?'pendhi':'b-pend'}">미지정 ${pend}건 남음</span><span class="badge b-arch">보관 ${ct.archived||0}</span>`;
-    // ★목록 상한 도달 = 조용한 누락 위험 → 반드시 표시(서버에 offset이 없어 더 받을 방법이 없음).
-    const capped = ITEMS.length>=LIST_LIMIT;
-    const partial = !body.unit_id && !body.bulk_batch_id && (j.total||0)>ITEMS.length;
-    $('#listWarn').innerHTML = (capped||partial)
-      ? `<div class="warn"><b>※ 목록이 잘렸습니다 — 받은 ${ITEMS.length}건 / 전체 ${j.total}건.</b> 아래 통계·필터·배치현황은 <b>받은 ${ITEMS.length}건 기준</b>입니다. 단원·배치 필터로 좁혀 보세요. (목록 API에 offset 없음 = 서버 페이지네이션 필요)</div>`
-      : '';
+    // 페이지가 범위를 벗어나면(필터 변경·삭제 후) 마지막 쪽으로 당겨 다시 받는다.
+    const pages=Math.max(1,Math.ceil(FILTERED_TOTAL/PAGE_SIZE));
+    if(PAGE>pages-1 && FILTERED_TOTAL>0){ PAGE=pages-1; return loadList(); }
+    // 서버가 필터·집계를 전담하므로 "받은 N건 기준" 경고는 더 이상 필요 없다.
+    $('#listWarn').innerHTML = (j.count>=j.limit && FILTERED_TOTAL>j.limit)
+      ? `<div class="small muted">한 쪽에 ${j.limit}건까지 표시됩니다 — 쪽 이동으로 나머지를 봅니다.</div>` : '';
     renderBatchPanel(); renderSelBar(); renderList();
-    $('#listStatus').textContent=` 받음 ${ITEMS.length} · 전체 ${j.total}${bf?` · 배치 ${bf}`:''}`;
-  }catch(e){ $('#listStatus').textContent=' 오류: '+(e.message||e); }
+    const parts=[`전체 ${j.total}`];
+    if(FILTER) parts.push(`상태 ${FILTER}`);
+    if(bf) parts.push(`배치 ${bf}`);
+    if(q) parts.push(`검색 "${q}"`);
+    parts.push(`조건 일치 ${FILTERED_TOTAL}`);
+    $('#listStatus').textContent=' '+parts.join(' · ');
+  }catch(e){ if(seq===LIST_SEQ) $('#listStatus').textContent=' 오류: '+(e.message||e); }
 }
 
 // ── 목록 조작 배선 ──
 $('#listBtn').onclick = loadList;
 $('#filterUnit').onchange = loadList;
 $('#batchFilter').onchange = loadList;
+// ★확인4 재적용(서버 호출 기준): 필터·검색·정렬·쪽크기 변경 → 1쪽으로 복귀 후 재조회.
+//   쪽 이동 → 필터 유지한 채 offset만 바꿔 재조회.
 document.querySelectorAll('button.mini[data-f]').forEach(b=>b.onclick=()=>{
   FILTER=b.getAttribute('data-f'); PAGE=0;
   document.querySelectorAll('button.mini[data-f]').forEach(x=>x.classList.toggle('on',x===b));
-  renderList();
+  loadList();
 });
-$('#qSearch').oninput = ()=>{ PAGE=0; renderList(); };
-$('#sortSel').onchange = ()=>{ SORT=$('#sortSel').value; PAGE=0; renderList(); };
-$('#pageSize').onchange = ()=>{ PAGE_SIZE=Number($('#pageSize').value)||0; PAGE=0; renderList(); };
-$('#prevPage').onclick = ()=>{ if(PAGE>0){ PAGE--; renderList(); } };
-$('#nextPage').onclick = ()=>{ PAGE++; renderList(); };
+$('#qSearch').oninput = ()=>{ clearTimeout(SEARCH_T); SEARCH_T=setTimeout(()=>{ PAGE=0; loadList(); },350); };  // 타자마다 요청하지 않게
+$('#sortSel').onchange = ()=>{ SORT=$('#sortSel').value; PAGE=0; loadList(); };
+$('#pageSize').onchange = ()=>{ PAGE_SIZE=Number($('#pageSize').value)||50; PAGE=0; loadList(); };
+$('#prevPage').onclick = ()=>{ if(PAGE>0){ PAGE--; loadList(); } };
+$('#nextPage').onclick = ()=>{ PAGE++; loadList(); };
 $('#expandAll').onclick = ()=>{ pageItems().forEach(it=>OPEN.add(String(it.id))); renderList(); };
 $('#collapseAll').onclick = ()=>{ OPEN.clear(); renderList(); };
 $('#grpBtn').onclick = ()=>{ GROUP_HINT=!GROUP_HINT; $('#grpBtn').classList.toggle('on',GROUP_HINT); renderList(); };
