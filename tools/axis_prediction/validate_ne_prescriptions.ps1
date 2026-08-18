@@ -1,5 +1,19 @@
-# ASCII ONLY (standing rule). Validation + tier breakdown for M2_NE prescription draft.
-param([int]$Expected = 10)
+# ASCII ONLY (standing rule). Validation + tier breakdown for an arithmetic prescription draft.
+#
+# Defaults reproduce the original M2_NE behaviour byte-for-byte, so existing invocations
+# (-Expected N only) are unchanged. Pass the three path params to validate another unit.
+#
+# M3_REAL usage:
+#   .\validate_ne_prescriptions.ps1 -Expected N `
+#     -Draft   'tools\axis_prediction\m3_real_prescriptions.draft.v1.json' `
+#     -Catalog 'problem_types\m3_real_numbers_and_operations.problem_types.v1.json' `
+#     -Overlay 'axis_map\m3_real_numbers_and_operations.pt_fine_error_tags.v1.json'
+param(
+  [int]$Expected = 10,
+  [string]$Draft = 'tools\axis_prediction\m2_ne_prescriptions.draft.v1.json',
+  [string]$Catalog = 'problem_types\m2_number_expression.problem_types.v1.json',
+  [string]$Overlay = 'axis_map\m2_number_expression.pt_fine_error_tags.v1.json'
+)
 $ErrorActionPreference = 'Stop'
 
 # --- ASCII SELF-CHECK (standing rule, enforced in-tool 2026-08-18) ---------
@@ -19,7 +33,7 @@ if ($__selfPath -and (Test-Path $__selfPath)) {
 # --- end ASCII SELF-CHECK --------------------------------------------------
 $repo = 'C:\Users\user\projects\scshstudy'
 $data = Join-Path $repo 'public\math-weakness-engine\data'
-$p = Join-Path $repo 'tools\axis_prediction\m2_ne_prescriptions.draft.v1.json'
+$p = Join-Path $repo $Draft
 
 $raw = Get-Content $p -Raw -Encoding UTF8
 try { $j = $raw | ConvertFrom-Json; Write-Output '[1] JSON parse OK' } catch { Write-Output ('[1] FAIL ' + $_.Exception.Message); exit 1 }
@@ -49,8 +63,8 @@ $minCp = ($dist.Keys | Measure-Object -Minimum).Minimum
 Write-Output ("[5] cp dist: " + (($dist.GetEnumerator() | Sort-Object Name | ForEach-Object { "$($_.Name)=$($_.Value)" }) -join ', ') + "  range $minCp~$maxCp " + $(if ($maxCp -le 4 -and $minCp -ge 2) { 'OK' } else { 'FAIL' }))
 Write-Output ("[6] cp field-combo: " + $(if ($cpBad) { 'FAIL' } else { 'OK' }) + "   nonnull: " + $(if ($nn) { 'FAIL' } else { '0 OK' }))
 
-$cat = Get-Content (Join-Path $data 'problem_types\m2_number_expression.problem_types.v1.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-$ov = Get-Content (Join-Path $data 'axis_map\m2_number_expression.pt_fine_error_tags.v1.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$cat = Get-Content (Join-Path $data $Catalog) -Raw -Encoding UTF8 | ConvertFrom-Json
+$ov = Get-Content (Join-Path $data $Overlay) -Raw -Encoding UTF8 | ConvertFrom-Json
 $own = @{}; $pool = @()
 foreach ($q in @($ov.pt_fine_error_tags.PSObject.Properties)) { if (@($q.Value).Count -gt 0) { $own[$q.Name] = @($q.Value); $pool += @($q.Value) } }
 $pool = $pool | Select-Object -Unique
