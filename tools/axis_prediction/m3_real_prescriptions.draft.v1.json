@@ -15,8 +15,8 @@
       "overlay_pool_distinct": 49,
       "grouping_rule_verified": "★착수 전 확인(검수 지시 2026-08-18): 카탈로그 원본 직접 집계로 M2_NE와 같은 규칙임을 확인했다. description 범주접두 203/203 · raw_section_id 203/203 · 필드셋 12개 동일. ★독립적인 두 그룹핑(범주접두 ↔ raw_section_id)이 같은 개념 수(59↔59)를 산출해 교차 확인됨. ⇒ 3.44종/개념은 M2_NE 2.97과 같은 기준이므로 판정불가율을 나란히 비교할 수 있다(닮음·M1은 규칙이 달라 불가)."
     },
-    "progress": { "authored": 23, "total": 203, "batch": "1 (제곱근의 뜻·표현·성질 계열 6범주) 완료" },
-    "batch_scope": "배치1 = 제곱근의 뜻·표현·성질 계열 6범주 23종(RAW_001·002·003·008·009·010). overlay 9/23(39%). ★단원 평균 43.8%에 근접시킨 대표성 편성 — overlay 높은 범주만 고르면 tier-1 상승이 커버리지 효과인지 편성 효과인지 구분할 수 없기 때문이다(M2_NE 판정불가율 편향과 같은 함정, 검수 승인).",
+    "progress": { "authored": 45, "total": 203, "batch": "2 (반례후보 5범주 + shared 1범주) 완료" },
+    "batch_scope": "배치2 = 사전 등록된 반례후보 5범주 19종(RAW_026·027·029·051·053) + shared 1범주 3종(RAW_019) = 22종. overlay 10/22(45.5%). 누계 45/203. ★배치1 = 제곱근의 뜻·표현·성질 계열 6범주 23종(RAW_001·002·003·008·009·010), overlay 9/23(39%). ★단원 평균 43.8%에 근접시킨 대표성 편성 — overlay 높은 범주만 고르면 tier-1 상승이 커버리지 효과인지 편성 효과인지 구분할 수 없기 때문이다(M2_NE 판정불가율 편향과 같은 함정, 검수 승인).",
     "validation_procedure": "커밋 전 검증 13항목 + U+FFFD 스캔. _meta 편집은 edit_json_meta.ps1 경유. 검증기 호출 = validate_ne_prescriptions.ps1 -Draft tools\\axis_prediction\\m3_real_prescriptions.draft.v1.json -Catalog problem_types\\m3_real_numbers_and_operations.problem_types.v1.json -Overlay axis_map\\m3_real_numbers_and_operations.pt_fine_error_tags.v1.json",
     "new_tag_ceiling": "414종 기준 신설 40종. M2_NE에서 211종 소진하며 0 사용 → 잔여 40. ★신설이 1건이라도 나오면 그 배치에서 즉시 보고(M2_NE 11배치 연속 0이었으므로 발생 자체가 신호).",
 
@@ -50,7 +50,7 @@
         "reporting_requirement": "★한 배치 안에서 group_not_shared / group_shared 의 tier 분포를 **각각 분리해** 낸다(검수 지시). 그래야 배치 단위 편성 효과와 계열 단위 구조 효과가 분리된다.",
         "★prediction_before_measurement": "사전 예측: group_not_shared 에서 tier-2 커버가 약해지고 신설이 나온다면 여기다. group_shared 는 배치1과 같은 양상(신설 0)일 것으로 예측한다.",
         "★confounder_to_separate": "★교란 변수 명시(검수 지시): 이 단원은 관측 어휘가 소수 태그에 강하게 쏠려 있다(아래 observation_vocabulary_skew). 신설이 나와도 즉시 기제② 확인으로 결론짓지 말 것 — 그 태그가 tier-2에서 안 나온 이유가 **(a) 어휘 자체의 부재**인지 **(b) 편재 제외로 걸러진 것**인지 구분해 보고한다.",
-        "measured_after": "(배치2 저작·측정 후 기록)"
+        "measured_after": { "types": 22, "overlay_true": 10, "overlay_rate": "45.5%", "tier1": 20, "tier2": 46, "tier3": 0, "new": 0, "codes_total": 66, "group_not_shared": { "types": 19, "tier1": 13, "tier2": 42, "tier3": 0, "new": 0, "codes_total": 55 }, "group_shared": { "types": 3, "tier1": 7, "tier2": 4, "tier3": 0, "new": 0, "codes_total": 11 }, "verdict": "★사전 예측과 불일치 — group_not_shared에서 tier-2 커버가 약해져 신설이 나오리라 예측했으나 0이었다. 예측문은 고치지 않고 그대로 남긴다. 원인은 tier_breakdown.★finding_batch2_check2 참조(골격이 아니라 도구·장치 공유가 tier-2를 공급했다)." }
       },
       "none_candidates_preregistered": {
         "_note": "★저작 전에 지목한다. 이후 그 배치에서 tier 분포를 별도 보고한다(검수 지시).",
@@ -66,7 +66,13 @@
       "제곱근 구하기": ["M3_REAL_PT008","M3_REAL_PT009","M3_REAL_PT010","M3_REAL_PT011"],
       "제곱근의 성질": ["M3_REAL_PT025","M3_REAL_PT026","M3_REAL_PT027","M3_REAL_PT028"],
       "제곱근의 성질을 이용하여 제곱근 구하기": ["M3_REAL_PT029","M3_REAL_PT030","M3_REAL_PT031"],
-      "제곱근의 성질을 이용한 계산": ["M3_REAL_PT032","M3_REAL_PT033","M3_REAL_PT034","M3_REAL_PT035","M3_REAL_PT036"]
+      "제곱근의 성질을 이용한 계산": ["M3_REAL_PT032","M3_REAL_PT033","M3_REAL_PT034","M3_REAL_PT035","M3_REAL_PT036"],
+      "제곱근의 대소 관계": ["M3_REAL_PT068","M3_REAL_PT069","M3_REAL_PT070"],
+      "제곱근표를 이용하여 제곱근의 값 구하기": ["M3_REAL_PT091","M3_REAL_PT092"],
+      "무리수를 수직선 위에 나타내기": ["M3_REAL_PT093","M3_REAL_PT094","M3_REAL_PT095","M3_REAL_PT096","M3_REAL_PT097","M3_REAL_PT098","M3_REAL_PT099"],
+      "수직선에서 무리수에 대응하는 점 찾기": ["M3_REAL_PT101","M3_REAL_PT102","M3_REAL_PT103"],
+      "새로운 기호로 정의된 연산에서 근호를 포함한 식의 계산": ["M3_REAL_PT179","M3_REAL_PT180"],
+      "무리수의 정수 부분과 소수 부분": ["M3_REAL_PT185","M3_REAL_PT186","M3_REAL_PT187","M3_REAL_PT188","M3_REAL_PT189"]
     },
     "concept_map_semantics": "개념 → problem_type_id 목록(커버리지 검증용).",
     "concept_map": {
@@ -75,7 +81,13 @@
       "제곱근 값 구하기": ["M3_REAL_PT008","M3_REAL_PT009","M3_REAL_PT010","M3_REAL_PT011"],
       "제곱근의 성질 판별": ["M3_REAL_PT025","M3_REAL_PT026","M3_REAL_PT027","M3_REAL_PT028"],
       "성질을 이용한 제곱근 구하기": ["M3_REAL_PT029","M3_REAL_PT030","M3_REAL_PT031"],
-      "성질을 이용한 사칙계산": ["M3_REAL_PT032","M3_REAL_PT033","M3_REAL_PT034","M3_REAL_PT035","M3_REAL_PT036"]
+      "성질을 이용한 사칙계산": ["M3_REAL_PT032","M3_REAL_PT033","M3_REAL_PT034","M3_REAL_PT035","M3_REAL_PT036"],
+      "제곱근의 대소 판정": ["M3_REAL_PT068","M3_REAL_PT069","M3_REAL_PT070"],
+      "제곱근표 값 읽기": ["M3_REAL_PT091","M3_REAL_PT092"],
+      "무리수의 수직선 표현": ["M3_REAL_PT093","M3_REAL_PT094","M3_REAL_PT095","M3_REAL_PT096","M3_REAL_PT097","M3_REAL_PT098","M3_REAL_PT099"],
+      "수직선 위 무리수 대응": ["M3_REAL_PT101","M3_REAL_PT102","M3_REAL_PT103"],
+      "새 기호 정의 연산": ["M3_REAL_PT179","M3_REAL_PT180"],
+      "무리수의 정수·소수 부분": ["M3_REAL_PT185","M3_REAL_PT186","M3_REAL_PT187","M3_REAL_PT188","M3_REAL_PT189"]
     },
     "skeleton_sharing": {
       "shared_skeleton_fields": ["required_thinking", "must_write_steps"],
@@ -84,6 +96,25 @@
     },
     "label_map": {
       "_note": "★단원 간 표기 고정. M2_NE·닮음 draft와 같은 error_code는 같은 한글 라벨을 쓴다(검증 항목 [8]이 교차 대조).",
+      "table_rule_direction_misread": "표 규칙 방향 오독",
+      "power_of_ten_extraction_failure": "10의 거듭제곱 분리 실패",
+      "rounding_instruction_overlooked": "반올림 지시 간과",
+      "digit_count_off_by_one": "자릿수 한 자리 오차",
+      "pythagorean_setup_failure": "피타고라스 식 세우기 실패",
+      "radical_length_to_number_line_mapping_failure": "근호 길이→수직선 대응 실패",
+      "difference_direction_error": "차의 방향 오류",
+      "irrational_inclusion_error": "무리수 포함 오류",
+      "area_formula_setup_error": "넓이 공식 세우기 오류",
+      "real_number_set_density_confusion": "실수의 조밀성 혼동",
+      "square_root_floor_interval_mapping_failure": "제곱근 정수 구간 대응 실패",
+      "inequality_bound_conversion_error": "부등식 경계 변환 오류",
+      "pattern_extraction_failure": "규칙 추출 실패",
+      "multi_expression_dependency_error": "다중 식 의존 처리 오류",
+      "irrational_integer_fractional_part_split_failure": "무리수 정수·소수 부분 분리 실패",
+      "integer_candidate_enumeration_gap": "정수 후보 열거 누락",
+      "simplify_before_substitute_omitted": "대입 전 정리 누락",
+      "coefficient_inside_radical_conversion_failure": "계수의 근호 안 넣기 실패",
+      "extremum_selection_error": "최대·최소 선택 오류",
       "square_root_existence_count_confusion": "제곱근 개수·존재 혼동",
       "principal_square_root_notation_confusion": "양의 제곱근 표기 혼동",
       "multiple_answer_omission": "복수 정답 누락",
@@ -102,11 +133,15 @@
     "tier_breakdown": {
       "_note": "배치별 tier 분해 누적 기록. 최종 제출 시 203종 전체 분포를 이 표로 낸다.",
       "batches": [
-        { "batch": 1, "scope": "제곱근의 뜻·표현·성질 계열 6범주 — 대표성 편성(overlay 39% ≈ 단원 43.8%)", "types": 23, "overlay_true": 9, "overlay_false": 14, "overlay_rate": "39%", "tier1": 22, "tier2": 30, "tier3": 0, "new": 0, "codes_total": 52 }
+        { "batch": 1, "scope": "제곱근의 뜻·표현·성질 계열 6범주 — 대표성 편성(overlay 39% ≈ 단원 43.8%)", "types": 23, "overlay_true": 9, "overlay_false": 14, "overlay_rate": "39%", "tier1": 22, "tier2": 30, "tier3": 0, "new": 0, "codes_total": 52 },
+        { "batch": 2, "scope": "사전등록 반례후보 5범주(19종) + shared 1범주(3종) — 대표성 편성(overlay 45.5% ≈ 단원 43.8%)", "types": 22, "overlay_true": 10, "overlay_false": 12, "overlay_rate": "45.5%", "tier1": 20, "tier2": 46, "tier3": 0, "new": 0, "codes_total": 66, "group_not_shared": { "types": 19, "overlay_true": 7, "tier1": 13, "tier2": 42, "tier3": 0, "new": 0, "codes_total": 55, "tier1_share": "23.6%" }, "group_shared": { "types": 3, "overlay_true": 3, "tier1": 7, "tier2": 4, "tier3": 0, "new": 0, "codes_total": 11, "tier1_share": "63.6%" } }
       ],
-      "cumulative": { "types": 23, "tier1": 22, "tier2": 30, "tier3": 0, "new": 0, "codes_total": 52 },
+      "cumulative": { "types": 45, "tier1": 42, "tier2": 76, "tier3": 0, "new": 0, "codes_total": 118 },
       "★finding_batch1_check1": "★검수 확인항목1 답: **tier-1 비중이 올랐다.** M3_REAL 배치1 tier-1 = 22/52 = **42.3%**, M2_NE 전 단원 = 146/470 = **31.1%**. 배치 overlay 39%가 M2_NE 단원 33.6%보다 높은 것과 방향이 일치한다. ★단 이것은 1배치 관측이며, 대표성 편성(39% ≈ 43.8%)으로 편성 효과를 줄였으나 완전히 제거하지는 못했다 — 단원 완결 시점 누계로 재확인할 것.",
-      "★finding_batch1_check2": "★검수 확인항목2: 이 배치는 구조 공유가 **있는** 계열이라(사전 판정 shared) 기제② 가설의 반례가 아니다. 신설 0은 예상대로이며 가설을 지지하지도 반증하지도 않는다. 반례 검증은 사전 지목한 none_candidates(제곱근표·수직선·새 기호·정수소수부분) 배치에서 한다."
+      "★finding_batch1_check2": "★검수 확인항목2: 이 배치는 구조 공유가 **있는** 계열이라(사전 판정 shared) 기제② 가설의 반례가 아니다. 신설 0은 예상대로이며 가설을 지지하지도 반증하지도 않는다. 반례 검증은 사전 지목한 none_candidates(제곱근표·수직선·새 기호·정수소수부분) 배치에서 한다.",
+      "★finding_batch2_check1": "★확인항목1(tier-1 비중) 배치2 — 검수 요건대로 group 별로 분리해 낸다. 배치 전체 20/66 = 30.3% · not_shared 13/55 = 23.6% · shared 7/11 = 63.6%. ★이 격차는 구조 효과가 아니라 자기 overlay 보유율의 함수다: shared 3종은 전건 overlay 보유(3/3), not_shared 19종은 7/19다. tier-1의 정의가 '자기 overlay 태그'이므로 overlay 보유율이 tier-1 비중을 거의 그대로 결정한다. ⇒ tier-1 비중은 구조 공유 여부의 지표로 쓸 수 없다. 누계는 42/118 = 35.6%(배치1 42.3% → 배치2 30.3%). ★2배치 관측이며 단원 완결(203종) 누계로만 확정한다 — 중간값을 최종값으로 인용하지 말 것.",
+      "★finding_batch2_check2": "★확인항목2(기제② 가설) 배치2 결과: **사전 등록한 반례 후보 5범주 19종에서도 신설 0**이며 tier-3(사전)도 0이다. 전 코드가 자기 overlay(13) 또는 단원 관측 풀(42)에서 나왔다. ⇒ 가설 '구조 공유가 없는 계열에서는 tier-2가 안 먹힐 수 있다'는 이 단원에서 **지지되지 않았다**. ★사전 판정의 기준은 '단계 열(골격) 공유'였는데 실제로 tier-2를 공급한 것은 **도구·장치를 공유하는 다른 범주의 관측**이었다 — 제곱근표(RAW_026, 자기 관측 0) ← PT132·PT133의 table_rule_direction_misread·power_of_ten_extraction_failure·rounding_instruction_overlooked / 새 기호 연산(RAW_051, 자기 관측 0) ← PT082(새로운 기호에 의해 정의된 경우)의 pattern_extraction_failure / 가우스 기호(PT189) ← PT081·PT082의 square_root_floor_interval_mapping_failure. ⇒ 기제①(어휘 폭)이 골격이 아니라 **도구·장치 수준**에서 작동한다는 것이 배치2의 실측이다. ★사전 등록 판정과 사전 예측은 수정하지 않는다(사후 수정은 결과에 맞춘 해석).",
+      "★finding_batch2_confounder": "★교란 변수 구분(검수 요건 3): 신설이 0이므로 (a)어휘 부재 / (b)편재 제외 구분을 적용할 대상이 없다. 편재 제외는 배치2에서 6건 발생했고 누계 10건이다(M2_NE는 11배치 내내 0). 제외된 태그는 전부 단원 5회 이상 등장하는 편재 태그다(radical_magnitude_comparison_failure 9회·multi_step_composite_error 5회·radical_length_to_number_line_mapping_failure 5회). ★편재 제외가 없었다면 누계 원시 갭은 9가 아니라 19였을 것이다 — 갭 수치를 인용할 때 편재 제외 건수를 반드시 병기한다."
     },
     "gaps_denominator_rule": "★★M2_NE에서 확정된 규칙 승계(검수 지시 2026-08-18). 갭은 절대수로 보고·비교하지 말 것. 분모 = 판정가능 개념(관측≥1 AND 예측층≥1)의 예측층 유형에 배치한 코드 슬롯 수. collect_gaps.ps1이 [DENOMINATORS]로 자동 출력한다. ★GAP RATE는 예측 오류율이 아니라 tier 구성·개념 입도의 함수다 — 해석 보류.",
     "undecidable_rate_rule": {
@@ -115,7 +150,8 @@
       "m2ne_precedent": "★M2_NE에서 이 예측이 **완전히 적중**했다 — 예측 30개념·73종·34.6% = 완결 실측 30개념·73종·34.6%. 따라서 M3_REAL 27.1%도 저작 후 재측정이 불요하며, **완결 전에 이미 확정된 값**으로 다뤄도 된다.",
       "granularity": "M3_REAL 3.44종/개념 · M2_NE 2.97종/개념(차이 16%, 직접 비교 가능) · M2_GEOM 10.0종/개념(3배, 비교 불가 — 각주 대상) · 닮음 1.00종/개념(그룹 규칙 상이) · M1(미측정, 그룹 필드 없음).",
       "trend": [
-        { "authored": 23, "batch": 1, "undecidable_types": 9, "rate": "39.1%", "note": "배치1 시점. 이론값 27.1%보다 높으나 23종 표본이라 변동 폭이 크다 — 편성의 함수임을 감안해 추이로만 읽을 것" }
+        { "authored": 23, "batch": 1, "undecidable_types": 9, "rate": "39.1%", "note": "배치1 시점. 이론값 27.1%보다 높으나 23종 표본이라 변동 폭이 크다 — 편성의 함수임을 감안해 추이로만 읽을 것" },
+        { "authored": 45, "batch": 2, "undecidable_types": 13, "rate": "28.9%", "note": "배치2 시점(누계). 판정불가 개념 4개 = 제곱근의 뜻과 표현(5) · 제곱근의 성질(4) · 제곱근표(2) · 새 기호 연산(2). 39.1% → 28.9%로 이론값 27.1%에 접근 중이나 여전히 편성의 함수다 — 확정값은 이론값뿐이다" }
       ]
     },
     "★observation_vocabulary_skew": {
@@ -138,17 +174,29 @@
       "granularity_immunity": "★양 끝점은 입도와 무관하다. 실측 근거 = 닮음은 입도가 가장 잘지만(1.00종/개념) 커버리지 100%라 판정불가 0%다."
     },
     "predicted_observed_gaps": [
-      { "tag": "multiple_answer_omission", "concept": "제곱근 구하기", "predicted_in": ["M3_REAL_PT010"], "observed_types_checked": ["M3_REAL_PT008","M3_REAL_PT009"], "observed_in": [], "unit_occurrences": 3, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 1 }
+      { "tag": "multiple_answer_omission", "concept": "제곱근 구하기", "predicted_in": ["M3_REAL_PT010"], "observed_types_checked": ["M3_REAL_PT008","M3_REAL_PT009"], "observed_in": [], "unit_occurrences": 3, "kind": "B", "batch": 1 },
+      { "tag": "area_formula_setup_error", "concept": "무리수를 수직선 위에 나타내기", "predicted_in": ["M3_REAL_PT096","M3_REAL_PT097"], "observed_types_checked": ["M3_REAL_PT093","M3_REAL_PT094","M3_REAL_PT095"], "observed_in": [], "unit_occurrences": 4, "kind": "B", "batch": 2 },
+      { "tag": "difference_direction_error", "concept": "무리수를 수직선 위에 나타내기", "predicted_in": ["M3_REAL_PT099"], "observed_types_checked": ["M3_REAL_PT093","M3_REAL_PT094","M3_REAL_PT095"], "observed_in": [], "unit_occurrences": 1, "kind": "B", "batch": 2 },
+      { "tag": "simplify_before_substitute_omitted", "concept": "무리수의 정수 부분과 소수 부분", "predicted_in": ["M3_REAL_PT187"], "observed_types_checked": ["M3_REAL_PT185","M3_REAL_PT186","M3_REAL_PT188"], "observed_in": [], "unit_occurrences": 3, "kind": "B", "batch": 2 },
+      { "tag": "square_root_floor_interval_mapping_failure", "concept": "무리수의 정수 부분과 소수 부분", "predicted_in": ["M3_REAL_PT189"], "observed_types_checked": ["M3_REAL_PT185","M3_REAL_PT186","M3_REAL_PT188"], "observed_in": [], "unit_occurrences": 2, "kind": "B", "batch": 2 },
+      { "tag": "substitution_direction_error", "concept": "무리수의 정수 부분과 소수 부분", "predicted_in": ["M3_REAL_PT187"], "observed_types_checked": ["M3_REAL_PT185","M3_REAL_PT186","M3_REAL_PT188"], "observed_in": [], "unit_occurrences": 3, "kind": "B", "batch": 2 },
+      { "tag": "inequality_bound_conversion_error", "concept": "수직선에서 무리수에 대응하는 점 찾기", "predicted_in": ["M3_REAL_PT103"], "observed_types_checked": ["M3_REAL_PT101"], "observed_in": [], "unit_occurrences": 4, "kind": "B", "batch": 2 },
+      { "tag": "square_root_floor_interval_mapping_failure", "concept": "수직선에서 무리수에 대응하는 점 찾기", "predicted_in": ["M3_REAL_PT103"], "observed_types_checked": ["M3_REAL_PT101"], "observed_in": [], "unit_occurrences": 2, "kind": "B", "batch": 2 }
     ],
     "gaps_measured": {
       "batch1_result": "갭 원시 1건(집계 1항목), B계열. 분모 10, GAP RATE 10%. ★편재 제외 4건 발생 — absolute_value_from_square_root_omitted(단원 14회 등장)가 편재 태그로 걸러졌다. M2_NE에서는 편재 제외가 11배치 내내 0이었는데 M3_REAL은 첫 배치부터 나온다. 이 단원 관측이 소수 태그에 강하게 쏠려 있다는 신호(상위 4태그가 49종 중 14·13·12·11회).",
-      "denominators_batch1": { "concepts_total": 6, "concepts_decidable": 4, "concepts_gap_capable": 2, "codes_checked": 10, "gaps_raw": 1, "gap_rate": "10%", "ubiquitous_excluded": 4 }
+      "denominators_batch1": { "concepts_total": 6, "concepts_decidable": 4, "concepts_gap_capable": 2, "codes_checked": 10, "gaps_raw": 1, "gap_rate": "10%", "ubiquitous_excluded": 4 },
+      "batch2_result": "배치2에서 갭 원시가 1 → 9로 늘었다(누계, 분모 32). 늘어난 8건은 전부 B계열(개념국소)이며 예측층 유형이 13종으로 늘어난 결과다. ★절대수로 읽지 말 것 — 분모가 10 → 32로 함께 늘었다. 편재 제외는 배치2에서 6건(누계 10건).",
+      "denominators_cumulative_45": { "_note": "★collect_gaps.ps1은 드래프트 전체를 읽으므로 이 수치는 45종 시점의 누계다(배치 단독값 아님).", "concepts_total": 12, "concepts_decidable": 8, "concepts_gap_capable": 5, "predicted_types_total": 26, "predicted_types_gap_capable": 13, "codes_checked": 32, "gaps_raw": 9, "gap_rate": "28.1%", "ubiquitous_excluded": 10 },
+      "batch2_delta": { "codes_checked": 22, "gaps_raw": 8, "ubiquitous_excluded": 6, "_note": "누계에서 배치1분(코드 10 · 갭 1 · 편재 4)을 뺀 차분. 배치 단독 GAP RATE = 8/22 = 36.4%." }
     },
     "gaps_undecidable": [
       { "concept": "제곱근의 뜻과 표현", "types": 5, "observed_types": 0, "batch": 1, "reason": "관측 유형 0 → 판정 불가." },
-      { "concept": "제곱근의 성질", "types": 4, "observed_types": 0, "batch": 1, "reason": "관측 유형 0 → 판정 불가." }
+      { "concept": "제곱근의 성질", "types": 4, "observed_types": 0, "batch": 1, "reason": "관측 유형 0 → 판정 불가." },
+      { "concept": "제곱근표를 이용하여 제곱근의 값 구하기", "types": 2, "observed_types": 0, "batch": 2, "reason": "관측 유형 0 → 판정 불가. ★태그는 tier-2로 전부 붙었으나 맞는지 확인할 수단이 없다(M1 재태깅 근거와 같은 상태)." },
+      { "concept": "새로운 기호로 정의된 연산에서 근호를 포함한 식의 계산", "types": 2, "observed_types": 0, "batch": 2, "reason": "관측 유형 0 → 판정 불가. ★같은 단원의 PT082(새 기호 정의) 관측 어휘를 빌려 태그를 붙였으나 이 개념 자체의 관측이 0이라 검증 불가." }
     ],
-    "gaps_criterion": "M2_GEOM/M2_NE 정본 승계 — 예측층 유형(observed_basis:false)에 배치한 error_code 중, 같은 개념에 관측 유형이 있는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면 판정 불가로 미기록. kind: A계열=전역부재 / B계열=개념국소.",
+    "gaps_criterion": "M2_GEOM/M2_NE 정본 승계 — 예측층 유형(observed_basis:false)에 배치한 error_code 중, 같은 개념에 관측 유형이 있는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면 판정 불가로 미기록. kind: A계열=전역부재 / B계열=개념국소. ★배치2에서 kind 표기를 collect_gaps.ps1 출력값(A/B)으로 통일했다 — 배치1 항목의 서술형 kind를 'B'로 정규화한 것이며 판정 내용은 동일하다.",
     "gaps_excluded_by_criterion": [],
     "new_tags": []
   },
@@ -480,6 +528,336 @@
       "teacher_note": "중간 결과를 답으로 내는 오류가 활용 유형의 대표 실점이다.",
       "parent_message": "마지막에 무엇을 답하는지 확인하는지 봐 주세요.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT091": {
+      "problem_nature": "제곱근표에서 해당하는 칸을 찾아 제곱근의 값을 읽어내는 유형",
+      "required_thinking": ["제곱근표는 행이 소수 첫째 자리까지, 열이 소수 둘째 자리", "표에서 읽는 값은 반올림한 근삿값", "표 범위(1.00~99.9) 밖의 수는 10의 거듭제곱을 분리해야 함", "√(100a)=10√a 로 표 안의 수로 되돌림"],
+      "must_write_steps": ["구하려는 수가 표 범위 안인지 먼저 확인한다.", "범위 밖이면 100·10000 등을 분리해 √a 꼴로 바꾼다.", "행과 열을 각각 표시하고 교차하는 칸의 값을 읽는다.", "분리한 10의 거듭제곱을 다시 곱하고 자리 지시를 확인한다."],
+      "common_wrong_actions": ["행과 열을 바꿔 읽는다.", "표 범위 밖의 수를 그대로 표에서 찾으려 한다.", "떼어낸 10을 다시 곱하는 것을 잊는다."],
+      "error_checkpoints": [
+        { "error_code": "table_rule_direction_misread", "label": "표 규칙 방향 오독", "diagnosis": "행(소수 첫째 자리)과 열(소수 둘째 자리)을 바꿔 읽었다.", "student_fix": "구하려는 수를 앞자리와 소수 둘째 자리로 끊어 적고, 앞은 행 옆은 열로 손가락을 짚어라." },
+        { "error_code": "power_of_ten_extraction_failure", "label": "10의 거듭제곱 분리 실패", "diagnosis": "표 범위 밖의 수를 √(100a)=10√a 로 되돌리지 못했다.", "student_fix": "표에는 1.00~99.9만 있다. 범위 밖이면 100·10000을 먼저 떼어내고 마지막에 10·100을 곱하라." },
+        { "error_code": "rounding_instruction_overlooked", "label": "반올림 지시 간과", "diagnosis": "표의 값이 근삿값인데 요구된 자리 지시를 확인하지 않고 답했다.", "student_fix": "문제가 요구한 소수 자리에 동그라미를 치고, 표에서 읽은 값을 그 자리까지만 적어라." }
+      ],
+      "student_command": "표 범위 안인지 먼저 보고, 행·열을 손으로 짚어 교차 칸을 읽어라. 떼어낸 10은 반드시 되돌려 곱하라.",
+      "teacher_note": "행·열 혼동과 10의 거듭제곱 누락이 이 유형의 두 축이다.",
+      "parent_message": "표에서 행과 열을 짚어 가며 읽는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT092": {
+      "problem_nature": "제곱근의 값이 주어졌을 때 제곱근표를 거꾸로 읽어 근호 안에 들어갈 수를 구하는 유형",
+      "required_thinking": ["표 본문에서 값을 찾고 그 칸의 행과 열을 합쳐 수를 만듦", "행은 소수 첫째 자리까지, 열은 소수 둘째 자리", "표에 없는 값이면 배율을 옮겨 표 범위로 되돌림", "값을 10으로 옮기면 근호 안은 100으로 옮겨짐"],
+      "must_write_steps": ["주어진 값이 표 본문 범위 안인지 확인한다.", "범위 밖이면 값을 10·0.1 등으로 옮겨 표 범위로 되돌린다.", "값이 있는 칸을 찾아 행과 열을 합쳐 근호 안의 수를 적는다.", "옮긴 배율을 제곱해 되돌리고 검산한다."],
+      "common_wrong_actions": ["행과 열을 반대로 합친다.", "자릿수를 한 자리 어긋나게 적는다.", "배율을 되돌릴 때 제곱을 반영하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "table_rule_direction_misread", "label": "표 규칙 방향 오독", "diagnosis": "값에서 수를 되찾는 역방향에서 행과 열의 역할을 바꿔 읽었다.", "student_fix": "먼저 값이 있는 칸을 찾고 '행 + 열'로 적어라. 행이 앞자리, 열이 소수 둘째 자리다." },
+        { "error_code": "digit_count_off_by_one", "label": "자릿수 한 자리 오차", "diagnosis": "행과 열을 합칠 때 소수 자리가 한 자리 어긋났다.", "student_fix": "행이 1.2, 열이 0.03이면 1.23이다. 자리를 세로로 맞춰 적어라." },
+        { "error_code": "power_of_ten_extraction_failure", "label": "10의 거듭제곱 분리 실패", "diagnosis": "표 범위 밖의 값을 옮겨 놓고 근호 안에 배율의 제곱을 되돌리는 처리를 빠뜨렸다.", "student_fix": "값을 10으로 나누면 근호 안은 100으로 나뉜다. 배율은 제곱해서 되돌려라." }
+      ],
+      "student_command": "칸을 먼저 찾고 '행 + 열'로 적어라. 값을 10으로 옮겼으면 근호 안은 100으로 옮겨라.",
+      "teacher_note": "역방향 조회라 배율 되돌림에서 제곱을 빠뜨리는 오류가 나온다.",
+      "parent_message": "구한 수를 다시 표에서 읽어 검산하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT093": {
+      "problem_nature": "한 변이 1인 정사각형의 대각선 길이를 수직선에 옮겨 무리수를 나타내는 유형",
+      "required_thinking": ["대각선 길이는 피타고라스로 √2", "수직선에 옮길 때는 기준점이 어디인지 먼저 정함", "기준점에서 오른쪽이면 더하고 왼쪽이면 뺌", "점에 대응하는 수는 기준점의 수에 길이를 더하거나 뺀 값"],
+      "must_write_steps": ["정사각형의 두 변으로 직각삼각형을 만들고 피타고라스 식을 적는다.", "대각선 길이를 근호 꼴로 구한다.", "옮길 때 중심이 되는 기준점의 수를 적는다.", "방향을 보고 기준점의 수에 길이를 더하거나 뺀다."],
+      "common_wrong_actions": ["기준점을 무조건 0으로 단정한다.", "길이를 그대로 점에 대응하는 수로 쓴다.", "왼쪽 점인데 더한다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "대각선을 빗변으로 하는 직각삼각형을 세우지 못해 길이를 구하지 못했다.", "student_fix": "직각을 낀 두 변에 1을 적고 1²+1²=x² 를 그대로 써라." },
+        { "error_code": "radical_length_to_number_line_mapping_failure", "label": "근호 길이→수직선 대응 실패", "diagnosis": "구한 길이를 기준점·방향과 연결하지 못하고 길이 자체를 답했다.", "student_fix": "'기준점의 수 ± 길이'를 식으로 먼저 적어라. 길이 자체는 답이 아니다." },
+        { "error_code": "difference_direction_error", "label": "차의 방향 오류", "diagnosis": "기준점의 왼쪽인데 더하거나 오른쪽인데 뺐다.", "student_fix": "화살표를 그려 방향부터 표시하라. 왼쪽이면 빼고 오른쪽이면 더한다." }
+      ],
+      "student_command": "길이를 구한 다음 '기준점의 수 ± 길이' 식을 반드시 적어라. 방향은 화살표로 표시하라.",
+      "teacher_note": "길이를 답으로 쓰는 오류가 가장 많다. 기준점을 말하게 하라.",
+      "parent_message": "기준점을 적고 시작하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT094": {
+      "problem_nature": "모눈 위 직각삼각형의 빗변 길이를 수직선에 옮겨 점에 대응하는 수를 구하는 유형",
+      "required_thinking": ["모눈 한 칸이 1이므로 두 변의 길이를 칸 수로 셈", "빗변은 √(가로²+세로²)", "수직선의 어느 점을 중심으로 옮겼는지 확인", "대응하는 수가 유리수인지 무리수인지 판단"],
+      "must_write_steps": ["직각을 낀 두 변의 칸 수를 세어 적는다.", "피타고라스로 빗변 길이를 근호 꼴로 구한다.", "중심이 되는 점의 수를 적는다.", "'중심의 수 ± 빗변'으로 대응하는 수를 적고 유·무리수를 판정한다."],
+      "common_wrong_actions": ["칸 수를 잘못 센다.", "빗변 길이를 그대로 답한다.", "근호가 있으면 무조건 무리수라고 단정한다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "모눈에서 직각을 낀 두 변을 잘못 잡아 빗변 식을 세우지 못했다.", "student_fix": "직각 표시부터 찾고, 가로 칸 수와 세로 칸 수를 각각 적은 뒤 제곱해 더하라." },
+        { "error_code": "radical_length_to_number_line_mapping_failure", "label": "근호 길이→수직선 대응 실패", "diagnosis": "빗변 길이를 중심의 수와 연결하지 않고 답했다.", "student_fix": "컴퍼스의 중심이 어느 점인지 먼저 적어라. 답은 '중심의 수 ± 길이'다." },
+        { "error_code": "irrational_inclusion_error", "label": "무리수 포함 오류", "diagnosis": "구한 수가 무리수인지 아닌지를 잘못 판정했다.", "student_fix": "근호를 먼저 간단히 하라. √4처럼 벗겨지면 유리수다." }
+      ],
+      "student_command": "칸 수를 세어 피타고라스 식을 쓰고, 중심의 수를 적은 뒤 ± 로 답하라.",
+      "teacher_note": "근호가 보이면 무조건 무리수로 보는 오판이 함께 나온다.",
+      "parent_message": "칸 수를 세어 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT095": {
+      "problem_nature": "모눈 위 두 직각삼각형의 빗변을 각각 수직선에 옮겨 두 점의 수를 구하는 유형",
+      "required_thinking": ["삼각형마다 빗변 길이를 따로 구함", "각 삼각형의 기준점이 서로 다를 수 있음", "두 점의 수를 각각 '기준점 ± 길이'로 적음", "묻는 것이 두 수의 합·차인지 확인"],
+      "must_write_steps": ["삼각형에 1·2로 번호를 매긴다.", "각각의 두 변 칸 수로 빗변을 구한다.", "각각의 기준점 수를 적고 대응하는 수를 따로 구한다.", "문제가 요구한 최종 형태로 정리한다."],
+      "common_wrong_actions": ["두 삼각형의 기준점을 같은 것으로 본다.", "한쪽 길이만 구하고 끝낸다.", "두 결과를 섞어 적는다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "두 삼각형 중 한쪽의 직각변을 잘못 잡아 빗변 식이 틀렸다.", "student_fix": "삼각형마다 칸을 나눠 가로·세로 칸 수를 따로 적어라." },
+        { "error_code": "radical_length_to_number_line_mapping_failure", "label": "근호 길이→수직선 대응 실패", "diagnosis": "각 빗변을 자기 기준점과 연결하지 못했다.", "student_fix": "기준점을 삼각형 번호 옆에 적어 두어라. 기준점이 다르면 답도 다르다." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "두 삼각형을 각각 처리한 뒤 결과를 합치는 과정에서 무너졌다.", "student_fix": "1번 결과와 2번 결과를 각각 따로 적고 마지막에만 합쳐라." }
+      ],
+      "student_command": "삼각형마다 번호를 붙이고 기준점을 따로 적어라. 마지막에만 합쳐라.",
+      "teacher_note": "기준점을 공유한다고 착각하는 오류가 이 유형의 핵심 실점이다.",
+      "parent_message": "삼각형을 각각 나눠 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT096": {
+      "problem_nature": "여러 정사각형의 넓이로부터 한 변의 길이를 구해 수직선 위 점의 수를 정하는 유형",
+      "required_thinking": ["넓이가 S인 정사각형의 한 변은 √S", "정사각형마다 기준점이 다름", "점의 수는 기준점의 수에 한 변의 길이를 더하거나 뺀 값", "여러 점을 차례로 처리"],
+      "must_write_steps": ["정사각형마다 넓이를 적는다.", "한 변을 √(넓이) 로 구한다.", "각 점의 기준점 수를 적는다.", "'기준점 ± 길이'로 각 점의 수를 구한다."],
+      "common_wrong_actions": ["넓이를 그대로 한 변으로 쓴다.", "모든 점의 기준점을 0으로 본다.", "여러 점 중 일부만 구하고 끝낸다."],
+      "error_checkpoints": [
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "정사각형의 넓이와 한 변의 관계를 세우지 못했다.", "student_fix": "한 변을 x로 두고 x²=(넓이)를 써라. 한 변은 √(넓이)다." },
+        { "error_code": "radical_length_to_number_line_mapping_failure", "label": "근호 길이→수직선 대응 실패", "diagnosis": "구한 한 변의 길이를 점에 대응하는 수로 그대로 썼다.", "student_fix": "'기준점의 수 ± 길이' 식을 정사각형마다 따로 적어라." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "정사각형이 여러 개인데 처리 도중 짝을 잃었다.", "student_fix": "정사각형·기준점·길이·점의 수를 한 줄씩 표로 적어라." }
+      ],
+      "student_command": "넓이에서 한 변을 먼저 구하고, 정사각형마다 기준점을 표로 적어라.",
+      "teacher_note": "넓이를 길이로 바로 쓰는 오류가 반복된다.",
+      "parent_message": "넓이와 한 변을 구분해 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT097": {
+      "problem_nature": "넓이가 주어진 정사각형의 한 변을 이용해 수직선 위 점에 대응하는 수를 구하는 유형",
+      "required_thinking": ["넓이가 S인 정사각형의 한 변은 √S", "길이는 항상 양수", "점의 수는 기준점의 수에 √S를 더하거나 뺀 값", "방향을 그림에서 확인"],
+      "must_write_steps": ["넓이를 적고 한 변을 근호 꼴로 구한다.", "기준점의 수를 적는다.", "방향을 확인해 부호를 정한다.", "점에 대응하는 수를 식으로 적는다."],
+      "common_wrong_actions": ["넓이를 한 변으로 쓴다.", "길이에 음수를 붙인다.", "기준점을 무시하고 길이만 답한다."],
+      "error_checkpoints": [
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "넓이에서 한 변을 구하는 관계를 세우지 못했다.", "student_fix": "x²=(넓이)를 쓰고 x=√(넓이)로 넘어가라. 길이는 양수만 택한다." },
+        { "error_code": "radical_length_to_number_line_mapping_failure", "label": "근호 길이→수직선 대응 실패", "diagnosis": "한 변의 길이를 점에 대응하는 수로 바로 답했다.", "student_fix": "기준점의 수를 적고 ± 를 붙여 식으로 답하라." }
+      ],
+      "student_command": "x²=(넓이)를 먼저 쓰고, 기준점의 수에 길이를 더하거나 빼라.",
+      "teacher_note": "기본형이지만 기준점 누락은 여기서도 나온다.",
+      "parent_message": "넓이에서 한 변을 구하는 과정을 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT098": {
+      "problem_nature": "한 눈금이 1인 모눈에서 선분의 길이를 구해 수직선 위 점의 수를 정하는 유형",
+      "required_thinking": ["모눈 한 칸은 1", "가로·세로 칸 수로 직각삼각형을 만듦", "선분 길이는 √(가로²+세로²)", "점의 수는 기준점의 수에 길이를 더하거나 뺀 값"],
+      "must_write_steps": ["가로 칸 수와 세로 칸 수를 센다.", "피타고라스로 선분 길이를 구한다.", "기준점의 수를 적는다.", "방향에 맞춰 점의 수를 적는다."],
+      "common_wrong_actions": ["칸 수를 하나 더 세거나 덜 센다.", "길이를 점의 수로 쓴다.", "대각선 길이를 칸 수로 센다."],
+      "error_checkpoints": [
+        { "error_code": "pythagorean_setup_failure", "label": "피타고라스 식 세우기 실패", "diagnosis": "모눈에서 직각삼각형을 만들지 않고 대각선을 칸 수로 셌다.", "student_fix": "대각선은 세어지지 않는다. 가로·세로를 세어 제곱해 더하라." },
+        { "error_code": "radical_length_to_number_line_mapping_failure", "label": "근호 길이→수직선 대응 실패", "diagnosis": "구한 길이를 그대로 답으로 썼다.", "student_fix": "'기준점의 수 ± 길이'를 식으로 적어라." }
+      ],
+      "student_command": "대각선은 세지 말고 가로·세로 칸 수로 피타고라스를 써라.",
+      "teacher_note": "대각선을 칸으로 세는 오류가 이 유형의 대표 실점이다.",
+      "parent_message": "가로·세로 칸 수를 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT099": {
+      "problem_nature": "도형이 수직선 위를 움직일 때 꼭짓점에 대응하는 수를 구하는 유형",
+      "required_thinking": ["이동 전 위치의 수를 먼저 정함", "이동은 방향과 거리로 나뉨", "이동 후의 수는 이동 전 수에 거리를 더하거나 뺀 값", "여러 번 이동하면 순서대로 누적"],
+      "must_write_steps": ["처음 위치의 수를 적는다.", "이동 방향을 화살표로 표시한다.", "이동 거리를 근호 꼴로 정리한다.", "이동 순서대로 더하거나 빼서 최종 수를 적는다."],
+      "common_wrong_actions": ["이동 방향을 반대로 적용한다.", "여러 번 이동 중 한 번을 빠뜨린다.", "이동 거리를 최종 답으로 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "radical_length_to_number_line_mapping_failure", "label": "근호 길이→수직선 대응 실패", "diagnosis": "이동 거리(길이)를 점에 대응하는 수로 그대로 썼다.", "student_fix": "'처음 수 ± 거리'를 매 단계 식으로 적어라." },
+        { "error_code": "difference_direction_error", "label": "차의 방향 오류", "diagnosis": "이동 방향을 반대로 잡아 부호가 뒤집혔다.", "student_fix": "화살표를 그리고 오른쪽은 더하기, 왼쪽은 빼기라고 옆에 적어 두어라." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "여러 번의 이동을 누적하는 과정에서 단계를 잃었다.", "student_fix": "이동마다 한 줄씩 '이전 수 → 이후 수'를 적어라." }
+      ],
+      "student_command": "이동마다 한 줄씩 '이전 수 ± 거리 = 이후 수'를 적어라.",
+      "teacher_note": "누적 이동에서 한 단계를 건너뛰는 오류가 많다.",
+      "parent_message": "이동 단계를 한 줄씩 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT101": {
+      "problem_nature": "주어진 수가 수직선 위 어느 점에 대응하는지 찾는 유형",
+      "required_thinking": ["모든 실수는 수직선 위 한 점에 대응", "근호 수의 값을 두 정수 사이로 좁힘", "제곱해서 비교하면 근호가 사라짐", "두 수 사이에는 언제나 다른 수가 있음"],
+      "must_write_steps": ["주어진 수를 제곱해 어느 두 정수 사이인지 좁힌다.", "n < √a < n+1 을 적는다.", "그 구간에 있는 점을 고른다.", "이웃 점과 비교해 더 가까운 쪽을 확인한다."],
+      "common_wrong_actions": ["무리수는 수직선 위에 없다고 본다.", "근삿값 없이 눈대중으로 고른다.", "구간을 한 칸 어긋나게 잡는다."],
+      "error_checkpoints": [
+        { "error_code": "real_number_set_density_confusion", "label": "실수의 조밀성 혼동", "diagnosis": "무리수가 수직선 위의 점에 대응하지 않는다고 보거나, 두 수 사이에 다른 수가 없다고 판단했다.", "student_fix": "수직선은 실수로 빈틈없이 채워진다. 무리수도 반드시 한 점에 대응한다." },
+        { "error_code": "irrational_inclusion_error", "label": "무리수 포함 오류", "diagnosis": "주어진 수가 무리수인지 유리수인지 잘못 판정해 엉뚱한 구간을 골랐다.", "student_fix": "근호를 먼저 간단히 하라. 벗겨지면 유리수다." },
+        { "error_code": "radical_magnitude_comparison_failure", "label": "근호 수 대소비교 실패", "diagnosis": "√a가 어느 두 정수 사이인지 좁히지 못했다.", "student_fix": "제곱해서 비교하라. n²<a<(n+1)² 이면 n<√a<n+1 이다." }
+      ],
+      "student_command": "제곱해서 n<√a<n+1 을 먼저 적고 그 구간에서 점을 골라라.",
+      "teacher_note": "'무리수는 수직선에 찍을 수 없다'는 오해를 함께 교정하라.",
+      "parent_message": "제곱해서 구간을 좁히는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT102": {
+      "problem_nature": "수직선 위에 표시된 점이 어떤 수에 대응하는지 후보에서 고르는 유형",
+      "required_thinking": ["점의 위치를 이웃한 두 정수 사이로 좁힘", "후보 수들의 값을 각각 구간으로 좁힘", "근호를 간단히 해 유·무리수를 판정", "구간에 맞는 후보만 남김"],
+      "must_write_steps": ["점이 어느 두 정수 사이에 있는지 적는다.", "후보 수를 제곱해 구간을 각각 좁힌다.", "구간이 맞지 않는 후보를 지운다.", "남은 후보를 점의 위치와 대조한다."],
+      "common_wrong_actions": ["후보의 크기를 구하지 않고 고른다.", "근호 안 수의 크기만 보고 판단한다.", "유리수 후보를 무리수로 본다."],
+      "error_checkpoints": [
+        { "error_code": "radical_magnitude_comparison_failure", "label": "근호 수 대소비교 실패", "diagnosis": "후보 수들을 제곱해 비교하지 않아 위치를 잘못 잡았다.", "student_fix": "후보를 전부 제곱해 두 정수 사이에 넣어라. 그다음 점의 구간과 맞춰라." },
+        { "error_code": "radical_length_to_number_line_mapping_failure", "label": "근호 길이→수직선 대응 실패", "diagnosis": "근호 꼴 수를 수직선의 눈금 위치와 연결하지 못했다.", "student_fix": "√a를 소수 근삿값으로 한 번 바꿔 적고 눈금 위에 표시하라." },
+        { "error_code": "irrational_inclusion_error", "label": "무리수 포함 오류", "diagnosis": "후보 중 유리수를 무리수로(또는 그 반대로) 판정했다.", "student_fix": "근호를 간단히 한 뒤 판정하라. √16은 무리수가 아니다." }
+      ],
+      "student_command": "후보를 전부 제곱해 두 정수 사이로 좁히고, 점의 구간과 하나씩 대조하라.",
+      "teacher_note": "근호 안의 수 크기만 보고 고르는 습관을 끊게 하라.",
+      "parent_message": "후보를 하나씩 대조하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT103": {
+      "problem_nature": "주어진 수가 수직선의 어느 구간에 들어가는지 판정하는 유형",
+      "required_thinking": ["구간의 양 끝값을 먼저 적음", "n ≤ √a < n+1 형태로 좁힘", "경계값의 포함 여부를 확인", "제곱해서 비교하면 근호가 사라짐"],
+      "must_write_steps": ["구간의 양 끝을 부등식으로 적는다.", "양변을 제곱해 근호를 없앤다.", "주어진 수가 만족하는 정수 구간을 정한다.", "경계 포함·미포함을 확인해 답한다."],
+      "common_wrong_actions": ["경계값의 포함 여부를 무시한다.", "제곱하지 않고 눈대중으로 구간을 정한다.", "구간을 한 칸 어긋나게 잡는다."],
+      "error_checkpoints": [
+        { "error_code": "radical_magnitude_comparison_failure", "label": "근호 수 대소비교 실패", "diagnosis": "제곱 비교를 하지 않아 구간을 잘못 잡았다.", "student_fix": "n²<a<(n+1)² 을 적어라. 근호는 제곱하면 사라진다." },
+        { "error_code": "square_root_floor_interval_mapping_failure", "label": "제곱근 정수 구간 대응 실패", "diagnosis": "√a가 놓이는 연속한 두 정수를 특정하지 못했다.", "student_fix": "a보다 작은 최대 제곱수와 큰 최소 제곱수를 찾아라. 그 제곱근이 구간의 양 끝이다." },
+        { "error_code": "inequality_bound_conversion_error", "label": "부등식 경계 변환 오류", "diagnosis": "부등호의 등호 포함 여부가 제곱 과정에서 바뀌었다.", "student_fix": "부등호를 그대로 옮겨 적고, 등호가 있는 쪽에 동그라미를 쳐 두어라." }
+      ],
+      "student_command": "구간을 부등식으로 적고 양변을 제곱하라. 등호 포함 여부는 따로 표시하라.",
+      "teacher_note": "경계 포함 여부를 묻는 선택지가 함정으로 들어간다.",
+      "parent_message": "부등호를 그대로 옮겨 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT179": {
+      "problem_nature": "새로 정의된 기호의 규칙에 값을 대입해 근호를 포함한 식을 계산하는 유형",
+      "required_thinking": ["정의식의 앞자리·뒷자리를 그대로 지킴", "정의는 그 문제 안에서만 쓰는 규칙", "대입한 뒤에는 보통의 근호 계산", "근호 안이 같은 항끼리만 묶음"],
+      "must_write_steps": ["정의식을 그대로 옮겨 적는다.", "앞자리와 뒷자리에 들어갈 값을 표시한다.", "정의에 대입한 식을 괄호까지 적는다.", "근호를 정리하고 동류항을 묶는다."],
+      "common_wrong_actions": ["앞뒤 값을 바꿔 대입한다.", "정의를 자기 방식대로 바꿔 읽는다.", "근호 안이 다른 항을 묶는다."],
+      "error_checkpoints": [
+        { "error_code": "substitution_direction_error", "label": "대입 방향 오류", "diagnosis": "정의된 기호의 앞자리와 뒷자리를 바꿔 대입했다.", "student_fix": "정의식의 자리에 1·2로 번호를 매기고 그 번호대로 넣어라." },
+        { "error_code": "pattern_extraction_failure", "label": "규칙 추출 실패", "diagnosis": "정의된 규칙을 잘못 읽어 다른 연산으로 계산했다.", "student_fix": "정의식을 문제에서 그대로 베껴 적고, 베낀 식만 보고 계산하라." },
+        { "error_code": "like_term_misgrouping", "label": "동류항 묶기 오류", "diagnosis": "근호 안의 수가 다른 항을 같은 항으로 묶었다.", "student_fix": "√2와 √3은 다른 항이다. 근호 안이 같은 것끼리만 묶어라." }
+      ],
+      "student_command": "정의식을 그대로 베껴 적고 자리에 1·2를 매긴 뒤 대입하라.",
+      "teacher_note": "정의를 옮겨 적게 하는 것만으로 대입 방향 오류가 줄어든다.",
+      "parent_message": "정의식을 베껴 적고 시작하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT180": {
+      "problem_nature": "두 개 이상의 정의된 기호가 겹쳐 있는 식을 순서대로 계산하는 유형",
+      "required_thinking": ["안쪽 기호부터 계산", "각 정의는 자기 기호에만 적용", "앞 단계의 결과가 뒤 정의의 입력이 됨", "중간 결과를 근호 꼴로 정리해 두어야 다음 대입이 쉬움"],
+      "must_write_steps": ["정의를 기호별로 나눠 적는다.", "가장 안쪽 기호부터 번호를 매긴다.", "번호 순서대로 한 단계씩 계산해 중간 결과를 적는다.", "마지막 정의에 대입해 정리한다."],
+      "common_wrong_actions": ["바깥 기호부터 계산한다.", "두 정의를 섞어 적용한다.", "중간 결과를 정리하지 않고 다음에 대입한다."],
+      "error_checkpoints": [
+        { "error_code": "operation_order_violation", "label": "연산 순서 위반", "diagnosis": "안쪽 기호보다 바깥 기호를 먼저 계산했다.", "student_fix": "괄호와 같다. 안쪽 기호에 1번을 붙이고 그것부터 계산하라." },
+        { "error_code": "multi_expression_dependency_error", "label": "다중 식 의존 처리 오류", "diagnosis": "앞 단계 결과를 다음 정의의 입력으로 옮기는 과정에서 값을 잃었다.", "student_fix": "단계마다 '1번의 결과는 얼마' 를 적고 그 값을 그대로 옮겨라." },
+        { "error_code": "substitution_direction_error", "label": "대입 방향 오류", "diagnosis": "정의가 여러 개라 자리 순서를 섞어 대입했다.", "student_fix": "정의별로 자리 번호를 따로 매겨라. 기호가 다르면 자리 규칙도 다르다." }
+      ],
+      "student_command": "안쪽 기호부터 1·2로 번호를 매기고 한 단계씩 결과를 적어라.",
+      "teacher_note": "중간 결과를 적게 하지 않으면 두 정의가 섞인다.",
+      "parent_message": "단계마다 중간 결과를 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT185": {
+      "problem_nature": "무리수의 정수 부분과 소수 부분을 나누어 구하는 유형",
+      "required_thinking": ["√a가 놓이는 연속한 두 정수를 먼저 찾음", "정수 부분은 그 두 정수 중 작은 쪽", "소수 부분은 (수) - (정수 부분)", "소수 부분은 0 이상 1 미만"],
+      "must_write_steps": ["a보다 작은 최대 제곱수와 큰 최소 제곱수를 찾는다.", "n < √a < n+1 을 적는다.", "정수 부분을 n으로 정한다.", "소수 부분을 √a - n 으로 적는다."],
+      "common_wrong_actions": ["소수 부분을 n - √a 로 쓴다.", "정수 부분을 반올림값으로 잡는다.", "소수 부분을 어림한 소수로 적는다."],
+      "error_checkpoints": [
+        { "error_code": "irrational_integer_fractional_part_split_failure", "label": "무리수 정수·소수 부분 분리 실패", "diagnosis": "정수 부분과 소수 부분의 관계를 세우지 못했다.", "student_fix": "정수 부분 n을 정한 뒤 소수 부분은 반드시 '√a - n' 꼴로 남겨라." },
+        { "error_code": "square_root_floor_interval_mapping_failure", "label": "제곱근 정수 구간 대응 실패", "diagnosis": "√a가 어느 두 정수 사이인지 잘못 잡아 정수 부분이 틀렸다.", "student_fix": "제곱수를 옆에 적어 두어라. 4<5<9 이면 2<√5<3 이다." },
+        { "error_code": "difference_direction_error", "label": "차의 방향 오류", "diagnosis": "소수 부분을 (정수 부분) - (수) 로 뒤집어 계산했다.", "student_fix": "소수 부분은 항상 0보다 크다. 큰 것에서 작은 것을 빼라." }
+      ],
+      "student_command": "n<√a<n+1 을 먼저 적고, 소수 부분은 √a - n 꼴로 남겨라.",
+      "teacher_note": "소수 부분을 어림수로 적으면 뒤 계산이 전부 어긋난다.",
+      "parent_message": "소수 부분을 근호 꼴로 남기는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT186": {
+      "problem_nature": "정수 부분이나 소수 부분이 주어졌을 때 원래 수나 미지수를 되찾는 유형",
+      "required_thinking": ["정수 부분이 n이면 n 이상 n+1 미만", "(수) = (정수 부분) + (소수 부분)", "범위 조건을 끝까지 유지", "구한 값이 범위를 만족하는지 검산"],
+      "must_write_steps": ["주어진 것이 정수 부분인지 소수 부분인지 표시한다.", "정수 부분 n으로부터 n ≤ x < n+1 을 적는다.", "조건을 식으로 옮겨 미지수를 구한다.", "구한 값을 범위에 넣어 검산한다."],
+      "common_wrong_actions": ["부등식의 등호 위치를 바꾼다.", "범위 조건을 세우지 않고 값만 구한다.", "구한 값을 검산하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "irrational_integer_fractional_part_split_failure", "label": "무리수 정수·소수 부분 분리 실패", "diagnosis": "주어진 부분에서 원래 수를 되돌리는 관계를 세우지 못했다.", "student_fix": "(수) = (정수 부분) + (소수 부분) 을 먼저 적고 빈칸을 채워라." },
+        { "error_code": "inequality_bound_conversion_error", "label": "부등식 경계 변환 오류", "diagnosis": "정수 부분이 n일 때의 범위에서 등호를 잘못 붙였다.", "student_fix": "정수 부분이 n이면 n 이상 n+1 미만이다. 왼쪽에만 등호가 붙는다." },
+        { "error_code": "range_constraint_dropped", "label": "범위 조건 누락", "diagnosis": "도중에 범위 조건을 버리고 값만 구했다.", "student_fix": "범위를 식 옆에 옮겨 적고, 답을 낸 뒤 그 범위에 넣어 검산하라." }
+      ],
+      "student_command": "n ≤ x < n+1 을 먼저 적고, 답을 낸 뒤 그 범위에 넣어 검산하라.",
+      "teacher_note": "등호 위치를 매번 확인시키면 오답이 크게 준다.",
+      "parent_message": "범위를 적고 검산하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT187": {
+      "problem_nature": "무리수의 정수 부분이나 소수 부분을 문자로 두고 식의 값을 구하는 유형",
+      "required_thinking": ["소수 부분을 x로 두면 x = √a - n", "식을 먼저 정리한 뒤 대입", "제곱이나 역수 꼴은 미리 계산해 두면 간단", "유리수 부분과 무리수 부분을 나눠 정리"],
+      "must_write_steps": ["정수 부분 n을 구한다.", "x = √a - n 을 한 줄로 적는다.", "식을 먼저 정리해 대입하기 쉬운 꼴로 만든다.", "정리한 식에 대입하고 근호를 정리한다."],
+      "common_wrong_actions": ["x를 어림한 소수로 바꿔 대입한다.", "정리 없이 그대로 대입해 식이 복잡해진다.", "x = n - √a 로 잘못 둔다."],
+      "error_checkpoints": [
+        { "error_code": "irrational_integer_fractional_part_split_failure", "label": "무리수 정수·소수 부분 분리 실패", "diagnosis": "소수 부분을 문자로 두는 관계식을 잘못 세웠다.", "student_fix": "x = (수) - (정수 부분) 이다. 순서를 뒤집지 마라." },
+        { "error_code": "simplify_before_substitute_omitted", "label": "대입 전 정리 누락", "diagnosis": "식을 정리하지 않고 대입해 계산이 무너졌다.", "student_fix": "대입 전에 식을 묶거나 인수분해하라. 대입은 마지막에 한 번만 한다." },
+        { "error_code": "substitution_direction_error", "label": "대입 방향 오류", "diagnosis": "문자와 값을 반대로 대응시켜 대입했다.", "student_fix": "x가 무엇인지 한 줄로 적어 두고, 그 줄만 보고 대입하라." }
+      ],
+      "student_command": "x = √a - n 을 한 줄로 적어 두고, 식을 먼저 정리한 뒤 마지막에 대입하라.",
+      "teacher_note": "대입 전 정리를 습관화하면 이 계열 전체가 쉬워진다.",
+      "parent_message": "대입하기 전에 식을 정리하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT188": {
+      "problem_nature": "무리수의 정수 부분이 몇 자리 수인지 구하는 유형",
+      "required_thinking": ["자릿수는 10의 거듭제곱 사이 위치로 정해짐", "10의 (k-1)제곱 이상 10의 k제곱 미만이면 k자리", "근호가 있으면 제곱해서 비교", "경계값에서 자릿수가 한 자리 바뀜"],
+      "must_write_steps": ["수를 10의 거듭제곱 사이에 넣는 부등식을 적는다.", "근호가 있으면 양변을 제곱해 비교한다.", "k를 정하고 자릿수를 k로 답한다.", "경계에 걸리는지 한 번 더 확인한다."],
+      "common_wrong_actions": ["자릿수를 한 자리 크거나 작게 답한다.", "제곱하지 않고 눈대중으로 비교한다.", "경계값을 확인하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "digit_count_off_by_one", "label": "자릿수 한 자리 오차", "diagnosis": "자릿수를 한 자리 크거나 작게 셌다.", "student_fix": "10의 (k-1)제곱 이상 10의 k제곱 미만이면 k자리다. 지수와 자릿수를 나란히 적어 확인하라." },
+        { "error_code": "integer_candidate_enumeration_gap", "label": "정수 후보 열거 누락", "diagnosis": "경계가 되는 정수 후보를 빠뜨려 구간을 잘못 잡았다.", "student_fix": "10·100·1000을 제곱한 값을 표로 적어 두고 그 사이에 넣어라." },
+        { "error_code": "power_of_ten_extraction_failure", "label": "10의 거듭제곱 분리 실패", "diagnosis": "근호 안의 수에서 10의 거듭제곱을 분리하지 못해 비교가 막혔다.", "student_fix": "√(100a)=10√a 로 떼어내라. 자릿수는 떼어낸 10의 개수로 결정된다." }
+      ],
+      "student_command": "10의 거듭제곱 사이에 넣는 부등식을 적고 양변을 제곱해 비교하라.",
+      "teacher_note": "자릿수는 경계에서 한 자리 어긋나는 오류가 거의 전부다.",
+      "parent_message": "부등식을 적고 자릿수를 세는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT189": {
+      "problem_nature": "가우스 기호가 들어간 식의 값을 구하는 유형",
+      "required_thinking": ["가우스 기호는 그 수를 넘지 않는 최대 정수", "√a의 가우스 기호 값은 √a가 놓인 두 정수 중 작은 쪽", "기호 안의 수를 먼저 구간으로 좁힘", "항이 여러 개면 항마다 따로 구해 합침"],
+      "must_write_steps": ["가우스 기호 안의 수를 하나씩 적는다.", "각각 n ≤ (수) < n+1 로 좁힌다.", "각 항의 값을 정수로 확정한다.", "확정한 값을 식에 넣어 계산한다."],
+      "common_wrong_actions": ["가우스 기호를 반올림으로 본다.", "구간을 한 칸 어긋나게 잡는다.", "여러 항 중 일부만 계산한다."],
+      "error_checkpoints": [
+        { "error_code": "square_root_floor_interval_mapping_failure", "label": "제곱근 정수 구간 대응 실패", "diagnosis": "√a가 놓이는 두 정수를 특정하지 못해 기호의 값이 틀렸다.", "student_fix": "제곱수를 양쪽에서 찾아라. 4<7<9 이면 √7의 가우스 기호 값은 2다." },
+        { "error_code": "irrational_integer_fractional_part_split_failure", "label": "무리수 정수·소수 부분 분리 실패", "diagnosis": "가우스 기호의 값이 정수 부분과 같다는 것을 연결하지 못했다.", "student_fix": "가우스 기호의 값은 정수 부분과 같다. 정수 부분을 구하던 방법을 그대로 쓰라." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "항이 여러 개인데 일부만 처리하고 합쳤다.", "student_fix": "항마다 한 줄씩 기호의 값을 적고 마지막에만 더하라." }
+      ],
+      "student_command": "가우스 기호는 반올림이 아니다. 항마다 n ≤ 수 < n+1 로 좁혀 정수를 확정하라.",
+      "teacher_note": "반올림으로 오해하는 학생이 많다. 정의를 말로 다시 시키라.",
+      "parent_message": "항마다 값을 따로 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT068": {
+      "problem_nature": "두 수의 크기를 근호를 이용해 비교하는 유형",
+      "required_thinking": ["a>0, b>0 일 때 a<b 이면 √a<√b", "계수가 붙은 수는 근호 안으로 넣어 통일", "양수일 때만 제곱 비교가 그대로 성립", "음수끼리는 부등호가 뒤집힘"],
+      "must_write_steps": ["두 수를 같은 꼴(근호 안)로 통일한다.", "근호 안의 수를 비교한다.", "부호 조건(양수·음수)을 확인한다.", "부등호를 원래 수로 되돌려 적는다."],
+      "common_wrong_actions": ["계수를 근호 안에 넣지 않고 비교한다.", "음수끼리 비교에서 부등호를 그대로 둔다.", "부호 조건을 무시하고 제곱한다."],
+      "error_checkpoints": [
+        { "error_code": "radical_magnitude_comparison_failure", "label": "근호 수 대소비교 실패", "diagnosis": "근호 안의 수를 비교하지 않고 겉모양으로 크기를 판단했다.", "student_fix": "두 수를 모두 근호 안으로 넣고 안의 수만 비교하라." },
+        { "error_code": "coefficient_inside_radical_conversion_failure", "label": "계수의 근호 안 넣기 실패", "diagnosis": "2√3 을 √12 로 바꾸는 처리를 하지 못해 비교가 막혔다.", "student_fix": "a√b = √(a²b) 다. 계수는 제곱해서 안으로 넣어라." },
+        { "error_code": "range_constraint_dropped", "label": "범위 조건 누락", "diagnosis": "음수 여부 등 부호 조건을 확인하지 않고 비교했다.", "student_fix": "비교 전에 두 수의 부호를 적어라. 음수끼리면 부등호가 뒤집힌다." }
+      ],
+      "student_command": "계수를 제곱해 근호 안으로 넣고, 부호를 확인한 뒤 안의 수만 비교하라.",
+      "teacher_note": "음수 비교에서 부등호 뒤집기를 놓치는 오류가 함께 나온다.",
+      "parent_message": "두 수를 같은 꼴로 바꿔 비교하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT069": {
+      "problem_nature": "세 개 이상의 수를 크기순으로 배열하는 유형",
+      "required_thinking": ["모든 수를 같은 꼴(근호 안)로 통일", "두 개씩 비교한 결과를 한 줄로 이음", "부호가 섞이면 음수·0·양수로 먼저 나눔", "묻는 것이 가장 큰 것인지 작은 것인지 확인"],
+      "must_write_steps": ["모든 수를 근호 안으로 넣어 통일한다.", "부호로 먼저 무리를 나눈다.", "각 무리 안에서 근호 안의 수를 비교한다.", "한 줄 부등식으로 이어 적고 묻는 것을 고른다."],
+      "common_wrong_actions": ["일부만 통일하고 비교한다.", "두 개씩 비교한 결과를 잇지 못한다.", "배열은 맞게 하고 묻는 것을 반대로 고른다."],
+      "error_checkpoints": [
+        { "error_code": "radical_magnitude_comparison_failure", "label": "근호 수 대소비교 실패", "diagnosis": "근호 안의 수로 통일해 비교하지 못했다.", "student_fix": "모든 수를 근호 꼴로 적어 표를 만들고, 안의 수만 세로로 비교하라." },
+        { "error_code": "coefficient_inside_radical_conversion_failure", "label": "계수의 근호 안 넣기 실패", "diagnosis": "계수가 붙은 수를 근호 안으로 넣지 않아 통일이 되지 않았다.", "student_fix": "a√b = √(a²b) 다. 계수 있는 수부터 먼저 바꿔라." },
+        { "error_code": "range_constraint_dropped", "label": "범위 조건 누락", "diagnosis": "부호가 섞였는데 나누지 않고 한꺼번에 비교했다.", "student_fix": "음수·0·양수로 먼저 갈라라. 음수는 근호 안이 클수록 작다." },
+        { "error_code": "extremum_selection_error", "label": "최대·최소 선택 오류", "diagnosis": "배열은 맞았으나 묻는 것을 반대로 골랐다.", "student_fix": "문제의 '가장 큰'·'가장 작은'에 동그라미를 치고 답을 고르라." }
+      ],
+      "student_command": "모든 수를 근호 꼴로 적어 표로 만들고, 부호로 나눈 뒤 한 줄 부등식으로 이어라.",
+      "teacher_note": "배열까지 맞고 마지막 선택에서 틀리는 실점이 잦다.",
+      "parent_message": "묻는 것에 표시하고 답을 고르는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT070": {
+      "problem_nature": "문자가 들어 있는 수들의 대소를 범위 조건을 이용해 비교하는 유형",
+      "required_thinking": ["주어진 문자의 범위를 먼저 적음", "√(a²)=|a| 이므로 부호에 따라 벗기는 결과가 달라짐", "두 식의 차를 만들어 부호를 판단", "범위 안의 값을 하나 넣어 방향을 확인"],
+      "must_write_steps": ["문자의 범위를 그대로 옮겨 적는다.", "√(a²) 꼴은 절댓값으로 바꾸고 부호를 보고 벗긴다.", "두 식의 차를 만들어 부호를 판단한다.", "범위 안의 값을 하나 넣어 확인한다."],
+      "common_wrong_actions": ["√(a²) 를 그냥 a로 벗긴다.", "범위를 보지 않고 부호를 정한다.", "차의 방향을 반대로 잡는다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "√(a²) 를 절댓값으로 두지 않고 그대로 a로 벗겼다.", "student_fix": "√(a²)=|a| 다. 범위를 보고 a인지 -a인지 정한 뒤 벗겨라." },
+        { "error_code": "range_constraint_dropped", "label": "범위 조건 누락", "diagnosis": "문자의 범위를 쓰지 않고 부호를 임의로 정했다.", "student_fix": "범위를 문제에서 그대로 베껴 식 옆에 적어 두어라." },
+        { "error_code": "radical_magnitude_comparison_failure", "label": "근호 수 대소비교 실패", "diagnosis": "문자가 든 근호 수의 크기를 비교하지 못했다.", "student_fix": "두 식의 차를 만들어 부호를 보라. 차가 양수면 앞이 크다." },
+        { "error_code": "sign_propagation_error", "label": "부호 전파 오류", "diagnosis": "절댓값을 벗기며 붙인 음부호를 뒤 계산에 끝까지 반영하지 못했다.", "student_fix": "음부호를 벗길 때 괄호를 남겨라. 괄호를 지우는 순간 부호가 사라진다." }
+      ],
+      "student_command": "범위를 먼저 베껴 적고, √(a²)=|a| 로 바꾼 뒤 부호를 정해 벗겨라.",
+      "teacher_note": "절댓값 처리와 범위 조건은 이 유형에서 항상 함께 나온다.",
+      "parent_message": "범위를 적고 시작하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
 }
