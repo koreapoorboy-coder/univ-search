@@ -21,6 +21,22 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
+# --- ASCII SELF-CHECK (standing rule, enforced in-tool 2026-08-18) ---------
+# WHY: a BOM-less .ps1 containing Korean literals is read as ANSI by PS 5.1 and the
+# strings are corrupted BEFORE the script runs. No error is raised; the broken value
+# is written into data and even passes JSON parsing (real incident: 261 rows).
+# The rule "keep .ps1 ASCII-only" was violated twice despite being documented, so it
+# is enforced here instead of relied on: this script refuses to run while polluted.
+# Non-ASCII text belongs in a UTF-8 data/patch file, or as \uXXXX regex escapes.
+$__selfPath = $MyInvocation.MyCommand.Path
+if ($__selfPath -and (Test-Path $__selfPath)) {
+  $__bad = @([System.IO.File]::ReadAllBytes($__selfPath) | Where-Object { $_ -gt 127 }).Count
+  if ($__bad -gt 0) {
+    throw ("ASCII RULE VIOLATION: " + [System.IO.Path]::GetFileName($__selfPath) + " contains " + $__bad + " non-ASCII byte(s). PS 5.1 corrupts them before execution. Use \uXXXX escapes or move the text to a UTF-8 data file.")
+  }
+}
+# --- end ASCII SELF-CHECK --------------------------------------------------
+
 $j = Get-Content $Draft -Raw -Encoding UTF8 | ConvertFrom-Json
 $ov = Get-Content $Overlay -Raw -Encoding UTF8 | ConvertFrom-Json
 

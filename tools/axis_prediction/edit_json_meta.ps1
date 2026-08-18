@@ -27,6 +27,22 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+
+# --- ASCII SELF-CHECK (standing rule, enforced in-tool 2026-08-18) ---------
+# WHY: a BOM-less .ps1 containing Korean literals is read as ANSI by PS 5.1 and the
+# strings are corrupted BEFORE the script runs. No error is raised; the broken value
+# is written into data and even passes JSON parsing (real incident: 261 rows).
+# The rule "keep .ps1 ASCII-only" was violated twice despite being documented, so it
+# is enforced here instead of relied on: this script refuses to run while polluted.
+# Non-ASCII text belongs in a UTF-8 data/patch file, or as \uXXXX regex escapes.
+$__selfPath = $MyInvocation.MyCommand.Path
+if ($__selfPath -and (Test-Path $__selfPath)) {
+  $__bad = @([System.IO.File]::ReadAllBytes($__selfPath) | Where-Object { $_ -gt 127 }).Count
+  if ($__bad -gt 0) {
+    throw ("ASCII RULE VIOLATION: " + [System.IO.Path]::GetFileName($__selfPath) + " contains " + $__bad + " non-ASCII byte(s). PS 5.1 corrupts them before execution. Use \uXXXX escapes or move the text to a UTF-8 data file.")
+  }
+}
+# --- end ASCII SELF-CHECK --------------------------------------------------
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
 if (-not (Test-Path $File)) { throw "target not found: $File" }
@@ -87,7 +103,7 @@ if (-not $parseOk) { throw ("JSON parse FAILED after edit, file untouched :: " +
 
 # --- gate 2: U+FFFD scan (encoding damage) ------------------------------------
 # NOTE: never write the replacement char as a literal here - this file must stay ASCII.
-# ★BUG FIXED 2026-08-18: PowerShell variable names are CASE-INSENSITIVE.
+# *** BUG FIXED 2026-08-18: PowerShell variable names are CASE-INSENSITIVE.
 #   $FFFD (the char) and $fffd (the count) were the SAME variable, so the count
 #   overwrote the char and the post-write gate escaped 0 -> counted digit "0" (86 hits).
 #   Distinct names are mandatory here: $FFFD_CHAR vs $fffdNew/$fffd2.

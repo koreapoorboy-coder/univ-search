@@ -164,6 +164,23 @@ overlay 0%인 4단원(M1_PRIME 448·M1_DATA 84·M1_EXPR 60·M1_INT 47 = 639종)�
 | `tools/axis_prediction/edit_json_meta.ps1` | **`_meta` 편집 전용.** 텍스트 치환 금지 원칙을 도구로 강제 |
 | `tools/axis_prediction/validate_ne_prescriptions.ps1` | 검증 13항목(자기정합 포함) |
 | `tools/axis_prediction/collect_gaps.ps1` | gaps 수집·집계(`-Aggregate`로 JSON 블록 생성) + **`[DENOMINATORS]` 분모 출력**. `-GroupField`로 개념 그룹 경로 지정(M2_NE=`category_ledger` 기본 / M2_GEOM=`concept_map.concepts`, 중첩 `{name,types[]}` 형태 자동 판별) |
+| `tools/axis_prediction/undecidable_theoretical.ps1` | **편성 무관 판정불가율**(이론값) 측정. 카탈로그+overlay만 읽고 draft는 읽지 않음 |
+| `tools/axis_prediction/new_tool.ps1` | **신규 도구 스캐폴더.** ASCII 자기검사 블록을 포함한 뼈대를 생성하고, 생성물이 실제로 **실행되는지까지 검증** |
+
+### ★★ASCII 규칙 = 도구로 강제 (검수 지시 2026-08-18)
+
+한글 리터럴 금지 규칙이 **문서화돼 있는데도 한 세션에서 2회 재발**했다(둘 다 신규 스크립트 작성 시). 이 프로젝트에서 **사람의 주의력에 의존한 규칙은 전부 재발**했고(push 누락 3회·배치 ID 4회·한글 리터럴 2회) **도구로 강제한 규칙은 재발하지 않았다**(분모 자동 동반·`_meta` 편집기). 그래서 검사를 도구에 내장했다.
+
+**모든 `.ps1` 상단에 ASCII 자기검사 블록**이 들어간다(`param()` 직후). 스크립트가 **자기 파일의 비ASCII 바이트를 세어 1개라도 있으면 실행을 거부**한다. 주석 안의 한글도 차단된다.
+신규 도구는 `new_tool.ps1`로 만들면 이 블록이 처음부터 포함된다.
+
+```
+powershell -File tools\axis_prediction\new_tool.ps1 -Name my_tool.ps1 -Purpose "what it does"
+```
+
+**★알려진 사각지대**: 파일 경로 없이 실행하면(내용을 파이프로 밀어 넣는 방식) `$MyInvocation.MyCommand.Path`가 null이라 검사가 건너뛰어진다. **도구는 반드시 `powershell -File <경로>` 형태로 실행할 것.**
+
+**즉시 적발된 것**: 설치 직후 `edit_json_meta.ps1`에 **기존 비ASCII 3바이트**(주석의 `★`)가 있어 실행이 차단됐다 → ASCII로 교체. 가장 중요한 도구에 이미 위반이 있었고, 그동안 아무도 몰랐다.
 
 **사용법**
 ```
