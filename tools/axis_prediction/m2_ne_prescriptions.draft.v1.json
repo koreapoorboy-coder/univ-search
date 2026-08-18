@@ -6,8 +6,8 @@
     "authoring_rule": "error_checkpoints[].error_code 4-tier: 1)자기 overlay → 2)단원 overlay 풀(91 distinct) → 3)dict v2 → 4)신설. checkpoint 2~4. ★교체 단원이므로 error_tags는 기존 값 보존(overlay는 error_code로만 사용) — 닮음과 다른 규칙.",
     "replacement_spec": "교체 10필드(8처방 + matched_template_id/match_score → null) · 추가 3(draft·revision·observed_basis) · 보존 12(grade·course·unit_id·unit_name·type_name·visible_path·taxonomy_levels·concept_ids·error_tags·default_difficulty·source_orders·raw_section_id). 병합 전 23필드 → 병합 후 26필드.",
     "observed_basis_rule": "★overlay 커버리지 71/211(34%)이라 유형별 true/false 혼재가 정상(닮음의 전건 true와 다름). 자기 overlay 태그가 있으면 true.",
-    "progress": { "authored": 188, "total": 211, "batch": "10 (다항식·단항식 활용 계열 9범주) 완료 — 잔여 23종(1배치)" },
-    "batch_scope": "배치10 = 다항식·단항식 활용 계열 9범주 22종(RAW_045·047·052·053·054·057·058·062·063). overlay 4/22(18%). 역연산 계열(모르는 식 구하기·빈 칸 채우기·잘못 계산한 식)이 중심이라 inverse_operation_setup_error가 8종에 걸쳐 반복 등장한다 — 한 단원 안에서 같은 오류 구조가 여러 범주를 관통하는 사례. (배치9 = 순환소수 표현·변환 계열 8범주 22종(RAW_010~016·018). overlay 6/22(27%). ★판정가능 개념 13종 + 판정불가 개념 9종을 한 계열 안에서 자연스럽게 섞었다 — 계열 응집성을 유지하면서 편향을 인위적으로 만들지 않는 편성. 판정불가율 24.3%→26.5%로 예고대로 상승(이론값 34.6%로 수렴 중). (배치8 = 유한소수 판별 계열 5범주(RAW_004~008, 13종) + 도형에서의 계산 3범주(RAW_046·060·061, 10종) = 8범주 23종. overlay 12/23(52%). ★8범주 전부 관측 유형을 1개 이상 보유 → 판정불가 개념 신규 0. 판정불가율 28.9%→24.3%로 추가 하락.) (배치7 = 지수법칙(5)몫(3)·(6)종합(3)·대소비교(2)·응용(2)(3)·응용(3)(2)·응용(4)(3)·응용(5)(2)·사칙연산 혼합(3) = 8범주 21종. ★overlay 13/21(62%) — 배치6(10%)의 반대 극단을 의도적으로 골라 판정불가율 편향을 상쇄했다(검수 지시). 이로써 M2_NE 지수법칙 계열 전 범주 저작 완결.) (배치6 = 식의 대입(3) + 등식의 변형 7범주(17) = 8범주 20종. ★overlay 보유 2 / 미보유 18(10%) — 지금까지 가장 얇은 구간이며 등식의 변형 7범주는 전부 overlay 0이다. 커버리지 하한에서 tier-2가 버티는지 보는 배치. (배치5 = 지수법칙 계열 4범주: 지수법칙(1) 거듭제곱의 곱셈(5) · 지수법칙을 이용한 실생활 문제(6) · 지수법칙의 응용(1) 같은 수의 덧셈식(4) · 지수에 미지수가 포함된 방정식의 풀이(7). overlay 보유 9 / 미보유 13(41%). ★계산 계열과 상황 모델링 계열(실생활 6종)을 한 배치에 넣어 tier-2 커버가 유형 성격에 의존하는지 확인.))",
+    "progress": { "authored": 211, "total": 211, "batch": "11 (유리수·소수 분류 계열 10범주) 완료 — ★M2_NUMBER_EXPRESSION 211/211 저작 완결" },
+    "batch_scope": "배치11(최종) = 유리수·소수 분류 계열 10범주 23종(RAW_001·002·003·017·020·022·023·024·025·026). overlay 5/23(22%). 단원의 도입부 개념(유리수의 분류·소수의 분류·유한소수 표현)과 판별·설명형이 중심이다. 이 배치로 M2_NE 211종 전 범주 저작 완결. (배치10 = 다항식·단항식 활용 계열 22종(RAW_045·047·052·053·054·057·058·062·063). overlay 4/22(18%). 역연산 계열(모르는 식 구하기·빈 칸 채우기·잘못 계산한 식)이 중심이라 inverse_operation_setup_error가 8종에 걸쳐 반복 등장한다 — 한 단원 안에서 같은 오류 구조가 여러 범주를 관통하는 사례. (배치9 = 순환소수 표현·변환 계열 8범주 22종(RAW_010~016·018). overlay 6/22(27%). ★판정가능 개념 13종 + 판정불가 개념 9종을 한 계열 안에서 자연스럽게 섞었다 — 계열 응집성을 유지하면서 편향을 인위적으로 만들지 않는 편성. 판정불가율 24.3%→26.5%로 예고대로 상승(이론값 34.6%로 수렴 중). (배치8 = 유한소수 판별 계열 5범주(RAW_004~008, 13종) + 도형에서의 계산 3범주(RAW_046·060·061, 10종) = 8범주 23종. overlay 12/23(52%). ★8범주 전부 관측 유형을 1개 이상 보유 → 판정불가 개념 신규 0. 판정불가율 28.9%→24.3%로 추가 하락.) (배치7 = 지수법칙(5)몫(3)·(6)종합(3)·대소비교(2)·응용(2)(3)·응용(3)(2)·응용(4)(3)·응용(5)(2)·사칙연산 혼합(3) = 8범주 21종. ★overlay 13/21(62%) — 배치6(10%)의 반대 극단을 의도적으로 골라 판정불가율 편향을 상쇄했다(검수 지시). 이로써 M2_NE 지수법칙 계열 전 범주 저작 완결.) (배치6 = 식의 대입(3) + 등식의 변형 7범주(17) = 8범주 20종. ★overlay 보유 2 / 미보유 18(10%) — 지금까지 가장 얇은 구간이며 등식의 변형 7범주는 전부 overlay 0이다. 커버리지 하한에서 tier-2가 버티는지 보는 배치. (배치5 = 지수법칙 계열 4범주: 지수법칙(1) 거듭제곱의 곱셈(5) · 지수법칙을 이용한 실생활 문제(6) · 지수법칙의 응용(1) 같은 수의 덧셈식(4) · 지수에 미지수가 포함된 방정식의 풀이(7). overlay 보유 9 / 미보유 13(41%). ★계산 계열과 상황 모델링 계열(실생활 6종)을 한 배치에 넣어 tier-2 커버가 유형 성격에 의존하는지 확인.))))))",
     "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + cp 2~4 · nonnull 0 · label_map 대조 · U+FFFD 스캔(§7 상시항목). _meta 편집은 edit_json_meta.ps1 경유.",
     "new_tag_ceiling": "414종 기준 신설 40종 초과 시 즉시 중간보고(검수 지시 2026-08-16).",
     "category_ledger": {
@@ -71,7 +71,17 @@
       "모르는(어떤) 다항식 구하기(2) - 곱셈과 나눗셈 이용": ["M2_NE_PT173","M2_NE_PT174"],
       "단항식과 다항식의 곱셈/나눗셈에서 빈 칸에 알맞은 식 구하기": ["M2_NE_PT175","M2_NE_PT176"],
       "다항식과 단항식의 곱셈과 나눗셈의 활용": ["M2_NE_PT186"],
-      "식의 값": ["M2_NE_PT187","M2_NE_PT188","M2_NE_PT189","M2_NE_PT190","M2_NE_PT191"]
+      "식의 값": ["M2_NE_PT187","M2_NE_PT188","M2_NE_PT189","M2_NE_PT190","M2_NE_PT191"],
+      "유리수의 분류": ["M2_NE_PT001","M2_NE_PT002","M2_NE_PT003"],
+      "소수의 분류(유한소수/무한소수)": ["M2_NE_PT004","M2_NE_PT005","M2_NE_PT006"],
+      "분수를 유한소수로 나타내기": ["M2_NE_PT007","M2_NE_PT008","M2_NE_PT009"],
+      "순환소수를 정수/유한소수로 나타내기": ["M2_NE_PT046","M2_NE_PT047"],
+      "순환소수를 포함한 부등식의 계산": ["M2_NE_PT053","M2_NE_PT054"],
+      "분자 또는 분모를 잘못 보고 소수로 나타낸 경우": ["M2_NE_PT059","M2_NE_PT060"],
+      "잘못 계산한 경우 어떤 수/바르게 계산한 값 구하기": ["M2_NE_PT061","M2_NE_PT062"],
+      "(순환소수)×x가 유한소수 또는 자연수가 되도록 하는 x의 값 구하기": ["M2_NE_PT063","M2_NE_PT064"],
+      "순환소수의 이해": ["M2_NE_PT065","M2_NE_PT066"],
+      "유리수와 순환소수의 관계-소수의 이해": ["M2_NE_PT067","M2_NE_PT068"]
     },
     "concept_map_semantics": "개념 → problem_type_id 목록(커버리지 검증용). 골격 공유 규칙은 skeleton_sharing 참조.",
     "concept_map": {
@@ -135,7 +145,17 @@
       "모르는 다항식(곱셈·나눗셈)": ["M2_NE_PT173","M2_NE_PT174"],
       "빈 칸 채우기(곱셈·나눗셈)": ["M2_NE_PT175","M2_NE_PT176"],
       "다항식·단항식 계산 활용": ["M2_NE_PT186"],
-      "식의 값 대입": ["M2_NE_PT187","M2_NE_PT188","M2_NE_PT189","M2_NE_PT190","M2_NE_PT191"]
+      "식의 값 대입": ["M2_NE_PT187","M2_NE_PT188","M2_NE_PT189","M2_NE_PT190","M2_NE_PT191"],
+      "유리수 분류": ["M2_NE_PT001","M2_NE_PT002","M2_NE_PT003"],
+      "소수 분류": ["M2_NE_PT004","M2_NE_PT005","M2_NE_PT006"],
+      "유한소수 표현": ["M2_NE_PT007","M2_NE_PT008","M2_NE_PT009"],
+      "순환소수의 정수·유한소수 표현": ["M2_NE_PT046","M2_NE_PT047"],
+      "순환소수 부등식": ["M2_NE_PT053","M2_NE_PT054"],
+      "잘못 본 분수 복원": ["M2_NE_PT059","M2_NE_PT060"],
+      "잘못 계산 복원": ["M2_NE_PT061","M2_NE_PT062"],
+      "순환소수 곱해 정수·유한소수 만들기": ["M2_NE_PT063","M2_NE_PT064"],
+      "순환소수 개념 설명": ["M2_NE_PT065","M2_NE_PT066"],
+      "유리수·소수 관계 설명": ["M2_NE_PT067","M2_NE_PT068"]
     },
     "skeleton_sharing": {
       "shared_skeleton_fields": ["required_thinking", "must_write_steps"],
@@ -230,7 +250,11 @@
       "table_rule_direction_misread": "표 규칙 방향 오독",
       "multi_cell_dependency_tracking_failure": "다중 칸 의존 추적 실패",
       "intended_vs_actual_value_swap": "의도값·실제값 뒤바꿈",
-      "negative_fraction_substitution_error": "음수·분수 대입 오류"
+      "negative_fraction_substitution_error": "음수·분수 대입 오류",
+      "inequality_bound_conversion_error": "부등식 경계 변환 오류",
+      "integer_candidate_enumeration_gap": "정수 후보 열거 누락",
+      "difference_direction_error": "차의 방향 오류",
+      "multiple_answer_omission": "복수 정답 누락"
     },
     "tier_report": "이 배치의 tier 분해는 커밋 메시지·보고서에 수치로 낸다(검수 지시: 첫 배치 분포로 방침 결정).",
     "tier_breakdown": {
@@ -245,20 +269,23 @@
         { "batch": 7, "scope": "지수법칙 계열 완결(7범주) + 사칙연산 혼합(1범주) — 균형 회복 배치", "types": 21, "overlay_true": 13, "overlay_false": 8, "overlay_rate": "62%", "tier1": 25, "tier2": 22, "tier3": 0, "new": 0, "codes_total": 47 },
         { "batch": 8, "scope": "유한소수 판별 5범주 + 도형에서의 계산 3범주 — 전 범주 관측 보유", "types": 23, "overlay_true": 12, "overlay_false": 11, "overlay_rate": "52%", "tier1": 27, "tier2": 25, "tier3": 0, "new": 0, "codes_total": 52 },
         { "batch": 9, "scope": "순환소수 표현·변환 계열 8범주 — 판정가능 13 + 판정불가 9 자연 혼합", "types": 22, "overlay_true": 6, "overlay_false": 16, "overlay_rate": "27%", "tier1": 12, "tier2": 34, "tier3": 0, "new": 0, "codes_total": 46 },
-        { "batch": 10, "scope": "다항식·단항식 활용 계열 9범주 — 역연산 구조가 계열을 관통", "types": 22, "overlay_true": 4, "overlay_false": 18, "overlay_rate": "18%", "tier1": 9, "tier2": 37, "tier3": 0, "new": 0, "codes_total": 46 }
+        { "batch": 10, "scope": "다항식·단항식 활용 계열 9범주 — 역연산 구조가 계열을 관통", "types": 22, "overlay_true": 4, "overlay_false": 18, "overlay_rate": "18%", "tier1": 9, "tier2": 37, "tier3": 0, "new": 0, "codes_total": 46 },
+        { "batch": 11, "scope": "유리수·소수 분류 계열 10범주 — 최종 배치, M2_NE 211종 완결", "types": 23, "overlay_true": 5, "overlay_false": 18, "overlay_rate": "22%", "tier1": 11, "tier2": 37, "tier3": 0, "new": 0, "codes_total": 48 }
       ],
-      "cumulative": { "types": 188, "tier1": 135, "tier2": 287, "tier3": 0, "new": 0, "codes_total": 422 },
+      "cumulative": { "types": 211, "tier1": 146, "tier2": 324, "tier3": 0, "new": 0, "codes_total": 470, "_final": "★M2_NUMBER_EXPRESSION 211/211 완결. 11배치 전 구간 신설 0 / tier-3(사전) 0 — 단원 overlay 풀 91종 안에서 전량 해결됐다." },
       "finding": "★자기 유형에 overlay가 없어도 같은 단원 이웃 유형의 관측 어휘(tier-2)로 커버된다. 커버리지 34%인데 신설 0. M2_GEOM(19% → 신설 8종)과 대비.",
       "finding_batch2": "★배치2는 overlay가 얇은 구간(25%)을 일부러 골랐다. 결과: tier-1 비중이 54%→21%로 떨어진 대신 tier-2가 46%→79%로 올라 신설은 여전히 0. ⇒ tier-2 커버는 순환소수 계열의 특성이 아니라 단원 전반의 성질로 관측된다(2개 계열에서 확인). 신설 누계 0/40.",
       "finding_batch3": "★배치3은 overlay 17%(가장 얇음)에 3개 범주가 관측 0. tier-1 20% / tier-2 80% / 신설 0. 3개 계열(순환소수·지수법칙·다항식) 연속으로 신설 0 — tier-2 보편성 확정. ⇒ 이후 배치는 tier 보고만 하고 배치 크기를 20종으로 올려도 방침 재검토가 불필요하다는 근거.",
-      "coverage_vs_new": "overlay 60%→25%→17%→38%→41%→10%로 오르내려도 신설은 0으로 불변(6배치 연속). ★배치6은 overlay 10%(등식의 변형 7범주 전부 0%)로 지금까지 최저 구간인데도 신설 0 — 커버리지 하한에서도 tier-2가 버틴다. 배치7은 반대로 62%(최고 구간)인데 역시 신설 0이다. ⇒ 10%~62% 전 구간에서 신설 0이 확인됐다(10배치 연속). 신설을 부르는 것은 커버리지가 아니라 '단원 관측 어휘 자체의 부재'(M1=0%)로 보인다 — 수연산은 단원 풀 91종이 이웃 개념까지 덮는다.",
+      "coverage_vs_new": "overlay 60%→25%→17%→38%→41%→10%로 오르내려도 신설은 0으로 불변(6배치 연속). ★배치6은 overlay 10%(등식의 변형 7범주 전부 0%)로 지금까지 최저 구간인데도 신설 0 — 커버리지 하한에서도 tier-2가 버틴다. 배치7은 반대로 62%(최고 구간)인데 역시 신설 0이다. ⇒ 10%~62% 전 구간에서 신설 0이 확인됐다(11배치 전 구간, 단원 완결). 신설을 부르는 것은 커버리지가 아니라 '단원 관측 어휘 자체의 부재'(M1=0%)로 보인다 — 수연산은 단원 풀 91종이 이웃 개념까지 덮는다.",
       "finding_batch4": "배치 크기를 24종으로 올린 첫 배치. tier-1 16 / tier-2 42 / 신설 0. 누계 58종에서 tier-2 비중 71%. 검증 항목은 12종 배치와 동일하게 유지했고 전항 통과 — 배치 확대가 품질 저하로 이어지지 않음을 확인.",
       "finding_batch5": "지수법칙 계열 4범주 22종. overlay 41%(배치4 38%와 근접). tier-1 17 / tier-2 32 / 신설 0 — 5배치 연속 신설 0. ★이 배치의 새 정보는 성격이 다른 유형을 넣었다는 점이다: 실생활 6종(저장용량·거리속력·시간당 증가·등분·분배·종이접기)과 응용 4종은 계산 유형이 아니라 상황 모델링 유형인데, 단원 관측 어휘(unit_conversion_omitted·stage_indexing_error·ratio_direction_inversion·answer_stage_confusion)가 그대로 덮었다. ⇒ tier-2 보편성이 계산 계열에 국한된 성질이 아니다. 신설 누계 0/40.",
       "finding_batch6": "★커버리지 하한 시험. 8범주 20종 중 overlay 보유는 2종(10%)뿐이고, 등식의 변형 7범주 17종은 전부 overlay 0이다. 결과: tier-1 4 / tier-2 37 / 신설 0. 6배치 연속 신설 0. ⇒ 자기 개념에 관측이 전무해도 단원 풀 91종이 도형 활용(넓이·부피·영역 빼기)까지 덮었다. ★단, 이것은 '태그를 붙일 수 있다'는 뜻이지 '그 태그가 맞다'는 뜻이 아니다 — 검증 수단이 관측인데 관측이 0이므로 이 17종은 원리상 검증 불가다(gaps_undecidable에 7개 개념으로 기록). M1(overlay 0%) 전 단원이 정확히 이 상태라는 것이 이 배치의 실물 예시다.",
       "finding_batch7": "★균형 회복 배치(검수 지시 2026-08-18: overlay 보유 범주를 의도적으로 섞을 것). 배치6이 overlay 10%로 판정불가를 13종→30종으로 밀어올렸기 때문에, 배치7은 반대 극단인 62%를 골랐다. 결과: tier-1 25 / tier-2 22 — 처음으로 tier-1이 tier-2를 넘었다(누계에서는 여전히 tier-2 우세 87:191). 신설 0으로 7배치 연속. 이 배치로 M2_NE 지수법칙 계열 전 범주(RAW_027·031~040)가 저작 완결됐다. ★판정불가율은 30/100(30%)에서 35/121(28.9%)로 내려 편향이 실제로 상쇄됐다 — 최종 제출의 판정불가율이 배치 구성 편향을 반영하지 않도록 관리한 첫 사례.",
       "finding_batch8": "균형 편성 2회차. 유한소수 판별 5범주 + 도형 계산 3범주, overlay 52%. ★8범주 **전부** 관측 유형을 1개 이상 보유해 판정불가 개념 신규 0 — 판정불가율 28.9%→24.3%(35/144)로 2연속 하락했다. tier-1 27 / tier-2 25로 배치7에 이어 tier-1 우세. 신설 0(8배치 연속). ★유한소수 판별 계열은 단원 관측 어휘가 조건 판별 어휘(reduction_before_test_omitted·negation_condition_misread·excluded_case_omission·joint_condition_merge_failure 등)로 촘촘해서 tier-2가 거의 불필요했다 — 계산 계열·모델링 계열에 이어 **조건 판별 계열**에서도 신설 0.",
       "finding_batch9": "순환소수 표현·변환 계열 8범주 22종을 한 배치로 묶어 이 계열을 완결했다. overlay 27%, tier-1 12 / tier-2 34, 신설 0(9배치 연속). ★편성 원칙을 바꿨다: 배치7·8은 판정불가율 편향을 상쇄하려 overlay 보유 범주를 골랐지만, 배치9는 **한 계열 안에 이미 섞여 있는 판정가능 13종 + 판정불가 9종을 그대로** 가져갔다. 인위적 편성으로 곡선을 만들지 않고 계열 응집성을 택한 것이며, 그 결과 판정불가율이 24.3%→26.5%로 예고대로 상승했다. ★이 상승은 품질 저하가 아니라 이론값 34.6%로의 수렴이다(undecidable_rate_rule.projection 참조). 순환소수 계열은 tier-2 비중이 74%로 높은데, 이는 이 계열 관측이 4범주에만 몰려 있어(012·013·016·018) 나머지 4범주가 이웃 어휘를 빌려야 했기 때문이다.",
-      "finding_batch10": "다항식·단항식 활용 계열 9범주 22종. overlay 18%, tier-1 9 / tier-2 37, 신설 0(10배치 연속). ★이 배치의 특징은 '역연산' 구조가 계열을 관통한다는 점이다 — 모르는 식 구하기(2범주)·빈 칸 채우기(2범주)·잘못 계산한 식에서 바른 답(2범주)·식의 값(1범주)이 전부 '결과에서 거슬러 올라간다'는 같은 골격을 공유해, inverse_operation_setup_error가 8종에 반복 배치됐다. 관측 어휘가 이 구조를 이미 갖고 있어(intended_vs_actual_value_swap·table_rule_direction_misread·multi_cell_dependency_tracking_failure) tier-2로 충분히 덮였다."
+      "finding_batch10": "다항식·단항식 활용 계열 9범주 22종. overlay 18%, tier-1 9 / tier-2 37, 신설 0(10배치 연속). ★이 배치의 특징은 '역연산' 구조가 계열을 관통한다는 점이다 — 모르는 식 구하기(2범주)·빈 칸 채우기(2범주)·잘못 계산한 식에서 바른 답(2범주)·식의 값(1범주)이 전부 '결과에서 거슬러 올라간다'는 같은 골격을 공유해, inverse_operation_setup_error가 8종에 반복 배치됐다. 관측 어휘가 이 구조를 이미 갖고 있어(intended_vs_actual_value_swap·table_rule_direction_misread·multi_cell_dependency_tracking_failure) tier-2로 충분히 덮였다.",
+      "finding_batch11": "최종 배치. 유리수·소수 분류 계열 10범주 23종. overlay 22%, tier-1 11 / tier-2 37, 신설 0. ★이 배치는 '판별·설명형'이 중심이라(정의 대조·반례 찾기·포함 관계) 오류 어휘가 definition_scope_overgeneralization·irrational_inclusion_error·negation_condition_misread로 수렴했다 — 계산 계열·모델링 계열·조건 판별 계열·역연산 계열에 이어 **개념 판별 계열**에서도 신설 0.",
+      "★tier2_mechanisms": "★검수 지시(2026-08-18): tier-2가 먹히는 기제는 하나가 아니다. 최종 제출에 **두 기제를 구분해** 적을 것. ① **어휘 폭 기제** — 단원 관측 풀(91종)이 넓어 이웃 개념의 어휘가 다른 범주까지 덮는다(배치1~9에서 관측). ② **구조 공유 기제** — 여러 범주가 같은 골격을 공유해 관측 어휘가 그 구조를 이미 갖고 있다(배치10 역연산 계열: 9범주가 '결과→역추적' 골격 공유, 배치11 판별형: '정의 대조→반례' 골격 공유). ★②의 함의: **구조 공유가 없는 계열에서는 tier-2가 안 먹힐 수 있다.** M3_REAL 착수 시 이 가설을 확인할 것(검수 지시)."
     },
     "predicted_observed_gaps": [
       { "tag": "cycle_length_miscount", "concept": "순환마디", "predicted_in": ["M2_NE_PT023"], "observed_types_checked": ["M2_NE_PT024", "M2_NE_PT025"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "note": "소수의 순환마디(예측층)에 '마디 길이 오산'을 배치했으나, 같은 개념의 관측 유형(분수·나눗셈 순환마디) 관측 태그엔 없음(관측은 시작 위치·나눗셈 미완). 타 개념 관측엔 존재. 해석 보류." },
@@ -357,7 +384,8 @@
         { "authored": 121, "batch": 7, "undecidable_types": 35, "rate": "28.9%", "note": "배치7 overlay 62% 편성으로 상쇄 시작" },
         { "authored": 144, "batch": 8, "undecidable_types": 35, "rate": "24.3%", "note": "배치8 8범주 전부 관측 보유 → 판정불가 신규 0" },
         { "authored": 166, "batch": 9, "undecidable_types": 44, "rate": "26.5%", "note": "★상승 전환. 배치9는 편성을 인위적으로 고르지 않고 순환소수 계열에 있는 그대로(판정가능 13 + 판정불가 9)를 가져갔다 — 이론값 34.6%로의 수렴 시작" },
-        { "authored": 188, "batch": 10, "undecidable_types": 58, "rate": "30.9%", "note": "역연산 계열 9범주 중 7범주가 관측 0. 이 단원에서 관측이 가장 얇은 구간이며 수렴 후반부" }
+        { "authored": 188, "batch": 10, "undecidable_types": 58, "rate": "30.9%", "note": "역연산 계열 9범주 중 7범주가 관측 0. 이 단원에서 관측이 가장 얇은 구간이며 수렴 후반부" },
+        { "authored": 211, "batch": 11, "undecidable_types": 73, "rate": "34.6%", "note": "★완결값 = 편성 무관 이론값과 정확히 일치(개념 30개·73종). 곡선이 U자를 그린 것 자체가 이 수치가 편성의 함수임을 보여준다 — 중간값은 단원 간 비교에 쓸 수 없고 이 완결값만 쓸 수 있다" }
       ],
       "theoretical_value": "★**편성 무관 이론값 = 73 / 211 = 34.6%**(개념 30개). 전 범주를 다 저작한 시점의 값이며, 카탈로그와 overlay만으로 정해지므로 저작 진행·배치 편성과 무관하다. **단원 간 비교가 가능한 유일한 수치는 이것이다.** 측정 도구 = undecidable_theoretical.ps1(draft 파일을 읽지 않음 — 검증 기준이 대상과 독립).",
       "projection": "현재 144종 24.3%는 이론값보다 낮다. 잔여 67종 중 38종이 판정불가 개념 소속이라 후반부에 **34.6%로 수렴하며 상승한다**. 상승은 품질 저하가 아니라 편성의 산술적 귀결이다.",
@@ -369,8 +397,9 @@
     "gaps_denominator_caveat": "★GAP RATE는 예측 오류율이 아니다. 갭은 예측층 유형에서만 나오고, 예측층 유형은 자기 overlay가 없으므로 그 코드는 정의상 전부 tier-2 이상이다(자기 관측 어휘가 애초에 없다). 즉 GAP RATE는 '이웃 유형의 어휘를 빌려 쓴 결과가 그 개념의 관측 합집합 밖에 떨어진 비율'이며 tier 구성의 함수다. 품질 지표로 읽지 말 것 — 해석 보류(검수 승인).",
     "gaps_denominators": {
       "_measured": "2026-08-18, collect_gaps.ps1 [DENOMINATORS] 블록 실측",
-      "M2_NUMBER_EXPRESSION": { "authored_types": 188, "overlay_coverage": "34%", "concepts_total": 61, "concepts_decidable": 37, "concepts_undecidable": 24, "concepts_gap_capable": 34, "codes_checked": 137, "gaps_raw": 66, "gaps_aggregated": 53, "gap_rate": "48.2%", "ubiquitous_excluded": 0, "_at_166_types": { "concepts_total": 52, "concepts_decidable": 35, "concepts_gap_capable": 32, "codes_checked": 129, "gaps_raw": 62, "gap_rate": "48.1%" }, "_at_144_types": { "concepts_total": 44, "concepts_decidable": 31, "concepts_gap_capable": 28, "codes_checked": 115, "gaps_raw": 54, "gap_rate": "47%" }, "_at_121_types": { "concepts_total": 36, "concepts_decidable": 23, "concepts_gap_capable": 20, "codes_checked": 93, "gaps_raw": 46, "gap_rate": "49.5%" }, "_note2": "★concepts_decidable(23) > concepts_gap_capable(20): 관측 유형만 있고 예측층 유형이 없는 개념이 3개 있다(전건 관측). 판정은 가능하지만 판정할 대상이 없어 분모에 기여하지 않는다 — 두 수를 구분해 낼 것.",
+      "M2_NUMBER_EXPRESSION": { "authored_types": 211, "_status": "COMPLETE", "overlay_coverage": "33.6% (71/211)", "concepts_total": 71, "concepts_per_type_avg": 2.97, "concepts_decidable": 41, "concepts_undecidable": 30, "concepts_gap_capable": 37, "undecidable_types": 73, "undecidable_rate": "34.6%", "codes_checked": 143, "gaps_raw": 68, "gaps_aggregated": 55, "gap_rate": "47.6%", "ubiquitous_excluded": 0, "_at_166_types": { "concepts_total": 52, "concepts_decidable": 35, "concepts_gap_capable": 32, "codes_checked": 129, "gaps_raw": 62, "gap_rate": "48.1%" }, "_at_144_types": { "concepts_total": 44, "concepts_decidable": 31, "concepts_gap_capable": 28, "codes_checked": 115, "gaps_raw": 54, "gap_rate": "47%" }, "_at_121_types": { "concepts_total": 36, "concepts_decidable": 23, "concepts_gap_capable": 20, "codes_checked": 93, "gaps_raw": 46, "gap_rate": "49.5%" }, "_note2": "★concepts_decidable(23) > concepts_gap_capable(20): 관측 유형만 있고 예측층 유형이 없는 개념이 3개 있다(전건 관측). 판정은 가능하지만 판정할 대상이 없어 분모에 기여하지 않는다 — 두 수를 구분해 낼 것.",
       "_at_100_types": { "concepts_total": 28, "concepts_decidable": 17, "codes_checked": 87, "gaps_raw": 45, "gap_rate": "51.7%" }, "_at_80_types": { "concepts_total": 20, "concepts_decidable": 16, "codes_checked": 85, "gaps_raw": 44, "gap_rate": "51.8%" }, "_note": "80종 → 100종에서 예측층이 51→69로 늘었는데 분모(검사 코드)는 85→87로 거의 그대로다. 배치6 예측층 18종 중 17종이 판정불가 개념에 들어가 분모에 잡히지 않았기 때문 — 분모 없이 갭 절대수만 보면 '예측이 갑자기 좋아졌다'고 오독하게 되는 실례." },
+      "M3_REAL_NUMBER_CALC_preview": { "_status": "착수 전 사전 측정(검수 지시 2026-08-18) — undecidable_theoretical.ps1", "catalog_types": 203, "overlay_coverage": "43.8% (89/203)", "concepts_total": 59, "concepts_per_type_avg": 3.44, "undecidable_concepts": 21, "undecidable_types": 55, "theoretical_undecidable_rate": "27.1%", "_granularity_note": "★M2_NE 2.97종/개념 vs M3_REAL 3.44종/개념 — 차이 16%로 **입도 보정 없이 직접 비교 가능**하다. M2_GEOM(10.0종/개념)만 3배 굵어 비교 불가. ⇒ 최종 비교표에서 M2_NE 34.6%와 M3_REAL 27.1%는 나란히 놓을 수 있고, M2_GEOM 18.6%에만 '입도 상이로 직접 비교 불가' 각주를 단다." },
       "M2_GEOM_remeasured": { "authored_types": 140, "overlay_coverage": "19%", "concepts_total": 40, "concepts_decidable": 24, "concepts_undecidable": 16, "concepts_gap_capable": 24, "predicted_types_total": 97, "predicted_types_gap_capable": 47, "codes_checked": 79, "gaps_raw": 10, "gaps_aggregated": 6, "gap_rate": "12.7%", "gaps_per_gap_capable_concept": 0.42, "ubiquitous_excluded": 5, "group_field": "concept_map.concepts" },
       "★M2_GEOM_discrepancy": "재측정 집계 6 / 편재제외 5 인데, M2_GEOM 드래프트에 기록된 값은 집계 5 / 편재제외 1이다. 당시 수집은 현재 도구가 아닌 절차(일부 수작업)로 이뤄졌으므로 수치가 정확히 재현되지 않는다. ★M2_GEOM 드래프트는 병합 완료본이므로 건드리지 않는다(재측정값으로 덮어쓰지 말 것). 비교표에 쓸 때는 '수연산만 현재 도구 실측, M2_GEOM은 재측정치이며 기록값과 1항목 차이'를 반드시 병기할 것.",
       "★comparison_note": "정규화 결과: 수연산 51.8% vs M2_GEOM 12.7%. 커버리지가 더 높은 쪽(34%)의 GAP RATE가 오히려 더 높다. 절대수 비교(34 vs 5)와 방향은 같지만 배율이 전혀 다르고(6.8배 → 4.1배), 무엇보다 원인이 예측 품질이 아니라 tier 구성·개념 입도 차이일 수 있다. 수연산은 개념(범주) 하나가 최대 7종으로 넓고 그 안의 관측 유형은 1~3종뿐이라, 이웃에서 빌린 tier-2 코드가 개념 관측 합집합 밖으로 떨어지기 쉽다. 해석 보류."
@@ -390,8 +419,9 @@
       "batch8_result": "갭 8항목 추가(누계 44항목·원시 54건). 분모가 93→115로 22 늘었다(예측층 11종 × 코드 2개). 국소 GAP RATE = 8/22 = 36%로 누계(47%)보다 낮다. ★판정불가 신규 0 — 8범주 전부 관측 유형을 보유해 예측층 11종이 전부 분모에 잡혔다. 배치6(예측층 18종 중 17종이 분모 밖)과 정반대 구성이며, 검수 지시대로 편성을 조절한 결과가 분모 증가로 직접 확인된다.",
       "batch9_result": "갭 6항목 추가(누계 50항목·원시 62건). 분모 115→129(예측층 7종 × 코드 2). 국소 GAP RATE = 8/14 = 57%로 누계(48.1%)보다 높다. ★배치9는 편성을 인위적으로 고르지 않고 계열에 있는 그대로(판정가능 13 + 판정불가 9)를 가져갔다 — 그 결과 판정불가율이 24.3%→26.5%로 상승했고, 이는 예고한 이론값 34.6%로의 수렴 경로 위에 있다.",
       "batch10_result": "갭 3항목 추가(누계 53항목·원시 66건). 분모 129→137. ★판정불가가 44→58종(30.9%)으로 크게 올랐다 — 9범주 중 7범주가 관측 0이기 때문이며, 이론값 34.6% 수렴 경로의 후반부다. 역연산 계열은 이 단원에서 관측이 가장 얇은 구간이다(빈 칸 채우기 2범주만 관측 보유).",
+      "batch11_result": "최종 배치. 갭 2항목 추가(누계 55항목·원시 68건). 분모 137→143. 판정불가 58→73종. ★M2_NE 완결 시점 실측이 편성 무관 이론값과 **정확히 일치**했다 — 이론 예측 '개념 30개·73종·34.6%'와 실측 '개념 30개·73종·34.6%'. undecidable_theoretical.ps1이 저작 완료 전에 낸 값이 맞았다는 확인이며, 이 도구로 M3_REAL의 최종값(27.1%)도 착수 전에 알 수 있다.",
       "gap_counting_note": "기록은 M2_GEOM 형식대로 (태그, 개념) 단위로 집계한다. 같은 태그가 한 개념의 여러 예측층 유형에 걸리면 predicted_in 배열로 묶는다. 원시 건수와 집계 항목 수를 함께 남긴다(누계 원시 66 / 집계 53).",
-      "cumulative": "갭 집계 53항목(원시 66건) · A계열 0 · B계열 53 · 판정불가 개념 24개(58종) · 편재 제외 0. ★판정불가율 = 58/188 = 30.9%. 추이 100종 30% → 121종 28.9% → 144종 24.3% → 166종 26.5% → 188종 30.9%(이론값 34.6%로 수렴 중). 배치7(overlay 62%)·배치8(52%, 전 범주 관측 보유)을 연속 편성해 배치6(10%)의 편향을 상쇄한 결과 — 검수 지시대로 판정불가율이 배치 구성 편향을 반영하지 않도록 관리 중. ★잔여 67종에는 overlay 0 범주가 몰려 있어 후반부에 다시 오를 수 있다. 최종값은 211종 완료 시점으로 낼 것."
+      "cumulative": "★M2_NE 완결(211종) 최종: 갭 집계 55항목(원시 68건) · A계열 0 · B계열 55 · 판정불가 개념 30개(73종) · 편재 제외 0 · 판정가능 개념 41 / 갭가능 37 / 분모 143 / GAP RATE 47.6%. ★판정불가율 = 73/211 = 34.6%(완결값 = 이론값과 일치). 추이 100종 30.0% → 121종 28.9% → 144종 24.3% → 166종 26.5% → 188종 30.9% → 211종 34.6%. 배치7(overlay 62%)·배치8(52%, 전 범주 관측 보유)을 연속 편성해 배치6(10%)의 편향을 상쇄한 결과 — 검수 지시대로 판정불가율이 배치 구성 편향을 반영하지 않도록 관리 중. ★잔여 67종에는 overlay 0 범주가 몰려 있어 후반부에 다시 오를 수 있다. 최종값은 211종 완료 시점으로 낼 것."
     },
     "new_tags": []
   },
@@ -3072,6 +3102,330 @@
       "student_command": "분자·분모를 각각 정리해 약분한 뒤, 음수·분수는 괄호로 감싸 대입하라.",
       "teacher_note": "정리와 대입을 섞으면 부호와 약분이 함께 무너진다.",
       "parent_message": "분자·분모를 각각 정리하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT001": {
+      "problem_nature": "주어진 수들을 유리수의 정의에 따라 분류하는 유형",
+      "required_thinking": ["유리수 = 분수 꼴로 나타낼 수 있는 수", "정수도 분모가 1인 유리수", "유한소수·순환소수는 모두 유리수", "분류 기준을 정의로 확인"],
+      "must_write_steps": ["유리수의 정의를 적는다.", "수를 하나씩 분수 꼴로 나타낼 수 있는지 확인한다.", "정수·유한소수·순환소수를 유리수로 분류한다.", "분류 결과를 정의와 대조한다."],
+      "common_wrong_actions": ["정수를 유리수에서 제외한다.", "소수는 모두 유리수가 아니라고 본다.", "정의 없이 겉모습으로 분류한다."],
+      "error_checkpoints": [
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "유리수의 범위를 좁게(또는 넓게) 잡아 정수나 소수를 잘못 분류했다.", "student_fix": "'분수 꼴로 쓸 수 있는가'만 따져라. 정수 3은 3/1이므로 유리수다." },
+        { "error_code": "irrational_inclusion_error", "label": "무리수 포함 오류", "diagnosis": "분수 꼴로 쓸 수 없는 수를 유리수에 넣었다.", "student_fix": "그 수를 실제로 분수로 써 보라. 쓸 수 없으면 유리수가 아니다." }
+      ],
+      "student_command": "정의를 먼저 적어라. 수마다 '분수로 쓸 수 있는가'를 하나씩 확인하라.",
+      "teacher_note": "정수를 유리수에서 빼는 오해가 가장 흔하다.",
+      "parent_message": "정의를 적고 분류하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT002": {
+      "problem_nature": "유리수를 정수와 정수가 아닌 유리수로 구분하는 유형",
+      "required_thinking": ["정수 = 자연수·0·음의 정수", "약분하면 정수가 되는 분수에 주의", "소수 표현도 정수가 될 수 있음", "약분·계산 후 판단"],
+      "must_write_steps": ["각 수를 기약분수나 정수로 정리한다.", "정리 결과가 정수인지 확인한다.", "정수와 정수가 아닌 것으로 나눈다.", "약분이 끝났는지 다시 확인한다."],
+      "common_wrong_actions": ["약분하지 않고 겉모습으로 판단한다.", "0을 정수에서 뺀다.", "음수를 정수에서 뺀다."],
+      "error_checkpoints": [
+        { "error_code": "reduction_before_test_omitted", "label": "판별 전 약분 누락", "diagnosis": "약분하면 정수가 되는 분수를 그대로 두고 분류했다.", "student_fix": "판별 전에 반드시 약분하라. 4/2는 2이므로 정수다." },
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "0이나 음수를 정수에서 제외했다.", "student_fix": "정수는 자연수·0·음의 정수 전부다. 세 가지를 적어 두고 대조하라." }
+      ],
+      "student_command": "먼저 약분하라. 그다음 '자연수·0·음의 정수' 세 가지와 대조하라.",
+      "teacher_note": "약분 누락과 0 제외가 대표 오류다.",
+      "parent_message": "약분하고 분류하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT003": {
+      "problem_nature": "유리수 분류에 대한 설명의 옳고 그름을 판단하는 유형",
+      "required_thinking": ["설명을 정의와 하나씩 대조", "'모든'·'항상' 같은 말은 반례를 찾아 검증", "포함 관계(정수 ⊂ 유리수)를 확인", "반례를 하나라도 찾으면 거짓"],
+      "must_write_steps": ["설명을 하나씩 나눠 적는다.", "각 설명을 정의와 대조한다.", "'모든'이 들어간 설명은 반례를 찾아본다.", "옳고 그름을 근거와 함께 적는다."],
+      "common_wrong_actions": ["느낌으로 판단한다.", "반례를 찾지 않는다.", "포함 관계를 뒤집어 이해한다."],
+      "error_checkpoints": [
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "포함 관계를 뒤집어(유리수는 모두 정수 등) 판단했다.", "student_fix": "포함 관계를 그림으로 그려라. 정수가 유리수 안에 있고 그 반대가 아니다." },
+        { "error_code": "negation_condition_misread", "label": "부정 조건 오독", "diagnosis": "'옳지 않은 것'을 묻는데 옳은 것을 골랐다.", "student_fix": "문제의 '않은'에 동그라미를 치고, 답을 쓰기 전에 다시 보라." }
+      ],
+      "student_command": "포함 관계를 그림으로 그리고, 설명마다 반례를 찾아보라. '않은'에 동그라미부터.",
+      "teacher_note": "반례 찾기를 시키면 정의 이해가 드러난다.",
+      "parent_message": "반례를 찾아보며 판단하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT004": {
+      "problem_nature": "소수가 유한소수인지 무한소수인지 판단하는 유형",
+      "required_thinking": ["유한소수 = 소수점 아래가 유한하게 끝남", "무한소수 = 끝없이 이어짐", "무한소수 안에 순환소수와 그렇지 않은 것이 있음", "겉모습이 아니라 끝나는지로 판단"],
+      "must_write_steps": ["소수점 아래가 끝나는지 확인한다.", "끝나면 유한소수로 분류한다.", "끝나지 않으면 무한소수로 분류한다.", "무한소수면 순환 여부를 추가로 확인한다."],
+      "common_wrong_actions": ["자릿수가 많으면 무한소수로 본다.", "순환소수를 유한소수로 본다.", "무한소수를 모두 순환소수로 본다."],
+      "error_checkpoints": [
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "'무한소수 = 순환소수'로 범위를 잘못 잡았다.", "student_fix": "무한소수 안에 순환소수와 순환하지 않는 소수가 함께 있다. 두 갈래를 그려 두어라." },
+        { "error_code": "pattern_extraction_failure", "label": "규칙 추출 실패", "diagnosis": "되풀이 규칙을 찾지 못해 분류를 못 했다.", "student_fix": "숫자를 나열해 되풀이 구간을 찾아 적어 보라. 찾으면 순환소수다." }
+      ],
+      "student_command": "'끝나는가'로 먼저 나누고, 끝나지 않으면 되풀이 마디를 찾아보라.",
+      "teacher_note": "자릿수가 많은 것과 무한한 것을 구분시켜라.",
+      "parent_message": "끝나는지부터 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT005": {
+      "problem_nature": "여러 소수를 유한소수와 무한소수로 나누는 유형",
+      "required_thinking": ["분수로 주어지면 기약분수의 분모를 봄", "분모의 소인수가 2·5뿐이면 유한소수", "소수로 주어지면 끝나는지로 판단", "주어진 형태에 맞는 기준을 선택"],
+      "must_write_steps": ["주어진 형태(분수/소수)를 확인한다.", "분수면 약분 후 분모를 소인수분해한다.", "소수면 끝나는지 확인한다.", "형태별 기준으로 분류한다."],
+      "common_wrong_actions": ["분수인데 소수 기준으로 판단한다.", "약분을 빠뜨린다.", "분자의 소인수를 본다."],
+      "error_checkpoints": [
+        { "error_code": "reduction_before_test_omitted", "label": "판별 전 약분 누락", "diagnosis": "약분하지 않고 원래 분모로 판별했다.", "student_fix": "약분한 분수를 새 줄에 적고 그 분모만 보라." },
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "분모의 소인수가 2·5뿐인지 확인하는 조건을 잘못 적용했다.", "student_fix": "분모를 소인수분해해 적고 2·5가 아닌 소인수에 동그라미를 쳐라." }
+      ],
+      "student_command": "분수면 약분 후 분모의 소인수를, 소수면 끝나는지를 보라. 기준을 먼저 정하라.",
+      "teacher_note": "형태에 맞는 기준 선택이 첫 갈림길이다.",
+      "parent_message": "분수인지 소수인지 보고 기준을 정하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT006": {
+      "problem_nature": "소수 표현을 보고 유한·무한·순환 여부를 분류하는 유형",
+      "required_thinking": ["점 표기가 있으면 순환소수", "표기의 범위를 정확히 읽음", "유한소수는 점 표기가 없음", "표기를 풀어 써서 확인"],
+      "must_write_steps": ["표기에 점이 있는지 확인한다.", "점이 있으면 범위를 읽어 마디를 적는다.", "풀어 써서 실제 수를 확인한다.", "유한·무한·순환으로 분류한다."],
+      "common_wrong_actions": ["점의 범위를 잘못 읽는다.", "표기만 보고 풀어 쓰지 않는다.", "순환소수를 무한소수가 아니라고 본다."],
+      "error_checkpoints": [
+        { "error_code": "recurrence_dot_scope_misread", "label": "순환점 범위 오독", "diagnosis": "점이 걸린 범위를 잘못 읽어 다른 수로 분류했다.", "student_fix": "점의 범위대로 소수를 여러 자리 풀어 써라. 표기만 보고 판단하지 마라." },
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "순환소수와 무한소수의 포함 관계를 뒤집어 이해했다.", "student_fix": "순환소수는 무한소수의 한 종류다. 포함 관계를 그림으로 그려 두어라." }
+      ],
+      "student_command": "점의 범위대로 풀어 써서 확인한 뒤 분류하라.",
+      "teacher_note": "풀어 쓰기를 시키면 표기 오독이 바로 드러난다.",
+      "parent_message": "풀어 써서 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT007": {
+      "problem_nature": "분수를 소수로 바꿔 유한소수 여부를 판단하는 유형",
+      "required_thinking": ["약분한 분모의 소인수가 판단 기준", "실제로 나눠 확인할 수도 있음", "2·5 외 소인수가 있으면 순환소수", "판단 근거를 적음"],
+      "must_write_steps": ["분수를 기약분수로 약분한다.", "분모를 소인수분해한다.", "2·5뿐이면 유한소수로 판단한다.", "필요하면 나눠서 확인한다."],
+      "common_wrong_actions": ["약분하지 않는다.", "분자를 본다.", "근거 없이 판단한다."],
+      "error_checkpoints": [
+        { "error_code": "reduction_before_test_omitted", "label": "판별 전 약분 누락", "diagnosis": "약분하지 않아 판단이 뒤집혔다.", "student_fix": "판별은 약분 다음이다. 약분한 분수를 적고 그 분모만 보라." },
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "분모 조건을 잘못 적용했다.", "student_fix": "분모를 소인수분해해 2·5가 아닌 것이 있는지 확인하라." }
+      ],
+      "student_command": "약분 → 분모 소인수분해 → 2·5뿐인지 확인. 이 순서를 지켜라.",
+      "teacher_note": "약분 줄이 없으면 정답이라도 우연이다.",
+      "parent_message": "약분하는 줄이 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT008": {
+      "problem_nature": "분모를 10의 거듭제곱으로 만들어 분수를 유한소수로 나타내는 유형",
+      "required_thinking": ["분모의 2와 5의 개수를 맞춰 10을 만듦", "부족한 쪽을 분자·분모에 함께 곱함", "10^n 이 되면 소수점을 n칸 옮김", "약분 상태에서 시작"],
+      "must_write_steps": ["약분한 분모를 소인수분해한다.", "2와 5의 개수를 세어 부족한 쪽을 확인한다.", "부족한 수를 분자·분모에 함께 곱한다.", "10의 거듭제곱이 된 분모로 소수를 적는다."],
+      "common_wrong_actions": ["분모에만 곱한다.", "2와 5의 개수를 맞추지 않는다.", "소수점 자리를 잘못 옮긴다."],
+      "error_checkpoints": [
+        { "error_code": "power_of_ten_extraction_failure", "label": "10의 거듭제곱 분리 실패", "diagnosis": "2와 5의 개수를 맞춰 10의 거듭제곱을 만들지 못했다.", "student_fix": "분모의 2 개수와 5 개수를 세어 적어라. 적은 쪽에 부족한 만큼 곱해 개수를 맞춘다." },
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "분모에만 곱해 분수의 값이 달라졌다.", "student_fix": "분자와 분모에 같은 수를 곱해야 값이 유지된다. 위아래에 같이 적어라." }
+      ],
+      "student_command": "분모의 2 개수와 5 개수를 세어 적고, 부족한 쪽을 분자·분모에 함께 곱하라.",
+      "teacher_note": "분모에만 곱하는 오류가 대표적이다.",
+      "parent_message": "분자에도 같이 곱하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT009": {
+      "problem_nature": "분수를 소수로 고칠 때 유한소수가 되는지 판단하고 근거를 대는 유형",
+      "required_thinking": ["약분 후 분모의 소인수로 판단", "판단 근거를 문장으로 적음", "여러 분수를 비교하면 규칙을 찾음", "예외 없이 같은 절차 적용"],
+      "must_write_steps": ["각 분수를 약분한다.", "분모를 소인수분해해 적는다.", "2·5 외 소인수 유무로 판단한다.", "판단 근거를 문장으로 적는다."],
+      "common_wrong_actions": ["약분을 일부만 한다.", "근거 없이 답만 쓴다.", "규칙을 찾지 않고 하나씩만 본다."],
+      "error_checkpoints": [
+        { "error_code": "reduction_before_test_omitted", "label": "판별 전 약분 누락", "diagnosis": "일부 분수만 약분해 판단이 어긋났다.", "student_fix": "분수마다 약분한 결과를 옆에 적어라. 하나도 건너뛰지 마라." },
+        { "error_code": "pattern_extraction_failure", "label": "규칙 추출 실패", "diagnosis": "여러 분수의 공통 규칙을 찾지 못해 하나씩 따지다 놓쳤다.", "student_fix": "분모를 소인수분해해 나란히 적으면 규칙이 보인다. 규칙을 한 문장으로 적어라." }
+      ],
+      "student_command": "분수마다 약분 결과를 적고 분모를 소인수분해해 나란히 놓아라. 규칙이 보인다.",
+      "teacher_note": "나란히 적게 하면 규칙 발견이 쉬워진다.",
+      "parent_message": "분수마다 약분해 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT046": {
+      "problem_nature": "순환소수에 적당한 수를 곱해 정수로 만드는 유형",
+      "required_thinking": ["순환소수를 분수로 바꾼 뒤 판단", "분모를 없애는 수를 곱해야 정수", "곱할 수는 분모의 배수", "가장 작은 값을 묻는 경우가 많음"],
+      "must_write_steps": ["순환소수를 기약분수로 바꾼다.", "분모를 확인한다.", "정수가 되려면 곱할 수가 분모의 배수여야 함을 적는다.", "조건에 맞는 값을 고른다."],
+      "common_wrong_actions": ["분수로 바꾸지 않고 짐작한다.", "약분을 끝내지 않는다.", "가장 작은 값을 묻는데 아무 값이나 답한다."],
+      "error_checkpoints": [
+        { "error_code": "mixed_recurring_conversion_error", "label": "혼합 순환소수 분수변환 오류", "diagnosis": "순환소수를 분수로 바꾸는 절차를 형태에 맞지 않게 적용했다.", "student_fix": "소수점 바로 뒤가 마디인지 확인하고 그 형태의 절차를 쓰라." },
+        { "error_code": "post_reduction_value_error", "label": "약분 후 값 오류", "diagnosis": "약분을 끝내지 않은 분모로 조건을 세웠다.", "student_fix": "기약분수가 될 때까지 약분한 뒤 그 분모를 쓰라." }
+      ],
+      "student_command": "먼저 기약분수로 바꿔라. 곱할 수는 그 분모의 배수다.",
+      "teacher_note": "분수 변환 없이 짐작하는 것이 실패 원인이다.",
+      "parent_message": "분수로 바꾸고 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT047": {
+      "problem_nature": "정수나 유한소수로 나타낼 수 있는 순환소수를 판별하는 유형",
+      "required_thinking": ["순환소수를 기약분수로 바꿈", "분모가 1이면 정수", "분모의 소인수가 2·5뿐이면 유한소수", "판단 근거를 적음"],
+      "must_write_steps": ["순환소수를 기약분수로 바꾼다.", "분모를 확인하고 소인수분해한다.", "분모가 1인지, 2·5뿐인지 판단한다.", "근거와 함께 답한다."],
+      "common_wrong_actions": ["변환 없이 겉모습으로 판단한다.", "약분을 끝내지 않는다.", "조건을 반대로 적용한다."],
+      "error_checkpoints": [
+        { "error_code": "post_reduction_value_error", "label": "약분 후 값 오류", "diagnosis": "약분이 끝나지 않은 분모로 판별했다.", "student_fix": "분자·분모에 공통인수가 남았는지 확인하는 줄을 넣어라." },
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "분모 조건을 잘못 적용해 판별이 뒤집혔다.", "student_fix": "분모 1이면 정수, 2·5뿐이면 유한소수. 두 문장을 적어 두고 대조하라." }
+      ],
+      "student_command": "기약분수로 바꾼 뒤 분모를 보라. 1이면 정수, 2·5뿐이면 유한소수다.",
+      "teacher_note": "변환과 약분 두 단계를 모두 확인하라.",
+      "parent_message": "끝까지 약분하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT053": {
+      "problem_nature": "순환소수가 든 부등식을 만족하는 정수를 구하는 유형",
+      "required_thinking": ["순환소수를 분수나 소수로 바꿔 경계를 정함", "경계값이 포함되는지 확인", "범위 안의 정수를 빠짐없이 셈", "조건이 여럿이면 교집합"],
+      "must_write_steps": ["순환소수를 분수 또는 충분한 자리의 소수로 바꾼다.", "부등식의 경계를 수직선에 표시한다.", "경계 포함 여부를 확인한다.", "범위 안의 정수를 모두 나열한다."],
+      "common_wrong_actions": ["경계값 포함 여부를 틀린다.", "범위 안 정수를 빠뜨린다.", "여러 조건을 합집합으로 처리한다."],
+      "error_checkpoints": [
+        { "error_code": "inequality_bound_conversion_error", "label": "부등식 경계 변환 오류", "diagnosis": "순환소수를 경계값으로 바꾸며 포함 여부를 틀렸다.", "student_fix": "경계를 수직선에 찍고 '포함이면 검은 점, 아니면 흰 점'으로 표시하라." },
+        { "error_code": "integer_candidate_enumeration_gap", "label": "정수 후보 열거 누락", "diagnosis": "범위 안의 정수를 일부 빠뜨렸다.", "student_fix": "수직선에 범위를 그리고 정수를 하나씩 찍어 세어라. 개수를 적어 두라." },
+        { "error_code": "multi_constraint_intersection_failure", "label": "복수 조건 교집합 실패", "diagnosis": "조건이 여럿인데 공통 범위를 취하지 않았다.", "student_fix": "조건마다 범위를 수직선에 그리고 겹치는 구간만 남겨라." }
+      ],
+      "student_command": "수직선에 경계를 찍고 포함 여부를 점으로 표시한 뒤, 정수를 하나씩 세어라.",
+      "teacher_note": "수직선을 그리게 하면 세 오류가 함께 준다.",
+      "parent_message": "수직선을 그려 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT054": {
+      "problem_nature": "부등식을 만족하는 순환소수를 찾는 유형",
+      "required_thinking": ["후보를 모두 같은 형태로 풀어 씀", "경계와 자리별로 비교", "점 표기의 범위를 정확히 읽음", "조건을 만족하는 것을 빠짐없이 고름"],
+      "must_write_steps": ["후보 순환소수를 충분한 자리까지 풀어 쓴다.", "부등식의 경계도 같은 자리까지 적는다.", "자리를 맞춰 비교한다.", "조건을 만족하는 것을 모두 고른다."],
+      "common_wrong_actions": ["표기만 보고 비교한다.", "점의 범위를 잘못 읽는다.", "일부 후보만 확인한다."],
+      "error_checkpoints": [
+        { "error_code": "recurrence_dot_scope_misread", "label": "순환점 범위 오독", "diagnosis": "점의 범위를 잘못 읽어 비교가 어긋났다.", "student_fix": "점의 범위대로 6~8자리까지 풀어 써서 세로로 맞춰라." },
+        { "error_code": "inequality_bound_conversion_error", "label": "부등식 경계 변환 오류", "diagnosis": "경계값과 후보를 같은 형태로 맞추지 않고 비교했다.", "student_fix": "경계도 후보와 같은 자리까지 소수로 적어 나란히 비교하라." }
+      ],
+      "student_command": "후보와 경계를 같은 자리까지 풀어 써서 세로로 맞춰 비교하라.",
+      "teacher_note": "형태를 통일하지 않고 비교하는 것이 오류의 뿌리다.",
+      "parent_message": "풀어 써서 비교하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT059": {
+      "problem_nature": "분자 또는 분모를 잘못 보고 나타낸 순환소수로부터 원래 분수를 구하는 유형",
+      "required_thinking": ["잘못 본 값으로 분수를 복원", "잘못 본 부분과 바르게 본 부분을 구분", "복원한 정보를 합쳐 원래 분수를 만듦", "마지막에 바른 답을 계산"],
+      "must_write_steps": ["잘못 본 순환소수를 분수로 바꾼다.", "그 분수에서 바르게 본 부분을 읽어낸다.", "원래 분수를 복원한다.", "복원한 분수로 바른 답을 구한다."],
+      "common_wrong_actions": ["잘못 본 값을 그대로 답한다.", "어느 쪽을 잘못 봤는지 구분하지 않는다.", "복원 없이 계산한다."],
+      "error_checkpoints": [
+        { "error_code": "intended_vs_actual_value_swap", "label": "의도값·실제값 뒤바꿈", "diagnosis": "잘못 본 값과 원래 값을 뒤바꿔 사용했다.", "student_fix": "'잘못 본 것 / 바르게 본 것 / 원래 분수' 세 줄로 나눠 적고 이름을 붙여라." },
+        { "error_code": "mixed_recurring_conversion_error", "label": "혼합 순환소수 분수변환 오류", "diagnosis": "순환소수를 분수로 바꾸는 절차를 형태에 맞지 않게 적용했다.", "student_fix": "소수점 바로 뒤가 마디인지 확인하고 그 형태의 절차를 쓰라." }
+      ],
+      "student_command": "'잘못 본 것 / 바르게 본 것 / 원래 분수' 세 줄로 나눠 적어라. 복원이 먼저다.",
+      "teacher_note": "어느 쪽을 잘못 봤는지 표시하지 않으면 복원이 불가능하다.",
+      "parent_message": "잘못 본 부분을 표시하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT060": {
+      "problem_nature": "분자와 분모를 각각 잘못 본 두 순환소수로부터 원래 분수를 구하는 유형",
+      "required_thinking": ["두 잘못된 값에서 각각 옳은 정보를 뽑음", "분자는 한쪽에서, 분모는 다른 쪽에서 얻음", "두 정보를 합쳐 원래 분수를 만듦", "복원 후 바른 답을 계산"],
+      "must_write_steps": ["두 순환소수를 각각 분수로 바꾼다.", "각 분수에서 바르게 본 부분을 표시한다.", "분자와 분모를 각각 가져와 원래 분수를 만든다.", "원래 분수로 바른 답을 구한다."],
+      "common_wrong_actions": ["두 값 중 하나만 쓴다.", "분자와 분모를 반대로 가져온다.", "복원 없이 답한다."],
+      "error_checkpoints": [
+        { "error_code": "intended_vs_actual_value_swap", "label": "의도값·실제값 뒤바꿈", "diagnosis": "각 값에서 옳은 부분과 잘못된 부분을 뒤바꿔 가져왔다.", "student_fix": "두 분수를 나란히 적고 옳은 부분에만 동그라미를 쳐라. 동그라미 친 것만 가져온다." },
+        { "error_code": "multi_expression_dependency_error", "label": "다중 식 의존 처리 오류", "diagnosis": "두 값을 합쳐 하나의 분수로 만드는 과정을 놓쳤다.", "student_fix": "'분자는 어디서, 분모는 어디서' 가져올지 화살표로 그린 뒤 합쳐라." }
+      ],
+      "student_command": "두 분수를 나란히 적고 옳은 부분에만 동그라미를 쳐라. 그것만 모아 원래 분수를 만든다.",
+      "teacher_note": "화살표로 출처를 그리게 하면 뒤바꿈이 사라진다.",
+      "parent_message": "옳은 부분을 표시하며 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT061": {
+      "problem_nature": "잘못 계산한 값이 주어질 때 어떤 수나 바른 값을 구하는 유형",
+      "required_thinking": ["잘못한 계산을 식으로 복원", "역연산으로 원래 수를 구함", "원래 수로 바르게 계산", "묻는 것이 어느 값인지 확인"],
+      "must_write_steps": ["잘못한 계산을 식으로 적는다.", "역연산으로 원래 수를 구한다.", "원래 수로 바르게 계산한다.", "묻는 것이 무엇인지 확인해 답한다."],
+      "common_wrong_actions": ["복원 없이 답한다.", "잘못한 값을 답한다.", "역연산 방향을 뒤바꾼다."],
+      "error_checkpoints": [
+        { "error_code": "intended_vs_actual_value_swap", "label": "의도값·실제값 뒤바꿈", "diagnosis": "복원한 원래 수를 최종 답으로 냈다.", "student_fix": "'잘못한 식 / 원래 수 / 바른 답' 세 줄에 이름을 붙이고 마지막 줄을 답하라." },
+        { "error_code": "inverse_operation_setup_error", "label": "역연산 식 세우기 오류", "diagnosis": "원래 수를 구하는 역연산을 잘못 골랐다.", "student_fix": "잘못한 계산이 무슨 연산이었는지 적고 그 반대를 적용하라." }
+      ],
+      "student_command": "'잘못한 식 / 원래 수 / 바른 답' 세 줄에 이름을 붙여라. 마지막 줄이 답이다.",
+      "teacher_note": "복원 결과를 답으로 내는 오류가 가장 흔하다.",
+      "parent_message": "원래 수를 복원하는 줄이 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT062": {
+      "problem_nature": "바른 값과 잘못 계산한 값의 차가 주어질 때 값을 구하는 유형",
+      "required_thinking": ["차를 식으로 세움(바른 값 − 잘못한 값)", "빼는 방향을 문제 문장에서 확인", "차 식을 풀어 미지수를 구함", "묻는 것이 어느 값인지 확인"],
+      "must_write_steps": ["바른 계산과 잘못한 계산을 각각 식으로 적는다.", "문제가 말하는 차의 방향을 확인해 식을 세운다.", "차 식을 풀어 미지수를 구한다.", "묻는 값을 계산해 답한다."],
+      "common_wrong_actions": ["차의 방향을 반대로 세운다.", "차를 구하고 끝낸다(묻는 값을 안 구함).", "두 계산을 구분하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "intended_vs_actual_value_swap", "label": "의도값·실제값 뒤바꿈", "diagnosis": "바른 값과 잘못한 값을 뒤바꿔 식에 넣었다.", "student_fix": "두 계산에 이름을 붙여 각각 한 줄씩 적고, 그 이름으로 차 식을 세워라." },
+        { "error_code": "difference_direction_error", "label": "차의 방향 오류", "diagnosis": "'~보다 얼마 크다/작다'의 방향을 반대로 잡았다.", "student_fix": "문제 문장에서 '무엇이 무엇보다'를 찾아 화살표를 그리고 그 방향대로 빼라." },
+        { "error_code": "answer_stage_confusion", "label": "답 단계 혼동", "diagnosis": "미지수를 구하고 멈춰 최종적으로 묻는 값을 답하지 않았다.", "student_fix": "문제가 묻는 것을 맨 위에 적어 두고, 마지막 줄에 그 답을 적어라." }
+      ],
+      "student_command": "두 계산에 이름을 붙이고 차의 방향을 화살표로 표시하라. 마지막에 묻는 값을 확인하라.",
+      "teacher_note": "방향 오류와 답 단계 혼동이 함께 나온다.",
+      "parent_message": "문제가 묻는 것을 마지막에 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT063": {
+      "problem_nature": "순환소수에 자연수를 곱해 자연수가 되도록 하는 값을 구하는 유형",
+      "required_thinking": ["순환소수를 기약분수로 바꿈", "자연수가 되려면 분모가 약분돼 사라져야 함", "곱할 수는 분모의 배수", "조건을 만족하는 값이 여럿이면 모두 답"],
+      "must_write_steps": ["순환소수를 기약분수로 바꾼다.", "분모를 확인한다.", "곱할 수가 분모의 배수여야 함을 적는다.", "조건에 맞는 값을 모두 나열한다."],
+      "common_wrong_actions": ["약분을 끝내지 않는다.", "답이 여럿인데 하나만 쓴다.", "분자를 기준으로 조건을 세운다."],
+      "error_checkpoints": [
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "곱할 수가 분모의 배수여야 한다는 조건을 잘못 세웠다.", "student_fix": "기약분수의 분모를 적고 '곱할 수 = 그 분모의 배수'를 문장으로 쓰라." },
+        { "error_code": "multiple_answer_omission", "label": "복수 정답 누락", "diagnosis": "조건을 만족하는 값이 여럿인데 일부만 답했다.", "student_fix": "조건에 맞는 값을 작은 순으로 나열하고, 문제가 범위를 줬는지 확인하라." }
+      ],
+      "student_command": "기약분수로 바꿔 분모를 적고, 곱할 수는 그 분모의 배수임을 문장으로 써라.",
+      "teacher_note": "답이 여럿인 경우를 놓치는 오류가 흔하다.",
+      "parent_message": "답이 여럿인지 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT064": {
+      "problem_nature": "순환소수에 수를 곱해 유한소수가 되도록 하는 값을 구하는 유형",
+      "required_thinking": ["순환소수를 기약분수로 바꿈", "유한소수 조건 = 분모의 소인수가 2·5뿐", "분모에서 2·5 외 소인수를 없애는 수를 곱함", "조건에 맞는 값을 고름"],
+      "must_write_steps": ["순환소수를 기약분수로 바꾼다.", "분모를 소인수분해한다.", "2·5 외 소인수를 없애는 x의 조건을 적는다.", "조건에 맞는 값을 고른다."],
+      "common_wrong_actions": ["자연수 조건과 혼동한다.", "약분을 끝내지 않는다.", "2·5까지 없애려 한다."],
+      "error_checkpoints": [
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "유한소수 조건과 자연수 조건을 뒤바꿔 적용했다.", "student_fix": "자연수는 분모를 전부 없애야 하고, 유한소수는 2·5 외만 없애면 된다. 두 문장을 나란히 적고 고르라." },
+        { "error_code": "post_reduction_value_error", "label": "약분 후 값 오류", "diagnosis": "약분이 끝나지 않은 분모로 조건을 세웠다.", "student_fix": "기약분수가 될 때까지 약분한 뒤 그 분모를 쓰라." }
+      ],
+      "student_command": "두 조건을 나란히 적어라 — 자연수는 분모 전부, 유한소수는 2·5 외만 없앤다.",
+      "teacher_note": "두 조건의 차이를 대조시키면 혼동이 사라진다.",
+      "parent_message": "무엇이 되어야 하는지 확인하고 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT065": {
+      "problem_nature": "순환소수에 대한 설명의 옳고 그름을 판단하는 유형",
+      "required_thinking": ["설명을 정의와 하나씩 대조", "'모든'이 들어가면 반례를 찾음", "순환소수와 무한소수의 포함 관계 확인", "반례가 하나라도 있으면 거짓"],
+      "must_write_steps": ["설명을 하나씩 나눠 적는다.", "정의와 대조해 옳고 그름을 판단한다.", "'모든'이 든 설명은 반례를 찾아본다.", "근거와 함께 답한다."],
+      "common_wrong_actions": ["느낌으로 판단한다.", "반례를 찾지 않는다.", "포함 관계를 뒤집어 이해한다."],
+      "error_checkpoints": [
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "'무한소수는 모두 순환소수' 같은 과잉 일반화를 참으로 판단했다.", "student_fix": "무한소수 안에 순환하지 않는 소수가 있다. 포함 관계를 그림으로 그려 두어라." },
+        { "error_code": "irrational_inclusion_error", "label": "무리수 포함 오류", "diagnosis": "규칙 없이 무한한 소수를 순환소수에 포함시켰다.", "student_fix": "마디를 적을 수 있는지 시험해 보라. 못 적으면 순환소수가 아니다." }
+      ],
+      "student_command": "포함 관계를 그림으로 그리고, 설명마다 반례를 찾아보라.",
+      "teacher_note": "반례 찾기가 정의 이해를 드러낸다.",
+      "parent_message": "반례를 찾아보며 판단하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT066": {
+      "problem_nature": "주어진 순환소수에 대한 구체적 설명의 옳고 그름을 판단하는 유형",
+      "required_thinking": ["설명이 가리키는 자리·마디를 실제로 확인", "점 표기의 범위를 정확히 읽음", "풀어 써서 대조", "설명마다 따로 판단"],
+      "must_write_steps": ["순환소수를 여러 자리까지 풀어 쓴다.", "설명이 가리키는 자리나 마디를 표시한다.", "설명과 실제를 대조한다.", "설명마다 옳고 그름을 적는다."],
+      "common_wrong_actions": ["풀어 쓰지 않고 표기만 본다.", "점의 범위를 잘못 읽는다.", "설명 하나로 전체를 판단한다."],
+      "error_checkpoints": [
+        { "error_code": "recurrence_dot_scope_misread", "label": "순환점 범위 오독", "diagnosis": "점의 범위를 잘못 읽어 마디를 다르게 보고 판단했다.", "student_fix": "점의 범위대로 6~8자리까지 풀어 쓴 뒤 설명과 대조하라." },
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "한 설명의 판단을 다른 설명에도 그대로 적용했다.", "student_fix": "설명마다 줄을 나눠 각각 판단하라. 하나가 맞다고 나머지가 맞는 것은 아니다." }
+      ],
+      "student_command": "먼저 풀어 쓰고, 설명마다 줄을 나눠 각각 대조하라.",
+      "teacher_note": "설명을 묶어 판단하려다 틀린다.",
+      "parent_message": "설명마다 나눠 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT067": {
+      "problem_nature": "주어진 수가 유리수인지 판별하는 유형",
+      "required_thinking": ["유리수 = 분수 꼴로 나타낼 수 있는 수", "유한소수·순환소수는 유리수", "순환하지 않는 무한소수는 유리수가 아님", "실제로 분수로 바꿔 확인"],
+      "must_write_steps": ["각 수의 소수 형태를 확인한다.", "유한·순환이면 분수로 바꿔 본다.", "바꿀 수 있으면 유리수로 판별한다.", "판별 근거를 적는다."],
+      "common_wrong_actions": ["소수는 유리수가 아니라고 본다.", "순환하지 않는 무한소수를 유리수로 본다.", "근거 없이 판단한다."],
+      "error_checkpoints": [
+        { "error_code": "irrational_inclusion_error", "label": "무리수 포함 오류", "diagnosis": "분수로 쓸 수 없는 수를 유리수로 분류했다.", "student_fix": "그 수를 실제로 분수로 바꿔 보라. 마디를 못 찾으면 분수로 못 쓴다." },
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "유리수의 범위를 좁게 잡아 순환소수를 제외했다.", "student_fix": "순환소수는 분수로 바꿀 수 있으므로 유리수다. 실제로 바꿔 확인하라." }
+      ],
+      "student_command": "판별의 근거는 '분수로 바꿀 수 있는가'다. 실제로 바꿔 보라.",
+      "teacher_note": "순환소수를 유리수에서 빼는 오해가 흔하다.",
+      "parent_message": "분수로 바꿔 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT068": {
+      "problem_nature": "유리수와 소수의 관계에 대한 설명의 옳고 그름을 판별하는 유형",
+      "required_thinking": ["유리수·유한소수·순환소수·무한소수의 포함 관계 정리", "'모든'이 든 설명은 반례를 찾음", "순환하지 않는 무한소수의 존재를 기억", "설명마다 따로 판단"],
+      "must_write_steps": ["네 개념의 포함 관계를 그림으로 그린다.", "설명을 하나씩 그림과 대조한다.", "반례를 찾아 적는다.", "옳고 그름을 근거와 함께 답한다."],
+      "common_wrong_actions": ["'모든 무한소수는 유리수'로 본다.", "포함 관계를 뒤집는다.", "반례를 찾지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "irrational_inclusion_error", "label": "무리수 포함 오류", "diagnosis": "순환하지 않는 무한소수를 유리수에 포함시켜 설명을 참으로 판단했다.", "student_fix": "순환하지 않는 무한소수가 반례다. 그런 수를 하나 적어 두고 설명마다 대입해 보라." },
+        { "error_code": "definition_scope_overgeneralization", "label": "정의 범위 과일반화", "diagnosis": "포함 관계를 뒤집어(유리수는 모두 유한소수 등) 판단했다.", "student_fix": "포함 관계를 그림으로 그려 두고 설명의 화살표 방향을 대조하라." }
+      ],
+      "student_command": "네 개념의 포함 관계를 그림으로 그려 두고, 설명마다 반례를 대입해 보라.",
+      "teacher_note": "그림 한 장이 이 유형 전체를 해결한다.",
+      "parent_message": "포함 관계를 그려 보는지 봐 주세요.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
