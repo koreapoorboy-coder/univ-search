@@ -317,13 +317,27 @@ $('#saveBtn').onclick = async () => {
 async function editItem(it){
   clearForm();
   CURRENT_ID=it.id; $('#editing').textContent=`· 편집 중 (id ${String(it.id).slice(0,8)}…, ${it.status})`;
-  if(it.unit_id){ $('#unit').value=it.unit_id; await loadTypes(it.unit_id); }
+  // ★조용한 실패 차단(2026-08-16): 단원 옵션이 아직 안 실렸거나 loadUnits가 실패했으면
+  //   $('#unit').value 대입이 예외 없이 무시되어 unit_id가 빈 값으로 저장될 수 있다.
+  //   순서 자체는 그대로 두되, 실패를 눈에 보이게 만든다.
+  let unitWarn='';
+  if(it.unit_id){
+    $('#unit').value=it.unit_id;
+    if($('#unit').value!==it.unit_id){
+      unitWarn=` ⚠ 단원(${it.unit_id})을 선택하지 못했습니다 — 단원 목록이 로드되지 않았습니다. 이대로 저장하면 단원이 빈 값으로 덮어써집니다. [설정 저장]으로 단원을 불러온 뒤 다시 여세요.`;
+      console.warn('[admin_items] unit select failed:', it.unit_id, '(options=', $('#unit').options.length, ')');
+      $('#editing').textContent+=' · ⚠ 단원 미선택';
+      $('#unit').style.borderColor='#b91c1c';
+    } else { $('#unit').style.borderColor=''; }
+    await loadTypes(it.unit_id);
+  }
   $('#question_text').value=it.question_text||''; $('#answer').value=it.answer||''; $('#explanation').value=it.explanation||'';
   $('#difficulty').value=it.difficulty||'core';
   $('#etags').value=(it.error_tags||[]).join(', '); $('#source_note').value=it.source_note||'';
   renderTypeOptions(it.problem_type_id||'');
   window.scrollTo({top:$('#question_text').getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});
-  $('#saveStatus').textContent = it.status==='pending' ? ' 보류 문항 — 유형을 지정하고 저장하면 승인으로 승격됩니다.' : ' 편집 모드 — 저장하면 덮어씁니다.';
+  // ★경고가 있으면 상태 문구에 덮이지 않게 뒤에 붙인다(조용한 실패 차단).
+  $('#saveStatus').textContent = (it.status==='pending' ? ' 보류 문항 — 유형을 지정하고 저장하면 승인으로 승격됩니다.' : ' 편집 모드 — 저장하면 덮어씁니다.') + unitWarn;
 }
 
 // ── 등록 목록 ──────────────────────────────────────────────────────────────────
