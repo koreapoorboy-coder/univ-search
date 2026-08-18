@@ -6,7 +6,7 @@
     "authoring_rule": "error_checkpoints[].error_code 4-tier: 1)자기 overlay → 2)단원 overlay 풀(91 distinct) → 3)dict v2 → 4)신설. checkpoint 2~4. ★교체 단원이므로 error_tags는 기존 값 보존(overlay는 error_code로만 사용) — 닮음과 다른 규칙.",
     "replacement_spec": "교체 10필드(8처방 + matched_template_id/match_score → null) · 추가 3(draft·revision·observed_basis) · 보존 12(grade·course·unit_id·unit_name·type_name·visible_path·taxonomy_levels·concept_ids·error_tags·default_difficulty·source_orders·raw_section_id). 병합 전 23필드 → 병합 후 26필드.",
     "observed_basis_rule": "★overlay 커버리지 71/211(34%)이라 유형별 true/false 혼재가 정상(닮음의 전건 true와 다름). 자기 overlay 태그가 있으면 true.",
-    "progress": { "authored": 22, "total": 211, "batch": "2 (지수법칙 3범주) 완료" },
+    "progress": { "authored": 34, "total": 211, "batch": "3 (다항식 계열 4범주) 완료" },
     "batch_scope": "범주 경계 유지: 순환마디(3) · 순환소수를 포함한 식의 계산(3) · 순환소수를 포함한 등식에서 미지수의 값 구하기(4). overlay 보유 6 / 미보유 4로 tier-1과 tier-2·3을 한 배치에서 함께 측정.",
     "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + cp 2~4 · nonnull 0 · label_map 대조 · U+FFFD 스캔(§7 상시항목). _meta 편집은 edit_json_meta.ps1 경유.",
     "new_tag_ceiling": "414종 기준 신설 40종 초과 시 즉시 중간보고(검수 지시 2026-08-16).",
@@ -16,7 +16,11 @@
       "순환소수를 포함한 등식에서 미지수의 값 구하기": ["M2_NE_PT055","M2_NE_PT056","M2_NE_PT057","M2_NE_PT058"],
       "지수법칙(2) - 거듭제곱의 거듭제곱": ["M2_NE_PT074","M2_NE_PT075","M2_NE_PT076","M2_NE_PT077","M2_NE_PT078"],
       "지수법칙(3) - 거듭제곱의 나눗셈": ["M2_NE_PT079","M2_NE_PT080","M2_NE_PT081"],
-      "지수법칙(4) - 곱의 거듭제곱": ["M2_NE_PT082","M2_NE_PT083","M2_NE_PT084","M2_NE_PT085"]
+      "지수법칙(4) - 곱의 거듭제곱": ["M2_NE_PT082","M2_NE_PT083","M2_NE_PT084","M2_NE_PT085"],
+      "다항식의 덧셈과 뺄셈": ["M2_NE_PT146","M2_NE_PT147","M2_NE_PT148","M2_NE_PT149"],
+      "이차식 찾기": ["M2_NE_PT150","M2_NE_PT151"],
+      "단항식과 다항식의 곱셈": ["M2_NE_PT167","M2_NE_PT168","M2_NE_PT169"],
+      "다항식과 단항식의 나눗셈": ["M2_NE_PT170","M2_NE_PT171","M2_NE_PT172"]
     },
     "concept_map_semantics": "개념 → problem_type_id 목록(커버리지 검증용). 골격 공유 규칙은 skeleton_sharing 참조.",
     "concept_map": {
@@ -25,7 +29,11 @@
       "순환소수 등식에서 미지수 구하기": ["M2_NE_PT055","M2_NE_PT056","M2_NE_PT057","M2_NE_PT058"],
       "거듭제곱의 거듭제곱": ["M2_NE_PT074","M2_NE_PT075","M2_NE_PT076","M2_NE_PT077","M2_NE_PT078"],
       "거듭제곱의 나눗셈": ["M2_NE_PT079","M2_NE_PT080","M2_NE_PT081"],
-      "곱의 거듭제곱": ["M2_NE_PT082","M2_NE_PT083","M2_NE_PT084","M2_NE_PT085"]
+      "곱의 거듭제곱": ["M2_NE_PT082","M2_NE_PT083","M2_NE_PT084","M2_NE_PT085"],
+      "다항식의 덧셈·뺄셈": ["M2_NE_PT146","M2_NE_PT147","M2_NE_PT148","M2_NE_PT149"],
+      "식의 차수 판별": ["M2_NE_PT150","M2_NE_PT151"],
+      "단항식×다항식 전개": ["M2_NE_PT167","M2_NE_PT168","M2_NE_PT169"],
+      "다항식÷단항식": ["M2_NE_PT170","M2_NE_PT171","M2_NE_PT172"]
     },
     "skeleton_sharing": {
       "shared_skeleton_fields": ["required_thinking", "must_write_steps"],
@@ -52,18 +60,31 @@
       "negative_base_parity_error": "음수 밑 홀짝 오류",
       "operation_order_violation": "연산 순서 위반",
       "abstract_notation_application_failure": "추상 표기 적용 실패",
-      "constant_factor_separation_failure": "상수 인수 분리 실패"
+      "constant_factor_separation_failure": "상수 인수 분리 실패",
+      "parenthesis_sign_distribution_error": "괄호 부호 분배 오류",
+      "like_term_misgrouping": "동류항 묶기 오류",
+      "geometric_rate_setup_failure": "도형·비율 상황 식 세우기 실패",
+      "degree_term_confusion": "차수·항 혼동",
+      "multi_expression_dependency_error": "다중 식 의존 처리 오류",
+      "sign_propagation_error": "부호 전파 오류",
+      "reciprocal_conversion_error": "역수 변환 오류",
+      "inverse_operation_setup_error": "역연산 식 세우기 오류",
+      "common_factor_extraction_failure": "공통인수 추출 실패",
+      "simplify_before_substitute_omitted": "대입 전 정리 누락"
     },
     "tier_report": "이 배치의 tier 분해는 커밋 메시지·보고서에 수치로 낸다(검수 지시: 첫 배치 분포로 방침 결정).",
     "tier_breakdown": {
       "_note": "배치별 tier 분해 누적 기록(검수 지시 2026-08-18). 최종 제출 시 414종 전체 분포를 이 표로 낸다.",
       "batches": [
         { "batch": 1, "scope": "순환소수 계열 3범주", "types": 10, "overlay_true": 6, "overlay_false": 4, "overlay_rate": "60%", "tier1": 13, "tier2": 11, "tier3": 0, "new": 0, "codes_total": 24 },
-        { "batch": 2, "scope": "지수법칙 3범주(거듭제곱의 거듭제곱·나눗셈·곱의 거듭제곱)", "types": 12, "overlay_true": 3, "overlay_false": 9, "overlay_rate": "25%", "tier1": 6, "tier2": 22, "tier3": 0, "new": 0, "codes_total": 28 }
+        { "batch": 2, "scope": "지수법칙 3범주(거듭제곱의 거듭제곱·나눗셈·곱의 거듭제곱)", "types": 12, "overlay_true": 3, "overlay_false": 9, "overlay_rate": "25%", "tier1": 6, "tier2": 22, "tier3": 0, "new": 0, "codes_total": 28 },
+        { "batch": 3, "scope": "다항식 계열 4범주(덧셈뺄셈·차수판별·단항식×다항식·다항식÷단항식)", "types": 12, "overlay_true": 2, "overlay_false": 10, "overlay_rate": "17%", "tier1": 6, "tier2": 25, "tier3": 0, "new": 0, "codes_total": 31 }
       ],
-      "cumulative": { "types": 22, "tier1": 19, "tier2": 33, "tier3": 0, "new": 0, "codes_total": 52 },
+      "cumulative": { "types": 34, "tier1": 25, "tier2": 58, "tier3": 0, "new": 0, "codes_total": 83 },
       "finding": "★자기 유형에 overlay가 없어도 같은 단원 이웃 유형의 관측 어휘(tier-2)로 커버된다. 커버리지 34%인데 신설 0. M2_GEOM(19% → 신설 8종)과 대비.",
-      "finding_batch2": "★배치2는 overlay가 얇은 구간(25%)을 일부러 골랐다. 결과: tier-1 비중이 54%→21%로 떨어진 대신 tier-2가 46%→79%로 올라 신설은 여전히 0. ⇒ tier-2 커버는 순환소수 계열의 특성이 아니라 단원 전반의 성질로 관측된다(2개 계열에서 확인). 신설 누계 0/40."
+      "finding_batch2": "★배치2는 overlay가 얇은 구간(25%)을 일부러 골랐다. 결과: tier-1 비중이 54%→21%로 떨어진 대신 tier-2가 46%→79%로 올라 신설은 여전히 0. ⇒ tier-2 커버는 순환소수 계열의 특성이 아니라 단원 전반의 성질로 관측된다(2개 계열에서 확인). 신설 누계 0/40.",
+      "finding_batch3": "★배치3은 overlay 17%(가장 얇음)에 3개 범주가 관측 0. tier-1 20% / tier-2 80% / 신설 0. 3개 계열(순환소수·지수법칙·다항식) 연속으로 신설 0 — tier-2 보편성 확정. ⇒ 이후 배치는 tier 보고만 하고 배치 크기를 20종으로 올려도 방침 재검토가 불필요하다는 근거.",
+      "coverage_vs_new": "overlay 60%→25%→17%로 낮아져도 신설은 0으로 불변. 신설을 부르는 것은 커버리지가 아니라 '단원 관측 어휘 자체의 부재'(M1=0%)로 보인다 — 수연산은 단원 풀 91종이 이웃 개념까지 덮는다."
     },
     "predicted_observed_gaps": [
       { "tag": "cycle_length_miscount", "concept": "순환마디", "predicted_in": ["M2_NE_PT023"], "observed_types_checked": ["M2_NE_PT024", "M2_NE_PT025"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "note": "소수의 순환마디(예측층)에 '마디 길이 오산'을 배치했으나, 같은 개념의 관측 유형(분수·나눗셈 순환마디) 관측 태그엔 없음(관측은 시작 위치·나눗셈 미완). 타 개념 관측엔 존재. 해석 보류." },
@@ -72,11 +93,16 @@
       { "tag": "abstract_notation_application_failure", "concept": "지수법칙(3) - 거듭제곱의 나눗셈", "predicted_in": ["M2_NE_PT079"], "observed_types_checked": ["M2_NE_PT080"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "batch": 2, "note": "문자 지수 나눗셈(예측층)에 '추상 표기 적용 실패'를 배치했으나 같은 개념의 유일한 관측 유형(자연수 나눗셈) 태그엔 없음(관측은 지수 뺄셈 방향·밑 통일). 해석 보류." },
       { "tag": "constant_factor_separation_failure", "concept": "지수법칙(3) - 거듭제곱의 나눗셈", "predicted_in": ["M2_NE_PT081"], "observed_types_checked": ["M2_NE_PT080"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "batch": 2, "note": "분수꼴 나눗셈(예측층)에 '상수 인수 분리 실패'를 배치했으나 같은 개념 관측 유형엔 없음. 해석 보류." },
       { "tag": "operation_order_violation", "concept": "지수법칙(3) - 거듭제곱의 나눗셈", "predicted_in": ["M2_NE_PT081"], "observed_types_checked": ["M2_NE_PT080"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "batch": 2, "note": "분수꼴 나눗셈(예측층)에 '연산 순서 위반'을 배치했으나 같은 개념 관측 유형엔 없음. 해석 보류." },
-      { "tag": "exponent_addition_vs_multiplication_confusion", "concept": "지수법칙(4) - 곱의 거듭제곱", "predicted_in": ["M2_NE_PT082"], "observed_types_checked": ["M2_NE_PT084", "M2_NE_PT085"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "batch": 2, "note": "한 문자 곱의 거듭제곱(예측층)에 '지수 덧셈·곱셈 혼동'을 배치했으나 같은 개념 관측 유형 태그엔 없음(관측은 계수 누락·음수 부호). 해석 보류." }
+      { "tag": "exponent_addition_vs_multiplication_confusion", "concept": "지수법칙(4) - 곱의 거듭제곱", "predicted_in": ["M2_NE_PT082"], "observed_types_checked": ["M2_NE_PT084", "M2_NE_PT085"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "batch": 2, "note": "한 문자 곱의 거듭제곱(예측층)에 '지수 덧셈·곱셈 혼동'을 배치했으나 같은 개념 관측 유형 태그엔 없음(관측은 계수 누락·음수 부호). 해석 보류." },
+      { "tag": "fraction_form_arithmetic_slip", "concept": "다항식의 덧셈과 뺄셈", "predicted_in": ["M2_NE_PT147"], "observed_types_checked": ["M2_NE_PT148", "M2_NE_PT149"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "batch": 3, "note": "분수꼴 다항식 계산(예측층)에 '분수형 연산 실수'를 배치했으나 같은 개념 관측 유형(응용·활용) 태그엔 없음(관측은 괄호 부호·동류항·도형상황). 해석 보류." }
     ],
     "gaps_undecidable": [
-      { "concept": "지수법칙(2) - 거듭제곱의 거듭제곱", "types": 5, "observed_types": 0, "reason": "개념 내 관측 유형이 0개라 대조 기준이 없음 → 기준대로 미기록(관측 부재가 곧 예측 오류는 아님). ★이런 개념이 늘면 갭 수집률 자체가 떨어진다는 신호 — 최종 제출 시 판정불가 개념 수를 함께 낸다." }
+      { "concept": "지수법칙(2) - 거듭제곱의 거듭제곱", "types": 5, "observed_types": 0, "batch": 2, "reason": "개념 내 관측 유형이 0개라 대조 기준이 없음 → 기준대로 미기록(관측 부재가 곧 예측 오류는 아님). ★이런 개념이 늘면 갭 수집률 자체가 떨어진다는 신호 — 최종 제출 시 판정불가 개념 수를 함께 낸다." },
+      { "concept": "이차식 찾기", "types": 2, "observed_types": 0, "batch": 3, "reason": "관측 유형 0 → 판정 불가." },
+      { "concept": "단항식과 다항식의 곱셈", "types": 3, "observed_types": 0, "batch": 3, "reason": "관측 유형 0 → 판정 불가." },
+      { "concept": "다항식과 단항식의 나눗셈", "types": 3, "observed_types": 0, "batch": 3, "reason": "관측 유형 0 → 판정 불가." }
     ],
+    "gaps_undecidable_implication": "★M1 재태깅 판단의 정량 근거(검수 지시 2026-08-18). 판정불가 개념 = 개념 내 관측 유형이 0개인 개념. 수연산 34종 중 4개 개념(13종, 38%)이 이미 판정 불가다. **M1은 overlay 0%이므로 전 개념이 판정 불가** — 처방을 써도 예측·관측 대조가 원리상 불가능하고, 갭도 발견할 수 없다. ⇒ M1은 처방보다 재태깅이 선행되어야 한다는 결론이 관측으로 뒷받침된다.",
     "gaps_criterion": "M2_GEOM 정본 기준 — 예측층 유형(observed_basis:false)에 배치한 error_code 중, 같은 개념에 관측 유형(observed_basis:true)이 있는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면 판정 불가로 미기록. kind: A계열=전역부재(단원 overlay에도 없음=신설 성격) / B계열=개념국소(단원 overlay엔 있으나 그 개념 관측엔 없음). 정제 규칙(M2_GEOM 승계): 편재 태그(단원 관측 5개 유형 이상 등장)는 샘플링 노이즈로 보아 gaps_excluded_by_criterion으로 분리.",
     "gaps_excluded_by_criterion": [],
     "gaps_measured": {
@@ -85,7 +111,8 @@
       "coverage_context": "커버리지 34% 구간의 관측점. M2_GEOM 19%(갭 5) · 닮음 100%(갭 0) 사이에 위치 — M1 재태깅 우선순위 판단 근거.",
       "batch1_result": "갭 3건 전부 B계열(개념국소). A계열(전역부재) 0건 = 신설 0과 정합.",
       "batch2_result": "갭 4건 추가(누계 7), 전부 B계열. A계열 0 유지 = 신설 0과 정합. ★판정불가 개념 1건 발생(지수법칙(2), 관측 유형 0) — 커버리지가 얇아지면 갭 수집 자체가 불가능해지는 구간이 생긴다는 관측.",
-      "cumulative": "갭 7건 · A계열 0 · B계열 7 · 판정불가 개념 1 · 편재 제외 0"
+      "batch3_result": "갭 1건 추가(누계 8). 판정불가 개념 3개 추가(누계 4개·13종). ★배치3은 4범주 중 3범주가 관측 0이라 갭 수집이 가능한 개념이 1개뿐이었다 — 커버리지가 낮을수록 갭 수집률 자체가 떨어진다는 것이 수치로 확인됨.",
+      "cumulative": "갭 8건 · A계열 0 · B계열 8 · 판정불가 개념 4개(13종) · 편재 제외 0"
     },
     "new_tags": []
   },
@@ -405,6 +432,181 @@
       "teacher_note": "수를 거듭제곱하지 않고 넘어가는 오류가 잦다. 처리 순서를 고정시켜라.",
       "parent_message": "숫자에도 거듭제곱을 적용했는지 확인해 주세요.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT146": {
+      "problem_nature": "다항식끼리 더하거나 빼서 동류항을 정리하는 유형",
+      "required_thinking": ["빼기는 뒤 다항식 전체의 부호를 바꾸는 것임을 인식", "괄호를 풀 때 각 항에 부호가 걸림", "차수와 문자가 모두 같은 항끼리만 묶음", "정리 후 항의 개수와 차수를 원식과 대조"],
+      "must_write_steps": ["괄호를 풀며 각 항의 부호를 다시 적는다(빼기는 전부 반대로).", "동류항끼리 표시를 해 묶는다.", "계수를 더하거나 빼서 정리한다.", "차수가 높은 항부터 순서대로 쓰고 항 수를 대조한다."],
+      "common_wrong_actions": ["빼기에서 앞 항만 부호를 바꾼다.", "차수가 다른 항을 묶는다.", "문자가 다른 항을 묶는다."],
+      "error_checkpoints": [
+        { "error_code": "parenthesis_sign_distribution_error", "label": "괄호 부호 분배 오류", "diagnosis": "빼기 뒤 괄호를 풀 때 일부 항에만 부호를 바꿨다.", "student_fix": "빼기 뒤 괄호는 안쪽 '모든' 항의 부호가 바뀐다. 항마다 부호를 새로 적어라." },
+        { "error_code": "like_term_misgrouping", "label": "동류항 묶기 오류", "diagnosis": "문자나 차수가 다른 항을 같은 항으로 묶었다.", "student_fix": "문자와 지수가 완전히 같아야 동류항이다. 같은 항에 같은 모양 표시를 해라." }
+      ],
+      "student_command": "빼기 뒤 괄호는 안쪽 전부의 부호가 바뀐다. 괄호를 푼 뒤 부호를 다시 적고, 문자·지수가 완전히 같은 항끼리만 묶어라.",
+      "teacher_note": "부호를 앞 항만 바꾸는 오류가 압도적이다. 괄호 푼 줄을 따로 쓰게 하라.",
+      "parent_message": "괄호를 푼 줄을 따로 쓰는지 봐 주세요. 한 줄에 몰아 쓰면 부호를 놓칩니다.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT147": {
+      "problem_nature": "분수 꼴이 포함된 다항식의 덧셈·뺄셈을 통분해 정리하는 유형",
+      "required_thinking": ["분모의 최소공배수로 통분", "분자 전체에 괄호를 씌워 부호를 보존", "통분 후 동류항을 묶어 정리", "마지막에 약분 가능 여부 확인"],
+      "must_write_steps": ["분모의 최소공배수를 구해 통분한다.", "각 분자를 괄호로 묶어 적는다(빼기면 부호가 전부 바뀜).", "괄호를 풀고 동류항을 정리한다.", "약분해 기약 형태로 마무리한다."],
+      "common_wrong_actions": ["분자에 괄호를 씌우지 않아 부호를 놓친다.", "분모만 통분하고 분자를 그대로 둔다.", "약분을 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "parenthesis_sign_distribution_error", "label": "괄호 부호 분배 오류", "diagnosis": "분자를 괄호로 묶지 않아 빼기 부호가 첫 항에만 적용됐다.", "student_fix": "통분할 때 분자는 반드시 괄호로 묶어라. 그 다음 괄호를 푼다." },
+        { "error_code": "fraction_form_arithmetic_slip", "label": "분수형 연산 실수", "diagnosis": "통분·약분 과정에서 계수를 틀렸다.", "student_fix": "통분한 줄과 괄호 푼 줄을 나눠 쓰고 각 줄에서 계수를 확인하라." },
+        { "error_code": "like_term_misgrouping", "label": "동류항 묶기 오류", "diagnosis": "통분 후 동류항이 아닌 항을 묶었다.", "student_fix": "문자와 지수가 같은지 확인하고 같은 것끼리만 더해라." }
+      ],
+      "student_command": "분수꼴은 분자를 반드시 괄호로 묶고 통분하라. 괄호 없이 빼면 부호가 첫 항에만 걸린다.",
+      "teacher_note": "분자 괄호 누락이 이 유형의 전부다. 통분 줄에 괄호를 쓰게 하라.",
+      "parent_message": "분수의 분자에 괄호를 치고 계산하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT148": {
+      "problem_nature": "다항식의 덧셈·뺄셈을 여러 식·조건과 결합해 응용하는 유형",
+      "required_thinking": ["여러 다항식을 순서대로 정리해 하나의 식으로 합침", "빼는 식은 전체 부호를 바꿔 더함", "조건이 있으면 식을 세운 뒤 계산", "결과를 차수 순으로 정리해 검산"],
+      "must_write_steps": ["주어진 식에 각각 이름을 붙인다(A, B, …).", "구하는 것을 A·B로 표현한 식으로 먼저 쓴다.", "괄호를 풀며 부호를 다시 적고 동류항을 정리한다.", "차수 순으로 정리하고 항 수를 대조한다."],
+      "common_wrong_actions": ["식에 이름을 안 붙여 어느 식을 빼는지 섞는다.", "빼는 식의 부호를 일부만 바꾼다.", "동류항이 아닌 항을 묶는다."],
+      "error_checkpoints": [
+        { "error_code": "parenthesis_sign_distribution_error", "label": "괄호 부호 분배 오류", "diagnosis": "빼는 식 전체의 부호를 바꾸지 않았다.", "student_fix": "빼는 식은 괄호로 묶어 −(…) 형태로 쓴 뒤 풀어라." },
+        { "error_code": "like_term_misgrouping", "label": "동류항 묶기 오류", "diagnosis": "정리 단계에서 동류항 판단을 틀렸다.", "student_fix": "문자·지수가 완전히 같은 항만 묶어라. 표시를 달리해 구분하라." },
+        { "error_code": "geometric_rate_setup_failure", "label": "도형·비율 상황 식 세우기 실패", "diagnosis": "상황(둘레·넓이·비율)을 다항식 식으로 옮기지 못했다.", "student_fix": "상황을 한국어 문장으로 먼저 쓰고 각 부분을 식으로 바꿔라." }
+      ],
+      "student_command": "여러 식이 나오면 A, B로 이름을 붙이고 구하는 것을 A−B처럼 먼저 써라. 그 다음 괄호를 푼다.",
+      "teacher_note": "식에 이름을 붙이지 않으면 어느 것을 빼는지 섞인다. 이름 붙이기를 첫 단계로 고정하라.",
+      "parent_message": "식에 이름을 붙여 정리하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT149": {
+      "problem_nature": "다항식의 덧셈·뺄셈을 도형의 둘레·넓이나 실생활 상황에 적용하는 활용 유형",
+      "required_thinking": ["상황에서 각 부분을 다항식으로 표현", "구하는 것이 합인지 차인지 판별", "빼는 부분은 전체 부호를 바꿔 더함", "결과를 상황에 비추어 검토(음수 길이 등 배제)"],
+      "must_write_steps": ["그림·상황의 각 부분을 다항식으로 적는다.", "구하는 것을 합·차의 식으로 세운다.", "괄호를 풀어 동류항을 정리한다.", "결과가 상황에 맞는지(음수·차수) 확인한다."],
+      "common_wrong_actions": ["상황을 식으로 옮기지 못하고 숫자만 대입한다.", "빼는 부분의 부호를 일부만 바꾼다.", "결과 검토를 생략한다."],
+      "error_checkpoints": [
+        { "error_code": "geometric_rate_setup_failure", "label": "도형·비율 상황 식 세우기 실패", "diagnosis": "도형·실생활 상황을 다항식 식으로 세우지 못했다.", "student_fix": "그림에 각 변·부분의 식을 직접 써넣고 나서 합·차를 정하라." },
+        { "error_code": "parenthesis_sign_distribution_error", "label": "괄호 부호 분배 오류", "diagnosis": "빼는 부분의 부호를 전부 바꾸지 않았다.", "student_fix": "빼는 부분은 괄호로 묶어 −(…)로 쓰고 풀어라." },
+        { "error_code": "like_term_misgrouping", "label": "동류항 묶기 오류", "diagnosis": "정리에서 동류항이 아닌 항을 묶었다.", "student_fix": "문자·지수가 같은 항만 묶어라." }
+      ],
+      "student_command": "활용 문제는 그림·상황에 각 부분의 식을 직접 써넣어라. 식이 그려지면 합·차는 기계적으로 정해진다.",
+      "teacher_note": "상황→식 변환이 병목이다. 그림에 식을 써넣는 단계를 반드시 거치게 하라.",
+      "parent_message": "그림에 식을 써가며 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT150": {
+      "problem_nature": "한 문자로 된 식이 이차식인지 판별하는 유형",
+      "required_thinking": ["이차식 = 정리했을 때 최고차항의 차수가 2", "정리 전에 판단하지 않고 동류항을 먼저 정리", "차수는 문자의 지수로 결정(계수는 무관)", "최고차항의 계수가 0이 되면 차수가 내려감을 확인"],
+      "must_write_steps": ["식을 동류항끼리 정리한다.", "정리 후 각 항의 차수를 적는다.", "최고차항의 차수를 확인한다.", "최고차항 계수가 0이 아닌지 확인하고 결론을 쓴다."],
+      "common_wrong_actions": ["정리하기 전 겉모습만 보고 판단한다.", "계수를 차수로 착각한다.", "최고차항 계수가 0이 되는 경우를 놓친다."],
+      "error_checkpoints": [
+        { "error_code": "degree_term_confusion", "label": "차수·항 혼동", "diagnosis": "항의 개수나 계수를 차수와 혼동해 이차식 여부를 잘못 판별했다.", "student_fix": "차수는 문자의 지수다. 각 항 위에 지수를 적고 가장 큰 값을 보라." },
+        { "error_code": "like_term_misgrouping", "label": "동류항 묶기 오류", "diagnosis": "정리를 안 했거나 잘못해 최고차항을 잘못 잡았다.", "student_fix": "먼저 동류항을 정리한 뒤에 차수를 판단하라. 순서를 바꾸지 마라." }
+      ],
+      "student_command": "이차식 판별은 '정리 먼저, 판단 나중'이다. 동류항을 정리한 뒤 각 항의 지수를 적고 가장 큰 값을 보라.",
+      "teacher_note": "정리 전에 판단하는 습관이 오답의 원인이다. 정리 줄을 반드시 쓰게 하라.",
+      "parent_message": "식을 정리한 뒤에 판단하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT151": {
+      "problem_nature": "두 문자 이상이 든 식의 차수를 판별하는 유형",
+      "required_thinking": ["여러 문자가 곱해진 항의 차수는 지수의 합", "문자별 차수와 항 전체 차수를 구분", "정리 후 최고차항을 판별", "조건이 문자 하나에 대한 것인지 전체에 대한 것인지 구분"],
+      "must_write_steps": ["동류항을 정리한다.", "각 항의 차수를 계산해 적는다(여러 문자면 지수의 합).", "최고차항의 차수를 확인한다.", "문제가 묻는 기준(특정 문자 / 전체)에 맞춰 답한다."],
+      "common_wrong_actions": ["여러 문자가 곱해진 항에서 지수를 더하지 않는다.", "특정 문자에 대한 차수와 전체 차수를 혼동한다.", "정리 전에 판단한다."],
+      "error_checkpoints": [
+        { "error_code": "degree_term_confusion", "label": "차수·항 혼동", "diagnosis": "여러 문자가 든 항의 차수를 지수의 합으로 계산하지 않았다.", "student_fix": "항마다 문자의 지수를 모두 더해 차수를 적어라(예: x²y는 3차)." },
+        { "error_code": "multi_expression_dependency_error", "label": "다중 식 의존 처리 오류", "diagnosis": "여러 문자·여러 식의 조건을 함께 다루는 과정에서 기준을 섞었다.", "student_fix": "'무엇에 대한 차수인지'를 문장으로 먼저 적고 그 기준만 적용하라." }
+      ],
+      "student_command": "여러 문자가 곱해진 항의 차수는 지수의 합이다. 항마다 차수를 적고, 무엇에 대한 차수인지 먼저 확인하라.",
+      "teacher_note": "x²y를 2차로 세는 오류가 흔하다. 지수 합을 항 위에 쓰게 하라.",
+      "parent_message": "항마다 차수를 적어가며 판단하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT167": {
+      "problem_nature": "단항식을 다항식에 곱해 분배법칙으로 전개하는 유형(한 문자)",
+      "required_thinking": ["분배법칙 — 단항식을 괄호 안 모든 항에 곱함", "계수는 계수끼리, 문자는 지수를 더해 곱함", "부호를 항마다 확인", "전개 후 항의 개수가 괄호 안 항의 개수와 같은지 확인"],
+      "must_write_steps": ["괄호 안 항을 하나씩 나열한다.", "단항식을 각 항에 곱해 따로 적는다(계수 × 계수, 지수는 더하기).", "부호를 확인하며 정리한다.", "항의 개수를 괄호 안과 대조한다."],
+      "common_wrong_actions": ["첫 항에만 곱한다.", "지수를 곱한다(더해야 함).", "음수 부호를 일부 항에만 적용한다."],
+      "error_checkpoints": [
+        { "error_code": "parenthesis_sign_distribution_error", "label": "괄호 부호 분배 오류", "diagnosis": "괄호 안 일부 항에만 곱하거나 부호를 빠뜨렸다.", "student_fix": "괄호 안 항을 번호로 나열하고 번호마다 곱했는지 표시하라." },
+        { "error_code": "exponent_addition_vs_multiplication_confusion", "label": "지수 덧셈·곱셈 혼동", "diagnosis": "같은 문자끼리 곱할 때 지수를 곱했다(더해야 함).", "student_fix": "곱셈은 지수를 더한다. 항마다 '지수 + 지수'를 적어라." }
+      ],
+      "student_command": "분배는 괄호 안 '전부'에 곱하는 것이다. 항에 번호를 붙이고 하나씩 곱해라. 같은 문자끼리는 지수를 더한다.",
+      "teacher_note": "첫 항만 곱하는 오류가 잦다. 번호 매기기로 잡아라.",
+      "parent_message": "괄호 안 모든 항에 곱했는지 확인해 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT168": {
+      "problem_nature": "두 문자가 든 다항식에 단항식을 곱해 전개하는 유형",
+      "required_thinking": ["분배법칙을 모든 항에 적용", "문자별로 지수를 더해 정리", "부호가 항마다 어떻게 전파되는지 확인", "전개 결과의 차수를 확인"],
+      "must_write_steps": ["괄호 안 항을 번호로 나열한다.", "각 항에 단항식을 곱하며 계수·문자별 지수를 적는다.", "부호를 항마다 확인해 표시한다.", "정리 후 항 수·차수를 대조한다."],
+      "common_wrong_actions": ["일부 문자만 곱한다.", "음수 부호가 뒤 항으로 전파되지 않는다.", "지수를 곱한다."],
+      "error_checkpoints": [
+        { "error_code": "parenthesis_sign_distribution_error", "label": "괄호 부호 분배 오류", "diagnosis": "괄호 안 모든 항에 곱하지 않았거나 부호 처리를 빠뜨렸다.", "student_fix": "항을 번호로 나열하고 곱한 결과를 번호별로 적어라." },
+        { "error_code": "sign_propagation_error", "label": "부호 전파 오류", "diagnosis": "음수 단항식을 곱할 때 뒤 항의 부호가 바뀌는 것을 놓쳤다.", "student_fix": "음수를 곱하면 각 항의 부호가 뒤집힌다. 항마다 부호를 새로 적어라." },
+        { "error_code": "exponent_addition_vs_multiplication_confusion", "label": "지수 덧셈·곱셈 혼동", "diagnosis": "같은 문자끼리 곱할 때 지수를 곱했다.", "student_fix": "곱셈은 지수 더하기. 문자별로 따로 계산하라." }
+      ],
+      "student_command": "음수 단항식을 곱하면 괄호 안 모든 항의 부호가 뒤집힌다. 항마다 부호를 새로 적고 문자별 지수는 더해라.",
+      "teacher_note": "부호 전파를 놓치는 것이 핵심이다. 곱한 직후 부호만 따로 적게 하라.",
+      "parent_message": "음수를 곱할 때 부호가 모두 바뀌는지 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT169": {
+      "problem_nature": "단항식과 다항식의 곱셈을 도형·조건과 결합해 응용하는 유형",
+      "required_thinking": ["상황을 식으로 옮긴 뒤 전개", "분배법칙을 모든 항에 적용", "조건이 있으면 전개 후 대입", "결과를 상황에 비추어 검토"],
+      "must_write_steps": ["상황의 각 부분을 식으로 적는다.", "곱해야 할 식을 세운다.", "분배법칙으로 전개하고 정리한다.", "조건을 대입해 값을 구하고 상황에 맞는지 확인한다."],
+      "common_wrong_actions": ["상황을 식으로 못 옮긴다.", "전개 전에 대입해 계산이 복잡해진다.", "일부 항에만 곱한다."],
+      "error_checkpoints": [
+        { "error_code": "geometric_rate_setup_failure", "label": "도형·비율 상황 식 세우기 실패", "diagnosis": "도형·상황을 곱셈 식으로 옮기지 못했다.", "student_fix": "그림에 가로·세로 등 각 부분의 식을 써넣고 무엇을 곱할지 정하라." },
+        { "error_code": "parenthesis_sign_distribution_error", "label": "괄호 부호 분배 오류", "diagnosis": "전개에서 일부 항을 빠뜨렸다.", "student_fix": "괄호 안 항에 번호를 붙이고 번호마다 결과를 적어라." },
+        { "error_code": "simplify_before_substitute_omitted", "label": "대입 전 정리 누락", "diagnosis": "전개·정리 전에 값을 대입해 계산이 꼬였다.", "student_fix": "먼저 전개하고 동류항을 정리한 뒤에 값을 대입하라." }
+      ],
+      "student_command": "응용은 '식 세우기 → 전개 → 정리 → 대입' 순서다. 대입을 먼저 하면 계산이 복잡해진다.",
+      "teacher_note": "대입 시점이 늦어야 계산이 쉽다. 순서를 번호로 적게 하라.",
+      "parent_message": "정리한 뒤에 숫자를 넣는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT170": {
+      "problem_nature": "다항식을 단항식으로 나누어 각 항을 정리하는 유형(한 문자)",
+      "required_thinking": ["나눗셈은 역수의 곱셈으로 바꿔 처리", "괄호 안 모든 항을 각각 나눔", "같은 문자끼리 지수를 빼서 정리", "항의 개수가 유지되는지 확인"],
+      "must_write_steps": ["나눗셈을 역수의 곱셈으로 바꿔 적는다.", "괄호 안 항을 번호로 나열한다.", "각 항을 나누며 계수는 나누고 지수는 뺀다.", "항 수를 원식과 대조한다."],
+      "common_wrong_actions": ["첫 항만 나눈다.", "지수를 나눈다(빼야 함).", "역수로 바꾸지 않아 분수 처리가 꼬인다."],
+      "error_checkpoints": [
+        { "error_code": "reciprocal_conversion_error", "label": "역수 변환 오류", "diagnosis": "나눗셈을 역수의 곱셈으로 바꾸는 과정에서 분모·분자를 뒤바꿨다.", "student_fix": "÷(식)은 ×(1/식)이다. 역수를 먼저 적고 곱셈으로 진행하라." },
+        { "error_code": "exponent_subtraction_direction_error", "label": "지수 뺄셈 방향 오류", "diagnosis": "나눗셈에서 지수를 빼는 방향을 뒤바꿨다.", "student_fix": "'분자 지수 − 분모 지수'를 항마다 적어라." }
+      ],
+      "student_command": "나눗셈은 역수의 곱셈으로 바꿔라. 그 다음 괄호 안 항을 번호로 나열해 하나씩 처리한다.",
+      "teacher_note": "역수 변환을 건너뛰면 분수에서 꼬인다. 변환 줄을 필수로 요구하라.",
+      "parent_message": "나눗셈을 곱셈으로 바꿔 쓰는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT171": {
+      "problem_nature": "두 문자가 든 다항식을 단항식으로 나누어 정리하는 유형",
+      "required_thinking": ["역수의 곱셈으로 변환", "계수는 계수끼리, 문자는 문자별로 지수를 뺌", "항마다 부호를 확인", "정리 결과가 기약 형태인지 확인"],
+      "must_write_steps": ["나눗셈을 역수의 곱셈으로 바꾼다.", "계수와 문자를 나눠 적는다.", "항마다 계수를 나누고 문자별 지수를 뺀다.", "부호와 기약 여부를 확인해 마무리한다."],
+      "common_wrong_actions": ["계수와 문자를 섞어 약분한다.", "일부 문자만 처리한다.", "지수를 나눈다."],
+      "error_checkpoints": [
+        { "error_code": "reciprocal_conversion_error", "label": "역수 변환 오류", "diagnosis": "역수로 바꾸는 과정에서 분모·분자를 뒤바꿨다.", "student_fix": "÷(식) = ×(1/식). 역수를 적은 뒤 곱셈으로 진행하라." },
+        { "error_code": "constant_factor_separation_failure", "label": "상수 인수 분리 실패", "diagnosis": "계수와 문자 부분을 분리하지 않아 약분이 엉켰다.", "student_fix": "계수는 계수끼리, 문자는 문자끼리 두 줄로 나눠 처리하라." },
+        { "error_code": "exponent_subtraction_direction_error", "label": "지수 뺄셈 방향 오류", "diagnosis": "문자별 지수를 빼는 방향을 틀렸다.", "student_fix": "문자마다 '분자 지수 − 분모 지수'를 적어라." }
+      ],
+      "student_command": "역수로 바꾼 뒤 계수와 문자를 두 줄로 나눠 처리하라. 섞으면 약분이 반드시 꼬인다.",
+      "teacher_note": "계수·문자 분리를 습관화하면 이 계열 오답이 크게 준다.",
+      "parent_message": "계수와 문자를 나눠 정리하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT172": {
+      "problem_nature": "단항식과 다항식의 나눗셈을 조건·역연산과 결합해 응용하는 유형",
+      "required_thinking": ["어떤 식을 구하는 문제면 역연산으로 식을 세움", "나눗셈은 역수의 곱셈으로 처리", "공통인수가 있으면 묶어 정리", "구한 식을 원래 관계에 대입해 검산"],
+      "must_write_steps": ["구하는 식을 문자로 두고 관계를 등식으로 적는다.", "역연산으로 그 문자를 구하는 식으로 바꾼다.", "역수의 곱셈으로 전개·정리한다.", "구한 식을 원래 등식에 대입해 검산한다."],
+      "common_wrong_actions": ["역연산 방향을 반대로 한다(곱할 것을 나눈다).", "공통인수를 못 보고 전개만 한다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        { "error_code": "inverse_operation_setup_error", "label": "역연산 식 세우기 오류", "diagnosis": "어떤 식을 구할 때 역연산의 방향을 반대로 세웠다.", "student_fix": "관계를 등식으로 먼저 쓰고, 구하는 문자만 남기도록 양변을 조작하라." },
+        { "error_code": "reciprocal_conversion_error", "label": "역수 변환 오류", "diagnosis": "나눗셈을 역수의 곱셈으로 바꾸며 뒤집었다.", "student_fix": "÷(식) = ×(1/식)을 그대로 적고 진행하라." },
+        { "error_code": "common_factor_extraction_failure", "label": "공통인수 추출 실패", "diagnosis": "공통인수를 묶어 약분할 수 있는데 전개만 해 식이 복잡해졌다.", "student_fix": "분자에서 공통인수를 먼저 묶어라. 약분이 보이면 계산이 짧아진다." }
+      ],
+      "student_command": "어떤 식을 구하는 문제는 등식을 먼저 세우고 역연산으로 푼다. 나눗셈은 역수의 곱셈, 분자는 공통인수부터 묶어라.",
+      "teacher_note": "역연산 방향 실수가 핵심이다. 등식을 쓰고 양변 조작으로 유도하게 하라.",
+      "parent_message": "식을 세우고 푸는지, 감으로 맞추는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
     }
   }
 }
