@@ -1,0 +1,1542 @@
+{
+  "source_pdf": "260710_도형의 성질(6)(1).pdf",
+  "unit": "중2 도형의 성질",
+  "n_types": 48,
+  "n_items": 150,
+  "n_unique_tags": 36,
+  "n_reused_tags": 30,
+  "n_new_tags": 6,
+  "tag_language": "en_snake_case",
+  "authority_sources": [
+    "SPEC_tagging_v4(2).md",
+    "TAG_DICTIONARY_v2(2).md",
+    "tagging_similarity8_v4_v2(1).json"
+  ],
+  "source_metadata": {
+    "sha256": "5106ddcbf4471d944e456fffe2fe65f39b6d0bbeb4e3ea61294af0a75f1828b0",
+    "problem_pages": "1-39",
+    "quick_answer_pages": "40-41",
+    "solution_pages": "42-67",
+    "type_headers_present": true,
+    "accuracy_headers_present": true,
+    "trig_function_tag_families_excluded": true
+  },
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "이등변삼각형의 성질(2) 꼭지각의 이등분선은 밑변을 수직이등분한다",
+      "item_start": 1,
+      "item_end": 2,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 84
+        },
+        {
+          "item_no": 2,
+          "accuracy": 90
+        }
+      ],
+      "tags": [
+        "isosceles_altitude_bisection_overlooked",
+        "segment_partition_tracking_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q1~Q2는 이등변삼각형의 꼭지각 이등분선이 밑변을 수직이등분한다는 성질로 BD=DC를 만든 뒤, AD 위의 분할비를 높이로 바꾸어 넓이를 계산한다. 밑변의 절반·높이의 부분 길이를 끝까지 추적하지 못하거나 넓이식을 잘못 세우는 오류가 핵심이다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "이등변삼각형의 성질의 활용(1) 각의 크기",
+      "item_start": 3,
+      "item_end": 6,
+      "items": [
+        {
+          "item_no": 3,
+          "accuracy": 72
+        },
+        {
+          "item_no": 4,
+          "accuracy": 62
+        },
+        {
+          "item_no": 5,
+          "accuracy": 83
+        },
+        {
+          "item_no": 6,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "isosceles_triangle_angle_chain_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q3~Q6은 이등변삼각형에서 같은 두 변이 만드는 밑각을 먼저 같게 놓고, 주어진 각·이등분선·수선으로 여러 각을 연쇄 계산한다. 한 각을 다른 삼각형의 대응각으로 잘못 옮기거나 밑각 관계를 끊는 것이 대표 오류다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "이등변삼각형의 성질의 활용(2) 이웃한 이등변삼각형",
+      "item_start": 7,
+      "item_end": 10,
+      "items": [
+        {
+          "item_no": 7,
+          "accuracy": 83
+        },
+        {
+          "item_no": 8,
+          "accuracy": 88
+        },
+        {
+          "item_no": 9,
+          "accuracy": 75
+        },
+        {
+          "item_no": 10,
+          "accuracy": 66
+        }
+      ],
+      "tags": [
+        "isosceles_triangle_angle_chain_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q7~Q10은 서로 이웃한 여러 이등변삼각형의 같은 변 표시를 따라 밑각을 차례로 전달해야 한다. 한 삼각형에서 얻은 각을 다음 삼각형에 연결하지 못하면 마지막 각이 모두 어긋난다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "이등변삼각형의 성질의 활용(3) 각의 이등분선",
+      "item_start": 11,
+      "item_end": 14,
+      "items": [
+        {
+          "item_no": 11,
+          "accuracy": 70
+        },
+        {
+          "item_no": 12,
+          "accuracy": 77
+        },
+        {
+          "item_no": 13,
+          "accuracy": 76
+        },
+        {
+          "item_no": 14,
+          "accuracy": 46
+        }
+      ],
+      "tags": [
+        "angle_bisector_chain_integration_failure",
+        "angle_correspondence_chain_failure",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          14
+        ]
+      },
+      "rationale": "Q11~Q14는 각의 이등분선으로 생기는 반각과 삼각형의 내각·외각을 연쇄해 목표각을 만든다. Q14는 46%로 유형 내에서 크게 낮고 이등분선, 수직 조건, 연장선의 각을 여러 단계 결합해야 하므로 `multi_step_composite_error`를 Q14에만 둔다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "이등변삼각형이 되는 조건",
+      "item_start": 15,
+      "item_end": 18,
+      "items": [
+        {
+          "item_no": 15,
+          "accuracy": 92
+        },
+        {
+          "item_no": 16,
+          "accuracy": 87
+        },
+        {
+          "item_no": 17,
+          "accuracy": 93
+        },
+        {
+          "item_no": 18,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "triangle_congruence_condition_selection_failure",
+        "isosceles_triangle_angle_chain_failure",
+        "segment_partition_tracking_failure"
+      ],
+      "tag_scope": {
+        "segment_partition_tracking_failure": [
+          18
+        ]
+      },
+      "rationale": "Q15~Q18은 주어진 각·수선·중점 조건에서 합동인 삼각형을 찾아 대응변이 같음을 만들고, 그 결과를 이등변삼각형 조건으로 되돌린다. Q18은 점대칭으로 생긴 여러 대응 선분을 실제 CE 길이까지 이어야 하므로 선분 추적 오류를 Q18에만 둔다."
+    },
+    {
+      "type_no": 6,
+      "type_name": "폭이 일정한 종이를 접었을 때",
+      "item_start": 19,
+      "item_end": 20,
+      "items": [
+        {
+          "item_no": 19,
+          "accuracy": 73
+        },
+        {
+          "item_no": 20,
+          "accuracy": 91
+        }
+      ],
+      "tags": [
+        "paper_fold_reflection_distance_mapping_failure",
+        "parallel_line_angle_transfer_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q19~Q20은 폭이 일정한 종이를 접었을 때 접기 전후 대응점의 등거리 관계와 종이의 두 변이 평행하다는 사실을 함께 사용한다. 접힌 점을 원래 위치로 잘못 되돌리거나 평행선에서 각을 잘못 전달하면 각·길이 계산이 무너진다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "직각삼각형의 합동 조건의 응용(1) RHA 합동",
+      "item_start": 21,
+      "item_end": 24,
+      "items": [
+        {
+          "item_no": 21,
+          "accuracy": 85
+        },
+        {
+          "item_no": 22,
+          "accuracy": 89
+        },
+        {
+          "item_no": 23,
+          "accuracy": 88
+        },
+        {
+          "item_no": 24,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "triangle_congruence_condition_selection_failure",
+        "angle_correspondence_chain_failure",
+        "area_formula_setup_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          23,
+          24
+        ]
+      },
+      "rationale": "Q21~Q24는 직각삼각형에서 RHA 합동 조건을 정확히 구성해 대응변·대응각을 얻는다. Q23~Q24는 합동으로 길이를 복원한 뒤 △AFG의 넓이까지 계산하므로 넓이식 설정 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 8,
+      "type_name": "직각삼각형의 합동 조건의 응용(2) RHS 합동",
+      "item_start": 25,
+      "item_end": 28,
+      "items": [
+        {
+          "item_no": 25,
+          "accuracy": 65
+        },
+        {
+          "item_no": 26,
+          "accuracy": 71
+        },
+        {
+          "item_no": 27,
+          "accuracy": 85
+        },
+        {
+          "item_no": 28,
+          "accuracy": 33
+        }
+      ],
+      "tags": [
+        "triangle_congruence_condition_selection_failure",
+        "area_decomposition_equation_setup_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "area_decomposition_equation_setup_failure": [
+          25,
+          28
+        ],
+        "multiple_answer_omission": [
+          26
+        ]
+      },
+      "rationale": "Q25~Q28은 RHS 합동을 이용해 중점·수선 조건에서 대응 길이와 각을 얻는다. Q25·Q28은 합동 뒤 영역 넓이를 분해해 계산하고, Q26은 옳지 않은 것을 2개 고르는 복수정답 문항이므로 각각 `tag_scope`로 제한한다."
+    },
+    {
+      "type_no": 9,
+      "type_name": "각의 이등분선의 성질",
+      "item_start": 29,
+      "item_end": 31,
+      "items": [
+        {
+          "item_no": 29,
+          "accuracy": 73
+        },
+        {
+          "item_no": 30,
+          "accuracy": 81
+        },
+        {
+          "item_no": 31,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "angle_bisector_chain_integration_failure",
+        "area_formula_setup_error",
+        "law_selection_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          29,
+          30
+        ],
+        "law_selection_error": [
+          31
+        ]
+      },
+      "rationale": "Q29~Q31은 각의 이등분선 위의 점이 두 변까지의 거리가 같다는 성질과 그 역을 사용한다. Q29~Q30은 주어진 삼각형 넓이에서 수선 길이를 먼저 구해야 하고, Q31은 여러 명제 중 옳지 않은 것을 판별하므로 해당 오류를 문항별로 둔다."
+    },
+    {
+      "type_no": 10,
+      "type_name": "삼각형의 외심",
+      "item_start": 32,
+      "item_end": 35,
+      "items": [
+        {
+          "item_no": 32,
+          "accuracy": 76
+        },
+        {
+          "item_no": 33,
+          "accuracy": 80
+        },
+        {
+          "item_no": 34,
+          "accuracy": 86
+        },
+        {
+          "item_no": 35,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "circumcenter_equidistance_relation_failure",
+        "circumcenter_perpendicular_bisector_relation_failure",
+        "law_selection_error"
+      ],
+      "tag_scope": {
+        "law_selection_error": [
+          32
+        ]
+      },
+      "rationale": "Q32~Q35는 외심이 세 변의 수직이등분선의 교점이며 세 꼭짓점까지의 거리가 같다는 두 기본 성질을 구분해 사용한다. Q32는 외심에 대한 설명 자체의 옳고 그름을 고르는 문항이라 법칙 선택 오류를 Q32에만 둔다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "둔각삼각형의 외심",
+      "item_start": 36,
+      "item_end": 37,
+      "items": [
+        {
+          "item_no": 36,
+          "accuracy": 67
+        },
+        {
+          "item_no": 37,
+          "accuracy": 66
+        }
+      ],
+      "tags": [
+        "circumcenter_equidistance_relation_failure",
+        "isosceles_triangle_angle_chain_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q36~Q37은 둔각삼각형의 바깥에 놓인 외심에서 OA=OB=OC를 이용해 여러 이등변삼각형의 밑각을 만든 뒤 목표각까지 연쇄한다. 외심의 위치만 보고 각 관계를 잘못 해석하거나 같은 반지름을 놓치기 쉽다."
+    },
+    {
+      "type_no": 12,
+      "type_name": "직각삼각형의 외심(1) 변의 길이",
+      "item_start": 38,
+      "item_end": 40,
+      "items": [
+        {
+          "item_no": 38,
+          "accuracy": 73
+        },
+        {
+          "item_no": 39,
+          "accuracy": 53
+        },
+        {
+          "item_no": 40,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "diameter_right_angle_condition_omitted",
+        "midpoint_length_relation_error",
+        "pythagorean_setup_failure"
+      ],
+      "tag_scope": {
+        "pythagorean_setup_failure": [
+          40
+        ]
+      },
+      "rationale": "Q38~Q40은 직각삼각형에서 외심이 빗변의 중점이 되고 빗변이 외접원의 지름이 된다는 사실을 길이 계산에 사용한다. Q40은 두 직각변에서 빗변 길이를 먼저 피타고라스로 구해야 하므로 `pythagorean_setup_failure`를 Q40에만 둔다."
+    },
+    {
+      "type_no": 13,
+      "type_name": "직각삼각형의 외심(2) 각의 크기",
+      "item_start": 41,
+      "item_end": 44,
+      "items": [
+        {
+          "item_no": 41,
+          "accuracy": 30
+        },
+        {
+          "item_no": 42,
+          "accuracy": 61
+        },
+        {
+          "item_no": 43,
+          "accuracy": 62
+        },
+        {
+          "item_no": 44,
+          "accuracy": 32
+        }
+      ],
+      "tags": [
+        "diameter_right_angle_condition_omitted",
+        "parallel_line_angle_transfer_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q41~Q44는 직각삼각형의 외심·빗변 중점 관계에 평행선 조건을 결합해 각을 옮긴다. 30%, 32%인 Q41·Q44처럼 여러 평행선과 중점에서 생긴 각을 연쇄할 때 대응 방향을 바꾸는 오류가 주요 병목이다."
+    },
+    {
+      "type_no": 14,
+      "type_name": "삼각형의 외심의 성질 응용(1) ∠x+∠y+∠z=90°",
+      "item_start": 45,
+      "item_end": 46,
+      "items": [
+        {
+          "item_no": 45,
+          "accuracy": 75
+        },
+        {
+          "item_no": 46,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "circumcenter_equidistance_relation_failure",
+        "isosceles_triangle_angle_chain_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q45~Q46은 외심에서 세 꼭짓점까지 같은 반지름을 그어 생기는 이등변삼각형의 밑각을 이용해 x,y,z의 합을 90°로 정리한다. 반지름의 등거리 관계와 여러 각의 합을 한 그림 안에서 동시에 유지해야 한다."
+    },
+    {
+      "type_no": 15,
+      "type_name": "삼각형의 외심의 성질 응용(2) ∠BOC=2∠A",
+      "item_start": 47,
+      "item_end": 48,
+      "items": [
+        {
+          "item_no": 47,
+          "accuracy": 81
+        },
+        {
+          "item_no": 48,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "central_inscribed_angle_factor_confusion",
+        "circumcenter_equidistance_relation_failure"
+      ],
+      "rationale": "Q47~Q48은 외심 O를 중심으로 한 중심각과 같은 호를 보는 삼각형의 꼭짓점각 사이의 2배 관계를 사용한다. 중심각과 원주각의 배수 방향을 뒤집거나 OA=OB=OC에서 생기는 이등변삼각형을 놓치면 오답이 난다."
+    },
+    {
+      "type_no": 16,
+      "type_name": "삼각형의 내심",
+      "item_start": 49,
+      "item_end": 52,
+      "items": [
+        {
+          "item_no": 49,
+          "accuracy": 59
+        },
+        {
+          "item_no": 50,
+          "accuracy": 32
+        },
+        {
+          "item_no": 51,
+          "accuracy": 49
+        },
+        {
+          "item_no": 52,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "incenter_angle_bisector_relation_failure",
+        "tangent_radius_perpendicularity_omitted",
+        "law_selection_error"
+      ],
+      "tag_scope": {
+        "tangent_radius_perpendicularity_omitted": [
+          50,
+          51
+        ],
+        "law_selection_error": [
+          52
+        ]
+      },
+      "rationale": "Q49~Q52는 내심이 세 내각의 이등분선 교점이라는 사실을 이용해 각을 반으로 나누고, 접점이 있는 문항에서는 반지름과 변의 수직 관계를 함께 사용한다. Q50~Q51은 접점의 90°가 추가되고, Q52는 외심·내심 성질의 설명을 구분하는 문항이라 각각 범위를 제한한다."
+    },
+    {
+      "type_no": 17,
+      "type_name": "삼각형의 내심의 성질 응용(1) ∠x+∠y+∠z=90°",
+      "item_start": 53,
+      "item_end": 55,
+      "items": [
+        {
+          "item_no": 53,
+          "accuracy": 72
+        },
+        {
+          "item_no": 54,
+          "accuracy": 79
+        },
+        {
+          "item_no": 55,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "incenter_angle_bisector_relation_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q53~Q55는 내심이 각을 이등분한다는 성질로 각을 반씩 나눈 뒤 삼각형의 내각·외각을 이어 x+y+z 또는 목표각을 구한다. 한 꼭짓점의 반각을 다른 꼭짓점으로 잘못 옮기지 않는 것이 핵심이다."
+    },
+    {
+      "type_no": 18,
+      "type_name": "삼각형의 내심의 성질 응용(2) ∠BIC=90°+1/2∠A",
+      "item_start": 56,
+      "item_end": 59,
+      "items": [
+        {
+          "item_no": 56,
+          "accuracy": 73
+        },
+        {
+          "item_no": 57,
+          "accuracy": 75
+        },
+        {
+          "item_no": 58,
+          "accuracy": 71
+        },
+        {
+          "item_no": 59,
+          "accuracy": 53
+        }
+      ],
+      "tags": [
+        "incenter_angle_bisector_relation_failure",
+        "angle_correspondence_chain_failure",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          58,
+          59
+        ]
+      },
+      "rationale": "Q56~Q59는 ∠BIC=90°+1/2∠A 관계를 직접 또는 이등분된 각의 합으로 유도해 사용한다. Q58~Q59는 두 내심이나 여러 수선을 한꺼번에 연결하는 단계가 추가되므로 다단계 복합 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 19,
+      "type_name": "삼각형의 내접원의 반지름",
+      "item_start": 60,
+      "item_end": 63,
+      "items": [
+        {
+          "item_no": 60,
+          "accuracy": 81
+        },
+        {
+          "item_no": 61,
+          "accuracy": 79
+        },
+        {
+          "item_no": 62,
+          "accuracy": 57
+        },
+        {
+          "item_no": 63,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "area_inradius_relation_setup_failure",
+        "right_triangle_tangent_partition_failure",
+        "extremum_selection_error"
+      ],
+      "tag_scope": {
+        "right_triangle_tangent_partition_failure": [
+          61,
+          62
+        ],
+        "extremum_selection_error": [
+          63
+        ]
+      },
+      "rationale": "Q60~Q63은 삼각형의 넓이 S=rs와 내접원 반지름을 연결한다. Q61~Q62는 직각삼각형의 접점 분할까지 함께 써야 하고, Q63은 시계가 삼각형 밖으로 나가지 않는 최대 길이를 내접원 반지름으로 골라야 하므로 각각 별도 오류를 둔다."
+    },
+    {
+      "type_no": 20,
+      "type_name": "삼각형의 내접원과 선분의 길이의 관계",
+      "item_start": 64,
+      "item_end": 67,
+      "items": [
+        {
+          "item_no": 64,
+          "accuracy": 74
+        },
+        {
+          "item_no": 65,
+          "accuracy": 56
+        },
+        {
+          "item_no": 66,
+          "accuracy": 56
+        },
+        {
+          "item_no": 67,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "semiperimeter_tangent_partition_failure",
+        "angle_bisector_chain_integration_failure",
+        "area_decomposition_equation_setup_failure"
+      ],
+      "tag_scope": {
+        "angle_bisector_chain_integration_failure": [
+          65
+        ],
+        "area_decomposition_equation_setup_failure": [
+          66,
+          67
+        ]
+      },
+      "rationale": "Q64~Q67은 내접원의 접점에서 생기는 같은 접선 길이를 이용해 변을 분할하고 필요한 길이·넓이로 이어 간다. Q65는 두 내심의 각 이등분선을 연쇄해야 하고, Q66~Q67은 접점 분할로 얻은 비를 색칠 넓이 분해식에 연결하므로 해당 문항에만 추가 태그를 둔다."
+    },
+    {
+      "type_no": 21,
+      "type_name": "삼각형의 내심과 평행선",
+      "item_start": 68,
+      "item_end": 70,
+      "items": [
+        {
+          "item_no": 68,
+          "accuracy": 56
+        },
+        {
+          "item_no": 69,
+          "accuracy": 85
+        },
+        {
+          "item_no": 70,
+          "accuracy": 92
+        }
+      ],
+      "tags": [
+        "parallel_line_angle_transfer_failure",
+        "incenter_angle_bisector_relation_failure",
+        "isosceles_triangle_angle_chain_failure"
+      ],
+      "rationale": "Q68~Q70은 내심의 각 이등분선과 평행선이 만나며 생기는 같은 각을 옮겨 이등변삼각형을 만든다. 평행선의 엇각·동위각과 반각을 한꺼번에 유지하지 못하면 길이와 각 관계가 모두 어긋난다."
+    },
+    {
+      "type_no": 22,
+      "type_name": "삼각형의 외심과 내심에 대한 설명",
+      "item_start": 71,
+      "item_end": 73,
+      "items": [
+        {
+          "item_no": 71,
+          "accuracy": 84
+        },
+        {
+          "item_no": 72,
+          "accuracy": 61
+        },
+        {
+          "item_no": 73,
+          "accuracy": 53
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "circumcenter_perpendicular_bisector_relation_failure",
+        "incenter_angle_bisector_relation_failure"
+      ],
+      "rationale": "Q71~Q73은 외심과 내심의 정의·위치·거리 성질을 서로 구분하는 유형이다. 수직이등분선과 각의 이등분선을 혼동하거나, 외심·내심에서 같아지는 거리의 대상을 바꾸는 오류가 핵심이다."
+    },
+    {
+      "type_no": 23,
+      "type_name": "삼각형의 외심과 내심이 모두 주어질 때",
+      "item_start": 74,
+      "item_end": 76,
+      "items": [
+        {
+          "item_no": 74,
+          "accuracy": 71
+        },
+        {
+          "item_no": 75,
+          "accuracy": 73
+        },
+        {
+          "item_no": 76,
+          "accuracy": 58
+        }
+      ],
+      "tags": [
+        "circumcenter_equidistance_relation_failure",
+        "incenter_angle_bisector_relation_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q74~Q76은 한 삼각형에 외심과 내심이 동시에 주어져 OA=OB=OC와 각의 이등분 관계를 함께 사용한다. 두 중심의 역할을 뒤섞지 않고 각 관계를 단계적으로 연결해야 한다."
+    },
+    {
+      "type_no": 24,
+      "type_name": "직각삼각형의 외접원과 내접원",
+      "item_start": 77,
+      "item_end": 80,
+      "items": [
+        {
+          "item_no": 77,
+          "accuracy": 58
+        },
+        {
+          "item_no": 78,
+          "accuracy": 73
+        },
+        {
+          "item_no": 79,
+          "accuracy": 63
+        },
+        {
+          "item_no": 80,
+          "accuracy": 58
+        }
+      ],
+      "tags": [
+        "diameter_right_angle_condition_omitted",
+        "right_triangle_tangent_partition_failure",
+        "pythagorean_setup_failure"
+      ],
+      "tag_scope": {
+        "pythagorean_setup_failure": [
+          77,
+          79
+        ]
+      },
+      "rationale": "Q77~Q80은 직각삼각형에서 외접원 반지름이 빗변의 절반이라는 사실과 내접원 접점 분할을 함께 사용한다. Q77·Q79는 세 변 관계를 피타고라스로 확인하거나 복원하는 단계가 있어 해당 문항에만 `pythagorean_setup_failure`를 둔다."
+    },
+    {
+      "type_no": 25,
+      "type_name": "평행사변형의 성질의 응용(1) 두 쌍의 대변의 길이가 같다",
+      "item_start": 81,
+      "item_end": 84,
+      "items": [
+        {
+          "item_no": 81,
+          "accuracy": 69
+        },
+        {
+          "item_no": 82,
+          "accuracy": 72
+        },
+        {
+          "item_no": 83,
+          "accuracy": 48
+        },
+        {
+          "item_no": 84,
+          "accuracy": 33
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "multi_stage_motion_distance_setup_failure",
+        "triangle_congruence_condition_selection_failure"
+      ],
+      "tag_scope": {
+        "multi_stage_motion_distance_setup_failure": [
+          83
+        ],
+        "triangle_congruence_condition_selection_failure": [
+          84
+        ]
+      },
+      "rationale": "Q81~Q84는 평행사변형의 대변 길이 관계를 바탕으로 각의 이등분선이나 추가 평행사변형을 연결한다. Q83은 점 P의 이동에 따라 교점 Q가 움직이는 거리를 추적해야 하고, Q84는 33%로 합동을 추가로 세워 길이를 옮기므로 각각 문항 범위로 제한한다."
+    },
+    {
+      "type_no": 26,
+      "type_name": "평행사변형의 성질의 응용(2) 두 쌍의 대각의 크기가 같다",
+      "item_start": 85,
+      "item_end": 88,
+      "items": [
+        {
+          "item_no": 85,
+          "accuracy": 76
+        },
+        {
+          "item_no": 86,
+          "accuracy": 87
+        },
+        {
+          "item_no": 87,
+          "accuracy": 66
+        },
+        {
+          "item_no": 88,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "parallel_line_angle_transfer_failure",
+        "angle_correspondence_chain_failure",
+        "isosceles_triangle_angle_chain_failure"
+      ],
+      "rationale": "Q85~Q88은 평행사변형의 평행한 대변과 같은 대각을 이용해 각을 전달하고, 연장선에서 생기는 이등변삼각형의 각을 연결한다. 평행선 각의 방향을 바꾸거나 같은 두 변이 만드는 밑각을 놓치는 것이 대표 오류다."
+    },
+    {
+      "type_no": 27,
+      "type_name": "평행사변형의 성질의 응용(3) 두 대각선은 서로 다른 것을 이등분한다",
+      "item_start": 89,
+      "item_end": 91,
+      "items": [
+        {
+          "item_no": 89,
+          "accuracy": 86
+        },
+        {
+          "item_no": 90,
+          "accuracy": 92
+        },
+        {
+          "item_no": 91,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "midpoint_length_relation_error",
+        "segment_partition_tracking_failure",
+        "composite_path_length_decomposition_failure"
+      ],
+      "rationale": "Q89~Q91은 평행사변형의 두 대각선이 서로를 이등분한다는 성질을 여러 교점의 길이에 적용한 뒤 둘레를 합산한다. 중점으로 얻는 절반 길이를 전체 길이와 혼동하거나 둘레의 구성 선분을 빠뜨리는 오류가 핵심이다."
+    },
+    {
+      "type_no": 28,
+      "type_name": "평행사변형이 되는 조건의 증명",
+      "item_start": 92,
+      "item_end": 93,
+      "items": [
+        {
+          "item_no": 92,
+          "accuracy": 83
+        },
+        {
+          "item_no": 93,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "parallelogram_condition_converse_failure",
+        "triangle_congruence_condition_selection_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          93
+        ]
+      },
+      "rationale": "Q92~Q93은 주어진 대변·대각선 조건으로 사각형이 평행사변형임을 역으로 증명한다. 합동 조건을 잘못 골라 평행 관계를 만들지 못하는 오류가 핵심이고, Q93은 옳지 않은 것을 2개 고르는 문항이라 복수정답 누락을 Q93에만 둔다."
+    },
+    {
+      "type_no": 29,
+      "type_name": "평행사변형이 되는 조건 구하기",
+      "item_start": 94,
+      "item_end": 95,
+      "items": [
+        {
+          "item_no": 94,
+          "accuracy": 75
+        },
+        {
+          "item_no": 95,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "parallelogram_condition_converse_failure",
+        "law_selection_error",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          94
+        ]
+      },
+      "rationale": "Q94~Q95는 여러 길이·각·대각선 조건 중 평행사변형을 보장하는 충분조건을 판별한다. 성질의 정방향과 역방향을 혼동하기 쉽고, Q94는 조건이 아닌 것을 2개 고르므로 `multiple_answer_omission`을 Q94에만 둔다."
+    },
+    {
+      "type_no": 30,
+      "type_name": "새롭게 만든 사각형이 평행사변형이 되는 조건",
+      "item_start": 96,
+      "item_end": 97,
+      "items": [
+        {
+          "item_no": 96,
+          "accuracy": 77
+        },
+        {
+          "item_no": 97,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "parallelogram_condition_converse_failure",
+        "midpoint_length_relation_error",
+        "composite_path_length_decomposition_failure"
+      ],
+      "tag_scope": {
+        "composite_path_length_decomposition_failure": [
+          97
+        ]
+      },
+      "rationale": "Q96~Q97은 기존 평행사변형의 대각선·중점을 이용해 새로 만든 사각형이 다시 평행사변형임을 보인다. Q97은 새 도형의 네 변을 복원해 둘레까지 합산하므로 경로 길이 분해 오류를 Q97에만 둔다."
+    },
+    {
+      "type_no": 31,
+      "type_name": "평행사변형이 되는 조건의 응용",
+      "item_start": 98,
+      "item_end": 99,
+      "items": [
+        {
+          "item_no": 98,
+          "accuracy": 78
+        },
+        {
+          "item_no": 99,
+          "accuracy": 90
+        }
+      ],
+      "tags": [
+        "parallelogram_condition_converse_failure",
+        "angle_correspondence_chain_failure",
+        "multi_triangle_length_chain_failure"
+      ],
+      "tag_scope": {
+        "angle_correspondence_chain_failure": [
+          98
+        ],
+        "multi_triangle_length_chain_failure": [
+          99
+        ]
+      },
+      "rationale": "Q98~Q99는 중점·교점으로 만든 사각형에 평행사변형의 역조건을 적용한 뒤 각 또는 길이를 구한다. Q98은 각 대응, Q99는 여러 삼각형을 거쳐 길이를 연쇄하는 단계가 추가되므로 문항별로 범위를 둔다."
+    },
+    {
+      "type_no": 32,
+      "type_name": "평행사변형과 넓이(1) 대각선에 의하여 나뉘는 삼각형",
+      "item_start": 100,
+      "item_end": 103,
+      "items": [
+        {
+          "item_no": 100,
+          "accuracy": 56
+        },
+        {
+          "item_no": 101,
+          "accuracy": 76
+        },
+        {
+          "item_no": 102,
+          "accuracy": 50
+        },
+        {
+          "item_no": 103,
+          "accuracy": 67
+        }
+      ],
+      "tags": [
+        "area_decomposition_equation_setup_failure",
+        "same_altitude_area_ratio_transfer_failure",
+        "triangle_congruence_condition_selection_failure"
+      ],
+      "tag_scope": {
+        "triangle_congruence_condition_selection_failure": [
+          101,
+          103
+        ]
+      },
+      "rationale": "Q100~Q103은 평행사변형의 대각선이 만드는 삼각형들의 넓이 관계를 이용해 색칠 영역을 구성한다. Q101·Q103은 합동으로 같은 넓이를 만드는 단계가 추가되므로 합동 조건 선택 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 33,
+      "type_name": "평행사변형과 넓이(2) 내부의 한 점",
+      "item_start": 104,
+      "item_end": 107,
+      "items": [
+        {
+          "item_no": 104,
+          "accuracy": 34
+        },
+        {
+          "item_no": 105,
+          "accuracy": 61
+        },
+        {
+          "item_no": 106,
+          "accuracy": 76
+        },
+        {
+          "item_no": 107,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "area_decomposition_equation_setup_failure",
+        "composite_area_subtraction_failure",
+        "same_altitude_area_ratio_transfer_failure"
+      ],
+      "rationale": "Q104~Q107은 평행사변형 내부의 한 점을 잇고 같은 높이를 갖는 삼각형들의 넓이 합을 이용한다. 전체 넓이를 여러 부분으로 나누고 필요한 영역만 더하거나 빼는 과정이 공통 핵심이며 Q104가 34%로 가장 낮다."
+    },
+    {
+      "type_no": 34,
+      "type_name": "직사각형의 뜻과 성질",
+      "item_start": 108,
+      "item_end": 111,
+      "items": [
+        {
+          "item_no": 108,
+          "accuracy": 61
+        },
+        {
+          "item_no": 109,
+          "accuracy": 52
+        },
+        {
+          "item_no": 110,
+          "accuracy": 82
+        },
+        {
+          "item_no": 111,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "triangle_congruence_condition_selection_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q108~Q111은 직사각형의 대변 평행·같음, 네 각 90°, 대각선 길이 관계를 이용해 합동 삼각형과 각을 만든다. 어떤 직사각형 성질을 적용할지 고르고 대응각을 끝까지 유지하는 것이 핵심이다."
+    },
+    {
+      "type_no": 35,
+      "type_name": "평행사변형이 직사각형이 되는 조건",
+      "item_start": 112,
+      "item_end": 114,
+      "items": [
+        {
+          "item_no": 112,
+          "accuracy": 76
+        },
+        {
+          "item_no": 113,
+          "accuracy": 60
+        },
+        {
+          "item_no": 114,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "triangle_congruence_condition_selection_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          114
+        ]
+      },
+      "rationale": "Q112~Q114는 평행사변형에 한 각이 직각이거나 두 대각선의 길이가 같다는 조건을 더해 직사각형임을 판정한다. 합동으로 직각을 만드는 과정이 반복되며, Q114는 옳은 것을 2개 고르는 복수정답 문항이라 별도 처리한다."
+    },
+    {
+      "type_no": 36,
+      "type_name": "마름모의 뜻과 성질",
+      "item_start": 115,
+      "item_end": 116,
+      "items": [
+        {
+          "item_no": 115,
+          "accuracy": 73
+        },
+        {
+          "item_no": 116,
+          "accuracy": 64
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "angle_bisector_chain_integration_failure",
+        "area_formula_setup_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          115
+        ]
+      },
+      "rationale": "Q115~Q116은 마름모의 네 변이 같고 대각선이 서로 수직이며 꼭짓점각을 이등분한다는 성질을 사용한다. Q115는 대각선으로 생긴 직각삼각형의 넓이를 계산하므로 넓이식 오류를 Q115에만 둔다."
+    },
+    {
+      "type_no": 37,
+      "type_name": "평행사변형이 마름모가 되는 조건",
+      "item_start": 117,
+      "item_end": 118,
+      "items": [
+        {
+          "item_no": 117,
+          "accuracy": 73
+        },
+        {
+          "item_no": 118,
+          "accuracy": 88
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "triangle_congruence_condition_selection_failure",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q117~Q118은 평행사변형에서 인접한 두 변이 같음을 보이거나 각 조건을 이용해 마름모가 되는 충분조건을 만든다. 합동 조건과 각 대응을 잘못 잡으면 마름모 판정으로 이어지지 않는다."
+    },
+    {
+      "type_no": 38,
+      "type_name": "정사각형의 뜻과 성질",
+      "item_start": 119,
+      "item_end": 122,
+      "items": [
+        {
+          "item_no": 119,
+          "accuracy": 91
+        },
+        {
+          "item_no": 120,
+          "accuracy": 82
+        },
+        {
+          "item_no": 121,
+          "accuracy": 86
+        },
+        {
+          "item_no": 122,
+          "accuracy": 87
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "angle_correspondence_chain_failure",
+        "triangle_congruence_condition_selection_failure"
+      ],
+      "rationale": "Q119~Q122는 정사각형의 평행사변형·직사각형·마름모 성질을 동시에 사용해 대각선과 각을 계산한다. 여러 성질 중 필요한 것을 골라 합동과 각 대응으로 연결하지 못하는 오류가 핵심이다."
+    },
+    {
+      "type_no": 39,
+      "type_name": "정사각형이 되는 조건",
+      "item_start": 123,
+      "item_end": 124,
+      "items": [
+        {
+          "item_no": 123,
+          "accuracy": 82
+        },
+        {
+          "item_no": 124,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "parallelogram_condition_converse_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "tag_scope": {
+        "multi_constraint_intersection_failure": [
+          123
+        ]
+      },
+      "rationale": "Q123~Q124는 평행사변형에 직사각형 조건과 마름모 조건이 함께 성립할 때 정사각형이 된다는 충분조건을 판별한다. 두 조건을 동시에 만족해야 하므로 여러 조건의 교집합을 놓치는 오류를 Q123에만 둔다."
+    },
+    {
+      "type_no": 40,
+      "type_name": "등변사다리꼴의 뜻과 성질",
+      "item_start": 125,
+      "item_end": 125,
+      "items": [
+        {
+          "item_no": 125,
+          "accuracy": 85
+        }
+      ],
+      "tags": [
+        "parallel_line_angle_transfer_failure",
+        "triangle_congruence_condition_selection_failure",
+        "area_decomposition_equation_setup_failure"
+      ],
+      "tag_scope": {
+        "area_decomposition_equation_setup_failure": [
+          125
+        ]
+      },
+      "rationale": "Q125는 등변사다리꼴의 밑각 관계와 평행선에서 생기는 각을 이용해 보조 삼각형의 합동을 만든 뒤 넓이를 복원한다. 각 대응·합동·넓이 분해를 순서대로 연결해야 한다."
+    },
+    {
+      "type_no": 41,
+      "type_name": "여러 가지 사각형",
+      "item_start": 126,
+      "item_end": 127,
+      "items": [
+        {
+          "item_no": 126,
+          "accuracy": 88
+        },
+        {
+          "item_no": 127,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "segment_partition_tracking_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "segment_partition_tracking_failure": [
+          126
+        ],
+        "multiple_answer_omission": [
+          127
+        ]
+      },
+      "rationale": "Q126~Q127은 여러 사각형의 성질을 이용해 길이·둘레를 계산하거나 옳은 명제를 판별한다. Q126은 여러 선분을 나누어 추적해야 하고, Q127은 옳은 것을 2개 고르는 문항이라 복수정답 누락을 해당 문항에 둔다."
+    },
+    {
+      "type_no": 42,
+      "type_name": "여러 가지 사각형 사이의 관계",
+      "item_start": 128,
+      "item_end": 131,
+      "items": [
+        {
+          "item_no": 128,
+          "accuracy": 71
+        },
+        {
+          "item_no": 129,
+          "accuracy": 80
+        },
+        {
+          "item_no": 130,
+          "accuracy": 59
+        },
+        {
+          "item_no": 131,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "quadrilateral_hierarchy_classification_failure",
+        "law_selection_error"
+      ],
+      "rationale": "Q128~Q131은 평행사변형·직사각형·마름모·정사각형 사이의 포함 관계와 필요·충분조건을 판별한다. 한 도형의 성질을 다른 도형에도 항상 성립한다고 일반화하거나 포함 방향을 뒤집는 것이 핵심 오류다."
+    },
+    {
+      "type_no": 43,
+      "type_name": "여러 가지 사각형의 대각선의 성질",
+      "item_start": 132,
+      "item_end": 132,
+      "items": [
+        {
+          "item_no": 132,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "angle_correspondence_chain_failure"
+      ],
+      "rationale": "Q132는 여러 사각형의 대각선이 만드는 직각·이등분 관계를 이용해 새 사각형의 성질을 판정한다. 대각선 성질을 잘못 선택하거나 각 대응을 놓치면 최종 사각형의 종류를 잘못 판단한다."
+    },
+    {
+      "type_no": 44,
+      "type_name": "사각형의 각 변의 중점을 연결하여 만든 사각형",
+      "item_start": 133,
+      "item_end": 136,
+      "items": [
+        {
+          "item_no": 133,
+          "accuracy": 68
+        },
+        {
+          "item_no": 134,
+          "accuracy": 50
+        },
+        {
+          "item_no": 135,
+          "accuracy": 51
+        },
+        {
+          "item_no": 136,
+          "accuracy": 49
+        }
+      ],
+      "tags": [
+        "midpoint_length_relation_error",
+        "midpoint_area_fraction_relation_misapplied",
+        "composite_path_length_decomposition_failure"
+      ],
+      "tag_scope": {
+        "midpoint_area_fraction_relation_misapplied": [
+          134,
+          135
+        ],
+        "composite_path_length_decomposition_failure": [
+          136
+        ]
+      },
+      "rationale": "Q133~Q136은 사각형 각 변의 중점을 이은 선분이 원래 대각선의 절반이 되는 중점연결 관계를 반복 사용한다. Q134~Q135는 중점 사각형의 넓이가 반복해서 절반이 되는 구조를, Q136은 여러 중점선 길이를 둘레로 합산하는 구조를 각각 문항 범위로 둔다."
+    },
+    {
+      "type_no": 45,
+      "type_name": "평행선과 삼각형의 넓이",
+      "item_start": 137,
+      "item_end": 140,
+      "items": [
+        {
+          "item_no": 137,
+          "accuracy": 75
+        },
+        {
+          "item_no": 138,
+          "accuracy": 79
+        },
+        {
+          "item_no": 139,
+          "accuracy": 79
+        },
+        {
+          "item_no": 140,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "same_altitude_area_ratio_transfer_failure",
+        "area_decomposition_equation_setup_failure",
+        "parallel_line_angle_transfer_failure"
+      ],
+      "rationale": "Q137~Q140은 평행선 사이에 놓인 삼각형들이 같은 높이를 갖는다는 사실로 넓이를 비교하거나 합·차로 구성한다. 평행선에서 공통 높이를 인식하지 못하거나 필요한 영역을 분해해 식으로 만들지 못하는 오류가 핵심이다."
+    },
+    {
+      "type_no": 46,
+      "type_name": "높이가 같은 삼각형의 넓이의 비",
+      "item_start": 141,
+      "item_end": 144,
+      "items": [
+        {
+          "item_no": 141,
+          "accuracy": 52
+        },
+        {
+          "item_no": 142,
+          "accuracy": 71
+        },
+        {
+          "item_no": 143,
+          "accuracy": 86
+        },
+        {
+          "item_no": 144,
+          "accuracy": 79
+        }
+      ],
+      "tags": [
+        "same_altitude_area_ratio_transfer_failure",
+        "ratio_setup_from_geometry_failure",
+        "answer_format_mismatch"
+      ],
+      "tag_scope": {
+        "answer_format_mismatch": [
+          141
+        ]
+      },
+      "rationale": "Q141~Q144는 높이가 같은 삼각형의 넓이비가 밑변의 길이비와 같다는 관계를 사용한다. Q141은 넓이비를 최종적으로 퍼센트로 답해야 하므로 형식 변환 오류를 Q141에만 둔다."
+    },
+    {
+      "type_no": 47,
+      "type_name": "평행사변형에서 높이가 같은 삼각형의 넓이",
+      "item_start": 145,
+      "item_end": 148,
+      "items": [
+        {
+          "item_no": 145,
+          "accuracy": 75
+        },
+        {
+          "item_no": 146,
+          "accuracy": 65
+        },
+        {
+          "item_no": 147,
+          "accuracy": 67
+        },
+        {
+          "item_no": 148,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "same_altitude_area_ratio_transfer_failure",
+        "area_decomposition_equation_setup_failure",
+        "composite_area_subtraction_failure"
+      ],
+      "tag_scope": {
+        "composite_area_subtraction_failure": [
+          146,
+          148
+        ]
+      },
+      "rationale": "Q145~Q148은 평행사변형 안에서 같은 높이를 갖는 삼각형의 넓이비를 이용해 부분 평행사변형·삼각형의 넓이를 구한다. Q146·Q148은 전체에서 이미 구한 부분을 빼는 단계가 추가되므로 영역 빼기 오류를 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 48,
+      "type_name": "사다리꼴에서 높이가 같은 삼각형의 넓이",
+      "item_start": 149,
+      "item_end": 150,
+      "items": [
+        {
+          "item_no": 149,
+          "accuracy": 66
+        },
+        {
+          "item_no": 150,
+          "accuracy": 63
+        }
+      ],
+      "tags": [
+        "same_altitude_area_ratio_transfer_failure",
+        "ratio_setup_from_geometry_failure",
+        "law_selection_error"
+      ],
+      "tag_scope": {
+        "law_selection_error": [
+          150
+        ]
+      },
+      "rationale": "Q149~Q150은 사다리꼴의 두 밑변과 대각선 교점이 만드는 같은 높이 삼각형의 넓이비를 비례식으로 연결한다. Q150은 여러 넓이비 관계 중 옳지 않은 것을 판별하는 문항이라 법칙 선택 오류를 Q150에만 둔다."
+    }
+  ],
+  "unique_tags": [
+    "angle_bisector_chain_integration_failure",
+    "angle_correspondence_chain_failure",
+    "answer_format_mismatch",
+    "area_decomposition_equation_setup_failure",
+    "area_formula_setup_error",
+    "area_inradius_relation_setup_failure",
+    "central_inscribed_angle_factor_confusion",
+    "circumcenter_equidistance_relation_failure",
+    "circumcenter_perpendicular_bisector_relation_failure",
+    "composite_area_subtraction_failure",
+    "composite_path_length_decomposition_failure",
+    "diameter_right_angle_condition_omitted",
+    "extremum_selection_error",
+    "incenter_angle_bisector_relation_failure",
+    "isosceles_altitude_bisection_overlooked",
+    "isosceles_triangle_angle_chain_failure",
+    "law_selection_error",
+    "midpoint_area_fraction_relation_misapplied",
+    "midpoint_length_relation_error",
+    "multi_constraint_intersection_failure",
+    "multi_stage_motion_distance_setup_failure",
+    "multi_step_composite_error",
+    "multi_triangle_length_chain_failure",
+    "multiple_answer_omission",
+    "paper_fold_reflection_distance_mapping_failure",
+    "parallel_line_angle_transfer_failure",
+    "parallelogram_condition_converse_failure",
+    "pythagorean_setup_failure",
+    "quadrilateral_hierarchy_classification_failure",
+    "ratio_setup_from_geometry_failure",
+    "right_triangle_tangent_partition_failure",
+    "same_altitude_area_ratio_transfer_failure",
+    "segment_partition_tracking_failure",
+    "semiperimeter_tangent_partition_failure",
+    "tangent_radius_perpendicularity_omitted",
+    "triangle_congruence_condition_selection_failure"
+  ],
+  "new_tags": [
+    {
+      "tag": "circumcenter_equidistance_relation_failure",
+      "why": "외심에서 세 꼭짓점까지의 거리가 같다는 OA=OB=OC 관계 자체를 놓치는 오류로, 사전의 현·반지름 관계와는 대상과 판정 단계가 다르다."
+    },
+    {
+      "tag": "circumcenter_perpendicular_bisector_relation_failure",
+      "why": "외심이 세 변의 수직이등분선의 교점이라는 정의 또는 수직이등분선 위 점의 등거리 성질을 쓰지 못하는 오류가 사전에 별도 항목으로 없다."
+    },
+    {
+      "tag": "incenter_angle_bisector_relation_failure",
+      "why": "내심이 세 내각의 이등분선의 교점이라는 정의와 각을 절반으로 나누는 관계를 인식하지 못하는 오류로, 기존 `angle_bisector_chain_integration_failure`의 후속 연쇄 오류와 구분된다."
+    },
+    {
+      "tag": "parallelogram_condition_converse_failure",
+      "why": "대변·대각·대각선 이등분 등의 조건에서 평행사변형임을 역으로 판정하는 충분조건 적용 실패가 기존 전진 성질 사용 오류와 구분되어 사전에 없다."
+    },
+    {
+      "tag": "quadrilateral_hierarchy_classification_failure",
+      "why": "정사각형·직사각형·마름모·평행사변형 사이의 포함 관계와 필요·충분조건의 방향을 잘못 분류하는 오류가 사전에 별도 항목으로 없다."
+    },
+    {
+      "tag": "triangle_congruence_condition_selection_failure",
+      "why": "사전에는 각·닮음 대응 오류는 있으나 SSS/SAS/ASA/RHA/RHS 중 필요한 합동 조건을 구성·선택하지 못하는 오류가 별도 항목으로 없다."
+    }
+  ],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [],
+    "types_with_answer_format_error": [
+      8,
+      28,
+      29,
+      35,
+      41,
+      46
+    ],
+    "note": "전체 150문항을 검산·답 마무리 관점으로 재검토했다. 답을 구한 뒤 원조건으로 되돌려 대입하는 독립 검산이 핵심인 문항은 없었다. 답 마무리 관련은 Q26·Q93·Q94·Q114·Q127의 복수정답 누락과 Q141의 퍼센트 형식 변환이다. 단위 변환·반올림 지시는 없다."
+  }
+}

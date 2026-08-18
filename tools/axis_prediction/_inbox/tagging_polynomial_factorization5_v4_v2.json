@@ -1,0 +1,1654 @@
+{
+  "source_pdf": "260711_다항식의 곱셈과 인수분해(5)(1).pdf",
+  "unit": "중3 다항식의 곱셈과 인수분해",
+  "n_types": 51,
+  "n_items": 150,
+  "n_unique_tags": 42,
+  "n_reused_tags": 33,
+  "n_new_tags": 9,
+  "tag_language": "en_snake_case",
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "계수 구하기",
+      "item_start": 1,
+      "item_end": 3,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 89
+        },
+        {
+          "item_no": 2,
+          "accuracy": 87
+        },
+        {
+          "item_no": 3,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "like_term_misgrouping",
+        "multi_expression_dependency_error"
+      ],
+      "tag_scope": {
+        "multi_expression_dependency_error": [
+          3
+        ]
+      },
+      "rationale": "Q1~Q3은 전개 전체가 아니라 특정 차수의 계수만 모아야 한다. Q3은 68%로 Q1·Q2보다 약 20pp 낮고 x의 계수 조건으로 a를 먼저 정한 뒤 상수항까지 이어가므로 두 단계 의존 오류를 Q3에만 둔다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "곱셈 공식(1) 합의 제곱",
+      "item_start": 4,
+      "item_end": 6,
+      "items": [
+        {
+          "item_no": 4,
+          "accuracy": 80
+        },
+        {
+          "item_no": 5,
+          "accuracy": 81
+        },
+        {
+          "item_no": 6,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "square_formula_middle_term_error",
+        "sign_propagation_error",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          4,
+          5,
+          6
+        ]
+      },
+      "rationale": "Q4~Q6은 (x+A)²의 A²와 2A를 동시에 맞추는 유형이다. 세 문항 모두 가능한 값이 복수라서 한 경우만 고르는 오류를 별도로 보며, A의 부호가 바뀌면 중항 부호도 함께 바뀌는 점이 핵심이다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "곱셈 공식(2) 차의 제곱",
+      "item_start": 7,
+      "item_end": 9,
+      "items": [
+        {
+          "item_no": 7,
+          "accuracy": 82
+        },
+        {
+          "item_no": 8,
+          "accuracy": 74
+        },
+        {
+          "item_no": 9,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "square_formula_middle_term_error",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q7~Q9은 (a-b)²=a²-2ab+b²에서 음수와 괄호의 위치까지 포함해 전개식을 비교한다. 특히 바깥의 음수와 괄호 안 부호를 중항 부호와 혼동하면 같은 제곱식으로 잘못 판단한다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "곱셈 공식(3) 합과 차의 곱",
+      "item_start": 10,
+      "item_end": 12,
+      "items": [
+        {
+          "item_no": 10,
+          "accuracy": 86
+        },
+        {
+          "item_no": 11,
+          "accuracy": 74
+        },
+        {
+          "item_no": 12,
+          "accuracy": 88
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "sign_propagation_error",
+        "multi_expression_dependency_error"
+      ],
+      "tag_scope": {
+        "multi_expression_dependency_error": [
+          11,
+          12
+        ]
+      },
+      "rationale": "Q10~Q12는 (a+b)(a-b)=a²-b²를 이용한다. Q11·Q12는 단순 전개 비교를 넘어 계수 조건으로 a 또는 b를 결정한 뒤 최종 값을 구하므로 다단계 의존을 해당 문항에만 둔다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "연속한 합과 차의 곱",
+      "item_start": 13,
+      "item_end": 15,
+      "items": [
+        {
+          "item_no": 13,
+          "accuracy": 46
+        },
+        {
+          "item_no": 14,
+          "accuracy": 87
+        },
+        {
+          "item_no": 15,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "pattern_extraction_failure",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          13
+        ]
+      },
+      "rationale": "Q13~Q15는 합과 차의 곱을 연속 적용해 차수를 2배씩 키우거나 줄이는 패턴을 잡아야 한다. Q13은 46%로 같은 유형의 Q14 87%보다 41pp 낮고 여섯 단계 연쇄를 끝까지 유지해야 하므로 다단계 오류를 Q13에 제한한다."
+    },
+    {
+      "type_no": 6,
+      "type_name": "곱셈 공식(4) 일차항의 계수가 1인 두 일차식의 곱",
+      "item_start": 16,
+      "item_end": 18,
+      "items": [
+        {
+          "item_no": 16,
+          "accuracy": 79
+        },
+        {
+          "item_no": 17,
+          "accuracy": 80
+        },
+        {
+          "item_no": 18,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "factor_pair_sum_product_matching_failure",
+        "integer_candidate_enumeration_gap",
+        "extremum_selection_error"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          16
+        ],
+        "extremum_selection_error": [
+          16
+        ]
+      },
+      "rationale": "Q16~Q18은 (x+a)(x+b)에서 a+b와 ab를 계수와 연결한다. Q16은 ab=-15인 정수쌍을 모두 조사한 뒤 가능한 P 중 가장 작은 값을 골라야 하므로 후보 열거와 최솟값 선택을 Q16에만 둔다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "곱셈 공식(5) 일차항의 계수가 1이 아닌 두 일차식의 곱",
+      "item_start": 19,
+      "item_end": 21,
+      "items": [
+        {
+          "item_no": 19,
+          "accuracy": 83
+        },
+        {
+          "item_no": 20,
+          "accuracy": 86
+        },
+        {
+          "item_no": 21,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "like_term_misgrouping",
+        "intended_vs_actual_value_swap",
+        "verification_missing"
+      ],
+      "tag_scope": {
+        "intended_vs_actual_value_swap": [
+          21
+        ],
+        "verification_missing": [
+          21
+        ]
+      },
+      "rationale": "Q19~Q21은 일차항 계수가 1이 아닌 두 식을 전개해 중항 계수를 맞춘다. Q21은 “잘못 보아 전개한 식”에서 원래 값과 잘못 인식한 값을 역추적하는 문항이므로 intended/actual 뒤바꿈과, 구한 A·B·C를 주어진 오계산 조건에 다시 확인하는 검산 누락을 Q21에만 둔다."
+    },
+    {
+      "type_no": 8,
+      "type_name": "곱셈 공식(종합)",
+      "item_start": 22,
+      "item_end": 24,
+      "items": [
+        {
+          "item_no": 22,
+          "accuracy": 69
+        },
+        {
+          "item_no": 23,
+          "accuracy": 74
+        },
+        {
+          "item_no": 24,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "parenthesis_sign_distribution_error",
+        "like_term_misgrouping"
+      ],
+      "rationale": "Q22~Q24는 여러 곱셈 공식을 섞어 전개한 뒤 계수를 비교한다. 제곱식 앞의 음수와 괄호를 분배하고 같은 차수의 항만 모으는 순서가 안정적으로 유지되어야 한다."
+    },
+    {
+      "type_no": 9,
+      "type_name": "공통부분이 있는 식의 전개",
+      "item_start": 25,
+      "item_end": 27,
+      "items": [
+        {
+          "item_no": 25,
+          "accuracy": 88
+        },
+        {
+          "item_no": 26,
+          "accuracy": 72
+        },
+        {
+          "item_no": 27,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "pattern_extraction_failure",
+        "substitution_parenthesis_omission",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q25~Q27은 x+2y, 4x-Ay, x-y와 같은 반복 부분을 한 덩어리로 보고 공식을 적용한다. 공통부분을 놓치거나 다시 원래 식으로 대입할 때 괄호를 잃으면 계수가 연쇄적으로 틀어진다."
+    },
+    {
+      "type_no": 10,
+      "type_name": "( )( )( )( )꼴의 전개",
+      "item_start": 28,
+      "item_end": 30,
+      "items": [
+        {
+          "item_no": 28,
+          "accuracy": 60
+        },
+        {
+          "item_no": 29,
+          "accuracy": 68
+        },
+        {
+          "item_no": 30,
+          "accuracy": 79
+        }
+      ],
+      "tags": [
+        "pattern_extraction_failure",
+        "multi_step_composite_error",
+        "operation_order_violation"
+      ],
+      "rationale": "Q28~Q30은 네 일차식을 두 쌍으로 묶어 같은 이차식 또는 서로 가까운 식을 만든 뒤 다시 계산한다. 순서를 무시하고 네 괄호를 그대로 전개하면 계산량이 폭증하고 중간 결합을 하나라도 놓치기 쉽다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "곱셈 공식의 도형에의 활용(1)",
+      "item_start": 31,
+      "item_end": 33,
+      "items": [
+        {
+          "item_no": 31,
+          "accuracy": 81
+        },
+        {
+          "item_no": 32,
+          "accuracy": 83
+        },
+        {
+          "item_no": 33,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "area_formula_setup_error",
+        "variable_length_assignment_failure",
+        "area_decomposition_equation_setup_failure"
+      ],
+      "tag_scope": {
+        "area_decomposition_equation_setup_failure": [
+          33
+        ]
+      },
+      "rationale": "Q31~Q33은 도형의 변 길이를 문자식으로 바꾸어 넓이를 곱셈공식으로 계산한다. Q33은 세 정사각형으로 나뉜 색칠 영역의 넓이를 합성해야 하므로 영역 분해 식 설정을 Q33에만 둔다."
+    },
+    {
+      "type_no": 12,
+      "type_name": "곱셈 공식의 도형에의 활용(2)",
+      "item_start": 34,
+      "item_end": 36,
+      "items": [
+        {
+          "item_no": 34,
+          "accuracy": 86
+        },
+        {
+          "item_no": 35,
+          "accuracy": 85
+        },
+        {
+          "item_no": 36,
+          "accuracy": 65
+        }
+      ],
+      "tags": [
+        "composite_area_subtraction_failure",
+        "area_formula_setup_error",
+        "multi_expression_dependency_error"
+      ],
+      "tag_scope": {
+        "multi_expression_dependency_error": [
+          36
+        ]
+      },
+      "rationale": "Q34·Q35는 길을 제외한 화단 넓이를 전체에서 제외 영역을 빼거나 이동해 계산한다. Q36은 65%로 앞 두 문항보다 약 20pp 낮고 점선 원의 둘레→반지름→산책로 넓이까지 연결하므로 추가 의존 오류를 Q36에만 둔다."
+    },
+    {
+      "type_no": 13,
+      "type_name": "곱셈 공식을 이용한 수의 제곱 계산",
+      "item_start": 37,
+      "item_end": 39,
+      "items": [
+        {
+          "item_no": 37,
+          "accuracy": 74
+        },
+        {
+          "item_no": 38,
+          "accuracy": 79
+        },
+        {
+          "item_no": 39,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q37~Q39는 1005, 97, 49.9처럼 기준수가 가까운 수로 바꾸어 합·차의 제곱을 적용한다. 기준수에서의 차의 부호와 2ab 항 부호를 잘못 잡으면 계산이 바로 무너진다."
+    },
+    {
+      "type_no": 14,
+      "type_name": "곱셈 공식을 이용한 두 수의 곱의 계산",
+      "item_start": 40,
+      "item_end": 42,
+      "items": [
+        {
+          "item_no": 40,
+          "accuracy": 80
+        },
+        {
+          "item_no": 41,
+          "accuracy": 71
+        },
+        {
+          "item_no": 42,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "pattern_extraction_failure",
+        "law_selection_error",
+        "difference_direction_error"
+      ],
+      "rationale": "Q40~Q42는 서로 이웃한 수의 곱을 a²-b² 또는 중심값 기준 식으로 재구성한다. 두 곱의 차를 어느 방향으로 잡는지까지 일관되게 유지해야 한다."
+    },
+    {
+      "type_no": 15,
+      "type_name": "곱셈 공식을 이용한 복잡한 수의 계산",
+      "item_start": 43,
+      "item_end": 45,
+      "items": [
+        {
+          "item_no": 43,
+          "accuracy": 83
+        },
+        {
+          "item_no": 44,
+          "accuracy": 66
+        },
+        {
+          "item_no": 45,
+          "accuracy": 53
+        }
+      ],
+      "tags": [
+        "pattern_extraction_failure",
+        "multi_step_composite_error",
+        "exponent_factoring_failure"
+      ],
+      "tag_scope": {
+        "exponent_factoring_failure": [
+          45
+        ]
+      },
+      "rationale": "Q43~Q45는 (a-1)(a+1) 연쇄를 반복해 큰 거듭제곱으로 축약한다. Q45는 53%로 가장 낮고 33, 31, 1025를 2의 거듭제곱 구조로 다시 읽어야 하므로 지수 분해 오류를 Q45에만 둔다."
+    },
+    {
+      "type_no": 16,
+      "type_name": "곱셈 공식을 이용한 수의 계산: 제곱근을 포함한 경우",
+      "item_start": 46,
+      "item_end": 48,
+      "items": [
+        {
+          "item_no": 46,
+          "accuracy": 84
+        },
+        {
+          "item_no": 47,
+          "accuracy": 77
+        },
+        {
+          "item_no": 48,
+          "accuracy": 66
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "multi_step_composite_error",
+        "answer_format_mismatch"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          47,
+          48
+        ],
+        "answer_format_mismatch": [
+          48
+        ]
+      },
+      "rationale": "Q46~Q48은 켤레 꼴을 합과 차의 곱으로 묶어 근호를 줄인다. Q47·Q48은 여러 켤레곱을 연속 처리해야 하고, Q48은 최종식을 p+q√5로 정리한 뒤 p-q를 답해야 하므로 중간식에서 멈추는 답 형식 오류를 Q48에 둔다."
+    },
+    {
+      "type_no": 17,
+      "type_name": "곱셈 공식을 이용한 분모의 유리화",
+      "item_start": 49,
+      "item_end": 51,
+      "items": [
+        {
+          "item_no": 49,
+          "accuracy": 85
+        },
+        {
+          "item_no": 50,
+          "accuracy": 80
+        },
+        {
+          "item_no": 51,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "conjugate_rationalization_setup_failure",
+        "sign_propagation_error",
+        "pattern_extraction_failure"
+      ],
+      "tag_scope": {
+        "pattern_extraction_failure": [
+          51
+        ]
+      },
+      "rationale": "Q49~Q51은 분모의 켤레를 곱해 유리화한다. Q51은 유리화 후 f(k)=-√k+√(k+1) 꼴의 합이 망원합으로 소거되는 패턴까지 읽어야 하므로 패턴 추출 오류를 Q51에만 둔다."
+    },
+    {
+      "type_no": 18,
+      "type_name": "식의 값 구하기(1) 수가 주어진 경우",
+      "item_start": 52,
+      "item_end": 54,
+      "items": [
+        {
+          "item_no": 52,
+          "accuracy": 77
+        },
+        {
+          "item_no": 53,
+          "accuracy": 78
+        },
+        {
+          "item_no": 54,
+          "accuracy": 63
+        }
+      ],
+      "tags": [
+        "multi_expression_dependency_error",
+        "conjugate_rationalization_setup_failure",
+        "pythagorean_setup_failure"
+      ],
+      "tag_scope": {
+        "conjugate_rationalization_setup_failure": [
+          52,
+          54
+        ],
+        "pythagorean_setup_failure": [
+          53
+        ]
+      },
+      "rationale": "Q52~Q54는 주어진 수를 바로 대입하지 않고 필요한 관계를 먼저 만든다. Q52·Q54는 역수나 근호분수를 켤레로 정리해야 하고, Q53은 수직선의 두 직각삼각형에서 √5 길이를 구성해야 하므로 문항별 보조 오류를 나눈다."
+    },
+    {
+      "type_no": 19,
+      "type_name": "식의 값 구하기(2) 두 수의 합 또는 차와 곱이 주어진 경우",
+      "item_start": 55,
+      "item_end": 57,
+      "items": [
+        {
+          "item_no": 55,
+          "accuracy": 77
+        },
+        {
+          "item_no": 56,
+          "accuracy": 54
+        },
+        {
+          "item_no": 57,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "multi_expression_dependency_error",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          56,
+          57
+        ]
+      },
+      "rationale": "Q55는 (x-y)²=(x+y)²-4xy를 바로 쓰면 끝나지만, Q56·Q57은 제곱 관계를 한 번 더 올리거나 역수식까지 연결한다. Q56의 54% 절벽을 포함해 고차 연쇄가 필요한 두 문항에 다단계 오류를 둔다."
+    },
+    {
+      "type_no": 20,
+      "type_name": "식의 값 구하기(3) 두 수의 곱이 1인 경우",
+      "item_start": 58,
+      "item_end": 60,
+      "items": [
+        {
+          "item_no": 58,
+          "accuracy": 66
+        },
+        {
+          "item_no": 59,
+          "accuracy": 86
+        },
+        {
+          "item_no": 60,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "multi_expression_dependency_error",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q58~Q60은 xy=1 또는 역수 관계를 이용해 x±1/x 형태의 제곱식을 만든다. 합과 차를 바꿀 때 상수항 ±2의 부호를 잘못 옮기면 이후 모든 값이 틀어진다."
+    },
+    {
+      "type_no": 21,
+      "type_name": "식의 값 구하기(4) 두 수의 곱이 1인 식 만들기",
+      "item_start": 61,
+      "item_end": 63,
+      "items": [
+        {
+          "item_no": 61,
+          "accuracy": 71
+        },
+        {
+          "item_no": 62,
+          "accuracy": 46
+        },
+        {
+          "item_no": 63,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "inverse_operation_setup_error",
+        "law_selection_error",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          62,
+          63
+        ]
+      },
+      "rationale": "Q61~Q63은 주어진 이차식을 변수로 나누어 x±1/x 꼴을 인위적으로 만드는 것이 출발점이다. Q62는 46%로 가장 낮고 만든 관계를 다시 제곱식·다항식으로 연결해야 하며 Q63도 8제곱까지 반복하므로 다단계 오류를 Q62·Q63에 둔다."
+    },
+    {
+      "type_no": 22,
+      "type_name": "식의 값 구하기(5) 식을 먼저 간단히 하는 경우",
+      "item_start": 64,
+      "item_end": 66,
+      "items": [
+        {
+          "item_no": 64,
+          "accuracy": 71
+        },
+        {
+          "item_no": 65,
+          "accuracy": 61
+        },
+        {
+          "item_no": 66,
+          "accuracy": 43
+        }
+      ],
+      "tags": [
+        "simplify_before_substitute_omitted",
+        "multi_expression_dependency_error",
+        "nested_fraction_simplification_failure"
+      ],
+      "tag_scope": {
+        "nested_fraction_simplification_failure": [
+          65
+        ]
+      },
+      "rationale": "Q64~Q66은 주어진 관계를 먼저 정리해 목표식을 짧게 만든 뒤 값을 넣어야 한다. Q65는 근호가 겹친 분수식을 먼저 한 분수로 정리해야 하므로 연분수·중첩분수 정리 오류를 Q65에만 둔다."
+    },
+    {
+      "type_no": 23,
+      "type_name": "식의 값 구하기(6) 주어진 수를 변형하여 식에 대입하는 경우",
+      "item_start": 67,
+      "item_end": 69,
+      "items": [
+        {
+          "item_no": 67,
+          "accuracy": 66
+        },
+        {
+          "item_no": 68,
+          "accuracy": 62
+        },
+        {
+          "item_no": 69,
+          "accuracy": 56
+        }
+      ],
+      "tags": [
+        "conjugate_rationalization_setup_failure",
+        "simplify_before_substitute_omitted",
+        "substitution_parenthesis_omission"
+      ],
+      "rationale": "Q67~Q69는 주어진 근호분수를 먼저 유리화해 x±상수=√k 관계를 만든 뒤 제곱하고 목표식에 대입한다. 변형 전 수를 그대로 대입하거나 음수·근호식을 괄호 없이 넣으면 계산이 크게 늘거나 부호가 손실된다."
+    },
+    {
+      "type_no": 24,
+      "type_name": "식의 값 구하기(7) 무리수의 정수 부분과 소수 부분",
+      "item_start": 70,
+      "item_end": 72,
+      "items": [
+        {
+          "item_no": 70,
+          "accuracy": 69
+        },
+        {
+          "item_no": 71,
+          "accuracy": 51
+        },
+        {
+          "item_no": 72,
+          "accuracy": 50
+        }
+      ],
+      "tags": [
+        "irrational_integer_fractional_part_split_failure",
+        "conjugate_rationalization_setup_failure",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          71,
+          72
+        ]
+      },
+      "rationale": "Q70~Q72는 유리화한 수가 어느 두 정수 사이인지 확인해 소수 부분을 만들고 그 과정을 반복한다. Q71·Q72는 50%대이며 f(1),1/f(1),f(2)…가 주기적으로 이어지는 연쇄를 80~100항까지 합해야 하므로 다단계 오류를 해당 문항에 둔다."
+    },
+    {
+      "type_no": 25,
+      "type_name": "공통인수를 이용한 인수분해",
+      "item_start": 73,
+      "item_end": 75,
+      "items": [
+        {
+          "item_no": 73,
+          "accuracy": 64
+        },
+        {
+          "item_no": 74,
+          "accuracy": 81
+        },
+        {
+          "item_no": 75,
+          "accuracy": 63
+        }
+      ],
+      "tags": [
+        "common_factor_extraction_failure",
+        "sign_propagation_error",
+        "pattern_extraction_failure"
+      ],
+      "rationale": "Q73~Q75는 항마다 공통으로 들어 있는 식을 끝까지 뽑아내는 것이 핵심이다. Q74처럼 (3-x)=-(x-3)을 맞추거나 Q75처럼 두 큰 항 안에서 다시 xy와 남은 괄호의 공통부분을 찾을 때 부호 정리가 흔들릴 수 있다."
+    },
+    {
+      "type_no": 26,
+      "type_name": "인수분해 공식(1) a²±2ab+b²=(a±b)²",
+      "item_start": 76,
+      "item_end": 78,
+      "items": [
+        {
+          "item_no": 76,
+          "accuracy": 70
+        },
+        {
+          "item_no": 77,
+          "accuracy": 92
+        },
+        {
+          "item_no": 78,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "square_formula_middle_term_error",
+        "sign_propagation_error",
+        "multi_expression_dependency_error"
+      ],
+      "tag_scope": {
+        "multi_expression_dependency_error": [
+          78
+        ]
+      },
+      "rationale": "Q76~Q78은 완전제곱식에서 양 끝 제곱과 중항을 역으로 맞춘다. Q78은 두 개의 빈칸식에서 각각 계수를 복원한 뒤 네 값을 합쳐야 하므로 식 사이 의존을 Q78에만 둔다."
+    },
+    {
+      "type_no": 27,
+      "type_name": "완전제곱식이 될 조건",
+      "item_start": 79,
+      "item_end": 81,
+      "items": [
+        {
+          "item_no": 79,
+          "accuracy": 59
+        },
+        {
+          "item_no": 80,
+          "accuracy": 52
+        },
+        {
+          "item_no": 81,
+          "accuracy": 63
+        }
+      ],
+      "tags": [
+        "perfect_square_trinomial_condition_failure",
+        "integer_candidate_enumeration_gap",
+        "multi_expression_dependency_error"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          80
+        ],
+        "multi_expression_dependency_error": [
+          81
+        ]
+      },
+      "rationale": "Q79~Q81은 완전제곱이 되도록 미정계수 사이의 관계를 세워야 한다. Q80은 52%로 100 이하 자연수 순서쌍을 모두 세어야 하고, Q81은 서로 다른 두 이차식이 동시에 완전제곱이 되는 조건을 각각 구해 합치므로 문항별 추가 오류를 둔다."
+    },
+    {
+      "type_no": 28,
+      "type_name": "근호 안이 완전제곱식으로 인수분해 되는 식",
+      "item_start": 82,
+      "item_end": 84,
+      "items": [
+        {
+          "item_no": 82,
+          "accuracy": 69
+        },
+        {
+          "item_no": 83,
+          "accuracy": 61
+        },
+        {
+          "item_no": 84,
+          "accuracy": 62
+        }
+      ],
+      "tags": [
+        "absolute_value_from_square_root_omitted",
+        "range_constraint_dropped",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q82~Q84는 근호 안을 (식)²으로 만든 뒤 √(u²)=|u|로 처리하고 a의 범위에 따라 부호를 정해야 한다. 제곱근을 바로 u로 없애거나 범위 조건을 버리면 Q82의 경우분기와 Q83·Q84의 부호가 모두 틀어진다."
+    },
+    {
+      "type_no": 29,
+      "type_name": "인수분해 공식(2) a²-b²=(a+b)(a-b)",
+      "item_start": 85,
+      "item_end": 86,
+      "items": [
+        {
+          "item_no": 85,
+          "accuracy": 72
+        },
+        {
+          "item_no": 86,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "sign_propagation_error",
+        "excluded_case_omission"
+      ],
+      "tag_scope": {
+        "excluded_case_omission": [
+          86
+        ]
+      },
+      "rationale": "Q85·Q86은 두 제곱의 차를 인수분해한다. Q86은 (x+y){1-(x-y)}=0에서 문제의 x+y≠0 조건을 유지해야 하므로 제외 조건 누락을 Q86에만 둔다."
+    },
+    {
+      "type_no": 30,
+      "type_name": "인수분해 공식(3) x²+(a+b)x+ab=(x+a)(x+b)",
+      "item_start": 87,
+      "item_end": 89,
+      "items": [
+        {
+          "item_no": 87,
+          "accuracy": 75
+        },
+        {
+          "item_no": 88,
+          "accuracy": 83
+        },
+        {
+          "item_no": 89,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "factor_pair_sum_product_matching_failure",
+        "integer_candidate_enumeration_gap",
+        "extremum_selection_error"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          87,
+          89
+        ],
+        "extremum_selection_error": [
+          87,
+          89
+        ]
+      },
+      "rationale": "Q87~Q89는 상수항의 정수 인수쌍을 모두 만들고 합으로 x의 계수를 맞춘다. Q87은 가능한 p의 최솟값, Q89는 최댓값을 묻기 때문에 후보 누락과 극값 선택 오류를 두 문항에만 둔다."
+    },
+    {
+      "type_no": 31,
+      "type_name": "인수분해 공식(4) acx²+(ad+bc)x+bd=(ax+b)(cx+d)",
+      "item_start": 90,
+      "item_end": 92,
+      "items": [
+        {
+          "item_no": 90,
+          "accuracy": 58
+        },
+        {
+          "item_no": 91,
+          "accuracy": 73
+        },
+        {
+          "item_no": 92,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "cross_product_factorization_coefficient_matching_failure",
+        "like_term_misgrouping",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q90~Q92는 최고차항과 상수항의 인수쌍을 정한 뒤 교차곱의 합으로 x계수를 맞춘다. Q90은 58%로 가장 낮고 주어진 한 인수에서 나머지 계수를 역으로 복원해야 해 계수 간 의존이 특히 크다."
+    },
+    {
+      "type_no": 32,
+      "type_name": "인수분해 공식(종합)",
+      "item_start": 93,
+      "item_end": 95,
+      "items": [
+        {
+          "item_no": 93,
+          "accuracy": 81
+        },
+        {
+          "item_no": 94,
+          "accuracy": 84
+        },
+        {
+          "item_no": 95,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "condition_negation_error",
+        "common_factor_extraction_failure"
+      ],
+      "tag_scope": {
+        "condition_negation_error": [
+          93,
+          94
+        ],
+        "common_factor_extraction_failure": [
+          95
+        ]
+      },
+      "rationale": "Q93~Q95는 여러 인수분해 공식을 섞어 판정한다. Q93·Q94는 “인수로 갖지 않는 것”을 찾아야 하므로 부정 조건을, Q95는 일부 보기에서 공통인수를 끝까지 빼지 않은 형태를 구별해야 하므로 공통인수 추출을 문항별로 둔다."
+    },
+    {
+      "type_no": 33,
+      "type_name": "도형을 이용한 인수분해 공식",
+      "item_start": 96,
+      "item_end": 97,
+      "items": [
+        {
+          "item_no": 96,
+          "accuracy": 77
+        },
+        {
+          "item_no": 97,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "area_formula_setup_error",
+        "factor_pair_sum_product_matching_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          96
+        ]
+      },
+      "rationale": "Q96·Q97은 대수 타일의 전체 넓이를 이차식으로 만든 뒤 인수분해한 두 일차식을 직사각형의 두 변으로 읽는다. Q96은 가능한 가로 또는 세로 길이를 모두 고르는 복수정답이므로 하나만 고르는 오류를 Q96에 둔다."
+    },
+    {
+      "type_no": 34,
+      "type_name": "두 다항식의 공통인수 구하기",
+      "item_start": 98,
+      "item_end": 100,
+      "items": [
+        {
+          "item_no": 98,
+          "accuracy": 90
+        },
+        {
+          "item_no": 99,
+          "accuracy": 57
+        },
+        {
+          "item_no": 100,
+          "accuracy": 59
+        }
+      ],
+      "tags": [
+        "common_factor_extraction_failure",
+        "factor_pair_sum_product_matching_failure",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q98~Q100은 여러 이차식을 각각 인수분해한 뒤 공통으로 남는 일차인수를 찾아야 한다. Q99·Q100은 50%대이고 공통인수를 이용해 새 이차식의 미정계수까지 역으로 결정하므로 식 간 연결이 핵심이다."
+    },
+    {
+      "type_no": 35,
+      "type_name": "인수가 주어진 이차식의 미지수의 값 구하기",
+      "item_start": 101,
+      "item_end": 102,
+      "items": [
+        {
+          "item_no": 101,
+          "accuracy": 65
+        },
+        {
+          "item_no": 102,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "like_term_misgrouping",
+        "multi_expression_dependency_error",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q101·Q102는 주어진 일차인수를 포함하도록 이차식을 곱의 꼴로 두고 계수를 비교한다. Q101은 두 인수의 곱 전체에 비례상수까지 들어가므로 계수 비교 순서를 유지해야 한다."
+    },
+    {
+      "type_no": 36,
+      "type_name": "두 일차식의 곱으로 인수분해 될 때 미지수 구하기",
+      "item_start": 103,
+      "item_end": 105,
+      "items": [
+        {
+          "item_no": 103,
+          "accuracy": 90
+        },
+        {
+          "item_no": 104,
+          "accuracy": 78
+        },
+        {
+          "item_no": 105,
+          "accuracy": 64
+        }
+      ],
+      "tags": [
+        "factor_pair_sum_product_matching_failure",
+        "integer_candidate_enumeration_gap",
+        "range_constraint_dropped"
+      ],
+      "tag_scope": {
+        "range_constraint_dropped": [
+          105
+        ]
+      },
+      "rationale": "Q103~Q105는 정수 인수쌍을 모두 조사해 미정계수를 정한다. Q105는 64%로 1<c<200 범위를 만족하는 자연수 순서쌍의 개수까지 세므로 범위 조건 누락을 Q105에만 둔다."
+    },
+    {
+      "type_no": 37,
+      "type_name": "공통인수를 이용한 인수분해",
+      "item_start": 106,
+      "item_end": 108,
+      "items": [
+        {
+          "item_no": 106,
+          "accuracy": 65
+        },
+        {
+          "item_no": 107,
+          "accuracy": 52
+        },
+        {
+          "item_no": 108,
+          "accuracy": 88
+        }
+      ],
+      "tags": [
+        "common_factor_extraction_failure",
+        "pattern_extraction_failure",
+        "extremum_selection_error"
+      ],
+      "tag_scope": {
+        "extremum_selection_error": [
+          107
+        ]
+      },
+      "rationale": "Q106~Q108은 먼저 공통인수를 뽑고 남는 식을 다시 인수분해한다. Q107은 52%로 8n³-2n을 연속한 세 자연수의 곱으로 만든 뒤 가능한 세 값 중 가장 큰 것과 두 번째 큰 것을 골라 차를 구하므로 극값 선택을 Q107에 둔다."
+    },
+    {
+      "type_no": 38,
+      "type_name": "치환을 이용한 인수분해(1) 공통부분이 있는 경우",
+      "item_start": 109,
+      "item_end": 111,
+      "items": [
+        {
+          "item_no": 109,
+          "accuracy": 78
+        },
+        {
+          "item_no": 110,
+          "accuracy": 72
+        },
+        {
+          "item_no": 111,
+          "accuracy": 62
+        }
+      ],
+      "tags": [
+        "common_subexpression_substitution_failure",
+        "factor_pair_sum_product_matching_failure",
+        "integer_candidate_enumeration_gap"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          111
+        ]
+      },
+      "rationale": "Q109~Q111은 x²-x, 3x+4y, x+2y를 한 문자로 치환해 이차식으로 낮춘 뒤 인수분해한다. Q111은 결과가 소수가 되려면 한 인수가 1이어야 하는 경우를 자연수 범위에서 모두 찾아야 하므로 후보 열거를 Q111에만 둔다."
+    },
+    {
+      "type_no": 39,
+      "type_name": "치환을 이용한 인수분해(2) 다른 형태로 주어진 공통부분이 있는 경우",
+      "item_start": 112,
+      "item_end": 114,
+      "items": [
+        {
+          "item_no": 112,
+          "accuracy": 82
+        },
+        {
+          "item_no": 113,
+          "accuracy": 71
+        },
+        {
+          "item_no": 114,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "common_subexpression_substitution_failure",
+        "sign_propagation_error",
+        "condition_negation_error"
+      ],
+      "tag_scope": {
+        "condition_negation_error": [
+          114
+        ]
+      },
+      "rationale": "Q112~Q114는 x-y, x-3y, x²-x처럼 모양이 다른 공통부분을 같은 문자로 맞춰 인수분해한다. Q114는 “인수가 아닌 것”을 골라야 하므로 부정 조건을 Q114에만 둔다."
+    },
+    {
+      "type_no": 40,
+      "type_name": "치환을 이용한 인수분해(3) 공통부분이 2개 있는 경우",
+      "item_start": 115,
+      "item_end": 117,
+      "items": [
+        {
+          "item_no": 115,
+          "accuracy": 72
+        },
+        {
+          "item_no": 116,
+          "accuracy": 78
+        },
+        {
+          "item_no": 117,
+          "accuracy": 64
+        }
+      ],
+      "tags": [
+        "common_subexpression_substitution_failure",
+        "multi_expression_dependency_error",
+        "multi_step_composite_error"
+      ],
+      "tag_scope": {
+        "multi_step_composite_error": [
+          117
+        ]
+      },
+      "rationale": "Q115~Q117은 두 개의 공통부분을 동시에 치환하거나 합·차를 X,Y로 두어 다시 인수분해한다. Q117은 64%로 치환→두 제곱의 차→거듭제곱 관계까지 여러 단계가 이어지므로 다단계 오류를 Q117에 둔다."
+    },
+    {
+      "type_no": 41,
+      "type_name": "( )( )( )( )+k꼴의 인수분해",
+      "item_start": 118,
+      "item_end": 120,
+      "items": [
+        {
+          "item_no": 118,
+          "accuracy": 70
+        },
+        {
+          "item_no": 119,
+          "accuracy": 67
+        },
+        {
+          "item_no": 120,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "common_subexpression_substitution_failure",
+        "multiple_answer_omission",
+        "condition_negation_error"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          119
+        ],
+        "condition_negation_error": [
+          120
+        ]
+      },
+      "rationale": "Q118~Q120은 네 일차식을 두 쌍으로 묶어 같은 이차식 A를 만들고 A²+pA+q로 인수분해한다. Q119는 인수가 아닌 것을 2개 모두 골라야 하고, Q120은 풀이 과정 중 “옳지 않은 것”을 찾는 부정형이므로 각각 범위를 제한한다."
+    },
+    {
+      "type_no": 42,
+      "type_name": "적당한 항끼리 묶어 인수분해 하기(1) 두 항씩 묶기",
+      "item_start": 121,
+      "item_end": 123,
+      "items": [
+        {
+          "item_no": 121,
+          "accuracy": 60
+        },
+        {
+          "item_no": 122,
+          "accuracy": 52
+        },
+        {
+          "item_no": 123,
+          "accuracy": 79
+        }
+      ],
+      "tags": [
+        "grouping_for_factorization_failure",
+        "integer_candidate_enumeration_gap",
+        "final_form_reduction_omitted"
+      ],
+      "tag_scope": {
+        "integer_candidate_enumeration_gap": [
+          121,
+          122
+        ],
+        "final_form_reduction_omitted": [
+          122
+        ]
+      },
+      "rationale": "Q121~Q123은 두 항씩 묶어 같은 공통인수를 만든 뒤 다시 한 번 묶어야 한다. Q121·Q122는 인수분해 후 가능한 정수 경우를 모두 세며, Q122는 확률을 396/1296에서 11/36으로 기약해야 하므로 최종 약분 누락을 Q122에 둔다."
+    },
+    {
+      "type_no": 43,
+      "type_name": "적당한 항끼리 묶어 인수분해 하기(2) ( )²-( )²꼴",
+      "item_start": 124,
+      "item_end": 126,
+      "items": [
+        {
+          "item_no": 124,
+          "accuracy": 70
+        },
+        {
+          "item_no": 125,
+          "accuracy": 75
+        },
+        {
+          "item_no": 126,
+          "accuracy": 55
+        }
+      ],
+      "tags": [
+        "grouping_for_factorization_failure",
+        "law_selection_error",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          124,
+          125
+        ]
+      },
+      "rationale": "Q124~Q126은 일부 항을 먼저 완전제곱으로 묶어 ( )²-( )² 꼴을 만든 뒤 합과 차로 인수분해한다. Q124·Q125는 인수인 것을 각각 2개 모두 골라야 하므로 복수정답 누락을 두 문항에 둔다."
+    },
+    {
+      "type_no": 44,
+      "type_name": "내림차순으로 정리하여 인수분해 하기(1) 공통부분이 있는 경우",
+      "item_start": 127,
+      "item_end": 129,
+      "items": [
+        {
+          "item_no": 127,
+          "accuracy": 83
+        },
+        {
+          "item_no": 128,
+          "accuracy": 73
+        },
+        {
+          "item_no": 129,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "polynomial_reordering_for_factorization_failure",
+        "common_factor_extraction_failure",
+        "multiple_answer_omission"
+      ],
+      "tag_scope": {
+        "multiple_answer_omission": [
+          128,
+          129
+        ]
+      },
+      "rationale": "Q127~Q129는 y에 대해 내림차순으로 정리한 뒤 같은 일차식이 공통인수로 나오도록 묶는다. Q128·Q129는 완성된 인수분해식에서 가능한 인수를 각각 2개 모두 골라야 한다."
+    },
+    {
+      "type_no": 45,
+      "type_name": "내림차순으로 정리하여 인수분해 하기(2) 공통부분이 없는 경우",
+      "item_start": 130,
+      "item_end": 132,
+      "items": [
+        {
+          "item_no": 130,
+          "accuracy": 74
+        },
+        {
+          "item_no": 131,
+          "accuracy": 67
+        },
+        {
+          "item_no": 132,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "polynomial_reordering_for_factorization_failure",
+        "cross_product_factorization_coefficient_matching_failure",
+        "sign_propagation_error"
+      ],
+      "rationale": "Q130~Q132는 한 문자에 대해 이차식으로 정리했을 때 처음에는 공통부분이 보이지 않으므로 상수항 쪽까지 인수분해 구조를 만들어야 한다. Q131처럼 교차곱으로 중항을 맞추는 과정에서 부호를 바꾸면 인수 전체가 달라진다."
+    },
+    {
+      "type_no": 46,
+      "type_name": "인수분해 공식을 이용한 수의 계산",
+      "item_start": 133,
+      "item_end": 135,
+      "items": [
+        {
+          "item_no": 133,
+          "accuracy": 85
+        },
+        {
+          "item_no": 134,
+          "accuracy": 83
+        },
+        {
+          "item_no": 135,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "common_factor_extraction_failure",
+        "square_formula_middle_term_error"
+      ],
+      "tag_scope": {
+        "common_factor_extraction_failure": [
+          133
+        ],
+        "square_formula_middle_term_error": [
+          134,
+          135
+        ]
+      },
+      "rationale": "Q133은 24를 공통인수로 빼 27-22를 계산하고, Q134·Q135는 수식을 완전제곱식으로 읽어 계산량을 줄인다. 따라서 공통인수와 완전제곱 중항 오류를 해당 문항에만 나눈다."
+    },
+    {
+      "type_no": 47,
+      "type_name": "인수분해 공식을 이용한 수의 계산: 합과 차의 곱 활용",
+      "item_start": 136,
+      "item_end": 138,
+      "items": [
+        {
+          "item_no": 136,
+          "accuracy": 84
+        },
+        {
+          "item_no": 137,
+          "accuracy": 67
+        },
+        {
+          "item_no": 138,
+          "accuracy": 56
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "multi_step_composite_error",
+        "pattern_extraction_failure"
+      ],
+      "rationale": "Q136~Q138은 연속된 제곱의 차 또는 5⁸-1을 합과 차의 곱으로 계속 분해한다. Q138은 56%로 소인수 중 가장 큰 값을 다시 완전제곱식에 넣는 단계까지 이어져 패턴을 끝까지 추적해야 한다."
+    },
+    {
+      "type_no": 48,
+      "type_name": "인수분해 공식을 이용하여 식의 값 구하기(1) 문자의 값이 주어질 때",
+      "item_start": 139,
+      "item_end": 141,
+      "items": [
+        {
+          "item_no": 139,
+          "accuracy": 69
+        },
+        {
+          "item_no": 140,
+          "accuracy": 60
+        },
+        {
+          "item_no": 141,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "simplify_before_substitute_omitted",
+        "conjugate_rationalization_setup_failure",
+        "variable_length_assignment_failure"
+      ],
+      "tag_scope": {
+        "conjugate_rationalization_setup_failure": [
+          139
+        ],
+        "variable_length_assignment_failure": [
+          140
+        ]
+      },
+      "rationale": "Q139~Q141은 값을 바로 대입하기보다 목표식을 먼저 인수분해·치환한다. Q139는 두 근호분수를 유리화해야 하고, Q140은 정사각형 넓이 13과 수직선 길이로 x=5+√13, y=5-√13을 세워야 하므로 문항별 보조 오류를 둔다."
+    },
+    {
+      "type_no": 49,
+      "type_name": "인수분해 공식을 이용하여 식의 값 구하기(2) 식의 조건이 주어질 때",
+      "item_start": 142,
+      "item_end": 144,
+      "items": [
+        {
+          "item_no": 142,
+          "accuracy": 80
+        },
+        {
+          "item_no": 143,
+          "accuracy": 76
+        },
+        {
+          "item_no": 144,
+          "accuracy": 56
+        }
+      ],
+      "tags": [
+        "common_factor_extraction_failure",
+        "multi_expression_dependency_error",
+        "excluded_case_omission"
+      ],
+      "tag_scope": {
+        "excluded_case_omission": [
+          144
+        ]
+      },
+      "rationale": "Q142~Q144는 주어진 식 자체를 인수분해해 x+y, xy 또는 a+b와 같은 조건을 끌어낸 뒤 목표식에 연결한다. Q144는 56%로 분모 x+2y-1≠0 조건을 끝까지 유지해야 하므로 제외 조건 누락을 Q144에 둔다."
+    },
+    {
+      "type_no": 50,
+      "type_name": "인수분해 공식의 도형에의 활용",
+      "item_start": 145,
+      "item_end": 147,
+      "items": [
+        {
+          "item_no": 145,
+          "accuracy": 66
+        },
+        {
+          "item_no": 146,
+          "accuracy": 77
+        },
+        {
+          "item_no": 147,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "multi_expression_dependency_error",
+        "area_formula_setup_error",
+        "solid_measure_formula_selection_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          145
+        ],
+        "solid_measure_formula_selection_error": [
+          146,
+          147
+        ]
+      },
+      "rationale": "Q145는 두 정사각형의 둘레합과 넓이합에서 x+y와 xy를 복원하고, Q146·Q147은 직육면체의 부피식을 인수분해해 변 길이를 얻은 뒤 겉넓이 또는 모서리 길이로 옮긴다. 평면 넓이식과 입체 공식 선택 오류를 문항별로 구분한다."
+    },
+    {
+      "type_no": 51,
+      "type_name": "인수분해 공식의 도형에의 활용: 일부분을 잘라 낸 경우",
+      "item_start": 148,
+      "item_end": 150,
+      "items": [
+        {
+          "item_no": 148,
+          "accuracy": 73
+        },
+        {
+          "item_no": 149,
+          "accuracy": 84
+        },
+        {
+          "item_no": 150,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "composite_area_subtraction_failure",
+        "area_formula_setup_error",
+        "segment_partition_tracking_failure"
+      ],
+      "tag_scope": {
+        "segment_partition_tracking_failure": [
+          150
+        ]
+      },
+      "rationale": "Q148~Q150은 원·반원의 전체 넓이에서 잘라낸 부분을 빼고 남은 식을 인수분해한다. Q150은 AB=2r, AC=2r+4, AD=2r+8처럼 한 직선 위 지름·반지름 길이를 차례로 추적해야 하므로 선분 분할 추적 오류를 Q150에만 둔다."
+    }
+  ],
+  "unique_tags": [
+    "absolute_value_from_square_root_omitted",
+    "answer_format_mismatch",
+    "area_decomposition_equation_setup_failure",
+    "area_formula_setup_error",
+    "common_factor_extraction_failure",
+    "common_subexpression_substitution_failure",
+    "composite_area_subtraction_failure",
+    "condition_negation_error",
+    "conjugate_rationalization_setup_failure",
+    "cross_product_factorization_coefficient_matching_failure",
+    "difference_direction_error",
+    "excluded_case_omission",
+    "exponent_factoring_failure",
+    "extremum_selection_error",
+    "factor_pair_sum_product_matching_failure",
+    "final_form_reduction_omitted",
+    "grouping_for_factorization_failure",
+    "integer_candidate_enumeration_gap",
+    "intended_vs_actual_value_swap",
+    "inverse_operation_setup_error",
+    "irrational_integer_fractional_part_split_failure",
+    "law_selection_error",
+    "like_term_misgrouping",
+    "multi_expression_dependency_error",
+    "multi_step_composite_error",
+    "multiple_answer_omission",
+    "nested_fraction_simplification_failure",
+    "operation_order_violation",
+    "parenthesis_sign_distribution_error",
+    "pattern_extraction_failure",
+    "perfect_square_trinomial_condition_failure",
+    "polynomial_reordering_for_factorization_failure",
+    "pythagorean_setup_failure",
+    "range_constraint_dropped",
+    "segment_partition_tracking_failure",
+    "sign_propagation_error",
+    "simplify_before_substitute_omitted",
+    "solid_measure_formula_selection_error",
+    "square_formula_middle_term_error",
+    "substitution_parenthesis_omission",
+    "variable_length_assignment_failure",
+    "verification_missing"
+  ],
+  "new_tags": [
+    {
+      "tag": "common_subexpression_substitution_failure",
+      "why": "반복되는 복합식을 한 문자로 치환해 저차식으로 바꾸고 다시 복원하는 인수분해 전략 오류가 기존 사전에 없다."
+    },
+    {
+      "tag": "conjugate_rationalization_setup_failure",
+      "why": "근호가 있는 분모에서 알맞은 켤레식을 선택해 곱하고 차의 제곱 꼴로 분모를 없애는 설정 오류가 기존 사전에 없다."
+    },
+    {
+      "tag": "cross_product_factorization_coefficient_matching_failure",
+      "why": "ax²+bx+c형 인수분해에서 ac와 상수항의 인수쌍을 고른 뒤 교차곱의 합으로 x계수를 맞추는 오류가 기존 사전에 없다."
+    },
+    {
+      "tag": "factor_pair_sum_product_matching_failure",
+      "why": "x²+px+q형에서 두 수의 곱과 합을 동시에 맞춰 일차인수 쌍을 찾는 오류가 기존 사전에 독립 태그로 없다."
+    },
+    {
+      "tag": "grouping_for_factorization_failure",
+      "why": "여러 항을 적절히 묶어 각 묶음에서 같은 공통인수가 나오도록 만드는 인수분해 오류가 기존 사전에 없다."
+    },
+    {
+      "tag": "irrational_integer_fractional_part_split_failure",
+      "why": "무리수의 범위를 정해 정수 부분과 소수 부분을 분리하고 다시 식으로 표현하는 오류가 기존 대수 태그와 구별된다."
+    },
+    {
+      "tag": "perfect_square_trinomial_condition_failure",
+      "why": "ax²+bx+c가 완전제곱식이 되기 위한 중항과 양 끝항의 제곱 관계를 조건식으로 세우지 못하는 오류로, 단순 공식 암기 오류와 구별된다."
+    },
+    {
+      "tag": "polynomial_reordering_for_factorization_failure",
+      "why": "한 문자에 대해 내림차순으로 항을 재배열해 인수분해 구조를 드러내는 전처리 오류가 기존 사전에 없다."
+    },
+    {
+      "tag": "square_formula_middle_term_error",
+      "why": "합·차의 제곱 공식을 전개하거나 역으로 읽을 때 중항 ±2ab의 계수·부호를 잘못 만드는 오류로, 일반 부호 오류나 공식 선택 오류만으로는 중항의 배수 관계를 충분히 표현하지 못한다."
+    }
+  ],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [
+      7
+    ],
+    "types_with_answer_format_error": [
+      2,
+      16,
+      33,
+      41,
+      42,
+      43,
+      44
+    ],
+    "note": "Q21은 잘못 전개한 상황을 역추적하는 문제라 구한 A·B·C를 제시된 오계산 조건에 되돌려 확인하는 검산 누락을 별도 위험으로 보았다. 복수정답은 Q4·Q5·Q6, Q96, Q119, Q124·Q125, Q128·Q129이며, Q48은 p+q√5에서 p-q까지 답해야 하고 Q122는 확률을 기약분수로 마무리해야 한다. 단위 환산·반올림 지시는 없다."
+  }
+}

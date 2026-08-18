@@ -1,0 +1,1437 @@
+{
+  "source_pdf": "260711_삼각비(20260806-110117).pdf",
+  "unit": "중3 삼각비",
+  "n_types": 37,
+  "n_items": 150,
+  "n_unique_tags": 53,
+  "n_reused_tags": 53,
+  "n_new_tags": 0,
+  "tag_language": "en_snake_case",
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "삼각비의 값",
+      "item_start": 1,
+      "item_end": 4,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 87
+        },
+        {
+          "item_no": 2,
+          "accuracy": 90
+        },
+        {
+          "item_no": 3,
+          "accuracy": 94
+        },
+        {
+          "item_no": 4,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "trig_ratio_side_role_confusion",
+        "pythagorean_setup_failure",
+        "segment_partition_tracking_failure"
+      ],
+      "tag_scope": {
+        "segment_partition_tracking_failure": [
+          4
+        ]
+      },
+      "rationale": "Q1~Q4는 주어진 변의 비에서 기준각의 대변·인접변·빗변을 정확히 구분한 뒤 피타고라스로 남은 변을 완성해 삼각비를 만든다. Q4는 BC의 중점 D를 먼저 반영해 BD를 구해야 하므로 선분 분할 추적 오류를 Q4에만 둔다."
+    },
+    {
+      "type_no": 2,
+      "type_name": "삼각비가 주어진 경우의 삼각형의 변의 길이",
+      "item_start": 5,
+      "item_end": 8,
+      "items": [
+        {
+          "item_no": 5,
+          "accuracy": 88
+        },
+        {
+          "item_no": 6,
+          "accuracy": 89
+        },
+        {
+          "item_no": 7,
+          "accuracy": 67
+        },
+        {
+          "item_no": 8,
+          "accuracy": 87
+        }
+      ],
+      "tags": [
+        "trig_ratio_triangle_reconstruction_failure",
+        "pythagorean_setup_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q5~Q8은 주어진 sin 값과 한 변의 길이로 직각삼각형의 변 길이를 재구성한 뒤 피타고라스와 삼각형 넓이 공식을 적용한다. Q7의 67%처럼 비를 실제 길이로 바꾸는 단계가 길어지면 삼각형 복원 오류가 바로 넓이 계산으로 이어진다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "한 삼각비가 주어진 경우의 다른 삼각비의 값",
+      "item_start": 9,
+      "item_end": 12,
+      "items": [
+        {
+          "item_no": 9,
+          "accuracy": 84
+        },
+        {
+          "item_no": 10,
+          "accuracy": 84
+        },
+        {
+          "item_no": 11,
+          "accuracy": 85
+        },
+        {
+          "item_no": 12,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "trig_ratio_triangle_reconstruction_failure",
+        "pythagorean_setup_failure",
+        "complementary_angle_conversion_error"
+      ],
+      "tag_scope": {
+        "complementary_angle_conversion_error": [
+          12
+        ]
+      },
+      "rationale": "Q9~Q12는 한 삼각비로 직각삼각형의 변비를 복원하고 다른 삼각비를 계산한다. Q12는 sin(90°-A)를 cosA로 바꾸는 여각 변환이 추가되고 정답률도 68%로 낮아 해당 오류를 Q12에만 둔다."
+    },
+    {
+      "type_no": 4,
+      "type_name": "직각삼각형의 닮음과 삼각비(1)",
+      "item_start": 13,
+      "item_end": 17,
+      "items": [
+        {
+          "item_no": 13,
+          "accuracy": 81
+        },
+        {
+          "item_no": 14,
+          "accuracy": 77
+        },
+        {
+          "item_no": 15,
+          "accuracy": 90
+        },
+        {
+          "item_no": 16,
+          "accuracy": 81
+        },
+        {
+          "item_no": 17,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "similar_triangle_correspondence_setup_failure",
+        "angle_correspondence_chain_failure",
+        "right_triangle_trig_setup_failure"
+      ],
+      "rationale": "Q13~Q17은 직각삼각형에 내린 수선이 만든 여러 삼각형에서 닮음 대응과 각의 일치를 추적한 뒤 sin·cos를 대응변 비로 표현한다. 대응각을 한 번 잘못 옮기면 같은 x,y가 다른 삼각형에서 어떤 변비인지 모두 어긋나는 구조다."
+    },
+    {
+      "type_no": 5,
+      "type_name": "직각삼각형의 닮음과 삼각비(2)",
+      "item_start": 18,
+      "item_end": 21,
+      "items": [
+        {
+          "item_no": 18,
+          "accuracy": 84
+        },
+        {
+          "item_no": 19,
+          "accuracy": 81
+        },
+        {
+          "item_no": 20,
+          "accuracy": 85
+        },
+        {
+          "item_no": 21,
+          "accuracy": 31
+        }
+      ],
+      "tags": [
+        "similar_triangle_correspondence_setup_failure",
+        "multi_step_geometry_trig_transfer_failure",
+        "angle_bisector_chain_integration_failure"
+      ],
+      "tag_scope": {
+        "angle_bisector_chain_integration_failure": [
+          21
+        ]
+      },
+      "rationale": "Q18~Q21은 직각삼각형 내부의 수선·닮음을 연속으로 연결해 같은 각의 삼각비를 다른 삼각형으로 옮긴다. Q21은 31%로 크게 낮고 AC가 ∠C의 이등분선이라는 조건까지 합동·닮음·길이식에 통합해야 하므로 이등분 연쇄 오류를 Q21에만 둔다."
+    },
+    {
+      "type_no": 6,
+      "type_name": "직선의 방정식과 삼각비의 값",
+      "item_start": 22,
+      "item_end": 25,
+      "items": [
+        {
+          "item_no": 22,
+          "accuracy": 83
+        },
+        {
+          "item_no": 23,
+          "accuracy": 80
+        },
+        {
+          "item_no": 24,
+          "accuracy": 67
+        },
+        {
+          "item_no": 25,
+          "accuracy": 50
+        }
+      ],
+      "tags": [
+        "line_slope_to_trig_ratio_conversion_failure",
+        "axis_intercept_triangle_setup_failure",
+        "right_triangle_trig_setup_failure"
+      ],
+      "tag_scope": {
+        "axis_intercept_triangle_setup_failure": [
+          22,
+          23,
+          25
+        ],
+        "right_triangle_trig_setup_failure": [
+          25
+        ]
+      },
+      "rationale": "Q22~Q25는 직선의 기울기 또는 좌표 두 점의 변화량을 삼각비로 바꾸는 유형이다. Q22·Q23·Q25는 축과의 교점으로 직각삼각형을 구성해야 하고, Q25는 수선 H까지 이용해 새로운 직각삼각형의 tan과 넓이를 연결하므로 해당 오류를 문항별로 제한한다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "평면도형에서의 삼각비의 값",
+      "item_start": 26,
+      "item_end": 30,
+      "items": [
+        {
+          "item_no": 26,
+          "accuracy": 87
+        },
+        {
+          "item_no": 27,
+          "accuracy": 78
+        },
+        {
+          "item_no": 28,
+          "accuracy": 81
+        },
+        {
+          "item_no": 29,
+          "accuracy": 81
+        },
+        {
+          "item_no": 30,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "pythagorean_setup_failure",
+        "isosceles_altitude_bisection_overlooked",
+        "auxiliary_line_construction_failure"
+      ],
+      "tag_scope": {
+        "isosceles_altitude_bisection_overlooked": [
+          27,
+          29
+        ],
+        "auxiliary_line_construction_failure": [
+          30
+        ]
+      },
+      "rationale": "Q26~Q30은 평면도형 안에서 필요한 직각삼각형을 찾아 피타고라스로 길이를 완성한 뒤 삼각비를 계산한다. Q27·Q29는 이등변삼각형의 높이가 밑변을 이등분한다는 성질이 핵심이고, Q30은 C에서 AB로 수선을 보조선으로 내려야 한다."
+    },
+    {
+      "type_no": 8,
+      "type_name": "입체도형에서의 삼각비의 값",
+      "item_start": 31,
+      "item_end": 35,
+      "items": [
+        {
+          "item_no": 31,
+          "accuracy": 76
+        },
+        {
+          "item_no": 32,
+          "accuracy": 84
+        },
+        {
+          "item_no": 33,
+          "accuracy": 67
+        },
+        {
+          "item_no": 34,
+          "accuracy": 65
+        },
+        {
+          "item_no": 35,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "spatial_cross_section_identification_failure",
+        "three_dimensional_length_reduction_failure",
+        "pythagorean_setup_failure"
+      ],
+      "rationale": "Q31~Q35는 정육면체·직육면체의 공간 선분을 한 평면의 직각삼각형으로 환원해 길이를 구한다. 면의 대각선과 공간 대각선을 단계별로 피타고라스로 완성해야 하므로 단면 식별과 3차원→2차원 길이 환원이 공통 병목이다."
+    },
+    {
+      "type_no": 9,
+      "type_name": "원에서의 삼각비의 값",
+      "item_start": 36,
+      "item_end": 38,
+      "items": [
+        {
+          "item_no": 36,
+          "accuracy": 58
+        },
+        {
+          "item_no": 37,
+          "accuracy": 54
+        },
+        {
+          "item_no": 38,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "circle_chord_right_triangle_integration_failure",
+        "chord_midpoint_from_center_perpendicular_omitted",
+        "isosceles_altitude_bisection_overlooked"
+      ],
+      "rationale": "Q36~Q38은 원의 중심 O와 현 BC의 중점을 연결해 직각삼각형을 만들고, AB=AC인 이등변삼각형의 높이 성질과 결합해 sin∠BAC를 구한다. 중심에서 현에 내린 수선의 이등분 성질을 놓치면 반현 길이와 중심각·삼각비 연결이 무너진다."
+    },
+    {
+      "type_no": 10,
+      "type_name": "특수한 각(30˚, 45˚, 60˚)의 삼각비의 값",
+      "item_start": 39,
+      "item_end": 42,
+      "items": [
+        {
+          "item_no": 39,
+          "accuracy": 80
+        },
+        {
+          "item_no": 40,
+          "accuracy": 84
+        },
+        {
+          "item_no": 41,
+          "accuracy": 86
+        },
+        {
+          "item_no": 42,
+          "accuracy": 85
+        }
+      ],
+      "tags": [
+        "special_angle_trig_value_recall_error",
+        "mixed_trig_expression_arithmetic_error",
+        "answer_format_mismatch"
+      ],
+      "tag_scope": {
+        "answer_format_mismatch": [
+          40
+        ]
+      },
+      "rationale": "Q39~Q42는 30°·45°·60°의 sin·cos·tan 값을 정확히 대입해 식이나 방정식을 계산한다. Q40은 최종식을 a+b√2 꼴로 정리한 뒤 a+b를 답해야 하므로 값만 구하고 요구 형식으로 마무리하지 않는 오류를 Q40에 둔다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "특수한 각의 삼각비를 이용하여 각의 크기 구하기",
+      "item_start": 43,
+      "item_end": 46,
+      "items": [
+        {
+          "item_no": 43,
+          "accuracy": 91
+        },
+        {
+          "item_no": 44,
+          "accuracy": 85
+        },
+        {
+          "item_no": 45,
+          "accuracy": 90
+        },
+        {
+          "item_no": 46,
+          "accuracy": 90
+        }
+      ],
+      "tags": [
+        "special_angle_trig_value_recall_error",
+        "range_condition_branch_selection_failure",
+        "inverse_operation_setup_error"
+      ],
+      "rationale": "Q43~Q46은 주어진 삼각비 값으로 특수각을 먼저 확정한 뒤 2x-10°, 3x-15° 같은 각 식을 역연산하여 x를 구한다. 제시된 x 범위를 이용해 가능한 각의 분기를 하나로 고르는 과정도 필수다."
+    },
+    {
+      "type_no": 12,
+      "type_name": "특수한 각의 삼각비를 이용하여 변의 길이 구하기",
+      "item_start": 47,
+      "item_end": 50,
+      "items": [
+        {
+          "item_no": 47,
+          "accuracy": 78
+        },
+        {
+          "item_no": 48,
+          "accuracy": 79
+        },
+        {
+          "item_no": 49,
+          "accuracy": 87
+        },
+        {
+          "item_no": 50,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "special_angle_trig_value_recall_error",
+        "multi_step_geometry_trig_transfer_failure",
+        "composite_length_accumulation_error"
+      ],
+      "tag_scope": {
+        "composite_length_accumulation_error": [
+          49
+        ]
+      },
+      "rationale": "Q47~Q50은 30°·45° 등의 특수각을 여러 직각삼각형에 연속 적용해 길이를 옮긴다. Q49는 세 변을 따로 구한 뒤 사각형 둘레로 합산해야 하므로 부분 길이를 최종 길이에 누적하는 오류를 Q49에만 둔다."
+    },
+    {
+      "type_no": 13,
+      "type_name": "특수한 각의 삼각비를 이용하여 입체도형에서의 삼각비의 값 구하기",
+      "item_start": 51,
+      "item_end": 54,
+      "items": [
+        {
+          "item_no": 51,
+          "accuracy": 60
+        },
+        {
+          "item_no": 52,
+          "accuracy": 65
+        },
+        {
+          "item_no": 53,
+          "accuracy": 54
+        },
+        {
+          "item_no": 54,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "spatial_cross_section_identification_failure",
+        "three_dimensional_length_reduction_failure",
+        "special_angle_trig_value_recall_error"
+      ],
+      "rationale": "Q51~Q54는 정사면체·사면체의 공간 구조에서 필요한 단면과 수선의 발을 찾아 30°·45°·60° 삼각형으로 환원한다. 공간 길이를 바로 삼각비에 넣지 않고 평면 직각삼각형의 변 길이로 바꾸는 과정이 핵심이다."
+    },
+    {
+      "type_no": 14,
+      "type_name": "특수한 각의 삼각비를 이용하여 다른 삼각비의 값 구하기",
+      "item_start": 55,
+      "item_end": 59,
+      "items": [
+        {
+          "item_no": 55,
+          "accuracy": 83
+        },
+        {
+          "item_no": 56,
+          "accuracy": 90
+        },
+        {
+          "item_no": 57,
+          "accuracy": 72
+        },
+        {
+          "item_no": 58,
+          "accuracy": 86
+        },
+        {
+          "item_no": 59,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "special_angle_trig_value_recall_error",
+        "range_condition_branch_selection_failure",
+        "mixed_trig_expression_arithmetic_error"
+      ],
+      "tag_scope": {
+        "range_condition_branch_selection_failure": [
+          56,
+          57,
+          58,
+          59
+        ],
+        "mixed_trig_expression_arithmetic_error": [
+          57,
+          58,
+          59
+        ]
+      },
+      "rationale": "Q55~Q59는 특수각을 이용해 15° 같은 다른 각의 삼각비를 만들거나 각 식을 먼저 결정한 뒤 다른 삼각비 식을 계산한다. Q56~Q59는 제시된 범위로 각의 분기를 고르는 과정이 필요하고, Q57~Q59는 여러 삼각함수의 혼합 계산이 추가된다."
+    },
+    {
+      "type_no": 15,
+      "type_name": "직선의 기울기와 삼각비의 값",
+      "item_start": 60,
+      "item_end": 63,
+      "items": [
+        {
+          "item_no": 60,
+          "accuracy": 70
+        },
+        {
+          "item_no": 61,
+          "accuracy": 75
+        },
+        {
+          "item_no": 62,
+          "accuracy": 73
+        },
+        {
+          "item_no": 63,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "line_slope_to_trig_ratio_conversion_failure",
+        "special_angle_trig_value_recall_error",
+        "mixed_trig_expression_arithmetic_error"
+      ],
+      "tag_scope": {
+        "mixed_trig_expression_arithmetic_error": [
+          60
+        ]
+      },
+      "rationale": "Q60~Q63은 직선 방정식의 기울기를 x축과 이루는 각의 tan 값으로 바꾸고 특수각 값을 연결한다. Q60은 sin60°·cos60°가 들어간 절편형 식을 먼저 정리한 뒤 여러 삼각비를 혼합 계산해야 하므로 산술 오류를 Q60에만 둔다."
+    },
+    {
+      "type_no": 16,
+      "type_name": "특수한 각의 삼각비의 도형에의 활용",
+      "item_start": 64,
+      "item_end": 67,
+      "items": [
+        {
+          "item_no": 64,
+          "accuracy": 84
+        },
+        {
+          "item_no": 65,
+          "accuracy": 82
+        },
+        {
+          "item_no": 66,
+          "accuracy": 88
+        },
+        {
+          "item_no": 67,
+          "accuracy": 87
+        }
+      ],
+      "tags": [
+        "special_angle_area_height_failure",
+        "area_formula_setup_error",
+        "multi_step_geometry_trig_transfer_failure"
+      ],
+      "rationale": "Q64~Q67은 30°·45°·60°에서 높이와 밑변 길이를 만든 뒤 삼각형 넓이를 계산한다. 한 도형 안에 여러 직각삼각형이 연속되므로 특수각에서 구한 길이를 다음 넓이식으로 정확히 전달해야 한다."
+    },
+    {
+      "type_no": 17,
+      "type_name": "사분원을 이용한 삼각비의 값",
+      "item_start": 68,
+      "item_end": 71,
+      "items": [
+        {
+          "item_no": 68,
+          "accuracy": 81
+        },
+        {
+          "item_no": 69,
+          "accuracy": 70
+        },
+        {
+          "item_no": 70,
+          "accuracy": 88
+        },
+        {
+          "item_no": 71,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "coordinate_projection_axis_confusion",
+        "trig_ratio_side_role_confusion",
+        "area_formula_setup_error"
+      ],
+      "tag_scope": {
+        "area_formula_setup_error": [
+          69
+        ]
+      },
+      "rationale": "Q68~Q71은 반지름 1인 사분원에서 점의 가로·세로 투영을 cos·sin 값 또는 선분 길이와 연결한다. Q69는 투영 길이로 직사각형 CBPQ의 넓이까지 계산해야 하므로 넓이식 설정 오류를 Q69에만 둔다."
+    },
+    {
+      "type_no": 18,
+      "type_name": "특수한 각(0˚, 90˚)의 삼각비의 값",
+      "item_start": 72,
+      "item_end": 75,
+      "items": [
+        {
+          "item_no": 72,
+          "accuracy": 89
+        },
+        {
+          "item_no": 73,
+          "accuracy": 85
+        },
+        {
+          "item_no": 74,
+          "accuracy": 71
+        },
+        {
+          "item_no": 75,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "special_angle_trig_value_recall_error",
+        "isosceles_altitude_bisection_overlooked",
+        "complementary_angle_conversion_error"
+      ],
+      "tag_scope": {
+        "isosceles_altitude_bisection_overlooked": [
+          74,
+          75
+        ],
+        "complementary_angle_conversion_error": [
+          74,
+          75
+        ]
+      },
+      "rationale": "Q72~Q75는 0°·90° 또는 그와 연결되는 특수각의 삼각비를 사용한다. Q74~Q75는 이등변삼각형의 높이가 밑변을 반으로 나누어 B=45°를 만든 뒤 A=90°-B로 바꾸므로 두 기하·여각 오류를 해당 문항에 제한한다."
+    },
+    {
+      "type_no": 19,
+      "type_name": "삼각비의 값의 대소 관계",
+      "item_start": 76,
+      "item_end": 78,
+      "items": [
+        {
+          "item_no": 76,
+          "accuracy": 86
+        },
+        {
+          "item_no": 77,
+          "accuracy": 66
+        },
+        {
+          "item_no": 78,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "trig_monotonic_direction_confusion",
+        "mixed_function_ordering_failure",
+        "coordinate_projection_axis_confusion"
+      ],
+      "tag_scope": {
+        "coordinate_projection_axis_confusion": [
+          77,
+          78
+        ]
+      },
+      "rationale": "Q76~Q78은 0°~90°에서 sin·cos·tan의 증가·감소와 서로 다른 함수값의 관계를 비교한다. Q77~Q78은 사분원 그림의 수평·수직 투영을 함수값으로 읽어야 하므로 축 방향을 뒤집는 오류를 두 문항에 둔다."
+    },
+    {
+      "type_no": 20,
+      "type_name": "삼각비의 값의 대소 관계를 이용한 식의 계산",
+      "item_start": 79,
+      "item_end": 83,
+      "items": [
+        {
+          "item_no": 79,
+          "accuracy": 78
+        },
+        {
+          "item_no": 80,
+          "accuracy": 78
+        },
+        {
+          "item_no": 81,
+          "accuracy": 83
+        },
+        {
+          "item_no": 82,
+          "accuracy": 75
+        },
+        {
+          "item_no": 83,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "absolute_value_from_square_root_omitted",
+        "trig_expression_sign_determination_error",
+        "range_condition_branch_selection_failure"
+      ],
+      "rationale": "Q79~Q83은 √(u²)을 |u|로 바꾸고 각의 범위에서 sinA-cosA, cosx-1 같은 항의 부호를 판정해 절댓값을 풀어야 한다. 범위를 쓰지 않고 제곱근을 바로 u로 처리하면 부호가 뒤집히는 유형이다."
+    },
+    {
+      "type_no": 21,
+      "type_name": "삼각비의 표(1); 삼각비의 값",
+      "item_start": 84,
+      "item_end": 87,
+      "items": [
+        {
+          "item_no": 84,
+          "accuracy": 51
+        },
+        {
+          "item_no": 85,
+          "accuracy": 83
+        },
+        {
+          "item_no": 86,
+          "accuracy": 70
+        },
+        {
+          "item_no": 87,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "trig_table_value_selection_error",
+        "complementary_angle_conversion_error",
+        "rounding_instruction_overlooked"
+      ],
+      "tag_scope": {
+        "complementary_angle_conversion_error": [
+          84
+        ],
+        "rounding_instruction_overlooked": [
+          84
+        ]
+      },
+      "rationale": "Q84~Q87은 삼각비 표에서 필요한 행과 함수를 골라 수치 계산을 한다. Q84는 그림의 87°를 직접 쓰지 않고 3° 여각으로 바꿔야 하며 k를 소수점 아래 넷째 자리에서 반올림해야 하므로 두 추가 오류를 Q84에만 둔다."
+    },
+    {
+      "type_no": 22,
+      "type_name": "삼각비의 표(2); 각의 크기",
+      "item_start": 88,
+      "item_end": 91,
+      "items": [
+        {
+          "item_no": 88,
+          "accuracy": 87
+        },
+        {
+          "item_no": 89,
+          "accuracy": 91
+        },
+        {
+          "item_no": 90,
+          "accuracy": 93
+        },
+        {
+          "item_no": 91,
+          "accuracy": 51
+        }
+      ],
+      "tags": [
+        "trig_table_value_selection_error",
+        "right_triangle_trig_setup_failure",
+        "coordinate_projection_axis_confusion"
+      ],
+      "tag_scope": {
+        "right_triangle_trig_setup_failure": [
+          88,
+          89,
+          90
+        ],
+        "coordinate_projection_axis_confusion": [
+          91
+        ]
+      },
+      "rationale": "Q88~Q91은 길이비를 먼저 만들고 삼각비 표에서 그 값과 일치하는 각을 찾는다. Q88~Q90은 주어진 길이를 올바른 직각삼각형의 sin·cos·tan에 넣어야 하고, Q91은 사분원 좌표값 0.7986을 어느 투영 성분으로 읽을지 구분해야 한다."
+    },
+    {
+      "type_no": 23,
+      "type_name": "삼각비의 표(3); 변의 길이",
+      "item_start": 92,
+      "item_end": 96,
+      "items": [
+        {
+          "item_no": 92,
+          "accuracy": 82
+        },
+        {
+          "item_no": 93,
+          "accuracy": 84
+        },
+        {
+          "item_no": 94,
+          "accuracy": 54
+        },
+        {
+          "item_no": 95,
+          "accuracy": 91
+        },
+        {
+          "item_no": 96,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "trig_table_value_selection_error",
+        "coordinate_projection_axis_confusion",
+        "answer_format_mismatch"
+      ],
+      "tag_scope": {
+        "coordinate_projection_axis_confusion": [
+          93,
+          94,
+          95,
+          96
+        ],
+        "answer_format_mismatch": [
+          94
+        ]
+      },
+      "rationale": "Q92~Q96은 삼각비 표의 값으로 실제 선분 길이 또는 좌표 투영 길이를 복원한다. Q93~Q96은 사분원에서 sin·cos·tan이 어느 선분에 대응하는지 구분해야 하며, Q94는 10000(b-a)를 구한 뒤 그 수의 모든 소인수의 합을 답해야 하므로 목표 형식 오류를 Q94에 둔다."
+    },
+    {
+      "type_no": 24,
+      "type_name": "직각삼각형의 변의 길이",
+      "item_start": 97,
+      "item_end": 98,
+      "items": [
+        {
+          "item_no": 97,
+          "accuracy": 63
+        },
+        {
+          "item_no": 98,
+          "accuracy": 50
+        }
+      ],
+      "tags": [
+        "right_triangle_trig_setup_failure",
+        "complementary_angle_conversion_error",
+        "multi_step_geometry_trig_transfer_failure"
+      ],
+      "tag_scope": {
+        "multi_step_geometry_trig_transfer_failure": [
+          98
+        ]
+      },
+      "rationale": "Q97~Q98은 일반 각이 주어진 직각삼각형에서 여각을 만들어 sin·tan을 적절한 변비에 적용한다. Q98은 여러 각 60°·75°·15°와 두 내부 선분을 차례로 연결해야 하므로 다단계 기하-삼각비 전달 오류를 Q98에만 둔다."
+    },
+    {
+      "type_no": 25,
+      "type_name": "입체도형에서 직각삼각형의 변의 길이의 활용",
+      "item_start": 99,
+      "item_end": 102,
+      "items": [
+        {
+          "item_no": 99,
+          "accuracy": 87
+        },
+        {
+          "item_no": 100,
+          "accuracy": 40
+        },
+        {
+          "item_no": 101,
+          "accuracy": 78
+        },
+        {
+          "item_no": 102,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "solid_measure_formula_selection_error",
+        "developed_surface_base_circumference_mapping_failure",
+        "answer_format_mismatch"
+      ],
+      "tag_scope": {
+        "solid_measure_formula_selection_error": [
+          99,
+          101,
+          102
+        ],
+        "developed_surface_base_circumference_mapping_failure": [
+          100
+        ],
+        "answer_format_mismatch": [
+          100
+        ]
+      },
+      "rationale": "Q99·Q101·Q102는 입체 안의 직각삼각형으로 필요한 변을 구한 뒤 직육면체·삼각기둥 부피 공식을 선택한다. Q100은 원뿔 옆면을 전개해 밑면 둘레와 부채꼴 호를 대응시켜 최단 경로를 만들고, 최종 p√q+r√s 꼴에서 p+q+r+s를 답해야 한다."
+    },
+    {
+      "type_no": 26,
+      "type_name": "실생활에서 직각삼각형의 변의 길이",
+      "item_start": 103,
+      "item_end": 106,
+      "items": [
+        {
+          "item_no": 103,
+          "accuracy": 89
+        },
+        {
+          "item_no": 104,
+          "accuracy": 83
+        },
+        {
+          "item_no": 105,
+          "accuracy": 69
+        },
+        {
+          "item_no": 106,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "real_world_diagram_translation_failure",
+        "contextual_offset_omission",
+        "multi_stage_motion_distance_setup_failure"
+      ],
+      "tag_scope": {
+        "contextual_offset_omission": [
+          104
+        ],
+        "multi_stage_motion_distance_setup_failure": [
+          105,
+          106
+        ]
+      },
+      "rationale": "Q103~Q106은 산·나무·비행기·사람의 상황을 직각삼각형의 높이와 수평거리로 번역한다. Q104는 눈높이 1.54m 보정을 마지막에 더해야 하고, Q105~Q106은 삼각비로 거리부터 구한 뒤 속력과 시간 관계까지 한 단계 더 이어야 한다."
+    },
+    {
+      "type_no": 27,
+      "type_name": "실생활에서 직각삼각형의 변의 길이의 활용",
+      "item_start": 107,
+      "item_end": 111,
+      "items": [
+        {
+          "item_no": 107,
+          "accuracy": 85
+        },
+        {
+          "item_no": 108,
+          "accuracy": 79
+        },
+        {
+          "item_no": 109,
+          "accuracy": 69
+        },
+        {
+          "item_no": 110,
+          "accuracy": 69
+        },
+        {
+          "item_no": 111,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "endpoint_angle_projection_component_confusion",
+        "contextual_offset_omission",
+        "difference_direction_error"
+      ],
+      "tag_scope": {
+        "contextual_offset_omission": [
+          107,
+          108,
+          111
+        ],
+        "difference_direction_error": [
+          107,
+          111
+        ]
+      },
+      "rationale": "Q107~Q111은 추·그네 줄의 길이를 수직 또는 수평 성분으로 투영해 위치 변화를 계산한다. Q107·Q111은 기준 높이에서 투영된 길이를 빼는 방향을 잘못 잡기 쉽고, Q108·Q111은 지면이나 천장 기준의 추가 높이를 함께 반영해야 한다."
+    },
+    {
+      "type_no": 28,
+      "type_name": "일반 삼각형의 변의 길이(1); 두 변의 길이와 그 끼인각의 크기를 알 때",
+      "item_start": 112,
+      "item_end": 115,
+      "items": [
+        {
+          "item_no": 112,
+          "accuracy": 73
+        },
+        {
+          "item_no": 113,
+          "accuracy": 62
+        },
+        {
+          "item_no": 114,
+          "accuracy": 88
+        },
+        {
+          "item_no": 115,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "auxiliary_line_construction_failure",
+        "pythagorean_setup_failure",
+        "obtuse_angle_supplement_conversion_error"
+      ],
+      "tag_scope": {
+        "obtuse_angle_supplement_conversion_error": [
+          112,
+          115
+        ]
+      },
+      "rationale": "Q112~Q115는 평행사변형·삼각형에서 대각선 길이를 구하기 위해 꼭짓점에서 밑변 또는 연장선에 수선을 내려 직각삼각형을 만든다. Q112의 120°와 Q115의 135°는 각각 60°·45° 보각으로 바꾸어 높이와 수평 성분을 계산해야 한다."
+    },
+    {
+      "type_no": 29,
+      "type_name": "일반 삼각형의 변의 길이(2); 한 변의 길이와 그 양 끝 각의 크기를 알 때",
+      "item_start": 116,
+      "item_end": 119,
+      "items": [
+        {
+          "item_no": 116,
+          "accuracy": 86
+        },
+        {
+          "item_no": 117,
+          "accuracy": 54
+        },
+        {
+          "item_no": 118,
+          "accuracy": 73
+        },
+        {
+          "item_no": 119,
+          "accuracy": 64
+        }
+      ],
+      "tags": [
+        "altitude_base_partition_equation_failure",
+        "rounding_instruction_overlooked",
+        "answer_format_mismatch"
+      ],
+      "tag_scope": {
+        "rounding_instruction_overlooked": [
+          117
+        ],
+        "answer_format_mismatch": [
+          116,
+          117,
+          118
+        ]
+      },
+      "rationale": "Q116~Q119는 한 변과 양 끝 각에서 높이를 내려 밑변을 두 구간으로 나누고 각 구간을 tan·sin으로 표현한다. Q117은 최단거리를 지정 자릿수에서 반올림한 자연수 n의 약수 개수를 답해야 하고, Q116·Q118도 각각 지정된 근호식 계수 조합으로 최종 답을 변환해야 한다."
+    },
+    {
+      "type_no": 30,
+      "type_name": "예각삼각형의 높이",
+      "item_start": 120,
+      "item_end": 124,
+      "items": [
+        {
+          "item_no": 120,
+          "accuracy": 71
+        },
+        {
+          "item_no": 121,
+          "accuracy": 78
+        },
+        {
+          "item_no": 122,
+          "accuracy": 88
+        },
+        {
+          "item_no": 123,
+          "accuracy": 56
+        },
+        {
+          "item_no": 124,
+          "accuracy": 87
+        }
+      ],
+      "tags": [
+        "two_angle_distance_equation_setup_failure",
+        "area_decomposition_equation_setup_failure",
+        "rounding_instruction_overlooked"
+      ],
+      "tag_scope": {
+        "two_angle_distance_equation_setup_failure": [
+          120,
+          121,
+          123
+        ],
+        "area_decomposition_equation_setup_failure": [
+          122,
+          124
+        ],
+        "rounding_instruction_overlooked": [
+          123
+        ]
+      },
+      "rationale": "Q120~Q124는 예각삼각형의 높이를 중심으로 양쪽 직각삼각형을 연결한다. Q120·Q121·Q123은 두 관측각과 밑변 길이로 높이식을 세워야 하고, Q122·Q124는 겹친 두 직각삼각형에서 색칠 넓이를 구성해야 한다. Q123은 지정된 자리에서 반올림까지 필요하다."
+    },
+    {
+      "type_no": 31,
+      "type_name": "둔각삼각형의 높이",
+      "item_start": 125,
+      "item_end": 129,
+      "items": [
+        {
+          "item_no": 125,
+          "accuracy": 69
+        },
+        {
+          "item_no": 126,
+          "accuracy": 69
+        },
+        {
+          "item_no": 127,
+          "accuracy": 81
+        },
+        {
+          "item_no": 128,
+          "accuracy": 80
+        },
+        {
+          "item_no": 129,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "base_extension_difference_equation_failure",
+        "two_angle_distance_equation_setup_failure",
+        "area_formula_setup_error"
+      ],
+      "tag_scope": {
+        "two_angle_distance_equation_setup_failure": [
+          126,
+          127,
+          129
+        ],
+        "area_formula_setup_error": [
+          125,
+          128
+        ]
+      },
+      "rationale": "Q125~Q129는 둔각삼각형의 높이가 밑변 밖에 생기므로 연장선 위 두 수평거리의 합·차를 올바르게 세워야 한다. Q126·Q127·Q129는 두 각에서 같은 높이를 표현해 거리식을 만들고, Q125·Q128은 구한 높이를 삼각형 넓이 공식에 넣는다."
+    },
+    {
+      "type_no": 32,
+      "type_name": "예각삼각형의 넓이",
+      "item_start": 130,
+      "item_end": 132,
+      "items": [
+        {
+          "item_no": 130,
+          "accuracy": 53
+        },
+        {
+          "item_no": 131,
+          "accuracy": 53
+        },
+        {
+          "item_no": 132,
+          "accuracy": 62
+        }
+      ],
+      "tags": [
+        "triangle_area_sine_factor_omitted",
+        "composite_area_subtraction_failure",
+        "same_altitude_area_ratio_transfer_failure"
+      ],
+      "tag_scope": {
+        "composite_area_subtraction_failure": [
+          130,
+          131
+        ],
+        "same_altitude_area_ratio_transfer_failure": [
+          132
+        ]
+      },
+      "rationale": "Q130~Q132는 1/2·ab·sinC를 이용해 예각삼각형의 넓이를 식으로 만든다. Q130~Q131은 직사각형·정사각형 전체에서 주변 삼각형 넓이를 빼 내부 넓이를 구성하고, Q132는 같은 높이를 가진 △ABD와 △ACD의 넓이비를 BD:DC로 옮긴다."
+    },
+    {
+      "type_no": 33,
+      "type_name": "둔각삼각형의 넓이",
+      "item_start": 133,
+      "item_end": 135,
+      "items": [
+        {
+          "item_no": 133,
+          "accuracy": 75
+        },
+        {
+          "item_no": 134,
+          "accuracy": 68
+        },
+        {
+          "item_no": 135,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "triangle_area_sine_factor_omitted",
+        "obtuse_angle_supplement_conversion_error",
+        "area_decomposition_equation_setup_failure"
+      ],
+      "tag_scope": {
+        "obtuse_angle_supplement_conversion_error": [
+          134,
+          135
+        ],
+        "area_decomposition_equation_setup_failure": [
+          134
+        ]
+      },
+      "rationale": "Q133~Q135는 둔각이 포함된 삼각형 넓이를 1/2·ab·sinC로 계산한다. Q134는 ∠BAC=120°인 큰 삼각형을 두 부분 넓이의 합으로 세우고, Q134~Q135는 120°·135°의 sin 값을 보각의 예각으로 바꾸어 계산해야 한다."
+    },
+    {
+      "type_no": 34,
+      "type_name": "다각형의 넓이",
+      "item_start": 136,
+      "item_end": 138,
+      "items": [
+        {
+          "item_no": 136,
+          "accuracy": 74
+        },
+        {
+          "item_no": 137,
+          "accuracy": 57
+        },
+        {
+          "item_no": 138,
+          "accuracy": 76
+        }
+      ],
+      "tags": [
+        "polygon_triangulation_area_decomposition_failure",
+        "triangle_area_sine_factor_omitted",
+        "same_altitude_area_ratio_transfer_failure"
+      ],
+      "tag_scope": {
+        "same_altitude_area_ratio_transfer_failure": [
+          136
+        ]
+      },
+      "rationale": "Q136~Q138은 다각형을 대각선으로 여러 삼각형에 나누어 각 부분 넓이를 합한다. Q136은 AB의 삼등분점 P와 AC의 중점 M 때문에 같은 높이 삼각형의 밑변비가 넓이비로 직접 옮겨지며, Q137~Q138은 분할된 각 삼각형의 sin 넓이를 정확히 합쳐야 한다."
+    },
+    {
+      "type_no": 35,
+      "type_name": "정다각형의 넓이",
+      "item_start": 139,
+      "item_end": 142,
+      "items": [
+        {
+          "item_no": 139,
+          "accuracy": 79
+        },
+        {
+          "item_no": 140,
+          "accuracy": 42
+        },
+        {
+          "item_no": 141,
+          "accuracy": 69
+        },
+        {
+          "item_no": 142,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "regular_spacing_arc_count_error",
+        "polygon_triangulation_area_decomposition_failure",
+        "midpoint_area_fraction_relation_misapplied"
+      ],
+      "tag_scope": {
+        "midpoint_area_fraction_relation_misapplied": [
+          140
+        ]
+      },
+      "rationale": "Q139~Q142는 정다각형을 중심에서 합동인 이등변삼각형들로 나누고 변의 개수로 중심각을 정한다. Q140은 정육각형 각 변의 중점을 이은 내부 정육각형과 바깥 부분의 넓이 차를 이용하므로 중점이 만드는 넓이 분수 관계 오류를 Q140에만 둔다."
+    },
+    {
+      "type_no": 36,
+      "type_name": "평행사변형의 넓이",
+      "item_start": 143,
+      "item_end": 146,
+      "items": [
+        {
+          "item_no": 143,
+          "accuracy": 60
+        },
+        {
+          "item_no": 144,
+          "accuracy": 73
+        },
+        {
+          "item_no": 145,
+          "accuracy": 53
+        },
+        {
+          "item_no": 146,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "triangle_area_sine_factor_omitted",
+        "midpoint_area_fraction_relation_misapplied",
+        "ratio_setup_from_geometry_failure"
+      ],
+      "tag_scope": {
+        "midpoint_area_fraction_relation_misapplied": [
+          143,
+          144,
+          145
+        ],
+        "ratio_setup_from_geometry_failure": [
+          146
+        ]
+      },
+      "rationale": "Q143~Q146은 평행사변형 넓이를 ab·sinθ 또는 그 절반인 삼각형 넓이로 바꾸어 부분 넓이를 계산한다. Q143~Q145는 변의 중점이 만드는 1/2·1/4 넓이 관계를 사용하고, Q146은 AB:BC=3:5를 실제 두 변 길이와 둘레로 환산해야 한다."
+    },
+    {
+      "type_no": 37,
+      "type_name": "사각형의 넓이",
+      "item_start": 147,
+      "item_end": 150,
+      "items": [
+        {
+          "item_no": 147,
+          "accuracy": 86
+        },
+        {
+          "item_no": 148,
+          "accuracy": 85
+        },
+        {
+          "item_no": 149,
+          "accuracy": 89
+        },
+        {
+          "item_no": 150,
+          "accuracy": 79
+        }
+      ],
+      "tags": [
+        "quadrilateral_diagonal_area_formula_factor_error",
+        "range_condition_branch_selection_failure",
+        "obtuse_angle_supplement_conversion_error"
+      ],
+      "tag_scope": {
+        "range_condition_branch_selection_failure": [
+          149,
+          150
+        ],
+        "obtuse_angle_supplement_conversion_error": [
+          150
+        ]
+      },
+      "rationale": "Q147~Q150은 사각형 넓이 1/2·d1·d2·sinθ에서 대각선 길이와 사잇각을 서로 복원한다. Q149~Q150은 같은 sin 값에서 각의 범위를 이용해 올바른 각을 골라야 하고, Q150은 sin(180°-x)로 둔각 x를 보각의 예각과 연결한다."
+    }
+  ],
+  "unique_tags": [
+    "absolute_value_from_square_root_omitted",
+    "altitude_base_partition_equation_failure",
+    "angle_bisector_chain_integration_failure",
+    "angle_correspondence_chain_failure",
+    "answer_format_mismatch",
+    "area_decomposition_equation_setup_failure",
+    "area_formula_setup_error",
+    "auxiliary_line_construction_failure",
+    "axis_intercept_triangle_setup_failure",
+    "base_extension_difference_equation_failure",
+    "chord_midpoint_from_center_perpendicular_omitted",
+    "circle_chord_right_triangle_integration_failure",
+    "complementary_angle_conversion_error",
+    "composite_area_subtraction_failure",
+    "composite_length_accumulation_error",
+    "contextual_offset_omission",
+    "coordinate_projection_axis_confusion",
+    "developed_surface_base_circumference_mapping_failure",
+    "difference_direction_error",
+    "endpoint_angle_projection_component_confusion",
+    "inverse_operation_setup_error",
+    "isosceles_altitude_bisection_overlooked",
+    "line_slope_to_trig_ratio_conversion_failure",
+    "midpoint_area_fraction_relation_misapplied",
+    "mixed_function_ordering_failure",
+    "mixed_trig_expression_arithmetic_error",
+    "multi_stage_motion_distance_setup_failure",
+    "multi_step_geometry_trig_transfer_failure",
+    "obtuse_angle_supplement_conversion_error",
+    "polygon_triangulation_area_decomposition_failure",
+    "pythagorean_setup_failure",
+    "quadrilateral_diagonal_area_formula_factor_error",
+    "range_condition_branch_selection_failure",
+    "ratio_setup_from_geometry_failure",
+    "real_world_diagram_translation_failure",
+    "regular_spacing_arc_count_error",
+    "right_triangle_trig_setup_failure",
+    "rounding_instruction_overlooked",
+    "same_altitude_area_ratio_transfer_failure",
+    "segment_partition_tracking_failure",
+    "similar_triangle_correspondence_setup_failure",
+    "solid_measure_formula_selection_error",
+    "spatial_cross_section_identification_failure",
+    "special_angle_area_height_failure",
+    "special_angle_trig_value_recall_error",
+    "three_dimensional_length_reduction_failure",
+    "triangle_area_sine_factor_omitted",
+    "trig_expression_sign_determination_error",
+    "trig_monotonic_direction_confusion",
+    "trig_ratio_side_role_confusion",
+    "trig_ratio_triangle_reconstruction_failure",
+    "trig_table_value_selection_error",
+    "two_angle_distance_equation_setup_failure"
+  ],
+  "new_tags": [],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [],
+    "types_with_answer_format_error": [
+      10,
+      21,
+      23,
+      25,
+      29,
+      30
+    ],
+    "note": "전체 150문항의 문제·빠른정답·해설을 검산 관점과 답 마무리 관점으로 별도 재검토했다. 답을 구한 뒤 원래 조건에 역대입하는 검산이 독립 오답 원인이 되는 유형은 없었다. 답 마무리는 Q40·Q94·Q100·Q116~Q118의 요구 형식과 Q84·Q117·Q123의 반올림 지시를 반영했다."
+  }
+}

@@ -1,0 +1,1878 @@
+{
+  "source_pdf": "260711_도형의 닮음(3).pdf",
+  "unit": "중2 도형의 닮음",
+  "n_types": 67,
+  "n_items": 150,
+  "n_unique_tags": 52,
+  "n_reused_tags": 39,
+  "n_new_tags": 13,
+  "tag_language": "en_snake_case",
+  "types": [
+    {
+      "type_no": 1,
+      "type_name": "평면도형에서 닮음비의 응용",
+      "item_start": 1,
+      "item_end": 2,
+      "items": [
+        {
+          "item_no": 1,
+          "accuracy": 63
+        },
+        {
+          "item_no": 2,
+          "accuracy": 88
+        }
+      ],
+      "tags": [
+        "similar_triangle_correspondence_setup_failure",
+        "segment_ratio_to_length_conversion_failure",
+        "multi_triangle_length_chain_failure"
+      ],
+      "rationale": "Q1~Q2는 닮은 도형의 대응변을 맞춘 뒤 닮음비를 실제 선분 길이로 옮기는 것이 공통 핵심이다. Q1은 63%로 Q2의 88%보다 낮고, 큰 직사각형→중간 도형→내부 선분으로 두 번 비를 옮겨 HF를 차감해야 하므로 다단계 비율 연결 오류를 Q1에만 둔다.",
+      "tag_scope": {
+        "multi_triangle_length_chain_failure": [
+          1
+        ]
+      }
+    },
+    {
+      "type_no": 2,
+      "type_name": "회전체에서 닮음비의 응용",
+      "item_start": 3,
+      "item_end": 3,
+      "items": [
+        {
+          "item_no": 3,
+          "accuracy": 60
+        }
+      ],
+      "tags": [
+        "three_dimensional_length_reduction_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "segment_ratio_to_length_conversion_failure"
+      ],
+      "rationale": "Q3은 삼각형을 축 주위로 회전했을 때 생기는 큰 원뿔과 작은 원뿔의 대응 높이·반지름을 먼저 연결해야 한다. 원기둥 반지름 2cm를 원뿔의 단면 반지름으로 읽고, 큰 원뿔과 작은 원뿔의 닮음비 방향을 뒤집지 않는 것이 갈림길이다."
+    },
+    {
+      "type_no": 3,
+      "type_name": "삼각형의 닮음 조건",
+      "item_start": 4,
+      "item_end": 6,
+      "items": [
+        {
+          "item_no": 4,
+          "accuracy": 79
+        },
+        {
+          "item_no": 5,
+          "accuracy": 76
+        },
+        {
+          "item_no": 6,
+          "accuracy": 53
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "similar_triangle_correspondence_setup_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "rationale": "Q4~Q6은 SSS·SAS·AA 중 어떤 정보가 삼각형의 닮음을 충분히 보장하는지 판별하는 유형이다. Q6만 53%로 Q4·Q5보다 크게 낮고, 교차하는 여러 삼각형 쌍을 하나씩 검사해야 하므로 여러 후보 삼각형을 끝까지 대조하지 못하는 오류를 Q6에만 둔다.",
+      "tag_scope": {
+        "multi_constraint_intersection_failure": [
+          6
+        ]
+      }
+    },
+    {
+      "type_no": 4,
+      "type_name": "삼각형의 닮음 조건의 응용(1) SAS 닮음",
+      "item_start": 7,
+      "item_end": 9,
+      "items": [
+        {
+          "item_no": 7,
+          "accuracy": 78
+        },
+        {
+          "item_no": 8,
+          "accuracy": 87
+        },
+        {
+          "item_no": 9,
+          "accuracy": 30
+        }
+      ],
+      "tags": [
+        "angle_correspondence_chain_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "multi_triangle_length_chain_failure"
+      ],
+      "rationale": "Q7~Q9는 두 변의 비와 그 끼인각을 맞춰 SAS 닮음을 세운 뒤 대응변을 계산한다. Q9는 30%로 급락하며 두 이등변삼각형의 각 관계를 만든 뒤 서로 다른 두 쌍의 SAS 닮음을 연속 사용해 BD와 CD를 각각 구해야 하므로 반복 닮음 연결 오류를 Q9에만 배정한다.",
+      "tag_scope": {
+        "multi_triangle_length_chain_failure": [
+          9
+        ]
+      }
+    },
+    {
+      "type_no": 5,
+      "type_name": "삼각형의 닮음 조건의 응용(2) AA 닮음",
+      "item_start": 10,
+      "item_end": 12,
+      "items": [
+        {
+          "item_no": 10,
+          "accuracy": 93
+        },
+        {
+          "item_no": 11,
+          "accuracy": 70
+        },
+        {
+          "item_no": 12,
+          "accuracy": 60
+        }
+      ],
+      "tags": [
+        "angle_correspondence_chain_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "composite_path_length_decomposition_failure"
+      ],
+      "rationale": "Q10~Q12는 두 각의 일치를 찾아 AA 닮음을 만들고 길이비를 복원한다. Q11은 닮음으로 세 변 AB·AC를 각각 구한 뒤 둘레까지 합성해야 하므로 composite_path_length_decomposition_failure를 Q11에만 두고, Q12는 정삼각형의 60°를 각 대응에 추가로 사용한다.",
+      "tag_scope": {
+        "composite_path_length_decomposition_failure": [
+          11
+        ]
+      }
+    },
+    {
+      "type_no": 6,
+      "type_name": "평행선에서 삼각형의 닮음 조건의 응용",
+      "item_start": 13,
+      "item_end": 15,
+      "items": [
+        {
+          "item_no": 13,
+          "accuracy": 71
+        },
+        {
+          "item_no": 14,
+          "accuracy": 65
+        },
+        {
+          "item_no": 15,
+          "accuracy": 67
+        }
+      ],
+      "tags": [
+        "parallel_line_angle_transfer_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "midpoint_length_relation_error"
+      ],
+      "rationale": "Q13~Q15는 정다각형·평행사변형에서 평행선이 만드는 엇각·동위각을 이용해 닮음을 세운다. 세 문항 모두 중점 또는 같은 길이 표시를 닮음비에 옮겨야 하므로, 평행선 각 대응과 중점 비율 전달이 끊기는 오류를 공통으로 둔다."
+    },
+    {
+      "type_no": 7,
+      "type_name": "직각삼각형의 닮음(1) 공통인 각이 있는 경우",
+      "item_start": 16,
+      "item_end": 18,
+      "items": [
+        {
+          "item_no": 16,
+          "accuracy": 76
+        },
+        {
+          "item_no": 17,
+          "accuracy": 79
+        },
+        {
+          "item_no": 18,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "angle_correspondence_chain_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "area_ratio_from_similarity_failure"
+      ],
+      "rationale": "Q16~Q18은 서로 다른 직각삼각형에서 90°와 공통각을 잡아 AA 닮음을 만드는 것이 출발점이다. Q16·Q18은 닮음으로 선분을 구한 뒤 직사각형·사각형 넓이까지 재구성해야 하므로 넓이 복원 오류를 그 두 문항에만 둔다.",
+      "tag_scope": {
+        "area_ratio_from_similarity_failure": [
+          16,
+          18
+        ]
+      }
+    },
+    {
+      "type_no": 8,
+      "type_name": "직각삼각형의 닮음(2) 한 예각의 크기가 같은 경우",
+      "item_start": 19,
+      "item_end": 20,
+      "items": [
+        {
+          "item_no": 19,
+          "accuracy": 66
+        },
+        {
+          "item_no": 20,
+          "accuracy": 56
+        }
+      ],
+      "tags": [
+        "angle_correspondence_chain_failure",
+        "segment_partition_tracking_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q19~Q20은 직각 조건과 같은 예각을 찾아 닮은 직각삼각형을 대응시킨다. Q20은 56%로 더 낮고 정사각형 안의 두 수선 발에서 얻은 투영 길이 AP·AQ를 변의 길이로 환산한 뒤 넓이까지 가야 하므로 정사각형 넓이 마무리 오류를 Q20에만 둔다.",
+      "tag_scope": {
+        "area_formula_setup_error": [
+          20
+        ]
+      }
+    },
+    {
+      "type_no": 9,
+      "type_name": "직각삼각형의 닮음의 응용",
+      "item_start": 21,
+      "item_end": 23,
+      "items": [
+        {
+          "item_no": 21,
+          "accuracy": 53
+        },
+        {
+          "item_no": 22,
+          "accuracy": 60
+        },
+        {
+          "item_no": 23,
+          "accuracy": 61
+        }
+      ],
+      "tags": [
+        "similar_triangle_correspondence_setup_failure",
+        "right_triangle_altitude_geometric_mean_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q21~Q23은 직각삼각형 또는 직사각형의 대각선에 내린 수선에서 생기는 작은 직각삼각형들의 닮음을 이용한다. 해설형 풀이의 핵심 관계가 높이의 기하평균 또는 투영 길이 비로 이어지며, Q22·Q23은 마지막에 삼각형·직사각형의 넓이를 복원해야 한다.",
+      "tag_scope": {
+        "area_formula_setup_error": [
+          22,
+          23
+        ]
+      }
+    },
+    {
+      "type_no": 10,
+      "type_name": "종이접기와 삼각형의 닮음",
+      "item_start": 24,
+      "item_end": 25,
+      "items": [
+        {
+          "item_no": 24,
+          "accuracy": 68
+        },
+        {
+          "item_no": 25,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "paper_fold_reflection_distance_mapping_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q24~Q25는 접은 뒤 겹치는 점 사이의 거리가 같다는 반사 성질을 원래 도형의 길이로 되돌린 다음, 새로 생긴 직각삼각형들의 닮음을 이용한다. 접힌 점의 대응을 잘못 잡으면 이후 닮음비가 모두 어긋나는 구조다."
+    },
+    {
+      "type_no": 11,
+      "type_name": "삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형",
+      "item_start": 26,
+      "item_end": 27,
+      "items": [
+        {
+          "item_no": 26,
+          "accuracy": 77
+        },
+        {
+          "item_no": 27,
+          "accuracy": 59
+        }
+      ],
+      "tags": [
+        "ratio_setup_from_geometry_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "multi_triangle_length_chain_failure"
+      ],
+      "rationale": "Q26~Q27은 공통각과 평행선에서 생기는 각으로 닮음을 만들고 선분의 비를 연쇄적으로 옮긴다. Q27은 59%로 Q26보다 낮고 정삼각형 세 개의 둘레를 복원하기 위해 여러 닮음비를 차례로 이어야 하므로 multi_triangle_length_chain_failure를 Q27에만 둔다.",
+      "tag_scope": {
+        "multi_triangle_length_chain_failure": [
+          27
+        ]
+      }
+    },
+    {
+      "type_no": 12,
+      "type_name": "삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형",
+      "item_start": 28,
+      "item_end": 29,
+      "items": [
+        {
+          "item_no": 28,
+          "accuracy": 81
+        },
+        {
+          "item_no": 29,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "angle_correspondence_chain_failure",
+        "ratio_setup_from_geometry_failure",
+        "midpoint_length_relation_error"
+      ],
+      "rationale": "Q28~Q29는 맞꼭지각을 공통 축으로 두 삼각형을 대응시키고, 평행선이 만드는 두 번째 각으로 닮음을 확정한다. Q28은 평행사변형의 중점 조건까지 비율에 섞이므로 midpoint_length_relation_error를 Q28에만 둔다.",
+      "tag_scope": {
+        "midpoint_length_relation_error": [
+          28
+        ]
+      }
+    },
+    {
+      "type_no": 13,
+      "type_name": "삼각형에서 평행선 사이의 선분의 길이의 비의 응용",
+      "item_start": 30,
+      "item_end": 31,
+      "items": [
+        {
+          "item_no": 30,
+          "accuracy": 64
+        },
+        {
+          "item_no": 31,
+          "accuracy": 63
+        }
+      ],
+      "tags": [
+        "multi_triangle_length_chain_failure",
+        "ratio_setup_from_geometry_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q30~Q31은 한 번의 닮음비로 끝나지 않고 서로 다른 평행선 묶음의 비를 연쇄해 미지 선분을 만든다. 정답률이 63~64%로 비슷해 특정 문항보다 비례식의 방향과 여러 비율식을 한 식으로 묶는 과정이 공통 병목이다."
+    },
+    {
+      "type_no": 14,
+      "type_name": "평행선 찾기",
+      "item_start": 32,
+      "item_end": 33,
+      "items": [
+        {
+          "item_no": 32,
+          "accuracy": 71
+        },
+        {
+          "item_no": 33,
+          "accuracy": 55
+        }
+      ],
+      "tags": [
+        "parallelism_converse_ratio_test_failure",
+        "nested_fraction_simplification_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "rationale": "Q32~Q33은 선분 길이의 비가 같다는 사실에서 평행선을 역으로 판정해야 한다. Q33은 55%로 더 낮고 DE·EF·FD 세 후보를 각각 다른 변의 분할비와 대조해야 하므로 다중 후보 검사를 끝까지 하지 못하는 오류를 Q33에만 둔다.",
+      "tag_scope": {
+        "multi_constraint_intersection_failure": [
+          33
+        ]
+      }
+    },
+    {
+      "type_no": 15,
+      "type_name": "삼각형의 내각의 이등분선과 변의 길이",
+      "item_start": 34,
+      "item_end": 36,
+      "items": [
+        {
+          "item_no": 34,
+          "accuracy": 64
+        },
+        {
+          "item_no": 35,
+          "accuracy": 77
+        },
+        {
+          "item_no": 36,
+          "accuracy": 49
+        }
+      ],
+      "tags": [
+        "angle_bisector_side_ratio_setup_failure",
+        "ratio_setup_from_geometry_failure",
+        "equal_tangent_segment_relation_misapplied"
+      ],
+      "rationale": "Q34~Q36은 내각의 이등분선 정리로 맞은편 변을 양쪽 변의 비로 나눈다. Q36은 49%로 가장 낮고 내접원의 접점 D·E·F에서 같은 점에서 그은 접선의 길이가 같다는 관계까지 추가되므로 equal_tangent_segment_relation_misapplied를 Q36에만 둔다.",
+      "tag_scope": {
+        "equal_tangent_segment_relation_misapplied": [
+          36
+        ]
+      }
+    },
+    {
+      "type_no": 16,
+      "type_name": "삼각형의 내각의 이등분선과 삼각형의 넓이",
+      "item_start": 37,
+      "item_end": 38,
+      "items": [
+        {
+          "item_no": 37,
+          "accuracy": 71
+        },
+        {
+          "item_no": 38,
+          "accuracy": 57
+        }
+      ],
+      "tags": [
+        "angle_bisector_side_ratio_setup_failure",
+        "same_altitude_area_ratio_transfer_failure",
+        "composite_area_subtraction_failure"
+      ],
+      "rationale": "Q37~Q38은 이등분선으로 나뉜 밑변의 비를 구하고, 같은 높이를 갖는 두 삼각형의 넓이비로 그대로 옮긴다. Q38은 57%로 더 낮고 8-15-17 직각삼각형의 전체 넓이를 먼저 만든 뒤 이등분 비로 부분 넓이를 분할해야 하므로 복합 넓이 분해 오류를 Q38에만 둔다.",
+      "tag_scope": {
+        "composite_area_subtraction_failure": [
+          38
+        ]
+      }
+    },
+    {
+      "type_no": 17,
+      "type_name": "삼각형의 외각의 이등분선과 변의 길이",
+      "item_start": 39,
+      "item_end": 40,
+      "items": [
+        {
+          "item_no": 39,
+          "accuracy": 67
+        },
+        {
+          "item_no": 40,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "angle_bisector_side_ratio_setup_failure",
+        "ratio_setup_from_geometry_failure",
+        "parallel_line_angle_transfer_failure"
+      ],
+      "rationale": "Q39~Q40은 외각의 이등분선에서 생기는 외분 비를 안쪽 이등분 비처럼 쓰지 않는 것이 핵심이다. Q40은 외각 이등분선에 평행한 선을 추가해 닮음으로 AD:CE까지 옮기므로 parallel_line_angle_transfer_failure를 Q40에만 둔다.",
+      "tag_scope": {
+        "parallel_line_angle_transfer_failure": [
+          40
+        ]
+      }
+    },
+    {
+      "type_no": 18,
+      "type_name": "삼각형의 외각의 이등분선과 삼각형의 넓이",
+      "item_start": 41,
+      "item_end": 42,
+      "items": [
+        {
+          "item_no": 41,
+          "accuracy": 70
+        },
+        {
+          "item_no": 42,
+          "accuracy": 67
+        }
+      ],
+      "tags": [
+        "angle_bisector_side_ratio_setup_failure",
+        "same_altitude_area_ratio_transfer_failure",
+        "composite_area_subtraction_failure"
+      ],
+      "rationale": "Q41~Q42는 외각 이등분선의 외분 비를 이용해 밑변의 길이 또는 비를 정한 뒤 같은 높이의 넓이비로 바꾼다. 특히 Q42는 주어진 작은 삼각형 넓이에서 더 큰 삼각형 ACE의 넓이를 역으로 복원해야 하므로 composite_area_subtraction_failure를 Q42에만 둔다.",
+      "tag_scope": {
+        "composite_area_subtraction_failure": [
+          42
+        ]
+      }
+    },
+    {
+      "type_no": 19,
+      "type_name": "평행선 사이의 길이의 비",
+      "item_start": 43,
+      "item_end": 43,
+      "items": [
+        {
+          "item_no": 43,
+          "accuracy": 62
+        }
+      ],
+      "tags": [
+        "ratio_setup_from_geometry_failure",
+        "segment_ratio_to_length_conversion_failure"
+      ],
+      "rationale": "Q43은 세 평행선이 두 횡선을 자를 때 대응 구간의 길이비가 같다는 사실을 정확히 짝지어야 한다. 5:7과 3:8의 서로 다른 위치를 섞지 않고 같은 평행 띠 사이의 구간끼리 대응시키는 것이 핵심이다."
+    },
+    {
+      "type_no": 20,
+      "type_name": "사다리꼴에서 평행선 사이의 선분의 길이의 비",
+      "item_start": 44,
+      "item_end": 45,
+      "items": [
+        {
+          "item_no": 44,
+          "accuracy": 84
+        },
+        {
+          "item_no": 45,
+          "accuracy": 86
+        }
+      ],
+      "tags": [
+        "trapezoid_linear_interpolation_failure",
+        "ratio_setup_from_geometry_failure",
+        "pattern_extraction_failure"
+      ],
+      "rationale": "Q44~Q45는 사다리꼴의 윗변에서 아랫변으로 내려가며 평행 단면의 길이가 선형적으로 변한다는 관계를 사용한다. Q45는 옆변이 네 등분되어 단면 길이 증가량을 일정하게 누적해야 하므로 pattern_extraction_failure를 Q45에만 둔다.",
+      "tag_scope": {
+        "pattern_extraction_failure": [
+          45
+        ]
+      }
+    },
+    {
+      "type_no": 21,
+      "type_name": "사다리꼴에서 평행선과 한 대각선의 길이",
+      "item_start": 46,
+      "item_end": 47,
+      "items": [
+        {
+          "item_no": 46,
+          "accuracy": 78
+        },
+        {
+          "item_no": 47,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "ratio_setup_from_geometry_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q46~Q47은 사다리꼴의 대각선이 평행 단면을 자를 때 위·아래 닮은 삼각형을 분리해 EF를 구한다. 옆변의 분할비를 단순 평균으로 처리하지 않고 대각선이 만든 닮음비에 따라 위·아래 밑변을 가중해 결합해야 한다."
+    },
+    {
+      "type_no": 22,
+      "type_name": "사다리꼴에서 평행선과 두 대각선의 길이(1) 평행선이 대각선의 교점을 지나지 않을 때",
+      "item_start": 48,
+      "item_end": 50,
+      "items": [
+        {
+          "item_no": 48,
+          "accuracy": 79
+        },
+        {
+          "item_no": 49,
+          "accuracy": 70
+        },
+        {
+          "item_no": 50,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "segment_partition_tracking_failure",
+        "ratio_setup_from_geometry_failure"
+      ],
+      "rationale": "Q48~Q50은 한 평행선이 두 대각선을 각각 다른 점에서 자르므로, EF 전체와 대각선 사이 구간 PQ를 따로 분해해야 한다. Q50은 EP=PQ=QF라는 추가 등분 조건을 미지수식으로 바꾸는 단계가 핵심이므로 ratio_setup_from_geometry_failure를 Q50에 더 강하게 본다."
+    },
+    {
+      "type_no": 23,
+      "type_name": "사다리꼴에서 평행선과 두 대각선의 길이(2) 평행선이 대각선의 교점을 지날 때",
+      "item_start": 51,
+      "item_end": 52,
+      "items": [
+        {
+          "item_no": 51,
+          "accuracy": 72
+        },
+        {
+          "item_no": 52,
+          "accuracy": 65
+        }
+      ],
+      "tags": [
+        "ratio_setup_from_geometry_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q51~Q52는 두 대각선의 교점 O를 지나는 평행선의 길이와 윗변·아랫변의 관계를 사용한다. EO와 밑변 BC에서 윗변 AD를 역으로 복원하므로 닮음비 방향을 뒤집거나 O에서의 분할비를 잘못 읽는 오류가 핵심이다."
+    },
+    {
+      "type_no": 24,
+      "type_name": "평행선 사이의 길이의 비의 응용",
+      "item_start": 53,
+      "item_end": 54,
+      "items": [
+        {
+          "item_no": 53,
+          "accuracy": 83
+        },
+        {
+          "item_no": 54,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "ratio_setup_from_geometry_failure",
+        "area_ratio_from_similarity_failure",
+        "area_decomposition_equation_setup_failure"
+      ],
+      "rationale": "Q53~Q54는 평행선으로 생긴 닮은 삼각형의 길이비를 먼저 구하고, 그 비를 부분 넓이 계산에 연결한다. Q54는 두 직각삼각형의 교점 P를 기준으로 넓이를 조각내 합쳐야 하므로 area_decomposition_equation_setup_failure를 Q54에만 둔다.",
+      "tag_scope": {
+        "area_decomposition_equation_setup_failure": [
+          54
+        ]
+      }
+    },
+    {
+      "type_no": 25,
+      "type_name": "삼각형의 두 변의 중점을 연결한 선분의 성질(1)",
+      "item_start": 55,
+      "item_end": 56,
+      "items": [
+        {
+          "item_no": 55,
+          "accuracy": 81
+        },
+        {
+          "item_no": 56,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "law_selection_error",
+        "midpoint_length_relation_error",
+        "midpoint_area_fraction_relation_misapplied"
+      ],
+      "rationale": "Q55~Q56은 두 변의 중점을 이은 선분이 나머지 한 변과 평행하고 길이가 절반이라는 성질을 여러 삼각형에 반복 적용한다. Q56은 중점이 연속된 도형에서 작은 사각형 DEQP의 넓이까지 묻기 때문에 길이의 1/2를 넓이에도 그대로 적용하는 오류를 별도로 경계한다.",
+      "tag_scope": {
+        "midpoint_area_fraction_relation_misapplied": [
+          56
+        ]
+      }
+    },
+    {
+      "type_no": 26,
+      "type_name": "삼각형의 두 변의 중점을 연결한 선분의 성질(2)",
+      "item_start": 57,
+      "item_end": 57,
+      "items": [
+        {
+          "item_no": 57,
+          "accuracy": 70
+        }
+      ],
+      "tags": [
+        "midpoint_length_relation_error",
+        "law_selection_error",
+        "difference_direction_error"
+      ],
+      "rationale": "Q57은 교차한 두 삼각형에서 M·N이 각각 대각선 BD·AC의 중점이므로 MN이 두 평행변 AD·BC의 차의 절반이 되는 구조를 읽어야 한다. 단순한 한 삼각형의 중점선 길이 1/2 공식을 그대로 쓰면 AD를 복원할 수 없다."
+    },
+    {
+      "type_no": 27,
+      "type_name": "삼각형의 중점을 연결한 선분 응용(1) 중점",
+      "item_start": 58,
+      "item_end": 59,
+      "items": [
+        {
+          "item_no": 58,
+          "accuracy": 61
+        },
+        {
+          "item_no": 59,
+          "accuracy": 80
+        }
+      ],
+      "tags": [
+        "multi_triangle_length_chain_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "rationale": "Q58~Q59는 중점이 만든 평행·닮음 관계를 원래 삼각형 바깥의 연장선 또는 여러 세바선의 교점까지 이어야 한다. Q58은 61%로 Q59보다 낮아 AE의 연장선과 BC의 교점에서 새 닮음비를 다시 세우는 단계가 주요 병목이다.",
+      "tag_scope": {
+        "multi_triangle_length_chain_failure": [
+          58
+        ]
+      }
+    },
+    {
+      "type_no": 28,
+      "type_name": "삼각형의 중점을 연결한 선분 응용(2) 삼등분선",
+      "item_start": 60,
+      "item_end": 62,
+      "items": [
+        {
+          "item_no": 60,
+          "accuracy": 34
+        },
+        {
+          "item_no": 61,
+          "accuracy": 75
+        },
+        {
+          "item_no": 62,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "ratio_setup_from_geometry_failure",
+        "multi_constraint_intersection_failure",
+        "final_form_reduction_omitted"
+      ],
+      "rationale": "Q60~Q62는 중점·삼등분점이 만든 여러 세바선의 교점을 선분비로 추적한다. Q60은 34%로 크게 이탈하고 PQ=1에서 AF=q/p 꼴을 만든 뒤 p+q까지 정리해야 하므로 복잡한 분수 비례식 정리 오류를 Q60에만 둔다. Q60은 AF=q/p를 서로소 p,q로 정리한 뒤 p+q를 요구하므로 기약 형태 마무리를 놓치면 최종 답이 달라진다.",
+      "tag_scope": {
+        "final_form_reduction_omitted": [
+          60
+        ]
+      }
+    },
+    {
+      "type_no": 29,
+      "type_name": "사각형의 각 변의 중점을 연결하여 만든 사각형",
+      "item_start": 63,
+      "item_end": 65,
+      "items": [
+        {
+          "item_no": 63,
+          "accuracy": 40
+        },
+        {
+          "item_no": 64,
+          "accuracy": 51
+        },
+        {
+          "item_no": 65,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "midpoint_length_relation_error",
+        "midpoint_area_fraction_relation_misapplied",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q63~Q65는 사각형 각 변의 중점을 이으면 내부 사각형의 변이 원래 대각선의 절반이 된다는 구조를 사용한다. Q63은 40%로 가장 낮고 육각형에서 CA∥RS∥DF와 대각선 길이 조건까지 연립해 내부 사각형의 둘레를 복원해야 하므로 평행 대각선 길이 시스템 오류를 Q63에만 둔다.",
+      "tag_scope": {
+        "multi_expression_dependency_error": [
+          63
+        ]
+      }
+    },
+    {
+      "type_no": 30,
+      "type_name": "사다리꼴의 두 변의 중점을 연결한 선분의 성질",
+      "item_start": 66,
+      "item_end": 66,
+      "items": [
+        {
+          "item_no": 66,
+          "accuracy": 67
+        }
+      ],
+      "tags": [
+        "trapezoid_midsegment_average_error",
+        "segment_partition_tracking_failure",
+        "ratio_setup_from_geometry_failure"
+      ],
+      "rationale": "Q66은 사다리꼴의 두 옆변 중점을 이은 MN의 길이가 (AD+BC)/2임을 사용하고, 두 대각선과의 교점 P,Q가 만드는 MP·PQ의 분할 관계를 추가로 해석한다. 평균 길이와 내부 분할비를 같은 식에 올리는 과정이 핵심이다."
+    },
+    {
+      "type_no": 31,
+      "type_name": "삼각형의 중선의 성질",
+      "item_start": 67,
+      "item_end": 69,
+      "items": [
+        {
+          "item_no": 67,
+          "accuracy": 77
+        },
+        {
+          "item_no": 68,
+          "accuracy": 74
+        },
+        {
+          "item_no": 69,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "midpoint_area_fraction_relation_misapplied",
+        "shared_altitude_length_chain_failure"
+      ],
+      "rationale": "Q67~Q69는 중선이 삼각형의 넓이를 이등분한다는 사실과 같은 높이를 공유하는 삼각형의 넓이비를 연쇄한다. 작은 삼각형 하나의 넓이를 전체 또는 다른 영역으로 옮길 때 1/2·1/3 비율을 길이비와 혼동하는 오류가 공통이다."
+    },
+    {
+      "type_no": 32,
+      "type_name": "삼각형의 무게중심(1) △ABC의 무게중심",
+      "item_start": 70,
+      "item_end": 71,
+      "items": [
+        {
+          "item_no": 70,
+          "accuracy": 78
+        },
+        {
+          "item_no": 71,
+          "accuracy": 42
+        }
+      ],
+      "tags": [
+        "centroid_two_to_one_ratio_confusion",
+        "segment_partition_tracking_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q70~Q71은 무게중심이 중선을 꼭짓점 쪽 2:1로 나눈다는 성질을 먼저 써야 한다. Q71은 42%로 크게 낮고 이등변직각삼각형에서 두 수선과 평행선을 이용해 DI:FC, BE:EC를 추가로 구해야 하므로 직각삼각형 투영 닮음 오류를 Q71에만 둔다.",
+      "tag_scope": {
+        "similar_triangle_correspondence_setup_failure": [
+          71
+        ]
+      }
+    },
+    {
+      "type_no": 33,
+      "type_name": "삼각형의 무게중심의 응용(1)",
+      "item_start": 72,
+      "item_end": 74,
+      "items": [
+        {
+          "item_no": 72,
+          "accuracy": 74
+        },
+        {
+          "item_no": 73,
+          "accuracy": 53
+        },
+        {
+          "item_no": 74,
+          "accuracy": 69
+        }
+      ],
+      "tags": [
+        "centroid_two_to_one_ratio_confusion",
+        "multi_triangle_length_chain_failure",
+        "multi_constraint_intersection_failure"
+      ],
+      "rationale": "Q72~Q74는 한 삼각형의 무게중심 성질을 닮은 다른 삼각형 또는 부분삼각형으로 옮긴다. Q73은 53%로 가장 낮고 AB의 4등분점과 중선 AD의 교점 S를 추적해야 하므로 세바선 교점의 비를 잘못 옮기는 오류를 Q73에만 둔다.",
+      "tag_scope": {
+        "multi_constraint_intersection_failure": [
+          73
+        ]
+      }
+    },
+    {
+      "type_no": 34,
+      "type_name": "삼각형의 무게중심의 응용(2)",
+      "item_start": 75,
+      "item_end": 77,
+      "items": [
+        {
+          "item_no": 75,
+          "accuracy": 61
+        },
+        {
+          "item_no": 76,
+          "accuracy": 78
+        },
+        {
+          "item_no": 77,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "centroid_two_to_one_ratio_confusion",
+        "midpoint_length_relation_error",
+        "multi_expression_dependency_error"
+      ],
+      "rationale": "Q75~Q77은 중점선과 평행선이 무게중심을 지나는 위치를 2:1 비와 함께 사용한다. AL·AD 같은 전체 중선 길이에서 NG·FG 같은 부분 길이를 떼어내므로 1/2 중점비와 2/3 무게중심비를 혼동하지 않는 것이 핵심이다."
+    },
+    {
+      "type_no": 35,
+      "type_name": "삼각형의 무게중심의 응용(3)",
+      "item_start": 78,
+      "item_end": 79,
+      "items": [
+        {
+          "item_no": 78,
+          "accuracy": 66
+        },
+        {
+          "item_no": 79,
+          "accuracy": 81
+        }
+      ],
+      "tags": [
+        "centroid_two_to_one_ratio_confusion",
+        "segment_partition_tracking_failure"
+      ],
+      "rationale": "Q78~Q79는 밑변을 나눈 두 부분삼각형의 무게중심 사이 거리가 밑변 분할의 일정 비율로 줄어든다는 아핀 성질을 사용한다. 도형이 정삼각형·이등변삼각형이어도 높이 자체보다 각 부분삼각형의 중심 이동량을 정확히 1/3로 환산해야 한다."
+    },
+    {
+      "type_no": 36,
+      "type_name": "삼각형의 무게중심과 넓이의 관계(1) △ABC의 무게중심",
+      "item_start": 80,
+      "item_end": 82,
+      "items": [
+        {
+          "item_no": 80,
+          "accuracy": 52
+        },
+        {
+          "item_no": 81,
+          "accuracy": 53
+        },
+        {
+          "item_no": 82,
+          "accuracy": 57
+        }
+      ],
+      "tags": [
+        "centroid_area_partition_failure",
+        "angle_bisector_side_ratio_setup_failure",
+        "law_selection_error"
+      ],
+      "rationale": "Q80~Q82는 무게중심 G와 내심 I를 동시에 사용해 BC 위의 서로 다른 교점을 만든 뒤 넓이를 비교한다. 세 문항 모두 52~57%로 낮으며, G는 중선의 2:1 성질이고 I는 각의 이등분선 정리라는 서로 다른 중심의 성질을 바꿔 쓰면 바로 틀리는 구조다."
+    },
+    {
+      "type_no": 37,
+      "type_name": "삼각형의 무게중심과 넓이의 관계(2) △ABC, △GBC의 무게중심",
+      "item_start": 83,
+      "item_end": 84,
+      "items": [
+        {
+          "item_no": 83,
+          "accuracy": 88
+        },
+        {
+          "item_no": 84,
+          "accuracy": 82
+        }
+      ],
+      "tags": [
+        "centroid_area_partition_failure",
+        "area_ratio_from_similarity_failure"
+      ],
+      "rationale": "Q83~Q84는 △ABC의 무게중심과 그 안의 부분삼각형 △GBC의 무게중심을 다시 잡는 중첩 구조다. 한 단계의 2:1 분할을 두 번 적용하면서 길이 축소가 넓이비에는 제곱으로 반영되는 지점을 놓치지 않아야 한다."
+    },
+    {
+      "type_no": 38,
+      "type_name": "평행사변형에서 삼각형의 무게중심의 응용(1) 길이",
+      "item_start": 85,
+      "item_end": 86,
+      "items": [
+        {
+          "item_no": 85,
+          "accuracy": 66
+        },
+        {
+          "item_no": 86,
+          "accuracy": 56
+        }
+      ],
+      "tags": [
+        "centroid_two_to_one_ratio_confusion",
+        "ratio_setup_from_geometry_failure",
+        "segment_ratio_to_length_conversion_failure"
+      ],
+      "rationale": "Q85~Q86은 평행사변형 안의 서로 다른 삼각형 무게중심 또는 중점-대각선 교점의 위치 차를 길이로 환산한다. Q86은 56%로 더 낮고 M·N 중점에서 대각선 AC까지 여러 교점 P,Q를 거쳐 PQ를 AC에 역비례로 복원해야 하므로 ratio_setup_from_geometry_failure를 Q86에만 둔다.",
+      "tag_scope": {
+        "ratio_setup_from_geometry_failure": [
+          86
+        ]
+      }
+    },
+    {
+      "type_no": 39,
+      "type_name": "평행사변형에서 삼각형의 무게중심의 응용(2) 넓이",
+      "item_start": 87,
+      "item_end": 89,
+      "items": [
+        {
+          "item_no": 87,
+          "accuracy": 76
+        },
+        {
+          "item_no": 88,
+          "accuracy": 60
+        },
+        {
+          "item_no": 89,
+          "accuracy": 68
+        }
+      ],
+      "tags": [
+        "area_decomposition_equation_setup_failure",
+        "area_ratio_from_similarity_failure",
+        "midpoint_area_fraction_relation_misapplied"
+      ],
+      "rationale": "Q87~Q89는 평행사변형의 대각선·중점선이 만드는 여러 삼각형의 넓이비를 추적한다. 대각선이 전체 넓이를 이등분하고, 중점이나 2:1 교점이 만드는 밑변비가 다시 부분 넓이비로 옮겨지는 과정을 한 번에 섞지 않는 것이 핵심이다."
+    },
+    {
+      "type_no": 40,
+      "type_name": "닮은 두 평면도형의 넓이의 비",
+      "item_start": 90,
+      "item_end": 91,
+      "items": [
+        {
+          "item_no": 90,
+          "accuracy": 60
+        },
+        {
+          "item_no": 91,
+          "accuracy": 65
+        }
+      ],
+      "tags": [
+        "area_ratio_from_similarity_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q90~Q91은 닮은 두 삼각형의 길이비를 넓이비의 제곱으로 바꿔 전체 도형의 넓이를 복원한다. Q90은 사다리꼴의 윗변·아랫변 4:10을 대각선 교점에서 생기는 삼각형의 넓이비로 바꾸므로 길이비와 넓이비를 같은 비로 두는 오류가 가장 직접적이다."
+    },
+    {
+      "type_no": 41,
+      "type_name": "닮은 두 평면도형의 넓이의 비의 활용",
+      "item_start": 92,
+      "item_end": 93,
+      "items": [
+        {
+          "item_no": 92,
+          "accuracy": 87
+        },
+        {
+          "item_no": 93,
+          "accuracy": 54
+        }
+      ],
+      "tags": [
+        "area_ratio_from_similarity_failure",
+        "percentage_scale_factor_conversion_error"
+      ],
+      "rationale": "Q92~Q93은 길이 배율을 넓이 배율로 제곱해 실제 양·가격에 연결한다. Q93은 54%로 Q92의 87%보다 크게 낮고 125%를 1.25배로 바꾼 뒤 다시 제곱해 가격 비례식에 넣어야 하므로 percentage_scale_factor_conversion_error를 Q93에만 둔다.",
+      "tag_scope": {
+        "percentage_scale_factor_conversion_error": [
+          93
+        ]
+      }
+    },
+    {
+      "type_no": 42,
+      "type_name": "닮은 두 입체도형의 겉넓이의 비의 활용",
+      "item_start": 94,
+      "item_end": 95,
+      "items": [
+        {
+          "item_no": 94,
+          "accuracy": 66
+        },
+        {
+          "item_no": 95,
+          "accuracy": 65
+        }
+      ],
+      "tags": [
+        "area_ratio_to_side_ratio_conversion_failure",
+        "segment_partition_tracking_failure",
+        "segment_ratio_to_length_conversion_failure"
+      ],
+      "rationale": "Q94~Q95는 원기둥 밑면 그림자의 넓이비에서 반지름의 길이비를 제곱근으로 되돌린 뒤, 닮은 원뿔의 높이비에 옮긴다. 넓이가 3배라는 조건을 길이도 3배로 처리하거나 작은 원뿔 높이 AO와 전체 높이를 혼동하는 오류가 핵심이다."
+    },
+    {
+      "type_no": 43,
+      "type_name": "닮은 두 입체도형의 부피의 비",
+      "item_start": 96,
+      "item_end": 98,
+      "items": [
+        {
+          "item_no": 96,
+          "accuracy": 62
+        },
+        {
+          "item_no": 97,
+          "accuracy": 54
+        },
+        {
+          "item_no": 98,
+          "accuracy": 61
+        }
+      ],
+      "tags": [
+        "volume_from_ratio_error",
+        "subtraction_of_regions_omitted",
+        "multi_step_composite_error"
+      ],
+      "rationale": "Q96~Q98은 닮음비의 세제곱이 부피비라는 사실을 사용한다. Q96은 큰 삼각뿔에서 작은 삼각뿔을 빼는 뿔대 부피, Q98은 정팔면체와 작은 정사면체들을 합친 입체의 부피 분해가 추가되므로 각각 해당 분해 오류를 문항별로 둔다.",
+      "tag_scope": {
+        "subtraction_of_regions_omitted": [
+          96
+        ],
+        "multi_step_composite_error": [
+          98
+        ]
+      }
+    },
+    {
+      "type_no": 44,
+      "type_name": "닮은 두 입체도형의 부피의 비의 활용",
+      "item_start": 99,
+      "item_end": 100,
+      "items": [
+        {
+          "item_no": 99,
+          "accuracy": 69
+        },
+        {
+          "item_no": 100,
+          "accuracy": 61
+        }
+      ],
+      "tags": [
+        "volume_from_ratio_error",
+        "answer_format_mismatch",
+        "subtraction_of_regions_omitted"
+      ],
+      "rationale": "Q99~Q100은 반지름·높이의 선형비를 세제곱해 부피비로 바꾸는 실생활 응용이다. Q99는 큰 쇠구슬 하나로 만들 수 있는 작은 쇠구슬의 개수를 묻기 때문에 answer_format_mismatch을, Q100은 이미 들어 있는 와인의 부피를 전체에서 빼야 하므로 subtraction_of_regions_omitted를 각각 문항별로 둔다. Q99는 작은 쇠구슬의 개수를 묻기 때문에 계산한 부피값에서 멈추지 않고 개수로 답을 마무리해야 한다.",
+      "tag_scope": {
+        "answer_format_mismatch": [
+          99
+        ],
+        "subtraction_of_regions_omitted": [
+          100
+        ]
+      }
+    },
+    {
+      "type_no": 45,
+      "type_name": "닮음의 활용(1) 높이의 측정",
+      "item_start": 101,
+      "item_end": 102,
+      "items": [
+        {
+          "item_no": 101,
+          "accuracy": 80
+        },
+        {
+          "item_no": 102,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "ratio_setup_from_geometry_failure",
+        "segment_ratio_to_length_conversion_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q101~Q102는 직접 잴 수 없는 강의 폭·건물 높이를 닮은 삼각형의 비례식으로 환산한다. Q101은 평행선 BC∥DE에서 대응 길이를 잡는 문제이고, Q102는 같은 시각의 그림자 길이와 막대 높이를 건물의 높이·그림자에 대응시키므로 similar_triangle_correspondence_setup_failure를 Q102에만 둔다.",
+      "tag_scope": {
+        "similar_triangle_correspondence_setup_failure": [
+          102
+        ]
+      }
+    },
+    {
+      "type_no": 46,
+      "type_name": "닮음의 활용(2) 축도와 축척",
+      "item_start": 103,
+      "item_end": 104,
+      "items": [
+        {
+          "item_no": 103,
+          "accuracy": 63
+        },
+        {
+          "item_no": 104,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "unit_conversion_omitted",
+        "multi_stage_motion_distance_setup_failure"
+      ],
+      "rationale": "Q103~Q104는 지도상의 cm를 축척으로 실제 km 거리로 바꾼 뒤 속력으로 시간을 구한다. 길이 단위 cm→m→km와 시간 단위 h→분 변환이 모두 필요하므로 단위 변환 자체와 마지막 분 단위 마무리를 별도 오류로 둔다. Q103~Q104는 지도상의 cm를 실제 거리 단위로 바꾸고 시속을 이용한 시간을 분 단위로 마무리해야 한다."
+    },
+    {
+      "type_no": 47,
+      "type_name": "삼각형의 변의 길이 구하기(1)",
+      "item_start": 105,
+      "item_end": 106,
+      "items": [
+        {
+          "item_no": 105,
+          "accuracy": 68
+        },
+        {
+          "item_no": 106,
+          "accuracy": 83
+        }
+      ],
+      "tags": [
+        "angle_bisector_side_ratio_setup_failure",
+        "pythagorean_setup_failure",
+        "variable_length_assignment_failure"
+      ],
+      "rationale": "Q105~Q106은 먼저 조건으로 한 변의 길이를 구성한 뒤 피타고라스 정리로 나머지 길이를 완성한다. Q105는 각의 이등분선 정리로 BD:DC를 AB:AC에 연결해야 하고, Q106은 두 정사각형의 변을 같은 길이로 대응해 AD=5, AE=13인 직각삼각형을 만들어야 하므로 문항별 보조 오류를 둔다.",
+      "tag_scope": {
+        "angle_bisector_side_ratio_setup_failure": [
+          105
+        ],
+        "variable_length_assignment_failure": [
+          106
+        ]
+      }
+    },
+    {
+      "type_no": 48,
+      "type_name": "삼각형의 변의 길이 구하기(2)",
+      "item_start": 107,
+      "item_end": 108,
+      "items": [
+        {
+          "item_no": 107,
+          "accuracy": 90
+        },
+        {
+          "item_no": 108,
+          "accuracy": 50
+        }
+      ],
+      "tags": [
+        "pythagorean_setup_failure",
+        "segment_partition_tracking_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q107~Q108은 직각 조건에서 필요한 변을 피타고라스로 완성한다. Q108은 50%로 Q107의 90%보다 40pp 낮고, 이등변직각삼각형을 비스듬한 직선에 내린 두 수선 BD·CE로 다시 대응시켜 BE²를 만들어야 하므로 회전된 직각삼각형 대응 오류를 Q108에만 둔다.",
+      "tag_scope": {
+        "similar_triangle_correspondence_setup_failure": [
+          108
+        ]
+      }
+    },
+    {
+      "type_no": 49,
+      "type_name": "삼각형의 변의 길이 구하기(3)",
+      "item_start": 109,
+      "item_end": 110,
+      "items": [
+        {
+          "item_no": 109,
+          "accuracy": 70
+        },
+        {
+          "item_no": 110,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "pythagorean_setup_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "radical_ratio_simplification_error"
+      ],
+      "rationale": "Q109~Q110은 한 번의 피타고라스 계산보다 여러 직각삼각형을 연속해서 줄이거나 같은 모양으로 분할해 길이를 구한다. Q110은 52%로 더 낮고 이등변직각삼각형을 6개의 직각이등변삼각형으로 나눈 뒤 FG를 읽어야 하므로 similar_triangle_correspondence_setup_failure를 Q110에만 둔다.",
+      "tag_scope": {
+        "similar_triangle_correspondence_setup_failure": [
+          110
+        ]
+      }
+    },
+    {
+      "type_no": 50,
+      "type_name": "직각삼각형의 닮음과 피타고라스 정리",
+      "item_start": 111,
+      "item_end": 113,
+      "items": [
+        {
+          "item_no": 111,
+          "accuracy": 56
+        },
+        {
+          "item_no": 112,
+          "accuracy": 69
+        },
+        {
+          "item_no": 113,
+          "accuracy": 58
+        }
+      ],
+      "tags": [
+        "right_triangle_altitude_geometric_mean_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "multi_triangle_length_chain_failure"
+      ],
+      "rationale": "Q111~Q113은 빗변에 내린 높이 또는 추가 수선으로 생긴 작은 직각삼각형들이 원래 삼각형과 닮는다는 관계를 피타고라스와 함께 사용한다. Q113은 수선 HQ까지 한 번 더 들어가 두 단계의 닮음을 거쳐 AQ+CH를 구해야 하므로 multi_triangle_length_chain_failure를 Q113에만 둔다.",
+      "tag_scope": {
+        "multi_triangle_length_chain_failure": [
+          113
+        ]
+      }
+    },
+    {
+      "type_no": 51,
+      "type_name": "사각형에서 피타고라스 정리의 이용(1) 대각선을 그어 푸는 경우",
+      "item_start": 114,
+      "item_end": 115,
+      "items": [
+        {
+          "item_no": 114,
+          "accuracy": 70
+        },
+        {
+          "item_no": 115,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "auxiliary_line_construction_failure",
+        "pythagorean_setup_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q114~Q115는 사각형을 대각선으로 두 직각삼각형으로 나눠 같은 대각선을 공유하는 두 피타고라스 식을 연결한다. Q114는 넓이 48에서 대각선 AC를 역으로 찾아야 하므로 area_formula_setup_error를 Q114에만 둔다.",
+      "tag_scope": {
+        "area_formula_setup_error": [
+          114
+        ]
+      }
+    },
+    {
+      "type_no": 52,
+      "type_name": "사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우",
+      "item_start": 116,
+      "item_end": 118,
+      "items": [
+        {
+          "item_no": 116,
+          "accuracy": 68
+        },
+        {
+          "item_no": 117,
+          "accuracy": 83
+        },
+        {
+          "item_no": 118,
+          "accuracy": 77
+        }
+      ],
+      "tags": [
+        "auxiliary_line_construction_failure",
+        "pythagorean_setup_failure",
+        "composite_area_subtraction_failure"
+      ],
+      "rationale": "Q116~Q118은 사다리꼴·오각형에 수선을 보조선으로 그어 직각삼각형을 만든다. Q118은 잘린 직사각형에서 DE=5와 가로 차 4로 세로 차를 구한 뒤 직사각형 넓이에서 모서리 삼각형을 빼야 하므로 composite_area_subtraction_failure를 Q118에만 둔다.",
+      "tag_scope": {
+        "composite_area_subtraction_failure": [
+          118
+        ]
+      }
+    },
+    {
+      "type_no": 53,
+      "type_name": "직사각형의 대각선의 길이",
+      "item_start": 119,
+      "item_end": 121,
+      "items": [
+        {
+          "item_no": 119,
+          "accuracy": 62
+        },
+        {
+          "item_no": 120,
+          "accuracy": 60
+        },
+        {
+          "item_no": 121,
+          "accuracy": 52
+        }
+      ],
+      "tags": [
+        "similar_triangle_correspondence_setup_failure",
+        "right_triangle_altitude_geometric_mean_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q119~Q121은 직사각형 대각선에 내린 수선에서 생기는 투영 길이와 닮은 직각삼각형 관계를 이용한다. Q121은 52%로 가장 낮고 두 수선 발 E,F가 만드는 사각형 AECF의 넓이를 투영 길이에서 다시 구성해야 하므로 area_formula_setup_error를 Q121에만 둔다.",
+      "tag_scope": {
+        "area_formula_setup_error": [
+          121
+        ]
+      }
+    },
+    {
+      "type_no": 54,
+      "type_name": "이등변삼각형의 높이와 넓이",
+      "item_start": 122,
+      "item_end": 123,
+      "items": [
+        {
+          "item_no": 122,
+          "accuracy": 78
+        },
+        {
+          "item_no": 123,
+          "accuracy": 39
+        }
+      ],
+      "tags": [
+        "isosceles_altitude_bisection_overlooked",
+        "pythagorean_setup_failure",
+        "similar_triangle_correspondence_setup_failure"
+      ],
+      "rationale": "Q122~Q123은 이등변삼각형의 꼭짓점에서 내린 높이가 밑변을 이등분한다는 사실이 출발점이다. Q123은 39%로 크게 낮고 높이·밑변을 구한 뒤 내접 정사각형의 윗변과 밑변 사이에 닮은 삼각형 비례식을 새로 세워야 하므로 similar_triangle_correspondence_setup_failure를 Q123에만 둔다.",
+      "tag_scope": {
+        "similar_triangle_correspondence_setup_failure": [
+          123
+        ]
+      }
+    },
+    {
+      "type_no": 55,
+      "type_name": "피타고라스 정리의 설명(1) 유클리드의 방법",
+      "item_start": 124,
+      "item_end": 124,
+      "items": [
+        {
+          "item_no": 124,
+          "accuracy": 74
+        }
+      ],
+      "tags": [
+        "area_decomposition_equation_setup_failure",
+        "pythagorean_setup_failure"
+      ],
+      "rationale": "Q124는 직각삼각형의 세 변에 만든 정사각형과 내부 삼각형의 넓이를 대응시키는 유클리드식 설명 구조를 사용한다. 어떤 삼각형과 어떤 정사각형 조각의 넓이가 같은지 연결하지 못하면 AB=7, AC=5를 이용해 △FDE의 넓이를 만들 수 없다."
+    },
+    {
+      "type_no": 56,
+      "type_name": "피타고라스 정리의 설명(2) 피타고라스의 방법",
+      "item_start": 125,
+      "item_end": 125,
+      "items": [
+        {
+          "item_no": 125,
+          "accuracy": 78
+        }
+      ],
+      "tags": [
+        "area_decomposition_equation_setup_failure",
+        "segment_partition_tracking_failure"
+      ],
+      "rationale": "Q125는 큰 정사각형 안에 네 개의 합동 직각삼각형을 배치하고 남는 내부 정사각형의 넓이를 비교하는 피타고라스식 분할이다. AE=4에서 바깥 정사각형 한 변을 구성하는 길이 합과 내부 정사각형의 넓이 관계를 혼동하기 쉽다."
+    },
+    {
+      "type_no": 57,
+      "type_name": "피타고라스 정리의 설명(3) 가필드의 방법",
+      "item_start": 126,
+      "item_end": 126,
+      "items": [
+        {
+          "item_no": 126,
+          "accuracy": 75
+        }
+      ],
+      "tags": [
+        "area_decomposition_equation_setup_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q126은 가필드의 사다리꼴을 세 직각삼각형으로 분해해 사다리꼴 넓이와 삼각형 넓이를 같은 식으로 표현한다. 주어진 △ACE의 넓이 20과 BC=6을 이용해 두 직각변의 곱을 만들고 이를 사다리꼴 넓이에 옮기는 과정이 핵심이다."
+    },
+    {
+      "type_no": 58,
+      "type_name": "피타고라스 정리의 설명(4) 바스카라의 방법",
+      "item_start": 127,
+      "item_end": 128,
+      "items": [
+        {
+          "item_no": 127,
+          "accuracy": 70
+        },
+        {
+          "item_no": 128,
+          "accuracy": 71
+        }
+      ],
+      "tags": [
+        "area_decomposition_equation_setup_failure",
+        "area_formula_setup_error",
+        "pythagorean_setup_failure"
+      ],
+      "rationale": "Q127~Q128은 큰 정사각형에서 네 개의 합동 직각삼각형을 빼 내부 정사각형 넓이를 만드는 바스카라 분할이다. 먼저 큰 정사각형 넓이에서 한 변을 복원하고, AE와 나머지 직각변의 차를 정확히 만들어야 한다."
+    },
+    {
+      "type_no": 59,
+      "type_name": "직각삼각형이 되기 위한 조건",
+      "item_start": 129,
+      "item_end": 130,
+      "items": [
+        {
+          "item_no": 129,
+          "accuracy": 90
+        },
+        {
+          "item_no": 130,
+          "accuracy": 90
+        }
+      ],
+      "tags": [
+        "pythagorean_converse_condition_failure",
+        "trig_ratio_side_role_confusion",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q129~Q130은 가장 긴 변의 제곱이 나머지 두 변 제곱의 합과 같은지 확인해 직각삼각형을 판정한다. Q130은 판정 후 실제 직각변 9와 12를 골라 넓이를 계산해야 하므로 area_formula_setup_error를 Q130에만 둔다.",
+      "tag_scope": {
+        "area_formula_setup_error": [
+          130
+        ]
+      }
+    },
+    {
+      "type_no": 60,
+      "type_name": "각의 크기에 따른 삼각형의 변의 길이",
+      "item_start": 131,
+      "item_end": 132,
+      "items": [
+        {
+          "item_no": 131,
+          "accuracy": 75
+        },
+        {
+          "item_no": 132,
+          "accuracy": 72
+        }
+      ],
+      "tags": [
+        "multi_constraint_intersection_failure",
+        "inequality_bound_conversion_error",
+        "answer_format_mismatch"
+      ],
+      "rationale": "Q131~Q132는 삼각형의 존재 조건과 코사인 법칙의 특수형인 제곱 부등식을 동시에 만족하는 자연수 x의 범위를 잡아야 한다. 마지막에는 가능한 모든 x의 합을 요구하므로 후보를 찾고도 합산을 하지 않는 answer_format_mismatch를 두 문항 모두에 둔다. Q131~Q132는 가능한 자연수 후보를 찾는 것에서 끝나지 않고 그 값들의 합을 최종 답으로 내야 한다."
+    },
+    {
+      "type_no": 61,
+      "type_name": "피타고라스 정리의 활용(1) 직각삼각형",
+      "item_start": 133,
+      "item_end": 135,
+      "items": [
+        {
+          "item_no": 133,
+          "accuracy": 50
+        },
+        {
+          "item_no": 134,
+          "accuracy": 51
+        },
+        {
+          "item_no": 135,
+          "accuracy": 56
+        }
+      ],
+      "tags": [
+        "segment_partition_tracking_failure",
+        "pythagorean_setup_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q133~Q134는 DE∥BC와 AD:DB를 이용해 작은 직각삼각형의 길이를 큰 삼각형으로 확대하고, CD²+BE²를 한꺼번에 정리한다. Q135는 무게중심 G에서 AC에 내린 수선으로 △AGH 넓이를 만들어야 하므로 area_formula_setup_error를 Q135에만 둔다.",
+      "tag_scope": {
+        "area_formula_setup_error": [
+          135
+        ]
+      }
+    },
+    {
+      "type_no": 62,
+      "type_name": "피타고라스 정리의 활용(2) 사각형",
+      "item_start": 136,
+      "item_end": 138,
+      "items": [
+        {
+          "item_no": 136,
+          "accuracy": 50
+        },
+        {
+          "item_no": 137,
+          "accuracy": 70
+        },
+        {
+          "item_no": 138,
+          "accuracy": 50
+        }
+      ],
+      "tags": [
+        "area_formula_setup_error",
+        "segment_partition_tracking_failure",
+        "pythagorean_setup_failure"
+      ],
+      "rationale": "Q136~Q138은 정사각형 넓이에서 변의 길이를 복원한 뒤, 같은 직선 B-C-E 위에 놓인 두 정사각형 또는 사각형의 수선·대각선을 피타고라스로 연결한다. Q137은 두 대각선 조각 OC·OD가 주어졌을 때 AB²-AD²처럼 제곱의 차를 직접 정리해야 하므로 pythagorean_setup_failure를 Q137에만 둔다.",
+      "tag_scope": {
+        "pythagorean_setup_failure": [
+          137
+        ]
+      }
+    },
+    {
+      "type_no": 63,
+      "type_name": "피타고라스 정리의 활용(4) 직각삼각형의 세 반원 사이의 관계",
+      "item_start": 139,
+      "item_end": 140,
+      "items": [
+        {
+          "item_no": 139,
+          "accuracy": 52
+        },
+        {
+          "item_no": 140,
+          "accuracy": 88
+        }
+      ],
+      "tags": [
+        "pythagorean_setup_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q139~Q140은 직각삼각형의 세 변에 만든 닮은 도형의 넓이가 변의 제곱에 비례한다는 피타고라스 넓이 관계를 사용한다. Q139는 반원·겹친 색칠 영역의 넓이를 재배치해야 하고, Q140은 정사각형 넓이 S1·S2·S3 자체를 바로 합산하므로 각각 다른 면적 표현 오류를 문항별로 둔다.",
+      "tag_scope": {
+        "area_formula_setup_error": [
+          139
+        ]
+      }
+    },
+    {
+      "type_no": 64,
+      "type_name": "피타고라스 정리의 활용(5) 히포크라테스의 원의 넓이",
+      "item_start": 141,
+      "item_end": 143,
+      "items": [
+        {
+          "item_no": 141,
+          "accuracy": 80
+        },
+        {
+          "item_no": 142,
+          "accuracy": 69
+        },
+        {
+          "item_no": 143,
+          "accuracy": 51
+        }
+      ],
+      "tags": [
+        "composite_area_subtraction_failure",
+        "area_formula_setup_error"
+      ],
+      "rationale": "Q141~Q143은 직각삼각형의 세 변 위 반원 넓이 관계로 두 초승달 모양의 넓이를 삼각형 넓이와 맞바꾼다. Q142는 색칠 넓이 60cm²와 AB=8에서 먼저 삼각형의 높이 AH를 역으로 구해야 하므로 area_formula_setup_error를 Q142에만 둔다.",
+      "tag_scope": {
+        "area_formula_setup_error": [
+          142
+        ]
+      }
+    },
+    {
+      "type_no": 65,
+      "type_name": "종이접기와 피타고라스 정리",
+      "item_start": 144,
+      "item_end": 145,
+      "items": [
+        {
+          "item_no": 144,
+          "accuracy": 77
+        },
+        {
+          "item_no": 145,
+          "accuracy": 84
+        }
+      ],
+      "tags": [
+        "paper_fold_reflection_distance_mapping_failure",
+        "similar_triangle_correspondence_setup_failure",
+        "multiple_answer_omission"
+      ],
+      "rationale": "Q144~Q145는 접은 뒤 겹친 점의 거리 같음을 이용해 원래 직사각형 안에 직각삼각형을 재구성하고 피타고라스를 적용한다. Q144는 “틀린 것을 모두” 고르는 복수 선택 문항으로 정답이 ③,⑤이므로 한 개만 고르는 multiple_answer_omission를 Q144에만 둔다. Q144는 틀린 것을 모두 고르는 복수 선택 문항이므로 정답 ③,⑤ 중 하나만 고르는 누락 오류를 별도로 본다.",
+      "tag_scope": {
+        "multiple_answer_omission": [
+          144
+        ]
+      }
+    },
+    {
+      "type_no": 66,
+      "type_name": "입체도형에서의 피타고라스 정리",
+      "item_start": 146,
+      "item_end": 148,
+      "items": [
+        {
+          "item_no": 146,
+          "accuracy": 54
+        },
+        {
+          "item_no": 147,
+          "accuracy": 76
+        },
+        {
+          "item_no": 148,
+          "accuracy": 49
+        }
+      ],
+      "tags": [
+        "pythagorean_setup_failure",
+        "developed_surface_base_circumference_mapping_failure",
+        "three_dimensional_length_reduction_failure"
+      ],
+      "rationale": "Q146~Q148은 입체의 실제 길이를 한 평면의 직각삼각형으로 내려 피타고라스를 적용한다. Q147은 원뿔 전개도의 호 길이를 밑면 둘레로 바꾼 뒤 높이를 구해야 하고, Q148은 정사각뿔 밑면의 대각선·중심과 높이를 연결해야 하므로 해당 입체 전용 오류를 문항별로 둔다.",
+      "tag_scope": {
+        "developed_surface_base_circumference_mapping_failure": [
+          147
+        ],
+        "three_dimensional_length_reduction_failure": [
+          148
+        ]
+      }
+    },
+    {
+      "type_no": 67,
+      "type_name": "원기둥에서의 최단 거리",
+      "item_start": 149,
+      "item_end": 150,
+      "items": [
+        {
+          "item_no": 149,
+          "accuracy": 68
+        },
+        {
+          "item_no": 150,
+          "accuracy": 73
+        }
+      ],
+      "tags": [
+        "cylinder_unfolding_wrap_count_failure",
+        "pythagorean_setup_failure",
+        "developed_surface_base_circumference_mapping_failure"
+      ],
+      "rationale": "Q149~Q150은 원기둥 옆면을 직사각형으로 펼쳐 감긴 횟수×밑면 둘레를 가로 길이로 두고, 높이와 함께 피타고라스로 실의 최단 길이를 계산한다. Q149~Q150 모두 전개도의 가로 길이를 감긴 횟수와 밑면 둘레에 연결해야 하며, Q150은 그 관계를 역으로 사용해 밑면 둘레를 복원한다."
+    }
+  ],
+  "unique_tags": [
+    "angle_bisector_side_ratio_setup_failure",
+    "angle_correspondence_chain_failure",
+    "answer_format_mismatch",
+    "area_decomposition_equation_setup_failure",
+    "area_formula_setup_error",
+    "area_ratio_from_similarity_failure",
+    "area_ratio_to_side_ratio_conversion_failure",
+    "auxiliary_line_construction_failure",
+    "centroid_area_partition_failure",
+    "centroid_two_to_one_ratio_confusion",
+    "composite_area_subtraction_failure",
+    "composite_path_length_decomposition_failure",
+    "cylinder_unfolding_wrap_count_failure",
+    "developed_surface_base_circumference_mapping_failure",
+    "difference_direction_error",
+    "equal_tangent_segment_relation_misapplied",
+    "final_form_reduction_omitted",
+    "inequality_bound_conversion_error",
+    "isosceles_altitude_bisection_overlooked",
+    "law_selection_error",
+    "midpoint_area_fraction_relation_misapplied",
+    "midpoint_length_relation_error",
+    "multi_constraint_intersection_failure",
+    "multi_expression_dependency_error",
+    "multi_stage_motion_distance_setup_failure",
+    "multi_step_composite_error",
+    "multi_triangle_length_chain_failure",
+    "multiple_answer_omission",
+    "nested_fraction_simplification_failure",
+    "paper_fold_reflection_distance_mapping_failure",
+    "parallel_line_angle_transfer_failure",
+    "parallelism_converse_ratio_test_failure",
+    "pattern_extraction_failure",
+    "percentage_scale_factor_conversion_error",
+    "pythagorean_converse_condition_failure",
+    "pythagorean_setup_failure",
+    "radical_ratio_simplification_error",
+    "ratio_setup_from_geometry_failure",
+    "right_triangle_altitude_geometric_mean_failure",
+    "same_altitude_area_ratio_transfer_failure",
+    "segment_partition_tracking_failure",
+    "segment_ratio_to_length_conversion_failure",
+    "shared_altitude_length_chain_failure",
+    "similar_triangle_correspondence_setup_failure",
+    "subtraction_of_regions_omitted",
+    "three_dimensional_length_reduction_failure",
+    "trapezoid_linear_interpolation_failure",
+    "trapezoid_midsegment_average_error",
+    "trig_ratio_side_role_confusion",
+    "unit_conversion_omitted",
+    "variable_length_assignment_failure",
+    "volume_from_ratio_error"
+  ],
+  "new_tags": [
+    {
+      "tag": "angle_bisector_side_ratio_setup_failure",
+      "why": "사전에 각의 이등분선 정리로 맞은편 변의 분할비를 세우는 오류가 없어 별도 유지했다."
+    },
+    {
+      "tag": "centroid_area_partition_failure",
+      "why": "사전에 무게중심이 만드는 넓이 분할을 직접 진단하는 태그가 없어 별도 유지했다."
+    },
+    {
+      "tag": "centroid_two_to_one_ratio_confusion",
+      "why": "사전에 무게중심의 중선 2:1 분할비 자체를 혼동하는 오류가 없어 별도 유지했다."
+    },
+    {
+      "tag": "cylinder_unfolding_wrap_count_failure",
+      "why": "원기둥을 여러 바퀴 감은 횟수를 전개도 가로 길이에 반영하는 오류가 사전에 없다."
+    },
+    {
+      "tag": "developed_surface_base_circumference_mapping_failure",
+      "why": "회전체 전개도에서 옆면의 대응 길이(부채꼴 호 또는 전개 직사각형 가로)를 밑면 원의 둘레와 연결하는 오류가 사전에 없다."
+    },
+    {
+      "tag": "isosceles_altitude_bisection_overlooked",
+      "why": "이등변삼각형의 꼭짓점 높이가 밑변을 이등분한다는 조건 누락은 기존 각 연쇄 태그와 다르다."
+    },
+    {
+      "tag": "paper_fold_reflection_distance_mapping_failure",
+      "why": "종이접기에서 접기 전후 대응점의 등거리 관계를 원래 도형 길이로 되돌리는 오류가 사전에 없다."
+    },
+    {
+      "tag": "parallelism_converse_ratio_test_failure",
+      "why": "선분비의 일치로 평행을 역판정하는 오류는 평행선 각 전달 실패와 다른 역조건 판정이다."
+    },
+    {
+      "tag": "percentage_scale_factor_conversion_error",
+      "why": "125% 같은 퍼센트 확대율을 선형 배율로 바꾸는 오류가 기존 넓이비 태그와 구분된다."
+    },
+    {
+      "tag": "pythagorean_converse_condition_failure",
+      "why": "세 변의 길이로 직각삼각형 여부를 판정하는 피타고라스 역정리 오류가 사전에 없다."
+    },
+    {
+      "tag": "same_altitude_area_ratio_transfer_failure",
+      "why": "같은 높이를 공유하는 삼각형의 밑변비를 넓이비로 옮기는 오류가 기존 닮음 넓이비 태그와 다르다."
+    },
+    {
+      "tag": "trapezoid_linear_interpolation_failure",
+      "why": "사다리꼴의 평행 단면 길이가 위치에 따라 선형 변화하는 관계를 적용하는 오류가 사전에 없다."
+    },
+    {
+      "tag": "trapezoid_midsegment_average_error",
+      "why": "사다리꼴 중점연결선 길이가 두 밑변 평균이라는 공식을 잘못 적용하는 오류가 사전에 없다."
+    }
+  ],
+  "verification_scan": {
+    "checked": true,
+    "types_with_verification_error": [],
+    "types_with_answer_format_error": [
+      28,
+      44,
+      46,
+      60,
+      65
+    ],
+    "note": "67유형 150문항을 답을 구한 뒤의 역방향 검산과 답 마무리 관점으로 다시 훑었다. Q129의 x>24, Q131~Q132의 자연수 범위 제한은 풀이 중 후보를 거르는 조건 필터이므로 검산 태그에서 제외했다. 원래 조건에 답을 되돌려 대입해야만 정답이 확정되는 문항은 확인되지 않았다. 답 마무리에서는 Q60의 서로소 p,q 기약화, Q99의 개수 응답, Q103~Q104의 실제 거리·시간 단위 변환, Q131~Q132의 가능한 값 합산, Q144의 복수 선택 완결성을 반영했다."
+  }
+}
