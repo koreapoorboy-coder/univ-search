@@ -111,3 +111,36 @@ Write-Output ("[12] gaps recorded = " + $g.Count + " / tier_breakdown batches = 
 $sum1 = 0; $sum2 = 0; $sumN = 0
 foreach ($b in @($tb.batches)) { $sum1 += $b.tier1; $sum2 += $b.tier2; $sumN += $b.new }
 Write-Output ("[13] tier_breakdown self-consistency: batches sum tier1=$sum1 tier2=$sum2 new=$sumN vs measured tier1=$t1 tier2=$t2 new=" + @($newTags).Count + " : " + $(if ($sum1 -eq $t1 -and $sum2 -eq $t2) { 'OK' } else { 'FAIL' }))
+
+# --- [14] _meta identifier keys must be ASCII --------------------------------
+# WHY (incident 2026-08-18, review side): a key named with a leading star (U+2605)
+# makes an ordinary lookup like $j._meta.observation_vocabulary_skew return $null.
+# The record then reads as MISSING even though the data is present under a different
+# key name. Same failure class as the Korean-literal one: no error, no parse failure,
+# just a silent wrong answer. Enforced here instead of relied on.
+# Concept-name keys under category_ledger / concept_map are DATA (not identifiers),
+# so those two containers are skipped by design.
+$script:badKeys = @()
+function Test-MetaKeyAscii($node, $path) {
+  if ($null -eq $node) { return }
+  if ($node -is [System.Object[]]) {
+    for ($n = 0; $n -lt $node.Count; $n++) { Test-MetaKeyAscii $node[$n] ($path + '[' + $n + ']') }
+    return
+  }
+  if ($node -is [PSCustomObject]) {
+    foreach ($pp in $node.PSObject.Properties) {
+      $full = $path + '.' + $pp.Name
+      if ($path -ne '_meta.category_ledger' -and $path -ne '_meta.concept_map') {
+        $nb = @([System.Text.Encoding]::UTF8.GetBytes($pp.Name) | Where-Object { $_ -gt 127 }).Count
+        if ($nb -gt 0) { $script:badKeys += $full }
+      }
+      Test-MetaKeyAscii $pp.Value $full
+    }
+  }
+}
+if ($null -eq $j._meta) {
+  Write-Output '[14] _meta identifier keys ASCII: SKIP (no _meta section)'
+} else {
+  Test-MetaKeyAscii $j._meta '_meta'
+  Write-Output ("[14] _meta identifier keys ASCII: " + $(if ($script:badKeys) { 'FAIL ' + ($script:badKeys -join '; ') } else { 'OK' }))
+}

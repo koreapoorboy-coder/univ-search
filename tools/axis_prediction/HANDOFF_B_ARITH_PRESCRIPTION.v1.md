@@ -59,7 +59,7 @@ powershell -File tools\axis_prediction\validate_ne_prescriptions.ps1 -Expected 4
 
 ★이 프로젝트에서 **중간값을 최종값으로 오독한 사례가 반복**됐다(갭 절대수 · 판정불가율 중간값 · ★tier-1 비중 배치1값). 같은 형태의 오독을 막기 위해 이 단서를 항상 함께 인용할 것.
 
-### ★tier-2 기제 2종 구분 (`_meta.★tier2_mechanisms` — 최종 보고에 구분해 적을 것)
+### ★tier-2 기제 2종 구분 (`_meta.tier2_mechanisms` — 최종 보고에 구분해 적을 것)
 
 tier-2(자기 overlay가 없어도 단원 관측 풀이 덮는 현상)가 먹히는 기제는 **둘이며 섞지 않는다.**
 
@@ -74,7 +74,7 @@ tier-2(자기 overlay가 없어도 단원 관측 풀이 덮는 현상)가 먹히
 
 가설: **구조 공유가 없는 계열에서는 tier-2가 안 먹힐 수 있다.**
 배치1은 `shared` 계열이라 검증 대상이 아니었다(신설 0은 예상대로, 가설을 지지도 반증도 하지 않음).
-배치2 = 사전 등록한 반례 후보 5범주 19종(RAW_026·027·029·051·053) + shared 1범주 3종(RAW_019), overlay 45.5%. 사전 등록·사전 예측은 `_meta.★structure_sharing_preregistration.batch2`에 **저작 전에 커밋**돼 있다(`d9efe68e`).
+배치2 = 사전 등록한 반례 후보 5범주 19종(RAW_026·027·029·051·053) + shared 1범주 3종(RAW_019), overlay 45.5%. 사전 등록·사전 예측은 `_meta.structure_sharing_preregistration.batch2`에 **저작 전에 커밋**돼 있다(`d9efe68e`).
 
 **측정 결과**: not_shared 19종에서도 **신설 0 · tier-3 0**. 전 코드가 자기 overlay(13) 또는 단원 관측 풀(42)에서 나왔다. ⇒ **가설은 이 단원에서 지지되지 않았다.** 사전 예측("반례 후보에서 신설이 나온다면 여기")은 **빗나갔고, 예측문은 고치지 않고 그대로 남겼다**(`measured_after.verdict`).
 
@@ -95,7 +95,7 @@ tier-2(자기 overlay가 없어도 단원 관측 풀이 덮는 현상)가 먹히
 - 배치 안에서 **not_shared / shared의 tier 분포를 분리 보고**한다(편성 효과와 구조 효과 분리).
 - ★**사후 수정 금지** — 예측이 빗나가도 예측문을 고치지 않는다. 배치2가 실제 사례다(예측 "신설이 나온다" ↔ 실측 0, 예측문 보존).
 
-### ★교란 변수 — 관측 어휘 쏠림 (`_meta.★observation_vocabulary_skew`)
+### ★교란 변수 — 관측 어휘 쏠림 (`_meta.observation_vocabulary_skew`)
 
 | | 어휘 종수 | 최대 등장 | 편재 제외 |
 |---|---|---|---|
@@ -125,7 +125,7 @@ M2_NE에서 **착수 전 예측이 완결 실측과 완전히 일치**했다.
 ⇒ **M1(overlay 0%)의 100%도 저작 없이 확정된 값**이다. M1 처방 저작은 "해 보고 안 되면 재태깅"이 아니라 **안 될 것이 확정된 상태에서 쓰는 것**이다.
 
 **M1 재태깅 근거 정정본은 §4에 있다. ★정정 이전 서술(신설률 근거)은 인용하지 말 것.**
-**tier-2 기제 2종 구분(어휘 폭 / 구조 공유)**은 §1-A "★tier-2 기제 2종 구분"·`_meta.★tier2_mechanisms` 참조.
+**tier-2 기제 2종 구분(어휘 폭 / 구조 공유)**은 §1-A "★tier-2 기제 2종 구분"·`_meta.tier2_mechanisms` 참조.
 상세 = `B_arith_m2ne_final_report.v1.md`(8절 구조 — **M3_REAL 최종 보고의 형식 정본**).
 
 ---
@@ -308,7 +308,7 @@ M2_NE에서 **착수 전 예측이 완결 실측과 완전히 일치**했다.
 | 도구 | 용도 |
 |---|---|
 | `tools/axis_prediction/edit_json_meta.ps1` | **`_meta` 편집 전용.** 텍스트 치환 금지 원칙을 도구로 강제 |
-| `tools/axis_prediction/validate_ne_prescriptions.ps1` | 검증 13항목(자기정합 포함) |
+| `tools/axis_prediction/validate_ne_prescriptions.ps1` | 검증 **14항목**(자기정합 + _meta 키 ASCII 포함) |
 | `tools/axis_prediction/collect_gaps.ps1` | gaps 수집·집계(`-Aggregate`로 JSON 블록 생성) + **`[DENOMINATORS]` 분모 출력**. `-GroupField`로 개념 그룹 경로 지정(M2_NE=`category_ledger` 기본 / M2_GEOM=`concept_map.concepts`, 중첩 `{name,types[]}` 형태 자동 판별) |
 | `tools/axis_prediction/undecidable_theoretical.ps1` | **편성 무관 판정불가율**(이론값) 측정. 카탈로그+overlay만 읽고 draft는 읽지 않음 |
 | `tools/axis_prediction/new_tool.ps1` | **신규 도구 스캐폴더.** ASCII 자기검사 블록을 포함한 뼈대를 생성하고, 생성물이 실제로 **실행되는지까지 검증** |
@@ -342,7 +342,22 @@ powershell -File tools\axis_prediction\collect_gaps.ps1 -Draft <draft.json> -Ove
 
 **`edit_json_meta.ps1` 게이트 3종**: ① 전체 JSON 파싱 ② U+FFFD 스캔 ③ prescriptions 바이트 무변경. 하나라도 실패하면 **자동 복원**. 실제로 이번 세션에서 쉼표 누락·따옴표 미이스케이프를 두 번 차단했다.
 
-**검증 13항목**: JSON 파싱 · U+FFFD · 엔트리 수 · 13필드 · cp 2~4 · cp 필드조합 · nonnull · tier 분해 · label_map(단원 내 + **교차 단원**) · ledger/concept_map 합 · observed_basis↔overlay 일치 · 카탈로그 실재 · **tier_breakdown 자기정합**.
+**검증 14항목**: JSON 파싱 · U+FFFD · 엔트리 수 · 13필드 · cp 2~4 · cp 필드조합 · nonnull · tier 분해 · label_map(단원 내 + **교차 단원**) · ledger/concept_map 합 · observed_basis↔overlay 일치 · 카탈로그 실재 · **tier_breakdown 자기정합** · **[14] `_meta` 식별자 키 ASCII**.
+
+### ★★[14] `_meta` 식별자 키 ASCII — 왜 도구로 강제하는가 (검수 지적 2026-08-18 2차)
+
+**증상**: `_meta`의 키 이름 앞에 `★`를 붙였더니 `_meta.observation_vocabulary_skew` 같은 **평범한 조회가 null**을 반환했다. 검수는 "파일에 없다"로 읽었고 실제로는 **데이터가 있었으며 키 이름만 달랐다.** 파싱도 통과하고 예외도 없다 — 한글 리터럴 오염·`collect_gaps` 구조 오판별과 **같은 계열의 조용한 실패**다.
+
+**규칙**: `_meta`의 **식별자 키는 ASCII 전용**. 강조 표시(`★`)는 **값 안에만** 넣는다. `category_ledger`·`concept_map`의 한글 키는 예외다(식별자가 아니라 개념명 데이터이므로 검사에서 제외).
+
+**★도구 3종 시험 완료**(상시 규칙):
+| # | 시험 | 결과 |
+|---|---|---|
+| ① 정상·회귀 | M3_REAL 45종 | [1]~[13] 출력 **불변**, [14] OK |
+| ② 실패 | `★` 키를 최상위와 `batches[0]`(배열 원소) 두 곳에 주입 | **둘 다 경로까지 특정해 FAIL** — 배열 재귀 확인 |
+| ③ 오판별 | M2_NE 완결본(211종, 다른 단원·다른 `_meta` 구조) | 무의미한 출력 없이 **실제 위반 5건 검출**, 한글 개념 키는 오탐 0 |
+
+★**③이 실제 결함을 찾았다** — `m2_ne_prescriptions.draft.v1.json`에 조회 불가 키 5개(`tier_breakdown.★tier2_mechanisms` · `undecidable_rate_rule.★granularity_caveat` · `undecidable_rate_rule.★endpoints_are_grouping_invariant` · `gaps_denominators.★M2_GEOM_discrepancy` · `gaps_denominators.★comparison_note`). **M1 근거·비교표 각주가 걸려 있는 키들이다.** ★M2_NE는 완결·승인본이라 **손대지 않았다** — 개명 여부는 검수 판단 대기(§8).
 
 ### ★★도구 3종 시험 = 상시 항목 (검수 지시 2026-08-18)
 
@@ -381,8 +396,8 @@ powershell -File tools\axis_prediction\collect_gaps.ps1 -Draft <draft.json> -Ove
 **착수 순서 — 이 순서를 바꾸지 말 것**
 1. 잔여 범주에서 20~25종 편성(overlay를 **단원 평균 43.8% 근처**로 맞춘다).
 2. 그룹별 `shared` / `partial` / `none` 판정을 **범주명과 `type_name`만 보고** 기록한다(관측 overlay 태그·저작 결과를 보지 말 것).
-3. `_meta.★structure_sharing_preregistration.batch3`에 판정·근거·**사전 예측**을 적고 **저작 전에 커밋**한다(`edit_json_meta.ps1` 경유).
-4. 그다음 저작 → `_meta` 패치 → 검증 13항목(§1-A의 M3 경로 호출) → gaps 수집 → 커밋 → push 확인 → 롤링 백업 갱신.
+3. `_meta.structure_sharing_preregistration.batch3`에 판정·근거·**사전 예측**을 적고 **저작 전에 커밋**한다(`edit_json_meta.ps1` 경유).
+4. 그다음 저작 → `_meta` 패치 → 검증 14항목(§1-A의 M3 경로 호출) → gaps 수집 → 커밋 → push 확인 → 롤링 백업 갱신.
 
 **잔여 스코프**: **158종 / 47범주 · overlay 70/158 = 44.3%**(2026-08-18 실측, 카탈로그+overlay 직접 집계).
 
@@ -439,4 +454,5 @@ powershell -File tools\axis_prediction\collect_gaps.ps1 -Draft <draft.json> -Ove
 
 - **사용자**: 문항 등록 진행 중(도형의 성질 8번 학습지, geom-07 중복 75건 롤백 중). D1 오염 조회 SQL 미실행(`B_backlog_batch1.v1.md` ① — Q1·Q2·Q3, 클릭 절차 포함).
 - **검수**: 수연산 배치 승인은 100종 시점 보고까지 불요. 신설 발생 시에만 즉시 보고.
+- **★검수 판단 대기 — M2_NE 완결본의 조회 불가 키 5개**(2026-08-18 2차 지적에서 파생). 검증기 [14]가 `m2_ne_prescriptions.draft.v1.json`에서 `★` 접두 키 5개를 검출했다(`tier_breakdown.★tier2_mechanisms` · `undecidable_rate_rule.★granularity_caveat` · `undecidable_rate_rule.★endpoints_are_grouping_invariant` · `gaps_denominators.★M2_GEOM_discrepancy` · `gaps_denominators.★comparison_note`). **평범한 이름으로 조회하면 null**이 나오므로 최종 제출 때 "기록이 없다"로 읽힐 수 있다. 다만 M2_NE는 **완결·승인본이라 손대지 않았다**(§"손대지 말 것"). 개명할지 그대로 둘지 검수 판단 필요. 개명 시 값은 무변경, 키 이름만 바뀌며 `edit_json_meta.ps1` 경유·검증 후 별도 커밋.
 - **워커**: `2026.08.18-list-paging` 배포 확인됨. 추가 배포 대기 없음.
