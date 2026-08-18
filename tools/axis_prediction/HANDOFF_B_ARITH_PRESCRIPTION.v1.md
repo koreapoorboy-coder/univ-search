@@ -76,6 +76,17 @@ overlay 0%인 4단원(M1_PRIME 448·M1_DATA 84·M1_EXPR 60·M1_INT 47 = 639종)�
 - **중간 보고는 100·200·300종 시점만.** 매 배치 보고 불요.
 
 **gaps 누계**: 집계 34항목(원시 44건), 전부 B계열. **판정불가 개념 4개(13종)** — 배치5는 4범주 전부 판정 가능(추가 0).
+
+★★**갭은 절대수로 보고·비교하지 말 것**(검수 지시 2026-08-18, `_meta.gaps_denominator_rule`).
+갭이 생길 수 있는 자리는 **판정가능 개념(관측≥1 AND 예측층≥1)의 예측층 유형에 배치한 코드 슬롯**뿐이다. 반드시 분모와 함께 낸다. `collect_gaps.ps1`이 `[DENOMINATORS]` 블록으로 출력한다.
+
+| 단원 | 커버리지 | 판정가능 개념 | 검사 코드(분모) | 갭 원시 | **GAP RATE** |
+|---|---|---|---|---|---|
+| 수연산 M2_NE (현재 도구 실측) | 34% | 16 | 85 | 44 | **51.8%** |
+| M2_GEOM (재측정치) | 19% | 24 | 79 | 10 | **12.7%** |
+
+★**GAP RATE는 예측 오류율이 아니다** — 예측층 유형에는 자기 overlay가 없으므로 그 코드는 정의상 전부 tier-2 이상이다. 즉 이웃 어휘를 빌린 결과가 그 개념의 관측 합집합 밖에 떨어진 비율이며 **tier 구성·개념 입도의 함수**다. 해석 보류.
+★**M2_GEOM 수치 주의** — 재측정은 집계 6·편재제외 5인데 M2_GEOM 드래프트 기록값은 집계 5·편재제외 1이다(당시 절차가 현재 도구와 다름). **M2_GEOM 드래프트는 병합 완료본이라 덮어쓰지 않는다.** 비교표 인용 시 이 단서를 반드시 병기할 것.
 ★판정불가 관측의 함의(검수 지시로 기록): **M1은 overlay 0%라 전 개념이 판정불가** → 처방을 써도 예측·관측 대조가 원리상 불가 → **재태깅이 선행되어야 한다**는 정량 근거.
 
 ---
@@ -86,7 +97,7 @@ overlay 0%인 4단원(M1_PRIME 448·M1_DATA 84·M1_EXPR 60·M1_INT 47 = 639종)�
 |---|---|
 | `tools/axis_prediction/edit_json_meta.ps1` | **`_meta` 편집 전용.** 텍스트 치환 금지 원칙을 도구로 강제 |
 | `tools/axis_prediction/validate_ne_prescriptions.ps1` | 검증 13항목(자기정합 포함) |
-| `tools/axis_prediction/collect_gaps.ps1` | gaps 수집·집계(`-Aggregate`로 JSON 블록 생성) |
+| `tools/axis_prediction/collect_gaps.ps1` | gaps 수집·집계(`-Aggregate`로 JSON 블록 생성) + **`[DENOMINATORS]` 분모 출력**. `-GroupField`로 개념 그룹 경로 지정(M2_NE=`category_ledger` 기본 / M2_GEOM=`concept_map.concepts`, 중첩 `{name,types[]}` 형태 자동 판별) |
 
 **사용법**
 ```

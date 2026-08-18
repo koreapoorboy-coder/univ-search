@@ -169,6 +169,15 @@
     ],
     "gaps_undecidable_implication": "★M1 재태깅 판단의 정량 근거(검수 지시 2026-08-18). 판정불가 개념 = 개념 내 관측 유형이 0개인 개념. 수연산 34종 중 4개 개념(13종, 38%)이 이미 판정 불가다. **M1은 overlay 0%이므로 전 개념이 판정 불가** — 처방을 써도 예측·관측 대조가 원리상 불가능하고, 갭도 발견할 수 없다. ⇒ M1은 처방보다 재태깅이 선행되어야 한다는 결론이 관측으로 뒷받침된다.",
     "gaps_criterion": "M2_GEOM 정본 기준 — 예측층 유형(observed_basis:false)에 배치한 error_code 중, 같은 개념에 관측 유형(observed_basis:true)이 있는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면 판정 불가로 미기록. kind: A계열=전역부재(단원 overlay에도 없음=신설 성격) / B계열=개념국소(단원 overlay엔 있으나 그 개념 관측엔 없음). 정제 규칙(M2_GEOM 승계): 편재 태그(단원 관측 5개 유형 이상 등장)는 샘플링 노이즈로 보아 gaps_excluded_by_criterion으로 분리.",
+    "gaps_denominator_rule": "★★검수 지시(2026-08-18) — 갭은 절대수로 보고하지 말 것. 갭이 발생할 수 있는 자리는 '관측 유형 1개 이상 AND 예측층 유형 1개 이상'인 개념(=판정가능 개념)의 예측층 유형에 배치한 error_code 슬롯뿐이다. 따라서 갭 수는 반드시 그 분모와 함께 낸다: (a) 판정가능 개념 수 (b) 그 개념들의 예측층 유형 수 (c) 검사된 코드 슬롯 수 = GAP RATE의 분모. ★분모 없는 갭 절대수로 단원을 비교하면 잘못된 결론이 나온다(예: M2_GEOM 커버리지 19% 갭 5 vs 수연산 34% 갭 34 → 수연산이 더 나쁘다는 오독). 분모는 collect_gaps.ps1이 [DENOMINATORS] 블록으로 출력한다.",
+    "gaps_denominator_caveat": "★GAP RATE는 예측 오류율이 아니다. 갭은 예측층 유형에서만 나오고, 예측층 유형은 자기 overlay가 없으므로 그 코드는 정의상 전부 tier-2 이상이다(자기 관측 어휘가 애초에 없다). 즉 GAP RATE는 '이웃 유형의 어휘를 빌려 쓴 결과가 그 개념의 관측 합집합 밖에 떨어진 비율'이며 tier 구성의 함수다. 품질 지표로 읽지 말 것 — 해석 보류(검수 승인).",
+    "gaps_denominators": {
+      "_measured": "2026-08-18, collect_gaps.ps1 [DENOMINATORS] 블록 실측",
+      "M2_NUMBER_EXPRESSION": { "authored_types": 80, "overlay_coverage": "34%", "concepts_total": 20, "concepts_decidable": 16, "concepts_undecidable": 4, "concepts_gap_capable": 16, "predicted_types_total": 51, "predicted_types_gap_capable": 38, "codes_checked": 85, "gaps_raw": 44, "gaps_aggregated": 34, "gap_rate": "51.8%", "gaps_per_gap_capable_concept": 2.75, "ubiquitous_excluded": 0 },
+      "M2_GEOM_remeasured": { "authored_types": 140, "overlay_coverage": "19%", "concepts_total": 40, "concepts_decidable": 24, "concepts_undecidable": 16, "concepts_gap_capable": 24, "predicted_types_total": 97, "predicted_types_gap_capable": 47, "codes_checked": 79, "gaps_raw": 10, "gaps_aggregated": 6, "gap_rate": "12.7%", "gaps_per_gap_capable_concept": 0.42, "ubiquitous_excluded": 5, "group_field": "concept_map.concepts" },
+      "★M2_GEOM_discrepancy": "재측정 집계 6 / 편재제외 5 인데, M2_GEOM 드래프트에 기록된 값은 집계 5 / 편재제외 1이다. 당시 수집은 현재 도구가 아닌 절차(일부 수작업)로 이뤄졌으므로 수치가 정확히 재현되지 않는다. ★M2_GEOM 드래프트는 병합 완료본이므로 건드리지 않는다(재측정값으로 덮어쓰지 말 것). 비교표에 쓸 때는 '수연산만 현재 도구 실측, M2_GEOM은 재측정치이며 기록값과 1항목 차이'를 반드시 병기할 것.",
+      "★comparison_note": "정규화 결과: 수연산 51.8% vs M2_GEOM 12.7%. 커버리지가 더 높은 쪽(34%)의 GAP RATE가 오히려 더 높다. 절대수 비교(34 vs 5)와 방향은 같지만 배율이 전혀 다르고(6.8배 → 4.1배), 무엇보다 원인이 예측 품질이 아니라 tier 구성·개념 입도 차이일 수 있다. 수연산은 개념(범주) 하나가 최대 7종으로 넓고 그 안의 관측 유형은 1~3종뿐이라, 이웃에서 빌린 tier-2 코드가 개념 관측 합집합 밖으로 떨어지기 쉽다. 해석 보류."
+    },
     "gaps_excluded_by_criterion": [],
     "gaps_measured": {
       "status": "(a) 수집·결과 3건. 배치1분 소급 수집(2026-08-18) 후 이후 배치 상시 포함.",
