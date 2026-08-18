@@ -6,8 +6,8 @@
     "authoring_rule": "error_checkpoints[].error_code 4-tier: 1)자기 overlay → 2)단원 overlay 풀(91 distinct) → 3)dict v2 → 4)신설. checkpoint 2~4. ★교체 단원이므로 error_tags는 기존 값 보존(overlay는 error_code로만 사용) — 닮음과 다른 규칙.",
     "replacement_spec": "교체 10필드(8처방 + matched_template_id/match_score → null) · 추가 3(draft·revision·observed_basis) · 보존 12(grade·course·unit_id·unit_name·type_name·visible_path·taxonomy_levels·concept_ids·error_tags·default_difficulty·source_orders·raw_section_id). 병합 전 23필드 → 병합 후 26필드.",
     "observed_basis_rule": "★overlay 커버리지 71/211(34%)이라 유형별 true/false 혼재가 정상(닮음의 전건 true와 다름). 자기 overlay 태그가 있으면 true.",
-    "progress": { "authored": 121, "total": 211, "batch": "7 (지수법칙 계열 완결 + 사칙연산 혼합, 8범주) 완료 — overlay 62%로 균형 회복" },
-    "batch_scope": "배치7 = 지수법칙(5)몫(3)·(6)종합(3)·대소비교(2)·응용(2)(3)·응용(3)(2)·응용(4)(3)·응용(5)(2)·사칙연산 혼합(3) = 8범주 21종. ★overlay 13/21(62%) — 배치6(10%)의 반대 극단을 의도적으로 골라 판정불가율 편향을 상쇄했다(검수 지시). 이로써 M2_NE 지수법칙 계열 전 범주 저작 완결. (배치6 = 식의 대입(3) + 등식의 변형 7범주(17) = 8범주 20종. ★overlay 보유 2 / 미보유 18(10%) — 지금까지 가장 얇은 구간이며 등식의 변형 7범주는 전부 overlay 0이다. 커버리지 하한에서 tier-2가 버티는지 보는 배치. (배치5 = 지수법칙 계열 4범주: 지수법칙(1) 거듭제곱의 곱셈(5) · 지수법칙을 이용한 실생활 문제(6) · 지수법칙의 응용(1) 같은 수의 덧셈식(4) · 지수에 미지수가 포함된 방정식의 풀이(7). overlay 보유 9 / 미보유 13(41%). ★계산 계열과 상황 모델링 계열(실생활 6종)을 한 배치에 넣어 tier-2 커버가 유형 성격에 의존하는지 확인.))",
+    "progress": { "authored": 144, "total": 211, "batch": "8 (유한소수 판별 5범주 + 도형에서의 계산 3범주) 완료 — overlay 52%, 판정불가 신규 0" },
+    "batch_scope": "배치8 = 유한소수 판별 계열 5범주(RAW_004~008, 13종) + 도형에서의 계산 3범주(RAW_046·060·061, 10종) = 8범주 23종. overlay 12/23(52%). ★8범주 전부 관측 유형을 1개 이상 보유 → 판정불가 개념 신규 0. 판정불가율 28.9%→24.3%로 추가 하락. (배치7 = 지수법칙(5)몫(3)·(6)종합(3)·대소비교(2)·응용(2)(3)·응용(3)(2)·응용(4)(3)·응용(5)(2)·사칙연산 혼합(3) = 8범주 21종. ★overlay 13/21(62%) — 배치6(10%)의 반대 극단을 의도적으로 골라 판정불가율 편향을 상쇄했다(검수 지시). 이로써 M2_NE 지수법칙 계열 전 범주 저작 완결.) (배치6 = 식의 대입(3) + 등식의 변형 7범주(17) = 8범주 20종. ★overlay 보유 2 / 미보유 18(10%) — 지금까지 가장 얇은 구간이며 등식의 변형 7범주는 전부 overlay 0이다. 커버리지 하한에서 tier-2가 버티는지 보는 배치. (배치5 = 지수법칙 계열 4범주: 지수법칙(1) 거듭제곱의 곱셈(5) · 지수법칙을 이용한 실생활 문제(6) · 지수법칙의 응용(1) 같은 수의 덧셈식(4) · 지수에 미지수가 포함된 방정식의 풀이(7). overlay 보유 9 / 미보유 13(41%). ★계산 계열과 상황 모델링 계열(실생활 6종)을 한 배치에 넣어 tier-2 커버가 유형 성격에 의존하는지 확인.))",
     "validation_procedure": "커밋 전 JSON파싱·엔트리수·13필드완비 + cp 2~4 · nonnull 0 · label_map 대조 · U+FFFD 스캔(§7 상시항목). _meta 편집은 edit_json_meta.ps1 경유.",
     "new_tag_ceiling": "414종 기준 신설 40종 초과 시 즉시 중간보고(검수 지시 2026-08-16).",
     "category_ledger": {
@@ -46,7 +46,15 @@
       "지수법칙의 응용(3) - 다른 문자를 이용하여 나타내기(2)": ["M2_NE_PT107","M2_NE_PT108"],
       "지수법칙의 응용(4) - 지수법칙과 일의 자리수": ["M2_NE_PT109","M2_NE_PT110","M2_NE_PT111"],
       "지수법칙의 응용(5) - 지수법칙과 자연수의 자릿수": ["M2_NE_PT112","M2_NE_PT113"],
-      "사칙연산이 혼합된 계산": ["M2_NE_PT177","M2_NE_PT178","M2_NE_PT179"]
+      "사칙연산이 혼합된 계산": ["M2_NE_PT177","M2_NE_PT178","M2_NE_PT179"],
+      "유한소수로 나타낼 수 있는(없는) 분수": ["M2_NE_PT010","M2_NE_PT011"],
+      "B/A×x가 유한소수가 되도록 하는 x의 값 구하기": ["M2_NE_PT012","M2_NE_PT013","M2_NE_PT014"],
+      "B/(A×x)가 유한소수가 되도록 하는 x의 값 구하기": ["M2_NE_PT015","M2_NE_PT016","M2_NE_PT017","M2_NE_PT018"],
+      "유한소수가 되는 x/A를 기약분수로 나타내기": ["M2_NE_PT019","M2_NE_PT020"],
+      "2개 이상의 분수가 동시에 유한소수가 되도록 하는 미지수의 값": ["M2_NE_PT021","M2_NE_PT022"],
+      "도형에서의 단항식의 계산(2) - 입체도형": ["M2_NE_PT140","M2_NE_PT141","M2_NE_PT142","M2_NE_PT143"],
+      "도형에서의 다항식의 계산(1) - 평면도형": ["M2_NE_PT180","M2_NE_PT181","M2_NE_PT182"],
+      "도형에서의 다항식의 계산(2) - 입체도형": ["M2_NE_PT183","M2_NE_PT184","M2_NE_PT185"]
     },
     "concept_map_semantics": "개념 → problem_type_id 목록(커버리지 검증용). 골격 공유 규칙은 skeleton_sharing 참조.",
     "concept_map": {
@@ -85,7 +93,15 @@
       "다른 문자로 나타내기(지수 상수항)": ["M2_NE_PT107","M2_NE_PT108"],
       "일의 자리 주기": ["M2_NE_PT109","M2_NE_PT110","M2_NE_PT111"],
       "자연수의 자릿수": ["M2_NE_PT112","M2_NE_PT113"],
-      "다항식 사칙연산 혼합": ["M2_NE_PT177","M2_NE_PT178","M2_NE_PT179"]
+      "다항식 사칙연산 혼합": ["M2_NE_PT177","M2_NE_PT178","M2_NE_PT179"],
+      "유한소수 판별": ["M2_NE_PT010","M2_NE_PT011"],
+      "분자쪽 미지수로 유한소수 만들기": ["M2_NE_PT012","M2_NE_PT013","M2_NE_PT014"],
+      "분모쪽 미지수로 유한소수 만들기": ["M2_NE_PT015","M2_NE_PT016","M2_NE_PT017","M2_NE_PT018"],
+      "기약분수 꼴 되돌리기": ["M2_NE_PT019","M2_NE_PT020"],
+      "복수 분수 동시 조건": ["M2_NE_PT021","M2_NE_PT022"],
+      "입체도형 단항식 계산": ["M2_NE_PT140","M2_NE_PT141","M2_NE_PT142","M2_NE_PT143"],
+      "평면도형 다항식 계산": ["M2_NE_PT180","M2_NE_PT181","M2_NE_PT182"],
+      "입체도형 다항식 계산": ["M2_NE_PT183","M2_NE_PT184","M2_NE_PT185"]
     },
     "skeleton_sharing": {
       "shared_skeleton_fields": ["required_thinking", "must_write_steps"],
@@ -151,7 +167,23 @@
       "custom_operator_definition_misapplication": "정의된 기호 오적용",
       "power_of_ten_extraction_failure": "10의 거듭제곱 분리 실패",
       "digit_count_off_by_one": "자릿수 한 자리 오차",
-      "operation_precedence_error": "연산 우선순위 오류"
+      "operation_precedence_error": "연산 우선순위 오류",
+      "reduction_before_test_omitted": "판별 전 약분 누락",
+      "negation_condition_misread": "부정 조건 오독",
+      "pattern_extraction_failure": "규칙 추출 실패",
+      "denominator_multiple_condition_error": "분모 소인수 조건 오판",
+      "excluded_case_omission": "제외 경우 누락",
+      "numerator_cancellation_overlooked": "분자 약분 간과",
+      "unknown_position_confusion": "미지수 위치 혼동",
+      "joint_condition_merge_failure": "복수 조건 병합 실패",
+      "post_reduction_value_error": "약분 후 값 오류",
+      "range_constraint_dropped": "범위 조건 누락",
+      "lcm_gcd_confusion": "최소공배수·최대공약수 혼동",
+      "ratio_setup_from_geometry_failure": "도형에서 비 세우기 실패",
+      "conservation_condition_overlooked": "보존 조건 간과",
+      "variable_length_assignment_failure": "미지 길이 설정 실패",
+      "volume_from_ratio_error": "부피비 적용 오류",
+      "segment_ratio_to_length_conversion_failure": "선분비→길이 환산 실패"
     },
     "tier_report": "이 배치의 tier 분해는 커밋 메시지·보고서에 수치로 낸다(검수 지시: 첫 배치 분포로 방침 결정).",
     "tier_breakdown": {
@@ -163,17 +195,19 @@
         { "batch": 4, "scope": "단항식 곱셈·나눗셈·혼합·빈칸·이차식·중첩괄호 6범주", "types": 24, "overlay_true": 9, "overlay_false": 15, "overlay_rate": "38%", "tier1": 16, "tier2": 42, "tier3": 0, "new": 0, "codes_total": 58 },
         { "batch": 5, "scope": "지수법칙 계열 4범주(거듭제곱의 곱셈·실생활 문제·같은 수의 덧셈식·지수 방정식)", "types": 22, "overlay_true": 9, "overlay_false": 13, "overlay_rate": "41%", "tier1": 17, "tier2": 32, "tier3": 0, "new": 0, "codes_total": 49 },
         { "batch": 6, "scope": "식의 대입 + 등식의 변형 7범주(8범주) — 최저 커버리지 구간", "types": 20, "overlay_true": 2, "overlay_false": 18, "overlay_rate": "10%", "tier1": 4, "tier2": 37, "tier3": 0, "new": 0, "codes_total": 41 },
-        { "batch": 7, "scope": "지수법칙 계열 완결(7범주) + 사칙연산 혼합(1범주) — 균형 회복 배치", "types": 21, "overlay_true": 13, "overlay_false": 8, "overlay_rate": "62%", "tier1": 25, "tier2": 22, "tier3": 0, "new": 0, "codes_total": 47 }
+        { "batch": 7, "scope": "지수법칙 계열 완결(7범주) + 사칙연산 혼합(1범주) — 균형 회복 배치", "types": 21, "overlay_true": 13, "overlay_false": 8, "overlay_rate": "62%", "tier1": 25, "tier2": 22, "tier3": 0, "new": 0, "codes_total": 47 },
+        { "batch": 8, "scope": "유한소수 판별 5범주 + 도형에서의 계산 3범주 — 전 범주 관측 보유", "types": 23, "overlay_true": 12, "overlay_false": 11, "overlay_rate": "52%", "tier1": 27, "tier2": 25, "tier3": 0, "new": 0, "codes_total": 52 }
       ],
-      "cumulative": { "types": 121, "tier1": 87, "tier2": 191, "tier3": 0, "new": 0, "codes_total": 278 },
+      "cumulative": { "types": 144, "tier1": 114, "tier2": 216, "tier3": 0, "new": 0, "codes_total": 330 },
       "finding": "★자기 유형에 overlay가 없어도 같은 단원 이웃 유형의 관측 어휘(tier-2)로 커버된다. 커버리지 34%인데 신설 0. M2_GEOM(19% → 신설 8종)과 대비.",
       "finding_batch2": "★배치2는 overlay가 얇은 구간(25%)을 일부러 골랐다. 결과: tier-1 비중이 54%→21%로 떨어진 대신 tier-2가 46%→79%로 올라 신설은 여전히 0. ⇒ tier-2 커버는 순환소수 계열의 특성이 아니라 단원 전반의 성질로 관측된다(2개 계열에서 확인). 신설 누계 0/40.",
       "finding_batch3": "★배치3은 overlay 17%(가장 얇음)에 3개 범주가 관측 0. tier-1 20% / tier-2 80% / 신설 0. 3개 계열(순환소수·지수법칙·다항식) 연속으로 신설 0 — tier-2 보편성 확정. ⇒ 이후 배치는 tier 보고만 하고 배치 크기를 20종으로 올려도 방침 재검토가 불필요하다는 근거.",
-      "coverage_vs_new": "overlay 60%→25%→17%→38%→41%→10%로 오르내려도 신설은 0으로 불변(6배치 연속). ★배치6은 overlay 10%(등식의 변형 7범주 전부 0%)로 지금까지 최저 구간인데도 신설 0 — 커버리지 하한에서도 tier-2가 버틴다. 배치7은 반대로 62%(최고 구간)인데 역시 신설 0이다. ⇒ 10%~60% 전 구간에서 신설 0이 확인됐다. 신설을 부르는 것은 커버리지가 아니라 '단원 관측 어휘 자체의 부재'(M1=0%)로 보인다 — 수연산은 단원 풀 91종이 이웃 개념까지 덮는다.",
+      "coverage_vs_new": "overlay 60%→25%→17%→38%→41%→10%로 오르내려도 신설은 0으로 불변(6배치 연속). ★배치6은 overlay 10%(등식의 변형 7범주 전부 0%)로 지금까지 최저 구간인데도 신설 0 — 커버리지 하한에서도 tier-2가 버틴다. 배치7은 반대로 62%(최고 구간)인데 역시 신설 0이다. ⇒ 10%~62% 전 구간에서 신설 0이 확인됐다(8배치 연속). 신설을 부르는 것은 커버리지가 아니라 '단원 관측 어휘 자체의 부재'(M1=0%)로 보인다 — 수연산은 단원 풀 91종이 이웃 개념까지 덮는다.",
       "finding_batch4": "배치 크기를 24종으로 올린 첫 배치. tier-1 16 / tier-2 42 / 신설 0. 누계 58종에서 tier-2 비중 71%. 검증 항목은 12종 배치와 동일하게 유지했고 전항 통과 — 배치 확대가 품질 저하로 이어지지 않음을 확인.",
       "finding_batch5": "지수법칙 계열 4범주 22종. overlay 41%(배치4 38%와 근접). tier-1 17 / tier-2 32 / 신설 0 — 5배치 연속 신설 0. ★이 배치의 새 정보는 성격이 다른 유형을 넣었다는 점이다: 실생활 6종(저장용량·거리속력·시간당 증가·등분·분배·종이접기)과 응용 4종은 계산 유형이 아니라 상황 모델링 유형인데, 단원 관측 어휘(unit_conversion_omitted·stage_indexing_error·ratio_direction_inversion·answer_stage_confusion)가 그대로 덮었다. ⇒ tier-2 보편성이 계산 계열에 국한된 성질이 아니다. 신설 누계 0/40.",
       "finding_batch6": "★커버리지 하한 시험. 8범주 20종 중 overlay 보유는 2종(10%)뿐이고, 등식의 변형 7범주 17종은 전부 overlay 0이다. 결과: tier-1 4 / tier-2 37 / 신설 0. 6배치 연속 신설 0. ⇒ 자기 개념에 관측이 전무해도 단원 풀 91종이 도형 활용(넓이·부피·영역 빼기)까지 덮었다. ★단, 이것은 '태그를 붙일 수 있다'는 뜻이지 '그 태그가 맞다'는 뜻이 아니다 — 검증 수단이 관측인데 관측이 0이므로 이 17종은 원리상 검증 불가다(gaps_undecidable에 7개 개념으로 기록). M1(overlay 0%) 전 단원이 정확히 이 상태라는 것이 이 배치의 실물 예시다.",
-      "finding_batch7": "★균형 회복 배치(검수 지시 2026-08-18: overlay 보유 범주를 의도적으로 섞을 것). 배치6이 overlay 10%로 판정불가를 13종→30종으로 밀어올렸기 때문에, 배치7은 반대 극단인 62%를 골랐다. 결과: tier-1 25 / tier-2 22 — 처음으로 tier-1이 tier-2를 넘었다(누계에서는 여전히 tier-2 우세 87:191). 신설 0으로 7배치 연속. 이 배치로 M2_NE 지수법칙 계열 전 범주(RAW_027·031~040)가 저작 완결됐다. ★판정불가율은 30/100(30%)에서 35/121(28.9%)로 내려 편향이 실제로 상쇄됐다 — 최종 제출의 판정불가율이 배치 구성 편향을 반영하지 않도록 관리한 첫 사례."
+      "finding_batch7": "★균형 회복 배치(검수 지시 2026-08-18: overlay 보유 범주를 의도적으로 섞을 것). 배치6이 overlay 10%로 판정불가를 13종→30종으로 밀어올렸기 때문에, 배치7은 반대 극단인 62%를 골랐다. 결과: tier-1 25 / tier-2 22 — 처음으로 tier-1이 tier-2를 넘었다(누계에서는 여전히 tier-2 우세 87:191). 신설 0으로 7배치 연속. 이 배치로 M2_NE 지수법칙 계열 전 범주(RAW_027·031~040)가 저작 완결됐다. ★판정불가율은 30/100(30%)에서 35/121(28.9%)로 내려 편향이 실제로 상쇄됐다 — 최종 제출의 판정불가율이 배치 구성 편향을 반영하지 않도록 관리한 첫 사례.",
+      "finding_batch8": "균형 편성 2회차. 유한소수 판별 5범주 + 도형 계산 3범주, overlay 52%. ★8범주 **전부** 관측 유형을 1개 이상 보유해 판정불가 개념 신규 0 — 판정불가율 28.9%→24.3%(35/144)로 2연속 하락했다. tier-1 27 / tier-2 25로 배치7에 이어 tier-1 우세. 신설 0(8배치 연속). ★유한소수 판별 계열은 단원 관측 어휘가 조건 판별 어휘(reduction_before_test_omitted·negation_condition_misread·excluded_case_omission·joint_condition_merge_failure 등)로 촘촘해서 tier-2가 거의 불필요했다 — 계산 계열·모델링 계열에 이어 **조건 판별 계열**에서도 신설 0."
     },
     "predicted_observed_gaps": [
       { "tag": "cycle_length_miscount", "concept": "순환마디", "predicted_in": ["M2_NE_PT023"], "observed_types_checked": ["M2_NE_PT024", "M2_NE_PT025"], "observed_in": [], "unit_occurrences": 2, "kind": "개념국소(단원 overlay 존재)", "note": "소수의 순환마디(예측층)에 '마디 길이 오산'을 배치했으나, 같은 개념의 관측 유형(분수·나눗셈 순환마디) 관측 태그엔 없음(관측은 시작 위치·나눗셈 미완). 타 개념 관측엔 존재. 해석 보류." },
@@ -211,7 +245,15 @@
       { "tag": "law_selection_error", "concept": "지수에 미지수가 포함된 방정식의 풀이", "predicted_in": ["M2_NE_PT118"], "observed_types_checked": ["M2_NE_PT115","M2_NE_PT119","M2_NE_PT120"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 5 },
       { "tag": "operation_order_violation", "concept": "지수에 미지수가 포함된 방정식의 풀이", "predicted_in": ["M2_NE_PT118"], "observed_types_checked": ["M2_NE_PT115","M2_NE_PT119","M2_NE_PT120"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 5 },
       { "tag": "substitution_direction_error", "concept": "식의 대입", "predicted_in": ["M2_NE_PT192"], "observed_types_checked": ["M2_NE_PT193","M2_NE_PT194"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 6 },
-      { "tag": "custom_operator_definition_misapplication", "concept": "지수법칙의 응용(4) - 지수법칙과 일의 자리수", "predicted_in": ["M2_NE_PT111"], "observed_types_checked": ["M2_NE_PT109","M2_NE_PT110"], "observed_in": [], "unit_occurrences": 3, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 7 }
+      { "tag": "custom_operator_definition_misapplication", "concept": "지수법칙의 응용(4) - 지수법칙과 일의 자리수", "predicted_in": ["M2_NE_PT111"], "observed_types_checked": ["M2_NE_PT109","M2_NE_PT110"], "observed_in": [], "unit_occurrences": 3, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 7 },
+      { "tag": "denominator_multiple_condition_error", "concept": "유한소수로 나타낼 수 있는(없는) 분수", "predicted_in": ["M2_NE_PT010"], "observed_types_checked": ["M2_NE_PT011"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 8 },
+      { "tag": "denominator_multiple_condition_error", "concept": "B/A×x가 유한소수가 되도록 하는 x의 값 구하기", "predicted_in": ["M2_NE_PT012"], "observed_types_checked": ["M2_NE_PT013","M2_NE_PT014"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 8 },
+      { "tag": "denominator_multiple_condition_error", "concept": "B/(A×x)가 유한소수가 되도록 하는 x의 값 구하기", "predicted_in": ["M2_NE_PT015"], "observed_types_checked": ["M2_NE_PT016","M2_NE_PT018"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 8 },
+      { "tag": "negation_condition_misread", "concept": "B/(A×x)가 유한소수가 되도록 하는 x의 값 구하기", "predicted_in": ["M2_NE_PT017"], "observed_types_checked": ["M2_NE_PT016","M2_NE_PT018"], "observed_in": [], "unit_occurrences": 1, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 8 },
+      { "tag": "reduction_before_test_omitted", "concept": "유한소수가 되는 x/A를 기약분수로 나타내기", "predicted_in": ["M2_NE_PT020"], "observed_types_checked": ["M2_NE_PT019"], "observed_in": [], "unit_occurrences": 1, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 8 },
+      { "tag": "area_formula_setup_error", "concept": "도형에서의 단항식의 계산(2) - 입체도형", "predicted_in": ["M2_NE_PT140"], "observed_types_checked": ["M2_NE_PT143"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 8 },
+      { "tag": "variable_length_assignment_failure", "concept": "도형에서의 단항식의 계산(2) - 입체도형", "predicted_in": ["M2_NE_PT142"], "observed_types_checked": ["M2_NE_PT143"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 8 },
+      { "tag": "area_formula_setup_error", "concept": "도형에서의 다항식의 계산(2) - 입체도형", "predicted_in": ["M2_NE_PT183"], "observed_types_checked": ["M2_NE_PT184","M2_NE_PT185"], "observed_in": [], "unit_occurrences": 2, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 8 }
     ],
     "gaps_undecidable": [
       { "concept": "지수법칙(2) - 거듭제곱의 거듭제곱", "types": 5, "observed_types": 0, "batch": 2, "reason": "개념 내 관측 유형이 0개라 대조 기준이 없음 → 기준대로 미기록(관측 부재가 곧 예측 오류는 아님). ★이런 개념이 늘면 갭 수집률 자체가 떨어진다는 신호 — 최종 제출 시 판정불가 개념 수를 함께 낸다." },
@@ -241,7 +283,7 @@
     "gaps_denominator_caveat": "★GAP RATE는 예측 오류율이 아니다. 갭은 예측층 유형에서만 나오고, 예측층 유형은 자기 overlay가 없으므로 그 코드는 정의상 전부 tier-2 이상이다(자기 관측 어휘가 애초에 없다). 즉 GAP RATE는 '이웃 유형의 어휘를 빌려 쓴 결과가 그 개념의 관측 합집합 밖에 떨어진 비율'이며 tier 구성의 함수다. 품질 지표로 읽지 말 것 — 해석 보류(검수 승인).",
     "gaps_denominators": {
       "_measured": "2026-08-18, collect_gaps.ps1 [DENOMINATORS] 블록 실측",
-      "M2_NUMBER_EXPRESSION": { "authored_types": 121, "overlay_coverage": "34%", "concepts_total": 36, "concepts_decidable": 23, "concepts_undecidable": 13, "concepts_gap_capable": 20, "predicted_types_total": 77, "predicted_types_gap_capable": 42, "codes_checked": 93, "gaps_raw": 46, "gaps_aggregated": 36, "gap_rate": "49.5%", "gaps_per_gap_capable_concept": 2.3, "ubiquitous_excluded": 0, "_note2": "★concepts_decidable(23) > concepts_gap_capable(20): 관측 유형만 있고 예측층 유형이 없는 개념이 3개 있다(전건 관측). 판정은 가능하지만 판정할 대상이 없어 분모에 기여하지 않는다 — 두 수를 구분해 낼 것.",
+      "M2_NUMBER_EXPRESSION": { "authored_types": 144, "overlay_coverage": "34%", "concepts_total": 44, "concepts_decidable": 31, "concepts_undecidable": 13, "concepts_gap_capable": 28, "predicted_types_total": 88, "predicted_types_gap_capable": 53, "codes_checked": 115, "gaps_raw": 54, "gaps_aggregated": 44, "gap_rate": "47%", "gaps_per_gap_capable_concept": 1.93, "ubiquitous_excluded": 0, "_at_121_types": { "concepts_total": 36, "concepts_decidable": 23, "concepts_gap_capable": 20, "codes_checked": 93, "gaps_raw": 46, "gap_rate": "49.5%" }, "_note2": "★concepts_decidable(23) > concepts_gap_capable(20): 관측 유형만 있고 예측층 유형이 없는 개념이 3개 있다(전건 관측). 판정은 가능하지만 판정할 대상이 없어 분모에 기여하지 않는다 — 두 수를 구분해 낼 것.",
       "_at_100_types": { "concepts_total": 28, "concepts_decidable": 17, "codes_checked": 87, "gaps_raw": 45, "gap_rate": "51.7%" }, "_at_80_types": { "concepts_total": 20, "concepts_decidable": 16, "codes_checked": 85, "gaps_raw": 44, "gap_rate": "51.8%" }, "_note": "80종 → 100종에서 예측층이 51→69로 늘었는데 분모(검사 코드)는 85→87로 거의 그대로다. 배치6 예측층 18종 중 17종이 판정불가 개념에 들어가 분모에 잡히지 않았기 때문 — 분모 없이 갭 절대수만 보면 '예측이 갑자기 좋아졌다'고 오독하게 되는 실례." },
       "M2_GEOM_remeasured": { "authored_types": 140, "overlay_coverage": "19%", "concepts_total": 40, "concepts_decidable": 24, "concepts_undecidable": 16, "concepts_gap_capable": 24, "predicted_types_total": 97, "predicted_types_gap_capable": 47, "codes_checked": 79, "gaps_raw": 10, "gaps_aggregated": 6, "gap_rate": "12.7%", "gaps_per_gap_capable_concept": 0.42, "ubiquitous_excluded": 5, "group_field": "concept_map.concepts" },
       "★M2_GEOM_discrepancy": "재측정 집계 6 / 편재제외 5 인데, M2_GEOM 드래프트에 기록된 값은 집계 5 / 편재제외 1이다. 당시 수집은 현재 도구가 아닌 절차(일부 수작업)로 이뤄졌으므로 수치가 정확히 재현되지 않는다. ★M2_GEOM 드래프트는 병합 완료본이므로 건드리지 않는다(재측정값으로 덮어쓰지 말 것). 비교표에 쓸 때는 '수연산만 현재 도구 실측, M2_GEOM은 재측정치이며 기록값과 1항목 차이'를 반드시 병기할 것.",
@@ -259,8 +301,9 @@
       "batch4_result": "★갭이 크게 늘었다 — 집계 기준 14항목 추가(누계 22항목·원시 31건). 전부 B계열. 이유는 배치4가 예측층 유형 15종을 '관측 유형이 있는 개념' 안에 포함했기 때문(판정 가능 개념이 많을수록 갭이 많이 잡힌다). ★갭 수는 예측층 유형 수 × 판정가능 개념 비율에 비례하며, 그 자체로 예측 품질 저하를 뜻하지 않는다 — 해석 보류.",
       "batch5_result": "갭 12항목 추가(누계 34항목·원시 44건). 전부 B계열, A계열 0 유지 = 신설 0과 정합. ★판정불가 개념 추가 0 — 배치5의 4범주는 모두 관측 유형을 1개 이상 가져(9/22) 전 범주가 판정 가능했다. 배치3(4범주 중 3범주 관측 0)과 정반대 조건이며, 갭 수집률이 커버리지에 직접 좌우된다는 앞선 관측을 반대 방향에서 재확인한다.",
       "batch7_result": "갭 1항목 추가(누계 36항목·원시 46건). 배치7은 21종 중 관측층이 13종이라 예측층이 8종뿐이었고, 그중 판정가능 개념에 든 것은 3종(PT089·PT104·PT111)뿐이다. 검사된 코드 6개 중 1개만 개념 관측 합집합 밖으로 떨어졌다 = 국소 GAP RATE 17%(누계 49.5%보다 크게 낮음). ★해석 보류하되 방향은 기록해 둔다: 관측층 비중이 높은 배치일수록 예측층 코드가 이웃(같은 개념의 관측 유형)에서 직접 빌려지므로 개념 합집합 안에 떨어질 확률이 올라간다. GAP RATE가 tier 구성·개념 입도의 함수라는 caveat과 정합한다.",
-      "gap_counting_note": "기록은 M2_GEOM 형식대로 (태그, 개념) 단위로 집계한다. 같은 태그가 한 개념의 여러 예측층 유형에 걸리면 predicted_in 배열로 묶는다. 원시 건수와 집계 항목 수를 함께 남긴다(누계 원시 46 / 집계 36).",
-      "cumulative": "갭 집계 36항목(원시 46건) · A계열 0 · B계열 36 · 판정불가 개념 13개(35종) · 편재 제외 0. ★판정불가율 = 35/121 = 28.9%(100종 시점 30%에서 하락). 배치7을 overlay 62% 구간으로 골라 배치6(10%)의 편향을 상쇄한 결과다 — 검수 지시대로 판정불가율이 배치 구성 편향을 반영하지 않도록 관리 중."
+      "batch8_result": "갭 8항목 추가(누계 44항목·원시 54건). 분모가 93→115로 22 늘었다(예측층 11종 × 코드 2개). 국소 GAP RATE = 8/22 = 36%로 누계(47%)보다 낮다. ★판정불가 신규 0 — 8범주 전부 관측 유형을 보유해 예측층 11종이 전부 분모에 잡혔다. 배치6(예측층 18종 중 17종이 분모 밖)과 정반대 구성이며, 검수 지시대로 편성을 조절한 결과가 분모 증가로 직접 확인된다.",
+      "gap_counting_note": "기록은 M2_GEOM 형식대로 (태그, 개념) 단위로 집계한다. 같은 태그가 한 개념의 여러 예측층 유형에 걸리면 predicted_in 배열로 묶는다. 원시 건수와 집계 항목 수를 함께 남긴다(누계 원시 54 / 집계 44).",
+      "cumulative": "갭 집계 44항목(원시 54건) · A계열 0 · B계열 44 · 판정불가 개념 13개(35종) · 편재 제외 0. ★판정불가율 = 35/144 = 24.3%. 추이 100종 30% → 121종 28.9% → 144종 24.3%(2연속 하락). 배치7(overlay 62%)·배치8(52%, 전 범주 관측 보유)을 연속 편성해 배치6(10%)의 편향을 상쇄한 결과 — 검수 지시대로 판정불가율이 배치 구성 편향을 반영하지 않도록 관리 중. ★잔여 67종에는 overlay 0 범주가 몰려 있어 후반부에 다시 오를 수 있다. 최종값은 211종 완료 시점으로 낼 것."
     },
     "new_tags": []
   },
@@ -1993,6 +2036,334 @@
       "student_command": "정의를 먼저 베껴 적어 적용하고, 그 결과 식에 순서 번호를 매겨 계산하라.",
       "teacher_note": "정의 적용과 계산을 한 줄에서 하려다 무너진다. 줄을 나누게 하라.",
       "parent_message": "정의를 적용한 식을 따로 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT010": {
+      "problem_nature": "분수가 유한소수로 나타내어지는지 분모의 소인수로 판별하는 유형",
+      "required_thinking": ["먼저 기약분수로 약분하는 것이 판별의 전제", "약분한 분모의 소인수가 2와 5뿐이면 유한소수", "2·5 외의 소인수가 하나라도 있으면 순환소수", "약분 전 분모로 판별하면 틀림"],
+      "must_write_steps": ["분수를 기약분수로 약분한다.", "약분한 분모를 소인수분해한다.", "소인수가 2와 5뿐인지 확인한다.", "판별 결과를 근거와 함께 적는다."],
+      "common_wrong_actions": ["약분하지 않고 원래 분모로 판별한다.", "분자의 소인수를 본다.", "3이나 7이 있는데 유한소수로 판정한다."],
+      "error_checkpoints": [
+        { "error_code": "reduction_before_test_omitted", "label": "판별 전 약분 누락", "diagnosis": "기약분수로 약분하지 않고 원래 분모로 판별했다.", "student_fix": "판별은 언제나 약분 다음이다. 약분한 분수를 새 줄에 적고 그 분모만 보라." },
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "분모의 소인수가 2·5뿐인지 확인하는 조건을 잘못 적용했다.", "student_fix": "분모를 소인수분해해 적고, 2와 5가 아닌 소인수에 동그라미를 쳐라. 하나라도 있으면 유한소수가 아니다." }
+      ],
+      "student_command": "약분 먼저, 판별은 그다음. 약분한 분모를 소인수분해해 2와 5만 있는지 확인하라.",
+      "teacher_note": "약분 줄이 없으면 정답이라도 우연이다. 그 줄을 확인하라.",
+      "parent_message": "약분하는 줄이 풀이에 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT011": {
+      "problem_nature": "조건을 만족하면서 유한소수가 되는 분수를 찾아내는 유형",
+      "required_thinking": ["약분 후 분모 조건(2·5만)을 적용", "'되는 것'인지 '되지 않는 것'인지 문제를 정확히 읽음", "여러 후보에서 규칙을 찾아 걸러냄", "조건을 만족하는 것을 빠짐없이 셈"],
+      "must_write_steps": ["후보를 하나씩 기약분수로 약분한다.", "약분한 분모를 소인수분해한다.", "문제가 요구하는 조건(되는 것/안 되는 것)을 다시 확인한다.", "조건에 맞는 것을 모두 적는다."],
+      "common_wrong_actions": ["약분을 건너뛴다.", "'되지 않는 것'을 물었는데 '되는 것'을 답한다.", "후보 중 일부만 확인한다."],
+      "error_checkpoints": [
+        { "error_code": "reduction_before_test_omitted", "label": "판별 전 약분 누락", "diagnosis": "후보를 약분하지 않고 판별해 결과가 뒤집혔다.", "student_fix": "후보마다 약분한 분수를 옆에 적어라. 약분하면 조건이 달라지는 경우가 많다." },
+        { "error_code": "negation_condition_misread", "label": "부정 조건 오독", "diagnosis": "'되지 않는 것'을 묻는 문제에 '되는 것'을 답했다.", "student_fix": "문제의 '않는'에 동그라미를 치고 시작하라. 마지막에 다시 읽어 확인하라." },
+        { "error_code": "pattern_extraction_failure", "label": "규칙 추출 실패", "diagnosis": "후보들의 공통 규칙을 찾지 못해 하나씩 다 따지다 놓쳤다.", "student_fix": "분모를 소인수분해해 나열하면 규칙이 보인다. 규칙을 한 문장으로 적고 적용하라." }
+      ],
+      "student_command": "후보마다 약분한 분수를 옆에 적고, 문제의 '되는/안 되는'에 동그라미를 친 뒤 골라라.",
+      "teacher_note": "부정 조건 오독이 이 유형의 대표 실점이다. 문제 표시를 습관화하라.",
+      "parent_message": "문제에서 묻는 방향을 표시하고 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT012": {
+      "problem_nature": "분모에 곱해지는 미지수를 정해 유한소수가 되게 하는 기본 유형",
+      "required_thinking": ["약분 후 분모에 2·5 외의 소인수가 남지 않아야 함", "남는 소인수를 없앨 수 있는 x를 찾음", "x는 그 소인수의 배수여야 함", "조건에 맞는 가장 작은 자연수를 묻는 경우가 많음"],
+      "must_write_steps": ["분모를 소인수분해한다.", "2·5가 아닌 소인수를 표시한다.", "그 소인수를 약분해 없앨 수 있는 x의 조건을 적는다.", "조건을 만족하는 값 중 문제가 요구하는 것을 고른다."],
+      "common_wrong_actions": ["x를 아무 수나 대입해 본다.", "조건을 만족하는 값 중 제외해야 할 것을 빠뜨린다.", "가장 작은 값을 묻는데 아무 값이나 답한다."],
+      "error_checkpoints": [
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "분모에 남는 소인수를 없애는 조건을 잘못 세웠다.", "student_fix": "분모를 소인수분해해 2·5가 아닌 것에 동그라미를 치고, x가 그것의 배수여야 함을 적어라." },
+        { "error_code": "excluded_case_omission", "label": "제외 경우 누락", "diagnosis": "조건을 만족하지만 문제 상황에서 제외되는 값을 걸러내지 않았다.", "student_fix": "구한 조건을 적은 뒤 '자연수인가·범위 안인가·0이 아닌가'를 한 줄로 확인하라." }
+      ],
+      "student_command": "분모를 소인수분해해 2·5가 아닌 소인수에 동그라미를 쳐라. x는 그것의 배수다.",
+      "teacher_note": "대입으로 찾으려 하면 시간이 무너진다. 조건식을 세우게 하라.",
+      "parent_message": "조건을 식으로 적고 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT013": {
+      "problem_nature": "분자가 있는 분수에 미지수를 곱해 유한소수가 되게 하는 값을 구하는 유형",
+      "required_thinking": ["분자와의 약분까지 함께 고려", "분모에 남는 2·5 외 소인수를 없애는 x의 조건", "조건을 만족하는 값이 여러 개면 범위를 확인", "가장 작은(큰) 값을 묻는지 확인"],
+      "must_write_steps": ["분자·분모를 소인수분해한다.", "약분 후 분모에 남는 소인수를 표시한다.", "x가 만족해야 할 조건을 적는다.", "제외 조건을 확인하고 문제가 묻는 값을 고른다."],
+      "common_wrong_actions": ["분자와의 약분을 고려하지 않는다.", "제외해야 할 값을 포함시킨다.", "가장 작은 값과 가장 큰 값을 바꿔 답한다."],
+      "error_checkpoints": [
+        { "error_code": "excluded_case_omission", "label": "제외 경우 누락", "diagnosis": "조건은 만족하지만 제외되어야 할 값을 답에 포함시켰다.", "student_fix": "구한 값을 나열한 뒤 문제의 단서(자연수·범위·최소)를 하나씩 대조해 지워라." },
+        { "error_code": "extremum_selection_error", "label": "최대·최소 선택 오류", "diagnosis": "가장 작은 값을 물었는데 다른 값을 답했다.", "student_fix": "조건을 만족하는 값을 작은 순으로 나열하고, 문제가 묻는 자리에 밑줄을 그어라." }
+      ],
+      "student_command": "분자와의 약분까지 따져 조건을 세우고, 만족하는 값을 작은 순으로 나열한 뒤 고르라.",
+      "teacher_note": "조건은 맞게 세우고 마지막 선택에서 틀리는 경우가 많다.",
+      "parent_message": "조건에 맞는 값을 나열하고 고르는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT014": {
+      "problem_nature": "일차방정식의 해가 유한소수가 되도록 미지수를 정하는 복합 유형",
+      "required_thinking": ["먼저 방정식을 풀어 해를 분수 꼴로 표현", "그 분수에 유한소수 조건을 적용", "두 단계를 순서대로 분리", "제외 조건을 마지막에 확인"],
+      "must_write_steps": ["일차방정식을 풀어 해를 분수로 나타낸다.", "그 분수를 기약분수로 약분한다.", "분모 조건(2·5만)을 적용해 미지수 조건을 구한다.", "제외 조건을 확인하고 답을 고른다."],
+      "common_wrong_actions": ["방정식을 풀지 않고 조건부터 적용한다.", "두 단계를 한 줄에서 처리한다.", "제외 조건을 확인하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "excluded_case_omission", "label": "제외 경우 누락", "diagnosis": "구한 값 중 문제 상황에서 성립하지 않는 것을 걸러내지 않았다.", "student_fix": "마지막 줄에 '자연수인가·범위 안인가·분모가 0이 아닌가'를 적고 하나씩 확인하라." },
+        { "error_code": "extremum_selection_error", "label": "최대·최소 선택 오류", "diagnosis": "여러 값 중 문제가 묻는 것을 잘못 골랐다.", "student_fix": "값을 작은 순으로 나열하고 문제가 묻는 자리에 밑줄을 그어라." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "방정식 풀이와 유한소수 판별을 섞어 처리하다 중간 결과를 잃었다.", "student_fix": "1단계 방정식 풀기, 2단계 조건 적용으로 줄을 완전히 나눠라." }
+      ],
+      "student_command": "1단계 방정식을 풀어 해를 분수로 적고, 2단계에서 그 분수에 조건을 적용하라. 줄을 나눠라.",
+      "teacher_note": "두 단계를 섞으면 무너진다. 단계 표시를 강제하라.",
+      "parent_message": "단계를 나눠 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT015": {
+      "problem_nature": "분모 자리에 있는 미지수를 정해 유한소수가 되게 하는 유형",
+      "required_thinking": ["미지수가 분모에 있으므로 분모 전체의 소인수를 봄", "x가 될 수 있는 값은 2·5의 거듭제곱(또는 분자와 약분되는 수)", "분자와 약분되는 경우를 따로 확인", "조건을 만족하는 값을 빠짐없이 셈"],
+      "must_write_steps": ["분모를 x를 포함한 형태로 적는다.", "분자와 약분 가능한지 확인한다.", "약분 후 분모가 2·5만 남는 x의 조건을 적는다.", "조건을 만족하는 값을 모두 나열한다."],
+      "common_wrong_actions": ["x가 분자에 있는 것처럼 처리한다.", "분자와의 약분을 빠뜨린다.", "일부 값만 답한다."],
+      "error_checkpoints": [
+        { "error_code": "unknown_position_confusion", "label": "미지수 위치 혼동", "diagnosis": "미지수가 분모에 있는데 분자에 있는 것처럼 조건을 세웠다.", "student_fix": "x가 분자인지 분모인지 먼저 동그라미로 표시하라. 분모의 x는 '나누는 수'다." },
+        { "error_code": "denominator_multiple_condition_error", "label": "분모 소인수 조건 오판", "diagnosis": "약분 후 분모에 남는 소인수 조건을 잘못 적용했다.", "student_fix": "약분한 분모를 소인수분해해 적고 2·5가 아닌 것이 남는지 확인하라." }
+      ],
+      "student_command": "x가 분자인지 분모인지 먼저 표시하라. 분모의 x는 약분과 소인수를 함께 따져야 한다.",
+      "teacher_note": "위치 혼동이 뿌리다. 표시부터 시키면 크게 준다.",
+      "parent_message": "x가 어디 있는지 표시하고 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT016": {
+      "problem_nature": "분모가 상수와 미지수의 곱일 때 유한소수가 되게 하는 값을 구하는 유형",
+      "required_thinking": ["분모 = A × x 이므로 A의 소인수와 x를 함께 봄", "분자와 약분되는 부분을 먼저 확인", "약분 후 남는 2·5 외 소인수를 없애는 x", "조건을 만족하는 값을 나열"],
+      "must_write_steps": ["분자와 분모를 각각 소인수분해한다.", "약분 가능한 부분을 먼저 약분한다.", "남은 분모에서 2·5 외 소인수를 없애는 x의 조건을 적는다.", "조건에 맞는 값을 나열한다."],
+      "common_wrong_actions": ["분자와의 약분을 빠뜨린다.", "A의 소인수를 확인하지 않는다.", "x의 위치를 혼동한다."],
+      "error_checkpoints": [
+        { "error_code": "numerator_cancellation_overlooked", "label": "분자 약분 간과", "diagnosis": "분자와 약분되는 부분을 놓쳐 조건을 실제보다 좁게(넓게) 잡았다.", "student_fix": "분자도 반드시 소인수분해해 적어라. 위아래 같은 소인수를 먼저 지운 뒤 조건을 세워라." },
+        { "error_code": "unknown_position_confusion", "label": "미지수 위치 혼동", "diagnosis": "분모의 x와 상수 A의 역할을 뒤섞어 조건을 세웠다.", "student_fix": "분모를 'A × x'로 분리해 적고 A의 소인수와 x가 담당할 부분을 나눠 표시하라." }
+      ],
+      "student_command": "분자도 소인수분해해 적고 약분부터 하라. 그다음 분모를 A × x로 나눠 조건을 세워라.",
+      "teacher_note": "분자 약분 누락이 조건 범위를 통째로 바꾼다.",
+      "parent_message": "분자도 소인수분해하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT017": {
+      "problem_nature": "유한소수가 '되지 않도록' 하는 미지수 조건을 구하는 부정 조건 유형",
+      "required_thinking": ["'되지 않는다' = 약분 후 분모에 2·5 외 소인수가 남는다", "되는 조건을 구한 뒤 그 여집합을 취해도 됨", "미지수가 여러 개면 각각의 역할을 구분", "부정 조건을 마지막에 다시 확인"],
+      "must_write_steps": ["문제의 '되지 않도록'에 표시한다.", "먼저 '되는' 조건을 구해 적는다.", "그 조건의 여집합(되지 않는 경우)을 적는다.", "미지수별로 답을 정리하고 조건을 다시 읽어 확인한다."],
+      "common_wrong_actions": ["'되는' 조건을 그대로 답한다.", "미지수 두 개의 역할을 뒤섞는다.", "여집합을 취하며 경계를 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "negation_condition_misread", "label": "부정 조건 오독", "diagnosis": "'되지 않도록'을 '되도록'으로 읽어 반대 답을 냈다.", "student_fix": "문제의 '않도록'에 동그라미를 치고, 답을 쓰기 전에 그 표시를 다시 보라." },
+        { "error_code": "unknown_position_confusion", "label": "미지수 위치 혼동", "diagnosis": "분자의 미지수와 분모의 미지수 역할을 뒤섞었다.", "student_fix": "x와 y가 각각 분자인지 분모인지 표에 적고 시작하라." }
+      ],
+      "student_command": "'않도록'에 동그라미부터 쳐라. 되는 조건을 먼저 구하고 그 반대를 답하라.",
+      "teacher_note": "부정 조건은 되는 조건을 거쳐 가는 것이 가장 안전하다.",
+      "parent_message": "문제의 '않도록'을 표시하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT018": {
+      "problem_nature": "여러 조건이 겹친 상황에서 유한소수가 되게 하는 미지수를 구하는 응용 유형",
+      "required_thinking": ["조건을 하나씩 분리해 각각의 해를 구함", "여러 조건을 동시에 만족하는 교집합을 취함", "분자 약분을 조건마다 확인", "제외 조건을 마지막에 적용"],
+      "must_write_steps": ["조건을 번호를 붙여 하나씩 적는다.", "조건마다 분자·분모를 소인수분해해 해를 구한다.", "구한 해들의 공통 부분을 취한다.", "제외 조건을 확인해 답을 정리한다."],
+      "common_wrong_actions": ["조건 하나만 만족하는 값을 답한다.", "분자 약분을 일부 조건에서 빠뜨린다.", "교집합을 합집합으로 처리한다."],
+      "error_checkpoints": [
+        { "error_code": "unknown_position_confusion", "label": "미지수 위치 혼동", "diagnosis": "조건마다 미지수의 위치가 달라지는 것을 추적하지 못했다.", "student_fix": "조건마다 분수를 새로 크게 적고 x의 자리에 동그라미를 쳐라." },
+        { "error_code": "numerator_cancellation_overlooked", "label": "분자 약분 간과", "diagnosis": "일부 조건에서 분자 약분을 빠뜨려 해가 틀어졌다.", "student_fix": "조건마다 분자를 소인수분해해 적는 것을 규칙으로 삼아라." },
+        { "error_code": "joint_condition_merge_failure", "label": "복수 조건 병합 실패", "diagnosis": "각 조건의 해를 구했으나 공통 부분을 취하지 못했다.", "student_fix": "조건별 해를 수직선이나 나열로 적고 겹치는 부분만 남겨라. '동시에'는 교집합이다." }
+      ],
+      "student_command": "조건에 번호를 붙여 따로 풀고, 마지막에 겹치는 부분만 남겨라. '동시에'는 교집합이다.",
+      "teacher_note": "조건을 하나로 뭉뚱그리려다 틀린다. 번호를 붙이게 하라.",
+      "parent_message": "조건을 하나씩 나눠 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT019": {
+      "problem_nature": "유한소수가 되는 분수를 기약분수 꼴로 나타내 미지수를 구하는 유형",
+      "required_thinking": ["유한소수 조건으로 x의 후보를 먼저 구함", "약분한 결과가 요구한 꼴(1/y)이 되는지 확인", "약분 후의 값과 약분 전의 값을 혼동하지 않음", "x의 범위 조건을 끝까지 유지"],
+      "must_write_steps": ["유한소수가 되는 x의 조건을 구한다.", "범위 조건을 함께 적는다.", "각 후보를 약분해 요구한 꼴이 되는지 확인한다.", "조건을 모두 만족하는 값을 답한다."],
+      "common_wrong_actions": ["약분 전 분모를 y로 답한다.", "범위 조건을 도중에 잊는다.", "후보 중 하나만 확인한다."],
+      "error_checkpoints": [
+        { "error_code": "post_reduction_value_error", "label": "약분 후 값 오류", "diagnosis": "약분한 뒤의 값을 물었는데 약분 전 값을 답했다.", "student_fix": "약분 전과 후를 위아래 두 줄로 나눠 적고, 답할 값에 동그라미를 쳐라." },
+        { "error_code": "range_constraint_dropped", "label": "범위 조건 누락", "diagnosis": "x의 범위 조건을 도중에 놓쳐 범위 밖 값을 답에 포함했다.", "student_fix": "범위 조건을 문제 옆에 크게 적어 두고, 답을 고를 때마다 대조하라." }
+      ],
+      "student_command": "약분 전과 후를 두 줄로 나눠 적어라. 범위 조건은 옆에 크게 적어 두고 매번 대조하라.",
+      "teacher_note": "약분 전후 혼동과 범위 누락이 함께 나온다. 두 표기를 강제하라.",
+      "parent_message": "약분 전후를 구분해 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT020": {
+      "problem_nature": "약분 결과가 B/y 꼴이 되도록 하는 미지수를 구하는 유형",
+      "required_thinking": ["분자도 약분되므로 분자·분모를 함께 추적", "요구한 꼴의 분자 B가 나오는 조건을 확인", "유한소수 조건과 꼴 조건을 함께 만족", "약분 전후 값을 구분"],
+      "must_write_steps": ["유한소수가 되는 조건을 구한다.", "각 후보를 약분해 분자·분모를 적는다.", "요구한 꼴(B/y)과 대조한다.", "두 조건을 모두 만족하는 값을 답한다."],
+      "common_wrong_actions": ["분모만 보고 분자를 확인하지 않는다.", "약분 전 값을 답한다.", "약분을 끝까지 하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "post_reduction_value_error", "label": "약분 후 값 오류", "diagnosis": "약분이 끝나지 않은 상태의 값을 답으로 냈다.", "student_fix": "약분한 분수의 분자·분모에 공통인수가 더 없는지 확인하는 줄을 마지막에 넣어라." },
+        { "error_code": "reduction_before_test_omitted", "label": "판별 전 약분 누락", "diagnosis": "약분하지 않은 채 꼴을 대조해 조건이 어긋났다.", "student_fix": "먼저 끝까지 약분한 뒤에 요구한 꼴과 비교하라." }
+      ],
+      "student_command": "끝까지 약분한 다음 요구한 꼴과 대조하라. 분자도 함께 확인하라.",
+      "teacher_note": "분모에만 집중하고 분자를 놓치는 것이 대표 오류다.",
+      "parent_message": "분자까지 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT021": {
+      "problem_nature": "두 분수가 동시에 유한소수가 되도록 하는 미지수를 구하는 유형",
+      "required_thinking": ["분수마다 조건을 따로 구함", "두 조건을 동시에 만족하는 값 = 교집합", "각 분모의 2·5 외 소인수를 모두 없애야 함", "공배수 개념으로 정리되는 경우가 많음"],
+      "must_write_steps": ["분수마다 분모를 소인수분해한다.", "각각에서 x가 만족할 조건을 적는다.", "두 조건을 동시에 만족하는 값을 구한다.", "범위·제외 조건을 확인해 답한다."],
+      "common_wrong_actions": ["한 분수의 조건만으로 답한다.", "두 조건을 합집합으로 처리한다.", "공배수 대신 공약수를 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "joint_condition_merge_failure", "label": "복수 조건 병합 실패", "diagnosis": "두 조건을 각각 구하고도 동시에 만족하는 값으로 좁히지 못했다.", "student_fix": "조건별 해를 나열해 적고 양쪽에 모두 나오는 값만 남겨라. '동시에'는 교집합이다." },
+        { "error_code": "lcm_gcd_confusion", "label": "최소공배수·최대공약수 혼동", "diagnosis": "두 조건을 합치며 공배수를 써야 할 자리에 공약수를(또는 그 반대) 썼다.", "student_fix": "'둘 다 없애야 한다'면 두 소인수를 모두 포함해야 하므로 공배수다. 어느 쪽인지 문장으로 적고 정하라." }
+      ],
+      "student_command": "분수마다 조건을 따로 적고, 두 조건에 모두 해당하는 값만 남겨라.",
+      "teacher_note": "공배수·공약수 혼동이 이 유형의 갈림길이다. 문장으로 판단하게 하라.",
+      "parent_message": "조건을 각각 적고 합치는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT022": {
+      "problem_nature": "분자에도 미지수가 있는 두 분수가 동시에 유한소수가 되게 하는 유형",
+      "required_thinking": ["분자의 미지수가 약분에 관여함을 인식", "분수마다 약분 후 조건을 구함", "두 조건의 교집합을 취함", "공배수로 정리되는지 확인"],
+      "must_write_steps": ["두 분수의 분자·분모를 각각 소인수분해한다.", "분자의 x가 약분에 어떻게 관여하는지 적는다.", "분수마다 조건을 구해 나열한다.", "두 조건을 동시에 만족하는 값을 구한다."],
+      "common_wrong_actions": ["분자의 x를 무시한다.", "조건을 합집합으로 처리한다.", "공배수 대신 공약수를 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "lcm_gcd_confusion", "label": "최소공배수·최대공약수 혼동", "diagnosis": "두 조건을 합치는 방식을 잘못 골랐다.", "student_fix": "'양쪽 소인수를 모두 없애야 한다'면 공배수다. 판단 근거를 한 문장으로 적고 정하라." },
+        { "error_code": "joint_condition_merge_failure", "label": "복수 조건 병합 실패", "diagnosis": "조건을 각각 구했으나 교집합을 취하지 못했다.", "student_fix": "조건별 해를 나란히 나열하고 양쪽에 모두 있는 값만 남겨라." }
+      ],
+      "student_command": "분자의 x도 약분에 관여한다. 분수마다 조건을 구한 뒤 양쪽에 모두 있는 값만 남겨라.",
+      "teacher_note": "분자에 미지수가 오면 난도가 뛴다. 약분 관여를 먼저 설명하게 하라.",
+      "parent_message": "분자의 x도 따지는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT140": {
+      "problem_nature": "기둥의 부피·겉넓이를 단항식으로 나타내 계산하는 유형",
+      "required_thinking": ["기둥의 부피 = 밑넓이 × 높이", "밑넓이를 먼저 단항식으로 구함", "문자의 지수를 정확히 처리", "겉넓이와 부피를 혼동하지 않음"],
+      "must_write_steps": ["밑면의 모양을 확인하고 밑넓이를 식으로 적는다.", "부피 = 밑넓이 × 높이를 세운다.", "계수는 계수끼리, 문자는 지수를 더해 정리한다.", "구한 식의 차수를 확인해 검산한다."],
+      "common_wrong_actions": ["밑넓이를 구하지 않고 모서리를 그대로 곱한다.", "겉넓이 공식을 부피에 쓴다.", "문자의 지수를 곱한다."],
+      "error_checkpoints": [
+        { "error_code": "volume_formula_misapplication", "label": "부피 공식 오적용", "diagnosis": "기둥의 부피에 맞지 않는 공식을 적용했다(겉넓이 혼동 등).", "student_fix": "입체 이름을 적고 '기둥 = 밑넓이 × 높이'를 먼저 쓴 뒤 값을 넣어라." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "밑넓이를 구하는 단계에서 도형에 맞지 않는 공식을 썼다.", "student_fix": "밑면 도형의 이름을 적고 그 넓이 공식을 따로 한 줄에 계산하라." }
+      ],
+      "student_command": "밑넓이를 따로 한 줄에서 구한 뒤 높이를 곱하라. 입체 이름과 공식을 먼저 적어라.",
+      "teacher_note": "밑넓이 단계를 건너뛰면 이후가 전부 어긋난다.",
+      "parent_message": "밑넓이를 따로 구하는 줄이 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT141": {
+      "problem_nature": "뿔의 부피·겉넓이를 단항식으로 나타내 계산하는 유형",
+      "required_thinking": ["뿔의 부피 = 밑넓이 × 높이 ÷ 3", "÷3 을 빠뜨리지 않음", "밑넓이를 먼저 구함", "기둥과의 부피 관계(1/3)를 확인"],
+      "must_write_steps": ["입체가 뿔임을 적고 공식에 ÷3 을 먼저 써 둔다.", "밑넓이를 따로 구한다.", "부피 = 밑넓이 × 높이 ÷ 3 으로 계산한다.", "같은 밑면·높이의 기둥과 비교해 검산한다."],
+      "common_wrong_actions": ["÷3 을 빠뜨린다.", "밑넓이를 구하지 않는다.", "기둥 공식을 그대로 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "volume_formula_misapplication", "label": "부피 공식 오적용", "diagnosis": "뿔인데 ÷3 을 적용하지 않아 기둥의 부피를 구했다.", "student_fix": "입체 이름을 먼저 적어라. '뿔'이라고 썼으면 공식에 ÷3 을 미리 적고 시작하라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "기둥과 뿔의 부피 관계를 식으로 옮기지 못했다.", "student_fix": "같은 밑면·높이면 뿔은 기둥의 1/3이다. 그 관계를 식으로 적고 확인하라." }
+      ],
+      "student_command": "입체 이름을 먼저 적고, 뿔이면 ÷3 을 공식에 미리 써 두어라. 밑넓이는 따로 구하라.",
+      "teacher_note": "÷3 누락이 압도적이다. 공식을 먼저 쓰게 하는 것이 유일한 예방이다.",
+      "parent_message": "뿔의 ÷3 을 적용하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT142": {
+      "problem_nature": "평면도형을 회전시켜 생기는 입체의 부피·겉넓이를 계산하는 유형",
+      "required_thinking": ["회전축을 기준으로 어떤 입체가 되는지 먼저 파악", "회전축까지의 거리가 반지름이 됨", "직사각형 → 원기둥, 직각삼각형 → 원뿔", "생긴 입체의 공식을 적용"],
+      "must_write_steps": ["회전축을 표시하고 생기는 입체의 이름을 적는다.", "반지름과 높이에 해당하는 길이를 도형에서 찾아 표시한다.", "그 입체의 부피 공식에 대입한다.", "계산한 식의 차수를 확인한다."],
+      "common_wrong_actions": ["생기는 입체를 잘못 판단한다.", "반지름과 높이를 바꿔 넣는다.", "회전축이 아닌 변을 반지름으로 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "volume_formula_misapplication", "label": "부피 공식 오적용", "diagnosis": "회전으로 생기는 입체를 잘못 판단해 다른 공식을 적용했다.", "student_fix": "회전축을 그리고 한 바퀴 돌린 모양을 스케치하라. 이름을 적은 뒤 공식을 쓴다." },
+        { "error_code": "variable_length_assignment_failure", "label": "미지 길이 설정 실패", "diagnosis": "반지름과 높이에 해당하는 길이를 잘못 배정했다.", "student_fix": "회전축까지의 거리가 반지름이다. 그림에 r과 h를 직접 써 넣고 시작하라." }
+      ],
+      "student_command": "회전축을 긋고 돌린 모양을 그려라. 그림에 r과 h를 써 넣은 뒤 공식에 넣어라.",
+      "teacher_note": "스케치 없이 푸는 것이 실패 원인이다. 그림을 강제하라.",
+      "parent_message": "회전한 모양을 그려 보는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT143": {
+      "problem_nature": "두 개 이상의 입체가 얽힌 상황에서 단항식 계산으로 값을 구하는 응용 유형",
+      "required_thinking": ["입체마다 공식을 따로 적용", "옮겨 담기·잘라내기면 부피가 보존되는지 확인", "부피비·길이비를 구분", "구하는 것이 어느 입체의 값인지 확인"],
+      "must_write_steps": ["입체마다 이름과 공식을 따로 적는다.", "각각의 부피를 식으로 구한다.", "관계(합·차·비·보존)를 식으로 세운다.", "구하는 값을 정리해 답한다."],
+      "common_wrong_actions": ["두 입체에 같은 공식을 쓴다.", "부피가 보존되는 상황인데 새로 계산한다.", "길이비를 부피비로 그대로 쓴다."],
+      "error_checkpoints": [
+        { "error_code": "volume_formula_misapplication", "label": "부피 공식 오적용", "diagnosis": "입체마다 다른 공식을 써야 하는데 하나의 공식을 공통으로 적용했다.", "student_fix": "입체마다 줄을 나눠 이름과 공식을 각각 적어라." },
+        { "error_code": "ratio_setup_from_geometry_failure", "label": "도형에서 비 세우기 실패", "diagnosis": "두 입체의 관계를 식으로 옮기지 못했다.", "student_fix": "'무엇 = 무엇'인지 문장으로 먼저 쓰고 그 문장을 식으로 바꿔라." },
+        { "error_code": "conservation_condition_overlooked", "label": "보존 조건 간과", "diagnosis": "물을 옮겨 담는 등 부피가 보존되는 조건을 쓰지 않았다.", "student_fix": "옮겨 담기·녹여 다시 만들기는 부피가 같다. '부피1 = 부피2'를 먼저 적어라." }
+      ],
+      "student_command": "입체마다 줄을 나눠 공식을 적고, 둘의 관계를 문장으로 먼저 쓴 뒤 식으로 바꿔라.",
+      "teacher_note": "보존 조건을 못 보면 아예 식이 안 선다. 옮겨 담기 문구를 표시하게 하라.",
+      "parent_message": "두 입체를 따로 계산하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT180": {
+      "problem_nature": "삼각형의 넓이를 다항식으로 나타내 계산하는 유형",
+      "required_thinking": ["넓이 = 밑변 × 높이 ÷ 2", "밑변·높이가 다항식이면 전개해서 정리", "÷2 를 빠뜨리지 않음", "문자로 놓은 길이가 무엇인지 명확히"],
+      "must_write_steps": ["그림에 밑변과 높이를 표시하고 문자로 적는다.", "넓이 공식을 세운다.", "다항식을 전개해 정리한다.", "동류항을 정리하고 차수를 확인한다."],
+      "common_wrong_actions": ["÷2 를 빠뜨린다.", "높이가 아닌 변을 높이로 쓴다.", "전개에서 부호를 놓친다."],
+      "error_checkpoints": [
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "삼각형 넓이에서 ÷2 를 빠뜨리거나 높이를 잘못 골랐다.", "student_fix": "그림에 높이를 직각 표시와 함께 그린 뒤 공식을 적어라. ÷2 를 먼저 써 두어라." },
+        { "error_code": "variable_length_assignment_failure", "label": "미지 길이 설정 실패", "diagnosis": "문자로 놓은 길이가 어느 변인지 정하지 않아 식이 어긋났다.", "student_fix": "그림의 각 변에 문자를 직접 써 넣어라. 머릿속에 두지 마라." }
+      ],
+      "student_command": "그림의 각 변에 문자를 써 넣고 높이에 직각 표시를 하라. 그다음 공식을 세워라.",
+      "teacher_note": "그림에 문자를 적지 않고 푸는 것이 오류의 뿌리다.",
+      "parent_message": "그림에 길이를 적어 넣는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT181": {
+      "problem_nature": "사각형의 넓이를 다항식으로 나타내 계산하는 유형",
+      "required_thinking": ["사각형 종류에 따라 공식이 다름", "가로·세로를 다항식으로 놓고 전개", "사다리꼴은 (윗변+아랫변) × 높이 ÷ 2", "전개 후 동류항 정리"],
+      "must_write_steps": ["도형의 종류를 적고 공식을 쓴다.", "그림의 변에 문자를 써 넣는다.", "공식에 대입해 전개한다.", "동류항을 정리하고 차수를 확인한다."],
+      "common_wrong_actions": ["도형 종류에 맞지 않는 공식을 쓴다.", "변에 문자를 배정하지 않고 계산한다.", "전개에서 항을 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "도형 종류에 맞지 않는 넓이 공식을 적용했다.", "student_fix": "도형 이름을 먼저 적고 그 공식을 쓴 뒤 값을 넣어라." },
+        { "error_code": "variable_length_assignment_failure", "label": "미지 길이 설정 실패", "diagnosis": "어느 변을 어느 문자로 놓았는지 정하지 않아 식이 흔들렸다.", "student_fix": "그림의 변마다 문자를 써 넣고, 그 표기대로만 식을 세워라." }
+      ],
+      "student_command": "도형 이름과 공식을 먼저 적고, 그림의 변마다 문자를 써 넣은 뒤 대입하라.",
+      "teacher_note": "공식 선택과 문자 배정 두 가지만 잡으면 계산은 따라온다.",
+      "parent_message": "도형 이름을 적고 시작하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT182": {
+      "problem_nature": "도형 안의 도형에서 색칠한 부분의 넓이를 다항식으로 구하는 유형",
+      "required_thinking": ["색칠한 부분 = 전체 − 빼낼 부분", "빼낼 도형이 여러 개면 모두 뺌", "각 도형의 넓이를 따로 식으로 구함", "뺄셈에서 부호 분배에 주의"],
+      "must_write_steps": ["전체 도형과 빼낼 도형을 표시하고 문자를 써 넣는다.", "각각의 넓이를 식으로 구한다.", "'전체 − 뺄 부분'을 세우고 괄호를 씌운다.", "전개해 동류항을 정리한다."],
+      "common_wrong_actions": ["빼는 부분을 하나만 뺀다.", "뺄 부분에 괄호를 씌우지 않아 부호를 놓친다.", "전체와 부분을 바꿔 뺀다."],
+      "error_checkpoints": [
+        { "error_code": "subtraction_of_regions_omitted", "label": "영역 빼기 누락", "diagnosis": "빼야 할 영역을 일부만 뺐다.", "student_fix": "빼낼 도형에 전부 빗금을 치고 개수를 센 뒤 그 개수만큼 빼는 항을 적어라." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "전체와 부분에 서로 다른 도형의 공식을 잘못 적용했다.", "student_fix": "도형마다 이름과 공식을 따로 적고, 그다음에 빼기를 하라." },
+        { "error_code": "variable_length_assignment_failure", "label": "미지 길이 설정 실패", "diagnosis": "안쪽 도형의 길이를 바깥 도형의 문자로 어떻게 나타낼지 정하지 못했다.", "student_fix": "안쪽 도형의 변을 바깥 문자로 표현해 그림에 직접 써 넣어라." }
+      ],
+      "student_command": "빼낼 도형에 빗금을 치고 개수를 세라. 뺄 부분은 괄호로 묶어 '전체 − (…)'로 적어라.",
+      "teacher_note": "괄호 없이 빼다가 부호를 놓치는 것이 두 번째 대표 오류다.",
+      "parent_message": "빼는 부분을 괄호로 묶는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT183": {
+      "problem_nature": "기둥의 부피·겉넓이를 다항식으로 나타내 계산하는 유형",
+      "required_thinking": ["부피 = 밑넓이 × 높이", "밑넓이가 다항식이면 전개 후 곱함", "겉넓이는 옆넓이 + 밑넓이 × 2", "구하는 것이 부피인지 겉넓이인지 확인"],
+      "must_write_steps": ["밑면 도형의 넓이를 식으로 구한다.", "부피 또는 겉넓이 공식을 적는다.", "대입해 전개한다.", "동류항을 정리하고 차수를 확인한다."],
+      "common_wrong_actions": ["밑넓이를 구하지 않고 바로 곱한다.", "겉넓이에서 밑면을 한 번만 센다.", "전개에서 항을 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "volume_from_ratio_error", "label": "부피비 적용 오류", "diagnosis": "부피를 구하는 관계식을 잘못 세웠다(비·배수 관계 오적용).", "student_fix": "'부피 = 밑넓이 × 높이'를 그대로 적고 값을 넣어라. 비 관계는 그다음이다." },
+        { "error_code": "area_formula_setup_error", "label": "넓이 공식 세우기 오류", "diagnosis": "밑넓이를 구하는 단계에서 공식을 잘못 적용했다.", "student_fix": "밑면 도형의 이름을 적고 넓이를 따로 한 줄에서 구하라." }
+      ],
+      "student_command": "밑넓이를 따로 한 줄에서 구하고, 부피인지 겉넓이인지 확인한 뒤 공식에 넣어라.",
+      "teacher_note": "겉넓이에서 밑면을 두 번 세는지 확인시켜라.",
+      "parent_message": "밑넓이를 따로 구하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M2_NE_PT184": {
+      "problem_nature": "뿔의 부피를 다항식으로 나타내거나 기둥과의 관계로 구하는 유형",
+      "required_thinking": ["뿔의 부피 = 밑넓이 × 높이 ÷ 3", "같은 밑면·높이의 기둥과 1:3 관계", "길이비와 부피비를 구분", "닮은 도형이면 부피비는 길이비의 세제곱"],
+      "must_write_steps": ["입체가 뿔임을 적고 ÷3 을 공식에 써 둔다.", "밑넓이를 따로 구한다.", "관계(기둥과의 비 등)를 식으로 적는다.", "계산해 정리하고 검산한다."],
+      "common_wrong_actions": ["÷3 을 빠뜨린다.", "길이비를 부피비로 그대로 쓴다.", "밑넓이를 구하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "volume_from_ratio_error", "label": "부피비 적용 오류", "diagnosis": "길이의 비를 부피의 비로 그대로 사용했다.", "student_fix": "닮은 입체의 부피비는 길이비의 세제곱이다. 비를 쓸 때마다 '길이비인가 부피비인가'를 적어라." },
+        { "error_code": "segment_ratio_to_length_conversion_failure", "label": "선분비→길이 환산 실패", "diagnosis": "주어진 비를 실제 길이로 바꾸지 못해 식에 넣을 수 없었다.", "student_fix": "비를 k로 놓아 각 길이를 k의 식으로 적어라. 그다음 공식에 넣어라." }
+      ],
+      "student_command": "뿔이면 ÷3 을 먼저 적어라. 비가 나오면 '길이비인가 부피비인가'를 매번 적고 쓰라.",
+      "teacher_note": "길이비를 세제곱하지 않는 오류가 이 계열에서 가장 비싸다.",
+      "parent_message": "비를 쓸 때 어떤 비인지 구분하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M2_NE_PT185": {
+      "problem_nature": "여러 입체가 얽힌 상황을 다항식 계산으로 푸는 응용 유형",
+      "required_thinking": ["입체마다 공식을 따로 적용", "비가 주어지면 문자로 놓아 길이를 표현", "부피 관계(합·차·보존)를 식으로 세움", "구하는 것이 무엇인지 마지막에 확인"],
+      "must_write_steps": ["입체마다 이름과 공식을 적는다.", "주어진 비를 문자로 놓아 길이를 표현한다.", "관계식을 세워 계산한다.", "구하는 값이 맞는지 확인하고 답한다."],
+      "common_wrong_actions": ["비를 길이로 바꾸지 않고 그대로 넣는다.", "입체마다 다른 공식을 쓰지 않는다.", "부피비를 길이비로 혼동한다."],
+      "error_checkpoints": [
+        { "error_code": "segment_ratio_to_length_conversion_failure", "label": "선분비→길이 환산 실패", "diagnosis": "주어진 비를 실제 길이 식으로 바꾸지 못했다.", "student_fix": "비를 k로 놓아 각 길이를 k의 식으로 적은 뒤 공식에 넣어라." },
+        { "error_code": "volume_from_ratio_error", "label": "부피비 적용 오류", "diagnosis": "길이비와 부피비를 구분하지 못했다.", "student_fix": "비를 쓸 때마다 '길이비인가 부피비인가'를 옆에 적어라. 닮음이면 부피비는 세제곱." },
+        { "error_code": "volume_formula_misapplication", "label": "부피 공식 오적용", "diagnosis": "입체 종류가 다른데 같은 공식을 적용했다.", "student_fix": "입체마다 줄을 나눠 이름과 공식을 각각 적어라." }
+      ],
+      "student_command": "비는 k로 놓아 길이를 식으로 만들고, 입체마다 줄을 나눠 공식을 적어라.",
+      "teacher_note": "비 처리와 공식 선택이 겹치면 난도가 급상승한다. 두 단계를 분리시켜라.",
+      "parent_message": "비를 문자로 놓고 푸는지 봐 주세요.",
       "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
     }
   }
