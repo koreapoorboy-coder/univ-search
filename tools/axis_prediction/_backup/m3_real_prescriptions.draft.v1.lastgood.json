@@ -1,0 +1,458 @@
+{
+  "_meta": {
+    "unit_id": "M3_REAL_NUMBER_CALC",
+    "purpose": "M3_REAL 처방 저작. M2_NE와 동일 규격(교체 방식). 규격 정본 = B_arith_prescription_prep.v1.md §3. 형식 정본 = B_arith_m2ne_final_report.v1.md(8절 구조).",
+    "dict": "TAG_DICTIONARY_v2 (163종)",
+    "authoring_rule": "error_checkpoints[].error_code 4-tier: 1)자기 overlay → 2)단원 overlay 풀(49 distinct) → 3)dict v2 → 4)신설. checkpoint 2~4. ★교체 단원이므로 error_tags는 기존 값 보존(overlay는 error_code로만 사용).",
+    "replacement_spec": "교체 10필드(8처방 + matched_template_id/match_score → null) · 추가 3(draft·revision·observed_basis) · 보존 12. M2_NE와 동일.",
+    "observed_basis_rule": "★overlay 커버리지 89/203(43.8%)이라 유형별 true/false 혼재가 정상. 자기 overlay 태그가 있으면 true.",
+    "unit_baseline": {
+      "catalog_types": 203,
+      "overlay_types": 89,
+      "coverage": "43.8%",
+      "concepts": 59,
+      "types_per_concept": 3.44,
+      "overlay_pool_distinct": 49,
+      "grouping_rule_verified": "★착수 전 확인(검수 지시 2026-08-18): 카탈로그 원본 직접 집계로 M2_NE와 같은 규칙임을 확인했다. description 범주접두 203/203 · raw_section_id 203/203 · 필드셋 12개 동일. ★독립적인 두 그룹핑(범주접두 ↔ raw_section_id)이 같은 개념 수(59↔59)를 산출해 교차 확인됨. ⇒ 3.44종/개념은 M2_NE 2.97과 같은 기준이므로 판정불가율을 나란히 비교할 수 있다(닮음·M1은 규칙이 달라 불가)."
+    },
+    "progress": { "authored": 23, "total": 203, "batch": "1 (제곱근의 뜻·표현·성질 계열 6범주) 완료" },
+    "batch_scope": "배치1 = 제곱근의 뜻·표현·성질 계열 6범주 23종(RAW_001·002·003·008·009·010). overlay 9/23(39%). ★단원 평균 43.8%에 근접시킨 대표성 편성 — overlay 높은 범주만 고르면 tier-1 상승이 커버리지 효과인지 편성 효과인지 구분할 수 없기 때문이다(M2_NE 판정불가율 편향과 같은 함정, 검수 승인).",
+    "validation_procedure": "커밋 전 검증 13항목 + U+FFFD 스캔. _meta 편집은 edit_json_meta.ps1 경유. 검증기 호출 = validate_ne_prescriptions.ps1 -Draft tools\\axis_prediction\\m3_real_prescriptions.draft.v1.json -Catalog problem_types\\m3_real_numbers_and_operations.problem_types.v1.json -Overlay axis_map\\m3_real_numbers_and_operations.pt_fine_error_tags.v1.json",
+    "new_tag_ceiling": "414종 기준 신설 40종. M2_NE에서 211종 소진하며 0 사용 → 잔여 40. ★신설이 1건이라도 나오면 그 배치에서 즉시 보고(M2_NE 11배치 연속 0이었으므로 발생 자체가 신호).",
+
+    "★structure_sharing_preregistration": {
+      "_rule": "★★검수 지시(2026-08-18). 기제② 가설('구조 공유가 없는 계열에서는 tier-2가 안 먹힐 수 있다')을 검증할 때, **'구조 공유가 없다'는 판정을 배치 편성 시점에 먼저 기록하고 그다음 tier 분포를 측정한다.** 사후에 판정하면 결과에 맞춰 해석하게 되며, 이는 §7 '검증 기준은 검증 대상과 독립일 것' 위반이다.",
+      "_criterion": "판정 입력은 **범주명과 카탈로그 type_name만** 쓴다(관측 overlay 태그와 저작 결과는 보지 않는다 — 보면 기준이 대상에 의존한다). '골격' = 학생이 밟는 단계 열. 등급 = shared / partial / none.",
+      "_order_of_record": "이 블록은 배치1 저작·측정 **전에** 기록했다. tier 분포는 그 뒤 measured_after 에 적는다.",
+      "batch1": {
+        "categories": ["RAW_001 제곱근의 뜻과 표현", "RAW_002 제곱근의 이해", "RAW_003 제곱근 구하기", "RAW_008 제곱근의 성질", "RAW_009 제곱근의 성질을 이용하여 제곱근 구하기", "RAW_010 제곱근의 성질을 이용한 계산"],
+        "judgment": "shared (내부 2묶음, 묶음 간 partial)",
+        "basis": "묶음A(001·002·003) 골격 = '정의 x²=a 확인 → 부호 두 개 판정 → 근호·부호 표기'. 묶음B(008·009·010) 골격 = '√a² 형태 판정 → 절댓값(부호) 결정 → 계산'. 두 묶음은 '제곱근의 정의'라는 공통 앵커를 갖지만 단계 열이 다르므로 묶음 간은 partial.",
+        "hypothesis_role": "★이 배치는 기제② 가설의 **반례 후보가 아니다**(구조 공유가 있으므로). 반례는 구조 공유가 약할 것으로 사전 지목한 계열에서 확인한다 — 아래 candidates.",
+        "measured_after": { "tier1": 22, "tier2": 30, "tier3": 0, "new": 0, "codes_total": 52, "tier1_share": "42.3%" }
+      },
+      "none_candidates_preregistered": {
+        "_note": "★저작 전에 지목한다. 이후 그 배치에서 tier 분포를 별도 보고한다(검수 지시).",
+        "list": ["RAW_026 제곱근표를 이용하여 제곱근의 값 구하기(2종)", "RAW_027 무리수를 수직선 위에 나타내기(7종)", "RAW_029 수직선에서 무리수에 대응하는 점 찾기(3종)", "RAW_051 새로운 기호로 정의된 연산(2종)", "RAW_053 무리수의 정수 부분과 소수 부분(5종)", "RAW_057 제곱근의 덧셈과 뺄셈의 수직선에의 활용(4종)"],
+        "basis": "이 단원의 주 골격은 '근호 정리 → 부호·조건 판정 → 계산'인데, 위 계열은 그 골격을 쓰지 않는다 — 제곱근표는 표 조회, 수직선은 길이↔좌표 대응, 새 기호는 정의 적용, 정수·소수 부분은 구간 판정이다. 도구(표·수직선)나 외부 정의가 개입해 단계 열이 달라진다.",
+        "prediction": "★사전 예측: 이 계열에서 tier-2 커버가 약해지고 **신설이 처음 나온다면 여기일 가능성이 높다.** 예측을 먼저 적어 두어 사후 해석을 막는다."
+      }
+    },
+
+    "category_ledger": {
+      "제곱근의 뜻과 표현": ["M3_REAL_PT001","M3_REAL_PT002","M3_REAL_PT003","M3_REAL_PT004","M3_REAL_PT005"],
+      "제곱근의 이해": ["M3_REAL_PT006","M3_REAL_PT007"],
+      "제곱근 구하기": ["M3_REAL_PT008","M3_REAL_PT009","M3_REAL_PT010","M3_REAL_PT011"],
+      "제곱근의 성질": ["M3_REAL_PT025","M3_REAL_PT026","M3_REAL_PT027","M3_REAL_PT028"],
+      "제곱근의 성질을 이용하여 제곱근 구하기": ["M3_REAL_PT029","M3_REAL_PT030","M3_REAL_PT031"],
+      "제곱근의 성질을 이용한 계산": ["M3_REAL_PT032","M3_REAL_PT033","M3_REAL_PT034","M3_REAL_PT035","M3_REAL_PT036"]
+    },
+    "concept_map_semantics": "개념 → problem_type_id 목록(커버리지 검증용).",
+    "concept_map": {
+      "제곱근의 정의와 표기": ["M3_REAL_PT001","M3_REAL_PT002","M3_REAL_PT003","M3_REAL_PT004","M3_REAL_PT005"],
+      "제곱근 개수·부호 이해": ["M3_REAL_PT006","M3_REAL_PT007"],
+      "제곱근 값 구하기": ["M3_REAL_PT008","M3_REAL_PT009","M3_REAL_PT010","M3_REAL_PT011"],
+      "제곱근의 성질 판별": ["M3_REAL_PT025","M3_REAL_PT026","M3_REAL_PT027","M3_REAL_PT028"],
+      "성질을 이용한 제곱근 구하기": ["M3_REAL_PT029","M3_REAL_PT030","M3_REAL_PT031"],
+      "성질을 이용한 사칙계산": ["M3_REAL_PT032","M3_REAL_PT033","M3_REAL_PT034","M3_REAL_PT035","M3_REAL_PT036"]
+    },
+    "skeleton_sharing": {
+      "shared_skeleton_fields": ["required_thinking", "must_write_steps"],
+      "differentiated_fields": ["problem_nature", "common_wrong_actions", "error_checkpoints", "student_command", "teacher_note", "parent_message"],
+      "note": "M2_GEOM·닮음·M2_NE 정본 승계 — 완전 동일 문자열이 아니라 같은 단계 구조."
+    },
+    "label_map": {
+      "_note": "★단원 간 표기 고정. M2_NE·닮음 draft와 같은 error_code는 같은 한글 라벨을 쓴다(검증 항목 [8]이 교차 대조).",
+      "square_root_existence_count_confusion": "제곱근 개수·존재 혼동",
+      "principal_square_root_notation_confusion": "양의 제곱근 표기 혼동",
+      "multiple_answer_omission": "복수 정답 누락",
+      "range_constraint_dropped": "범위 조건 누락",
+      "substitution_direction_error": "대입 방향 오류",
+      "perfect_square_radicand_condition_failure": "제곱수 조건 판정 실패",
+      "absolute_value_from_square_root_omitted": "제곱근의 절댓값 처리 누락",
+      "sign_propagation_error": "부호 전파 오류",
+      "multi_step_composite_error": "다단계 복합 처리 오류",
+      "radical_magnitude_comparison_failure": "근호 수 대소비교 실패",
+      "perfect_square_factor_extraction_failure": "제곱인수 추출 실패",
+      "like_term_misgrouping": "동류항 묶기 오류",
+      "operation_order_violation": "연산 순서 위반"
+    },
+    "tier_report": "배치별 tier 분해를 커밋 메시지·보고서에 수치로 낸다.",
+    "tier_breakdown": {
+      "_note": "배치별 tier 분해 누적 기록. 최종 제출 시 203종 전체 분포를 이 표로 낸다.",
+      "batches": [
+        { "batch": 1, "scope": "제곱근의 뜻·표현·성질 계열 6범주 — 대표성 편성(overlay 39% ≈ 단원 43.8%)", "types": 23, "overlay_true": 9, "overlay_false": 14, "overlay_rate": "39%", "tier1": 22, "tier2": 30, "tier3": 0, "new": 0, "codes_total": 52 }
+      ],
+      "cumulative": { "types": 23, "tier1": 22, "tier2": 30, "tier3": 0, "new": 0, "codes_total": 52 },
+      "★finding_batch1_check1": "★검수 확인항목1 답: **tier-1 비중이 올랐다.** M3_REAL 배치1 tier-1 = 22/52 = **42.3%**, M2_NE 전 단원 = 146/470 = **31.1%**. 배치 overlay 39%가 M2_NE 단원 33.6%보다 높은 것과 방향이 일치한다. ★단 이것은 1배치 관측이며, 대표성 편성(39% ≈ 43.8%)으로 편성 효과를 줄였으나 완전히 제거하지는 못했다 — 단원 완결 시점 누계로 재확인할 것.",
+      "★finding_batch1_check2": "★검수 확인항목2: 이 배치는 구조 공유가 **있는** 계열이라(사전 판정 shared) 기제② 가설의 반례가 아니다. 신설 0은 예상대로이며 가설을 지지하지도 반증하지도 않는다. 반례 검증은 사전 지목한 none_candidates(제곱근표·수직선·새 기호·정수소수부분) 배치에서 한다."
+    },
+    "gaps_denominator_rule": "★★M2_NE에서 확정된 규칙 승계(검수 지시 2026-08-18). 갭은 절대수로 보고·비교하지 말 것. 분모 = 판정가능 개념(관측≥1 AND 예측층≥1)의 예측층 유형에 배치한 코드 슬롯 수. collect_gaps.ps1이 [DENOMINATORS]로 자동 출력한다. ★GAP RATE는 예측 오류율이 아니라 tier 구성·개념 입도의 함수다 — 해석 보류.",
+    "undecidable_rate_rule": {
+      "_rule": "★★M2_NE에서 확정된 규칙 승계. 판정불가율은 단일값으로 내지 말 것 — 커버리지의 함수인 동시에 배치 편성·개념 입도의 함수다. ① 배치 순서별 추이 ② 편성 무관 이론값 ③ 입도(개념당 평균)를 함께 낸다.",
+      "theoretical_value": "★**착수 전 확정 = 55 / 203 = 27.1%**(판정불가 개념 21개). 카탈로그+overlay만으로 결정되며 저작 진행·편성과 무관하다. 측정 도구 = undecidable_theoretical.ps1(draft 미참조).",
+      "m2ne_precedent": "★M2_NE에서 이 예측이 **완전히 적중**했다 — 예측 30개념·73종·34.6% = 완결 실측 30개념·73종·34.6%. 따라서 M3_REAL 27.1%도 저작 후 재측정이 불요하며, **완결 전에 이미 확정된 값**으로 다뤄도 된다.",
+      "granularity": "M3_REAL 3.44종/개념 · M2_NE 2.97종/개념(차이 16%, 직접 비교 가능) · M2_GEOM 10.0종/개념(3배, 비교 불가 — 각주 대상) · 닮음 1.00종/개념(그룹 규칙 상이) · M1(미측정, 그룹 필드 없음).",
+      "trend": [
+        { "authored": 23, "batch": 1, "undecidable_types": 9, "rate": "39.1%", "note": "배치1 시점. 이론값 27.1%보다 높으나 23종 표본이라 변동 폭이 크다 — 편성의 함수임을 감안해 추이로만 읽을 것" }
+      ]
+    },
+    "★tier2_mechanisms": {
+      "_note": "★M2_NE에서 구분 확정(검수 지시). tier-2가 먹히는 기제는 둘이며 최종 보고에 구분해 적는다.",
+      "mechanism_1_vocabulary_breadth": "단원 관측 풀이 넓어 이웃 개념의 어휘가 다른 범주까지 덮는다(M2_NE 배치1~9).",
+      "mechanism_2_structure_sharing": "여러 범주가 같은 골격을 공유해 관측 어휘가 그 구조를 이미 갖고 있다(M2_NE 배치10 역연산·배치11 판별형).",
+      "hypothesis_to_test": "★구조 공유가 없는 계열에서는 tier-2가 안 먹힐 수 있다. M3_REAL에서 확인한다 — 판정은 반드시 **사전 등록**(★structure_sharing_preregistration)."
+    },
+    "m1_rationale_correction": {
+      "_status": "★M2_NE 최종 보고에서 확정된 정정본 승계. 최종 제출·인계문은 이 정정본만 인용한다. 정정 이전 서술(신설률 근거)은 인용하지 않는다.",
+      "withdrawn": "'커버리지가 낮으면 신설이 늘어난다' — 반증됨. 신설률은 커버리지에 단조적이지 않다(100%→0 / 34%→0 / 19%→8).",
+      "corrected": "판정불가율이 커버리지에 거의 단조적이다(100%→0% / 34%→34.6% / 0%→100%). ⇒ 커버리지가 낮아도 처방은 쓸 수 있으나 그 처방이 맞는지 확인할 수 없다.",
+      "strengthened_by_theoretical_hit": "★판정불가율은 저작 전에 계산 가능한 구조적 지표임이 M2_NE에서 실증됐다. ⇒ M1의 100%도 저작 없이 확정된 값이며, M1 처방 저작은 '해 보고 안 되면 재태깅'이 아니라 안 될 것이 확정된 상태에서 쓰는 것이다.",
+      "granularity_immunity": "★양 끝점은 입도와 무관하다. 실측 근거 = 닮음은 입도가 가장 잘지만(1.00종/개념) 커버리지 100%라 판정불가 0%다."
+    },
+    "predicted_observed_gaps": [
+      { "tag": "multiple_answer_omission", "concept": "제곱근 구하기", "predicted_in": ["M3_REAL_PT010"], "observed_types_checked": ["M3_REAL_PT008","M3_REAL_PT009"], "observed_in": [], "unit_occurrences": 3, "kind": "\uAC1C\uB150\uAD6D\uC18C(\uB2E8\uC6D0 overlay \uC874\uC7AC)", "batch": 1 }
+    ],
+    "gaps_measured": {
+      "batch1_result": "갭 원시 1건(집계 1항목), B계열. 분모 10, GAP RATE 10%. ★편재 제외 4건 발생 — absolute_value_from_square_root_omitted(단원 14회 등장)가 편재 태그로 걸러졌다. M2_NE에서는 편재 제외가 11배치 내내 0이었는데 M3_REAL은 첫 배치부터 나온다. 이 단원 관측이 소수 태그에 강하게 쏠려 있다는 신호(상위 4태그가 49종 중 14·13·12·11회).",
+      "denominators_batch1": { "concepts_total": 6, "concepts_decidable": 4, "concepts_gap_capable": 2, "codes_checked": 10, "gaps_raw": 1, "gap_rate": "10%", "ubiquitous_excluded": 4 }
+    },
+    "gaps_undecidable": [
+      { "concept": "제곱근의 뜻과 표현", "types": 5, "observed_types": 0, "batch": 1, "reason": "관측 유형 0 → 판정 불가." },
+      { "concept": "제곱근의 성질", "types": 4, "observed_types": 0, "batch": 1, "reason": "관측 유형 0 → 판정 불가." }
+    ],
+    "gaps_criterion": "M2_GEOM/M2_NE 정본 승계 — 예측층 유형(observed_basis:false)에 배치한 error_code 중, 같은 개념에 관측 유형이 있는데 그 관측 유형들의 fine_error_tags 합집합에 없는 것만 기록. 개념에 관측 유형이 전무하면 판정 불가로 미기록. kind: A계열=전역부재 / B계열=개념국소.",
+    "gaps_excluded_by_criterion": [],
+    "new_tags": []
+  },
+  "prescriptions": {
+    "M3_REAL_PT001": {
+      "problem_nature": "어떤 수의 제곱근이 무엇인지 정의에 따라 구하는 유형",
+      "required_thinking": ["a의 제곱근 = 제곱해서 a가 되는 수", "양수의 제곱근은 양·음 두 개", "0의 제곱근은 0 하나", "음수의 제곱근은 없음(실수 범위)"],
+      "must_write_steps": ["x² = (주어진 수) 를 적는다.", "주어진 수가 양수·0·음수 중 무엇인지 확인한다.", "개수를 먼저 정한다(2개·1개·0개).", "값을 부호와 함께 모두 적는다."],
+      "common_wrong_actions": ["양의 제곱근 하나만 답한다.", "음수의 제곱근이 있다고 답한다.", "0의 제곱근을 2개로 본다."],
+      "error_checkpoints": [
+        { "error_code": "square_root_existence_count_confusion", "label": "제곱근 개수·존재 혼동", "diagnosis": "제곱근이 몇 개인지(또는 있는지)를 잘못 판단했다.", "student_fix": "값을 구하기 전에 개수부터 정하라. 양수 2개, 0은 1개, 음수는 없다." },
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "'제곱근'과 '양의 제곱근'을 같은 것으로 보고 하나만 답했다.", "student_fix": "'a의 제곱근'은 ± 두 개, '√a'는 양의 것 하나다. 문제의 표현에 밑줄을 긋고 시작하라." }
+      ],
+      "student_command": "x² = (주어진 수)를 먼저 쓰고 개수부터 정하라. 그다음 부호를 붙여 모두 적어라.",
+      "teacher_note": "개수를 먼저 정하게 하면 누락이 사라진다.",
+      "parent_message": "제곱근이 몇 개인지 먼저 정하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT002": {
+      "problem_nature": "제곱근을 근호를 사용해 나타내는 유형",
+      "required_thinking": ["√a는 a의 양의 제곱근 하나만 가리킴", "a의 제곱근 전체는 ±√a", "근호 안은 음수가 될 수 없음", "문제가 묻는 것이 전체인지 양의 것인지 확인"],
+      "must_write_steps": ["문제가 '제곱근'인지 '양의 제곱근'인지 표시한다.", "근호를 써서 나타낸다.", "전체를 묻는다면 ± 를 붙인다.", "근호 안이 음수가 아닌지 확인한다."],
+      "common_wrong_actions": ["전체를 묻는데 √a만 쓴다.", "양의 제곱근에 ± 를 붙인다.", "근호 안에 음수를 넣는다."],
+      "error_checkpoints": [
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "√a(양의 제곱근)와 ±√a(제곱근 전체)를 뒤바꿔 썼다.", "student_fix": "문제의 '양의'에 동그라미를 쳐라. 있으면 √a, 없으면 ±√a다." },
+        { "error_code": "multiple_answer_omission", "label": "복수 정답 누락", "diagnosis": "제곱근 전체를 묻는데 하나만 적었다.", "student_fix": "답을 쓰기 전에 '몇 개를 써야 하나'를 옆에 적어라." }
+      ],
+      "student_command": "문제의 '양의'에 동그라미부터 쳐라. 있으면 √a 하나, 없으면 ±√a 둘이다.",
+      "teacher_note": "표현 하나로 답의 개수가 갈린다. 표시를 습관화하라.",
+      "parent_message": "문제 표현을 표시하고 시작하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT003": {
+      "problem_nature": "x² = n 을 만족시키는 x의 값을 구하는 유형",
+      "required_thinking": ["x² = n 의 해는 x = ±√n", "n이 양수면 해가 2개", "n이 0이면 해가 1개", "제곱근 정의와 같은 상황임을 인식"],
+      "must_write_steps": ["x² = n 을 적는다.", "n의 부호로 해의 개수를 정한다.", "x = ±√n 으로 해를 적는다.", "구한 값을 제곱해 n이 되는지 검산한다."],
+      "common_wrong_actions": ["양의 해만 적는다.", "제곱근을 씌우며 ± 를 빠뜨린다.", "n이 음수인데 해가 있다고 한다."],
+      "error_checkpoints": [
+        { "error_code": "square_root_existence_count_confusion", "label": "제곱근 개수·존재 혼동", "diagnosis": "해의 개수를 잘못 판단했다.", "student_fix": "n의 부호를 보고 개수를 먼저 적어라. 양수 2개, 0은 1개, 음수는 없다." },
+        { "error_code": "multiple_answer_omission", "label": "복수 정답 누락", "diagnosis": "±  중 하나만 답했다.", "student_fix": "제곱해서 같은 값이 되는 수는 둘이다. 두 값을 모두 적고 각각 제곱해 검산하라." }
+      ],
+      "student_command": "n의 부호로 개수를 먼저 정하고, x = ±√n 을 적어라. 두 값 모두 검산하라.",
+      "teacher_note": "± 누락이 이 유형의 대표 실점이다.",
+      "parent_message": "두 값을 모두 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT004": {
+      "problem_nature": "제곱근을 구할 수 없는 수를 판별하는 유형",
+      "required_thinking": ["실수 범위에서 음수의 제곱근은 없음", "제곱하면 항상 0 이상이 되기 때문", "0과 양수는 제곱근이 있음", "판별 근거를 적음"],
+      "must_write_steps": ["각 수의 부호를 확인한다.", "음수면 제곱근이 없다고 판별한다.", "0·양수면 있다고 판별한다.", "근거를 한 문장으로 적는다."],
+      "common_wrong_actions": ["음수의 제곱근이 음수라고 답한다.", "0의 제곱근이 없다고 본다.", "근거 없이 판별한다."],
+      "error_checkpoints": [
+        { "error_code": "square_root_existence_count_confusion", "label": "제곱근 개수·존재 혼동", "diagnosis": "음수의 제곱근이 존재한다고 보거나 0의 제곱근이 없다고 판단했다.", "student_fix": "'제곱하면 0 이상'이라는 사실에서 출발하라. 음수가 되는 제곱은 없다." },
+        { "error_code": "range_constraint_dropped", "label": "범위 조건 누락", "diagnosis": "실수 범위라는 조건을 놓쳤다.", "student_fix": "문제의 범위(실수)를 옆에 적어 두고 판별하라. 범위가 달라지면 답도 달라진다." }
+      ],
+      "student_command": "'제곱하면 항상 0 이상'에서 출발하라. 음수만 제곱근이 없다.",
+      "teacher_note": "0을 음수 쪽에 넣는 오류가 함께 나온다.",
+      "parent_message": "판별 근거를 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT005": {
+      "problem_nature": "제곱근 조건으로부터 문자 사이의 관계식을 세우는 유형",
+      "required_thinking": ["'a가 b의 제곱근' = a² = b", "관계의 방향을 뒤집지 않음", "근호 안이 0 이상이어야 함", "세운 식을 정의로 되짚어 확인"],
+      "must_write_steps": ["문장에서 '무엇이 무엇의 제곱근'인지 표시한다.", "a² = b 형태로 관계식을 세운다.", "근호 안·제곱 대상의 범위 조건을 적는다.", "정의로 되짚어 확인한다."],
+      "common_wrong_actions": ["관계를 반대로 세운다(b² = a).", "범위 조건을 빠뜨린다.", "제곱과 제곱근을 뒤바꾼다."],
+      "error_checkpoints": [
+        { "error_code": "substitution_direction_error", "label": "대입 방향 오류", "diagnosis": "'A가 B의 제곱근'을 반대로 읽어 관계식을 뒤집었다.", "student_fix": "'A가 B의 제곱근' → A를 제곱하면 B다. 화살표를 그려 방향을 고정한 뒤 식으로 옮겨라." },
+        { "error_code": "perfect_square_radicand_condition_failure", "label": "제곱수 조건 판정 실패", "diagnosis": "제곱 대상이나 근호 안이 만족해야 할 조건을 세우지 못했다.", "student_fix": "근호 안은 0 이상이어야 한다. 조건을 식 옆에 따로 적어 두고 답을 거르라." }
+      ],
+      "student_command": "'무엇이 무엇의 제곱근'인지 화살표로 표시한 뒤 A² = B로 옮겨라. 범위 조건도 적어라.",
+      "teacher_note": "방향을 문장으로 확인시키면 뒤집힘이 사라진다.",
+      "parent_message": "관계의 방향을 표시하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT006": {
+      "problem_nature": "제곱근의 개수와 표기를 함께 판단하는 이해 유형",
+      "required_thinking": ["제곱근의 개수는 밑의 부호가 결정", "'제곱근'과 '양의 제곱근'은 다름", "√a² 와 (√a)² 를 구분", "설명마다 정의로 대조"],
+      "must_write_steps": ["설명을 하나씩 나눠 적는다.", "각 설명이 개수를 말하는지 표기를 말하는지 구분한다.", "정의와 대조해 옳고 그름을 정한다.", "틀린 설명은 반례를 적는다."],
+      "common_wrong_actions": ["개수와 표기를 섞어 판단한다.", "양의 제곱근만 제곱근으로 본다.", "반례를 찾지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "square_root_existence_count_confusion", "label": "제곱근 개수·존재 혼동", "diagnosis": "제곱근의 개수를 잘못 판단해 설명의 참거짓을 뒤바꿨다.", "student_fix": "설명마다 '개수 이야기인가 표기 이야기인가'를 먼저 적어라." },
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "√a 를 제곱근 전체로 보고 판단했다.", "student_fix": "√a는 양의 것 하나뿐이다. ±√a와 나란히 적어 두고 대조하라." },
+        { "error_code": "multiple_answer_omission", "label": "복수 정답 누락", "diagnosis": "옳은 설명이 여럿인데 하나만 골랐다.", "student_fix": "설명마다 O/X를 다 적은 뒤 O의 개수를 세어 답하라." }
+      ],
+      "student_command": "설명마다 '개수인가 표기인가'를 적고 O/X를 전부 매겨라. 그다음 답을 고르라.",
+      "teacher_note": "개수와 표기를 분리시키는 것이 이 유형의 핵심 지도점이다.",
+      "parent_message": "설명마다 O/X를 매기는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT007": {
+      "problem_nature": "미지수를 포함한 수의 제곱근을 이해·판단하는 유형",
+      "required_thinking": ["미지수의 부호에 따라 개수가 달라짐", "경우를 나눠 판단", "범위 조건을 끝까지 유지", "각 경우의 답을 모두 적음"],
+      "must_write_steps": ["미지수의 부호로 경우를 나눈다.", "경우마다 제곱근의 개수를 정한다.", "경우마다 값을 적는다.", "범위 조건에 맞는 경우만 남긴다."],
+      "common_wrong_actions": ["경우를 나누지 않는다.", "한 경우만 답한다.", "범위 조건을 도중에 잊는다."],
+      "error_checkpoints": [
+        { "error_code": "square_root_existence_count_confusion", "label": "제곱근 개수·존재 혼동", "diagnosis": "미지수의 부호에 따라 개수가 달라지는 것을 반영하지 못했다.", "student_fix": "'양수일 때 / 0일 때 / 음수일 때' 세 줄로 나눠 각각 개수를 적어라." },
+        { "error_code": "multiple_answer_omission", "label": "복수 정답 누락", "diagnosis": "경우가 여럿인데 한 경우만 답했다.", "student_fix": "나눈 경우를 모두 적고, 조건에 맞는 것을 전부 답하라." },
+        { "error_code": "range_constraint_dropped", "label": "범위 조건 누락", "diagnosis": "미지수의 범위 조건을 놓쳐 성립하지 않는 경우를 남겼다.", "student_fix": "범위 조건을 문제 옆에 크게 적고 경우마다 대조해 지워라." }
+      ],
+      "student_command": "미지수의 부호로 경우를 나눠 줄을 만들어라. 범위 조건은 옆에 적어 두고 매번 대조하라.",
+      "teacher_note": "경우 나누기를 안 하면 이 유형은 풀리지 않는다.",
+      "parent_message": "경우를 나눠 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT008": {
+      "problem_nature": "n>0일 때 n² 또는 (-n)²의 제곱근을 구하는 유형",
+      "required_thinking": ["n²과 (-n)²은 같은 값", "그 값의 제곱근은 ±n", "제곱근을 구하는 대상이 이미 제곱 꼴임에 주의", "부호 두 개를 모두 적음"],
+      "must_write_steps": ["제곱 꼴을 계산해 값을 구한다.", "그 값의 제곱근을 ± 를 붙여 적는다.", "n>0 조건으로 부호를 확인한다.", "제곱해서 원래 값이 되는지 검산한다."],
+      "common_wrong_actions": ["(-n)²의 제곱근을 -n 하나로 본다.", "제곱근을 구하지 않고 제곱 꼴을 그대로 답한다.", "양의 것만 적는다."],
+      "error_checkpoints": [
+        { "error_code": "square_root_existence_count_confusion", "label": "제곱근 개수·존재 혼동", "diagnosis": "제곱 꼴의 제곱근이 두 개임을 놓쳤다.", "student_fix": "먼저 제곱을 계산해 값을 만들고, 그 값의 제곱근을 ±로 적어라. 두 단계를 나눠라." },
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "'제곱근'을 물었는데 양의 것만 답했다.", "student_fix": "문제의 '양의' 유무를 확인하라. 없으면 ± 둘 다 적는다." }
+      ],
+      "student_command": "제곱을 먼저 계산해 값을 만들고, 그 값의 제곱근을 ±로 적어라. 두 단계로 나눠라.",
+      "teacher_note": "제곱 꼴을 보고 곧바로 답하려다 틀린다.",
+      "parent_message": "두 단계로 나눠 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT009": {
+      "problem_nature": "n<0일 때 n²의 제곱근을 부호에 주의해 구하는 유형",
+      "required_thinking": ["n<0이어도 n²은 양수", "n²의 제곱근은 ±|n|", "√(n²) = |n| 이며 n이 아님", "n의 부호를 결과에 반영"],
+      "must_write_steps": ["n<0 조건을 적는다.", "n²을 계산해 양수임을 확인한다.", "제곱근을 ±|n| 로 적는다.", "n이 음수임을 반영해 절댓값을 풀어 쓴다."],
+      "common_wrong_actions": ["√(n²)을 n으로 쓴다.", "n이 음수인데 결과를 음수로만 둔다.", "절댓값을 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "√(n²)을 n으로 써서 부호가 어긋났다.", "student_fix": "√(n²) = |n| 이다. n이 음수면 |n| = -n 이 되어 양수가 된다." },
+        { "error_code": "square_root_existence_count_confusion", "label": "제곱근 개수·존재 혼동", "diagnosis": "제곱근이 두 개임을 놓쳤다.", "student_fix": "n²의 제곱근은 ±|n| 두 개다. 개수를 먼저 정하라." },
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "제곱근을 벗기며 절댓값을 씌우지 않았다.", "student_fix": "근호를 벗길 때는 항상 절댓값을 먼저 씌우고, 그다음 부호 조건으로 풀어라." }
+      ],
+      "student_command": "근호를 벗길 때는 절댓값부터 씌워라. 그다음 n의 부호로 절댓값을 풀어라.",
+      "teacher_note": "절댓값 단계를 건너뛰는 것이 이 단원 전체의 대표 오류다.",
+      "parent_message": "절댓값을 씌우고 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT010": {
+      "problem_nature": "두 수의 제곱근을 각각 구해 연산하는 유형",
+      "required_thinking": ["수마다 제곱근을 따로 구함", "문제가 양의 제곱근을 말하는지 확인", "부호 조합을 빠짐없이 고려", "연산 결과를 요구한 형태로 정리"],
+      "must_write_steps": ["수마다 제곱근을 구해 나열한다.", "문제가 지정한 것(양의/전체)을 표시한다.", "지정된 값으로 연산한다.", "결과를 정리해 답한다."],
+      "common_wrong_actions": ["부호 조합을 하나만 고려한다.", "양의 제곱근 지정을 놓친다.", "연산 중 부호를 흘린다."],
+      "error_checkpoints": [
+        { "error_code": "multiple_answer_omission", "label": "복수 정답 누락", "diagnosis": "부호 조합이 여럿인데 하나만 계산했다.", "student_fix": "각 수의 제곱근을 ±로 적고, 조합을 표로 만들어 빠짐없이 계산하라." },
+        { "error_code": "sign_propagation_error", "label": "부호 전파 오류", "diagnosis": "연산 과정에서 부호가 어긋났다.", "student_fix": "값마다 부호를 괄호로 감싸 넣어라. 특히 뺄셈에서 괄호를 빠뜨리지 마라." }
+      ],
+      "student_command": "각 수의 제곱근을 ±로 먼저 나열하고, 문제가 지정한 것에 표시한 뒤 계산하라.",
+      "teacher_note": "지정 여부를 표시시키면 조합 누락이 준다.",
+      "parent_message": "제곱근을 먼저 나열하고 계산하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT011": {
+      "problem_nature": "제곱근 표기가 중첩되거나 섞인 식을 정리해 계산하는 유형",
+      "required_thinking": ["'n의 제곱근'과 '√n의 제곱근'을 구분", "안쪽부터 한 단계씩 처리", "단계마다 표기를 정확히 유지", "최종 형태를 확인"],
+      "must_write_steps": ["표현을 안쪽부터 나눠 적는다.", "안쪽 제곱근을 먼저 구한다.", "그 결과의 제곱근을 구한다.", "단계별 결과를 대조해 확인한다."],
+      "common_wrong_actions": ["중첩을 한 번에 처리한다.", "안팎의 표기를 뒤섞는다.", "중간 결과를 적지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "안쪽과 바깥쪽의 표기(제곱근 전체 vs 양의 제곱근)를 뒤섞었다.", "student_fix": "단계마다 '지금 구하는 것이 ±인가 √인가'를 옆에 적어라." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "중첩된 단계를 한 줄에서 처리하다 중간 결과를 잃었다.", "student_fix": "안쪽 한 줄, 바깥 한 줄로 나눠 적어라. 한 줄에 두 단계를 하지 마라." }
+      ],
+      "student_command": "안쪽 한 줄, 바깥 한 줄로 나눠라. 단계마다 ±인지 √인지 옆에 적어라.",
+      "teacher_note": "중첩은 줄 나누기만으로 대부분 해결된다.",
+      "parent_message": "단계를 나눠 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT025": {
+      "problem_nature": "제곱근의 성질을 이용해 조건을 만족하는 수를 구하는 유형",
+      "required_thinking": ["√a² = |a| 임을 적용", "근호 안이 제곱수가 되는 조건을 찾음", "부호 조건을 함께 확인", "구한 값을 원식에 넣어 검산"],
+      "must_write_steps": ["근호 안을 소인수분해하거나 제곱 꼴로 정리한다.", "제곱수가 되는 조건을 적는다.", "조건을 만족하는 값을 구한다.", "원식에 넣어 검산한다."],
+      "common_wrong_actions": ["절댓값을 빠뜨린다.", "제곱수 조건을 세우지 않고 대입으로 찾는다.", "부호 조건을 확인하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "√a² 를 a로 벗겨 부호가 어긋났다.", "student_fix": "근호를 벗기면 |a| 다. 절댓값을 먼저 쓰고 부호 조건으로 푸는 순서를 지켜라." },
+        { "error_code": "perfect_square_radicand_condition_failure", "label": "제곱수 조건 판정 실패", "diagnosis": "근호 안이 제곱수가 되는 조건을 세우지 못했다.", "student_fix": "근호 안을 소인수분해해 지수가 모두 짝수가 되게 하는 조건을 적어라." }
+      ],
+      "student_command": "근호 안을 소인수분해해 지수를 짝수로 만드는 조건을 세워라. 벗길 땐 절댓값부터.",
+      "teacher_note": "대입으로 찾으려 하면 시간이 무너진다. 조건식을 세우게 하라.",
+      "parent_message": "조건을 식으로 세우는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT026": {
+      "problem_nature": "제곱근의 성질로 구한 수들의 크기를 비교하는 유형",
+      "required_thinking": ["근호를 벗기거나 같은 형태로 맞춰 비교", "절댓값 처리를 정확히", "근호 안 수의 대소가 곧 제곱근의 대소", "음수가 섞이면 부호를 먼저 비교"],
+      "must_write_steps": ["각 수를 근호 형태나 정수 형태로 통일한다.", "절댓값을 정확히 풀어 값을 정한다.", "부호가 다르면 부호로 먼저 비교한다.", "같은 부호끼리 크기를 비교한다."],
+      "common_wrong_actions": ["절댓값을 빠뜨려 부호를 틀린다.", "형태를 통일하지 않고 비교한다.", "음수끼리 대소를 뒤집는다."],
+      "error_checkpoints": [
+        { "error_code": "radical_magnitude_comparison_failure", "label": "근호 수 대소비교 실패", "diagnosis": "형태를 통일하지 않고 겉모습으로 비교했다.", "student_fix": "전부 근호 형태로 맞추거나 전부 정수로 바꾼 뒤 한 줄에 나열해 비교하라." },
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "근호를 벗기며 절댓값을 빠뜨려 부호가 틀렸다.", "student_fix": "벗길 때는 |a| 로 쓰고, 조건을 보고 부호를 정한 뒤 비교하라." }
+      ],
+      "student_command": "형태를 하나로 통일해 한 줄에 나열하라. 근호를 벗길 땐 절댓값부터.",
+      "teacher_note": "통일 줄이 없으면 정답이라도 우연이다.",
+      "parent_message": "형태를 맞춰 비교하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT027": {
+      "problem_nature": "근호를 사용하지 않고 나타낼 수 있는 수를 판별하는 유형",
+      "required_thinking": ["근호 안이 제곱수면 근호를 벗길 수 있음", "소인수분해해 지수의 홀짝을 확인", "제곱인수를 밖으로 빼낼 수 있는지 확인", "판별 근거를 적음"],
+      "must_write_steps": ["근호 안을 소인수분해한다.", "지수가 모두 짝수인지 확인한다.", "짝수면 근호를 벗길 수 있다고 판별한다.", "근거를 한 문장으로 적는다."],
+      "common_wrong_actions": ["소인수분해 없이 짐작한다.", "제곱인수 일부만 빼낸다.", "판별 근거를 적지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "perfect_square_radicand_condition_failure", "label": "제곱수 조건 판정 실패", "diagnosis": "근호 안이 제곱수인지 판정하는 기준을 잘못 적용했다.", "student_fix": "소인수분해해 지수를 적어라. 전부 짝수여야 근호를 완전히 벗길 수 있다." },
+        { "error_code": "perfect_square_factor_extraction_failure", "label": "제곱인수 추출 실패", "diagnosis": "제곱인수를 찾지 못하거나 일부만 빼냈다.", "student_fix": "지수를 2로 나눈 몫만큼 밖으로 나온다. 지수마다 몫과 나머지를 적어 확인하라." }
+      ],
+      "student_command": "근호 안을 소인수분해해 지수를 적어라. 전부 짝수여야 완전히 벗겨진다.",
+      "teacher_note": "소인수분해 줄이 없으면 이후는 볼 필요가 없다.",
+      "parent_message": "소인수분해하는 줄이 있는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT028": {
+      "problem_nature": "제곱근의 성질을 여러 단계에 걸쳐 활용하는 응용 유형",
+      "required_thinking": ["단계마다 절댓값 처리를 확인", "조건(부호·범위)을 끝까지 유지", "중간 결과를 남겨 다음 단계에 사용", "최종 형태를 요구대로 정리"],
+      "must_write_steps": ["주어진 조건(부호·범위)을 적는다.", "단계마다 근호를 벗기며 절댓값을 씌운다.", "조건으로 절댓값을 풀어 부호를 정한다.", "단계별 결과를 대조해 마무리한다."],
+      "common_wrong_actions": ["조건을 도중에 잊는다.", "절댓값을 한 번만 처리한다.", "여러 단계를 한 줄에서 처리한다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "일부 단계에서 절댓값을 씌우지 않았다.", "student_fix": "근호를 벗기는 곳마다 |  | 를 먼저 그려라. 단계 수만큼 절댓값이 나온다." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "여러 단계를 한 줄에서 처리하다 중간 결과를 잃었다.", "student_fix": "단계마다 한 줄씩 결과를 적고 다음 줄의 입력으로 써라." }
+      ],
+      "student_command": "근호를 벗기는 곳마다 절댓값을 먼저 그려라. 단계마다 한 줄씩 적어라.",
+      "teacher_note": "절댓값을 한 번만 처리하고 넘어가는 것이 대표 오류다.",
+      "parent_message": "단계마다 줄을 나눠 적는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT029": {
+      "problem_nature": "제곱근의 성질을 이용해 제곱근의 값을 구하는 유형",
+      "required_thinking": ["√a² = |a| 를 적용", "a의 부호로 절댓값을 풀음", "문제가 요구하는 것이 값인지 표기인지 확인", "구한 값을 제곱해 검산"],
+      "must_write_steps": ["근호 안을 제곱 꼴로 정리한다.", "근호를 벗기며 절댓값을 씌운다.", "부호 조건으로 절댓값을 푼다.", "제곱해 원래 값이 되는지 검산한다."],
+      "common_wrong_actions": ["절댓값 없이 벗긴다.", "부호 조건을 확인하지 않는다.", "검산을 생략한다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "√a² 를 a로 벗겨 부호가 어긋났다.", "student_fix": "벗기면 |a| 다. 절댓값을 쓰고 나서 부호 조건을 보라. 순서를 바꾸지 마라." },
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "√ 로 표기된 값(양의 것)과 제곱근 전체를 혼동했다.", "student_fix": "√ 가 붙어 있으면 양수 하나다. ± 를 임의로 붙이지 마라." }
+      ],
+      "student_command": "벗기면 |a| 다. 절댓값을 먼저 쓰고 그다음 부호 조건으로 풀어라.",
+      "teacher_note": "순서(절댓값 → 부호 판정)를 고정시켜라.",
+      "parent_message": "절댓값을 씌우고 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT030": {
+      "problem_nature": "제곱근의 성질에 대한 이해를 설명·판별로 확인하는 유형",
+      "required_thinking": ["√a² = |a| 와 (√a)² = a 를 구분", "후자는 a ≥ 0 조건이 필요", "설명마다 반례를 찾아 검증", "표기의 차이를 정확히 읽음"],
+      "must_write_steps": ["설명을 하나씩 나눠 적는다.", "√a² 인지 (√a)² 인지 표기를 구분한다.", "음수를 대입해 반례를 찾아본다.", "옳고 그름을 근거와 함께 적는다."],
+      "common_wrong_actions": ["두 표기를 같은 것으로 본다.", "반례를 찾지 않는다.", "조건(a ≥ 0)을 빠뜨린다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "√a² = a 로 보고 설명을 참으로 판단했다.", "student_fix": "a에 음수를 하나 넣어 보라. 그 한 번으로 판별된다." },
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "√a² 와 (√a)² 의 표기 차이를 읽지 못했다.", "student_fix": "두 표기를 나란히 적고 각각 a = -3 을 넣어 값을 비교하라." }
+      ],
+      "student_command": "두 표기를 나란히 적고 a = -3 을 넣어 보라. 값이 갈리는 것이 답이다.",
+      "teacher_note": "음수 대입 한 번이 이 유형 전체를 해결한다.",
+      "parent_message": "음수를 넣어 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT031": {
+      "problem_nature": "제곱근이 중첩된 식을 성질을 적용해 계산하는 유형",
+      "required_thinking": ["안쪽부터 한 겹씩 처리", "겹마다 절댓값 처리를 확인", "중간 결과를 남겨 다음 겹의 입력으로", "부호 조건을 끝까지 유지"],
+      "must_write_steps": ["가장 안쪽 근호를 표시한다.", "안쪽부터 한 겹씩 벗기며 절댓값을 씌운다.", "겹마다 부호 조건으로 절댓값을 푼다.", "겹별 결과를 대조해 마무리한다."],
+      "common_wrong_actions": ["바깥부터 벗긴다.", "절댓값을 한 번만 처리한다.", "여러 겹을 한 줄에서 처리한다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "겹을 벗기며 일부에서 절댓값을 빠뜨렸다.", "student_fix": "겹의 개수를 세어 두고, 그 수만큼 절댓값이 나오는지 확인하라." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "여러 겹을 한 줄에서 처리하다 중간 결과를 잃었다.", "student_fix": "한 겹당 한 줄. 겹을 건너뛰지 마라." },
+        { "error_code": "principal_square_root_notation_confusion", "label": "양의 제곱근 표기 혼동", "diagnosis": "겹마다 표기(√ vs ±)를 뒤섞었다.", "student_fix": "겹마다 지금 구하는 것이 √인지 ±인지 옆에 적어라." }
+      ],
+      "student_command": "겹의 개수를 세어 두고 한 겹당 한 줄로 벗겨라. 겹 수만큼 절댓값이 나온다.",
+      "teacher_note": "겹 수와 절댓값 수를 맞춰 보게 하면 누락이 드러난다.",
+      "parent_message": "겹마다 줄을 나눠 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT032": {
+      "problem_nature": "제곱근의 성질을 이용해 덧셈·뺄셈을 계산하는 유형",
+      "required_thinking": ["근호를 벗길 수 있는 것부터 정리", "벗길 때 절댓값을 씌움", "근호 부분끼리만 더하고 뺌", "근호 안이 다르면 합칠 수 없음"],
+      "must_write_steps": ["각 항에서 근호를 벗길 수 있는지 확인한다.", "벗기며 절댓값을 처리한다.", "근호 안이 같은 항끼리 묶는다.", "정리해 최종 형태로 적는다."],
+      "common_wrong_actions": ["근호 안이 다른 항을 합친다.", "절댓값을 빠뜨린다.", "근호 안의 수를 그냥 더한다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "근호를 벗기며 절댓값을 씌우지 않아 부호가 어긋났다.", "student_fix": "벗기는 곳마다 |  | 를 먼저 그리고 조건으로 풀어라." },
+        { "error_code": "like_term_misgrouping", "label": "동류항 묶기 오류", "diagnosis": "근호 안이 다른 항을 함께 묶었다.", "student_fix": "근호 안의 수가 완전히 같은 항만 묶어라. √2와 √3은 합쳐지지 않는다." }
+      ],
+      "student_command": "벗길 수 있는 것부터 절댓값을 씌워 정리하고, 근호 안이 같은 항끼리만 묶어라.",
+      "teacher_note": "근호 안이 다른 항을 합치는 오류가 대표적이다.",
+      "parent_message": "근호 안이 같은 것끼리 묶는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT033": {
+      "problem_nature": "제곱근의 성질을 이용해 곱셈·나눗셈을 계산하는 유형",
+      "required_thinking": ["근호끼리 곱하고 나눌 수 있음", "벗길 수 있는 것은 먼저 벗김(절댓값 주의)", "부호를 먼저 정리한 뒤 수를 계산", "최종 형태로 정리"],
+      "must_write_steps": ["부호를 먼저 떼어 정리한다.", "근호 안끼리 곱하거나 나눈다.", "벗길 수 있으면 절댓값을 씌워 벗긴다.", "정리해 최종 형태로 적는다."],
+      "common_wrong_actions": ["부호를 나중에 붙이려다 놓친다.", "절댓값을 빠뜨린다.", "근호 밖 수와 안 수를 섞어 계산한다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "근호를 벗기며 절댓값을 빠뜨렸다.", "student_fix": "벗기는 곳마다 절댓값을 먼저 그려라." },
+        { "error_code": "sign_propagation_error", "label": "부호 전파 오류", "diagnosis": "부호를 나중에 붙이려다 흘렸다.", "student_fix": "부호를 맨 앞에 먼저 확정해 적고 수 계산으로 넘어가라." }
+      ],
+      "student_command": "부호를 맨 앞에 먼저 확정하고, 근호 안끼리 계산한 뒤 벗길 것을 벗겨라.",
+      "teacher_note": "부호 선처리를 습관화시키면 실수가 크게 준다.",
+      "parent_message": "부호를 먼저 정하고 계산하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    },
+    "M3_REAL_PT034": {
+      "problem_nature": "제곱근의 성질이 든 혼합 계산을 순서를 지켜 처리하는 유형",
+      "required_thinking": ["괄호 → 곱셈·나눗셈 → 덧셈·뺄셈 순서", "근호를 벗기는 곳마다 절댓값", "부호를 단계마다 확인", "중간 결과를 남김"],
+      "must_write_steps": ["계산 순서를 식 위에 번호로 적는다.", "번호 순서대로 처리한다.", "근호를 벗길 때 절댓값을 씌운다.", "단계별 결과를 대조해 마무리한다."],
+      "common_wrong_actions": ["순서를 무시하고 편한 것부터 계산한다.", "절댓값을 빠뜨린다.", "부호를 단계 사이에서 흘린다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "혼합 계산 도중 근호를 벗기며 절댓값을 빠뜨렸다.", "student_fix": "벗기는 곳마다 |  | 를 먼저 그려라. 계산 순서보다 이 표시가 먼저다." },
+        { "error_code": "sign_propagation_error", "label": "부호 전파 오류", "diagnosis": "단계 사이에서 부호가 어긋났다.", "student_fix": "단계마다 그 줄의 부호를 다시 적어라. 앞 줄에서 옮겨 오지 마라." },
+        { "error_code": "operation_order_violation", "label": "연산 순서 위반", "diagnosis": "괄호·곱셈·나눗셈보다 덧셈·뺄셈을 먼저 계산했다.", "student_fix": "식 위에 순서 번호를 적고 그 번호대로만 진행하라." }
+      ],
+      "student_command": "식 위에 순서 번호를 적어라. 근호를 벗기는 곳마다 절댓값을 먼저 그려라.",
+      "teacher_note": "순서 번호와 절댓값 표시 두 가지만 강제하면 대부분 해결된다.",
+      "parent_message": "계산 순서를 적고 시작하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT035": {
+      "problem_nature": "제곱근의 성질을 이용한 계산을 종합적으로 처리하는 유형",
+      "required_thinking": ["여러 성질을 어디에 쓸지 먼저 구분", "순서를 지켜 단계별로 처리", "절댓값과 부호를 단계마다 확인", "최종 형태를 요구대로 정리"],
+      "must_write_steps": ["식을 부분으로 나누고 쓸 성질을 적는다.", "순서를 번호로 정한다.", "단계마다 절댓값·부호를 처리한다.", "결과를 정리해 확인한다."],
+      "common_wrong_actions": ["쓸 성질을 잘못 고른다.", "순서를 무시한다.", "절댓값·부호를 단계마다 확인하지 않는다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "일부 단계에서 절댓값 처리를 빠뜨렸다.", "student_fix": "근호를 벗기는 지점을 먼저 전부 표시하고, 그 개수만큼 절댓값이 나오는지 확인하라." },
+        { "error_code": "operation_order_violation", "label": "연산 순서 위반", "diagnosis": "정해진 계산 순서를 지키지 않았다.", "student_fix": "순서를 번호로 적고 그 번호대로만 진행하라." },
+        { "error_code": "sign_propagation_error", "label": "부호 전파 오류", "diagnosis": "단계를 넘기며 부호가 어긋났다.", "student_fix": "단계마다 그 줄의 부호를 새로 적어라." }
+      ],
+      "student_command": "부분마다 쓸 성질을 먼저 적고 순서 번호를 매겨라. 벗기는 지점은 미리 전부 표시하라.",
+      "teacher_note": "종합 유형은 계산력이 아니라 성질 선택과 순서가 갈린다.",
+      "parent_message": "어떤 성질을 쓰는지 적으며 푸는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": true
+    },
+    "M3_REAL_PT036": {
+      "problem_nature": "제곱근의 성질을 이용한 계산을 문제 상황에 적용하는 활용 유형",
+      "required_thinking": ["상황을 식으로 옮기는 것이 먼저", "근호를 벗길 때 절댓값 처리", "단계마다 결과를 남김", "구하는 것이 무엇인지 마지막에 확인"],
+      "must_write_steps": ["구하는 것을 문장으로 적고 식을 세운다.", "성질을 적용해 정리한다.", "근호를 벗기며 절댓값을 처리한다.", "묻는 값을 확인해 답한다."],
+      "common_wrong_actions": ["식을 세우지 않고 수만 조작한다.", "절댓값을 빠뜨린다.", "중간 결과를 최종 답으로 낸다."],
+      "error_checkpoints": [
+        { "error_code": "absolute_value_from_square_root_omitted", "label": "제곱근의 절댓값 처리 누락", "diagnosis": "근호를 벗기며 절댓값을 씌우지 않았다.", "student_fix": "벗기는 곳마다 절댓값을 먼저 그리고 조건으로 풀어라." },
+        { "error_code": "multi_step_composite_error", "label": "다단계 복합 처리 오류", "diagnosis": "단계별 결과를 남기지 않아 중간 값을 최종 답으로 냈다.", "student_fix": "단계마다 '무엇을 구한 것인지' 이름을 적어라. 마지막 줄이 답이어야 한다." }
+      ],
+      "student_command": "구하는 것을 먼저 문장으로 쓰고 식을 세워라. 단계마다 무엇을 구한 것인지 적어라.",
+      "teacher_note": "중간 결과를 답으로 내는 오류가 활용 유형의 대표 실점이다.",
+      "parent_message": "마지막에 무엇을 답하는지 확인하는지 봐 주세요.",
+      "matched_template_id": null, "match_score": null, "draft": true, "revision": 1, "observed_basis": false
+    }
+  }
+}
