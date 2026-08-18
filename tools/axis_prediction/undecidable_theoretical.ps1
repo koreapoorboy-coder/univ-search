@@ -50,12 +50,31 @@ foreach ($pt in $cj.problem_types) {
   $m = $catRe.Match([string]$pt.description)
   $key = $null
   if ($m.Success) { $key = $m.Groups[1].Value }
-  if (-not $key) { $key = $pt.raw_section_id; $unparsed += $pt.problem_type_id }
+  if (-not $key) {
+    # Fallback 1: raw_section_id. Fallback 2: a sentinel so the run still reports.
+    # Do NOT pass $null to ContainsKey - it throws a raw .NET exception that hides the
+    # real cause (catalog uses a different grouping scheme). Observed 2026-08-18 on
+    # m2_similarity_pythagoras (no description field) and m1_*_geometry (plain description).
+    $key = $pt.raw_section_id
+    if (-not $key) { $key = '(ungrouped)' }
+    $unparsed += $pt.problem_type_id
+  }
   if (-not $groups.ContainsKey($key)) { $groups[$key] = @() }
   $groups[$key] += $pt.problem_type_id
 }
 
 $catTotal = @($cj.problem_types).Count
+
+# If NO type carries the category prefix, this catalog does not use the grouping scheme this
+# tool measures. Reporting a number anyway would be a granularity-mismatch comparison - exactly
+# the error the granularity caveat warns about. Fail loudly and name the alternative.
+if ($unparsed.Count -eq $catTotal -and $catTotal -gt 0) {
+  throw ("GROUPING SCHEME NOT APPLICABLE: none of the " + $catTotal + " types in " +
+    [System.IO.Path]::GetFileName($Catalog) + " carry the category prefix in 'description', " +
+    "and 'raw_section_id' is absent. This unit groups differently (e.g. problem_family_id). " +
+    "A number computed here would NOT be comparable with units measured by the category rule - " +
+    "report it as 'not measured (different grouping rule)' instead.")
+}
 $concepts = 0; $undecConcepts = 0; $undecTypes = 0; $obsTypes = 0
 $undecList = @()
 foreach ($k in $groups.Keys) {
