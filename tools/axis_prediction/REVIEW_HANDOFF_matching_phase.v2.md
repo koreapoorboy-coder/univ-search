@@ -11,8 +11,8 @@
 - **매칭 결과 화면 렌더 = 종결**: `renderMatchedItems`(학생: 정답·해설접기·배지)·`renderMatchingTeacherDetail`(교사: 통계·ai_assigned_type·일치도). `math_hybrid_report_renderer.js`(index=hybrid 공유).
 - **기존 렌더 결함 2건 수정**(매칭 무관): ①"주의할 연결" JSON 원문 노출 → `connText`(from_name→to_name). ②problem_type_id 노출 → 근본원인=type_name이 데이터 흐름에 없음 → **워커 attempts.type_name 채움**(`typeNameById`, fetchUnitProblemTypes 필드=id·name) + **엔진 `pt.type_name||attempt.type_name` 폴백**(2곳) + 렌더 `wrongText`(id 미노출·없으면 항목제외).
 
-### ★배포 대기(사용자) — 결함2 근본수정
-- 워커 재배포 **VERSION `2026.08.14-typename`**(attempts.type_name 채움) + 정적 push 반영(`?fresh`)로 렌더러·엔진(type_name 폴백). 검증=다음 진단 시 자연 확인(재진단 비용 회피). (schema v3.2·bulk-v2-qno·match-v1은 이미 배포됨.)
+### ✅배포 완료(2026-08-16 확인) — 결함2 근본수정
+- ✅**라이브 확인**(2026-08-16, `/health?t=` 실측): `version=2026.08.14-typename` · `qnorm_selfcheck=pass` · `model=claude-opus-4-8` · `effort=high`. 워커 재배포 + 정적 push 반영 완료. **산출 검증**(attempts.type_name 비어있지 않음)은 재진단 없이 **D1 조회 Q3**로 확인(`B_backlog_batch1.v1.md` ①). (schema v3.2·bulk-v2-qno·match-v1은 이미 배포됨.)
 - 테스트 3배치 정리(smoke·smoke2·match soft-delete, admin 롤백 카드).
 
 ### 진행 중 트랙
