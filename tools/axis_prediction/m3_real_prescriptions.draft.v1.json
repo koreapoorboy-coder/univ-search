@@ -80,6 +80,23 @@
         "_disclosure_partial_prior_exposure": "★독립성 부분 손상 고지(숨기지 않고 기록 — §7 '검증 기준은 대상과 독립'). 배치2의 tier-2 공급원을 추적하는 과정에서 이 세션은 배치3 후보 중 3개 유형의 overlay 태그를 이미 보았다: PT081·PT082(RAW_022) · PT041(RAW_012) · PT046(RAW_013). 판정 입력은 여전히 범주명과 type_name이고 위 basis도 그것만으로 쓰였으나, 완전한 무지 상태는 아니다. RAW_007·011·020·057은 노출 없음. ★특히 반례 후보 RAW_057은 노출 0이므로 핵심 판정의 독립성은 보존됐다.",
         "measured_after": { "types": 23, "overlay_true": 10, "overlay_rate": "43.5%", "tier1": 22, "tier2": 48, "tier3": 0, "new": 0, "codes_total": 70, "group_shared": { "types": 17, "tier1": 14, "tier2": 37, "new": 0, "codes_total": 51 }, "group_partial": { "types": 2, "tier1": 5, "tier2": 2, "new": 0, "codes_total": 7 }, "group_not_shared": { "types": 4, "tier1": 3, "tier2": 9, "new": 0, "codes_total": 12 }, "verdict": "★사전 예측 적중 — none 계열(RAW_057)에서도 신설 0, partial(RAW_022)도 신설 0. 예측대로였다. ★예측이 맞았다고 반증을 확정하지 않는다(누적 not_shared 23종, 검수 지시). ★부수 관측: 구조 등급이 아니라 overlay 보유율이 tier 비중을 결정한다는 정렬이 이번 배치에서 드러났다 — tier_breakdown.finding_batch3_confound_overlay_ownership 참조." }
       },
+      "batch4": {
+        "_recorded": "★이 블록은 배치4 저작·측정 **이전에** 기록·커밋됐다(저작 커밋과 분리).",
+        "_purpose": "★★확인 항목 2 재설계(검수 지시 2026-08-19). 배치2·3에서 shared/not_shared 비교가 **overlay 보유율 교란**을 안고 있었으므로, 이번에는 **두 그룹의 보유율을 맞춰** 구조 효과만 남긴다.",
+        "design_matched_ownership": {
+          "shared": { "categories": ["RAW_034 근호가 있는 식의 변형(1) √a²b(3종/ov2)", "RAW_035 근호가 있는 식의 변형(2) a√b(5종/ov3)", "RAW_048 분배법칙을 이용한 제곱근의 덧셈과 뺄셈(3종/ov0)", "RAW_049 분배법칙을 이용한 분모의 유리화(1종/ov0)"], "types": 12, "overlay_true": 5, "overlay_rate": "41.7%" },
+          "not_shared": { "categories": ["RAW_038 제곱근표에 없는 제곱근의 값 구하기(5종/ov2)", "RAW_042 제곱근의 곱셈과 나눗셈의 도형에의 활용(1) 넓이·부피(6종/ov2)", "RAW_028 실수와 수직선(1종/ov1)"], "types": 12, "overlay_true": 5, "overlay_rate": "41.7%" },
+          "match": "★두 그룹의 보유율이 **41.7% vs 41.7%로 동일**하다(5/12 vs 5/12). 배치2는 36.8% vs 100%였다.",
+          "batch_total": "24종 · overlay 10/24 = 41.7%(단원 43.8%와 2.1%p 차)."
+        },
+        "judgment_shared_basis": "골격 = '근호 안 제곱인수 분리·결합 → 계수 안팎 이동 → 정리'. RAW_034·035는 서로 역방향이지만 단계 열이 같고, RAW_048·049는 분배법칙을 거친 뒤 같은 정리 단계로 수렴한다. 단원 주 골격 '근호 정리 → 계산'에 그대로 얹힌다.",
+        "judgment_not_shared_basis": "배치2와 **동일한 기준**을 적용했다 — 도구나 외부 공식이 개입해 단계 열이 갈리는 계열. RAW_038은 표·주어진 값 조회와 배율 분리(배치2 RAW_026과 같은 계열), RAW_042는 도형 공식(넓이·부피) 세우기가 앞에 오고, RAW_028은 수직선 대응(배치2 RAW_029와 같은 계열)이다.",
+        "prediction_before_measurement": "★사전 예측: 보유율을 맞췄으므로 두 그룹의 tier-2 비중이 **비슷하게 나올 것**으로 예측한다(각각 55~65% 부근). 그렇게 되면 '구조는 tier 분포를 결정하지 않는다'가 보유율 통제 하에서 확인된다. 반대로 not_shared 쪽 tier-2가 뚜렷이 높거나 낮게 갈리면 **구조 효과가 실재**한다는 뜻이며, 그때는 기제② 논의를 되살린다. 신설은 양쪽 모두 0으로 예측한다.",
+        "_disclosure_partial_prior_exposure": "★독립성 부분 손상 고지. 배치2·3 추적 과정에서 이 세션은 다음 유형의 overlay 태그를 이미 보았다 — PT132·PT133(RAW_038, not_shared) · PT122(RAW_035, shared) · PT100(RAW_028, not_shared). 노출이 **양쪽 그룹에 걸쳐 있어** 한쪽에 유리하게 작용하지는 않는다. RAW_034·042·048·049는 노출 없음. 판정 근거는 범주명과 type_name만으로 쓰였다.",
+        "_composition_is_deliberate": "★편성을 보유율에 맞춰 **의도적으로** 골랐다(검수 지시). 이는 판정의 편향이 아니라 교란 통제이며, 판정 기준 자체는 배치2·3과 같은 것을 썼다. 숨기지 않고 기록한다.",
+        "_escape_clause": "★검수 지시: 이후 배치에서도 보유율을 맞춘 shared/not_shared 쌍을 만들 수 없으면 **'보유율 통제 불가'를 기록하고 확인 항목 2를 미결로 종결**한다. 억지 결론보다 미결이 낫다.",
+        "measured_after": "(배치4 저작·측정 후 기록)"
+      },
       "none_candidates_preregistered": {
         "_note": "★저작 전에 지목한다. 이후 그 배치에서 tier 분포를 별도 보고한다(검수 지시).",
         "list": ["RAW_026 제곱근표를 이용하여 제곱근의 값 구하기(2종)", "RAW_027 무리수를 수직선 위에 나타내기(7종)", "RAW_029 수직선에서 무리수에 대응하는 점 찾기(3종)", "RAW_051 새로운 기호로 정의된 연산(2종)", "RAW_053 무리수의 정수 부분과 소수 부분(5종)", "RAW_057 제곱근의 덧셈과 뺄셈의 수직선에의 활용(4종)"],
@@ -180,7 +197,9 @@
       "2_implication": "tier-2가 먹히는 이유를 기제①(어휘 폭)·기제②(구조 공유)로 설명하려 했으나 **둘 다 충분조건이 아니다**.",
       "3_new_hypothesis_observation_only": "'관측 어휘가 골격과 무관하게 오류 유형을 포착한다'는 **새 가설이며 관측으로만 표기**한다. 결론으로 인용 금지. M3_REAL 완결 시점에 전체 데이터로 재검토.",
       "4_preregistration_value": "★사전 등록의 실효 사례로 적을 것 — 판정을 측정 전에 기록·커밋했기 때문에 'not_shared에서 tier-2가 더 많았다'를 결과에 맞춘 해석 없이 말할 수 있었다. 사후 판정이었다면 같은 수치를 '사실 그 계열도 구조를 공유하고 있었다'로 재서술할 수 있었다.",
-      "5_group_separation": "그룹 분리는 not_shared·partial 계열이 포함된 모든 배치에서 유지한다(아래 standing rule)."
+      "5_group_separation": "그룹 분리는 not_shared·partial 계열이 포함된 모든 배치에서 유지한다(아래 standing rule).",
+      "6_gap_rate_denominator_example": "★검수 지시 2026-08-19: 분모 병기 규칙의 실례를 최종 보고에 넣을 것 — 배치3에서 갭 **절대수는 9 → 14로 늘었는데 GAP RATE는 28.1% → 23.7%로 내려갔다**(분모 32 → 59). 절대수만 보면 '예측이 나빠졌다'로, RATE만 보면 '좋아졌다'로 읽힌다. 두 수를 함께 내야 하는 이유가 이 한 사례에 다 들어 있다.",
+      "7_refutation_downgraded": "★기제② '반증'은 **확정 판정이 아니라 교란 미통제 관측**으로 적을 것(검수 자기정정 2026-08-19). 근거가 된 배치2 비교는 두 그룹의 overlay 보유율이 37% vs 100%로 달랐다. 최종 보고는 보유율을 통제한 배치4 결과와 함께 서술하고, 통제 편성이 끝내 불가능했다면 **미결로 종결**한다(억지 결론 금지)."
     },
     "tier_breakdown": {
       "_note": "배치별 tier 분해 누적 기록. 최종 제출 시 203종 전체 분포를 이 표로 낸다.",
@@ -196,7 +215,7 @@
       "finding_batch2_check2": "★확인항목2(기제② 가설) 배치2 결과: **사전 등록한 반례 후보 5범주 19종에서도 신설 0**이며 tier-3(사전)도 0이다. 전 코드가 자기 overlay(13) 또는 단원 관측 풀(42)에서 나왔다. ⇒ 가설 '구조 공유가 없는 계열에서는 tier-2가 안 먹힐 수 있다'는 이 단원에서 **지지되지 않았다**. ★사전 판정의 기준은 '단계 열(골격) 공유'였는데 실제로 tier-2를 공급한 것은 **도구·장치를 공유하는 다른 범주의 관측**이었다 — 제곱근표(RAW_026, 자기 관측 0) ← PT132·PT133의 table_rule_direction_misread·power_of_ten_extraction_failure·rounding_instruction_overlooked / 새 기호 연산(RAW_051, 자기 관측 0) ← PT082(새로운 기호에 의해 정의된 경우)의 pattern_extraction_failure / 가우스 기호(PT189) ← PT081·PT082의 square_root_floor_interval_mapping_failure. ⇒ 기제①(어휘 폭)이 골격이 아니라 **도구·장치 수준**에서 작동한다는 것이 배치2의 실측이다. ★사전 등록 판정과 사전 예측은 수정하지 않는다(사후 수정은 결과에 맞춘 해석).",
       "finding_batch3_replication": "★배치3 = 배치2 반증의 재확인 시도(검수 지시 '1회 관측으로 확정하지 말 것'). none 판정 RAW_057 4종에서 **신설 0 · tier-2 비중 75%** — 배치2 not_shared(76.4%)와 사실상 같다. ⇒ 반증이 재현됐다. **누적 not_shared 표본 = 19 + 4 = 23종.** ★여전히 확정하지 않는다(단원 완결 203종 시점).",
       "finding_batch3_confound_overlay_ownership": "★★배치3의 새 관측 — **tier 비중을 결정하는 것은 구조 판정이 아니라 자기 overlay 보유율이다.** 두 배치의 6개 그룹을 overlay 보유율 순으로 세우면 구조 등급과 무관하게 정렬된다: 보유율 100%(배치2 shared 3/3 · 배치3 partial 2/2) → tier-2 36.4% · 28.6% / 보유율 35~50%(배치3 shared 6/17 · 배치3 not_shared 2/4 · 배치2 not_shared 7/19) → tier-2 72.5% · 75% · 76.4%. ★배치3 shared는 **구조를 공유하는데도** tier-2가 72.5%다 — 배치2 shared(36.4%)와 정반대 위치이며, 갈린 것은 구조가 아니라 보유율(35.3% vs 100%)이다. ⇒ 그룹 간 tier 비중을 비교할 때는 overlay 보유율을 통제해야 하며, 통제하지 않은 비교를 구조 효과로 읽으면 안 된다. ★관측으로만 기록한다(판정 아님).",
-      "finding_batch2_check2_review_conclusion": "★★검수 판정 2026-08-18(3차) — **기제② 가설 반증**. 그룹별 tier 비중: not_shared 19종 tier-1 23.6% / tier-2 **76.4%**, shared 3종 tier-1 63.6% / tier-2 **36.4%**. 가설이 예측한 방향('구조 공유가 없으면 tier-2가 안 먹힌다')과 **정반대로**, 구조 공유가 없는 쪽이 tier-2를 더 많이 받았다. ⇒ 신설 0의 원인은 구조 공유가 아니다. ★★**1회 관측이며 표본은 not_shared 19종이다 — 반증을 확정하지 말 것.** 남은 배치에서 not_shared 계열이 나오면 그룹 분리를 유지해 누적하고, 확정은 단원 완결(203종) 시점에 한다.",
+      "finding_batch2_check2_review_conclusion": "★★검수 판정 2026-08-18(3차) — **기제② 가설 반증**. 그룹별 tier 비중: not_shared 19종 tier-1 23.6% / tier-2 **76.4%**, shared 3종 tier-1 63.6% / tier-2 **36.4%**. 가설이 예측한 방향('구조 공유가 없으면 tier-2가 안 먹힌다')과 **정반대로**, 구조 공유가 없는 쪽이 tier-2를 더 많이 받았다. ⇒ 신설 0의 원인은 구조 공유가 아니다. ★★**1회 관측이며 표본은 not_shared 19종이다 — 반증을 확정하지 말 것.** 남은 배치에서 not_shared 계열이 나오면 그룹 분리를 유지해 누적하고, 확정은 단원 완결(203종) 시점에 한다. ★★**격하(검수 자기정정 2026-08-19)**: 이 비교는 두 그룹의 overlay 보유율(37% vs 100%)이 달라 **구조 효과와 보유율 효과가 분리되지 않았다.** 배치3 finding_batch3_confound_overlay_ownership 참조. **반증은 확정 판정이 아니라 '교란 미통제 상태의 관측'으로 취급한다.** ★검수가 스스로 내린 판정을 Code탭 관측으로 정정한 사례이며, 확인 항목 2는 보유율을 통제한 편성으로 재설계한다(batch4).",
       "finding_batch2_confounder": "★교란 변수 구분(검수 요건 3): 신설이 0이므로 (a)어휘 부재 / (b)편재 제외 구분을 적용할 대상이 없다. 편재 제외는 배치2에서 6건 발생했고 누계 10건이다(M2_NE는 11배치 내내 0). 제외된 태그는 전부 단원 5회 이상 등장하는 편재 태그다(radical_magnitude_comparison_failure 9회·multi_step_composite_error 5회·radical_length_to_number_line_mapping_failure 5회). ★편재 제외가 없었다면 누계 원시 갭은 9가 아니라 19였을 것이다 — 갭 수치를 인용할 때 편재 제외 건수를 반드시 병기한다."
     },
     "gaps_denominator_rule": "★★M2_NE에서 확정된 규칙 승계(검수 지시 2026-08-18). 갭은 절대수로 보고·비교하지 말 것. 분모 = 판정가능 개념(관측≥1 AND 예측층≥1)의 예측층 유형에 배치한 코드 슬롯 수. collect_gaps.ps1이 [DENOMINATORS]로 자동 출력한다. ★GAP RATE는 예측 오류율이 아니라 tier 구성·개념 입도의 함수다 — 해석 보류.",
