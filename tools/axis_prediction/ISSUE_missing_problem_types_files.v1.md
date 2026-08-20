@@ -1,5 +1,7 @@
 # ISSUE (별건) — index가 참조하는 problem_types 파일 부재 (circle_properties · statistics) (2026-08-09)
 
+> 🔴 **2026-08-20: 이 ISSUE는 3단원 사안으로 확대됐다. 닮음(M2_SIMILARITY_PYTHAGORAS)이 같은 계열로 등재됐다 → 문서 맨 끝 「확대 등재」 절을 먼저 읽을 것.** 아래 본문의 "전수 확인 = circle·statistics 딱 2개"는 검사 축이 *파일 유무*였기 때문이며, 닮음은 파일이 있어 걸리지 않았다.
+
 > 배선 확대 오버레이 생성 중 circle_properties에서 발견 → 전수 스캔으로 statistics도 동일 확인. 4단원 스키마 불일치(`ISSUE_4unit_diagnosis_rule_schema_mismatch`)와 같은 성격 — **프로덕션에 구멍이 있는데 아무도 몰랐던 것**. 배선과 무관·기존 문제. circle 오버레이는 이 파일 복구 전까지 보류.
 
 ## 무엇
@@ -90,3 +92,54 @@
 2. **★핵심 리스크 — 파생 PT id가 links 참조와 일치?** links는 **`M3_CIRC_PT###` 47개** 기대(index가 이미 이 경로 참조). 파생 problem_types가 **정확히 이 id들**을 써야 붙음. mathflat에 M3_CIRC_PT id가 있는지, 없으면 부여 규칙(다른 단원 선례)을 확인해 **id 스킴 일치를 recovery 수용 기준**으로. 어긋나면 복구해도 여전히 안 붙음.
 3. **statistics(재태깅 無)는 PT 복구만으로 정상화?** PT 복구 = problem_types 로드 → **유형→개념→취약개념 코어 진단 정상화**(PT 파일만으로 동작). observed_error_tags 기반 diagnosis_rules는 error_tags(거친)가 있어야 발화하나 **코어 진단은 무관**. **⇒ statistics는 PT 복구만으로 코어 정상화**(fine/observed축은 재태깅 필요=별개·미래). circle은 오버레이까지 있어 복구 후 fine층도 즉시.
 4. **복구 검증(성공도 조용할 것)**: (a) 브라우저 `<base>/data/problem_types/m3_circle_properties.problem_types.v1.json` = **200**. (b) overlay_tester/debug로 circle·statistics 시험지 → 반환 attempts의 **`problem_type_id`가 채워지는지**(현재 `''`=실패 → 채워짐=PT 로드 성공). (c) circle은 fine태그도. **성공 신호 = problem_type_id 빈값→채워짐.**
+
+---
+
+## 🔴🔴🔴 확대 등재 (2026-08-20) — 닮음(M2_SIMILARITY_PYTHAGORAS)도 같은 계열이다
+
+> 검수 판정 10차 §7-② 지시. **이 ISSUE는 "circle·statistics 2단원 사안"이 아니라 "조립본 3단원 사안"이다.**
+
+### 무엇이 같은가
+`ingest`가 `links`·`type_variant_bank`·`item_bank`는 만들고 **problem_types 조립 + concept 정의를 빠뜨린** 바로 그 갭이 닮음에도 적용된다. 닮음 카탈로그도 `type_variant_bank` 조립본이다(`1cda218e` "type_variant_bank가 정의", 커밋 `508f0d89` 계열).
+
+| 단원 | 카탈로그 엔트리 | 정식(선언) | 결손 | 조립본 표식 |
+|---|---|---|---|---|
+| M2_SIMILARITY_PYTHAGORAS | 87 | 177 (59 base × 3) | 90 | ✅ 2026-08-20 추가(87/87) — **그전까지 없었음** |
+| M3_CIRCLE_PROPERTIES | 47 | 126 (42 base × 3) | 79 | 처음부터 있었음(47/47) |
+| M3_STATISTICS | 23 | 108 (36 base × 3) · 최대 ID 74 | 85 | 처음부터 있었음(23/23) |
+| M2_GEOMETRY_PROPERTIES | 140 | 140 | 0 | 해당 없음(정식 큐레이션분) |
+
+### 무엇이 달랐는가 — ★표식 부재가 실제 피해를 냈다
+```
+원의 성질·통계   이 ISSUE 문서에 "부분 복구"로 기록됨  → 완성으로 오해되지 않음
+닮음             표식도 기록도 없이 "실 canonical"로 등재 → 처방 87종 완결 ·
+                 커버리지 100% · M1 재태깅 비교표 끝점이 그 위에 세워짐
+```
+★ 같은 상태인데 하나만 완성본처럼 취급된 것이 이 사안의 핵심이다. 절단(결손 90)보다 **표식 부재**가 먼저 고칠 문제였다.
+
+### 실측된 파급 (검수 9차 판정, 2026-08-20)
+```
+D1 1,200문항 중 405문항(34%)이 쪼개진 유형에 속함
+가장 최근 배치(simpy-08)가 55%로 최악
+PT131 = 문항 5번과 92번이 같은 유형으로 묶임
+원의 성질도 같은 이유로 45문항이 유형 지정 불가 상태
+```
+⇒ **87종으로는 문항을 담을 수 없다는 것이 실측됐다.** "87종을 정식으로 확정"(C안)은 **405문항을 영구 유실**시키므로 기각됐다.
+
+### 이 문서의 기존 서술 중 유효한 것 / 무효한 것
+- **유효**: "problem_types 조립 + concept 정의만 빠뜨림"이라는 원인 규정. 닮음도 동일.
+- **유효**: `type_name_source:"variant_bank"`로 큐레이션분과 구분한다는 표기 규약(2026-08-09 검수 4확인 답 §1). **닮음에 이 규약이 적용되지 않은 것이 누락**이었다.
+- **부족했던 것**: "전수 확인 = circle·statistics 딱 2개"(같은 절 말미). 이 전수 확인은 **type_variant_bank는 있는데 problem_types 파일이 없는 단원**을 세었다. 닮음은 파일이 **있었으므로** 걸리지 않았다. ⇒ 검사 축이 "파일 유무"였고, "엔트리가 정식 종수를 채웠는가"는 재지 않았다. 후자는 `check_catalog_integrity.ps1` CHECK 5(절단)가 2026-08-20에 처음 측정했다.
+
+### 복원 방침 = D안(문항 주도 복원) — 검수 판정 10차 §3
+```
+90종을 미리 만들지 않는다. 문항이 요구할 때 그 자리 하나만 만든다.
+1  1,200문항(우선 405 의심분)을 base 단위로 재판정 (base 53종 + 추론 4종)
+2  base 확정 후 그 문항의 접미사를 판정
+3  필요한 칸이 비어 있으면 그때 엔트리 1개 생성 (이름은 base + 접미사로 기계 도출)
+4  아무 문항도 요구하지 않은 칸은 만들지 않는다
+```
+원의 성질 편입도 **닮음에서 D안이 성립하면** 같은 방법을 적용한다(그전까지 보류 유지).
+
+### 진입점
+`tools/axis_prediction/HANDOFF_B_CATALOG_TRUNCATION.v1.md` (조사 경과 · 판정 · 다음 순서)
