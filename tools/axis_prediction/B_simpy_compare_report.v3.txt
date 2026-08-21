@@ -1,0 +1,528 @@
+
+=== SUMMARY ===
+  compared          : 1200
+  OK                : 718
+  CELL same family  : 346
+  BASE diff family  : 104   <== candidates for review
+  NEWLABEL          : 21
+  NOID              : 11
+  skipped unpaired  : 0   no question/label : 0
+  OK share          : 0.598
+
+=== PER BATCH ===
+batch                                OK   CELL   BASE   NEWLBL   NOID
+SCSTUDY-2026-08-18-m2-simpy-01       90     40     10       10      0
+SCSTUDY-2026-08-18-m2-simpy-02       99     32     11        8      0
+SCSTUDY-2026-08-18-m2-simpy-03       79     55     13        3      0
+SCSTUDY-2026-08-18-m2-simpy-04       87     49     14        0      0
+SCSTUDY-2026-08-18-m2-simpy-05       82     55     13        0      0
+SCSTUDY-2026-08-18-m2-simpy-06       94     39     13        0      4
+SCSTUDY-2026-08-18-m2-simpy-07       90     41     13        0      6
+SCSTUDY-2026-08-18-m2-simpy-08       97     35     17        0      1
+
+=== BASE (104) ===
+  SCSTUDY-2026-08-18-m2-simpy-01  q052  slot 10 -> 27  DIFF-family
+      worksheet : 평행선 사이의 길이의 비의 응용
+      assigned  : 직각삼각형의 닮음 - 공통각 구조
+      expected  : 평행선 사이 길이비의 종합 응용
+  SCSTUDY-2026-08-18-m2-simpy-01  q053  slot 10 -> 27  DIFF-family
+      worksheet : 평행선 사이의 길이의 비의 응용
+      assigned  : 직각삼각형의 닮음 - 공통각 구조
+      expected  : 평행선 사이 길이비의 종합 응용
+  SCSTUDY-2026-08-18-m2-simpy-01  q089  slot 41 -> 44  DIFF-family
+      worksheet : 닮은 두 평면도형의 넓이의 비
+      assigned  : 두 무게중심과 넓이 관계
+      expected  : 닮은 평면도형의 넓이비
+  SCSTUDY-2026-08-18-m2-simpy-01  q103  slot 45 -> 50  DIFF-family
+      worksheet : 닮음의 활용(2) 축도와 축척
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮음의 실생활 활용 - 높이·축척
+  SCSTUDY-2026-08-18-m2-simpy-01  q110  slot 57 -> 52  DIFF-family
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-01  q114  slot 57 -> 53  DIFF-family
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-01  q122  slot 57 -> 55  DIFF-family
+      worksheet : 피타고라스 정리의 설명(2) 피타고라스의 방법
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 피타고라스 정리의 여러 증명
+  SCSTUDY-2026-08-18-m2-simpy-01  q135  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-01  q136  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-01  q145  slot 52 -> 58  DIFF-family
+      worksheet : 종이접기와 피타고라스 정리
+      assigned  : 직각삼각형의 닮음과 피타고라스 정리
+      expected  : 히포크라테스·피타고라스 나무·종이접기
+  SCSTUDY-2026-08-18-m2-simpy-02  q026  slot 11 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 직각삼각형의 닮음 - 같은 예각 구조
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-02  q053  slot 10 -> 27  DIFF-family
+      worksheet : 평행선 사이의 길이의 비의 응용
+      assigned  : 직각삼각형의 닮음 - 공통각 구조
+      expected  : 평행선 사이 길이비의 종합 응용
+  SCSTUDY-2026-08-18-m2-simpy-02  q088  slot 43 -> 44  DIFF-family
+      worksheet : 닮은 두 평면도형의 넓이의 비
+      assigned  : 평행사변형에서 무게중심과 넓이
+      expected  : 닮은 평면도형의 넓이비
+  SCSTUDY-2026-08-18-m2-simpy-02  q092  slot 44 -> 46  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비
+      assigned  : 닮은 평면도형의 넓이비
+      expected  : 닮은 두 입체도형의 겉넓이의 비
+  SCSTUDY-2026-08-18-m2-simpy-02  q102  slot 45 -> 50  DIFF-family
+      worksheet : 닮음의 활용(2) 축도와 축척
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮음의 실생활 활용 - 높이·축척
+  SCSTUDY-2026-08-18-m2-simpy-02  q109  slot 57 -> 52  DIFF-family
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-02  q125  slot 58 -> 55  DIFF-family
+      worksheet : 피타고라스 정리의 설명(4) 바스카라의 방법
+      assigned  : 히포크라테스·피타고라스 나무·종이접기
+      expected  : 피타고라스 정리의 여러 증명
+  SCSTUDY-2026-08-18-m2-simpy-02  q126  slot 58 -> 55  DIFF-family
+      worksheet : 피타고라스 정리의 설명(4) 바스카라의 방법
+      assigned  : 히포크라테스·피타고라스 나무·종이접기
+      expected  : 피타고라스 정리의 여러 증명
+  SCSTUDY-2026-08-18-m2-simpy-02  q134  slot 52 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 직각삼각형의 닮음과 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-02  q135  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-02  q136  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-03  q023  slot 13 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-03  q024  slot 13 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-03  q025  slot 13 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-03  q026  slot 13 -> 15  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 맞꼭지각 구조
+  SCSTUDY-2026-08-18-m2-simpy-03  q050  slot 13 -> 27  DIFF-family
+      worksheet : 평행선 사이의 길이의 비의 응용
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선 사이 길이비의 종합 응용
+  SCSTUDY-2026-08-18-m2-simpy-03  q086  slot 43 -> 44  DIFF-family
+      worksheet : 닮은 두 평면도형의 넓이의 비
+      assigned  : 평행사변형에서 무게중심과 넓이
+      expected  : 닮은 평면도형의 넓이비
+  SCSTUDY-2026-08-18-m2-simpy-03  q091  slot 45 -> 47  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮은 입체도형 겉넓이비의 활용
+  SCSTUDY-2026-08-18-m2-simpy-03  q092  slot 45 -> 47  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮은 입체도형 겉넓이비의 활용
+  SCSTUDY-2026-08-18-m2-simpy-03  q093  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-03  q094  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-03  q095  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-03  q099  slot 49 -> 50  DIFF-family
+      worksheet : 닮음의 활용(1) 높이의 측정
+      assigned  : 닮은 입체도형 부피비의 활용
+      expected  : 닮음의 실생활 활용 - 높이·축척
+  SCSTUDY-2026-08-18-m2-simpy-03  q100  slot 49 -> 50  DIFF-family
+      worksheet : 닮음의 활용(1) 높이의 측정
+      assigned  : 닮은 입체도형 부피비의 활용
+      expected  : 닮음의 실생활 활용 - 높이·축척
+  SCSTUDY-2026-08-18-m2-simpy-04  q026  slot 13 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-04  q027  slot 13 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-04  q028  slot 13 -> 15  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 맞꼭지각 구조
+  SCSTUDY-2026-08-18-m2-simpy-04  q029  slot 13 -> 15  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 맞꼭지각 구조
+  SCSTUDY-2026-08-18-m2-simpy-04  q030  slot 13 -> 16  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비의 응용
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 삼각형에서 평행선 선분비 응용
+  SCSTUDY-2026-08-18-m2-simpy-04  q031  slot 13 -> 16  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비의 응용
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 삼각형에서 평행선 선분비 응용
+  SCSTUDY-2026-08-18-m2-simpy-04  q091  slot 43 -> 44  DIFF-family
+      worksheet : 닮은 두 평면도형의 넓이의 비
+      assigned  : 평행사변형에서 무게중심과 넓이
+      expected  : 닮은 평면도형의 넓이비
+  SCSTUDY-2026-08-18-m2-simpy-04  q094  slot 45 -> 47  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮은 입체도형 겉넓이비의 활용
+  SCSTUDY-2026-08-18-m2-simpy-04  q095  slot 45 -> 47  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮은 입체도형 겉넓이비의 활용
+  SCSTUDY-2026-08-18-m2-simpy-04  q096  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-04  q097  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-04  q098  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-04  q101  slot 49 -> 50  DIFF-family
+      worksheet : 닮음의 활용(1) 높이의 측정
+      assigned  : 닮은 입체도형 부피비의 활용
+      expected  : 닮음의 실생활 활용 - 높이·축척
+  SCSTUDY-2026-08-18-m2-simpy-04  q102  slot 49 -> 50  DIFF-family
+      worksheet : 닮음의 활용(1) 높이의 측정
+      assigned  : 닮은 입체도형 부피비의 활용
+      expected  : 닮음의 실생활 활용 - 높이·축척
+  SCSTUDY-2026-08-18-m2-simpy-05  q021  slot 13 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-05  q022  slot 13 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-05  q023  slot 13 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-05  q024  slot 13 -> 15  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 맞꼭지각 구조
+  SCSTUDY-2026-08-18-m2-simpy-05  q025  slot 13 -> 15  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+      assigned  : 종이접기에서 닮은 삼각형 찾기
+      expected  : 평행선과 선분비 - 맞꼭지각 구조
+  SCSTUDY-2026-08-18-m2-simpy-05  q089  slot 43 -> 44  DIFF-family
+      worksheet : 닮은 두 평면도형의 넓이의 비
+      assigned  : 평행사변형에서 무게중심과 넓이
+      expected  : 닮은 평면도형의 넓이비
+  SCSTUDY-2026-08-18-m2-simpy-05  q091  slot 45 -> 47  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮은 입체도형 겉넓이비의 활용
+  SCSTUDY-2026-08-18-m2-simpy-05  q092  slot 45 -> 47  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮은 입체도형 겉넓이비의 활용
+  SCSTUDY-2026-08-18-m2-simpy-05  q093  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-05  q094  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-05  q095  slot 47 -> 48  DIFF-family
+      worksheet : 닮은 두 입체도형의 부피의 비
+      assigned  : 닮은 입체도형 겉넓이비의 활용
+      expected  : 닮은 입체도형의 부피비
+  SCSTUDY-2026-08-18-m2-simpy-05  q098  slot 49 -> 50  DIFF-family
+      worksheet : 닮음의 활용(1) 높이의 측정
+      assigned  : 닮은 입체도형 부피비의 활용
+      expected  : 닮음의 실생활 활용 - 높이·축척
+  SCSTUDY-2026-08-18-m2-simpy-05  q099  slot 49 -> 50  DIFF-family
+      worksheet : 닮음의 활용(1) 높이의 측정
+      assigned  : 닮은 입체도형 부피비의 활용
+      expected  : 닮음의 실생활 활용 - 높이·축척
+  SCSTUDY-2026-08-18-m2-simpy-06  q001  slot 8 -> 2  DIFF-family
+      worksheet : 평면도형에서 닮음비의 응용
+      assigned  : AA 닮음의 조건 적용
+      expected  : 평면도형의 닮음비 계산과 활용
+  SCSTUDY-2026-08-18-m2-simpy-06  q062  slot 12 -> 30  DIFF-family
+      worksheet : 삼각형의 중점을 연결한 선분 응용(2) 삼등분선
+      assigned  : 직각삼각형 닮음의 길이·넓이 응용
+      expected  : 중점연결정리의 삼등분선 응용
+  SCSTUDY-2026-08-18-m2-simpy-06  q097  slot 45 -> 47  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮은 입체도형 겉넓이비의 활용
+  SCSTUDY-2026-08-18-m2-simpy-06  q098  slot 45 -> 47  DIFF-family
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+      assigned  : 닮은 평면도형 넓이비의 활용
+      expected  : 닮은 입체도형 겉넓이비의 활용
+  SCSTUDY-2026-08-18-m2-simpy-06  q119  slot 57 -> 52  DIFF-family
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-06  q120  slot 57 -> 53  DIFF-family
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-06  q121  slot 57 -> 53  DIFF-family
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-06  q137  slot 51 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 피타고라스 정리로 삼각형의 변 구하기
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-06  q138  slot 51 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 피타고라스 정리로 삼각형의 변 구하기
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-06  q140  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-06  q141  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-06  q147  slot 52 -> 59  DIFF-family
+      worksheet : 입체도형에서의 피타고라스 정리
+      assigned  : 직각삼각형의 닮음과 피타고라스 정리
+      expected  : 입체도형과 원기둥 최단거리
+  SCSTUDY-2026-08-18-m2-simpy-06  q149  slot 52 -> 59  DIFF-family
+      worksheet : 입체도형에서의 피타고라스 정리
+      assigned  : 직각삼각형의 닮음과 피타고라스 정리
+      expected  : 입체도형과 원기둥 최단거리
+  SCSTUDY-2026-08-18-m2-simpy-07  q022  slot 9 -> 14  DIFF-family
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+      assigned  : 평행선에서 삼각형의 닮음 찾기
+      expected  : 평행선과 선분비 - 공통각 구조
+  SCSTUDY-2026-08-18-m2-simpy-07  q112  slot 37 -> 51  DIFF-family
+      worksheet : 삼각형의 변의 길이 구하기(1)
+      assigned  : 무게중심 응용 - 선분 길이
+      expected  : 피타고라스 정리로 삼각형의 변 구하기
+  SCSTUDY-2026-08-18-m2-simpy-07  q120  slot 57 -> 53  DIFF-family
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q121  slot 57 -> 53  DIFF-family
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q122  slot 57 -> 53  DIFF-family
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q123  slot 57 -> 53  DIFF-family
+      worksheet : 직사각형의 대각선의 길이
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q127  slot 57 -> 54  DIFF-family
+      worksheet : 이등변삼각형의 높이와 넓이
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-18-m2-simpy-07  q137  slot 52 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 직각삼각형의 닮음과 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-07  q138  slot 51 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 피타고라스 정리로 삼각형의 변 구하기
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-07  q139  slot 51 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 피타고라스 정리로 삼각형의 변 구하기
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-07  q140  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-07  q141  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-07  q142  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-08  q003  slot 8 -> 2  DIFF-family
+      worksheet : 평면도형에서 닮음비의 응용
+      assigned  : AA 닮음의 조건 적용
+      expected  : 평면도형의 닮음비 계산과 활용
+  SCSTUDY-2026-08-18-m2-simpy-08  q009  slot 15 -> 9  DIFF-family
+      worksheet : 평행선에서 삼각형의 닮음 조건의 응용
+      assigned  : 평행선과 선분비 - 맞꼭지각 구조
+      expected  : 평행선에서 삼각형의 닮음 찾기
+  SCSTUDY-2026-08-18-m2-simpy-08  q045  slot 33 -> 23  DIFF-family
+      worksheet : 사다리꼴에서 평행선 사이의 선분의 길이의 비
+      assigned  : 사다리꼴의 중점연결정리
+      expected  : 사다리꼴에서 평행선 선분비
+  SCSTUDY-2026-08-18-m2-simpy-08  q046  slot 33 -> 24  DIFF-family
+      worksheet : 사다리꼴에서 평행선과 한 대각선의 길이
+      assigned  : 사다리꼴의 중점연결정리
+      expected  : 사다리꼴과 한 대각선의 길이비
+  SCSTUDY-2026-08-18-m2-simpy-08  q097  slot 41 -> 44  DIFF-family
+      worksheet : 닮은 두 평면도형의 넓이의 비
+      assigned  : 두 무게중심과 넓이 관계
+      expected  : 닮은 평면도형의 넓이비
+  SCSTUDY-2026-08-18-m2-simpy-08  q116  slot 37 -> 51  DIFF-family
+      worksheet : 삼각형의 변의 길이 구하기(1)
+      assigned  : 무게중심 응용 - 선분 길이
+      expected  : 피타고라스 정리로 삼각형의 변 구하기
+  SCSTUDY-2026-08-18-m2-simpy-08  q124  slot 57 -> 53  DIFF-family
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-08  q125  slot 57 -> 53  DIFF-family
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-08  q126  slot 57 -> 53  DIFF-family
+      worksheet : 직사각형의 대각선의 길이
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-08  q127  slot 57 -> 53  DIFF-family
+      worksheet : 직사각형의 대각선의 길이
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-08  q129  slot 57 -> 54  DIFF-family
+      worksheet : 이등변삼각형의 높이와 넓이
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+      expected  : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-18-m2-simpy-08  q142  slot 51 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 피타고라스 정리로 삼각형의 변 구하기
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-08  q143  slot 51 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 피타고라스 정리로 삼각형의 변 구하기
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-08  q144  slot 51 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+      assigned  : 피타고라스 정리로 삼각형의 변 구하기
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-08  q145  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-08  q146  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-08  q150  slot 52 -> 59  DIFF-family
+      worksheet : 입체도형에서의 피타고라스 정리
+      assigned  : 직각삼각형의 닮음과 피타고라스 정리
+      expected  : 입체도형과 원기둥 최단거리
+
+=== NEWLABEL (21) ===
+  SCSTUDY-2026-08-18-m2-simpy-01  q001  slot 2 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+      assigned  : 평면도형의 닮음비 계산과 활용
+  SCSTUDY-2026-08-18-m2-simpy-01  q002  slot 2 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+      assigned  : 평면도형의 닮음비 계산과 활용
+  SCSTUDY-2026-08-18-m2-simpy-01  q005  slot 4 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+      assigned  : 회전체의 닮음비와 대응 길이
+  SCSTUDY-2026-08-18-m2-simpy-01  q006  slot 4 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+      assigned  : 회전체의 닮음비와 대응 길이
+  SCSTUDY-2026-08-18-m2-simpy-01  q129  slot 56 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+      assigned  : 피타고라스 정리의 역과 삼각형 분류
+  SCSTUDY-2026-08-18-m2-simpy-01  q130  slot 56 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+      assigned  : 피타고라스 정리의 역과 삼각형 분류
+  SCSTUDY-2026-08-18-m2-simpy-01  q137  slot 53 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-01  q138  slot 53 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-01  q143  slot 58 -> 0  
+      worksheet : 피타고라스 나무 문제
+      assigned  : 히포크라테스·피타고라스 나무·종이접기
+  SCSTUDY-2026-08-18-m2-simpy-01  q144  slot 58 -> 0  
+      worksheet : 피타고라스 나무 문제
+      assigned  : 히포크라테스·피타고라스 나무·종이접기
+  SCSTUDY-2026-08-18-m2-simpy-02  q001  slot 2 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+      assigned  : 평면도형의 닮음비 계산과 활용
+  SCSTUDY-2026-08-18-m2-simpy-02  q005  slot 44 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+      assigned  : 닮은 평면도형의 넓이비
+  SCSTUDY-2026-08-18-m2-simpy-02  q129  slot 56 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+      assigned  : 피타고라스 정리의 역과 삼각형 분류
+  SCSTUDY-2026-08-18-m2-simpy-02  q130  slot 56 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+      assigned  : 피타고라스 정리의 역과 삼각형 분류
+  SCSTUDY-2026-08-18-m2-simpy-02  q137  slot 53 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-02  q138  slot 53 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-02  q143  slot 58 -> 0  
+      worksheet : 피타고라스 나무 문제
+      assigned  : 히포크라테스·피타고라스 나무·종이접기
+  SCSTUDY-2026-08-18-m2-simpy-02  q144  slot 58 -> 0  
+      worksheet : 피타고라스 나무 문제
+      assigned  : 히포크라테스·피타고라스 나무·종이접기
+  SCSTUDY-2026-08-18-m2-simpy-03  q129  slot 56 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+      assigned  : 피타고라스 정리의 역과 삼각형 분류
+  SCSTUDY-2026-08-18-m2-simpy-03  q141  slot 57 -> 0  
+      worksheet : 피타고라스 나무 문제
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-03  q142  slot 57 -> 0  
+      worksheet : 피타고라스 나무 문제
+      assigned  : 평면도형에서 피타고라스 정리의 활용
+
+=== NOID (11) ===
+  SCSTUDY-2026-08-18-m2-simpy-06  q025  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+  SCSTUDY-2026-08-18-m2-simpy-06  q092  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-18-m2-simpy-06  q126  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-18-m2-simpy-06  q148  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q072  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-18-m2-simpy-07  q094  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-18-m2-simpy-07  q126  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-18-m2-simpy-07  q148  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q149  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q150  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-08  q075  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질

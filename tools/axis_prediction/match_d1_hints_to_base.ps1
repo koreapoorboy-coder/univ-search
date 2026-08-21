@@ -93,6 +93,20 @@ if (($firstLine -split "`t").Count -lt 3) {
   else { throw ('REFUSED: header has fewer than 3 columns under both TAB and comma: ' + $firstLine) }
 }
 $rows = @(Import-Csv -Path $D1 -Delimiter $delim -Encoding UTF8)
+
+# --- UNIT PREFIX GUARD (review ruling 24 section 7, 2026-08-21) -------------
+# A tool that reads a catalog and a D1 export together must confirm they belong to the
+# same unit. Without it the PT numbers still line up arithmetically and the tool prints a
+# plausible result that means nothing (caught 2026-08-21: m3_statistics catalog + M2_SIMPY
+# D1 produced "EXISTS 19 / MISSING 71" with no error).
+$__pfxCat = ""
+foreach ($__e in @($cat.problem_types)) { if ([string]$__e.problem_type_id -match "^(.*PT)\d+$") { $__pfxCat = $matches[1]; break } }
+$__pfxD1 = ""
+foreach ($__r in $rows) { if ([string]$__r.problem_type_id -match "^(.*PT)\d+$") { $__pfxD1 = $matches[1]; break } }
+if ($__pfxCat -ne "" -and $__pfxD1 -ne "" -and $__pfxCat -ne $__pfxD1) {
+  throw ("REFUSED: catalog/D1 unit mismatch. catalog ids look like " + $__pfxCat + "nnn but D1 ids look like " + $__pfxD1 + "nnn")
+}
+# --- end UNIT PREFIX GUARD --------------------------------------------------
 if ($rows.Count -eq 0) { throw ('REFUSED: export has a header but no rows: ' + $D1) }
 $cols = @($rows[0].PSObject.Properties.Name)
 foreach ($need in @('question_no', 'problem_type_id', 'source_note')) {

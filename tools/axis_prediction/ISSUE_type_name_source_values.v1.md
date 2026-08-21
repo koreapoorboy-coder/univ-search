@@ -66,6 +66,24 @@ worksheet_label    4종   M2_SIMPY_PT016 · PT092 · PT108 · PT137 (빈 슬롯 
 
 ---
 
+## ★형제 칸은 출처를 상속한다 (판정 24차 §4)
+
+같은 base 의 다른 칸(pos)을 나중에 만들 때, 그 이름은 **base 에서 기계 도출**된 것이다.
+학습지가 준 것도, variant_bank 가 준 것도 아니다. 그러면 무엇으로 찍는가.
+
+```
+규칙  ★해당 base 를 이미 가진 형제 엔트리의 type_name_source 를 그대로 상속한다
+사유  같은 base 의 형제 칸이다. 이름의 출처가 같다
+예    슬롯14 기존 PT040·PT042 가 variant_bank -> 신설 PT041 도 variant_bank
+      슬롯47 기존 PT140 이 variant_bank      -> 신설 PT139·PT141 도 variant_bank
+      슬롯6  기존 PT016 이 worksheet_label   -> 신설 PT017·PT018 도 worksheet_label
+★     base 가 서로 다른 값을 가진 형제를 갖고 있으면 상속할 수 없다. 그때는 판정을 받을 것
+      (현재 M2_SIMPY 에는 그런 슬롯이 없다 — 슬롯당 출처 1종)
+```
+적용 실적: 2026-08-21 형제 칸 8종 신설(PT041·068·071·079·139·141·150·164) 전부 `variant_bank` 상속.
+
+---
+
 ## 주의
 
 ```
