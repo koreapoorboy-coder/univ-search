@@ -410,17 +410,30 @@ if (-not (Test-Path $shortDir)) {
   Write-Output '  result: SKIPPED (no problem_types_short dir)'
   Add-Warn 'CHECK 10: problem_types_short dir not found - check skipped, not passed'
 } else {
+  # units not registered in index.v1.json are N/A: make_catalog_short.ps1 walks the index,
+  # so a file outside it is not expected to have a short projection at all. Reporting it
+  # as MISSING made an out-of-index platform view (M2_SIMILARITY, the mathflat 81 view)
+  # look like a defect. Review ruling 22 section 3 / restated in ruling 23 section 6.
+  $inIdx10 = @{}
+  if ($idx) { foreach ($u in @($idx.units)) { $inIdx10[[string]$u.unit_id] = $true } }
   $c10any = $false
+  $c10na = 0
   foreach ($f in $files) {
     $j10 = Read-Json $f.FullName
     if ($null -eq $j10) { continue }
     $uid10 = [string]$j10.unit_id
     if ($Unit -and $uid10 -ne $Unit) { continue }
     $entry10 = @($j10.problem_types).Count
+    if (-not $inIdx10.ContainsKey($uid10)) {
+      Write-Output ('  n/a     ' + $uid10 + '  catalog ' + $entry10 + '  (not in index.v1.json - no short expected)')
+      $c10na++
+      continue
+    }
     $sp = Join-Path $shortDir ($uid10 + '.catalog_short.v1.json')
     if (-not (Test-Path $sp)) {
       Write-Output ('  MISSING ' + $uid10 + '  catalog ' + $entry10 + '  short (no file)')
-      Add-Warn ($uid10 + ': no catalog_short file (CHECK 10 - not counted as pass)')
+      Add-Warn ($uid10 + ': in index.v1.json but has no catalog_short file (CHECK 10 - not counted as pass)')
+      $sum.c10++
       $c10any = $true
       continue
     }
@@ -443,6 +456,7 @@ if (-not (Test-Path $shortDir)) {
     }
   }
   if (-not $c10any) { Write-Output '  result: catalog and short agree for every unit checked' }
+  if ($c10na -gt 0) { Write-Output ('  n/a (out of index) : ' + $c10na + ' unit(s) - reported, not skipped silently') }
 }
 
 Write-Output ''
