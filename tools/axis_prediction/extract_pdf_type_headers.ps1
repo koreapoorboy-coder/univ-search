@@ -34,6 +34,8 @@ param(
   [string]$Txt = '',
   [string]$Out = '',
   [int]$ExpectCount = 0,
+  [double]$MinPerPage = 1.2,
+  [double]$MaxPerPage = 3.5,
   [string]$PdfToText = 'C:\Program Files\Git\mingw64\bin\pdftotext.exe',
   [int]$MaxPage = 0
 )
@@ -80,28 +82,28 @@ $pairFail = 0
 $lastPage = $pages.Count
 if ($MaxPage -gt 0 -and $MaxPage -lt $lastPage) { $lastPage = $MaxPage }
 
-for ($p = 0; $p -lt $lastPage; $p++) {
-  $lines = $pages[$p] -split "`n"
-  for ($i = 0; $i -lt $lines.Count; $i++) {
-    $ms = [regex]::Matches($lines[$i], $segRe)
+for ($pageIdx = 0; $pageIdx -lt $lastPage; $pageIdx++) {
+  $lines = $pages[$pageIdx] -split "`n"
+  for ($lineIdx = 0; $lineIdx -lt $lines.Count; $lineIdx++) {
+    $ms = [regex]::Matches($lines[$lineIdx], $segRe)
     if ($ms.Count -eq 0) { continue }
     # find the next line carrying exactly that many integers
-    $j = $i + 1; $nums = @()
-    while ($j -lt $lines.Count) {
-      $cand = @([regex]::Matches($lines[$j], '(?<![\d%])(\d{1,3})(?![\d%])') | ForEach-Object { $_.Groups[1].Value })
+    $scanIdx = $lineIdx + 1; $nums = @()
+    while ($scanIdx -lt $lines.Count) {
+      $cand = @([regex]::Matches($lines[$scanIdx], '(?<![\d%])(\d{1,3})(?![\d%])') | ForEach-Object { $_.Groups[1].Value })
       if ($cand.Count -eq $ms.Count) { $nums = $cand; break }
       if ($cand.Count -gt 0) { break }
-      $j++
+      $scanIdx++
     }
     if ($nums.Count -ne $ms.Count) { $pairFail++; continue }
-    for ($k = 0; $k -lt $ms.Count; $k++) {
-      $no = [int]$nums[$k]
-      $nm = $ms[$k].Groups[1].Value.Trim()
-      $ac = [int]$ms[$k].Groups[2].Value
+    for ($segIdx = 0; $segIdx -lt $ms.Count; $segIdx++) {
+      $no = [int]$nums[$segIdx]
+      $nm = $ms[$segIdx].Groups[1].Value.Trim()
+      $ac = [int]$ms[$segIdx].Groups[2].Value
       if ($items.ContainsKey($no)) { [void]$dupes.Add($no) }
-      else { $items[$no] = [pscustomobject]@{ no = $no; name = $nm; acc = $ac; page = ($p + 1) } }
+      else { $items[$no] = [pscustomobject]@{ no = $no; name = $nm; acc = $ac; page = ($pageIdx + 1) } }
     }
-    $i = $j
+    $lineIdx = $scanIdx
   }
 }
 
@@ -121,7 +123,7 @@ if ($keys.Count -eq 0) {
 } else {
   $lo = $keys[0]; $hi = $keys[$keys.Count - 1]
   $missing = @()
-  for ($n = 1; $n -le $hi; $n++) { if (-not $items.ContainsKey($n)) { $missing += $n } }
+  for ($qnum = 1; $qnum -le $hi; $qnum++) { if (-not $items.ContainsKey($qnum)) { $missing += $qnum } }
   if ($lo -ne 1 -or $missing.Count -gt 0) {
     Write-Output ('[GATE-FAIL] run 1..' + $hi + ' is incomplete. missing: ' + ($missing -join ','))
     $fail++
@@ -130,6 +132,22 @@ if ($keys.Count -eq 0) {
     Write-Output ('[GATE-FAIL] extracted ' + $keys.Count + ' != -ExpectCount ' + $ExpectCount)
     $fail++
   } elseif ($ExpectCount -gt 0) { Write-Output ('[gate] count = ' + $ExpectCount) }
+
+  # gate 3: scale (review ruling 29 section 3, 2026-08-21)
+  # -ExpectCount used to be pinned at 150 for every worksheet. Three circle-properties
+  # worksheets turned out to be genuinely shorter (119 / 85 / 15 questions), so the
+  # constant made the gate reject correct extractions. A fixed constant fails on the day
+  # the constant is wrong. What actually guards against a silently truncated extraction is
+  # the RATIO: if half the questions were lost, questions-per-page halves with it.
+  # The band is measured, not assumed - across all 16 circle worksheets the ratio runs
+  # 1.67 to 2.24 (the reviewer's estimate of "about 4 per page" is off by roughly double,
+  # so it was not used). The default band leaves room on both sides.
+  $perPage = 0.0
+  if ($pages.Count -gt 0) { $perPage = [math]::Round($keys.Count / $pages.Count, 2) }
+  if ($perPage -lt $MinPerPage -or $perPage -gt $MaxPerPage) {
+    Write-Output ('[GATE-FAIL] scale: ' + $keys.Count + ' items over ' + $pages.Count + ' pages = ' + $perPage + ' per page, outside ' + $MinPerPage + '..' + $MaxPerPage)
+    $fail++
+  } else { Write-Output ('[gate] scale ' + $keys.Count + ' items / ' + $pages.Count + ' pages = ' + $perPage + ' per page') }
 }
 
 if ($fail -gt 0) { throw ('ABORT: ' + $fail + ' gate(s) failed - partial extraction is not a success, nothing written.') }
@@ -139,8 +157,8 @@ Write-Output ('[ok  ] ' + $keys.Count + ' items extracted, ' + (@($items.Values 
 if ($Out -ne '') {
   $rows = New-Object System.Collections.ArrayList
   [void]$rows.Add('question_no,page,accuracy_percent,source_type_label')
-  foreach ($n in $keys) {
-    $it = $items[$n]
+  foreach ($qnum in $keys) {
+    $it = $items[$qnum]
     [void]$rows.Add(('{0:D3},{1},{2},"{3}"' -f $it.no, $it.page, $it.acc, ($it.name -replace '"', '""')))
   }
   [System.IO.File]::WriteAllText($Out, (($rows -join "`r`n") + "`r`n"), (New-Object System.Text.UTF8Encoding($false)))
