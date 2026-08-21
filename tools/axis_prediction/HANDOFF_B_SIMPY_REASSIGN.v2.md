@@ -22,7 +22,15 @@ c4596f28  index.v1.json dangling 27건 삭제 (커밋 A)
 971056a9  닮음 카탈로그 type_name_source 표식 87/87
 (제출18)  닮음 카탈로그 빈 슬롯 4엔트리 생성 87 -> 91 (판정 20차 승인)
           ★백업 _backup/...pre-add-4entries · 기존 87종 무변경(역산 검증)
+(제출19)  축약본 87 -> 91 재생성 (판정 21차 §5)
+(제출20)  representation_types 오염 제거 66엔트리 528원소 (판정 21차 §7)
+          ★백업 _backup/...pre-strip-representation_types · 역산 검증 통과
+          ★CHECK 9 로 검출 -> 수정 -> CHECK 9 재실행 0 확인 순서 준수
 ```
+★**역산 검증(reversal check) = 상설 항목**(판정 21차 §1·§9).
+데이터 파일에 삽입·치환을 했으면, 그것을 도로 되돌린 결과가 원본과 **바이트 동일**한지 확인한다.
+"다른 데 안 건드렸다"를 증명하는 가장 강한 형태다. `add_catalog_entries.ps1` ·
+`strip_ps_member_contamination.ps1` 이 내장하고 있고, 실패하면 기록하지 않는다.
 
 ---
 
