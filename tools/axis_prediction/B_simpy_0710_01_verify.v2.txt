@@ -1,0 +1,23 @@
+TRANSCRIPT vs PDF EXTRACTION
+transcript dir : C:\Users\user\AppData\Local\Temp\claude\C--Users-user-OneDrive-------scshstudy\5fea3bb0-3b79-4635-a005-ff00c9e7dbc4\scratchpad\0710_01_corrected
+batch          : SCSTUDY-2026-08-21-m2-simpy-0710-01
+declared source: 260710_도형의 닮음.pdf
+
+CANDIDATE SCAN (every source file in the probe)
+  * 260710_도형의 닮음.pdf              label 150/150   accuracy 150/150
+    260710_도형의 닮음(1).pdf           label  50/150   accuracy   4/150
+    260710_도형의 닮음(2).pdf           label  36/150   accuracy   5/150
+
+compared against : 260710_도형의 닮음.pdf
+
+1 label verbatim   : 150 / 150
+2 accuracy         : 150 / 150
+  items with no memo section : 0
+  items missing entirely     : 0
+  PARSE_SUSPECT (out of 0..100 domain) : 0
+
+3 distinct labels in transcript : 79
+  probe label inventory         : 79
+  labels never seen before      : 0
+
+RESULT: PASS - content matches, and the batch names the file it actually holds

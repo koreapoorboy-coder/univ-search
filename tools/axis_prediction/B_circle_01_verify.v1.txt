@@ -1,0 +1,35 @@
+TRANSCRIPT vs PDF EXTRACTION
+transcript dir : C:\Users\user\AppData\Local\Temp\claude\C--Users-user-OneDrive-------scshstudy\5fea3bb0-3b79-4635-a005-ff00c9e7dbc4\scratchpad\circle01
+batch          : SCSTUDY-2026-08-19-m3-circle-01
+declared source: 260711_원의_성질.pdf
+
+CANDIDATE SCAN (every source file in the probe)
+  * 260711_원의 성질.pdf               label 150/150   accuracy 150/150
+    260711_원의 성질(2).pdf            label  78/150   accuracy   4/150
+    260711_원의 성질(3).pdf            label  62/150   accuracy   5/150
+    260711_원의 성질(1).pdf            label  59/150   accuracy   2/150
+    260711_원의 성질(4).pdf            label  53/150   accuracy   4/150
+    260711_원의 성질(5).pdf            label  33/150   accuracy   7/150
+    260711_원의 성질(6).pdf            label  30/150   accuracy   6/150
+    260711_원의 성질(9).pdf            label  24/150   accuracy   4/150
+    260711_원의 성질(8).pdf            label  24/150   accuracy   3/150
+    260711_원의 성질(7).pdf            label  23/150   accuracy   4/150
+    260711_원의 성질(10).pdf           label  23/150   accuracy   2/150
+    260711_원의 성질(12).pdf           label  14/150   accuracy   6/150
+    260711_원의 성질(11).pdf           label  14/150   accuracy   3/150
+
+WARN the batch declares 260711_원의_성질.pdf but this report compares 260711_원의 성질.pdf
+     a batch can be internally consistent and still name the wrong file - see ruling 26 section 2
+compared against : 260711_원의 성질.pdf
+
+1 label verbatim   : 150 / 150
+2 accuracy         : 150 / 150
+  items with no memo section : 0
+  items missing entirely     : 0
+  PARSE_SUSPECT (out of 0..100 domain) : 0
+
+3 distinct labels in transcript : 44
+  probe label inventory         : 44
+  labels never seen before      : 0
+
+RESULT: CONTENT PASS / DECLARATION FAIL - the transcript is clean but names 260711_원의_성질.pdf while holding 260711_원의 성질.pdf
