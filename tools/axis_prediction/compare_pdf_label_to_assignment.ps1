@@ -80,6 +80,32 @@ foreach ($f in (Get-ChildItem $ItemBankDir -Filter '*.source_items.v1.json')) {
   }
 }
 if ($lab2slot.Count -eq 0) { throw 'REFUSED: label->slot mapping is empty - cannot compare' }
+$bankLabels = $lab2slot.Count
+
+# ---------------- label -> slot, from catalog entries named AFTER the worksheet label
+# (review ruling 20, 2026-08-21). The ingested item bank only covers set04/set09, so a
+# type that the worksheet prints exclusively in earlier sets can never enter the map
+# above - it stays NEWLABEL forever even after its catalog entry exists. Entries stamped
+# type_name_source = worksheet_label carry the printed label AS their base name, so they
+# map themselves. Nothing is inferred: the string is the label.
+$catSeed = 0
+$catConflict = @()
+foreach ($e in @($cat.problem_types)) {
+  if (([string]$e.type_name_source) -ne 'worksheet_label') { continue }
+  $tn = [string]$e.type_name
+  $cut = $tn.LastIndexOf(' - ')
+  if ($cut -lt 0) { $catConflict += ('no suffix separator: ' + $tn); continue }
+  if (-not ([string]$e.problem_type_id -match 'PT(\d+)$')) { $catConflict += ('unparsable id: ' + $e.problem_type_id); continue }
+  $slotN = [int][math]::Ceiling([int]$matches[1] / 3.0)
+  $key = ($tn.Substring(0, $cut)) -replace '\s', ''
+  if ($lab2slot.ContainsKey($key)) {
+    if ([int]$lab2slot[$key] -ne $slotN) { $catConflict += ('label maps to slot ' + $lab2slot[$key] + ' in bank but slot ' + $slotN + ' in catalog: ' + $tn.Substring(0, $cut)) }
+    continue
+  }
+  $lab2slot[$key] = $slotN
+  $catSeed++
+}
+foreach ($w in $catConflict) { Write-Output ('WARN label-seed: ' + $w) }
 
 # ---------------- family
 $famOf = @{}
@@ -115,7 +141,7 @@ $rows = @(Import-Csv -Path $D1 -Delimiter "`t" -Encoding UTF8)
 foreach ($need in @('bulk_batch_id', 'question_no', 'problem_type_id')) {
   if (@($rows[0].PSObject.Properties.Name) -notcontains $need) { throw ('REFUSED: required column missing: ' + $need) }
 }
-Write-Output ('[in ] d1=' + $rows.Count + '  headers=' + $hdr.Count + '  pairing=' + $pair.Count + '  label->slot=' + $lab2slot.Count)
+Write-Output ('[in ] d1=' + $rows.Count + '  headers=' + $hdr.Count + '  pairing=' + $pair.Count + '  label->slot=' + $lab2slot.Count + ' (item bank ' + $bankLabels + ' + catalog worksheet_label ' + $catSeed + ')')
 
 $stat = @{ ok = 0; cell = 0; base = 0; newlabel = 0; noid = 0; unpaired = 0; noq = 0 }
 $cand = New-Object System.Collections.ArrayList
