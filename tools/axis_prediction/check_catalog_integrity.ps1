@@ -269,12 +269,25 @@ foreach ($f in $files) {
         Add-Warn ($uid + ": " + $cmis + " of " + $cnums.Count + " entries whose concept number != slot number (CHECK 7)")
       }
     } else {
+      # The concept number is the base index, so the HIGHEST concept referenced is the
+      # highest base slot the assembly ever reached. That is a LOWER BOUND on the real
+      # base count, not an equality:
+      #   cmax x3  >  declared  -> the declaration is too small. real defect.
+      #   cmax x3  == declared  -> the assembly reached the last slot. declaration upheld.
+      #   cmax x3  <  declared  -> the tail was simply never observed. NOT a defect.
+      # M3_STATISTICS stops at C025 of 36 bases because no worksheet item reached slots
+      # 26-36; the first version of this check called that FAIL (tool-test 3, 2026-08-21).
       $cmax = ($cnums | Measure-Object -Maximum).Maximum
-      if ($declVals.Count -ge 1 -and -not ($declVals -contains ($cmax * 3))) {
+      if ($declVals.Count -eq 0) {
+        $c7 = 'n/a'
+      } elseif (($cmax * 3) -gt $declVals[$declVals.Count - 1]) {
         $c7 = 'FAIL'; $sum.c7++
-        Add-Warn ($uid + ": concept max " + $cmax + " x3 = " + ($cmax * 3) + " but declared " + $declTxt + " (CHECK 7)")
-      } else {
+        Add-Warn ($uid + ": concept max " + $cmax + " x3 = " + ($cmax * 3) + " EXCEEDS declared " + $declTxt + " - the declaration is too small (CHECK 7)")
+      } elseif ($declVals -contains ($cmax * 3)) {
         $c7 = 'ok'
+      } else {
+        $c7 = 'under'
+        Add-Warn ($uid + ": concept max " + $cmax + " x3 = " + ($cmax * 3) + " < declared " + $declTxt + " - tail slots never observed, declaration NOT witnessed (CHECK 7 under, not a defect)")
       }
     }
   }

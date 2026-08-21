@@ -38,7 +38,8 @@ param(
   [int]$Slots = 59,
   [double]$MinMeanSim = 0.20,
   [double]$MinTop1 = 0.60,
-  [string]$ReportPath = ''
+  [string]$ReportPath = '',
+  [string]$EmitSlotFamily = ''
 )
 $ErrorActionPreference = 'Stop'
 
@@ -89,7 +90,16 @@ foreach ($k in $slotBase.Keys) { if ($k -gt $maxSlot) { $maxSlot = $k } }
 if ($maxSlot -gt $Slots) { throw ("REFUSED: catalog reaches slot " + $maxSlot + " but -Slots is " + $Slots) }
 
 $names = @(); $mids = @()
-foreach ($g in @($mf.problem_types)) { $names += [string]$g.type_name; $mids += [string]$g.problem_type_id }
+$fams = @()
+$famKey = ([char]0xC911).ToString() + ([char]0xC601).ToString() + ([char]0xC5ED).ToString()  # mid-domain field name
+foreach ($g in @($mf.problem_types)) {
+  $names += [string]$g.type_name
+  $mids += [string]$g.problem_type_id
+  $fv = ''
+  $pp = $g.PSObject.Properties[$famKey]
+  if ($pp) { $fv = [string]$pp.Value }
+  $fams += $fv
+}
 $M = $names.Count
 $N = $Slots
 if ($M -lt $N) { throw ("REFUSED: mathflat has " + $M + " groups but the catalog declares " + $N + " slots - cannot cover") }
@@ -211,6 +221,25 @@ for ($i = 1; $i -le $N; $i++) {
 }
 Emit ''
 Emit ('[score] DP total = ' + [math]::Round($total, 3))
+
+# ------------------------------------------------- slot -> family (mid-domain)
+# The review's "family" is the source taxonomy's mid-domain, not slot proximity:
+# slots 21 and 22 are adjacent yet belong to different families. Emitting the map
+# here keeps the alignment in one tool and lets the D1 matcher consume it.
+if ($EmitSlotFamily -ne '') {
+  $fl = New-Object System.Collections.ArrayList
+  [void]$fl.Add('slot,family,base_name')
+  for ($i = 1; $i -le $N; $i++) {
+    $gs = $assign[$i]
+    $fv = ''
+    foreach ($g in $gs) { if ($fams[$g - 1] -ne '') { $fv = $fams[$g - 1]; break } }
+    $bn = ''
+    if ($slotBase.ContainsKey($i)) { $bn = $slotBase[$i] }
+    [void]$fl.Add(('' + $i + ',"' + $fv + '","' + $bn + '"'))
+  }
+  [System.IO.File]::WriteAllText($EmitSlotFamily, (($fl -join "`r`n") + "`r`n"), (New-Object System.Text.UTF8Encoding($false)))
+  Write-Output ('[slot-family] ' + $EmitSlotFamily + '  rows=' + ($fl.Count - 1))
+}
 
 if ($ReportPath -ne '') {
   [System.IO.File]::WriteAllText($ReportPath, (($out -join "`r`n") + "`r`n"), (New-Object System.Text.UTF8Encoding($false)))
