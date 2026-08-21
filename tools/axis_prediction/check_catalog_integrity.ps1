@@ -19,6 +19,11 @@
 #   4 concept 1:1      : one concept per base, concept_ids length 1
 #   5 truncation       : max numeric id vs entry count (gaps = missing entries)
 #   6 slot integrity   : id -> slot/position; one base name per slot, suffix order
+#   7 concept witness  : concept number == slot number, and concept max x 3 == declared
+#                        (the concept layer was not truncated, so it still records the
+#                         real base count - independent witness to the declared size)
+#   8 accounting       : manifest declared total == in-index actual + truncation deficit
+#                        any remainder is printed as UNEXPLAINED, never absorbed
 #
 # USAGE
 #   powershell -File tools\axis_prediction\check_catalog_integrity.ps1
@@ -123,7 +128,7 @@ Write-Output '=== CHECK 2-6 : per-unit catalog audit ==='
 Write-Output ('{0,-34} {1,6} {2,6} {3,6} {4,7} {5,6} {6}' -f 'unit_id','entry','maxId','decl','base*3','conc','verdict')
 
 $files = Get-ChildItem (Join-Path $data 'problem_types') -Filter '*.problem_types.v1.json' | Sort-Object Name
-$sum = @{ units = 0; c2 = 0; c3 = 0; c4 = 0; c5 = 0; c6 = 0; na = 0 }
+$sum = @{ units = 0; c2 = 0; c3 = 0; c4 = 0; c5 = 0; c6 = 0; c7 = 0; na = 0; deficit = 0 }
 
 foreach ($f in $files) {
   $j = Read-Json $f.FullName
@@ -226,7 +231,62 @@ foreach ($f in $files) {
     $c6 = 'FAIL'; $sum.c6++; Add-Warn ($uid + ": " + $c6bad + " entries share a slot with a different base name")
   } else { $c6 = 'ok' }
 
+  # CHECK 7 concept number == slot number, and concept max x 3 == declared count
+  # WHY: the concept layer was NOT truncated along with the catalog, so the highest
+  # concept number still records how many base slots the unit really has.
+  # M2_SIMPY references C002..C059 with 6 gaps -> 59 bases -> 177 declared. That is
+  # an independent witness to the declared size (2026-08-21 finding).
+  # Applies ONLY where one concept per entry already holds (CHECK 4 ok). Units that
+  # attach several concepts per type use their own concept numbering, and judging
+  # them here produced 3 false FAILs on the first run (tool-test 3, mis-detection).
+  $c7 = 'n/a'
+  if ($scheme -and $concCount -gt 0 -and $c4 -eq 'ok') {
+    $cnums = @(); $cmis = 0
+    foreach ($t in $pts) {
+      $m = [regex]::Match([string]$t.problem_type_id, '(\d+)$')
+      if (-not $m.Success) { continue }
+      $slotN = [int][math]::Ceiling([int]$m.Groups[1].Value / 3.0)
+      foreach ($x in @($t.concept_ids)) {
+        if ("$x" -eq '') { continue }
+        $cm = [regex]::Match([string]$x, '(\d+)$')
+        if (-not $cm.Success) { continue }
+        $cn = [int]$cm.Groups[1].Value
+        $cnums += $cn
+        if ($cn -ne $slotN) { $cmis++ }
+      }
+    }
+    if ($cnums.Count -eq 0) {
+      $c7 = 'n/a'
+    } elseif ($cmis -gt 0) {
+      # a high mismatch rate means the unit numbers concepts on its own axis,
+      # not that the catalog is broken. report n/a, do not FAIL.
+      $misRate = 1.0 * $cmis / $cnums.Count
+      if ($misRate -gt 0.5) {
+        $c7 = 'n/a'
+        Add-Warn ($uid + ": concept numbering is not slot-aligned (" + [math]::Round($misRate * 100) + "% differ) - CHECK 7 reported n/a, NOT pass")
+      } else {
+        $c7 = 'FAIL'; $sum.c7++
+        Add-Warn ($uid + ": " + $cmis + " of " + $cnums.Count + " entries whose concept number != slot number (CHECK 7)")
+      }
+    } else {
+      $cmax = ($cnums | Measure-Object -Maximum).Maximum
+      if ($declVals.Count -ge 1 -and -not ($declVals -contains ($cmax * 3))) {
+        $c7 = 'FAIL'; $sum.c7++
+        Add-Warn ($uid + ": concept max " + $cmax + " x3 = " + ($cmax * 3) + " but declared " + $declTxt + " (CHECK 7)")
+      } else {
+        $c7 = 'ok'
+      }
+    }
+  }
+
+  # accumulate the accounting figures for CHECK 8
+  if ($declVals.Count -ge 1) {
+    $d1 = $declVals[$declVals.Count - 1]
+    if ($d1 -gt $entry) { $sum.deficit += ($d1 - $entry) }
+  }
+
   $verdict = @()
+  if ($c7 -eq 'FAIL') { $verdict += 'C7' }
   if ($c2 -eq 'FAIL') { $verdict += 'C2' }
   if ($c3 -eq 'FAIL') { $verdict += 'C3' }
   if ($c4 -eq 'FAIL') { $verdict += 'C4' }
@@ -237,6 +297,46 @@ foreach ($f in $files) {
   Write-Output ('{0,-34} {1,6} {2,6} {3,6} {4,7} {5,6} {6}' -f $uid, $entry, $maxId, $declTxt, ($baseCount * 3), $concCount, $vtxt)
 }
 
+# ---------------------------------------------------------------- CHECK 8
+# Accounting reconciliation (review ruling 12, 2026-08-21).
+#   manifest problem_type_count  =  actual in-index total  +  truncation deficit
+# When it does not close, the remainder is UNEXPLAINED and must be printed, not
+# absorbed. The remainder is how the 2026-07-19 "+150 = worksheet item count"
+# drift was found. Skipped when -Unit narrows the audit (partial totals).
+if (-not $Unit) {
+  Write-Output ''
+  Write-Output '=== CHECK 8 : accounting reconciliation ==='
+  $declTotal = 0
+  if (Test-Path $mf) {
+    $mraw2 = Get-Content $mf -Raw -Encoding UTF8
+    $mm = [regex]::Match($mraw2, '"problem_type_count"\s*:\s*(\d+)')
+    if ($mm.Success) { $declTotal = [int]$mm.Groups[1].Value } else { Add-Warn 'manifest.json has no problem_type_count - CHECK 8 incomplete' }
+  }
+  $inIndex = @{}
+  if ($idx) { foreach ($u in @($idx.units)) { $inIndex[[string]$u.unit_id] = $true } }
+  $actual = 0; $counted = 0; $skipped = 0
+  foreach ($f in $files) {
+    $j2 = Read-Json $f.FullName
+    if ($null -eq $j2) { continue }
+    $uid2 = [string]$j2.unit_id
+    if ($inIndex.ContainsKey($uid2)) { $actual += @($j2.problem_types).Count; $counted++ }
+    else { $skipped++; Add-Warn ($uid2 + ": catalog file exists but unit is not in index.v1.json - excluded from CHECK 8 total") }
+  }
+  Write-Output ('  manifest declared total      : ' + $declTotal)
+  Write-Output ('  actual in-index total        : ' + $actual + '  (' + $counted + ' unit files; ' + $skipped + ' excluded)')
+  Write-Output ('  truncation deficit (sum)     : ' + $sum.deficit)
+  $unexplained = $declTotal - $actual - $sum.deficit
+  Write-Output ('  unexplained remainder        : ' + $unexplained)
+  if ($declTotal -eq 0) {
+    Write-Output '  result: SKIPPED (no declared total)'
+  } elseif ($unexplained -eq 0) {
+    Write-Output '  result: CLOSES - declared = actual + deficit'
+  } else {
+    Write-Output '  result: DOES NOT CLOSE - remainder is unaccounted for, do not absorb it'
+    Add-Warn ('CHECK 8: accounting does not close, remainder ' + $unexplained)
+  }
+}
+
 Write-Output ''
 Write-Output ('=== SUMMARY : units audited ' + $sum.units + ' ===')
 Write-Output ('  CHECK 2 declared-count mismatch : ' + $sum.c2)
@@ -244,6 +344,7 @@ Write-Output ('  CHECK 3 declared not /3         : ' + $sum.c3)
 Write-Output ('  CHECK 4 concept 1:1 broken      : ' + $sum.c4)
 Write-Output ('  CHECK 5 truncated (maxId>entry) : ' + $sum.c5)
 Write-Output ('  CHECK 6 slot integrity broken   : ' + $sum.c6)
+Write-Output ('  CHECK 7 concept/slot number bad : ' + $sum.c7)
 Write-Output ('  slot scheme NOT applicable (4/6 n/a) : ' + $sum.na)
 Write-Output ''
 Write-Output ('=== WARNINGS (' + $warn.Count + ') - nothing was skipped silently ===')
