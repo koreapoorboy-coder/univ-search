@@ -149,9 +149,17 @@ BASE 103건 후보 판정   목록 송부 완료(B_simpy_base_candidates_103.v1.
 ## 3. 대조 결과 (판정 18차 §3 채택 → 슬롯 생성 후 v2, 제출18)
 
 ```
-생성 전  OK 718 · CELL 333 · BASE 103 · NEWLABEL 35 · NOID 11   라벨->슬롯 67
-생성 후  OK 718 · CELL 346 · BASE 104 · NEWLABEL 21 · NOID 11   라벨->슬롯 71
-차이     바뀐 행 정확히 14행. 나머지 468행 무변경. ★기존 판정이 뒤집힌 행 0건
+슬롯생성 전  OK 718 · CELL 333 · BASE 103 · NEWLABEL 35 · NOID 11   라벨->슬롯 67
+슬롯생성 후  OK 718 · CELL 346 · BASE 104 · NEWLABEL 21 · NOID 11   라벨->슬롯 71
+★재배정 후  OK 822 · CELL 346 · BASE ★0 · NEWLABEL 21 · NOID 11   OK share 0.685
+```
+★**2026-08-21 재배정 104건 적용 완료**(판정 28차 승인 · 사용자가 admin_items 화면에서 실행).
+```
+적용 결과   updated 104 · conflicts 0 · notfound 0
+D1 전후 diff  바뀐 좌표 정확히 104 · 전부 목표값 · ★나머지 1,096행 무변경
+            페이로드 밖 변경 0 · 페이로드인데 안 바뀐 것 0
+후보 diff    BASE 104행이 사라지고 ★새로 생긴 행 0. CELL/NEWLABEL/NOID 는 바이트 동일
+롤백        B_simpy_rollback_payload_104.v1.json (적용 전 스냅샷. 그대로 올리면 원복)
 ```
 - **검수 질문의 답**: base 충돌 · 칸 충돌 둘 다이되 칸 충돌이 3배.
 - **BASE 는 무작위가 아니다. 104건 = 31계열**이고 상위 9계열이 66건(63%)이다(판정 23차 §2).
