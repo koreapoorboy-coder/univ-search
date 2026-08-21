@@ -100,10 +100,43 @@ $ran = ''
 try { $ran = (& powershell -File $target -Example 'scaffold-selftest' 2>&1 | Out-String).Trim() } catch { $ran = '' }
 $runOk = $ran -match 'scaffold ok: scaffold-selftest'
 
-if ($bad -gt 0 -or $lineCount -lt 10 -or -not $hasGuard -or -not $runOk) {
+# --- naming checks (review ruling 26 section 6, 2026-08-21) ------------------
+# PowerShell variable names are case-INSENSITIVE, so $s and $S are one variable and the
+# second assignment silently destroys the first. It happened twice in one session on
+# 2026-08-21 ($S clobbered a set name, $t clobbered a directory path), in a codebase
+# where the hazard was already written down. A rule people must remember does not hold;
+# a rule the scaffolder refuses to emit does. Two checks:
+#   5 no single-letter variable names
+#   6 no two names differing only by case  (this catches $Expected vs $expected too,
+#     which is the same bug with longer names)
+# Full-line comments are excluded: the guidance text itself mentions $s and $S.
+$codeLines = @([System.IO.File]::ReadAllLines($target) | Where-Object { $_.TrimStart() -notlike '#*' })
+$varNames = @()
+foreach ($codeLine in $codeLines) {
+  foreach ($hit in ([regex]'\$([A-Za-z_][A-Za-z0-9_]*)').Matches($codeLine)) { $varNames += $hit.Groups[1].Value }
+}
+# PowerShell's own automatic variables are not names the author chose, so they are exempt.
+# Without this the check reported "$_" - the pipeline variable - as a violation on its
+# first run. Third time this session that the checker was wrong before the input was.
+$autoVars = @('_', 'args', 'true', 'false', 'null', 'matches', 'PSItem', 'input', 'this',
+              'error', 'host', 'home', 'pwd', 'pid', 'profile', 'PSScriptRoot',
+              'PSCommandPath', 'PSBoundParameters', 'MyInvocation', 'LASTEXITCODE',
+              'ExecutionContext', 'StackTrace', 'OFS', 'ShellId')
+$varNames = @($varNames | Sort-Object -Unique | Where-Object { $autoVars -notcontains $_ -and $autoVars -notcontains $_.ToLowerInvariant() })
+$singles = @($varNames | Where-Object { $_.Length -eq 1 })
+$collisions = @()
+foreach ($grp in ($varNames | Group-Object { $_.ToLowerInvariant() })) {
+  if ($grp.Count -gt 1) { $collisions += (($grp.Group | Sort-Object) -join ' / ') }
+}
+$nameOk = ($singles.Count -eq 0 -and $collisions.Count -eq 0)
+
+if ($bad -gt 0 -or $lineCount -lt 10 -or -not $hasGuard -or -not $runOk -or -not $nameOk) {
   Remove-Item $target -Force
-  throw ("generated file failed verification (nonascii=$bad lines=$lineCount guard=$hasGuard runs=$runOk) - removed. Output was: " + $ran)
+  $nameMsg = ''
+  if ($singles.Count -gt 0) { $nameMsg += ' single-letter=[' + ($singles -join ',') + ']' }
+  if ($collisions.Count -gt 0) { $nameMsg += ' case-collision=[' + ($collisions -join '; ') + ']' }
+  throw ("generated file failed verification (nonascii=$bad lines=$lineCount guard=$hasGuard runs=$runOk names=$nameOk) - removed." + $nameMsg + " Output was: " + $ran)
 }
 Write-Output ("[created] " + $target)
-Write-Output ("[verified] non-ASCII=0 / lines=" + $lineCount + " / ASCII SELF-CHECK present / executes correctly")
+Write-Output ("[verified] non-ASCII=0 / lines=" + $lineCount + " / ASCII SELF-CHECK present / executes correctly / no single-letter or case-colliding variable names")
 Write-Output ("[reminder] run tools as: powershell -File <path> [args]")

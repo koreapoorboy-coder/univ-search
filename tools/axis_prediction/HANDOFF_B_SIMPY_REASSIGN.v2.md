@@ -207,12 +207,34 @@ compare_pdf_label_to_assignment.ps1 학습지 라벨 vs 배정 대조. BASE/CELL
                                      카탈로그를 보지 않는다. 앞머리 세트 전용 유형은 엔트리를
                                      만들어도 NEWLABEL 로 남는다 -> worksheet_label 시드 블록이
                                      그 구멍을 메운다(판정 20차 이후)
+verify_transcript_against_pdf.ps1  ★전사본 검산 2단계 필수 도구 (판정 26차 §4)
+                                   전사본 source_note 의 유형명·정답률 vs PDF 추출본 축자 대조
+                                   ★-SourceFile 없이 돌리면 후보 PDF 전체를 채점해 순위를 낸다.
+                                     선언된 파일 하나만 보면 FAIL 로만 끝나고 진짜 파일을 못 찾는다
+                                   ★정답률 0~100 정의역 벗어나면 PARSE_SUSPECT 로 분리 보고
+                                   ★원의 성질·통계 등 모든 단원 투입 전에 돌릴 것
 add_catalog_entries.ps1            카탈로그 엔트리 텍스트 서지컬 삽입. 전량 재직렬화 금지 대응
                                    ★검증 5항(파싱/엔트리수/필드구성/U+FFFD/★역산) 실패 시 미기록
                                    ★역산 = 삽입분을 도로 들어내면 원본과 바이트 동일한가
 match_d1_hints_to_base.ps1         경로 B(힌트 유사도). 경로 A 승격 후 검증 보조로 격하
 prune_dangling_index.ps1           index dangling 키 삭제(커밋 A에 사용). blast-radius 가드
 mark_type_name_source.ps1          problem_types 에 type_name_source 스탬프
+```
+
+### ★변수 개명 대기 목록 (판정 26차 §6)
+지금 고치지 않는다. **해당 도구를 다음에 수정할 때 반드시 함께 개명한다.**
+```
+align_catalog_to_mathflat.ps1        $N (슬롯 수)     vs $n (PT 번호)
+compare_pdf_label_to_assignment.ps1  $L (ArrayList)   vs $l (라벨)
+validate_ne_prescriptions.ps1        $Expected (파라미터) vs $expected (bool)
+edit_json_meta.ps1                   $FFFD / $fffd    ← 주석에만 남은 과거 사고 기록
+```
+```
+현재 상태  활성 버그 아님. 대입이 사용 이후에 오도록 순서가 우연히 갈라져 있다
+위험      한 줄만 옮겨도 터진다. 회귀 시험이 잡지 못하는 종류다
+전면 개명  ★하지 않는다. 23개 파일 200여 곳을 한 번에 바꾸면 그 자체가 사고 원인이다
+강제      new_tool.ps1 스캐폴더가 한 글자 변수·대소문자 충돌 쌍을 검출해 생성을 거부한다
+          ★주석 행과 PS 자동변수($_ 등)는 제외한다
 ```
 
 ### 실행은 반드시
@@ -279,6 +301,17 @@ PS 배열 리터럴의 정수 키 해시테이블      $h[1] 이 인덱스로 �
 정규식은 찾는 구간을 좁혀서 걸 것       note 전체에서 첫 '%' 를 잡았더니 문항 본문의 확대율
                                      140%·150% 가 정답률로 들어왔다. 멀쩡한 데이터를
                                      오류로 보고할 뻔했다(2026-08-21)
+★값이 정의역을 벗어나면 검사기를 먼저   정답률 0~100 · 문항번호 1~150 같은 정의역을 도구에
+ 의심할 것 (판정 26차 §3)             명시하고, 벗어난 값은 PARSE_SUSPECT 로 분리 보고할 것
+                                     ★이번 세션에 검사기가 3회 먼저 틀렸다
+                                       ① CHECK 9 -contains 대소문자 오탐 45건
+                                       ② 정답률 정규식 구간 오탐 2건
+                                       ③ 스캐폴더가 PS 자동변수 $_ 를 위반으로 오탐
+★전사본 batch_id 와 source 가 서로     ★7회째 사고(2026-08-21). 1~6회는 batch_id 만 틀렸으나
+ 맞아도 내용은 제3의 파일일 수 있다     7회째는 batch_id 와 source 가 서로 일치하는데 둘 다
+ (판정 26차 §2)                       내용과 달랐다. ★내부 정합성 검사로는 원리적으로 못 잡는다
+                                     세 값이 필요하다: ①파일명 ②batch 블록 ③★실제 내용
+                                     PDF 추출본 대조 전에는 파일 식별이 확정되지 않는다
 전사본 metadata 를 좌표로 쓰지 말 것    bulk_batch_id 가 D1 배치보다 1 낮다. 정본은 D1
 "내 쪽만 틀렸다"로 좁히지 말 것         1건으로 보고된 것이 전수 스캔하니 7건 전부였다
 bash 루프에서 한글 경로는 반드시 인용    for f in $files 는 공백에서 쪼개진다. while IFS= read -r 로
