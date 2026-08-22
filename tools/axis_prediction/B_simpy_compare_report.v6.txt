@@ -1,0 +1,970 @@
+
+=== SUMMARY ===
+  compared          : 1650
+  OK                : 836
+  CELL same family  : 348
+  BASE diff family  : 5   <== candidates for review
+  NEWLABEL          : 0
+  NOID              : 461
+  skipped unpaired  : 0   no question/label : 0
+  OK share          : 0.507
+
+=== PER BATCH ===
+batch                                OK   CELL   BASE   NEWLBL   NOID
+SCSTUDY-2026-08-18-m2-simpy-01      108     40      2        0      0
+SCSTUDY-2026-08-18-m2-simpy-02      115     32      3        0      0
+SCSTUDY-2026-08-18-m2-simpy-03       93     57      0        0      0
+SCSTUDY-2026-08-18-m2-simpy-04      101     49      0        0      0
+SCSTUDY-2026-08-18-m2-simpy-05       95     55      0        0      0
+SCSTUDY-2026-08-18-m2-simpy-06      107     39      0        0      4
+SCSTUDY-2026-08-18-m2-simpy-07      103     41      0        0      6
+SCSTUDY-2026-08-18-m2-simpy-08      114     35      0        0      1
+SCSTUDY-2026-08-21-m2-simpy-0710-01      0      0      0        0    150
+SCSTUDY-2026-08-21-m2-simpy-0710-02      0      0      0        0    150
+SCSTUDY-2026-08-21-m2-simpy-0710-03      0      0      0        0    150
+
+=== BASE (5) ===
+  SCSTUDY-2026-08-18-m2-simpy-01  q137  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-01  q138  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-02  q005  slot 44 -> 4  DIFF-family
+      worksheet : 다면체에서 닮음비의 응용
+      assigned  : 닮은 평면도형의 넓이비
+      expected  : 회전체의 닮음비와 대응 길이
+  SCSTUDY-2026-08-18-m2-simpy-02  q137  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+  SCSTUDY-2026-08-18-m2-simpy-02  q138  slot 53 -> 57  DIFF-family
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+      assigned  : 사각형·직사각형에서 피타고라스 정리
+      expected  : 평면도형에서 피타고라스 정리의 활용
+
+=== NOID (461) ===
+  SCSTUDY-2026-08-18-m2-simpy-06  q025  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+  SCSTUDY-2026-08-18-m2-simpy-06  q092  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-18-m2-simpy-06  q126  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-18-m2-simpy-06  q148  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q072  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-18-m2-simpy-07  q094  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-18-m2-simpy-07  q126  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-18-m2-simpy-07  q148  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q149  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-07  q150  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-18-m2-simpy-08  q075  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q001  slot 0 -> 0  
+      worksheet : 항상 닮은 도형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q002  slot 0 -> 0  
+      worksheet : 항상 닮은 도형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q003  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q004  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q005  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q006  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q007  slot 0 -> 0  
+      worksheet : 입체도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q008  slot 0 -> 0  
+      worksheet : 입체도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q009  slot 0 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q010  slot 0 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q011  slot 0 -> 0  
+      worksheet : 회전체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q012  slot 0 -> 0  
+      worksheet : 회전체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q013  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q014  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q015  slot 0 -> 0  
+      worksheet : 두 삼각형이 닮음이기 위하여 필요한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q016  slot 0 -> 0  
+      worksheet : 두 삼각형이 닮음이기 위하여 필요한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q017  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(1) SAS 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q018  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(1) SAS 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q019  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(2) AA 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q020  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(2) AA 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q021  slot 0 -> 0  
+      worksheet : 평행선에서 삼각형의 닮음 조건의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q022  slot 0 -> 0  
+      worksheet : 평행선에서 삼각형의 닮음 조건의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q023  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(1) 공통인 각이 있는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q024  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(1) 공통인 각이 있는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q025  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(2) 한 예각의 크기가 같은 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q026  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(2) 한 예각의 크기가 같은 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q027  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q028  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q029  slot 0 -> 0  
+      worksheet : 종이접기와 삼각형의 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q030  slot 0 -> 0  
+      worksheet : 종이접기와 삼각형의 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q031  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q032  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q033  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q034  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q035  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q036  slot 0 -> 0  
+      worksheet : 평행선 찾기
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q037  slot 0 -> 0  
+      worksheet : 평행선 찾기
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q038  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q039  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q040  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q041  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q042  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q043  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q044  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q045  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q046  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q047  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선 사이의 선분의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q048  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선 사이의 선분의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q049  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 한 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q050  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 한 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q051  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(1) 평행선이 대각선의 교점을 지나지 않을 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q052  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(1) 평행선이 대각선의 교점을 지나지 않을 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q053  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(2) 평행선이 대각선의 교점을 지날 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q054  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(2) 평행선이 대각선의 교점을 지날 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q055  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q056  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q057  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q058  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q059  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q060  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(1) 중점
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q061  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(1) 중점
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q062  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(2) 삼등분선
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q063  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(2) 삼등분선
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q064  slot 0 -> 0  
+      worksheet : 삼각형의 세 변의 중점을 연결한 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q065  slot 0 -> 0  
+      worksheet : 삼각형의 세 변의 중점을 연결한 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q066  slot 0 -> 0  
+      worksheet : 사각형의 각 변의 중점을 연결하여 만든 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q067  slot 0 -> 0  
+      worksheet : 사각형의 각 변의 중점을 연결하여 만든 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q068  slot 0 -> 0  
+      worksheet : 사다리꼴의 두 변의 중점을 연결한 선분의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q069  slot 0 -> 0  
+      worksheet : 사다리꼴의 두 변의 중점을 연결한 선분의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q070  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q071  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q072  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q073  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q074  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q075  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q076  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q077  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q078  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q079  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q080  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q081  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q082  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q083  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q084  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q085  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q086  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(1) 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q087  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(1) 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q088  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(2) 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q089  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(2) 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q090  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q091  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q092  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q093  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q094  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q095  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q096  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q097  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q098  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q099  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q100  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q101  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q102  slot 0 -> 0  
+      worksheet : 닮음의 활용(1) 높이의 측정
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q103  slot 0 -> 0  
+      worksheet : 닮음의 활용(1) 높이의 측정
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q104  slot 0 -> 0  
+      worksheet : 닮음의 활용(2) 축도와 축척
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q105  slot 0 -> 0  
+      worksheet : 닮음의 활용(2) 축도와 축척
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q106  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q107  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q108  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q109  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q110  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q111  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q112  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q113  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q114  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(1) 대각선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q115  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q116  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q117  slot 0 -> 0  
+      worksheet : 직사각형의 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q118  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q119  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q120  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(1) 유클리드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q121  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(2) 피타고라스의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q122  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(2) 피타고라스의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q123  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(3) 가필드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q124  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(4) 바스카라의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q125  slot 0 -> 0  
+      worksheet : 직각삼각형이 되기 위한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q126  slot 0 -> 0  
+      worksheet : 직각삼각형이 되기 위한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q127  slot 0 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q128  slot 0 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q129  slot 0 -> 0  
+      worksheet : 각의 크기에 따른 삼각형의 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q130  slot 0 -> 0  
+      worksheet : 각의 크기에 따른 삼각형의 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q131  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q132  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q133  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q134  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q135  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q136  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q137  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(4) 직각삼각형의 세 반원 사이의 관계
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q138  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(4) 직각삼각형의 세 반원 사이의 관계
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q139  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(5) 히포크라테스의 원의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q140  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(5) 히포크라테스의 원의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q141  slot 0 -> 0  
+      worksheet : 피타고라스 나무 문제
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q142  slot 0 -> 0  
+      worksheet : 피타고라스 나무 문제
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q143  slot 0 -> 0  
+      worksheet : 종이접기와 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q144  slot 0 -> 0  
+      worksheet : 종이접기와 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q145  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q146  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q147  slot 0 -> 0  
+      worksheet : 각기둥에서의 최단 거리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q148  slot 0 -> 0  
+      worksheet : 각기둥에서의 최단 거리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q149  slot 0 -> 0  
+      worksheet : 원기둥에서의 최단 거리
+  SCSTUDY-2026-08-21-m2-simpy-0710-01  q150  slot 0 -> 0  
+      worksheet : 원기둥에서의 최단 거리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q001  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q002  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q003  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q004  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q005  slot 0 -> 0  
+      worksheet : 입체도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q006  slot 0 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q007  slot 0 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q008  slot 0 -> 0  
+      worksheet : 회전체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q009  slot 0 -> 0  
+      worksheet : 회전체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q010  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q011  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q012  slot 0 -> 0  
+      worksheet : 두 삼각형이 닮음이기 위하여 필요한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q013  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(1) SAS 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q014  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(1) SAS 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q015  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(2) AA 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q016  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(2) AA 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q017  slot 0 -> 0  
+      worksheet : 평행선에서 삼각형의 닮음 조건의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q018  slot 0 -> 0  
+      worksheet : 평행선에서 삼각형의 닮음 조건의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q019  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(1) 공통인 각이 있는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q020  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(1) 공통인 각이 있는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q021  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(2) 한 예각의 크기가 같은 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q022  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(2) 한 예각의 크기가 같은 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q023  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q024  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q025  slot 0 -> 0  
+      worksheet : 종이접기와 삼각형의 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q026  slot 0 -> 0  
+      worksheet : 종이접기와 삼각형의 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q027  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q028  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q029  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q030  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q031  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q032  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q033  slot 0 -> 0  
+      worksheet : 평행선 찾기
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q034  slot 0 -> 0  
+      worksheet : 평행선 찾기
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q035  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q036  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q037  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q038  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q039  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q040  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q041  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q042  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q043  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q044  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q045  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선 사이의 선분의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q046  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선 사이의 선분의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q047  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 한 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q048  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 한 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q049  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(1) 평행선이 대각선의 교점을 지나지 않을 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q050  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(1) 평행선이 대각선의 교점을 지나지 않을 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q051  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(2) 평행선이 대각선의 교점을 지날 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q052  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(2) 평행선이 대각선의 교점을 지날 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q053  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q054  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q055  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q056  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q057  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q058  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q059  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(1) 중점
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q060  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(1) 중점
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q061  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(2) 삼등분선
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q062  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(2) 삼등분선
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q063  slot 0 -> 0  
+      worksheet : 삼각형의 세 변의 중점을 연결한 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q064  slot 0 -> 0  
+      worksheet : 삼각형의 세 변의 중점을 연결한 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q065  slot 0 -> 0  
+      worksheet : 사각형의 각 변의 중점을 연결하여 만든 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q066  slot 0 -> 0  
+      worksheet : 사각형의 각 변의 중점을 연결하여 만든 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q067  slot 0 -> 0  
+      worksheet : 사다리꼴의 두 변의 중점을 연결한 선분의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q068  slot 0 -> 0  
+      worksheet : 사다리꼴의 두 변의 중점을 연결한 선분의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q069  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q070  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q071  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q072  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q073  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q074  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q075  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q076  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q077  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q078  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q079  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q080  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q081  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q082  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q083  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q084  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q085  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(1) 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q086  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(1) 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q087  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(2) 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q088  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(2) 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q089  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q090  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q091  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q092  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q093  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q094  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q095  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q096  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q097  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q098  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q099  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q100  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q101  slot 0 -> 0  
+      worksheet : 닮음의 활용(1) 높이의 측정
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q102  slot 0 -> 0  
+      worksheet : 닮음의 활용(1) 높이의 측정
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q103  slot 0 -> 0  
+      worksheet : 닮음의 활용(2) 축도와 축척
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q104  slot 0 -> 0  
+      worksheet : 닮음의 활용(2) 축도와 축척
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q105  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q106  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q107  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q108  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q109  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q110  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q111  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q112  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q113  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(1) 대각선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q114  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q115  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q116  slot 0 -> 0  
+      worksheet : 직사각형의 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q117  slot 0 -> 0  
+      worksheet : 직사각형의 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q118  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q119  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q120  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(1) 유클리드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q121  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(2) 피타고라스의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q122  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(3) 가필드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q123  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(3) 가필드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q124  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(4) 바스카라의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q125  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(4) 바스카라의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q126  slot 0 -> 0  
+      worksheet : 직각삼각형이 되기 위한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q127  slot 0 -> 0  
+      worksheet : 직각삼각형이 되기 위한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q128  slot 0 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q129  slot 0 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q130  slot 0 -> 0  
+      worksheet : 각의 크기에 따른 삼각형의 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q131  slot 0 -> 0  
+      worksheet : 각의 크기에 따른 삼각형의 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q132  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q133  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q134  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q135  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q136  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q137  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q138  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(4) 직각삼각형의 세 반원 사이의 관계
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q139  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(4) 직각삼각형의 세 반원 사이의 관계
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q140  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(5) 히포크라테스의 원의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q141  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(5) 히포크라테스의 원의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q142  slot 0 -> 0  
+      worksheet : 피타고라스 나무 문제
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q143  slot 0 -> 0  
+      worksheet : 피타고라스 나무 문제
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q144  slot 0 -> 0  
+      worksheet : 종이접기와 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q145  slot 0 -> 0  
+      worksheet : 종이접기와 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q146  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q147  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q148  slot 0 -> 0  
+      worksheet : 각기둥에서의 최단 거리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q149  slot 0 -> 0  
+      worksheet : 원기둥에서의 최단 거리
+  SCSTUDY-2026-08-21-m2-simpy-0710-02  q150  slot 0 -> 0  
+      worksheet : 원기둥에서의 최단 거리
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q001  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q002  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q003  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q004  slot 0 -> 0  
+      worksheet : 평면도형에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q005  slot 0 -> 0  
+      worksheet : 입체도형에서 닮음의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q006  slot 0 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q007  slot 0 -> 0  
+      worksheet : 다면체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q008  slot 0 -> 0  
+      worksheet : 회전체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q009  slot 0 -> 0  
+      worksheet : 회전체에서 닮음비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q010  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q011  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q012  slot 0 -> 0  
+      worksheet : 두 삼각형이 닮음이기 위하여 필요한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q013  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(1) SAS 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q014  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(1) SAS 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q015  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(2) AA 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q016  slot 0 -> 0  
+      worksheet : 삼각형의 닮음 조건의 응용(2) AA 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q017  slot 0 -> 0  
+      worksheet : 평행선에서 삼각형의 닮음 조건의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q018  slot 0 -> 0  
+      worksheet : 평행선에서 삼각형의 닮음 조건의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q019  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(1) 공통인 각이 있는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q020  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(1) 공통인 각이 있는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q021  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(2) 한 예각의 크기가 같은 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q022  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음(2) 한 예각의 크기가 같은 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q023  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q024  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q025  slot 0 -> 0  
+      worksheet : 종이접기와 삼각형의 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q026  slot 0 -> 0  
+      worksheet : 종이접기와 삼각형의 닮음
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q027  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q028  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(1) 한 각이 공통각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q029  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q030  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비(2) 한 각이 맞꼭지각인 두 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q031  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q032  slot 0 -> 0  
+      worksheet : 삼각형에서 평행선 사이의 선분의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q033  slot 0 -> 0  
+      worksheet : 평행선 찾기
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q034  slot 0 -> 0  
+      worksheet : 평행선 찾기
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q035  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q036  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q037  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q038  slot 0 -> 0  
+      worksheet : 삼각형의 내각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q039  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q040  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q041  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q042  slot 0 -> 0  
+      worksheet : 삼각형의 외각의 이등분선과 삼각형의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q043  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q044  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q045  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선 사이의 선분의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q046  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선 사이의 선분의 길이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q047  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 한 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q048  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 한 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q049  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(1) 평행선이 대각선의 교점을 지나지 않을 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q050  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(1) 평행선이 대각선의 교점을 지나지 않을 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q051  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(2) 평행선이 대각선의 교점을 지날 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q052  slot 0 -> 0  
+      worksheet : 사다리꼴에서 평행선과 두 대각선의 길이(2) 평행선이 대각선의 교점을 지날 때
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q053  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q054  slot 0 -> 0  
+      worksheet : 평행선 사이의 길이의 비의 응용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q055  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q056  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q057  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q058  slot 0 -> 0  
+      worksheet : 삼각형의 두 변의 중점을 연결한 선분의 성질(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q059  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(1) 중점
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q060  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(1) 중점
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q061  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(2) 삼등분선
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q062  slot 0 -> 0  
+      worksheet : 삼각형의 중점을 연결한 선분 응용(2) 삼등분선
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q063  slot 0 -> 0  
+      worksheet : 삼각형의 세 변의 중점을 연결한 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q064  slot 0 -> 0  
+      worksheet : 삼각형의 세 변의 중점을 연결한 삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q065  slot 0 -> 0  
+      worksheet : 사각형의 각 변의 중점을 연결하여 만든 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q066  slot 0 -> 0  
+      worksheet : 사각형의 각 변의 중점을 연결하여 만든 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q067  slot 0 -> 0  
+      worksheet : 사다리꼴의 두 변의 중점을 연결한 선분의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q068  slot 0 -> 0  
+      worksheet : 사다리꼴의 두 변의 중점을 연결한 선분의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q069  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q070  slot 0 -> 0  
+      worksheet : 삼각형의 중선의 성질
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q071  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q072  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q073  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q074  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q075  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q076  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q077  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q078  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q079  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q080  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심의 응용(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q081  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q082  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(1) △ABC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q083  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q084  slot 0 -> 0  
+      worksheet : 삼각형의 무게중심과 넓이의 관계(2) △ABC, △GBC의 무게중심
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q085  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(1) 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q086  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(1) 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q087  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(2) 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q088  slot 0 -> 0  
+      worksheet : 평행사변형에서 삼각형의 무게중심의 응용(2) 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q089  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q090  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q091  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q092  slot 0 -> 0  
+      worksheet : 닮은 두 평면도형의 넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q093  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q094  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q095  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q096  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 겉넓이의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q097  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q098  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q099  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q100  slot 0 -> 0  
+      worksheet : 닮은 두 입체도형의 부피의 비의 활용
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q101  slot 0 -> 0  
+      worksheet : 닮음의 활용(1) 높이의 측정
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q102  slot 0 -> 0  
+      worksheet : 닮음의 활용(1) 높이의 측정
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q103  slot 0 -> 0  
+      worksheet : 닮음의 활용(2) 축도와 축척
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q104  slot 0 -> 0  
+      worksheet : 닮음의 활용(2) 축도와 축척
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q105  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q106  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(1)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q107  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q108  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(2)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q109  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q110  slot 0 -> 0  
+      worksheet : 삼각형의 변의 길이 구하기(3)
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q111  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q112  slot 0 -> 0  
+      worksheet : 직각삼각형의 닮음과 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q113  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(1) 대각선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q114  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q115  slot 0 -> 0  
+      worksheet : 사각형에서 피타고라스 정리의 이용(2) 수선을 그어 푸는 경우
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q116  slot 0 -> 0  
+      worksheet : 직사각형의 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q117  slot 0 -> 0  
+      worksheet : 직사각형의 대각선의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q118  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q119  slot 0 -> 0  
+      worksheet : 이등변삼각형의 높이와 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q120  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(1) 유클리드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q121  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(1) 유클리드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q122  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(2) 피타고라스의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q123  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(2) 피타고라스의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q124  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(3) 가필드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q125  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(3) 가필드의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q126  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(4) 바스카라의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q127  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 설명(4) 바스카라의 방법
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q128  slot 0 -> 0  
+      worksheet : 직각삼각형이 되기 위한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q129  slot 0 -> 0  
+      worksheet : 직각삼각형이 되기 위한 조건
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q130  slot 0 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q131  slot 0 -> 0  
+      worksheet : 변의 길이에 따른 삼각형의 종류
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q132  slot 0 -> 0  
+      worksheet : 각의 크기에 따른 삼각형의 변의 길이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q133  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q134  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(1) 직각삼각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q135  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q136  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(2) 사각형
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q137  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q138  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(3) 직사각형 내부의 점
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q139  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(4) 직각삼각형의 세 반원 사이의 관계
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q140  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(4) 직각삼각형의 세 반원 사이의 관계
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q141  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(5) 히포크라테스의 원의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q142  slot 0 -> 0  
+      worksheet : 피타고라스 정리의 활용(5) 히포크라테스의 원의 넓이
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q143  slot 0 -> 0  
+      worksheet : 피타고라스 나무 문제
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q144  slot 0 -> 0  
+      worksheet : 피타고라스 나무 문제
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q145  slot 0 -> 0  
+      worksheet : 종이접기와 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q146  slot 0 -> 0  
+      worksheet : 종이접기와 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q147  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q148  slot 0 -> 0  
+      worksheet : 입체도형에서의 피타고라스 정리
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q149  slot 0 -> 0  
+      worksheet : 원기둥에서의 최단 거리
+  SCSTUDY-2026-08-21-m2-simpy-0710-03  q150  slot 0 -> 0  
+      worksheet : 원기둥에서의 최단 거리

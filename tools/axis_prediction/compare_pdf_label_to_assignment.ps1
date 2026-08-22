@@ -36,6 +36,7 @@ param(
   [string]$Catalog = 'C:\Users\user\projects\scshstudy\public\math-weakness-engine\data\problem_types\m2_similarity_pythagoras.problem_types.v1.json',
   [string]$ReportPath = '',
   [string]$CandidateCsv = '',
+  [string]$ExtraLabelMap = '',
   [double]$MinOkShare = 0.40
 )
 $ErrorActionPreference = 'Stop'
@@ -75,8 +76,8 @@ if (-not (Test-Path $ItemBankDir)) { throw ('item bank dir not found: ' + $ItemB
 foreach ($f in (Get-ChildItem $ItemBankDir -Filter '*.source_items.v1.json')) {
   $j = Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
   foreach ($it in @($j.items)) {
-    $l = ([string]$it.normalized_statement_features.source_type_label) -replace '\s', ''
-    if ([string]$it.primary_problem_type_id -match 'PT(\d+)$') { $lab2slot[$l] = [int][math]::Ceiling([int]$matches[1] / 3.0) }
+    $labelKey = ([string]$it.normalized_statement_features.source_type_label) -replace '\s', ''
+    if ([string]$it.primary_problem_type_id -match 'PT(\d+)$') { $lab2slot[$labelKey] = [int][math]::Ceiling([int]$matches[1] / 3.0) }
   }
 }
 if ($lab2slot.Count -eq 0) { throw 'REFUSED: label->slot mapping is empty - cannot compare' }
@@ -106,6 +107,39 @@ foreach ($e in @($cat.problem_types)) {
   $catSeed++
 }
 foreach ($w in $catConflict) { Write-Output ('WARN label-seed: ' + $w) }
+
+# ---------------- label -> slot, from an explicit override file
+# (review ruling 35 section 2, 2026-08-22). Neither source above can carry a label whose
+# mathflat group was MERGED into an already-occupied slot: the item bank never sampled it
+# and the catalog entry is named after a different base. Seven such labels were found by
+# re-running align_catalog_to_mathflat, and without them 21 items stayed NEWLABEL forever
+# while the slot they belong to already existed. The override file is data, not inference:
+# every row carries the mathflat number and the ruling that approved it.
+# It never overwrites a mapping the item bank or the catalog already produced - if the two
+# disagree the tool reports it and keeps the attested one.
+$mapSeed = 0
+$mapConflict = @()
+if ($ExtraLabelMap -ne '') {
+  if (-not (Test-Path $ExtraLabelMap)) { throw ('extra label map not found: ' + $ExtraLabelMap) }
+  $overrideRows = @(Import-Csv -Path $ExtraLabelMap -Encoding UTF8)
+  if ($overrideRows.Count -eq 0) { throw ('REFUSED: extra label map is empty: ' + $ExtraLabelMap) }
+  foreach ($col in @('source_type_label', 'slot')) {
+    if (@($overrideRows[0].PSObject.Properties.Name) -notcontains $col) { throw ('REFUSED: extra label map has no column ' + $col) }
+  }
+  foreach ($orow in $overrideRows) {
+    $okey = ([string]$orow.source_type_label) -replace '\s', ''
+    $oslot = 0
+    if (-not [int]::TryParse(([string]$orow.slot), [ref]$oslot)) { $mapConflict += ('unparsable slot for ' + $orow.source_type_label); continue }
+    if (-not $slotBase.ContainsKey($oslot)) { $mapConflict += ('slot ' + $oslot + ' is not occupied in the catalog: ' + $orow.source_type_label); continue }
+    if ($lab2slot.ContainsKey($okey)) {
+      if ([int]$lab2slot[$okey] -ne $oslot) { $mapConflict += ('already mapped to slot ' + $lab2slot[$okey] + ', override says ' + $oslot + ': ' + $orow.source_type_label) }
+      continue
+    }
+    $lab2slot[$okey] = $oslot
+    $mapSeed++
+  }
+}
+foreach ($w in $mapConflict) { Write-Output ('WARN label-override: ' + $w) }
 
 # ---------------- family
 $famOf = @{}
@@ -155,7 +189,7 @@ if ($__pfxCat -ne "" -and $__pfxD1 -ne "" -and $__pfxCat -ne $__pfxD1) {
 foreach ($need in @('bulk_batch_id', 'question_no', 'problem_type_id')) {
   if (@($rows[0].PSObject.Properties.Name) -notcontains $need) { throw ('REFUSED: required column missing: ' + $need) }
 }
-Write-Output ('[in ] d1=' + $rows.Count + '  headers=' + $hdr.Count + '  pairing=' + $pair.Count + '  label->slot=' + $lab2slot.Count + ' (item bank ' + $bankLabels + ' + catalog worksheet_label ' + $catSeed + ')')
+Write-Output ('[in ] d1=' + $rows.Count + '  headers=' + $hdr.Count + '  pairing=' + $pair.Count + '  label->slot=' + $lab2slot.Count + ' (item bank ' + $bankLabels + ' + catalog worksheet_label ' + $catSeed + ' + override ' + $mapSeed + ')')
 
 $stat = @{ ok = 0; cell = 0; base = 0; newlabel = 0; noid = 0; unpaired = 0; noq = 0 }
 $cand = New-Object System.Collections.ArrayList
@@ -242,16 +276,16 @@ foreach ($tag in @('BASE', 'NEWLABEL', 'NOID')) {
 }
 
 if ($CandidateCsv -ne '') {
-  $L = New-Object System.Collections.ArrayList
-  [void]$L.Add('verdict,bulk_batch_id,set_declared,question_no,assigned_slot,expected_slot,family,worksheet_label,assigned_base,expected_base')
+  $outLines = New-Object System.Collections.ArrayList
+  [void]$outLines.Add('verdict,bulk_batch_id,set_declared,question_no,assigned_slot,expected_slot,family,worksheet_label,assigned_base,expected_base')
   foreach ($c in ($cand | Sort-Object v, batch, q)) {
     $en = ''; $an = ''
     if ($c.exp -gt 0 -and $slotBase.ContainsKey([int]$c.exp)) { $en = $slotBase[[int]$c.exp] }
     if ($c.asg -gt 0 -and $slotBase.ContainsKey([int]$c.asg)) { $an = $slotBase[[int]$c.asg] }
-    [void]$L.Add(('{0},{1},{2},{3:D3},{4},{5},{6},"{7}","{8}","{9}"' -f $c.v, $c.batch, $c.set, $c.q, $c.asg, $c.exp, $c.fam, ($c.lbl -replace '"', '""'), ($an -replace '"', '""'), ($en -replace '"', '""')))
+    [void]$outLines.Add(('{0},{1},{2},{3:D3},{4},{5},{6},"{7}","{8}","{9}"' -f $c.v, $c.batch, $c.set, $c.q, $c.asg, $c.exp, $c.fam, ($c.lbl -replace '"', '""'), ($an -replace '"', '""'), ($en -replace '"', '""')))
   }
-  [System.IO.File]::WriteAllText($CandidateCsv, (($L -join "`r`n") + "`r`n"), (New-Object System.Text.UTF8Encoding($false)))
-  Write-Output ('[cand] ' + $CandidateCsv + '  rows=' + ($L.Count - 1))
+  [System.IO.File]::WriteAllText($CandidateCsv, (($outLines -join "`r`n") + "`r`n"), (New-Object System.Text.UTF8Encoding($false)))
+  Write-Output ('[cand] ' + $CandidateCsv + '  rows=' + ($outLines.Count - 1))
 }
 if ($ReportPath -ne '') {
   [System.IO.File]::WriteAllText($ReportPath, (($out -join "`r`n") + "`r`n"), (New-Object System.Text.UTF8Encoding($false)))
