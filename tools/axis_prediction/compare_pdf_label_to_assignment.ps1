@@ -119,6 +119,7 @@ foreach ($w in $catConflict) { Write-Output ('WARN label-seed: ' + $w) }
 # disagree the tool reports it and keeps the attested one.
 $mapSeed = 0
 $mapConflict = @()
+$overrideWanted = @{}
 if ($ExtraLabelMap -ne '') {
   if (-not (Test-Path $ExtraLabelMap)) { throw ('extra label map not found: ' + $ExtraLabelMap) }
   $overrideRows = @(Import-Csv -Path $ExtraLabelMap -Encoding UTF8)
@@ -135,11 +136,9 @@ if ($ExtraLabelMap -ne '') {
       if ([int]$lab2slot[$okey] -ne $oslot) { $mapConflict += ('already mapped to slot ' + $lab2slot[$okey] + ', override says ' + $oslot + ': ' + $orow.source_type_label) }
       continue
     }
-    $lab2slot[$okey] = $oslot
-    $mapSeed++
+    $overrideWanted[$okey] = $oslot
   }
 }
-foreach ($w in $mapConflict) { Write-Output ('WARN label-override: ' + $w) }
 
 # ---------------- family
 $famOf = @{}
@@ -186,6 +185,41 @@ if ($__pfxCat -ne "" -and $__pfxD1 -ne "" -and $__pfxCat -ne $__pfxD1) {
   throw ("REFUSED: catalog/D1 unit mismatch. catalog ids look like " + $__pfxCat + "nnn but D1 ids look like " + $__pfxD1 + "nnn")
 }
 # --- end UNIT PREFIX GUARD --------------------------------------------------
+
+# --- OVERRIDE AGREEMENT GUARD (review ruling 36 section 1, 2026-08-22) -------
+# An override exists to resolve labels nothing else can map. It must not overrule what D1
+# already decided. On 2026-08-22 one override row (mathflat #73 -> slot 57) disagreed with
+# EVERY assigned item carrying that label - 0 agree, 4 disagree - and turned four settled
+# rows into BASE. The simpler explanation was that the override was wrong, and it was.
+# So each row is seeded only after the assigned items vote on it:
+#   agree > 0   seed it
+#   agree == 0 and disagree > 0   REFUSE the row and report
+#   no assigned items at all      seed it, but say so - it is unverified
+foreach ($okey in @($overrideWanted.Keys)) {
+  $wantSlot = [int]$overrideWanted[$okey]
+  $agree = 0
+  $disagree = 0
+  foreach ($drow in $rows) {
+    $setName = $pair[[string]$drow.bulk_batch_id]
+    if (-not $setName) { continue }
+    if (-not $setLbl.ContainsKey($setName)) { continue }
+    $qn = [int]$drow.question_no
+    if (-not $setLbl[$setName].ContainsKey($qn)) { continue }
+    if ((([string]$setLbl[$setName][$qn]) -replace '\s', '') -ne $okey) { continue }
+    if (-not ([string]$drow.problem_type_id -match 'PT(\d+)$')) { continue }
+    $asgSlot = [int][math]::Ceiling([int]$matches[1] / 3.0)
+    if ($asgSlot -eq $wantSlot) { $agree++ } else { $disagree++ }
+  }
+  if ($agree -eq 0 -and $disagree -gt 0) {
+    $mapConflict += ('REFUSED row: every assigned item disagrees (' + $agree + ' agree / ' + $disagree + ' disagree) slot ' + $wantSlot + ' <- ' + $okey)
+    continue
+  }
+  if ($agree -eq 0 -and $disagree -eq 0) { $mapConflict += ('unverified row (no assigned item carries this label): slot ' + $wantSlot + ' <- ' + $okey) }
+  $lab2slot[$okey] = $wantSlot
+  $mapSeed++
+}
+foreach ($w in $mapConflict) { Write-Output ('WARN label-override: ' + $w) }
+# --- end OVERRIDE AGREEMENT GUARD -------------------------------------------
 foreach ($need in @('bulk_batch_id', 'question_no', 'problem_type_id')) {
   if (@($rows[0].PSObject.Properties.Name) -notcontains $need) { throw ('REFUSED: required column missing: ' + $need) }
 }
