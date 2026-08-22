@@ -80,6 +80,20 @@ $body = @(
   '}',
   '# --- end ASCII SELF-CHECK --------------------------------------------------',
   '',
+  '# --- EMPTY-RESULT GUARD (standing rule, review ruling 38 section 6) --------',
+  '# WHY: the most common failure in this repo is not a crash, it is a tool that errors',
+  '# internally and still prints a clean zero. A read-only $pid assignment threw 87 times',
+  '# and the script still reported "0 entries" as if that were the answer. A result of',
+  '# zero is almost never a finding here - it is a symptom. Refuse it explicitly.',
+  '# Keep this guard and point it at whatever this tool actually produces.',
+  '$__resultCount = 1   # TODO REPLACE: set this to the real count this tool produced.',
+  '                     # It ships as 1 only so the scaffold self-test can run. Leaving it',
+  '                     # at 1 disables the guard - that is the whole point of the TODO.',
+  'if ($__resultCount -eq 0) {',
+  '  throw "REFUSED: produced 0 results. A zero here is a symptom, not an answer - check the input and the parsing before reporting it."',
+  '}',
+  '# --- end EMPTY-RESULT GUARD ------------------------------------------------',
+  '',
   '# TODO: implement.',
   'Write-Output ("scaffold ok: " + $Example)'
 )
@@ -118,23 +132,55 @@ foreach ($codeLine in $codeLines) {
 # PowerShell's own automatic variables are not names the author chose, so they are exempt.
 # Without this the check reported "$_" - the pipeline variable - as a violation on its
 # first run. Third time this session that the checker was wrong before the input was.
-$autoVars = @('_', 'args', 'true', 'false', 'null', 'matches', 'PSItem', 'input', 'this',
-              'error', 'host', 'home', 'pwd', 'pid', 'profile', 'PSScriptRoot',
-              'PSCommandPath', 'PSBoundParameters', 'MyInvocation', 'LASTEXITCODE',
-              'ExecutionContext', 'StackTrace', 'OFS', 'ShellId')
+# The automatic-variable list is ENUMERATED, not typed out (review ruling 38 section 6).
+# A hand-written list is exactly how $pid got missed: it is read-only, assigning to it
+# throws on every iteration, and the script still printed a clean "0 entries". Ask a fresh
+# PowerShell what its own automatic variables are instead of guessing.
+$autoVars = @()
+try {
+  $autoVars = @(& powershell -NoProfile -Command "Get-Variable | Select-Object -ExpandProperty Name" 2>$null)
+} catch { $autoVars = @() }
+if ($autoVars.Count -lt 10) {
+  throw 'REFUSED: could not enumerate PowerShell automatic variables - the naming check would be unreliable, so nothing was generated.'
+}
+# Pipeline-scoped automatics do not exist at top level, so Get-Variable never lists them.
+# They are still not author-chosen names, so they are added to the exemption by hand.
+$autoVars += @('_', 'PSItem')
+# Which of those are read-only or constant? Assigning to one of THOSE is the silent
+# killer - it throws on every pass and the script still finishes and prints a clean zero.
+$readonlyVars = @()
+try {
+  $readonlyVars = @(& powershell -NoProfile -Command "Get-Variable | Where-Object { `$_.Options -match 'ReadOnly|Constant' } | Select-Object -ExpandProperty Name" 2>$null)
+} catch { $readonlyVars = @() }
+if ($readonlyVars.Count -lt 3) {
+  throw 'REFUSED: could not enumerate read-only PowerShell variables - the reserved-name check would be unreliable, so nothing was generated.'
+}
+# assignment sites only: "$name =" (not a read, not a comparison)
+$reservedHit = @()
+foreach ($codeLine in $codeLines) {
+  foreach ($hit in ([regex]'\$([A-Za-z_][A-Za-z0-9_]*)\s*=[^=]').Matches($codeLine)) {
+    $assigned = $hit.Groups[1].Value
+    foreach ($locked in $readonlyVars) {
+      if ($assigned -ieq $locked) { $reservedHit += ('$' + $assigned + ' is a read-only PowerShell variable'); break }
+    }
+  }
+}
+$reservedHit = @($reservedHit | Sort-Object -Unique)
+
 $varNames = @($varNames | Sort-Object -Unique | Where-Object { $autoVars -notcontains $_ -and $autoVars -notcontains $_.ToLowerInvariant() })
 $singles = @($varNames | Where-Object { $_.Length -eq 1 })
 $collisions = @()
 foreach ($grp in ($varNames | Group-Object { $_.ToLowerInvariant() })) {
   if ($grp.Count -gt 1) { $collisions += (($grp.Group | Sort-Object) -join ' / ') }
 }
-$nameOk = ($singles.Count -eq 0 -and $collisions.Count -eq 0)
+$nameOk = ($singles.Count -eq 0 -and $collisions.Count -eq 0 -and $reservedHit.Count -eq 0)
 
 if ($bad -gt 0 -or $lineCount -lt 10 -or -not $hasGuard -or -not $runOk -or -not $nameOk) {
   Remove-Item $target -Force
   $nameMsg = ''
   if ($singles.Count -gt 0) { $nameMsg += ' single-letter=[' + ($singles -join ',') + ']' }
   if ($collisions.Count -gt 0) { $nameMsg += ' case-collision=[' + ($collisions -join '; ') + ']' }
+  if ($reservedHit.Count -gt 0) { $nameMsg += ' reserved=[' + ($reservedHit -join '; ') + ']' }
   throw ("generated file failed verification (nonascii=$bad lines=$lineCount guard=$hasGuard runs=$runOk names=$nameOk) - removed." + $nameMsg + " Output was: " + $ran)
 }
 Write-Output ("[created] " + $target)
