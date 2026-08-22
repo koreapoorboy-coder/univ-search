@@ -1,0 +1,25 @@
+TRANSCRIPT vs PDF EXTRACTION
+transcript dir : C:\Users\user\AppData\Local\Temp\claude\C--Users-user-OneDrive-------scshstudy\5fea3bb0-3b79-4635-a005-ff00c9e7dbc4\scratchpad\0710_03
+batch          : SCSTUDY-2026-08-21-m2-simpy-0710-03
+declared source: 260710_도형의 닮음(2)(1).pdf
+
+CANDIDATE SCAN (every source file in the probe)
+  * 260710_도형의 닮음(2).pdf           label 150/150   accuracy 150/150
+    260710_도형의 닮음(1).pdf           label 130/150   accuracy   5/150
+    260710_도형의 닮음.pdf              label  36/150   accuracy   5/150
+
+WARN the batch declares 260710_도형의 닮음(2)(1).pdf but this report compares 260710_도형의 닮음(2).pdf
+     a batch can be internally consistent and still name the wrong file - see ruling 26 section 2
+compared against : 260710_도형의 닮음(2).pdf
+
+1 label verbatim   : 150 / 150
+2 accuracy         : 150 / 150
+  items with no memo section : 0
+  items missing entirely     : 0
+  PARSE_SUSPECT (out of 0..100 domain) : 0
+
+3 distinct labels in transcript : 77
+  probe label inventory         : 79
+  labels never seen before      : 0
+
+RESULT: CONTENT PASS / DECLARATION FAIL - the transcript is clean but names 260710_도형의 닮음(2)(1).pdf while holding 260710_도형의 닮음(2).pdf
