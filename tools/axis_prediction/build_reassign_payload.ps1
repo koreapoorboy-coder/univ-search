@@ -47,21 +47,50 @@ foreach ($entry in @($catalogDoc.problem_types)) {
   [void]$knownTypes.Add([string]$entry.problem_type_id)
   if ($catalogPrefix -eq '' -and ([string]$entry.problem_type_id -match '^(.*PT)\d+$')) { $catalogPrefix = $matches[1] }
 }
-
 # ---------------- id export: (batch, qno) -> id
+#   RESOLVED BY HEADER NAME, NOT BY POSITION (2026-08-22).
+#   Two exports arrived with the id column absent and problem_type_id sitting in its
+#   place. Positional reads would have treated that value as a row id. The header is
+#   read first and a missing column stops the build with the column named.
 $idOf = @{}
 $exportLines = [System.IO.File]::ReadAllLines($IdExport)
+if ($exportLines.Length -lt 2) { throw ('REFUSED: id export has no data rows: ' + $IdExport) }
+$headerCells = @($exportLines[0] -split "`t")
+if ($headerCells.Length -lt 2) {
+  throw ('REFUSED: id export header has no TAB. Expected TSV, got: ' + $exportLines[0])
+}
+$colIndexOf = @{}
+for ($cellNo = 0; $cellNo -lt $headerCells.Length; $cellNo++) {
+  $headName = $headerCells[$cellNo].TrimStart([char]0xFEFF).Trim().Trim('"').ToLowerInvariant()
+  if ($headName -ne '' -and -not $colIndexOf.ContainsKey($headName)) { $colIndexOf[$headName] = $cellNo }
+}
+$missingCols = @()
+foreach ($wantName in @('bulk_batch_id', 'question_no', 'id')) {
+  if (-not $colIndexOf.ContainsKey($wantName)) { $missingCols += $wantName }
+}
+if ($missingCols.Count -gt 0) {
+  throw ('REFUSED: id export is missing column(s) ' + ($missingCols -join ', ') +
+         '. Header was: ' + (($headerCells | ForEach-Object { $_.Trim() }) -join ' | '))
+}
+$batchCol = $colIndexOf['bulk_batch_id']
+$qnoCol   = $colIndexOf['question_no']
+$rowIdCol = $colIndexOf['id']
+$widestCol = [Math]::Max($batchCol, [Math]::Max($qnoCol, $rowIdCol))
 $dupCoord = @()
+$blankIds = 0
 for ($lineNo = 1; $lineNo -lt $exportLines.Length; $lineNo++) {
   $cols = $exportLines[$lineNo] -split "`t"
-  if ($cols.Length -lt 3) { continue }
+  if ($cols.Length -le $widestCol) { continue }
   $qnum = 0
-  if (-not [int]::TryParse($cols[1].Trim(), [ref]$qnum)) { continue }
-  $coordKey = ($cols[0].Trim() + '|' + $qnum)
+  if (-not [int]::TryParse($cols[$qnoCol].Trim().Trim('"'), [ref]$qnum)) { continue }
+  $coordKey = ($cols[$batchCol].Trim().Trim('"') + '|' + $qnum)
+  $rowIdText = $cols[$rowIdCol].Trim().Trim('"')
+  if ($rowIdText -eq '') { $blankIds++; continue }
   if ($idOf.ContainsKey($coordKey)) { $dupCoord += $coordKey; continue }
-  $idOf[$coordKey] = $cols[2].Trim()
+  $idOf[$coordKey] = $rowIdText
 }
 if ($idOf.Count -eq 0) { throw ('REFUSED: no rows parsed from ' + $IdExport) }
+if ($blankIds -gt 0) { throw ('REFUSED: id export has ' + $blankIds + ' row(s) with a blank id.') }
 if ($dupCoord.Count -gt 0) { throw ('REFUSED: id export has ' + $dupCoord.Count + ' duplicate coordinate(s), first ' + $dupCoord[0]) }
 
 # ---------------- map
