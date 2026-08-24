@@ -1,0 +1,37 @@
+TRANSCRIPT vs PDF EXTRACTION
+transcript dir : C:\Users\user\AppData\Local\Temp\claude\C--Users-user-OneDrive-------scshstudy\a1c43956-cf42-4f25-8509-71fd7ce545f0\scratchpad\circle02
+batch          : SCSTUDY-2026-08-22-m3-circle-02
+declared source: 260711_원의 성질(1).pdf
+
+CANDIDATE SCAN (every source file in the probe)
+  * 260711_원의 성질(1).pdf            label  50/150   accuracy  50/150
+    260711_원의 성질.pdf               label  33/150   accuracy   0/150
+    260711_원의 성질(3).pdf            label  32/150   accuracy   1/150
+    260711_원의 성질(2).pdf            label  21/150   accuracy   2/150
+    260711_원의 성질(4).pdf            label   5/150   accuracy   2/150
+    260711_원의 성질(9).pdf            label   4/150   accuracy   3/150
+    260711_원의 성질(6).pdf            label   4/150   accuracy   2/150
+    260711_원의 성질(10).pdf           label   4/150   accuracy   2/150
+    260711_원의 성질(8).pdf            label   4/150   accuracy   2/150
+    260711_원의 성질(5).pdf            label   4/150   accuracy   0/150
+    260711_원의 성질(7).pdf            label   4/150   accuracy   0/150
+    260711_원의 성질(11).pdf           label   2/150   accuracy   4/150
+    260711_원의 성질(13).pdf           label   0/119   accuracy   3/119
+    260711_원의 성질(12).pdf           label   0/150   accuracy   2/150
+    260711_원의 성질(14).pdf           label   0/85   accuracy   1/85
+    260711_원의 성질(15).pdf           label   0/15   accuracy   0/15
+
+compared against : 260711_원의 성질(1).pdf
+
+WARN probe has 150 rows for 260711_원의 성질(1).pdf, expected 50
+1 label verbatim   : 50 / 50
+2 accuracy         : 50 / 50
+  items with no memo section : 0
+  items missing entirely     : 0
+  PARSE_SUSPECT (out of 0..100 domain) : 0
+
+3 distinct labels in transcript : 15
+  probe label inventory         : 44
+  labels never seen before      : 0
+
+RESULT: PASS - content matches, and the batch names the file it actually holds
