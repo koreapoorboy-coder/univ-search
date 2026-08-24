@@ -1,0 +1,134 @@
+﻿[docs] scanned 109 json, 92 carry no canonical declaration (not an error; listed for transparency)
+
+=== CHECK 1 : manifest path existence ===
+  result: 0 dangling / 384 paths checked
+
+=== CHECK 2-6 : per-unit catalog audit ===
+unit_id                             entry  maxId   decl  base*3   conc verdict
+H1_COMMON_MATH1_COUNTING              324    324      -     312    108 FAIL C4
+H1_COMMON_MATH1_EQUATION_INEQUALITY    204    204      -     204     64 FAIL C4
+H1_COMMON_MATH1_MATRIX                183    183      -     168     61 FAIL C4
+H1_COMMON_MATH1_POLYNOMIAL            132    132      -     132     48 FAIL C4
+H1_COMMON_MATH2_FUNCTION_GRAPH        960    960      -     960    320 ok
+H1_COMMON_MATH2_GEOMETRY_EQUATION     843    843      -     804    281 FAIL C4
+H1_COMMON_MATH2_SET_PROPOSITION       864    864      -     864    288 ok
+H2_ALGEBRA_EXP_LOG_FUNCTION           612    612      -     612    204 ok
+H2_ALGEBRA_SEQUENCE                  1131   1131      -    1131    377 ok
+H2_ALGEBRA_TRIGONOMETRIC_FUNCTION     672    672      -     672    224 ok
+H2_CALCULUS1_DIFFERENTIATION          831    831      -     831    277 ok
+H2_CALCULUS1_INTEGRATION              567    567      -     567    189 ok
+H2_CALCULUS1_LIMIT_CONTINUITY         426    426      -     426    142 ok
+H2_CALCULUS2_DIFFERENTIATION          774    774      -     774    258 ok
+H2_CALCULUS2_INTEGRATION              762    762      -     762    254 ok
+H2_CALCULUS2_SEQUENCE_LIMIT           531    531      -     531    177 ok
+H2_EXP_LOG                            161    161      -     477     27 ok
+M1_BASIC_GEOMETRY                      55     55      -     165     34 ok
+M1_COORD_GRAPH                         61     61      -     183     28 ok
+M1_DATA_ANALYSIS                       84     84      -     252     36 ok
+M1_EXPRESSION                          60     60      -     180     30 ok
+M1_INT_RATIONAL                        47     47      -     141     30 ok
+M1_PLANE_GEOMETRY                      54     54      -     162     30 ok
+M1_PRIME_FACTORIZATION                448    448      -     201    112 ok
+M1_SOLID_GEOMETRY                      83     83      -     249     36 ok
+M2_GEOMETRY_PROPERTIES                140    140      -     276     40 ok
+M2_LINEAR_EQUATION                    156    156      -     411     37 ok
+M2_LINEAR_FUNCTION                    144    144      -     222     40 ok
+M2_LINEAR_INEQUALITY                  115    115      -     312     33 ok
+M2_NUMBER_EXPRESSION                  211    211      -     582     64 ok
+M2_PROBABILITY                        153    153    153     153     42 FAIL C4
+M2_SIMILARITY                          81     81      -     243      0 ok
+M2_SIMILARITY_PYTHAGORAS              100    177    177     174     58 FAIL C2,C5
+M3_CIRCLE_PROPERTIES                   93    126    126      93     31 FAIL C2,C5
+M3_POLYNOMIAL_FACTORING               212    212    212     207     55 FAIL C3
+M3_QUADRATIC_EQUATION                 144    144    144     384     35 ok
+M3_QUADRATIC_FUNCTION                 176    176    176     321     45 FAIL C3
+M3_REAL_NUMBER_CALC                   203    203    203     576     28 FAIL C3
+M3_STATISTICS                          23     74    108      69     23 FAIL C2,C5
+M3_TRIGONOMETRIC_RATIO                108    108    108     108     36 ok
+
+=== CHECK 8 : accounting reconciliation ===
+  manifest declared total      : 13192
+  actual in-index total        : 12847  (39 unit files; 1 excluded)
+  truncation deficit (sum)     : 195
+  unexplained remainder        : 150
+  result: DOES NOT CLOSE - remainder is unaccounted for, do not absorb it
+
+=== CHECK 9 : PowerShell array-member contamination ===
+  result: 0 contaminated fields
+
+=== CHECK 10 : catalog entries vs catalog_short count ===
+  n/a     M2_SIMILARITY  catalog 81  (not in index.v1.json - no short expected)
+  result: catalog and short agree for every unit checked
+  n/a (out of index) : 1 unit(s) - reported, not skipped silently
+
+=== SUMMARY : units audited 40 ===
+  CHECK 2 declared-count mismatch : 3
+  CHECK 3 declared not /3         : 3
+  CHECK 4 concept 1:1 broken      : 6
+  CHECK 5 truncated (maxId>entry) : 3
+  CHECK 6 slot integrity broken   : 0
+  CHECK 7 concept/slot number bad : 0
+  CHECK 9  array-member contamination : 0 unit(s)
+  CHECK 10 catalog/short drift        : 0
+  slot scheme NOT applicable (4/6 n/a) : 19
+
+=== WARNINGS (59) - nothing was skipped silently ===
+  [WARN] H1_COMMON_MATH1_COUNTING: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H1_COMMON_MATH1_COUNTING: concepts 108 != bases 104
+  [WARN] H1_COMMON_MATH1_EQUATION_INEQUALITY: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H1_COMMON_MATH1_EQUATION_INEQUALITY: 117 entries whose concept_ids length != 1
+  [WARN] H1_COMMON_MATH1_MATRIX: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H1_COMMON_MATH1_MATRIX: concepts 61 != bases 56
+  [WARN] H1_COMMON_MATH1_POLYNOMIAL: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H1_COMMON_MATH1_POLYNOMIAL: 105 entries whose concept_ids length != 1
+  [WARN] H1_COMMON_MATH2_FUNCTION_GRAPH: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H1_COMMON_MATH2_GEOMETRY_EQUATION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H1_COMMON_MATH2_GEOMETRY_EQUATION: concepts 281 != bases 268
+  [WARN] H1_COMMON_MATH2_SET_PROPOSITION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_ALGEBRA_EXP_LOG_FUNCTION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_ALGEBRA_SEQUENCE: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_ALGEBRA_TRIGONOMETRIC_FUNCTION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_CALCULUS1_DIFFERENTIATION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_CALCULUS1_INTEGRATION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_CALCULUS1_LIMIT_CONTINUITY: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_CALCULUS2_DIFFERENTIATION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_CALCULUS2_INTEGRATION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_CALCULUS2_SEQUENCE_LIMIT: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_EXP_LOG: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] H2_EXP_LOG: 3-slot scheme not detected (suffix rate 0%, slot conflicts 107) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M1_BASIC_GEOMETRY: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M1_BASIC_GEOMETRY: 3-slot scheme not detected (suffix rate 0%, slot conflicts 36) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M1_COORD_GRAPH: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M1_COORD_GRAPH: 3-slot scheme not detected (suffix rate 0%, slot conflicts 40) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M1_DATA_ANALYSIS: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M1_DATA_ANALYSIS: 3-slot scheme not detected (suffix rate 0%, slot conflicts 56) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M1_EXPRESSION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M1_EXPRESSION: 3-slot scheme not detected (suffix rate 0%, slot conflicts 40) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M1_INT_RATIONAL: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M1_INT_RATIONAL: 3-slot scheme not detected (suffix rate 0%, slot conflicts 31) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M1_PLANE_GEOMETRY: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M1_PLANE_GEOMETRY: 3-slot scheme not detected (suffix rate 0%, slot conflicts 36) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M1_PRIME_FACTORIZATION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M1_PRIME_FACTORIZATION: 3-slot scheme not detected (suffix rate 100%, slot conflicts 111) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M1_SOLID_GEOMETRY: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M1_SOLID_GEOMETRY: 3-slot scheme not detected (suffix rate 0%, slot conflicts 55) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M2_GEOMETRY_PROPERTIES: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M2_GEOMETRY_PROPERTIES: 3-slot scheme not detected (suffix rate 67%, slot conflicts 48) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M2_LINEAR_EQUATION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M2_LINEAR_EQUATION: 3-slot scheme not detected (suffix rate 0%, slot conflicts 103) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M2_LINEAR_FUNCTION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M2_LINEAR_FUNCTION: 3-slot scheme not detected (suffix rate 73%, slot conflicts 62) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M2_LINEAR_INEQUALITY: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M2_LINEAR_INEQUALITY: 3-slot scheme not detected (suffix rate 10%, slot conflicts 74) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M2_NUMBER_EXPRESSION: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M2_NUMBER_EXPRESSION: 3-slot scheme not detected (suffix rate 8%, slot conflicts 136) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M2_PROBABILITY: 150 entries whose concept_ids length != 1
+  [WARN] M2_SIMILARITY: no canonical declaration found in docs (CHECK 2/3 skipped - REPORTED, not silent)
+  [WARN] M2_SIMILARITY: 3-slot scheme not detected (suffix rate 0%, slot conflicts 54) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M3_POLYNOMIAL_FACTORING: 3-slot scheme not detected (suffix rate 71%, slot conflicts 62) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M3_QUADRATIC_EQUATION: 3-slot scheme not detected (suffix rate 0%, slot conflicts 95) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M3_QUADRATIC_FUNCTION: 3-slot scheme not detected (suffix rate 69%, slot conflicts 64) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M3_REAL_NUMBER_CALC: 3-slot scheme not detected (suffix rate 0%, slot conflicts 135) - CHECK 4/6 reported n/a, NOT pass
+  [WARN] M3_STATISTICS: concept max 25 x3 = 75 < declared 108 - tail slots never observed, declaration NOT witnessed (CHECK 7 under, not a defect)
+  [WARN] M2_SIMILARITY: catalog file exists but unit is not in index.v1.json - excluded from CHECK 8 total
+  [WARN] CHECK 8: accounting does not close, remainder 150

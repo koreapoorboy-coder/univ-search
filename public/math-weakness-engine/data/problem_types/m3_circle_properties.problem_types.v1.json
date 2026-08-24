@@ -3,8 +3,36 @@
     "unit_id":  "M3_CIRCLE_PROPERTIES",
     "unit_name":  "원의 성질",
     "_note":  "problem_types assembled from type_variant_bank. pt.concept_ids filled from source_item_links (Tier1 concept build 2026-08-10). concept defs in math_concepts.v1.json (source=pt_derived).",
-    "problem_type_count":  47,
+    "problem_type_count":  93,
     "problem_types":  [
+                          {
+                              "problem_type_id":  "M3_CIRC_PT001",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원의 중심과 현의 수직이등분선(1) - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C001"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT002",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원의 중심과 현의 수직이등분선(1) - 조건 적용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C001"
+                                              ],
+                              "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
                           {
                               "problem_type_id":  "M3_CIRC_PT003",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
@@ -48,6 +76,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT015",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "현의 길이(1); 중심에서 같은 거리의 두 현 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C005"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT019",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -57,6 +99,34 @@
                                                   "M3_CIRC_C007"
                                               ],
                               "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT020",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원의 접선과 반지름 - 조건 적용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C007"
+                                              ],
+                              "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT021",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원의 접선과 반지름 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C007"
+                                              ],
+                              "default_difficulty":  "advanced",
                               "error_tags":  [
 
                                              ]
@@ -90,6 +160,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT024",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원의 접선의 성질(1) - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C008"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT025",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -97,6 +181,48 @@
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
                                                   "M3_CIRC_C009"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT026",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원의 접선의 성질(2); 길이 - 조건 적용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C009"
+                                              ],
+                              "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT027",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원의 접선의 성질(2); 길이 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C009"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT031",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원의 접선의 성질의 활용 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C011"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -132,6 +258,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT034",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "삼각형의 내접원 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C012"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT035",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -141,6 +281,34 @@
                                                   "M3_CIRC_C012"
                                               ],
                               "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT036",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "삼각형의 내접원 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C012"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT037",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "직각삼각형의 내접원 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C013"
+                                              ],
+                              "default_difficulty":  "basic",
                               "error_tags":  [
 
                                              ]
@@ -174,6 +342,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT043",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 외접하는 사각형의 성질(2); 한 내각이 90˚인 경우 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C015"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT044",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -202,6 +384,34 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT046",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 외접하는 사각형의 성질의 활용(1); 직사각형 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C016"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT047",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 외접하는 사각형의 성질의 활용(1); 직사각형 - 조건 적용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C016"
+                                              ],
+                              "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT048",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -211,6 +421,20 @@
                                                   "M3_CIRC_C016"
                                               ],
                               "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT049",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 외접하는 사각형의 성질의 활용(2); 그 외 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C017"
+                                              ],
+                              "default_difficulty":  "basic",
                               "error_tags":  [
 
                                              ]
@@ -272,6 +496,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT054",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각과 중심각의 크기(1) - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C018"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT061",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -281,6 +519,20 @@
                                                   "M3_CIRC_C021"
                                               ],
                               "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT062",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각의 성질(1); 한 호 - 조건 적용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C021"
+                                              ],
+                              "default_difficulty":  "concept",
                               "error_tags":  [
 
                                              ]
@@ -300,6 +552,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT064",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각의 성질(2); 반원 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C022"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT065",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -314,6 +580,34 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT066",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각의 성질(2); 반원 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C022"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT067",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각과 삼각비의 값(1) - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C023"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT068",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -323,6 +617,20 @@
                                                   "M3_CIRC_C023"
                                               ],
                               "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT069",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각과 삼각비의 값(1) - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C023"
+                                              ],
+                              "default_difficulty":  "advanced",
                               "error_tags":  [
 
                                              ]
@@ -356,6 +664,34 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT072",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각과 삼각비의 값(2); 선분의 길이, 넓이 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C024"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT073",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각의 크기와 호의 길이(1) - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C025"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT074",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -384,6 +720,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT076",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각의 크기와 호의 길이(2) - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C026"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT077",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -398,6 +748,34 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT078",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각의 크기와 호의 길이(2) - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C026"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT079",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각의 크기와 호의 길이(3) - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C027"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT080",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -407,6 +785,20 @@
                                                   "M3_CIRC_C027"
                                               ],
                               "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT081",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원주각의 크기와 호의 길이(3) - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C027"
+                                              ],
+                              "default_difficulty":  "advanced",
                               "error_tags":  [
 
                                              ]
@@ -440,6 +832,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT084",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "네 점이 한 원에 있기 위한 조건 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C028"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT085",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -447,6 +853,48 @@
                               "type_name_source":  "variant_bank",
                               "concept_ids":  [
                                                   "M3_CIRC_C029"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT086",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 내접하는 사각형의 성질(1) - 조건 적용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C029"
+                                              ],
+                              "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT087",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 내접하는 사각형의 성질(1) - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C029"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT088",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 내접하는 사각형의 성질(2) - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C030"
                                               ],
                               "default_difficulty":  "basic",
                               "error_tags":  [
@@ -510,6 +958,34 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT093",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 내접하는 사각형과 외각의 성질 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C031"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT094",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 내접하는 다각형 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C032"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT095",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -519,6 +995,20 @@
                                                   "M3_CIRC_C032"
                                               ],
                               "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT096",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "원에 내접하는 다각형 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C032"
+                                              ],
+                              "default_difficulty":  "advanced",
                               "error_tags":  [
 
                                              ]
@@ -552,6 +1042,34 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT099",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "두 원에서 내접하는 사각형의 성질의 활용 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C033"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT106",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "접선과 현이 이루는 각; 원주각 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C036"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT107",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -561,6 +1079,34 @@
                                                   "M3_CIRC_C036"
                                               ],
                               "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT108",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "접선과 현이 이루는 각; 원주각 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C036"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT112",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "접선과 현이 이루는 각의 활용(1); 현이 중심을 지나지 않는 경우 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C038"
+                                              ],
+                              "default_difficulty":  "basic",
                               "error_tags":  [
 
                                              ]
@@ -580,6 +1126,20 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT114",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "접선과 현이 이루는 각의 활용(1); 현이 중심을 지나지 않는 경우 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C038"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT115",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -589,6 +1149,34 @@
                                                   "M3_CIRC_C039"
                                               ],
                               "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT116",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "접선과 현이 이루는 각의 활용(2); 현이 중심을 지나는 경우 - 조건 적용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C039"
+                                              ],
+                              "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT117",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "접선과 현이 이루는 각의 활용(2); 현이 중심을 지나는 경우 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C039"
+                                              ],
+                              "default_difficulty":  "advanced",
                               "error_tags":  [
 
                                              ]
@@ -622,6 +1210,34 @@
                                              ]
                           },
                           {
+                              "problem_type_id":  "M3_CIRC_PT120",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "접선과 현이 이루는 각의 활용(3); 한 점에서 원에 그은 두 접선 - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C040"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT121",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "두 원에서 접선과 현이 이루는 각(1) - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C041"
+                                              ],
+                              "default_difficulty":  "basic",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
                               "problem_type_id":  "M3_CIRC_PT122",
                               "unit_id":  "M3_CIRCLE_PROPERTIES",
                               "unit_name":  "원의 성질",
@@ -631,6 +1247,34 @@
                                                   "M3_CIRC_C041"
                                               ],
                               "default_difficulty":  "concept",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT123",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "두 원에서 접선과 현이 이루는 각(1) - 종합 활용",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C041"
+                                              ],
+                              "default_difficulty":  "advanced",
+                              "error_tags":  [
+
+                                             ]
+                          },
+                          {
+                              "problem_type_id":  "M3_CIRC_PT124",
+                              "unit_id":  "M3_CIRCLE_PROPERTIES",
+                              "unit_name":  "원의 성질",
+                              "type_name":  "두 원에서 접선과 현이 이루는 각(2); 한 원이 다른 원의 내부에 있는 경우 - 기본 판별",
+                              "type_name_source":  "variant_bank",
+                              "concept_ids":  [
+                                                  "M3_CIRC_C042"
+                                              ],
+                              "default_difficulty":  "basic",
                               "error_tags":  [
 
                                              ]
