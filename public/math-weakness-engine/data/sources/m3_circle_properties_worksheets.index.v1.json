@@ -1,9 +1,11 @@
 {
-  "version": "2026-07-20-patch299-m3-circle-properties-150-set13-ingestion",
+  "version": "2026-08-25-m3-circle-properties-16worksheets-d1-count-sync",
   "unit_id": "M3_CIRCLE_PROPERTIES",
   "unit_name": "원의 성질",
-  "worksheet_count": 13,
-  "total_problem_count": 1950,
+  "worksheet_count": 16,
+  "total_problem_count": 2168,
+  "source_problem_count": 2169,
+  "_count_note": "PDF/probe source total is 2,169 (13x150 + 119 + 85 + 15). D1 registered total is 2,168 because set09 has 149 registered rows; the one-row cause was closed as unresolved in ruling 50 and is not re-investigated here.",
   "sources": [
     {
       "set_no": 1,
@@ -121,7 +123,9 @@
       "set_no": 9,
       "source_id": "SRC_M3_CIRCLE_PROPERTIES_150_WORKSHEET_SET09_20260711",
       "file_name": "260711_원의 성질(8).pdf",
-      "problem_count": 150,
+      "problem_count": 149,
+      "source_problem_count": 150,
+      "_count_note": "D1 registered rows. PDF/probe has 150 source questions; the one-row difference is an already-closed unresolved issue.",
       "page_count": 66,
       "problem_pages": "1-38",
       "quick_answer_pages": "39-40",
@@ -186,6 +190,51 @@
       "has_solutions": true,
       "registry_file": "m3_circle_properties_150worksheet_set13.registry.v1.json",
       "item_bank_index": "data/item_bank/m3_circle_properties/m3_circle_properties_150worksheet_set13.item_bank_index.v1.json"
+    },
+    {
+      "set_no": 14,
+      "source_id": "SRC_M3_CIRCLE_PROPERTIES_119_WORKSHEET_SET14_20260711",
+      "file_name": "260711_원의 성질(13).pdf",
+      "problem_count": 119,
+      "page_count": 56,
+      "problem_pages": "1-30",
+      "quick_answer_pages": null,
+      "solution_pages": null,
+      "has_answers": true,
+      "has_solutions": true,
+      "registry_file": null,
+      "item_bank_index": null,
+      "_artifact_note": "Source and D1 registration are confirmed; repository registry/item-bank artifacts are not present. Problem-page range is observed in the probe; answer/solution page ranges remain unverified."
+    },
+    {
+      "set_no": 15,
+      "source_id": "SRC_M3_CIRCLE_PROPERTIES_85_WORKSHEET_SET15_20260711",
+      "file_name": "260711_원의 성질(14).pdf",
+      "problem_count": 85,
+      "page_count": 45,
+      "problem_pages": "1-23",
+      "quick_answer_pages": null,
+      "solution_pages": null,
+      "has_answers": true,
+      "has_solutions": true,
+      "registry_file": null,
+      "item_bank_index": null,
+      "_artifact_note": "Source and D1 registration are confirmed; repository registry/item-bank artifacts are not present. Problem-page range is observed in the probe; answer/solution page ranges remain unverified."
+    },
+    {
+      "set_no": 16,
+      "source_id": "SRC_M3_CIRCLE_PROPERTIES_15_WORKSHEET_SET16_20260711",
+      "file_name": "260711_원의 성질(15).pdf",
+      "problem_count": 15,
+      "page_count": 9,
+      "problem_pages": "1-4",
+      "quick_answer_pages": null,
+      "solution_pages": null,
+      "has_answers": true,
+      "has_solutions": true,
+      "registry_file": null,
+      "item_bank_index": null,
+      "_artifact_note": "Source and D1 registration are confirmed; repository registry/item-bank artifacts are not present. Problem-page range is observed in the probe; answer/solution page ranges remain unverified."
     }
   ]
 }

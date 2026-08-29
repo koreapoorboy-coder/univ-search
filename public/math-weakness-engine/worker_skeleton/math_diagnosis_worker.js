@@ -1,6 +1,6 @@
 ﻿const SERVICE_NAME = 'math-diagnosis-worker';
 // 배포할 때마다 올린다. /health, /config로 어느 코드가 실제로 떠 있는지 확인하는 유일한 수단이다.
-const VERSION = '2026.08.18-list-paging';
+const VERSION = '2026.08.28-circle-shadow-v1';
 const DEFAULT_MODEL = 'claude-opus-4-8';
 const DEFAULT_EFFORT = 'high';
 // max_tokens는 응답 글자 수 한도가 아니라 thinking + 응답을 합친 출력 총량의 한도다.
@@ -226,7 +226,8 @@ async function axisRecord(request, env) {
   const _axes = Array.isArray(r.observed_axes) ? r.observed_axes : [];
   const _allUnknown = _atts.length > 0 && _atts.every(a => a && a.response_status === 'UNKNOWN');
   const _emptyNoValue = _atts.length === 0 && _axes.length === 0;
-  if (_allUnknown || _emptyNoValue) {
+  const _shadowRecordable = _atts.some(a => a && a.shadow_analysis && a.shadow_analysis.recordable === true && a.shadow_analysis.student_output === false && a.shadow_analysis.profile_eligible === false);
+  if ((_allUnknown || _emptyNoValue) && !_shadowRecordable) {
     const why = _allUnknown ? 'all_unknown' : 'empty';
     console.log(`[axis-guard] skip no_work record id=${r.id} student=${r.student_code} (${why})`);
     return { ok: true, skipped: why, id: r.id };
@@ -525,6 +526,33 @@ async function computeItemHashes(row) {
     String((row && row.answer) || ''), String((row && row.explanation) || ''), String((row && row.difficulty) || '')
   ].join(QNORM_SEP));
   return { dedup_key, content_hash, empty: false };
+}
+
+// item_axes 재판정용 해시. 기존 D1 qnorm.v1 content_hash와 목적·basis가 다르므로 섞지 않는다.
+function normalizeItemContentV1Field(value) {
+  if (value === null || value === undefined) return null;
+  return String(value).normalize('NFC').replace(/\r\n?|\n/g, '\n').replace(/\s+/gu, ' ').trim();
+}
+function u32be(value) {
+  const out = new Uint8Array(4);
+  new DataView(out.buffer).setUint32(0, value, false);
+  return out;
+}
+async function normalizedItemContentV1Hash(row) {
+  const encoder = new TextEncoder();
+  const fields = [row && row.unit_id, row && row.question_text, row && row.answer, row && row.explanation].map(normalizeItemContentV1Field);
+  if (fields[1] === '') return null;
+  const chunks = [encoder.encode('normalized_item_content.v1'), new Uint8Array([0])];
+  let total = chunks[0].length + 1;
+  for (const field of fields) {
+    if (field === null) { const marker = u32be(0xffffffff); chunks.push(marker); total += marker.length; continue; }
+    const bytes = encoder.encode(field); const length = u32be(bytes.length);
+    chunks.push(length, bytes); total += length.length + bytes.length;
+  }
+  const body = new Uint8Array(total); let offset = 0;
+  for (const chunk of chunks) { body.set(chunk, offset); offset += chunk.length; }
+  const digest = await crypto.subtle.digest('SHA-256', body);
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 // ── backfill: 기존 행 content_hash/dedup_key 채움. 멱등(재실행 안전). ★검수 §5-4 체크포인트 대상 ──
@@ -890,6 +918,32 @@ const UNIT_ASSIGN_SCHEMA = (unitIds) => ({
 // 조각마다 엉뚱한 유형이 하나씩 나와 합칠 때 오염된다. "여기엔 없다"를 고를 수 있어야 한다.
 const NO_MATCH = '__NO_MATCH__';
 
+const SHADOW_ATTEMPT_SCHEMA = {
+  type: 'object', additionalProperties: false, required: ['attempts'],
+  properties: {
+    attempts: {
+      type: 'array',
+      items: {
+        type: 'object', additionalProperties: false,
+        required: ['question_no', 'response_status', 'difficulty', 'observed_error_tags', 'question_text'],
+        properties: {
+          question_no: { type: 'string' },
+          response_status: { type: 'string', enum: RESPONSE_STATES },
+          difficulty: { type: 'string', enum: ['basic', 'core', 'advanced', 'high'] },
+          observed_error_tags: { type: 'array', items: { type: 'string' } },
+          question_text: { type: 'string' },
+          student_work_text: { type: 'string' },
+          work_absent: { type: 'boolean' },
+          work_absent_evidence: { type: 'string' },
+          work_unreadable: { type: 'boolean' },
+          student_answer: { type: 'string' },
+          tag_rationale: { type: 'string' }
+        }
+      }
+    }
+  }
+};
+
 const TYPE_ASSIGN_SCHEMA = (typeIds, allowNoMatch = false) => ({
   type: 'object', additionalProperties: false, required: ['attempts'],
   properties: {
@@ -913,6 +967,9 @@ const TYPE_ASSIGN_SCHEMA = (typeIds, allowNoMatch = false) => ({
           // Fix-A(풀이 원문 보존): 태그 세분화 재료. WRONG/PARTIAL만 채우고 나머지는 빈 문자열.
           // required 아님(정답·빈칸 문항은 강제 생성 안 함) — 오답에서만 비용을 쓴다.
           student_work_text: { type: 'string' },
+          work_absent: { type: 'boolean' },
+          work_absent_evidence: { type: 'string' },
+          work_unreadable: { type: 'boolean' },
           student_answer: { type: 'string' },
           tag_rationale: { type: 'string' },
           // 조각이 여러 개면 둘 이상이 같은 문항을 자기 것이라 할 수 있다. 그때 고르는 기준.
@@ -927,6 +984,35 @@ function chunkList(arr, size) {
   const out = [];
   for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
   return out;
+}
+
+async function extractShadowAttemptsForUnit({ env, files, unitId, rows, usageSink }) {
+  const targetList = rows.map(r => `${r.question_no}번 (상태: ${r.response_status})`).join('\n');
+  const out = await callClaudeJson({
+    env, files, structured: true, label: `analyze_shadow_item_${unitId}`, usageSink,
+    schemaName: `shadow_item_analysis_${unitId}`,
+    schema: SHADOW_ATTEMPT_SCHEMA,
+    prompt: `아래 문항들은 「${unitId}」 단원으로 확정됐다. 유형을 고르지 말고 문제 본문과 학생 풀이 관측만 옮겨라.
+
+[대상 문항]
+${targetList}
+
+규칙:
+- 대상 문항 전부에 대해 한 줄씩 낸다. problem_type_id는 만들지 않는다.
+- response_status는 위 상태를 그대로 쓴다.
+- question_text는 인쇄된 문제 문장을 처음부터 끝까지 글자 그대로 전사한다. 학생 풀이·학생 답은 섞지 않는다.
+- observed_error_tags는 모델 정답이 아니라 반복 일치성 측정용 관측값이다. 실제로 보이는 오류만 최소한으로 쓴다.
+- 학생 풀이가 보이면 student_work_text에 실제 원문을 그대로 옮기고 work_absent는 내지 않는다.
+- 학생이 아무것도 쓰지 않은 것이 확인되면 student_work_text를 만들지 말고 work_absent=true와 work_absent_evidence를 함께 낸다.
+- 필기는 있으나 읽을 수 없으면 student_work_text와 work_absent를 만들지 말고 work_unreadable=true를 낸다.
+- 판단하지 못했거나 해당 필드가 필요 없으면 속성을 생략한다. 빈 문자열을 기본값으로 만들지 않는다.
+- 개인정보는 옮기지 않고 수학 풀이만 남긴다.`
+  });
+  const byNo = new Map((out?.attempts || []).map(a => [String(a.question_no), a]));
+  return rows.map(r => {
+    const found = byNo.get(String(r.question_no)) || {};
+    return { ...found, question_no: r.question_no, problem_type_id: '', response_status: found.response_status || r.response_status, difficulty: found.difficulty || 'core', observed_error_tags: found.observed_error_tags || [], unit_id: unitId };
+  });
 }
 
 // description 접두("…범주")에서 범주를 코드로 파싱한다(AI 아님). 실패 시 null → 단일단계 폴백.
@@ -977,10 +1063,13 @@ const TYPE_ASSIGN_RULES = `규칙:
   유형에 [후보 오류태그]가 붙어 있으면 그 중 실제 관찰된 것을 우선 고른다. 이 후보는
   재태깅 관측 어휘와 정합하여 축(17진단축) 진단으로 이어진다. 후보에 없는 오류만
   자연어로 덧붙이되 최소화한다.
-- WRONG_COMPLETE·PARTIAL_STOP 문항은 아래 셋을 함께 남긴다(오답 세분화 재료).
-  CORRECT_COMPLETE·BLANK_UNKNOWN은 셋 다 빈 문자열("")로 둔다.
-  · student_work_text: 학생이 그 문항에 실제로 쓴 풀이를 원문 그대로 옮긴다. 핵심 단계·식
-    위주로 짧게(대략 400자 이내), 결정적으로 틀어진 지점이 반드시 포함되게 한다.
+- WRONG_COMPLETE·PARTIAL_STOP 문항의 학생 풀이 관측은 다음 계약을 지킨다.
+  · 풀이가 보이면 student_work_text에 학생이 실제로 쓴 원문을 그대로 옮긴다. 핵심 단계·식
+    위주로 짧게(대략 400자 이내), 결정적으로 틀어진 지점이 반드시 포함되게 한다. work_absent는 내지 않는다.
+  · 학생이 아무것도 쓰지 않은 것이 제출물에서 확인되면 student_work_text를 만들지 말고
+    work_absent=true와 work_absent_evidence를 함께 낸다.
+  · 필기는 있으나 읽을 수 없으면 student_work_text와 work_absent를 만들지 말고 work_unreadable=true를 낸다.
+  · 판단하지 못했거나 해당 필드가 필요 없으면 속성을 생략한다. 빈 문자열을 기본값으로 만들지 않는다.
   · student_answer: 학생이 최종 답으로 쓴 값(없으면 "").
   · tag_rationale: observed_error_tags를 그렇게 고른 근거를 한 문장으로.
 - 개인정보 보호: 풀이·답에 이름·학교·전화번호 등 개인식별정보가 보여도 옮기지 않는다.
@@ -1195,10 +1284,13 @@ ${menu}
   유형에 [후보 오류태그]가 붙어 있으면 그 중 실제 관찰된 것을 우선 고른다. 이 후보는
   재태깅 관측 어휘와 정합하여 축(17진단축) 진단으로 이어진다. 후보에 없는 오류만
   자연어로 덧붙이되 최소화한다.
-- WRONG_COMPLETE·PARTIAL_STOP 문항은 아래 셋을 함께 남긴다(오답 세분화 재료).
-  CORRECT_COMPLETE·BLANK_UNKNOWN은 셋 다 빈 문자열("")로 둔다.
-  · student_work_text: 학생이 그 문항에 실제로 쓴 풀이를 원문 그대로 옮긴다. 핵심 단계·식
-    위주로 짧게(대략 400자 이내), 결정적으로 틀어진 지점이 반드시 포함되게 한다.
+- WRONG_COMPLETE·PARTIAL_STOP 문항의 학생 풀이 관측은 다음 계약을 지킨다.
+  · 풀이가 보이면 student_work_text에 학생이 실제로 쓴 원문을 그대로 옮긴다. 핵심 단계·식
+    위주로 짧게(대략 400자 이내), 결정적으로 틀어진 지점이 반드시 포함되게 한다. work_absent는 내지 않는다.
+  · 학생이 아무것도 쓰지 않은 것이 제출물에서 확인되면 student_work_text를 만들지 말고
+    work_absent=true와 work_absent_evidence를 함께 낸다.
+  · 필기는 있으나 읽을 수 없으면 student_work_text와 work_absent를 만들지 말고 work_unreadable=true를 낸다.
+  · 판단하지 못했거나 해당 필드가 필요 없으면 속성을 생략한다. 빈 문자열을 기본값으로 만들지 않는다.
   · student_answer: 학생이 최종 답으로 쓴 값(없으면 "").
   · tag_rationale: observed_error_tags를 그렇게 고른 근거를 한 문장으로.
 - 개인정보 보호: 풀이·답에 이름·학교·전화번호 등 개인식별정보가 보여도 옮기지 않는다.
@@ -1288,6 +1380,64 @@ async function matchAttemptsToItems({ env, attempts }) {
   return { stats: { matched_count, unmatched_count: attempts.length - matched_count, type_overridden_count }, unmatched_log };
 }
 
+// 유형 없는 Shadow 문항 연결. AI 출력에는 ID를 요구하지 않고, 서버가 D1 pending 문항을
+// qnorm.v1 완전동일·단일후보로만 연결한 뒤 normalized_item_content.v1 해시를 붙인다.
+// legacy의 approved/fuzzy 매칭과 별도이며 problem_type_id를 덮어쓰지 않는다.
+async function linkAttemptsToShadowItems({ env, attempts }) {
+  const base = { eligible_count: 0, verified_count: 0, ambiguous_count: 0, unlinked_count: 0, invalid_count: 0 };
+  if (!env.AXIS_DB) return { ...base, skipped: 'no_db' };
+  const sc = qnormSelfCheckCached();
+  if (!sc.pass) return { ...base, skipped: 'qnorm_selfcheck_fail' };
+  const shadowUnits = new Set(['M3_CIRCLE_PROPERTIES']);
+  const byUnit = {};
+  for (const unitId of Array.from(new Set(attempts.map(a => a && a.unit_id).filter(uid => shadowUnits.has(uid))))) {
+    const rows = ((await env.AXIS_DB.prepare(
+      "SELECT id, unit_id, concept_ids, question_text, answer, explanation FROM user_items WHERE status='pending' AND unit_id=?1 LIMIT 3000"
+    ).bind(unitId).all()).results) || [];
+    const map = {};
+    for (const row of rows) {
+      const qn = qnormV1(row.question_text); if (!qn) continue;
+      (map[qn] = map[qn] || []).push(row);
+    }
+    byUnit[unitId] = map;
+  }
+  const stats = { ...base };
+  for (const attempt of attempts) {
+    if (!attempt || !shadowUnits.has(attempt.unit_id)) continue;
+    stats.eligible_count++;
+    const qn = qnormV1(attempt.question_text);
+    if (!qn) {
+      attempt.registered_item_link = { status: 'unlinked', reason: 'question_text_missing' };
+      stats.unlinked_count++; continue;
+    }
+    const candidates = (byUnit[attempt.unit_id] && byUnit[attempt.unit_id][qn]) || [];
+    if (candidates.length === 0) {
+      attempt.registered_item_link = { status: 'unlinked', reason: 'exact_normalized_text_not_found' };
+      stats.unlinked_count++; continue;
+    }
+    if (candidates.length > 1) {
+      attempt.registered_item_link = { status: 'ambiguous', reason: 'multiple_exact_normalized_text_matches', candidate_count: candidates.length };
+      stats.ambiguous_count++; continue;
+    }
+    const row = candidates[0];
+    const hash = await normalizedItemContentV1Hash(row);
+    if (!hash) {
+      attempt.registered_item_link = { status: 'invalid', reason: 'normalized_content_hash_failed' };
+      stats.invalid_count++; continue;
+    }
+    attempt.registered_item_link = { status: 'verified', basis: 'D1 qnorm.v1 exact unique + normalized_item_content.v1' };
+    attempt.registered_item_ref = {
+      question_no: attempt.question_no,
+      user_item_id: row.id,
+      unit_id: row.unit_id,
+      content_hash: { algorithm: 'sha256', value: hash, basis: 'normalized_item_content.v1' },
+      concept_ids: axisParse(row.concept_ids) || []
+    };
+    stats.verified_count++;
+  }
+  return stats;
+}
+
 async function runStagedEngineAdapter({ env, payload, files, scope, usageSink }) {
   if (!scope.units.length) throw new Error('후보 단원이 비어 있다(시험 범위 미선택)');
   const unitIds = scope.units.map(u => u.unit_id);
@@ -1324,6 +1474,11 @@ ${RESPONSE_STATE_RULE}`
   const results = await Promise.all(Object.keys(byUnit).map(async unitId => {
     const rows = byUnit[unitId];
     try {
+      if (unitId === 'M3_CIRCLE_PROPERTIES') {
+        const shadowRows = await extractShadowAttemptsForUnit({ env, files, unitId, rows, usageSink });
+        stageMetas.push({ unit_id: unitId, category_stage: 'shadow_type_free', question_count: rows.length, problem_type_required: false });
+        return shadowRows;
+      }
       const types = await fetchUnitProblemTypes(scope, unitId);
       for (const t of types) if (t && t.id) typeNameById[t.id] = t.name || '';   // ★fetchUnitProblemTypes 필드 = id·name(problem_type_id/type_name 아님)
       if (!types.length) throw new Error(`${unitId} 유형 목록이 비어 있다`);
@@ -1349,7 +1504,11 @@ ${RESPONSE_STATE_RULE}`
     is_correct: a.response_status === 'CORRECT_COMPLETE'
   }));
   // ── 매칭(옵션2): 등록 문항 대조 → 유형 교정 + 답/해설 첨부. attempts 제자리 변형. 이후 통계는 매칭 반영값. ──
-  const match = await matchAttemptsToItems({ env, attempts });
+  // Shadow 단원은 legacy 유형 매칭에서 제외한다. 추후 approved 유형이 생겨도 학생 출력 경로로
+  // 우연히 승격되지 않으며, 별도 item_axes 조회 경계가 유지된다.
+  const legacyAttempts = attempts.filter(a => a && a.unit_id !== 'M3_CIRCLE_PROPERTIES');
+  const match = await matchAttemptsToItems({ env, attempts: legacyAttempts });
+  const shadowItemLink = await linkAttemptsToShadowItems({ env, attempts });
   // ★type_name 채움(검수 2026-08-14): stage-2·매칭은 problem_type_id만 반환 → attempts에 type_name 없음(주의할 연결 항목 소실 원인).
   //   카탈로그 맵으로 첨부. 매칭 후 실행 = 매칭이 교정한 유형의 이름을 씀. 맵에 없으면 빈값(렌더가 항목 제외).
   for (const a of attempts) if (a && a.problem_type_id && !a.type_name) a.type_name = typeNameById[a.problem_type_id] || '';
@@ -1384,6 +1543,7 @@ ${RESPONSE_STATE_RULE}`
       chunked: chunkPlan.filter(c => c.chunks > 1),
       // 유형 로드 실패 단원(미구축·PT파일 부재 등). 비어 있지 않으면 그 단원 문항은 유형·개념 진단이 빠진 것.
       type_load_failures: typeLoadFailed,
+      shadow_item_link: shadowItemLink,
       // 레버 A(범주 2단계) 계측 — 2회 실측 대조용. units: 단원별 단계(single/two_stage/type_load_failed)·사유.
       // per_question: 문항별 category_assigned·category_confidence·menu_ok·recovered. menu_violation: 문항 후보밖 배정(A2 느슨함 지표).
       // recovered_count: 좁힌뒤 못 정해 전체메뉴로 복구된 수(판정은 복구 제외 일치율로).

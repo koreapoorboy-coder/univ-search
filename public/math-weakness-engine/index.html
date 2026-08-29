@@ -463,17 +463,25 @@ ol.chain::before{content:"";position:absolute;left:9px;top:12px;bottom:22px;widt
 </script>
 
 <script src="assets/algebra_master_matcher.js?v=patch320"></script>
-<script src="assets/math_weakness_engine.js?v=patch321"></script>
+<script src="assets/math_weakness_engine.js?v=shadow-v1"></script>
 <script src="assets/math_weakness_evidence_review.js?v=patch321"></script>
 <script src="assets/math_ai_bridge_client.js?v=patch320"></script>
-<script src="assets/math_verification_flow.js?v=patch320"></script>
-<script src="assets/math_axis_accumulation.js?v=patch321"></script>
+<script src="assets/math_verification_flow.js?v=shadow-v1"></script>
+<script src="assets/math_axis_accumulation.js?v=shadow-v1"></script>
 <script src="assets/math_hybrid_report_renderer.js?v=patch320"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
   const $ = (s) => document.querySelector(s);
   const resultEl = $('#result');
-  let state = { payload:null, extraction:null, engineDiagnosis:null, noteReview:null, verificationSet:null, answerReview:null, finalReport:null };
+  let state = { payload:null, extraction:null, engineDiagnosis:null, shadowObservation:null, noteReview:null, verificationSet:null, answerReview:null, finalReport:null };
+  function extractionWithoutShadowInternals(extraction) {
+    if (!extraction || typeof extraction !== 'object') return extraction;
+    let clone; try { clone = JSON.parse(JSON.stringify(extraction)); } catch (e) { return extraction; }
+    const rows = clone?.engine_adapter?.student_attempt?.attempts || [];
+    rows.forEach(a => { if (!a) return; delete a.registered_item_ref; delete a.registered_item_link; delete a.shadow_analysis; });
+    if (clone._staged) delete clone._staged.shadow_item_link;
+    return clone;
+  }
   let engine, bridge, flow;
 
   function fallbackEsc(v) {
@@ -798,7 +806,7 @@ ${resultEl.innerHTML}
           use_engine_locked_context_only: true,
           no_default_sample_questions: true
         },
-        ai_extraction: state.extraction,
+        ai_extraction: extractionWithoutShadowInternals(state.extraction),
         engine_diagnosis: state.engineDiagnosis,
         engine_locked_context: state.extraction?._engine_context,
         note_review: state.noteReview
@@ -895,6 +903,8 @@ ${resultEl.innerHTML}
           };
         }
         state.engineDiagnosis = await flow.runLocalEngineDiagnosis(state.extraction);
+        // Shadow는 내부 관측 전용이다. engineDiagnosis·렌더러·후속 AI payload에 합치지 않는다.
+        state.shadowObservation = flow.runShadowObservation ? await flow.runShadowObservation(state.extraction) : null;
         if (state.extraction && state.engineDiagnosis) {
           state.extraction._engine_context = {
             top_concepts: state.engineDiagnosis.top_concepts || [],
@@ -909,12 +919,19 @@ ${resultEl.innerHTML}
             const rawAttempt = state.extraction?.engine_adapter?.student_attempt;
             const eng = flow && flow.engine;
             const attemptsList = ((eng && eng.collectAttemptList) ? eng.collectAttemptList(rawAttempt) : (rawAttempt?.attempts || [])) || [];
+            const attemptsForStorage = (eng && eng.attachShadowObservations)
+              ? eng.attachShadowObservations(attemptsList, state.shadowObservation)
+              : attemptsList;
             // 차단1(확인3): 풀이 부재 파일이면 프로파일에 저장하지 않고 사유를 알린다(D1 오염 방지·조용한 누락 방지).
             const guardApplied = state.extraction?._staged?.guard_applied === true;
             const allUnknown = attemptsList.length > 0 && attemptsList.every(a => a && a.response_status === 'UNKNOWN');
             const emptyNoValue = attemptsList.length === 0 && (state.engineDiagnosis.observed_axes || []).length === 0;
+            const legacySummary = state.engineDiagnosis.summary || {};
+            const legacyProfileEligible = Number(legacySummary.attempt_count || 0) > Number(legacySummary.missing_type_count || 0);
+            const legacyBlocked = guardApplied || allUnknown || emptyNoValue || !legacyProfileEligible;
+            const shadowRecordable = Number(state.shadowObservation?.summary?.recordable_count || 0) > 0;
             const pl = document.querySelector('#profile_after');
-            if (guardApplied || allUnknown || emptyNoValue) {
+            if (legacyBlocked && !shadowRecordable) {
               const reason = state.extraction?._staged?.guard_reason || 'no_work';
               console.warn('[axis-store] 풀이 부재로 프로파일 미저장:', reason);
               if (pl) pl.innerHTML = `<p class="muted" style="border:1px solid #fde68a;background:#fffbeb;border-radius:8px;padding:8px 12px">이 제출은 학생 풀이 흔적이 없어 누적 프로파일에 저장하지 않았습니다. (사유: ${reason})</p>`;
@@ -922,12 +939,21 @@ ${resultEl.innerHTML}
               const rec = await MathAxisStore.buildRecord({
                 studentCode: state.payload?.student_profile?.student_code || '',
                 scope: state.payload?.learning_context?.scope || {},
-                attempts: attemptsList,
-                observedAxes: state.engineDiagnosis.observed_axes || []
+                attempts: attemptsForStorage,
+                observedAxes: state.engineDiagnosis.observed_axes || [],
+                profileEligible: !legacyBlocked
               });
               if (rec) MathAxisStore.save(rec);
               const codeForLink = state.payload?.student_profile?.student_code || '';
-              if (pl && codeForLink) {
+              // Shadow 때문에 새로 저장된 경우 학생 화면은 종전과 동일하게 유지한다.
+              if (!legacyProfileEligible && shadowRecordable) {
+                console.info('[axis-store] shadow-only record saved and hidden from student profile');
+                if (pl) pl.innerHTML = '';
+              } else if (legacyBlocked) {
+                const reason = state.extraction?._staged?.guard_reason || 'no_work';
+                console.info('[axis-store] shadow-only record saved without student output:', reason);
+                if (pl) pl.innerHTML = `<p class="muted" style="border:1px solid #fde68a;background:#fffbeb;border-radius:8px;padding:8px 12px">이 제출은 학생 풀이 흔적이 없어 누적 프로파일에 저장하지 않았습니다. (사유: ${reason})</p>`;
+              } else if (pl && codeForLink) {
                 const num = codeForLink.replace('SC-STUDY-', '');
                 pl.innerHTML = `<a href="profile.html?code=${encodeURIComponent(num)}" target="_blank" rel="noopener" style="display:inline-block;font-weight:700;text-decoration:none;color:#3730a3;border:1px solid #c7d2fe;background:#eef2ff;border-radius:8px;padding:8px 14px">📊 이 학생(${codeForLink}) 이전 기록·축 누적 보기 →</a>`;
               }
@@ -972,7 +998,7 @@ ${resultEl.innerHTML}
     $('#review_btn').onclick = async () => {
       try {
         syncBridgeWorkerUrl();
-        const payload = { student_upload:collectForm(), verification_set:state.verificationSet, student_answer_text:$('#verification_answer').value, ai_extraction:state.extraction, engine_diagnosis:state.engineDiagnosis };
+        const payload = { student_upload:collectForm(), verification_set:state.verificationSet, student_answer_text:$('#verification_answer').value, ai_extraction:extractionWithoutShadowInternals(state.extraction), engine_diagnosis:state.engineDiagnosis };
         if (bridge.hasWorker()) state.answerReview = await bridge.reviewVerification(payload, $('#verification_files').files);
         else state.answerReview = flow.buildFallbackAnswerReview(state.verificationSet, $('#verification_answer').value);
         render();
@@ -985,7 +1011,7 @@ ${resultEl.innerHTML}
     $('#final_btn').onclick = async () => {
       try {
         syncBridgeWorkerUrl();
-        const payload = { student_upload:collectForm(), ai_extraction:state.extraction, engine_diagnosis:state.engineDiagnosis, note_review:state.noteReview, verification_set:state.verificationSet, answer_review:state.answerReview };
+        const payload = { student_upload:collectForm(), ai_extraction:extractionWithoutShadowInternals(state.extraction), engine_diagnosis:state.engineDiagnosis, note_review:state.noteReview, verification_set:state.verificationSet, answer_review:state.answerReview };
         state.finalReport = bridge.hasWorker() ? await bridge.finalReport(payload) : {
           report_id:`local_report_${Date.now()}`,
           report_type:'full_cycle',

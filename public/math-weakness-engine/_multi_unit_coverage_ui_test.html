@@ -49,13 +49,23 @@ const has = (html, s) => String(html).indexOf(s) >= 0;
   const engine = new MathWeaknessEngine('.');
   const flow = new MathVerificationFlow({ engine, bridge: null });
   await engine.load({ unitIds: [] });
+  // 원의 성질은 현재 실제 자료가 있으므로 결손 표본으로 쓰지 않는다.
+  // 인덱스 등록 후 canonical 파일만 없는 합성 단원으로 fail-closed 경로를 검증한다.
+  const missingUnitId = 'M_TEST_DATA_MISSING';
+  engine.indexedUnits.push({
+    unit_id: missingUnitId, unit_name: '테스트용 자료 결손 단원',
+    problem_types: 'data/problem_types/__missing_fixture__.json',
+    edges: 'data/relations/__missing_fixture__.json',
+    diagnosis_rules: 'data/rules/__missing_fixture__.json',
+    remediation: 'data/remediation/__missing_fixture__.json'
+  });
   const extraction = {
     file_purpose_review: { detected_materials: [] },
     student_material_review: {},
     engine_adapter: { student_attempt: { unit_id: 'M2_LINEAR_EQUATION', unit_name: '일차방정식', attempts: [
       { question_no: '1', unit_id: 'M2_LINEAR_EQUATION', problem_type_id: 'M2_LE_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: ['부호오류'] },
       { question_no: '2', unit_id: 'INVALID_TEST_UNIT',  problem_type_id: 'M2_LE_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: [] },
-      { question_no: '3', unit_id: 'M3_CIRCLE_PROPERTIES', problem_type_id: 'M3_CIRC_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: [] }
+      { question_no: '3', unit_id: missingUnitId, problem_type_id: 'M_TEST_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: [] }
     ]}}
   };
   const diagnosis = await flow.runLocalEngineDiagnosis(extraction);
@@ -65,7 +75,7 @@ const has = (html, s) => String(html).indexOf(s) >= 0;
   const cov = R.renderAttemptCoverage(acc);
   check('I1.커버리지 닫힘 "전체 3문항 = 진단 완료 1 + 진단 불가 2"', has(cov, '전체 3문항 = 진단 완료 1 + 진단 불가 2'), cov);
   check('I1.2번 문항(INVALID)→단원 미확인', has(cov, '2번 문항 — 진단 불가 (단원 미확인'));
-  check('I1.3번 문항(M3_CIRCLE_PROPERTIES)→단원 자료 없음', has(cov, '3번 문항 — 진단 불가 (단원 자료 없음'));
+  check('I1.3번 문항(합성 결손 단원)→단원 자료 없음', has(cov, '3번 문항 — 진단 불가 (단원 자료 없음'));
 
   // 전체 학생 보고서 렌더에 커버리지가 실제로 포함되는가(배선 확인)
   let full = '';

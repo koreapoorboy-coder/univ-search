@@ -6,7 +6,7 @@
  */
 (function (global) {
   const RECORDS_KEY = 'scstudy_records';
-  const SCHEMA_VERSION = 1;
+  const SCHEMA_VERSION = 2;
   let _axisMapVersion = null;
 
   function _load() { try { return JSON.parse(localStorage.getItem(RECORDS_KEY) || '[]'); } catch (e) { return []; } }
@@ -27,22 +27,31 @@
 
   // 문자열 상한: 풀이 원문이 길어져 D1 행이 비대해지는 것을 막는다. Worker가 이미 짧게 옮기지만 방어적으로 자른다.
   function _cap(v, n) { const s = (v == null) ? '' : String(v); return s.length > n ? s.slice(0, n) : s; }
+  function _has(obj, key) { return !!obj && Object.prototype.hasOwnProperty.call(obj, key); }
+  function _capPreserve(v, n) { if (v === null) return null; const s = String(v); return s.length > n ? s.slice(0, n) : s; }
   function _normAttempt(a) {
-    return {
+    const out = {
       question_no: (a && (a.question_no ?? a.no ?? a.number)) ?? '',
       problem_type_id: (a && a.problem_type_id) || '',
       unit_id: (a && a.unit_id) || '',
       response_status: (a && a.response_status) || (a && a.is_correct === true ? 'CORRECT_COMPLETE' : (a && a.is_correct === false ? 'WRONG_COMPLETE' : '')),
       observed_error_tags: (a && Array.isArray(a.observed_error_tags)) ? a.observed_error_tags.slice() : [],
-      // Fix-A(풀이 원문 보존): 태그 세분화 재료. "왜 이 태그였나"를 나중에 되짚기 위한 원문·정답·근거.
-      student_work_text: _cap(a && a.student_work_text, 600),
       student_answer: _cap(a && a.student_answer, 200),
       tag_rationale: _cap(a && a.tag_rationale, 400)
     };
+    // 필드 생략·null·빈 문자열을 서로 다른 사실로 보존한다. 빈 문자열 자동 생성 금지.
+    if (_has(a, 'student_work_text')) out.student_work_text = _capPreserve(a.student_work_text, 600);
+    if (_has(a, 'work_absent')) out.work_absent = a.work_absent;
+    if (_has(a, 'work_absent_evidence')) out.work_absent_evidence = _capPreserve(a.work_absent_evidence, 400);
+    if (_has(a, 'work_unreadable')) out.work_unreadable = a.work_unreadable;
+    if (_has(a, 'registered_item_ref')) out.registered_item_ref = a.registered_item_ref;
+    if (_has(a, 'registered_item_link')) out.registered_item_link = a.registered_item_link;
+    if (_has(a, 'shadow_analysis')) out.shadow_analysis = a.shadow_analysis;
+    return out;
   }
 
   // 레코드 = DB 행. 검수 확정 스키마 + id/schema_version(B 이관 대비).
-  async function buildRecord({ studentCode, scope, attempts, observedAxes, dateISO }) {
+  async function buildRecord({ studentCode, scope, attempts, observedAxes, profileEligible, dateISO }) {
     if (!studentCode) return null;
     const s = scope || {};
     const scopeUnits = Array.isArray(s.candidate_units)
@@ -56,10 +65,22 @@
       date: dateISO || _nowISO(),
       exam_label: s.label || '',
       scope_units: scopeUnits,
+      // false인 Shadow 전용 레코드는 관측 보존 대상이지만 학생 프로필 출력 대상이 아니다.
+      profile_eligible: profileEligible !== false,
       observed_axes: Array.isArray(observedAxes) ? observedAxes : [],
       attempts: Array.isArray(attempts) ? attempts.map(_normAttempt) : [],
       axis_map_version: amv
     };
+  }
+
+  function _profileEligibleRecord(record) {
+    if (!record || record.profile_eligible === false) return false;
+    const attempts = Array.isArray(record.attempts) ? record.attempts : [];
+    const axes = Array.isArray(record.observed_axes) ? record.observed_axes : [];
+    const hasShadow = attempts.some(a => a && a.shadow_analysis && a.shadow_analysis.profile_eligible === false);
+    const hasLegacyType = attempts.some(a => a && String(a.problem_type_id || '').trim() !== '');
+    // 과거/서버 레코드에는 최상위 profile_eligible 컬럼이 없으므로 내용으로도 fail-closed 판별한다.
+    return !(hasShadow && !hasLegacyType && axes.length === 0);
   }
 
   function save(record) {
@@ -70,17 +91,17 @@
   }
   function all() { return _load(); }
   function listByStudent(code) {
-    return _load().filter(r => r.student_code === code).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    return _load().filter(r => r.student_code === code && _profileEligibleRecord(r)).sort((a, b) => String(a.date).localeCompare(String(b.date)));
   }
   function students() {
     const m = {};
-    _load().forEach(r => { if (r && r.student_code) m[r.student_code] = (m[r.student_code] || 0) + 1; });
+    _load().forEach(r => { if (r && r.student_code && _profileEligibleRecord(r)) m[r.student_code] = (m[r.student_code] || 0) + 1; });
     return Object.keys(m).sort().map(code => ({ student_code: code, exam_count: m[code] }));
   }
   // 여러 시험의 축을 합산: "이 학생 C3 반복" 이 여기서 나온다.
   function aggregateAxes(records) {
     const m = {};
-    (records || []).forEach(r => (r.observed_axes || []).forEach(a => {
+    (records || []).filter(_profileEligibleRecord).forEach(r => (r.observed_axes || []).forEach(a => {
       if (!a || !a.axis) return;
       if (!m[a.axis]) m[a.axis] = { axis: a.axis, total: 0, wrong: 0, exams: 0 };
       m[a.axis].total += a.total || 0;
@@ -218,7 +239,9 @@
       body: JSON.stringify(code ? { student_code: code } : {})
     });
     if (!res.ok) { const e = new Error('profile ' + res.status); e.status = res.status; throw e; }
-    return await res.json();
+    const body = await res.json();
+    if (body && Array.isArray(body.records)) body.records = body.records.filter(_profileEligibleRecord);
+    return body;
   }
   // 기존 localStorage 레코드 전부 서버로 이관(멱등). "서버로 이관" 버튼용.
   async function pushAllToServer() {

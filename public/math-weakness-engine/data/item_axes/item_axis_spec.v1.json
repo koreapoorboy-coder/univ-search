@@ -1,0 +1,345 @@
+{
+  "axis_spec_version": "item-axis-spec.v1",
+  "analysis_version": "axis-def.ruling112",
+  "unit_id": "M3_CIRCLE_PROPERTIES",
+  "unit_name": "원의 성질",
+  "status_contract": {
+    "unjudged": "axis key absent",
+    "assessed": "state=assessed with value, certainty, and evidence",
+    "not_applicable": "state=not_applicable with reason and without value",
+    "unjudgeable": "state=unjudgeable with reason and without value"
+  },
+  "certainty_values": [
+    "확실",
+    "애매"
+  ],
+  "value_policy": "open",
+  "axes": {
+    "common.AX03_cardinality": {
+      "axis_id": "AX03_cardinality",
+      "scope": "common",
+      "question": "최종 답으로 요구되는 값은 하나, 여러 값, 순서쌍 중 무엇인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "하나",
+        "여러 값",
+        "순서쌍"
+      ],
+      "confirmed_on": null,
+      "evidence_sources": [
+        "question",
+        "answer"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full"
+    },
+    "common.AX03_math_form": {
+      "axis_id": "AX03_math_form",
+      "scope": "common",
+      "question": "최종 답의 수학적 표현 형식은 무엇인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "수치",
+        "비",
+        "식",
+        "명제"
+      ],
+      "confirmed_on": null,
+      "evidence_sources": [
+        "question",
+        "answer"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full"
+    },
+    "common.AX03_response_mode": {
+      "axis_id": "AX03_response_mode",
+      "scope": "common",
+      "question": "응답 방식은 서술형인가 선택지형인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "서술",
+        "선택지"
+      ],
+      "confirmed_on": null,
+      "evidence_sources": [
+        "question"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full"
+    },
+    "common.AX04_direction": {
+      "axis_id": "AX04_direction",
+      "scope": "common",
+      "question": "주어진 조건에서 결과를 구하는 정방향인가, 결과에서 조건을 역추적하는 역방향인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "forward",
+        "inverse"
+      ],
+      "confirmed_on": null,
+      "evidence_sources": [
+        "question",
+        "solution"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full"
+    },
+    "common.AX04_elimination": {
+      "axis_id": "AX04_elimination",
+      "scope": "common",
+      "question": "둘 이상의 미지수를 둔 식을 조작하여 하나를 제거하는가?",
+      "arity": "single",
+      "value_type": "boolean",
+      "current_values": [
+        false,
+        true
+      ],
+      "confirmed_on": null,
+      "evidence_sources": [
+        "solution"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full"
+    },
+    "common.AX03_kind": {
+      "axis_id": "AX03_kind",
+      "scope": "common",
+      "question": "문항이 최종적으로 구하거나 판단하도록 요구하는 대상은 무엇인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "각",
+        "길이",
+        "넓이",
+        "호",
+        "원의 크기",
+        "개수",
+        "참거짓",
+        "식",
+        "자취"
+      ],
+      "confirmed_on": [
+        "T1",
+        "T2"
+      ],
+      "evidence_sources": [
+        "question"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full",
+      "boundary_rules": [
+        "문자가 가리키는 양이 있으면 그 양으로 판정한다.",
+        "반지름·지름·원주·원의 둘레·원의 넓이는 원의 크기다.",
+        "호 자체를 묻는 문항은 호다.",
+        "답이 문자식이어도 구하는 양이 명확하면 그 양으로 판정한다."
+      ]
+    },
+    "common.AX03_aggregation": {
+      "axis_id": "AX03_aggregation",
+      "scope": "common",
+      "question": "최종 답을 만드는 마지막 결합 연산은 무엇인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "단일",
+        "합",
+        "차",
+        "비",
+        "배"
+      ],
+      "confirmed_on": [
+        "T1",
+        "T2"
+      ],
+      "evidence_sources": [
+        "question"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full",
+      "boundary_rules": [
+        "답을 만드는 마지막 연산을 판정한다.",
+        "몇 배인가를 묻는 문항은 중간에 합이 있어도 배다.",
+        "다각형의 둘레는 길이·합이며 원의 둘레는 원의 크기·단일이다."
+      ]
+    },
+    "unit.M3_CIRCLE_PROPERTIES.AXC02_count": {
+      "axis_id": "AXC02_count",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "question": "문항과 풀이의 관계 대상이 되는 원은 몇 개인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "1",
+        "2",
+        "3이상"
+      ],
+      "confirmed_on": null,
+      "evidence_sources": [
+        "question",
+        "diagram",
+        "solution"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    },
+    "unit.M3_CIRCLE_PROPERTIES.AXC03_reflex": {
+      "axis_id": "AXC03_reflex",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "question": "180도를 넘는 중심각을 360도로 보정하여 사용하는가?",
+      "arity": "single",
+      "value_type": "boolean",
+      "current_values": [
+        false,
+        true
+      ],
+      "confirmed_on": null,
+      "evidence_sources": [
+        "solution"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full"
+    },
+    "unit.M3_CIRCLE_PROPERTIES.AXC01_lines": {
+      "axis_id": "AXC01_lines",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "question": "핵심 풀이에 사용되는 원과 직선의 관계는 현·할선·접선 중 무엇인가?",
+      "arity": "multi",
+      "value_type": "string",
+      "current_values": [
+        "chord",
+        "secant",
+        "tangent"
+      ],
+      "confirmed_on": [
+        "T1",
+        "T2"
+      ],
+      "evidence_sources": [
+        "question",
+        "diagram",
+        "solution"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    },
+    "unit.M3_CIRCLE_PROPERTIES.AXC01_vertex": {
+      "axis_id": "AXC01_vertex",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "question": "현·할선·접선 관계의 핵심 꼭짓점은 원의 안, 밖, 또는 없음 중 어디인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "inside",
+        "outside",
+        "none"
+      ],
+      "confirmed_on": [
+        "T1",
+        "T2"
+      ],
+      "evidence_sources": [
+        "question",
+        "diagram",
+        "solution"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    },
+    "unit.M3_CIRCLE_PROPERTIES.AXC01_tangent_count": {
+      "axis_id": "AXC01_tangent_count",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "question": "핵심 풀이에 사용되는 접선은 몇 개인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "1",
+        "2",
+        "3이상",
+        "해당없음"
+      ],
+      "confirmed_on": [
+        "T1",
+        "T2"
+      ],
+      "evidence_sources": [
+        "question",
+        "diagram",
+        "solution"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    },
+    "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation": {
+      "axis_id": "AXC02_circle_relation",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "question": "두 원 사이에 외접·내접·동심·교차·분리 관계가 있는가?",
+      "arity": "multi",
+      "value_type": "string",
+      "current_values": [
+        "외접",
+        "내접",
+        "동심",
+        "교차",
+        "분리",
+        "해당없음"
+      ],
+      "confirmed_on": [
+        "T2"
+      ],
+      "evidence_sources": [
+        "question",
+        "diagram",
+        "solution"
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    }
+  }
+}

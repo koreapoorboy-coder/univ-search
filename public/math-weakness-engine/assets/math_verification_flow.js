@@ -69,6 +69,23 @@ class MathVerificationFlow {
     return null;
   }
 
+  // Shadow는 기존 진단의 폴백이 아니다. 결과를 학생용 engineDiagnosis에 합치지 않고,
+  // axis_records.attempts에 보존할 내부 관측값만 별도로 만든다.
+  async runShadowObservation(aiExtraction) {
+    const attempt = aiExtraction?.engine_adapter?.student_attempt;
+    if (!this.engine || !attempt || !this.engine.analyzeShadow) return null;
+    try {
+      return await this.engine.analyzeShadow(attempt);
+    } catch (error) {
+      console.warn('[MathVerificationFlow] shadow observation skipped:', error);
+      return {
+        mode: 'shadow', student_output: false, profile_eligible: false, remediation_enabled: false,
+        summary: { attempt_count: 0, linked_count: 0, recordable_count: 0, observed_count: 0, unresolved_count: 0 },
+        observations: [], error: error && error.message || String(error)
+      };
+    }
+  }
+
   // [존재 정의] unit_id 는 문자열이고 공백 제거 후 비어있지 않아야 '존재'로 본다.
   // null·undefined·빈 문자열·공백만 있는 문자열 = 부재 → Priority 2 로 내려간다.
   _hasUnitId(v) { return typeof v === 'string' && v.trim() !== ''; }

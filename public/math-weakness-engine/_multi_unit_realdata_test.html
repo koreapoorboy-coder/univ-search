@@ -34,19 +34,28 @@ const check = (n, c, d) => { if (c) { pass++; log('PASS  ' + n); } else { fail++
   const accM = attempt._unit_binding.attempt_accounting;
   check('문항 수 보존: total 3 == diag 3 + unres 0', accM.total === 3 && accM.diagnosable_count === 3 && accM.unresolved_count === 0 && accM.conserved, JSON.stringify(accM));
 
-  // CASE F 실데이터 — 선언됐지만 canonical 파일 부재 단원. 다른 단원으로 추측 금지.
-  log('\n=== 실데이터 CASE F: canonical 데이터 없는 단원(M3_CIRCLE_PROPERTIES) ===');
-  const attF = { unit_id: 'M3_CIRCLE_PROPERTIES', unit_name: '원의 성질', attempts: [
-    { question_no: '1', unit_id: 'M3_CIRCLE_PROPERTIES', problem_type_id: 'M3_CIRC_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: [] }
+  // CASE F — 원의 성질은 이제 실제 자료가 있으므로 결손 표본으로 쓰지 않는다.
+  // 인덱스에는 있으나 canonical 파일이 없는 합성 단원을 추가해 fail-closed 계약만 독립 검증한다.
+  const missingUnitId = 'M_TEST_DATA_MISSING';
+  engine.indexedUnits.push({
+    unit_id: missingUnitId, unit_name: '테스트용 자료 결손 단원',
+    problem_types: 'data/problem_types/__missing_fixture__.json',
+    edges: 'data/relations/__missing_fixture__.json',
+    diagnosis_rules: 'data/rules/__missing_fixture__.json',
+    remediation: 'data/remediation/__missing_fixture__.json'
+  });
+  log('\n=== 실데이터 CASE F: 인덱스 등록·canonical 파일 결손 합성 단원 ===');
+  const attF = { unit_id: missingUnitId, unit_name: '테스트용 자료 결손 단원', attempts: [
+    { question_no: '1', unit_id: missingUnitId, problem_type_id: 'M_TEST_PT001', response_status: 'WRONG_COMPLETE', observed_error_tags: [] }
   ]};
   await flow.runLocalEngineDiagnosis({ engine_adapter: { student_attempt: attF } });
   const bF = attF._unit_binding;
-  const statusF = (bF.unresolved_units || []).find(u => u.unit_id === 'M3_CIRCLE_PROPERTIES');
-  check('F.M3_CIRCLE_PROPERTIES 를 요청은 함(대체 아님)', (bF.resolved_unit_ids || []).includes('M3_CIRCLE_PROPERTIES'));
+  const statusF = (bF.unresolved_units || []).find(u => u.unit_id === missingUnitId);
+  check('F.결손 단원을 요청은 함(대체 아님)', (bF.resolved_unit_ids || []).includes(missingUnitId));
   check('F.데이터 없음 → UNIT_DATA_NOT_AVAILABLE', statusF && statusF.status === 'UNIT_DATA_NOT_AVAILABLE', JSON.stringify(bF.unresolved_units));
-  check('F.canonical 에 실제 로드 안 됨', !engine.unitData['M3_CIRCLE_PROPERTIES']);
+  check('F.canonical 에 실제 로드 안 됨', !engine.unitData[missingUnitId]);
   const skipped = (engine.getLoadStatus().skipped_units || []).map(u => u.unit_id);
-  check('F.engine skipped_units 에 기록(기존 스키마)', skipped.includes('M3_CIRCLE_PROPERTIES'), JSON.stringify(skipped));
+  check('F.engine skipped_units 에 기록(기존 스키마)', skipped.includes(missingUnitId), JSON.stringify(skipped));
   const accF = bF.attempt_accounting;
   check('F.문항 수 보존: total 1 == diag 0 + unres 1(UNIT_DATA_NOT_AVAILABLE)', accF.total === 1 && accF.diagnosable_count === 0 && accF.unresolved_count === 1 && accF.conserved, JSON.stringify(accF));
 

@@ -54,6 +54,10 @@
       this.loaded=false;
       this.globalLogicLoaded=false;
       this.globalLogicError=null;
+      this.shadowRuntime={enabled:false,student_output:false,profile_eligible:false,remediation_enabled:false,registries:{}};
+      this.shadowRegistryByUnit={};
+      this.shadowRegistryRecordById={};
+      this.shadowRegistryErrors={};
     }
     async _json(path){
       const res=await fetch(`${this.basePath}/${path}`,{cache:'no-cache'});
@@ -66,6 +70,7 @@
     }
     async load(options={}){
       this.manifest=await this._json('manifest.json');
+      this.shadowRuntime=this.manifest.shadow_runtime||this.shadowRuntime;
       this.index=await this._json(this.manifest.data_index);
       this.indexedUnits=this.index.units||[];
       this.units=[];
@@ -281,6 +286,131 @@
         return input.wrong_problem_type_ids.map(x=>typeof x==='string'?{problem_type_id:x,is_correct:false}:x);
       }
       return [];
+    }
+    async ensureShadowRegistries(unitIds){
+      const cfg=this.shadowRuntime||{};
+      if(!cfg.enabled||cfg.student_output!==false||cfg.profile_eligible!==false) return this;
+      for(const unitId of uniq(unitIds||[])){
+        if(this.shadowRegistryByUnit[unitId]||this.shadowRegistryErrors[unitId]) continue;
+        const path=cfg.registries&&cfg.registries[unitId];
+        if(!path) continue;
+        try{
+          const pack=await this._json(path);
+          const contract=pack&&pack.runtime_contract||{};
+          if(contract.mode!=='shadow'||contract.student_output!==false||contract.profile_eligible!==false||contract.remediation_enabled!==false) throw new Error('unsafe shadow runtime contract');
+          if(pack.unit_id!==unitId) throw new Error(`shadow registry unit mismatch: ${pack.unit_id}`);
+          const rows=pack.records||{};
+          this.shadowRegistryByUnit[unitId]=pack;
+          Object.keys(rows).forEach(id=>{const row=rows[id]; if(row&&row.user_item_id===id&&row.unit_id===unitId&&row.profile_eligible===false)this.shadowRegistryRecordById[id]=row;});
+        }catch(err){
+          this.shadowRegistryErrors[unitId]=err&&err.message||String(err);
+          console.warn('[MathWeaknessEngine] shadow registry load failed:',unitId,err);
+        }
+      }
+      return this;
+    }
+    _studentWorkObservation(attempt){
+      const has=(key)=>Object.prototype.hasOwnProperty.call(attempt||{},key);
+      const hasText=has('student_work_text');
+      const raw=hasText?attempt.student_work_text:undefined;
+      const text=typeof raw==='string'?raw:null;
+      const nonEmpty=typeof text==='string'&&text.length>0;
+      const hasAbsent=has('work_absent');
+      const absent=hasAbsent?attempt.work_absent:undefined;
+      if(attempt&&attempt.work_unreadable===true) return {state:'unresolved',reason:'work_unreadable'};
+      if(nonEmpty&&absent===true) return {state:'unresolved',reason:'conflicting_work_state'};
+      if(nonEmpty) return {state:'observed'};
+      if(absent===true){
+        const evidence=String(attempt.work_absent_evidence||'').trim();
+        return evidence?{state:'absent',evidence}:{state:'unresolved',reason:'work_absent_evidence_missing'};
+      }
+      if(hasAbsent&&absent===false) return {state:'unresolved',reason:'declared_present_but_text_missing'};
+      if(!hasText) return {state:'unresolved',reason:'work_field_omitted'};
+      if(raw==='') return {state:'unresolved',reason:'work_explicit_empty'};
+      if(raw===null) return {state:'unresolved',reason:'work_null'};
+      return {state:'unresolved',reason:'work_invalid_type'};
+    }
+    _validatedFailedSteps(attempt,workObservation){
+      const supplied=Array.isArray(attempt&&attempt.failed_steps)?attempt.failed_steps:[];
+      if(!supplied.length) return {passed:true,reason:'no_failed_steps_supplied',failed_steps:[]};
+      if(workObservation.state!=='observed'||typeof attempt.student_work_text!=='string'||attempt.student_work_text.length===0) return {passed:false,reason:'student_work_not_observed',failed_steps:[]};
+      const out=[];
+      for(const step of supplied){
+        const quote=step&&step.evidence&&step.evidence.quote;
+        const source=step&&step.evidence&&step.evidence.source;
+        if(typeof quote!=='string'||quote.length===0) return {passed:false,reason:'quote_empty',failed_steps:[]};
+        if(source!=='student_work_text') return {passed:false,reason:'invalid_evidence_source',failed_steps:[]};
+        if(!attempt.student_work_text.includes(quote)) return {passed:false,reason:'quote_not_found',failed_steps:[]};
+        if(!['확실','애매'].includes(step.certainty)) return {passed:false,reason:'invalid_certainty',failed_steps:[]};
+        if(step.certainty==='애매'&&!String(step.ambiguity_reason||'').trim()) return {passed:false,reason:'ambiguity_reason_missing',failed_steps:[]};
+        out.push(stripUndefined({failed_step_id:step.failed_step_id,certainty:step.certainty,ambiguity_reason:step.ambiguity_reason,evidence:{quote,source,interpretation:step.evidence.interpretation}}));
+      }
+      return {passed:true,reason:'passed',failed_steps:out};
+    }
+    async analyzeShadow(input){
+      const attempts=this._normalizeAttempts(input);
+      const unitIds=uniq(attempts.map(a=>(a&&a.registered_item_ref&&a.registered_item_ref.unit_id)||a.unit_id).filter(Boolean));
+      await this.ensureShadowRegistries(unitIds);
+      const observations=[]; const conceptStats={};
+      attempts.forEach((a,index)=>{
+        const link=a&&a.registered_item_link||{status:'unlinked',reason:'registered_item_ref_missing'};
+        const ref=a&&a.registered_item_ref;
+        let itemLink={status:link.status||'unlinked',reason:link.reason};
+        let record=null;
+        if(ref&&ref.user_item_id){
+          const candidate=this.shadowRegistryRecordById[ref.user_item_id];
+          const hashOk=candidate&&candidate.content_hash&&ref.content_hash&&candidate.content_hash.basis===ref.content_hash.basis&&candidate.content_hash.value===ref.content_hash.value;
+          const unitOk=candidate&&candidate.unit_id===ref.unit_id&&candidate.unit_id===a.unit_id;
+          if(candidate&&hashOk&&unitOk){record=candidate; itemLink={status:'verified',user_item_id:ref.user_item_id,content_hash:ref.content_hash};}
+          else itemLink={status:'invalid',reason:!candidate?'registry_record_missing':(!hashOk?'content_hash_mismatch':'unit_mismatch')};
+        }
+        const work=this._studentWorkObservation(a);
+        const evidence=this._validatedFailedSteps(a,work);
+        const conceptIds=record&&Array.isArray(ref&&ref.concept_ids)?uniq(ref.concept_ids):[];
+        const axes=record&&record.axes||{};
+        let unresolvedReason=null;
+        if(itemLink.status!=='verified') unresolvedReason={code:`item_link_${itemLink.status}`,evidence:itemLink.reason||'문항 연결 확인 필요',certainty:'확실'};
+        else if(!Object.keys(axes).length) unresolvedReason={code:'item_axes_unjudged',evidence:'정적 레지스트리에 판정 축이 없음',certainty:'확실'};
+        else if(!conceptIds.length) unresolvedReason={code:'concept_ids_missing',evidence:'문항에 연결된 concept_ids가 없음',certainty:'확실'};
+        else if(!evidence.passed) unresolvedReason={code:evidence.reason,evidence:'학생 풀이 evidence 계약 불통과',certainty:'확실'};
+        else if(work.state==='unresolved') unresolvedReason={code:work.reason,evidence:'학생 풀이 관측 상태 미확정',certainty:'확실'};
+        const analysisState=unresolvedReason?'unresolved':'observed';
+        if(itemLink.status==='verified'&&conceptIds.length&&a.response_status!=='UNKNOWN'){
+          conceptIds.forEach(cid=>{if(!conceptStats[cid])conceptStats[cid]={concept_id:cid,total:0,wrong:0}; conceptStats[cid].total++; if(!a.correct)conceptStats[cid].wrong++;});
+        }
+        observations.push(stripUndefined({
+          question_no:a.question_no,
+          unit_id:a.unit_id||ref&&ref.unit_id,
+          response_status:a.response_status,
+          analysis_state:analysisState,
+          profile_eligible:false,
+          student_output:false,
+          diagnostic_authority:false,
+          remediation_eligible:false,
+          item_link:itemLink,
+          item_axes_ref:record?{user_item_id:record.user_item_id,analysis_version:record.analysis_version,content_hash:record.content_hash,review_state:record.review_state}:undefined,
+          item_axes:record?axes:undefined,
+          concept_ids:conceptIds,
+          student_work_observation:work,
+          failed_steps:evidence.failed_steps,
+          evidence_validation:{passed:evidence.passed,reason:evidence.reason},
+          unresolved_reason:unresolvedReason,
+          recordable:itemLink.status==='verified'
+        }));
+      });
+      return {
+        mode:'shadow',student_output:false,profile_eligible:false,remediation_enabled:false,
+        summary:{attempt_count:observations.length,linked_count:observations.filter(x=>x.item_link.status==='verified').length,recordable_count:observations.filter(x=>x.recordable).length,observed_count:observations.filter(x=>x.analysis_state==='observed').length,unresolved_count:observations.filter(x=>x.analysis_state==='unresolved').length},
+        concept_observations:Object.values(conceptStats),observations
+      };
+    }
+    attachShadowObservations(attempts,shadow){
+      const rows=shadow&&Array.isArray(shadow.observations)?shadow.observations:[];
+      return (attempts||[]).map((attempt,index)=>{
+        const obs=rows[index]; if(!obs) return {...attempt};
+        const {item_axes,...stored}=obs;
+        return {...attempt,shadow_analysis:stored};
+      });
     }
     _normalizeAttempts(input){
       const attempts=this.collectAttemptList(input);
