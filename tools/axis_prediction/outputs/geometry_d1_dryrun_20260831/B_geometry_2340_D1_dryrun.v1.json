@@ -1,0 +1,84 @@
+{
+  "schema_version": "geometry-d1-readonly-dryrun.v1",
+  "generated_at": "2026-08-31T13:03:16.756Z",
+  "status": "pass",
+  "execution_mode": "read_only_offline_snapshot",
+  "D1_written": false,
+  "runtime_changed": false,
+  "student_output_changed": false,
+  "storage_contract": {
+    "phase_1_axis_source_of_truth": "static JSON item-analysis registry candidate",
+    "separate_D1_item_axes_table": false,
+    "shadow_observation_store": "axis_records.attempts JSON"
+  },
+  "inputs": {
+    "d1_snapshot": {
+      "path": "C:/Users/user/OneDrive/바탕 화면/csv.txt",
+      "sha256": "4334cba2de4f5d43b2b494d0cd3469946b957ba0409cb2ad971a4059448117fe",
+      "row_count": 2348,
+      "file_last_write_time": "2026-08-29T13:45:10.484Z",
+      "oldest_updated_at": "2026-08-14T09:56:22.445Z",
+      "newest_updated_at": "2026-08-18T08:56:53.824Z"
+    },
+    "shadow_candidate": {
+      "path": "C:\\Users\\user\\projects\\scshstudy\\tools\\axis_prediction\\outputs\\geometry_axis_full_20260831\\B_geometry_axis_shadow2340.finalized.dry_run.v2.json",
+      "sha256": "957bb54ed7987c1a35362026e7dc1104531eef75d398b4b2154b6c8a51bcae57",
+      "record_count": 2340
+    },
+    "finalized_validation": {
+      "path": "C:\\Users\\user\\projects\\scshstudy\\tools\\axis_prediction\\outputs\\geometry_axis_full_20260831\\B_geometry_axis_shadow2340.finalized.validation.v2.json",
+      "sha256": "5eff4fbbe2118e904bb7bc245dcf52112cd542aee839375860d9dc236c957f86",
+      "status": "PASS"
+    },
+    "axis_spec": {
+      "path": "C:\\Users\\user\\projects\\scshstudy\\tools\\axis_prediction\\B_geometry_axis_spec.v2.finalized.json",
+      "sha256": "072d824a5c127a9742832414e2d2ab7d9f8033951c6bc67df8d63bd6ddc7df86",
+      "active": false
+    }
+  },
+  "result": {
+    "source_rows": 2348,
+    "excluded_test_rows": 8,
+    "target_records": 2340,
+    "primary_records": 2265,
+    "alias_records": 75,
+    "found_in_snapshot": 2340,
+    "unit_match": 2340,
+    "content_hash_match": 2340,
+    "profile_eligible_false": 2340,
+    "primary_axis_contract_match": 2265,
+    "alias_reference_contract_match": 75,
+    "non_test_rows_outside_target": 0
+  },
+  "live_readonly_sql": {
+    "path": "C:\\Users\\user\\projects\\scshstudy\\tools\\axis_prediction\\B_geometry_2340_D1_readonly_dryrun.v1.sql",
+    "sha256": "6abc97499c6453d556ad15ca111b035c8c60bf0b8f9367e5fb3ee04038f3aeb0",
+    "chunk_count": 4,
+    "chunk_sizes": [
+      585,
+      585,
+      585,
+      585
+    ],
+    "mutating_statement_count": 0
+  },
+  "live_D1_observation": {
+    "observed_at": "2026-08-31",
+    "execution": "Cloudflare D1 Console read-only SELECT",
+    "total": 2348,
+    "answer_null": 0,
+    "answer_empty": 1,
+    "explanation_null": 0,
+    "explanation_empty": 443,
+    "pending": 0,
+    "approved": 1980,
+    "archived": 368
+  },
+  "proposed_write": {
+    "insert_count": 0,
+    "update_count": 0,
+    "delete_count": 0
+  },
+  "warnings": [],
+  "errors": []
+}

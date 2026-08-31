@@ -1,0 +1,176 @@
+{
+  "axis_spec_version": "geometry-axis-spec.v2.finalized",
+  "status": "finalized_for_static_shadow_not_active",
+  "analysis_version": "axis-def.m2-geometry-properties.v2.independent-final",
+  "unit_id": "M2_GEOMETRY_PROPERTIES",
+  "unit_name": "도형의 성질",
+  "base_spec": "public/math-weakness-engine/data/item_axes/item_axis_spec.v1.json",
+  "activation": {
+    "active": false,
+    "allowed_path": "static_shadow_dry_run_only",
+    "forbidden_paths": [
+      "D1",
+      "legacy_output",
+      "student_profile",
+      "student_ui",
+      "remediation"
+    ]
+  },
+  "measurement_basis": {
+    "distinct_primary_items": 2265,
+    "verified_alias_links": 75,
+    "shadow_denominator": 2340,
+    "targeted_review_records": 202,
+    "targeted_review_corrected": 115,
+    "independent_review_records": 382,
+    "independent_review_changed_records": 65,
+    "independent_review_changed_axis_instances": 95,
+    "evidence_quote_errors": 0,
+    "confirmed_on": [
+      "geometry-axis-blind192.codex.v1",
+      "geometry-full2265-targeted-review-202.codex.v1",
+      "geometry-independent-review-382.gpt-claude-codex.v1"
+    ]
+  },
+  "common_value_extensions": {
+    "common.AX03_kind": {
+      "scope_status": "registered_for_M2_GEOMETRY_PROPERTIES_static_shadow_only",
+      "values": [
+        "도형명",
+        "조건명",
+        "좌표",
+        "시간"
+      ],
+      "measured_counts_after_review": {
+        "도형명": 39,
+        "조건명": 23,
+        "좌표": 13,
+        "시간": 8
+      },
+      "confirmed_on": [
+        "geometry-independent-review-382.gpt-claude-codex.v1"
+      ],
+      "boundary_rules": [
+        "문항의 최종 요구 대상을 판정하며, 문제 상황에 먼저 나온 수량을 답의 종류로 쓰지 않는다.",
+        "움직이는 점이 있어도 최종 요구가 넓이면 넓이, 거리면 길이로 판정한다.",
+        "각과 길이를 더하는 등 서로 다른 차원의 값을 하나의 답으로 요구하면 unjudgeable로 보존한다."
+      ]
+    },
+    "common.AX03_math_form": {
+      "scope_status": "registered_for_M2_GEOMETRY_PROPERTIES_static_shadow_only",
+      "values": [
+        "용어"
+      ],
+      "measured_count_after_review": 53,
+      "confirmed_on": [
+        "geometry-independent-review-382.gpt-claude-codex.v1"
+      ]
+    }
+  },
+  "axes": {
+    "common.AX05_task_mode": {
+      "axis_id": "AX05_task_mode",
+      "scope": "common",
+      "question": "학생이 최종적으로 수행해야 하는 일은 계산, 판별, 증명 완성 중 무엇인가?",
+      "arity": "single",
+      "value_type": "string",
+      "current_values": [
+        "calculation",
+        "classification",
+        "proof_completion"
+      ],
+      "confirmed_on": [
+        "geometry-axis-blind192.codex.v1",
+        "geometry-full2265-targeted-review-202.codex.v1",
+        "geometry-independent-review-382.gpt-claude-codex.v1"
+      ],
+      "full_distribution": {
+        "calculation": 1861,
+        "classification": 333,
+        "proof_completion": 71
+      },
+      "boundary_rules": [
+        "수치·각·길이·넓이·비·식을 산출하면 calculation이다.",
+        "옳고 그름, 가능한 조건, 도형 종류를 고르거나 판별하면 classification이다.",
+        "증명 과정의 빈칸, 합동 조건 또는 논리 단계를 완성하면 proof_completion이다.",
+        "'되는 것은'이라는 문구가 있어도 최종 질문이 '몇 초 후'처럼 수치를 요구하면 calculation이 우선한다.",
+        "선택지 여부는 AX03_response_mode가 담당하며 이 축의 값이 아니다."
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "full"
+    },
+    "unit.M2_GEOMETRY_PROPERTIES.AXG01_state_change": {
+      "axis_id": "AXG01_state_change",
+      "scope": "unit",
+      "unit_id": "M2_GEOMETRY_PROPERTIES",
+      "question": "핵심 풀이에서 도형이 접기, 회전, 점의 이동 또는 반복 구성에 따라 바뀌는가?",
+      "arity": "multi",
+      "value_type": "string",
+      "current_values": [
+        "fold",
+        "rotation",
+        "moving_point",
+        "iterative_construction"
+      ],
+      "assessed_empty_allowed": true,
+      "confirmed_on": [
+        "geometry-axis-blind192.codex.v1",
+        "geometry-full2265-targeted-review-202.codex.v1",
+        "geometry-independent-review-382.gpt-claude-codex.v1"
+      ],
+      "full_positive_value_occurrences": {
+        "fold": 73,
+        "rotation": 24,
+        "moving_point": 21,
+        "iterative_construction": 9
+      },
+      "full_positive_items": 124,
+      "full_multi_value_items": 3,
+      "boundary_rules": [
+        "접기 전후의 대응을 핵심 근거로 쓰면 fold다.",
+        "회전 전후의 합동·대응을 핵심 근거로 쓰면 rotation이다.",
+        "점의 위치가 시간 또는 구간에 따라 변하면 moving_point다.",
+        "같은 구성을 두 단계 이상 연속 또는 재귀적으로 반복할 때만 iterative_construction이다.",
+        "각 변의 중점을 한 번만 연결한 문항은 iterative_construction이 아니다.",
+        "여러 변화가 동시에 핵심이면 모두 기록한다.",
+        "측정했으나 해당 변화가 없으면 state=assessed, value=[]다."
+      ],
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    }
+  },
+  "known_unjudgeable": {
+    "common.AX03_kind": {
+      "count": 11,
+      "reasons": {
+        "mixed_dimension_target_angle_plus_length": 3,
+        "multiple_answer_kinds_shape_name_and_congruence_condition": 1,
+        "길이와 각을 뺀 혼합 차원 목표": 1,
+        "빈칸에 선분명과 수 계수가 함께 있음": 1,
+        "independent_review_unresolved_target": 5
+      }
+    },
+    "common.AX03_math_form": {
+      "count": 6,
+      "reasons": {
+        "빈칸에 선분 관계와 도형명이 함께 있음": 2,
+        "빈칸에 선분명과 사각형명이 함께 있음": 1,
+        "용어와 수식 요소가 함께 있는 복합 빈칸": 1,
+        "증명 빈칸에 도형명·합동조건·선분명이 함께 있어 단일 표현 형식으로 고정할 수 없음": 1,
+        "증명 빈칸에 선분 관계와 도형명이 함께 있음": 1
+      }
+    }
+  },
+  "deferred_axes": {
+    "common.AX02": "separate_measurement_required_due_to_443_blank_explanations",
+    "common.AX02_kind": "separate_measurement_required",
+    "common.AX02_count": "separate_measurement_required"
+  },
+  "next_gate": "Approve static Shadow 2340 before any D1 or runtime integration."
+}

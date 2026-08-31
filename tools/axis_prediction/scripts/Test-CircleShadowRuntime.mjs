@@ -145,10 +145,13 @@ const d1Item = d1Input.items.find((item) => item.user_item_id === assessed.user_
 assert(Boolean(d1Item), "D1 hash fixture missing");
 const workerHash = d1Item ? await workerModule.normalizedItemContentV1Hash(d1Item) : null;
 assert(workerHash === assessed.content_hash.value, `worker normalized hash mismatch: ${workerHash}`);
-assert(workerSource.includes("WHERE status='pending' AND unit_id=?1 ORDER BY id LIMIT ?2 OFFSET ?3"), "worker shadow query is not paginated");
+assert(workerSource.includes("WHERE status=?1 AND unit_id=?2 ORDER BY id LIMIT ?3 OFFSET ?4"), "worker shadow query is not paginated");
+assert(workerSource.includes("M3_CIRCLE_PROPERTIES: 'pending'"), "circle pending status boundary missing");
 assert(workerSource.includes("SHADOW_ITEM_PAGE_SIZE = 1000"), "worker shadow pagination size missing");
 assert(workerSource.includes("linkAttemptsToShadowItems"), "worker shadow linker missing");
-assert(workerSource.includes("!SHADOW_UNIT_IDS.has(a.unit_id)"), "shadow attempts still enter legacy item matcher");
+assert(workerSource.includes("!TYPE_FREE_SHADOW_UNIT_IDS.has(a.unit_id)"), "type-free shadow attempts still enter legacy item matcher");
+assert(workerSource.includes("const TYPE_FREE_SHADOW_UNIT_IDS = new Set(['M3_CIRCLE_PROPERTIES'])"), "circle-only type-free boundary missing");
+assert(workerSource.includes("'M2_GEOMETRY_PROPERTIES'"), "geometry parallel Shadow unit missing");
 
 const indexSource = fs.readFileSync(path.join(publicRoot, "index.html"), "utf8");
 assert(indexSource.includes("extractionWithoutShadowInternals"), "student downstream sanitization missing");

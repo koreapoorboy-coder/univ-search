@@ -309,6 +309,15 @@
       }
       return this;
     }
+    _resolveShadowAxesRecord(record){
+      if(!record) return null;
+      if(record.axes&&Object.keys(record.axes).length) return record;
+      const refId=record.axes_ref_user_item_id;
+      if(!refId) return null;
+      const primary=this.shadowRegistryRecordById[refId];
+      if(!primary||primary.unit_id!==record.unit_id||primary.profile_eligible!==false) return null;
+      return primary.axes&&Object.keys(primary.axes).length?primary:null;
+    }
     _studentWorkObservation(attempt){
       const has=(key)=>Object.prototype.hasOwnProperty.call(attempt||{},key);
       const hasText=has('student_work_text');
@@ -356,18 +365,19 @@
         const link=a&&a.registered_item_link||{status:'unlinked',reason:'registered_item_ref_missing'};
         const ref=a&&a.registered_item_ref;
         let itemLink={status:link.status||'unlinked',reason:link.reason};
-        let record=null;
+        let record=null; let axesRecord=null;
         if(ref&&ref.user_item_id){
           const candidate=this.shadowRegistryRecordById[ref.user_item_id];
           const hashOk=candidate&&candidate.content_hash&&ref.content_hash&&candidate.content_hash.basis===ref.content_hash.basis&&candidate.content_hash.value===ref.content_hash.value;
           const unitOk=candidate&&candidate.unit_id===ref.unit_id&&candidate.unit_id===a.unit_id;
-          if(candidate&&hashOk&&unitOk){record=candidate; itemLink={status:'verified',user_item_id:ref.user_item_id,content_hash:ref.content_hash};}
-          else itemLink={status:'invalid',reason:!candidate?'registry_record_missing':(!hashOk?'content_hash_mismatch':'unit_mismatch')};
+          axesRecord=candidate&&hashOk&&unitOk?this._resolveShadowAxesRecord(candidate):null;
+          if(candidate&&hashOk&&unitOk&&axesRecord){record=candidate; itemLink={status:'verified',user_item_id:ref.user_item_id,content_hash:ref.content_hash};}
+          else itemLink={status:'invalid',reason:!candidate?'registry_record_missing':(!hashOk?'content_hash_mismatch':(!unitOk?'unit_mismatch':'registry_axes_ref_invalid'))};
         }
         const work=this._studentWorkObservation(a);
         const evidence=this._validatedFailedSteps(a,work);
         const conceptIds=record&&Array.isArray(ref&&ref.concept_ids)?uniq(ref.concept_ids):[];
-        const axes=record&&record.axes||{};
+        const axes=axesRecord&&axesRecord.axes||{};
         let unresolvedReason=null;
         if(itemLink.status!=='verified') unresolvedReason={code:`item_link_${itemLink.status}`,evidence:itemLink.reason||'문항 연결 확인 필요',certainty:'확실'};
         else if(!Object.keys(axes).length) unresolvedReason={code:'item_axes_unjudged',evidence:'정적 레지스트리에 판정 축이 없음',certainty:'확실'};
@@ -388,7 +398,7 @@
           diagnostic_authority:false,
           remediation_eligible:false,
           item_link:itemLink,
-          item_axes_ref:record?{user_item_id:record.user_item_id,analysis_version:record.analysis_version,content_hash:record.content_hash,review_state:record.review_state}:undefined,
+          item_axes_ref:record?stripUndefined({user_item_id:record.user_item_id,effective_axes_user_item_id:axesRecord&&axesRecord.user_item_id!==record.user_item_id?axesRecord.user_item_id:undefined,analysis_version:record.analysis_version,content_hash:record.content_hash,review_state:record.review_state}):undefined,
           item_axes:record?axes:undefined,
           concept_ids:conceptIds,
           student_work_observation:work,

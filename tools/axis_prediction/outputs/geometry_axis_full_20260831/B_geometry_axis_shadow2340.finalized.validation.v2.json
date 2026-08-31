@@ -1,0 +1,96 @@
+{
+  "version": "geometry-axis-shadow2340.finalized.validation.v2",
+  "status": "PASS",
+  "static_only": true,
+  "d1_write_performed": false,
+  "runtime_write_performed": false,
+  "counts": {
+    "full_primary_records": 2265,
+    "shadow_records": 2340,
+    "aliases": 75,
+    "independent_review_records": 382,
+    "changed_records": 65,
+    "changed_axis_instances": 95
+  },
+  "checks": {
+    "full_primary_2265": true,
+    "shadow_2340": true,
+    "aliases_75": true,
+    "review_382": true,
+    "alias_refs_valid": true,
+    "aliases_have_no_embedded_axes": true,
+    "profile_eligible_false": true,
+    "schema_failures_zero": true,
+    "evidence_failures_zero": true,
+    "normalized_content_hash_failures_zero": true
+  },
+  "failures": {
+    "schema": [],
+    "evidence": [],
+    "content_hash": []
+  },
+  "basis_counts": {
+    "unanimous_3": 1403,
+    "gpt_plus_codex": 21,
+    "reviewer_consensus": 61,
+    "codex_manual_rule": 34,
+    "claude_plus_codex": 9
+  },
+  "axis_distribution": {
+    "AX05_task_mode": {
+      "assessed": 2265,
+      "unjudgeable": 0,
+      "empty": 0,
+      "multi": 0,
+      "values": {
+        "calculation": 1861,
+        "classification": 333,
+        "proof_completion": 71
+      }
+    },
+    "AXG01_state_change": {
+      "assessed": 2265,
+      "unjudgeable": 0,
+      "empty": 2141,
+      "multi": 3,
+      "values": {
+        "fold": 73,
+        "iterative_construction": 9,
+        "moving_point": 21,
+        "rotation": 24
+      }
+    },
+    "AX03_kind": {
+      "assessed": 2254,
+      "unjudgeable": 11,
+      "empty": 0,
+      "multi": 0,
+      "values": {
+        "각": 985,
+        "개수": 18,
+        "길이": 439,
+        "넓이": 568,
+        "도형명": 39,
+        "시간": 8,
+        "식": 1,
+        "원의 크기": 82,
+        "조건명": 23,
+        "좌표": 13,
+        "참거짓": 63,
+        "호": 15
+      }
+    },
+    "AX03_math_form": {
+      "assessed": 2259,
+      "unjudgeable": 6,
+      "empty": 0,
+      "multi": 0,
+      "values": {
+        "명제": 78,
+        "비": 3,
+        "수치": 2125,
+        "용어": 53
+      }
+    }
+  }
+}
